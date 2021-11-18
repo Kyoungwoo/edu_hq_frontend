@@ -24,3 +24,107 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+
+  // html tags
+  body {
+    background: transparent !important;
+  }
+  h1, h2, h3, h4, h5, p {
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+  }
+  h1 {
+    margin-top: 32px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    small {
+      font-size: var(--ion-size-xl);
+    }
+  }
+  h2 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    small {
+      font-size: var(--ion-size-l);
+    }
+  }
+  h3 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-l);
+    font-weight: 700;
+    small {
+      font-size: var(--ion-size-n);
+    }
+  }
+  h4 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-n);
+    font-weight: 500;
+    small {
+      font-size: var(--ion-size-s);
+    }
+  }
+  h5 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-s);
+    font-weight: 500;
+    small {
+      font-size: var(--ion-size-xs);
+    }
+  }
+  p {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-n);
+    font-weight: 300;
+    small {
+      font-size: var(--ion-size-s);
+    }
+  }
+  video {
+    width: 100%;
+  }
+
+  // ionic tags
+  ion-header::after {
+    content: none;
+  }
+  ion-footer::before {
+    content: none;
+  }
+  ion-toolbar {
+    --border-width: 0;
+    --border-color: transparent;
+    --background: var(--ion-background-color);
+  }
+  ion-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --app-padding-bottom: 40px;
+  }
+  ion-note {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-s);
+    color: var(--ion-color-step-250);
+  }
+
+  // popover classes
+  .calendar-popover {
+    --max-width: 268px;
+    --width: 100%;
+  }
+  .select-popover {
+    --max-width: 200px;
+    --width: 100%;
+    --max-height: 300px;
+  }
+}

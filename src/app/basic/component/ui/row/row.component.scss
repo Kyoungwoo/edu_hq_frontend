@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-items: center;
+    width: calc(100% + var(--app-padding)*2);
+    margin-left: calc(var(--app-padding)*-1);
+    margin-right: calc(var(--app-padding)*-1);
+    margin-top: calc(var(--app-margin) - var(--app-padding));
+    margin-bottom: calc(var(--app-margin) - var(--app-padding));
+}
+:host.label-row {
+    align-items: flex-end;
+}

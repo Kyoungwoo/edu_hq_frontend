@@ -1,0 +1,16 @@
+:host {
+  ion-toolbar {
+    --min-height: 0;
+  }
+  ion-button {
+    margin: 0;
+    height: 48px;
+    --app-border-radius: 0;
+  }
+  ion-toolbar.disabled {
+    opacity: 0.5;
+  }
+  ion-button.button-disabled {
+    opacity: 1;
+  }
+}

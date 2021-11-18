@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+ion-content {
+    --padding-start: 0;
+    --padding-end: 0;
+    --background: var(--ion-select-popover);
+    min-height: 400px;
+}
+cdk-virtual-scroll-viewport {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+}
+ion-item {
+    font-size: var(--font-size-n);
+    --min-height: var(--app-height);
+}

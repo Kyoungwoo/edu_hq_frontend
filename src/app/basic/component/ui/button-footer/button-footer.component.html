@@ -1,0 +1,7 @@
+<ion-footer>
+  <ion-toolbar [class.disabled]="disabled" [color]="color">
+    <ion-button [color]="color" expand="block" [disabled]="disabled || readonly">
+      <ng-content></ng-content>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

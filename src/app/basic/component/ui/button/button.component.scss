@@ -1,0 +1,125 @@
+:host {
+    display: inline-block;
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    vertical-align: middle;
+    ion-button {
+        --border-radius: var(--app-border-radius);
+        --box-shadow: var(--app-box-shadow);
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        height: var(--app-height);
+        font-size: var(--font-size-n);
+        text-transform: inherit;
+        small {
+            font-size: var(--font-size-s);
+        }
+    }
+    .absolute-case {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+    }
+    .absolute-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .relative-inner {
+        
+    }
+}
+:host.button-block {
+    width: 100%;
+    ion-button {
+        width: 100%;
+    }
+}
+:host.button-small {
+    ion-button {
+        height: var(--app-height-small);
+        font-size: var(--font-size-s);
+    }
+}
+:host.button-clear {
+    ion-button {
+        --app-box-shadow: none;
+    }
+}
+:host.button-outline {
+    ion-button {
+        background: var(--ion-color-white);
+        --border-width: 1px;
+    }
+}
+:host.button-round {
+    ion-button {
+        --border-radius: var(--app-height);
+    }
+}
+:host.button-circle {
+    ion-button {
+        --border-radius: 50%;
+    }
+}
+:host.button-circle,
+:host.button-square {
+    width: var(--app-height);
+    &.button-small {
+        ion-button {
+            width: var(--app-height-small);
+        }
+    }
+    &.button-block {
+        width: 100%;
+        ion-button {
+            width: 100%;
+        }
+    }
+    ion-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        height: auto;
+        width: 100%;
+        --background: var(--ion-color-base);
+    }
+}
+app-button + :host {
+    margin-left: var(--app-padding);
+}
+
+:host ::ng-deep {
+    h1, h2, h3, h4, h5, p {
+        display: inline-block;
+        margin-top: var(--app-padding);
+        vertical-align: middle;
+    }
+    app-img {
+        width: 1.2em;
+    }
+    app-img[slot=top],
+    app-img[slot=bottom] {
+        display: block;
+        margin: auto;
+    }
+    app-img[slot=start] {
+        margin-right: var(--app-padding);
+    }
+    app-img[slot=end] {
+        margin-left: var(--app-padding);
+    }
+    app-input-file {
+        position: absolute;
+        top: 0;
+        left: -var(--padding-start);
+        width: calc(100% + var(--padding-start) + var(--padding-end));
+        height: 100%;
+    }
+}

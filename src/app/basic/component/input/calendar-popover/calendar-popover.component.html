@@ -1,0 +1,78 @@
+<ion-content>
+  <app-row>
+    <app-col size="auto">
+      <app-button size="small" fill="clear" (click)="prevMonth()">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </app-button>
+    </app-col>
+    <app-col>
+      <app-select [value]="displayYear" (change)="setYear($event)">
+        <app-select-option *ngFor="let year of yearList" [value]="year">{{ year + yearName }}</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col size="3.5">
+      <app-select [value]="displayMonth" (change)="setMonth($event)">
+        <app-select-option [value]="0">1{{ monthName }}</app-select-option>
+        <app-select-option [value]="1">2{{ monthName }}</app-select-option>
+        <app-select-option [value]="2">3{{ monthName }}</app-select-option>
+        <app-select-option [value]="3">4{{ monthName }}</app-select-option>
+        <app-select-option [value]="4">5{{ monthName }}</app-select-option>
+        <app-select-option [value]="5">6{{ monthName }}</app-select-option>
+        <app-select-option [value]="6">7{{ monthName }}</app-select-option>
+        <app-select-option [value]="7">8{{ monthName }}</app-select-option>
+        <app-select-option [value]="8">9{{ monthName }}</app-select-option>
+        <app-select-option [value]="9">10{{ monthName }}</app-select-option>
+        <app-select-option [value]="10">11{{ monthName }}</app-select-option>
+        <app-select-option [value]="11">12{{ monthName }}</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col size="auto">
+      <app-button size="small" fill="clear" (click)="nextMonth()">
+        <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
+      </app-button>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col *ngFor="let dayName of dayNames"><small>{{ dayName }}</small></app-col>
+  </app-row>
+  <app-row>
+    <app-col size="14.285714%" *ngFor="let date of dateNames; let i = index">
+      <app-button 
+      expand="block"
+      size="small"
+      shape="circle"
+      [color]="seletedDateFill(i) ? 'primary' : notDisplayMonthDate(i) ? 'medium' : 'dark'"
+      [fill]="seletedDateFill(i) ? 'solid' : 'clear'"
+      [disabled]="disableDate(i)"
+      (click)="selectDate(i)">
+      {{ date }}
+      </app-button>
+    </app-col>
+  </app-row>
+  <div *ngIf="timePicker" class="time-picker">
+    <div class="time-picker-item">
+      <ion-input class="time-picker-input"
+      [(ngModel)]="displayHours" (ionBlur)="setHours(displayHours)"></ion-input>
+      <ion-button class="time-picker-btn up" fill="clear" (click)="setHours(displayHours+1)">
+        <ion-icon name="caret-up-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="time-picker-btn down" fill="clear" (click)="setHours(displayHours-1)">
+        <ion-icon name="caret-down-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="time-picker-item">
+      <ion-input class="time-picker-input"
+      [(ngModel)]="displayMinutes" (ionBlur)="setMinute(displayMinutes)"></ion-input>
+      <ion-button class="time-picker-btn up" fill="clear" (click)="setMinute(displayMinutes+5 - (displayMinutes%5))">
+        <ion-icon name="caret-up-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="time-picker-btn down" fill="clear" (click)="setMinute(displayMinutes-5 - (displayMinutes%5))">
+        <ion-icon name="caret-down-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-button fill="clear" class="am-pm-btn" (click)="setAMPM()">{{ displayAMPM === 'AM' ? AMPMNames[0] : AMPMNames[1] }}</ion-button>
+  </div>
+</ion-content>
+<app-button-footer (click)="submit()" [disabled]="!selectedDate">
+  확인
+</app-button-footer>

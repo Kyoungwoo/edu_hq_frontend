@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    margin-top: 56px;
+    margin-bottom: 48px;
+    text-align: center;
+    ion-row {
+        justify-content: center;
+    }
+    ion-col {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    app-img {
+        display: block;
+    }
+    .logo-devmonster {
+        position: relative;
+        top: -5px;
+        width: 80px;
+    }
+    p {
+        font-size: 9px;
+    }
+}

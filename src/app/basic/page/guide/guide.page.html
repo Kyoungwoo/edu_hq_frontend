@@ -1,0 +1,273 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>library Menual</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>component/basic</h1>
+
+  <h2>UI</h2>
+
+  <h3>app-button</h3>
+  <p>앱에 사용되는 버튼 입니다. 기본적으로는 ion-button과 같은 사용법입니다.</p>
+  <div>
+    <app-button>default</app-button>
+    <app-button shape="round">shape:round</app-button>
+    <app-button shape="circle">shape:circle</app-button>
+    <app-button shape="square">shape:square</app-button>
+    <app-button size="small">size:small</app-button>
+    <app-button fill="outline">fill:outline</app-button>
+    <app-button fill="clear">fill:clear</app-button>
+  </div>
+  <div>
+    <app-button expand="block">expand:block</app-button>
+  </div>
+  
+  <p>정사각형과 원은 사이즈가 달라져도 따라 모양이 틀어지지 않습니다.</p>
+  <app-button shape="circle" expand="block" [style.width.px]="150">shape:circle<br><small>style.width<br>150px</small></app-button>
+  <app-button shape="square" expand="block" [style.width.px]="150">shape:square<br><small>style.width<br>150px</small></app-button>
+  <p>아이콘 및 다른 컴포넌트들과 함께 사용할 수 있습니다.</p>
+  <app-button>
+    <app-img slot="start" src="assets/basic/img/calendar.png"></app-img>
+    icon:start
+  </app-button>
+  <app-button shape="square" [style.width]="'100px'">
+    <app-img slot="top" src="assets/basic/img/calendar.png"></app-img>
+    <h4>icon:top</h4>
+  </app-button>
+  <h3>app-button-footer</h3>
+  <p>이것은 하단에 고정되는 footer 버튼을 쉽게 만들기위한 component 입니다. 페이지 하단을 참고해주세요.<ion-icon name="arrow-down"></ion-icon></p>
+  <h3>app-card</h3>
+  <p>앱 카드에 주로 사용되는 레이아웃 입니다. 내부 header, title, subtitle, content는 ionic 원본을 사용합니다.</p>
+  <app-row>
+    <app-col size="300px">
+      <app-card color="primary">
+        <ion-card-header>ion-card-header</ion-card-header>
+        <ion-card-title>ion-card-title</ion-card-title>
+        <ion-card-subtitle>ion-card-subtitle</ion-card-subtitle>
+        <ion-card-content>ion-card-content <ion-note>ion-note</ion-note></ion-card-content>
+      </app-card>
+    </app-col>
+    <app-col size="300px">
+      <app-card color="secondary" [button]="false">
+        <ion-card-header>ion-card-header</ion-card-header>
+        <ion-card-content>button:false</ion-card-content>
+      </app-card>
+    </app-col>
+  </app-row>
+  <h3>app-copy-right</h3>
+  <p>페이지 하단의 로고 및 카피라이트를 표시하기 위한 component 입니다.</p>
+  <app-row>
+    <app-col size="auto">
+      <app-copy-right></app-copy-right>
+    </app-col>
+  </app-row>
+  <h3>app-img</h3>
+  <p>기존 img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.<br>서버에서 받아오는 이미지는 dark mode가 없으므로, 일반 img tag를 사용해야 합니다.</p>
+  <app-img src="assets/basic/img/calendar.png"></app-img>
+  <h3>app-logo</h3>
+  <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
+  <app-logo></app-logo>
+  <h3>app-profile</h3>
+  <p>프로필 이미지를 표시하기 위한 component 입니다. app-input-file 을 상속하고 있어서, 이미지 추가, 삭제를 할 수 있습니다.</p>
+  <app-row>
+    <app-col size="auto">
+      <app-profile></app-profile>
+    </app-col>
+  </app-row>
+  <h3>app-row / app-col</h3>
+  <p>flex 레이아웃을 짜기 위한 component 입니다.</p>
+  <app-row>
+    <app-col size="auto">
+      <app-button>size: auto</app-button>
+    </app-col>
+    <app-col size="200px">
+      <app-button expand="block">size: 200px</app-button>
+    </app-col>
+    <app-col size="2">
+      <app-button expand="block">size: 2</app-button>
+    </app-col>
+    <app-col>
+      <app-button expand="block">not sized</app-button>
+    </app-col>
+  </app-row>
+  <h3>app-table</h3>
+  <p>테이블 component 입니다. 일반 테이블처럼 thead, tbody, tr, th, td를 사용합니다. 때문에 class를 통해서 속성을 조정하게 됩니다.</p>
+  <app-table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>tag</th>
+        <th>class</th>
+        <th>example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>normal</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>th,td</td>
+        <td>small</td>
+        <td><small>use <ion-text color="primary">&#60;small&#62;</ion-text> tag</small></td>
+      </tr>
+      <tr class="button">
+        <td>3</td>
+        <td>tr</td>
+        <td>class.button</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>th,td</td>
+        <td class="button">class.button</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>tr,th,td</td>
+        <td>class.text-align-left</td>
+        <td class="text-align-left">text align left</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>tr,th,td</td>
+        <td>class.text-align-right</td>
+        <td class="text-align-right">text align right</td>
+      </tr>
+    </tbody>
+  </app-table>
+  
+  <h2>Inputs</h2>
+  <p>form 안에서 사용하며, <ion-text color="primary"><b>name</b></ion-text> attribute가 반드시 들어가야 합니다.</p>
+  <form>
+    <h3>check</h3>
+    <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다.</p>
+    <app-check name="check1"></app-check>
+    <app-check name="check2">app-check</app-check>
+
+    <h3>app-input</h3>
+    <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 아이콘과 함께 사용할 수 있으며, 이벤트를 따로 줘야 합니다.</p>
+    <app-row>
+      <app-col>
+        <app-input name="input1" label="label" placeholder="placeholder"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input2" label="with img">
+          <app-img slot="end" src="assets/basic/img/search.png"></app-img>
+        </app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input3" label="with text">
+          hello world
+        </app-input>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input name="input2" label="password" type="password" placeholder="password"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input3" label="readonly" value="readonly" [readonly]="true"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input1" label="disabled" value="disabled" [disabled]="true"></app-input>
+      </app-col>
+    </app-row>
+    
+    <h3>app-calendar</h3>
+    <p>캘린더를 선택하는 component 입니다.</p>
+    <app-calendar name="calendar1" label="label" [style.width.px]="280" value="2021-01-01"></app-calendar>
+    <p>time-picker를 같이 사용할 수도 있습니다.(미완성)</p>
+    <app-calendar name="calendar2" label="with time" [style.width.px]="280" [timePicker]="true"></app-calendar>
+
+    <h3>app-select</h3>
+    <p>셀렉트 component 입니다.</p>
+    <app-select label="select-label" name="select" value="hello10">
+      <app-select-option value="hello">hello</app-select-option>
+      <app-select-option value="hello2">hello2</app-select-option>
+      <app-select-option value="hello3">hello3</app-select-option>
+      <app-select-option value="hello4">hello4</app-select-option>
+      <app-select-option value="hello5">hello5</app-select-option>
+      <app-select-option value="hello6">hello6</app-select-option>
+      <app-select-option value="hello7">hello7</app-select-option>
+      <app-select-option value="hello8">hello8</app-select-option>
+      <app-select-option value="hello9">hello9</app-select-option>
+      <app-select-option value="hello10">hello10</app-select-option>
+      <app-select-option value="hello11">hello11</app-select-option>
+      <app-select-option value="hello12">hello12</app-select-option>
+      <app-select-option value="hello13">hello13</app-select-option>
+      <app-select-option value="hello14">hello14</app-select-option>
+      <app-select-option value="hello15">hello15</app-select-option>
+      <app-select-option value="hello16">hello16</app-select-option>
+      <app-select-option value="hello17">hello17</app-select-option>
+      <app-select-option value="hello18">hello18</app-select-option>
+      <app-select-option value="hello19">hello19</app-select-option>
+      <app-select-option value="hello20">hello20</app-select-option>
+    </app-select>
+
+    <h3>app-datetime</h3>
+    <p>시간을 선택하기 위한 피커 입니다.</p>
+  </form>
+
+  <h1>Animations</h1>
+  <h3>단일 fade 애니메이션 입니다.</h3>
+  <app-row>
+    <app-col size="200px">
+      <ion-button (click)="fadeAnimationToggle = !fadeAnimationToggle">fadeAnimation</ion-button>
+    </app-col>
+    <app-col>
+      <p @fadeAnimation *ngIf="fadeAnimationToggle">fadeAnimation</p>
+    </app-col>
+  </app-row>
+  <h3>단일 fadeOut을 삭제한 애니메이션 입니다.</h3>
+  <app-row>
+    <app-col size="200px">
+      <ion-button (click)="fadeInAnimationToggle = !fadeInAnimationToggle">fadeInAnimation</ion-button>
+    </app-col>
+    <ion-col>
+      <p @fadeInAnimation *ngIf="fadeInAnimationToggle">fadeInAnimation</p>
+    </ion-col>
+  </app-row>
+  <app-row>
+    <ion-col>
+      <ion-list [@listAnimation]="listAnimationItemList.length">
+        <ion-item *ngFor="let item of listAnimationItemList">{{ item }}</ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</ion-button>
+    </ion-col>
+  </app-row>
+  <app-row>
+    <ion-col>
+      <ion-list [@listInAnimation]="listInAnimationItemList.length">
+        <ion-item *ngFor="let item of listInAnimationItemList">{{ item }}</ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</ion-button>
+    </ion-col>
+  </app-row>
+  <app-row>
+    <ion-col>
+      <p><span @bounceInAnimation *ngIf="bounceInAnimationToggle" style="display: inline-block;">bounceInAnimation</span></p>
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</ion-button>
+    </ion-col>
+  </app-row>
+  <ion-button>
+    <app-input-file></app-input-file>
+    파일 추가
+  </ion-button>
+  <ion-button (click)="navRoot()">navRoot</ion-button>
+  <ion-button (click)="navBack()">navBack</ion-button>
+  <ion-button (click)="navForward()">navForward</ion-button>
+</ion-content>
+<app-button-footer>app-button-footer</app-button-footer>

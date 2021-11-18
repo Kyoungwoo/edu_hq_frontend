@@ -1,0 +1,16 @@
+:host {
+    font-size: var(--font-size-s);
+    img {
+        width: 1em;
+        vertical-align: middle;
+        position: relative;
+        margin-left: 4px;
+        margin-right: 3px;
+        top: -1px;
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-top: -8px;
+    }
+}

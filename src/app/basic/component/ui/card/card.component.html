@@ -1,0 +1,13 @@
+<a *ngIf="href" [href]="href | safe: 'url'" target="_blank" [download]="download">
+  <ng-container *ngTemplateOutlet="card"></ng-container>
+</a>
+<ng-container *ngIf="!href">
+  <ng-container *ngTemplateOutlet="card"></ng-container>
+</ng-container>
+
+<ng-template #card>
+  <ion-card [ngClass]="button ? 'ion-activatable ripple-parent' : null" [color]="color">
+    <ng-content></ng-content>
+    <ion-ripple-effect *ngIf="button"></ion-ripple-effect>
+  </ion-card>
+</ng-template>

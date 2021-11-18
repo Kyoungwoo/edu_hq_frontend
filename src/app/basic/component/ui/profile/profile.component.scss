@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  --width: 80px;
+  --height: 80px;
+  .profile {
+    display: block;
+    margin: 8px auto 8px;
+    width: var(--width);
+    height: var(--height);
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: var(--app-box-shadow);
+    .img-empty {
+      width: 80px;
+    }
+    .img-profile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--width);
+      height: var(--height);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .icon-plus {
+      width: 28px;
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+    }
+  }
+}

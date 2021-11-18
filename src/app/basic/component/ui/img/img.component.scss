@@ -1,0 +1,9 @@
+:host {
+    display: inline-block;
+    vertical-align: middle;
+    --width: 100%;
+    img {
+        display: block;
+        width: var(--width);
+    }
+}

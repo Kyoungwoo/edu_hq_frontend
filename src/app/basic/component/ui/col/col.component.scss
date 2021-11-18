@@ -1,0 +1,22 @@
+:host {
+    display: block;
+    padding-top: var(--app-padding);
+    padding-bottom: var(--app-padding);
+    padding-left: var(--app-padding);
+    padding-right: var(--app-padding);
+    flex: 1 1 0%;
+    width: 100%;
+    text-align: center;
+    // height: 100%;
+}
+:host ::ng-deep {
+    app-card {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-input,
+    app-calendar-input,
+    app-button {
+        --app-margin: 0;
+    }
+}

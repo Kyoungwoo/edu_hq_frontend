@@ -1,0 +1,7 @@
+<div class="check-item" (click)="value = !value">
+  <h3>
+    <app-img @bounceInAnimation *ngIf="!value" src="assets/img/basic/circle-check-primary.png"></app-img>
+    <app-img @bounceInAnimation *ngIf="value" src="assets/img/basic/circle-check.png"></app-img>
+    <ng-content></ng-content>
+  </h3>
+</div>

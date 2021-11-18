@@ -1,0 +1,27 @@
+<ion-button
+[color]="color"
+[disabled]="disabled"
+[expand]="expand"
+[fill]="fill"
+[shape]="shape"
+[size]="size"
+[strong]="strong"
+[href]="href"
+[download]="download"
+[target]="target">
+  <div class="absolute-case" *ngIf="shape === 'circle' || shape === 'square'; else elseBlock">
+    <div class="absolute-inner">
+      <div>
+        <ng-container *ngTemplateOutlet="buttonInner"></ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="relative-inner">
+      <ng-container *ngTemplateOutlet="buttonInner"></ng-container>
+    </div>
+  </ng-template>
+</ion-button>
+<ng-template #buttonInner>
+  <ng-content></ng-content>
+</ng-template>
