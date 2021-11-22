@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { File } from "@ionic-native/file/ngx";
 import { Media } from '@ionic-native/media/ngx';
+import { BasicComponentModule } from './basic/component/basic.component.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +24,10 @@ import { Media } from '@ionic-native/media/ngx';
     BrowserAnimationsModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    FormsModule,
     AppRoutingModule,
-    ScrollingModule
+    ScrollingModule,
+    BasicComponentModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

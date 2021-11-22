@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>library Menual</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Library Menual</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +13,7 @@
   <h2>UI</h2>
 
   <h3>app-button</h3>
-  <p>앱에 사용되는 버튼 입니다. 기본적으로는 ion-button과 같은 사용법입니다.</p>
+  <p style="color: var(--ion-color-step-500)">앱에 사용되는 버튼 입니다. 기본적으로는 ion-button과 같은 사용법입니다.</p>
   <div>
     <app-button>default</app-button>
     <app-button shape="round">shape:round</app-button>
@@ -188,7 +191,7 @@
 
     <h3>app-select</h3>
     <p>셀렉트 component 입니다.</p>
-    <app-select label="select-label" name="select" value="hello10">
+    <app-select label="select-label" name="select" [(ngModel)]="selectValue">
       <app-select-option value="hello">hello</app-select-option>
       <app-select-option value="hello2">hello2</app-select-option>
       <app-select-option value="hello3">hello3</app-select-option>

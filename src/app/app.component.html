@@ -1,11 +1,27 @@
 <ion-app>
   <ion-router-outlet id="main-content"></ion-router-outlet>
-  <!-- <ion-split-pane contentId="main-content">
+  <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <app-select [(ngModel)]="selectedLibrary">
+            <app-select-option value="home">home</app-select-option>
+            <app-select-option value="animation">animation</app-select-option>
+            <app-select-option value="component">component</app-select-option>
+            <app-select-option value="pipe">pipe</app-select-option>
+            <app-select-option value="service">service</app-select-option>
+          </app-select>
+        </ion-toolbar>
+      </ion-header>
       <ion-content>
-        
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Component</ion-label>
+          </ion-list-header>
+          <ion-item></ion-item>
+        </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane> -->
+  </ion-split-pane>
 </ion-app>
