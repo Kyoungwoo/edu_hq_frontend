@@ -7,10 +7,13 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import { InputComponentModule } from './input/input.component.module';
 import { UiComponentModule } from './ui/ui.component.module';
+import { AlertComponent } from './modal/alert/alert.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AlertComponent
+  ],
   imports: [
     CommonModule,
     IonicModule,
@@ -18,7 +21,7 @@ import { UiComponentModule } from './ui/ui.component.module';
     PipesModule,
     RouterModule,
     InputComponentModule,
-    UiComponentModule,
+    UiComponentModule
   ],
   exports: [
     InputComponentModule,

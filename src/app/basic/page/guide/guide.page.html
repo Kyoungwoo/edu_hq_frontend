@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <h1>component/basic</h1>
 
   <h2>UI</h2>
@@ -265,7 +265,7 @@
       <ion-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</ion-button>
     </ion-col>
   </app-row>
-  <ion-button>
+  <ion-button id="button">
     <app-input-file></app-input-file>
     파일 추가
   </ion-button>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IonContent, ModalController } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { AlertService } from '../../service/ionic/alert.service';
 import { LoadingService } from '../../service/ionic/loading.service';
@@ -15,7 +16,9 @@ import { PromiseService } from '../../service/util/promise.service';
   styleUrls: ['./guide.page.scss'],
   animations: [ fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation ]
 })
-export class GuidePage implements OnInit {
+export class GuidePage implements OnInit, AfterViewInit {
+
+  @ViewChild('content') content:IonContent;
 
   /** Animations */
   fadeAnimationToggle:boolean = false;
@@ -33,14 +36,14 @@ export class GuidePage implements OnInit {
   selectValue = "hello10";
 
   constructor(
-    private modal : ModalController,
-    private alert: AlertService,
     private loading: LoadingService,
     private navCtrl: NavService,
     private toast: ToastService,
     private date: DateService,
     private fullScreen: FullScreenService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -55,6 +58,22 @@ export class GuidePage implements OnInit {
       message: "비밀번호 오류",
       duration:1000
     }); */
+  }
+  ngAfterViewInit() {
+    this.activatedRoute.fragment.subscribe(t => {
+      console.log(t);
+    });
+    //console.log(this.activatedRoute.snapshot.fragment);
+    setTimeout(() => {
+      location.hash = '#hello';
+    }, 100);
+    /* setTimeout(() => {
+      console.log(this.activatedRoute.snapshot.fragment);
+    }, 100) */
+    console.log(document.getElementById('button'));
+    console.log(this.content);
+    setTimeout(() => {
+    }, 1000);
   }
   async navRoot() {
     console.log("before");
