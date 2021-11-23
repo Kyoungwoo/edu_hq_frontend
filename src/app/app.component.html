@@ -2,35 +2,200 @@
   <ion-router-outlet id="main-content"></ion-router-outlet>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content">
-      <ion-header>
-        <ion-toolbar>
-          <app-select [(ngModel)]="selectedLibrary">
-            <app-select-option value="home">home</app-select-option>
-            <app-select-option value="animation">animation</app-select-option>
-            <app-select-option value="component">component</app-select-option>
-            <app-select-option value="pipe">pipe</app-select-option>
-            <app-select-option value="service">service</app-select-option>
-          </app-select>
-        </ion-toolbar>
-      </ion-header>
       <ion-content>
-        <ion-list>
-          <ion-list-header>
+        <ion-list lines="none">
+          <ion-item href="/basic/guide">
             <ion-label>home</ion-label>
-          </ion-list-header>
+          </ion-item>
           <ion-list-header>
             <ion-label>Component</ion-label>
           </ion-list-header>
-          <ion-item-divider>
-            <ion-label>UI</ion-label>
-          </ion-item-divider>
-          <ion-item href="/basic/guide#button">
-            <ion-label>button</ion-label>
-          </ion-item>
-          <ion-item-divider>
-            <ion-label>Input</ion-label>
-          </ion-item-divider>
-          
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>Input</ion-label>
+            </ion-item-divider>
+            <ion-item href="/basic/guide#calendar">
+              <ion-label>calendar</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#check">
+              <ion-label>check</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#datetime">
+              <ion-label>datetime</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#input">
+              <ion-label>input</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#camera">
+              <ion-label>camera</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#caption">
+              <ion-label>caption</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#file">
+              <ion-label>file</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#select">
+              <ion-label>select</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#textarea">
+              <ion-label>textarea</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>dialog</ion-label>
+            </ion-item-divider>
+            <ion-item>
+              <ion-label>alert</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>native</ion-label>
+            </ion-item-divider>
+            <ion-item href="/basic/guide#calendar">
+              <ion-label>calendar</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#check">
+              <ion-label>check</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#datetime">
+              <ion-label>datetime</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#input">
+              <ion-label>input</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#camera">
+              <ion-label>camera</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#caption">
+              <ion-label>caption</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#file">
+              <ion-label>file</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#select">
+              <ion-label>select</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#textarea">
+              <ion-label>textarea</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider lines="none">
+              <ion-label>UI</ion-label>
+            </ion-item-divider>
+            <ion-item href="/basic/guide#button">
+              <ion-label>button</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#button-footer">
+              <ion-label>button-footer</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#card">
+              <ion-label>card</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#copy-right">
+              <ion-label>copy-right</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#img">
+              <ion-label>img</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#logo">
+              <ion-label>logo</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#profile">
+              <ion-label>avatar</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#row">
+              <ion-label>row / col</ion-label>
+            </ion-item>
+            <ion-item href="/basic/guide#table">
+              <ion-label>table</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-list-header>
+            <ion-label>pipes</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item>
+              <ion-label>safe</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-list-header>
+            <ion-label>service</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item>
+              <ion-label>connect</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>device</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>file</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>user</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>ionic</ion-label>
+            </ion-item-divider>
+            <ion-item>
+              <ion-label>alert</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>loading</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>nav</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>toast</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-list-header>
+            <ion-label>service</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>native</ion-label>
+            </ion-item-divider>
+            <ion-item>
+              <ion-label>camera</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>GPS</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>NFC</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>QR</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>util</ion-label>
+            </ion-item-divider>
+            <ion-item>
+              <ion-label>date</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>daum</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>full-screen</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>promise</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>regex</ion-label>
+            </ion-item>
+          </ion-item-group>
         </ion-list>
       </ion-content>
     </ion-menu>

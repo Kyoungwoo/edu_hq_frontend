@@ -1,0 +1,32 @@
+@function generateRGB($hexColor) {
+    @return #{red($hexColor)}, #{green($hexColor)}, #{blue($hexColor)};
+}
+@mixin generateColor($name, $color, $contrast) {
+    --ion-color-#{$name}: #{$color};
+    --ion-color-#{$name}-rgb: rgb($rgb);
+    --ion-color-#{$name}-contrast: #{$contrast};
+    --ion-color-#{$name}-contrast-rgb: #{generateRGB($contrast)};
+    --ion-color-#{$name}-shade: #{mix(white, $color, 10%)};
+    --ion-color-#{$name}-tint: #{mix(black, $color, 10%)};
+}
+@mixin generateColorClass($name) {
+    .ion-color-#{$name} {
+        --ion-color-base: var(--ion-color-#{name});
+        --ion-color-base-rgb: var(--ion-color-#{name}-rgb);
+        --ion-color-contrast: var(--ion-color-#{name}-contrast);
+        --ion-color-contrast-rgb: var(--ion-color-#{name}-contrast-rgb);
+        --ion-color-shade: var(--ion-color-#{name}-shade);
+        --ion-color-tint: var(--ion-color-#{name}-tint);
+    }
+  }
+@mixin generateColorSteps($background, $text) {
+    --ion-background-color: #{$background};
+    --ion-background-color-rgb: #{generateRGB($background)};
+
+    --ion-text-color: #{$text};
+    --ion-text-color-rgb: #{generateRGB($text)};
+
+    @for $i from 1 to 20 {
+        --ion-color-step-#{$i*50}: #{mix($text, $background, percentage($i / 20))};
+    }
+}
