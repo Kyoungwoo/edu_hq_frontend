@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+ 
+@media screen and (min-width: 768px) {
+    .app-button-footer {
+        app-row {
+            justify-content: flex-end;
+        }
+        app-col {
+            max-width: 200px;
+        }
+        .left-button {
+            --background: var(--ion-color-danger) !important;
+        }
+    }
+}
+=======
 .app-button-footer {
     app-row {
         justify-content: flex-end;
@@ -12,3 +28,4 @@
 @media screen and (min-width: 768px) {
     
 }
+>>>>>>> 9dcf10725d3c253822c7267dec314a63fd549b8f

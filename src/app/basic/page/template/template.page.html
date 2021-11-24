@@ -5,17 +5,29 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-segment scrollable [(ngModel)]="nav">
+    <ion-segment-button value="control">
+      <app-img src="assets/basic/img/search.png"></app-img>통합관제
+    </ion-segment-button>
+    <ion-segment-button value="cctv">
+      <ion-icon name="heart"></ion-icon>CCTV 모니터링
+    </ion-segment-button>
+    <ion-segment-button value="real-time">
+      <ion-icon name="pin"></ion-icon>근로자 실시간 
+    </ion-segment-button>
+  </ion-segment>
 </ion-content>
-<ion-footer class="app-button-footer">
+<!-- <ion-footer class="app-button-footer">
   <ion-toolbar color="white">
     <app-row>
       <app-col>
-        <app-button color="secondary" class="left-button" expand="block">left</app-button>
+        <app-button class="left-button" expand="block">정보삭제</app-button>
       </app-col>
       <app-col>
-        <app-button expand="block">right</app-button>
+        <app-button class="right-button" expand="block">재가입 신청</app-button> 
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-footer>
+</ion-footer>    -->
+       
+

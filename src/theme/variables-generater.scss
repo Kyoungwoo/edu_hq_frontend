@@ -28,7 +28,7 @@
   --ion-text-color: #{$text};
   --ion-text-color-rgb: #{generateRGB($text)};
 
-  @for $i from 1 to 20 {
+  @for $i from 1 to 19 {
     --ion-color-step-#{$i*50}: #{mix($text, $background, percentage($i/20))};
   }
 }
