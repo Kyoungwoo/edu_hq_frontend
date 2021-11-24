@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AlertOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-alert',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit {
+
+  @Input() opts:AlertOptions;
 
   constructor() { }
 

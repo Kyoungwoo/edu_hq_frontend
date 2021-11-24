@@ -64,16 +64,17 @@ export class GuidePage implements OnInit, AfterViewInit {
     setTimeout(() => {
     }, 1000);
   }
-  alertPresent() {
+  alertPresent(mode) {
     this.alert.present({
+      mode,
       header: 'alert header',
       subHeader: 'alert sub header',
       message: 'alert message',
       buttons: [
         { text: 'cancel' },
         { text: 'submit', handler: () => {
-
-        }};
+          this.toast.present({ message: 'submit click' });
+        }}
       ]
     })
   }

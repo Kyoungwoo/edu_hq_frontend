@@ -1,3 +1,3 @@
-<p>
-  alert works!
-</p>
+<h2 *ngIf="opts?.header">{{ opts.header }}</h2>
+<h3 *ngIf="opts?.subHeader">{{ opts.subHeader }}</h3>
+<p *ngIf="opts?.message">{{ opts.message }}</p>

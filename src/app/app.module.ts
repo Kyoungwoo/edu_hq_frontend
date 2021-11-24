@@ -15,6 +15,7 @@ import { File } from "@ionic-native/file/ngx";
 import { Media } from '@ionic-native/media/ngx';
 import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
+import { AlertStrategy } from './basic/service/ionic/alert.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: AlertStrategy, useValue: { mode: 'devmonster' }},
     QRScanner,
     File,
     Media
