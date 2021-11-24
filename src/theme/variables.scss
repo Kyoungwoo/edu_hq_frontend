@@ -45,16 +45,9 @@
     @include generateColor('dark', #222120, #222120);
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
+
+    @include generateColor('white', #ffffff, #222120);
   }
-  @include generateColorClass('primary');
-  @include generateColorClass('secondary');
-  @include generateColorClass('tertiary');
-  @include generateColorClass('success');
-  @include generateColorClass('warning');
-  @include generateColorClass('danger');
-  @include generateColorClass('dark');
-  @include generateColorClass('medium');
-  @include generateColorClass('white');
 }
 
 
@@ -69,7 +62,7 @@
   --font-size-xl: 30px;
   --font-size-xxl: 50px;
   
-  --app-padding: 4px;
+  --app-padding: 6px;
   --app-margin: 16px;
   --app-border-radius: 5px;
   --app-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.04);

@@ -34,6 +34,10 @@
   h1, h2, h3, h4, h5, p {
     vertical-align: middle;
     vertical-align: -webkit-baseline-middle;
+    ion-badge {
+      margin-left: var(--app-padding);
+      font-weight: 400;
+    }
   }
   h1 {
     margin-top: 32px;
