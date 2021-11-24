@@ -6,20 +6,30 @@
 
 /** Ionic CSS Variables **/
 :root {
-  @include generateColorSteps(#f1f0ef, #222120);
+  @include generateColorSteps(#042804,#F5F7F9);
 
-  @include generateColor('primary', #ff872b, #222120);
-  @include generateColor('secondary', #f59b56, #222120);
-  @include generateColor('tertiary', #ffcba3, #222120);
-  @include generateColor('success', #b8f19c, #222120);
-  @include generateColor('warning', #eedb84, #222120);
-  @include generateColor('danger', #f7909e, #222120);
-  @include generateColor('dark', #222120, #222120);
-  @include generateColor('medium', #b5a79b, #222120);
-  @include generateColor('light', #f1f0ef, #222120);
+  @include generateColor('primary', #44C650, #000000);
+  @include generateColor('secondary', #2AA287, #ffffff);
+  @include generateColor('tertiary', #042804, #ffffff);
+  @include generateColor('danger', #FF7777, #000000);
+  @include generateColor('success', #b8f19c, #000000);
+  @include generateColor('warning', #eedb84, #000000);
+  @include generateColor('light', #f3f4f6, #000000);
+  @include generateColor('medium', #797e91, #ffffff);
+  @include generateColor('dark', #042804, #ffffff);
 
-  @include generateColor('white', #ffffff, #222120);
+  @include generateColor('white', #ffffff, #000000);
 }
+@include generateColorClass('primary');
+@include generateColorClass('secondary');
+@include generateColorClass('tertiary');
+@include generateColorClass('success');
+@include generateColorClass('warning');
+@include generateColorClass('danger');
+@include generateColorClass('light');
+@include generateColorClass('medium');
+@include generateColorClass('dark');
+
 @include generateColorClass('white');
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +46,15 @@
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
   }
+  @include generateColorClass('primary');
+  @include generateColorClass('secondary');
+  @include generateColorClass('tertiary');
+  @include generateColorClass('success');
+  @include generateColorClass('warning');
+  @include generateColorClass('danger');
+  @include generateColorClass('dark');
+  @include generateColorClass('medium');
+  @include generateColorClass('white');
 }
 
 

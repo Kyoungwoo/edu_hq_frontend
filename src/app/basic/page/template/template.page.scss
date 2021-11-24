@@ -8,44 +8,7 @@
             max-width: 200px;
         }
         .left-button {
-            --background: var(--ion-color-secondary) !important;
+            --background: var(--ion-color-danger) !important;
         }
     }
 }
-body {
-    margin: 0 0 55px 0;
-}
-.nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 55px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
-    background-color: #ffffff;
-    display: flex;
-    overflow-x: auto;
-}
-.nav__link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    min-width: 50px;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 15px;
-    color: #43BC4E;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: backgound-color 0.1s ease-in-out;
-
-}
-.nav__link:hover {
-    background-color: #43BC4E;
-    
-}
-.nav__link--active {
-    color: #ffffff ;
-}
-
