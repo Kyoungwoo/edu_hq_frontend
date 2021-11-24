@@ -21,7 +21,7 @@
     --ion-color-translucent: var(--ion-color-#{$name}-translucent);
   }
 }
-@mixin generateColorSteps($background, $text) {
+@mixin generateColorSteps($text,$background) {
   --ion-background-color: #{$background};
   --ion-background-color-rgb: #{generateRGB($background)};
 
