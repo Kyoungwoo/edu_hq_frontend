@@ -1,0 +1,14 @@
+
+@media screen and (min-width: 768px) {
+    .app-button-footer {
+        app-row {
+            justify-content: flex-end;
+        }
+        app-col {
+            max-width: 200px;
+        }
+        .left-button {
+            --background: var(--ion-color-secondary) !important;
+        }
+    }
+}

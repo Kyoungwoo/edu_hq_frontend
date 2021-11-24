@@ -5,6 +5,7 @@
     vertical-align: middle;
     ion-button {
         border-radius: var(--app-border-radius);
+        --background: var(--background);
         --border-radius: var(--app-border-radius);
         --box-shadow: var(--app-box-shadow);
         margin-left: 0;

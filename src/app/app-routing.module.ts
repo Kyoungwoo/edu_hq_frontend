@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./basic/page/guide/guide.module').then( m => m.GuidePageModule)
   },
   {
-    path: 'template',
+    path: 'basic/template',
     loadChildren: () => import('./basic/page/template/template.module').then( m => m.TemplatePageModule)
   }
 ];
