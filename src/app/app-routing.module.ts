@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'basic/guide',
     loadChildren: () => import('./basic/page/guide/guide.module').then( m => m.GuidePageModule)
+  },
+  {
+    path: 'template',
+    loadChildren: () => import('./basic/page/template/template.module').then( m => m.TemplatePageModule)
   }
 ];
 
