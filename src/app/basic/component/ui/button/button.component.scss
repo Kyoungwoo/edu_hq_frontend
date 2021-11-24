@@ -1,23 +1,32 @@
 :host {
+    --background: var(--ion-color-base);
+    --color: var(--ion-color-contrast);
+    --font-size: var(--font-size-n);
+    --height: var(--app-height);
+
     display: inline-block;
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
     vertical-align: middle;
+    background: var(--background);
+    border-radius: var(--app-border-radius);
     ion-button {
-        border-radius: var(--app-border-radius);
-        --background: var(--background);
         --border-radius: var(--app-border-radius);
         --box-shadow: var(--app-box-shadow);
+        
         margin-left: 0;
         margin-right: 0;
         margin-top: 0;
         margin-bottom: 0;
-        height: var(--app-height);
+        height: var(--height);
         font-size: var(--font-size-n);
         text-transform: inherit;
         small {
             font-size: var(--font-size-s);
         }
+    }
+    ion-button::part(native) {
+        background: transparent !important;
     }
     .absolute-case {
         width: 100%;
@@ -34,9 +43,6 @@
         align-items: center;
         justify-content: center;
     }
-    .relative-inner {
-        
-    }
 }
 :host.button-block {
     width: 100%;
@@ -51,15 +57,20 @@
     }
 }
 :host.button-clear {
+    --background: transparent;
     ion-button {
         --app-box-shadow: none;
     }
 }
 :host.button-outline {
+    --background: var(--ion-color-white);
     ion-button {
-        background: var(--ion-color-white);
         --border-width: 1px;
     }
+}
+:host.button-translucent {
+    --background: var(--ion-color-translucent);
+    --color: var(--ion-color-base);
 }
 :host.button-round {
     ion-button {

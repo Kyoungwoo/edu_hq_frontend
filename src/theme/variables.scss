@@ -20,6 +20,14 @@
 
   @include generateColor('white', #ffffff, #222120);
 }
+@include generateColorClass('primary');
+@include generateColorClass('secondary');
+@include generateColorClass('tertiary');
+@include generateColorClass('success');
+@include generateColorClass('warning');
+@include generateColorClass('danger');
+@include generateColorClass('dark');
+@include generateColorClass('medium');
 @include generateColorClass('white');
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +44,15 @@
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
   }
+  @include generateColorClass('primary');
+  @include generateColorClass('secondary');
+  @include generateColorClass('tertiary');
+  @include generateColorClass('success');
+  @include generateColorClass('warning');
+  @include generateColorClass('danger');
+  @include generateColorClass('dark');
+  @include generateColorClass('medium');
+  @include generateColorClass('white');
 }
 
 
