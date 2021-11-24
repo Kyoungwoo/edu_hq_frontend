@@ -36,6 +36,7 @@ export class GuidePage implements OnInit, AfterViewInit {
   selectValue = "hello10";
 
   constructor(
+    private alert: AlertService,
     private loading: LoadingService,
     private navCtrl: NavService,
     private toast: ToastService,
@@ -46,19 +47,7 @@ export class GuidePage implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  ngOnInit() {
-    /* this.alert.present({
-      message: "present"
-    });
-    this.loading.present({
-      message: "present",
-      duration: 500
-    });
-    this.toast.present({
-      message: "비밀번호 오류",
-      duration:1000
-    }); */
-  }
+  ngOnInit() {}
   ngAfterViewInit() {
     this.activatedRoute.fragment.subscribe(t => {
       console.log(t);
@@ -75,6 +64,21 @@ export class GuidePage implements OnInit, AfterViewInit {
     setTimeout(() => {
     }, 1000);
   }
+  alertPresent() {
+    this.alert.present({
+      header: 'alert header',
+      subHeader: 'alert sub header',
+      message: 'alert message',
+      buttons: [
+        { text: 'cancel' },
+        { text: 'submit', handler: () => {
+
+        }};
+      ]
+    })
+  }
+
+
   async navRoot() {
     console.log("before");
     // this.promise.timeout(new Promise((res) => {console.log('test11')}), 50000);

@@ -19,6 +19,17 @@ export class AlertService {
   ) { }
   
   async present(opts:AlertOptions = {}) {
+    if(opts.custom) {
+
+    } else {
+      return this._presentIonicAlert(opts);
+    }
+  }
+  getTop() {
+    return this.alert.getTop();
+  }
+
+  private async _presentIonicAlert(opts) {
     const alert = await this.alert.create({
       header: opts.header,
       subHeader: opts.subHeader,
@@ -35,7 +46,6 @@ export class AlertService {
     alert.present();
     return alert;
   }
-  getTop() {
-    return this.alert.getTop();
-  }
 }
+
+// export const Alert
