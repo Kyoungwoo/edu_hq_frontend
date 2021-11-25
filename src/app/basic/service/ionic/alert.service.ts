@@ -7,10 +7,10 @@ export interface AlertOptions {
   header?: string,
   subHeader?: string,
   message?: string,
-  cssClass?: string,
-  backdropDismiss?: boolean,
-  inputs?: Array<any>
+  inputs?: Array<any>,
   buttons?: Array<string | AlertButton>
+  cssClass?: string,
+  backdropDismiss?: boolean
 }
 @Injectable({
   providedIn: 'root'
