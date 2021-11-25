@@ -6,8 +6,8 @@
   --ion-color-#{$name}-rgb: rgb($rgb);
   --ion-color-#{$name}-contrast: #{$contrast};
   --ion-color-#{$name}-contrast-rgb: #{generateRGB($contrast)};
-  --ion-color-#{$name}-shade: #{mix(black, $color, 20%)};
-  --ion-color-#{$name}-tint: #{mix(white, $color, 10%)};
+  --ion-color-#{$name}-shade: #{mix(black, $color, 40%)};
+  --ion-color-#{$name}-tint: #{mix(white, $color, 20%)};
   --ion-color-#{$name}-translucent: #{mix(white, $color,70%)};
 }
 @mixin generateColorClass($name) {
