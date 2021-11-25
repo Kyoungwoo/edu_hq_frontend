@@ -1,6 +1,7 @@
 :host {
     --border-width: 1px;
     --font-weight: 500;
+    --checkmark-width: 1px;
 
     cursor: pointer;
     user-select: none; /* standard syntax */
@@ -10,6 +11,7 @@
     -ms-user-select: none; /* IE10+ */
 
     --app-border-width: var(--border-width);
+    --app-checkmark-width: var(--checkmark-width);
     .check-item {
         margin-top: var(--app-margin);
         margin-bottom: var(--app-margin);
@@ -22,6 +24,8 @@
     }
     ion-checkbox {
         --border-width: var(--app-border-width);
+        --checkmark-width: var(--app-checkmark-width);
+        --size: 10px;
         width: 1.6em;
         height: 1.6em;
         vertical-align: middle;

@@ -22,26 +22,32 @@ export class CalendarPopoverComponent implements OnInit {
   @Input() type:'date' | 'week' = 'date';
 
   @Input() value:Date | null = null;
-  innerMin:Date = new Date(1900, 0, 1);
-  innerMax:Date = new Date(2100, 11, 1);
-  @Input() set min(v:Date | string) {
+
+  private _min:Date = new Date(1900, 0, 1);
+  @Input() 
+  set min(v:Date | string) {
+    if(v === '0000-00-00') return;
     if(typeof v === 'string') {
       if(v.indexOf('-') > -1) {
         const vs = v.split('-');
-        this.innerMin = new Date(Number(vs[0]),Number(vs[1])-1,Number(vs[2]));
-      } else this.innerMin = new Date(1900, 0, 1);
-    } else this.innerMin = v;
+        this._min = new Date(Number(vs[0]),Number(vs[1])-1,Number(vs[2]));
+      } else this._min = new Date(1900, 0, 1);
+    } else this._min = v;
   }
-  get min() { return this.innerMin; }
-  @Input() set max(v:Date | string) { 
+  get min() { return this._min; }
+
+  private _max:Date = new Date(2100, 11, 1);
+  @Input() 
+  set max(v:Date | string) { 
+    if(v === '0000-00-00') return;
     if(typeof v === 'string') {
       if(v.indexOf('-') > -1) {
         const vs = v.split('-');
-        this.innerMax = new Date(Number(vs[0]),Number(vs[1])-1,Number(vs[2]));
-      } else this.innerMax = new Date(2100, 11, 1);
-    } else this.innerMax = v;
+        this._max = new Date(Number(vs[0]),Number(vs[1])-1,Number(vs[2]));
+      } else this._max = new Date(2100, 11, 1);
+    } else this._max = v;
   }
-  get max() { return this.innerMax; }
+  get max() { return this._max; }
 
   @Input() title:string = '';
   @Input() yearName = '년';
@@ -134,6 +140,7 @@ export class CalendarPopoverComponent implements OnInit {
         this.displayDate.setMonth(selectedMonth);
         this.setDisplay();
       }
+      if(!this.timePicker) this.submit();
     }
   }
   seletedDateFill(index) {

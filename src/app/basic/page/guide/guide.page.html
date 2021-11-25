@@ -11,7 +11,7 @@
   <h1>Library Guide</h1>
   <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
 
-  <h2>Animations</h2>
+  <h2 id="animation">Animation</h2>
   <p>화면에 애니메이션을 쉽게 사용하기위해 미리 생성해둔, angular 애니메이션 셋 입니다.<br>
   <code>basic/app.animation.ts</code>에 정리되어 있습니다.</p>
 
@@ -40,7 +40,7 @@
   </app-card>
 
   <h4 id="listAnimation">listAnimation</h4>
-  <p>*ngFor와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In Out 애니메이션 입니다.</p>
+  <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In Out 애니메이션 입니다.</p>
 
   <h5>example</h5>
   <div>
@@ -56,7 +56,7 @@
   </div>
 
   <h4 id="listInAnimation">listInAnimation</h4>
-  <p>*ngFor와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In 애니메이션 입니다.</p>
+  <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In 애니메이션 입니다.</p>
 
   <h5>example</h5>
   <div>
@@ -83,11 +83,11 @@
     <ion-card-subtitle>bounceInAnimation</ion-card-subtitle>
   </app-card>
 
-  <h2>component</h2>
+  <h2 id="component">Component</h2>
   <p>화면에 tag를 직접 넣어 사용하거나, service와 연동하여, 새로운 화면을 띄워주는 역할을 합니다.<br>
   컨트롤 가능한 <code>css variable</code>은 각 <code>component</code>의 <code>scss > :host</code>의 가장 위에 있습니다.</p>
 
-  <h3>Dialog</h3>
+  <h3 id="dialog">Dialog</h3>
   <p>alert, modal 등 화면에 새로 띄우는 컴포넌트들 입니다. <strong>tag를 직접 넣어 사용하지 않고, service를 이용해서 사용합니다.</strong></p>
   <h4 id="alert">app-alert<ion-badge>private</ion-badge><ion-badge>service</ion-badge></h4>
   <p><a routerLink="/basic/guide" fragment="calendar-service"><code>calendar.service</code></a>로 사용합니다.</p>
@@ -185,17 +185,59 @@ Array&lt;&#123;
     </tbody>
   </app-table>
 
-  <h3>Inputs</h3>
-  <p>기본적으로 form 안에서 사용하며, <ion-text color="primary"><b>name</b></ion-text> attribute가 반드시 들어가야 합니다.</p>
+  <h3 id="input">Input</h3>
+  <p>기본적으로 <code>form</code> 안에서 사용하며, <code><ion-text color="primary"><b>[name]</b></ion-text></code> 이 반드시 들어가야 합니다.<br>
+  아래의 Properties를 공통으로 가집니다.</p>
+  <h5>Properties</h5>
+  <app-table>
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>value</td>
+        <td><code>any</code></td>
+        <td>component별로 다른 타입의 value를 가집니다.<br>각 component들의 properties에 정의되어 있습니다.</td>
+      </tr>
+      <tr>
+        <td>readonly</td>
+        <td><code>boolean</code></td>
+        <td>읽기 전용 input 상태 입니다. 클릭 이벤트를 막지는 않습니다.</td>
+      </tr>
+      <tr>
+        <td>disabled</td>
+        <td><code>boolean</code></td>
+        <td>사용불가 input 상태 입니다. 클릭 이벤트가 있으면, 같이 막힙니다.</td>
+      </tr>
+      <tr>
+        <td>(change)</td>
+        <td><code>Output</code></td>
+        <td>value가 변할 때, 호출되는 Output 이벤트 입니다. value를 반환합니다.</td>
+      </tr>
+    </tbody>
+  </app-table>
 
   <h4 id="calendar">calendar</h4>
-  <p>달력으로 날짜를 고르는 인풋 입니다. 
-    <a routerLink="/basic/guide" fragment="calendar-popover"><code>calendar-popover</code></a>를 호출합니다.</p>
+  <p>달력으로 날짜를 고르는 인풋 입니다.<br>
+    버튼 클릭 시, <a routerLink="/basic/guide" fragment="calendar-popover"><code>calendar-popover</code></a>를 호출합니다.</p>
 
   <h5>example</h5>
-  <pre><code>&lt;app-calendar [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
+  <pre><code>&lt;app-calendar name="calendar" label="calendar" [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
   <form>
     <app-calendar name="calendar" label="calendar"></app-calendar>
+    <app-row>
+      <app-col>
+        <app-calendar #startCalendar name="calendar" label="시작일[max=종료일.value]" [max]="endCalendar.value"></app-calendar>
+      </app-col>
+      <app-col size="auto"><p>~</p></app-col>
+      <app-col>
+        <app-calendar #endCalendar name="calendar" label="종료일[min=시작일.value]" [min]="startCalendar.value"></app-calendar>
+      </app-col>
+    </app-row>
     <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true"></app-calendar>
   </form>
 
@@ -209,6 +251,11 @@ Array&lt;&#123;
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>value</td>
+        <td><code>'YYYY-MM-DD'</code></td>
+        <td>날짜포멧의 string을 값으로 가집니다.</td>
+      </tr>
       <tr>
         <td>label</td>
         <td><code>string</code></td>
@@ -234,11 +281,6 @@ Array&lt;&#123;
         <td><code>'date' | 'week'</code></td>
         <td>하루단위나 주단위로 달력을 선택할 수 있는 기능입니다.</td>
       </tr>
-      <tr>
-        <td>(change)</td>
-        <td><code>Output</code></td>
-        <td>달력이 변할 때, 호출되는 Output 이벤트 입니다. value를 반환합니다.</td>
-      </tr>
     </tbody>
   </app-table>
 
@@ -247,24 +289,45 @@ Array&lt;&#123;
 
   <h4 id="check">check</h4>
   <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다.</p>
+
+  <h5>example</h5>
+  <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
   <app-check name="check1"></app-check>
-  <app-check name="check2">app-check</app-check>
+  <app-check name="check2">check with text</app-check>
+
+  <h5>Properties</h5>
+  <app-table>
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>value</td>
+        <td><code>boolean</code></td>
+        <td>check가 되면 true, 아니면 false를 반환합니다.</td>
+      </tr>
+    </tbody>
+  </app-table>
+
+  <h4 id="app-input">input</h4>
+  <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
+
+  <h5>examples</h5>
+<pre><code>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
+  &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
+&lt;/app-input&gt;</code></pre>
+
+
+
+
+
+
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  <h3>app-input</h3>
-  <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 아이콘과 함께 사용할 수 있으며, 이벤트를 따로 줘야 합니다.</p>
   <app-row>
     <app-col>
       <app-input name="input1" label="label" placeholder="placeholder"></app-input>

@@ -14,17 +14,24 @@ ion-list {
 ion-list-header {
     font-size: var(--font-size-n);
     font-weight: 500;
+    &:hover {
+        --background: var(--ion-background-color);
+    }
 }
 ion-item-group {
     margin-top: 8px;
     margin-bottom: 16px;
 }
 ion-item-divider {
+    cursor: pointer;
     border-bottom: 0;
     margin-bottom: 8px;
     font-size: var(--font-size-s);
     --background: var(--ion-background-color);
     --color: var(--ion-color-step-500);
+    &:hover {
+        --background: var(--ion-color-step-50);
+    }
     ion-label {
         margin-top: 0;
         margin-bottom: 0;
