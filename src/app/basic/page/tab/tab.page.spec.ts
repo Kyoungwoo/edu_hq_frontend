@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TemplatePage } from './template.page';
+import { TabPage } from './tab.page';
 
-describe('TemplatePage', () => {
-  let component: TemplatePage;
-  let fixture: ComponentFixture<TemplatePage>;
+describe('TabPage', () => {
+  let component: TabPage;
+  let fixture: ComponentFixture<TabPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemplatePage ],
+      declarations: [ TabPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TemplatePage);
+    fixture = TestBed.createComponent(TabPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
