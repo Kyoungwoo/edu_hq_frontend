@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplatePage implements OnInit {
 
-  nav = 'cctv';
+  nav = '';
 
   constructor() { }
 

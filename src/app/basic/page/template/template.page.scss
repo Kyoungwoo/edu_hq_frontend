@@ -1,14 +1,42 @@
  
-@media screen and (min-width: 768px) {
-    .app-button-footer {
-        app-row {
-            justify-content: flex-end;
-        }
-        app-col {
-            max-width: 200px;
-        }
-        .left-button {
-            --background: var(--ion-color-danger) !important;
-        }
-    }
+// @media screen and (min-width: 768px) {
+//     .app-button-footer {
+//         app-row {
+//             justify-content: flex-end;
+//         }
+//         app-col {
+//             max-width: 200px;
+//         }
+//         .left-button {
+//             --background: var(--ion-color-danger) !important;
+//         }
+//     }
+// }w
+
+app-img {
+    margin-bottom: 7px;
+
+    
 }
+
+ion-segment-button{
+    height: 72px;
+    --color: black;
+    --padding-bottom: 15px;
+    --background-hover:var(--ion-color-primary);
+    --padding-top: 15px;
+    --color-checked: white;
+    --color-activated: white;
+    --color-hover: white;
+    
+    
+    --indicator-color: #36963E;
+    --indicator-transform: translate(0, -70px);
+    --background-hover-opacity: none;
+    --indicator-transition: transform 250ms cubic-bezier(50, 50, 50, 50);
+    --transition: color 0s linear 0s, opacity 0.15s linear 0s;
+    --background-checked:var(--ion-color-primary);
+    
+   
+}   
+
