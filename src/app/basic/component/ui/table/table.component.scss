@@ -1,5 +1,6 @@
 :host {
     display: block;
+    text-align: center;
     table {
         width: 100%;
     }
@@ -9,9 +10,8 @@
         background: var(--ion-color-step-200);
         font-size: var(--font-size-n);
         height: var(--app-height-small);
-        text-align: center;
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-margin);
+        padding: var(--app-padding);
         small {
             font-size: var(--font-size-s);
         }
@@ -19,29 +19,24 @@
     td {
         font-size: var(--font-size-n);
         height: var(--app-height);
-        text-align: center;
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-margin);
+        padding: var(--app-padding);
         small {
             font-size: var(--font-size-s);
         }
     }
-    tr.button,
-    th.button,
-    td.button {
+    .button {
         cursor: pointer;
         &:hover {
             background: var(--ion-color-step-100);
         }
     }
-    tr.text-align-left,
-    th.text-align-left,
-    td.text-align-left {
-        text-align: left;
-    }
-    tr.text-align-right,
-    th.text-align-right,
-    td.text-align-right {
-        text-align: right;
-    }
+}
+:host.text-align-left,
+:host ::ng-deep .text-align-left {
+    text-align: left;
+}
+:host.text-align-right,
+:host ::ng-deep .text-align-right {
+    text-align: right;
 }

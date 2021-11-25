@@ -9,7 +9,7 @@
   @include generateColorSteps(#F5F7F9,#222120);
 
   @include generateColor('primary', #44C650, #000000);
-  @include generateColor('secondary', #2AA287, #ffffff);
+  @include generateColor('secondary', #2AA287, #ffffff); 
   @include generateColor('tertiary', #042804, #ffffff);
   @include generateColor('danger', #FF7777, #000000);
   @include generateColor('success', #b8f19c, #000000);
@@ -55,6 +55,8 @@
 /** custom variables **/
 /**********************/
 :root {
+  --ion-font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  
   --font-size-xs: 11px;
   --font-size-s: 13px;
   --font-size-n: 16px;
