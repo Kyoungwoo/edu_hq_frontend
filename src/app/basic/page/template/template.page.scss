@@ -15,8 +15,6 @@
 
 app-img {
     margin-bottom: 7px;
-
-    
 }
 
 ion-segment-button{
@@ -29,14 +27,14 @@ ion-segment-button{
     --color-activated: white;
     --color-hover: white;
     
-    
-    --indicator-color: #36963E;
-    --indicator-transform: translate(0, -70px);
+    // --indicator-color: #36963E;
+    --indicator-transform: translate(0, -60px);
+    --indicator-transition: transform 2500ms;
+    --indicator-height: 10px;
     --background-hover-opacity: none;
-    --indicator-transition: transform 250ms cubic-bezier(50, 50, 50, 50);
     --transition: color 0s linear 0s, opacity 0.15s linear 0s;
-    --background-checked:var(--ion-color-primary);
-    
-   
-}   
-
+    --background-checked:var(--ion-color-primary);  
+}
+ion-segment-button::part(indicator) {
+    z-index: 3;
+}
