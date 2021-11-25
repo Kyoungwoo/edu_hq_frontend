@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TemplatePage } from './template.page';
+import { InputButtonPage } from './input-button.page';
 
-describe('TemplatePage', () => {
-  let component: TemplatePage;
-  let fixture: ComponentFixture<TemplatePage>;
+describe('InputButtonPage', () => {
+  let component: InputButtonPage;
+  let fixture: ComponentFixture<InputButtonPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemplatePage ],
+      declarations: [ InputButtonPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TemplatePage);
+    fixture = TestBed.createComponent(InputButtonPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

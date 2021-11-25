@@ -1,12 +1,13 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TemplatePageRoutingModule } from './template-routing.module';
+import { TabPageRoutingModule } from './tab-routing.module';
 
-import { TemplatePage } from './template.page';
+import { TabPage } from './tab.page';
 import { BasicComponentModule } from '../../component/basic.component.module';
 
 @NgModule({
@@ -14,9 +15,9 @@ import { BasicComponentModule } from '../../component/basic.component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    TemplatePageRoutingModule,
+    TabPageRoutingModule,
     BasicComponentModule
   ],
-  declarations: [TemplatePage]
+  declarations: [TabPage]
 })
 export class TemplatePageModule {}

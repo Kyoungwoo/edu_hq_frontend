@@ -71,6 +71,18 @@
 :host.button-translucent {
     --background: var(--ion-color-translucent);
     --color: var(--ion-color-shade);
+    
+   
+}
+:host.button-translucent-outline {
+    --background: var(--ion-color-translucent);
+    --color: var(--ion-color-shade);
+    ion-button {
+        --border-width: 1px;
+        --border-style: solid;
+        --border-color: var(--ion-color-primary);
+    }
+
 }
 :host.button-round {
     ion-button {
