@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, ModalController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { AlertService } from '../../service/ionic/alert.service';
 import { LoadingService } from '../../service/ionic/loading.service';
