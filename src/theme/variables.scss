@@ -8,12 +8,12 @@
 :root {
   @include generateColorSteps(#F5F7F9,#222120);
 
-  @include generateColor('primary', #44C650, #000000);
+  @include generateColor('primary', #44C650, #ffffff);
   @include generateColor('secondary', #2AA287, #ffffff); 
   @include generateColor('tertiary', #042804, #ffffff);
-  @include generateColor('danger', #FF7777, #000000);
-  @include generateColor('success', #b8f19c, #000000);
-  @include generateColor('warning', #eedb84, #000000);
+  @include generateColor('danger', #FF7777, #ffffff);
+  @include generateColor('success', #b8f19c, #ffffff);
+  @include generateColor('warning', #eedb84, #ffffff);
   @include generateColor('light', #f3f4f6, #000000);
   @include generateColor('medium', #797e91, #ffffff);
   @include generateColor('dark', #042804, #ffffff);
@@ -36,12 +36,12 @@
   body {
     @include generateColorSteps(#222120, #f1f0ef);
     
-    @include generateColor('primary', #44C650, #000000);
+    @include generateColor('primary', #44C650, #ffffff);
     @include generateColor('secondary', #2AA287, #ffffff);
-    @include generateColor('tertiary', #ffcba3, #222120);
-    @include generateColor('success', #b8f19c, #222120);
-    @include generateColor('warning', #eedb84, #222120);
-    @include generateColor('danger', #f7909e, #222120);
+    @include generateColor('tertiary', #ffcba3, #ffffff);
+    @include generateColor('success', #b8f19c, #ffffff);
+    @include generateColor('warning', #eedb84, #ffffff);
+    @include generateColor('danger', #f7909e, #ffffff);
     @include generateColor('dark', #222120, #222120);
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
@@ -56,7 +56,7 @@
 /**********************/
 :root {
   --ion-font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
-  
+
   --font-size-xs: 11px;
   --font-size-s: 13px;
   --font-size-n: 16px;
@@ -67,7 +67,7 @@
   --app-padding: 6px;
   --app-margin: 16px;
   --app-border-radius: 5px;
-  --app-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.04);
+  --app-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
 
   --app-height: 42px;
   --app-height-small: 32px;
@@ -86,7 +86,7 @@
     --app-padding: 4px;
     --app-margin: 8px;
     --app-border-radius: 5px;
-    --app-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.04);
+    --app-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
   
     --app-height: 42px;
     --app-height-small: 32px;

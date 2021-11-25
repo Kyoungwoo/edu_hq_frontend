@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { IonContent } from '@ionic/angular';
+import { filter } from 'rxjs/operators';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { AlertService } from '../../service/ionic/alert.service';
 import { LoadingService } from '../../service/ionic/loading.service';
@@ -49,21 +50,43 @@ export class GuidePage implements OnInit, AfterViewInit {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.activatedRoute.fragment.subscribe(t => {
-      console.log(t);
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationEnd)
+    ).subscribe(async(e) => {
+      const fragment = this.activatedRoute.snapshot.fragment;
+      this.scrollTo(fragment);
     });
-    //console.log(this.activatedRoute.snapshot.fragment);
-    setTimeout(() => {
-      location.hash = '#hello';
-    }, 100);
-    /* setTimeout(() => {
-      console.log(this.activatedRoute.snapshot.fragment);
-    }, 100) */
-    console.log(document.getElementById('button'));
-    console.log(this.content);
-    setTimeout(() => {
-    }, 1000);
+    this.activatedRoute.fragment.subscribe(fragment => {
+      this.activatedRoute.snapshot.fragment = fragment;
+    });
   }
+
+  fragmentChangeReady = true;
+  //디렉티브 혹은 컴포넌트로 개발을 해야될까?
+  private async scrollTo(fragment) {
+    const el = document.getElementById(fragment);
+
+    const offsetTop = el?.offsetTop || 0;
+
+    const scrollEl = await this.content.getScrollElement();
+
+    if(!scrollEl?.scrollHeight) {
+      setTimeout(() => {
+        this.scrollTo(fragment);
+      }, 10);
+      return;
+    }
+
+    const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue("--ion-safe-area-top");
+    const paddingTop = getComputedStyle(scrollEl).getPropertyValue("padding-top");
+    
+    this.fragmentChangeReady = false;
+    this.content.scrollToPoint(0, offsetTop - parseInt(safeAreaTop) - parseInt(paddingTop) - 40, 100)
+    .then(() => {
+      this.fragmentChangeReady = true;
+    });
+  }
+
   alertPresent(mode) {
     this.alert.present({
       mode,

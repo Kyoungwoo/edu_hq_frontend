@@ -19,8 +19,8 @@ const noop = () => {};
 export class CalendarComponent implements ControlValueAccessor {
 
   @Input() label:string = "";
-  @Input() min;
-  @Input() max;
+  @Input() min:string;
+  @Input() max:string;
   @Input() timePicker:boolean;
   @Input() type:'date' | 'week' = 'date';
   @Input() disableDaysOfWeek = [];

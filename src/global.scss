@@ -103,6 +103,9 @@
     display: inline-block;
     border-radius: var(--app-border-radius);
     background: var(--ion-background-color);
+    padding: 8px;
+  }
+  pre > code {
     padding: 32px;
   }
   video {

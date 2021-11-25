@@ -7,74 +7,93 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content>
+<ion-content #content [fullscreen]="true">
   <h1>Library Guide</h1>
-  <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 app.module.ts에서 설정을 하게 됩니다.</p>
+  <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
 
   <h2>Animations</h2>
-  <p>화면에 애니메이션을 쉽게 사용하기위해 미리 생성해둔, angular 애니메이션 셋 입니다.</p>
+  <p>화면에 애니메이션을 쉽게 사용하기위해 미리 생성해둔, angular 애니메이션 셋 입니다.<br>
+  <code>basic/app.animation.ts</code>에 정리되어 있습니다.</p>
+
   <h4 id="fadeAnimation">fadeAnimation</h4>
+  <p>fade In Out 애니메이션 입니다.</p>
+
   <h5>example</h5>
-  <app-row>
-    <app-col size="auto">
-      <ion-button (click)="fadeAnimationToggle = !fadeAnimationToggle">fadeAnimation</ion-button>
-    </app-col>
-    <app-col>
-      <p @fadeAnimation *ngIf="fadeAnimationToggle">fadeAnimation</p>
-    </app-col>
-  </app-row>
-  <h4>단일 fadeOut을 삭제한 애니메이션 입니다.</h4>
-  <app-row>
-    <app-col size="auto">
-      <ion-button (click)="fadeInAnimationToggle = !fadeInAnimationToggle">fadeInAnimation</ion-button>
-    </app-col>
-    <ion-col>
-      <p @fadeInAnimation *ngIf="fadeInAnimationToggle">fadeInAnimation</p>
-    </ion-col>
-  </app-row>
-  <app-row>
-    <ion-col>
-      <ion-list [@listAnimation]="listAnimationItemList.length">
-        <ion-item *ngFor="let item of listAnimationItemList">{{ item }}</ion-item>
-      </ion-list>
-    </ion-col>
-    <ion-col size="auto">
-      <ion-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</ion-button>
-    </ion-col>
-  </app-row>
-  <app-row>
-    <ion-col>
-      <ion-list [@listInAnimation]="listInAnimationItemList.length">
-        <ion-item *ngFor="let item of listInAnimationItemList">{{ item }}</ion-item>
-      </ion-list>
-    </ion-col>
-    <ion-col size="auto">
-      <ion-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</ion-button>
-    </ion-col>
-  </app-row>
-  <app-row>
-    <ion-col>
-      <p><span @bounceInAnimation *ngIf="bounceInAnimationToggle" style="display: inline-block;">bounceInAnimation</span></p>
-    </ion-col>
-    <ion-col size="auto">
-      <ion-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</ion-button>
-    </ion-col>
-  </app-row>
+  <div>
+    <pre><code>&lt;app-card @fadeAnimation&gt;&lt;/app-card&gt;</code></pre>
+  </div>
+  <app-button (click)="fadeAnimationToggle = !fadeAnimationToggle">fadeAnimation</app-button>
+  <app-card color="light" @fadeAnimation *ngIf="fadeAnimationToggle">
+    <ion-card-subtitle>fadeAnimation</ion-card-subtitle>
+  </app-card>
+
+  <h4 id="fadeInAnimation">fadeInAnimation</h4>
+  <p>fade In 애니메이션 입니다.</p>
+
+  <h5>example</h5>
+  <div>
+    <pre><code>&lt;app-card @fadeInAnimation&gt;&lt;/app-card&gt;</code></pre>
+  </div>
+  <app-button (click)="fadeInAnimationToggle = !fadeInAnimationToggle">fadeInAnimation</app-button>
+  <app-card color="light" @fadeInAnimation *ngIf="fadeInAnimationToggle">
+    <ion-card-subtitle>fadeInAnimation</ion-card-subtitle>
+  </app-card>
+
+  <h4 id="listAnimation">listAnimation</h4>
+  <p>*ngFor와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In Out 애니메이션 입니다.</p>
+
+  <h5>example</h5>
+  <div>
+<pre><code>&lt;div [@listAnimation]="listAnimationItemList.length"&gt;
+    &lt;app-card *ngFor=&rdquo;let item of listAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  <app-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</app-button>
+  <div [@listAnimation]="listAnimationItemList.length">
+    <app-card color="light" *ngFor="let item of listAnimationItemList">
+      <ion-card-subtitle>{{ item }}</ion-card-subtitle>
+    </app-card>
+  </div>
+
+  <h4 id="listInAnimation">listInAnimation</h4>
+  <p>*ngFor와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In 애니메이션 입니다.</p>
+
+  <h5>example</h5>
+  <div>
+<pre><code>&lt;div [@listInAnimation]="listInAnimationItemList.length"&gt;
+    &lt;app-card *ngFor=&rdquo;let item of listInAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  <app-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</app-button>
+  <div [@listInAnimation]="listInAnimationItemList.length">
+    <app-card color="light" *ngFor="let item of listInAnimationItemList">
+      <ion-card-subtitle>{{ item }}</ion-card-subtitle>
+    </app-card>
+  </div>
+
+  <h4 id="bounceInAnimation">bounceInAnimation</h4>
+  <p>bounce In 애니메이션 입니다.</p>
+
+  <h5>example</h5>
+  <div>
+    <pre><code>&lt;app-card @bounceInAnimation&gt;&lt;/app-card&gt;</code></pre>
+  </div>
+  <app-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</app-button>
+  <app-card color="light" @bounceInAnimation *ngIf="bounceInAnimationToggle">
+    <ion-card-subtitle>bounceInAnimation</ion-card-subtitle>
+  </app-card>
 
   <h2>component</h2>
-  <p>화면에 tag를 직접 넣어 사용하거나, service와 연동하여, 새로운 화면을 띄워주는 역할을 합니다.<br></p>
+  <p>화면에 tag를 직접 넣어 사용하거나, service와 연동하여, 새로운 화면을 띄워주는 역할을 합니다.<br>
+  컨트롤 가능한 <code>css variable</code>은 각 <code>component</code>의 <code>scss > :host</code>의 가장 위에 있습니다.</p>
+
   <h3>Dialog</h3>
   <p>alert, modal 등 화면에 새로 띄우는 컴포넌트들 입니다. <strong>tag를 직접 넣어 사용하지 않고, service를 이용해서 사용합니다.</strong></p>
-  <h4 id="alert">app-alert<ion-badge>service</ion-badge></h4>
+  <h4 id="alert">app-alert<ion-badge>private</ion-badge><ion-badge>service</ion-badge></h4>
+  <p><a routerLink="/basic/guide" fragment="calendar-service"><code>calendar.service</code></a>로 사용합니다.</p>
   <h5>Example</h5>
   <div>
-    <app-button (click)="alertPresent('devmonster')">mode:devmonster</app-button>
-    <app-button (click)="alertPresent('ionic')">mode:ionic</app-button>
-  </div>
-  <div>
-    <code>
-<pre>
-this.alert.present(&#123;
+<pre><code>this.alert.present(&#123;
     mode: 'devmonster',
     header: 'alert header',
     subHeader: 'alert sub header',
@@ -85,9 +104,13 @@ this.alert.present(&#123;
             this.toast.present(&#123; message: 'submit click' &#125;);
         &#125;&#125;
     ]
-})</pre>
-    </code>
+})</code></pre>
   </div>
+  <div>
+    <app-button (click)="alertPresent('devmonster')">mode:devmonster</app-button>
+    <app-button (click)="alertPresent('ionic')">mode:ionic</app-button>
+  </div>
+
   <h5>Properties</h5>
   <app-table class="text-align-left">
     <thead>
@@ -162,82 +185,145 @@ Array&lt;&#123;
     </tbody>
   </app-table>
 
-  <h2>Inputs</h2>
-  <p>form 안에서 사용하며, <ion-text color="primary"><b>name</b></ion-text> attribute가 반드시 들어가야 합니다.</p>
+  <h3>Inputs</h3>
+  <p>기본적으로 form 안에서 사용하며, <ion-text color="primary"><b>name</b></ion-text> attribute가 반드시 들어가야 합니다.</p>
+
+  <h4 id="calendar">calendar</h4>
+  <p>달력으로 날짜를 고르는 인풋 입니다. 
+    <a routerLink="/basic/guide" fragment="calendar-popover"><code>calendar-popover</code></a>를 호출합니다.</p>
+
+  <h5>example</h5>
+  <pre><code>&lt;app-calendar [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
   <form>
-    <h3>check</h3>
-    <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다.</p>
-    <app-check name="check1"></app-check>
-    <app-check name="check2">app-check</app-check>
-
-    <h3>app-input</h3>
-    <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 아이콘과 함께 사용할 수 있으며, 이벤트를 따로 줘야 합니다.</p>
-    <app-row>
-      <app-col>
-        <app-input name="input1" label="label" placeholder="placeholder"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input2" label="with img">
-          <app-img slot="end" src="assets/basic/img/search.png"></app-img>
-        </app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input3" label="with text">
-          hello world
-        </app-input>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-input name="input2" label="password" type="password" placeholder="password"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input3" label="readonly" value="readonly" [readonly]="true"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input1" label="disabled" value="disabled" [disabled]="true"></app-input>
-      </app-col>
-    </app-row>
-    
-    <h3>app-calendar</h3>
-    <p>캘린더를 선택하는 component 입니다.</p>
-    <app-calendar name="calendar1" label="label" [style.width.px]="280" value="2021-01-01"></app-calendar>
-    <p>time-picker를 같이 사용할 수도 있습니다.(미완성)</p>
-    <app-calendar name="calendar2" label="with time" [style.width.px]="280" [timePicker]="true"></app-calendar>
-
-    <h3>app-select</h3>
-    <p>셀렉트 component 입니다.</p>
-    <app-select label="select-label" name="select" [(ngModel)]="selectValue">
-      <app-select-option value="hello">hello</app-select-option>
-      <app-select-option value="hello2">hello2</app-select-option>
-      <app-select-option value="hello3">hello3</app-select-option>
-      <app-select-option value="hello4">hello4</app-select-option>
-      <app-select-option value="hello5">hello5</app-select-option>
-      <app-select-option value="hello6">hello6</app-select-option>
-      <app-select-option value="hello7">hello7</app-select-option>
-      <app-select-option value="hello8">hello8</app-select-option>
-      <app-select-option value="hello9">hello9</app-select-option>
-      <app-select-option value="hello10">hello10</app-select-option>
-      <app-select-option value="hello11">hello11</app-select-option>
-      <app-select-option value="hello12">hello12</app-select-option>
-      <app-select-option value="hello13">hello13</app-select-option>
-      <app-select-option value="hello14">hello14</app-select-option>
-      <app-select-option value="hello15">hello15</app-select-option>
-      <app-select-option value="hello16">hello16</app-select-option>
-      <app-select-option value="hello17">hello17</app-select-option>
-      <app-select-option value="hello18">hello18</app-select-option>
-      <app-select-option value="hello19">hello19</app-select-option>
-      <app-select-option value="hello20">hello20</app-select-option>
-    </app-select>
-
-    <h3>app-datetime</h3>
-    <p>시간을 선택하기 위한 피커 입니다.</p>
+    <app-calendar name="calendar" label="calendar"></app-calendar>
+    <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true"></app-calendar>
   </form>
+
+  <h5>properties</h5>
+  <app-table>
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>label</td>
+        <td><code>string</code></td>
+        <td>캘린더 위에 띄우는 라벨입니다.</td>
+      </tr>
+      <tr>
+        <td>min</td>
+        <td><code>date string</code></td>
+        <td>선택할 수 있는 가장 빠른 날짜 입니다.</td>
+      </tr>
+      <tr>
+        <td>max</td>
+        <td><code>date string</code></td>
+        <td>선택할 수 있는 가장 늦은 날짜 입니다.</td>
+      </tr>
+      <tr>
+        <td>timePicker</td>
+        <td><code>boolean</code></td>
+        <td>시, 분, 초를 선택하는 timePicker를 사용할지 말지 결정합니다.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td><code>'date' | 'week'</code></td>
+        <td>하루단위나 주단위로 달력을 선택할 수 있는 기능입니다.</td>
+      </tr>
+      <tr>
+        <td>(change)</td>
+        <td><code>Output</code></td>
+        <td>달력이 변할 때, 호출되는 Output 이벤트 입니다. value를 반환합니다.</td>
+      </tr>
+    </tbody>
+  </app-table>
+
+  <h4 id="calendar-popover">calendar-popover<ion-badge>private</ion-badge></h4>
+  <p><a routerLink="/basic/guide" fragment="calendar"><code>calendar</code></a>에서 호출되는 달력 입니다.</p>
+
+  <h4 id="check">check</h4>
+  <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다.</p>
+  <app-check name="check1"></app-check>
+  <app-check name="check2">app-check</app-check>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <h3>app-input</h3>
+  <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 아이콘과 함께 사용할 수 있으며, 이벤트를 따로 줘야 합니다.</p>
+  <app-row>
+    <app-col>
+      <app-input name="input1" label="label" placeholder="placeholder"></app-input>
+    </app-col>
+    <app-col>
+      <app-input name="input2" label="with img">
+        <app-img slot="end" src="assets/basic/img/search.png"></app-img>
+      </app-input>
+    </app-col>
+    <app-col>
+      <app-input name="input3" label="with text">
+        hello world
+      </app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input name="input2" label="password" type="password" placeholder="password"></app-input>
+    </app-col>
+    <app-col>
+      <app-input name="input3" label="readonly" value="readonly" [readonly]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input name="input1" label="disabled" value="disabled" [disabled]="true"></app-input>
+    </app-col>
+  </app-row>
+
+  <h3>app-select</h3>
+  <p>셀렉트 component 입니다.</p>
+  <app-select label="select-label" name="select" [(ngModel)]="selectValue">
+    <app-select-option value="hello">hello</app-select-option>
+    <app-select-option value="hello2">hello2</app-select-option>
+    <app-select-option value="hello3">hello3</app-select-option>
+    <app-select-option value="hello4">hello4</app-select-option>
+    <app-select-option value="hello5">hello5</app-select-option>
+    <app-select-option value="hello6">hello6</app-select-option>
+    <app-select-option value="hello7">hello7</app-select-option>
+    <app-select-option value="hello8">hello8</app-select-option>
+    <app-select-option value="hello9">hello9</app-select-option>
+    <app-select-option value="hello10">hello10</app-select-option>
+    <app-select-option value="hello11">hello11</app-select-option>
+    <app-select-option value="hello12">hello12</app-select-option>
+    <app-select-option value="hello13">hello13</app-select-option>
+    <app-select-option value="hello14">hello14</app-select-option>
+    <app-select-option value="hello15">hello15</app-select-option>
+    <app-select-option value="hello16">hello16</app-select-option>
+    <app-select-option value="hello17">hello17</app-select-option>
+    <app-select-option value="hello18">hello18</app-select-option>
+    <app-select-option value="hello19">hello19</app-select-option>
+    <app-select-option value="hello20">hello20</app-select-option>
+  </app-select>
+
+  <h3>app-datetime</h3>
+  <p>시간을 선택하기 위한 피커 입니다.</p>
 
   <h3>UI</h3>
 
   <h4 id="button">app-button</h4>
-  <p>앱에 사용되는 버튼 입니다. 기본적으로는 ion-button과 같은 사용법입니다.</p>
+  <p>앱에 사용되는 버튼 입니다. 기본적으로는 app-button과 같은 사용법입니다.</p>
   <h5>example</h5>
   <div>
     <app-button>default</app-button>
@@ -373,12 +459,12 @@ Array&lt;&#123;
   </app-table>
 
   
-  <ion-button id="button">
+  <app-button id="button">
     <app-input-file></app-input-file>
     파일 추가
-  </ion-button>
-  <ion-button (click)="navRoot()">navRoot</ion-button>
-  <ion-button (click)="navBack()">navBack</ion-button>
-  <ion-button (click)="navForward()">navForward</ion-button>
+  </app-button>
+  <app-button (click)="navRoot()">navRoot</app-button>
+  <app-button (click)="navBack()">navBack</app-button>
+  <app-button (click)="navForward()">navForward</app-button>
 </ion-content>
 <app-button-footer>app-button-footer</app-button-footer>

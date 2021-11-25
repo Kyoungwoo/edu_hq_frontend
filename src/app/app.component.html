@@ -4,9 +4,32 @@
     <ion-menu contentId="main-content">
       <ion-content>
         <ion-list lines="none">
-          <ion-item href="/basic/guide">
+          <ion-item routerLink="/basic/guide" fragment="top">
             <ion-label>home</ion-label>
           </ion-item>
+          
+          <ion-list-header>
+            <ion-label>Component</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item routerLink="/basic/guide" fragment="fadeAnimation">
+              <ion-label>fadeAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="fadeInAnimation">
+              <ion-label>fadeInAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="listAnimation">
+              <ion-label>listAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="listInAnimation">
+              <ion-label>listInAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="bounceInAnimation">
+              <ion-label>bounceInAnimation</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+
           <ion-list-header>
             <ion-label>Component</ion-label>
           </ion-list-header>
@@ -42,22 +65,22 @@
             <ion-item routerLink="/basic/guide" fragment="datetime">
               <ion-label>datetime</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="input">
               <ion-label>input</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="camera">
               <ion-label>camera</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="caption">
               <ion-label>caption</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="file">
               <ion-label>file</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="select">
               <ion-label>select</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="datetime">
+            <ion-item routerLink="/basic/guide" fragment="textarea">
               <ion-label>textarea</ion-label>
             </ion-item>
           </ion-item-group>
