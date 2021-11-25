@@ -21,7 +21,7 @@
     --ion-color-translucent: var(--ion-color-#{$name}-translucent);
   }
 }
-@mixin generateColorSteps($text,$background) {
+@mixin generateColorSteps($background, $text) {
   --ion-background-color: #{$background};
   --ion-background-color-rgb: #{generateRGB($background)};
 
@@ -29,6 +29,6 @@
   --ion-text-color-rgb: #{generateRGB($text)};
 
   @for $i from 1 to 19 {
-    --ion-color-step-#{$i*50}: #{mix($text, $background, percentage($i/20))};
+    --ion-color-step-#{$i*50}: #{mix($text, $background, percentage($i*0.05))};
   }
 }

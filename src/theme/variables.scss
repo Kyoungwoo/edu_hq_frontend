@@ -36,8 +36,8 @@
   body {
     @include generateColorSteps(#222120, #f1f0ef);
     
-    @include generateColor('primary', #ff872b, #222120);
-    @include generateColor('secondary', #a5a5a5, #222120);
+    @include generateColor('primary', #44C650, #000000);
+    @include generateColor('secondary', #2AA287, #ffffff);
     @include generateColor('tertiary', #ffcba3, #222120);
     @include generateColor('success', #b8f19c, #222120);
     @include generateColor('warning', #eedb84, #222120);
@@ -46,7 +46,7 @@
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
 
-    @include generateColor('white', #ffffff, #222120);
+    @include generateColor('white', #181818, white);
   }
 }
 
