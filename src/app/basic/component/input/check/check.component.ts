@@ -18,6 +18,7 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
 
   @HostBinding('class') get class() {
     let _class = [];
+    if(this.color) _class.push(`ion-color-${this.color}`);
     if(this.disabled) _class.push(`checkbox-disabled`);
     if(this.readonly) _class.push(`checkbox-readonly`);
     return _class.join(' ');
@@ -37,11 +38,12 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @Input() disabled:boolean = false;
   @Input() change = new EventEmitter();
 
-  private _value:boolean = false;
+  public _value:boolean = false;
   @Input()
   set value(v:any) {
-    if(v !== this._value) {
-      this._value = v; this.change.emit(v);
+    if(v !== this.value) {
+      this._value = v === this.on ? true : false;
+      this.change.emit(v);
     }
   }
   get value() { return this._value ? this.on : this.off; }
