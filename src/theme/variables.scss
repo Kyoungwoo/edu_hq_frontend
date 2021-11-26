@@ -57,12 +57,13 @@
 :root {
   --ion-font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
 
-  --font-size-xs: 11px;
-  --font-size-s: 13px;
-  --font-size-n: 16px;
-  --font-size-l: 22px;
-  --font-size-xl: 30px;
-  --font-size-xxl: 50px;
+  --font-size-h1: 54px;
+  --font-size-h2: 36px;
+  --font-size-h3: 28px;
+  --font-size-h4: 21px;
+  --font-size-h5: 16px;
+  --font-size-h6: 13px;
+  --font-size-h6-small: 11px;
   
   --app-padding: 6px;
   --app-margin: 16px;
@@ -76,12 +77,13 @@
 }
 @media screen and (max-width: 768px) {
   body {
-    --font-size-xs: 11px;
-    --font-size-s: 13px;
-    --font-size-n: 14px;
-    --font-size-l: 17px;
-    --font-size-xl: 20px;
-    --font-size-xxl: 26px;
+    --font-size-h1: 30px;
+    --font-size-h2: 24px;
+    --font-size-h3: 20px;
+    --font-size-h4: 17px;
+    --font-size-h5: 14px;
+    --font-size-h6: 13px;
+    --font-size-h6-small: 11px;
     
     --app-padding: 4px;
     --app-margin: 8px;

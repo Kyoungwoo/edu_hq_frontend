@@ -33,6 +33,11 @@ export class GuidePage implements OnInit, AfterViewInit {
   listInAnimationItemListEmpty = [];
   bounceInAnimationToggle:boolean = false;
 
+  test = [];
+  testChange() {
+    console.log(this.test);
+  }
+
   /** inputs */
   selectValue = "hello10";
 

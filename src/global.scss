@@ -31,9 +31,10 @@
   body {
     background: transparent !important;
   }
-  h1, h2, h3, h4, h5, p {
+  h1, h2, h3, h4, h5, h6, p {
     vertical-align: middle;
     vertical-align: -webkit-baseline-middle;
+    line-height: 1.48em;
     ion-badge {
       margin-left: var(--app-padding);
       font-weight: 400;
@@ -42,56 +43,65 @@
   h1 {
     margin-top: 32px;
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-h1);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-xl);
+      font-size: var(--ion-size-h2);
     }
   }
   h2 {
     margin-top: 30px;
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-h2);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-l);
+      font-size: var(--ion-size-h3);
     }
   }
   h3 {
     margin-top: 30px;
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-l);
+    font-size: var(--font-size-h3);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-n);
+      font-size: var(--ion-size-h4);
     }
   }
   h4 {
     margin-top: 30px;
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-n);
+    font-size: var(--font-size-h4);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-s);
+      font-size: var(--ion-size-h5);
     }
   }
   h5 {
     margin-top: 30px;
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-s);
+    font-size: var(--font-size-h5);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-xs);
+      font-size: var(--ion-size-h6);
+    }
+  }
+  h6 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h6);
+    font-weight: 700;
+    small {
+      font-size: var(--ion-size-h7);
     }
   }
   p {
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-n);
+    font-size: var(--font-size-h5);
     font-weight: 300;
     color: var(--ion-color-step-600);
     small {
-      font-size: var(--ion-size-s);
+      font-size: var(--ion-size-h6);
     }
   }
   pre {
@@ -101,9 +111,11 @@
   }
   code {
     display: inline-block;
+    text-align: left;
     border-radius: var(--app-border-radius);
     background: var(--ion-background-color);
     padding: 8px;
+    margin: 1px;
   }
   pre > code {
     padding: 28px;

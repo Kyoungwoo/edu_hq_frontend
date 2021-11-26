@@ -31,6 +31,10 @@
             background: var(--ion-color-step-100);
         }
     }
+
+    pre > code {
+        padding: 8px;
+    }
 }
 :host.text-align-left,
 :host ::ng-deep .text-align-left {

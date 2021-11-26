@@ -15,6 +15,7 @@ import { LogoComponent } from './logo/logo.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RowComponent } from './row/row.component';
 import { TableComponent } from './table/table.component';
+import { ContainerComponent } from './container/container.component';
 
 
 
@@ -24,6 +25,7 @@ import { TableComponent } from './table/table.component';
     ButtonFooterComponent,
     CardComponent,
     ColComponent,
+    ContainerComponent,
     CopyRightComponent,
     ImgComponent,
     LogoComponent,
@@ -43,6 +45,7 @@ import { TableComponent } from './table/table.component';
     ButtonFooterComponent,
     CardComponent,
     ColComponent,
+    ContainerComponent,
     CopyRightComponent,
     ImgComponent,
     LogoComponent,

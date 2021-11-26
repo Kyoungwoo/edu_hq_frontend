@@ -18,14 +18,16 @@ import { SelectComponent } from './select/select.component';
 import { TextareaComponent } from './textarea/textarea.component';
 import { InputCameraComponent } from './input-camera/input-camera.component';
 import { UiComponentModule } from '../ui/ui.component.module';
+import { CheckGroupComponent } from './check-group/check-group.component';
 
 
 @NgModule({
   declarations: [
-    CheckComponent,
-    InputComponent,
     CalendarComponent,
     CalendarPopoverComponent,
+    CheckComponent,
+    CheckGroupComponent,
+    InputComponent,
     InputCaptionComponent,
     InputCameraComponent,
     InputFileComponent,
@@ -46,6 +48,7 @@ import { UiComponentModule } from '../ui/ui.component.module';
   exports: [
     CalendarComponent,
     CheckComponent,
+    CheckGroupComponent,
     InputComponent,
     InputCaptionComponent,
     InputCameraComponent,

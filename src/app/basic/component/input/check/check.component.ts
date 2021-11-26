@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { bounceInAnimation } from 'src/app/basic/app.animation';
@@ -24,31 +24,37 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
     return _class.join(' ');
   }
 
+  @Input() type:'all' | 'normal' = 'normal';
   @Input() color:Color = "primary";
   @Input() on:any = true;
   @Input() off:any = false;
 
   constructor() { }
 
-  submit() {}
   ngOnInit() {}
+
+  onChange($event) {
+    const _value:boolean = $event.detail.checked;
+    this._value = _value;
+    this.change.emit(this.value);
+  }
 
   //default setting
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
-  @Input() change = new EventEmitter();
+  @Output() change = new EventEmitter();
 
   public _value:boolean = false;
   @Input()
   set value(v:any) {
     if(v !== this.value) {
       this._value = v === this.on ? true : false;
-      this.change.emit(v);
     }
   }
   get value() { return this._value ? this.on : this.off; }
   
-  writeValue(v:any): void { 
+  writeValue(v:any): void {
+    console.log(v);
     if(v !== this._value) this._value = v; 
   }
   private _onChangeCallback = (v) => {};
