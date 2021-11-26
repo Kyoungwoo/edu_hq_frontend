@@ -1,0 +1,18 @@
+ion-segment-button{
+    height: 56px;
+    --color: black;
+    --padding-bottom: 15px;
+    --background-hover:#D1F6E3;
+    --padding-top: 15px;
+    --color-checked: white;
+    --color-activated: white;
+    --color-hover: white;
+    
+    --indicator-color: #36963E;
+    --indicator-transform: translate(0, -70px);
+    --indicator-transition: transform 300ms;
+    --indicator-height: 10px;
+    --background-hover-opacity: none;
+    --transition: color 0s linear 0s, opacity 0.15s linear 0s;
+    --background-checked:var(--ion-color-primary);  
+}

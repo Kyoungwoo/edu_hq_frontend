@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'basic/button-footer',
+    redirectTo: 'basic/steps',
     pathMatch: 'full'
   },
   {
@@ -18,7 +18,12 @@ const routes: Routes = [
   {
     path: 'basic/button-footer',
     loadChildren: () => import('./basic/page/button-footer/button-footer.module').then( m => m.ButtonFooterPageModule)
+  },
+  {
+    path: 'basic/steps',
+    loadChildren: () => import('./basic/page/steps/steps.module').then( m => m.StepsPageModule)
   }
+
 ];
 
 @NgModule({
