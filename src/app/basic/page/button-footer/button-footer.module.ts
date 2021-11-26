@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InputButtonPageRoutingModule } from './input-button-routing.module';
+import { ButtonFooterPageRoutingModule } from './button-footer-routing.module';
 
-import { InputButtonPage } from './input-button.page';
+import { ButtonFooterPage } from './button-footer.page';
 import { BasicComponentModule } from '../../component/basic.component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { BasicComponentModule } from '../../component/basic.component.module';
     FormsModule,
     IonicModule,
     BasicComponentModule,
-    InputButtonPageRoutingModule
+    ButtonFooterPageRoutingModule
   ],
-  declarations: [InputButtonPage]
+  declarations: [ButtonFooterPage]
 })
-export class InputButtonPageModule {}
+export class ButtonFooterPageModule {}

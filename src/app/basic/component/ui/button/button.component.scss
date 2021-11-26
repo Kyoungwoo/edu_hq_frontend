@@ -3,6 +3,7 @@
     --color: var(--ion-color-contrast);
     --font-size: var(--font-size-n);
     --height: var(--app-height);
+    
 
     display: inline-block;
     margin-top: var(--app-margin);
@@ -12,7 +13,9 @@
     border-radius: var(--app-border-radius);
     ion-button {
         --border-radius: var(--app-border-radius);
-        --box-shadow: var(--app-box-shadow);
+        // --box-shadow: none;
+        --box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+        
         
         margin-left: 0;
         margin-right: 0;
@@ -48,6 +51,7 @@
     width: 100%;
     ion-button {
         width: 100%;
+        
     }
 }
 :host.button-small {
@@ -59,7 +63,7 @@
 :host.button-clear {
     --background: transparent;
     ion-button {
-        --app-box-shadow: none;
+        --box-shadow: none;
     }
 }
 :host.button-outline {
@@ -71,25 +75,29 @@
 :host.button-translucent {
     --background: var(--ion-color-translucent);
     --color: var(--ion-color-shade);
-    
+    ion-button {
+        --box-shadow:none;
+    }
    
 }
 :host.button-translucent-outline {
     --background: var(--ion-color-translucent);
     --color: var(--ion-color-shade);
     ion-button {
-        --border-width: 1px;
+        --border-width: 2px;
         --border-style: solid;
         --border-color: var(--ion-color-primary);
     }
 
 }
 :host.button-round {
+    border-radius: var(--app-height);
     ion-button {
         --border-radius: var(--app-height);
     }
 }
 :host.button-circle {
+    border-radius: 50%;
     ion-button {
         --border-radius: 50%;
     }
