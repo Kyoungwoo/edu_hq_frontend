@@ -3,6 +3,7 @@
     --color: var(--ion-color-contrast);
     --font-size: var(--font-size-n);
     --height: var(--app-height);
+    
 
     display: inline-block;
     margin-top: var(--app-margin);
@@ -72,15 +73,27 @@
     --background: var(--ion-color-translucent);
     --color: var(--ion-color-shade);
     
+    
    
 }
 :host.button-translucent-outline {
     --background: var(--ion-color-translucent);
     --color: var(--ion-color-shade);
     ion-button {
-        --border-width: 1px;
+        --border-width: 2px;
         --border-style: solid;
         --border-color: var(--ion-color-primary);
+    }
+
+}
+
+:host.button-shadow {
+    width: 100%;
+    ion-button {
+        width: 100%;
+        height:48px;
+        --box-shadow: 0px 3px 0 0 var(--ion-color-tertiary);
+
     }
 
 }
