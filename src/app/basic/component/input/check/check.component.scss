@@ -1,7 +1,13 @@
 :host {
-    --border-width: 1px;
-    --font-weight: 500;
-    --checkmark-width: 1px;
+    --app-border-color: var(--ion-color-step-200);
+    --app-border-color-checked: var(--ion-color-shade);
+    //--app-border-radius
+    --app-border-width: 1px;
+    --app-checkmark-width: 2px;
+    --app-font-weight: 500;
+    //--app-height-small
+    //--app-margin
+    --app-size: 30px;
 
     cursor: pointer;
     user-select: none; /* standard syntax */
@@ -9,9 +15,6 @@
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
-
-    --app-border-width: var(--border-width);
-    --app-checkmark-width: var(--checkmark-width);
     .check-item {
         margin-top: var(--app-margin);
         margin-bottom: var(--app-margin);
@@ -20,17 +23,43 @@
         align-items: center;
     }
     p {
-        font-weight: var(--font-weight);
+        font-weight: var(--app-font-weight);
     }
     ion-checkbox {
-        --border-width: var(--app-border-width);
+        --background: none;
+        --background-checked: none;
+        --border-width: 0;
+        --border-radius: var(--app-border-radius);
         --checkmark-width: var(--app-checkmark-width);
-        --size: 10px;
-        width: 1.6em;
-        height: 1.6em;
-        vertical-align: middle;
+
+        border-radius: var(--border-radius);
+        border: var(--app-border-width) solid var(--app-border-color);
+        background: var(--ion-color-white);
+        cursor: default;
+        width: var(--app-size);
+        height: var(--app-size);
         position: relative;
+        vertical-align: middle;
         top: -1px;
         margin-right: var(--app-padding);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
+    ion-checkbox.checkbox-checked {
+        background: var(--ion-color-base);
+        border: var(--app-border-width) solid var(--app-border-color-checked);
+    }
+    ion-checkbox::part(container) {
+        width: 80%;
+    }
+}
+:host.checkbox-readonly {
+    cursor: default;
+    ion-checkbox {
+        opacity: 1;
+    }
+}
+:host.checkbox-disabled {
+    cursor: default;
 }

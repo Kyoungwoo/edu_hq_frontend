@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, forwardRef, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Color } from '@ionic/core';
 import { bounceInAnimation } from 'src/app/basic/app.animation';
 
 @Component({
@@ -15,8 +16,20 @@ import { bounceInAnimation } from 'src/app/basic/app.animation';
 })
 export class CheckComponent implements OnInit, ControlValueAccessor {
 
+  @HostBinding('class') get class() {
+    let _class = [];
+    if(this.disabled) _class.push(`checkbox-disabled`);
+    if(this.readonly) _class.push(`checkbox-readonly`);
+    return _class.join(' ');
+  }
+
+  @Input() color:Color = "primary";
+  @Input() on:any = true;
+  @Input() off:any = false;
+
   constructor() { }
 
+  submit() {}
   ngOnInit() {}
 
   //default setting
@@ -25,15 +38,15 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @Input() change = new EventEmitter();
 
   private _value:boolean = false;
-  @Input() 
-  set value(v:boolean) {  
+  @Input()
+  set value(v:any) {
     if(v !== this._value) {
-      this._value = v; this.change.emit(v); 
+      this._value = v; this.change.emit(v);
     }
   }
-  get value() { return this._value; }
+  get value() { return this._value ? this.on : this.off; }
   
-  writeValue(v:boolean): void { 
+  writeValue(v:any): void { 
     if(v !== this._value) this._value = v; 
   }
   private _onChangeCallback = (v) => {};
