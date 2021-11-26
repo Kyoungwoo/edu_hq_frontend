@@ -5,21 +5,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment scrollable [(ngModel)]="nav">
-    <ion-segment-button value="step1">
-      회원유형<br>선택
-    </ion-segment-button>
-    <ion-segment-button value="step2">
-      기본정보<br>입력
-    </ion-segment-button>
-    <ion-segment-button value="step3">
-      건강문진<br>작성
-    </ion-segment-button>
-    <ion-segment-button value="step4">
-      약관동의
-    </ion-segment-button>
-    <ion-segment-button value="step5">
-      가입완료
+  <ion-segment scrollables>
+    
+    <ion-segment-button *ngFor="let item of steps let index = index" (click)="check(item)">
+      <div class="step-number">
+        <img *ngIf="!item.check" src="assets/basic/img/checked.png">
+        <ng-container *ngIf="item.check">{{ index+1 }}</ng-container>
+      </div>
+      {{item.text}}
     </ion-segment-button>
   </ion-segment>
 </ion-content>
