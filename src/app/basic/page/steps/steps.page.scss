@@ -1,18 +1,19 @@
 ion-segment-button{
     height: 56px;
     --color: black;
+	--background: white;
     --padding-bottom: 15px;
-    --background-hover:#D1F6E3;
+    --background-hover:none;
     --padding-top: 15px;
-    --color-checked: white;
-    --color-activated: white;
-    --color-hover: white;
+    --color-checked: black;
+    // --color-activated: white;
+    --color-hover: black;
     
-    --indicator-color: #36963E;
-    --indicator-transform: translate(0, -70px);
+    --indicator-color: var(--ion-color-primary);
+    // --indicator-transform: translate(0, -70px);
     --indicator-transition: transform 300ms;
-    --indicator-height: 10px;
+    --indicator-height: 3px;
     --background-hover-opacity: none;
     --transition: color 0s linear 0s, opacity 0.15s linear 0s;
-    --background-checked:var(--ion-color-primary);  
+    --background-checked:#D1F6E3;  
 }
