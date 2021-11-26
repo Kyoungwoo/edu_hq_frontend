@@ -1,6 +1,6 @@
 <div class="check-item">
   <p>
-    <ion-checkbox [ngModel]="value" [disabled]="disabled"></ion-checkbox>
+    <ion-checkbox [color]="color" [ngModel]="value" [disabled]="disabled || readonly"></ion-checkbox>
     <ng-content></ng-content>
   </p>
 </div>

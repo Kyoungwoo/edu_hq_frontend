@@ -1,13 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Library Guide</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content #content [fullscreen]="true">
+<ion-content #content>
   <h1>Library Guide</h1>
   <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
 
@@ -292,7 +283,17 @@ Array&lt;&#123;
 
   <h5>example</h5>
   <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
-  <app-check name="check1"></app-check>
+  <app-row>
+    <app-col size="auto">
+      <app-check name="check1"></app-check>
+    </app-col>
+    <app-col size="auto">
+      <app-check color="danger" name="check1" [value]="true"></app-check>
+    </app-col>
+    <app-col size="auto">
+      <app-check color="danger" name="check1" [value]="true" [readonly]="true"></app-check>
+    </app-col>
+  </app-row>
   <app-check name="check2">check with text</app-check>
 
   <h5>Properties</h5>
@@ -309,6 +310,21 @@ Array&lt;&#123;
         <td>value</td>
         <td><code>boolean</code></td>
         <td>check가 되면 true, 아니면 false를 반환합니다.</td>
+      </tr>
+      <tr>
+        <td>color</td>
+        <td><code>Color</code></td>
+        <td>check가 되었을 때의 색상을 변경합니다.</td>
+      </tr>
+      <tr>
+        <td>on</td>
+        <td><code>any</code></td>
+        <td>default는 <code>true</code>.</td>
+      </tr>
+      <tr>
+        <td>off</td>
+        <td><code>any</code></td>
+        <td>check가 되었을 때의 색상을 변경합니다.</td>
       </tr>
     </tbody>
   </app-table>
@@ -327,7 +343,7 @@ Array&lt;&#123;
 
 
 
-  
+
   <app-row>
     <app-col>
       <app-input name="input1" label="label" placeholder="placeholder"></app-input>
