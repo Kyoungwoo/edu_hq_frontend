@@ -70,6 +70,7 @@
     --background: var(--ion-color-white);
     ion-button {
         --border-width: 1px;
+        --box-shadow:none;
     }
 }
 :host.button-translucent {
@@ -87,6 +88,7 @@
         --border-width: 2px;
         --border-style: solid;
         --border-color: var(--ion-color-primary);
+        --box-shadow:none;
     }
 
 }
