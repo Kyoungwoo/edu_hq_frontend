@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding, Output } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding, Output, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { bounceInAnimation } from 'src/app/basic/app.animation';
@@ -19,8 +19,6 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @HostBinding('class') get class() {
     let _class = [];
     if(this.color) _class.push(`ion-color-${this.color}`);
-    if(this.disabled) _class.push(`checkbox-disabled`);
-    if(this.readonly) _class.push(`checkbox-readonly`);
     return _class.join(' ');
   }
 
@@ -40,6 +38,8 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   }
 
   //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();

@@ -73,7 +73,9 @@
   --app-height: 42px;
   --app-height-small: 32px;
 
+  --app-input-border-width: 2px;
   --app-input-border-color: var(--ion-color-step-500);
+  --ion-input-border-disabled-color: var(--ion-color-step-250);
 }
 @media screen and (max-width: 768px) {
   body {

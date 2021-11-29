@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
@@ -69,7 +69,9 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
       showBackdrop: false
     });
     popover.present();
+    this.fucus();
     const { data } = await popover.onWillDismiss();
+    this.blur();
     if(data) {
       this.form.hour = data.hour;
       this.form.minute = data.minute;
@@ -91,9 +93,21 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
   }
 
   //default setting
+  @HostBinding('class.focus') get classFocus() { return this.isFocus }
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
+
+  private isFocus:boolean = false;
+  fucus() {
+    if(this.readonly) return;
+    this.isFocus = true;
+  }
+  blur() {
+    this.isFocus = false;
+  }
 
   @Input()
   set value(v:any) {

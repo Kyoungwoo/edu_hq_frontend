@@ -21,7 +21,7 @@
     .inputs {
         position: relative;
         border-style: solid;
-        border-width: var(--app-border-width);
+        border-width: var(--app-input-border-width);
         border-color: var(--app-input-border-color);
         border-radius: var(--app-border-radius);
         background: var(--ion-color-white);
@@ -34,6 +34,7 @@
         padding-left: 3px;
     }
     input {
+        width: 100%;
         color: var(--ion-text-color);
         outline: none;
         background: transparent;
@@ -46,14 +47,16 @@
         margin-bottom: 0;
     }
     .year-input {
-        width: 2.5em;
+        min-width: 2.5em;
+        max-width: 3em;
     }
     .month-input{
-        width: 1.2em;
+        min-width: 1.2em;
+        max-width: 2em;
     }
     .date-input {
-        width: calc(1.2em + 32px);
-        padding-right: 32px;
+        min-width: 1.2em;
+        max-width: 2em;
     }
     .icon {
         cursor: pointer;
@@ -68,8 +71,32 @@
         align-items: center;
         justify-content: center;
         font-size: var(--font-size-s);
+        outline: none !important;
         app-img {
             width: 20px;
         }
+    }
+    .icon:focus {
+        outline: none !important;
+    }
+}
+:host.readonly {
+    .icon {
+        cursor: default;
+        opacity: 0.5;
+    }
+}
+:host.disabled {
+    opacity: 0.5;
+    .icon {
+        cursor: default;
+    }
+}
+:host.focus {
+    ion-label {
+        color: var(--ion-color-primary);
+    }
+    .inputs {
+        border-color: var(--ion-color-primary);
     }
 }

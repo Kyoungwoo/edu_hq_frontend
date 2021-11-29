@@ -74,11 +74,10 @@ export class GuidePage implements OnInit, AfterViewInit {
     const offsetTop = el?.offsetTop || 0;
 
     const scrollEl = await this.content.getScrollElement();
-
     if(!scrollEl?.scrollHeight) {
       setTimeout(() => {
         this.scrollTo(fragment);
-      }, 10);
+      }, 20);
       return;
     }
 

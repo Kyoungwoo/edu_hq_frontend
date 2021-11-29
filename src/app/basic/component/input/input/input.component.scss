@@ -20,7 +20,7 @@
     }
     ion-input {
       border-style: solid;
-      border-width: var(--app-border-width);
+      border-width: var(--app-input-border-width);
       border-color: var(--app-input-border-color);
       border-radius: var(--app-border-radius);
       --padding-start: 8px;
@@ -53,7 +53,7 @@
   }
   ion-item.disabled {
     ion-input {
-      border: 2px solid rgba(var(--app-border-rgb), 0.5);
+      border-color: var(--ion-input-border-disabled-color);
     }
     .etc {
       opacity: 0.5;

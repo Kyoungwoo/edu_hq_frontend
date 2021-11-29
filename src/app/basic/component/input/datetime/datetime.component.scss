@@ -21,7 +21,7 @@
     app-row {
         position: relative;
         border-style: solid;
-        border-width: var(--app-border-width);
+        border-width: var(--app-input-border-width);
         border-color: var(--app-input-border-color);
         border-radius: var(--app-border-radius);
         background: var(--ion-color-white);
@@ -67,8 +67,32 @@
         align-items: center;
         justify-content: center;
         font-size: var(--font-size-s);
+        outline: none !important;
         app-img {
             width: 20px;
         }
+    }
+    .icon:focus {
+        outline: none !important;
+    }
+}
+:host.readonly {
+    .icon {
+        cursor: default;
+        opacity: 0.5;
+    }
+}
+:host.disabled {
+    opacity: 0.5;
+    .icon {
+        cursor: default;
+    }
+}
+:host.focus {
+    ion-label {
+        color: var(--ion-color-primary);
+    }
+    .inputs {
+        border-color: var(--ion-color-primary);
     }
 }
