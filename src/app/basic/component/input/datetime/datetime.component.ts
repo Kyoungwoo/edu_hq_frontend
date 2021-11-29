@@ -1,5 +1,8 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { PopoverController } from '@ionic/angular';
+import { RegexService } from 'src/app/basic/service/util/regex.service';
+import { DatetimePopoverComponent } from '../datetime-popover/datetime-popover.component';
 
 @Component({
   selector: 'app-datetime',
@@ -13,27 +16,98 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class DatetimeComponent implements OnInit, ControlValueAccessor {
 
-  constructor() { }
+  @Input() label:string;
+
+  form = {
+    hour: '',
+    minute: ''
+  }
+
+  constructor(
+    private el: ElementRef,
+    private popover: PopoverController,
+    private regex: RegexService
+  ) { }
 
   ngOnInit() {}
+
+  changeHour($event:KeyboardEvent) {
+    if(this.form.hour.length < 2) {
+      this.form.hour = this.regex.replace.fix(this.form.hour, 2, 0, 23);
+    }
+    else if(this.regex.number.test($event.key)) {
+      this.form.hour = this.regex.replace.fix(this.form.hour + $event.key, 2, 0, 23);
+    } 
+    else if($event.key === 'Backspace') {
+      this.form.hour = this.regex.replace.fix(this.form.hour.slice(0, -1), 2);
+    }
+  }
+
+  changeMinute($event:KeyboardEvent) {
+    if(this.form.minute.length < 2) {
+      this.form.minute = this.regex.replace.fix(this.form.minute, 2, 0, 59);
+    }
+    else if(this.regex.number.test($event.key)) {
+      this.form.minute = this.regex.replace.fix(this.form.minute + $event.key, 2, 0, 59);
+    }
+    else if($event.key === 'Backspace') {
+      this.form.minute = this.regex.replace.fix(this.form.minute.slice(0, -1), 2);
+    }
+  }
+
+  async popoverDateTimePicker() {
+    const event:any = {
+      target: this.el.nativeElement
+    }
+    const popover = await this.popover.create({
+      component: DatetimePopoverComponent,
+      componentProps: {
+        hour: this.form.hour,
+        minute: this.form.minute
+      },
+      event,
+      showBackdrop: false
+    });
+    popover.present();
+    const { data } = await popover.onWillDismiss();
+    if(data) {
+      this.form.hour = data.hour;
+      this.form.minute = data.minute;
+    }
+  }
+
+  private getTimeFormat() {
+    return this.form.hour + ':' + this.form.minute;
+  }
+  private setTimeFormat(v) {
+    try {
+      const time = v.split(':');
+      this.form.hour = time[0];
+      this.form.minute = time[1];
+    } catch(e) {
+      this.form.hour = null;
+      this.form.minute = null;
+    }
+  }
 
   //default setting
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
 
-  public _value:boolean = false;
   @Input()
   set value(v:any) {
-    if(v !== this.value) {
-      this._value = v === this.on ? true : false;
+    if(v !== this.getTimeFormat()) {
+      this.setTimeFormat(v);
+      this.change.emit(this.value);
     }
   }
-  get value() { return this._value ? this.on : this.off; }
+  get value() { return this.getTimeFormat() }
   
   writeValue(v:any): void {
-    console.log(v);
-    if(v !== this._value) this._value = v; 
+    if(v !== this.getTimeFormat()) {
+      this.setTimeFormat(v);
+    }
   }
   private _onChangeCallback = (v) => {};
   private _onTouchedCallback = (v) => {};

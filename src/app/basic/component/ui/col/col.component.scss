@@ -7,7 +7,12 @@
     flex: 1 1 0%;
     width: 100%;
     text-align: center;
-    // height: 100%;
+}
+:host:first-child {
+    padding-left: 0;
+}
+:host:last-child {
+    padding-right: 0;
 }
 :host ::ng-deep {
     app-card {

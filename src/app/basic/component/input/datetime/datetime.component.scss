@@ -1,0 +1,74 @@
+:host {
+    display: block;
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    ion-item {
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-end: 0;
+        --min-height: 0;
+        --background: transparent;
+    }
+    ion-label {
+        color: var(--ion-color-medium);
+        font-size: var(--font-size-s);
+        transform: scale(1);
+        font-weight: 500;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 3px;
+    }
+    app-row {
+        position: relative;
+        border-style: solid;
+        border-width: var(--app-border-width);
+        border-color: var(--app-input-border-color);
+        border-radius: var(--app-border-radius);
+        background: var(--ion-color-white);
+        font-size: var(--font-size-n);
+        height: var(--app-height);
+        justify-content: flex-start;
+        padding-left: 3px;
+    }
+    app-col {
+        padding: 0;
+    }
+    input {
+        width: 100%;
+        color: var(--ion-text-color);
+        outline: none;
+        background: transparent;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: right;
+        border: 0;
+        margin-top: 0;
+        min-width: initial;
+        margin-bottom: 0;
+    }
+    .hour-input {
+        min-width: 1.2em;
+        max-width: 2em;
+    }
+    .minute-input {
+        min-width: 1.2em;
+        max-width: 2em;
+    }
+    .icon {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        height: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-s);
+        app-img {
+            width: 20px;
+        }
+    }
+}

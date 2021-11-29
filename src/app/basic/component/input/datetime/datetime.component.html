@@ -1,3 +1,21 @@
-<p>
-  datetime works!
-</p>
+<ion-item lines="none">
+  <ion-label position="stacked">{{ label }}</ion-label>
+  <app-row class="inputs">
+    <app-col size="auto">
+      <input [readonly]="disabled" type="tel" class="hour-input" placeholder="시" [(ngModel)]="form.hour" maxlength="2" (keyup)="changeHour($event)">
+    </app-col>
+    <app-col size="auto">
+      :
+    </app-col>
+    <app-col size="auto">
+      <input [readonly]="disabled" type="tel" class="minute-input" placeholder="분" [(ngModel)]="form.minute" maxlength="2" (keyup)="changeMinute($event)">
+    </app-col>
+    <app-col size="auto">
+      <div class="icon" [class.disabled]="disabled"
+      tabindex="-1"
+      (click)="disabled ? null : popoverDateTimePicker()">
+        <app-img src="assets/img/basic/calendar.png"></app-img>
+      </div>
+    </app-col>
+  </app-row>
+</ion-item>

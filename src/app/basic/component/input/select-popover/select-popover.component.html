@@ -1,13 +1,11 @@
-<ion-content [scrollY]="false">
-  <cdk-virtual-scroll-viewport
-  #virtualScroll
-  [itemSize]="itemSize"
-  [minBufferPx]="itemSize*opts.length"
-  [maxBufferPx]="itemSize*opts.length">
-    <ion-list lines="none">
-      <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)">
-        <ion-text [color]="item.value === value ? 'primary' : null">{{ item.text }}</ion-text>
-      </ion-item>
-    </ion-list>
-  </cdk-virtual-scroll-viewport>
-</ion-content>
+<cdk-virtual-scroll-viewport
+#virtualScroll
+[itemSize]="itemSize"
+[minBufferPx]="itemSize*opts.length"
+[maxBufferPx]="itemSize*opts.length">
+  <ion-list lines="none">
+    <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)">
+      <ion-text [color]="item.value === value ? 'primary' : null">{{ item.text }}</ion-text>
+    </ion-item>
+  </ion-list>
+</cdk-virtual-scroll-viewport>

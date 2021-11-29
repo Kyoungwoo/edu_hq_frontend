@@ -19,6 +19,8 @@ import { TextareaComponent } from './textarea/textarea.component';
 import { InputCameraComponent } from './input-camera/input-camera.component';
 import { UiComponentModule } from '../ui/ui.component.module';
 import { CheckGroupComponent } from './check-group/check-group.component';
+import { DatetimeComponent } from './datetime/datetime.component';
+import { DatetimePopoverComponent } from './datetime-popover/datetime-popover.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { CheckGroupComponent } from './check-group/check-group.component';
     CalendarPopoverComponent,
     CheckComponent,
     CheckGroupComponent,
+    DatetimeComponent,
+    DatetimePopoverComponent,
     InputComponent,
     InputCaptionComponent,
     InputCameraComponent,
@@ -49,6 +53,7 @@ import { CheckGroupComponent } from './check-group/check-group.component';
     CalendarComponent,
     CheckComponent,
     CheckGroupComponent,
+    DatetimeComponent,
     InputComponent,
     InputCaptionComponent,
     InputCameraComponent,

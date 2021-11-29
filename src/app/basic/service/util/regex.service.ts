@@ -45,15 +45,15 @@ export class RegexService {
       return String(number).replace(/(\d{3})(\d{2})(\d{0,5})/, "$1-$2-$3");
     },
     /** 숫자를 01, 001 등으로 표현해준다. */
-    fix(number:string | number, length:number, min?:number, max?:number) {
+    fix: (number:string | number, length:number, min?:number, max?:number) => {
       number = Number(number);
       
-      if(min) number = Math.min(min, number);
-      if(max) number = Math.max(max, number);
+      if(min) number = Math.max(min, number);
+      if(max) number = Math.min(max, number);
       number = String(number);
       
       if(number.length < length) number = new Array(length - number.length).fill('0').join('') + number;
-      else if(number.length > length) number = number.substring(0, length);
+      else if(number.length > length) number = number.substring(number.length - length, number.length);
       
       return number;
     }

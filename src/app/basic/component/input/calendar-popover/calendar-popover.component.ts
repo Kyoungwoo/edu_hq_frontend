@@ -54,7 +54,6 @@ export class CalendarPopoverComponent implements OnInit {
   @Input() monthName = '월';
   @Input() dayNames:CalendarDateNames = ['일','월', '화', '수', '목', '금', '토'];
   @Input() AMPMNames: [string, string] = ['오전', '오후'];
-  @Input() disableDaysOfWeek = [];
 
   displayDate:Date = this.value || new Date();
   displayYear = this.displayDate.getFullYear();
@@ -105,27 +104,11 @@ export class CalendarPopoverComponent implements OnInit {
     this.displayDate.setMonth(nextMonth);
     this.setDisplay();
   }
-
-  async popoverYear($event) {
-    
-  }
-
-  containInArray(value, arr) {
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] == value) {
-        return true;
-      }
-    }
-
-    return false;
-  }
+  
   disableDate(index) {
     if (this.dates[index] < this.min || this.dates[index] > this.max) {
       return true;
-    }
-
-    var dayOfWeek = this.dayNames[index % 7];
-    return this.containInArray(dayOfWeek, this.disableDaysOfWeek);
+    } else return false;
   }
 
   notDisplayMonthDate(index) {

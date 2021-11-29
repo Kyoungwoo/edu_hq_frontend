@@ -1,4 +1,11 @@
 :host {
+    app-row {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-col {
+        padding: 0;
+    }
     cdk-virtual-scroll-viewport {
         --background: var(--app-background-dialog);
         display: block;

@@ -23,7 +23,6 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() max:string;
   @Input() timePicker:boolean;
   @Input() type:'date' | 'week' = 'date';
-  @Input() disableDaysOfWeek = [];
 
   form = {
     year: '',
@@ -104,8 +103,7 @@ export class CalendarComponent implements ControlValueAccessor {
         max: this.max,
         value: date,
         timePicker: this.timePicker,
-        type: this.type,
-        disableDaysOfWeek: this.disableDaysOfWeek
+        type: this.type
       },
       event,
       showBackdrop: false
@@ -148,7 +146,9 @@ export class CalendarComponent implements ControlValueAccessor {
   get value() { return this.getDateFormat(); };
 
   writeValue(v: any) {
-    if(v !== this.getDateFormat()) this.setDateFormat(v);
+    if(v !== this.getDateFormat()) {
+      this.setDateFormat(v);
+    }
   }
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;

@@ -1,0 +1,28 @@
+<app-row>
+  <app-col>
+    <cdk-virtual-scroll-viewport
+    #virtualScrollHour
+    [itemSize]="itemSize"
+    [minBufferPx]="itemSize*hourList.length"
+    [maxBufferPx]="itemSize*hourList.length">
+      <ion-list lines="none">
+        <ion-item *cdkVirtualFor="let item of hourList" button (click)="hourClick(item)">
+          <ion-text [color]="item.value === hour ? 'primary' : null">{{ item.value }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </cdk-virtual-scroll-viewport>
+  </app-col>
+  <app-col>
+    <cdk-virtual-scroll-viewport
+    #virtualScrollMinute
+    [itemSize]="itemSize"
+    [minBufferPx]="itemSize*minuteList.length"
+    [maxBufferPx]="itemSize*minuteList.length">
+      <ion-list lines="none">
+        <ion-item *cdkVirtualFor="let item of minuteList" button (click)="minuteClick(item)">
+          <ion-text [color]="item.value === minute ? 'primary' : null">{{ item.value }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </cdk-virtual-scroll-viewport>
+  </app-col>
+</app-row>
