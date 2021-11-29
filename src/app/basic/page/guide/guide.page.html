@@ -430,18 +430,29 @@
 
     <h4 id="file">file</h4>
     <p>devmonster에서 만든 <code>fut</code> 시스템에 맞는 형태로 파일을 가공 및 활용할 수 있게 해주는 component 입니다.<br>
-    기본적으로 <small><code>{{ '{ position:absolute, left:0, top: 0, width: 100%, height: 100%, opacity: 0 }' }}</code></small> 인 레이아웃이기 때문에, 주로 <a routerLink="/basic/guide" fragment="button"><code>button</code></a>등과 함께 사용합니다.</p>
+    back-end 와의 데이터 통신은 snake case 를 사용하기 때문에, file component 에서는 snake case 를 기본으로 사용합니다.<br>
+    기본적으로 <small><code>{{ '{ position:absolute, left:0, top: 0, width: 100%, height: 100%, opacity: 0 }' }}</code></small> 인 레이아웃이기 때문에, 주로 <a routerLink="/basic/guide" fragment="button"><code>button</code></a>등과 함께 사용합니다.<br>
+    <b><ion-text color="danger">반드시 <code>[view_type]</code>을 정의하고 사용하여야 합니다.</ion-text></b></p>
 
     <h5>examples</h5>
 <pre><code>&lt;app-button&gt;
   file upload
-  &lt;app-file name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;&lt;/app-file&gt;
+  &lt;app-file name="input" label="input" view_type="NOTICE" 
+  [list]=&rdquo;filePreviewList&rdquo;
+  [files]=&rdquo;form.files&rdquo;
+  [file_json]=&rdquo;form.file_json&rdquo;
+  &gt;&lt;/app-file&gt;
 &lt;/app-button&gt;</code></pre>
 
     <app-button>
       file upload
-      <app-file></app-file>
+      <app-file view_type="NOTICE" [list]="filePreviewList"></app-file>
     </app-button>
+    <app-card *ngFor="let file of filePreviewList">
+      <ion-card-content>
+      {{ file.file_name }}
+      </ion-card-content>
+    </app-card>
 
     <h4 id="app-input">input</h4>
     <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
@@ -534,6 +545,7 @@
       </tbody>
     </app-table>
 
+    <h4 id="naver-map">naver-map<ion-badge>by JunTae</ion-badge></h4>
   
     <h3>app-select</h3>
     <p>셀렉트 component 입니다.</p>
@@ -630,6 +642,7 @@
     <h3>app-logo</h3>
     <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
     <app-logo></app-logo>
+
     <h3>app-profile</h3>
     <p>프로필 이미지를 표시하기 위한 component 입니다. app-input-file 을 상속하고 있어서, 이미지 추가, 삭제를 할 수 있습니다.</p>
     <app-row>

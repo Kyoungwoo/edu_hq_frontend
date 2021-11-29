@@ -101,15 +101,19 @@ export interface FileJson {
   update:{order_no:number, view_type:string, seq_no:number}[],
   delete:{seq_no:number}[]
 }
-export interface ExistFile {
-  file_url:string, // url
-  file_name:string, // 파일명
-  file_size:string, // 사이즈 
-  content_type:string // 콘텐츠타입
+export interface FutList {
+
 }
-export interface InsertFile {
-  url:string,
-  file:File | FileBlob
+export interface FutItem {
+  file_url:string,
+  file_name:string,
+  seq_no:number,
+  order_no:number,
+  file_size:number,
+  file_type:string,
+  view_type:string,
+  content_type:string,
+  [name:string]:any
 }
 
 export interface cutImageOptions {

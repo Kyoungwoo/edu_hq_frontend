@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FileBlob, FileJson, InsertFile, FileService } from 'src/app/basic/service/file.service';
+import { FileBlob, FileJson, FileService } from 'src/app/basic/service/file.service';
 
 @Component({
   selector: 'app-input-file',
@@ -39,7 +39,7 @@ export class InputFileComponent implements OnInit {
   }
   @Output() fileChange = new EventEmitter<{ files:Array<File | FileBlob>, file_json:FileJson }>();
 
-  private insertFileList:InsertFile[] = [];
+  private insertFileList:any[] = [];
   private existFileList:any[] = [];
   private deleteFileList:any[] = [];
 
