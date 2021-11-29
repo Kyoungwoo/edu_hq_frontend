@@ -14,8 +14,8 @@ import { BasicComponentModule } from '../../component/basic.component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    StepsPageRoutingModule,
-    BasicComponentModule
+    BasicComponentModule,
+    StepsPageRoutingModule
   ],
   declarations: [StepsPage]
 })
