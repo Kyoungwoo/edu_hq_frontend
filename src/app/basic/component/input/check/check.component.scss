@@ -2,14 +2,13 @@
     --app-border-color: var(--ion-color-step-200);
     --app-border-color-checked: var(--ion-color-shade);
     //--app-border-radius
-    --app-border-width: 1px;
+    --app-input-border-width: 1px;
     --app-checkmark-width: 2px;
     --app-font-weight: 500;
     //--app-height-small
     //--app-margin
     --app-size: 30px;
 
-    cursor: pointer;
     user-select: none; /* standard syntax */
     -webkit-user-select: none; /* webkit (safari, chrome) browsers */
     -moz-user-select: none; /* mozilla browsers */
@@ -22,7 +21,8 @@
         display: flex;
         align-items: center;
     }
-    p {
+    p, label {
+        cursor: pointer;
         font-weight: var(--app-font-weight);
     }
     ion-checkbox {
@@ -33,7 +33,7 @@
         --checkmark-width: var(--app-checkmark-width);
 
         border-radius: var(--border-radius);
-        border: var(--app-border-width) solid var(--app-border-color);
+        border: var(--app-input-border-width) solid var(--app-border-color);
         background: var(--ion-color-white);
         cursor: default;
         width: var(--app-size);
@@ -48,18 +48,24 @@
     }
     ion-checkbox.checkbox-checked {
         background: var(--ion-color-base);
-        border: var(--app-border-width) solid var(--app-border-color-checked);
+        border: var(--app-input-border-width) solid var(--app-border-color-checked);
     }
     ion-checkbox::part(container) {
         width: 80%;
     }
 }
-:host.checkbox-readonly {
+:host.readonly {
     cursor: default;
     ion-checkbox {
         opacity: 1;
     }
+    label {
+        opacity: 0.5;
+    }
 }
-:host.checkbox-disabled {
+:host.disabled {
     cursor: default;
+    label {
+        opacity: 0.5;
+    }
 }

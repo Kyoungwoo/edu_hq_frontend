@@ -109,7 +109,9 @@ export class CalendarComponent implements ControlValueAccessor {
       showBackdrop: false
     });
     popover.present();
+    this.fucus();
     const { data } = await popover.onWillDismiss();
+    this.blur();
     if(data) {
       this.value = data.getFullYear() + '-' + this.regex.replace.fix(data.getMonth() + 1, 2) + '-' + this.regex.replace.fix(data.getDate(), 2);
     }
@@ -132,9 +134,21 @@ export class CalendarComponent implements ControlValueAccessor {
   }
 
   //default setting
+  @HostBinding('class.focus') get classFocus() { return this.isFocus }
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
+
+  private isFocus:boolean = false;
+  fucus() {
+    if(this.readonly) return;
+    this.isFocus = true;
+  }
+  blur() {
+    this.isFocus = false;
+  }
 
   @Input() 
   set value(v) {

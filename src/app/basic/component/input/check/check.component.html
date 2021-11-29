@@ -1,6 +1,6 @@
 <div class="check-item">
-  <p>
-    <ion-checkbox [color]="color" [(ngModel)]="_value" [disabled]="disabled || readonly" (ionChange)="onChange($event)"></ion-checkbox>
-    <ng-content></ng-content>
+  <p (click)="_value = !_value">
+    <ion-checkbox [color]="color" [(ngModel)]="_value" [disabled]="disabled || readonly" (click)="$event.stopPropagation()" (ionChange)="onChange($event)"></ion-checkbox>
+    <label class="label"><ng-content></ng-content></label>
   </p>
 </div>

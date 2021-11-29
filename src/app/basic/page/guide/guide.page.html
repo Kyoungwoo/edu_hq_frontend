@@ -220,7 +220,17 @@
     <h5>example</h5>
     <pre><code>&lt;app-calendar name="calendar" label="calendar" [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
     <form>
-      <app-calendar name="calendar" label="calendar"></app-calendar>
+      <app-row>
+        <app-col>
+          <app-calendar name="calendar" label="calendar"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-calendar name="calendar readonly" label="calendar readonly" [readonly]="true"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-calendar name="calendar disabled" label="calendar disabled" [disabled]="true"></app-calendar>
+        </app-col>
+      </app-row>
       <app-row>
         <app-col>
           <app-calendar #startCalendar name="calendar" label="시작일[max=종료일.value]" [max]="endCalendar.value"></app-calendar>
@@ -289,13 +299,21 @@
         <app-check name="check1"></app-check>
       </app-col>
       <app-col size="auto">
-        <app-check color="danger" name="check1" [value]="true"></app-check>
+        <app-check name="check1" color="warning" [value]="true"></app-check>
       </app-col>
       <app-col size="auto">
-        <app-check color="danger" name="check1" [value]="true" [readonly]="true"></app-check>
+        <app-check name="check1" color="danger" [value]="true"></app-check>
+      </app-col>
+      <app-col size="auto">
+        <app-check name="check2" [value]="true">check</app-check>
+      </app-col>
+      <app-col size="auto">
+        <app-check name="check3" [value]="true" [readonly]="true">readonly</app-check>
+      </app-col>
+      <app-col size="auto">
+        <app-check name="check4" [value]="true" [disabled]="true">disabled</app-check>
       </app-col>
     </app-row>
-    <app-check name="check2">check with text</app-check>
   
     <h5>Properties</h5>
     <app-table>
@@ -377,8 +395,18 @@
 
     <h5>example</h5>
 <pre><code>&lt;app-datetime label="dateTime" [(ngModel)]="form.dateTime"&gt;&lt;/app-datetime&gt;</code></pre>
-    <app-datetime name="datetime" label="datetime"></app-datetime>
-  
+    <app-row>
+      <app-col>
+        <app-datetime name="datetime" label="datetime"></app-datetime>
+      </app-col>
+      <app-col>
+        <app-datetime name="datetime readonly" label="datetime readonly" [readonly]="true"></app-datetime>
+      </app-col>
+      <app-col>
+        <app-datetime name="datetime disabled" label="datetime disabled" [disabled]="true"></app-datetime>
+      </app-col>
+    </app-row>
+
     <h4 id="app-input">input</h4>
     <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
   
@@ -386,6 +414,24 @@
 <pre><code>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;</code></pre>
+
+  <h5>properties</h5>
+  <app-table>
+    <thead>
+      <tr>
+        <th>Prop</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>value</td>
+        <td><code>hh:dd</code></td>
+        <td>시간과 분을 값으로 가집니다.</td>
+      </tr>
+    </tbody>
+  </app-table>
   
     
   
