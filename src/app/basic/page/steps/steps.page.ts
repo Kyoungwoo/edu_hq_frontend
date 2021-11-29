@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StepsPage implements OnInit {
 
-  nav = '';
+  nav = [
+    {y:36.9845136,x:126.626467},
+    {y:36.8560585,x:126.442446},
+    {y:36.8307812,x:126.8077414},
+  ];
 
+
+//   x: 126.626467
+// y: 36.9845136
   
+
+// x: 126.442446
+// y: 36.8560585
+
+// x: 126.8077414
+// y: 36.8307812
   steps = [
     {
       number: 1,

@@ -21,6 +21,7 @@ import { UiComponentModule } from '../ui/ui.component.module';
 import { CheckGroupComponent } from './check-group/check-group.component';
 import { DatetimeComponent } from './datetime/datetime.component';
 import { DatetimePopoverComponent } from './datetime-popover/datetime-popover.component';
+import { NaverMapComponent } from './naver-map/naver-map.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { DatetimePopoverComponent } from './datetime-popover/datetime-popover.co
     SelectComponent,
     SelectOptionComponent,
     SelectPopoverComponent,
-    TextareaComponent
+    TextareaComponent,
+    NaverMapComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { DatetimePopoverComponent } from './datetime-popover/datetime-popover.co
     InputFileComponent,
     SelectComponent,
     SelectOptionComponent,
-    TextareaComponent
+    TextareaComponent,
+    NaverMapComponent
   ]
 })
 export class InputComponentModule { }
