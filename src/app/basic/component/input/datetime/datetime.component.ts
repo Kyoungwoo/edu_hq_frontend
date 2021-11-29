@@ -102,7 +102,6 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
 
   private isFocus:boolean = false;
   fucus() {
-    if(this.readonly) return;
     this.isFocus = true;
   }
   blur() {

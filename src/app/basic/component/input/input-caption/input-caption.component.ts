@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-input-caption',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class InputCaptionComponent implements OnInit {
 
-  @Input() color:string = "";
+  @Input() color:Color = null;
   @Input() icon:string = null;
 
   constructor() { }

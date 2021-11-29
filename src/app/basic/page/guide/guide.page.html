@@ -10,7 +10,7 @@
     <h4 id="fadeAnimation">fadeAnimation</h4>
     <p>fade In Out 애니메이션 입니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
       <pre><code>&lt;app-card @fadeAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -22,7 +22,7 @@
     <h4 id="fadeInAnimation">fadeInAnimation</h4>
     <p>fade In 애니메이션 입니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
       <pre><code>&lt;app-card @fadeInAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -34,7 +34,7 @@
     <h4 id="listAnimation">listAnimation</h4>
     <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In Out 애니메이션 입니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
 <pre><code>&lt;div [@listAnimation]="listAnimationItemList.length"&gt;
     &lt;app-card *ngFor=&rdquo;let item of listAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
@@ -50,7 +50,7 @@
     <h4 id="listInAnimation">listInAnimation</h4>
     <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In 애니메이션 입니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
 <pre><code>&lt;div [@listInAnimation]="listInAnimationItemList.length"&gt;
     &lt;app-card *ngFor=&rdquo;let item of listInAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
@@ -66,7 +66,7 @@
     <h4 id="bounceInAnimation">bounceInAnimation</h4>
     <p>bounce In 애니메이션 입니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
       <pre><code>&lt;app-card @bounceInAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -83,7 +83,7 @@
     <p>alert, modal 등 화면에 새로 띄우는 컴포넌트들 입니다. <strong>tag를 직접 넣어 사용하지 않고, service를 이용해서 사용합니다.</strong></p>
     <h4 id="alert">app-alert<ion-badge>private</ion-badge><ion-badge>service</ion-badge></h4>
     <p><a routerLink="/basic/guide" fragment="calendar-service"><code>calendar.service</code></a>로 사용합니다.</p>
-    <h5>Example</h5>
+    <h5>examples</h5>
     <div>
 <pre><code>this.alert.present(&#123;
     mode: 'devmonster',
@@ -217,7 +217,7 @@
     <p>달력으로 날짜를 고르는 인풋 입니다.<br>
       버튼 클릭 시, <a routerLink="/basic/guide" fragment="calendar-popover"><code>calendar-popover</code></a>를 호출합니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <pre><code>&lt;app-calendar name="calendar" label="calendar" [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
     <form>
       <app-row>
@@ -292,7 +292,7 @@
     <h4 id="check">check</h4>
     <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다. <a routerLink="/basic/guide" fragment="check-group"><code>check-group</code></a>과 함께 사용될 수 있습니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
     <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
     <app-row>
       <app-col size="auto">
@@ -357,7 +357,7 @@
     <p><a routerLink="/basic/guide" fragment="check"><code>check</code></a>와 함께 사용되는 component 입니다. 여러개의 <a routerLink="/basic/guide" fragment="check"><code>check</code></a>를 관리할 때, 사용됩니다.<br>
       <a routerLink="/basic/guide" fragment="check"><code>check</code></a>의 <code>[type=all]</code>을 이용하여, 전체 <a routerLink="/basic/guide" fragment="check"><code>check</code></a>를 토글할 수 있습니다.</p>
   
-    <h5>example</h5>
+    <h5>examples</h5>
 <pre><code>&lt;app-check-group [(ngModel)]="checkedList"&gt;
   &lt;app-check type="all"&gt;all&lt;/app-check&gt;
   &lt;app-check on="korea"&gt;korea&lt;/app-check&gt;
@@ -365,7 +365,7 @@
   &lt;app-check on="china"&gt;china&lt;/app-check&gt;
 &lt;/app-check-group&gt;</code></pre>
   
-    <app-check-group [(ngModel)]="test" (change)="testChange()">
+    <app-check-group>
       <app-check type="all">all</app-check>
       <app-check on="korean">korean</app-check>
       <app-check on="japan">japan</app-check>
@@ -393,7 +393,7 @@
     <h4 id="datetime">datetime</h4>
     <p>시간을 선택하기 위한 component 입니다.</p>
 
-    <h5>example</h5>
+    <h5>examples</h5>
 <pre><code>&lt;app-datetime label="dateTime" [(ngModel)]="form.dateTime"&gt;&lt;/app-datetime&gt;</code></pre>
     <app-row>
       <app-col>
@@ -407,6 +407,42 @@
       </app-col>
     </app-row>
 
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td><code>hh:dd</code></td>
+          <td>시간과 분을 값으로 가집니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="datetime-popover">datetime-popover<ion-badge>private</ion-badge></h4>
+    <p><a routerLink="/basic/guide" fragment="datetime"><code>datetime</code></a>에서 호출되는 시간 선택 component 입니다.</p>
+
+    <h4 id="file">file</h4>
+    <p>devmonster에서 만든 <code>fut</code> 시스템에 맞는 형태로 파일을 가공 및 활용할 수 있게 해주는 component 입니다.<br>
+    기본적으로 <small><code>{{ '{ position:absolute, left:0, top: 0, width: 100%, height: 100%, opacity: 0 }' }}</code></small> 인 레이아웃이기 때문에, 주로 <a routerLink="/basic/guide" fragment="button"><code>button</code></a>등과 함께 사용합니다.</p>
+
+    <h5>examples</h5>
+<pre><code>&lt;app-button&gt;
+  file upload
+  &lt;app-file name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;&lt;/app-file&gt;
+&lt;/app-button&gt;</code></pre>
+
+    <app-button>
+      file upload
+      <app-file></app-file>
+    </app-button>
+
     <h4 id="app-input">input</h4>
     <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
   
@@ -415,57 +451,89 @@
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;</code></pre>
 
-  <h5>properties</h5>
-  <app-table>
-    <thead>
-      <tr>
-        <th>Prop</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>value</td>
-        <td><code>hh:dd</code></td>
-        <td>시간과 분을 값으로 가집니다.</td>
-      </tr>
-    </tbody>
-  </app-table>
-  
-    
-  
-  
-  
-  
-  
-  
     <app-row>
       <app-col>
-        <app-input name="input1" label="label" placeholder="placeholder"></app-input>
+        <app-input name="input" label="input" placeholder="text"></app-input>
       </app-col>
       <app-col>
-        <app-input name="input2" label="with img">
+        <app-input name="input readonly" label="input readonly" value="input readonly" [readonly]="true"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input disabled" label="input disabled" value="input disabled" [disabled]="true"></app-input>
+      </app-col>
+    </app-row>
+
+    <app-row>
+      <app-col>
+        <app-input name="password" label="password" placeholder="password"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="with img" label="with img">
           <app-img slot="end" src="assets/basic/img/search.png"></app-img>
         </app-input>
       </app-col>
       <app-col>
-        <app-input name="input3" label="with text">
+        <app-input name="with text" label="with text">
           hello world
         </app-input>
       </app-col>
     </app-row>
-    <app-row>
-      <app-col>
-        <app-input name="input2" label="password" type="password" placeholder="password"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input3" label="readonly" value="readonly" [readonly]="true"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="input1" label="disabled" value="disabled" [disabled]="true"></app-input>
-      </app-col>
-    </app-row>
+
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>maxLength</td>
+          <td><code>number</code></td>
+          <td>default는 50. 최대 글자수를 지정합니다.</td>
+        </tr>
+        <tr>
+          <td>(buttonClick)</td>
+          <td><code>(value) => void</code></td>
+          <td>input과 같이 사용하는 텍스트나 아이콘의 박스를 클릭했을 때의 이벤트를 발생합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="input-caption">input-caption</h4>
+    <p>calendar, datetime, input 등의 component 들 아래에서, description 이나 validation을 표현하기 위해 사용되는 component 입니다.<br>
+      <a routerLink="/basic/guid" fragment="regex-service"><code>RegexService</code></a> 와 함께 사용되는 경우가 많습니다.</p>
+
+    <h5>examples</h5>
+<pre><code>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
+  &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
+&lt;/app-input&gt;
+&lt;app-input-caption&gt;올바른 이메일 형식이 아닙니다.&lt;/app-input-caption&gt;
+</code></pre>
+    
+    <app-input name="with caption" label="with caption" placeholder="with caption" value="aldegad"></app-input>
+    <app-input-caption color="danger">올바른 이메일 형식이 아닙니다.</app-input-caption>
+  
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>color</td>
+          <td><code>Color</code></td>
+          <td>색상을 지정합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
   
     <h3>app-select</h3>
     <p>셀렉트 component 입니다.</p>
@@ -499,7 +567,7 @@
   
     <h4 id="button">app-button</h4>
     <p>앱에 사용되는 버튼 입니다. 기본적으로는 app-button과 같은 사용법입니다.</p>
-    <h5>example</h5>
+    <h5>examples</h5>
     <div>
       <app-button>default</app-button>
       <app-button shape="round">shape:round</app-button>
@@ -593,7 +661,7 @@
           <th>#</th>
           <th>tag</th>
           <th>class</th>
-          <th>example</th>
+          <th>examples</th>
         </tr>
       </thead>
       <tbody>

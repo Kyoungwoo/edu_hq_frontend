@@ -54,7 +54,6 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   get value() { return this._value ? this.on : this.off; }
   
   writeValue(v:any): void {
-    console.log(v);
     if(v !== this._value) this._value = v; 
   }
   private _onChangeCallback = (v) => {};

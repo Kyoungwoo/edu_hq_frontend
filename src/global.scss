@@ -46,7 +46,7 @@
     font-size: var(--font-size-h1);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h2);
+      font-size: var(--font-size-h2);
     }
   }
   h2 {
@@ -55,7 +55,7 @@
     font-size: var(--font-size-h2);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h3);
+      font-size: var(--font-size-h3);
     }
   }
   h3 {
@@ -64,7 +64,7 @@
     font-size: var(--font-size-h3);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h4);
+      font-size: var(--font-size-h4);
     }
   }
   h4 {
@@ -73,7 +73,7 @@
     font-size: var(--font-size-h4);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h5);
+      font-size: var(--font-size-h5);
     }
   }
   h5 {
@@ -82,7 +82,7 @@
     font-size: var(--font-size-h5);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h6);
+      font-size: var(--font-size-h6);
     }
   }
   h6 {
@@ -91,7 +91,7 @@
     font-size: var(--font-size-h6);
     font-weight: 700;
     small {
-      font-size: var(--ion-size-h7);
+      font-size: var(--font-size-h6-small);
     }
   }
   p {
@@ -101,7 +101,7 @@
     font-weight: 300;
     color: var(--ion-color-step-600);
     small {
-      font-size: var(--ion-size-h6);
+      font-size: var(--font-size-h6);
     }
   }
   pre {

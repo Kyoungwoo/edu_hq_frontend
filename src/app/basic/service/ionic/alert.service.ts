@@ -8,7 +8,7 @@ export interface AlertOptions {
   subHeader?: string,
   message?: string,
   inputs?: Array<any>,
-  buttons?: Array<string | AlertButton>
+  buttons?: Array<AlertButton>
   cssClass?: string,
   backdropDismiss?: boolean
 }

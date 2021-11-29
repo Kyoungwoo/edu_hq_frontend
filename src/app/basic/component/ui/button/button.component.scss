@@ -15,7 +15,8 @@
         --border-radius: var(--app-border-radius);
         // --box-shadow: none;
         --box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
-        
+        --padding-start: 16px;
+        --padding-end: 16px;
         
         margin-left: 0;
         margin-right: 0;
@@ -150,11 +151,8 @@ app-button + :host {
     app-img[slot=end] {
         margin-left: var(--app-padding);
     }
-    app-input-file {
-        position: absolute;
-        top: 0;
-        left: -var(--padding-start);
+    app-file {
+        left: calc(var(--padding-start)*-1);
         width: calc(100% + var(--padding-start) + var(--padding-end));
-        height: 100%;
     }
 }

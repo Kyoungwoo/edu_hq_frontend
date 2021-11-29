@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { IonContent } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { AlertService } from '../../service/ionic/alert.service';
@@ -33,11 +34,6 @@ export class GuidePage implements OnInit, AfterViewInit {
   listInAnimationItemListEmpty = [];
   bounceInAnimationToggle:boolean = false;
 
-  test = [];
-  testChange() {
-    console.log(this.test);
-  }
-
   /** inputs */
   selectValue = "hello10";
 
@@ -55,40 +51,7 @@ export class GuidePage implements OnInit, AfterViewInit {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.router.events.pipe(
-      filter((event: RouterEvent) => event instanceof NavigationEnd)
-    ).subscribe(async(e) => {
-      const fragment = this.activatedRoute.snapshot.fragment;
-      this.scrollTo(fragment);
-    });
-    this.activatedRoute.fragment.subscribe(fragment => {
-      this.activatedRoute.snapshot.fragment = fragment;
-    });
-  }
-
-  fragmentChangeReady = true;
-  //디렉티브 혹은 컴포넌트로 개발을 해야될까?
-  private async scrollTo(fragment) {
-    const el = document.getElementById(fragment);
-
-    const offsetTop = el?.offsetTop || 0;
-
-    const scrollEl = await this.content.getScrollElement();
-    if(!scrollEl?.scrollHeight) {
-      setTimeout(() => {
-        this.scrollTo(fragment);
-      }, 20);
-      return;
-    }
-
-    const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue("--ion-safe-area-top");
-    const paddingTop = getComputedStyle(scrollEl).getPropertyValue("padding-top");
-    
-    this.fragmentChangeReady = false;
-    this.content.scrollToPoint(0, offsetTop - parseInt(safeAreaTop) - parseInt(paddingTop) - 40, 100)
-    .then(() => {
-      this.fragmentChangeReady = true;
-    });
+    this.navCtrl.fragmentScroll(this.content);
   }
 
   alertPresent(mode) {

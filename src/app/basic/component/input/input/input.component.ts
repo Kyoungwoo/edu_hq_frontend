@@ -16,24 +16,27 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @ViewChild('template') template;
 
   @Input() label:string = "";
-  @Input() icon:string = "";
   @Input() placeholder:string = "";
-  @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = "text";
+  @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = null;
   @Input() autofocus:boolean = false;
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Input() maxlength:number = 50;
-  @Output() iconClick:EventEmitter<string> = new EventEmitter();
+  @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }
   
   ngOnInit() {}
   
-
+  //default setting
+  @Output() change = new EventEmitter();
 
   private _value:string = "";
   @Input() set value(v:string) {
-    if(v !== this._value) this._value = v, this._onChangeCallback(v); 
+    if(v !== this._value) {
+      this._value = v;
+      this.change.emit(v);
+    }
   }
   get value() {
     return this._value;
@@ -44,12 +47,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   private _onChangeCallback = (v) => {};
   private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void {
-    this._onChangeCallback = fn;
-    console.info("app-input:registerOnChange");
-  }
-  registerOnTouched(fn: any): void {
-    this._onTouchedCallback = fn;
-    console.info("app-input:registerOnTouched");
-  }
+  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
 }

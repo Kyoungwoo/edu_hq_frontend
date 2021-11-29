@@ -1,15 +1,15 @@
 <ion-item lines="none" [class.disabled]="disabled">
   <ion-label position="stacked">{{ label }}</ion-label>
   <ion-input 
-  [class.has-icon]="icon"
   [placeholder]="placeholder"
   [(ngModel)]="value"
   [type]="type"
   [autofocus]="autofocus"
   [readonly]="readonly"
   [disabled]="disabled"
-  [maxlength]="maxlength"></ion-input>
-  <div class="etc" tabindex="-1" (click)="iconClick.emit(value)">
+  [maxlength]="maxlength"
+  [style.--padding-end.px]="etc.offsetWidth"></ion-input>
+  <div #etc class="etc" tabindex="-1" (click)="buttonClick.emit(value)">
     <ng-content></ng-content>
   </div>
 </ion-item>

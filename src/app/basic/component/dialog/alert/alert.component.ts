@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertOptions } from '@ionic/core';
+import { AlertOptions } from 'src/app/basic/service/ionic/alert.service';
 
 @Component({
   selector: 'app-alert',
