@@ -16,7 +16,7 @@
   @include generateColor('danger', #FF7777, #ffffff);
   @include generateColor('light', #f3f4f6, #000000);
   @include generateColor('medium', #797e91, #ffffff);
-  @include generateColor('dark', #042804, #ffffff);
+  @include generateColor('dark', #08575C, #ffffff);
 
   @include generateColor('white', #ffffff, #000000);
 }
@@ -57,13 +57,12 @@
 :root {
   --ion-font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
 
-  --font-size-h1: 54px;
-  --font-size-h2: 36px;
-  --font-size-h3: 28px;
-  --font-size-h4: 21px;
-  --font-size-h5: 16px;
-  --font-size-h6: 13px;
-  --font-size-h6-small: 11px;
+  --font-size-xs: 11px;
+  --font-size-s: 13px;
+  --font-size-n: 16px;
+  --font-size-l: 22px;
+  --font-size-xl: 30px;
+  --font-size-xxl: 50px;
   
   --app-padding: 6px;
   --app-margin: 16px;
@@ -73,19 +72,16 @@
   --app-height: 42px;
   --app-height-small: 32px;
 
-  --app-input-border-width: 2px;
   --app-input-border-color: var(--ion-color-step-500);
-  --ion-input-border-disabled-color: var(--ion-color-step-250);
 }
 @media screen and (max-width: 768px) {
   body {
-    --font-size-h1: 30px;
-    --font-size-h2: 24px;
-    --font-size-h3: 20px;
-    --font-size-h4: 17px;
-    --font-size-h5: 14px;
-    --font-size-h6: 13px;
-    --font-size-h6-small: 11px;
+    --font-size-xs: 11px;
+    --font-size-s: 13px;
+    --font-size-n: 14px;
+    --font-size-l: 17px;
+    --font-size-xl: 20px;
+    --font-size-xxl: 26px;
     
     --app-padding: 4px;
     --app-margin: 8px;
