@@ -8,11 +8,13 @@ import { PipesModule } from '../../pipes/pipes.module';
 
 import { UiComponentModule } from '../ui/ui.component.module';
 import { AlertComponent } from './alert/alert.component';
+import { DaumComponent } from './daum/daum.component';
 
 
 @NgModule({
   declarations: [
-    AlertComponent
+    AlertComponent,
+    DaumComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,7 @@ import { AlertComponent } from './alert/alert.component';
     PipesModule,
     RouterModule,
     ScrollingModule,
-    UiComponentModule
+    UiComponentModule,
   ],
   exports: []
 })

@@ -173,4 +173,16 @@
   .custom-alert {
     --width: 280px;
   }
+  @media only screen and (orientation: landscape)  {
+    .my-modal {
+     .modal-wrapper {
+       position: absolute;
+       top: 104px !important;
+       left:256px !important;
+       display: block;
+       width: 100% !important;
+      //  height: 100% !important;
+      } 
+    }
+  } 
 }
