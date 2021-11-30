@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { fadeAnimation } from '../../app.animation';
+import { NaverMapComponent } from '../../component/input/naver-map/naver-map.component';
+import { DaumService } from '../../service/daum.service';
 
 @Component({
   selector: 'app-steps',
   templateUrl: './steps.page.html',
   styleUrls: ['./steps.page.scss'],
+  animations: [ fadeAnimation ]
 })
 export class StepsPage implements OnInit {
 
+  fadeAnimationToggle:boolean = false;
   nav = [
     {y:36.9845136,x:126.626467},
     {y:36.8560585,x:126.442446},
@@ -52,7 +58,10 @@ export class StepsPage implements OnInit {
     },
   ]
 
-  constructor() { }
+  constructor(
+    private modal : ModalController,
+    private daum : DaumService
+  ) { }
 
   ngOnInit() {
   }
@@ -63,5 +72,9 @@ export class StepsPage implements OnInit {
     } else {
       item.check = true;
     }
+  }
+  async addresss(){
+    const daum = await this.daum.present();
+
   }
 }
