@@ -144,34 +144,28 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
         this.text = data.text;
       }
       this.change.emit(this.value);
-      this.onChangeCallback(this.value);
     }
   }
 
-
+  //default setting
   private _value:any = null;
-  get value() { return this._value; };
-  @Input() set value(v) {
+  @Input() 
+  set value(v) {
     if(v !== this._value) {
       this._value = v;
       this.getText();
     }
   }
-  writeValue(value: any) {
-    if(value !== this._value) {
-      this._value = value;
+  get value() { return this._value; }
+
+  writeValue(v: any) {
+    if(v !== this._value) {
+      this._value = v;
       this.getText();
     }
   }
-
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
-  registerOnChange(fn: any) { 
-    this.onChangeCallback = fn; 
-    console.info("app-select:registerOnChange");
-  }
-  registerOnTouched(fn: any) { 
-    this.onTouchedCallback = fn; 
-    console.info("app-select:registerOnTouched");
-  }
+  registerOnChange(fn: any) { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any) { this.onTouchedCallback = fn; }
 }

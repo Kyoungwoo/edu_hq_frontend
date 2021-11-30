@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController, ModalController } from '@ionic/angular';
-import { fadeAnimation } from '../../app.animation';
+import { fadeAnimation, fadeInAnimation } from '../../app.animation';
 import { NaverMapComponent } from '../../component/input/naver-map/naver-map.component';
 
 @Component({
   selector: 'app-side-menu-web',
   templateUrl: './side-menu-web.page.html',
   styleUrls: ['./side-menu-web.page.scss'],
-  animations: [ fadeAnimation]
+  animations: [ fadeInAnimation ]
 })
 export class SideMenuWebPage implements OnInit {
 
+  document:boolean = false;
+  sign:boolean = false;
+  risk:boolean = false;
+  smart:boolean = false;
+  
   fadeAnimationToggle
   constructor(
     private animationCtrl: AnimationController,
@@ -62,5 +67,4 @@ export class SideMenuWebPage implements OnInit {
     });
     modal.present();
   }
-
 }

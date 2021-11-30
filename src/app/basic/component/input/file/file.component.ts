@@ -1,5 +1,4 @@
 import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
-import { SafeUrl } from '@angular/platform-browser';
 import { SafePipe } from 'src/app/basic/pipes/safe.pipe';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/file.service';
 
@@ -25,7 +24,6 @@ export class FileComponent implements OnInit, DoCheck {
 
   private differ:IterableDiffer<any>;
   constructor(
-    private safePipe: SafePipe,
     private differs: IterableDiffers,
     private file: FileService
   ) { }
