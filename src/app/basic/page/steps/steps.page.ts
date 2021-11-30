@@ -57,6 +57,7 @@ export class StepsPage implements OnInit {
       check: true
     },
   ]
+  // distributionUrl=https\://services.gradle.org/distributions/gradle-7.0-all.zip
 
   constructor(
     private modal : ModalController,
