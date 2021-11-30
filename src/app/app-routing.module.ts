@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'basic/steps',
+    redirectTo: 'basic/side-menu-web',
     pathMatch: 'full'
   },
   {
@@ -22,7 +22,16 @@ const routes: Routes = [
   {
     path: 'basic/steps',
     loadChildren: () => import('./basic/page/steps/steps.module').then( m => m.StepsPageModule)
+  },
+  {
+    path: 'basic/side-menu-app',
+    loadChildren: () => import('./basic/page/side-menu-app/side-menu-app.module').then( m => m.SideMenuAppPageModule)
+  },
+  {
+    path: 'basic/side-menu-web',
+    loadChildren: () => import('./basic/page/side-menu-web/side-menu-web.module').then( m => m.SideMenuWebPageModule)
   }
+
 
 ];
 
