@@ -16,7 +16,9 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
+
+@import "theme/utils.scss";
 
 /* Optional CSS utils that can be commented out */
 /* @import "~@ionic/angular/css/padding.css";
@@ -118,6 +120,7 @@
     margin: 1px;
   }
   pre > code {
+    overflow: auto;
     padding: 28px;
   }
   video {
@@ -144,7 +147,7 @@
   ion-note {
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
-    font-size: var(--font-size-s);
+    font-size: var(--font-size-h6);
     color: var(--ion-color-step-250);
   }
   ion-badge {

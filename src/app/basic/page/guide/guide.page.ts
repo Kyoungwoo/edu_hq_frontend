@@ -4,7 +4,7 @@ import { IonContent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
-import { FutItem } from '../../service/file.service';
+import { FileBlob, FileJson, FutItem } from '../../service/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
 import { LoadingService } from '../../service/ionic/loading.service';
 import { NavService } from '../../service/ionic/nav.service';
@@ -23,7 +23,7 @@ export class GuidePage implements OnInit, AfterViewInit {
 
   @ViewChild('content') content:IonContent;
 
-  /** Animations */
+  /** Animation */
   fadeAnimationToggle:boolean = false;
   fadeInAnimationToggle:boolean = false;
   listAnimationToggle:boolean = false;
@@ -35,8 +35,18 @@ export class GuidePage implements OnInit, AfterViewInit {
   listInAnimationItemListEmpty = [];
   bounceInAnimationToggle:boolean = false;
 
-  /** inputs */
-  filePreviewList:FutItem[] = [];
+  /** input */
+  /** file */
+  file = {
+    list: [] as FutItem[],
+    files: [] as (File | FileBlob)[],
+    file_json: {
+      insert: [],
+      update: [],
+      delete: []
+    } as FileJson
+  }
+
   selectValue = "hello10";
   test:FutItem[] = [];
 
@@ -55,6 +65,8 @@ export class GuidePage implements OnInit, AfterViewInit {
   ngOnInit() {}
   ngAfterViewInit() {
     this.navCtrl.fragmentScroll(this.content);
+    /** file */
+    this.addFutFileEx();
   }
 
   alertPresent(mode) {
@@ -72,26 +84,19 @@ export class GuidePage implements OnInit, AfterViewInit {
     })
   }
 
-  pushList() {
-    this.test.push({ 
-      content_type: '', 
-      file_name: 'ef', 
-      file_size: 23423432, 
-      file_type: 'wfwefw', 
-      file_url: 'wefwe', 
-      order_no: this.test.length + 1, 
-      seq_no: this.test.length + 1,
-      view_type: 'File'
-    });
-    console.log(this.test);
-  }
-  popList() {
-    this.test.pop();
-    console.log(this.test);
-  }
-  spliceList() {
-    this.test.splice(0, 1);
-    console.log(this.test);
+  addFutFileEx() {
+    for(let i = 0; i < 3; i++) {
+      this.file.list.push({ 
+        content_type: 'image/svg+xml', 
+        file_name: 'logo.svg', 
+        file_size: 23423432,
+        file_type: '.svg',
+        file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
+        order_no: this.file.list.length + 1, 
+        seq_no: this.file.list.length + 1,
+        view_type: 'Logo'
+      });
+    }
   }
 
   async navRoot() {
