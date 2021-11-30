@@ -568,30 +568,25 @@
 
     <h4 id="naver-map">naver-map<ion-badge>by JunTae</ion-badge></h4>
   
-    <h3>app-select</h3>
-    <p>셀렉트 component 입니다.</p>
-    <app-select label="select-label" name="select" [(ngModel)]="selectValue">
-      <app-select-option value="hello">hello</app-select-option>
-      <app-select-option value="hello2">hello2</app-select-option>
-      <app-select-option value="hello3">hello3</app-select-option>
-      <app-select-option value="hello4">hello4</app-select-option>
-      <app-select-option value="hello5">hello5</app-select-option>
-      <app-select-option value="hello6">hello6</app-select-option>
-      <app-select-option value="hello7">hello7</app-select-option>
-      <app-select-option value="hello8">hello8</app-select-option>
-      <app-select-option value="hello9">hello9</app-select-option>
-      <app-select-option value="hello10">hello10</app-select-option>
-      <app-select-option value="hello11">hello11</app-select-option>
-      <app-select-option value="hello12">hello12</app-select-option>
-      <app-select-option value="hello13">hello13</app-select-option>
-      <app-select-option value="hello14">hello14</app-select-option>
-      <app-select-option value="hello15">hello15</app-select-option>
-      <app-select-option value="hello16">hello16</app-select-option>
-      <app-select-option value="hello17">hello17</app-select-option>
-      <app-select-option value="hello18">hello18</app-select-option>
-      <app-select-option value="hello19">hello19</app-select-option>
-      <app-select-option value="hello20">hello20</app-select-option>
-    </app-select>
+    <h4 id="select">select</h4>
+    <p>일반적인 <code>&lt;select&gt;&lt;/select&gt;</code>tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.</p>
+    <app-row>
+      <app-col>
+        <app-select label="select" name="select">
+          <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col>
+        <app-select label="select" name="select" [readonly]="true">
+          <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col>
+        <app-select label="select" name="select" [disabled]="true">
+          <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
   
     <h3>app-datetime</h3>
     <p>시간을 선택하기 위한 피커 입니다.</p>
