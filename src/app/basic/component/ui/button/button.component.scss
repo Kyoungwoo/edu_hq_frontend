@@ -26,7 +26,7 @@
         font-size: var(--font-size-n);
         text-transform: inherit;
         small {
-            font-size: var(--font-size-s);
+            font-size: var(--font-size-h6);
         }
     }
     ion-button::part(native) {
@@ -58,7 +58,7 @@
 :host.button-small {
     ion-button {
         height: var(--app-height-small);
-        font-size: var(--font-size-s);
+        font-size: var(--font-size-h6);
     }
 }
 :host.button-clear {

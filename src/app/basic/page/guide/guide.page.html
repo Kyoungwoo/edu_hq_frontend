@@ -438,21 +438,33 @@
 <pre><code>&lt;app-button&gt;
   file upload
   &lt;app-file name="input" label="input" view_type="NOTICE" 
-  [list]=&rdquo;filePreviewList&rdquo;
+  [list]=&rdquo;form.list&rdquo;
   [files]=&rdquo;form.files&rdquo;
   [file_json]=&rdquo;form.file_json&rdquo;
   &gt;&lt;/app-file&gt;
 &lt;/app-button&gt;</code></pre>
 
-    <app-button>
-      file upload
-      <app-file view_type="NOTICE" [list]="filePreviewList"></app-file>
-    </app-button>
-    <app-card *ngFor="let file of filePreviewList">
-      <ion-card-content>
-      {{ file.file_name }}
-      </ion-card-content>
+    <div>
+      <app-button>
+        file upload
+        <app-file view_type="NOTICE" [list]="file.list" [files]="file.files" [file_json]="file.file_json"></app-file>
+      </app-button>
+    </div>
+    <app-card color="light" *ngFor="let item of file.list; let i = index;" [href]="item.file_url + item.file_name" target="_blank">
+      <app-row>
+        <app-col size="auto">
+          <ion-card-subtitle>
+          file.list[{{i}}].file_name: {{ item.file_name }}<br>
+          file.list[{{i}}].file_size: {{ item.file_size }}<br>
+          </ion-card-subtitle>
+        </app-col>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button (click)="$event.preventDefault(); file.list.splice(i, 1)">file.list.splice({{i}}, 1)</app-button>
+        </app-col>
+      </app-row>
     </app-card>
+    <pre><code>file_json = {{ file.file_json | json }}</code></pre>
 
     <h4 id="app-input">input</h4>
     <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>

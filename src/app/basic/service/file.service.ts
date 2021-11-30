@@ -101,9 +101,6 @@ export interface FileJson {
   update:{order_no:number, view_type:string, seq_no:number}[],
   delete:{seq_no:number}[]
 }
-export interface FutList {
-
-}
 export interface FutItem {
   file_url:string,
   file_name:string,
