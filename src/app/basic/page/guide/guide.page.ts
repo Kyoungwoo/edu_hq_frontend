@@ -91,20 +91,12 @@ export class GuidePage implements OnInit, AfterViewInit {
         file_name: 'logo.svg', 
         file_size: 23423432,
         file_type: '.svg',
-        file_url: 'https://www.devmonster.co.kr/assets/img/',
+        file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
         order_no: this.file.list.length + 1, 
         seq_no: this.file.list.length + 1,
         view_type: 'Logo'
       });
     }
-  }
-  popList() {
-    this.test.pop();
-    console.log(this.test);
-  }
-  spliceList() {
-    this.test.splice(0, 1);
-    console.log(this.test);
   }
 
   async navRoot() {
