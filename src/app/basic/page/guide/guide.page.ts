@@ -12,6 +12,7 @@ import { ToastService } from '../../service/ionic/toast.service';
 import { DateService } from '../../service/util/date.service';
 import { FullScreenService } from '../../service/util/full-screen.service';
 import { PromiseService } from '../../service/util/promise.service';
+import { RegexService } from '../../service/util/regex.service';
 
 @Component({
   selector: 'app-guide',
@@ -46,9 +47,8 @@ export class GuidePage implements OnInit, AfterViewInit {
       delete: []
     } as FileJson
   }
-
-  selectValue = "hello10";
-  test:FutItem[] = [];
+  /** select */
+  select = new Array(100).fill(null).map((_, i) => `select option ${this.regex.replace.fix(i, 2)}`);
 
   constructor(
     private alert: AlertService,
@@ -59,7 +59,8 @@ export class GuidePage implements OnInit, AfterViewInit {
     private fullScreen: FullScreenService,
     private promise: PromiseService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public regex: RegexService
   ) { }
 
   ngOnInit() {}
@@ -91,20 +92,12 @@ export class GuidePage implements OnInit, AfterViewInit {
         file_name: 'logo.svg', 
         file_size: 23423432,
         file_type: '.svg',
-        file_url: 'https://www.devmonster.co.kr/assets/img/',
+        file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
         order_no: this.file.list.length + 1, 
         seq_no: this.file.list.length + 1,
         view_type: 'Logo'
       });
     }
-  }
-  popList() {
-    this.test.pop();
-    console.log(this.test);
-  }
-  spliceList() {
-    this.test.splice(0, 1);
-    console.log(this.test);
   }
 
   async navRoot() {

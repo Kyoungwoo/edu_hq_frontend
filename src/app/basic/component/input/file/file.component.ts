@@ -1,4 +1,5 @@
 import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
+import { SafePipe } from 'src/app/basic/pipes/safe.pipe';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/file.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class FileComponent implements OnInit, DoCheck {
     const existLength = this.list.filter(item => item.seq_no).length;
     for(let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
+
       this.list.push({
         content_type: file.type,
         file_name: file.name,

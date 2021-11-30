@@ -55,7 +55,10 @@ export class NavService {
   private scrollTryLimit = 10;
   private scrollTry = 0;
   private async scrollTo(fragment, content:IonContent, animation:boolean = true) {
-    if(this.scrollTry > this.scrollTryLimit) return;
+    if(this.scrollTry > this.scrollTryLimit) {
+      this.scrollTry = 0;
+      return;
+    }
     this.scrollTry++;
 
     const el = document.getElementById(fragment);

@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RowComponent } from './row/row.component';
 import { TableComponent } from './table/table.component';
 import { ContainerComponent } from './container/container.component';
+import { ModalDismissButtonComponent } from './modal-dismiss-button/modal-dismiss-button.component';
 
 
 
@@ -31,7 +32,8 @@ import { ContainerComponent } from './container/container.component';
     LogoComponent,
     RowComponent,
     ProfileComponent,
-    TableComponent
+    TableComponent,
+    ModalDismissButtonComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { ContainerComponent } from './container/container.component';
     LogoComponent,
     RowComponent,
     ProfileComponent,
-    TableComponent
+    TableComponent,
+    ModalDismissButtonComponent
   ]
 })
 export class UiComponentModule { }
