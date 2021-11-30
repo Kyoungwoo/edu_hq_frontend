@@ -119,7 +119,7 @@
     padding: 8px;
     margin: 1px;
   }
-  pre > code {
+  pre code {
     overflow: auto;
     padding: 28px;
   }
@@ -171,7 +171,6 @@
     --max-width: 200px;
     --width: 100%;
     --max-height: 300px;
-    --ion-select-popover: white;
   }
   .custom-alert {
     --width: 280px;

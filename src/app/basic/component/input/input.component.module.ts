@@ -21,6 +21,7 @@ import { DatetimeComponent } from './datetime/datetime.component';
 import { DatetimePopoverComponent } from './datetime-popover/datetime-popover.component';
 import { FileComponent } from './file/file.component';
 import { NaverMapComponent } from './naver-map/naver-map.component';
+import { SelectMultiplePopoverComponent } from './select-multiple-popover/select-multiple-popover.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { NaverMapComponent } from './naver-map/naver-map.component';
     InputComponent,
     InputCaptionComponent,
     SelectComponent,
+    SelectMultiplePopoverComponent,
     SelectOptionComponent,
     SelectPopoverComponent,
     TextareaComponent,
