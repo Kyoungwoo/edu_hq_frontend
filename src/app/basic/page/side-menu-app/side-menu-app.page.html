@@ -1,9 +1,46 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>side-menu-app</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-
+  <app-row class="profile-row" >
+    <ion-col size="auto">
+      <!-- [url]="user.userData?.user_data?.user_profile" -->
+      <app-profile class="profile" [url]="user.userData?.user_data?.user_profile"></app-profile>
+    </ion-col>
+    <ion-col size="auto">
+      <h3>홍길동님</h3>
+    </ion-col>
+    <ion-col>
+      <app-button fill="additional">로그아웃</app-button>
+    </ion-col>
+    <ion-col size="auto">
+      <app-img src="assets/basic/img/close.svg"></app-img>
+    </ion-col>
+  </app-row>
+  <div class="three button">
+    <app-row>
+      <ion-col size="4">
+        <app-button shape="square" [style.width]="'100%'">
+        <app-img slot="top" src="assets/basic/img/mypage.svg"></app-img>
+        <h4>마이페이지</h4>
+        </app-button>
+      </ion-col>
+      <ion-col size="4">
+        <app-button shape="square" [style.width]="'100%'">
+        <app-img slot="top" src="assets/basic/img/language.svg"></app-img>
+        <h4>언어 변환</h4>
+        </app-button>
+      </ion-col>
+      <ion-col size="4">
+        <app-button shape="square" [style.width]="'100%'">
+        <app-img slot="top" src="assets/basic/img/setting.svg"></app-img>
+        <h4>설정</h4>
+        </app-button>
+      </ion-col>
+    </app-row>
+    </div>
+    <div style="border: 1px solid E4F0FC;"></div>
 </ion-content>

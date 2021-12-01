@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'basic/side-menu-web',
+    redirectTo: 'basic/side-menu-app',
     pathMatch: 'full'
   },
   {

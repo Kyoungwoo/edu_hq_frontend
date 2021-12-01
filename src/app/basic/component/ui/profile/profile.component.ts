@@ -18,7 +18,11 @@ export class ProfileComponent implements OnInit {
     private camera: CameraService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      console.log(this.url)
+    }, 1000);
+  }
 
   async profileClick() {
     const blob = await this.camera.getPhoto({

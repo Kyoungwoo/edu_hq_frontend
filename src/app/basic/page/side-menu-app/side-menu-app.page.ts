@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-side-menu-app',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-menu-app.page.scss'],
 })
 export class SideMenuAppPage implements OnInit {
+  
 
-  constructor() { }
-
+  constructor(
+    public user: UserService
+  ) { }
   ngOnInit() {
   }
 

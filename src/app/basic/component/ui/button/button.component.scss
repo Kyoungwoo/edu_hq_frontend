@@ -105,6 +105,18 @@
         --border-radius: 50%;
     }
 }
+:host.button-additional {
+    --background: #EBFFF7;
+    --color: black;
+    ion-button {
+        --background: #EBFFF7;
+        --color: black;
+        width: var(--width);
+        height: var(--height);
+    }
+
+}
+
 :host.button-circle,
 :host.button-square {
     width: var(--app-height);
