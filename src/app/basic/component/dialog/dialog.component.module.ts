@@ -9,12 +9,14 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { UiComponentModule } from '../ui/ui.component.module';
 import { AlertComponent } from './alert/alert.component';
 import { DaumComponent } from './daum/daum.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 
 @NgModule({
   declarations: [
     AlertComponent,
-    DaumComponent
+    DaumComponent,
+    SideMenuComponent
   ],
   imports: [
     CommonModule,

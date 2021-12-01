@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation } from '../../app.animation';
+import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
 import { NaverMapComponent } from '../../component/input/naver-map/naver-map.component';
 
 @Component({
@@ -27,7 +28,7 @@ export class SideMenuWebPage implements OnInit {
 
   async testcomponent(){
     const modal = await this.modal.create({
-      component:NaverMapComponent,
+      component:SideMenuComponent,
       cssClass:'my-modal',
       enterAnimation: (baseEl:HTMLElement) => {
         const backdropAnimation = this.animationCtrl.create()
