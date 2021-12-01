@@ -7,9 +7,11 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 })
 export class SelectOptionComponent implements OnInit {
 
+  @ViewChild('textEl') textEl:ElementRef<HTMLElement>;
+
   @Input() value:any = null;
-  @ViewChild('text') text:ElementRef;
-  @Input() unique:boolean = false;
+  @Input() type:'all' | 'normal' = 'normal';
+  public get text() { return this.textEl.nativeElement.innerText.trim() }
 
   constructor() { }
   ngOnInit() {}

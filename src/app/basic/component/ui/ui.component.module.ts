@@ -17,6 +17,7 @@ import { RowComponent } from './row/row.component';
 import { TableComponent } from './table/table.component';
 import { ContainerComponent } from './container/container.component';
 import { ModalDismissButtonComponent } from './modal-dismiss-button/modal-dismiss-button.component';
+import { CodeComponent } from './code/code.component';
 
 
 
@@ -25,6 +26,7 @@ import { ModalDismissButtonComponent } from './modal-dismiss-button/modal-dismis
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
+    CodeComponent,
     ColComponent,
     ContainerComponent,
     CopyRightComponent,
@@ -46,6 +48,7 @@ import { ModalDismissButtonComponent } from './modal-dismiss-button/modal-dismis
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
+    CodeComponent,
     ColComponent,
     ContainerComponent,
     CopyRightComponent,

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -19,8 +19,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder:string = "";
   @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = null;
   @Input() autofocus:boolean = false;
-  @Input() readonly:boolean = false;
-  @Input() disabled:boolean = false;
   @Input() maxlength:number = 50;
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
@@ -29,6 +27,10 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
   
   //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
+  @Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:string = "";

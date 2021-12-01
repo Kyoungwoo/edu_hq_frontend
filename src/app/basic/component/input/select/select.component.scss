@@ -1,0 +1,10 @@
+:host {
+    app-input {
+        --app-input-button-readonly-opacity: 1;
+    }
+}
+:host.readonly {
+    app-input {
+        --app-input-button-readonly-opacity: 0.5;
+    }
+}

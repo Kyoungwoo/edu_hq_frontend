@@ -48,7 +48,7 @@ export class GuidePage implements OnInit, AfterViewInit {
     } as FileJson
   }
   /** select */
-  select = new Array(100).fill(null).map((_, i) => `select option ${this.regex.replace.fix(i, 2)}`);
+  select = new Array(500).fill(null).map((_, i) => `select option ${this.regex.replace.fix(i, 4)}`);
 
   constructor(
     private alert: AlertService,

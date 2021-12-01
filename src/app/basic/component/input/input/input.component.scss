@@ -1,4 +1,7 @@
 :host {
+  --app-input-button-readonly-opacity: 0.5;
+  --app-input-button-disabled-opacity: 0.5;
+
   display: block;
   margin-top: var(--app-margin);
   margin-bottom: var(--app-margin);
@@ -51,13 +54,18 @@
       border-color: var(--ion-color-primary);
     }
   }
-  ion-item.disabled {
-    ion-input {
-      border-color: var(--ion-input-border-disabled-color);
-    }
-    .etc {
-      opacity: 0.5;
-    }
+}
+:host.readonly {
+  .etc {
+    opacity: var(--app-input-button-readonly-opacity);
+  }
+}
+:host.disabled {
+  ion-input {
+    border-color: var(--ion-input-border-disabled-color);
+  }
+  .etc {
+    opacity: var(--app-input-button-disabled-opacity);
   }
 }
 :host ::ng-deep {

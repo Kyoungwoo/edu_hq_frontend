@@ -1,17 +1,12 @@
-<!-- <ng-container *ngIf="multiple">
-  <ion-content>
-      <ion-button 
-      *ngFor="let item of opts"
-      color="dark"
-      fill="clear" expand="block" (click)="multiClick(item)">
-        <ion-icon [class.active]="values.indexOf(item) > -1"
-          slot="start" name="checkmark-circle" color="primary"></ion-icon>
-      <div class="button-inner">{{ item.text }}</div>
-    </ion-button>
-  </ion-content>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-button expand="block" (click)="multiSubmit()">선택</ion-button>
-    </ion-toolbar>
-  </ion-footer>
-</ng-container> -->
+<cdk-virtual-scroll-viewport
+#virtualScroll
+[itemSize]="itemSize"
+[minBufferPx]="itemSize*10"
+[maxBufferPx]="itemSize*15">
+  <ion-list lines="none">
+    <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)"
+    [color]="isSelected(item) ? 'primary' : null">
+      {{ item.text }}
+    </ion-item>
+  </ion-list>
+</cdk-virtual-scroll-viewport>

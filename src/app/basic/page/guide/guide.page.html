@@ -569,7 +569,15 @@
     <h4 id="naver-map">naver-map<ion-badge>by JunTae</ion-badge></h4>
   
     <h4 id="select">select</h4>
-    <p>일반적인 <code>&lt;select&gt;&lt;/select&gt;</code>tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.</p>
+    <p>일반적인 <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank"><code>&lt;select&gt;&lt;/select&gt;</code></a> tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.<br>
+    <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdk virtual scroll</code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
+
+    <h5>examples</h5>
+<pre><code ngNonBindable>&lt;app-select name="select" label="select" [(ngModel)]=&rdquo;form.select&rdquo;&gt;
+  &lt;app-select-option &ast;ngFor="let opt of options" value="opt.value"&gt;&#123;&#123; opt.text &#125;&#125;&lt;/app-select-option&gt;
+&lt;/app-select&gt;
+</code></pre>
+
     <app-row>
       <app-col>
         <app-select label="select" name="select">
@@ -577,12 +585,26 @@
         </app-select>
       </app-col>
       <app-col>
-        <app-select label="select" name="select" [readonly]="true">
+        <app-select label="select readonly" name="select readonly" [readonly]="true">
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
         </app-select>
       </app-col>
       <app-col>
-        <app-select label="select" name="select" [disabled]="true">
+        <app-select label="select disabled" name="select disabled" [disabled]="true">
+          <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
+
+    <app-row>
+      <app-col>
+        <app-select label="multiple=true" name="multiple=true" [multiple]="true">
+          <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col>
+        <app-select label="select-option type=all" name="select-option type=all" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
         </app-select>
       </app-col>

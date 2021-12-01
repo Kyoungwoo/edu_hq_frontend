@@ -1,12 +1,13 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IonContent, PopoverController } from '@ionic/angular';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 
-export interface SELECT_OPTION {
+export type SelectOptionType = 'all' | 'normal';
+export interface SelectOption {
   value:any,
   text:string,
-  unique:boolean
+  type:SelectOptionType
 }
 @Component({
   selector: 'app-select-popover',
@@ -17,7 +18,7 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
 
   @ViewChild("virtualScroll") virtualScroll:CdkVirtualScrollViewport;
 
-  @Input() opts:SELECT_OPTION[] = [];
+  @Input() opts:SelectOption[] = [];
   @Input() value:any;
   itemSize:number = 42;
 
@@ -29,24 +30,28 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    const selectedIndex = this.opts.findIndex(opt => opt.value === this.value);
-    const limitCount = 20;
-    let tryCount = 0;
-    this.initInterval = setInterval(() => {
-      this.virtualScroll.scrollToIndex(selectedIndex);
-      tryCount++;
-      if(tryCount >= limitCount) clearInterval(this.initInterval);
-    }, 20);
-    const $subsChangeIndex = this.virtualScroll.scrolledIndexChange.subscribe(index => {
-      if(index === selectedIndex) {
-        clearInterval(this.initInterval);
-        $subsChangeIndex.unsubscribe();
-      }
-    });
+    this.scrollToIndex(this.virtualScroll, this.opts, this.value);
   }
 
   onClick(item) {
     this.value = item.value;
     this._popover.dismiss(item);
+  }
+
+  private scrollToIndex(virtualScroll:CdkVirtualScrollViewport, list:Array<{value:string}>, value) {
+    const selectedIndex = list.findIndex(hour => hour.value === value);
+    const limitCount = 20;
+    let tryCount = 0;
+    const initInterval = setInterval(() => {
+      virtualScroll.scrollToIndex(selectedIndex);
+      tryCount++;
+      if(tryCount >= limitCount) clearInterval(initInterval);
+    }, 20);
+    const $subsChangeIndex = virtualScroll.scrolledIndexChange.subscribe(index => {
+      if(index === selectedIndex) {
+        clearInterval(initInterval);
+        $subsChangeIndex.unsubscribe();
+      }
+    });
   }
 }
