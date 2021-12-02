@@ -5,7 +5,7 @@
 [maxBufferPx]="itemSize*15">
   <ion-list lines="none">
     <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)">
-      <ion-text [color]="item.value === value ? 'primary' : null">{{ item.text }}</ion-text>
+      <ion-text [color]="item.value === value ? 'primary' : null" [innerHtml]="item.text | safe: 'html'"></ion-text>
     </ion-item>
   </ion-list>
 </cdk-virtual-scroll-viewport>

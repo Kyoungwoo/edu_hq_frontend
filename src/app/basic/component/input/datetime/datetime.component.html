@@ -10,12 +10,10 @@
     <app-col size="auto">
       <input [readonly]="readonly" [disabled]="disabled" type="tel" class="minute-input" placeholder="분" [(ngModel)]="form.minute" maxlength="2" (keyup)="changeMinute($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
-    <app-col size="auto">
-      <div class="icon"
-      tabindex="-1"
-      (click)="disabled ? null : popoverDateTimePicker()">
-        <app-img src="assets/img/basic/calendar.png"></app-img>
-      </div>
-    </app-col>
+    <div class="icon"
+    tabindex="-1"
+    (click)="disabled ? null : popoverDateTimePicker()">
+      <app-img src="assets/img/basic/calendar.png"></app-img>
+    </div>
   </app-row>
 </ion-item>

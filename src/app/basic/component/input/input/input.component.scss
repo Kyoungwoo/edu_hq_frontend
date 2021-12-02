@@ -5,7 +5,6 @@
   display: block;
   margin-top: var(--app-margin);
   margin-bottom: var(--app-margin);
-  --app-icon-padding: 10px;
   ion-item {
     --padding-start: 0;
     --padding-end: 0;
@@ -22,25 +21,27 @@
       padding-left: 3px;
     }
     ion-input {
-      border-style: solid;
-      border-width: var(--app-input-border-width);
-      border-color: var(--app-input-border-color);
-      border-radius: var(--app-border-radius);
-      --padding-start: 8px;
-      --padding-end: 8px;
-      font-size: var(--font-size-n);
-      max-height: var(--app-height);
-      height: var(--app-height);
-      min-height: var(--app-height);
-      background: var(--ion-color-white);
+        border-style: solid;
+        border-width: var(--app-input-border-width);
+        border-color: var(--app-input-border-color);
+        border-radius: var(--app-border-radius);
+        --padding-start: 8px;
+        --padding-end: 8px;
+        --placeholder-opacity: 1;
+        --placeholder-color: var(--app-placeholder-color);
+        font-size: var(--font-size-n);
+        max-height: var(--app-height);
+        height: var(--app-height);
+        min-height: var(--app-height);
+        background: var(--ion-color-white);
     }
-    .etc {
+    .button {
       position: absolute;
       bottom: 0;
       right: 0;
       z-index: 2;
       height: var(--app-height);
-      padding-left: 10px;
+      padding-left: 8px;
       padding-right: 10px;
       display: flex;
       align-items: center;
@@ -56,24 +57,24 @@
   }
 }
 :host.readonly {
-  .etc {
-    opacity: var(--app-input-button-readonly-opacity);
-  }
+    .button {
+        opacity: var(--app-input-button-readonly-opacity);
+    }
 }
 :host.disabled {
-  ion-input {
-    border-color: var(--ion-input-border-disabled-color);
-  }
-  .etc {
-    opacity: var(--app-input-button-disabled-opacity);
-  }
+    ion-input {
+        border-color: var(--app-input-border-disabled-color);
+    }
+    .etc {
+        opacity: var(--app-input-button-disabled-opacity);
+    }
 }
 :host ::ng-deep {
-  h1, h2, h3, h4, h5, p {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  app-img {
-    width: 20px;
-  }
+    h1, h2, h3, h4, h5, p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-img {
+        width: 20px;
+    }
 }

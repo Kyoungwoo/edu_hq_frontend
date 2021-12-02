@@ -32,7 +32,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() placeholder = '선택';
   @Input() multiple:boolean = false;
 
-  text:string = '';
+  public text:string = '';
 
   constructor(
     private el: ElementRef,
@@ -61,7 +61,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
       else this.text = '';
     } else {
       const selectedOpt = this.options.toArray().filter(opt => {
-        if(typeof opt.value === 'object') this.value?.some(_value => JSON.stringify(opt.value) === JSON.stringify(_value));
+        if(typeof opt.value === 'object') return this.value?.some(_value => JSON.stringify(opt.value) === JSON.stringify(_value));
         else return this.value?.some(_value => _value === opt.value);
       });
       this.text = selectedOpt.map(opt => opt.text).join();
@@ -76,7 +76,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     } else {
       component = SelectPopoverComponent;
     }
-    console.log(this.value);
+    
     const popover = await this.popover.create({
       cssClass: 'select-popover',
       component,
@@ -105,11 +105,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() 
   set value(v) {
     if(v !== this._value) {
+      console.log('set', v, this._value);
       this._value = v;
       this.getText();
     }
   }
-  get value() { return this._value || (this.multiple ? [] : null); }
+  get value() { console.log('get'); return this._value || (this.multiple ? [] : null); }
 
   writeValue(v: any) {
     if(v !== this._value) {

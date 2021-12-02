@@ -27,24 +27,30 @@ export class SelectMultiplePopoverComponent implements OnInit {
     this.scrollToIndex(this.virtualScroll, this.opts, this.value);
   }
 
-  onClick(item:SelectOption) {
-    const valueIndex = this.value.findIndex(_value => {
-      try {
-        return JSON.stringify(_value) === JSON.stringify(item.value)
-      } catch(e) {
-        return _value === item.value;
-      }
-    });
-    if(valueIndex > -1) {
-      this.value.splice(valueIndex);
+  public onClick(item:SelectOption) {
+    if(item.type === 'all') {
+      this.value = item.value;
     } else {
-      this.value.push(item.value);
+      const valueIndex = this.value.findIndex(_value => {
+        try {
+          return JSON.stringify(_value) === JSON.stringify(item.value)
+        } catch(e) {
+          return _value === item.value;
+        }
+      });
+      if(valueIndex > -1) {
+        this.value.splice(valueIndex);
+      } else {
+        this.value.push(item.value);
+      }
     }
-    // this._popover.dismiss(item);
+  }
+  public submit() {
+    this._popover.dismiss({ value: this.value });
   }
 
-  isSelected(item:SelectOption) {
-    return this.value.some(_value => {
+  public isSelected(item:SelectOption) {
+    return this.value === item.value || this.value.some(_value => {
       try {
         return JSON.stringify(_value) === JSON.stringify(item.value)
       } catch(e) {

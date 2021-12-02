@@ -1,4 +1,12 @@
-<ion-content #content>
+<ion-header #header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Library Guide</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="scrollStart($event)">
   <app-container>
     <h1>Library Guide</h1>
     <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
@@ -36,8 +44,8 @@
   
     <h5>examples</h5>
     <div>
-<pre><code>&lt;div [@listAnimation]="listAnimationItemList.length"&gt;
-    &lt;app-card *ngFor=&rdquo;let item of listAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
+<pre><code ngNonBindable>&lt;div [@listAnimation]="listAnimationItemList.length"&gt;
+    &lt;app-card &ast;ngFor=&rdquo;let item of listAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
 &lt;/div&gt;</code></pre>
     </div>
     <app-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</app-button>
@@ -52,8 +60,8 @@
   
     <h5>examples</h5>
     <div>
-<pre><code>&lt;div [@listInAnimation]="listInAnimationItemList.length"&gt;
-    &lt;app-card *ngFor=&rdquo;let item of listInAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
+<pre><code ngNonBindable>&lt;div [@listInAnimation]="listInAnimationItemList.length"&gt;
+    &lt;app-card &ast;ngFor="let item of listInAnimationItemList"&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
 &lt;/div&gt;</code></pre>
     </div>
     <app-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</app-button>
@@ -597,15 +605,31 @@
     </app-row>
 
     <app-row>
-      <app-col>
+      <app-col size="4">
         <app-select label="multiple=true" name="multiple=true" [multiple]="true">
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
         </app-select>
       </app-col>
-      <app-col>
+      <app-col size="4">
         <app-select label="select-option type=all" name="select-option type=all" [multiple]="true">
           <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col size="4">
+        <app-select label="select html" name="select html" placeholder="icon + text">
+          <app-select-option value="search">
+            <ion-icon name="search" style="vertical-align: middle;"></ion-icon>
+            search
+          </app-select-option>
+          <app-select-option value="trash">
+            <ion-icon name="trash" style="vertical-align: middle;"></ion-icon>
+            trash
+          </app-select-option>
+          <app-select-option value="person">
+            <ion-icon name="person" style="vertical-align: middle;"></ion-icon>
+            person
+          </app-select-option>
         </app-select>
       </app-col>
     </app-row>
