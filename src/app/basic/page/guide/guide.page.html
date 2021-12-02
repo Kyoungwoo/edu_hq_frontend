@@ -579,6 +579,7 @@
     <h4 id="select">select</h4>
     <p>일반적인 <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank"><code>&lt;select&gt;&lt;/select&gt;</code></a> tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.<br>
     <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdk virtual scroll</code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
+    <app-card color="warning" fill="translucent" [button]="false"><small>*실험적 : <code>html</code> 레이아웃을 옵션에 사용할 수 있습니다.</small></app-card>
 
     <h5>examples</h5>
 <pre><code ngNonBindable>&lt;app-select name="select" label="select" [(ngModel)]=&rdquo;form.select&rdquo;&gt;
@@ -633,6 +634,24 @@
         </app-select>
       </app-col>
     </app-row>
+
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td><code>Color</code></td>
+          <td>색상을 지정합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
   
     <h3>app-datetime</h3>
     <p>시간을 선택하기 위한 피커 입니다.</p>

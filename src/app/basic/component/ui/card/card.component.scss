@@ -62,3 +62,9 @@
     }
   }
 }
+:host.card-translucent {
+  ion-card {
+    background: var(--ion-color-translucent);
+    color: var(--ion-color-shade);
+  }
+}
