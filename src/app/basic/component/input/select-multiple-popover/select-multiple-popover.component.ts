@@ -1,6 +1,7 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { FileService } from 'src/app/basic/service/file.service';
 import { SelectOption } from '../select-popover/select-popover.component';
 
 @Component({
@@ -19,7 +20,8 @@ export class SelectMultiplePopoverComponent implements OnInit {
   initInterval;
 
   constructor(
-    private _popover: PopoverController
+    private _popover: PopoverController,
+    private file: FileService
   ) {}
 
   ngOnInit() {}
@@ -29,17 +31,14 @@ export class SelectMultiplePopoverComponent implements OnInit {
 
   public onClick(item:SelectOption) {
     if(item.type === 'all') {
-      this.value = item.value;
+      console.log(this.value, item.value);
+      if(this.file.shallowEqual(this.value, item.value)) this.value = null;
+      else this.value = this.file.clone(item.value);
     } else {
-      const valueIndex = this.value.findIndex(_value => {
-        try {
-          return JSON.stringify(_value) === JSON.stringify(item.value)
-        } catch(e) {
-          return _value === item.value;
-        }
-      });
+      if(!this.value) this.value = [];
+      const valueIndex = this.value.findIndex(_value => this.file.shallowEqual(_value, item.value));
       if(valueIndex > -1) {
-        this.value.splice(valueIndex);
+        this.value.splice(valueIndex, 1);
       } else {
         this.value.push(item.value);
       }
@@ -50,13 +49,10 @@ export class SelectMultiplePopoverComponent implements OnInit {
   }
 
   public isSelected(item:SelectOption) {
-    return this.value === item.value || this.value.some(_value => {
-      try {
-        return JSON.stringify(_value) === JSON.stringify(item.value)
-      } catch(e) {
-        return _value === item.value;
-      }
-    })
+    if(!this.value) return false;
+    else if(this.file.shallowEqual(this.value, item.value)) return true;
+    else if(this.value.some(_value => this.file.shallowEqual(_value, item.value))) return true;
+    else return false;
   }
 
   private scrollToIndex(virtualScroll:CdkVirtualScrollViewport, list:Array<{value:string}>, value) {
