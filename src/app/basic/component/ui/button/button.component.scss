@@ -107,10 +107,10 @@
 }
 :host.button-additional {
     --background: #EBFFF7;
-    --color: black;
+    --color: var(--ion-color-tertiary);
     ion-button {
         --background: #EBFFF7;
-        --color: black;
+        --color: var(--ion-color-tertiary);
         width: var(--width);
         height: var(--height);
     }

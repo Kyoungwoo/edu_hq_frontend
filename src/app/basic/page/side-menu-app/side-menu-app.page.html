@@ -20,7 +20,7 @@
       <app-img src="assets/basic/img/close.svg"></app-img>
     </ion-col>
   </app-row>
-  <div class="three button">
+  <div class="three-button">
     <app-row>
       <ion-col size="4">
         <app-button shape="square" [style.width]="'100%'">
@@ -41,6 +41,23 @@
         </app-button>
       </ion-col>
     </app-row>
+  </div>
+  <div class="side-menu-tab">
+    <div class="left">
+      <ul>
+        <ion-item [class.active]="page_type==0" lines="none" (click)="page_type = 0">오늘의 작업</ion-item>
+        <ion-item [class.active]="page_type==1" lines="none" (click)="page_type = 1">장비 관리</ion-item>
+        <ion-item [class.active]="page_type==2" lines="none" (click)="page_type = 2">안전교육</ion-item>
+        <ion-item [class.active]="page_type==3" lines="none" (click)="page_type = 3">게시판</ion-item>
+        <ion-item [class.active]="page_type==4" lines="none" (click)="page_type = 4">알림함</ion-item>
+        <ion-item [class.active]="page_type==5" lines="none" (click)="page_type = 5">고객지원</ion-item>
+      </ul>
     </div>
-    <div style="border: 1px solid E4F0FC;"></div>
+    <div class="right">
+      <ul>
+        <ion-list-header>{{ page_list[page_type].title }}</ion-list-header>
+        <ion-item  *ngFor="let item of page_list[page_type].list">{{ item }}</ion-item>
+      </ul>
+    </div>
+  </div>
 </ion-content>
