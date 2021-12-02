@@ -23,19 +23,19 @@
   <div class="three-button">
     <app-row>
       <ion-col size="4">
-        <app-button shape="square" [style.width]="'100%'">
+        <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/mypage.svg"></app-img>
         <h4>마이페이지</h4>
         </app-button>
       </ion-col>
       <ion-col size="4">
-        <app-button shape="square" [style.width]="'100%'">
+        <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/language.svg"></app-img>
         <h4>언어 변환</h4>
         </app-button>
       </ion-col>
       <ion-col size="4">
-        <app-button shape="square" [style.width]="'100%'">
+        <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/setting.svg"></app-img>
         <h4>설정</h4>
         </app-button>
@@ -44,19 +44,16 @@
   </div>
   <div class="side-menu-tab">
     <div class="left">
-      <ul>
-        <ion-item [class.active]="page_type==0" lines="none" (click)="page_type = 0">오늘의 작업</ion-item>
-        <ion-item [class.active]="page_type==1" lines="none" (click)="page_type = 1">장비 관리</ion-item>
-        <ion-item [class.active]="page_type==2" lines="none" (click)="page_type = 2">안전교육</ion-item>
-        <ion-item [class.active]="page_type==3" lines="none" (click)="page_type = 3">게시판</ion-item>
-        <ion-item [class.active]="page_type==4" lines="none" (click)="page_type = 4">알림함</ion-item>
-        <ion-item [class.active]="page_type==5" lines="none" (click)="page_type = 5">고객지원</ion-item>
-      </ul>
+      <ion-list>
+        <ion-item lines="none" button *ngFor="let menu of menuList" [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ menu.title }}</ion-item>
+      </ion-list>
     </div>
-    <div class="right">
+    <div class="right"> 
       <ul>
-        <ion-list-header>{{ page_list[page_type].title }}</ion-list-header>
-        <ion-item  *ngFor="let item of page_list[page_type].list">{{ item }}</ion-item>
+        <ion-list-header>{{ menuSelected.title }}</ion-list-header>
+        <ion-item *ngFor="let subMenu of menuSelected.subMenuList" 
+        [routerLink]="subMenu.link"
+        [queryParams]="subMenu.params">{{ subMenu.title }}</ion-item>
       </ul>
     </div>
   </div>
