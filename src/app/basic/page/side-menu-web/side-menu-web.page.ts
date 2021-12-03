@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimationController, ModalController } from '@ionic/angular';
-import { fadeAnimation, fadeInAnimation } from '../../app.animation';
+import { AlertController, AnimationController, ModalController } from '@ionic/angular';
+import { fadeInAnimation } from '../../app.animation';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
-import { NaverMapComponent } from '../../component/input/naver-map/naver-map.component';
+import Nfc from '../../plugin/testnfc';
+
 
 @Component({
   selector: 'app-side-menu-web',
@@ -12,6 +13,9 @@ import { NaverMapComponent } from '../../component/input/naver-map/naver-map.com
 })
 export class SideMenuWebPage implements OnInit {
 
+  pageAlive:boolean = true;
+  nfcTimeout;
+  
   document:boolean = false;
   sign:boolean = false;
   risk:boolean = false;
@@ -19,12 +23,60 @@ export class SideMenuWebPage implements OnInit {
   
   fadeAnimationToggle
   constructor(
+    private alert: AlertController,
     private animationCtrl: AnimationController,
     private modal:ModalController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const { ndefMessage } = await Nfc.getData();
+    console.log(ndefMessage);
+    if(ndefMessage !== null){
+      console.log("value",ndefMessage);
+      const alert = await this.alert.create({
+        header: '테스트',
+        message: ndefMessage,
+        buttons: [
+          {
+            text: '확인',
+            handler:() => {
+              alert.dismiss()
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+    
+     
+    
   }
+  ngOnDestroy() {
+    this.pageAlive = false;
+    clearTimeout(this.nfcTimeout);
+  }
+  async nfcScan() { 
+    const { ndefMessage } = await Nfc.getData();
+    if(this.pageAlive) {
+      this.nfcTimeout = setTimeout(() => {
+        this.nfcScan();
+      }, 1000);
+      const alert = await this.alert.create({
+        header: '테스트',
+        message: ndefMessage,
+        buttons: [
+          {
+            text: '확인',
+            handler:() => {
+              alert.dismiss()
+            }
+          }
+        ]
+      });
+      window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: ndefMessage }));
+    }
+  }
+
 
   async testcomponent(){
     const modal = await this.modal.create({
