@@ -1,8 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>side-menu-web</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
 <div class="list"> 
@@ -14,15 +9,15 @@
       <h2>결재</h2>
       <ul class="small-list">
         <li><a href="">미결함</a></li>
-        <li><a>문서함<app-img class="tab" [src]="document ? 'assets/basic/img/list tab hide.svg' : 'assets/basic/img/list tab.svg'"  
-          (click)="document = !document"></app-img></a>
+        <li><a (click)="document = !document">문서함<app-img class="tab" [src]="document ? 'assets/basic/img/list-tab-hide.svg' : 'assets/basic/img/list-tab.svg'"  
+          ></app-img></a>
           <ol @fadeInAnimation *ngIf="document">
             <li>기안/임시저장함</li>
             <li>진행/완료/반려함</li>
             <li>참조함</li>
           </ol>
         </li>
-        <li><a>결재설정<app-img class="tab" [src]="sign ? 'assets/basic/img/list tab hide.svg' : 'assets/basic/img/list tab.svg'"  (click)="sign = !sign"></app-img></a></li>
+        <li><a (click)="document = !document">결재설정<app-img class="tab" [src]="sign ? 'assets/basic/img/list-tab-hide.svg' : 'assets/basic/img/list-tab.svg'"  (click)="sign = !sign"></app-img></a></li>
         <ol @fadeInAnimation *ngIf="sign">
           <li>기본 결재선 지정</li>
           <li>위임 관리</li>
@@ -40,7 +35,7 @@
     <app-col><app-img class="control" src="assets/basic/img/work-plan.svg"></app-img>
       <h2>작업계획</h2>
       <ul class="small-list">
-        <li><a>위험성 평가<app-img class="tab" [src]="risk ? 'assets/basic/img/list tab hide.svg' : 'assets/basic/img/list tab.svg'"  (click)="risk = !risk"></app-img></a></li>
+        <li><a (click)="document = !document">위험성 평가<app-img class="tab" [src]="risk ? 'assets/basic/img/list-tab-hide.svg' : 'assets/basic/img/list-tab.svg'"  (click)="risk = !risk"></app-img></a></li>
         <ol @fadeInAnimation *ngIf="risk">
           <li>위험성평가 작성</li>
           <li>평가표 정보 추가 요청</li>
@@ -65,7 +60,7 @@
       <h2>장비관리</h2>
       <ul class="small-list">
         <li><a href="">중장비 관리</a></li>
-        <li><a>스마트 안전 장비<br>등록/관리<app-img class="tab" [src]="smart ? 'assets/basic/img/list tab hide.svg' : 'assets/basic/img/list tab.svg'"  (click)="smart = !smart"></app-img></a></li>
+        <li><a (click)="document = !document">스마트 안전 장비<br>등록/관리<app-img class="tab" [src]="smart ? 'assets/basic/img/list-tab-hide.svg' : 'assets/basic/img/list-tab.svg'"  (click)="smart = !smart"></app-img></a></li>
         <ol @fadeInAnimation *ngIf="smart" >
           <li>시리얼 No</li>
           <li>개인 디바이스</li>

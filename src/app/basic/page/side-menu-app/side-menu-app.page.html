@@ -6,40 +6,45 @@
 
 <ion-content>
   <app-row class="profile-row" >
-    <ion-col size="auto">
+    <app-col size="auto">
       <!-- [url]="user.userData?.user_data?.user_profile" -->
       <app-profile class="profile" [url]="user.userData?.user_data?.user_profile"></app-profile>
-    </ion-col>
-    <ion-col size="auto">
+    </app-col>
+    <app-col size="auto">
       <h3>홍길동님</h3>
-    </ion-col>
-    <ion-col>
+    </app-col>
+    <app-col size="auto">
       <app-button fill="additional">로그아웃</app-button>
-    </ion-col>
-    <ion-col size="auto">
-      <app-img src="assets/basic/img/close.svg"></app-img>
-    </ion-col>
+    </app-col>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-button fill="clear" shape="square">
+        <app-img src="assets/basic/img/close.svg"></app-img>
+      </app-button>
+    </app-col>
   </app-row>
   <div class="three-button">
     <app-row>
-      <ion-col size="4">
+      <!-- <app-col></app-col> -->
+      <app-col></app-col>
+      <app-col size="80px">
         <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/mypage.svg"></app-img>
         <h4>마이페이지</h4>
         </app-button>
-      </ion-col>
-      <ion-col size="4">
+      </app-col>
+      <app-col size="80px">
         <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/language.svg"></app-img>
         <h4>언어 변환</h4>
         </app-button>
-      </ion-col>
-      <ion-col size="4">
+      </app-col>
+      <app-col size="80px">
         <app-button shape="square" expand="block">
         <app-img slot="top" src="assets/basic/img/setting.svg"></app-img>
         <h4>설정</h4>
         </app-button>
-      </ion-col>
+      </app-col>
     </app-row>
   </div>
   <div class="side-menu-tab">
@@ -50,7 +55,7 @@
     </div>
     <div class="right"> 
       <ul>
-        <ion-list-header>{{ menuSelected.title }}</ion-list-header>
+        <ion-list-header><app-img [src]="menuSelected.src"></app-img>{{ menuSelected.title }}</ion-list-header> 
         <ion-item *ngFor="let subMenu of menuSelected.subMenuList" 
         [routerLink]="subMenu.link"
         [queryParams]="subMenu.params">{{ subMenu.title }}</ion-item>
@@ -58,3 +63,4 @@
     </div>
   </div>
 </ion-content>
+ 
