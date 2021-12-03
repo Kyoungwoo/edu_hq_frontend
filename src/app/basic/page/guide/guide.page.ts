@@ -1,17 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { IonContent } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IonContent, IonHeader } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
-import { LoadingService } from '../../service/ionic/loading.service';
 import { NavService } from '../../service/ionic/nav.service';
 import { ToastService } from '../../service/ionic/toast.service';
-import { DateService } from '../../service/util/date.service';
-import { FullScreenService } from '../../service/util/full-screen.service';
-import { PromiseService } from '../../service/util/promise.service';
 import { RegexService } from '../../service/util/regex.service';
 
 @Component({
@@ -22,6 +15,7 @@ import { RegexService } from '../../service/util/regex.service';
 })
 export class GuidePage implements OnInit, AfterViewInit {
 
+  @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;
 
   /** Animation */
@@ -52,22 +46,30 @@ export class GuidePage implements OnInit, AfterViewInit {
 
   constructor(
     private alert: AlertService,
-    private loading: LoadingService,
     private navCtrl: NavService,
     private toast: ToastService,
-    private date: DateService,
-    private fullScreen: FullScreenService,
-    private promise: PromiseService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     public regex: RegexService
-  ) { }
+  ) {}
 
   ngOnInit() {}
   ngAfterViewInit() {
     this.navCtrl.fragmentScroll(this.content);
     /** file */
     this.addFutFileEx();
+  }
+  
+  scrollTopPrev = 0;
+  async scrollStart($event) {
+    const headerEl = <HTMLElement>this.header['el'];
+    const scrollTop = $event.detail.scrollTop;
+    const headerHeight = headerEl.offsetHeight;
+    const delta = scrollTop - this.scrollTopPrev;
+    this.scrollTopPrev = scrollTop;
+    if(delta > 0) {
+      headerEl.style.transform = `translateY(${-headerHeight}px)`;
+    } else if(delta < 0) {
+      headerEl.style.transform = `translateY(0px)`;
+    }
   }
 
   alertPresent(mode) {

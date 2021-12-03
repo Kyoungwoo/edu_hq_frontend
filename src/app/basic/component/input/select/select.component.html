@@ -1,6 +1,13 @@
-<app-input
-[label]="label"
-[(ngModel)]="text"
-[placeholder]="placeholder" [readonly]="true" [disabled]="disabled">
-    <app-img src="assets/img/basic/arrow-down.png"></app-img>
-</app-input>
+<ion-item lines="none">
+    <ion-label position="stacked">{{ label }}</ion-label>
+    <div class="input-group">
+        <div class="input"
+        [style.padding-right.px]="button.innerHTML ? button.offsetWidth : 8">
+            <span *ngIf="text" class="value" [innerHtml]="text | safe: 'html'"></span>
+            <span *ngIf="!text" class="placeholder">{{ placeholder }}</span>
+        </div>
+        <div #button class="button" fill="clear">
+            <app-img src="assets/img/basic/arrow-down.png"></app-img>
+        </div>
+    </div>
+</ion-item>

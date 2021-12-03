@@ -8,8 +8,8 @@
   [readonly]="readonly"
   [disabled]="disabled"
   [maxlength]="maxlength"
-  [style.--padding-end.px]="etc.offsetWidth"></ion-input>
-  <div #etc class="etc" tabindex="-1" (click)="buttonClick.emit(value)">
+  [style.--padding-end.px]="button.innerHTML ? button.offsetWidth : 8"></ion-input>
+  <div #button class="button" tabindex="-1" (click)="buttonClick.emit(value)">
     <ng-content></ng-content>
   </div>
 </ion-item>

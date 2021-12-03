@@ -90,6 +90,19 @@ export class FileService {
         return null;
     }
   }
+
+  clone(obj) {
+    try {
+      return JSON.parse(JSON.stringify(obj));
+    } catch(e) {
+      return obj;
+    }
+  }
+  shallowEqual(obj1, obj2) {
+    if(!obj1 || !obj2) return obj1 === obj2;
+    if(typeof obj1 !== 'object' || typeof obj2 !== 'object') return obj1 === obj2;
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
 }
 
 export interface FileBlob extends Blob {

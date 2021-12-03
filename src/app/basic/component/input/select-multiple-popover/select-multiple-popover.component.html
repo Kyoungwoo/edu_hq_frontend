@@ -1,12 +1,15 @@
-<cdk-virtual-scroll-viewport
-#virtualScroll
-[itemSize]="itemSize"
-[minBufferPx]="itemSize*10"
-[maxBufferPx]="itemSize*15">
-  <ion-list lines="none">
-    <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)"
-    [color]="isSelected(item) ? 'primary' : null">
-      {{ item.text }}
-    </ion-item>
-  </ion-list>
-</cdk-virtual-scroll-viewport>
+<ion-content>
+  <cdk-virtual-scroll-viewport
+  #virtualScroll
+  [itemSize]="itemSize"
+  [minBufferPx]="itemSize*10"
+  [maxBufferPx]="itemSize*15">
+    <ion-list lines="none">
+      <ion-item *cdkVirtualFor="let item of opts" button (click)="onClick(item)"
+      [color]="isSelected(item) ? 'primary' : null">
+        {{ item.text }}
+      </ion-item>
+    </ion-list>
+  </cdk-virtual-scroll-viewport>
+</ion-content>
+<app-button-footer (click)="submit()">선택</app-button-footer>

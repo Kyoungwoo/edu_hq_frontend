@@ -8,6 +8,7 @@
 :root {
   @include generateColorSteps(#F5F7F9,#222120);
 
+
   @include generateColor('primary', #44C650, #ffffff);
   @include generateColor('secondary', #2AA287, #ffffff); 
   @include generateColor('tertiary', #2F8D38, #ffffff);
@@ -42,7 +43,7 @@
     @include generateColor('success', #b8f19c, #ffffff);
     @include generateColor('warning', #eedb84, #ffffff);
     @include generateColor('danger', #f7909e, #ffffff);
-    @include generateColor('dark', #222120, #222120);
+    @include generateColor('dark', #445760, #222120);
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
 
@@ -73,9 +74,10 @@
   --app-height: 42px;
   --app-height-small: 32px;
 
+  --app-placeholder-color: var(--ion-color-step-500);
   --app-input-border-width: 2px;
   --app-input-border-color: var(--ion-color-step-500);
-  --ion-input-border-disabled-color: var(--ion-color-step-250);
+  --app-input-border-disabled-color: var(--ion-color-step-250);
 }
 @media screen and (max-width: 768px) {
   body {

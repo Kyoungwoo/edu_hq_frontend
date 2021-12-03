@@ -11,7 +11,7 @@ export class SelectOptionComponent implements OnInit {
 
   @Input() value:any = null;
   @Input() type:'all' | 'normal' = 'normal';
-  public get text() { return this.textEl.nativeElement.innerText.trim() }
+  public get text() { return this.textEl.nativeElement.innerHTML }
 
   constructor() { }
   ngOnInit() {}

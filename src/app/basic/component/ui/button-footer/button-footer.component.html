@@ -1,7 +1,11 @@
 <ion-footer>
-  <ion-toolbar [class.disabled]="disabled" [color]="color">
-    <ion-button [color]="color" expand="block" [disabled]="disabled || readonly">
-      <ng-content></ng-content>
-    </ion-button>
+  <ion-toolbar color="white" [class.disabled]="disabled">
+    <app-row>
+      <app-col>
+        <app-button [color]="color" expand="block" [disabled]="disabled || readonly">
+          <ng-content></ng-content>
+        </app-button>
+      </app-col>
+    </app-row>
   </ion-toolbar>
 </ion-footer>

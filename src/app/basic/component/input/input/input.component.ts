@@ -13,8 +13,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
 
-  @ViewChild('template') template;
-
   @Input() label:string = "";
   @Input() placeholder:string = "";
   @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = null;

@@ -21,7 +21,7 @@ export class ButtonComponent implements OnInit {
   @Input() color:Color = 'primary';
   @Input() disabled:boolean = false;
   @Input() expand:'block';
-  @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline' ;
+  @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline' | 'additional';
   @Input() shape:'round' | 'circle' | 'square';
   @Input() size:'default' | 'large' | 'small';
   @Input() strong:boolean;

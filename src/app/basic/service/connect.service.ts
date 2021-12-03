@@ -2,13 +2,12 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { DeviceService } from './device.service';
-import { LoadingController } from '@ionic/angular';
 import { isPlatformServer } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { FileBlob, FileService } from 'src/app/service/basic/file.service';
-import { LoadingService } from '../ionic/loading.service';
+import { FileBlob, FileService } from 'src/app/basic/service/file.service';
+import { LoadingService } from './ionic/loading.service';
 
 export interface ConnectResult {
   resultCode:number, 

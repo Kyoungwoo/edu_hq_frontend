@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { ComponentRef } from '@ionic/core';
 import { Subscription } from 'rxjs';
+import { FileService } from 'src/app/basic/service/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
 import { SelectOptionComponent } from '../select-option/select-option.component';
 import { SelectOption, SelectPopoverComponent } from '../select-popover/select-popover.component';
@@ -32,11 +33,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() placeholder = '선택';
   @Input() multiple:boolean = false;
 
-  text:string = '';
+  public text:string = '';
 
   constructor(
     private el: ElementRef,
-    private popover: PopoverController
+    private popover: PopoverController,
+    private file: FileService
   ) {
     
   }
@@ -53,16 +55,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     if(!this.options) return;
 
     if(!this.multiple) {
-      const selectedOpt = this.options.toArray().find(opt => {
-        if(typeof opt.value === 'object') return JSON.stringify(opt.value) === JSON.stringify(this.value);
-        else return opt.value === this.value;
-      });
-      if(selectedOpt) this.text = selectedOpt.text;
-      else this.text = '';
+      const selectedOpt = this.options.toArray().find(opt => this.file.shallowEqual(opt.value, this.value));
+      this.text = selectedOpt?.text || '';
     } else {
       const selectedOpt = this.options.toArray().filter(opt => {
-        if(typeof opt.value === 'object') this.value?.some(_value => JSON.stringify(opt.value) === JSON.stringify(_value));
-        else return this.value?.some(_value => _value === opt.value);
+        if(opt.type === 'all') return this.file.shallowEqual(opt.value, this.value);
+        return this.value?.some(_value => this.file.shallowEqual(opt.value, _value));
       });
       this.text = selectedOpt.map(opt => opt.text).join();
     }
@@ -76,13 +74,13 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     } else {
       component = SelectPopoverComponent;
     }
-    console.log(this.value);
+
     const popover = await this.popover.create({
       cssClass: 'select-popover',
       component,
       componentProps: {
         opts,
-        value: this.value
+        value: this.file.clone(this.value)
       },
       event,
       showBackdrop: false
@@ -109,7 +107,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
       this.getText();
     }
   }
-  get value() { return this._value || (this.multiple ? [] : null); }
+  get value() { return this._value }
 
   writeValue(v: any) {
     if(v !== this._value) {
