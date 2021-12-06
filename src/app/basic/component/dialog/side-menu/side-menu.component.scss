@@ -1,4 +1,10 @@
+ion-content {
+	--padding-start:0;
+	--padding-end:0;
+}
+
 .topnav {
+	width: 100%;
 	background-color: var(--ion-color-secondary);
 	overflow: hidden;
 	vertical-align: middle;

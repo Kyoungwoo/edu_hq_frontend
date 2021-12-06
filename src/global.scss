@@ -184,11 +184,13 @@
     .my-modal {
      .modal-wrapper {
        position: absolute;
-       top: 104px !important;
+       top: 109px !important;
        left:256px !important;
        display: block;
-       width: 100% !important;
-      //  height: 100% !important;
+       width:100% !important;
+       height: 80% !important;
+       --box-shadow:none;
+
       } 
     }
   // } 
