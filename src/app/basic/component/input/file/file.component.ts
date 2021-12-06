@@ -71,6 +71,13 @@ export class FileComponent implements OnInit, DoCheck {
       this.file_json.delete.push({
         seq_no: item.seq_no
       })
+    } else {
+      const deleteFileIndex = this.files.findIndex(file => {
+        return file.name === item.file_name
+        && file.size === item.file_size;
+      });
+      //if use multiple app-file, bubble these events. So need to check deleateFileIndex is over 0;
+      if(deleteFileIndex > -1) this.files.splice(deleteFileIndex, 1);
     }
     const reorderedList = this.list.map((_item, i) => {
       return {

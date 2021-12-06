@@ -445,7 +445,7 @@
     <h5>examples</h5>
 <pre><code ngNonBindable>&lt;app-button&gt;
   file upload
-  &lt;app-file name="input" label="input" view_type="NOTICE" 
+  &lt;app-file name="input" view_type="NOTICE" 
   [list]=&rdquo;form.list&rdquo;
   [files]=&rdquo;form.files&rdquo;
   [file_json]=&rdquo;form.file_json&rdquo;
@@ -455,7 +455,11 @@
     <div>
       <app-button>
         file upload
-        <app-file view_type="NOTICE" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+        <app-file view_type="MAIN" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+      </app-button>
+      <app-button>
+        file upload
+        <app-file view_type="SUB" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
       </app-button>
     </div>
     <app-card color="light" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">

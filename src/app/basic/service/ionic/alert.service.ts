@@ -4,14 +4,14 @@ import { AlertComponent } from '../../component/dialog/alert/alert.component';
 
 export interface AlertOptions {
   mode?: 'ios' | 'md' | 'devmonster' | 'ionic',
+  img?: string,
   header?: string,
   subHeader?: string,
   message?: string,
   inputs?: Array<any>,
   buttons?: Array<AlertButton>
   cssClass?: string,
-  backdropDismiss?: boolean,
-  img?:string
+  backdropDismiss?: boolean
 }
 @Injectable({
   providedIn: 'root'
@@ -91,7 +91,6 @@ export class AlertService {
   }
   private async _presentIonicAlert(opts:AlertOptions) {
     const alert = await this.alert.create({
-      img: opts.img,
       message: opts.message,
       mode: opts.mode as 'ios' | 'md',
       header: opts.header,
