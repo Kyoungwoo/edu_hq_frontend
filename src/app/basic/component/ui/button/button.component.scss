@@ -80,7 +80,6 @@
     ion-button {
         --box-shadow: none;
     }
-   
 }
 :host.button-translucent-outline {
     --background: var(--ion-color-translucent);
@@ -150,7 +149,7 @@ app-button + :host {
         vertical-align: middle;
     }
     app-img {
-        width: 1.2em;
+        width: 1.8em;
     }
     app-img[slot=top],
     app-img[slot=bottom] {

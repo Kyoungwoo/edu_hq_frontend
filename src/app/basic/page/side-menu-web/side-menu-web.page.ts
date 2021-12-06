@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimationController, ModalController } from '@ionic/angular';
-import { fadeAnimation, fadeInAnimation } from '../../app.animation';
+import { async } from '@angular/core/testing';
+import { AlertController, AnimationController, ModalController } from '@ionic/angular';
+import { fadeInAnimation } from '../../app.animation';
+import { AlertComponent } from '../../component/dialog/alert/alert.component';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
-import { NaverMapComponent } from '../../component/input/naver-map/naver-map.component';
+import Nfc from '../../plugin/testnfc';
+// import { NFC } from '@ionic-native/nfc/ngx';
+
 
 @Component({
   selector: 'app-side-menu-web',
@@ -12,6 +16,9 @@ import { NaverMapComponent } from '../../component/input/naver-map/naver-map.com
 })
 export class SideMenuWebPage implements OnInit {
 
+  pageAlive:boolean = true;
+  nfcTimeout;
+  
   document:boolean = false;
   sign:boolean = false;
   risk:boolean = false;
@@ -19,12 +26,66 @@ export class SideMenuWebPage implements OnInit {
   
   fadeAnimationToggle
   constructor(
+    private alert: AlertController,
     private animationCtrl: AnimationController,
-    private modal:ModalController
+    private modal:ModalController,
+    // private iosnfc: NFC,
+    //  private ndef: Ndef
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // const { ndefMessage } = await Nfc.getData();
+    // console.log(ndefMessage);
+    // if(ndefMessage !== null){
+    //   console.log("value",ndefMessage);
+    //   const alert = await this.alert.create({
+    //     header: '테스트',
+    //     message: ndefMessage,
+    //     buttons: [
+    //       {
+    //         text: '확인',
+    //         handler:() => {
+    //           alert.dismiss()
+    //         }
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // }
+  //   try {
+  //     let tag = await this.iosnfc.scanNdef();
+  //     console.log("ㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ",JSON.stringify(tag));
+  //  } catch (err) {
+  //      console.log('Error reading tag', err);
+  //  }
   }
+  ngOnDestroy() {
+    this.pageAlive = false;
+    clearTimeout(this.nfcTimeout);
+  }
+  // async nfcScan() { 
+  //   const { ndefMessage } = await Nfc.getData();
+  //   if(this.pageAlive) {
+  //     this.nfcTimeout = setTimeout(() => {
+  //       this.nfcScan();
+  //     }, 1000);
+  //     const alert = await this.alert.create({
+  //       header: '테스트',
+  //       message: ndefMessage,
+  //       buttons: [
+  //         {
+  //           text: '확인',
+  //           handler:() => {
+  //             alert.dismiss()
+  //           }
+  //         }
+  //       ]
+  //     });
+  //     window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: ndefMessage }));
+  //   }
+
+  // }
+
 
   async testcomponent(){
     const modal = await this.modal.create({
@@ -67,5 +128,40 @@ export class SideMenuWebPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  async alerttest() {
+    // const test_modal = await this.modal.create({
+    //   component:AlertComponent,
+    //   componentProps: {
+    //     opts: {
+    //       header: 'test1',
+    //       subHeader: 'test2',
+    //       message: 'test3',
+    //       buttons: [
+    //         {text: '예'},
+    //         {text: '아니요'}
+    //       ] 
+    //     }
+    //   }
+    // })
+
+    // test_modal.present();
+    const alert = await this.alert.create({
+      message:"<img src='assets/basic/img/close.svg'/>",
+      header:'회원가입이 반려되었습니다.',
+      subHeader: '정보 수정 후 재가입 신청 하시겠습니까? 반려사유 : 정보 오류',
+      cssClass:'alertButton',
+      buttons:[
+        {text:'정보삭제'},
+        {
+          text:'재가입 신청',
+          handler: async() => {
+            console.log("asdfasdf");
+          }
+        }
+      ]
+    });
+      alert.present();
   }
 }

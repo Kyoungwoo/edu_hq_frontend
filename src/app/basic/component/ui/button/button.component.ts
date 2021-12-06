@@ -29,7 +29,7 @@ export class ButtonComponent implements OnInit {
   @Input() download:string;
   @Input() target:string;
   constructor() { }
-
+ 
   ngOnInit() {}
 
 }

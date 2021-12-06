@@ -188,12 +188,74 @@
     .my-modal {
      .modal-wrapper {
        position: absolute;
-       top: 104px !important;
+       top: 109px !important;
        left:256px !important;
        display: block;
-       width: 100% !important;
-      //  height: 100% !important;
+       width:100% !important;
+       height: 80% !important;
+       --box-shadow:none;
+
       } 
     }
   // } 
+
+  .alertButton{
+    padding: 0;
+    .alert-wrapper{
+      padding: 0;
+      .alert-sub-title{
+        margin: 0;
+        padding: 0 7px;
+      }
+    }
+    .sc-ion-alert-md{
+      padding:7px
+    }
+   .alert-sub-title{
+    color: #849CB1;
+    font-size: var(--font-size-h6);
+   }
+    .alert-button-group{
+      justify-content: center;
+      border-top: 1px solid #D3DFE4;
+      margin:0 0 5px 0;
+      padding: 0;
+      .alert-button{
+        margin: 0;
+        margin-top: 10px;
+     
+       
+        &:nth-child(1){
+          width: 48%;
+          margin-right: 8px;
+          background: #D1F6E3;
+          color: #2F8D38;
+          justify-content: center;
+          border-radius: var(--app-border-radius);
+          .alert-button-inner{
+            justify-content: center;
+          }
+          // background-color: antiquewhite;
+        }
+        &:nth-child(2){
+          width: 48%;
+          background: var(--ion-color-primary);
+          box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+          color: white;
+          border-radius: var(--app-border-radius);
+          .alert-button-inner{
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  // .button-translucent {
+    
+  //   --color: var(--ion-color-shade);
+  //   ion-button {
+  //       --box-shadow: none;
+  //   }
+  // }
 }
