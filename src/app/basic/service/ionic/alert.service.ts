@@ -10,8 +10,7 @@ export interface AlertOptions {
   inputs?: Array<any>,
   buttons?: Array<AlertButton>
   cssClass?: string,
-  backdropDismiss?: boolean,
-  img?:string
+  backdropDismiss?: boolean
 }
 @Injectable({
   providedIn: 'root'
@@ -91,7 +90,6 @@ export class AlertService {
   }
   private async _presentIonicAlert(opts:AlertOptions) {
     const alert = await this.alert.create({
-      img: opts.img,
       mode: opts.mode as 'ios' | 'md',
       header: opts.header,
       subHeader: opts.subHeader,

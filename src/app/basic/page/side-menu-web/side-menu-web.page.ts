@@ -3,7 +3,7 @@ import { AlertController, AnimationController, ModalController } from '@ionic/an
 import { fadeInAnimation } from '../../app.animation';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
 import Nfc from '../../plugin/testnfc';
-import { NFC } from '@ionic-native/nfc/ngx';
+// import { NFC } from '@ionic-native/nfc/ngx';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class SideMenuWebPage implements OnInit {
     private alert: AlertController,
     private animationCtrl: AnimationController,
     private modal:ModalController,
-    private iosnfc: NFC,
+    // private iosnfc: NFC
     //  private ndef: Ndef
   ) { }
 
@@ -50,12 +50,12 @@ export class SideMenuWebPage implements OnInit {
     //   });
     //   alert.present();
     // }
-    try {
-      let tag = await this.iosnfc.scanNdef();
-      console.log("ㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ",JSON.stringify(tag));
-   } catch (err) {
-       console.log('Error reading tag', err);
-   }
+  //   try {
+  //     let tag = await this.iosnfc.scanNdef();
+  //     console.log("ㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ",JSON.stringify(tag));
+  //  } catch (err) {
+  //      console.log('Error reading tag', err);
+  //  }
   }
   ngOnDestroy() {
     this.pageAlive = false;
