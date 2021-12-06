@@ -12,7 +12,7 @@ export class ImgComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.src);
+    console.log(this.src)
   }
 
 }

@@ -93,10 +93,10 @@ export class AlertService {
   private async _presentIonicAlert(opts:AlertOptions) {
     const alert = await this.alert.create({
       img: opts.img,
+      message: opts.message,
       mode: opts.mode as 'ios' | 'md',
       header: opts.header,
       subHeader: opts.subHeader,
-      message: opts.message,
       cssClass: opts.cssClass,
       backdropDismiss: opts.backdropDismiss,
       inputs: opts.inputs,

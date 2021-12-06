@@ -15,7 +15,7 @@ export class AlertComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    console.log(this.opts);
   }
 
 }

@@ -16,6 +16,7 @@ import { Media } from '@ionic-native/media/ngx';
 import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
 import { AlertStrategy } from './basic/service/ionic/alert.service';
+import Nfc from './basic/plugin/testnfc';
 // import { NFC } from '@ionic-native/nfc/ngx';
 
 @NgModule({
@@ -37,7 +38,7 @@ import { AlertStrategy } from './basic/service/ionic/alert.service';
     QRScanner,
     File,
     Media,
-    // NFC
+    // Nfc
   ],
   bootstrap: [AppComponent],
 })

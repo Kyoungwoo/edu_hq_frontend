@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { AlertController, AnimationController, ModalController } from '@ionic/angular';
 import { fadeInAnimation } from '../../app.animation';
+import { AlertComponent } from '../../component/dialog/alert/alert.component';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
 import Nfc from '../../plugin/testnfc';
 // import { NFC } from '@ionic-native/nfc/ngx';
@@ -130,22 +131,37 @@ export class SideMenuWebPage implements OnInit {
   }
 
   async alerttest() {
+    // const test_modal = await this.modal.create({
+    //   component:AlertComponent,
+    //   componentProps: {
+    //     opts: {
+    //       header: 'test1',
+    //       subHeader: 'test2',
+    //       message: 'test3',
+    //       buttons: [
+    //         {text: '예'},
+    //         {text: '아니요'}
+    //       ] 
+    //     }
+    //   }
+    // })
+
+    // test_modal.present();
     const alert = await this.alert.create({
-      header:'테스트',
-      message:'테스트입니다.',
-      cssClass:'asdsad',
-      img:'assets/basic/img/cctv.png',
+      message:"<img src='assets/basic/img/close.svg'/>",
+      header:'회원가입이 반려되었습니다.',
+      subHeader: '정보 수정 후 재가입 신청 하시겠습니까? 반려사유 : 정보 오류',
+      cssClass:'alertButton',
       buttons:[
-        {text:'아니요'},
-        {text:'예',
+        {text:'정보삭제'},
+        {
+          text:'재가입 신청',
           handler: async() => {
-            
+            console.log("asdfasdf");
           }
         }
       ]
     });
       alert.present();
   }
-
-
 }
