@@ -55,17 +55,21 @@
     }
 }
 :host.readonly {
-    cursor: default;
     ion-checkbox {
         opacity: 1;
     }
     label {
         opacity: 0.5;
     }
+    label, p {
+        cursor: default;
+    }
 }
 :host.disabled {
-    cursor: default;
     label {
         opacity: 0.5;
+    }
+    label, p {
+        cursor: default;
     }
 }

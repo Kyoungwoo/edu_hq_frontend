@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -14,42 +14,40 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class TextareaComponent implements OnInit, ControlValueAccessor {
 
   @Input() label:string = "";
-  @Input() icon:string = "";
   @Input() placeholder:string = "";
   @Input() autofocus:boolean = false;
-  @Input() readonly:boolean = false;
-  @Input() disabled:boolean = false;
-  @Input() maxlength:number = 100;
-  @Input() autoGrow:boolean = true;
-
-  @Input() set value(v:string) { 
-    if(v !== this._value) {
-      this._value = v;
-      this._onChangeCallback(v);
-    }
-  }
-  get value() { return this._value; }
-  private _value = "";
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
+  @Input() maxlength:number = 1000;
+  @Input() autoGrow:boolean = false;
+  @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }
-
+  
   ngOnInit() {}
+  
+  //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
+  @Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Output() change = new EventEmitter();
 
-  writeValue(v: string): void {
-    if(v !== this._value) this._value = v;
+  private _value:string = "";
+  @Input() set value(v:string) {
+    if(v !== this._value) {
+      this._value = v;
+      this.change.emit(v);
+    }
   }
-  registerOnChange(fn: any): void {
-    this._onChangeCallback = fn;
-    console.info("app-input:registerOnChange");
+  get value() {
+    return this._value;
   }
-  registerOnTouched(fn: any): void {
-    this._onTouchedCallback = fn;
-    console.info("app-input:registerOnTouched");
+  writeValue(v:string): void { 
+    if(v !== this._value) this._value = v; 
   }
-  setDisabledState?(isDisabled: boolean): void {
-    console.info("app-input:setDisabledState");
-  }
+
+  private _onChangeCallback = (v) => {};
+  private _onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
 
 }
