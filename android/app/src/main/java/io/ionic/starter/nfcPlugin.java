@@ -17,6 +17,20 @@ public class nfcPlugin extends Plugin {
 
   public static com.getcapacitor.PluginCall getNfcCall = null;
 
+//  @PluginMethod()
+//  public void permission(PluginCall call) {
+//    JSObject res = new JSObject();
+//    NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
+//    if(nfcAdapter == null) {
+//      res.put("permission", null);
+//    } else if(!nfcAdapter.isEnabled()) {
+//      res.put("permission", "disabled");
+//    } else {
+//      res.put("permission", "enabled");
+//    }
+//    call.resolve(res);
+//  }
+
   @PluginMethod()
   public void getData(PluginCall call) { getNfcCall = call; }
 
@@ -34,15 +48,13 @@ public class nfcPlugin extends Plugin {
             JSObject ret = new JSObject();
             ret.put("ndefMessage", msg.substring(3));
             nfcPlugin.getNfcCall.resolve(ret);
-            Log.d("value", "handleOnNewIntent: ret ");
           }
         }
+      } else {
+        JSObject ret = new JSObject();
+        ret.put("message", null);
+        nfcPlugin.getNfcCall.resolve(ret);
       }
-//      else {
-//        JSObject ret = new JSObject();
-//        ret.put("message", null);
-//        NfcPlugin.getNfcCall.resolve(ret);
-//      }
     }
   }
 }

@@ -3,6 +3,7 @@ import { AlertController, AnimationController, ModalController } from '@ionic/an
 import { fadeInAnimation } from '../../app.animation';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
 import Nfc from '../../plugin/testnfc';
+import { NFC } from '@ionic-native/nfc/ngx';
 
 
 @Component({
@@ -25,57 +26,63 @@ export class SideMenuWebPage implements OnInit {
   constructor(
     private alert: AlertController,
     private animationCtrl: AnimationController,
-    private modal:ModalController
+    private modal:ModalController,
+    private iosnfc: NFC,
+    //  private ndef: Ndef
   ) { }
 
   async ngOnInit() {
-    const { ndefMessage } = await Nfc.getData();
-    console.log(ndefMessage);
-    if(ndefMessage !== null){
-      console.log("value",ndefMessage);
-      const alert = await this.alert.create({
-        header: '테스트',
-        message: ndefMessage,
-        buttons: [
-          {
-            text: '확인',
-            handler:() => {
-              alert.dismiss()
-            }
-          }
-        ]
-      });
-      alert.present();
-    }
-    
-     
-    
+    // const { ndefMessage } = await Nfc.getData();
+    // console.log(ndefMessage);
+    // if(ndefMessage !== null){
+    //   console.log("value",ndefMessage);
+    //   const alert = await this.alert.create({
+    //     header: '테스트',
+    //     message: ndefMessage,
+    //     buttons: [
+    //       {
+    //         text: '확인',
+    //         handler:() => {
+    //           alert.dismiss()
+    //         }
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // }
+    try {
+      let tag = await this.iosnfc.scanNdef();
+      console.log("ㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ",JSON.stringify(tag));
+   } catch (err) {
+       console.log('Error reading tag', err);
+   }
   }
   ngOnDestroy() {
     this.pageAlive = false;
     clearTimeout(this.nfcTimeout);
   }
-  async nfcScan() { 
-    const { ndefMessage } = await Nfc.getData();
-    if(this.pageAlive) {
-      this.nfcTimeout = setTimeout(() => {
-        this.nfcScan();
-      }, 1000);
-      const alert = await this.alert.create({
-        header: '테스트',
-        message: ndefMessage,
-        buttons: [
-          {
-            text: '확인',
-            handler:() => {
-              alert.dismiss()
-            }
-          }
-        ]
-      });
-      window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: ndefMessage }));
-    }
-  }
+  // async nfcScan() { 
+  //   const { ndefMessage } = await Nfc.getData();
+  //   if(this.pageAlive) {
+  //     this.nfcTimeout = setTimeout(() => {
+  //       this.nfcScan();
+  //     }, 1000);
+  //     const alert = await this.alert.create({
+  //       header: '테스트',
+  //       message: ndefMessage,
+  //       buttons: [
+  //         {
+  //           text: '확인',
+  //           handler:() => {
+  //             alert.dismiss()
+  //           }
+  //         }
+  //       ]
+  //     });
+  //     window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: ndefMessage }));
+  //   }
+
+  // }
 
 
   async testcomponent(){
@@ -120,4 +127,6 @@ export class SideMenuWebPage implements OnInit {
     });
     modal.present();
   }
+
+
 }

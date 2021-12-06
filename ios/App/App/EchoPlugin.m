@@ -9,5 +9,5 @@
 #import <Capacitor/Capacitor.h>
 
 CAP_PLUGIN(EchoPlugin, "nfc",
-    CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(nfc, CAPPluginReturnPromise);
 )
