@@ -134,11 +134,12 @@ export class SideMenuWebPage implements OnInit {
       header:'테스트',
       message:'테스트입니다.',
       cssClass:'asdsad',
+      img:'assets/basic/img/cctv.png',
       buttons:[
         {text:'아니요'},
         {text:'예',
           handler: async() => {
-
+            
           }
         }
       ]

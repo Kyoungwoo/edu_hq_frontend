@@ -22,7 +22,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   path = [];
   marker = [];
   LatLng = [];
-  infoWindows = [];
 
   constructor() { }
 
@@ -53,7 +52,32 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     
     this.path = polygon.getPaths().getAt(0);
+
+    // const infoWindowElement = ([
+    //   '<div class="pin_nation">',
+    //   '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
+    //   '       <img src="./img/hi-seoul.jpg" width="38" height="26" alt="" class="pin_flag_m">',
+    //   '       <span class="pin_txt"><em>캐나다</em> <span class="spr spr_arrow"></span></span>',
+    //   '       <span class="spr spr_arr"></span>',
+    //   '   </a>',
+    //   '   <div class="pin"><span class="pin_blur"></span></div>',
+    //   '</div>'].join(''));
+    // console.log(infoWindowElement);
     
+    // let infowindow = new naver.maps.InfoWindow({
+    //   content: infoWindowElement,
+    //   // pixelOffset: new naver.window.Point(20, -20)
+    // });
+    
+    // naver.maps.Event.addListener(this.marker, 'click', (e) => {
+    //   if (infowindow.getMap()) {
+    //     infowindow.close();
+    //   } else {
+    //       infowindow.open(this.map, this.marker);
+    //   }
+    // });
+
+
     naver.maps.Event.addListener(this.map, 'click', (e) => {
       const coord = e.coord;
       this.LatLng.push(coord);
@@ -78,6 +102,30 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     this.path.push(coord);
     this.marker.push(marker);
+    // console.log("~~~~~~~~~~~~~",coord)
+    // const infoWindowElement = ([
+    //   '<div class="pin_nation">',
+    //   '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
+    //   '       <img src="./assets/basic/img/cctv.png" width="38" height="26" alt="" class="pin_flag_m">',
+    //   '       <span class="pin_txt"> <span class="spr spr_arrow"></span></span>',
+    //   '       <span class="spr spr_arr"></span>',
+    //   '   </a>',
+    //   '   <div class="pin"><span class="pin_blur"></span></div>',
+    //   '</div>'].join(''));
+    // console.log(infoWindowElement);
+    
+    // let infowindow = new naver.maps.InfoWindow({
+    //   content: infoWindowElement,
+    //   // pixelOffset: new naver.window.Point(20, -20)
+    // });
+    
+    // naver.maps.Event.addListener(marker, 'click', (e) => {
+    //   if (infowindow.getMap()) {
+    //     infowindow.close();
+    //   } else {
+    //       infowindow.open(this.map, marker);
+    //   }
+    // });
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
       console.log("this.path",this.path);

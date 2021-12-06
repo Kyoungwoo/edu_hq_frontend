@@ -10,8 +10,12 @@ export class AlertComponent implements OnInit {
 
   @Input() opts:AlertOptions;
 
-  constructor() { }
+  constructor() {
+    console.log(this.opts);
+   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

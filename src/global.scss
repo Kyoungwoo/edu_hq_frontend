@@ -184,16 +184,23 @@
     .my-modal {
      .modal-wrapper {
        position: absolute;
-       top: 109px !important;
+       top: 105px !important;
        left:256px !important;
        display: block;
-       width:100% !important;
+       width:calc(100% - 272px) !important;
        height: 80% !important;
        --box-shadow:none;
 
       } 
     }
   // } 
+
+// 768
+@media screen and (max-width: 1850px) {
+    [menuShow=true] {
+        display: none !important;
+    }
+}
 
   .asdsad{
     .alert-button-group{

@@ -38,6 +38,7 @@ export class AlertService {
   }
 
   private async _presentCustomAlert(opts:AlertOptions) {
+    console.log(opts);
     const alert = await this.popover.create({
       mode: 'md',
       component: AlertComponent,
