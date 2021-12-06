@@ -197,7 +197,14 @@
 
   .asdsad{
     .alert-button-group{
-      background: red;
+      justify-content: center;
+      .alert-button{
+        width: 100px;
+        .alert-button-inner:nth-child(1){
+          justify-content: center;
+          // background-color: antiquewhite;
+        }
+      }
     }
   }
 }
