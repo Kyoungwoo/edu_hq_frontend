@@ -57,10 +57,10 @@ export class SideMenuWebPage implements OnInit {
        console.log('Error reading tag', err);
    }
   }
-  ngOnDestroy() {
-    this.pageAlive = false;
-    clearTimeout(this.nfcTimeout);
-  }
+  // ngOnDestroy() {
+  //   this.pageAlive = false;
+  //   clearTimeout(this.nfcTimeout);
+  // }
   // async nfcScan() { 
   //   const { ndefMessage } = await Nfc.getData();
   //   if(this.pageAlive) {
