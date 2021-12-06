@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { AlertController, AnimationController, ModalController } from '@ionic/angular';
 import { fadeInAnimation } from '../../app.animation';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
@@ -27,7 +28,7 @@ export class SideMenuWebPage implements OnInit {
     private alert: AlertController,
     private animationCtrl: AnimationController,
     private modal:ModalController,
-    // private iosnfc: NFC
+    // private iosnfc: NFC,
     //  private ndef: Ndef
   ) { }
 
@@ -126,6 +127,23 @@ export class SideMenuWebPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  async alerttest() {
+    const alert = await this.alert.create({
+      header:'테스트',
+      message:'테스트입니다.',
+      cssClass:'asdsad',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler: async() => {
+
+          }
+        }
+      ]
+    });
+      alert.present();
   }
 
 
