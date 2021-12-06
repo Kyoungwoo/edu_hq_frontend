@@ -195,16 +195,30 @@
     }
   // } 
 
-  .asdsad{
+  
+  .alertButton{
     .alert-button-group{
       justify-content: center;
       .alert-button{
         width: 100px;
-        .alert-button-inner:nth-child(1){
-          justify-content: center;
+        &:nth-child(1){
+          background: #D1F6E3;
+          color: var(--ion-color-tint);
           // background-color: antiquewhite;
+        }
+        &:nth-child(2){
+          // justify-content: center;
+          background: var(--ion-color-primary);
         }
       }
     }
   }
+
+  // .button-translucent {
+    
+  //   --color: var(--ion-color-shade);
+  //   ion-button {
+  //       --box-shadow: none;
+  //   }
+  // }
 }
