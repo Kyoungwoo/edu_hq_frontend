@@ -1,5 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
-import { SafePipe } from 'src/app/basic/pipes/safe.pipe';
+import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnInit } from '@angular/core';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/file.service';
 
 @Component({
@@ -90,19 +89,4 @@ export class FileComponent implements OnInit, DoCheck {
     this.file_json.insert = reorderedList.filter(_item => !_item.seq_no);
     console.log(this.file_json);
   }
-
-
-  /* deleteFile(item, i) {
-    this.view.splice(i, 1);
-  }
-  upload() {
-    this.connect.run('efefe', this.form);
-  } */
-
-
-  /* @Input()
-  set value(v) {
-    
-    if(v !== )
-  } */
 }
