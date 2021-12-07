@@ -4,8 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'basic/login-web',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./page/login/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'basic/tab',
@@ -28,21 +32,13 @@ const routes: Routes = [
     loadChildren: () => import('./basic/page/side-menu-app/side-menu-app.module').then( m => m.SideMenuAppPageModule)
   },
   {
-    path: 'basic/side-menu-web',
-    loadChildren: () => import('./basic/page/side-menu-web/side-menu-web.module').then( m => m.SideMenuWebPageModule)
+    path: 'main-admin',
+    loadChildren: () => import('./page/main/main-admin/main-admin.module').then( m => m.MainAdminPageModule)
   },
   {
-    path: 'basic/login-web',
-    loadChildren: () => import('./basic/page/login-web/login-web.module').then( m => m.LoginWebPageModule)
-  },
-  {
-    path: 'basic/login-app',
-    loadChildren: () => import('./basic/page/login-app/login-app.module').then( m => m.LoginAppPageModule)
+    path: 'main-user',
+    loadChildren: () => import('./page/main/main-user/main-user.module').then( m => m.MainUserPageModule)
   }
-
-
-
-
 ];
 
 @NgModule({

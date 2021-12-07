@@ -89,8 +89,8 @@
   
     <h3 id="dialog">Dialog</h3>
     <p>alert, modal 등 화면에 새로 띄우는 컴포넌트들 입니다. <strong>tag를 직접 넣어 사용하지 않고, service를 이용해서 사용합니다.</strong></p>
-    <h4 id="alert">app-alert<ion-badge>private</ion-badge><ion-badge>service</ion-badge></h4>
-    <p><a routerLink="/basic/guide" fragment="calendar-service"><code>calendar.service</code></a>로 사용합니다.</p>
+    <h4 id="alert">app-alert<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge></h4>
+    <p><a routerLink="/basic/guide" fragment="alert-service"><code>alert.service</code></a>로 사용합니다.</p>
     <h5>examples</h5>
     <div>
 <pre><code ngNonBindable>this.alert.present(&#123;
@@ -294,7 +294,7 @@
       </tbody>
     </app-table>
   
-    <h4 id="calendar-popover">calendar-popover<ion-badge>private</ion-badge></h4>
+    <h4 id="calendar-popover">calendar-popover<ion-badge color="danger">private</ion-badge></h4>
     <p><a routerLink="/basic/guide" fragment="calendar"><code>calendar</code></a>에서 호출되는 달력 입니다.</p>
   
     <h4 id="check">check</h4>
@@ -433,7 +433,7 @@
       </tbody>
     </app-table>
 
-    <h4 id="datetime-popover">datetime-popover<ion-badge>private</ion-badge></h4>
+    <h4 id="datetime-popover">datetime-popover<ion-badge color="danger">private</ion-badge></h4>
     <p><a routerLink="/basic/guide" fragment="datetime"><code>datetime</code></a>에서 호출되는 시간 선택 component 입니다.</p>
 
     <h4 id="file">file</h4>
@@ -702,7 +702,7 @@
       </tbody>
     </app-table>
 
-    <h4 id="select-popover">select-popover<ion-badge>private</ion-badge></h4>
+    <h4 id="select-popover">select-popover<ion-badge color="danger">private</ion-badge></h4>
     <p><a routerLink="/basic/guide" fragment="select"><code>select</code></a>에서 호출되는 옵션 선택 component 입니다.</p>
 
     <h4 id="textarea">textarea</h4>
@@ -746,7 +746,7 @@
       <thead>
         <tr>
           <th>Prop</th>
-          <th>Type</th>
+          <th width="180px">Type</th>
           <th>Description</th>
         </tr>
       </thead>

@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ImgComponent implements OnInit {
 
+  @Input() mode:'light' | 'dark' | 'theme' = 'theme';
   @Input() src:string;
 
   constructor() { }

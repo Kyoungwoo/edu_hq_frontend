@@ -1,0 +1,24 @@
+<ion-content>
+  <app-row>
+    <app-col size="2" *ngFor="let menu of menuList"><app-img class="title-img" mode="light" [src]="menu.img"></app-img>
+      <h2>{{ menu.title }}</h2>
+      <ul class="sub-menu">
+        <li *ngFor="let subMenu of menu.subMenuList">
+          <app-button fill="clear" color="dark" [routerLink]="subMenu.link" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? null : notReady()">
+            {{ subMenu.title }} <app-img *ngIf="subMenu.thirdMenuList" [src]="subMenu.toggle ? 'assets/basic/img/list-tab-hide.svg' : 'assets/basic/img/list-tab.svg'"></app-img>
+          </app-button>
+          <ng-container *ngIf="subMenu.toggle">
+            <ul class="third-menu" [@listAnimation]="subMenu.thirdMenuList?.length">
+              <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link" (click)="thirdMenu.link ? null : notReady()">
+                <app-button fill="clear" color="dark">
+                  {{ thirdMenu.title }}
+                </app-button>
+              </li>
+            </ul>
+          </ng-container>
+        </li>
+      </ul>
+    </app-col>
+  </app-row>
+</ion-content>
+  

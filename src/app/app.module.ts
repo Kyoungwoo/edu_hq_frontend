@@ -34,7 +34,7 @@ import Nfc from './basic/plugin/testnfc';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: AlertStrategy, useValue: { mode: 'devmonster' }},
+    { provide: AlertStrategy, useValue: { mode: 'md' }},
     QRScanner,
     File,
     Media,
