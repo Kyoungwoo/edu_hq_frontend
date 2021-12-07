@@ -143,14 +143,12 @@ export class SideMenuWebPage implements OnInit {
     //   }
     // })
 
-    // test_modal.present();\
-    
-    const alert = await this.alert.create({
-      message:`<img src='assets/basic/img/close.svg'/><br>
-               <h4>회원가입이 반려되었습니다.</h4><br>`,    
-      // header:'회원가입이 반려되었습니다.',
+    // test_modal.present();
 
-      // subHeader: '정보 수정 후 재가입 신청 하시겠습니까? 반려사유 : 정보 오류',
+    const alert = await this.alert.create({
+      message:"<img src='assets/basic/img/work-plan.svg'/>",
+      header:'회원가입이 반려되었습니다.',
+      subHeader: '정보 수정 후 재가입 신청 하시겠습니까?\n반려사유 : 정보 오류',
       cssClass:'alertButton',
       buttons:[
         {text:'정보삭제'},
@@ -162,15 +160,5 @@ export class SideMenuWebPage implements OnInit {
       ]
     });
       alert.present();
-  }
-
-  async test() {
-    console.log("____");   
-    // try {
-    //   let tag = await this.nfc.scanNdef();
-    //   console.log("_____", JSON.stringify(tag));
-    // } catch (err) {
-    //   console.log('Error reading tag', err);
-    // }
   }
 }

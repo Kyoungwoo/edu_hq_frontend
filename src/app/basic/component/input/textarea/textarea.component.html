@@ -1,7 +1,6 @@
-<ion-item lines="none">
+<ion-item lines="none" [class.disabled]="disabled">
   <ion-label position="stacked">{{ label }}</ion-label>
   <ion-textarea 
-  [class.has-icon]="icon"
   [placeholder]="placeholder"
   [(ngModel)]="value"
   [autofocus]="autofocus"
@@ -9,7 +8,8 @@
   [disabled]="disabled"
   [maxlength]="maxlength"
   [autoGrow]="autoGrow"
-  ></ion-textarea>
-  <div *ngIf="icon" class="icon">
-    <img [src]="icon">
+  [style.--padding-end.px]="button.innerHTML ? button.offsetWidth : 8"></ion-textarea>
+  <div #button class="button" tabindex="-1" (click)="buttonClick.emit(value)">
+    <ng-content></ng-content>
   </div>
+</ion-item>

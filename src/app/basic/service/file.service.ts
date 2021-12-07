@@ -90,7 +90,37 @@ export class FileService {
         return null;
     }
   }
+  scriptObj:{[name:string]:{
+    url:string,
+    loaded:boolean,
+    resolve:any[]
+  }} = {};
+  script(url) {
+    return new Promise(resolve => {
+      if(!this.scriptObj[url]) {
+        this.scriptObj[url] = { url, loaded: false, resolve: [] };
+        this.scriptObj[url].resolve.push(resolve);
 
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=icx4jmxljt';
+        script.onload = () => {
+          this.scriptObj[url].loaded = true;
+          this.scriptObj[url].resolve.forEach(_resolve => {
+            console.log('here');
+            _resolve(null);
+          })
+        }
+        script.onerror = (error) => {
+          console.error(error);
+          delete this.scriptObj[url];
+        }
+        document.body.appendChild(script);
+      }
+      else if(!this.scriptObj[url].loaded) { this.scriptObj[url].resolve.push(resolve); }
+      else resolve(null);
+    });
+  }
   clone(obj) {
     try {
       return JSON.parse(JSON.stringify(obj));

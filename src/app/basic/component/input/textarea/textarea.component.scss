@@ -1,8 +1,11 @@
 :host {
+    --app-input-button-readonly-opacity: 0.5;
+    --app-input-button-disabled-opacity: 0.5;
+  
     display: block;
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
     ion-item {
-        margin-top: var(--app-margin);
-        margin-bottom: var(--app-margin);
         --padding-start: 0;
         --padding-end: 0;
         --inner-padding-end: 0;
@@ -18,35 +21,64 @@
             padding-left: 3px;
         }
         ion-textarea {
+            border-style: solid;
+            border-width: var(--app-input-border-width);
+            border-color: var(--app-input-border-color);
+            border-radius: var(--app-border-radius);
             --padding-start: 8px;
             --padding-end: 8px;
-            border: 2px solid var(--app-border);
-            border-radius: var(--app-border-radius);
+            --placeholder-opacity: 1;
+            --placeholder-color: var(--app-placeholder-color);
             font-size: var(--font-size-n);
             height: var(--app-height);
             min-height: var(--app-height);
             background: var(--ion-color-white);
-            margin-top: 0;
-            textarea {
-                min-height: var(--app-height);
+            ::ng-deep {
+                textarea {
+                    min-height: var(--app-height);
+                }
             }
         }
-        ion-input.has-icon {
-            --padding-end: 32px;
-        }
-        .icon {
+        .button {
             position: absolute;
-            bottom: 6px;
-            right: 10px;
+            bottom: 0;
+            right: 0;
             z-index: 2;
-            img {
-                width: 20px;
-            }
+            height: var(--app-height);
+            padding-left: 8px;
+            padding-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-h6);
         }
     }
     ion-item.item-has-focus {
-        ion-input {
+        --background: transparent;
+        ion-textarea {
             border-color: var(--ion-color-primary);
         }
+    }
+}
+:host.readonly {
+    .button {
+        opacity: var(--app-input-button-readonly-opacity);
+    }
+}
+:host.disabled {
+    ion-input {
+        border-color: var(--app-input-border-disabled-color);
+    }
+    .etc {
+        opacity: var(--app-input-button-disabled-opacity);
+    }
+}
+:host ::ng-deep {
+    h1, h2, h3, h4, h5, p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-img {
+        width: 20px;
     }
 }

@@ -35,12 +35,12 @@ import { SelectMultiplePopoverComponent } from './select-multiple-popover/select
     FileComponent,
     InputComponent,
     InputCaptionComponent,
+    NaverMapComponent,
     SelectComponent,
     SelectMultiplePopoverComponent,
     SelectOptionComponent,
     SelectPopoverComponent,
     TextareaComponent,
-    NaverMapComponent
   ],
   imports: [
     CommonModule,
@@ -59,10 +59,10 @@ import { SelectMultiplePopoverComponent } from './select-multiple-popover/select
     FileComponent,
     InputComponent,
     InputCaptionComponent,
+    NaverMapComponent,
     SelectComponent,
     SelectOptionComponent,
     TextareaComponent,
-    NaverMapComponent
   ]
 })
 export class InputComponentModule { }

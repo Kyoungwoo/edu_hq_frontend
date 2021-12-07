@@ -93,7 +93,7 @@
     <p><a routerLink="/basic/guide" fragment="calendar-service"><code>calendar.service</code></a>로 사용합니다.</p>
     <h5>examples</h5>
     <div>
-<pre><code>this.alert.present(&#123;
+<pre><code ngNonBindable>this.alert.present(&#123;
     mode: 'devmonster',
     header: 'alert header',
     subHeader: 'alert sub header',
@@ -147,7 +147,7 @@
         <tr>
           <td>inputs</td>
           <td>
-<pre><code>Array&lt;&#123;
+<pre><code ngNonBindable>Array&lt;&#123;
     type?:string,
     name?:string,
     placeholder?:string,
@@ -366,7 +366,7 @@
       <a routerLink="/basic/guide" fragment="check"><code>check</code></a>의 <code>[type=all]</code>을 이용하여, 전체 <a routerLink="/basic/guide" fragment="check"><code>check</code></a>를 토글할 수 있습니다.</p>
   
     <h5>examples</h5>
-<pre><code>&lt;app-check-group [(ngModel)]="checkedList"&gt;
+<pre><code ngNonBindable>&lt;app-check-group [(ngModel)]="checkedList"&gt;
   &lt;app-check type="all"&gt;all&lt;/app-check&gt;
   &lt;app-check on="korea"&gt;korea&lt;/app-check&gt;
   &lt;app-check on="japan"&gt;japan&lt;/app-check&gt;
@@ -402,7 +402,7 @@
     <p>시간을 선택하기 위한 component 입니다.</p>
 
     <h5>examples</h5>
-<pre><code>&lt;app-datetime label="dateTime" [(ngModel)]="form.dateTime"&gt;&lt;/app-datetime&gt;</code></pre>
+<pre><code ngNonBindable>&lt;app-datetime label="dateTime" [(ngModel)]="form.dateTime"&gt;&lt;/app-datetime&gt;</code></pre>
     <app-row>
       <app-col>
         <app-datetime name="datetime" label="datetime"></app-datetime>
@@ -443,9 +443,9 @@
     <b><ion-text color="danger">반드시 <code>[view_type]</code>을 정의하고 사용하여야 합니다.</ion-text></b></p>
 
     <h5>examples</h5>
-<pre><code>&lt;app-button&gt;
+<pre><code ngNonBindable>&lt;app-button&gt;
   file upload
-  &lt;app-file name="input" label="input" view_type="NOTICE" 
+  &lt;app-file name="input" view_type="NOTICE" 
   [list]=&rdquo;form.list&rdquo;
   [files]=&rdquo;form.files&rdquo;
   [file_json]=&rdquo;form.file_json&rdquo;
@@ -455,7 +455,11 @@
     <div>
       <app-button>
         file upload
-        <app-file view_type="NOTICE" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+        <app-file view_type="MAIN" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+      </app-button>
+      <app-button>
+        file upload
+        <app-file view_type="SUB" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
       </app-button>
     </div>
     <app-card color="light" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">
@@ -484,10 +488,10 @@
     </app-row>
 
     <h4 id="app-input">input</h4>
-    <p>input component 입니다. 일반적인 input과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
+    <p>일반적인 <a href="https://www.w3schools.com/tags/tag_input.asp" target="_blank"><code>input <ion-icon name="open-outline"></ion-icon></code></a>과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
   
     <h5>examples</h5>
-<pre><code>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
+<pre><code ngNonBindable>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;</code></pre>
 
@@ -547,7 +551,7 @@
       <a routerLink="/basic/guid" fragment="regex-service"><code>RegexService</code></a> 와 함께 사용되는 경우가 많습니다.</p>
 
     <h5>examples</h5>
-<pre><code>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
+<pre><code ngNonBindable>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;
 &lt;app-input-caption&gt;올바른 이메일 형식이 아닙니다.&lt;/app-input-caption&gt;
@@ -575,10 +579,12 @@
     </app-table>
 
     <h4 id="naver-map">naver-map<ion-badge>by JunTae</ion-badge></h4>
+    <app-naver-map></app-naver-map>
+    <app-naver-map></app-naver-map>
   
     <h4 id="select">select</h4>
-    <p>일반적인 <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank"><code>&lt;select&gt;&lt;/select&gt;</code></a> tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.<br>
-    <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdk virtual scroll</code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
+    <p>일반적인 <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank"><code>select <ion-icon name="open-outline"></ion-icon></code></a> tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.<br>
+    <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdkVirtualScroll <ion-icon name="open-outline"></ion-icon></code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
     <app-card color="warning" fill="translucent" [button]="false"><small>*실험적 : <code>html</code> 레이아웃을 옵션에 사용할 수 있습니다.</small></app-card>
 
     <h5>examples</h5>
@@ -662,28 +668,128 @@
         </tr>
       </tbody>
     </app-table>
-  
-    <h3>app-datetime</h3>
-    <p>시간을 선택하기 위한 피커 입니다.</p>
+
+    <h4 id="select-option">select-option</h4>
+    <p><a routerLink="/basic/guide" fragment="select"><code>select</code></a> 와 함께 사용하는 component 입니다. 화면에 표시되지는 않습니다.</p>
+
+    <h5>example</h5>
+<pre><code ngNonBindable>&lt;app-select name="select" label="select" [(ngModel)]=&rdquo;form.select&rdquo; [multiple]="true"&gt;
+  &lt;app-select-option type="all" value="ALL"&gt;전체&lt;/app-select-option&gt;
+  &lt;app-select-option &ast;ngFor="let opt of options" value="opt.value"&gt;&#123;&#123; opt.text &#125;&#125;&lt;/app-select-option&gt;
+&lt;/app-select&gt;
+</code></pre>
+
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th width="200px">Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td><code>any</code></td>
+          <td>다양한 value를 사용할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td><code>'all' | 'normal'</code></td>
+          <td>전체 선택 타입인지 아닌지를 결정 합니다. <code>[type=all]</code>일 경우, 다른 값들은 선택 해제되며, <code>[type=all]</code>의 <code>[value]</code>가 <a routerLink="/basic/guide" fragment="select"><code>select</code></a>의 <code>[value]</code>가 됩니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="select-popover">select-popover<ion-badge>private</ion-badge></h4>
+    <p><a routerLink="/basic/guide" fragment="select"><code>select</code></a>에서 호출되는 옵션 선택 component 입니다.</p>
+
+    <h4 id="textarea">textarea</h4>
+    <p>일반적인 <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank"><code>textarea <ion-icon name="open-outline"></ion-icon></code></a>와 동일하게 사용 됩니다. 이미지나 텍스트와 함께 사용할 수 있습니다.</p>
+
+    <h5>examples</h5>
+<pre><code ngNonBindable>&lt;app-textarea name="textarea" label="textarea" [(ngModel)]=&rdquo;form.textarea&rdquo;&gt;
+  &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
+&lt;/app-textarea&gt;</code></pre>
+
+    <app-row>
+      <app-col>
+        <app-textarea name="textarea" label="textarea" placeholder="text"></app-textarea>
+      </app-col>
+      <app-col>
+        <app-textarea name="textarea readonly" label="textarea readonly" value="textarea readonly" [readonly]="true"></app-textarea>
+      </app-col>
+      <app-col>
+        <app-textarea name="textarea disabled" label="textarea disabled" value="textarea disabled" [disabled]="true"></app-textarea>
+      </app-col>
+    </app-row>
+
+    <app-row>
+      <app-col>
+        <app-textarea name="autoGrow" label="autoGrow" placeholder="autoGrow" [autoGrow]="true"></app-textarea>
+      </app-col>
+      <app-col>
+        <app-textarea name="with img" label="with img">
+          <app-img slot="end" src="assets/basic/img/search.png"></app-img>
+        </app-textarea>
+      </app-col>
+      <app-col>
+        <app-textarea name="with text" label="with text">
+          hello world
+        </app-textarea>
+      </app-col>
+    </app-row>
+
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>maxLength</td>
+          <td><code>number</code></td>
+          <td>default는 1000. 최대 글자수를 지정합니다.</td>
+        </tr>
+        <tr>
+          <td>autoGrow</td>
+          <td><code>boolean</code></td>
+          <td>default는 <code>false</code>. 줄 수에 따라 <code>texarea</code>의 height을 변경합니다.</td>
+        </tr>
+        <tr>
+          <td>(buttonClick)</td>
+          <td><code>(value) => void</code></td>
+          <td><code>textarea</code>와 같이 사용하는 텍스트나 아이콘의 박스를 클릭했을 때의 이벤트를 발생합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
   
     <h3>UI</h3>
   
     <h4 id="button">app-button</h4>
-    <p>앱에 사용되는 버튼 입니다. 기본적으로는 app-button과 같은 사용법입니다.</p>
+    <p>앱에 사용되는 버튼 입니다. 다양한 요소들과 조합하여 사용됩니다.</p>
     <h5>examples</h5>
     <div>
       <app-button>default</app-button>
+      <app-button color="warning">color:warning</app-button>
+      <app-button color="danger">color:danger</app-button>
+    </div>
+    <div>
+      <app-button fill="translucent">fill:translucent</app-button>
+      <app-button fill="outline">fill:outline</app-button>
+      <app-button fill="translucent-outline">fill:translucent-outline</app-button>
+      <app-button fill="clear">fill:clear</app-button>
+    </div>
+    <div>
+      <app-button size="small">size:small</app-button>
       <app-button shape="round">shape:round</app-button>
       <app-button shape="circle">shape:circle</app-button>
       <app-button shape="square">shape:square</app-button>
-      <app-button size="small">size:small</app-button>
-      <app-button fill="translucent">fill:translucent</app-button>
-      <app-button fill="outline">fill:outline</app-button>
-      <app-button fill="translucent-outline">fill:t-outline</app-button>
-      <app-button fill="clear">fill:clear</app-button>
-      <app-button fill="additional">fill:additional</app-button>
-      
-      
     </div>
     <div>
       <app-button expand="block">expand:block</app-button>

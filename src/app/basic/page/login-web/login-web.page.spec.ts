@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { NvaerAddressComponent } from './nvaer-address.component';
+import { LoginWebPage } from './login-web.page';
 
-describe('NvaerAddressComponent', () => {
-  let component: NvaerAddressComponent;
-  let fixture: ComponentFixture<NvaerAddressComponent>;
+describe('LoginWebPage', () => {
+  let component: LoginWebPage;
+  let fixture: ComponentFixture<LoginWebPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NvaerAddressComponent ],
+      declarations: [ LoginWebPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NvaerAddressComponent);
+    fixture = TestBed.createComponent(LoginWebPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FileService } from 'src/app/basic/service/file.service';
 declare const naver;
 
 
@@ -13,28 +14,34 @@ declare const naver;
     multi: true
   }]
 })
-export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAccessor{
+export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   
-  @ViewChild('naverMap') naverMap:ElementRef<HTMLElement>;
-
+  @HostBinding('id') get id() { return this._id };
+  private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
+  
   map:any;
   
   path = [];
   marker = [];
   LatLng = [];
 
-  constructor() { }
+  constructor(
+    private el: ElementRef,
+    private file: FileService
+  ) {}
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.init();
+    this.file.script('https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=icx4jmxljt').then(() => {
+      this.init();
+    });
   }
   
-  async init(){
+  async init() {
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
     const position = new naver.maps.LatLng(36.8637499,126.6422598);
-    this.map = new naver.maps.Map("map", {
+    this.map = new naver.maps.Map(this.id, {
       center: position,
       zoom: 10
     });
@@ -85,7 +92,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     
     if(this.value.length){
-      console.log(this.value);
       const length = this.value.length;
       for(let i=0; i < length; i++) {
         const { x, y } = this.value[i];
@@ -128,7 +134,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     // });
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
-      console.log("this.path",this.path);
       const point = e.coord;
       const markerIndex = this.marker.indexOf(marker);
       this.path.splice(markerIndex,1,point);
@@ -141,8 +146,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       const max = 20;
       let step = 0;
       const interval = setInterval(() => {
-        console.log('efef');
-        const rect = this.naverMap.nativeElement.getBoundingClientRect();
+        const rect = this.el.nativeElement.getBoundingClientRect();
         if(rect.width || step > max) {
           clearInterval(interval);
           res(rect);
