@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SideMenuWebPageRoutingModule } from './side-menu-web-routing.module';
+import { LoginWebPageRoutingModule } from './login-web-routing.module';
 
-import { SideMenuWebPage } from './side-menu-web.page';
+import { LoginWebPage } from './login-web.page';
 import { BasicComponentModule } from '../../component/basic.component.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { BasicComponentModule } from '../../component/basic.component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SideMenuWebPageRoutingModule,
+    LoginWebPageRoutingModule,
     BasicComponentModule
   ],
-  declarations: [SideMenuWebPage]
+  declarations: [LoginWebPage]
 })
-export class SideMenuWebPageModule {}
+export class LoginWebPageModule {}

@@ -1,0 +1,29 @@
+ion-content {
+	--background:white;
+}
+.login {
+	width: 400px;
+	height: 475px;
+	background: #F7F9FC;
+	padding: 20px;
+
+		.logo-img {
+			text-align: center;
+			display: block;
+			margin: 0 auto;
+			width: 45px;
+			height: 45px;
+			margin-bottom: 20px;
+		}
+
+		.logo {
+			margin: 0 auto;
+			display: block;
+			text-align: center;
+			width: 72px;
+			height: 12px;
+		}
+	}
+.check-item {
+	width: 10px;
+}
