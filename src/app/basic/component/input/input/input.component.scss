@@ -49,6 +49,7 @@
       font-size: var(--font-size-h6);
     }
   }
+
   ion-item.item-has-focus {
     --background: transparent;
     ion-input {
@@ -78,3 +79,17 @@
         width: 20px;
     }
 }
+
+
+/*
+ * ----- custom class line -----
+ */
+ :host{
+  .input_class{
+    ion-input{
+      border-color:#d3dfe4;
+      --placeholder-color: var(--ion-color-dark);
+    }
+  }
+ }
+

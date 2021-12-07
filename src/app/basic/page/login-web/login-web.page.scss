@@ -3,9 +3,9 @@ ion-content {
 }
 .login {
 	width: 400px;
-	height: 475px;
+	height: 410px;
 	background: #F7F9FC;
-	padding: 20px;
+	padding: 30px;
 
 		.logo-img {
 			text-align: center;
@@ -13,17 +13,16 @@ ion-content {
 			margin: 0 auto;
 			width: 45px;
 			height: 45px;
-			margin-bottom: 20px;
+			margin-bottom: 30px;
 		}
 
 		.logo {
 			margin: 0 auto;
 			display: block;
 			text-align: center;
-			width: 72px;
-			height: 12px;
+			width: 80px;
+			height: 15px;
+			margin-bottom: 20px;
 		}
+		
 	}
-.check-item {
-	width: 10px;
-}
