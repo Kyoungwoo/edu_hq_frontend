@@ -3,10 +3,10 @@ import { AlertButton, AlertController, AnimationController, PopoverController } 
 import { AlertComponent } from '../../component/dialog/alert/alert.component';
 
 export interface AlertOptions {
+  message?: string,
   mode?: 'ios' | 'md' | 'devmonster' | 'ionic',
   header?: string,
   subHeader?: string,
-  message?: string,
   inputs?: Array<any>,
   buttons?: Array<AlertButton>
   cssClass?: string,

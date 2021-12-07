@@ -5,7 +5,6 @@ import { fadeInAnimation } from '../../app.animation';
 import { AlertComponent } from '../../component/dialog/alert/alert.component';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
 import Nfc from '../../plugin/testnfc';
-// import { NFC } from '@ionic-native/nfc/ngx';
 
 
 @Component({
@@ -29,8 +28,6 @@ export class SideMenuWebPage implements OnInit {
     private alert: AlertController,
     private animationCtrl: AnimationController,
     private modal:ModalController,
-    // private iosnfc: NFC,
-    //  private ndef: Ndef
   ) { }
 
   async ngOnInit() {
@@ -146,22 +143,34 @@ export class SideMenuWebPage implements OnInit {
     //   }
     // })
 
-    // test_modal.present();
+    // test_modal.present();\
+    
     const alert = await this.alert.create({
-      message:"<img src='assets/basic/img/close.svg'/>",
-      header:'회원가입이 반려되었습니다.',
-      subHeader: '정보 수정 후 재가입 신청 하시겠습니까? 반려사유 : 정보 오류',
+      message:`<img src='assets/basic/img/close.svg'/><br>
+               <h4>회원가입이 반려되었습니다.</h4><br>`,    
+      // header:'회원가입이 반려되었습니다.',
+
+      // subHeader: '정보 수정 후 재가입 신청 하시겠습니까? 반려사유 : 정보 오류',
       cssClass:'alertButton',
       buttons:[
         {text:'정보삭제'},
         {
           text:'재가입 신청',
           handler: async() => {
-            console.log("asdfasdf");
           }
         }
       ]
     });
       alert.present();
+  }
+
+  async test() {
+    console.log("____");   
+    // try {
+    //   let tag = await this.nfc.scanNdef();
+    //   console.log("_____", JSON.stringify(tag));
+    // } catch (err) {
+    //   console.log('Error reading tag', err);
+    // }
   }
 }
