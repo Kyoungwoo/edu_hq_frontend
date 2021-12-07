@@ -34,7 +34,12 @@ const routes: Routes = [
   {
     path: 'basic/login-web',
     loadChildren: () => import('./basic/page/login-web/login-web.module').then( m => m.LoginWebPageModule)
+  },
+  {
+    path: 'basic/login-app',
+    loadChildren: () => import('./basic/page/login-app/login-app.module').then( m => m.LoginAppPageModule)
   }
+
 
 
 

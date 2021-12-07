@@ -18,6 +18,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = null;
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
+  @Input() custom_class:string = "";
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }

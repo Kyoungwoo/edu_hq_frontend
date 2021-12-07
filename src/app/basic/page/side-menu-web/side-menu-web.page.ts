@@ -152,7 +152,6 @@ export class SideMenuWebPage implements OnInit {
       message:"<img src='assets/basic/img/work-plan.svg'/>",
       header:'회원가입이 반려되었습니다.',
       subHeader: '정보 수정 후 재가입 신청 하시겠습니까?\n반려사유 : 정보 오류',
-      cssClass:'alertButton',
       buttons:[
         {text:'정보삭제'},
         {
