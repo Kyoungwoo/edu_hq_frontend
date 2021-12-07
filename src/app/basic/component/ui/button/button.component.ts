@@ -11,6 +11,7 @@ export class ButtonComponent implements OnInit {
   @HostBinding('class') get class() {
     let _class = [];
     if(this.color) _class.push(`ion-color-${this.color}`);
+    else _class.push(`ion-color-primary`);
     if(this.fill) _class.push(`button-${this.fill}`);
     if(this.size) _class.push(`button-${this.size}`);
     if(this.shape) _class.push(`button-${this.shape}`);
@@ -18,10 +19,10 @@ export class ButtonComponent implements OnInit {
     return _class.join(' ');
   }
 
-  @Input() color:Color = 'primary';
+  @Input() color:Color;
   @Input() disabled:boolean = false;
   @Input() expand:'block';
-  @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline' | 'additional';
+  @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
   @Input() shape:'round' | 'circle' | 'square';
   @Input() size:'default' | 'large' | 'small';
   @Input() strong:boolean;

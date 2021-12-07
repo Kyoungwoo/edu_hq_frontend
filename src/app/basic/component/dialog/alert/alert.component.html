@@ -1,6 +1,0 @@
-<p *ngIf="opts?.message">{{ opts.message }}</p>
-<h2 *ngIf="opts?.header">{{ opts.header }}</h2>
-<h3 *ngIf="opts?.subHeader">{{ opts.subHeader }}</h3>
-<ng-container *ngFor="let item of opts.buttons">
-    <app-button (click)="item.handler($event)"></app-button>
-</ng-container>

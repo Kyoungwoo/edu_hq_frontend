@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, InjectionToken, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FileService } from 'src/app/basic/service/file.service';
 declare const naver;
 
 
+export const NaverMapId = new InjectionToken<string>('NaverMapId');
 @Component({
   selector: 'app-naver-map',
   templateUrl: './naver-map.component.html',
@@ -27,13 +28,14 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   infoWindows = [];
 
   constructor(
+    @Inject(NaverMapId) private naverMapId:string,
     private el: ElementRef,
     private file: FileService
   ) {}
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.file.script('https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=icx4jmxljt').then(() => {
+    this.file.script(`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.naverMapId}`).then(() => {
       this.init();
     });
   }

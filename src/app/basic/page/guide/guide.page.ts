@@ -72,12 +72,11 @@ export class GuidePage implements OnInit, AfterViewInit {
     }
   }
 
-  alertPresent(mode) {
+  alertPresent() {
     this.alert.present({
-      mode,
-      message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+      img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
       header: 'alert header',
-      subHeader: 'alert sub header',
+      message: 'alert message',
       buttons: [
         { text: 'cancel' },
         { text: 'submit', handler: () => {

@@ -15,10 +15,7 @@ import { File } from "@ionic-native/file/ngx";
 import { Media } from '@ionic-native/media/ngx';
 import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
-import { AlertStrategy } from './basic/service/ionic/alert.service';
-import Nfc from './basic/plugin/testnfc';
-// import { NFC } from '@ionic-native/nfc/ngx';
-
+import { NaverMapId } from './basic/component/input/naver-map/naver-map.component';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -34,11 +31,10 @@ import Nfc from './basic/plugin/testnfc';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: AlertStrategy, useValue: { mode: 'md' }},
+    { provide: NaverMapId, useValue: 'icx4jmxljt' },
     QRScanner,
     File,
-    Media,
-    // Nfc
+    Media
   ],
   bootstrap: [AppComponent],
 })

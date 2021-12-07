@@ -10,7 +10,9 @@ export class ColComponent implements OnInit {
   @HostBinding('style') get style() {
     return this._style;
   }
-
+  //25% 4px / 4px 25% 4px / 4px 25% 4px / 4px 25%
+  //25% 8px 25% 8px 25% 8px 25%
+  // calc(25% - 6px) margin 8px calc(25% - 6px) margin 8px calc(25% - 6px) margin 8px calc(25% - 6px)
   @Input() set size(_size:string | number) {
     _size = String(_size);
     if(_size === 'auto') {
@@ -22,12 +24,13 @@ export class ColComponent implements OnInit {
         width: ${_size};
         max-width: ${_size};
       `;
-    } 
+    }
     else {
+      const numSize = parseInt(_size);
       this._style = `
-        flex: 0 0 calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
-        width: calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
-        max-width: calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
+        flex: 0 0 ${numSize/12*100}%;
+        width: ${numSize/12*100}%;
+        max-width: ${numSize/12*100}%;
       `;
     }
   };

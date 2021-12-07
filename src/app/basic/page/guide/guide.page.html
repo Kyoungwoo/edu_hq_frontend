@@ -95,8 +95,8 @@
     <div>
 <pre><code ngNonBindable>this.alert.present(&#123;
     mode: 'devmonster',
+    img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
     header: 'alert header',
-    subHeader: 'alert sub header',
     message: 'alert message',
     buttons: [
         &#123; text: 'cancel' &#125;,
@@ -107,8 +107,7 @@
 })</code></pre>
     </div>
     <div>
-      <app-button (click)="alertPresent('devmonster')">mode:devmonster</app-button>
-      <app-button (click)="alertPresent('ionic')">mode:ionic</app-button>
+      <app-button (click)="alertPresent()">alert present</app-button>
     </div>
   
     <h5>Properties</h5>
@@ -130,15 +129,20 @@
           <td>alert의 mode 입니다.</td>
         </tr>
         <tr>
+          <td>img</td>
+          <td><code>'string'</code></td>
+          <td>alert에 포함될 img 입니다.</td>
+        </tr>
+        <tr>
           <td>header</td>
           <td><code>string</code></td>
           <td>alert의 header 입니다.</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>subHeader</td>
           <td><code>string</code></td>
           <td>alert의 subHeader 입니다.</td>
-        </tr>
+        </tr> -->
         <tr>
           <td>message</td>
           <td><code>string</code></td>

@@ -10,10 +10,10 @@
 
 
   @include generateColor('primary', #44C650, #ffffff);
-  @include generateColor('secondary', #D1F6E3, #ffffff);
+  @include generateColor('secondary', #D1F6E3, #222120);
   @include generateColor('tertiary', #25A485, #ffffff);
   @include generateColor('success', #25A485, #ffffff);
-  @include generateColor('warning', #F97D01, #ffffff);
+  @include generateColor('warning', #F97D01, #271f17);
   @include generateColor('danger', #FF6060, #ffffff);
   @include generateColor('light', #f3f4f6, #000000);
   @include generateColor('medium', #797e91, #ffffff);
@@ -38,10 +38,10 @@
     @include generateColorSteps(#222120, #f1f0ef);
     
     @include generateColor('primary', #44C650, #ffffff);
-    @include generateColor('secondary', #D1F6E3, #ffffff);
+    @include generateColor('secondary', #D1F6E3, #222120);
     @include generateColor('tertiary', #25A485, #ffffff);
     @include generateColor('success', #25A485, #ffffff);
-    @include generateColor('warning', #F97D01, #ffffff);
+    @include generateColor('warning', #F97D01, #271f17);
     @include generateColor('danger', #FF6060, #ffffff);
     @include generateColor('dark', #445760, #222120);
     @include generateColor('medium', #b5a79b, #222120);

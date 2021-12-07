@@ -7,12 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../../pipes/pipes.module';
 
 import { UiComponentModule } from '../ui/ui.component.module';
-import { AlertComponent } from './alert/alert.component';
 import { DaumComponent } from './daum/daum.component';
 
 @NgModule({
   declarations: [
-    AlertComponent,
     DaumComponent
   ],
   imports: [

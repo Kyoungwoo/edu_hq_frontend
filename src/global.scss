@@ -38,7 +38,7 @@
     vertical-align: -webkit-baseline-middle;
     line-height: 1.48em;
     ion-badge {
-      margin-left: var(--app-padding);
+      margin-left: 4px;
       font-weight: 400;
     }
   }
@@ -248,18 +248,18 @@
     top: var(--ion-safe-area-top, 0px);
   }
 
-  .calendar-popover {
-    --max-width: 268px;
+  ion-popover.calendar-popover {
+    --max-width: 280px;
     --width: 100%;
   }
-  .select-popover {
-    --max-width: 250px;
+  ion-popover.select-popover {
+    --max-width: 280px;
     --width: 100%;
     --max-height: 300px;
   }
 
   /** custom tags / classes */
-  .modal-side-menu-admin {
+  ion-modal.side-menu-admin-modal {
     --width: 100%;
     --box-shadow: var(--app-box-shadow);
     --max-height: 100%;

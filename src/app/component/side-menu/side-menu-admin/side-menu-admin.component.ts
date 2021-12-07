@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { fadeInAnimation, listAnimation, listInAnimation } from 'src/app/basic/app.animation';
+import { listAnimation } from 'src/app/basic/app.animation';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 interface MenuItem {
@@ -22,7 +22,7 @@ interface ThirdMenuItem {
   selector: 'app-side-menu-admin',
   templateUrl: './side-menu-admin.component.html',
   styleUrls: ['./side-menu-admin.component.scss'],
-  animations: [ listInAnimation, listAnimation ]
+  animations: [ listAnimation ]
 })
 export class SideMenuAdminComponent implements OnInit {
 
