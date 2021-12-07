@@ -1,0 +1,5 @@
+<div class="profile" (click)="!readonly && profileClick()">
+  <app-img class="img-empty" src="assets/basic/img/person.png"></app-img>
+  <img class="img-profile" *ngIf="url" [src]="url | safe: 'url'">
+  <img *ngIf="!readonly" class="icon-plus" src="assets/img/plus.png">
+</div>

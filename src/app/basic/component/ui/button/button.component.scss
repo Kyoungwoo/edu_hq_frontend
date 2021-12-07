@@ -58,7 +58,7 @@
     }
 }
 /** special case */
-ion-header :host {
+ion-buttons>:host {
     --app-background: none;
     --app-box-shadow: none;
     --app-border-radius: 0;

@@ -18,11 +18,13 @@ import { TableComponent } from './table/table.component';
 import { ContainerComponent } from './container/container.component';
 import { ModalDismissButtonComponent } from './modal-dismiss-button/modal-dismiss-button.component';
 import { CodeComponent } from './code/code.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 
 
 @NgModule({
   declarations: [
+    AvatarComponent,
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
@@ -45,6 +47,7 @@ import { CodeComponent } from './code/code.component';
     RouterModule
   ],
   exports: [
+    AvatarComponent,
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,

@@ -775,6 +775,17 @@
   
     <h3>UI</h3>
   
+    <h4 id="avatar">avatar</h4>
+    <p>사람의 이미지를 나타내기위한, 혹은 편집하기 위한 component 입니다. <a routerLink="/basic/guide" fragment="file"><code>file</code></a> component 를 상속하고 있습니다.</p>
+    <app-row>
+      <app-col size="auto">
+        <app-avatar></app-avatar>
+      </app-col>
+      <app-col size="auto">
+        <app-avatar [readonly]="false"></app-avatar>
+      </app-col>
+    </app-row>
+
     <h4 id="button">app-button</h4>
     <p>앱에 사용되는 버튼 입니다. 다양한 요소들과 조합하여 사용됩니다.</p>
     <h5>examples</h5>
