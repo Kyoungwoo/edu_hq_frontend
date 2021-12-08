@@ -8,7 +8,6 @@
 :root {
   @include generateColorSteps(#f1f6f8,#222120);
 
-
   @include generateColor('primary', #44C650, #ffffff);
   @include generateColor('secondary', #D1F6E3, #2F8D38);
   @include generateColor('tertiary', #25A485, #ffffff);
