@@ -6,7 +6,7 @@
 
 /** Ionic CSS Variables **/
 :root {
-  @include generateColorSteps(#F5F7F9,#222120);
+  @include generateColorSteps(#edf2f5,#222120);
 
 
   @include generateColor('primary', #44C650, #ffffff);
