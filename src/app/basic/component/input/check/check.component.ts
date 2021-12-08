@@ -26,10 +26,14 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color = "primary";
   @Input() on:any = true;
   @Input() off:any = false;
+  @Input() custom_class:any = "";
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    console.log("this.custom_class",this.custom_class);
+  }
 
   onChange($event) {
     const _value:boolean = $event.detail.checked;

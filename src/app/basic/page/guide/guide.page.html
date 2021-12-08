@@ -234,13 +234,13 @@
     <form>
       <app-row>
         <app-col>
-          <app-calendar name="calendar" label="calendar"></app-calendar>
+          <app-calendar name="calendar" label="생년월일"></app-calendar>
         </app-col>
         <app-col>
-          <app-calendar name="calendar readonly" label="calendar readonly" [readonly]="true"></app-calendar>
+          <app-calendar name="calendar readonly" label="생년월일" [readonly]="true"></app-calendar>
         </app-col>
         <app-col>
-          <app-calendar name="calendar disabled" label="calendar disabled" [disabled]="true"></app-calendar>
+          <app-calendar name="calendar disabled" label="생년월일" [disabled]="true"></app-calendar>
         </app-col>
       </app-row>
       <app-row>
@@ -307,6 +307,9 @@
     <h5>examples</h5>
     <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
     <app-row>
+      <app-col size="auto">
+        <app-check custom_class="small_check" name="check"></app-check>
+      </app-col>
       <app-col size="auto">
         <app-check name="check1"></app-check>
       </app-col>
@@ -517,7 +520,7 @@
       </app-col>
       <app-col>
         <app-input name="with img" label="with img">
-          <app-img slot="end" src="assets/basic/img/search.png"></app-img>
+          <app-img slot="end" src="assets/basic/img/search.svg"></app-img>
         </app-input>
       </app-col>
       <app-col>
@@ -735,7 +738,7 @@
       </app-col>
       <app-col>
         <app-textarea name="with img" label="with img">
-          <app-img slot="end" src="assets/basic/img/search.png"></app-img>
+          <app-img slot="end" src="assets/basic/img/search.svg"></app-img>
         </app-textarea>
       </app-col>
       <app-col>
@@ -851,7 +854,7 @@
     </app-row>
     <h3>app-img</h3>
     <p>기존 img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.<br>서버에서 받아오는 이미지는 dark mode가 없으므로, 일반 img tag를 사용해야 합니다.</p>
-    <app-img src="assets/basic/img/calendar.png"></app-img>
+    <app-img src="assets/basic/img/calendar.svg"></app-img>
     <h3>app-logo</h3>
     <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
     <app-logo></app-logo>

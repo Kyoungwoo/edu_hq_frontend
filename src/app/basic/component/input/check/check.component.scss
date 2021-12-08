@@ -53,6 +53,17 @@
     ion-checkbox::part(container) {
         width: 80%;
     }
+    .small_check {
+        background: none;
+        width: 24px;
+        height: 24px;
+    }
+    .small_check.checkbox-checked {
+        background: var(--ion-color-white);
+        width: 24px;
+        height: 24px;
+        --checkmark-color:black;
+      }
 }
 :host.readonly {
     ion-checkbox {
