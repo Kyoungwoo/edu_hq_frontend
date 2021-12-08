@@ -1,6 +1,6 @@
 :host {
-    --app-input-button-readonly-opacity: 0.5;
-    --app-input-button-disabled-opacity: 0.5;
+    --app-readonly-opacity: 0.5;
+    --app-disabled-opacity: 0.5;
   
     display: block;
     margin-top: var(--app-margin);
@@ -40,6 +40,7 @@
             }
         }
         .button {
+            background: var(--app-input-button-background);
             position: absolute;
             bottom: 0;
             right: 0;
@@ -62,7 +63,7 @@
 }
 :host.readonly {
     .button {
-        opacity: var(--app-input-button-readonly-opacity);
+        opacity: var(--app-readonly-opacity);
     }
 }
 :host.disabled {
@@ -70,7 +71,7 @@
         border-color: var(--app-input-border-disabled-color);
     }
     .etc {
-        opacity: var(--app-input-button-disabled-opacity);
+        opacity: var(--app-disabled-opacity);
     }
 }
 :host ::ng-deep {

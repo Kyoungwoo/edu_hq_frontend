@@ -1,19 +1,23 @@
 <picture>
   <ng-container *ngIf="!name; else tempPreset">
     <ng-container *ngIf="mode === 'theme'; else tempLight">
-      <source [srcset]="src.replace('.png', '')+'-dark.png'" media="(prefers-color-scheme: dark)">
-      <img [src]="src">
+      <source [srcset]="src.replace('.png', '')+'-dark.png' | safe: 'url'" media="(prefers-color-scheme: dark)">
+      <img [src]="src | safe: 'url'">
     </ng-container>
     <ng-template #tempLight>
       <ng-container *ngIf="mode === 'light'; else tempDark">
-        <img [src]="src">
+        <img [src]="src | safe: 'url'">
       </ng-container>
     </ng-template>
     <ng-template #tempDark>
-      <img [src]="src.replace('.png', '')+'-dark.png'">
+      <img [src]="src.replace('.png', '')+'-dark.png' | safe: 'url'">
     </ng-template>
   </ng-container>
   <ng-template #tempPreset>
-    <img [src]="src">
+    <img [src]="src | safe: 'url'">
   </ng-template>
 </picture>
+<!-- don't remove -->
+<!-- <ng-template #tempImg>
+  <img [src]="src | safe: 'url'">
+</ng-template> -->

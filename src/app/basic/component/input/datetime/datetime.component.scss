@@ -25,7 +25,7 @@
     }
     app-row {
         position: relative;
-        // border-style: solid;
+        border-style: solid;
         border-width: var(--app-input-border-width);
         border-color: var(--app-input-border-color);
         border-radius: var(--app-border-radius);
@@ -52,7 +52,7 @@
         margin-bottom: 0;
     }
     .button {
-        background: var(--ion-color-primary-translucent);
+        background: var(--app-input-button-background);
         border-radius: 2px;
         cursor: pointer;
         position: absolute;

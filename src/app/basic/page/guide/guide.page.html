@@ -295,6 +295,11 @@
           <td><code>'date' | 'week'</code></td>
           <td>하루단위나 주단위로 달력을 선택할 수 있는 기능입니다.</td>
         </tr>
+        <tr>
+          <td>button</td>
+          <td><code>boolean</code></td>
+          <td>우측에 있는 달력 버튼을 활성화 / 비활성화 할 수 있는 기능입니다.</td>
+        </tr>
       </tbody>
     </app-table>
   
@@ -468,13 +473,13 @@
     <app-row>
       <app-col size="auto">
         <app-button>
-          <small>file upload</small><br>[type=MAIN]
+          <small>[multiple=false]<br>[type=MAIN]</small>
           <app-file view_type="MAIN" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
         </app-button>
       </app-col>
       <app-col size="auto">
         <app-button>
-          <small>file upload</small><br>[type=SUB]
+          <small>[multiple=true]<br>[type=SUB]</small>
           <app-file view_type="SUB" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
         </app-button>
       </app-col>
@@ -482,7 +487,7 @@
     <app-card color="white" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">
       <app-row>
         <app-col size="auto">
-          <img width=100 height=100 [src]="item.file_url | safe: 'url'">
+          <app-img width="50" height="50" [src]="item.file_url"></app-img>
         </app-col>
         <app-col>
           <ion-card-subtitle class="text-align:left">
@@ -518,6 +523,12 @@
           <td>view_type</td>
           <td><code>string</code></td>
           <td>업로드 시 <code>FutItem</code>에 사용할 <code>view_type</code>을 지정해 줍니다.</td>
+        </tr>
+        <tr>
+          <td>multiple</td>
+          <td><code>boolean</code></td>
+          <td>default는 <code>false</code>. 해당 <code>view_type</code>의 파일을 여러개의 파일을 선택할 것 인지, 1개만 선택하게 할 것인지를 결정합니다.<br>
+            <code>false</code>값을 가지면, 기존의 같은 <code>view_type</code>을 가진 <code>FutItem</code>은 새로운 파일을 업로드 시, 삭제 됩니다.</td>
         </tr>
         <tr>
           <td>value</td>
@@ -796,7 +807,7 @@
       </app-col>
       <app-col>
         <app-textarea name="with img" label="with img">
-          <app-img slot="end" src="assets/basic/img/search.svg"></app-img>
+          <app-img name="search"></app-img>
         </app-textarea>
       </app-col>
       <app-col>
@@ -850,7 +861,7 @@
     <p>사람의 이미지를 나타내기위한, 혹은 편집하기 위한 component 입니다. <a routerLink="/basic/guide" fragment="file"><code>file</code></a> component 를 상속하고 있습니다.</p>
     <app-row>
       <app-col size="auto">
-        <app-avatar></app-avatar>
+        <app-avatar src="assets/basic/img/arrow-down.png"></app-avatar>
       </app-col>
       <app-col size="auto">
         <app-avatar [readonly]="false"></app-avatar>
@@ -927,13 +938,6 @@
     <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
     <app-logo></app-logo>
 
-    <h3>app-profile</h3>
-    <p>프로필 이미지를 표시하기 위한 component 입니다. app-input-file 을 상속하고 있어서, 이미지 추가, 삭제를 할 수 있습니다.</p>
-    <app-row>
-      <app-col size="auto">
-        <app-profile></app-profile>
-      </app-col>
-    </app-row>
     <h3>app-row / app-col</h3>
     <p>flex 레이아웃을 짜기 위한 component 입니다.</p>
     <app-row>

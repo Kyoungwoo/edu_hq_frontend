@@ -10,7 +10,8 @@ export class FileComponent implements OnInit, DoCheck {
 
   @Input() view_type:string;
   @Input() accept:string;
-  @Input() multiple:boolean;
+  @Input() multiple:boolean = false;
+  @Input() disabled:boolean;
 
   @Input() value:FutItem[] = [];
 
@@ -44,26 +45,35 @@ export class FileComponent implements OnInit, DoCheck {
     if(!fileList.length) return;
 
     const existLength = this.value.filter(item => item.seq_no).length;
-    for(let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-
-      this.value.push({
-        content_type: file.type,
-        file_name: file.name,
-        file_size: file.size,
-        file_type: this.file.getMimeType(file),
-        file_url: this.file.createObjectURL(file),
-        order_no: existLength + i + 1,
-        view_type: this.view_type,
-        seq_no: 0
-      });
-      this.files.push(file);
-      this.file_json.insert.push({
-        order_no: existLength + i + 1,
-        view_type: this.view_type
-      })
+    if(!this.multiple) {
+      const file = fileList[0];
+      const existValueIndex = this.value.findIndex(item => item.view_type === this.view_type);
+      if(existValueIndex > -1) this.value.splice(existValueIndex, 1);
+      this.fileItemAdd(file, this.view_type, existLength + 1);
+    } else {
+      for(let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        this.fileItemAdd(file, this.view_type, existLength + i + 1);
+      }
     }
     $event.target.value = null;
+  }
+  private fileItemAdd(file:File|FileBlob, view_type, order_no) {
+    this.value.push({
+      content_type: file.type,
+      file_name: file.name,
+      file_size: file.size,
+      file_type: this.file.getMimeType(file),
+      file_url: this.file.createObjectURL(file),
+      order_no,
+      view_type,
+      seq_no: 0
+    });
+    this.files.push(file);
+    this.file_json.insert.push({
+      order_no,
+      view_type
+    })
   }
 
   private fileDelete(item:FutItem) {

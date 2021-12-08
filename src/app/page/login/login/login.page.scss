@@ -13,7 +13,7 @@ ion-content::part(scroll) {
 	background: var(--ion-color-light);
 	padding: 30px;
 
-    .logo-img {
+    .logo {
         text-align: center;
         display: block;
         margin: 0 auto;
@@ -22,12 +22,12 @@ ion-content::part(scroll) {
         margin-bottom: 30px;
     }
 
-    .logo {
+    .logo-text {
         margin: 0 auto;
         display: block;
         text-align: center;
         width: 80px;
         height: 15px;
         margin-bottom: 20px;
-    }   
+    }
 }

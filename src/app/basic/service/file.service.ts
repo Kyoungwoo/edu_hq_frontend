@@ -103,11 +103,10 @@ export class FileService {
 
         const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=icx4jmxljt';
+        script.src = url;
         script.onload = () => {
           this.scriptObj[url].loaded = true;
           this.scriptObj[url].resolve.forEach(_resolve => {
-            console.log('here');
             _resolve(null);
           })
         }

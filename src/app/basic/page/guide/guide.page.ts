@@ -96,7 +96,7 @@ export class GuidePage implements OnInit, AfterViewInit {
         file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
         order_no: this.file.list.length + 1, 
         seq_no: this.file.list.length + 1,
-        view_type: 'Logo'
+        view_type: 'MAIN'
       });
     }
   }

@@ -28,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./basic/page/steps/steps.module').then( m => m.StepsPageModule)
   },
   {
-    path: 'basic/side-menu-app',
-    loadChildren: () => import('./basic/page/side-menu-app/side-menu-app.module').then( m => m.SideMenuAppPageModule)
-  },
-  {
     path: 'main-admin',
     loadChildren: () => import('./page/main/main-admin/main-admin.module').then( m => m.MainAdminPageModule)
   },
