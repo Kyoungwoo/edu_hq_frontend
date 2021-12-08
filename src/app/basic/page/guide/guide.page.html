@@ -447,12 +447,13 @@
     <p>devmonster에서 만든 <code>fut</code> 시스템에 맞는 형태로 파일을 가공 및 활용할 수 있게 해주는 component 입니다.<br>
     back-end 와의 데이터 통신은 snake case 를 사용하기 때문에, file component 에서는 snake case 를 기본으로 사용합니다.<br>
     기본적으로 <small><code>{{ '{ position:absolute, left:0, top: 0, width: 100%, height: 100%, opacity: 0 }' }}</code></small> 인 레이아웃이기 때문에, 주로 <a routerLink="/basic/guide" fragment="button"><code>button</code></a>등과 함께 사용합니다.<br>
+    여러개의 <code>file</code> component 에 같은 리스트들을 물려서 사용할 수도 있습니다.<br>
     <b><ion-text color="danger">반드시 <code>[view_type]</code>을 정의하고 사용하여야 합니다.</ion-text></b></p>
 
     <h5>examples</h5>
 <pre><code ngNonBindable>&lt;app-button&gt;
   file upload
-  &lt;app-file name="input" view_type="NOTICE" 
+  &lt;app-file name="input" view_type="NOTICE"
   [list]=&rdquo;form.list&rdquo;
   [files]=&rdquo;form.files&rdquo;
   [file_json]=&rdquo;form.file_json&rdquo;
@@ -461,11 +462,11 @@
 
     <div>
       <app-button>
-        file upload
-        <app-file view_type="MAIN" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+        <small>file upload</small><br>[type=MAIN]
+        <app-file view_type="MAIN" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
       </app-button>
       <app-button>
-        file upload
+        <small>file upload</small><br>[type=SUB]
         <app-file view_type="SUB" [list]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
       </app-button>
     </div>
