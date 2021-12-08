@@ -19,6 +19,7 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @HostBinding('class') get class() {
     let _class = [];
     if(this.color) _class.push(`ion-color-${this.color}`);
+    if(this.size) _class.push(`check-${this.size}`);
     return _class.join(' ');
   }
 
@@ -26,14 +27,11 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color = "primary";
   @Input() on:any = true;
   @Input() off:any = false;
-  @Input() custom_class:any = "";
+  @Input() size:'small' | 'normal' = "normal";
 
   constructor() { }
 
-  ngOnInit() {
-
-    console.log("this.custom_class",this.custom_class);
-  }
+  ngOnInit() {}
 
   onChange($event) {
     const _value:boolean = $event.detail.checked;

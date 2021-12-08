@@ -252,7 +252,7 @@
           <app-calendar #endCalendar name="calendar" label="종료일[min=시작일.value]" [min]="startCalendar.value"></app-calendar>
         </app-col>
       </app-row>
-      <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true"></app-calendar>
+      <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true" [button]="false"></app-calendar>
     </form>
   
     <h5>properties</h5>
@@ -308,7 +308,7 @@
     <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
     <app-row>
       <app-col size="auto">
-        <app-check custom_class="small_check" name="check"></app-check>
+        <app-check color="white" size="small" name="check"></app-check>
       </app-col>
       <app-col size="auto">
         <app-check name="check1"></app-check>

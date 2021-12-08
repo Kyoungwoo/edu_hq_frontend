@@ -6,10 +6,10 @@
     <input [readonly]="readonly" [disabled]="disabled" type="tel" class="month-input" placeholder="월" [(ngModel)]="form.month" maxlength="2" (keyup)="changeMonth($event)" (focus)="fucus()" (blur)="blur()">
     .
     <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input" placeholder="일" [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
-    <div class="icon"
-    tabindex="-1"
-    (click)="(readonly || disabled) ? null : popoverCalendar()">
-      <app-img src="assets/img/basic/calendar.png"></app-img>
-    </div>
+  </div>
+  <div *ngIf="button" class="button"
+  tabindex="-1"
+  (click)="(readonly || disabled) ? null : popoverCalendar()">
+    <app-img src="assets/img/basic/calendar.png"></app-img>
   </div>
 </ion-item>

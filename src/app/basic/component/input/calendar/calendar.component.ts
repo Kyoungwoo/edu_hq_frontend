@@ -23,6 +23,7 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() max:string;
   @Input() timePicker:boolean;
   @Input() type:'date' | 'week' = 'date';
+  @Input() button:boolean = true;
 
   form = {
     year: '',

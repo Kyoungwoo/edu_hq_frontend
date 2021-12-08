@@ -1,6 +1,7 @@
 :host {
   --app-input-button-readonly-opacity: 0.5;
   --app-input-button-disabled-opacity: 0.5;
+  --app-input-border-width: 0;
 
   display: block;
   margin-top: var(--app-margin);
@@ -11,6 +12,7 @@
     --inner-padding-end: 0;
     --min-height: 0;
     --background: transparent;
+    background: var(--ion-color-white);
     ion-label {
       color: var(--ion-color-medium);
       font-size: var(--font-size-h6);
@@ -47,6 +49,10 @@
       align-items: center;
       justify-content: center;
       font-size: var(--font-size-h6);
+      background: var(--ion-color-primary-translucent);
+    }
+    .button:empty {
+      display: none;
     }
   }
 

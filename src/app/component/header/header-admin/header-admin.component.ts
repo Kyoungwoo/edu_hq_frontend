@@ -21,7 +21,7 @@ export class HeaderAdminComponent implements OnInit {
   async openSideMenu(){
     const modal = await this.modal.create({
       component: SideMenuAdminComponent,
-      cssClass:'modal-side-menu-admin',
+      cssClass:'side-menu-admin-modal',
       enterAnimation: (baseEl:HTMLElement) => {
         const backdropAnimation = this.animationCtrl.create()
         .addElement(baseEl.getElementsByTagName('ion-backdrop')[0])
