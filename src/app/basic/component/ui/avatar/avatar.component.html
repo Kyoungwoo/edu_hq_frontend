@@ -6,5 +6,5 @@
 </div>
 <ng-container  *ngIf="!readonly">
   <app-img class="avatar-add" name="avatar-add"></app-img>
-  <app-file [value]="value" [files]="files" [file_json]="file_json"></app-file>
+  <app-file name="avatar" [value]="value" [files]="files" [file_json]="file_json" accept="camera"></app-file>
 </ng-container>

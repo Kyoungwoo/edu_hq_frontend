@@ -1,6 +1,5 @@
 import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/file.service';
-import { CameraService } from 'src/app/basic/service/native/camera.service';
 
 @Component({
   selector: 'app-avatar',
@@ -22,8 +21,7 @@ export class AvatarComponent implements OnInit, DoCheck {
 
   private differ:IterableDiffer<any>;
   constructor(
-    private differs: IterableDiffers,
-    private camera: CameraService
+    private differs: IterableDiffers
   ) { }
 
   ngOnInit() {
@@ -41,13 +39,4 @@ export class AvatarComponent implements OnInit, DoCheck {
   private changeAvatar(futItem:FutItem) {
     this.src = futItem.file_url;
   }
-
-  async profileClick() {
-    const blob = await this.camera.getPhoto({
-      width: 320,
-      height: 320
-    });
-    this.change.emit(blob);
-  }
-
 }

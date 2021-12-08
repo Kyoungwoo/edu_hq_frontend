@@ -483,6 +483,12 @@
           <app-file view_type="SUB" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
         </app-button>
       </app-col>
+      <app-col size="auto">
+        <app-button>
+          <small>[accept=camera]<br>[type=AVATAR]</small>
+          <app-file view_type="AVATAR" [value]="file.list" [files]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
+        </app-button>
+      </app-col>
     </app-row>
     <app-card color="white" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">
       <app-row>
@@ -491,8 +497,11 @@
         </app-col>
         <app-col>
           <ion-card-subtitle class="text-align:left">
-          file.list[{{i}}].file_name: {{ item.file_name }}<br>
-          file.list[{{i}}].file_size: {{ item.file_size }}<br>
+          file.list[{{i}}] = &#123;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;view_type: {{ item.view_type }},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;file_name: {{ item.file_name }},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;file_size: {{ item.file_size }}<br>
+          &#125;
           </ion-card-subtitle>
         </app-col>
         <app-col size="auto">
@@ -529,6 +538,13 @@
           <td><code>boolean</code></td>
           <td>default는 <code>false</code>. 해당 <code>view_type</code>의 파일을 여러개의 파일을 선택할 것 인지, 1개만 선택하게 할 것인지를 결정합니다.<br>
             <code>false</code>값을 가지면, 기존의 같은 <code>view_type</code>을 가진 <code>FutItem</code>은 새로운 파일을 업로드 시, 삭제 됩니다.</td>
+        </tr>
+        <tr>
+          <td>accept</td>
+          <td><code>string | 'camera'</code></td>
+          <td>일반적인 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept" target="_blank"><code>input[accept]</code></a>와 동일하게 사용합니다.<br>
+            <code>camera</code>속성을 사용할 경우, <a routerLink="/basic/guide" fragment="camera-service"><code>camera-service</code></a>를 상속하고 있어서, 카메라 혹은 앨범에서 이미지를 선택할 수 있습니다.
+          </td>
         </tr>
         <tr>
           <td>value</td>
@@ -858,54 +874,168 @@
     <h3>UI</h3>
   
     <h4 id="avatar">avatar</h4>
-    <p>사람의 이미지를 나타내기위한, 혹은 편집하기 위한 component 입니다. <a routerLink="/basic/guide" fragment="file"><code>file</code></a> component 를 상속하고 있습니다.</p>
+    <p>사람의 이미지를 나타내기위한, 혹은 편집하기 위한 component 입니다. <a routerLink="/basic/guide" fragment="file"><code>file[accept=camera]</code></a> component 를 상속하고 있습니다.</p>
+
+    <h5>examples</h5>
+<pre><code ngNonBindable>&lt;app-avatar src="https://www.devmonster.co.kr/assets/img/logo.svg"&gt;&lt;/app-avatar&gt;</code></pre>
     <app-row>
       <app-col size="auto">
-        <app-avatar src="assets/basic/img/arrow-down.png"></app-avatar>
+        <app-avatar src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
       </app-col>
       <app-col size="auto">
         <app-avatar [readonly]="false"></app-avatar>
       </app-col>
     </app-row>
 
+    <h5>Properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>src</td>
+          <td><code>string</code></td>
+          <td>이미지 url을 넣어서 사용합니다. 경우에 따라, <code>value</code>에 <code>FutItem[]</code>을 넣어서 사용하여도 무방합니다.</td>
+        </tr>
+        <tr>
+          <td>readonly</td>
+          <td><code>boolean</code></td>
+          <td>default는 <code>true</code>. <code>avatar</code> component 를 단순 이미지 노출로 사용할 지, file uploader로 사용할지를 선택할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td><code>FutItem[]</code></td>
+          <td>서버에서 반환하는 <code>FutItem</code> 형식의 리스트를 입력하거나, 반환합니다. 만약, file uploader로 사용할 거라면, <code>src</code>가 아닌, 여기에 값을 넣어줘야 합니다.</td>
+        </tr>
+        <tr>
+          <td>files</td>
+          <td><code>File[]</code></td>
+          <td>업로드할 파일들을 반환합니다.</td>
+        </tr>
+        <tr>
+          <td>file_json</td>
+          <td><code>File[]</code></td>
+          <td>업로드할 파일들을 반환합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
     <h4 id="button">app-button</h4>
     <p>앱에 사용되는 버튼 입니다. 다양한 요소들과 조합하여 사용됩니다.</p>
     <h5>examples</h5>
+<pre><code ngNonBindable>&lt;app-button&gt;버튼&lt;/app-button&gt;</code></pre>
     <div>
       <app-button>default</app-button>
+      <app-button color="secondary">color:secondary</app-button>
+      <app-button color="tertiary">color:thirtiary</app-button>
       <app-button color="warning">color:warning</app-button>
       <app-button color="danger">color:danger</app-button>
     </div>
     <div>
-      <app-button fill="translucent">fill:translucent</app-button>
       <app-button fill="outline">fill:outline</app-button>
+      <app-button fill="translucent">fill:translucent</app-button>
       <app-button fill="translucent-outline">fill:translucent-outline</app-button>
       <app-button fill="clear">fill:clear</app-button>
     </div>
     <div>
       <app-button size="small">size:small</app-button>
       <app-button shape="round">shape:round</app-button>
-      <app-button shape="circle">shape:circle</app-button>
-      <app-button shape="square">shape:square</app-button>
+      <app-button [disabled]="true">disabled</app-button>
     </div>
     <div>
-      <app-button expand="block">expand:block</app-button>
+      <app-button width="150" shape="circle">shape:circle</app-button>
+      <app-button width="150" shape="square">shape:square</app-button>
     </div>
-    
-    <p>정사각형과 원은 사이즈가 달라져도 따라 모양이 틀어지지 않습니다.</p>
-    <app-button shape="circle" expand="block" [style.width.px]="150">shape:circle<br><small>style.width<br>150px</small></app-button>
-    <app-button shape="square" expand="block" [style.width.px]="150">shape:square<br><small>style.width<br>150px</small></app-button>
-    <p>아이콘 및 다른 컴포넌트들과 함께 사용할 수 있습니다.</p>
-    <app-button>
-      <app-img slot="start" src="assets/basic/img/calendar.png"></app-img>
-      icon:start
+    <div>
+      <app-button width="100%">width:100%</app-button>
+    </div>
+    <p><a routerLink="guide/basic" fragment="img"><code>app-img</code></a> 및 다른 컴포넌트들과 함께 사용할 수 있습니다.</p>
+    <app-button color="secondary">
+      <app-img slot="start" name="calendar"></app-img>
+      app-img[slot=start]
     </app-button>
-    <app-button shape="square" [style.width]="'100px'">
-      <app-img slot="top" src="assets/basic/img/calendar.png"></app-img>
-      <h4>icon:top</h4>
+    <app-button color="secondary" shape="square" width="150">
+      <app-img slot="top" name="calendar"></app-img>
+      <h5>app-img[slot=top]</h5>
     </app-button>
-    <h3>app-button-footer</h3>
-    <p>이것은 하단에 고정되는 footer 버튼을 쉽게 만들기위한 component 입니다. 페이지 하단을 참고해주세요.<ion-icon name="arrow-down"></ion-icon></p>
+
+    <h5>Properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>width</td>
+          <td><code>string | number</code></td>
+          <td>버튼의 넓이를 지정할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>height</td>
+          <td><code>string | number</code></td>
+          <td>버튼의 높이를 지정할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>color</td>
+          <td><code>Color</code></td>
+          <td>버튼의 색상을 지정합니다.</td>
+        </tr>
+        <tr>
+          <td>disabled</td>
+          <td><code>boolean</code></td>
+          <td>버튼의 활성화 여부입니다. <code>click event</code>가 막힙니다.</td>
+        </tr>
+        <tr>
+          <td>fill</td>
+          <td><code>'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline'</code></td>
+          <td>버튼의 색상 조합을 변경합니다.</td>
+        </tr>
+        <tr>
+          <td>shape</td>
+          <td><code>'round' | 'circle' | 'square'</code></td>
+          <td>버튼의 형태를 변경합니다.</td>
+        </tr>
+        <tr>
+          <td>size</td>
+          <td><code>'default' | 'small'</code></td>
+          <td>버튼의 크기를 변경합니다.</td>
+        </tr>
+        <tr>
+          <td>href</td>
+          <td><code>'string'</code></td>
+          <td>버튼에 링크를 넣습니다.<code>a</code>태그가 활성화 됩니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="button-footer">button-footer</h4>
+    <p>이것은 하단에 고정되는 button들이 모인 <code>footer</code>를 쉽게 만들기위한 component 입니다. 실 적용예시는 페이지 하단을 참고해주세요.</p>
+    <h5>examples</h5>
+    <app-row>
+      <app-col>
+        <app-button-footer>
+          <app-button>two buttons</app-button>
+          <app-button>two buttons</app-button>
+        </app-button-footer>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-button-footer>
+          <app-button>a button</app-button>
+        </app-button-footer>
+      </app-col>
+    </app-row>
+
     <h3>app-card</h3>
     <p>앱 카드에 주로 사용되는 레이아웃 입니다. 내부 header, title, subtitle, content는 ionic 원본을 사용합니다.</p>
     <app-row>
@@ -945,13 +1075,13 @@
         <app-button>size: auto</app-button>
       </app-col>
       <app-col size="200px">
-        <app-button expand="block">size: 200px</app-button>
+        <app-button width="100%">size: 200px</app-button>
       </app-col>
       <app-col size="2">
-        <app-button expand="block">size: 2</app-button>
+        <app-button width="100%">size: 2</app-button>
       </app-col>
       <app-col>
-        <app-button expand="block">not sized</app-button>
+        <app-button width="100%">not sized</app-button>
       </app-col>
     </app-row>
     <h3>app-table</h3>
@@ -1010,4 +1140,7 @@
     <app-button (click)="navForward()">navForward</app-button>
   </app-container>
 </ion-content>
-<app-button-footer>app-button-footer</app-button-footer>
+<app-button-footer>
+  <app-button>app button footer</app-button>
+  <app-button>app button footer</app-button>
+</app-button-footer>

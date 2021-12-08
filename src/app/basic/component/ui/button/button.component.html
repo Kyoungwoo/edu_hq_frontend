@@ -1,14 +1,12 @@
 <ion-button
-
 [disabled]="disabled"
-[expand]="expand"
 [fill]="fill"
 [shape]="shape"
 [size]="size"
-[strong]="strong"
 [href]="href"
 [download]="download"
 [target]="target"
+[style]="style"
 >
   <div class="absolute-case" *ngIf="shape === 'circle' || shape === 'square'; else elseBlock">
     <div class="absolute-inner">

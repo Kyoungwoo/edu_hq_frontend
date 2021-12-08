@@ -2,20 +2,27 @@
   ion-toolbar {
     --min-height: 0;
   }
-  app-col:first-child {
-    padding-left: var(--app-padding);
+  .button-list {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--app-padding);
+    width: 100%;
   }
-  app-col:last-child {
-    padding-right: var(--app-padding);
-  }
+}
+:host ::ng-deep {
   app-button {
-    margin: 0;
-    height: 42px;
+    flex: 1 1 0%;
+    width: 100%;
+    max-width: 150px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
-  ion-toolbar.disabled {
-    opacity: 0.5;
+  ion-button {
+    width: 100%;
   }
-  ion-button.button-disabled {
-    opacity: 1;
+  app-button:not(:last-child) {
+    --app-box-shadow: none;
+    --app-background: var(--ion-color-translucent);
+    --app-color: var(--ion-color-shade);
   }
 }

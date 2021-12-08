@@ -20,7 +20,7 @@ export class FileService {
     const blob:FileBlob = new Blob([ab], {
       type: mimeString
     });
-    blob.name = "file_" + this.getMimeType(blob);
+    blob.name = `file_${new Date().getTime()}${this.getMimeType(blob)}`;
     blob.lastModifiedDate = new Date();
     return blob;
   }

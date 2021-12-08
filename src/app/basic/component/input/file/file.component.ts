@@ -1,5 +1,6 @@
 import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnInit } from '@angular/core';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/file.service';
+import { CameraService } from 'src/app/basic/service/native/camera.service';
 
 @Component({
   selector: 'app-file',
@@ -25,7 +26,8 @@ export class FileComponent implements OnInit, DoCheck {
   private differ:IterableDiffer<any>;
   constructor(
     private differs: IterableDiffers,
-    private file: FileService
+    private file: FileService,
+    private camera: CameraService
   ) { }
 
   ngOnInit() {
@@ -40,10 +42,23 @@ export class FileComponent implements OnInit, DoCheck {
     }
   }
 
-  fileAdd($event) {
+  changeInputFile($event) {
     const fileList:File[] = Array.from($event.target.files);
     if(!fileList.length) return;
 
+    this.fileAdd(fileList);
+    $event.target.value = null;
+  }
+  async getPhoto() {
+    const blob = await this.camera.getPhoto({
+      width: 1024,
+      height: 1024
+    });
+    if(blob) {
+      this.fileAdd([blob]);
+    }
+  }
+  fileAdd(fileList:(File | FileBlob)[]) {
     const existLength = this.value.filter(item => item.seq_no).length;
     if(!this.multiple) {
       const file = fileList[0];
@@ -56,7 +71,6 @@ export class FileComponent implements OnInit, DoCheck {
         this.fileItemAdd(file, this.view_type, existLength + i + 1);
       }
     }
-    $event.target.value = null;
   }
   private fileItemAdd(file:File|FileBlob, view_type, order_no) {
     this.value.push({
