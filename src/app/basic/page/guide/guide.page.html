@@ -239,6 +239,17 @@
     <form>
       <app-row>
         <app-col>
+          <app-calendar name="calendar"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-calendar name="calendar readonly" [readonly]="true"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-calendar name="calendar disabled" [disabled]="true"></app-calendar>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
           <app-calendar name="calendar" label="생년월일"></app-calendar>
         </app-col>
         <app-col>
@@ -1276,6 +1287,16 @@
         </tr>
       </tbody>
     </app-table>
+
+    <h3 id="pipes">Pipes</h3>
+    <p>파이프의 개념 및 기본적으로 사용할 수 있는 파이프는 <a href="https://codecraft.tv/courses/angular/pipes/built-in-pipes/" target="https://codecraft.tv/courses/angular/pipes/built-in-pipes/">https://codecraft.tv/courses/angular/pipes/built-in-pipes/</a> 을 참고해주세요.</p>
+
+    <h4 id="safe-url-pipe">safe url pipe</h4>
+    <p>안전하지 않는 형태의 url을 허용합니다.</p>
+    <app-card color="danger"></app-card>
+
+    <h5>examples</h5>
+    
   </app-container>
 </ion-content>
 <app-button-footer>
