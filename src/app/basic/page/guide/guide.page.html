@@ -823,7 +823,7 @@
 
     <app-row>
       <app-col>
-        <app-textarea name="textarea" label="textarea" placeholder="text"></app-textarea>
+        <app-textarea [autoGrow]="true" name="textarea" label="textarea" placeholder="text"></app-textarea>
       </app-col>
       <app-col>
         <app-textarea name="textarea readonly" label="textarea readonly" value="textarea readonly" [readonly]="true"></app-textarea>
@@ -1062,11 +1062,11 @@
     <p>앱 카드에 주로 사용되는 레이아웃 입니다. 내부 header, title, subtitle, content는 ionic 원본을 사용합니다.</p>
     <app-row>
       <app-col size="300px">
-        <app-card color="primary">
-          <ion-card-header>ion-card-header</ion-card-header>
-          <ion-card-title>ion-card-title</ion-card-title>
-          <ion-card-subtitle>ion-card-subtitle</ion-card-subtitle>
-          <ion-card-content>ion-card-content <ion-note>ion-note</ion-note></ion-card-content>
+        <app-card>
+          <app-avatar></app-avatar>
+          <h2>ion-card-title</h2>
+          <h3>ion-card-subtitle</h3>
+          <h4>ion-card-content</h4>
         </app-card>
       </app-col>
       <app-col size="300px">

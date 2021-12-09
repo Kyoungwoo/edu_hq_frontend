@@ -40,12 +40,11 @@
             height: var(--app-height);
             min-height: var(--app-height);
             --background: var(--ion-color-white);
-            margin-top: 0;
-            // ::ng-deep {
-            //     textarea {
-            //         min-height: var(--app-height);
-            //     }
-            // }
+            ::ng-deep {
+                textarea {
+                    min-height: var(--app-height);
+                }
+            }
         }
     }
     .button {
@@ -54,10 +53,10 @@
         cursor: pointer;
         position: absolute;
         z-index: 2;
-        top: 7px;
+        top: 8px;
         right: 7px;
-        height: 48px;
-        min-width: 48px; 
+        height: 54px;
+        min-width: 54px; 
         padding-left: 15px;
         padding-right: 15px;
         display: flex;
