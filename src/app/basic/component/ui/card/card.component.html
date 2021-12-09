@@ -8,6 +8,6 @@
 <ng-template #card>
   <ion-card [ngClass]="button ? 'ion-activatable ripple-parent' : null" [color]="color">
     <ng-content></ng-content>
-    <ion-ripple-effect *ngIf="button"></ion-ripple-effect>
+    <ion-ripple-effect *ngIf="button" ></ion-ripple-effect>
   </ion-card>
 </ng-template> 

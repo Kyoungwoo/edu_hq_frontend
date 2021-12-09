@@ -11,8 +11,7 @@
         background: var(--ion-color-white);
         box-shadow: var(--app-box-shadow);
         border-radius: 5px;
-        padding: 4px;
-        padding-bottom: 0;
+        padding:0 2px 0 4px;
     }
     ion-label {
         color: var(--ion-color-medium);
@@ -71,7 +70,7 @@
         cursor: pointer;
         position: absolute;
         z-index: 2;
-        top: 5px;
+        top: 7px;
         right: 5px;
         height: 48px;
         width: 48px;
@@ -88,6 +87,7 @@
     }
     .button.without-label {
         height: 32px;
+        top:5px;
     }
     .button:focus {
         outline: none !important;
