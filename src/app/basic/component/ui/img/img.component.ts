@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-img',
@@ -27,7 +28,7 @@ export class ImgComponent implements OnInit {
     this.src = `assets/basic/img/${v}.svg`;
     if(!this.mode) this.mode = 'theme';
   };
-  @Input() src:string;
+  @Input() src:string | SafeUrl;
 
   constructor() { }
 

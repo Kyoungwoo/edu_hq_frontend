@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
 @Component({
@@ -17,7 +18,7 @@ export class CardComponent implements OnInit {
   @Input() button:boolean = true;
   @Input() color:Color = 'white';
   @Input() fill:'translucent' | 'translucent-outline';
-  @Input() href:string;
+  @Input() href:string | SafeUrl;
   @Input() download:string;
 
   constructor(

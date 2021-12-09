@@ -6,8 +6,8 @@ import { isPlatformServer } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
-import { FileBlob, FileService } from 'src/app/basic/service/file.service';
-import { LoadingService } from './ionic/loading.service';
+import { FileBlob, FileService } from 'src/app/basic/service/core/file.service';
+import { LoadingService } from '../ionic/loading.service';
 
 export interface ConnectResult {
   resultCode:number, 

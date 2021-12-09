@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
 
-  constructor() { }
+  constructor(
+    private sanitizer: DomSanitizer
+  ) { }
 
-  createObjectURL(blob:File | Blob):string {
-    return (window.URL ? URL : window['webkitURL']).createObjectURL(blob);
+  createObjectURL(blob:File | Blob):SafeUrl {
+    const url = (window.URL ? URL : window['webkitURL']).createObjectURL(blob);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   async dataUrlToBlob(dataUrl:string):Promise<FileBlob> {
     const mimeString = dataUrl.split(",")[0].split(":")[1].split(";")[0];
@@ -24,13 +28,13 @@ export class FileService {
     blob.lastModifiedDate = new Date();
     return blob;
   }
-  cutImage(src:string, opts?:cutImageOptions):Promise<string> {
+  cutImage(src:string | SafeUrl, opts?:cutImageOptions):Promise<string> {
     return new Promise(async(resolve) => {
       const c = document.createElement("canvas");
       const ctx = c.getContext("2d");
-      if(src.startsWith("data:image")) {
+      if(typeof src === 'string' && src.startsWith("data:image")) {
         const blob = await this.dataUrlToBlob(src);
-        src = this.createObjectURL(blob);        
+        src = this.createObjectURL(blob);
       }
       const img = new Image();
       img.onload = () => {
@@ -58,7 +62,8 @@ export class FileService {
 
         resolve(c.toDataURL("image/jpeg", 0.8));
       }
-      img.src = src;
+      
+      img.src = this.sanitizer.sanitize(SecurityContext.URL, src);;
     });
   }
 
@@ -144,7 +149,7 @@ export interface FileJson {
   delete:{seq_no:number}[]
 }
 export interface FutItem {
-  file_url:string,
+  file_url:string | SafeUrl,
   file_name:string,
   seq_no:number,
   order_no:number,

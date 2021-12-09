@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnInit } from '@angular/core';
-import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/file.service';
+import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/core/file.service';
 import { CameraService } from 'src/app/basic/service/native/camera.service';
 
 @Component({
