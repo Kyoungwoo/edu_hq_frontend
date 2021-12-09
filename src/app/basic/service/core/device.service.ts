@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { AlertController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { isPlatformServer } from '@angular/common';
 
 @Injectable({
@@ -12,8 +12,7 @@ export class DeviceService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId,
-    private platform: Platform,
-    private alert: AlertController
+    private platform: Platform
   ) {}
 
   isIE() {
