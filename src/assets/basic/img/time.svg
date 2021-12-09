@@ -1,1 +1,11 @@
-<svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:none;}.cls-2{fill:#44c650;}</style></defs><path class="cls-1" d="M0,0H24V24H0Z"/><path class="cls-2" d="M22,5.72,17.4,1.86,16.11,3.39l4.6,3.86ZM7.88,3.39,6.6,1.86,2,5.71,3.29,7.24ZM12.5,8H11v6l4.75,2.85.75-1.23-4-2.37ZM12,4a9,9,0,1,0,9,9A9,9,0,0,0,12,4Zm0,16a7,7,0,1,1,7-7A7,7,0,0,1,12,20Z"/></svg>
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_395_3623)">
+<path d="M15 28C22.1797 28 28 22.1797 28 15C28 7.8203 22.1797 2 15 2C7.8203 2 2 7.8203 2 15C2 22.1797 7.8203 28 15 28Z" stroke="#44C650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 7.19995V15L20.2 17.6" stroke="#44C650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_395_3623">
+<rect width="30" height="30" fill="white"/>
+</clipPath>
+</defs>
+</svg>
