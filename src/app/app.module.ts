@@ -16,6 +16,7 @@ import { Media } from '@ionic-native/media/ngx';
 import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
 import { NaverMapId } from './basic/component/input/naver-map/naver-map.component';
+import { ConnectStrategy } from './basic/service/core/connect.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,6 +33,11 @@ import { NaverMapId } from './basic/component/input/naver-map/naver-map.componen
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: NaverMapId, useValue: 'icx4jmxljt' },
+    { provide: ConnectStrategy, useValue: {
+      devUrl: '',
+      url: '',
+      exceptLogUrls: []
+    }},
     QRScanner,
     File,
     Media

@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { DeviceService } from './device.service';
@@ -9,17 +9,23 @@ import { UserService } from './user.service';
 import { FileBlob, FileService } from 'src/app/basic/service/core/file.service';
 import { LoadingService } from '../ionic/loading.service';
 
+export interface ConnectStrategyOptions {
+  devUrl:string,
+  url:string,
+  exceptLogUrls:string[]
+}
+export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
+
 export interface ConnectResult {
-  resultCode:number, 
-  resultHash:any, 
-  resultListHash:any, 
-  resultReference:string, 
+  resultCode:number,
+  resultHash:{[name:string]:any} | null,
+  resultListHash:{[name:string]:any}[] | null,
+  resultReference:string | null,
   url?:string
 }
 
 export interface ConnectOptions {
-  loading?:string,
-  test_img?:boolean
+  loading?:string
 }
 
 @Injectable({
@@ -29,6 +35,7 @@ export class ConnectService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId,
+    @Inject(ConnectStrategy) private connectStrategy:ConnectStrategyOptions,
     private http: HttpClient,
     private file: FileService,
     private device: DeviceService,
@@ -38,10 +45,10 @@ export class ConnectService {
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(method, data:{[name:string]:any}, options:ConnectOptions = {loading: '', test_img: false}) {
+  async run(method, data:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
     if(!data) data = {};
     
-    const url = environment.url + method;
+    const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + method;
     
     const { platform_type, platform_key } = await this.device.get();
     const { user_id, user_session } = await this.user.userData;
@@ -51,7 +58,7 @@ export class ConnectService {
       platform_type, platform_key, user_id, user_session
     }
 
-    if(!environment.production && !environment.exceptLogUrls?.includes(url)) {
+    if(!environment.production && !this.connectStrategy.exceptLogUrls.includes(url)) {
       console.log({
         method: url,
         ...data
@@ -101,7 +108,7 @@ export class ConnectService {
     }
   }
 
-  jsonToForm(json) {
+  private jsonToForm(json) {
     let form = new FormData();
     for(let key in json) {
       if(typeof json[key] !== 'object') form.append(key, json[key]);

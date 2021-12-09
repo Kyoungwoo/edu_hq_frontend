@@ -18,7 +18,7 @@
     <h4 id="fadeAnimation">fadeAnimation</h4>
     <p>fade In Out 애니메이션 입니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
       <pre><code>&lt;app-card @fadeAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -30,7 +30,7 @@
     <h4 id="fadeInAnimation">fadeInAnimation</h4>
     <p>fade In 애니메이션 입니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
       <pre><code>&lt;app-card @fadeInAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -42,7 +42,7 @@
     <h4 id="listAnimation">listAnimation</h4>
     <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In Out 애니메이션 입니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
 <pre><code ngNonBindable>&lt;div [@listAnimation]="listAnimationItemList.length"&gt;
     &lt;app-card &ast;ngFor=&rdquo;let item of listAnimationItemList&rdquo;&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
@@ -58,7 +58,7 @@
     <h4 id="listInAnimation">listInAnimation</h4>
     <p><code>*ngFor</code>와 같이 리스트에 애니메이션을 입히기 위해 사용 됩니다. In 애니메이션 입니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
 <pre><code ngNonBindable>&lt;div [@listInAnimation]="listInAnimationItemList.length"&gt;
     &lt;app-card &ast;ngFor="let item of listInAnimationItemList"&gt;&#123;&#123; item &#125;&#125;&lt;/app-card&gt;
@@ -74,7 +74,7 @@
     <h4 id="bounceInAnimation">bounceInAnimation</h4>
     <p>bounce In 애니메이션 입니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
       <pre><code>&lt;app-card @bounceInAnimation&gt;&lt;/app-card&gt;</code></pre>
     </div>
@@ -93,7 +93,7 @@
     <h4 id="alert">alert<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge></h4>
     <p><a routerLink="/basic/guide" fragment="alert-service"><code>alert.service</code></a>로 사용합니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <div>
 <pre><code ngNonBindable>this.alert.present(&#123;
     mode: 'devmonster',
@@ -234,7 +234,7 @@
     <p>달력으로 날짜를 고르는 인풋 입니다.<br>
       버튼 클릭 시, <a routerLink="/basic/guide" fragment="calendar-popover"><code>calendar-popover</code></a>를 호출합니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <pre><code>&lt;app-calendar name="calendar" label="calendar" [(ngModel)]=&rdquo;form.date&rdquo;&gt;&lt;/app-calendar&gt;</code></pre>
     <form>
       <app-row>
@@ -325,7 +325,7 @@
     <h4 id="check">check</h4>
     <p>checkbox component 입니다. 텍스트와 함께 혹은 단독으로 사용할 수있습니다. <a routerLink="/basic/guide" fragment="check-group"><code>check-group</code></a>과 함께 사용될 수 있습니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <pre><code>&lt;app-checkbox name="checkbox" [(ngModel)]=&rdquo;form.check&rdquo;&gt;text&lt;/app-checkbox&gt;</code></pre>
     <app-row>
       <app-col size="auto">
@@ -398,7 +398,7 @@
     <p><a routerLink="/basic/guide" fragment="check"><code>check</code></a>와 함께 사용되는 component 입니다. 여러개의 <a routerLink="/basic/guide" fragment="check"><code>check</code></a>를 관리할 때, 사용됩니다.<br>
       <a routerLink="/basic/guide" fragment="check"><code>check</code></a>의 <code>[type=all]</code>을 이용하여, 전체 <a routerLink="/basic/guide" fragment="check"><code>check</code></a>를 토글할 수 있습니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-check-group [(ngModel)]="checkedList"&gt;
   &lt;app-check type="all"&gt;all&lt;/app-check&gt;
   &lt;app-check on="korea"&gt;korea&lt;/app-check&gt;
@@ -434,7 +434,7 @@
     <h4 id="datetime">datetime</h4>
     <p>시간을 선택하기 위한 component 입니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-datetime label="dateTime" [(ngModel)]="form.dateTime"&gt;&lt;/app-datetime&gt;</code></pre>
     <app-row>
       <app-col>
@@ -476,7 +476,7 @@
     여러개의 <code>file</code> component 에 같은 <code>FutItem</code> 리스트들을 물려서 사용할 수도 있습니다.<br>
     <b><ion-text color="danger">반드시 <code>[view_type]</code>을 정의하고 사용하여야 합니다.</ion-text></b></p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-button&gt;
   file upload
   &lt;app-file name="input" view_type="NOTICE"
@@ -583,7 +583,7 @@
     <h4 id="app-input">input</h4>
     <p>일반적인 <a href="https://www.w3schools.com/tags/tag_input.asp" target="_blank"><code>input <ion-icon name="open-outline"></ion-icon></code></a>과 동일하게 사용합니다. 이미지나 텍스트와 조합하여 사용할 수 있습니다.</p>
   
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;</code></pre>
@@ -658,7 +658,7 @@
     <p>calendar, datetime, input 등의 component 들 아래에서, description 이나 validation을 표현하기 위해 사용되는 component 입니다.<br>
       <a routerLink="/basic/guid" fragment="regex-service"><code>RegexService</code></a> 와 함께 사용되는 경우가 많습니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-input name="input" label="input" [(ngModel)]=&rdquo;form.input&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-input&gt;
@@ -695,7 +695,7 @@
     <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdkVirtualScroll <ion-icon name="open-outline"></ion-icon></code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
     <app-card color="warning" fill="translucent" [button]="false"><small>*실험적 : <code>html</code> 레이아웃을 옵션에 사용할 수 있습니다.</small></app-card>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-select name="select" label="select" [(ngModel)]=&rdquo;form.select&rdquo;&gt;
   &lt;app-select-option &ast;ngFor="let opt of options" value="opt.value"&gt;&#123;&#123; opt.text &#125;&#125;&lt;/app-select-option&gt;
 &lt;/app-select&gt;
@@ -816,7 +816,7 @@
     <h4 id="textarea">textarea</h4>
     <p>일반적인 <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank"><code>textarea <ion-icon name="open-outline"></ion-icon></code></a>와 동일하게 사용 됩니다. 이미지나 텍스트와 함께 사용할 수 있습니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-textarea name="textarea" label="textarea" [(ngModel)]=&rdquo;form.textarea&rdquo;&gt;
   &lt;app-img slot="end" src="assets/basic/img/search.png"&gt;&lt;/app-img&gt;
 &lt;/app-textarea&gt;</code></pre>
@@ -893,7 +893,7 @@
     <h4 id="avatar">avatar</h4>
     <p>사람의 이미지를 나타내기위한, 혹은 편집하기 위한 component 입니다. <a routerLink="/basic/guide" fragment="file"><code>file[accept=camera]</code></a> component 를 상속하고 있습니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-avatar src="https://www.devmonster.co.kr/assets/img/logo.svg"&gt;&lt;/app-avatar&gt;</code></pre>
     <app-row>
       <app-col size="auto">
@@ -944,7 +944,7 @@
 
     <h4 id="button">app-button</h4>
     <p>앱에 사용되는 버튼 입니다. 다양한 요소들과 조합하여 사용됩니다.</p>
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-button&gt;버튼&lt;/app-button&gt;</code></pre>
     <div>
       <app-button>default</app-button>
@@ -1037,7 +1037,7 @@
     <h4 id="button-footer">button-footer</h4>
     <p>하단에 고정되는 button들이 모인 <code>footer</code>를 쉽게 만들기위한 component 입니다. 실 적용예시는 페이지 하단을 참고해주세요.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-button-footer&gt;
   &lt;app-button&gt;two buttons&lt;/app-button&gt;
   &lt;app-button&gt;two buttons&lt;/app-button&gt;
@@ -1080,13 +1080,13 @@
     <h4 id="container">container</h4>
     <p>좌우에 여백을 주기위해 사용하는 component 입니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-container&gt;&lt;/app-container&gt;</code></pre>
 
     <h4 id="copy-right">copy-right</h4>
     <p>페이지 하단의 로고 및 카피라이트를 표시하기 위한 component 입니다. 프로젝트마다 아주 다르게 레이아웃이 구성되지만, 안들어가는 프로젝트가 없기 때문에, 기본 요소로 넣었습니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code ngNonBindable>&lt;app-copy-right&gt;&lt;/app-copy-right&gt;</code></pre>
     <app-row>
       <app-col size="auto">
@@ -1097,7 +1097,7 @@
     <h4 id="img">img</h4>
     <p>img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
     <app-img width="40" name="calendar"></app-img>
     <app-img width="40" name="search"></app-img>
     <app-img width="40" name="time"></app-img>
@@ -1147,13 +1147,13 @@
     <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
     <app-logo></app-logo>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code>&lt;app-logo&gt;&lt;/app-logo&gt;</code></pre>
 
     <h4 id="row-col">row / col</h4>
     <p>flex 레이아웃을 짜기 위한 component 입니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code>&lt;app-row&gt;
   &lt;app-col size=&quot;auto&quot;&gt;
     &lt;app-button&gt;size: auto&lt;/app-button&gt;
@@ -1205,7 +1205,7 @@
     <h4 id="table">table</h4>
     <p>테이블 component 입니다. 일반 테이블처럼 <code>thead, tbody, tr, th, td</code>를 사용합니다. <code>class</code>를 통해서 속성을 조정하게 됩니다.</p>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code>&lt;app-table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
@@ -1228,7 +1228,7 @@
           <th>#</th>
           <th>tag</th>
           <th>class</th>
-          <th>examples</th>
+          <th>Examples</th>
         </tr>
       </thead>
       <tbody>
@@ -1304,7 +1304,7 @@
     <p>기본적으로는 허용되지 않은 형태의 값들을 신뢰할 수 있다고 알려주는 파이프 입니다. 신뢰할 수 있는 경우에만 사용하여야 합니다.</p>
     <app-card color="danger">경고: 신뢰할 수 없는 사용자 데이터로 이 메서드를 호출하면 응용 프로그램이 XSS 보안 위험에 노출됩니다!</app-card>
 
-    <h5>examples</h5>
+    <h5>Examples</h5>
 <pre><code>&lt;img src=&quot;imgurl | safe: 'url'&quot;&gt;</code></pre>
 
     <h5>Properties</h5>
@@ -1326,9 +1326,31 @@
     </app-table>
 
     <h3 id="service">Service</h3>
-    <p><code>typescript</code>에서 사용되는 미리 정의된 함수 집합입니다.</p>
+    <p><code>typescript</code>에서 사용되는 미리 정의된 메소드 집합입니다.</p>
 
-    <h4 id=""></h4>
+    <h4 id="core-service">Core</h4>
+    <p>모든 기능의 기본이되는 서비스들 입니다.</p>
+
+    <h4 id="connect-service">connect</h4>
+    <p>서버와의 통신을 위한 모듈 입니다.</p>
+
+    <h5>Methods</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>run</td>
+          <td><code>(method:string, data:any, options:{ loading:string }) => Promise&lt;ConnectResult&gt;</code></td>
+          <td>서버와 통신하는 메소드 입니다. <code>loading</code> 옵션을 이용하여, 통신 중 로딩을 띄울지 말지 결정할 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
     
   </app-container>
 </ion-content>
