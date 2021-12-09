@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GuideListLayoutPageRoutingModule } from './guide-list-layout-routing.module';
 
 import { GuideListLayoutPage } from './guide-list-layout.page';
+import { BasicComponentModule } from '../../component/basic.component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GuideListLayoutPageRoutingModule
+    GuideListLayoutPageRoutingModule,
+    BasicComponentModule
   ],
   declarations: [GuideListLayoutPage]
 })

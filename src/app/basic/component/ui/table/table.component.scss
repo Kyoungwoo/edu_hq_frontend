@@ -11,16 +11,17 @@
         font-size: var(--font-size-n);
         height: var(--app-height-small);
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-padding);
+        padding: 4px;
         small {
             font-size: var(--font-size-h6);
         }
     }
     td {
+        background: var(--ion-color-white);
         font-size: var(--font-size-n);
         height: var(--app-height);
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-padding);
+        padding: 4px;
         small {
             font-size: var(--font-size-h6);
         }

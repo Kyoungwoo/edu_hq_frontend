@@ -5,5 +5,102 @@
 </ion-header>
 
 <ion-content>
+  <app-row>
+    <app-col size="auto">
 
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent">신규작성</app-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-segment>
+            <ion-segment-button>최초</ion-segment-button>
+            <ion-segment-button>최초</ion-segment-button>
+            <ion-segment-button>최초</ion-segment-button>
+          </ion-segment>
+        </ion-buttons>
+      </ion-toolbar>
+      <app-table>
+        <thead>
+          <tr>
+            <th width="40px" rowspan="2"><app-check size="small"></app-check></th>
+            <th width="80px" rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+            <th colspan="3">#1</th>
+            <th rowspan="2">#1</th>
+            <th rowspan="2">#1</th>
+          </tr>
+          <tr>
+            <th>#2</th>
+            <th>#2</th>
+            <th>#2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of [1,1,1]">
+            <tr style="border-top: 3px solid red">
+              <td rowspan="5"><app-check size="small"></app-check></td>
+              <td rowspan="5"><ion-chip color="success">토목</ion-chip></td>
+              <td rowspan="5">1</td>
+              <td rowspan="5">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1</td>
+              <td>1</td>
+              <td rowspan="5">1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td rowspan="3">3</td>
+              <td rowspan="2">3</td>
+              <td rowspan="2">3</td>
+              <td rowspan="2">3</td>
+              <td rowspan="2">3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>4</td>
+              <td>4</td>
+              <td>4</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </app-table>
+
+    </app-col>
+  </app-row>
 </ion-content>
