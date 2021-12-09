@@ -11,7 +11,7 @@
       <input [readonly]="readonly" [disabled]="disabled" type="tel" class="minute-input" placeholder="분" [(ngModel)]="form.minute" maxlength="2" (keyup)="changeMinute($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
   </app-row>
-  <div class="button"
+  <div class="button" [class.without-label]="!label"
   tabindex="-1"
   (click)="disabled ? null : popoverDateTimePicker()">
     <app-img name="time"></app-img>

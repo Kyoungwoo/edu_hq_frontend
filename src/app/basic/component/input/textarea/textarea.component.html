@@ -9,7 +9,7 @@
   [maxlength]="maxlength"
   [autoGrow]="autoGrow"
   [style.--padding-end.px]="button.innerHTML ? button.offsetWidth : 8"></ion-textarea>
-  <div #button class="button" tabindex="-1" (click)="buttonClick.emit(value)">
+  <div #button class="button" tabindex="-1" [class.without-label]="!label" (click)="buttonClick.emit(value)">
     <ng-content></ng-content>
   </div>
 </ion-item>

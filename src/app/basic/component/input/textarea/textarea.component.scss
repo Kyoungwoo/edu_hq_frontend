@@ -67,6 +67,11 @@
                 width: 20px;
             }
         }
+        .button.without-label {
+            height: 35px;
+            width: 50px;
+            top: 5px;
+        }
     }
         .button:empty {
           display: none;
