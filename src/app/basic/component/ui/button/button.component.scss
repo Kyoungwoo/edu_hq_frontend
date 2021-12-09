@@ -58,15 +58,26 @@
     }
 }
 /** special case */
-ion-buttons>:host {
-    --app-background: none;
-    --app-box-shadow: none;
-    --app-border-radius: 0;
+.sc-ion-buttons-md-h.sc-ion-buttons-md-s :host,
+.sc-ion-buttons-ios-h.sc-ion-buttons-ios-s :host {
+    // --app-border-radius: 0;
     margin-top: 0;
     margin-bottom: 0;
     ion-button {
-        --background-hover: var(--ion-color-shade);
+        --color: var(--app-color);
         --color-hover: var(--color);
+        
+    }
+    &.button-outline {
+        ion-button {
+            --border-color: var(--ion-color-base);
+        }
+    }
+    &.button-translucent,
+    &.button-translucent-outline {
+        ion-button {
+            --background-hover: var(--ion-color-tint);
+        }
     }
 }
 /** size */
@@ -95,9 +106,6 @@ ion-buttons>:host {
     }
 }
 /** fill */
-:host.button-solid {
-    
-}
 :host.button-clear {
     --app-color: var(--ion-color-base);
     --app-background: transparent;
@@ -124,7 +132,7 @@ ion-buttons>:host {
     --app-color: var(--ion-color-shade);
     --app-background: var(--ion-color-translucent);
     ion-button {
-        --border-width: 2px;
+        --border-width: 1px;
         --border-style: solid;
         --border-color: var(--ion-color-primary);
         --box-shadow: none;

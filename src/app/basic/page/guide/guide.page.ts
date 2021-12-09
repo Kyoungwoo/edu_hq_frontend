@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonContent, IonHeader } from '@ionic/angular';
+import { IonContent, IonHeader, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
 import { NavService } from '../../service/ionic/nav.service';
 import { ToastService } from '../../service/ionic/toast.service';
+import { PromiseService } from '../../service/util/promise.service';
 import { RegexService } from '../../service/util/regex.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { RegexService } from '../../service/util/regex.service';
   styleUrls: ['./guide.page.scss'],
   animations: [ fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation ]
 })
-export class GuidePage implements OnInit, AfterViewInit {
+export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillLeave {
 
   @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;
@@ -44,10 +45,13 @@ export class GuidePage implements OnInit, AfterViewInit {
   /** select */
   select = new Array(500).fill(null).map((_, i) => `select option ${this.regex.replace.fix(i, 4)}`);
 
+  headerReady:boolean = false;
+
   constructor(
     private alert: AlertService,
     private navCtrl: NavService,
     private toast: ToastService,
+    private promise: PromiseService,
     public regex: RegexService
   ) {}
 
@@ -57,9 +61,16 @@ export class GuidePage implements OnInit, AfterViewInit {
     /** file */
     this.addFutFileEx();
   }
-  
+  async ionViewDidEnter() {
+    await this.promise.wait(1000);
+    this.headerReady = true;
+  }
+  async ionViewWillLeave() {
+    this.headerReady = false;
+  }
   scrollTopPrev = 0;
   async scrollStart($event) {
+    if(!this.headerReady) return;
     const headerEl = <HTMLElement>this.header['el'];
     const scrollTop = $event.detail.scrollTop;
     const headerHeight = headerEl.offsetHeight;

@@ -100,7 +100,7 @@ export class FileService {
     loaded:boolean,
     resolve:any[]
   }} = {};
-  script(url) {
+  script(url):Promise<null> {
     return new Promise(resolve => {
       if(!this.scriptObj[url]) {
         this.scriptObj[url] = { url, loaded: false, resolve: [] };

@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Library Guide</ion-title>
     <ion-buttons slot="end">
-      <app-button color="primary" routerLink="/guide-list-layout">guide-list-layout</app-button>
+      <app-button color="primary" fill="translucent" routerLink="/guide-list-layout">guide-list-layout</app-button>
       <app-button color="primary" routerLink="/guide-detail-layout">guide-detail-layout</app-button>
     </ion-buttons>
   </ion-toolbar>
@@ -1445,8 +1445,49 @@
         </tr>
         <tr>
           <td>script</td>
+          <td><code ngNonBindable>(url:string) =&gt; Promise&lt;null&gt;</code></td>
+          <td>스크립트를 동적으로 로드하는 메소드 입니다. 한번 로드된 스트립트는 중복해서 로드되지 않지만, 이미 로드가 되었다면, 정상적으로 값을 반환해줍니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="user-service">user-service</h4>
+    <p>유저의 기본정보를 저장하고, 사용하는 메소드 집합입니다.</p>
+
+    <h5>Methods</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>get</td>
+          <td><code ngNonBindable>() =&gt;UserData</code></td>
+          <td>유저 데이터를 반환합니다. 프로젝트마다 반환값은 다릅니다.</td>
+        </tr>
+        <tr>
+          <td>set</td>
+          <td><code ngNonBindable>(data:UserData, autoLogin:boolean = true) => void</code></td>
+          <td>유저의 데이터를 넣습니다. <code>localStorage</code>에 저장할지, <code></code></td>
+        </tr>
+        <tr>
+          <td>cutImage</td>
+          <td><code ngNonBindable>(src:string | SafeUrl, opts?:&#123; width:number, height:number &#125;):Promise&lt;string&gt;</code></td>
+          <td>이미지를 원하는 사이즈로 잘라서 DataUrl을 반환합니다.</td>
+        </tr>
+        <tr>
+          <td>getMimeType</td>
           <td><code ngNonBindable>(blob:FileBlob) =&gt; string</code></td>
           <td>mimtype을 기반으로 파일의 확장자를 반환합니다.</td>
+        </tr>
+        <tr>
+          <td>script</td>
+          <td><code ngNonBindable>(url:string) =&gt; Promise&lt;null&gt;</code></td>
+          <td>스크립트를 동적으로 로드하는 메소드 입니다. 한번 로드된 스트립트는 중복해서 로드되지 않지만, 이미 로드가 되었다면, 정상적으로 값을 반환해줍니다.</td>
         </tr>
       </tbody>
     </app-table>
