@@ -33,7 +33,7 @@ export class DeviceService {
       platform_key: this.platform_key
     };
   }
-  set() {
+  private set() {
     return new Promise((res, rej) => {
       if(isPlatformServer(this.platformId)) {
         this.platform_type = 3;
@@ -64,7 +64,7 @@ export class DeviceService {
       res(null);
     });
   }
-  makeid(length) {
+  private makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;

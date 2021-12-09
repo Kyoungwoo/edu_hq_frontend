@@ -64,6 +64,10 @@ ion-buttons>:host {
     --app-border-radius: 0;
     margin-top: 0;
     margin-bottom: 0;
+    ion-button {
+        --background-hover: var(--ion-color-shade);
+        --color-hover: var(--color);
+    }
 }
 /** size */
 :host.button-small {
