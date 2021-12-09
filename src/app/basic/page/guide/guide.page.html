@@ -1065,16 +1065,66 @@
       </app-col>
     </app-row>
 
-    <h4>app-copy-right</h4>
-    <p>페이지 하단의 로고 및 카피라이트를 표시하기 위한 component 입니다.</p>
+    <h4 id="copy-right">copy-right</h4>
+    <p>페이지 하단의 로고 및 카피라이트를 표시하기 위한 component 입니다. 프로젝트마다 아주 다르게 레이아웃이 구성되지만, 안들어가는 프로젝트가 없기 때문에, 기본 요소로 넣었습니다.</p>
+
+    <h5>examples</h5>
+<pre><code ngNonBindable>&lt;app-copy-right&gt;&lt;/app-copy-right&gt;</code></pre>
     <app-row>
       <app-col size="auto">
         <app-copy-right></app-copy-right>
       </app-col>
     </app-row>
-    <h3>app-img</h3>
-    <p>기존 img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.<br>서버에서 받아오는 이미지는 dark mode가 없으므로, 일반 img tag를 사용해야 합니다.</p>
-    <app-img src="assets/basic/img/calendar.svg"></app-img>
+
+    <h4 id="img">img</h4>
+    <p>img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.</p>
+
+    <h5>examples</h5>
+    <app-img width="40" name="calendar"></app-img>
+    <app-img width="40" name="search"></app-img>
+    <app-img width="40" name="time"></app-img>
+    <app-img width="40" name="close"></app-img>
+
+    <h5>Properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>width</td>
+          <td><code>string | number</code></td>
+          <td>이미지의 넓이를 지정할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>height</td>
+          <td><code>string | number</code></td>
+          <td>이미지의 높이를 지정할 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>mode</td>
+          <td><code>'light' | 'dark' | 'theme'</code></td>
+          <td>default는 <code>light</code> . <code>name</code>을 사용하는 이미지들은 <code>theme</code> 입니다.<br>
+            버튼이 다크모드를 호환할 것인지에 대해 정의합니다. <code>theme</code>를 선택하면, 다크모드/라이트모드에 따라 아이콘이 바뀝니다.</td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td><code>string</code></td>
+          <td><code>assets/basic/img</code>안에 있는 <code>svg</code> 이미지들을 간편하게 사용하게 하기 위한 속성입니다.<br>
+          이미지 이름을 입력하면 해당 이미지가 나오게 됩니다.</td>
+        </tr>
+        <tr>
+          <td>src</td>
+          <td><code>string</code></td>
+          <td>이미지의 <code>url</code> 을 넣습니다. 기본적으로 <code>safe pipe</code>가 적용되어 있습니다. 다크모드를 호환하기 위해서는 이름이 뒤에 <code>-dark</code>가 붙어야 합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
     <h3>app-logo</h3>
     <p>페이지 전체에 공유하는 '앱의 로고' 레이아웃 입니다.</p>
     <app-logo></app-logo>
