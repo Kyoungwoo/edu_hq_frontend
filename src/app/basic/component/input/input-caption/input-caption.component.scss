@@ -1,5 +1,25 @@
 :host {
     font-size: var(--font-size-h6);
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        vertical-align: middle;
+        position: relative;
+        top: -14 px;
+    }
+    ion-text {
+        background: var(--ion-color-warning-tint);
+        display: block;
+        font-size: var(--font-size-h6-small);
+        padding-left: 8px;
+        border-radius: 5px;
+        color: var(--ion-color-warning);
+        height: 28px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
     img {
         width: 1em;
         vertical-align: middle;
@@ -7,10 +27,5 @@
         margin-left: 4px;
         margin-right: 3px;
         top: -1px;
-    }
-    p {
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-top: -8px;
     }
 }

@@ -1,16 +1,22 @@
 :host {
     --app-readonly-opacity: 0.5;
     --app-disabled-opacity: 0.5;
+    --app-input-border-width: 0;
   
     display: block;
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
-    ion-item {
-        --padding-start: 0;
-        --padding-end: 0;
-        --inner-padding-end: 0;
-        --min-height: 0;
-        --background: transparent;
+        ion-item {
+            --padding-start: 0;
+            --padding-end: 0;
+            --inner-padding-end: 0;
+            --min-height: 0;
+            --background: transparent;
+            background: var(--ion-color-white);
+            box-shadow: var(--app-box-shadow);
+            border-radius: 5px;
+            padding: 4px;
+            padding-bottom: 0;
         ion-label {
             color: var(--ion-color-medium);
             font-size: var(--font-size-h6);
@@ -24,35 +30,46 @@
             border-style: solid;
             border-width: var(--app-input-border-width);
             border-color: var(--app-input-border-color);
-            border-radius: var(--app-border-radius);
-            --padding-start: 8px;
+            --border-radius: var(--app-border-radius);
+            --padding-start: 3px;
             --padding-end: 8px;
             --placeholder-opacity: 1;
             --placeholder-color: var(--app-placeholder-color);
             font-size: var(--font-size-n);
+            max-height: var(--app-height);
             height: var(--app-height);
             min-height: var(--app-height);
-            background: var(--ion-color-white);
-            ::ng-deep {
-                textarea {
-                    min-height: var(--app-height);
-                }
-            }
+            --background: var(--ion-color-white);
+            // ::ng-deep {
+            //     textarea {
+            //         min-height: var(--app-height);
+            //     }
+            // }
         }
         .button {
             background: var(--app-input-button-background);
+            border-radius: 2px;
+            cursor: pointer;
             position: absolute;
-            bottom: 0;
-            right: 0;
             z-index: 2;
-            height: var(--app-height);
-            padding-left: 8px;
-            padding-right: 10px;
+            top: 10px;
+            right: 5px;
+            height: 48px;
+            min-width: 48px; 
+            padding-left: 15px;
+            padding-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: var(--font-size-h6);
+            outline: none !important;
+            app-img {
+                width: 20px;
+            }
         }
+    }
+        .button:empty {
+          display: none;
     }
     ion-item.item-has-focus {
         --background: transparent;

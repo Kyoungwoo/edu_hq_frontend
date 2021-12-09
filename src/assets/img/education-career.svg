@@ -1,8 +1,14 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="8" y="8" width="38" height="40" rx="2" fill="#44C650"/>
-<path d="M8 44H46V46C46 47.1046 45.1046 48 44 48H10C8.89543 48 8 47.1046 8 46V44Z" fill="#2F8D38"/>
-<path d="M12 48V54.5" stroke="#2F8D38" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14 15H40M16 20H38" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8 10C8 8.34315 9.34315 7 11 7H35.5V14.5C35.5 16.1569 36.8431 17.5 38.5 17.5H46V52C46 53.6569 44.6569 55 43 55H11C9.34315 55 8 53.6569 8 52V10Z" fill="#44C650"/>
+<path d="M46 17.5H38.5C36.8431 17.5 35.5 16.1569 35.5 14.5V7L46 17.5Z" fill="white"/>
+<path d="M46 17.5H37.5C36.3954 17.5 35.5 16.6046 35.5 15.5V7L46 17.5Z" fill="#2F8D38"/>
+<path d="M23 14H30" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23 17H27" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23 26H30" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23 29H27" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13 25L18 30" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 25L13 30" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13 15.1429L15.4 18L19 13" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M25.5 48.5L20 36" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M35 55.4684L33.4378 56.7902C32.2467 57.7981 30.482 57.7247 29.3787 56.6214L23.8787 51.1214C22.7071 49.9498 22.7071 48.0503 23.8787 46.8787C25.0503 45.7072 26.9497 45.7072 28.1213 46.8787L31.6694 50.4268L36.0435 46.7257C36.5039 46.3293 37.086 46.0703 37.726 46.0123C37.8169 46.0041 37.9081 46 37.9992 46C37.9995 46 37.9997 46 38 46H54C55.6569 46 57 47.3431 57 49V59C57 59.5523 56.5523 60 56 60H36C35.4477 60 35 59.5523 35 59V55.4684Z" fill="#2F8D38"/>
 <path d="M45.1318 51.4806L42 46H50L46.8682 51.4806C46.4843 52.1524 45.5157 52.1524 45.1318 51.4806Z" fill="#44C650"/>

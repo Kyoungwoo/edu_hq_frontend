@@ -25,30 +25,11 @@
   }
 }
 :host::ng-deep {
-  ion-card-header {
-    font-size: var(--font-size-h2);
-    margin-top: var(--app-margin);
-    margin-bottom: var(--app-margin);
-    padding: 0;
-    text-align: left;
+  app-avatar {
+    
   }
-  ion-card-title {
-    font-size: var(--font-size-h3);
-    margin-top: var(--app-margin);
-    margin-bottom: var(--app-margin);
-  }
-  ion-card-subtitle {
-    font-size: var(--font-size-h5);
-    margin-top: var(--app-margin);
-    margin-bottom: var(--app-margin);
-  }
-  ion-card-content {
-    padding: 0;
-    font-size: var(--font-size-h6);
-    // color: var(--ion-color-medium);
-    margin-top: var(--app-margin);
-    margin-bottom: var(--app-margin);
-    line-height: 1.28em;
+  h1 {
+    margin-top: 0;
   }
   app-row,
   ion-row {
