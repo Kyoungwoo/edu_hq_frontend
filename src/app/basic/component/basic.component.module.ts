@@ -33,6 +33,7 @@ import { ModalDismissButtonComponent } from './ui/modal-dismiss-button/modal-dis
 import { RowComponent } from './ui/row/row.component';
 import { TableComponent } from './ui/table/table.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { LineComponent } from './ui/line/line.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -62,6 +63,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ContainerComponent,
     CopyRightComponent,
     ImgComponent,
+    LineComponent,
     LogoComponent,
     RowComponent,
     TableComponent,
@@ -97,6 +99,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ContainerComponent,
     CopyRightComponent,
     ImgComponent,
+    LineComponent,
     LogoComponent,
     RowComponent,
     TableComponent,

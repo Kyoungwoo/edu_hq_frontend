@@ -28,9 +28,22 @@
   app-avatar {
     width: 36px;
     height: 36px;
-  }
-  h1 {
     margin-top: 0;
+    margin-bottom: 0;
+  }
+  h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+  h6 {
+    color: var(--ion-color-step-800);
+  }
+  p {
+    color: var(--ion-color-step-500);
+  }
+  app-row {
+    align-items: flex-start;
   }
   app-row,
   ion-row {

@@ -154,6 +154,11 @@
     font-size: var(--font-size-h6);
     color: var(--ion-color-step-250);
   }
+  ion-chip {
+    pointer-events: none;
+    border-radius: 5px;
+    background: var(--ion-color-translucent);
+  }
   ion-badge {
     vertical-align: middle;
   }

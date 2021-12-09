@@ -3,7 +3,7 @@
 }
 @mixin generateColor($name, $color, $contrast) {
   --ion-color-#{$name}: #{$color};
-  --ion-color-#{$name}-rgb: rgb($rgb);
+  --ion-color-#{$name}-rgb: #{generateRGB($color)};
   --ion-color-#{$name}-contrast: #{$contrast};
   --ion-color-#{$name}-contrast-rgb: #{generateRGB($contrast)};
   --ion-color-#{$name}-shade: #{mix(black, $color, 40%)};
