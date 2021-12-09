@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { ComponentRef } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { FileService } from 'src/app/basic/service/file.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
 import { SelectOptionComponent } from '../select-option/select-option.component';
 import { SelectOption, SelectPopoverComponent } from '../select-popover/select-popover.component';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { FileService } from '../file.service';
+import { FileService } from '../core/file.service';
 
 export interface CameraOptions {
   promptLabelHeader?:string,

@@ -1300,11 +1300,35 @@
     <h3 id="pipes">Pipes</h3>
     <p>파이프의 개념 및 기본적으로 사용할 수 있는 파이프는 <a href="https://codecraft.tv/courses/angular/pipes/built-in-pipes/" target="https://codecraft.tv/courses/angular/pipes/built-in-pipes/">https://codecraft.tv/courses/angular/pipes/built-in-pipes/</a> 을 참고해주세요.</p>
 
-    <h4 id="safe-url-pipe">safe url pipe</h4>
-    <p>안전하지 않는 형태의 url을 허용합니다.</p>
+    <h4 id="safe-url-pipe">safe pipe</h4>
+    <p>기본적으로는 허용되지 않은 형태의 값들을 신뢰할 수 있다고 알려주는 파이프 입니다. 신뢰할 수 있는 경우에만 사용하여야 합니다.</p>
     <app-card color="danger">경고: 신뢰할 수 없는 사용자 데이터로 이 메서드를 호출하면 응용 프로그램이 XSS 보안 위험에 노출됩니다!</app-card>
 
     <h5>examples</h5>
+<pre><code>&lt;img src=&quot;imgurl | safe: 'url'&quot;&gt;</code></pre>
+
+    <h5>Properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td><code>'html' | 'style' | 'script' | 'url' | 'resourceUrl'</code></td>
+          <td>허용할 타입을 선택 합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h3 id="service">Service</h3>
+    <p><code>typescript</code>에서 사용되는 미리 정의된 함수 집합입니다.</p>
+
+    <h4 id=""></h4>
     
   </app-container>
 </ion-content>

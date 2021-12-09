@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
 @Component({
@@ -41,7 +42,7 @@ export class ButtonComponent implements OnInit {
   @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
   @Input() shape:'round' | 'circle' | 'square';
   @Input() size:'default' | 'small';
-  @Input() href:string;
+  @Input() href:string | SafeUrl;
   @Input() download:string;
   @Input() target:string;
   

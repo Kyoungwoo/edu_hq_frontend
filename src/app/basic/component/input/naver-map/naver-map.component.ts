@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, InjectionToken, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FileService } from 'src/app/basic/service/file.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 declare const naver;
 
 
