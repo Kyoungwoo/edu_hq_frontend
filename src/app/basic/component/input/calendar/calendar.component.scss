@@ -86,19 +86,22 @@
             width: 20px;
         }
     }
-    .icon:focus {
+    .button.without-label {
+        height: 32px;
+    }
+    .button:focus {
         outline: none !important;
     }
 }
 :host.readonly {
-    .icon {
+    .button {
         cursor: default;
         opacity: 0.5;
     }
 }
 :host.disabled {
     opacity: 0.5;
-    .icon {
+    .button {
         cursor: default;
     }
 }

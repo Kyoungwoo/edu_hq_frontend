@@ -8,6 +8,7 @@
     <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input"  [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
   </div>
   <div *ngIf="button" class="button"
+  [class.without-label]="!label"
   tabindex="-1"
   (click)="(readonly || disabled) ? null : popoverCalendar()">
     <app-img name="calendar"></app-img>

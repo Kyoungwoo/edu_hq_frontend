@@ -44,3 +44,12 @@
 :host ::ng-deep .text-align-right {
     text-align: right;
 }
+:host ::ng-deep {
+    app-calendar,
+    app-input,
+    app-select,
+    app-datetime {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}

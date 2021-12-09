@@ -24,14 +24,12 @@ import { AvatarComponent } from './ui/avatar/avatar.component';
 import { ButtonFooterComponent } from './ui/button-footer/button-footer.component';
 import { ButtonComponent } from './ui/button/button.component';
 import { CardComponent } from './ui/card/card.component';
-import { CodeComponent } from './ui/code/code.component';
 import { ColComponent } from './ui/col/col.component';
 import { ContainerComponent } from './ui/container/container.component';
 import { CopyRightComponent } from './ui/copy-right/copy-right.component';
 import { ImgComponent } from './ui/img/img.component';
 import { LogoComponent } from './ui/logo/logo.component';
 import { ModalDismissButtonComponent } from './ui/modal-dismiss-button/modal-dismiss-button.component';
-import { ProfileComponent } from './ui/profile/profile.component';
 import { RowComponent } from './ui/row/row.component';
 import { TableComponent } from './ui/table/table.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -60,14 +58,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
-    CodeComponent,
     ColComponent,
     ContainerComponent,
     CopyRightComponent,
     ImgComponent,
     LogoComponent,
     RowComponent,
-    ProfileComponent,
     TableComponent,
     ModalDismissButtonComponent
   ],
@@ -97,14 +93,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
-    CodeComponent,
     ColComponent,
     ContainerComponent,
     CopyRightComponent,
     ImgComponent,
     LogoComponent,
     RowComponent,
-    ProfileComponent,
     TableComponent,
     ModalDismissButtonComponent
   ]
