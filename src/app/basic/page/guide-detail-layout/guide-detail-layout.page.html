@@ -5,5 +5,54 @@
 </ion-header>
 
 <ion-content>
+<div class="profile">
+  <h5>회원정보</h5>
+  <app-avatar [readonly]="false"></app-avatar>
+  <app-row>
+    <app-col>
+      <app-input name="input disabled" label="아이디" value="input disabled" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input name="input" label="성명" placeholder="김소령"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-calendar name="calendar" label="생년월일"></app-calendar>
+    </app-col>
+    <app-col>
+      <app-input name="input" label="성별" placeholder="text"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input type="number" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+    </app-col>
+    <app-col>
+      <app-select label="국적" name="select">
+        <app-select-option>대한민국</app-select-option>
+        <app-select-option>중국</app-select-option>
+        <app-select-option>태국</app-select-option>
+        <app-select-option>베트남</app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-select label="이메일" name="select">
+        <app-select-option>naver.com</app-select-option>
+        <app-select-option>nate.com</app-select-option>
+        <app-select-option>google.com</app-select-option>
+        <app-select-option>naver.com</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col></app-col>
+  </app-row>
+<div class="save">
+  <app-button>저장</app-button>
+</div>
+</div>
+<div class="detail">
 
+</div>
 </ion-content>

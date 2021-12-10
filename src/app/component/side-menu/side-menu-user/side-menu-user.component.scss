@@ -66,7 +66,7 @@ app-button.top-button {
 			background: var(--ion-color-primary);
 			border-radius: 5px 0 0 5px;
 			transform: translateX(10px);
-			transition: transform 100ms;
+			transition: transform 100ms; 
 			z-index: 10;
 		}
 		ion-item.selected::after {

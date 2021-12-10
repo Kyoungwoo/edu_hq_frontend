@@ -1,14 +1,15 @@
 :host {
     display: block;
-    text-align: center;
+    text-align:center;
     table {
         width: 100%;
+        box-shadow: var(--app-box-shadow);
     }
 }
 :host ::ng-deep {
     th {
         background: var(--ion-color-light);
-        font-size: var(--font-size-n);
+        font-size: var(--font-size-h6);
         height: var(--app-height-small);
         border: 1px solid var(--ion-color-step-100);
         padding: 4px;
