@@ -53,6 +53,63 @@
 </div>
 </div>
 <div class="detail">
-
+  <ion-segment color="primary">
+    <ion-segment-button>소속 정보</ion-segment-button>
+    <ion-segment-button>건강 문진</ion-segment-button>
+    <ion-segment-button>교육 이력</ion-segment-button>
+    <ion-segment-button>근로 이력</ion-segment-button>
+    <ion-segment-button>안전 마일리지</ion-segment-button>
+  </ion-segment>
+  <app-row>
+    <app-col>
+      <app-input name="input disabled" label="회사명" value="input disabled" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-select label="직위" name="select">
+        <app-select-option>작업자</app-select-option>
+        <app-select-option>작업자</app-select-option>
+        <app-select-option>작업자</app-select-option>
+        <app-select-option>작업자</app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input name="input disabled" label="현장명" value="input disabled" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-select label="공종" name="select">
+        <app-select-option>건축</app-select-option>
+        <app-select-option>토목</app-select-option>
+        <app-select-option>건설</app-select-option>
+        <app-select-option>전기</app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input name="input" label="계약유형" placeholder="text"></app-input>
+    </app-col>
+    <app-col>
+      <app-textarea name="with img" label="직종" placeholder="장비운전원">
+        <app-img name="search"></app-img>
+      </app-textarea>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input name="input" label="현장 출역 상태" placeholder="text"></app-input>
+    </app-col>
+    <app-col>
+      <app-calendar name="calendar" label="현장 출역 상태"></app-calendar>
+    </app-col>
+  </app-row>
+  <div class="add">
+    <app-button fill="translucent">현장 추가</app-button>
+  </div>
+  <h5>자격정보</h5>
+  <div class="last-save">
+    <app-button>저장</app-button>
+  </div>
 </div>
 </ion-content>

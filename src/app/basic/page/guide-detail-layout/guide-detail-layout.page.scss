@@ -3,6 +3,9 @@
 	height: 606px;
 	background: var(--ion-color-light);
 	margin: 0 auto;
+	position: relative;
+	margin-bottom: 20px;
+	box-shadow: var(--app-box-shadow);
 
 	h5 {
 		background: var(--ion-color-white);
@@ -10,8 +13,89 @@
 		padding: 10px 0 10px 20px;
 		margin-bottom: 30px; 
 	}
-
 	app-avatar {
 		margin-bottom: 30px;
 	}
+
+	app-row {
+		padding: 0 20px 0 20px;
+	}
+	.save {
+		display: flex;
+    	justify-content: right;
+		background: var(--ion-color-white);
+		padding-right: 10px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+
+		app-button {
+			margin: 0;
+			margin: 10px 0 10px 0;
+		}
+	}
+}
+.detail {
+	width: 610px;
+	height: 898px;
+	background: var(--ion-color-light);
+	margin: 0 auto;
+	box-shadow: var(--app-box-shadow);
+	position: relative;
+
+	ion-segment {
+		background-color: var(--ion-color-white);
+		margin-bottom: 20px;
+	}
+	ion-segment-button {
+		color: var(--ion-color-dark);
+		font-weight: bold;
+	}
+	app-row {
+		padding: 0 20px 0 20px;
+	}
+	.add {
+		display: flex;
+    	justify-content: right;
+		padding-right: 20px;
+		width: 100%;
+		margin-bottom: 40px;
+
+		app-button {
+			margin: 0;
+			margin: 10px 0 10px 0;
+		}
+	}
+	h5 {
+		margin:0;
+		padding: 10px 0 10px 20px;
+	}
+	.last-save {
+		display: flex;
+    	justify-content: right;
+		background: var(--ion-color-white);
+		padding-right: 10px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+
+		app-button {
+			margin: 0;
+			margin: 10px 0 10px 0;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+ion-segment-button::part(indicator-background) {
+	height: 5px;
+	border-radius: 5px 5px 0 0;
 }
