@@ -1,9 +1,5 @@
 :host {
   display: block;
-  --padding-top: 5px;
-  --padding-bottom: 5px;
-  --padding-start: 10px;
-  --padding-end: 10px;
   --height: initial;
   margin-top: var(--app-margin);
   margin-bottom: var(--app-margin);
@@ -12,10 +8,6 @@
     margin: 0;
     border-radius: var(--app-border-radius);
     box-shadow: var(--app-box-shadow);
-    padding-top: var(--padding-top);
-    padding-bottom: var(--padding-bottom);
-    padding-left: var(--padding-start);
-    padding-right: var(--padding-end);
     height: var(--height);
     position: relative;
     transition: 
@@ -34,6 +26,8 @@
   h1, h2, h3, h4, h5, h6, p {
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: calc(var(--app-padding)*2);
+    margin-right: calc(var(--app-padding)*2);
     font-weight: 400;
   }
   h6 {
@@ -45,9 +39,20 @@
   app-row {
     align-items: flex-start;
   }
-  app-row,
-  ion-row {
-    --app-margin:var(--app-padding);
+  app-col:first-child {
+    padding-left: calc(var(--app-padding)*2);
+  }
+  app-col:last-child {
+    padding-right: calc(var(--app-padding)*2);
+  }
+  ion-toolbar:last-child {
+    margin-top: 30px;
+  }
+  app-col {
+    h1, h2, h3, h4, h5, h6, p {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
 .ios {

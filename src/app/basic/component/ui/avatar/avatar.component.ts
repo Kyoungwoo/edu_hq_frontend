@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, HostBinding, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 
@@ -9,6 +9,21 @@ import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.ser
 })
 export class AvatarComponent implements OnInit, DoCheck {
 
+  @HostBinding('style') get style() {
+    const _style = [];
+    if(this.height) {
+      if(this.height.endsWith('px') || this.height.endsWith('%')) _style.push(`height: ${this.height}`);
+      else _style.push(`height: ${this.height}px`);
+    }
+    if(this.width) {
+      if(this.width.endsWith('px') || this.width.endsWith('%')) _style.push(`width: ${this.width}`);
+      else _style.push(`width: ${this.width}px`);
+    }
+    return _style.join(';');
+  }
+
+  @Input() height:string;
+  @Input() width:string;
   @Input() readonly:boolean = true;
   @Input() value:FutItem[] = [];
   @Input() files:(File | FileBlob)[] = [];

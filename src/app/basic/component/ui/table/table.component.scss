@@ -1,18 +1,24 @@
 :host {
     display: block;
     text-align:center;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: var(--app-box-shadow);
+    border-radius: var(--app-border-radius);
     table {
-        width: 100%;
-        box-shadow: var(--app-box-shadow);
+        margin-left: -1px;
+        margin-top: -1px;
+        margin-bottom: -1px;
+        width: calc(100% + 2px);
     }
 }
 :host ::ng-deep {
     th {
         background: var(--ion-color-light);
         font-size: var(--font-size-h6);
-        height: var(--app-height-small);
         border: 1px solid var(--ion-color-step-100);
-        padding: 4px;
+        padding: 6px;
+        vertical-align: bottom;
         small {
             font-size: var(--font-size-h6);
         }
@@ -20,9 +26,9 @@
     td {
         background: var(--ion-color-white);
         font-size: var(--font-size-n);
-        height: var(--app-height);
         border: 1px solid var(--ion-color-step-100);
-        padding: 4px;
+        padding: 8px 6px;
+        vertical-align: top;
         small {
             font-size: var(--font-size-h6);
         }
@@ -37,6 +43,16 @@
     pre > code {
         padding: 8px;
     }
+
+    app-calendar,
+    app-check,
+    app-datetime,
+    app-input,
+    app-select,
+    app-textarea {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 :host.text-align-left,
 :host ::ng-deep .text-align-left {
@@ -45,14 +61,4 @@
 :host.text-align-right,
 :host ::ng-deep .text-align-right {
     text-align: right;
-}
-:host ::ng-deep {
-    app-calendar,
-    app-datetime,
-    app-input,
-    app-select,
-    app-textarea {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
 }

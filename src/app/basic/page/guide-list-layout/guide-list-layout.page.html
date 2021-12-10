@@ -1,41 +1,40 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>test</ion-button>
+    </ion-buttons>
     <ion-title>guide-list-layout</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <h4>위험성 평가 보고</h4>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start" class="margin-left:none">
+      <ion-segment color="primary">
+        <ion-segment-button>위치 정보 수집 범위</ion-segment-button>
+        <ion-segment-button>공종</ion-segment-button>
+        <ion-segment-button>위험공종</ion-segment-button>
+        <ion-segment-button>장소</ion-segment-button>
+        <ion-segment-button>위험지역</ion-segment-button>
+        <ion-segment-button>위험성평가 항목</ion-segment-button>
+        <ion-segment-button>위험 작업</ion-segment-button>
+        <ion-segment-button>건설기계</ion-segment-button>
+        <ion-segment-button>특수공도구</ion-segment-button>
+        <ion-segment-button>점검표</ion-segment-button>
+        <ion-segment-button>회의록 협의사항</ion-segment-button>
+      </ion-segment>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <app-row>
     <app-col size="auto">
-      <app-input label="현장명" name="현장명" ></app-input>
+      
     </app-col>
     <app-col>
-      <div class="title">
-        <ion-toolbar color="white">
-          <h4>위험성 평가 보고</h4>
-        </ion-toolbar>
-        <app-line></app-line>
-        <ion-toolbar color="white">
-          <ion-buttons slot="start">
-            <ion-segment color="primary">
-              <ion-segment-button>위치 정보 수집 범위</ion-segment-button>
-              <ion-segment-button>공종</ion-segment-button>
-              <ion-segment-button>위험공종</ion-segment-button>
-              <ion-segment-button>장소</ion-segment-button>
-              <ion-segment-button>위험지역</ion-segment-button>
-              <ion-segment-button>위험성평가 항목</ion-segment-button>
-              <ion-segment-button>위험 작업</ion-segment-button>
-              <ion-segment-button>건설기계</ion-segment-button>
-              <ion-segment-button>특수공도구</ion-segment-button>
-              <ion-segment-button>점검표</ion-segment-button>
-              <ion-segment-button>회의록 협의사항</ion-segment-button>
-            </ion-segment>
-          </ion-buttons>
-        </ion-toolbar>
-      </div>
-      <div class="sub-title">
       <ion-toolbar color="white">
-        <ion-buttons slot="start" class="sub-title-button">
+        <ion-buttons slot="start">
           <app-button fill="translucent">신규작성</app-button>
           <app-button fill="translucent">복사 작성</app-button>
           <app-button fill="translucent">미결 문서</app-button>
@@ -48,11 +47,9 @@
           </ion-segment>
         </ion-buttons>
       </ion-toolbar>
-      <app-line></app-line>
       <ion-toolbar color="white">
         <h5>수시 위험성평가 목록 (총90건)</h5>
       </ion-toolbar>
-    </div>
       <app-table>
         <thead>
           <tr>
@@ -79,7 +76,7 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let item of [1,1,1]">
-            <tr style="border-top: 2px solid rgba(112, 112, 112, 0.664)">
+            <tr>
               <td rowspan="5"><app-check color="white" size="small" name="check"></app-check></td>
               <td rowspan="5">10</td>
               <td rowspan="5"><ion-chip color="success">토목</ion-chip></td>

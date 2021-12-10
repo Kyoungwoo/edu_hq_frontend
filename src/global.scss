@@ -132,6 +132,9 @@
   }
 
   /** ionic tags / classes */
+  ion-header {
+    box-shadow: 0px 0 3px 0 rgba(0, 0, 0, 0.08);
+  }
   ion-header::after {
     content: none;
   }
@@ -142,11 +145,41 @@
     --border-width: 0;
     --border-color: transparent;
     --background: var(--ion-background-color);
+    //--min-height: var(--app-height);
+    box-shadow: var(--app-box-shadow);
+    overflow: hidden;
   }
+  ion-toolbar:first-child {
+    border-top-left-radius: var(--app-border-radius);
+    border-top-right-radius: var(--app-border-radius);
+  }
+  ion-toolbar:last-child {
+    border-bottom-left-radius: var(--app-border-radius);
+    border-bottom-right-radius: var(--app-border-radius);
+  }
+  ion-toolbar + ion-toolbar {
+    border-top: 1px solid var(--ion-color-step-50);
+  }
+  ion-toolbar {
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  
+  ion-header ion-toolbar {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  // ion-footer ion-toolbar
+
   ion-content {
     --padding-start: 16px;
     --padding-end: 16px;
-    --app-padding-bottom: 40px;
+    --padding-top: 30px;
+    --padding-bottom: 40px;
   }
   ion-note {
     margin-top: var(--app-margin);
@@ -168,7 +201,6 @@
     --padding-bottom: 5px;
     margin-right: 3px;
     margin-left: 3px;
-
   }
   ion-icon {
     vertical-align: middle;
@@ -178,6 +210,24 @@
     .menu-toggle-hidden {
       display: inline;
     }
+  }
+  ion-segment {
+	  font-weight: bold;
+    min-height: 56px;
+  }
+  ion-segment-button {
+    color: var(--ion-color-dark);
+  }
+  ion-segment-button::part(indicator-background) {
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+  }
+
+  ion-buttons.buttons-first-slot {
+    margin-left: 16px;
+  }
+  ion-buttons.buttons-last-slot {
+    margin-right: 16px;
   }
   
   /** ionic dialogs */

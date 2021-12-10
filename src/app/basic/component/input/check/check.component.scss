@@ -14,16 +14,27 @@
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
+
+    display: block;
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
     .check-item {
-        margin-top: var(--app-margin);
-        margin-bottom: var(--app-margin);
-        height: var(--app-height-small);
-        display: flex;
+        display: inline-flex;
         align-items: center;
     }
     p, label {
         cursor: pointer;
         font-weight: var(--app-font-weight);
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    label {
+        margin-left: var(--app-padding);
+    }
+    label:empty {
+        display: none;
     }
     ion-checkbox {
         --background: none;
@@ -41,7 +52,6 @@
         position: relative;
         vertical-align: middle;
         top: -1px;
-        margin-right: var(--app-padding);
         display: inline-flex;
         align-items: center;
         justify-content: center;

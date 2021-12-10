@@ -57,29 +57,7 @@
         line-height: 1.2em;
     }
 }
-/** special case */
-.sc-ion-buttons-md-h.sc-ion-buttons-md-s :host,
-.sc-ion-buttons-ios-h.sc-ion-buttons-ios-s :host {
-    // --app-border-radius: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    ion-button {
-        --color: var(--app-color);
-        --color-hover: var(--color);
-        
-    }
-    &.button-outline {
-        ion-button {
-            --border-color: var(--ion-color-base);
-        }
-    }
-    &.button-translucent,
-    &.button-translucent-outline {
-        ion-button {
-            --background-hover: var(--ion-color-tint);
-        }
-    }
-}
+
 /** size */
 :host.button-small {
     ion-button {
@@ -186,5 +164,29 @@ app-button + :host {
     app-file {
         left: calc(var(--padding-start)*-1);
         width: calc(100% + var(--padding-start) + var(--padding-end));
+    }
+}
+
+/** with others */
+.sc-ion-buttons-md-h.sc-ion-buttons-md-s :host,
+.sc-ion-buttons-ios-h.sc-ion-buttons-ios-s :host {
+    // --app-border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    ion-button {
+        --color: var(--app-color);
+        --color-hover: var(--color);
+        
+    }
+    &.button-outline {
+        ion-button {
+            --border-color: var(--ion-color-base);
+        }
+    }
+    &.button-translucent,
+    &.button-translucent-outline {
+        ion-button {
+            --background-hover: var(--ion-color-tint);
+        }
     }
 }
