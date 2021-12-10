@@ -19,6 +19,9 @@
         height: 36px;
         text-align: center;
     }
+    app-row.date-list {
+        flex-wrap: wrap;
+    }
     /** time-picker */
     .time-picker {
         display: flex;

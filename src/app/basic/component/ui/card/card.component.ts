@@ -11,6 +11,8 @@ export class CardComponent implements OnInit {
 
   @HostBinding('class') get class() {
     let _class = [];
+    if(this.button) _class.push(`ion-activatable ripple-parent`);
+    if(this.color) _class.push(`ion-color-${this.color}`);
     if(this.fill) _class.push(`card-${this.fill}`);
     return _class.join(' ');
   }
@@ -20,6 +22,7 @@ export class CardComponent implements OnInit {
   @Input() fill:'translucent' | 'translucent-outline';
   @Input() href:string | SafeUrl;
   @Input() download:string;
+  @Input() target:string = '_blank';
 
   constructor(
   ) { }

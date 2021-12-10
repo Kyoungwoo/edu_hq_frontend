@@ -10,11 +10,11 @@
         --background: transparent;
         background: var(--ion-color-white);
         box-shadow: var(--app-box-shadow);
-        border-radius: 5px;
-        padding:0 2px 0 4px;
+        border-radius: var(app-border-radius);
+        padding: 0 2px 0 4px;
     }
     ion-label {
-        color: var(--ion-color-medium);
+        color: var(--ion-text-color);
         font-size: var(--font-size-h6);
         transform: scale(1);
         font-weight: 500;

@@ -529,12 +529,12 @@
         </app-col>
       </app-row>
     </app-card>
-    <app-row class="align-items:stretch">
+    <app-row vertical="stretch" style="max-height: 400px;">
       <app-col size="6">
-        <pre><code class="width:100%" style="max-height: 400px">list = {{ file.list | json }}</code></pre>
+        <pre style="width:100%"><code style="width: 100%; height: 100%;">list = {{ file.list | json }}</code></pre>
       </app-col>
       <app-col size="6">
-        <pre><code class="width:100%" style="max-height: 400px">file_json = {{ file.file_json | json }}</code></pre>
+        <pre style="width:100%"><code style="width: 100%; height: 100%;">file_json = {{ file.file_json | json }}</code></pre>
       </app-col>
     </app-row>
 
@@ -693,7 +693,94 @@
     <h4 id="naver-map">naver-map<ion-badge>by JunTae</ion-badge></h4>
     <app-naver-map></app-naver-map>
     <app-naver-map></app-naver-map>
-  
+
+    <h4 id="radio">radio</h4>
+    <p><a routerLink="/basic/guide" fragment="check"><code>check</code></a>와 달리 한가지를 고르기위한 레이아웃 입니다.<br>
+      빈 레이아웃을 위한 <a routerLink="/basic/guide" fragment="radio-group"><code>radio-group</code></a><br>
+      혹은 <code>input</code> 레이아웃을 위한 <a routerLink="/basic/guide" fragment="radio-group"><code>radio-input</code></a>
+      둘 중 하나와 같이 사용합니다.
+    </p>
+
+    <h5>properties</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td><code>any</code></td>
+          <td>다양한 value를 사용할 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4 id="radio-group">radio-group</h4>
+    <p>
+      <a routerLink="/basic/guide" fragment="radio"><code>radio</code></a>를 사용하기 위한 레이아웃이 없는 component 입니다.
+    </p>
+
+    <h5>Examples</h5>
+    <app-row>
+      <app-col size="auto">
+        <app-radio-group value="apple">
+          <app-radio value="apple">apple</app-radio>
+          <app-radio value="banana">banana</app-radio>
+        </app-radio-group>
+      </app-col>
+      <app-col size="auto">
+        <app-radio-group value="apple">
+          <app-radio size="small" value="apple">apple</app-radio>
+          <app-radio size="small" value="banana">banana</app-radio>
+        </app-radio-group>
+      </app-col>
+    </app-row>
+
+    <h4 id="radio-input">radio-input</h4>
+    <p>
+      <a routerLink="/basic/guide" fragment="radio"><code>radio</code></a>를 사용하기 위한 레이아웃이 <code>input</code>형태의 component 입니다.
+    </p>
+    <app-row>
+      <app-col>
+        <app-radio-input label="radio input">
+          <app-radio value="전체">전체</app-radio>
+          <app-radio value="전주">전주</app-radio>
+          <app-radio value="오늘">오늘</app-radio>
+          <app-radio value="금주">금주</app-radio>
+          <app-radio value="차주">차주</app-radio>
+          <app-radio value="당월">당월</app-radio>
+        </app-radio-input>
+      </app-col>
+      <app-col>
+        <app-radio-input label="radio group">
+          <app-row>
+            <app-col>
+              <app-radio value="전체">전체</app-radio>
+            </app-col>
+            <app-col>
+              <app-radio value="전주">전주</app-radio>
+            </app-col>
+            <app-col>
+              <app-radio value="오늘">오늘</app-radio>
+            </app-col>
+            <app-col>
+              <app-radio value="금주">금주</app-radio>
+            </app-col>
+            <app-col>
+              <app-radio value="차주">차주</app-radio>
+            </app-col>
+            <app-col>
+              <app-radio value="당월">당월</app-radio>
+            </app-col>
+          </app-row>
+        </app-radio-input>
+      </app-col>
+    </app-row>
+
     <h4 id="select">select</h4>
     <p>일반적인 <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank"><code>select <ion-icon name="open-outline"></ion-icon></code></a> tag 처럼 사용 됩니다. <a routerLink="/basic/guide" fragment="select-option"><code>select-option</code></a>과 함께 사용되며, <a routerLink="/basic/guide" fragment="select-popover"><code>select-popover</code></a>를 호출합니다.<br>
     <a href="https://material.angular.io/cdk/scrolling/overview" target="_blank"><code>cdkVirtualScroll <ion-icon name="open-outline"></ion-icon></code></a> 로 만들어져 있기 때문에, 많은 양의 데이터를 다룰 수 있습니다.</p>
@@ -1067,78 +1154,72 @@
     <app-row>
       <app-col size="300px">
         <app-card>
-          <ion-card-content>
-            <app-row>
-              <app-col size="auto">
-                <app-avatar></app-avatar>
-              </app-col>
-              <app-col>
-                <h5>이상범</h5>
-                <p>(주)지에스아이엘/대리/안전관리자</p>
-              </app-col>
-              <app-col size="auto">
-                <ion-chip color="primary">건축</ion-chip>
-              </app-col>
-            </app-row>
-          </ion-card-content>
+          <app-row>
+            <app-col size="auto">
+              <app-avatar></app-avatar>
+            </app-col>
+            <app-col>
+              <h5>이상범</h5>
+              <p>(주)지에스아이엘/대리/안전관리자</p>
+            </app-col>
+            <app-col size="auto">
+              <ion-chip color="primary">건축</ion-chip>
+            </app-col>
+          </app-row>
         </app-card>
       </app-col>
       <app-col size="200px">
         <app-card>
-          <ion-card-content>
-            <app-row>
-              <app-col size="auto">
-                <app-avatar></app-avatar>
-              </app-col>
-              <app-col>
-                <h5>이상범</h5>
-                <p>ksb1234</p>
-              </app-col>
-            </app-row>
-            <app-line></app-line>
-            <app-row>
-              <app-col>
-                <h6>회사명</h6>
-                <h5>(주)한백</h5>
-              </app-col>
-              <app-col>
-                <h6>직종</h6>
-                <h5>비계공</h5>
-              </app-col>
-            </app-row>
-          </ion-card-content>
+          <app-row>
+            <app-col size="auto">
+              <app-avatar></app-avatar>
+            </app-col>
+            <app-col>
+              <h5>이상범</h5>
+              <p>ksb1234</p>
+            </app-col>
+          </app-row>
+          <app-line></app-line>
+          <app-row>
+            <app-col>
+              <h6>회사명</h6>
+              <h5>(주)한백</h5>
+            </app-col>
+            <app-col>
+              <h6>직종</h6>
+              <h5>비계공</h5>
+            </app-col>
+          </app-row>
         </app-card>
       </app-col>
       <app-col>
         <app-card>
-          <ion-card-content>
-            <app-row>
-              <app-col size="auto">
-                <app-check name="check1"></app-check>
-              </app-col>
-              <app-col>
-                <app-row>
-                  <app-col>
-                    <h5>(주)지에스아이엘</h5>
-                    <h6><small>2020.08.24 - 2020.08.24</small></h6>
-                  </app-col>
+          <app-row>
+            <app-col size="auto">
+              <app-check name="check1"></app-check>
+            </app-col>
+            <app-col>
+              <app-row>
+                <app-col>
+                  <h5>(주)지에스아이엘</h5>
+                  <h6><small>2020.08.24 - 2020.08.24</small></h6>
+                </app-col>
+                <app-col size="auto">
+                  <ion-chip outline color="primary">승인완료</ion-chip>
+                </app-col>
+              </app-row>
+              <app-line></app-line>
+              <app-row>
+                <h4>지장물 조사 굴착, 지장물 보호 보강</h4>
+              </app-row>
+                <app-row>           
                   <app-col size="auto">
-                    <ion-chip outline color="primary">승인완료</ion-chip>
+                    <ion-badge color="success">승인</ion-badge>
+                    <ion-badge color="warning">고소 </ion-badge>
                   </app-col>
                 </app-row>
-                <app-line></app-line>
-                <app-row>
-                  <h4>지장물 조사 굴착, 지장물 보호 보강</h4>
-                </app-row>
-                  <app-row>           
-                    <app-col size="auto">
-                      <ion-badge color="success">승인</ion-badge>
-                      <ion-badge color="warning">고소 </ion-badge>
-                    </app-col>
-                  </app-row>
-              </app-col>
-            </app-row>
-          </ion-card-content>
+            </app-col>
+          </app-row>
         </app-card>
       </app-col>
     </app-row>
@@ -1249,6 +1330,29 @@
         <app-button width="100%">not sized</app-button>
       </app-col>
     </app-row>
+
+    <h5>Properties - row</h5>
+    <app-table>
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>vertical</td>
+          <td><code>'top' | 'bottom' | 'center' | 'stretch'</code></td>
+          <td>자식의 세로 위치 및 채움을 결정 합니다.</td>
+        </tr>
+        <tr>
+          <td><ion-badge color="danger">준비중</ion-badge> horizontal</td>
+          <td><code>'start' | 'end' | 'center' | 'stretch'</code></td>
+          <td>자식의 가로 위치 및 채움을 결정 합니다.</td>
+        </tr>
+      </tbody>
+    </app-table>
 
     <h5>Properties - col</h5>
     <app-table>
@@ -1412,7 +1516,7 @@
       <tbody>
         <tr>
           <td>run</td>
-          <td><code ngNonBindable>(method:string, data:any, options:&#123; loading:string &#125;) =&gt; Promise&amp;lt;ConnectResult&amp;gt;</code></td>
+          <td><code ngNonBindable>(method:string, data:any, options:&#123; loading:string &#125;) =&gt; Promise&lt;ConnectResult&gt;</code></td>
           <td>서버와 통신하는 메소드 입니다. <code>loading</code> 옵션을 이용하여, 통신 중 로딩을 띄울지 말지 결정할 수 있습니다.</td>
         </tr>
       </tbody>

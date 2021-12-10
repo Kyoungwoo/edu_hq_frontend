@@ -34,6 +34,10 @@ import { RowComponent } from './ui/row/row.component';
 import { TableComponent } from './ui/table/table.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LineComponent } from './ui/line/line.component';
+import { RadioComponent } from './input/radio/radio.component';
+import { RadioInputComponent } from './input/radio-input/radio-input.component';
+import { RadioGroupComponent } from './input/radio-group/radio-group.component';
+import { InputLabelComponent } from './input/input-label/input-label.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -48,7 +52,11 @@ import { LineComponent } from './ui/line/line.component';
     FileComponent,
     InputComponent,
     InputCaptionComponent,
+    InputLabelComponent,
     NaverMapComponent,
+    RadioComponent,
+    RadioGroupComponent,
+    RadioInputComponent,
     SelectComponent,
     SelectMultiplePopoverComponent,
     SelectOptionComponent,
@@ -86,7 +94,11 @@ import { LineComponent } from './ui/line/line.component';
     FileComponent,
     InputComponent,
     InputCaptionComponent,
+    InputLabelComponent,
     NaverMapComponent,
+    RadioComponent,
+    RadioGroupComponent,
+    RadioInputComponent,
     SelectComponent,
     SelectOptionComponent,
     TextareaComponent,

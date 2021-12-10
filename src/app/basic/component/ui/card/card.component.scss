@@ -1,22 +1,28 @@
 :host {
-  display: block;
-  --height: initial;
   margin-top: var(--app-margin);
   margin-bottom: var(--app-margin);
-  ion-card {
-    text-align: left;
-    margin: 0;
-    border-radius: var(--app-border-radius);
-    box-shadow: var(--app-box-shadow);
-    height: var(--height);
-    position: relative;
-    transition: 
-      transform 500ms cubic-bezier(0.12, 0.72, 0.29, 1) 0s,
-      -webkit-transform 500ms cubic-bezier(0.12, 0.72, 0.29, 1) 0s,
-      background-color 200ms ease;
-  }
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-box-shadow);
+  background: var(--ion-color-base);
+  color: var(--ion-color-contrast);
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition:
+    transform 500ms cubic-bezier(0.12, 0.72, 0.29, 1) 0s,
+    -webkit-transform 500ms cubic-bezier(0.12, 0.72, 0.29, 1) 0s,
+    background-color 200ms ease;
 }
 :host::ng-deep {
+  ion-toolbar:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  ion-toolbar:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
   ion-card-content {
     padding: var(--app-margin);
   }
@@ -29,8 +35,6 @@
   h1, h2, h3, h4, h5, h6, p {
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: calc(var(--app-padding)*2);
-    margin-right: calc(var(--app-padding)*2);
     font-weight: 400;
   }
   h6 {
@@ -41,12 +45,6 @@
   }
   app-row {
     align-items: flex-start;
-  }
-  app-col {
-    h1, h2, h3, h4, h5, h6, p {
-      margin-left: 0;
-      margin-right: 0;
-    }
   }
 }
 .ios {
