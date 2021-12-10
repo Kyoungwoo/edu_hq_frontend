@@ -2,11 +2,16 @@
 	width: 610px;
 	height: 606px;
 	background: var(--ion-color-light);
+	margin: 0 auto;
 
 	h5 {
 		background: var(--ion-color-white);
 		margin: 0;
-		height: 58px;
-		margin-bottom: 40px;
+		padding: 10px 0 10px 20px;
+		margin-bottom: 30px; 
+	}
+
+	app-avatar {
+		margin-bottom: 30px;
 	}
 }
