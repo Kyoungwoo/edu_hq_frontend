@@ -252,7 +252,6 @@
       }
     }
   }
-
   ion-popover {
     .popover-content {
       --background: var(--ion-color-white);
@@ -286,4 +285,15 @@
       margin-top: calc(64px + var(--ion-safe-area-top));
     }
   }
+
+  // ion-segment.custum-segment-1{
+  //   ion-segment-button{
+  //     &::part(indicator-background){
+  //       background: red;
+  //     }
+  //     &::part(indicator){
+  //       width: 30px;
+  //     }
+  //   }
+  // }
 }
