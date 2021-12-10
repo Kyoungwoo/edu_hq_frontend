@@ -19,3 +19,7 @@ h5 {
 .sub-title-button {
 	padding-left: 20px;
 }
+ion-segment-button::part(indicator-background) {
+	height: 5px;
+	border-radius: 5px 5px 0 0;
+}
