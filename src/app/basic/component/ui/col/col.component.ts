@@ -16,14 +16,15 @@ export class ColComponent implements OnInit {
   @Input() set size(_size:string | number) {
     _size = String(_size);
     if(_size === 'auto') {
-      this._style = 'flex: 0 0 auto; width: auto;';
+      this._style = 'flex: 0 0 auto; width: auto; max-width: 100%;';
     }
     else if(_size.includes('px') || _size.includes('%')) {
       this._style = `
         flex: 0 0 ${_size};
         width: ${_size};
-        max-width: ${_size};
+        max-width: 100%;
       `;
+      // max-width: ${_size};
     }
     else {
       const numSize = parseInt(_size);

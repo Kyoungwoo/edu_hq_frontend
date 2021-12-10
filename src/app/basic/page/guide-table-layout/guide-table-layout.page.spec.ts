@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { GuideListLayoutPage } from './guide-list-layout.page';
+import { GuideTableLayoutPage } from './guide-table-layout.page';
 
-describe('GuideListLayoutPage', () => {
-  let component: GuideListLayoutPage;
-  let fixture: ComponentFixture<GuideListLayoutPage>;
+describe('GuideTableLayoutPage', () => {
+  let component: GuideTableLayoutPage;
+  let fixture: ComponentFixture<GuideTableLayoutPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuideListLayoutPage ],
+      declarations: [ GuideTableLayoutPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GuideListLayoutPage);
+    fixture = TestBed.createComponent(GuideTableLayoutPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

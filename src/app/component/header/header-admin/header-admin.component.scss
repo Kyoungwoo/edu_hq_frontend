@@ -1,5 +1,5 @@
 app-logo {
-    margin-left: 30px;
+    margin-left: 22px;
     margin-right: 22px;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -8,5 +8,6 @@ app-logo {
     border-radius: 5px;
 }
 app-button {
+    --app-border-radius: 0;
     --height: 64px;
 }

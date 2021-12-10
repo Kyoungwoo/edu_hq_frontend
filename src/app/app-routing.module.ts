@@ -36,12 +36,12 @@ const routes: Routes = [
     loadChildren: () => import('./page/main/main-user/main-user.module').then( m => m.MainUserPageModule)
   },
   {
-    path: 'guide-detail-layout',
-    loadChildren: () => import('./basic/page/guide-detail-layout/guide-detail-layout.module').then( m => m.GuideDetailLayoutPageModule)
+    path: 'guide-card-layout',
+    loadChildren: () => import('./basic/page/guide-card-layout/guide-card-layout.module').then( m => m.GuideCardLayoutPageModule)
   },
   {
-    path: 'guide-list-layout',
-    loadChildren: () => import('./basic/page/guide-list-layout/guide-list-layout.module').then( m => m.GuideListLayoutPageModule)
+    path: 'guide-table-layout',
+    loadChildren: () => import('./basic/page/guide-table-layout/guide-table-layout.module').then( m => m.GuideTableLayoutPageModule)
   }
 ];
 

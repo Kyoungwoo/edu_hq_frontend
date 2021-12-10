@@ -17,6 +17,9 @@
   }
 }
 :host::ng-deep {
+  ion-card-content {
+    padding: var(--app-margin);
+  }
   app-avatar {
     width: 36px;
     height: 36px;
@@ -38,15 +41,6 @@
   }
   app-row {
     align-items: flex-start;
-  }
-  app-col:first-child {
-    padding-left: calc(var(--app-padding)*2);
-  }
-  app-col:last-child {
-    padding-right: calc(var(--app-padding)*2);
-  }
-  ion-toolbar:last-child {
-    margin-top: 30px;
   }
   app-col {
     h1, h2, h3, h4, h5, h6, p {

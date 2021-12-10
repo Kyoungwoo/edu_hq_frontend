@@ -5,8 +5,8 @@
     </ion-buttons>
     <ion-title>Library Guide</ion-title>
     <ion-buttons slot="end">
-      <app-button color="primary" fill="translucent" routerLink="/guide-list-layout">guide-list-layout</app-button>
-      <app-button color="primary" routerLink="/guide-detail-layout">guide-detail-layout</app-button>
+      <app-button color="primary" fill="translucent" routerLink="/guide-table-layout">guide-table-layout</app-button>
+      <app-button color="primary" routerLink="/guide-card-layout">guide-card-layout</app-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -1067,72 +1067,78 @@
     <app-row>
       <app-col size="300px">
         <app-card>
-          <app-row>
-            <app-col size="auto">
-              <app-avatar></app-avatar>
-            </app-col>
-            <app-col>
-              <h5>이상범</h5>
-              <p>(주)지에스아이엘/대리/안전관리자</p>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="primary">건축</ion-chip>
-            </app-col>
-          </app-row>
+          <ion-card-content>
+            <app-row>
+              <app-col size="auto">
+                <app-avatar></app-avatar>
+              </app-col>
+              <app-col>
+                <h5>이상범</h5>
+                <p>(주)지에스아이엘/대리/안전관리자</p>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip color="primary">건축</ion-chip>
+              </app-col>
+            </app-row>
+          </ion-card-content>
         </app-card>
       </app-col>
       <app-col size="200px">
         <app-card>
-          <app-row>
-            <app-col size="auto">
-              <app-avatar></app-avatar>
-            </app-col>
-            <app-col>
-              <h5>이상범</h5>
-              <p>ksb1234</p>
-            </app-col>
-          </app-row>
-          <app-line></app-line>
-          <app-row>
-            <app-col>
-              <h6>회사명</h6>
-              <h5>(주)한백</h5>
-            </app-col>
-            <app-col>
-              <h6>직종</h6>
-              <h5>비계공</h5>
-            </app-col>
-          </app-row>
+          <ion-card-content>
+            <app-row>
+              <app-col size="auto">
+                <app-avatar></app-avatar>
+              </app-col>
+              <app-col>
+                <h5>이상범</h5>
+                <p>ksb1234</p>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col>
+                <h6>회사명</h6>
+                <h5>(주)한백</h5>
+              </app-col>
+              <app-col>
+                <h6>직종</h6>
+                <h5>비계공</h5>
+              </app-col>
+            </app-row>
+          </ion-card-content>
         </app-card>
       </app-col>
       <app-col>
         <app-card>
-          <app-row>
-            <app-col size="auto">
-              <app-check name="check1"></app-check>
-            </app-col>
-            <app-col>
-              <app-row>
-                <app-col>
-                  <h5>(주)지에스아이엘</h5>
-                  <h6><small>2020.08.24 - 2020.08.24</small></h6>
-                </app-col>
-                <app-col size="auto">
-                  <ion-chip outline color="primary">승인완료</ion-chip>
-                </app-col>
-              </app-row>
-              <app-line></app-line>
-              <app-row>
-                <h4>지장물 조사 굴착, 지장물 보호 보강</h4>
-              </app-row>
-                <app-row>           
+          <ion-card-content>
+            <app-row>
+              <app-col size="auto">
+                <app-check name="check1"></app-check>
+              </app-col>
+              <app-col>
+                <app-row>
+                  <app-col>
+                    <h5>(주)지에스아이엘</h5>
+                    <h6><small>2020.08.24 - 2020.08.24</small></h6>
+                  </app-col>
                   <app-col size="auto">
-                    <ion-badge color="success">승인</ion-badge>
-                    <ion-badge color="warning">고소 </ion-badge>
+                    <ion-chip outline color="primary">승인완료</ion-chip>
                   </app-col>
                 </app-row>
-            </app-col>
-          </app-row>
+                <app-line></app-line>
+                <app-row>
+                  <h4>지장물 조사 굴착, 지장물 보호 보강</h4>
+                </app-row>
+                  <app-row>           
+                    <app-col size="auto">
+                      <ion-badge color="success">승인</ion-badge>
+                      <ion-badge color="warning">고소 </ion-badge>
+                    </app-col>
+                  </app-row>
+              </app-col>
+            </app-row>
+          </ion-card-content>
         </app-card>
       </app-col>
     </app-row>

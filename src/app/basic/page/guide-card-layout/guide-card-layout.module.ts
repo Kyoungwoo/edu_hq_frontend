@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GuideDetailLayoutPageRoutingModule } from './guide-detail-layout-routing.module';
+import { GuideCardLayoutPageRoutingModule } from './guide-card-layout-routing.module';
 
-import { GuideDetailLayoutPage } from './guide-detail-layout.page';
+import { GuideCardLayoutPage } from './guide-card-layout.page';
 import { BasicComponentModule } from '../../component/basic.component.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { BasicComponentModule } from '../../component/basic.component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    GuideDetailLayoutPageRoutingModule,
+    GuideCardLayoutPageRoutingModule,
     BasicComponentModule
   ],
-  declarations: [GuideDetailLayoutPage]
+  declarations: [GuideCardLayoutPage]
 })
-export class GuideDetailLayoutPageModule {}
+export class GuideCardLayoutPageModule {}

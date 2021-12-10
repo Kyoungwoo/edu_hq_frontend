@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/basic/guide"></ion-back-button>
+    </ion-buttons>
+    <ion-title>회원정보</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+    <app-card color="light" [button]="false">
+      <ion-toolbar color="white">
+        <h5>회원정보</h5>
+      </ion-toolbar>
+      <ion-card-content>
+        <app-avatar width="100" height="100" [readonly]="false"></app-avatar>
+        <app-row>
+          <app-col>
+            <app-input name="input disabled" label="아이디" value="input disabled" [disabled]="true"></app-input>
+          </app-col>
+          <app-col>
+            <app-input name="input" label="성명" placeholder="김소령"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-calendar name="calendar" label="생년월일"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-input name="input" label="성별" placeholder="text"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input type="number" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+          </app-col>
+          <app-col>
+            <app-select label="국적" name="select">
+              <app-select-option>대한민국</app-select-option>
+              <app-select-option>중국</app-select-option>
+              <app-select-option>태국</app-select-option>
+              <app-select-option>베트남</app-select-option>
+            </app-select>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select label="이메일" name="select">
+              <app-select-option>naver.com</app-select-option>
+              <app-select-option>nate.com</app-select-option>
+              <app-select-option>google.com</app-select-option>
+              <app-select-option>naver.com</app-select-option>
+            </app-select>
+          </app-col>
+          <app-col></app-col>
+        </app-row>
+      </ion-card-content>
+      <ion-toolbar color="white">
+        <ion-buttons slot="end">
+          <app-button width="120">저장</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </app-card>
+      <app-card color="light">
+        <ion-toolbar color="white">
+          <ion-segment color="primary">
+            <ion-segment-button>소속 정보</ion-segment-button>
+            <ion-segment-button>건강 문진</ion-segment-button>
+            <ion-segment-button>교육 이력</ion-segment-button>
+            <ion-segment-button>근로 이력</ion-segment-button>
+            <ion-segment-button>안전 마일리지</ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+        <ion-card-content>
+          <app-row>
+            <app-col>
+              <app-input name="input disabled" label="회사명" value="input disabled" [disabled]="true"></app-input>
+            </app-col>
+            <app-col>
+              <app-select label="직위" name="select">
+                <app-select-option>작업자</app-select-option>
+                <app-select-option>작업자</app-select-option>
+                <app-select-option>작업자</app-select-option>
+                <app-select-option>작업자</app-select-option>
+              </app-select>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-input name="input disabled" label="현장명" value="input disabled" [disabled]="true"></app-input>
+            </app-col>
+            <app-col>
+              <app-select label="공종" name="select">
+                <app-select-option>건축</app-select-option>
+                <app-select-option>토목</app-select-option>
+                <app-select-option>건설</app-select-option>
+                <app-select-option>전기</app-select-option>
+              </app-select>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-input name="input" label="계약유형" placeholder="text"></app-input>
+            </app-col>
+            <app-col>
+              <app-textarea name="with img" label="직종" placeholder="장비운전원">
+                <app-img name="search"></app-img>
+              </app-textarea>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-input name="input" label="현장 출역 상태" placeholder="text"></app-input>
+            </app-col>
+            <app-col>
+              <app-calendar name="calendar" label="현장 출역 상태"></app-calendar>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" width="120">현장 추가</app-button>
+            </app-col>
+          </app-row>
+          <h5>자격정보</h5>
+        </ion-card-content>
+      <ion-toolbar color="white">
+        <ion-buttons slot="end">
+          <app-button width="120">저장</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </app-card>
+  </app-container>
+</ion-content>

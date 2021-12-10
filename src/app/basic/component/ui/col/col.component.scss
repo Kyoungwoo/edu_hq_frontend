@@ -24,9 +24,12 @@ app-col>app-row:last-child>:host {
         margin-top: 0;
         margin-bottom: 0;
     }
-    app-input,
+    app-button,
     app-calendar,
-    app-button {
+    app-check,
+    app-datetime,
+    app-input,
+    app-select {
         --app-margin: 0;
     }
 }

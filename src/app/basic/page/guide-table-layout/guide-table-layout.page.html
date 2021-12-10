@@ -1,29 +1,31 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-button>test</ion-button>
+      <ion-back-button defaultHref="/basic/guide"></ion-back-button>
     </ion-buttons>
-    <ion-title>guide-list-layout</ion-title>
+    <ion-title>회원정보</ion-title>
   </ion-toolbar>
   <ion-toolbar color="white">
     <h4>위험성 평가 보고</h4>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <ion-buttons slot="start" class="margin-left:none">
-      <ion-segment color="primary">
-        <ion-segment-button>위치 정보 수집 범위</ion-segment-button>
-        <ion-segment-button>공종</ion-segment-button>
-        <ion-segment-button>위험공종</ion-segment-button>
-        <ion-segment-button>장소</ion-segment-button>
-        <ion-segment-button>위험지역</ion-segment-button>
-        <ion-segment-button>위험성평가 항목</ion-segment-button>
-        <ion-segment-button>위험 작업</ion-segment-button>
-        <ion-segment-button>건설기계</ion-segment-button>
-        <ion-segment-button>특수공도구</ion-segment-button>
-        <ion-segment-button>점검표</ion-segment-button>
-        <ion-segment-button>회의록 협의사항</ion-segment-button>
-      </ion-segment>
-    </ion-buttons>
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [scrollable]="true">
+          <ion-segment-button>위치 정보 수집 범위</ion-segment-button>
+          <ion-segment-button>공종</ion-segment-button>
+          <ion-segment-button>위험공종</ion-segment-button>
+          <ion-segment-button>장소</ion-segment-button>
+          <ion-segment-button>위험지역</ion-segment-button>
+          <ion-segment-button>위험성평가 항목</ion-segment-button>
+          <ion-segment-button>위험 작업</ion-segment-button>
+          <ion-segment-button>건설기계</ion-segment-button>
+          <ion-segment-button>특수공도구</ion-segment-button>
+          <ion-segment-button>점검표</ion-segment-button>
+          <ion-segment-button>회의록 협의사항</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
   </ion-toolbar>
 </ion-header>
 

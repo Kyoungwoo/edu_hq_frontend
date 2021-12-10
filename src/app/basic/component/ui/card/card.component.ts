@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
     return _class.join(' ');
   }
 
-  @Input() button:boolean = true;
+  @Input() button:boolean = false;
   @Input() color:Color = 'white';
   @Input() fill:'translucent' | 'translucent-outline';
   @Input() href:string | SafeUrl;
