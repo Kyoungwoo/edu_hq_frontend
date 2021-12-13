@@ -96,7 +96,7 @@
         <h3 id="dialog">Dialog</h3>
         <p>alert, modal 등 화면에 새로 띄우는 컴포넌트들 입니다. <strong>tag를 직접 넣어 사용하지 않고, service를 이용해서 사용합니다.</strong></p>
     
-        <h4 id="alert">alert<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge></h4>
+        <h4 id="alert">alert <ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge><ion-badge>by hyewon</ion-badge></h4>
         <p><a routerLink="/basic/guide" fragment="alert-service"><code>alert.service</code></a>로 사용합니다.</p>
     
         <h5>Examples</h5>
@@ -197,7 +197,7 @@
           </tbody>
         </app-table>
     
-        <h4 id="daum">daum<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge></h4>
+        <h4 id="daum">daum<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge> <ion-badge>by juntae</ion-badge></h4>
         <p><a href="https://postcode.map.daum.net/guide" target="_blank"><code>Daum 우편번호 서비스 <ion-icon name="open-outline"></ion-icon></code></a>를 연동하여 만들어져 있습니다. <a routerLink="/basic/guide" fragment="daum-service"><code>daum service</code></a> 에서 호출됩니다.</p>
       
         <h3 id="input">Input</h3>
@@ -710,6 +710,32 @@
             </tr>
           </tbody>
         </app-table>
+
+        <h4 id="input-group">input-group</h4>
+        <p>이런 것 까지 만들게 할 줄이야. 대단하다.</p>
+
+        <app-row>
+          <app-col size="200px">
+            <app-input label="단일" placeholder="단일"></app-input>
+          </app-col>
+          <app-col size="200px">
+            <app-input-group label="이메일">
+              <app-input placeholder="입력"></app-input>
+              @
+              <app-select placeholder="선택">
+                <app-select-option value="naver.com">naver.com</app-select-option>
+              </app-select>
+            </app-input-group>
+          </app-col>
+          <slot></slot>
+          <app-col size="400px">
+            <app-input-group label="현장 출역 상태">
+              <app-calendar></app-calendar>
+              ~
+              <app-calendar></app-calendar>
+            </app-input-group>
+          </app-col>
+        </app-row>
     
         <h4 id="input-template">input-template<ion-badge color="danger">private</ion-badge></h4>
         <p><code>input</code>의 레이아웃을 규정하는 탬플릿 입니다.</p>
@@ -1152,7 +1178,7 @@
           </tbody>
         </app-table>
     
-        <h4 id="button-footer">button-footer</h4>
+        <h4 id="button-footer">button-footer <ion-badge>by hyewon</ion-badge></h4>
         <p>하단에 고정되는 button들이 모인 <code>footer</code>를 쉽게 만들기위한 component 입니다. 실 적용예시는 페이지 하단을 참고해주세요.</p>
     
         <h5>Examples</h5>
@@ -1693,6 +1719,9 @@
               <ion-item-divider routerLink="/basic/guide" fragment="dialog">
                 <ion-label>Dialog</ion-label>
               </ion-item-divider>
+              <ion-item routerLink="/basic/guide" fragment="alert">
+                <ion-label>alert</ion-label>
+              </ion-item>
               <ion-item routerLink="/basic/guide" fragment="daum">
                 <ion-label>daum</ion-label>
               </ion-item>

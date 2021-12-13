@@ -1,4 +1,4 @@
-<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="(readonly || disabled) ? null : popoverSelect()">
+<app-input-template class="input-no-label" [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="(readonly || disabled) ? null : popoverSelect()">
     <div slot="input" class="input">
         <span *ngIf="text" class="value" [innerHtml]="text | safe: 'html'"></span>
         <span *ngIf="!text" class="placeholder">{{ placeholder }}</span>

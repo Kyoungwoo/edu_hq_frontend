@@ -1,13 +1,13 @@
-<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (buttonClick)="popoverDateTimePicker()">
+<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="popoverDateTimePicker()">
   <app-row slot="input">
     <app-col size="1.5em">
-      <input [readonly]="readonly" [disabled]="disabled" type="tel" class="hour-input" placeholder="시" [(ngModel)]="form.hour" maxlength="2" (keyup)="changeHour($event)" (focus)="fucus()" (blur)="blur()">
+      <input [readonly]="true" [disabled]="disabled" type="tel" class="hour-input" placeholder="시" [(ngModel)]="form.hour" maxlength="2" (keyup)="changeHour($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
     <app-col size="auto">
       :
     </app-col>
     <app-col size="1.5em">
-      <input [readonly]="readonly" [disabled]="disabled" type="tel" class="minute-input" placeholder="분" [(ngModel)]="form.minute" maxlength="2" (keyup)="changeMinute($event)" (focus)="fucus()" (blur)="blur()">
+      <input [readonly]="true" [disabled]="disabled" type="tel" class="minute-input" placeholder="분" [(ngModel)]="form.minute" maxlength="2" (keyup)="changeMinute($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
   </app-row>
   <app-img slot="button" name="time"></app-img>

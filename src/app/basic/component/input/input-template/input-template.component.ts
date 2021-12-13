@@ -8,6 +8,7 @@ import { Component, ElementRef, HostBinding, Input, OnInit, Output, ViewChild, E
 export class InputTemplateComponent implements OnInit {
 
   @HostBinding('class.input-label') get classLabel() { return this.label }
+  @HostBinding('class.input-no-label') get classNoLabel() { return !this.label }
   @Input() label:string;
 
   @Output() buttonClick = new EventEmitter();

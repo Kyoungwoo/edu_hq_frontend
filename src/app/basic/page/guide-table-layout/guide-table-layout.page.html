@@ -31,7 +31,7 @@
 
 <ion-content>
   <app-row style="align-items: flex-start;">
-    <app-col size="260px">
+    <app-col size="280px">
       <app-table type="card">
         <thead>
           <tr>
@@ -67,7 +67,11 @@
           </tr>
           <tr>
             <td>
-              <app-calendar label="작업기간"></app-calendar>
+              <app-input-group label="작업기간">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
             </td>
           </tr>
           <tr>

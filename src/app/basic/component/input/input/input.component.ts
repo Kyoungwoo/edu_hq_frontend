@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, Output, EventEmitter, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
