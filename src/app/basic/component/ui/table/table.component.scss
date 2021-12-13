@@ -53,6 +53,11 @@
     }
     app-input-template {
         box-shadow: none;
+        padding: 0;
+        button {
+           bottom: 0 !important;
+           right: 0 !important;
+        }
     }
 }
 :host.table-card {
