@@ -75,6 +75,6 @@
     <ion-button fill="clear" class="am-pm-btn" (click)="setAMPM()">{{ displayAMPM === 'AM' ? AMPMNames[0] : AMPMNames[1] }}</ion-button>
   </div>
 </ion-content>
-<app-button-footer *ngIf="timePicker" (click)="submit()" [disabled]="!selectedDate">
-  확인
+<app-button-footer *ngIf="timePicker" (click)="submit()">
+  <app-button [disabled]="!selectedDate">확인</app-button>
 </app-button-footer>

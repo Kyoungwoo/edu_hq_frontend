@@ -6,7 +6,7 @@
     --app-font-weight: 500;
     //--app-height-small
     //--app-margin
-    --app-size: 24px;
+    --app-size: 20px;
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
     display: inline-flex;
@@ -27,6 +27,7 @@
         -ms-user-select: none; /* IE10+ */
         font-weight: var(--app-font-weight);
         margin-left: var(--app-padding);
+        margin-right: var(--app-padding);
         cursor: inherit;
     }
     label:empty {
@@ -35,7 +36,7 @@
 }
 :host.radio-small {
     ion-radio {
-        --app-size: 20px;
+        --app-size: 16px;
     }
 }
 :host.readonly {

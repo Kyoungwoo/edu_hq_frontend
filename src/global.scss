@@ -130,6 +130,19 @@
     width: 100%;
   }
 
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--app-placeholder-color);
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--app-placeholder-color);
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--app-placeholder-color);
+  }
+
   /** ionic tags / classes */
   ion-content {
     --padding-start: 16px;

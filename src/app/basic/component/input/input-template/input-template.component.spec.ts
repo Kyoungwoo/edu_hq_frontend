@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { InputLabelComponent } from './input-label.component';
+import { InputTemplateComponent } from './input-template.component';
 
-describe('InputLabelComponent', () => {
-  let component: InputLabelComponent;
-  let fixture: ComponentFixture<InputLabelComponent>;
+describe('InputTemplateComponent', () => {
+  let component: InputTemplateComponent;
+  let fixture: ComponentFixture<InputTemplateComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputLabelComponent ],
+      declarations: [ InputTemplateComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InputLabelComponent);
+    fixture = TestBed.createComponent(InputTemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

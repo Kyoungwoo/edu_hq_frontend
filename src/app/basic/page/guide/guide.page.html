@@ -620,6 +620,24 @@
       </app-col>
     </app-row>
 
+    <app-row vertical="bottom">
+      <app-col>
+        <app-input name="input" label="input" placeholder="text">
+          <app-img name="check"></app-img>
+        </app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input readonly" value="input readonly" [readonly]="true">
+          <app-img name="check"></app-img>
+        </app-input>
+      </app-col>
+      <app-col>
+        <app-input name="input disabled" value="input disabled" [disabled]="true">
+          <app-img name="check"></app-img>
+        </app-input>
+      </app-col>
+    </app-row>
+
     <h5>properties</h5>
     <app-table>
       <thead>
@@ -767,6 +785,8 @@
             <app-col>
               <app-radio value="오늘">오늘</app-radio>
             </app-col>
+          </app-row>
+          <app-row>
             <app-col>
               <app-radio value="금주">금주</app-radio>
             </app-col>
@@ -777,6 +797,7 @@
               <app-radio value="당월">당월</app-radio>
             </app-col>
           </app-row>
+          <app-img name="search"></app-img>
         </app-radio-input>
       </app-col>
     </app-row>
@@ -811,18 +832,18 @@
     </app-row>
 
     <app-row>
-      <app-col size="4">
+      <app-col>
         <app-select label="multiple=true" name="multiple=true" [multiple]="true">
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
         </app-select>
       </app-col>
-      <app-col size="4">
+      <app-col>
         <app-select label="select-option type=all" name="select-option type=all" [multiple]="true">
           <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option>
         </app-select>
       </app-col>
-      <app-col size="4">
+      <app-col>
         <app-select label="select html" name="select html" placeholder="icon + text">
           <app-select-option value="search">
             <ion-icon name="search" style="vertical-align: middle;"></ion-icon>

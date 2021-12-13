@@ -1,16 +1,20 @@
-<ion-item lines="none">
-  <ion-label position="stacked">{{ label }}</ion-label>
-  <div class="inputs">
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="year-input"  [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
-    -
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="month-input" [(ngModel)]="form.month" maxlength="2" (keyup)="changeMonth($event)" (focus)="fucus()" (blur)="blur()">
-    -
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input"  [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
-  </div>
-  <div *ngIf="button" class="button"
-  [class.without-label]="!label"
-  tabindex="-1"
-  (click)="(readonly || disabled) ? null : popoverCalendar()">
-    <app-img name="calendar"></app-img>
-  </div>
-</ion-item>
+<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (buttonClick)="popoverCalendar()">
+  <app-row slot="input">
+    <app-col size="2.6em">
+      <input [readonly]="readonly" [disabled]="disabled" type="tel" class="year-input"  [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
+    </app-col>
+    <app-col size="auto">
+      -
+    </app-col>
+    <app-col size="1.5em">
+      <input [readonly]="readonly" [disabled]="disabled" type="tel" class="month-input" [(ngModel)]="form.month" maxlength="2" (keyup)="changeMonth($event)" (focus)="fucus()" (blur)="blur()">
+    </app-col>
+    <app-col size="auto">
+      -
+    </app-col>
+    <app-col size="1.5em">
+      <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input"  [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
+    </app-col>
+  </app-row>
+  <app-img slot="button" name="calendar"></app-img>
+</app-input-template>

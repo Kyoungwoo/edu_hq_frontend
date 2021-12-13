@@ -20,17 +20,9 @@ app-col>app-row:last-child>:host {
     padding-bottom: 0;
 }
 :host ::ng-deep {
-    app-card {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
     app-button,
-    app-calendar,
-    app-check,
-    app-radio,
-    app-datetime,
-    app-input,
-    app-select {
+    app-card,
+    app-input-template {
         --app-margin: 0;
     }
 }

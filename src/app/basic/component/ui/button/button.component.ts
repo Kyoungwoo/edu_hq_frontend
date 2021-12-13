@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
@@ -28,8 +28,8 @@ export class ButtonComponent implements OnInit {
     }
     if(this.width) {
       if(typeof this.width === 'string' 
-      && (this.width.endsWith('px') || this.width.endsWith('%'))) _style.push(`width: ${this.width}`);
-      else _style.push(`width: ${this.width}px`);
+      && (this.width.endsWith('px') || this.width.endsWith('%'))) _style.push(`width: ${this.width}; max-width: ${this.width};`);
+      else _style.push(`width: ${this.width}px; max-width: ${this.width}px;`);
     }
     return _style.join(';');
   }
@@ -45,8 +45,17 @@ export class ButtonComponent implements OnInit {
   @Input() href:string | SafeUrl;
   @Input() download:string;
   @Input() target:string;
+
+  get innerHTML() {
+    return this.el.nativeElement.innerHTML;
+  }
+  get offsetWidth() {
+    return this.el.nativeElement.offsetWidth;
+  }
   
-  constructor() { }
+  constructor(
+    private el: ElementRef<HTMLElement>
+  ) { }
  
   ngOnInit() {}
 

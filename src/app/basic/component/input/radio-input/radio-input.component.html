@@ -1,4 +1,7 @@
 <ion-radio-group [(ngModel)]="value">
-  <app-input-label>{{ label }}</app-input-label>
-  <ng-content></ng-content>
+  <app-input-template [label]="label">
+    <ng-content slot="input" select="app-row"></ng-content>
+    <ng-content slot="input" select="app-radio"></ng-content>
+    <ng-content slot="button"></ng-content>
+  </app-input-template>
 </ion-radio-group>

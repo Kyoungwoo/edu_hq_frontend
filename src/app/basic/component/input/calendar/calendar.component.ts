@@ -61,13 +61,13 @@ export class CalendarComponent implements ControlValueAccessor {
     
     if(value) {
       if(value.length < 2) {
-        this.form.month = this.regex.replace.fix(value, 2);
+        this.form.month = this.regex.replace.fix(value, 2, 1, 12);
       }
       else if(ev.key.length === 1) {
-        this.form.month = this.regex.replace.fix(value + ev.key, 2);
+        this.form.month = this.regex.replace.fix(value + ev.key, 2, 1, 12);
       }
       else if(ev.key === 'Backspace') {
-        this.form.month = this.regex.replace.fix(value.slice(0, -1), 2);
+        this.form.month = this.regex.replace.fix(value.slice(0, -1), 2, 1, 12);
       }
     }
     this.change.emit(this.getDateFormat());

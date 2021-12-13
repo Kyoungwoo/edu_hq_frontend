@@ -46,7 +46,7 @@ export class RegexService {
     },
     /** 숫자를 01, 001 등으로 표현해준다. */
     fix: (number:string | number, length:number, min?:number, max?:number) => {
-      number = Number(number);
+      if(typeof number === 'string') number = Number(number.replace(/\D/g, ''));
       
       if(min) number = Math.max(min, number);
       if(max) number = Math.min(max, number);
