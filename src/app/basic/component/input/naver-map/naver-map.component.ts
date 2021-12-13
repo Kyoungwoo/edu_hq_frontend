@@ -4,6 +4,7 @@ import { FileService } from 'src/app/basic/service/file.service';
 declare const naver;
 
 
+
 @Component({
   selector: 'app-naver-map',
   templateUrl: './naver-map.component.html',
@@ -19,11 +20,13 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   @HostBinding('id') get id() { return this._id };
   private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
   
+
   map:any;
-  
+  text:boolean = true;
   path = [];
   marker = [];
   LatLng = [];
+  infoMarker:any;
 
   constructor(
     private el: ElementRef,
@@ -38,13 +41,27 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
   
   async init() {
+    console.log("123123---------",this.value)
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
-    const position = new naver.maps.LatLng(36.8637499,126.6422598);
+    let position = null;
+    for(let i=0; i<this.value.length; i++){
+      if(this.value[i].info){
+        console.log("ddddddddddd",this.value[i].info.name);
+        position = new naver.maps.LatLng(this.value[i].info.x,this.value[i].info.y);
+        console.log("position",position)
+      }
+    }
     this.map = new naver.maps.Map(this.id, {
       center: position,
       zoom: 10
     });
+    let icon_option = this.text ? 'assets/basic/img/logo.png':''
+    this.infoMarker = new naver.maps.Marker({
+      map:this.map,
+      position:position,
+      icon: icon_option
+    })
     this.map.setSize(size);
     
     const polygon = new naver.maps.Polygon({
@@ -60,29 +77,28 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     
     this.path = polygon.getPaths().getAt(0);
 
-    // const infoWindowElement = ([
-    //   '<div class="pin_nation">',
-    //   '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
-    //   '       <img src="./img/hi-seoul.jpg" width="38" height="26" alt="" class="pin_flag_m">',
-    //   '       <span class="pin_txt"><em>캐나다</em> <span class="spr spr_arrow"></span></span>',
-    //   '       <span class="spr spr_arr"></span>',
-    //   '   </a>',
-    //   '   <div class="pin"><span class="pin_blur"></span></div>',
-    //   '</div>'].join(''));
-    // console.log(infoWindowElement);
+    const infoWindowElement = ([
+      '<div >',
+      '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
+      '       <img src="./img/hi-seoul.jpg" width="38" height="26" alt="" class="pin_flag_m">',
+      '       <span class="pin_txt"><em>캐나다</em> <span class="spr spr_arrow"></span></span>',
+      '       <span class="spr spr_arr"></span>',
+      '   </a>',
+      '   <div class="pin"><span class="pin_blur"></span></div>',
+      '</div>'].join(''));
     
-    // let infowindow = new naver.maps.InfoWindow({
-    //   content: infoWindowElement,
-    //   // pixelOffset: new naver.window.Point(20, -20)
-    // });
+    let infowindow = new naver.maps.InfoWindow({
+      content: infoWindowElement,
+      // pixelOffset: new naver.window.Point(20, -20)
+    });
     
-    // naver.maps.Event.addListener(this.marker, 'click', (e) => {
-    //   if (infowindow.getMap()) {
-    //     infowindow.close();
-    //   } else {
-    //       infowindow.open(this.map, this.marker);
-    //   }
-    // });
+    naver.maps.Event.addListener(this.infoMarker, 'click', (e) => {
+      if (infowindow.getMap()) {
+        infowindow.close();
+      } else {
+          infowindow.open(this.map, this.infoMarker);
+      }
+    });
 
 
     naver.maps.Event.addListener(this.map, 'click', (e) => {
@@ -101,6 +117,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private addMarker(coord) {
+    console.log("coord",coord);
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,

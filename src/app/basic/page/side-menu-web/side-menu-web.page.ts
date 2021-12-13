@@ -4,7 +4,6 @@ import { AlertController, AnimationController, ModalController } from '@ionic/an
 import { fadeInAnimation } from '../../app.animation';
 import { AlertComponent } from '../../component/dialog/alert/alert.component';
 import { SideMenuComponent } from '../../component/dialog/side-menu/side-menu.component';
-import Nfc from '../../plugin/testnfc';
 
 
 @Component({
@@ -31,30 +30,7 @@ export class SideMenuWebPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    // const { ndefMessage } = await Nfc.getData();
-    // console.log(ndefMessage);
-    // if(ndefMessage !== null){
-    //   console.log("value",ndefMessage);
-    //   const alert = await this.alert.create({
-    //     header: '테스트',
-    //     message: ndefMessage,
-    //     buttons: [
-    //       {
-    //         text: '확인',
-    //         handler:() => {
-    //           alert.dismiss()
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   alert.present();
-    // }
-  //   try {
-  //     let tag = await this.iosnfc.scanNdef();
-  //     console.log("ㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ",JSON.stringify(tag));
-  //  } catch (err) {
-  //      console.log('Error reading tag', err);
-  //  }
+    // this.nfcScan();
   }
   ngOnDestroy() {
     this.pageAlive = false;
@@ -125,39 +101,5 @@ export class SideMenuWebPage implements OnInit {
       }
     });
     modal.present();
-  }
-
-  async alerttest() {
-    // const test_modal = await this.modal.create({
-    //   component:AlertComponent,
-    //   componentProps: {
-    //     opts: {
-    //       header: 'test1',
-    //       subHeader: 'test2',
-    //       message: 'test3',
-    //       buttons: [
-    //         {text: '예'},
-    //         {text: '아니요'}
-    //       ] 
-    //     }
-    //   }
-    // })
-
-    // test_modal.present();
-
-    const alert = await this.alert.create({
-      message:"<img src='assets/basic/img/work-plan.svg'/>",
-      header:'회원가입이 반려되었습니다.',
-      subHeader: '정보 수정 후 재가입 신청 하시겠습니까?\n반려사유 : 정보 오류',
-      buttons:[
-        {text:'정보삭제'},
-        {
-          text:'재가입 신청',
-          handler: async() => {
-          }
-        }
-      ]
-    });
-      alert.present();
-  }
+  }s
 }

@@ -15,6 +15,25 @@ import { RegexService } from '../../service/util/regex.service';
 })
 export class GuidePage implements OnInit, AfterViewInit {
 
+  markerList = [
+    {x: 0, y: 0, userInfo: {
+      name: '',
+      hello: ''
+    }},
+    {x: 0, y: 0, userInfo: {
+      name: '',
+      hello: ''
+    }},
+    {x: 0, y: 0, userInfo: {
+      name: '',
+      hello: ''
+    }},
+    {x: 0, y: 0, userInfo: {
+      name: '',
+      hello: ''
+    }}
+  ]
+
   @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;
 
