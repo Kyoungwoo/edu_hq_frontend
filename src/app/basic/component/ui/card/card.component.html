@@ -8,16 +8,10 @@
 </ng-template>
 
 <ng-template #tempCard>
-  <slot name="top">
-    <ng-content select="[slot=top]"></ng-content>
-  </slot>
+  <ng-content select="[slot=top]"></ng-content>
   <ion-card-content>
-    <slot>
-      <ng-content></ng-content>
-    </slot>
+    <ng-content></ng-content>
   </ion-card-content>
-  <slot name="bottom">
-    <ng-content select="[slot=bottom]"></ng-content>
-  </slot>
+  <ng-content select="[slot=bottom]"></ng-content>
   <ion-ripple-effect *ngIf="button"></ion-ripple-effect>
 </ng-template> 

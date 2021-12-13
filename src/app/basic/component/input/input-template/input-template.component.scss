@@ -19,10 +19,11 @@
         min-height: 30px;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         color: var(--ion-text-color);
     }
     button {
-        background: var(--app-input-button-background);
+        background: var(--ion-color-primary-translucent);
         border-radius: 2px;
         cursor: pointer;
         position: absolute;
@@ -40,6 +41,9 @@
         font-size: var(--font-size-h6);
         outline: none !important;
     }
+    button:focus {
+        background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
+    }
     button:empty {
         display: none;
     }
@@ -48,8 +52,8 @@
     button {
         height: 48px;
         min-width: 48px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 14px;
+        padding-right: 14px;
         border-radius: 0;
     }
 }

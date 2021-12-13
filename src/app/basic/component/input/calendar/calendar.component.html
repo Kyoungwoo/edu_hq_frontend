@@ -1,5 +1,5 @@
 <app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (buttonClick)="popoverCalendar()">
-  <app-row slot="input">
+  <app-row slot="input" vertical="center">
     <app-col size="2.6em">
       <input [readonly]="readonly" [disabled]="disabled" type="tel" class="year-input"  [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>

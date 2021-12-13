@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, HostBinding, Input, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, HostBinding, Input, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CalendarComponent } from '../../input/calendar/calendar.component';
 import { InputComponent } from '../../input/input/input.component';
@@ -18,8 +18,13 @@ export class RowComponent implements OnInit {
 
   @Input() horizontal:'top' | 'bottom' | 'center' | 'stretch';
   @Input() vertical:'top' | 'bottom' | 'center' | 'stretch';
+  @Input() set padding(_padding:string | number) {
+    this.el.nativeElement.style.setProperty('--app-padding', _padding);
+  }
 
-  constructor() { }
+  constructor(
+    private el: ElementRef
+  ) { }
 
   ngOnInit() {}
 }
