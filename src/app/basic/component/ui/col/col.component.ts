@@ -10,32 +10,36 @@ export class ColComponent implements OnInit {
   @HostBinding('style') get style() {
     return this._style;
   }
-
-  @Input() set size(_size:string | number) {
-    _size = String(_size);
-    if(_size === 'auto') {
-      this._style = 'flex: 0 0 auto; width: auto;';
-    }
-    else if(_size.includes('px') || _size.includes('%')) {
-      this._style = `
-        flex: 0 0 ${_size};
-        width: ${_size};
-        max-width: ${_size};
-      `;
-    } 
-    else {
-      this._style = `
-        flex: 0 0 calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
-        width: calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
-        max-width: calc(calc(${_size} / var(--ion-grid-columns, 12)) * 100%);
-      `;
-    }
-  };
+  @Input() set size(_size:string | number) { this._style = this.setStyle(_size); }
 
   private _style:string;
 
   constructor() { }
 
   ngOnInit() {}
+
+  private setStyle(_size:string | number) {
+    _size = String(_size);
+    let style = '';
+    if(_size === 'auto') {
+      style = 'flex: 0 0 auto; width: auto; max-width: 100%;';
+    }
+    else if(_size.includes('px') || _size.includes('%')) {
+      style = `
+        flex: 0 0 ${_size};
+        width: ${_size};
+        max-width: 100%;
+      `;
+    }
+    else {
+      const numSize = parseInt(_size);
+      style = `
+        flex: 0 0 ${numSize/12*100}%;
+        width: ${numSize/12*100}%;
+        max-width: 100%;
+      `;
+    }
+    return style;
+  }
 
 }

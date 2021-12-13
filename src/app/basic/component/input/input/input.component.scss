@@ -1,6 +1,7 @@
 :host {
-  --app-input-button-readonly-opacity: 0.5;
-  --app-input-button-disabled-opacity: 0.5;
+  --app-readonly-opacity: 0.5;
+  --app-disabled-opacity: 0.5;
+  --app-input-border-width: 0;
 
   display: block;
   margin-top: var(--app-margin);
@@ -11,42 +12,58 @@
     --inner-padding-end: 0;
     --min-height: 0;
     --background: transparent;
-    ion-label {
-      color: var(--ion-color-medium);
+    background: var(--ion-color-white);
+    box-shadow: var(--app-box-shadow);
+    border-radius: 5px;
+    padding:0 2px 0 4px;
+  }
+  ion-label {
+      color: var(--ion-text-color);
       font-size: var(--font-size-h6);
       transform: scale(1);
       font-weight: 500;
       margin-top: 0;
       margin-bottom: 0;
       padding-left: 3px;
-    }
-    ion-input {
-        border-style: solid;
-        border-width: var(--app-input-border-width);
-        border-color: var(--app-input-border-color);
-        border-radius: var(--app-border-radius);
-        --padding-start: 8px;
-        --padding-end: 8px;
-        --placeholder-opacity: 1;
-        --placeholder-color: var(--app-placeholder-color);
-        font-size: var(--font-size-n);
-        max-height: var(--app-height);
-        height: var(--app-height);
-        min-height: var(--app-height);
-        background: var(--ion-color-white);
-    }
-    .button {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 2;
+  }
+  ion-input {
+      border-style: solid;
+      border-width: var(--app-input-border-width);
+      border-color: var(--app-input-border-color);
+      border-radius: var(--app-border-radius);
+      --padding-start: 3px;
+      --padding-end: 8px;
+      --placeholder-opacity: 1;
+      --placeholder-color: var(--app-placeholder-color);
+      font-size: var(--font-size-n);
+      max-height: var(--app-height);
       height: var(--app-height);
-      padding-left: 8px;
-      padding-right: 10px;
+      min-height: var(--app-height);
+      background: var(--ion-color-white);
+  }
+    .button {
+      background: var(--app-input-button-background);
+      border-radius: 2px;
+      cursor: pointer;
+      position: absolute;
+      z-index: 2;
+      top: 7px;
+      right: 5px;
+      height: 48px;
+      min-width: 48px; 
+      padding-left: 15px;
+      padding-right: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: var(--font-size-h6);
+      outline: none !important;
+      app-img {
+          width: 30px;
+      }
+  }
+    .button:empty {
+      display: none;
     }
   }
 
@@ -56,10 +73,9 @@
       border-color: var(--ion-color-primary);
     }
   }
-}
 :host.readonly {
     .button {
-        opacity: var(--app-input-button-readonly-opacity);
+        opacity: var(--app-readonly-opacity);
     }
 }
 :host.disabled {
@@ -67,7 +83,7 @@
         border-color: var(--app-input-border-disabled-color);
     }
     .etc {
-        opacity: var(--app-input-button-disabled-opacity);
+        opacity: var(--app-disabled-opacity);
     }
 }
 :host ::ng-deep {
@@ -85,11 +101,11 @@
  * ----- custom class line -----
  */
  :host{
-  .input_class{
-    ion-input{
+  .input_class {
+    ion-input {
       border-color:#d3dfe4;
       --placeholder-color: var(--ion-color-dark);
     }
   }
  }
-
+ 

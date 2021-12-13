@@ -1,26 +1,34 @@
 :host {
     display: block;
-    text-align: center;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: var(--app-box-shadow);
+    border-radius: var(--app-border-radius);
+    text-align:left;
     table {
-        width: 100%;
+        margin-left: -1px;
+        margin-top: -1px;
+        margin-bottom: -1px;
+        width: calc(100% + 2px);
     }
 }
 :host ::ng-deep {
     th {
-        background: var(--ion-color-step-200);
-        font-size: var(--font-size-n);
-        height: var(--app-height-small);
+        background: var(--ion-color-light);
+        font-size: var(--font-size-h6);
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-padding);
+        padding: 6px;
+        vertical-align: bottom;
         small {
             font-size: var(--font-size-h6);
         }
     }
     td {
+        background: var(--ion-color-white);
         font-size: var(--font-size-n);
-        height: var(--app-height);
         border: 1px solid var(--ion-color-step-100);
-        padding: var(--app-padding);
+        padding: 8px 6px;
+        vertical-align: top;
         small {
             font-size: var(--font-size-h6);
         }
@@ -34,6 +42,16 @@
 
     pre > code {
         padding: 8px;
+    }
+
+    app-calendar,
+    app-check,
+    app-datetime,
+    app-input,
+    app-select,
+    app-textarea {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
 :host.text-align-left,

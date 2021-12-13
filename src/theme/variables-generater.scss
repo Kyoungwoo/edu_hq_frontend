@@ -3,12 +3,12 @@
 }
 @mixin generateColor($name, $color, $contrast) {
   --ion-color-#{$name}: #{$color};
-  --ion-color-#{$name}-rgb: rgb($rgb);
+  --ion-color-#{$name}-rgb: #{generateRGB($color)};
   --ion-color-#{$name}-contrast: #{$contrast};
   --ion-color-#{$name}-contrast-rgb: #{generateRGB($contrast)};
   --ion-color-#{$name}-shade: #{mix(black, $color, 40%)};
-  --ion-color-#{$name}-tint: #{mix(white, $color, 40%)};
-  --ion-color-#{$name}-translucent: #{mix(white, $color,87%)};
+  --ion-color-#{$name}-tint: #{mix(white, $color, 80%)};
+  --ion-color-#{$name}-translucent: #{mix(white, $color,80%)};
 }
 @mixin generateColorClass($name) {
   .ion-color-#{$name} {

@@ -6,7 +6,6 @@
     padding-right: var(--app-padding);
     flex: 1 1 0%;
     width: 100%;
-    text-align: center;
 }
 :host:first-child {
     padding-left: 0;
@@ -14,14 +13,24 @@
 :host:last-child {
     padding-right: 0;
 }
+app-col>app-row:first-child>:host {
+    padding-top: 0;
+}
+app-col>app-row:last-child>:host {
+    padding-bottom: 0;
+}
 :host ::ng-deep {
     app-card {
         margin-top: 0;
         margin-bottom: 0;
     }
-    app-input,
+    app-button,
     app-calendar,
-    app-button {
+    app-check,
+    app-radio,
+    app-datetime,
+    app-input,
+    app-select {
         --app-margin: 0;
     }
 }

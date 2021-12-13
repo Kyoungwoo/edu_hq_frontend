@@ -1,15 +1,16 @@
 <ion-item lines="none">
   <ion-label position="stacked">{{ label }}</ion-label>
   <div class="inputs">
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="year-input" placeholder="연도" [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
-    .
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="month-input" placeholder="월" [(ngModel)]="form.month" maxlength="2" (keyup)="changeMonth($event)" (focus)="fucus()" (blur)="blur()">
-    .
-    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input" placeholder="일" [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
-    <div class="icon" [class.disabled]="disabled"
-    tabindex="-1"
-    (click)="disabled ? null : popoverCalendar()">
-      <app-img src="assets/img/basic/calendar.png"></app-img>
-    </div>
+    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="year-input"  [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
+    -
+    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="month-input" [(ngModel)]="form.month" maxlength="2" (keyup)="changeMonth($event)" (focus)="fucus()" (blur)="blur()">
+    -
+    <input [readonly]="readonly" [disabled]="disabled" type="tel" class="date-input"  [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
+  </div>
+  <div *ngIf="button" class="button"
+  [class.without-label]="!label"
+  tabindex="-1"
+  (click)="(readonly || disabled) ? null : popoverCalendar()">
+    <app-img name="calendar"></app-img>
   </div>
 </ion-item>

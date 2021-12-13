@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonContent, IonHeader } from '@ionic/angular';
+import { IonContent, IonHeader, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
-import { FileBlob, FileJson, FutItem } from '../../service/file.service';
+import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
 import { NavService } from '../../service/ionic/nav.service';
 import { ToastService } from '../../service/ionic/toast.service';
+import { PromiseService } from '../../service/util/promise.service';
 import { RegexService } from '../../service/util/regex.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { RegexService } from '../../service/util/regex.service';
   styleUrls: ['./guide.page.scss'],
   animations: [ fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation ]
 })
-export class GuidePage implements OnInit, AfterViewInit {
+export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillLeave {
 
   markerList = [
     {x: 0, y: 0, userInfo: {
@@ -63,10 +64,13 @@ export class GuidePage implements OnInit, AfterViewInit {
   /** select */
   select = new Array(500).fill(null).map((_, i) => `select option ${this.regex.replace.fix(i, 4)}`);
 
+  headerReady:boolean = false;
+
   constructor(
     private alert: AlertService,
     private navCtrl: NavService,
     private toast: ToastService,
+    private promise: PromiseService,
     public regex: RegexService
   ) {}
 
@@ -76,9 +80,16 @@ export class GuidePage implements OnInit, AfterViewInit {
     /** file */
     this.addFutFileEx();
   }
-  
+  async ionViewDidEnter() {
+    await this.promise.wait(1000);
+    this.headerReady = true;
+  }
+  async ionViewWillLeave() {
+    this.headerReady = false;
+  }
   scrollTopPrev = 0;
   async scrollStart($event) {
+    if(!this.headerReady) return;
     const headerEl = <HTMLElement>this.header['el'];
     const scrollTop = $event.detail.scrollTop;
     const headerHeight = headerEl.offsetHeight;
@@ -91,11 +102,10 @@ export class GuidePage implements OnInit, AfterViewInit {
     }
   }
 
-  alertPresent(mode) {
+  alertPresent() {
     this.alert.present({
-      mode,
+      img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
       header: 'alert header',
-      subHeader: 'alert sub header',
       message: 'alert message',
       buttons: [
         { text: 'cancel' },
@@ -110,13 +120,13 @@ export class GuidePage implements OnInit, AfterViewInit {
     for(let i = 0; i < 3; i++) {
       this.file.list.push({ 
         content_type: 'image/svg+xml', 
-        file_name: 'logo.svg', 
+        file_name: 'logo.svg',
         file_size: 23423432,
         file_type: '.svg',
         file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
         order_no: this.file.list.length + 1, 
         seq_no: this.file.list.length + 1,
-        view_type: 'Logo'
+        view_type: 'SUB'
       });
     }
   }

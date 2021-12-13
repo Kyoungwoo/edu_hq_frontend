@@ -4,8 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'basic/login-web',
+    redirectTo: 'scan',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./page/login/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'basic/tab',
@@ -24,32 +28,31 @@ const routes: Routes = [
     loadChildren: () => import('./basic/page/steps/steps.module').then( m => m.StepsPageModule)
   },
   {
-    path: 'basic/side-menu-app',
-    loadChildren: () => import('./basic/page/side-menu-app/side-menu-app.module').then( m => m.SideMenuAppPageModule)
+    path: 'main-admin',
+    loadChildren: () => import('./page/main/main-admin/main-admin.module').then( m => m.MainAdminPageModule)
   },
   {
-    path: 'basic/side-menu-web',
-    loadChildren: () => import('./basic/page/side-menu-web/side-menu-web.module').then( m => m.SideMenuWebPageModule)
+    path: 'main-user',
+    loadChildren: () => import('./page/main/main-user/main-user.module').then( m => m.MainUserPageModule)
   },
   {
-    path: 'basic/login-web',
-    loadChildren: () => import('./basic/page/login-web/login-web.module').then( m => m.LoginWebPageModule)
+    path: 'guide-card-layout',
+    loadChildren: () => import('./basic/page/guide-card-layout/guide-card-layout.module').then( m => m.GuideCardLayoutPageModule)
   },
   {
-    path: 'basic/login-app',
-    loadChildren: () => import('./basic/page/login-app/login-app.module').then( m => m.LoginAppPageModule)
+    path: 'guide-table-layout',
+    loadChildren: () => import('./basic/page/guide-table-layout/guide-table-layout.module').then( m => m.GuideTableLayoutPageModule)
+  },
+  {
+    path: 'scan',
+    loadChildren: () => import('./page/scan/scan.module').then( m => m.ScanPageModule)
   }
-
-
-
-
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { 
-      preloadingStrategy: PreloadAllModules,
-      onSameUrlNavigation: 'reload'
+      //preloadingStrategy: PreloadAllModules
     })
   ],
   exports: [RouterModule]

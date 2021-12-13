@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { ComponentRef } from '@ionic/core';
 import { Subscription } from 'rxjs';
-import { FileService } from 'src/app/basic/service/file.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
 import { SelectOptionComponent } from '../select-option/select-option.component';
 import { SelectOption, SelectPopoverComponent } from '../select-popover/select-popover.component';
@@ -20,6 +20,7 @@ const noop = () => {};
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+  
   @HostListener('click', ["$event"]) onClick = ($event) => {
     if(this.readonly || this.disabled) return;
     const opts:SelectOption[] = this.options.toArray();
@@ -27,13 +28,14 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   }
 
   @ContentChildren(SelectOptionComponent) options:QueryList<SelectOptionComponent>;
-  optionsSubs:Subscription;
 
   @Input() label:string;
   @Input() placeholder = '선택';
   @Input() multiple:boolean = false;
 
   public text:string = '';
+
+  $options:Subscription;
 
   constructor(
     private el: ElementRef,
@@ -44,12 +46,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   }
   ngOnInit() {}
   ngAfterViewInit() {
-    this.optionsSubs = this.options.changes.subscribe(() => {
+    this.$options = this.options.changes.subscribe(() => {
       this.getText();
     });
   }
   ngOnDestroy() {
-    this.optionsSubs.unsubscribe();
+    this.$options.unsubscribe();
   }
   getText() {
     if(!this.options) return;

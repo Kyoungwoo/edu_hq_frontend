@@ -1,9 +1,24 @@
 :host {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     width: 100%;
 }
 :host.label-row {
     align-items: flex-end;
+}
+:host.row-top {
+    align-items: flex-start;
+}
+:host.row-end {
+    align-items: flex-end;
+}
+:host.row-center {
+    align-items: center;
+}
+:host.row-stretch {
+    align-items: stretch;
+    ::ng-deep>app-col {
+        display: flex;
+        align-items: stretch;
+    }
 }

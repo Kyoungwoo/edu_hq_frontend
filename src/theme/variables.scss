@@ -6,18 +6,17 @@
 
 /** Ionic CSS Variables **/
 :root {
-  @include generateColorSteps(#F5F7F9,#222120);
-
+  @include generateColorSteps(#f1f6f8,#445760);
 
   @include generateColor('primary', #44C650, #ffffff);
-  @include generateColor('secondary', #2AA287, #ffffff); 
-  @include generateColor('tertiary', #2F8D38, #ffffff);
-  @include generateColor('success', #b8f19c, #ffffff);
-  @include generateColor('warning', #eedb84, #ffffff);
-  @include generateColor('danger', #FF7777, #ffffff);
-  @include generateColor('light', #f3f4f6, #000000);
-  @include generateColor('medium', #797e91, #ffffff);
-  @include generateColor('dark', #08575C, #ffffff);
+  @include generateColor('secondary', #D1F6E3, #2F8D38);
+  @include generateColor('tertiary', #25A485, #ffffff);
+  @include generateColor('success', #46BDE2, #ffffff);
+  @include generateColor('warning', #FFB077, #271f17);
+  @include generateColor('danger', #FF6060, #ffffff);
+  @include generateColor('light', #F7F9FC, #000000);
+  @include generateColor('medium', #357F6D, #ffffff);
+  @include generateColor('dark', #445760, #ffffff);
 
   @include generateColor('white', #ffffff, #000000);
 }
@@ -38,11 +37,11 @@
     @include generateColorSteps(#222120, #f1f0ef);
     
     @include generateColor('primary', #44C650, #ffffff);
-    @include generateColor('secondary', #2AA287, #ffffff);
-    @include generateColor('tertiary', #ffcba3, #ffffff);
-    @include generateColor('success', #b8f19c, #ffffff);
-    @include generateColor('warning', #eedb84, #ffffff);
-    @include generateColor('danger', #f7909e, #ffffff);
+    @include generateColor('secondary', #D1F6E3, #2F8D38);
+    @include generateColor('tertiary', #25A485, #ffffff);
+    @include generateColor('success', #25A485, #ffffff);
+    @include generateColor('warning', #F97D01, #271f17);
+    @include generateColor('danger', #FF6060, #ffffff);
     @include generateColor('dark', #445760, #222120);
     @include generateColor('medium', #b5a79b, #222120);
     @include generateColor('light', #f1f0ef, #222120);
@@ -58,6 +57,7 @@
 :root {
   --ion-font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
 
+  /** font size 정의 */
   --font-size-h1: 54px;
   --font-size-h2: 36px;
   --font-size-h3: 28px;
@@ -66,18 +66,31 @@
   --font-size-h6: 13px;
   --font-size-h6-small: 11px;
   
+  /** app-col, button margin의 padding 값 */
   --app-padding: 6px;
+  /** container, input 등이 기본적으로 가지는 바깥 margin */
   --app-margin: 16px;
+  /** input, button, card의 border radius */
   --app-border-radius: 5px;
-  --app-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
+  /** input, button, card의 box shadow */
+  --app-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
 
+  /** input 및 button 들의 height */
   --app-height: 42px;
-  --app-height-small: 32px;
+  /** size가 small인 input 및 button 들의 height */
+  --app-height-small: 32px; 
 
+  /** input의 place holder 색상 정의 */
   --app-placeholder-color: var(--ion-color-step-500);
-  --app-input-border-width: 2px;
-  --app-input-border-color: var(--ion-color-step-500);
-  --app-input-border-disabled-color: var(--ion-color-step-250);
+  /** input들의 border 상태 지정 */
+  --app-input-border-width: 0;
+  --app-input-border-color: none;
+  --app-input-border-disabled-color: none;
+  /** input들 우측 버튼의 백그라운드 값 */
+  --app-input-button-background: var(--ion-color-primary-translucent);
+  /** input들이 readonly, disabled 상태일 때의 opacity 변화  */
+  --app-readonly-opacity: 0.5;
+  --app-disabled-opacity: 0.5;
 }
 @media screen and (max-width: 768px) {
   body {
@@ -89,12 +102,9 @@
     --font-size-h6: 13px;
     --font-size-h6-small: 11px;
     
+    /** app-col 의 padding 값 */
     --app-padding: 4px;
+    /** app-row, input, 등이 기본적으로 가지는 1줄의 margin */
     --app-margin: 8px;
-    --app-border-radius: 5px;
-    --app-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
-  
-    --app-height: 42px;
-    --app-height-small: 32px;
   }
 }

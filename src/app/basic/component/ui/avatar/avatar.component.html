@@ -1,0 +1,10 @@
+<div class="avatar">
+  <app-img *ngIf="src; else tempEmpty" class="img-avatar" [src]="src"></app-img>
+  <ng-template #tempEmpty>
+    <app-img class="img-empty" name="avatar"></app-img>
+  </ng-template>
+</div>
+<ng-container  *ngIf="!readonly">
+  <app-img class="avatar-add" name="avatar-add"></app-img>
+  <app-file name="avatar" [value]="value" [files]="files" [file_json]="file_json" accept="camera"></app-file>
+</ng-container>

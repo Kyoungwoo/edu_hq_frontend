@@ -1,9 +1,15 @@
 :host {
-    display: inline-block;
+    display: inline-flex;
     vertical-align: middle;
-    --width: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    picture {
+        display: block;
+        width: 100%;
+    }
     img {
         display: block;
-        width: var(--width);
+        width: 100%;
     }
 }

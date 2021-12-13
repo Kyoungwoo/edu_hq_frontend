@@ -38,8 +38,8 @@
               <ion-item-divider routerLink="/basic/guide" fragment="dialog">
                 <ion-label>Dialog</ion-label>
               </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="alert">
-                <ion-label>alert</ion-label>
+              <ion-item routerLink="/basic/guide" fragment="daum">
+                <ion-label>daum</ion-label>
               </ion-item>
             </ion-item-group>
             <ion-item-group>
@@ -81,10 +81,19 @@
                 <ion-label>input</ion-label>
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="input-caption">
-                <ion-label>input caption</ion-label>
+                <ion-label>input-caption</ion-label>
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="naver-map">
-                <ion-label>naver map</ion-label>
+                <ion-label>naver-map</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="radio">
+                <ion-label>radio</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="radio-group">
+                <ion-label>radio-group</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="radio-input">
+                <ion-label>radio-input</ion-label>
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="select">
                 <ion-label>select</ion-label>
@@ -116,7 +125,7 @@
               </ion-item>
             </ion-item-group>
             <ion-item-group>
-              <ion-item-divider lines="none">
+              <ion-item-divider lines="none" routerLink="/basic/guide" fragment="ui">
                 <ion-label>UI</ion-label>
               </ion-item-divider>
               <ion-item routerLink="/basic/guide" fragment="avatar">
@@ -130,6 +139,9 @@
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="card">
                 <ion-label>card</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="container">
+                <ion-label>container</ion-label>
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="copy-right">
                 <ion-label>copy-right</ion-label>
@@ -147,15 +159,15 @@
                 <ion-label>table</ion-label>
               </ion-item>
             </ion-item-group>
-            <ion-list-header>
+            <ion-list-header routerLink="/basic/guide" fragment="pipes">
               <ion-label>pipes</ion-label>
             </ion-list-header>
             <ion-item-group>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="safe-pipes">
                 <ion-label>safe</ion-label>
               </ion-item>
             </ion-item-group>
-            <ion-list-header>
+            <ion-list-header routerLink="/basic/guide" fragment="service">
               <ion-label>service</ion-label>
             </ion-list-header>
             <ion-item-group>
@@ -189,43 +201,78 @@
                 <ion-label>toast</ion-label>
               </ion-item>
             </ion-item-group>
-            <ion-list-header>
-              <ion-label>service</ion-label>
+
+            <ion-list-header routerLink="/basic/guide" fragment="service">
+              <ion-label>Service</ion-label>
             </ion-list-header>
             <ion-item-group>
-              <ion-item-divider>
+              <ion-item-divider lines="none" routerLink="/basic/guide" fragment="core-service">
+                <ion-label>Core</ion-label>
+              </ion-item-divider>
+              <ion-item routerLink="/basic/guide" fragment="connect-service">
+                <ion-label>connect</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="device-service">
+                <ion-label>device</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="file-service">
+                <ion-label>file</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="user-service">
+                <ion-label>user</ion-label>
+              </ion-item>
+            </ion-item-group>
+            <ion-item-group>
+              <ion-item-divider routerLink="/basic/guide" fragment="ionic-service">
+                <ion-label>Ionic</ion-label>
+              </ion-item-divider>
+              <ion-item routerLink="/basic/guide" fragment="alert-service">
+                <ion-label>alert</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="loading-service">
+                <ion-label>loading</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="nav-service">
+                <ion-label>nav</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="toast-service">
+                <ion-label>toast</ion-label>
+              </ion-item>
+            </ion-item-group>
+            <ion-item-group>
+              <ion-item-divider routerLink="/basic/guide" fragment="native-service">
                 <ion-label>native</ion-label>
               </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="camera-service">
                 <ion-label>camera</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="gps-service">
                 <ion-label>GPS</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="nfc-service">
                 <ion-label>NFC</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="qr-service">
                 <ion-label>QR</ion-label>
               </ion-item>
             </ion-item-group>
             <ion-item-group>
-              <ion-item-divider>
+              <ion-item-divider routerLink="/basic/guide" fragment="util-service">
                 <ion-label>util</ion-label>
               </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="date-service">
                 <ion-label>date</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="daum-service">
                 <ion-label>daum</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="full-screen-service">
                 <ion-label>full-screen</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="promise-service">
                 <ion-label>promise</ion-label>
               </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-item routerLink="/basic/guide" fragment="regex-service">
                 <ion-label>regex</ion-label>
               </ion-item>
             </ion-item-group>

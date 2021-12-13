@@ -1,0 +1,58 @@
+:host {
+    --app-border-color: var(--ion-color-step-200);
+    --app-border-color-radioed: var(--ion-color-shade);
+    //--app-border-radius
+    --app-input-border-width: 1px;
+    --app-font-weight: 500;
+    //--app-height-small
+    //--app-margin
+    --app-size: 24px;
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    cursor: pointer;
+    ion-radio {
+        pointer-events: none;
+        cursor: default;
+        width: var(--app-size);
+        height: var(--app-size);
+    }
+    label {
+        user-select: none; /* standard syntax */
+        -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+        -moz-user-select: none; /* mozilla browsers */
+        -khtml-user-select: none; /* webkit (konqueror) browsers */
+        -ms-user-select: none; /* IE10+ */
+        font-weight: var(--app-font-weight);
+        margin-left: var(--app-padding);
+        cursor: inherit;
+    }
+    label:empty {
+        display: none;
+    }
+}
+:host.radio-small {
+    ion-radio {
+        --app-size: 20px;
+    }
+}
+:host.readonly {
+    cursor: default;
+    ion-radio {
+        opacity: 1;
+    }
+    label {
+        opacity: 0.5;
+    }
+}
+:host.disabled {
+    cursor: default;
+    label {
+        opacity: 0.5;
+    }
+}
+app-radio + :host {
+    margin-left: var(--app-padding);
+}

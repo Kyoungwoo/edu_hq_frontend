@@ -1,29 +1,32 @@
 :host {
-    --background: var(--ion-color-base);
-    --color: var(--ion-color-contrast);
+    --app-color: var(--ion-color-contrast);
+    --app-box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+    --app-background: var(--ion-color-base);
     --font-size: var(--font-size-n);
     --height: var(--app-height);
     
-
+    text-align: center;
     display: inline-block;
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
     vertical-align: middle;
-    background: var(--background);
+    background: var(--app-background);
     border-radius: var(--app-border-radius);
     ion-button {
         --border-radius: var(--app-border-radius);
-        // --box-shadow: none;
-        --box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+        --box-shadow: var(--app-box-shadow);
         --padding-start: 16px;
         --padding-end: 16px;
+        --color: var(--app-color);
         
+        white-space: pre-line;
         margin-left: 0;
         margin-right: 0;
         margin-top: 0;
         margin-bottom: 0;
         height: var(--height);
         font-size: var(--font-size-n);
+        text-align: inherit;
         text-transform: inherit;
         small {
             font-size: var(--font-size-h6);
@@ -46,46 +49,68 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        line-height: 1.2em;
     }
-}
-:host.button-block {
-    width: 100%;
-    ion-button {
+    .relative-inner {
         width: 100%;
-        
+        text-align: inherit;
+        line-height: 1.2em;
     }
 }
+
+/** size */
 :host.button-small {
     ion-button {
         height: var(--app-height-small);
         font-size: var(--font-size-h6);
     }
 }
+/** shape */
+:host.button-circle,
+:host.button-square {
+    --app-background: var(--ion-color-base);
+    width: var(--app-height);
+    &.button-small {
+        width: var(--app-height-small);
+    }
+    &.button-block {
+        width: 100%;
+    }
+    ion-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        height: auto;
+        width: 100%;
+    }
+}
+/** fill */
 :host.button-clear {
-    --background: transparent;
+    --app-color: var(--ion-color-base);
+    --app-background: transparent;
     ion-button {
         --box-shadow: none;
     }
 }
 :host.button-outline {
-    --background: var(--ion-color-white);
+    --app-color: var(--ion-color-shade);
+    --app-background: var(--ion-color-white);
     ion-button {
         --border-width: 1px;
         --box-shadow: none;
     }
 }
 :host.button-translucent {
-    --background: var(--ion-color-translucent);
-    --color: var(--ion-color-shade);
+    --app-color: var(--ion-color-shade);
+    --app-background: var(--ion-color-translucent);
     ion-button {
         --box-shadow: none;
     }
 }
 :host.button-translucent-outline {
-    --background: var(--ion-color-translucent);
-    --color: var(--ion-color-shade);
+    --app-color: var(--ion-color-shade);
+    --app-background: var(--ion-color-translucent);
     ion-button {
-        --border-width: 2px;
+        --border-width: 1px;
         --border-style: solid;
         --border-color: var(--ion-color-primary);
         --box-shadow: none;
@@ -104,52 +129,22 @@
         --border-radius: 50%;
     }
 }
-:host.button-additional {
-    --background: #EBFFF7;
-    --color: var(--ion-color-tertiary);
-    ion-button {
-        --background: #EBFFF7;
-        --color: var(--ion-color-tertiary);
-        width: var(--width);
-        height: var(--height);
-    }
-
-}
-
-:host.button-circle,
-:host.button-square {
-    width: var(--app-height);
-    &.button-small {
-        ion-button {
-            width: var(--app-height-small);
-        }
-    }
-    &.button-block {
-        width: 100%;
-        ion-button {
-            width: 100%;
-        }
-    }
-    ion-button {
-        --padding-start: 0;
-        --padding-end: 0;
-        height: auto;
-        width: 100%;
-        --background: var(--ion-color-base);
-    }
-}
 app-button + :host {
     margin-left: var(--app-padding);
 }
 
+/** ng-deep */
 :host ::ng-deep {
     h1, h2, h3, h4, h5, p {
         display: inline-block;
         margin-top: var(--app-padding);
         vertical-align: middle;
     }
+    app-col {
+        --app-padding: 4px;
+    }
     app-img {
-        width: 1.8em;
+        width: 1.2em;
     }
     app-img[slot=top],
     app-img[slot=bottom] {
@@ -157,13 +152,41 @@ app-button + :host {
         margin: auto;
     }
     app-img[slot=start] {
-        margin-right: var(--app-padding);
+        margin-right: 4px;
+        position: relative;
+        top: -0.1em;
     }
     app-img[slot=end] {
-        margin-left: var(--app-padding);
+        margin-left: 4px;
+        position: relative;
+        top: -0.1em;
     }
     app-file {
         left: calc(var(--padding-start)*-1);
         width: calc(100% + var(--padding-start) + var(--padding-end));
+    }
+}
+
+/** with others */
+.sc-ion-buttons-md-h.sc-ion-buttons-md-s :host,
+.sc-ion-buttons-ios-h.sc-ion-buttons-ios-s :host {
+    // --app-border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    ion-button {
+        --color: var(--app-color);
+        --color-hover: var(--color);
+        
+    }
+    &.button-outline {
+        ion-button {
+            --border-color: var(--ion-color-base);
+        }
+    }
+    &.button-translucent,
+    &.button-translucent-outline {
+        ion-button {
+            --background-hover: var(--ion-color-tint);
+        }
     }
 }

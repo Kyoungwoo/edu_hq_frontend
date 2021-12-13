@@ -1,13 +1,11 @@
 import { Component, Input, OnInit, forwardRef, EventEmitter, HostBinding, Output, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
-import { bounceInAnimation } from 'src/app/basic/app.animation';
 
 @Component({
   selector: 'app-check',
   templateUrl: './check.component.html',
   styleUrls: ['./check.component.scss'],
-  animations: [ bounceInAnimation ],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CheckComponent),
@@ -19,23 +17,24 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @HostBinding('class') get class() {
     let _class = [];
     if(this.color) _class.push(`ion-color-${this.color}`);
+    if(this.size) _class.push(`check-${this.size}`);
     return _class.join(' ');
   }
+  @HostListener('click') onClick() {
+    if(this.disabled || this.readonly) return;
+    if(this.value === this.on) this.value = this.off;
+    else this.value = this.on;
+  }
 
-  @Input() type:'all' | 'normal' = 'normal';
+  @Input() type:'all' | 'default' = 'default';
   @Input() color:Color = "primary";
   @Input() on:any = true;
   @Input() off:any = false;
+  @Input() size:'small' | 'default' = 'default';
 
   constructor() { }
 
   ngOnInit() {}
-
-  onChange($event) {
-    const _value:boolean = $event.detail.checked;
-    this._value = _value;
-    this.change.emit(this.value);
-  }
 
   //default setting
   @HostBinding('class.readonly') get classReadonly() { return this.readonly }
@@ -50,6 +49,7 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
     if(v !== this.value) {
       this._value = v === this.on ? true : false;
     }
+    this.change.emit(this.value);
   }
   get value() { return this._value ? this.on : this.off; }
   

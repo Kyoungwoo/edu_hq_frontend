@@ -15,7 +15,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   @Input() label:string = "";
   @Input() placeholder:string = "";
-  @Input() type:"date" | "datetime-local" | "email" | "month" | "number" | "password" | "search" | "tel" | "text" | "time" | "url" | "week" = null;
+  @Input() type:"email" | "number" | "password" | "search" | "tel" | "text" | "url" = null;
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
   @Input() custom_class:string = "";
