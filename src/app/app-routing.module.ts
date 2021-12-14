@@ -4,16 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'scan',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {
     path: 'scan',
     loadChildren: () => import('./page/scan/scan.module').then( m => m.ScanPageModule)
-  },
-  {
-    path: 'main',
-    loadChildren: () => import('./page/main/main.module').then( m => m.MainPageModule)
   },
   {
     path: 'basic/guide',
@@ -54,6 +50,10 @@ const routes: Routes = [
   {
     path: 'sign-up-terms',
     loadChildren: () => import('./page/sign-up/sign-up-terms/sign-up-terms.module').then( m => m.SignUpTermsPageModule)
+  },
+  {
+    path: 'moniter',
+    loadChildren: () => import('./page/moniter/moniter.module').then( m => m.MoniterPageModule)
   }
 ];
 
