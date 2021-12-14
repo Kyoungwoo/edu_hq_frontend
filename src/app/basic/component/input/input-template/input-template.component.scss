@@ -48,12 +48,16 @@
     }
 }
 :host.disabled {
+    background: none;
+    box-shadow: none;
+    border: 1px solid var(--ion-color-disable);
     >.input {
         opacity: var(--app-disabled-opacity);
     }
     >button {
         cursor: default;
         opacity: var(--app-disabled-opacity);
+        display: none;
     }
 }
 :host ::ng-deep {

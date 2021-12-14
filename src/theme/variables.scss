@@ -17,6 +17,7 @@
   @include generateColor('light', #F7F9FC, #000000);
   @include generateColor('medium', #357F6D, #ffffff);
   @include generateColor('dark', #445760, #ffffff);
+  @include generateColor('disable', #D3DFE4, #000000);
 
   @include generateColor('white', #ffffff, #000000);
 }

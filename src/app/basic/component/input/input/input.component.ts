@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,9 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() label:string = "";
   @Input() placeholder:string = "";
   @Input() type:"email" | "number" | "password" | "search" | "tel" | "text" | "url" = null;
+  @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
+  @Input() custom_class:string = "";
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }
