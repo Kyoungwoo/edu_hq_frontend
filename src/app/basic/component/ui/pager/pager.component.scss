@@ -1,0 +1,29 @@
+app-row {
+	width: 167px;
+	height: 40px;
+	background: var(--ion-color-white);
+	box-shadow: var(--app-box-shadow);
+	border-radius: var(--app-border-radius);
+
+	app-col {
+		padding-left: 5px;
+	}
+}
+button {
+	border-radius: 15px;
+	width: 20px;
+	height: 20px;
+	background: var(--ion-color-secondary);
+	padding: 0;
+	vertical-align: bottom;
+	margin: 0 10px 0 10px;
+}
+span {
+	width: 0;
+	height: 12px;
+	border-right: 2px solid var(--ion-color-disable);
+}
+ion-icon {
+	color: var(--ion-color-dark);
+}
+

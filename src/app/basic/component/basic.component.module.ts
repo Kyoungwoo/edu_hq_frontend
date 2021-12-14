@@ -39,6 +39,7 @@ import { RadioInputComponent } from './input/radio-input/radio-input.component';
 import { RadioGroupComponent } from './input/radio-group/radio-group.component';
 import { InputTemplateComponent } from './input/input-template/input-template.component';
 import { InputGroupComponent } from './input/input-group/input-group.component';
+import { PagerComponent } from './ui/pager/pager.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -77,7 +78,8 @@ import { InputGroupComponent } from './input/input-group/input-group.component';
     LogoComponent,
     RowComponent,
     TableComponent,
-    ModalDismissButtonComponent
+    ModalDismissButtonComponent,
+    PagerComponent
   ],
   imports: [
     CommonModule,
@@ -118,7 +120,8 @@ import { InputGroupComponent } from './input/input-group/input-group.component';
     LogoComponent,
     RowComponent,
     TableComponent,
-    ModalDismissButtonComponent
+    ModalDismissButtonComponent,
+    PagerComponent
   ]
 })
 export class BasicComponentModule { }
