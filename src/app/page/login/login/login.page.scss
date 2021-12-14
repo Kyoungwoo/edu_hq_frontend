@@ -8,9 +8,10 @@ ion-content::part(scroll) {
     justify-content: center;
 }
 .login-card {
-	width: 400px;
-	height: 410px;
-	padding: 30px;
+	max-width: 400px;
+    width: 100%;
+	min-height: 410px;
+	padding: 20px;
 
     .logo {
         text-align: center;
@@ -29,16 +30,28 @@ ion-content::part(scroll) {
         height: 15px;
         margin-bottom: 20px;
     }
+}
+.sub-buttons-row {
+    max-width: 300px;
+    width: 100%;
+    app-col {
+        text-align: center;
+    }
+    app-button {
+        --padding-start: 0;
+        --padding-end: 0;
+    }
+    span {
+        display: block;
+        width: 1px;
+        height: 12px;
+        border-right: 1px solid var(--ion-color-step-200);
+    }
+}
 
-    footer {
-        margin-top: 30px;  
-        app-col {
-            text-align: center;
-        }
-        span {
-            width: 0;
-            height: 12px;
-            border-right: 1px solid var(--ion-color-disable);
-        }
+@media screen and (max-width: 768px) {
+    .login-card {
+        padding: 16px;
+        min-height: 300px;
     }
 }
