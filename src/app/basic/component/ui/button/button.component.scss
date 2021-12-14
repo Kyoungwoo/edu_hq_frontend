@@ -55,6 +55,8 @@ app-button + :host {
     min-width: 30px;
     min-height: 30px;
     font-size: var(--font-size-h6);
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 /** shape */

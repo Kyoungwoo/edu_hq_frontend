@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, HostBinding, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 
