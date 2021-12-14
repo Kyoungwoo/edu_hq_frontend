@@ -1,33 +1,33 @@
 <ion-content>
-  <app-row>
+  <app-row class="year-month-row">
     <app-col size="auto">
-      <app-button size="small" shape="square" fill="clear" (click)="prevMonth()">
+      <app-button size="small" shape="circle" fill="clear" (click)="prevMonth()">
         <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
       </app-button>
     </app-col>
     <app-col>
-      <app-select [(ngModel)]="displayYear" (change)="setYear($event)">
-        <app-select-option *ngFor="let year of yearList" [value]="year">{{ year + yearName }}</app-select-option>
-      </app-select>
-    </app-col>
-    <app-col size="4">
-      <app-select [(ngModel)]="displayMonth" (change)="setMonth($event)">
-        <app-select-option [value]="0">1{{ monthName }}</app-select-option>
-        <app-select-option [value]="1">2{{ monthName }}</app-select-option>
-        <app-select-option [value]="2">3{{ monthName }}</app-select-option>
-        <app-select-option [value]="3">4{{ monthName }}</app-select-option>
-        <app-select-option [value]="4">5{{ monthName }}</app-select-option>
-        <app-select-option [value]="5">6{{ monthName }}</app-select-option>
-        <app-select-option [value]="6">7{{ monthName }}</app-select-option>
-        <app-select-option [value]="7">8{{ monthName }}</app-select-option>
-        <app-select-option [value]="8">9{{ monthName }}</app-select-option>
-        <app-select-option [value]="9">10{{ monthName }}</app-select-option>
-        <app-select-option [value]="10">11{{ monthName }}</app-select-option>
-        <app-select-option [value]="11">12{{ monthName }}</app-select-option>
-      </app-select>
+      <app-input-group>
+        <app-select [(ngModel)]="displayYear" (change)="setYear($event)">
+          <app-select-option *ngFor="let year of yearList" [value]="year">{{ year + yearName }}</app-select-option>
+        </app-select>
+        <app-select [(ngModel)]="displayMonth" (change)="setMonth($event)">
+          <app-select-option [value]="0">1{{ monthName }}</app-select-option>
+          <app-select-option [value]="1">2{{ monthName }}</app-select-option>
+          <app-select-option [value]="2">3{{ monthName }}</app-select-option>
+          <app-select-option [value]="3">4{{ monthName }}</app-select-option>
+          <app-select-option [value]="4">5{{ monthName }}</app-select-option>
+          <app-select-option [value]="5">6{{ monthName }}</app-select-option>
+          <app-select-option [value]="6">7{{ monthName }}</app-select-option>
+          <app-select-option [value]="7">8{{ monthName }}</app-select-option>
+          <app-select-option [value]="8">9{{ monthName }}</app-select-option>
+          <app-select-option [value]="9">10{{ monthName }}</app-select-option>
+          <app-select-option [value]="10">11{{ monthName }}</app-select-option>
+          <app-select-option [value]="11">12{{ monthName }}</app-select-option>
+        </app-select>
+      </app-input-group>
     </app-col>
     <app-col size="auto">
-      <app-button size="small" shape="square" fill="clear" (click)="nextMonth()">
+      <app-button size="small" shape="circle" fill="clear" (click)="nextMonth()">
         <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
       </app-button>
     </app-col>
