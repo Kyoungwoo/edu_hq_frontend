@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'scan',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {
@@ -44,8 +44,8 @@ const routes: Routes = [
     loadChildren: () => import('./page/scan/scan.module').then( m => m.ScanPageModule)
   },
   {
-    path: 'main',
-    loadChildren: () => import('./page/main/main.module').then( m => m.MainPageModule)
+    path: 'moniter',
+    loadChildren: () => import('./moniter/moniter.module').then( m => m.MoniterPageModule)
   }
 ];
 
