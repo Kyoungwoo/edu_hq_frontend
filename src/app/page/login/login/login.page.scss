@@ -7,12 +7,10 @@ ion-content::part(scroll) {
     align-items: center;
     justify-content: center;
 }
-.login {
+.login-card {
 	width: 400px;
 	height: 410px;
-	background: var(--ion-color-light);
 	padding: 30px;
-    box-shadow: var(--app-box-shadow);
 
     .logo {
         text-align: center;

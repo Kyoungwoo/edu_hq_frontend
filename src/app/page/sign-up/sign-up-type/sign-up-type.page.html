@@ -1,16 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="/login"></ion-back-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>회원유형 선택</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-  </ion-segment>
+  <app-container size="small">
+    <ion-toolbar color="white">
+      <ion-segment color="primary" value="step1">
+        <ion-segment-button value="step1">회원유형<br>선택</ion-segment-button>
+        <ion-segment-button value="step2">기본정보<br>입력</ion-segment-button>
+        <ion-segment-button value="step3">건강문진<br>작성</ion-segment-button>
+        <ion-segment-button value="step4">약관동의</ion-segment-button>
+        <ion-segment-button value="step5">가입완료</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </app-container>
 </ion-content>
