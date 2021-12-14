@@ -40,6 +40,7 @@ import { RadioGroupComponent } from './input/radio-group/radio-group.component';
 import { InputTemplateComponent } from './input/input-template/input-template.component';
 import { InputGroupComponent } from './input/input-group/input-group.component';
 import { PagerComponent } from './ui/pager/pager.component';
+import { DirectiveModule } from '../directive/directive.module';
 @NgModule({
   declarations: [
     // dialog components
@@ -85,12 +86,14 @@ import { PagerComponent } from './ui/pager/pager.component';
     CommonModule,
     IonicModule,
     FormsModule,
+    DirectiveModule,
     PipesModule,
     RouterModule,
     ScrollingModule
   ],
   exports: [
     // input components
+    DirectiveModule,
     CalendarComponent,
     CheckComponent,
     CheckGroupComponent,

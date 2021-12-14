@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-img',
@@ -13,13 +13,21 @@ export class ImgComponent implements OnInit {
     this.src = `assets/basic/img/${v}.svg`;
     if(!this.mode) this.mode = 'theme';
   };
+
+  private _src:string | SafeUrl;
   @Input() set src(_src:string | SafeUrl) {
-    this.trustSrc = typeof _src === 'string' ? _src : '';
+    this._src = _src;
+    this.stringSrc = typeof _src === 'string' ? _src : '';
   };
+  get src() {
+    return this._src;
+  }
 
-  trustSrc:string = '';
+  stringSrc:string = '';
 
-  constructor() { }
+  constructor(
+    private sanitizer:DomSanitizer
+  ) { }
 
   ngOnInit() {}
 }

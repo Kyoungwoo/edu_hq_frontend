@@ -2,7 +2,7 @@
   <ng-container *ngTemplateOutlet="tempButton"></ng-container>
 </button>
 <ng-template #tempLink>
-  <a class="button">
+  <a class="button" [href]="href" [target]="target" [download]="download">
     <ng-container *ngTemplateOutlet="tempButton"></ng-container>
   </a>
 </ng-template>

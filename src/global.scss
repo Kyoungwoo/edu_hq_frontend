@@ -155,7 +155,6 @@
     --border-width: 0;
     --border-color: transparent;
     --background: var(--ion-background-color);
-    //--min-height: var(--app-height);
     box-shadow: var(--app-box-shadow);
     overflow: hidden;
   }
@@ -181,6 +180,12 @@
   ion-footer ion-toolbar {
     border-radius: 0;
     box-shadow: none;
+  }
+  ion-buttons {
+    app-button {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
   ion-buttons.buttons-first-slot {
     margin-left: var(--app-margin);

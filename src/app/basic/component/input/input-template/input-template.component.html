@@ -1,5 +1,5 @@
 <label>{{ label }} <ion-text *ngIf="required" color="danger">*</ion-text></label>
-<div class="input" [style.padding-right.px]="button.offsetWidth">
+<div class="input" [style.padding-right.px]="button.offsetWidth ? button.offsetWidth + 4 : 0">
   <ng-content select="[slot=input]"></ng-content>
 </div>
 <button #button class="ion-activatable ripple-parent" [disabled]="disabled || readonly" (click)="onButtonClick()">

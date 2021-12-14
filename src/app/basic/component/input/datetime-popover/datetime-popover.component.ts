@@ -16,7 +16,7 @@ export class DatetimePopoverComponent implements OnInit, AfterViewInit {
   @Input() hour:string;
   @Input() minute:string;
 
-  itemSize:number = 42;
+  itemSize:number = 38;
 
   hourList:Array<{ value:string }> = [];
   minuteList:Array<{ value:string }> = [];

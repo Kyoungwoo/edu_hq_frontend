@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Library Guide</ion-title>
     <ion-buttons slot="end">
-      <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout">guide-table-layout</app-button>
+      <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout" routerDirection="root">guide-table-layout</app-button>
       <app-button color="primary" routerLink="/basic/guide-card-layout">guide-card-layout</app-button>
     </ion-buttons>
   </ion-toolbar>
@@ -14,7 +14,7 @@
   <ion-split-pane contentId="main-content">
     <ion-content id="main-content" #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="scrollStart($event)">
       <app-container>
-        <h1>Library Guide</h1>
+        <h1 *mobileShow>Library Guide</h1>
         <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
       
         <h2 id="animation">Animation</h2>
@@ -29,7 +29,7 @@
           <pre><code>&lt;app-card @fadeAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="fadeAnimationToggle = !fadeAnimationToggle">fadeAnimation</app-button>
-        <app-card color="light" @fadeAnimation *ngIf="fadeAnimationToggle">
+        <app-card color="white" @fadeAnimation *ngIf="fadeAnimationToggle">
           <ion-card-subtitle>fadeAnimation</ion-card-subtitle>
         </app-card>
       
@@ -41,7 +41,7 @@
           <pre><code>&lt;app-card @fadeInAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="fadeInAnimationToggle = !fadeInAnimationToggle">fadeInAnimation</app-button>
-        <app-card color="light" @fadeInAnimation *ngIf="fadeInAnimationToggle">
+        <app-card color="white" @fadeInAnimation *ngIf="fadeInAnimationToggle">
           <ion-card-subtitle>fadeInAnimation</ion-card-subtitle>
         </app-card>
       
@@ -56,7 +56,7 @@
         </div>
         <app-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</app-button>
         <div [@listAnimation]="listAnimationItemList.length">
-          <app-card color="light" *ngFor="let item of listAnimationItemList">
+          <app-card color="white" *ngFor="let item of listAnimationItemList">
             <ion-card-subtitle>{{ item }}</ion-card-subtitle>
           </app-card>
         </div>
@@ -72,7 +72,7 @@
         </div>
         <app-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</app-button>
         <div [@listInAnimation]="listInAnimationItemList.length">
-          <app-card color="light" *ngFor="let item of listInAnimationItemList">
+          <app-card color="white" *ngFor="let item of listInAnimationItemList">
             <ion-card-subtitle>{{ item }}</ion-card-subtitle>
           </app-card>
         </div>
@@ -85,7 +85,7 @@
           <pre><code>&lt;app-card @bounceInAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</app-button>
-        <app-card color="light" @bounceInAnimation *ngIf="bounceInAnimationToggle">
+        <app-card color="white" @bounceInAnimation *ngIf="bounceInAnimationToggle">
           <ion-card-subtitle>bounceInAnimation</ion-card-subtitle>
         </app-card>
       
