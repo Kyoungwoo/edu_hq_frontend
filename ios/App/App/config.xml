@@ -11,12 +11,8 @@
     <param name="ios-package" value="CDVSound"/>
   </feature>
 
-  <feature name="NfcPlugin">
-    <param name="ios-package" value="NfcPlugin"/>
-  </feature>
-
-  <feature name="BarcodeScanner">
-    <param name="ios-package" value="CDVBarcodeScanner"/>
+  <feature name="QRScanner">
+    <param name="ios-package" value="QRScanner"/>
   </feature>
 
   

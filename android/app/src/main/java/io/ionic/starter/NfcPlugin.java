@@ -29,10 +29,10 @@ public class NfcPlugin extends Plugin {
        }
        call.resolve(res);
     }
-    @PluginMethod()
-    public void getData(PluginCall call) {
-      getNfcCall = call;
-    }
+  @PluginMethod()
+  public void getData(PluginCall call) {
+    getNfcCall = call;
+  }
 
   @Override
   protected void handleOnNewIntent(Intent intent) {

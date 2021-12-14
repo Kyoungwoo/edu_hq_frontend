@@ -9,14 +9,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
-
-import { File } from "@ionic-native/file/ngx";
-import { Media } from '@ionic-native/media/ngx';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
 import { NaverMapId } from './basic/component/input/naver-map/naver-map.component';
 import { ConnectStrategy } from './basic/service/core/connect.service';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { Media } from '@ionic-native/media/ngx';
+import { File } from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

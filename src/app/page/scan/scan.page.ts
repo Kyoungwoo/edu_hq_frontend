@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import Nfc from 'src/app/basic/plugin/nfc.plugin';
+
 
 @Component({
   selector: 'app-scan',
@@ -6,23 +10,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scan.page.scss'],
 })
 export class ScanPage implements OnInit {
-  constructor() { }
+
+  pageAlive:boolean = true;
+  nfcTimeout;
+  // android:boolean =  false;
+
+  constructor(
+    private alert:AlertService,
+    private navCtrl: NavService
+  ) { }
   
   async ngOnInit() {
-    
-      var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
-      console.log("varUA",varUA);
+      // var varUa = navigator.userAgent.toLowerCase();
+      // if(varUa.match('android') != null){
+      //   this.android = true
+      // }
+      // console.log("varUa",varUa)
     const { permission } = await Nfc.permission();
     if(permission === null) {
       this.alert.present({
-        subHeader: "NFC를 사용할 수 없습니다.",
+        header: "NFC를 사용할 수 없습니다.",
         message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
       });
       this.navCtrl.back();
     }
     else if(permission === "disabled") {
       this.alert.present({
-        subHeader: "NFC 비활성화 됨",
+        header: "NFC 비활성화 됨",
         message: "NFC를 활성화해주세요."
       });
       this.navCtrl.back();
