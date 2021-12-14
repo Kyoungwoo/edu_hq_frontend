@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
@@ -24,7 +24,12 @@ export class CardComponent implements OnInit {
   @Input() download:string;
   @Input() target:string = '_blank';
 
+  @Input() set padding(_padding:string | number) {
+    this.el.nativeElement.style.setProperty('--padding', _padding);
+  }
+
   constructor(
+    private el: ElementRef
   ) { }
 
   ngOnInit() {}

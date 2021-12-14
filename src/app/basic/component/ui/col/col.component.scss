@@ -1,9 +1,12 @@
 :host {
+    --padding: var(--app-padding);
+}
+:host {
     display: block;
-    padding-top: var(--app-padding);
-    padding-bottom: var(--app-padding);
-    padding-left: var(--app-padding);
-    padding-right: var(--app-padding);
+    padding-top: var(--padding);
+    padding-bottom: var(--padding);
+    padding-left: var(--padding);
+    padding-right: var(--padding);
     flex: 1 1 0%;
     width: 100%;
 }
@@ -20,17 +23,16 @@ app-col>app-row:last-child>:host {
     padding-bottom: 0;
 }
 :host ::ng-deep {
-    app-card {
+    >*:first-child {
         margin-top: 0;
-        margin-bottom: 0;
+        >app-input-template {
+            margin-top: 0;
+        }
     }
-    app-button,
-    app-calendar,
-    app-check,
-    app-radio,
-    app-datetime,
-    app-input,
-    app-select {
-        --app-margin: 0;
+    >*:last-child {
+        margin-bottom: 0;
+        >app-input-template {
+            margin-bottom: 0;
+        }
     }
 }

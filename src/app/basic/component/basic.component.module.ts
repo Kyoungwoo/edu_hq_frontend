@@ -37,7 +37,8 @@ import { LineComponent } from './ui/line/line.component';
 import { RadioComponent } from './input/radio/radio.component';
 import { RadioInputComponent } from './input/radio-input/radio-input.component';
 import { RadioGroupComponent } from './input/radio-group/radio-group.component';
-import { InputLabelComponent } from './input/input-label/input-label.component';
+import { InputTemplateComponent } from './input/input-template/input-template.component';
+import { InputGroupComponent } from './input/input-group/input-group.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -52,7 +53,8 @@ import { InputLabelComponent } from './input/input-label/input-label.component';
     FileComponent,
     InputComponent,
     InputCaptionComponent,
-    InputLabelComponent,
+    InputGroupComponent,
+    InputTemplateComponent,
     NaverMapComponent,
     RadioComponent,
     RadioGroupComponent,
@@ -94,7 +96,8 @@ import { InputLabelComponent } from './input/input-label/input-label.component';
     FileComponent,
     InputComponent,
     InputCaptionComponent,
-    InputLabelComponent,
+    InputGroupComponent,
+    InputTemplateComponent,
     NaverMapComponent,
     RadioComponent,
     RadioGroupComponent,

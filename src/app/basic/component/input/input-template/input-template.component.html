@@ -1,0 +1,8 @@
+<label>{{ label }}</label>
+<div class="input" [style.padding-right.px]="button.offsetWidth">
+  <ng-content select="[slot=input]"></ng-content>
+</div>
+<button #button class="ion-activatable ripple-parent" [disabled]="disabled || readonly" (click)="onButtonClick()">
+  <ng-content></ng-content>
+  <ion-ripple-effect *ngIf="buttonVisible"></ion-ripple-effect>
+</button>

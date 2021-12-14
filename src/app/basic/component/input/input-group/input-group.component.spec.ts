@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ButtonFooterPage} from './button-footer.page';
+import { InputGroupComponent } from './input-group.component';
 
-describe('ButtonFooterPage', () => {
-  let component: ButtonFooterPage;
-  let fixture: ComponentFixture<ButtonFooterPage>;
+describe('InputGroupComponent', () => {
+  let component: InputGroupComponent;
+  let fixture: ComponentFixture<InputGroupComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonFooterPage ],
+      declarations: [ InputGroupComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ButtonFooterPage);
+    fixture = TestBed.createComponent(InputGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

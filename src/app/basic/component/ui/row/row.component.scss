@@ -1,15 +1,13 @@
 :host {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     width: 100%;
-}
-:host.label-row {
-    align-items: flex-end;
 }
 :host.row-top {
     align-items: flex-start;
 }
-:host.row-end {
+:host.row-bottom {
     align-items: flex-end;
 }
 :host.row-center {

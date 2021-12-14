@@ -2,6 +2,8 @@
     ion-content {
         --padding-start: 0;
         --padding-end: 0;
+        --padding-top: 0;
+        --padding-bottom: 0;
     }
     cdk-virtual-scroll-viewport {
         --background: var(--app-background-dialog);
@@ -20,8 +22,5 @@
         font-size: var(--font-size-n);
         --background: var(--ion-color-white);
         --min-height: var(--app-height);
-    }
-    app-button-footer {
-        
     }
 }

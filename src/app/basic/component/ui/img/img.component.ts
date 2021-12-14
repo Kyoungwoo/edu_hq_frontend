@@ -28,7 +28,11 @@ export class ImgComponent implements OnInit {
     this.src = `assets/basic/img/${v}.svg`;
     if(!this.mode) this.mode = 'theme';
   };
-  @Input() src:string | SafeUrl;
+  @Input() set src(_src:string | SafeUrl) {
+    this.trustSrc = typeof _src === 'string' ? _src : '';
+  };
+
+  trustSrc:string = '';
 
   constructor() { }
 

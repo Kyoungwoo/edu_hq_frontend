@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Nfc from '../../plugin/nfc.plugin';
 
 @Component({
   selector: 'app-guide-card-layout',

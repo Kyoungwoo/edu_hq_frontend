@@ -14,7 +14,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.openSideMenuUser();
+    
   }
 
   async openSideMenuUser() {

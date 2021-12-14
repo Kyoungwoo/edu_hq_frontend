@@ -30,9 +30,57 @@
 </ion-header>
 
 <ion-content>
-  <app-row>
-    <app-col size="auto">
-      
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <thead>
+          <tr>
+            <th>
+              <app-row style="justify-content: space-between;">
+                <app-col size="auto"><h5>필터</h5></app-col>
+                <app-col size="auto"><app-button fill="translucent" width="100px">검색</app-button></app-col>
+              </app-row>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <app-select label="현장명" value="세종">
+                <app-select-option value="세종">세종</app-select-option>
+              </app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select label="결재현황" value="전체">
+                <app-select-option value="전체">전체</app-select-option>
+              </app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select label="공종" value="전체">
+                <app-select-option value="전체">전체</app-select-option>
+              </app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input-group label="작업기간">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
     </app-col>
     <app-col>
       <ion-toolbar color="white">

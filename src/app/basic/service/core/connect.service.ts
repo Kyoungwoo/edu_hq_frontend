@@ -45,7 +45,7 @@ export class ConnectService {
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(method, data:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
+  async run(method, data?:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
     if(!data) data = {};
     
     const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + method;

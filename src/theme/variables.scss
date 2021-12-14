@@ -65,6 +65,8 @@
   --font-size-h5: 16px;
   --font-size-h6: 13px;
   --font-size-h6-small: 11px;
+  /** input은 보통 앱이나 웹 둘다 16px을 많이 쓴다 */
+  --font-size-input: 16px;
   
   /** app-col, button margin의 padding 값 */
   --app-padding: 6px;
@@ -74,23 +76,13 @@
   --app-border-radius: 5px;
   /** input, button, card의 box shadow */
   --app-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  /** placeholder color */
+  --app-placeholder-color: var(--ion-color-step-800);
 
-  /** input 및 button 들의 height */
+  /** button의 height */
   --app-height: 42px;
-  /** size가 small인 input 및 button 들의 height */
-  --app-height-small: 32px; 
-
-  /** input의 place holder 색상 정의 */
-  --app-placeholder-color: var(--ion-color-step-500);
-  /** input들의 border 상태 지정 */
-  --app-input-border-width: 0;
-  --app-input-border-color: none;
-  --app-input-border-disabled-color: none;
-  /** input들 우측 버튼의 백그라운드 값 */
-  --app-input-button-background: var(--ion-color-primary-translucent);
-  /** input들이 readonly, disabled 상태일 때의 opacity 변화  */
-  --app-readonly-opacity: 0.5;
-  --app-disabled-opacity: 0.5;
+  /** size가 small인 button의 height */
+  --app-height-small: 32px;
 }
 @media screen and (max-width: 768px) {
   body {
@@ -101,6 +93,8 @@
     --font-size-h5: 14px;
     --font-size-h6: 13px;
     --font-size-h6-small: 11px;
+
+    --font-size-input: 16px;
     
     /** app-col 의 padding 값 */
     --app-padding: 4px;

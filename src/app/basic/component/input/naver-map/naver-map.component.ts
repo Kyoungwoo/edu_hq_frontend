@@ -43,19 +43,21 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
   
   async init() {
-    console.log("123123---------",this.value)
+    console.log("123123---------",this.value.workerInfo)
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
-    let position = null;
-    for(let i=0; i<this.value.length; i++){
-      if(this.value[i].info){
-        console.log("ddddddddddd",this.value[i].info.name);
-        position = new naver.maps.LatLng(this.value[i].info.x,this.value[i].info.y);
+    let position = [];
+    for(let i=0; i<this.value.workerInfo.length; i++){
+      if(this.value.workerInfo.length){
+        console.log("x--------------------",this.value.workerInfo[i].x);
+        console.log("y--------------------",this.value.workerInfo[i].y);
+        new naver.maps.LatLng(this.value.workerInfo[i].x,this.value.workerInfo[i].y);
         console.log("position",position)
       }
     }
+    console.log("position",position);
     this.map = new naver.maps.Map(this.id, {
-      center: position,
+      center: new naver.maps.LatLng(37.6685975,126.9234476),
       zoom: 10
     });
     let icon_option = this.text ? 'assets/basic/img/logo.png':''
@@ -105,14 +107,19 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
     naver.maps.Event.addListener(this.map, 'click', (e) => {
       const coord = e.coord;
-      this.LatLng.push(coord);
+      console.log(this.LatLng);
+      console.log(coord);
+      this.value.dangeraeararea.push(coord);
       this.addMarker(coord);
     });
     
-    if(this.value.length){
-      const length = this.value.length;
+    if(this.value.dangeraeararea.length){
+      const length = this.value.dangeraeararea.length;
       for(let i=0; i < length; i++) {
-        const { x, y } = this.value[i];
+        console.log(this.value.dangeraeararea[i].x);
+        const x = this.value.dangeraeararea[i].x;
+        const y = this.value.dangeraeararea[i].y;
+        // console.log("------------",x,y)
         this.addMarker({ x, y });
       }
     }
@@ -178,16 +185,17 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   //default setting
   @Output() change = new EventEmitter();
 
-  @Input() set value(v:any[]) {
+  @Input() set value(v:any) {
     if(v !== this.LatLng) {
       this.LatLng = v;
       this.change.emit(v);
     }
   }
   get value() {
+    // console.log("-----------------1")
     return this.LatLng;
   }
-  writeValue(v:any[]): void { 
+  writeValue(v:any): void { 
     if(v !== this.LatLng){
       this.LatLng = v; 
     } 

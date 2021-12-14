@@ -20,12 +20,6 @@ const noop = () => {};
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
-  
-  @HostListener('click', ["$event"]) onClick = ($event) => {
-    if(this.readonly || this.disabled) return;
-    const opts:SelectOption[] = this.options.toArray();
-    this.popoverOptions(opts, {target: this.el.nativeElement});
-  }
 
   @ContentChildren(SelectOptionComponent) options:QueryList<SelectOptionComponent>;
 
@@ -69,6 +63,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     this.change.emit(this.value);
   }
 
+  popoverSelect() {
+    const opts:SelectOption[] = this.options.toArray();
+    this.popoverOptions(opts, {target: this.el.nativeElement});
+  }
   async popoverOptions(opts, event) {
     let component:ComponentRef;
     if(this.multiple) {

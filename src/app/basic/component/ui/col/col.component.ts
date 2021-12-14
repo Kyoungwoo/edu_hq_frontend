@@ -24,7 +24,7 @@ export class ColComponent implements OnInit {
     if(_size === 'auto') {
       style = 'flex: 0 0 auto; width: auto; max-width: 100%;';
     }
-    else if(_size.includes('px') || _size.includes('%')) {
+    else if(_size.includes('px') || _size.includes('%') || _size.includes('em')) {
       style = `
         flex: 0 0 ${_size};
         width: ${_size};

@@ -1,0 +1,121 @@
+:host {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    border-radius: var(--app-border-radius);
+    box-shadow: var(--app-box-shadow);
+    background: var(--ion-color-white);
+    padding: 8px;
+
+    display: block;
+    position: relative;
+    text-align: left;
+    font-size: 16px;
+    >label {
+        display: block;
+        font-size: var(--font-size-h6);
+        color: var(--ion-text-color);
+        font-weight: 500;
+    }
+    >.input {
+        min-height: 25px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        color: var(--ion-text-color);
+    }
+    >button {
+        background: var(--ion-color-primary-translucent);
+        cursor: pointer;
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-h6);
+        outline: none !important;
+    }
+    >button:focus {
+        background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
+    }
+    >button:empty {
+        display: none;
+    }
+}
+:host.readonly {
+    >button {
+        cursor: default;
+        opacity: var(--app-readonly-opacity);
+    }
+}
+:host.disabled {
+    >.input {
+        opacity: var(--app-disabled-opacity);
+    }
+    >button {
+        cursor: default;
+        opacity: var(--app-disabled-opacity);
+    }
+}
+:host ::ng-deep {
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: var(--app-placeholder-color);
+        opacity: 1; /* Firefox */
+    }
+    
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: var(--app-placeholder-color);
+    }
+    
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: var(--app-placeholder-color);
+    }
+    input, textarea {
+        border: 0;
+        width: 100%;
+        outline: none !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+    input {
+        min-height: 25px;
+    }
+    ion-textarea, textarea {
+        min-height: 50px;
+    }
+    h1, h2, h3, h4, h5, h6, p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+:host.input-label {
+    >button {
+        height: 43px;
+        min-width: 43px;
+        padding-left: 12px;
+        padding-right: 12px;
+        border-radius: 0;
+    }
+}
+:host.input-label ::ng-deep {
+    app-img {
+        width: 20px;
+    }
+}
+
+:host.input-no-label {
+    >button {
+        bottom: 8px;
+        right: 8px;
+        height: 25px;
+        min-width: 25px;
+        padding-left: 4px;
+        padding-right: 4px;
+        border-radius: 15px;
+    }
+}
+:host.input-no-label ::ng-deep {
+    app-img {
+        width: 15px;
+    }
+}
