@@ -8,6 +8,7 @@ import { SignUpTypePageRoutingModule } from './sign-up-type-routing.module';
 
 import { SignUpTypePage } from './sign-up-type.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     SignUpTypePageRoutingModule,
-    ComponentModule
+    ComponentModule,
+    SignUpComponentModule
   ],
   declarations: [SignUpTypePage]
 })

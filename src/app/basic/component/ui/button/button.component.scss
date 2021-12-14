@@ -4,6 +4,8 @@
     --app-background: var(--ion-color-base);
     --font-size: var(--font-size-n);
     --height: var(--app-height);
+    --button-padding-start: var(--padding-start, 16);
+    --button-padding-end: var(--padding-end, 16);
     
     text-align: center;
     display: inline-block;
@@ -15,10 +17,11 @@
     ion-button {
         --border-radius: var(--app-border-radius);
         --box-shadow: var(--app-box-shadow);
-        --padding-start: 16px;
-        --padding-end: 16px;
+        --padding-start: var(--button-padding-start);
+        --padding-end: var(--button-padding-end);
         --color: var(--app-color);
         
+        display: block;
         white-space: pre-line;
         margin-left: 0;
         margin-right: 0;
