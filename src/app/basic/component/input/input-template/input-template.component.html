@@ -1,4 +1,4 @@
-<label>{{ label }}</label>
+<label>{{ label }} <ion-text *ngIf="required" color="danger">*</ion-text></label>
 <div class="input" [style.padding-right.px]="button.offsetWidth">
   <ng-content select="[slot=input]"></ng-content>
 </div>

@@ -23,7 +23,6 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() max:string;
   @Input() timePicker:boolean;
   @Input() type:'date' | 'week' = 'date';
-  @Input() button:boolean = true;
 
   form = {
     year: '',
@@ -140,6 +139,7 @@ export class CalendarComponent implements ControlValueAccessor {
   @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private isFocus:boolean = false;

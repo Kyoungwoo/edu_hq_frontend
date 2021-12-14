@@ -18,7 +18,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() type:"email" | "number" | "password" | "search" | "tel" | "text" | "url" = null;
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
-  @Input() custom_class:string = "";
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }
@@ -30,6 +29,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:string = "";

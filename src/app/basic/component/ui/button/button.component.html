@@ -1,27 +1,20 @@
-<ion-button 
-[disabled]="disabled"
-[fill]="fill"
-[shape]="shape"
-[size]="size"
-[href]="href"
-[download]="download"
-[target]="target"
-[style]="style"
->
-  <div class="absolute-case" *ngIf="shape === 'circle' || shape === 'square'; else elseBlock">
-    <div class="absolute-inner">
-      <div>
-        <ng-container *ngTemplateOutlet="buttonInner"></ng-container>
-      </div>
-    </div>
-  </div>
-  <ng-template #elseBlock>
-    <div class="relative-inner">
-      <ng-container *ngTemplateOutlet="buttonInner"></ng-container>
-    </div>
-  </ng-template>
-</ion-button>
+<button class="button" [disabled]="disabled" *ngIf="!href; else tempLink">
+  <ng-container *ngTemplateOutlet="tempButton"></ng-container>
+</button>
+<ng-template #tempLink>
+  <a class="button">
+    <ng-container *ngTemplateOutlet="tempButton"></ng-container>
+  </a>
+</ng-template>
+<ion-ripple-effect></ion-ripple-effect>
 
-<ng-template #buttonInner>
-  <ng-content></ng-content>
+<ng-template #tempButton>
+  <div class="button-inner">
+    <slot name="top">
+      <ng-content select="[slot=top]"></ng-content>
+    </slot>
+    <slot>
+      <ng-content></ng-content>
+    </slot>
+  </div>
 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
@@ -6,6 +6,9 @@ import { Color } from '@ionic/core';
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
+  host: {
+    'class': 'ion-activatable'
+  }
 })
 export class ButtonComponent implements OnInit {
 
@@ -18,25 +21,7 @@ export class ButtonComponent implements OnInit {
     if(this.shape) _class.push(`button-${this.shape}`);
     return _class.join(' ');
   }
-
-  @HostBinding('style') get style() {
-    const _style = [];
-    if(this.height) {
-      if(typeof this.height === 'string' 
-      && (this.height.endsWith('px') || this.height.endsWith('%'))) _style.push(`height: ${this.height}`);
-      else _style.push(`height: ${this.height}px`);
-    }
-    if(this.width) {
-      if(typeof this.width === 'string' 
-      && (this.width.endsWith('px') || this.width.endsWith('%'))) _style.push(`width: ${this.width}; max-width: ${this.width};`);
-      else _style.push(`width: ${this.width}px; max-width: ${this.width}px;`);
-    }
-    return _style.join(';');
-  }
-
-  @Input() height:string | number;
-  @Input() width:string | number;
-
+  
   @Input() color:Color;
   @Input() disabled:boolean = false;
   @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';

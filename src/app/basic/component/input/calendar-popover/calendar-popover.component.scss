@@ -21,6 +21,9 @@
     }
     app-row.date-list {
         flex-wrap: wrap;
+        app-button {
+            width: 100%;
+        }
     }
     /** time-picker */
     .time-picker {

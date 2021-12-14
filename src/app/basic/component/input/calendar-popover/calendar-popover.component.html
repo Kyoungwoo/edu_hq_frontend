@@ -39,8 +39,7 @@
   </app-row>
   <app-row class="date-list">
     <app-col size="14.285714%" *ngFor="let date of dateNames; let i = index">
-      <app-button 
-      width="100%"
+      <app-button
       size="small"
       shape="circle"
       [color]="seletedDateFill(i) ? 'primary' : notDisplayMonthDate(i) ? 'medium' : 'dark'"

@@ -8,21 +8,6 @@ import { SafeUrl } from '@angular/platform-browser';
 })
 export class ImgComponent implements OnInit {
 
-  @HostBinding('style') get style() {
-    const _style = [];
-    if(this.height) {
-      if(this.height.endsWith('px') || this.height.endsWith('%')) _style.push(`height: ${this.height}`);
-      else _style.push(`height: ${this.height}px`);
-    }
-    if(this.width) {
-      if(this.width.endsWith('px') || this.width.endsWith('%')) _style.push(`width: ${this.width}`);
-      else _style.push(`width: ${this.width}px`);
-    }
-    return _style.join(';');
-  }
-
-  @Input() height:string;
-  @Input() width:string;
   @Input() mode:'light' | 'dark' | 'theme' = 'light';
   @Input() set name(v:string) {
     this.src = `assets/basic/img/${v}.svg`;

@@ -1,195 +1,121 @@
 :host {
-    --app-color: var(--ion-color-contrast);
-    --app-box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
-    --app-background: var(--ion-color-base);
-    --font-size: var(--font-size-n);
-    --height: var(--app-height);
-    --button-padding-start: var(--padding-start, 16);
-    --button-padding-end: var(--padding-end, 16);
-    
-    text-align: center;
-    display: inline-block;
+    border-radius: var(--app-border-radius);
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
+
+    cursor: pointer;
+    display: inline-flex;
     vertical-align: middle;
-    background: var(--app-background);
-    border-radius: var(--app-border-radius);
-    ion-button {
-        --border-radius: var(--app-border-radius);
-        --box-shadow: var(--app-box-shadow);
-        --padding-start: var(--button-padding-start);
-        --padding-end: var(--button-padding-end);
-        --color: var(--app-color);
-        
-        display: block;
-        white-space: pre-line;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        height: var(--height);
-        font-size: var(--font-size-n);
-        text-align: inherit;
-        text-transform: inherit;
-        small {
-            font-size: var(--font-size-h6);
-        }
+    color: var(--ion-color-contrast);
+    background: var(--ion-color-base);
+    font-size: var(--font-size-h5);
+    box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+    padding: 8px 16px;
+    min-width: 42px;
+    min-height: 42px;
+    position: relative;
+    overflow: hidden;
+    a {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+
+        text-decoration: none;
+        color: initial;
     }
-    ion-button::part(native) {
-        background: transparent !important;
-    }
-    .absolute-case {
+    .button {
         width: 100%;
-        height: 0;
-        padding-bottom: 100%;
+        color: inherit;
+        font-size: inherit;
+        background: transparent;
+        padding: 0;
     }
-    .absolute-inner {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+    .button-inner {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+    }
+    slot {
+        display: flex;
+        white-space: pre-line;
         line-height: 1.2em;
     }
-    .relative-inner {
-        width: 100%;
-        text-align: inherit;
-        line-height: 1.2em;
-    }
-}
-
-/** size */
-:host.button-small {
-    ion-button {
-        height: var(--app-height-small);
-        font-size: var(--font-size-h6);
-    }
-}
-/** shape */
-:host.button-circle,
-:host.button-square {
-    --app-background: var(--ion-color-base);
-    width: var(--app-height);
-    &.button-small {
-        width: var(--app-height-small);
-    }
-    &.button-block {
-        width: 100%;
-    }
-    ion-button {
-        --padding-start: 0;
-        --padding-end: 0;
-        height: auto;
-        width: 100%;
-    }
-}
-/** fill */
-:host.button-clear {
-    --app-color: var(--ion-color-base);
-    --app-background: transparent;
-    ion-button {
-        --box-shadow: none;
-    }
-}
-:host.button-outline {
-    --app-color: var(--ion-color-shade);
-    --app-background: var(--ion-color-white);
-    ion-button {
-        --border-width: 1px;
-        --box-shadow: none;
-    }
-}
-:host.button-translucent {
-    --app-color: var(--ion-color-shade);
-    --app-background: var(--ion-color-translucent);
-    ion-button {
-        --box-shadow: none;
-    }
-}
-:host.button-translucent-outline {
-    --app-color: var(--ion-color-shade);
-    --app-background: var(--ion-color-translucent);
-    ion-button {
-        --border-width: 1px;
-        --border-style: solid;
-        --border-color: var(--ion-color-primary);
-        --box-shadow: none;
-    }
-
-}
-:host.button-round {
-    border-radius: var(--app-height);
-    ion-button {
-        --border-radius: var(--app-height);
-    }
-}
-:host.button-circle {
-    border-radius: 50%;
-    ion-button {
-        --border-radius: 50%;
+    slot:empty {
+        display: none;
     }
 }
 app-button + :host {
     margin-left: var(--app-padding);
 }
 
-/** ng-deep */
-:host ::ng-deep {
-    h1, h2, h3, h4, h5, p {
-        display: inline-block;
-        margin-top: var(--app-padding);
-        vertical-align: middle;
-    }
-    app-col {
-        --app-padding: 4px;
-    }
-    app-img {
-        width: 1.2em;
-    }
-    app-img[slot=top],
-    app-img[slot=bottom] {
-        display: block;
-        margin: auto;
-    }
-    app-img[slot=start] {
-        margin-right: 4px;
-        position: relative;
-        top: -0.1em;
-    }
-    app-img[slot=end] {
-        margin-left: 4px;
-        position: relative;
-        top: -0.1em;
-    }
-    app-file {
-        left: calc(var(--padding-start)*-1);
-        width: calc(100% + var(--padding-start) + var(--padding-end));
-    }
+/** size */
+:host.button-small {
+    min-width: 30px;
+    min-height: 30px;
+    font-size: var(--font-size-h6);
 }
 
-/** with others */
-.sc-ion-buttons-md-h.sc-ion-buttons-md-s :host,
-.sc-ion-buttons-ios-h.sc-ion-buttons-ios-s :host {
-    // --app-border-radius: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    ion-button {
-        --color: var(--app-color);
-        --color-hover: var(--color);
-        
+/** shape */
+:host.button-circle,
+:host.button-square {
+    padding: 0;
+    .button {
+        height: 0;
+        padding-bottom: 100%;
     }
-    &.button-outline {
-        ion-button {
-            --border-color: var(--ion-color-base);
-        }
+    .button-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
-    &.button-translucent,
-    &.button-translucent-outline {
-        ion-button {
-            --background-hover: var(--ion-color-tint);
-        }
+}
+:host.button-circle {
+    border-radius: 50%;
+}
+
+/** fill */
+:host.button-clear {
+    box-shadow: none;
+    background: none;
+    color: var(--ion-color-base);
+}
+:host.button-outline {
+    box-shadow: none;
+    background: var(--ion-color-white);
+    color: var(--ion-color-shade);
+    border: 1px solid var(--ion-color-base);
+}
+:host.button-translucent {
+    box-shadow: none;
+    background: var(--ion-color-translucent);
+    color: var(--ion-color-shade);
+}
+:host.button-translucent-outline {
+    box-shadow: none;
+    background: var(--ion-color-translucent);
+    color: var(--ion-color-shade);
+    border: 1px solid var(--ion-color-base);
+}
+:host.button-round {
+    border-radius: 50px;
+}
+:host ::ng-deep {
+    h1, h2, h3, h4, h5, p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-col {
+        padding: 4px;
+    }
+    app-img {
+        display: block;
+        width: 1.2em;
+    }
+    app-img[slot=start] {
+        margin-right: 3px;
     }
 }

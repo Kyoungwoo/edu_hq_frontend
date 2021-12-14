@@ -1,4 +1,4 @@
-<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (buttonClick)="buttonClick.emit()">
+<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required" (buttonClick)="buttonClick.emit()">
   <ion-textarea slot="input"
   [placeholder]="placeholder"
   [(ngModel)]="value"

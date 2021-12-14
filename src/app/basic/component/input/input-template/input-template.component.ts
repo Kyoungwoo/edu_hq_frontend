@@ -34,5 +34,5 @@ export class InputTemplateComponent implements OnInit {
   @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
-
+  @Input() required:boolean = false;
 }

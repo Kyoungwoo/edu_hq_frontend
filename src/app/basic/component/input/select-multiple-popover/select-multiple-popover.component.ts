@@ -15,7 +15,7 @@ export class SelectMultiplePopoverComponent implements OnInit {
 
   @Input() opts:SelectOption[] = [];
   @Input() value:any[] = [];
-  itemSize:number = 42;
+  itemSize:number = 38;
 
   initInterval;
 

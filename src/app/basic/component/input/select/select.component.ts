@@ -97,6 +97,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:any = null;
