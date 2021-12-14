@@ -12,6 +12,7 @@ ion-content::part(scroll) {
 	height: 410px;
 	background: var(--ion-color-light);
 	padding: 30px;
+    box-shadow: var(--app-box-shadow);
 
     .logo {
         text-align: center;
@@ -29,5 +30,17 @@ ion-content::part(scroll) {
         width: 80px;
         height: 15px;
         margin-bottom: 20px;
+    }
+
+    footer {
+        margin-top: 30px;  
+        app-col {
+            text-align: center;
+        }
+        span {
+            width: 0;
+            height: 12px;
+            border-right: 1px solid var(--ion-color-disable);
+        }
     }
 }
