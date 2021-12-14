@@ -9,6 +9,7 @@ import { BasicComponentModule } from '../basic/component/basic.component.module'
 import { SideMenuUserComponent } from './side-menu/side-menu-user/side-menu-user.component';
 import { SideMenuAdminComponent } from './side-menu/side-menu-admin/side-menu-admin.component';
 import { HeaderAdminComponent } from './header/header-admin/header-admin.component';
+import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 
 
 
@@ -16,7 +17,8 @@ import { HeaderAdminComponent } from './header/header-admin/header-admin.compone
   declarations: [
     HeaderAdminComponent,
     SideMenuUserComponent,
-    SideMenuAdminComponent
+    SideMenuAdminComponent,
+    QrScannerComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { HeaderAdminComponent } from './header/header-admin/header-admin.compone
   ],
   exports: [
     BasicComponentModule,
-    HeaderAdminComponent
+    HeaderAdminComponent,
+    QrScannerComponent
   ]
 })
 export class ComponentModule { }

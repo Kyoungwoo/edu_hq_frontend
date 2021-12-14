@@ -242,18 +242,41 @@
     height: 4px;
     border-radius: 4px 4px 0 0;
   }
-  
-  /** ionic dialogs */
+  .custom-alert {
+    --width: 280px;
+  }
+  // @media only screen and (orientation: landscape)  {
+    .my-modal {
+     .modal-wrapper {
+       position: absolute;
+       top: 105px !important;
+       left:256px !important;
+       display: block;
+       width:calc(100% - 272px) !important;
+       height: 80% !important;
+       --box-shadow:none;
+ 
+      }
+    }
+
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
     --width: 90%;
     --max-width: 280px;
     padding: 0;
-    .alert-wrapper {
-      box-shadow: var(--app-box-shadow);
-      padding: 10px;
+    .alert-message{
+      h4{
+        color:black;
+        margin: 0;
+      }
     }
+    .alert-wrapper{
+      box-shadow: none;
+      padding: 0;
+
+      .alert-head { order: 2; }
+      .alert-message { margin-top: 10px; order: 1; }
 
     .alert-message { 
       order: 1;
@@ -359,4 +382,5 @@
   //     }
   //   }
   // }
+  }
 }
