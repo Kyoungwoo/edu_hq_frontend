@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="white">
     <app-row class="profile-row">
       <app-col size="auto">
         <app-avatar class="profile"></app-avatar>
@@ -18,47 +18,47 @@
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <div class="top-buttons">
     <app-row>
-      <!-- <app-col></app-col> -->
       <app-col></app-col>
       <app-col size="auto">
         <app-button class="top-button" shape="square">
-        <app-img slot="top" src="assets/img/mypage.svg"></app-img>
-        <h6>마이페이지</h6>
+          <app-img slot="top" src="assets/img/menu/mypage.svg"></app-img>
+          <h6>마이페이지</h6>
         </app-button>
       </app-col>
       <app-col size="auto">
         <app-button class="top-button" shape="square">
-        <app-img slot="top" src="assets/img/language.svg"></app-img>
-        <h6>언어 변환</h6>
+          <app-img slot="top" src="assets/img/menu/language.svg"></app-img>
+          <h6>언어 변환</h6>
         </app-button>
       </app-col>
       <app-col size="auto">
         <app-button class="top-button" shape="square">
-        <app-img slot="top" src="assets/img/setting.svg"></app-img>
-        <h6>설정</h6>
+          <app-img slot="top" src="assets/img/menu/setting.svg"></app-img>
+          <h6>설정</h6>
         </app-button>
       </app-col>
     </app-row>
   </div>
-  <div class="side-menu-tab">
-    <div class="left">
+</ion-header>
+
+<ion-content>
+  <app-row class="side-menu-tab">
+    <app-col class="left">
       <ion-list>
         <ion-item lines="none" button *ngFor="let menu of menuList" [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ menu.title }}</ion-item>
       </ion-list>
-    </div>
-    <div class="right"> 
+    </app-col>
+    <app-col class="right"> 
       <ul>
         <ion-list-header><app-img [src]="menuSelected.src"></app-img>{{ menuSelected.title }}</ion-list-header> 
         <ion-item *ngFor="let subMenu of menuSelected.subMenuList" 
         [routerLink]="subMenu.link"
         [queryParams]="subMenu.params">{{ subMenu.title }}</ion-item>
       </ul>
-    </div>
-  </div>
+    </app-col>
+  </app-row>
+  <hr slot="fixed">
 </ion-content>
  
