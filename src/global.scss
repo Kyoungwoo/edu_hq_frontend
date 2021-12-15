@@ -156,8 +156,10 @@
     --border-color: transparent;
     --background: var(--ion-background-color);
     box-shadow: var(--app-box-shadow);
-    padding-left: var(--app-margin);
-    padding-right: var(--app-margin);
+    --padding-start: var(--app-margin);
+    --padding-end: var(--app-margin);
+    --padding-top: 0;
+    --padding-bottom: 0;
     overflow: hidden;
   }
   ion-toolbar:first-child {

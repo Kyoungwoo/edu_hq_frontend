@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { listAnimation } from 'src/app/basic/app.animation';
+import { listAnimation } from 'src/app/basic/basic.animation';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 interface MenuItem {
