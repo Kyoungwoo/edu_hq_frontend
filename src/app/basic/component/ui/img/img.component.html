@@ -1,16 +1,16 @@
 <picture>
-  <ng-container *ngIf="trustSrc; else tempNotTrust">
+  <ng-container *ngIf="stringSrc; else tempNotTrust">
     <ng-container *ngIf="mode === 'theme'; else tempLight">
-      <source [srcset]="trustSrc.replace('.png', '')+'-dark.png'" media="(prefers-color-scheme: dark)">
-      <img [src]="trustSrc">
+      <source [srcset]="stringSrc.replace('.png', '')+'-dark.png'" media="(prefers-color-scheme: dark)">
+      <img [src]="stringSrc">
     </ng-container>
     <ng-template #tempLight>
       <ng-container *ngIf="mode === 'light'; else tempDark">
-        <img [src]="trustSrc">
+        <img [src]="stringSrc">
       </ng-container>
     </ng-template>
     <ng-template #tempDark>
-      <img [src]="trustSrc.replace('.png', '')+'-dark.png'">
+      <img [src]="stringSrc.replace('.png', '')+'-dark.png'">
     </ng-template>
   </ng-container>
   <ng-template #tempNotTrust>

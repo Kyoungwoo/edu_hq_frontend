@@ -6,14 +6,15 @@
         margin-top: 0;
         vertical-align: middle;
         position: relative;
-        top: -14px;
+        top: -16px;
+        z-index: -5;
     }
     ion-text {
         background: var(--ion-color-warning-tint);
         display: block;
         font-size: var(--font-size-h6-small);
         padding-left: 8px;
-        border-radius: 5px;
+        border-radius: 0 0 10px 10px;
         color: var(--ion-color-warning);
         height: 28px;
         display: flex;

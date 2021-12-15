@@ -35,13 +35,13 @@ export class SideMenuUserComponent implements OnInit {
     { src:'assets/img/my-education.svg',title: '나의 교육', subMenuList: [
       { title: '나의 교육', link: '', params: {}, permission: () => { return true }}
     ]},
-    { src:'assets/img/today-work.svg',title: '게시판', subMenuList: [
+    { src:'assets/img/board.svg',title: '게시판', subMenuList: [
       { title: '공지사항', link: '', params: {}, permission: () => { return true }},
       { title: 'MSDS', link: '', params: {}, permission: () => { return true }},
       { title: '회의록', link: '', params: {}, permission: () => { return true }}
     ]},
-    { src:'assets/img/today-work.svg',title: '알림함', subMenuList: []},
-    { src:'assets/img/today-work.svg',title: '고객지원', subMenuList: [
+    { src:'assets/img/notification-box.svg',title: '알림함', subMenuList: []},
+    { src:'assets/img/support.svg',title: '고객지원', subMenuList: [
       { title: '1:1 문의', link: '', params: {}, permission: () => { return true }},
       { title: '사용자 메뉴얼', link: '', params: {}, permission: () => { return true }},
       { title: '언어설정', link: '', params: {}, permission: () => { return true }},

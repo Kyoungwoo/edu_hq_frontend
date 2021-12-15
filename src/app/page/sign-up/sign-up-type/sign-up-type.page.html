@@ -1,16 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="/login"></ion-back-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>회원유형 선택</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-    <ion-segment-button>회원유형<br>선택</ion-segment-button>
-  </ion-segment>
+  <app-container size="small">
+    <app-sign-up-segment></app-sign-up-segment>
+    <p>
+      <b>회원유형</b> 을 선택해주세요. 회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.
+    </p>
+    <app-card>
+      <app-row>
+        <app-col>
+          <h4>작업자</h4>
+        </app-col>
+        <app-col size="auto">
+          
+        </app-col>
+      </app-row>
+    </app-card>
+  </app-container>
 </ion-content>

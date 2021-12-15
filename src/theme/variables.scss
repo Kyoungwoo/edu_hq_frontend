@@ -17,6 +17,7 @@
   @include generateColor('light', #F7F9FC, #000000);
   @include generateColor('medium', #357F6D, #ffffff);
   @include generateColor('dark', #445760, #ffffff);
+  @include generateColor('disable', #D3DFE4, #000000);
 
   @include generateColor('white', #ffffff, #000000);
 }
@@ -78,11 +79,6 @@
   --app-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
   /** placeholder color */
   --app-placeholder-color: var(--ion-color-step-800);
-
-  /** button의 height */
-  --app-height: 42px;
-  /** size가 small인 button의 height */
-  --app-height-small: 32px;
 }
 @media screen and (max-width: 768px) {
   body {

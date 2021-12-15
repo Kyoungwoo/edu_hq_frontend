@@ -48,12 +48,16 @@
     }
 }
 :host.disabled {
+    background: none;
+    box-shadow: none;
+    border: 1px solid var(--ion-color-disable);
     >.input {
         opacity: var(--app-disabled-opacity);
     }
     >button {
         cursor: default;
         opacity: var(--app-disabled-opacity);
+        display: none;
     }
 }
 :host ::ng-deep {
@@ -82,7 +86,7 @@
     ion-textarea, textarea {
         min-height: 50px;
     }
-    h1, h2, h3, h4, h5, h6, p {
+    h1, h2, h3, h4, h5, h6, p, app-radio {
         margin-top: 0;
         margin-bottom: 0;
     }

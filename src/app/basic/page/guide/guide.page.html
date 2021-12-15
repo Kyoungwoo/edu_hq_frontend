@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Library Guide</ion-title>
     <ion-buttons slot="end">
-      <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout">guide-table-layout</app-button>
+      <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout" routerDirection="root">guide-table-layout</app-button>
       <app-button color="primary" routerLink="/basic/guide-card-layout">guide-card-layout</app-button>
     </ion-buttons>
   </ion-toolbar>
@@ -29,7 +29,7 @@
           <pre><code>&lt;app-card @fadeAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="fadeAnimationToggle = !fadeAnimationToggle">fadeAnimation</app-button>
-        <app-card color="light" @fadeAnimation *ngIf="fadeAnimationToggle">
+        <app-card color="white" @fadeAnimation *ngIf="fadeAnimationToggle">
           <ion-card-subtitle>fadeAnimation</ion-card-subtitle>
         </app-card>
       
@@ -41,7 +41,7 @@
           <pre><code>&lt;app-card @fadeInAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="fadeInAnimationToggle = !fadeInAnimationToggle">fadeInAnimation</app-button>
-        <app-card color="light" @fadeInAnimation *ngIf="fadeInAnimationToggle">
+        <app-card color="white" @fadeInAnimation *ngIf="fadeInAnimationToggle">
           <ion-card-subtitle>fadeInAnimation</ion-card-subtitle>
         </app-card>
       
@@ -56,7 +56,7 @@
         </div>
         <app-button (click)="listAnimationItemList = listAnimationItemList.length ? listAnimationItemListEmpty : listAnimationItemListMax">listAnimation</app-button>
         <div [@listAnimation]="listAnimationItemList.length">
-          <app-card color="light" *ngFor="let item of listAnimationItemList">
+          <app-card color="white" *ngFor="let item of listAnimationItemList">
             <ion-card-subtitle>{{ item }}</ion-card-subtitle>
           </app-card>
         </div>
@@ -72,7 +72,7 @@
         </div>
         <app-button (click)="listInAnimationItemList = listInAnimationItemList.length ? listInAnimationItemListEmpty : listInAnimationItemListMax">listInAnimation</app-button>
         <div [@listInAnimation]="listInAnimationItemList.length">
-          <app-card color="light" *ngFor="let item of listInAnimationItemList">
+          <app-card color="white" *ngFor="let item of listInAnimationItemList">
             <ion-card-subtitle>{{ item }}</ion-card-subtitle>
           </app-card>
         </div>
@@ -85,7 +85,7 @@
           <pre><code>&lt;app-card @bounceInAnimation&gt;&lt;/app-card&gt;</code></pre>
         </div>
         <app-button (click)="bounceInAnimationToggle = !bounceInAnimationToggle">bounceInAnimation</app-button>
-        <app-card color="light" @bounceInAnimation *ngIf="bounceInAnimationToggle">
+        <app-card color="white" @bounceInAnimation *ngIf="bounceInAnimationToggle">
           <ion-card-subtitle>bounceInAnimation</ion-card-subtitle>
         </app-card>
       
@@ -275,7 +275,7 @@
               <app-calendar #endCalendar name="calendar" label="종료일[min=시작일.value]" [min]="startCalendar.value"></app-calendar>
             </app-col>
           </app-row>
-          <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true" [button]="false"></app-calendar>
+          <app-calendar name="calendar" label="calendar  & timePicker(미완성)" [timePicker]="true"></app-calendar>
         </form>
       
         <h5>properties</h5>
@@ -516,7 +516,7 @@
         <app-card color="white" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">
           <app-row>
             <app-col size="auto">
-              <app-img width="50" height="50" [src]="item.file_url"></app-img>
+              <app-img style="width: 50px; height: 50px;" [src]="item.file_url"></app-img>
             </app-col>
             <app-col>
               <ion-card-subtitle class="text-align:left">
@@ -636,7 +636,7 @@
           </app-col>
           <app-col>
             <app-input name="input disabled" value="input disabled" [disabled]="true">
-              <app-img name="check"></app-img>
+              <!-- <app-img name="check"></app-img> -->
             </app-input>
           </app-col>
         </app-row>
@@ -936,7 +936,7 @@
           <thead>
             <tr>
               <th>Prop</th>
-              <th width="200px">Type</th>
+              <th style="width: 200px">Type</th>
               <th>Description</th>
             </tr>
           </thead>
@@ -998,7 +998,7 @@
           <thead>
             <tr>
               <th>Prop</th>
-              <th width="180px">Type</th>
+              <th style="width: 200px;">Type</th>
               <th>Description</th>
             </tr>
           </thead>
@@ -1109,20 +1109,20 @@
           <app-button [disabled]="true">disabled</app-button>
         </div>
         <div>
-          <app-button width="150" shape="circle">shape:circle</app-button>
-          <app-button width="150" shape="square">shape:square</app-button>
+          <app-button style="width: 120px" shape="circle">shape:circle</app-button>
+          <app-button style="width: 120px" shape="square">shape:square</app-button>
         </div>
         <div>
-          <app-button width="100%">width:100%</app-button>
+          <app-button style="width: 100%">style.width:100%</app-button>
         </div>
         <p><a routerLink="guide/basic" fragment="img"><code>app-img</code></a> 및 다른 컴포넌트들과 함께 사용할 수 있습니다.</p>
         <app-button color="secondary">
           <app-img slot="start" name="calendar"></app-img>
           app-img[slot=start]
         </app-button>
-        <app-button color="secondary" shape="square" width="150">
+        <app-button color="secondary" shape="square" style="width: 100px">
           <app-img slot="top" name="calendar"></app-img>
-          <h5>app-img[slot=top]</h5>
+          <h5>app-img<br>[slot=top]</h5>
         </app-button>
     
         <h5>Properties</h5>
@@ -1135,16 +1135,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>width</td>
-              <td><code>string | number</code></td>
-              <td>버튼의 넓이를 지정할 수 있습니다.</td>
-            </tr>
-            <tr>
-              <td>height</td>
-              <td><code>string | number</code></td>
-              <td>버튼의 높이를 지정할 수 있습니다.</td>
-            </tr>
             <tr>
               <td>color</td>
               <td><code>Color</code></td>
@@ -1298,10 +1288,10 @@
         <p>img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.</p>
     
         <h5>Examples</h5>
-        <app-img width="40" name="calendar"></app-img>
-        <app-img width="40" name="search"></app-img>
-        <app-img width="40" name="time"></app-img>
-        <app-img width="40" name="close"></app-img>
+        <app-img style="width: 40px;" name="calendar"></app-img>
+        <app-img style="width: 40px;" name="search"></app-img>
+        <app-img style="width: 40px;" name="time"></app-img>
+        <app-img style="width: 40px;" name="close"></app-img>
     
         <h5>Properties</h5>
         <app-table>
@@ -1313,16 +1303,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>width</td>
-              <td><code>string | number</code></td>
-              <td>이미지의 넓이를 지정할 수 있습니다.</td>
-            </tr>
-            <tr>
-              <td>height</td>
-              <td><code>string | number</code></td>
-              <td>이미지의 높이를 지정할 수 있습니다.</td>
-            </tr>
             <tr>
               <td>mode</td>
               <td><code>'light' | 'dark' | 'theme'</code></td>
@@ -1359,13 +1339,13 @@
         &lt;app-button&gt;size: auto&lt;/app-button&gt;
       &lt;/app-col&gt;
       &lt;app-col size=&quot;200px&quot;&gt;
-        &lt;app-button width=&quot;100%&quot;&gt;size: 200px&lt;/app-button&gt;
+        &lt;app-button style=&quot;width:100%&quot;&gt;size: 200px&lt;/app-button&gt;
       &lt;/app-col&gt;
       &lt;app-col size=&quot;2&quot;&gt;
-        &lt;app-button width=&quot;100%&quot;&gt;size: 2&lt;/app-button&gt;
+        &lt;app-button style=&quot;width:100%&quot;&gt;size: 2&lt;/app-button&gt;
       &lt;/app-col&gt;
       &lt;app-col&gt;
-        &lt;app-button width=&quot;100%&quot;&gt;not sized&lt;/app-button&gt;
+        &lt;app-button style=&quot;width:100%&quot;&gt;not sized&lt;/app-button&gt;
       &lt;/app-col&gt;
     &lt;/app-row&gt;</code></pre>
     
@@ -1374,13 +1354,13 @@
             <app-button>size: auto</app-button>
           </app-col>
           <app-col size="200px">
-            <app-button width="100%">size: 200px</app-button>
+            <app-button style="width:100%;">size: 200px</app-button>
           </app-col>
           <app-col size="2">
-            <app-button width="100%">size: 2</app-button>
+            <app-button style="width:100%;">size: 2</app-button>
           </app-col>
           <app-col>
-            <app-button width="100%">not sized</app-button>
+            <app-button style="width:100%;">not sized</app-button>
           </app-col>
         </app-row>
     
@@ -1514,6 +1494,11 @@
           </tr>
           </tbody>
         </app-table>
+
+        <h4 id="pager">pager</h4>
+        <app-pager>
+
+        </app-pager>
     
         <h3 id="pipes">Pipes</h3>
         <p>파이프의 개념 및 기본적으로 사용할 수 있는 파이프는 <a href="https://codecraft.tv/courses/angular/pipes/built-in-pipes/" target="https://codecraft.tv/courses/angular/pipes/built-in-pipes/">https://codecraft.tv/courses/angular/pipes/built-in-pipes/</a> 을 참고해주세요.</p>
@@ -1844,6 +1829,9 @@
               </ion-item>
               <ion-item routerLink="/basic/guide" fragment="table">
                 <ion-label>table</ion-label>
+              </ion-item>
+              <ion-item routerLink="/basic/guide" fragment="pager">
+                <ion-label>pager</ion-label>
               </ion-item>
             </ion-item-group>
             <ion-list-header routerLink="/basic/guide" fragment="pipes">

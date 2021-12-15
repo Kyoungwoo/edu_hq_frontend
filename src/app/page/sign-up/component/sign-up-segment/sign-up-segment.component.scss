@@ -1,0 +1,52 @@
+ion-segment-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    min-width: 0;
+    .segment-inner {
+        padding: 8px;
+        text-align: left;
+        width: 100%;
+    }
+    .segment-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        padding: 3px;
+        background: var(--ion-color-primary);
+        margin-bottom: 4px;
+        color: var(--ion-color-white);
+    }
+    .segment-img-checked {
+        display: block;
+    }
+    .segment-img-unchecked {
+        display: none;
+    }
+    .segment-text {
+        min-height: 40px;
+        font-size: var(--font-size-s);
+    }
+}
+ion-segment-button.segment-button-checked {
+    background: var(--ion-color-primary-translucent);
+    .segment-img-checked {
+        display: block;
+    }
+    .segment-img-unchecked {
+        display: none;
+    }
+}
+ion-segment-button.segment-button-checked ~ ion-segment-button {
+    .segment-img-checked {
+        display: none;
+    }
+    .segment-img-unchecked {
+        display: block;
+    }
+}
+ion-segment-button.segment-button-checked::part(native) {
+    color: var(--ion-color-dark);
+}

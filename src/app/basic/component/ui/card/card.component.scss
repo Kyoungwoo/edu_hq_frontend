@@ -27,6 +27,12 @@
   ion-card-content {
     padding: var(--padding);
   }
+  ion-card-content>*:first-child {
+    margin-top: 0;
+  }
+  ion-card-content>*:last-child {
+    margin-bottom: 0;
+  }
   app-avatar {
     width: 36px;
     height: 36px;

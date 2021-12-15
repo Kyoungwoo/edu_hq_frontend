@@ -1,4 +1,4 @@
-<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="popoverCalendar()">
+<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required" (click)="!disabled ? popoverCalendar():''">
   <app-row slot="input" vertical="center">
     <app-col size="2.5em">
       <input [readonly]="true" [disabled]="disabled" type="tel" class="year-input"  [(ngModel)]="form.year" maxlength="4" (keyup)="changeYear($event)" (focus)="fucus()" (blur)="blur()">
@@ -16,5 +16,5 @@
       <input [readonly]="true" [disabled]="disabled" type="tel" class="date-input"  [(ngModel)]="form.date" maxlength="2" (keyup)="changeDate($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
   </app-row>
-  <app-img slot="button" name="calendar"></app-img>
+    <app-img  slot="button" name="calendar"></app-img>
 </app-input-template>

@@ -77,30 +77,30 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '안전고리 체결', link: ''},
       { title: '밀폐 환경 정보', link: ''}
     ]},
-    { title: '비상상황관리', img: 'assets/img/dangerous-management.svg', subMenuList: [
+    { title: '비상상황관리', img: 'assets/img/emergency-management.svg', subMenuList: [
       { title: '아차사고 신고', link: ''},
       { title: '비상 알림 관리', link: ''},
       { title: '사고 보고', link: ''}
     ]},
-    { title: '고객지원', img: 'assets/img/emergency-management.svg', subMenuList: [
+    { title: '고객지원', img: 'assets/img/support.svg', subMenuList: [
       { title: '1:1 문의', link: ''},
       { title: '사용자 매뉴얼', link: ''},
       { title: '언어 설정', link: ''},
       { title: '시스템 이용 약관', link: ''},
       { title: '개인정보처리방침', link: ''}
     ]},
-    { title: '현장관리', img: 'assets/img/emergency-management.svg', subMenuList: [
+    { title: '현장관리', img: 'assets/img/site-management.svg', subMenuList: [
       { title: '현장 등록', link: ''},
-      { title: '원청사 등록', link: ''},
+      { title: '원청사 등록', link: ''}, 
       { title: '장소 등록', link: ''},
       { title: '기준 정보 관리', link: ''}
     ]},
-    { title: '게시판', img: 'assets/img/emergency-management.svg', subMenuList: [
+    { title: '게시판', img: 'assets/img/board.svg', subMenuList: [
       { title: '공지사항', link: ''},
       { title: 'MSDS', link: ''},
       { title: '회의록', link: ''},
     ]},
-    { title: '알림함', img: 'assets/img/notification box.svg', subMenuList: [
+    { title: '알림함', img: 'assets/img/notification-box.svg', subMenuList: [
       { title: '알림함', link: ''}
     ]}
   ]

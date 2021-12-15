@@ -10,11 +10,13 @@ import { SideMenuUserComponent } from './side-menu/side-menu-user/side-menu-user
 import { SideMenuAdminComponent } from './side-menu/side-menu-admin/side-menu-admin.component';
 import { HeaderAdminComponent } from './header/header-admin/header-admin.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 
 
 @NgModule({
   declarations: [
+    ConfirmComponent,
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
@@ -29,6 +31,7 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
     BasicComponentModule
   ],
   exports: [
+    ConfirmComponent,
     BasicComponentModule,
     HeaderAdminComponent,
     QrScannerComponent

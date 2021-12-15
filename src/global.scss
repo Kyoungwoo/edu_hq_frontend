@@ -155,7 +155,6 @@
     --border-width: 0;
     --border-color: transparent;
     --background: var(--ion-background-color);
-    //--min-height: var(--app-height);
     box-shadow: var(--app-box-shadow);
     overflow: hidden;
   }
@@ -181,6 +180,12 @@
   ion-footer ion-toolbar {
     border-radius: 0;
     box-shadow: none;
+  }
+  ion-buttons {
+    app-button {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
   ion-buttons.buttons-first-slot {
     margin-left: var(--app-margin);
@@ -265,15 +270,15 @@
     --width: 90%;
     --max-width: 280px;
     padding: 0;
-    .alert-message{
-      h4{
-        color:black;
+    .alert-message {
+      h4 {
+        color:var(--ion-color-dark);
         margin: 0;
       }
     }
     .alert-wrapper{
       box-shadow: none;
-      padding: 0;
+      padding: 10px;
 
       .alert-head { order: 2; }
       .alert-message { margin-top: 10px; order: 1; }
