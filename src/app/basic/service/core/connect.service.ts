@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { FileBlob, FileService } from 'src/app/basic/service/core/file.service';
 import { LoadingService } from '../ionic/loading.service';
+import { StorageService } from './storage.service';
+import { AlertController } from '@ionic/angular';
 
 export interface ConnectStrategyOptions {
   devUrl:string,
@@ -17,8 +19,8 @@ export interface ConnectStrategyOptions {
 export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
 
 export interface ConnectResult {
-  resultCode:number,
-  resultHash:{[name:string]:any} | null,
+  rsCode:number,
+  rsObj:{[name:string]:any} | null,
   resultListHash:{[name:string]:any}[] | null,
   resultReference:string | null,
   url?:string
@@ -40,8 +42,10 @@ export class ConnectService {
     private file: FileService,
     private device: DeviceService,
     private user: UserService,
+    private storage: StorageService,
     private loading: LoadingService,
-    private router: Router
+    private router: Router,
+    private alertController:AlertController
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
@@ -87,9 +91,9 @@ export class ConnectService {
       result = (() => {
         switch(error.status) {
           case 0:
-            return {resultCode: 1, resultHash: error.message, resultListHash:null, resultReference: '인터넷 연결을 확인해주세요.', url: ''};
+            return {rsCode: 1, rsObj: error.message, resultListHash:null, resultReference: '인터넷 연결을 확인해주세요.', url: ''};
           default:
-            return {resultCode: error.status, resultHash: error.error, resultListHash:null, resultReference: error.message, url: ''};
+            return {rsCode: error.status, rsObj: error.error, resultListHash:null, resultReference: error.message, url: ''};
         }
       })()
     }
@@ -100,11 +104,35 @@ export class ConnectService {
 
     if(!environment.production) console.log(result);
 
-    if(result.resultCode === 400 || result.resultCode === 1002) {
+    if(result.rsCode === 400 || result.rsCode === 1002) {
       this.user.clear();
       this.router.navigate(['/login'], {replaceUrl: true});
     } else {
       return result;
+    }
+  }
+
+  async error(title, res) {
+    res.code ? null : res.code = '';
+    switch(res.code) {
+      case 1002:
+      case 2002:
+        //ip교체로 인한 세션 마감
+        this.storage.user.clear();
+        // 퍼블리싱 끝나면 밑에 첫째줄 풀어줘야함
+        this.router.navigate(['/admin-web/login'], {replaceUrl: true});
+        break;
+      default:
+        const error = await this.alertController.create({
+          // mode: 'ios',
+          header: `${title}${res.code && !environment.production ? '['+res.code+']' : ''}`,
+          message: res.message,
+          buttons: [{
+            text: '확인'
+          }]
+        });
+        error.present();
+        break;
     }
   }
 
@@ -146,5 +174,22 @@ export class ConnectService {
       }
     }
     return form;
+  }
+
+  private changeTestImgUrl(imgUrl):Promise<string> {
+    return new Promise(res => {
+      let img = document.createElement('img');
+      img.onload = () => {
+        img = null;
+        res(null);
+      }
+      img.onerror = () => {
+        img = null;
+        const reg = /https:\/\/www\.kunyoungcms\.com/;
+        if(reg.test(imgUrl)) res(imgUrl.replace(reg, 'http://3.35.5.135'));
+        else res(null);
+      }
+      img.src = imgUrl;
+    });
   }
 }

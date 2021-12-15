@@ -7,9 +7,52 @@
         </app-select>
       </app-col>
       <app-col></app-col>
-      <app-col>
-        <app-button color="primary" src="" [fill]="'translucent'" [disabled]="true"></app-button>
+      <app-col size="auto">
+        <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
+          <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+        </app-button>
       </app-col>
+      <ion-col size="auto">
+        <ion-row>
+          {{ weather.weather_temp+"&deg;C"}}
+        </ion-row>
+        <ion-row>
+          
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-row>
+          강수량
+        </ion-row>
+        <ion-row>
+          {{ weather.weather_pty + "mm"}}
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-row>
+          적설량
+        </ion-row>
+        <ion-row>
+          {{ weather.weather_pty !== '0' ? weather.weather_pty : '-' }}
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-row>
+          최대풍속
+        </ion-row>
+        <ion-row>
+          {{ weather.weather_speed + "m/s"}}
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-row>
+          미세먼지
+        </ion-row>
+        <ion-row>
+          <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+          {{ dust.grade_name}}
+        </ion-row>
+      </ion-col>
     </app-row>
   </ion-toolbar>
 </ion-header>
