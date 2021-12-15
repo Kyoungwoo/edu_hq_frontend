@@ -156,6 +156,8 @@
     --border-color: transparent;
     --background: var(--ion-background-color);
     box-shadow: var(--app-box-shadow);
+    padding-left: var(--app-margin);
+    padding-right: var(--app-margin);
     overflow: hidden;
   }
   ion-toolbar:first-child {
@@ -172,8 +174,6 @@
   ion-toolbar {
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
-      padding-left: var(--app-margin);
-      padding-right: var(--app-margin);
     }
   }
   ion-header ion-toolbar,
@@ -186,12 +186,6 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-  }
-  ion-buttons.buttons-first-slot {
-    margin-left: var(--app-margin);
-  }
-  ion-buttons.buttons-last-slot {
-    margin-right: var(--app-margin);
   }
   ion-toolbar app-row:first-child>app-col {
     padding-top: 0;
