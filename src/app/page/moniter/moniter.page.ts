@@ -47,7 +47,7 @@ export class MoniterPage implements OnInit, OnDestroy {
       this.getWeather(),
       this.getDust()
     ])
-    
+
     const weatherResult = resultList[0];
     const timeDiff = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
 
@@ -55,6 +55,7 @@ export class MoniterPage implements OnInit, OnDestroy {
       this.getWeatherGroup();
     }, (1000 * 60 * 60 * 3.1) - timeDiff);
   }
+
   async getWeather() {
     //날씨
     return await this.connect.run('/weather/get',null,{});
