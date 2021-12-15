@@ -11,6 +11,7 @@ import { SideMenuAdminComponent } from './side-menu/side-menu-admin/side-menu-ad
 import { HeaderAdminComponent } from './header/header-admin/header-admin.component';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { SearchPeopleComponent } from './modal/search-people/search-people.component';
 
 
 
@@ -20,7 +21,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
-    QrScannerComponent
+    QrScannerComponent,
+    SearchPeopleComponent
+   
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
     ConfirmComponent,
     BasicComponentModule,
     HeaderAdminComponent,
-    QrScannerComponent
+    QrScannerComponent,
+    SearchPeopleComponent
   ]
 })
 export class ComponentModule { }
