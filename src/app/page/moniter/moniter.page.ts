@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
   templateUrl: './moniter.page.html',
   styleUrls: ['./moniter.page.scss'],
 })
-export class MoniterPage implements OnInit {
+export class MoniterPage implements OnInit, OnDestroy {
 
   weather:any = {
     weather_speed:"", // 풍속,
@@ -27,40 +27,40 @@ export class MoniterPage implements OnInit {
     pm10Value: 0,
     pm25Grade: 0
   }
+
+  timeoutWeather;
+
   constructor(
     private connect:ConnectService
   ) { }
 
   ngOnInit() {
-    setTimeout(async() => {
-      await this.getweaTher();
-      this.getDust();
-    }, 300);
+    this.getWeatherGroup();
   }
 
-  async getweaTher() {
+  ngOnDestroy() {
+    clearTimeout(this.timeoutWeather);
+  }
+
+  async getWeatherGroup() {
+    const resultList = await Promise.all([
+      this.getWeather(),
+      this.getDust()
+    ])
+    
+    const weatherResult = resultList[0];
+    const timeDiff = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
+
+    this.timeoutWeather = setTimeout(async() => {
+      this.getWeatherGroup();
+    }, (1000 * 60 * 60 * 3.1) - timeDiff);
+  }
+  async getWeather() {
     //날씨
-    const res = await this.connect.run('/weather/get',null,{});
-    switch(res.rsCode) {
-      case 0 :
-        this.weather = res.rsObj;
-      break;
-    default:
-        this.connect.error("날씨 불러오기 실패",res);
-        break;
-    }
+    return await this.connect.run('/weather/get',null,{});
   }
 
   async getDust() {
-    const res = await this.connect.run('/dust/get',null,{});
-    switch(res.rsCode){
-      case 0 :
-        this.dust = res.rsObj
-        break;
-      default:
-        this.connect.error("미세먼지 실패",res);
-        break;
-    }
-
+    return await this.connect.run('/dust/get',null,{});
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 

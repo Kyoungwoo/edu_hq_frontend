@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpTypePage implements OnInit {
 
+  userType: 'worker' | 'LH' | 'supervisor' | 'company';
+
   constructor() { }
 
   ngOnInit() {

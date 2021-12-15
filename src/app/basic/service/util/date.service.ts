@@ -75,6 +75,8 @@ export class DateService {
             return def_days;
         case 'Hour':
             return def_hours;
+        default:
+            return def_time;
     }
   }
 }

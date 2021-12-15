@@ -18,8 +18,8 @@
     margin-bottom: 0;
   }
   app-button:not(:last-child) {
-    --app-box-shadow: none;
-    --app-background: var(--ion-color-translucent);
-    --app-color: var(--ion-color-shade);
+    box-shadow: none;
+    background: var(--ion-color-translucent);
+    color: var(--ion-color-shade);
   }
 }

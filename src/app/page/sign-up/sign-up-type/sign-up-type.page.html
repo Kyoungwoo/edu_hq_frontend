@@ -10,18 +10,62 @@
 <ion-content>
   <app-container size="small">
     <app-sign-up-segment></app-sign-up-segment>
-    <p>
-      <b>회원유형</b> 을 선택해주세요. 회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.
-    </p>
-    <app-card>
+    <h4><b>회원유형</b> 을 선택해주세요.</h4>
+    <p>회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.</p>
+    <app-card [button]="true" [color]="userType === 'worker' ? 'secondary' : 'white'" (click)="userType = 'worker'">
       <app-row>
+        <app-col size="auto">
+          <app-img style="width: 40px" src="assets/img/sign-up/helmet1.svg"></app-img>
+        </app-col>
         <app-col>
           <h4>작업자</h4>
         </app-col>
         <app-col size="auto">
-          
+          <app-img src="assets/img/sign-up/arrow-right.svg"></app-img>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card [button]="true" [color]="userType === 'LH' ? 'secondary' : 'white'" (click)="userType = 'LH'">
+      <app-row>
+        <app-col size="auto">
+          <app-img style="width: 40px" src="assets/img/sign-up/helmet2.svg"></app-img>
+        </app-col>
+        <app-col>
+          <h4>LH</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-img src="assets/img/sign-up/arrow-right.svg"></app-img>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card [button]="true" [color]="userType === 'supervisor' ? 'secondary' : 'white'" (click)="userType = 'supervisor'">
+      <app-row>
+        <app-col size="auto">
+          <app-img style="width: 40px" src="assets/img/sign-up/helmet3.svg"></app-img>
+        </app-col>
+        <app-col>
+          <h4>감리</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-img src="assets/img/sign-up/arrow-right.svg"></app-img>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card [button]="true" [color]="userType === 'company' ? 'secondary' : 'white'" (click)="userType = 'company'">
+      <app-row>
+        <app-col size="auto">
+          <app-img style="width: 40px" src="assets/img/sign-up/helmet4.svg"></app-img>
+        </app-col>
+        <app-col>
+          <h4>원청사/협력사 관리자</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-img src="assets/img/sign-up/arrow-right.svg"></app-img>
         </app-col>
       </app-row>
     </app-card>
   </app-container>
 </ion-content>
+<app-button-footer>
+  <app-button>다음</app-button>
+</app-button-footer>
