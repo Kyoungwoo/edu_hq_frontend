@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <div class="tagging-image">
-    <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요.</p>
+  <div class="tagging-image" *ngIf="android">
+    <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요~~~~.</p>
   </div>
-  <ion-button (click)="nfcScan()">
+  <ion-button *ngIf="ios" (click)="nfcScan()">
     ios 태깅 버튼
   </ion-button>
-  <app-qr-scanner (scan)="qrScan($event)"></app-qr-scanner>
-  <app-naver-map [(ngModel)]="position"></app-naver-map>
+  <ion-button (click)="qr = !qr">qr</ion-button>
+  <app-qr-scanner *ngIf="!qr" (scan)="qrScan($event)"></app-qr-scanner>
 </ion-content>

@@ -35,6 +35,36 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
     }}
   ]
 
+  position = [
+    {
+      x: 127.4164494,
+      y: 37.4235864
+    },
+    {
+      x: 127.2983464,
+      y: 37.3155373
+    },
+    {
+      x: 127.5469121,
+      y: 37.3930428
+    },
+    {
+      workerInfo :[
+        {
+          name:'홍길동',
+          x: 37.6685975,
+          y: 126.9234476 
+        },
+        {
+          name:'강감찬',
+          x: 37.5846267,
+          y: 127.1081377 
+        }
+      ]
+    }
+  ]
+
+  
   @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;
 

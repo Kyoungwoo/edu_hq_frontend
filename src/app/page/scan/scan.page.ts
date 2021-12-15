@@ -12,52 +12,11 @@ import Nfc from 'src/app/basic/plugin/nfc.plugin';
 export class ScanPage implements OnInit {
 
   pageAlive:boolean = true;
-  nfcTimeout;
+  nfcTimeout; 
 
-  
-  // position = {
-  //   workerInfo : [
-  //     {
-  //       name:'홍길동',
-  //       x: 126.9234476,
-  //       y: 37.6685975
-  //     },
-  //     {
-  //       name:'강감찬',
-  //       x: 127.3423013,
-  //       y: 37.7424794     
-  //     }
-  //   ],
-  //   dangeraeararea : [
-  //     {
-  //       x: 127.4164494,
-  //       y: 37.4235864
-  //     },
-  //     {
-  //       x: 127.2983464,
-  //       y: 37.3155373
-  //     },
-  //     {
-  //       x: 127.5469121,
-  //       y: 37.3930428
-  //     }
-  //   ]
-  // }
-  
-    // {
-    //   x: 127.4164494,
-    //   y: 37.4235864
-    // },
-    // {
-    //   x: 127.2983464,
-    //   y: 37.3155373
-    // },
-    // {
-    //   x: 127.5469121,
-    //   y: 37.3930428
-    // }
-  // ]
-  // android:boolean =  false;
+  android:boolean =  false;
+  ios:boolean = false;
+  qr = true; //QR 태깅 버튼이 있는 페이지에서 데이터를 받아와서 QR 버튼을 누르면 QR이 자동으로 켜짐 
 
   constructor(
     private alert:AlertService,
@@ -65,11 +24,13 @@ export class ScanPage implements OnInit {
   ) { }
   
   async ngOnInit() {
-      // var varUa = navigator.userAgent.toLowerCase();
-      // if(varUa.match('android') != null){
-      //   this.android = true
-      // }
-      // console.log("varUa",varUa)
+      var varUa = navigator.userAgent.toLowerCase();
+      if(varUa.match('android') != null){
+        this.android = true;
+      } else { 
+        this.ios = true;
+      }
+      console.log("varUa",varUa)
     const { permission } = await Nfc.permission();
     if(permission === null) {
       this.alert.present({
@@ -86,7 +47,7 @@ export class ScanPage implements OnInit {
       this.navCtrl.back();
     }
     else {
-      // this.nfcScan();
+      this.nfcScan();
     }
   }
   ngOnDestroy() {
@@ -96,9 +57,9 @@ export class ScanPage implements OnInit {
   async nfcScan() {
     const { message } = await Nfc.getData();
     if(this.pageAlive) {
-      // this.nfcTimeout = setTimeout(() => {
-      //   this.nfcScan();
-      // }, 1000);
+      this.nfcTimeout = setTimeout(() => {
+        this.nfcScan();
+      }, 1000);
       window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: message }));
     }
   }

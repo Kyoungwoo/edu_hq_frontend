@@ -42,6 +42,7 @@ export class ButtonComponent implements OnInit {
     private el: ElementRef<HTMLElement>
   ) { }
  
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

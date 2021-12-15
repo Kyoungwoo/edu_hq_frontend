@@ -29,6 +29,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
+    console.log("url",url)
     this.qr_sound = this.media.create(url);
     this.qr_sound.onSuccess.subscribe(e => {
       console.log('success', e);
@@ -55,7 +56,6 @@ export class QrScannerComponent implements OnInit,OnDestroy {
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
           rej();
-        } else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
           rej();
         }
@@ -72,6 +72,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       this.qr_sound.play();
       this.scan.emit(text);
       this.qr_timeout = setTimeout(() => {
+        console.log("settime")
         this.scanQR();
       }, 1000);
     });
@@ -79,8 +80,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   rotateCamera() {
     this.camera_rotate = this.camera_rotate ? 0 : 1;
     this.qrScanner.useCamera(this.camera_rotate).then(status => {
-      console.log(status);
+      console.log("status",status);
     });
   }
-
 }
