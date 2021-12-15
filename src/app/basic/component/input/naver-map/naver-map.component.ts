@@ -23,11 +23,11 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   
 
   map:any;
-  text:boolean = true;
+  // text:boolean = true;
   path = [];
   marker = [];
   LatLng = [];
-  infoMarker:any;
+  infoMarker = [];
 
   constructor(
     @Inject(NaverMapId) private naverMapId:string,
@@ -43,29 +43,29 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
   
   async init() {
-    console.log("123123---------",this.value.workerInfo)
+    console.log("123123---------",this.value)
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
-    let position = [];
-    for(let i=0; i<this.value.workerInfo.length; i++){
-      if(this.value.workerInfo.length){
-        console.log("x--------------------",this.value.workerInfo[i].x);
-        console.log("y--------------------",this.value.workerInfo[i].y);
-        new naver.maps.LatLng(this.value.workerInfo[i].x,this.value.workerInfo[i].y);
-        console.log("position",position)
-      }
-    }
-    console.log("position",position);
+    const position = new naver.maps.LatLng(37.5795423, 126.8897844);
     this.map = new naver.maps.Map(this.id, {
-      center: new naver.maps.LatLng(37.6685975,126.9234476),
+      center: position,
       zoom: 10
     });
-    let icon_option = this.text ? 'assets/basic/img/logo.png':''
-    this.infoMarker = new naver.maps.Marker({
-      map:this.map,
-      position:position,
-      icon: icon_option
-    })
+    // let icon_option = this.text ? 'assets/basic/img/logo.png':''
+    for(let i = 0; i < this.value.length;i++){
+      if(this.value[i].workerInfo) {
+        for(let j = 0; j < this.value[i].workerInfo.length; j++) {
+          const infoposition = new naver.maps.LatLng(this.value[i].workerInfo[j].x,this.value[i].workerInfo[j].y);
+          const infoMarker = new naver.maps.Marker({
+            map:this.map,
+            position: infoposition,
+            // icon: icon_option
+          });
+          this.infoMarker.push(infoMarker);
+        }
+      }
+    }
+    console.log("aa------------------------------------------------------------------------",this.infoMarker)
     this.map.setSize(size);
     
     const polygon = new naver.maps.Polygon({
@@ -84,7 +84,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     const infoWindowElement = ([
       '<div >',
       '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
-      '       <img src="./img/hi-seoul.jpg" width="38" height="26" alt="" class="pin_flag_m">',
       '       <span class="pin_txt"><em>캐나다</em> <span class="spr spr_arrow"></span></span>',
       '       <span class="spr spr_arr"></span>',
       '   </a>',
@@ -95,38 +94,34 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       content: infoWindowElement,
       // pixelOffset: new naver.window.Point(20, -20)
     });
-    
-    naver.maps.Event.addListener(this.infoMarker, 'click', (e) => {
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-          infowindow.open(this.map, this.infoMarker);
-      }
-    });
+    this.infoMarker.forEach((item,i) =>{
+      naver.maps.Event.addListener(this.infoMarker[i], 'click', (e) => {
+        console.log(this.infoMarker);
+        if (infowindow.getMap()) {
+          infowindow.close();
+        } else {
+            infowindow.open(this.map, this.infoMarker[i]);
+        }
+      });
+    })
 
 
     naver.maps.Event.addListener(this.map, 'click', (e) => {
       const coord = e.coord;
-      console.log(this.LatLng);
-      console.log(coord);
-      this.value.dangeraeararea.push(coord);
+      this.LatLng.push(coord);
       this.addMarker(coord);
     });
     
-    if(this.value.dangeraeararea.length){
-      const length = this.value.dangeraeararea.length;
+      const length = this.value.length;
       for(let i=0; i < length; i++) {
-        console.log(this.value.dangeraeararea[i].x);
-        const x = this.value.dangeraeararea[i].x;
-        const y = this.value.dangeraeararea[i].y;
-        // console.log("------------",x,y)
-        this.addMarker({ x, y });
+        if(!this.value[i].worker && this.value[i].x){
+          const { x, y } = this.value[i];
+          this.addMarker({ x, y });
+        }
       }
-    }
   }
 
   private addMarker(coord) {
-    console.log("coord",coord);
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -134,30 +129,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     this.path.push(coord);
     this.marker.push(marker);
-    // console.log("~~~~~~~~~~~~~",coord)
-    // const infoWindowElement = ([
-    //   '<div class="pin_nation">',
-    //   '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
-    //   '       <img src="./assets/basic/img/cctv.png" width="38" height="26" alt="" class="pin_flag_m">',
-    //   '       <span class="pin_txt"> <span class="spr spr_arrow"></span></span>',
-    //   '       <span class="spr spr_arr"></span>',
-    //   '   </a>',
-    //   '   <div class="pin"><span class="pin_blur"></span></div>',
-    //   '</div>'].join(''));
-    // console.log(infoWindowElement);
-    
-    // let infowindow = new naver.maps.InfoWindow({
-    //   content: infoWindowElement,
-    //   // pixelOffset: new naver.window.Point(20, -20)
-    // });
-    
-    // naver.maps.Event.addListener(marker, 'click', (e) => {
-    //   if (infowindow.getMap()) {
-    //     infowindow.close();
-    //   } else {
-    //       infowindow.open(this.map, marker);
-    //   }
-    // });
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
       const point = e.coord;
@@ -185,17 +156,16 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   //default setting
   @Output() change = new EventEmitter();
 
-  @Input() set value(v:any) {
+  @Input() set value(v:any[]) {
     if(v !== this.LatLng) {
       this.LatLng = v;
       this.change.emit(v);
     }
   }
   get value() {
-    // console.log("-----------------1")
     return this.LatLng;
   }
-  writeValue(v:any): void { 
+  writeValue(v:any[]): void { 
     if(v !== this.LatLng){
       this.LatLng = v; 
     } 

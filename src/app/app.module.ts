@@ -33,8 +33,8 @@ import { File } from '@ionic-native/file/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: NaverMapId, useValue: 'icx4jmxljt' },
     { provide: ConnectStrategy, useValue: {
-      devUrl: '',
-      url: '',
+      devUrl: 'https://api.lh-skeeper.or.kr',
+      url: 'https://api.lh-skeeper.or.kr',
       exceptLogUrls: []
     }},
     QRScanner,
