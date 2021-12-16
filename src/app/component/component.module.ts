@@ -22,7 +22,7 @@ import { SearchPeopleComponent } from './modal/search-people/search-people.compo
     SideMenuUserComponent,
     SideMenuAdminComponent,
     QrScannerComponent,
-    SearchPeopleComponent
+    SearchPeopleComponent,
    
   ],
   imports: [
