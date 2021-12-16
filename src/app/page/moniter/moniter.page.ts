@@ -1,7 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
+import { SearchCompanyComponent } from 'src/app/component/modal/search-company/search-company.component';
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
+import { SearchHeavyComponent } from 'src/app/component/modal/search-heavy/search-heavy.component';
+import { SearchSceneComponent } from 'src/app/component/modal/search-scene/search-scene.component';
+import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
+import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
+import { SearchEducationComponent } from 'src/app/component/modal/search-education/search-education.component';
 
 @Component({
   selector: 'app-moniter',
@@ -43,7 +50,7 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:SearchPeopleComponent
+      component:SearchEducationComponent
     });
     modal.present();
 

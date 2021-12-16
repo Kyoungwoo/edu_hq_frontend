@@ -12,6 +12,13 @@ import { HeaderAdminComponent } from './header/header-admin/header-admin.compone
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { SearchPeopleComponent } from './modal/search-people/search-people.component';
+import { SearchCompanyComponent } from './modal/search-company/search-company.component';
+import { SearchDangerousAreaComponent } from './modal/search-dangerous-area/search-dangerous-area.component';
+import { SearchHeavyComponent } from './modal/search-heavy/search-heavy.component';
+import { SearchSceneComponent } from './modal/search-scene/search-scene.component';
+import { SearchToolComponent } from './modal/search-tool/search-tool.component';
+import { SearchConstructionMachineryComponent } from './modal/search-construction-machinery/search-construction-machinery.component';
+import { SearchEducationComponent } from './modal/search-education/search-education.component';
 
 
 
@@ -23,6 +30,13 @@ import { SearchPeopleComponent } from './modal/search-people/search-people.compo
     SideMenuAdminComponent,
     QrScannerComponent,
     SearchPeopleComponent,
+    SearchCompanyComponent,
+    SearchDangerousAreaComponent,
+    SearchHeavyComponent,
+    SearchSceneComponent,
+    SearchToolComponent,
+    SearchConstructionMachineryComponent,
+    SearchEducationComponent
    
   ],
   imports: [
@@ -38,7 +52,14 @@ import { SearchPeopleComponent } from './modal/search-people/search-people.compo
     BasicComponentModule,
     HeaderAdminComponent,
     QrScannerComponent,
-    SearchPeopleComponent
+    SearchPeopleComponent,
+    SearchCompanyComponent,
+    SearchDangerousAreaComponent,
+    SearchHeavyComponent,
+    SearchSceneComponent,
+    SearchToolComponent,
+    SearchConstructionMachineryComponent,
+    SearchEducationComponent
   ]
 })
 export class ComponentModule { }
