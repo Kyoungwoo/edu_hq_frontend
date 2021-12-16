@@ -17,7 +17,10 @@ export class MoniterPage implements OnInit, OnDestroy {
     create_date:"" ,// 날씨를 부른 시간 3시간 기준입니다,
     weather_main:"", // 날씨 설명,
     weather_humidity:"", // 습도,
-    weather_pty :"" // 강수량
+    weather_rain:"", // 강수량 :"", // 강수량
+    weather_snow:"", // 적설량},
+    high_weather_temp:"", // 최고 기온(온도),
+    low_weather_temp:"" // 최저 기온(온도),
   }
 
   dust:any = {
@@ -28,40 +31,67 @@ export class MoniterPage implements OnInit, OnDestroy {
     pm25Grade: 0
   }
 
-  timeoutWeather;
+  intervalWeather;
+  intervalDust;
 
   constructor(
     private connect:ConnectService
   ) { }
 
   ngOnInit() {
-    this.getWeatherGroup();
+    this.getDust()
+    this.getWeather()
+    // this.intervalWeather = setInterval(this.getDust(),30000)
+    setInterval(()=>{
+      this.getDust();
+      this.getWeather();
+    },1800000)
   }
 
   ngOnDestroy() {
-    clearTimeout(this.timeoutWeather);
+    clearTimeout(this.intervalWeather);
+    clearTimeout(this.intervalDust);
   }
 
-  async getWeatherGroup() {
-    const resultList = await Promise.all([
-      this.getWeather(),
-      this.getDust()
-    ])
+  // async getWeatherGroup() {
+    // const resultDust = await Promise.all([
+    //   this.getDust()
+    // ])
+    // const resultWeather = await Promise.all([
+    //   this.getWeather()
+    // ])
 
-    const weatherResult = resultList[0];
-    const timeDiff = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
 
-    this.timeoutWeather = setTimeout(async() => {
-      this.getWeatherGroup();
-    }, (1000 * 60 * 60 * 3.1) - timeDiff);
-  }
+    // const weatherResult = resultWeather[0];
+    // const DustResult = resultDust[0];
+    // console.log("DustResult",DustResult)
+
+    // const timeDiffweather = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
+    // const timeDiffDust = new Date().getTime() - new Date(DustResult.rsObj.dataTime).getTime();
+
+    // this.timeoutWeather = setTimeout(async() => {
+    //   this.getWeatherGroup();
+    // }, (1000 * 60 * 60 * 3.1) - timeDiffweather);
+
+    // this.timeoutDust = setTimeout(async() => {
+    //   this.getWeatherGroup();
+    // }, (1000 * 60 * 60 * 1.1) - timeDiffDust);
+  // }
 
   async getWeather() {
     //날씨
-    return await this.connect.run('/weather/get',null,{});
+    const res = await this.connect.run('/weather/get',null,{});
+    switch(res.rsCode) {
+      case 0 :
+        this.weather = res.rsObj;
+    }
   }
 
   async getDust() {
-    return await this.connect.run('/dust/get',null,{});
+    const res = await this.connect.run('/dust/get',null,{});
+    switch(res.rsCode) {
+      case 0 :
+        this.dust = res.rsObj;
+    }
   }
 }
