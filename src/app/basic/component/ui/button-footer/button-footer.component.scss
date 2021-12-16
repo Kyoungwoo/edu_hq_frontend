@@ -22,4 +22,10 @@
     background: var(--ion-color-translucent);
     color: var(--ion-color-shade);
   }
+  
+  @media screen and (max-width: 768px) {
+    app-button {
+      max-width: initial;
+    }
+  }
 }

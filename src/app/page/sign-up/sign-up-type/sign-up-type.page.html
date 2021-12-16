@@ -9,7 +9,7 @@
 
 <ion-content>
   <app-container size="small">
-    <app-sign-up-segment></app-sign-up-segment>
+    <app-sign-up-segment step="step1"></app-sign-up-segment>
     <h4><b>회원유형</b> 을 선택해주세요.</h4>
     <p>회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.</p>
     <app-card [button]="true" [color]="userType === 'WORKER' ? 'secondary' : 'white'" (click)="userType = 'WORKER'">

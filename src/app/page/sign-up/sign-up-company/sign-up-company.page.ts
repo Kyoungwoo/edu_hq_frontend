@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { fadeInAnimation, slideUpInAnimation } from 'src/app/basic/basic.animation';
+import { fadeInAnimation } from 'src/app/basic/basic.animation';
 
 @Component({
   selector: 'app-sign-up-company',

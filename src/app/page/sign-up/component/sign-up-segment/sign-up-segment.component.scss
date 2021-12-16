@@ -6,6 +6,7 @@ ion-segment-button {
     --padding-start: 0;
     --padding-end: 0;
     min-width: 0;
+    pointer-events: none;
     .segment-inner {
         padding: 8px;
         text-align: left;
