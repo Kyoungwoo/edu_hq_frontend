@@ -8,6 +8,7 @@ import { MoniterPageRoutingModule } from './moniter-routing.module';
 
 import { MoniterPage } from './moniter.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     FormsModule,
     IonicModule,
     MoniterPageRoutingModule,
+    ComponentModule,
     BasicComponentModule
   ],
   declarations: [MoniterPage]
