@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { DaumService } from 'src/app/basic/service/util/daum.service';
+import { QrService } from 'src/app/basic/service/util/qr.service';
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 
 @Component({
@@ -38,14 +42,14 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   constructor(
     private connect:ConnectService,
-    private modal : ModalController
+    private modal : ModalController,
+    private qr:QrService,
+    private daum:DaumService,
+    private nav:NavService
+    
   ) { }
 
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:SearchPeopleComponent
-    });
-    modal.present();
 
     this.getDust()
     this.getWeather()
@@ -59,6 +63,10 @@ export class MoniterPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     clearInterval(this.intervalWeather);
     clearInterval(this.intervalDust);
+  }
+
+  test(){
+    this.qr.present();
   }
 
   // async getWeatherGroup() {
@@ -103,3 +111,16 @@ export class MoniterPage implements OnInit, OnDestroy {
     }
   }
 }
+
+// ngOnInit() {
+//   const $qr = this.qr.subscribe((data) => { // => qr이 켜짐
+//     if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+//     const res = await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
+//     if(res.code === 0) {
+//       $qr.unsubscribe(); // => qr이 꺼짐. subscribe가 unsubscribe 됨
+//     } else {
+//       this.connect.error(res);
+//     }
+//   });
+// }
+

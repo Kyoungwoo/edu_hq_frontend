@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DaumComponent } from 'src/app/component/daum/daum.component';
+import { DaumComponent } from 'src/app/basic/component/dialog/daum/daum.component';
 declare var daum:any;
 
 @Injectable({

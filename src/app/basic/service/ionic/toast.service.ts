@@ -29,7 +29,7 @@ export class ToastService {
       message: opts?.message,
       cssClass: opts?.cssClass || "basic-toast-top",
       buttons: opts?.buttons,
-      // duration: opts?.duration || 1800,
+      duration: opts?.duration || 1800,
       enterAnimation: (baseEl:ShadowRoot) => {
         const wrapperEl = <HTMLElement>baseEl.childNodes[0];
         const wrapperAnimation = this.animationCtrl.create()

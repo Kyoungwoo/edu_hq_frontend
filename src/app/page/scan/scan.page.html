@@ -1,19 +1,27 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/worker/main"></ion-back-button>
     </ion-buttons>
-    <ion-title>NFC 스캔 ios</ion-title>
+    <ion-title>QR 스캔</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="tagging-image" *ngIf="android">
-    <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요~~~~.</p>
+    <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요</p>
   </div>
   <ion-button *ngIf="ios" (click)="nfcScan()">
     ios 태깅 버튼
   </ion-button>
   <ion-button (click)="qr = !qr">qr</ion-button>
-  <app-qr-scanner *ngIf="!qr" (scan)="qrScan($event)"></app-qr-scanner>
-</ion-content>
+  <app-qr-scanner  (scan)="qrScan($event)"></app-qr-scanner>
+</ion-content> -->
+<div class="qr-layout-inner">
+  <div class="qr-label">QR코드를 스캔해주세요.</div>
+</div>
+<div class="rotate-button-position">
+  <ion-button class="rotate-button" (click)="rotateCamera()">
+    <ion-icon slot="icon-only" name="sync-outline"></ion-icon>
+  </ion-button>
+</div>

@@ -4,6 +4,8 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Subscription } from 'rxjs';
 import { File } from "@ionic-native/file/ngx";
 import Qr from "src/app/basic/plugin/qr-plugin";
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 @Component({
   selector: 'app-qr-scanner',
@@ -22,7 +24,9 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   constructor(
     private qrScanner: QRScanner,
     private file: File,
-    private media: Media
+    private media: Media,
+    private nav:NavService,
+    private Toast:ToastService
   ) { }
 
   async ngOnInit() {
@@ -41,13 +45,16 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
     if(this.qr_subs) this.qr_subs.unsubscribe();
+    // this.hideCamera();
     this.qrScanner.destroy();
   }
   prepareQR() {
     return new Promise((res, rej) => {
+      // this.showCamera();
       this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
+
           // camera permission was granted
           // start scanning
           res(true);
@@ -67,12 +74,24 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     await this.qrScanner.show();
     Qr.transparent();
     this.qr_subs = this.qrScanner.scan().subscribe(async(text: string) => {
+      if(text){
+        const toast = await this.Toast.present({
+          message:'QR 체크가 완료 되었습니다.',
+          duration:1500,
+          color:'primary',
+        });
+        toast.prepend();
+        setTimeout(() => {
+          this.nav.back();
+          this.qr_subs.unsubscribe();
+        }, 2.0*1000);
+        
+      }
       if(this.qr_timeout) return false;
       this.qr_subs.unsubscribe();
       this.qr_sound.play();
       this.scan.emit(text);
       this.qr_timeout = setTimeout(() => {
-        console.log("settime")
         this.scanQR();
       }, 1000);
     });
@@ -83,4 +102,13 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       console.log("status",status);
     });
   }
+
+  // showCamera() {    
+  //   console.log("showCamera -----");  
+  //   console.log(window.document.querySelector('ion-app'));
+  //   (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
+  // }
+  // hideCamera() {    
+  //   (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
+  // }
 }
