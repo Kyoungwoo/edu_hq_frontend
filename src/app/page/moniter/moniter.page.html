@@ -12,47 +12,48 @@
           <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
         </app-button>
       </app-col>
-      <ion-col size="auto">
-        <ion-row>
-          {{ weather.weather_temp+"&deg;C"}}
-        </ion-row>
-        <ion-row>
-          
-        </ion-row>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-row>
+      <app-col size="auto">
+        <app-row class="weather-temp">
+          {{ weather.weather_temp + "&deg;C"}}
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.high_weather_temp + "&deg;C" }}
+          {{ weather.low_weather_temp + "&deg;C"}}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
           강수량
-        </ion-row>
-        <ion-row>
-          {{ weather.weather_pty + "mm"}}
-        </ion-row>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-row>
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
           적설량
-        </ion-row>
-        <ion-row>
-          {{ weather.weather_pty !== '0' ? weather.weather_pty : '-' }}
-        </ion-row>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-row>
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
           최대풍속
-        </ion-row>
-        <ion-row>
+        </app-row>
+        <app-row class="ratio">
           {{ weather.weather_speed + "m/s"}}
-        </ion-row>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-row>
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
           미세먼지
-        </ion-row>
-        <ion-row>
+        </app-row>
+        <app-row class="ratio">
           <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
           {{ dust.grade_name}}
-        </ion-row>
-      </ion-col>
+        </app-row>
+      </app-col>
     </app-row>
   </ion-toolbar>
 </ion-header>
