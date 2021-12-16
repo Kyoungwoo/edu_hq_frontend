@@ -41,15 +41,11 @@ export class MoniterPage implements OnInit, OnDestroy {
     private modal : ModalController
   ) { }
 
-  async ngOnInit() {
-    const modal = await this.modal.create({
-      component:SearchPeopleComponent
-    });
-    modal.present();
+  ngOnInit() {
     
     this.getDust()
     this.getWeather()
-
+    
     setInterval(()=>{
       this.getDust();
       this.getWeather();
@@ -101,5 +97,11 @@ export class MoniterPage implements OnInit, OnDestroy {
       case 0 :
         this.dust = res.rsObj;
     }
+  }
+  async testmoda(){
+    const modal = await this.modal.create({
+      component:SearchPeopleComponent
+    });
+    modal.present();
   }
 }
