@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController, ModalController } from '@ionic/angular';
-import { fadeInAnimation } from 'src/app/basic/app.animation';
+import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
 @Component({

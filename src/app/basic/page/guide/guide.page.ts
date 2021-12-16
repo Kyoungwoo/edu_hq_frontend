@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonHeader, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
-import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../app.animation';
+import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../basic.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
 import { NavService } from '../../service/ionic/nav.service';

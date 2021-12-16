@@ -42,3 +42,9 @@ export const bounceInAnimation = trigger('bounceInAnimation', [
     style({ transform: 'scale(0.2)' }), animate('200ms cubic-bezier(.22,1.07,.71,1.17)', style({ transform: 'scale(1)' }))]
   )
 ]);
+
+export const slideUpInAnimation = trigger('slideUpInAnimation', [
+  transition('* <=> *', [
+    style({ transform: 'translateY(10px)' }), animate('100ms ease', style({ transform: 'translateY(0px)' }))]
+  )
+]);
