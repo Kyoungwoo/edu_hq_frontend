@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 
 @Component({
   selector: 'app-moniter',
@@ -31,11 +33,16 @@ export class MoniterPage implements OnInit, OnDestroy {
   timeoutWeather;
 
   constructor(
-    private connect:ConnectService
+    private connect:ConnectService,
+    private modal : ModalController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getWeatherGroup();
+    const modal = await this.modal.create({
+      component:SearchPeopleComponent
+    });
+    modal.present();
   }
 
   ngOnDestroy() {
