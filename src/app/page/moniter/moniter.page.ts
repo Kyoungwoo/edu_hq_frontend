@@ -2,10 +2,20 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+<<<<<<< HEAD
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
+=======
+import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
+import { SearchCompanyComponent } from 'src/app/component/modal/search-company/search-company.component';
+>>>>>>> b6c349031e27c4b23202eee8819502e58cfcdb74
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
+import { SearchHeavyComponent } from 'src/app/component/modal/search-heavy/search-heavy.component';
+import { SearchSceneComponent } from 'src/app/component/modal/search-scene/search-scene.component';
+import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
+import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
+import { SearchEducationComponent } from 'src/app/component/modal/search-education/search-education.component';
 
 @Component({
   selector: 'app-moniter',
@@ -50,6 +60,13 @@ export class MoniterPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
+<<<<<<< HEAD
+=======
+    const modal = await this.modal.create({
+      component:SearchEducationComponent
+    });
+    modal.present();
+>>>>>>> b6c349031e27c4b23202eee8819502e58cfcdb74
 
     this.getDust()
     this.getWeather()
