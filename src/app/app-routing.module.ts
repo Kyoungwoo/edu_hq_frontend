@@ -52,6 +52,10 @@ const routes: Routes = [
     loadChildren: () => import('./page/sign-up/sign-up-terms/sign-up-terms.module').then( m => m.SignUpTermsPageModule)
   },
   {
+    path: 'sign-up-done',
+    loadChildren: () => import('./page/sign-up/sign-up-done/sign-up-done.module').then( m => m.SignUpDonePageModule)
+  },
+  {
     path: 'moniter',
     loadChildren: () => import('./page/moniter/moniter.module').then( m => m.MoniterPageModule)
   }

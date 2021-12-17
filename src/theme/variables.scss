@@ -15,9 +15,8 @@
   @include generateColor('warning', #FFB077, #271f17);
   @include generateColor('danger', #FF6060, #ffffff);
   @include generateColor('light', #F7F9FC, #000000);
-  @include generateColor('medium', #357F6D, #ffffff);
+  @include generateColor('medium', #9CB3BE, #ffffff);
   @include generateColor('dark', #445760, #ffffff);
-  @include generateColor('disable', #D3DFE4, #000000);
 
   @include generateColor('white', #ffffff, #000000);
 }
@@ -44,7 +43,7 @@
     @include generateColor('warning', #F97D01, #271f17);
     @include generateColor('danger', #FF6060, #ffffff);
     @include generateColor('dark', #445760, #222120);
-    @include generateColor('medium', #b5a79b, #222120);
+    @include generateColor('medium', #9CB3BE, #222120);
     @include generateColor('light', #f1f0ef, #222120);
 
     @include generateColor('white', #181818, white);

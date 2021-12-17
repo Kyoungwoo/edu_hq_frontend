@@ -33,6 +33,7 @@
         justify-content: center;
         font-size: var(--font-size-h6);
         outline: none !important;
+        text-align: right;
     }
     >button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
@@ -50,7 +51,7 @@
 :host.disabled {
     background: none;
     box-shadow: none;
-    border: 1px solid var(--ion-color-disable);
+    border: 1px solid var(--ion-color-step-200);
     >.input {
         opacity: var(--app-disabled-opacity);
     }

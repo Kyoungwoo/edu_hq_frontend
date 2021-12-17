@@ -177,17 +177,17 @@
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
     }
-  }
-  ion-header ion-toolbar,
-  ion-footer ion-toolbar {
-    border-radius: 0;
-    box-shadow: none;
-  }
-  ion-buttons {
     app-button {
       margin-top: 0;
       margin-bottom: 0;
     }
+  }
+  ion-header ion-toolbar,
+  ion-footer ion-toolbar {
+    --padding-start: 0;
+    --padding-end: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
   ion-toolbar app-row:first-child>app-col {
     padding-top: 0;

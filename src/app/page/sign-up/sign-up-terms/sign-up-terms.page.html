@@ -1,9 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>sign-up-terms</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="prevRouterLink"></ion-back-button>
+    </ion-buttons>
+    <ion-title>약관 동의</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-container size="small">
+    <app-sign-up-segment step="step4"></app-sign-up-segment>
+    <app-check-group>
+      <app-check type="all">시스템 이용 약관, 개인정보, 민감정보 및 위치정보 수집, 이용, 제3자 제공에 모두 동의합니다.</app-check>
+      <app-check on="1">시스템 이용약관 동의 <ion-text color="red">(필수)</ion-text></app-check>
+      <app-card class="term">
+        약관 샘플
+      </app-card>
+      <app-check on="2">시스템 이용약관 동의 <ion-text color="red">(필수)</ion-text></app-check>
+      <app-card class="term">
+        약관 샘플
+      </app-card>
+      <app-check on="3">시스템 이용약관 동의 <ion-text color="red">(필수)</ion-text></app-check>
+      <app-card class="term">
+        약관 샘플
+      </app-card>
+    </app-check-group>
+  </app-container>
 </ion-content>
+<app-button-footer>
+  <app-button [routerLink]="prevRouterLink" routerDirection="back">이전</app-button>
+  <app-button routerLink="/sign-up-done" [queryParams]="{userType: 'WORKER'}">완료</app-button>
+</app-button-footer>
