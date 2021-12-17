@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 
 import { CalendarPopoverComponent } from '../calendar-popover/calendar-popover.component';
-const noop = () => {};
 
 @Component({
   selector: 'app-calendar',
@@ -53,7 +52,9 @@ export class CalendarComponent implements ControlValueAccessor {
       }
     }
 
-    this.change.emit(this.getDateFormat());
+    const v = this.getDateFormat();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
   changeMonth(ev) {
     const value = ev.target.value;
@@ -69,7 +70,10 @@ export class CalendarComponent implements ControlValueAccessor {
         this.form.month = this.regex.replace.fix(value.slice(0, -1), 2);
       }
     }
-    this.change.emit(this.getDateFormat());
+
+    const v = this.getDateFormat();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
   changeDate(ev) {
     const value = ev.target.value;
@@ -85,7 +89,10 @@ export class CalendarComponent implements ControlValueAccessor {
         this.form.date = this.regex.replace.fix(value.slice(0, -1), 2, 1, 31);
       }
     }
-    this.change.emit(this.getDateFormat());
+    
+    const v = this.getDateFormat();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
   async popoverCalendar() {
     const event:any = {target: this.elRef.nativeElement}
@@ -154,6 +161,7 @@ export class CalendarComponent implements ControlValueAccessor {
   set value(v) {
     if(v !== this.getDateFormat()) {
       this.setDateFormat(v);
+      this.onChangeCallback(v);
       this.change.emit(v);
     }
   }
@@ -162,10 +170,12 @@ export class CalendarComponent implements ControlValueAccessor {
   writeValue(v: any) {
     if(v !== this.getDateFormat()) {
       this.setDateFormat(v);
+      this.onChangeCallback(v);
+      this.change.emit(v);
     }
   }
-  private onTouchedCallback: () => void = noop;
-  private onChangeCallback: (_: any) => void = noop;
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
   registerOnChange(fn: any) { this.onChangeCallback = fn; }
   registerOnTouched(fn: any) { this.onTouchedCallback = fn; }
 }

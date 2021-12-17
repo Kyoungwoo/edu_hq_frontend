@@ -21,8 +21,9 @@ export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('Conne
 export interface ConnectResult {
   rsCode:number,
   rsObj:{[name:string]:any} | null,
-  resultListHash:{[name:string]:any}[] | null,
-  resultReference:string | null,
+  rsMsg:string,
+  rsMap:any[] | null,
+  rqMethod:string,
   url?:string
 }
 
@@ -49,10 +50,10 @@ export class ConnectService {
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(method, data?:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
+  async run(endPoint, data?:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
     if(!data) data = {};
     
-    const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + method;
+    const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
     
     const { platform_type, platform_key } = await this.device.get();
     const { user_id, user_session } = await this.user.userData;
@@ -64,7 +65,7 @@ export class ConnectService {
 
     if(!environment.production && !this.connectStrategy.exceptLogUrls.includes(url)) {
       console.log({
-        method: url,
+        url: url,
         ...data
       });
     }
@@ -90,15 +91,16 @@ export class ConnectService {
     } catch(error) {
       result = (() => {
         switch(error.status) {
-          case 0:
-            return {rsCode: 1, rsObj: error.message, resultListHash:null, resultReference: '인터넷 연결을 확인해주세요.', url: ''};
+          /* case 0:
+            console.log(error);
+            return {rsCode: 1, rsObj: error.message, url: '', rqMethod: '', rsMap: null, rsMsg: null, }; */
           default:
-            return {rsCode: error.status, rsObj: error.error, resultListHash:null, resultReference: error.message, url: ''};
+            return {rsCode: error.status, rsObj: error.error, rsMsg: error.message, rqMethod: '', rsMap:null, url};
         }
       })()
     }
 
-    result.url = method;
+    result.url = url;
 
     loading?.dismiss();
 

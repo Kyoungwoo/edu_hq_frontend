@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+
+import { DirectiveModule } from '../directive/directive.module';
 import { PipesModule } from '../pipes/pipes.module';
+
+
 import { DaumComponent } from './dialog/daum/daum.component';
 import { CalendarPopoverComponent } from './input/calendar-popover/calendar-popover.component';
 import { CalendarComponent } from './input/calendar/calendar.component';
@@ -29,7 +33,6 @@ import { ContainerComponent } from './ui/container/container.component';
 import { CopyRightComponent } from './ui/copy-right/copy-right.component';
 import { ImgComponent } from './ui/img/img.component';
 import { LogoComponent } from './ui/logo/logo.component';
-import { ModalDismissButtonComponent } from './ui/modal-dismiss-button/modal-dismiss-button.component';
 import { RowComponent } from './ui/row/row.component';
 import { TableComponent } from './ui/table/table.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -40,7 +43,8 @@ import { RadioGroupComponent } from './input/radio-group/radio-group.component';
 import { InputTemplateComponent } from './input/input-template/input-template.component';
 import { InputGroupComponent } from './input/input-group/input-group.component';
 import { PagerComponent } from './ui/pager/pager.component';
-import { DirectiveModule } from '../directive/directive.module';
+import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.component';
+import { EmailComponent } from './input/email/email.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -52,6 +56,7 @@ import { DirectiveModule } from '../directive/directive.module';
     CheckGroupComponent,
     DatetimeComponent,
     DatetimePopoverComponent,
+    EmailComponent,
     FileComponent,
     InputComponent,
     InputCaptionComponent,
@@ -74,12 +79,12 @@ import { DirectiveModule } from '../directive/directive.module';
     ColComponent,
     ContainerComponent,
     CopyRightComponent,
+    DismissButtonComponent,
     ImgComponent,
     LineComponent,
     LogoComponent,
     RowComponent,
     TableComponent,
-    ModalDismissButtonComponent,
     PagerComponent
   ],
   imports: [
@@ -98,6 +103,7 @@ import { DirectiveModule } from '../directive/directive.module';
     CheckComponent,
     CheckGroupComponent,
     DatetimeComponent,
+    EmailComponent,
     FileComponent,
     InputComponent,
     InputCaptionComponent,
@@ -118,12 +124,12 @@ import { DirectiveModule } from '../directive/directive.module';
     ColComponent,
     ContainerComponent,
     CopyRightComponent,
+    DismissButtonComponent,
     ImgComponent,
     LineComponent,
     LogoComponent,
     RowComponent,
     TableComponent,
-    ModalDismissButtonComponent,
     PagerComponent
   ]
 })

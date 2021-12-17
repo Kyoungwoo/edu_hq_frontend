@@ -2,7 +2,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
-import { SelectOption } from '../select-popover/select-popover.component';
+import { SelectOption } from '../select-option/select-option.component';
 
 @Component({
   selector: 'app-select-multiple-popover',

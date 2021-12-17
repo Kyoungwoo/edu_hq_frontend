@@ -2,16 +2,27 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+<<<<<<< HEAD
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
+=======
+import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
+import { SearchCompanyComponent } from 'src/app/component/modal/search-company/search-company.component';
+>>>>>>> cbc049863e03c0b7f28647a1ce549d14ab8f128e
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 import { SearchHeavyComponent } from 'src/app/component/modal/search-heavy/search-heavy.component';
 import { SearchSceneComponent } from 'src/app/component/modal/search-scene/search-scene.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchEducationComponent } from 'src/app/component/modal/search-education/search-education.component';
+<<<<<<< HEAD
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+=======
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { DaumService } from 'src/app/basic/service/util/daum.service';
+import { QrService } from 'src/app/basic/service/util/qr.service';
+>>>>>>> cbc049863e03c0b7f28647a1ce549d14ab8f128e
 
 @Component({
   selector: 'app-moniter',
@@ -59,6 +70,13 @@ export class MoniterPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
+<<<<<<< HEAD
+=======
+    const modal = await this.modal.create({
+      component:SearchHeavyComponent
+    });
+    modal.present();
+>>>>>>> cbc049863e03c0b7f28647a1ce549d14ab8f128e
 
 
     this.getDust();

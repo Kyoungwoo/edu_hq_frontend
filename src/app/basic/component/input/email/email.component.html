@@ -1,0 +1,10 @@
+<app-input-group [label]="label" [required]="required">
+  <app-input name="이메일1" type="email" placeholder="이메일 앞부분" [readonly]="readonly" [disabled]="disabled" [(ngModel)]="form.id" (keyup)="changeEmailId($event)">
+  </app-input>
+  @
+  <app-select name="이메일2" type="email" [readonly]="readonly" [disabled]="disabled" [(ngModel)]="form.domain">
+    <app-select-option value="naver.com">naver.com</app-select-option>
+    <app-select-option value="gmail.com">gmail.com</app-select-option>
+    <app-select-option type="edit">직접입력</app-select-option>
+  </app-select>
+</app-input-group>

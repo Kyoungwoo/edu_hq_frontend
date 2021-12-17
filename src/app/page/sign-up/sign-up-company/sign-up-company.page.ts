@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { fadeInAnimation, slideUpInAnimation } from 'src/app/basic/basic.animation';
+import { fadeInAnimation } from 'src/app/basic/basic.animation';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { RegexService } from 'src/app/basic/service/util/regex.service';
 
 @Component({
   selector: 'app-sign-up-company',
@@ -9,28 +10,35 @@ import { fadeInAnimation, slideUpInAnimation } from 'src/app/basic/basic.animati
   styleUrls: ['./sign-up-company.page.scss'],
   animations: [fadeInAnimation]
 })
-export class SignUpCompanyPage implements OnInit, OnDestroy {
+export class SignUpCompanyPage implements OnInit {
+
+  form = {
+    search_text: ''
+  }
+  res:ConnectResult;
 
   selectedCompany = null;
 
   nextRouterLink:string;
-  $queryParams:Subscription;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private connect: ConnectService,
+    public regex: RegexService
   ) { }
 
   ngOnInit() {
-    this.$queryParams = this.activatedRoute.queryParams.subscribe(queryParams => {
+    this.activatedRoute.queryParams.subscribe(queryParams => {
       const { userType } = queryParams;
-      this.nextRouterLink = this.getRouterLink(userType);
+      this.nextRouterLink = this.getNextRouterLink(userType);
     });
   }
-  ngOnDestroy() {
-    this.$queryParams.unsubscribe();
+
+  public async searchCompany() {
+    this.res = await this.connect.run('/forSignUp/company/get', this.form);
   }
 
-  private getRouterLink(userType) {
+  private getNextRouterLink(userType) {
     switch(userType) {
       case 'WORKER':
         return '/sign-up-worker';

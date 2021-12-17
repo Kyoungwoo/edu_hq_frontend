@@ -36,6 +36,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:string) {
     if(v !== this._value) {
       this._value = v;
+      this.onChangeCallback(v);
       this.change.emit(v);
     }
   }
@@ -43,11 +44,13 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     return this._value;
   }
   writeValue(v:string): void { 
-    if(v !== this._value) this._value = v; 
+    if(v !== this._value) this._value = v;
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }

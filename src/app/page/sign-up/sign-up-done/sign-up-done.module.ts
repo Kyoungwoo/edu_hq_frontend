@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SignUpWorkerPageRoutingModule } from './sign-up-worker-routing.module';
+import { SignUpDonePageRoutingModule } from './sign-up-done-routing.module';
 
-import { SignUpWorkerPage } from './sign-up-worker.page';
+import { SignUpDonePage } from './sign-up-done.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
 
@@ -15,10 +15,10 @@ import { SignUpComponentModule } from '../component/sign-up.component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SignUpWorkerPageRoutingModule,
+    SignUpDonePageRoutingModule,
     ComponentModule,
     SignUpComponentModule
   ],
-  declarations: [SignUpWorkerPage]
+  declarations: [SignUpDonePage]
 })
-export class SignUpWorkerPageModule {}
+export class SignUpDonePageModule {}

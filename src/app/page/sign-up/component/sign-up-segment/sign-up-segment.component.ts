@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sign-up-segment',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-up-segment.component.scss'],
 })
 export class SignUpSegmentComponent implements OnInit {
+
+  @Input() step:'step1' | 'step2' | 'step3' | 'step4';
 
   constructor() { }
 

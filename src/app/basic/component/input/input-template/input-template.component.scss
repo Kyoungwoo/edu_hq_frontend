@@ -1,6 +1,6 @@
 :host {
-    margin-top: var(--app-margin);
-    margin-bottom: var(--app-margin);
+    margin-top: var(--app-padding);
+    margin-bottom: var(--app-padding);
     border-radius: var(--app-border-radius);
     box-shadow: var(--app-box-shadow);
     background: var(--ion-color-white);
@@ -33,11 +33,12 @@
         justify-content: center;
         font-size: var(--font-size-h6);
         outline: none !important;
+        text-align: right;
     }
     >button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
     }
-    >button:empty {
+    >button.empty {
         display: none;
     }
 }
@@ -50,7 +51,7 @@
 :host.disabled {
     background: none;
     box-shadow: none;
-    border: 1px solid var(--ion-color-disable);
+    border: 1px solid var(--ion-color-step-200);
     >.input {
         opacity: var(--app-disabled-opacity);
     }

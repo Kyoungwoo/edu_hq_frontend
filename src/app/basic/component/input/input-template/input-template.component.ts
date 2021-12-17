@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input-template',
@@ -12,15 +12,6 @@ export class InputTemplateComponent implements OnInit {
   @Input() label:string;
 
   @Output() buttonClick = new EventEmitter();
-
-  buttonVisible:boolean = false;
-  
-  @ViewChild('button') set button(_button:ElementRef<HTMLElement>) {
-    if(!_button) return;
-    const buttonEl = _button.nativeElement;
-    const nodeList = buttonEl.childNodes;
-    this.buttonVisible = nodeList.length > 1;
-  }
 
   constructor() { }
 

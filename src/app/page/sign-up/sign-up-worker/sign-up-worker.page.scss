@@ -1,0 +1,27 @@
+app-avatar {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.file-card {
+    --padding: 8px;
+    app-col {
+        padding: 0;
+    }
+    h6 {
+        font-weight: 500;
+        color: var(--ion-text-color);
+    }
+    app-button {
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-div {
+        display: block;
+        >app-col {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}

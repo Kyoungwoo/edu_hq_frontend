@@ -13,7 +13,7 @@
   app-button {
     flex: 1 1 0%;
     width: 100%;
-    max-width: 150px;
+    max-width: 158px;
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -21,5 +21,11 @@
     box-shadow: none;
     background: var(--ion-color-translucent);
     color: var(--ion-color-shade);
+  }
+
+  @media screen and (max-width: 768px) {
+    app-button {
+      max-width: initial;
+    }
   }
 }

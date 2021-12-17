@@ -41,6 +41,9 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
     else if($event.key === 'Backspace') {
       this.form.hour = this.regex.replace.fix(this.form.hour.slice(0, -1), 2);
     }
+    const v = this.getTimeFormat();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
   changeMinute($event:KeyboardEvent) {
@@ -53,6 +56,9 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
     else if($event.key === 'Backspace') {
       this.form.minute = this.regex.replace.fix(this.form.minute.slice(0, -1), 2);
     }
+    const v = this.getTimeFormat();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
   async popoverDateTimePicker() {
@@ -112,7 +118,8 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
   set value(v:any) {
     if(v !== this.getTimeFormat()) {
       this.setTimeFormat(v);
-      this.change.emit(this.value);
+      this.onChangeCallback(v);
+      this.change.emit(v);
     }
   }
   get value() { return this.getTimeFormat() }
@@ -120,10 +127,12 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
   writeValue(v:any): void {
     if(v !== this.getTimeFormat()) {
       this.setTimeFormat(v);
+      this.onChangeCallback(v);
+      this.change.emit(v);
     }
   }
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
+  registerOnChange(fn: any) { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any) { this.onTouchedCallback = fn; }
 }

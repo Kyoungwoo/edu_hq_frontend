@@ -48,16 +48,21 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   set value(v:any) {
     if(v !== this.value) {
       this._value = v === this.on ? true : false;
+      this.onChangeCallback(this.value);
+      this.change.emit(this.value);
     }
-    this.change.emit(this.value);
   }
   get value() { return this._value ? this.on : this.off; }
   
   writeValue(v:any): void {
-    if(v !== this._value) this._value = v; 
+    if(v !== this.value) {
+      this._value = v === this.on ? true : false;
+      this.onChangeCallback(this.value);
+      this.change.emit(this.value);
+    }
   }
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }
