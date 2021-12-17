@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpWorkerPage implements OnInit {
 
+  inputTest = 'aldegad@devmonster.co.kr';
+
   constructor() { }
 
   ngOnInit() {

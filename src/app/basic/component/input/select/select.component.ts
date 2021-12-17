@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { ComponentRef } from '@ionic/core';
 import { Subscription } from 'rxjs';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
-import { SelectOptionComponent } from '../select-option/select-option.component';
-import { SelectOption, SelectPopoverComponent } from '../select-popover/select-popover.component';
+import { SelectOption, SelectOptionComponent, SelectOptionType } from '../select-option/select-option.component';
+import { SelectPopoverComponent } from '../select-popover/select-popover.component';
 const noop = () => {};
 
 @Component({
@@ -27,6 +27,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() placeholder = '선택';
   @Input() multiple:boolean = false;
 
+  public type:SelectOptionType = 'default';
   public text:string = '';
 
   $options:Subscription;
@@ -50,16 +51,26 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   getText() {
     if(!this.options) return;
 
+    const optionList = this.options.toArray();
     if(!this.multiple) {
-      const selectedOpt = this.options.toArray().find(opt => this.file.shallowEqual(opt.value, this.value));
-      this.text = selectedOpt?.text || '';
+      const selectedOpt = optionList.find(opt => this.file.shallowEqual(opt.value, this.value));
+      const canEdit = optionList.find(opt => opt.type === 'edit');
+      if(selectedOpt) {
+        this.text = selectedOpt.text;
+      } else {
+        this.text = '';
+        if(this.value && !selectedOpt) {
+          this.type = 'edit';
+        }
+      }
     } else {
-      const selectedOpt = this.options.toArray().filter(opt => {
+      const selectedOpt = optionList.filter(opt => {
         if(opt.type === 'all') return this.file.shallowEqual(opt.value, this.value);
         return this.value?.some(_value => this.file.shallowEqual(opt.value, _value));
       });
       this.text = selectedOpt.map(opt => opt.text).join();
     }
+    this.onChangeCallback(this.value);
     this.change.emit(this.value);
   }
 
@@ -88,7 +99,12 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     await popover.present();
     const { data } = await popover.onWillDismiss();
     if(data) {
-      this.value = data.value;
+      this.type = data.type;
+      if(data.type === 'edit') {
+        this.value = '';
+      } else {
+        this.value = data.value;
+      }
     }
   }
 

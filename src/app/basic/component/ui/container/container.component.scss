@@ -7,3 +7,8 @@
 :host.container-small {
     max-width: 640px;
 }
+:host ::ng-deep {
+    :first-child {
+        margin-top: 0;
+    }
+}

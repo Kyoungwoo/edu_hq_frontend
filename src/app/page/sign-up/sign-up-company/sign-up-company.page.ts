@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { RegexService } from 'src/app/basic/service/util/regex.service';
 
 @Component({
   selector: 'app-sign-up-company',
@@ -10,12 +12,19 @@ import { fadeInAnimation } from 'src/app/basic/basic.animation';
 })
 export class SignUpCompanyPage implements OnInit {
 
+  form = {
+    search_text: ''
+  }
+  res:ConnectResult;
+
   selectedCompany = null;
 
   nextRouterLink:string;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private connect: ConnectService,
+    public regex: RegexService
   ) { }
 
   ngOnInit() {
@@ -23,6 +32,10 @@ export class SignUpCompanyPage implements OnInit {
       const { userType } = queryParams;
       this.nextRouterLink = this.getNextRouterLink(userType);
     });
+  }
+
+  public async searchCompany() {
+    this.res = await this.connect.run('/forSignUp/company/get', this.form);
   }
 
   private getNextRouterLink(userType) {

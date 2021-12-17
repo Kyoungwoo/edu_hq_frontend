@@ -38,7 +38,7 @@
     >button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
     }
-    >button:empty {
+    >button.empty {
         display: none;
     }
 }

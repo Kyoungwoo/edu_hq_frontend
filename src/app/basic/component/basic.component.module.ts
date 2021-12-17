@@ -44,6 +44,7 @@ import { InputTemplateComponent } from './input/input-template/input-template.co
 import { InputGroupComponent } from './input/input-group/input-group.component';
 import { PagerComponent } from './ui/pager/pager.component';
 import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.component';
+import { EmailComponent } from './input/email/email.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -55,6 +56,7 @@ import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.compo
     CheckGroupComponent,
     DatetimeComponent,
     DatetimePopoverComponent,
+    EmailComponent,
     FileComponent,
     InputComponent,
     InputCaptionComponent,
@@ -101,6 +103,7 @@ import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.compo
     CheckComponent,
     CheckGroupComponent,
     DatetimeComponent,
+    EmailComponent,
     FileComponent,
     InputComponent,
     InputCaptionComponent,

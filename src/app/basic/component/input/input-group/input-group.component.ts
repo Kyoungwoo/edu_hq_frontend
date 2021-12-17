@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class InputGroupComponent implements OnInit {
 
   @Input() label:string;
+  @Input() required:boolean;
 
   constructor() { }
 

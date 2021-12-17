@@ -1,14 +1,10 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { SelectOption } from '../select-option/select-option.component';
 
 
-export type SelectOptionType = 'all' | 'normal';
-export interface SelectOption {
-  value:any,
-  text:string,
-  type:SelectOptionType
-}
+
 @Component({
   selector: 'app-select-popover',
   templateUrl: './select-popover.component.html',
