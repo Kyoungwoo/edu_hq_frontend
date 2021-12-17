@@ -2,20 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-<<<<<<< HEAD
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
-=======
-import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
-import { SearchCompanyComponent } from 'src/app/component/modal/search-company/search-company.component';
->>>>>>> b6c349031e27c4b23202eee8819502e58cfcdb74
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 import { SearchHeavyComponent } from 'src/app/component/modal/search-heavy/search-heavy.component';
 import { SearchSceneComponent } from 'src/app/component/modal/search-scene/search-scene.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchEducationComponent } from 'src/app/component/modal/search-education/search-education.component';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 @Component({
   selector: 'app-moniter',
@@ -47,6 +43,8 @@ export class MoniterPage implements OnInit, OnDestroy {
     pm25Grade: 0
   }
 
+  scandata = "http://m.site.naver.com/0TGMk"
+
   intervalWeather;
   intervalDust;
 
@@ -54,22 +52,17 @@ export class MoniterPage implements OnInit, OnDestroy {
     private connect:ConnectService,
     private modal : ModalController,
     private qr:QrService,
-    private daum:DaumService,
-    private nav:NavService
+    private toast:ToastService
+    
+    
     
   ) { }
 
   async ngOnInit() {
-<<<<<<< HEAD
-=======
-    const modal = await this.modal.create({
-      component:SearchEducationComponent
-    });
-    modal.present();
->>>>>>> b6c349031e27c4b23202eee8819502e58cfcdb74
 
-    this.getDust()
-    this.getWeather()
+
+    this.getDust();
+    this.getWeather();
     
     setInterval(()=>{
       this.getDust();
@@ -83,11 +76,11 @@ export class MoniterPage implements OnInit, OnDestroy {
   }
 
   test(){
-    this.qr.present();
+    // this.qr.subscribe
   }
 
   // async getWeatherGroup() {
-    // const resultDust = await Promise.all([
+    // const resultDust = await Promise.all([    
     //   this.getDust()
     // ])
     // const resultWeather = await Promise.all([
@@ -127,7 +120,24 @@ export class MoniterPage implements OnInit, OnDestroy {
         this.dust = res.rsObj;
     }
   }
+
+  async qrScanStart(){
+    let test=2;
+      const $qr = this.qr.subscribe(async (data) => { // => qr이 켜짐
+      if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+      const res = 0 //await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
+      if(0 === test) {
+        console.log($qr);
+         $qr.then((res) =>{
+          // res.unsubscribe();
+         }); // => qr이 꺼짐. subscribe가 unsubscribe 됨
+      } else {
+        this.connect.error('asdf',res);
+      }
+    });
+  }
 }
+
 
 // ngOnInit() {
 //   const $qr = this.qr.subscribe((data) => { // => qr이 켜짐

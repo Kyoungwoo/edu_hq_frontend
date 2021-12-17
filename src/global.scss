@@ -263,15 +263,11 @@
         }
       }
     }
-    .test {
-      .modal-wrapper{
-        --background: transparent !important;
+    .scan-modal {
+      .modal-wrapper.sc-ion-modal-md{
+        background: transparent !important;
       }
     }
-    // ion-router-outlet{
-    //   opacity: 0;
-    // }
-
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);

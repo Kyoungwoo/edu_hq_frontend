@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Subscription } from 'rxjs';
@@ -6,6 +6,8 @@ import { File } from "@ionic-native/file/ngx";
 import Qr from "src/app/basic/plugin/qr-plugin";
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-qr-scanner',
@@ -19,14 +21,21 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   camera_rotate = 0;
   qr_sound:MediaObject = null;
   
+  
+  @Input() getQrData;
+  @Input() qrModal:boolean;
+  @Input() scandata;
+  @Input() QrController;
   @Output() scan = new EventEmitter();
+  @Output() subscriber;
 
   constructor(
     private qrScanner: QRScanner,
     private file: File,
     private media: Media,
     private nav:NavService,
-    private Toast:ToastService
+    private toast:ToastService,
+    private _modal:ModalController
   ) { }
 
   async ngOnInit() {
@@ -73,33 +82,24 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   async scanQR() {
     await this.qrScanner.show();
     Qr.transparent();
+    const routerEl = document.querySelector('ion-router-outlet');
+    routerEl.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(text: string) => {
-      if(text){
-        const toast = await this.Toast.present({
-          message:'QR 체크가 완료 되었습니다.',
-          duration:1500,
-          color:'primary',
-        });
-        toast.prepend();
-        setTimeout(() => {
-          this.nav.back();
-          this.qr_subs.unsubscribe();
-        }, 2.0*1000);
-        
+      this.getQrData(text);
+      console.log(this.qrModal);
+      if(!this.qrModal){
+        this.qrScanner.destroy();
+        this._modal.dismiss();
+        const routerEl = document.querySelector('ion-router-outlet');
+        routerEl.style.display = 'flex';
+        //this.qr_sound.play();
+        this.scan.emit(text);
       }
-      if(this.qr_timeout) return false;
-      this.qr_subs.unsubscribe();
-      this.qr_sound.play();
-      this.scan.emit(text);
-      this.qr_timeout = setTimeout(() => {
-        this.scanQR();
-      }, 1000);
     });
   }
   rotateCamera() {
     this.camera_rotate = this.camera_rotate ? 0 : 1;
     this.qrScanner.useCamera(this.camera_rotate).then(status => {
-      console.log("status",status);
     });
   }
 

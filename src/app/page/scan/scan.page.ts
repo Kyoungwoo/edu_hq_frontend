@@ -39,17 +39,18 @@ export class ScanPage implements OnInit,OnDestroy {
     private Toast:ToastService
   ) { }
   async ngOnInit() {
-    await this.prepareQR();
-    this.scanQR();
-    const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
-    console.log("url",url)
-    this.qr_sound = this.media.create(url);
-    this.qr_sound.onSuccess.subscribe(e => {
-      console.log('success', e);
-    });
-    this.qr_sound.onError.subscribe(e => {
-      console.log('error', e);
-    })
+
+    // await this.prepareQR();
+    // this.scanQR();
+    // const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
+    // console.log("url",url)
+    // this.qr_sound = this.media.create(url);
+    // this.qr_sound.onSuccess.subscribe(e => {
+    //   console.log('success', e);
+    // });
+    // this.qr_sound.onError.subscribe(e => {
+    //   console.log('error', e);
+    // })
   }
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
@@ -89,12 +90,10 @@ export class ScanPage implements OnInit,OnDestroy {
           duration:1500,
           color:'primary',
         })
-        this.qr_subs.unsubscribe();
         
         this.nav.back();
       }
       if(this.qr_timeout) return false;
-      this.qr_subs.unsubscribe();
       this.qr_sound.play();
       this.scan.emit(text);
       this.qr_timeout = setTimeout(() => {
