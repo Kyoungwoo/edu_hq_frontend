@@ -23,11 +23,11 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   
   
   @Input() getQrData;
+  @Input() unsubscribe
   @Input() qrModal:boolean;
   @Input() scandata;
   @Input() QrController;
   @Output() scan = new EventEmitter();
-  @Output() subscriber;
 
   constructor(
     private qrScanner: QRScanner,
@@ -84,16 +84,22 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     Qr.transparent();
     const routerEl = document.querySelector('ion-router-outlet');
     routerEl.style.display = 'none';
-    this.qr_subs = this.qrScanner.scan().subscribe(async(text: string) => {
-      this.getQrData(text);
-      console.log(this.qrModal);
-      if(!this.qrModal){
-        this.qrScanner.destroy();
-        this._modal.dismiss();
+    this.qr_subs = this.qrScanner.scan().subscribe(async(data:string) => {
+      let res = {
+        qr_qrScanner: this.qrScanner,
+        qr_modal: this._modal,
+        qr_subs : this.qr_subs,
+        qr_data: data,
+      };
+      this.getQrData(res);
+      if(data){
         const routerEl = document.querySelector('ion-router-outlet');
         routerEl.style.display = 'flex';
-        //this.qr_sound.play();
-        this.scan.emit(text);
+        this.scan.emit(data);
+      } else {
+        setTimeout(() => {
+          this.scanQR();
+        }, 3000);
       }
     });
   }

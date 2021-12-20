@@ -257,38 +257,12 @@
   .custom-alert {
     --width: 280px;
   }
-
-<<<<<<< HEAD
-        .sc-ion-modal-md{
-         --background: transparent !important;
-        
-        }
-      }
-    }
+}
     .scan-modal {
       .modal-wrapper.sc-ion-modal-md{
         background: transparent !important;
       }
     }
-=======
-  .my-modal {
-    .modal-wrapper {
-      position: absolute;
-      top: 105px !important;
-      left:256px !important;
-      display: block;
-      width:calc(100% - 272px) !important;
-      height: 80% !important;
-      --box-shadow:none;
-
-      .sc-ion-modal-md{
-        --background: transparent !important;
-      
-      }
-    }
-  }
-
->>>>>>> cbc049863e03c0b7f28647a1ce549d14ab8f128e
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
@@ -423,7 +397,7 @@
   //   }
   // }
   
-}
+
 
 ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
   background: transparent none !important; 

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'moniter',
+    redirectTo: 'notice',
     pathMatch: 'full'
   },
   {
@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'moniter',
     loadChildren: () => import('./page/moniter/moniter.module').then( m => m.MoniterPageModule)
+  },
+  {
+    path: 'notice',
+    loadChildren: () => import('./page/notice/notice.module').then( m => m.NoticePageModule)
   }
 ];
 
