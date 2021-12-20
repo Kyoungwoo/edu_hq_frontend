@@ -6,7 +6,7 @@
   --ion-color-#{$name}-rgb: #{generateRGB($color)};
   --ion-color-#{$name}-contrast: #{$contrast};
   --ion-color-#{$name}-contrast-rgb: #{generateRGB($contrast)};
-  --ion-color-#{$name}-shade: #{mix(black, $color, 40%)};
+  --ion-color-#{$name}-shade: #{mix(black, $color, 10%)};
   --ion-color-#{$name}-tint: #{mix(white, $color, 80%)};
   --ion-color-#{$name}-translucent: #{mix(white, $color,80%)};
   --ion-color-#{$name}-translucent-rgb: #{generateRGB(mix(white, $color,80%))};

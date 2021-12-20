@@ -1,18 +1,18 @@
-<ion-header #header>
-  <ion-toolbar color="white">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Library Guide</ion-title>
-    <ion-buttons slot="end">
-      <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout" routerDirection="root">guide-table-layout</app-button>
-      <app-button color="primary" routerLink="/basic/guide-card-layout">guide-card-layout</app-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true" [scrollY]="false">
-  <ion-split-pane contentId="main-content">
-    <ion-content id="main-content" #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="scrollStart($event)">
+<ion-split-pane contentId="main-content">
+  <ion-nav id="main-content">
+    <ion-header #header>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Library Guide</ion-title>
+        <ion-buttons slot="end">
+          <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout" routerDirection="root">guide-table-layout</app-button>
+          <app-button color="primary" routerLink="/basic/guide-card-layout">guide-card-layout</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="scrollStart($event)">
       <app-container>
         <h1>Library Guide</h1>
         <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
@@ -419,7 +419,7 @@
           <app-check on="japan">japan</app-check>
           <app-check on="china">china</app-check>
         </app-check-group>
-     
+    
         <h5>properties</h5>
         <app-table>
           <thead>
@@ -494,7 +494,7 @@
     &lt;/app-button&gt;</code></pre>
     
         <app-row>
-          <app-col size="auto">
+          <!-- <app-col size="auto">
             <app-button>
               <small>[multiple=false]<br>[type=MAIN]</small>
               <app-file view_type="MAIN" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
@@ -511,7 +511,7 @@
               <small>[accept=camera]<br>[type=AVATAR]</small>
               <app-file view_type="AVATAR" [value]="file.list" [files]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
             </app-button>
-          </app-col>
+          </app-col> -->
         </app-row>
         <app-card color="white" *ngFor="let item of file.list; let i = index;" [href]="item.file_url" [download]="item.file_name" target="_blank">
           <app-row>
@@ -618,7 +618,7 @@
           </app-col>
           <app-col>
             <app-input name="with text" label="with text">
-             중복확인
+            중복확인
             </app-input>
           </app-col>
         </app-row>
@@ -710,10 +710,10 @@
             </tr>
           </tbody>
         </app-table>
-
+  
         <h4 id="input-group">input-group</h4>
         <p>이런 것 까지 만들게 할 줄이야. 대단하다.</p>
-
+  
         <app-row>
           <app-col size="200px">
             <app-input label="단일" placeholder="단일"></app-input>
@@ -1501,10 +1501,10 @@
           </tr>
           </tbody>
         </app-table>
-
+  
         <h4 id="pager">pager</h4>
         <app-pager>
-
+  
         </app-pager>
     
         <h3 id="pipes">Pipes</h3>
@@ -1674,259 +1674,259 @@
         
       </app-container>
     </ion-content>
-    <ion-menu contentId="main-content">
-      <ion-content>
-        <ion-list lines="none">
-          <ion-menu-toggle>
-            <ion-item routerLink="/basic/guide" fragment="top">
-              <ion-label>home</ion-label>
+  </ion-nav>
+  <ion-menu contentId="main-content">
+    <ion-content>
+      <ion-list lines="none">
+        <ion-menu-toggle>
+          <ion-item routerLink="/basic/guide" fragment="top">
+            <ion-label>home</ion-label>
+          </ion-item>
+          
+          <ion-list-header routerLink="/basic/guide" fragment="animation">
+            <ion-label>Animation</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item routerLink="/basic/guide" fragment="fadeAnimation">
+              <ion-label>fadeAnimation</ion-label>
             </ion-item>
-            
-            <ion-list-header routerLink="/basic/guide" fragment="animation">
-              <ion-label>Animation</ion-label>
-            </ion-list-header>
-            <ion-item-group>
-              <ion-item routerLink="/basic/guide" fragment="fadeAnimation">
-                <ion-label>fadeAnimation</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="fadeInAnimation">
-                <ion-label>fadeInAnimation</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="listAnimation">
-                <ion-label>listAnimation</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="listInAnimation">
-                <ion-label>listInAnimation</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="bounceInAnimation">
-                <ion-label>bounceInAnimation</ion-label>
-              </ion-item>
-            </ion-item-group>
-  
-  
-            <ion-list-header routerLink="/basic/guide" fragment="component">
-              <ion-label>Component</ion-label>
-            </ion-list-header>
-            <ion-item-group>
-              <ion-item-divider routerLink="/basic/guide" fragment="dialog">
-                <ion-label>Dialog</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="alert">
-                <ion-label>alert</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="daum">
-                <ion-label>daum</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider routerLink="/basic/guide" fragment="input">
-                <ion-label>Input</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="calendar">
-                <ion-label>calendar</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="calendar-popover">
-                <ion-label>
-                  <small>
-                    <ion-icon name="arrow-forward"></ion-icon>
-                    calendar-popover
-                  </small>
-                </ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="check">
-                <ion-label>check</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="check-group">
-                <ion-label>check-group</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime">
-                <ion-label>datetime</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="datetime-popover">
-                <ion-label>
-                  <small>
-                    <ion-icon name="arrow-forward"></ion-icon>
-                    datetime-popover
-                  </small>
-                </ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="file">
-                <ion-label>file</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="app-input">
-                <ion-label>input</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="input-caption">
-                <ion-label>input-caption</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="input-template">
-                <ion-label>input-template</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="naver-map">
-                <ion-label>naver-map</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="radio">
-                <ion-label>radio</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="radio-group">
-                <ion-label>radio-group</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="radio-input">
-                <ion-label>radio-input</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="select">
-                <ion-label>select</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="select-option">
-                <ion-label>select-option</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="select-popover">
-                <ion-label>
-                  <small>
-                    <ion-icon name="arrow-forward"></ion-icon>
-                    select-popover
-                  </small>
-                </ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="textarea">
-                <ion-label>textarea</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider>
-                <ion-label>native</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="nfc">
-                <ion-label>nfc</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="qr">
-                <ion-label>qr</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider lines="none" routerLink="/basic/guide" fragment="ui">
-                <ion-label>UI</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="avatar">
-                <ion-label>avatar</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="button">
-                <ion-label>button</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="button-footer">
-                <ion-label>button-footer</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="card">
-                <ion-label>card</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="container">
-                <ion-label>container</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="copy-right">
-                <ion-label>copy-right</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="img">
-                <ion-label>img</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="logo">
-                <ion-label>logo</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="row-col">
-                <ion-label>row / col</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="table">
-                <ion-label>table</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="pager">
-                <ion-label>pager</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-list-header routerLink="/basic/guide" fragment="pipes">
-              <ion-label>pipes</ion-label>
-            </ion-list-header>
-            <ion-item-group>
-              <ion-item routerLink="/basic/guide" fragment="safe-pipes">
-                <ion-label>safe</ion-label>
-              </ion-item>
-            </ion-item-group>
+            <ion-item routerLink="/basic/guide" fragment="fadeInAnimation">
+              <ion-label>fadeInAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="listAnimation">
+              <ion-label>listAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="listInAnimation">
+              <ion-label>listInAnimation</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="bounceInAnimation">
+              <ion-label>bounceInAnimation</ion-label>
+            </ion-item>
+          </ion-item-group>
 
-            <ion-list-header routerLink="/basic/guide" fragment="service">
-              <ion-label>Service</ion-label>
-            </ion-list-header>
-            <ion-item-group>
-              <ion-item-divider lines="none" routerLink="/basic/guide" fragment="core-service">
-                <ion-label>Core</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="connect-service">
-                <ion-label>connect</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="device-service">
-                <ion-label>device</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="file-service">
-                <ion-label>file</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="user-service">
-                <ion-label>user</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider routerLink="/basic/guide" fragment="ionic-service">
-                <ion-label>Ionic</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="alert-service">
-                <ion-label>alert</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="loading-service">
-                <ion-label>loading</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="nav-service">
-                <ion-label>nav</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="toast-service">
-                <ion-label>toast</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider routerLink="/basic/guide" fragment="native-service">
-                <ion-label>native</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="camera-service">
-                <ion-label>camera</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="gps-service">
-                <ion-label>GPS</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="nfc-service">
-                <ion-label>NFC</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="qr-service">
-                <ion-label>QR</ion-label>
-              </ion-item>
-            </ion-item-group>
-            <ion-item-group>
-              <ion-item-divider routerLink="/basic/guide" fragment="util-service">
-                <ion-label>util</ion-label>
-              </ion-item-divider>
-              <ion-item routerLink="/basic/guide" fragment="date-service">
-                <ion-label>date</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="daum-service">
-                <ion-label>daum</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="full-screen-service">
-                <ion-label>full-screen</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="promise-service">
-                <ion-label>promise</ion-label>
-              </ion-item>
-              <ion-item routerLink="/basic/guide" fragment="regex-service">
-                <ion-label>regex</ion-label>
-              </ion-item>
-            </ion-item-group>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-  </ion-split-pane>
-</ion-content>
+
+          <ion-list-header routerLink="/basic/guide" fragment="component">
+            <ion-label>Component</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item-divider routerLink="/basic/guide" fragment="dialog">
+              <ion-label>Dialog</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="alert">
+              <ion-label>alert</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="daum">
+              <ion-label>daum</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider routerLink="/basic/guide" fragment="input">
+              <ion-label>Input</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="calendar">
+              <ion-label>calendar</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="calendar-popover">
+              <ion-label>
+                <small>
+                  <ion-icon name="arrow-forward"></ion-icon>
+                  calendar-popover
+                </small>
+              </ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="check">
+              <ion-label>check</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="check-group">
+              <ion-label>check-group</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="datetime">
+              <ion-label>datetime</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="datetime-popover">
+              <ion-label>
+                <small>
+                  <ion-icon name="arrow-forward"></ion-icon>
+                  datetime-popover
+                </small>
+              </ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="file">
+              <ion-label>file</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="app-input">
+              <ion-label>input</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="input-caption">
+              <ion-label>input-caption</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="input-template">
+              <ion-label>input-template</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="naver-map">
+              <ion-label>naver-map</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="radio">
+              <ion-label>radio</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="radio-group">
+              <ion-label>radio-group</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="radio-input">
+              <ion-label>radio-input</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="select">
+              <ion-label>select</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="select-option">
+              <ion-label>select-option</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="select-popover">
+              <ion-label>
+                <small>
+                  <ion-icon name="arrow-forward"></ion-icon>
+                  select-popover
+                </small>
+              </ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="textarea">
+              <ion-label>textarea</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>native</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="nfc">
+              <ion-label>nfc</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="qr">
+              <ion-label>qr</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider lines="none" routerLink="/basic/guide" fragment="ui">
+              <ion-label>UI</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="avatar">
+              <ion-label>avatar</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="button">
+              <ion-label>button</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="button-footer">
+              <ion-label>button-footer</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="card">
+              <ion-label>card</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="container">
+              <ion-label>container</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="copy-right">
+              <ion-label>copy-right</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="img">
+              <ion-label>img</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="logo">
+              <ion-label>logo</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="row-col">
+              <ion-label>row / col</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="table">
+              <ion-label>table</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="pager">
+              <ion-label>pager</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-list-header routerLink="/basic/guide" fragment="pipes">
+            <ion-label>pipes</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item routerLink="/basic/guide" fragment="safe-pipes">
+              <ion-label>safe</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-list-header routerLink="/basic/guide" fragment="service">
+            <ion-label>Service</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item-divider lines="none" routerLink="/basic/guide" fragment="core-service">
+              <ion-label>Core</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="connect-service">
+              <ion-label>connect</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="device-service">
+              <ion-label>device</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="file-service">
+              <ion-label>file</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="user-service">
+              <ion-label>user</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider routerLink="/basic/guide" fragment="ionic-service">
+              <ion-label>Ionic</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="alert-service">
+              <ion-label>alert</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="loading-service">
+              <ion-label>loading</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="nav-service">
+              <ion-label>nav</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="toast-service">
+              <ion-label>toast</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider routerLink="/basic/guide" fragment="native-service">
+              <ion-label>native</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="camera-service">
+              <ion-label>camera</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="gps-service">
+              <ion-label>GPS</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="nfc-service">
+              <ion-label>NFC</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="qr-service">
+              <ion-label>QR</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group>
+            <ion-item-divider routerLink="/basic/guide" fragment="util-service">
+              <ion-label>util</ion-label>
+            </ion-item-divider>
+            <ion-item routerLink="/basic/guide" fragment="date-service">
+              <ion-label>date</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="daum-service">
+              <ion-label>daum</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="full-screen-service">
+              <ion-label>full-screen</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="promise-service">
+              <ion-label>promise</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="regex-service">
+              <ion-label>regex</ion-label>
+            </ion-item>
+          </ion-item-group>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+</ion-split-pane>

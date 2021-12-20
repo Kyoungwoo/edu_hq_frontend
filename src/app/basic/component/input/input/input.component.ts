@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-input',
@@ -13,6 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
 
+  @Input() color:Color;
   @Input() label:string = "";
   @Input() placeholder:string = "";
   @Input() type:"email" | "number" | "password" | "search" | "tel" | "text" | "url" = null;

@@ -254,36 +254,12 @@
     overflow: hidden;
   }
 
-  .custom-alert {
-    --width: 280px;
-  }
-<<<<<<< HEAD
-}
-    .scan-modal {
-      .modal-wrapper.sc-ion-modal-md{
-        background: transparent !important;
-      }
-    }
-=======
-
-  .my-modal {
-    .modal-wrapper {
-      position: absolute;
-      top: 105px !important;
-      left:256px !important;
-      display: block;
-      width:calc(100% - 272px) !important;
-      height: 80% !important;
-      --box-shadow:none;
-
-      .sc-ion-modal-md{
-        --background: transparent !important;
-      
-      }
+  .scan-modal {
+    .modal-wrapper.sc-ion-modal-md{
+      background: transparent !important;
     }
   }
 
->>>>>>> 0bce6a46bec77e023d48a903553a2fe9b6b965e0
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
@@ -364,6 +340,7 @@
       }
     }
   }
+
   ion-popover {
     .popover-content {
       --background: var(--ion-color-white);
@@ -405,21 +382,7 @@
     }
   }
 
-
-
-  // ion-segment.custum-segment-1{
-  //   ion-segment-button{
-  //     &::part(indicator-background){
-  //       background: red;
-  //     }
-  //     &::part(indicator){
-  //       width: 30px;
-  //     }
-  //   }
-  // }
-  
-
-
-ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
-  background: transparent none !important; 
+  ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
+    background: transparent none !important; 
+  }
 }

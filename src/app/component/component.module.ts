@@ -62,8 +62,8 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     BasicComponentModule
   ],
   exports: [
-    ConfirmComponent,
     BasicComponentModule,
+    ConfirmComponent,
     HeaderAdminComponent,
     QrScannerComponent,
     SearchPeopleComponent,

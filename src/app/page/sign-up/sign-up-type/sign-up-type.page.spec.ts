@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { ComponentModule } from 'src/app/component/component.module';
-import { SignUpComponentModule } from '../component/sign-up.component.module';
+import { AppModule } from 'src/app/app.module';
 
 import { SignUpTypePage } from './sign-up-type.page';
 
@@ -13,7 +12,8 @@ describe('SignUpTypePage', () => {
     TestBed.configureTestingModule({
       declarations: [ SignUpTypePage ],
       imports: [
-        IonicModule.forRoot()
+        IonicModule.forRoot(),
+        AppModule
       ]
     }).compileComponents();
 

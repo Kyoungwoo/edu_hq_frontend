@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FileService } from 'src/app/basic/service/core/file.service';
 declare const daum;
 
 @Component({
@@ -12,12 +13,19 @@ export class DaumComponent implements OnInit {
   @ViewChild('wrap') wrap:ElementRef;
 
   constructor(
-    private modal: ModalController
+    private modal: ModalController,
+    private file: FileService
   ) { }
 
   ngOnInit() {}
 
   async ngAfterViewInit() {
+    this.file.script(`https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js`).then(() => {
+      this.init();
+    });
+  }
+
+  private async init() {
     const data = await this.postCode();
     this.modal.dismiss(data);
   }
