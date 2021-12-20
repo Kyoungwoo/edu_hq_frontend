@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>장소 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input-group>
+      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+        <app-img name="search"></app-img>
+      </app-input>
+    </app-input-group>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<app-card (click)="toggle = !toggle">
+  <app-row>
+    <app-col>
+      Area1
+    </app-col>
+    <app-img  [src]="toggle ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+  </app-row>
+</app-card>
+<ng-container *ngIf="toggle">
+  <app-table *ngFor="let item of area">
+    <tr>
+      <td>{{item.ground}}</td>
+    </tr>
+  </app-table>
+</ng-container>
+<app-card>
+  <app-row>
+    <app-col>
+      Area2
+    </app-col>
+    <app-col size="auto">
+      <app-img src="assets/img/menu/list-tab.svg"></app-img>
+    </app-col>
+  </app-row>
+</app-card>
+<app-card>
+  <app-row>
+    <app-col>
+      Area3
+    </app-col>
+    <app-col size="auto">
+      <app-img src="assets/img/menu/list-tab.svg"></app-img>
+    </app-col>
+  </app-row>
+</app-card>
+</ion-content>
+<app-button-footer>
+  <app-button>취소</app-button>
+  <app-button>적용</app-button>
+</app-button-footer>

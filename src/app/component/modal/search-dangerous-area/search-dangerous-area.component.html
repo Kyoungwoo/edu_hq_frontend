@@ -1,31 +1,22 @@
 <ion-header>
   <ion-toolbar color="white">
-    <app-row>
-      <app-col>
-        <h4>위험지역 검색</h4>
-      </app-col>
-      <app-col></app-col>
-      <app-col size="auto">
-        <app-button fill="clear" shape="square">
-          <app-img name="close"></app-img>
-        </app-button>
-      </app-col>
-    </app-row>
+    <ion-title>위험지역 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
-<ion-content>
-  <app-row>
-    <app-col>
+  <ion-toolbar color="white">
+    <app-input-group>
       <app-select label="구분" name="select">
-        <!-- <app-select-option *ngFor="let option of select" [value]="option">{{ option }}</app-select-option> -->
+        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
       </app-select>
-    </app-col>
-    <app-col>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
         <app-img name="search"></app-img>
       </app-input>
-    </app-col>
-  </app-row>
+    </app-input-group>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
   <app-card>
     <app-row>
       <app-col size="auto">

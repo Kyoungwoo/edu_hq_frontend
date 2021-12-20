@@ -19,6 +19,9 @@ import { SearchSceneComponent } from './modal/search-scene/search-scene.componen
 import { SearchToolComponent } from './modal/search-tool/search-tool.component';
 import { SearchConstructionMachineryComponent } from './modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchEducationComponent } from './modal/search-education/search-education.component';
+import { PeopleViewComponent } from './modal/people-view/people-view.component';
+import { PeopleDeleteComponent } from './modal/people-delete/people-delete.component';
+import { SearchAreaComponent } from './modal/search-area/search-area.component';
 
 
 
@@ -36,7 +39,10 @@ import { SearchEducationComponent } from './modal/search-education/search-educat
     SearchSceneComponent,
     SearchToolComponent,
     SearchConstructionMachineryComponent,
-    SearchEducationComponent
+    SearchEducationComponent,
+    PeopleViewComponent,
+    PeopleDeleteComponent,
+    SearchAreaComponent
    
   ],
   imports: [
@@ -59,7 +65,10 @@ import { SearchEducationComponent } from './modal/search-education/search-educat
     SearchSceneComponent,
     SearchToolComponent,
     SearchConstructionMachineryComponent,
-    SearchEducationComponent
+    SearchEducationComponent,
+    PeopleViewComponent,
+    PeopleDeleteComponent,
+    SearchAreaComponent
   ]
 })
 export class ComponentModule { }
