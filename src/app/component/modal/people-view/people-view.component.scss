@@ -1,0 +1,12 @@
+app-row {
+	border-bottom: 1px solid var(--ion-color-medium-translucent);
+	padding: 10px 0;
+	:last-child {
+		border-bottom: none;
+	}
+}
+app-col {
+	h3 {
+		text-align: center;
+	}
+}
