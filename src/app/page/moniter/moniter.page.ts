@@ -17,6 +17,10 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
+import { SelectToolComponent } from 'src/app/component/select/select-tool/select-tool.component';
+import { SelectHeavyComponent } from 'src/app/component/select/select-heavy/select-heavy.component';
+import { SelectEducationComponent } from 'src/app/component/select/select-education/select-education.component';
+import { SelectCompanyComponent } from 'src/app/component/select/select-company/select-company.component';
 
 @Component({
   selector: 'app-moniter',
@@ -74,7 +78,7 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:SearchAreaComponent
+      component:SelectCompanyComponent
     });
     modal.present();
 

@@ -10,8 +10,11 @@ import { listAnimation } from 'src/app/basic/basic.animation';
   animations: [ listAnimation ]
 })
 export class SearchAreaComponent implements OnInit {
-  toggle:boolean
- area = [
+  area11:boolean
+  area22:boolean
+  area33:boolean
+
+ area1 = [
    {
     ground:'1공구'
    },
@@ -20,8 +23,29 @@ export class SearchAreaComponent implements OnInit {
    },
    {
     ground:'3공구'
-   }
-   
+   }  
+]
+area2 = [
+  {
+    building:'101동'
+  },
+  {
+    building:'102동'
+  },
+  {
+    building:'103동'
+  }  
+]
+area3 = [
+  {
+    floor:'1층'
+  },
+  {
+    floor:'2층'
+  },
+  {
+    floor:'3층'
+  }  
 ]
   constructor() { }
 

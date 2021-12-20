@@ -22,6 +22,10 @@ import { SearchEducationComponent } from './modal/search-education/search-educat
 import { PeopleViewComponent } from './modal/people-view/people-view.component';
 import { PeopleDeleteComponent } from './modal/people-delete/people-delete.component';
 import { SearchAreaComponent } from './modal/search-area/search-area.component';
+import { SelectToolComponent } from './select/select-tool/select-tool.component';
+import { SelectHeavyComponent } from './select/select-heavy/select-heavy.component';
+import { SelectEducationComponent } from './select/select-education/select-education.component';
+import { SelectCompanyComponent } from './select/select-company/select-company.component';
 
 
 
@@ -42,7 +46,11 @@ import { SearchAreaComponent } from './modal/search-area/search-area.component';
     SearchEducationComponent,
     PeopleViewComponent,
     PeopleDeleteComponent,
-    SearchAreaComponent
+    SearchAreaComponent,
+    SelectToolComponent,
+    SelectHeavyComponent,
+    SelectEducationComponent,
+    SelectCompanyComponent
    
   ],
   imports: [
@@ -68,7 +76,11 @@ import { SearchAreaComponent } from './modal/search-area/search-area.component';
     SearchEducationComponent,
     PeopleViewComponent,
     PeopleDeleteComponent,
-    SearchAreaComponent
+    SearchAreaComponent,
+    SelectToolComponent,
+    SelectHeavyComponent,
+    SelectEducationComponent,
+    SelectCompanyComponent
   ]
 })
 export class ComponentModule { }
