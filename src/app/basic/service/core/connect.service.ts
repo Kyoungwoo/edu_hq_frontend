@@ -28,6 +28,7 @@ export interface ConnectResult {
 }
 
 export interface ConnectOptions {
+  contentTyppe?:string,
   loading?:string
 }
 
@@ -50,7 +51,7 @@ export class ConnectService {
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(endPoint, data?:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
+  async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions) {
     if(!data) data = {};
     
     const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
@@ -71,6 +72,7 @@ export class ConnectService {
     }
     let body = this.jsonToForm(data);
     let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
     let result:ConnectResult;
 
     let loading:HTMLIonLoadingElement;

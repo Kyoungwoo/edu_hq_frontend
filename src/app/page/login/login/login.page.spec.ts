@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
@@ -21,4 +22,12 @@ describe('LoginPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('login button click', () => {
+    const el = fixture.debugElement;
+    const loginButton = el.query(By.css('login-button'));
+    console.log(loginButton);
+    // expect()
+  });
+
 });
