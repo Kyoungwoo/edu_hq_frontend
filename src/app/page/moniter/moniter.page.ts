@@ -14,6 +14,8 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+<<<<<<< HEAD
+=======
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
@@ -21,6 +23,7 @@ import { SelectToolComponent } from 'src/app/component/select/select-tool/select
 import { SelectHeavyComponent } from 'src/app/component/select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from 'src/app/component/select/select-education/select-education.component';
 import { SelectCompanyComponent } from 'src/app/component/select/select-company/select-company.component';
+>>>>>>> 0bce6a46bec77e023d48a903553a2fe9b6b965e0
 
 @Component({
   selector: 'app-moniter',
@@ -66,7 +69,8 @@ export class MoniterPage implements OnInit, OnDestroy {
     private connect:ConnectService,
     private modal : ModalController,
     private qr:QrService,
-    private toast:ToastService
+    private toast:ToastService,
+    private nav:NavService
     
     
     
@@ -77,10 +81,17 @@ export class MoniterPage implements OnInit, OnDestroy {
   // }
 
   async ngOnInit() {
+<<<<<<< HEAD
+    // const modal = await this.modal.create({
+    //   component:SearchHeavyComponent
+    // });
+    // modal.present();
+=======
     const modal = await this.modal.create({
       component:SelectCompanyComponent
     });
     modal.present();
+>>>>>>> 0bce6a46bec77e023d48a903553a2fe9b6b965e0
 
 
     this.getDust();
@@ -166,6 +177,16 @@ export class MoniterPage implements OnInit, OnDestroy {
   }
 
   async qrScanStart(){
+<<<<<<< HEAD
+      const $qr = await this.qr.subscribe(async (data) => { // => qr이 켜짐
+      // if(!data?.user_id){
+      //   return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+      // }
+      const res =true; //await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
+      if(res) {
+        console.log("asdfasdfasdf")
+           $qr.unsubscribe()// => qr이 꺼짐. subscribe가 unsubscribe 됨
+=======
     let test=2;
       const $qr = this.qr.subscribe(async (data) => { // => qr이 켜짐
       if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
@@ -175,23 +196,10 @@ export class MoniterPage implements OnInit, OnDestroy {
          $qr.then((res) =>{
           // res.unsubscribe();+
          }); // => qr이 꺼짐. subscribe가 unsubscribe 됨
+>>>>>>> 0bce6a46bec77e023d48a903553a2fe9b6b965e0
       } else {
         this.connect.error('asdf',res);
       }
     });
   }
 }
-
-
-// ngOnInit() {
-//   const $qr = this.qr.subscribe((data) => { // => qr이 켜짐
-//     if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
-//     const res = await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
-//     if(res.code === 0) {
-//       $qr.unsubscribe(); // => qr이 꺼짐. subscribe가 unsubscribe 됨
-//     } else {
-//       this.connect.error(res);
-//     }
-//   });
-// }
-

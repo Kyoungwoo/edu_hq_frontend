@@ -257,6 +257,14 @@
   .custom-alert {
     --width: 280px;
   }
+<<<<<<< HEAD
+}
+    .scan-modal {
+      .modal-wrapper.sc-ion-modal-md{
+        background: transparent !important;
+      }
+    }
+=======
 
   .my-modal {
     .modal-wrapper {
@@ -275,6 +283,7 @@
     }
   }
 
+>>>>>>> 0bce6a46bec77e023d48a903553a2fe9b6b965e0
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
@@ -409,7 +418,7 @@
   //   }
   // }
   
-}
+
 
 ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
   background: transparent none !important; 

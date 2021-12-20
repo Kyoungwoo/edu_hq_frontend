@@ -17,21 +17,13 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 })
 export class QrService {
   qr_subs:Subscription;
-
-  // obs = new  Observable((observer) => {
-  //   this._scan();
-  //   console.log("Observable starts");
-  //   console.log("----- subscribe inner -----");
-  //   let modal:any = this._modal.create({
-  //     component: QrScannerComponent,
-  //     componentProps: {
-  //       // subscriber
-  //     }
-  //   }).then(value => {
-  //     console.log(value);
-  //   })
-  //   modal.present();
-  // })
+  qr_value = null;
+  qr_response = {
+    qr_data: '',
+    qr_qrScanner: null,
+    qr_modal: null,
+    qr_subs: null
+  }
 
   constructor(
     private connect: ConnectService,
@@ -45,12 +37,7 @@ export class QrService {
   ) { }
 
   qrCallback;
-  qrModal:boolean = true;
-  qrvalue;
 
-  unsumbstring(){
-    
-  }
   async subscribe(callback) {
     console.log("callback",callback)
     this.qrCallback = callback;
@@ -59,58 +46,36 @@ export class QrService {
       component:QrScannerComponent,
       cssClass:'scan-modal',
       componentProps: {
-        qrModal:this.qrModal,
         getQrData: (value) => {
           this.getQrData(value);
         }
       }
     });
     modal.present();
-    if(this.qrvalue?.user_id){
+
       return {
-        // unsubscribe: () => {
-        //   this.qrCallback = null;
-        //   this.qrModal = false;
-        //   modal.dismiss();
-        // }
+        unsubscribe: () => {
+          console.log("unsubscribe ----- ",this.qr_response);
+          this.qrCallback = null;
+          modal.dismiss();
+          this.qr_response.qr_modal.dismiss();
+          this.qr_response.qr_subs.unsubscribe();
+          this.qr_response.qr_qrScanner.distroy();
+        }
       }
-    }
   }
-  getQrData(value) {
-    this.qrvalue = value;
-      return this.qrCallback(value);
+  // return {
+  //   unsubscribe: () => {
+  //     this.qrCallback = null;
+  //     this.qrModal = false;
+  //     this._modal.dismiss();
+  //     value.qr_modal.dismiss();
+  //     // value.qr_subs.unsubscribe();
+  //     // value.qrScanner.destroy();
+  //   }
+  // }
+  async getQrData(value) {
+    this.qr_response = {...value};
+    return this.qrCallback(value);
   }
 }
-
-
-// async subscribe(callback) {
-//   let res = {
-//     unsubscribe: () => {
-        
-
-//       this.qrCallback = null;
-//       modal.dismiss();
-//     }
-//   }
-
-//   this.qrCallback = callback;
-//   const modal = await this._modal.create({
-//     component:QrScannerComponent,
-//     cssClass:'scan-modal',
-//     componentProps: {
-//       getQrData: (value) => {
-//         this.getQrData(value);
-//       }
-//     }
-//   });
-
-//   modal.present();
-//   return res;
-// }
-
-// getQrData(value) {
-//   // let test = this.subscribe("asd");
-//   // console.log(test);
-//     return this.qrCallback(value);
-// }
-// }
