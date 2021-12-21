@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MinutesPageRoutingModule } from './minutes-routing.module';
+import { MinutesEditPageRoutingModule } from './minutes-edit-routing.module';
 
-import { MinutesPage } from './minutes.page';
-import { NoticePageRoutingModule } from '../notice/notice-routing.module';
+import { MinutesEditPage } from './minutes-edit.page';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -16,9 +16,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    NoticePageRoutingModule,
-    MinutesPageRoutingModule
+    BasicComponentModule,
+    MinutesEditPageRoutingModule
   ],
-  declarations: [MinutesPage]
+  declarations: [MinutesEditPage]
 })
-export class MinutesPageModule {}
+export class MinutesEditPageModule {}

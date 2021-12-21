@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { MoniterPage } from './moniter.page';
+import { MinutesEditPage } from './minutes-edit.page';
 
-describe('MoniterPage', () => {
-  let component: MoniterPage;
-  let fixture: ComponentFixture<MoniterPage>;
+describe('MinutesEditPage', () => {
+  let component: MinutesEditPage;
+  let fixture: ComponentFixture<MinutesEditPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoniterPage ],
+      declarations: [ MinutesEditPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('MoniterPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MoniterPage);
+    fixture = TestBed.createComponent(MinutesEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

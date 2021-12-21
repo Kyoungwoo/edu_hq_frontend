@@ -14,6 +14,7 @@ describe('SignUpWorkerPage', () => {
       imports: [
         IonicModule.forRoot(),
         AppModule
+        
       ]
     }).compileComponents();
 

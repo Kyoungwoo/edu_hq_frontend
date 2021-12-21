@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MsdsPageRoutingModule } from './msds-routing.module';
+import { MinutesListPageRoutingModule } from './minutes-list-routing.module';
 
-import { MsdsPage } from './msds.page';
+import { MinutesListPage } from './minutes-list.page';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
-import { NoticePageRoutingModule } from '../notice/notice-routing.module';
 
 @NgModule({
   imports: [
@@ -16,9 +16,9 @@ import { NoticePageRoutingModule } from '../notice/notice-routing.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    NoticePageRoutingModule,
-    MsdsPageRoutingModule
+    BasicComponentModule,
+    MinutesListPageRoutingModule
   ],
-  declarations: [MsdsPage]
+  declarations: [MinutesListPage]
 })
-export class MsdsPageModule {}
+export class MinutesListPageModule {}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MsdsPage } from './msds.page';
+import { MsdsEditPage } from './msds-edit.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: MsdsPage
+    component: MsdsEditPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MsdsPageRoutingModule {}
+export class MsdsEditPageRoutingModule {}
