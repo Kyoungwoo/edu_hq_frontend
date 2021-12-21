@@ -62,7 +62,11 @@ const routes: Routes = [
   {
     path: 'notice',
     loadChildren: () => import('./page/notice/notice.module').then( m => m.NoticePageModule)
+  },  {
+    path: 'manual-list',
+    loadChildren: () => import('./manual-list/manual-list.module').then( m => m.ManualListPageModule)
   }
+
 ];
 
 @NgModule({

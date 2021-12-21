@@ -32,6 +32,10 @@ import { SelectBusinessComponent } from './select/select-business/select-busines
 import { SelectSafetymanagerComponent } from './select/select-safetymanager/select-safetymanager.component';
 import { SelectConstructionComponent } from './select/select-construction/select-construction.component';
 import { SelectOccupationComponent } from './select/select-occupation/select-occupation.component';
+import { SelectPositionComponent } from './select/select-position/select-position.component';
+import { SelectOrganizationComponent } from './select/select-organization/select-organization.component';
+import { SelectNationComponent } from './select/select-nation/select-nation.component';
+import { SelectPeriodComponent } from './select/select-period/select-period.component';
 
 
 
@@ -62,7 +66,11 @@ import { SelectOccupationComponent } from './select/select-occupation/select-occ
     SelectBusinessComponent,
     SelectSafetymanagerComponent,
     SelectConstructionComponent,
-    SelectOccupationComponent
+    SelectOccupationComponent,
+    SelectPositionComponent,
+    SelectOrganizationComponent,
+    SelectNationComponent,
+    SelectPeriodComponent
    
   ],
   imports: [
@@ -98,7 +106,11 @@ import { SelectOccupationComponent } from './select/select-occupation/select-occ
     SelectBusinessComponent,
     SelectSafetymanagerComponent,
     SelectConstructionComponent,
-    SelectOccupationComponent
+    SelectOccupationComponent,
+    SelectPositionComponent,
+    SelectOrganizationComponent,
+    SelectNationComponent,
+    SelectPeriodComponent
   ]
 })
 export class ComponentModule { }
