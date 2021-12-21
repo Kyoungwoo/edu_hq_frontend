@@ -98,7 +98,7 @@ import { EmailComponent } from './input/email/email.component';
   ],
   exports: [
     //dialog
-    
+    DaumComponent,
     // input components
     DirectiveModule,
     CalendarComponent,
