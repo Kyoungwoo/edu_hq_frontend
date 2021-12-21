@@ -6,7 +6,21 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
- <app-select-nation></app-select-nation>
+    <app-row>
+      <app-col>
+        <app-input-group label="구분">
+          <app-select placeholder="선택">
+            <app-select-option value="로그인">로그인</app-select-option>
+            <app-select-option value="회원가입">회원가입</app-select-option>
+            <app-select-option value="회원관리">회원관리</app-select-option>
+            <app-select-option value="마이페이지">마이페이지</app-select-option>
+            <app-select-option value="현장관리">현장관리</app-select-option>
+          </app-select>
+        </app-input-group>
+      </app-col>
+        <app-button>상세검색</app-button>
+    </app-row>
+    
   </ion-toolbar>
 </ion-header>
 
