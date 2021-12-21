@@ -26,6 +26,12 @@ import { SelectToolComponent } from './select/select-tool/select-tool.component'
 import { SelectHeavyComponent } from './select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from './select/select-education/select-education.component';
 import { SelectCompanyComponent } from './select/select-company/select-company.component';
+import { SelectSceneComponent } from './select/select-scene/select-scene.component';
+import { SelectPeopleComponent } from './select/select-people/select-people.component';
+import { SelectBusinessComponent } from './select/select-business/select-business.component';
+import { SelectSafetymanagerComponent } from './select/select-safetymanager/select-safetymanager.component';
+import { SelectConstructionComponent } from './select/select-construction/select-construction.component';
+import { SelectOccupationComponent } from './select/select-occupation/select-occupation.component';
 
 
 
@@ -50,7 +56,13 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     SelectToolComponent,
     SelectHeavyComponent,
     SelectEducationComponent,
-    SelectCompanyComponent
+    SelectCompanyComponent,
+    SelectSceneComponent,
+    SelectPeopleComponent,
+    SelectBusinessComponent,
+    SelectSafetymanagerComponent,
+    SelectConstructionComponent,
+    SelectOccupationComponent
    
   ],
   imports: [
@@ -80,7 +92,13 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     SelectToolComponent,
     SelectHeavyComponent,
     SelectEducationComponent,
-    SelectCompanyComponent
+    SelectCompanyComponent,
+    SelectSceneComponent,
+    SelectPeopleComponent,
+    SelectBusinessComponent,
+    SelectSafetymanagerComponent,
+    SelectConstructionComponent,
+    SelectOccupationComponent
   ]
 })
 export class ComponentModule { }

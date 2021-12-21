@@ -21,6 +21,12 @@ import { SelectToolComponent } from 'src/app/component/select/select-tool/select
 import { SelectHeavyComponent } from 'src/app/component/select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from 'src/app/component/select/select-education/select-education.component';
 import { SelectCompanyComponent } from 'src/app/component/select/select-company/select-company.component';
+import { SelectSceneComponent } from 'src/app/component/select/select-scene/select-scene.component';
+import { SelectPeopleComponent } from 'src/app/component/select/select-people/select-people.component';
+import { SelectBusinessComponent } from 'src/app/component/select/select-business/select-business.component';
+import { SelectSafetymanagerComponent } from 'src/app/component/select/select-safetymanager/select-safetymanager.component';
+import { SelectConstructionComponent } from 'src/app/component/select/select-construction/select-construction.component';
+import { SelectOccupationComponent } from 'src/app/component/select/select-occupation/select-occupation.component';
 
 @Component({
   selector: 'app-moniter',
@@ -72,7 +78,7 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:SelectCompanyComponent
+      component:SelectOccupationComponent
     });
     modal.present();
 
