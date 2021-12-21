@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'manual-list',
+    redirectTo: 'manual-detail-search',
     pathMatch: 'full'
   },
   {
@@ -86,7 +86,12 @@ const routes: Routes = [
   {
     path: 'notice-edit',
     loadChildren: () => import('./page/notice-board/notice/notice-edit/notice-edit.module').then( m => m.NoticeEditPageModule)
+  },
+  {
+    path: 'manual-detail-search',
+    loadChildren: () => import('./page/customer-support/user-manual/manual-detail-search/manual-detail-search.module').then( m => m.ManualDetailSearchPageModule)
   }
+
 
 ];
 

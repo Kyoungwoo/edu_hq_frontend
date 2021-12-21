@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { ManualListPage } from './manual-list.page';
+import { ManualDetailSearchPage } from './manual-detail-search.page';
 
-describe('ManualListPage', () => {
-  let component: ManualListPage;
-  let fixture: ComponentFixture<ManualListPage>;
+describe('ManualDetailSearchPage', () => {
+  let component: ManualDetailSearchPage;
+  let fixture: ComponentFixture<ManualDetailSearchPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManualListPage ],
+      declarations: [ ManualDetailSearchPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('ManualListPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ManualListPage);
+    fixture = TestBed.createComponent(ManualDetailSearchPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

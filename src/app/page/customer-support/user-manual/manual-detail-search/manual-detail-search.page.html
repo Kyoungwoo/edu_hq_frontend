@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>상세 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-input-group label="구분">
+    <app-select placeholder="선택">
+      <app-select-option value="로그인">로그인</app-select-option>
+      <app-select-option value="회원가입">회원가입</app-select-option>
+      <app-select-option value="회원관리">회원관리</app-select-option>
+      <app-select-option value="마이페이지">마이페이지</app-select-option>
+      <app-select-option value="현장관리">현장관리</app-select-option>
+    </app-select>
+  </app-input-group>
+  <app-row>
+    <app-radio-input label="등록일" style="width:100%;">
+      <app-row>
+        <app-radio value="전체">전체</app-radio>
+        <app-radio value="전주">전주</app-radio>
+        <app-radio value="오늘">오늘</app-radio>
+      </app-row>
+      <app-row>
+        <app-radio value="금주">금주</app-radio>
+        <app-radio value="차주">차주</app-radio>
+        <app-radio value="당월">당월</app-radio>
+      </app-row>
+    </app-radio-input>
+    </app-row>
+    <app-input-group>
+      <app-calendar name="calendar"></app-calendar>
+      ~
+      <app-calendar name="calendar"></app-calendar>
+    </app-input-group>
+    <app-row>
+      <app-col>
+        
+      </app-col>
+      <app-col>
+        
+      </app-col>
+    </app-row>
+    <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-img name="search"></app-img>
+    </app-input>
+</ion-content>
+<app-button-footer>
+  <app-button>초기화</app-button>
+  <app-button>검색</app-button>
+</app-button-footer>
