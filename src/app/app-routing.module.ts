@@ -60,10 +60,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/moniter/moniter.module').then( m => m.MoniterPageModule)
   },
   {
-    path: 'notice',
-    loadChildren: () => import('./page/notice-board/notice/notice.module').then( m => m.NoticePageModule)
-  },
-  {
     path: 'msds-list',
     loadChildren: () => import('./page/notice-board/msds/msds-list/msds-list.module').then( m => m.MsdsListPageModule)
   },
@@ -78,6 +74,14 @@ const routes: Routes = [
   {
     path: 'minutes-edit',
     loadChildren: () => import('./page/notice-board/minutes/minutes-edit/minutes-edit.module').then( m => m.MinutesEditPageModule)
+  },
+  {
+    path: 'notice-list',
+    loadChildren: () => import('./page/notice-board/notice/notice-list/notice-list.module').then( m => m.NoticeListPageModule)
+  },
+  {
+    path: 'notice-edit',
+    loadChildren: () => import('./page/notice-board/notice/notice-edit/notice-edit.module').then( m => m.NoticeEditPageModule)
   }
 ];
 
