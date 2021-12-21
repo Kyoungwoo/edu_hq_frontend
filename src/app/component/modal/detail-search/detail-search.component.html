@@ -11,20 +11,24 @@
   <app-card>
     <app-row>
       <app-col>
+        <app-select-scene></app-select-scene>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
         <app-select-company></app-select-company>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-select placeholder="구분">
+        <app-select label="구분">
           <app-select-option></app-select-option>
         </app-select>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-input-group label="작성일">
-          <app-radio-input></app-radio-input>
+        <app-input-group label="작성일">       
           <app-calendar></app-calendar>
           ~
           <app-calendar></app-calendar>

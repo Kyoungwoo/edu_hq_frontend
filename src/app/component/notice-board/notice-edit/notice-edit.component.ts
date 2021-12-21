@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-notice-detail',
-  templateUrl: './notice-detail.component.html',
-  styleUrls: ['./notice-detail.component.scss'],
+  selector: 'app-notice-edit',
+  templateUrl: './notice-edit.component.html',
+  styleUrls: ['./notice-edit.component.scss'],
 })
-export class NoticeDetailComponent implements OnInit {
+export class NoticeEditComponent implements OnInit {
 
   constructor(
     private _modal : ModalController

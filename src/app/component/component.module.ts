@@ -26,8 +26,16 @@ import { SelectToolComponent } from './select/select-tool/select-tool.component'
 import { SelectHeavyComponent } from './select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from './select/select-education/select-education.component';
 import { SelectCompanyComponent } from './select/select-company/select-company.component';
-import { DetailSearchComponent } from './detail-search/detail-search.component';
-import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
+import { DetailSearchComponent } from './modal/detail-search/detail-search.component';
+import { NoticeEditComponent } from './notice-board/notice-edit/notice-edit.component';
+import { SelectSceneComponent } from './select/select-scene/select-scene.component';
+import { SelectPeopleComponent } from './select/select-people/select-people.component';
+import { SelectBusinessComponent } from './select/select-business/select-business.component';
+import { SelectSafetymanagerComponent } from './select/select-safetymanager/select-safetymanager.component';
+import { SelectConstructionComponent } from './select/select-construction/select-construction.component';
+import { SelectOccupationComponent } from './select/select-occupation/select-occupation.component';
+import { MsdsEditComponent } from './notice-board/msds-edit/msds-edit.component';
+import { MinutesEditComponent } from './notice-board/minutes-edit/minutes-edit.component';
 
 
 
@@ -54,7 +62,15 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     SelectEducationComponent,
     SelectCompanyComponent,
     DetailSearchComponent,
-    NoticeDetailComponent
+    NoticeEditComponent,
+    SelectSceneComponent,
+    SelectPeopleComponent,
+    SelectBusinessComponent,
+    SelectSafetymanagerComponent,
+    SelectConstructionComponent,
+    SelectOccupationComponent,
+    MsdsEditComponent,
+    MinutesEditComponent
    
   ],
   imports: [
@@ -86,7 +102,15 @@ import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
     SelectEducationComponent,
     SelectCompanyComponent,
     DetailSearchComponent,
-    NoticeDetailComponent
+    NoticeEditComponent,
+    SelectSceneComponent,
+    SelectPeopleComponent,
+    SelectBusinessComponent,
+    SelectSafetymanagerComponent,
+    SelectConstructionComponent,
+    SelectOccupationComponent,
+    MsdsEditComponent,
+    MinutesEditComponent
   ]
 })
 export class ComponentModule { }

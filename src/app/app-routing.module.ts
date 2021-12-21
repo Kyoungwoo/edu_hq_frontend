@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'notice',
+    redirectTo: 'moniter',
     pathMatch: 'full'
   },
   {
@@ -61,7 +61,15 @@ const routes: Routes = [
   },
   {
     path: 'notice',
-    loadChildren: () => import('./page/notice/notice.module').then( m => m.NoticePageModule)
+    loadChildren: () => import('./page/notice-board/notice/notice.module').then( m => m.NoticePageModule)
+  },
+  {
+    path: 'msds',
+    loadChildren: () => import('./page/notice-board/msds/msds.module').then( m => m.MsdsPageModule)
+  },
+  {
+    path: 'minutes',
+    loadChildren: () => import('./page/notice-board/minutes/minutes.module').then( m => m.MinutesPageModule)
   }
 ];
 
