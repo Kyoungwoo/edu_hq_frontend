@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 import { SignUpWorkerPage } from './sign-up-worker.page';
 
@@ -17,8 +19,9 @@ describe('SignUpWorkerPage', () => {
         IonicModule.forRoot(),
         AppModule,
         FormsModule,
-        ComponentModule
-        
+        ComponentModule,
+        SignUpComponentModule,
+        RouterTestingModule
       ]
     }).compileComponents();
 

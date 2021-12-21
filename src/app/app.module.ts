@@ -15,6 +15,7 @@ import { ConnectStrategy } from './basic/service/core/connect.service';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

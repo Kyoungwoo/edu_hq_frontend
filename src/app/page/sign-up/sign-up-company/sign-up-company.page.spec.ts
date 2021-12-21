@@ -44,18 +44,24 @@ describe('SignUpCompanyPage', () => {
     const el = fixture.debugElement;
     const inputSearch = el.query(By.css('#input-search'));
     (<InputComponent>inputSearch.componentInstance).value = "4431";
-    await component.searchCompany();
+    let res = await component.searchCompany();
+    
     fixture.detectChanges();
     
     const resultFail = el.query(By.css('#result-fail'));
-    expect(component.res.rsCode).toEqual(1008);
-    expect(resultFail).toBeFalsy();
+    expect(res.rsCode).toEqual(1008);
+    expect(resultFail).toBeTruthy();
   });
 
-  it('회사 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 회사가 나온다.', () => {
+  it('회사 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 회사가 나온다.', async() => {
     const el = fixture.debugElement;
     const inputSearch = el.query(By.css('#input-search'));
     (<InputComponent>inputSearch.componentInstance).value = "데브";
+    const res = await component.searchCompany();
+    fixture.detectChanges();
 
+    const resultSuccess = el.query(By.css('#result-success'));
+    expect(res.rsCode).toEqual(0);
+    expect(resultSuccess).toBeTruthy();
   });
 });

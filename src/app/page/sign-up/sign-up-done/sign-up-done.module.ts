@@ -15,9 +15,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SignUpDonePageRoutingModule,
     ComponentModule,
-    SignUpComponentModule
+    SignUpComponentModule,
+    SignUpDonePageRoutingModule
   ],
   declarations: [SignUpDonePage]
 })

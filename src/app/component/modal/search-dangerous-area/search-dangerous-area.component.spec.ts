@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { AppModule } from 'src/app/app.module';
+import { ComponentModule } from '../../component.module';
 
 import { SearchDangerousAreaComponent } from './search-dangerous-area.component';
 
@@ -10,7 +13,12 @@ describe('DangerousAreaComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchDangerousAreaComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        AppModule,
+        FormsModule,
+        ComponentModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchDangerousAreaComponent);

@@ -104,11 +104,12 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
     public regex: RegexService
   ) {}
 
-  ngOnInit() {}
-  ngAfterViewInit() {
-    this.navCtrl.fragmentScroll(this.content);
+  ngOnInit() {
     /** file */
     this.addFutFileEx();
+  }
+  ngAfterViewInit() {
+    this.navCtrl.fragmentScroll(this.content);
   }
   async ionViewDidEnter() {
     await this.promise.wait(1000);

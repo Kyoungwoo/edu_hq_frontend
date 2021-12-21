@@ -15,10 +15,11 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SignUpTermsPageRoutingModule,
     ComponentModule,
-    SignUpComponentModule
+    SignUpComponentModule,
+    SignUpTermsPageRoutingModule
   ],
   declarations: [SignUpTermsPage]
 })
 export class SignUpTermsPageModule {}
+ 

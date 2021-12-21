@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
 import { GuidePage } from './guide.page';
 
@@ -13,7 +15,9 @@ describe('GuidePage', () => {
       declarations: [ GuidePage ],
       imports: [
         IonicModule.forRoot(),
-        AppModule
+        FormsModule,
+        AppModule,
+        ComponentModule
       ]
     }).compileComponents();
 

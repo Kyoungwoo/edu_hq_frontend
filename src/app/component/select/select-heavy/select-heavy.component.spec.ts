@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { AppModule } from 'src/app/app.module';
+import { ComponentModule } from '../../component.module';
 
 import { SelectHeavyComponent } from './select-heavy.component';
 
@@ -10,7 +13,12 @@ describe('SelectHeavyComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SelectHeavyComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        AppModule,
+        FormsModule,
+        ComponentModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SelectHeavyComponent);
