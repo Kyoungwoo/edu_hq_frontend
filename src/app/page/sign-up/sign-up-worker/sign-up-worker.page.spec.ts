@@ -32,5 +32,6 @@ describe('SignUpWorkerPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    // company_id=1&business_register_no=1544&company_name=데브몬스터&company_ceo=1
   });
 });

@@ -40,15 +40,14 @@ describe('SignUpTypePage', () => {
 
     const el = fixture.debugElement;
     const buttonFooter = el.query(By.css('#button-footer'));
-    expect(buttonFooter).toEqual(null);
+    expect(buttonFooter).toBeFalsy();
   });
 
   it('각 타입을 선택하면 해당 카드가 하이라이트 되고, [다음] 버튼이 나타나게 된다. 클릭 시, 회사 선택 페이지로 이동한다.', async() => {
     let url;
     router.events.subscribe((nav => {
       if(nav instanceof NavigationEnd) {
-        console.log(nav.urlAfterRedirects);
-        url = nav.urlAfterRedirects.split('?')[0];
+        url = nav.urlAfterRedirects;
       }
     }));
 
@@ -87,9 +86,10 @@ describe('SignUpTypePage', () => {
     expect(buttonFooter).toBeTruthy();
 
     buttonNext.triggerEventHandler('click', { preventDefault: () => {} });
-
     await new Promise(res => setTimeout(res, 100));
-
-    expect(url).toEqual('/sign-up-company');
+    fixture.detectChanges();
+    // 다음페이지 클릭
+    
+    expect(url).toEqual(`/sign-up-company?userType=${component.userType}`);
   })
 });

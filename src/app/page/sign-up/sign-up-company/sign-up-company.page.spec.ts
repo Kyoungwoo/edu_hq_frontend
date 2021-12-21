@@ -1,11 +1,12 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { InputComponent } from 'src/app/basic/component/input/input/input.component';
+import { CardComponent } from 'src/app/basic/component/ui/card/card.component';
 import { ComponentModule } from 'src/app/component/component.module';
 
 import { SignUpCompanyPage } from './sign-up-company.page';
@@ -13,6 +14,8 @@ import { SignUpCompanyPage } from './sign-up-company.page';
 describe('SignUpCompanyPage', () => {
   let component: SignUpCompanyPage;
   let fixture: ComponentFixture<SignUpCompanyPage>;
+  let router: Router;
+  let url: string;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -21,16 +24,25 @@ describe('SignUpCompanyPage', () => {
         IonicModule.forRoot(),
         AppModule,
         FormsModule,
-        ComponentModule
+        ComponentModule,
+        RouterTestingModule
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignUpCompanyPage);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    router.events.subscribe(nav => {
+      if(nav instanceof NavigationEnd) {
+        url = nav.urlAfterRedirects;
+      }
+    });
     fixture.detectChanges();
   }));
 
   it('onInit: 초기 레이아웃 검토', () => {
+    component.params.userType = 'WORKER';
+    component.nextRouterLink = component.getNextRouterLink(component.params.userType);
     expect(component).toBeTruthy();
 
     const el = fixture.debugElement;
@@ -53,7 +65,10 @@ describe('SignUpCompanyPage', () => {
     expect(resultFail).toBeTruthy();
   });
 
-  it('회사 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 회사가 나온다.', async() => {
+  it('회사 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 회사가 나온다. 이때 클릭하면 타입에 따라, 회사정보를 들고, 회원가입 페이지로 넘어간다.', async() => {
+    component.params.userType = 'WORKER';
+    component.nextRouterLink = component.getNextRouterLink(component.params.userType);
+
     const el = fixture.debugElement;
     const inputSearch = el.query(By.css('#input-search'));
     (<InputComponent>inputSearch.componentInstance).value = "데브";
@@ -63,5 +78,30 @@ describe('SignUpCompanyPage', () => {
     const resultSuccess = el.query(By.css('#result-success'));
     expect(res.rsCode).toEqual(0);
     expect(resultSuccess).toBeTruthy();
+    //검색 완료
+
+    const companyList = el.queryAll(By.css('[data-test=company-item]'));
+    const firstCompanyItem = companyList[0];
+
+    firstCompanyItem.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    // 클릭 완료
+    
+    const buttonNext = el.query(By.css('[data-test=button-next]'));
+    expect((<CardComponent>firstCompanyItem.componentInstance).color).toEqual('secondary');
+    expect(buttonNext).toBeTruthy();
+    // 레이아웃 변경 완료
+
+    let queryParams = [];
+    for(let key in component.selectedCompany) {
+      queryParams.push(`${key}=${component.selectedCompany[key]}`);
+    }
+    const expectedUrl = component.nextRouterLink + '?' + queryParams.join('&');
+    buttonNext.triggerEventHandler('click', { preventDefault: () => {} });
+    await new Promise(res => setTimeout(res, 100));
+    fixture.detectChanges();
+    // 다음페이지 클릭
+
+    expect(decodeURI(url)).toEqual(expectedUrl);
   });
 });

@@ -6,7 +6,7 @@ enum TAG {
   UserData = 'Devmonster@UserData'
 }
 
-export type UserType = "WORKER" | "PARTNER";
+export type UserType = 'WORKER' | 'LH' | 'SUPER' | 'COMPANY';
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {

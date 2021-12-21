@@ -18,7 +18,7 @@
     <ng-template #tempRes>
       <ng-container *ngIf="res.rsCode === 0; else tempFail">
         <h6 id="result-success">회사 정보</h6>
-        <app-card [button]="true" [color]="company === selectedCompany ? 'secondary' : 'white'" *ngFor="let company of res.rsMap" (click)="selectedCompany = company">
+        <app-card data-test="company-item" [button]="true" [color]="company === selectedCompany ? 'secondary' : 'white'" *ngFor="let company of res.rsMap" (click)="selectedCompany = company">
           <h4>{{ company.company_name }}</h4>
           <p>{{ regex.replace.companyLicenseNo(company.business_register_no) }} / {{company.company_ceo }}</p>
         </app-card>
@@ -31,5 +31,6 @@
 </ion-content>
 <app-button-footer>
   <app-button fill="translucent" routerLink="/sign-up-type" routerDirection="back">이전</app-button>
-  <app-button id="button-next" *ngIf="selectedCompany" @fadeInAnimation [routerLink]="nextRouterLink">다음</app-button>
+  <app-button data-test="button-next" *ngIf="selectedCompany" @fadeInAnimation 
+  [routerLink]="nextRouterLink" [queryParams]="selectedCompany">다음</app-button>
 </app-button-footer>

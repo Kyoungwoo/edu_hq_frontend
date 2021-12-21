@@ -17,12 +17,12 @@ export interface ConnectStrategyOptions {
 }
 export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
 
-export class ConnectResult {
+export class ConnectResult<T = any> {
   errorStatus?:number;
   rsCode:number;
-  rsObj:any | null;
+  rsObj:T | null;
   rsMsg:string;
-  rsMap:any[] | null;
+  rsMap:T[] | null;
   rqMethod:string;
 }
 

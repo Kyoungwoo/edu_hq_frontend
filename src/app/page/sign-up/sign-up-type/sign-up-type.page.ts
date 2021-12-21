@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { slideUpInAnimation } from 'src/app/basic/basic.animation';
+import { UserType } from 'src/app/basic/service/core/user.service';
 
 @Component({
   selector: 'app-sign-up-type',
@@ -9,7 +10,7 @@ import { slideUpInAnimation } from 'src/app/basic/basic.animation';
 })
 export class SignUpTypePage implements OnInit {
 
-  userType: 'WORKER' | 'LH' | 'SUPER' | 'COMPANY';
+  userType: UserType;
 
   constructor() { }
 
