@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons (click)="dismiss()" slot="end">
+      <app-img name="close"></app-img>
+    </ion-buttons>
+    <ion-title>공지사항 상세보기</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <app-card>
+   <app-row>
+     <app-col>
+       <app-input [disabled]="true" label="현장명"></app-input>
+     </app-col>
+   </app-row>
+   <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="회사원"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="작성자"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="작성일"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="구분"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="게시물 공개범위"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" label="제목"></app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-textarea [disabled]="true" label="제목"></app-textarea>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <a>첨부파일 미리보기만 가능</a>
+        <!-- <app-file name="input" view_type="NOTICE"></app-file> -->
+    </app-col>
+  </app-row>
+ </app-card>
+</ion-content>

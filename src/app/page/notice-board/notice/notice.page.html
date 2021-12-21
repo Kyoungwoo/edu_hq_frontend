@@ -1,0 +1,114 @@
+<ion-header>
+    <ion-toolbar color="white">
+    <!-- <ion-buttons slot="end">
+      <app-img name="close"></app-img>
+    </ion-buttons> -->
+    <ion-title>공지사항</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-toolbar>
+  <app-row>
+    <app-col>
+      <app-select-scene></app-select-scene>
+    </app-col>
+    <app-col>
+      <app-select-company></app-select-company>
+    </app-col>
+    <app-col>
+      <app-select label="구분">
+        <app-select-option></app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col size="4">
+      <app-calendar label="등록일"></app-calendar>
+    </app-col>
+    <app-col>
+      <app-input placeholder="검색어를 입력해주세요"></app-input>
+    </app-col>
+    <app-col size="auto">
+      <app-button>검색</app-button>
+    </app-col>
+  </app-row>
+</ion-toolbar> -->
+<ion-content style="--padding-top:15px">
+  <!-- <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <app-button fill="translucent">등록</app-button>
+    </ion-buttons>
+    <h5>수시 위험성평가 목록 (총90건)</h5>
+  </ion-toolbar> -->
+  <!-- <app-check-group>
+    <app-table>
+      <thead>
+        <tr>
+          <th><app-check type="all" color="white" size="small" name="check"></app-check></th>
+          <th><ion-icon name="star"></ion-icon></th>
+          <th>구분</th>
+          <th>제목</th>
+          <th>업체명</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><app-check  color="white" size="small" name="check"></app-check></td>
+          <td><ion-icon name="star"></ion-icon></td>
+          <td>일반</td>
+          <td>앱사용금지</td>
+          <td>구일종합건설(주)</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td><app-check  color="white" size="small" name="check"></app-check></td>
+          <td><ion-icon name="star"></ion-icon></td>
+          <td>일반</td>
+          <td>앱사용금지</td>
+          <td>구일종합건설(주)</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>10</td>
+        </tr>
+      </tbody>
+    </app-table>
+  </app-check-group> -->
+
+  <app-row>
+    <app-col>
+      <app-input name="with img">
+      </app-input>
+    </app-col>
+    <app-col size="auto">
+      <app-button (click)="detailSerach()">상세검색</app-button>
+    </app-col>
+  </app-row>
+  <app-card (click)="noticeDetail()">
+    <app-row>
+      <app-col size="auto">
+      </app-col>
+      <app-col>
+        <h5>이상범</h5>
+        <p>(주)지에스아이엘/대리/안전관리자</p>
+      </app-col>
+      <ion-col size="auto">
+        <ion-chip color="primary">건축</ion-chip>
+      </ion-col>
+      <app-col size="auto">
+      </app-col>
+    </app-row>
+  </app-card>
+  
+  <!-- WEB -->
+
+</ion-content>
+<app-button-footer>
+  <app-button>취소</app-button>
+  <app-button>적용</app-button>
+</app-button-footer>
+
+

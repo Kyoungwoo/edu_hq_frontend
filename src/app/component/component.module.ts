@@ -26,6 +26,8 @@ import { SelectToolComponent } from './select/select-tool/select-tool.component'
 import { SelectHeavyComponent } from './select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from './select/select-education/select-education.component';
 import { SelectCompanyComponent } from './select/select-company/select-company.component';
+import { DetailSearchComponent } from './modal/detail-search/detail-search.component';
+import { NoticeEditComponent } from './notice-board/notice-edit/notice-edit.component';
 import { SelectSceneComponent } from './select/select-scene/select-scene.component';
 import { SelectPeopleComponent } from './select/select-people/select-people.component';
 import { SelectBusinessComponent } from './select/select-business/select-business.component';
@@ -36,6 +38,8 @@ import { SelectPositionComponent } from './select/select-position/select-positio
 import { SelectOrganizationComponent } from './select/select-organization/select-organization.component';
 import { SelectNationComponent } from './select/select-nation/select-nation.component';
 import { SelectPeriodComponent } from './select/select-period/select-period.component';
+import { MsdsEditComponent } from './notice-board/msds-edit/msds-edit.component';
+import { MinutesEditComponent } from './notice-board/minutes-edit/minutes-edit.component';
 
 
 
@@ -61,6 +65,8 @@ import { SelectPeriodComponent } from './select/select-period/select-period.comp
     SelectHeavyComponent,
     SelectEducationComponent,
     SelectCompanyComponent,
+    DetailSearchComponent,
+    NoticeEditComponent,
     SelectSceneComponent,
     SelectPeopleComponent,
     SelectBusinessComponent,
@@ -70,7 +76,9 @@ import { SelectPeriodComponent } from './select/select-period/select-period.comp
     SelectPositionComponent,
     SelectOrganizationComponent,
     SelectNationComponent,
-    SelectPeriodComponent
+    SelectPeriodComponent,
+    MsdsEditComponent,
+    MinutesEditComponent
    
   ],
   imports: [
@@ -101,6 +109,8 @@ import { SelectPeriodComponent } from './select/select-period/select-period.comp
     SelectHeavyComponent,
     SelectEducationComponent,
     SelectCompanyComponent,
+    DetailSearchComponent,
+    NoticeEditComponent,
     SelectSceneComponent,
     SelectPeopleComponent,
     SelectBusinessComponent,
@@ -110,7 +120,9 @@ import { SelectPeriodComponent } from './select/select-period/select-period.comp
     SelectPositionComponent,
     SelectOrganizationComponent,
     SelectNationComponent,
-    SelectPeriodComponent
+    SelectPeriodComponent,
+    MsdsEditComponent,
+    MinutesEditComponent
   ]
 })
 export class ComponentModule { }

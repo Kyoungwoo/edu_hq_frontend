@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
+import { NoticeEditComponent } from 'src/app/component/notice-board/notice-edit/notice-edit.component';
 
 @Component({
   selector: 'app-notice',
@@ -31,10 +34,11 @@ export class NoticePage implements OnInit {
   }> = [];
 
   constructor(
-    private connect : ConnectService
+    private connect : ConnectService,
+    private modal : ModalController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // this.getList();
   }
 
@@ -46,4 +50,16 @@ export class NoticePage implements OnInit {
 
   //   }
   // }
+  async detailSerach(){
+    const modal = await this.modal.create({
+      component:DetailSearchComponent
+    });
+    modal.present();
+  }
+  async noticeDetail(){
+    const modal =  await this.modal.create({
+      component:NoticeEditComponent
+    });
+    modal.present();
+  }
 }

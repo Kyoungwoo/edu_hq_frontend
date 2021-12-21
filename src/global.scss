@@ -254,12 +254,15 @@
     overflow: hidden;
   }
 
-  .scan-modal {
-    .modal-wrapper.sc-ion-modal-md{
-      background: transparent !important;
-    }
+  .custom-alert {
+    --width: 280px;
   }
-
+}
+    .scan-modal {
+      .modal-wrapper.sc-ion-modal-md{
+        background: transparent !important;
+      }
+    }
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
@@ -385,4 +388,3 @@
   ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
     background: transparent none !important; 
   }
-}

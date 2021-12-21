@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'moniter',
+    redirectTo: 'manual-list',
     pathMatch: 'full'
   },
   {
@@ -60,11 +60,8 @@ const routes: Routes = [
     loadChildren: () => import('./page/moniter/moniter.module').then( m => m.MoniterPageModule)
   },
   {
-    path: 'notice',
-    loadChildren: () => import('./page/notice/notice.module').then( m => m.NoticePageModule)
-  },  {
     path: 'manual-list',
-    loadChildren: () => import('./manual-list/manual-list.module').then( m => m.ManualListPageModule)
+    loadChildren: () => import('./page/customer-support/user-manual/manual-list/manual-list.module').then( m => m.ManualListPageModule)
   }
 
 ];
