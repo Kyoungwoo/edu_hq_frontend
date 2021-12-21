@@ -72,14 +72,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/notice-board/msds/msds-edit/msds-edit.module').then( m => m.MsdsEditPageModule)
   },
   {
-    path: 'notice-list',
-    loadChildren: () => import('./page/notice-board/notice-list/notice-list.module').then( m => m.NoticeListPageModule)
-  },
-  {
-    path: 'notice-edit',
-    loadChildren: () => import('./page/notice-board/notice-edit/notice-edit.module').then( m => m.NoticeEditPageModule)
-  },
-  {
     path: 'minutes-list',
     loadChildren: () => import('./page/notice-board/minutes/minutes-list/minutes-list.module').then( m => m.MinutesListPageModule)
   },
