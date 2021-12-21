@@ -26,6 +26,8 @@ import { SelectToolComponent } from './select/select-tool/select-tool.component'
 import { SelectHeavyComponent } from './select/select-heavy/select-heavy.component';
 import { SelectEducationComponent } from './select/select-education/select-education.component';
 import { SelectCompanyComponent } from './select/select-company/select-company.component';
+import { DetailSearchComponent } from './detail-search/detail-search.component';
+import { NoticeDetailComponent } from './notice-detail/notice-detail.component';
 
 
 
@@ -50,7 +52,9 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     SelectToolComponent,
     SelectHeavyComponent,
     SelectEducationComponent,
-    SelectCompanyComponent
+    SelectCompanyComponent,
+    DetailSearchComponent,
+    NoticeDetailComponent
    
   ],
   imports: [
@@ -62,8 +66,8 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     BasicComponentModule
   ],
   exports: [
-    ConfirmComponent,
     BasicComponentModule,
+    ConfirmComponent,
     HeaderAdminComponent,
     QrScannerComponent,
     SearchPeopleComponent,
@@ -80,7 +84,9 @@ import { SelectCompanyComponent } from './select/select-company/select-company.c
     SelectToolComponent,
     SelectHeavyComponent,
     SelectEducationComponent,
-    SelectCompanyComponent
+    SelectCompanyComponent,
+    DetailSearchComponent,
+    NoticeDetailComponent
   ]
 })
 export class ComponentModule { }

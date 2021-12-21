@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonHeader, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../basic.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';

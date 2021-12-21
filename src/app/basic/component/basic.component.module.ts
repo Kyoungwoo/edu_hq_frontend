@@ -97,6 +97,8 @@ import { EmailComponent } from './input/email/email.component';
     ScrollingModule
   ],
   exports: [
+    //dialog
+    
     // input components
     DirectiveModule,
     CalendarComponent,

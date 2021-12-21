@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-input-template',
@@ -7,9 +8,15 @@ import { Component, HostBinding, Input, OnInit, Output, EventEmitter } from '@an
 })
 export class InputTemplateComponent implements OnInit {
 
-  @HostBinding('class.input-label') get classLabel() { return this.label }
-  @HostBinding('class.input-no-label') get classNoLabel() { return !this.label }
+  @HostBinding('class') get class() {
+    let _class = [];
+    if(this.color) _class.push(`ion-color-${this.color}`);
+    this.label ? _class.push(`input-label`) : _class.push(`input-no-label`);
+    return _class.join(' ');
+  }
+
   @Input() label:string;
+  @Input() color:Color = 'white';
 
   @Output() buttonClick = new EventEmitter();
 

@@ -1,21 +1,21 @@
 :host {
     font-size: var(--font-size-h6);
+    z-index: 0;
     p {
         margin-top: 0;
         margin-bottom: 0;
         margin-top: 0;
         vertical-align: middle;
         position: relative;
-        top: -16px;
-        z-index: -5;
+        top: -7px;
     }
     ion-text {
-        background: var(--ion-color-warning-tint);
+        background: var(--ion-color-translucent);
         display: block;
         font-size: var(--font-size-h6-small);
         padding-left: 8px;
         border-radius: 0 0 10px 10px;
-        color: var(--ion-color-warning);
+        color: var(--ion-color-base);
         height: 28px;
         display: flex;
         align-items: center;

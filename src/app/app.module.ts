@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
-import { BasicComponentModule } from './basic/component/basic.component.module';
 import { FormsModule } from '@angular/forms';
 import { NaverMapId } from './basic/component/input/naver-map/naver-map.component';
 import { ConnectStrategy } from './basic/service/core/connect.service';
@@ -26,8 +25,7 @@ import { File } from '@ionic-native/file/ngx';
     IonicModule.forRoot(),
     FormsModule,
     AppRoutingModule,
-    ScrollingModule,
-    BasicComponentModule
+    ScrollingModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

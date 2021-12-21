@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { AppModule } from 'src/app/app.module';
 
 import { NaverMapComponent } from './naver-map.component';
 
@@ -10,7 +11,10 @@ describe('NaverMapComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NaverMapComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        AppModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NaverMapComponent);

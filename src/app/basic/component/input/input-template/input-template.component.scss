@@ -4,12 +4,14 @@
     border-radius: var(--app-border-radius);
     box-shadow: var(--app-box-shadow);
     background: var(--ion-color-white);
-    padding: 8px;
+    border: 1px solid var(--ion-color-base, var(--ion-color-white));
+    padding: 6px;
 
     display: block;
     position: relative;
     text-align: left;
     font-size: 16px;
+    z-index: 1;
     >label {
         display: block;
         font-size: var(--font-size-h6);

@@ -19,15 +19,19 @@ export interface ConnectStrategyOptions {
 export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
 
 export interface ConnectResult {
+  errorStatus?:number,
   rsCode:number,
-  rsObj:{[name:string]:any} | null,
+  rsObj:any | null,
   rsMsg:string,
   rsMap:any[] | null,
-  rqMethod:string,
-  url?:string
+  rqMethod:string
 }
 
+export enum ContentType {
+  ApplicationJson = "PROMPT"
+}
 export interface ConnectOptions {
+  contentType?:ContentType,
   loading?:string
 }
 
@@ -50,32 +54,36 @@ export class ConnectService {
   ) {}
 
   /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(endPoint, data?:{[name:string]:any}, options:ConnectOptions = { loading: '' }) {
-    if(!data) data = {};
+  async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions) {
+    data = data || {};
     
     const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
-    
-    const { platform_type, platform_key } = await this.device.get();
-    const { user_id, user_session } = await this.user.userData;
-    
-    data = {
-      ...data,
-      platform_type, platform_key, user_id, user_session
-    }
 
     if(!environment.production && !this.connectStrategy.exceptLogUrls.includes(url)) {
-      console.log({
-        url: url,
-        ...data
-      });
+      console.log(data, url);
     }
-    let body = this.jsonToForm(data);
+
     let headers = new HttpHeaders();
+    let body;
+    if(options?.contentType === ContentType.ApplicationJson) {
+      headers.append('Content-Type', 'application/json');
+      body = data;
+    } else {
+      //default => multipart form data
+      const { platform_type, platform_key } = await this.device.get();
+      /* const { user_id, user_session } = await this.user.userData; */
+
+      data = {
+        ...data,
+        platform_type, platform_key
+      }
+      body = this.jsonToForm(data);
+    }
     let result:ConnectResult;
 
     let loading:HTMLIonLoadingElement;
     if(!isPlatformServer(this.platformId)) {
-      if(options.loading) {
+      if(options?.loading) {
         loading = await this.loading.present({
           message: options.loading
         });
@@ -89,22 +97,19 @@ export class ConnectService {
       .toPromise() as ConnectResult;
       result = http;
     } catch(error) {
-      result = (() => {
-        switch(error.status) {
-          /* case 0:
-            console.log(error);
-            return {rsCode: 1, rsObj: error.message, url: '', rqMethod: '', rsMap: null, rsMsg: null, }; */
-          default:
-            return {rsCode: error.status, rsObj: error.error, rsMsg: error.message, rqMethod: '', rsMap:null, url};
-        }
-      })()
+      result = {
+        errorStatus: error.status, 
+        rsCode: null, 
+        rsObj: error.error, 
+        rsMsg: error.message, 
+        rqMethod: '', 
+        rsMap:null
+      }
     }
-
-    result.url = url;
 
     loading?.dismiss();
 
-    if(!environment.production) console.log(result);
+    if(!environment.production) console.log(result, url);
 
     if(result.rsCode === 400 || result.rsCode === 1002) {
       this.user.clear();

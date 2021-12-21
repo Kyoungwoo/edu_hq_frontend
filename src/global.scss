@@ -343,6 +343,7 @@
       }
     }
   }
+
   ion-popover {
     .popover-content {
       --background: var(--ion-color-white);
@@ -384,21 +385,6 @@
     }
   }
 
-
-
-  // ion-segment.custum-segment-1{
-  //   ion-segment-button{
-  //     &::part(indicator-background){
-  //       background: red;
-  //     }
-  //     &::part(indicator){
-  //       width: 30px;
-  //     }
-  //   }
-  // }
-  
-
-
-ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
-  background: transparent none !important; 
-}
+  ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
+    background: transparent none !important; 
+  }

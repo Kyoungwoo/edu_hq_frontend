@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { AppModule } from 'src/app/app.module';
 
 import { QrScannerComponent } from './qr-scanner.component';
 
@@ -10,7 +11,10 @@ describe('QrScannerComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ QrScannerComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        AppModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(QrScannerComponent);
