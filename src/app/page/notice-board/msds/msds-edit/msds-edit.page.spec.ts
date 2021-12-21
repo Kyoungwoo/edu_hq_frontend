@@ -1,20 +1,18 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { SignUpCompanyPage } from './sign-up-company.page';
+import { MsdsEditPage } from './msds-edit.page';
 
-describe('SignUpCompanyPage', () => {
-  let component: SignUpCompanyPage;
-  let fixture: ComponentFixture<SignUpCompanyPage>;
+describe('MsdsEditPage', () => {
+  let component: MsdsEditPage;
+  let fixture: ComponentFixture<MsdsEditPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpCompanyPage ],
+      declarations: [ MsdsEditPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -23,7 +21,7 @@ describe('SignUpCompanyPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignUpCompanyPage);
+    fixture = TestBed.createComponent(MsdsEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

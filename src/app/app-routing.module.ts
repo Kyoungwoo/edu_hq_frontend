@@ -62,6 +62,30 @@ const routes: Routes = [
   {
     path: 'manual-list',
     loadChildren: () => import('./page/customer-support/user-manual/manual-list/manual-list.module').then( m => m.ManualListPageModule)
+  },
+  {
+    path: 'msds-list',
+    loadChildren: () => import('./page/notice-board/msds/msds-list/msds-list.module').then( m => m.MsdsListPageModule)
+  },
+  {
+    path: 'msds-edit',
+    loadChildren: () => import('./page/notice-board/msds/msds-edit/msds-edit.module').then( m => m.MsdsEditPageModule)
+  },
+  {
+    path: 'minutes-list',
+    loadChildren: () => import('./page/notice-board/minutes/minutes-list/minutes-list.module').then( m => m.MinutesListPageModule)
+  },
+  {
+    path: 'minutes-edit',
+    loadChildren: () => import('./page/notice-board/minutes/minutes-edit/minutes-edit.module').then( m => m.MinutesEditPageModule)
+  },
+  {
+    path: 'notice-list',
+    loadChildren: () => import('./page/notice-board/notice/notice-list/notice-list.module').then( m => m.NoticeListPageModule)
+  },
+  {
+    path: 'notice-edit',
+    loadChildren: () => import('./page/notice-board/notice/notice-edit/notice-edit.module').then( m => m.NoticeEditPageModule)
   }
 
 ];

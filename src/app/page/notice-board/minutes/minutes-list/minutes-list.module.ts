@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ManualListPageRoutingModule } from './manual-list-routing.module';
+import { MinutesListPageRoutingModule } from './minutes-list-routing.module';
 
-import { ManualListPage } from './manual-list.page';
+import { MinutesListPage } from './minutes-list.page';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +16,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    ManualListPageRoutingModule
+    BasicComponentModule,
+    MinutesListPageRoutingModule
   ],
-  declarations: [ManualListPage]
+  declarations: [MinutesListPage]
 })
-export class ManualListPageModule {}
+export class MinutesListPageModule {}
