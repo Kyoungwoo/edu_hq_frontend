@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
+import { ComponentModule } from '../../component.module';
 
 import { SideMenuAdminComponent } from './side-menu-admin.component';
 
@@ -13,7 +15,9 @@ describe('SideMenuAdminComponent', () => {
       declarations: [ SideMenuAdminComponent ],
       imports: [
         IonicModule.forRoot(),
-        AppModule
+        FormsModule,
+        AppModule,
+        ComponentModule
       ]
     }).compileComponents();
 
