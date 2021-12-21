@@ -1,7 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID, InjectionToken } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
-import { DeviceService } from './device.service';
 import { isPlatformServer } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -18,13 +17,13 @@ export interface ConnectStrategyOptions {
 }
 export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
 
-export interface ConnectResult {
-  errorStatus?:number,
-  rsCode:number,
-  rsObj:any | null,
-  rsMsg:string,
-  rsMap:any[] | null,
-  rqMethod:string
+export class ConnectResult {
+  errorStatus?:number;
+  rsCode:number;
+  rsObj:any | null;
+  rsMsg:string;
+  rsMap:any[] | null;
+  rqMethod:string;
 }
 
 export enum ContentType {
@@ -45,7 +44,6 @@ export class ConnectService {
     @Inject(ConnectStrategy) private connectStrategy:ConnectStrategyOptions,
     private http: HttpClient,
     private file: FileService,
-    private device: DeviceService,
     private user: UserService,
     private storage: StorageService,
     private loading: LoadingService,
@@ -53,8 +51,7 @@ export class ConnectService {
     private alertController:AlertController
   ) {}
 
-  /** 서버 접속. 기본데이터: platform_type, platform_key, user_id, user_session */
-  async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions) {
+  async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions):Promise<ConnectResult> {
     data = data || {};
     
     const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
@@ -63,20 +60,12 @@ export class ConnectService {
       console.log(data, url);
     }
 
-    let headers = new HttpHeaders();
+    let headers = {};
     let body;
     if(options?.contentType === ContentType.ApplicationJson) {
-      headers.append('Content-Type', 'application/json');
       body = data;
     } else {
-      //default => multipart form data
-      const { platform_type, platform_key } = await this.device.get();
-      /* const { user_id, user_session } = await this.user.userData; */
-
-      data = {
-        ...data,
-        platform_type, platform_key
-      }
+      if(this.user.authToken) headers['Authorization'] = `Bearer ${this.user.authToken.login_token}`;
       body = this.jsonToForm(data);
     }
     let result:ConnectResult;
@@ -111,9 +100,9 @@ export class ConnectService {
 
     if(!environment.production) console.log(result, url);
 
-    if(result.rsCode === 400 || result.rsCode === 1002) {
-      this.user.clear();
-      this.router.navigate(['/login'], {replaceUrl: true});
+    if(result.rsCode === 1002) {
+      //this.
+      return result;
     } else {
       return result;
     }

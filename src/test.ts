@@ -22,6 +22,6 @@ getTestBed().initTestEnvironment(
 // Then we find all the tests.
 // a page : /page\/login\/login\/login\.page\.spec\.ts$/
 // all : /\.spec\.ts$/
-const context = require.context('./', true, /page\/login\/login\/login\.page\.spec\.ts$/);
+const context = require.context('./', true, /page\/sign-up\/sign-up-company\/sign-up-company\.page\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);

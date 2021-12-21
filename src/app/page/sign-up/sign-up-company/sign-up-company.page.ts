@@ -36,6 +36,7 @@ export class SignUpCompanyPage implements OnInit {
 
   public async searchCompany() {
     this.res = await this.connect.run('/forSignUp/company/get', this.form);
+    return this.res;
   }
 
   private getNextRouterLink(userType) {

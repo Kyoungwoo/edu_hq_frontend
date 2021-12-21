@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -20,7 +21,8 @@ describe('AppComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [ 
         RouterTestingModule.withRoutes([]),
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
       ],
       providers: [
         { provide: NaverMapId, useValue: 'icx4jmxljt' },

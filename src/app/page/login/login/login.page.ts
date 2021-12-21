@@ -32,9 +32,9 @@ export class LoginPage implements OnInit {
     });
     if(this.res.rsCode === 0) {
       this.user.setAuthToken(this.res.rsObj);
-      /* this.nav.navigateRoot('/main-user', {
+      this.nav.navigateRoot('/main-user', {
         animated: true
-      }); */
+      });
     }
     return this.res;
   }
