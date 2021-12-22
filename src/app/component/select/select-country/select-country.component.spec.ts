@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from '../../component.module';
 
-import { SelectNationComponent } from './select-nation.component';
+import { SelectCountryComponent } from './select-country.component';
 
-describe('SelectNationComponent', () => {
-  let component: SelectNationComponent;
-  let fixture: ComponentFixture<SelectNationComponent>;
+describe('SelectCountryComponent', () => {
+  let component: SelectCountryComponent;
+  let fixture: ComponentFixture<SelectCountryComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectNationComponent ],
+      declarations: [ SelectCountryComponent ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('SelectNationComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectNationComponent);
+    fixture = TestBed.createComponent(SelectCountryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

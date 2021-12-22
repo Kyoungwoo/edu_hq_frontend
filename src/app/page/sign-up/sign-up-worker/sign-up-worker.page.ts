@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FileBlob, FileJson } from 'src/app/basic/service/core/file.service';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { UserGender } from 'src/app/basic/service/core/user.service';
 import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
 
 class SignUpWorkerForm {
@@ -12,13 +14,13 @@ class SignUpWorkerForm {
   ctgo_occupation_id:number; //직종 ID
   project_id:number; //소속 현장 ID
   user_name:string; //이름
-  user_gender:string; //성별
+  user_gender:UserGender; //성별
   user_birth:string; //생년월일
   user_email:string; //이메일
   user_phone:string;//휴대폰번호
   sms_token:string; //문자 인증번호
   basic_safe_edu_date:string; //기초안전보건교육 이수증
-  file:File | FileBlob[];
+  file:(File | FileBlob)[];
   file_json:FileJson; //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 
   brain_cure_content:string; //심혈관질환명 / 없을시 빈배열
@@ -47,11 +49,16 @@ export class SignUpWorkerPage implements OnInit {
 
   form:SignUpWorkerForm = new SignUpWorkerForm();
   confirm = {
+    file: [] as FutItem[],
     account_token: ''
   }
 
+  resOverlabId:ConnectResult;
+  resCountry:ConnectResult;
+
   constructor(
-    private activedRoute: ActivatedRoute
+    private activedRoute: ActivatedRoute,
+    private connect: ConnectService
   ) { }
 
   ngOnInit() {
@@ -60,5 +67,12 @@ export class SignUpWorkerPage implements OnInit {
     });
   }
 
-  
+  timeoutOverlapId;
+  public overlapId(account_id) {
+    clearTimeout(this.timeoutOverlapId);
+    if(account_id?.length < 2) return this.resOverlabId = null;
+    this.timeoutOverlapId = setTimeout(async() => {
+      this.resOverlabId = await this.connect.run('/forSignUp/overlap/id', { account_id });
+    }, 200);
+  }
 }

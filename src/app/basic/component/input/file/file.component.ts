@@ -1,4 +1,5 @@
-import { Component, DoCheck, Input, IterableDiffer, IterableDiffers, OnInit } from '@angular/core';
+import { Component, DoCheck, EventEmitter, forwardRef, HostBinding, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/core/file.service';
 import { CameraService } from 'src/app/basic/service/native/camera.service';
 
@@ -6,17 +7,19 @@ import { CameraService } from 'src/app/basic/service/native/camera.service';
   selector: 'app-file',
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.scss'],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => FileComponent),
+    multi: true
+  }]
 })
-export class FileComponent implements OnInit, DoCheck {
+export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   @Input() view_type:string;
   @Input() accept:string;
   @Input() multiple:boolean = false;
-  @Input() disabled:boolean;
 
-  @Input() value:FutItem[] = [];
-
-  @Input() files:(File | FileBlob)[] = [];
+  @Input() file:(File | FileBlob)[] = [];
   @Input() file_json:FileJson = {
     insert: [],
     update: [],
@@ -26,7 +29,7 @@ export class FileComponent implements OnInit, DoCheck {
   private differ:IterableDiffer<any>;
   constructor(
     private differs: IterableDiffers,
-    private file: FileService,
+    private fileService: FileService,
     private camera: CameraService
   ) { }
 
@@ -77,13 +80,13 @@ export class FileComponent implements OnInit, DoCheck {
       content_type: file.type,
       file_name: file.name,
       file_size: file.size,
-      file_type: this.file.getMimeType(file),
-      file_url: this.file.createObjectURL(file),
+      file_type: this.fileService.getMimeType(file),
+      file_url: this.fileService.createObjectURL(file),
       order_no,
       view_type,
       seq_no: 0
     });
-    this.files.push(file);
+    this.file.push(file);
     this.file_json.insert.push({
       order_no,
       view_type
@@ -99,13 +102,13 @@ export class FileComponent implements OnInit, DoCheck {
         seq_no: item.seq_no
       })
     } else {
-      const deleteFileIndex = this.files.findIndex(file => {
+      const deleteFileIndex = this.file.findIndex(file => {
         return file.name === item.file_name
         && file.size === item.file_size;
       });
       //if use multiple app-file, bubble these events. So need to check deleateFileIndex is over 0;
       if(deleteFileIndex === -1) return;
-      this.files.splice(deleteFileIndex, 1);
+      this.file.splice(deleteFileIndex, 1);
     }
     const reorderedList = this.value.map((_item, i) => {
       return {
@@ -117,4 +120,35 @@ export class FileComponent implements OnInit, DoCheck {
     this.file_json.update = reorderedList.filter(_item => _item.seq_no);
     this.file_json.insert = reorderedList.filter(_item => !_item.seq_no);
   }
+
+
+  //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
+  @Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
+  @Output() change = new EventEmitter();
+
+  private _value:FutItem[] = [];
+  @Input() set value(v:FutItem[]) {
+    if(v !== this._value) {
+      this._value = v;
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
+  }
+  get value() {
+    return this._value;
+  }
+  writeValue(v:FutItem[]): void { 
+    if(v !== this._value) this._value = v;
+    this.onChangeCallback(v);
+    this.change.emit(v);
+  }
+
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }

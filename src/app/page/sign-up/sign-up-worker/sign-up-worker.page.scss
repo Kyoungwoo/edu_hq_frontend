@@ -2,6 +2,9 @@ app-avatar {
     margin-top: 30px;
     margin-bottom: 20px;
 }
+app-row {
+    align-items: flex-start;
+}
 .file-card {
     --padding: 8px;
     app-col {

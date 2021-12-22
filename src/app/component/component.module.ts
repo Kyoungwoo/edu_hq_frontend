@@ -34,7 +34,7 @@ import { SelectConstructionComponent } from './select/select-construction/select
 import { SelectOccupationComponent } from './select/select-occupation/select-occupation.component';
 import { SelectPositionComponent } from './select/select-position/select-position.component';
 import { SelectOrganizationComponent } from './select/select-organization/select-organization.component';
-import { SelectNationComponent } from './select/select-nation/select-nation.component';
+import { SelectCountryComponent } from './select/select-country/select-country.component';
 import { SelectPeriodComponent } from './select/select-period/select-period.component';
 import { DetailSearchComponent } from './modal/detail-search/detail-search.component';
 
@@ -70,7 +70,7 @@ import { DetailSearchComponent } from './modal/detail-search/detail-search.compo
     SelectOccupationComponent,
     SelectPositionComponent,
     SelectOrganizationComponent,
-    SelectNationComponent,
+    SelectCountryComponent,
     SelectPeriodComponent,
     SelectOccupationComponent,
     DetailSearchComponent
@@ -112,7 +112,7 @@ import { DetailSearchComponent } from './modal/detail-search/detail-search.compo
     SelectOccupationComponent,
     SelectPositionComponent,
     SelectOrganizationComponent,
-    SelectNationComponent,
+    SelectCountryComponent,
     SelectPeriodComponent,
     SelectOccupationComponent,
     DetailSearchComponent
