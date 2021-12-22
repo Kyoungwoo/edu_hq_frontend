@@ -114,7 +114,23 @@
         </tr>
         <tr>
           <td>
-            <app-input-group label="등록일">
+            <app-radio-input label="등록일" style="width:100%;">
+              <app-row>
+                <app-radio value="전체">전체</app-radio>
+                <app-radio value="전주">전주</app-radio>
+                <app-radio value="오늘">오늘</app-radio>
+              </app-row>
+              <app-row>
+                <app-radio value="금주">금주</app-radio>
+                <app-radio value="차주">차주</app-radio>
+                <app-radio value="당월">당월</app-radio>
+              </app-row>
+            </app-radio-input>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-input-group>
               <app-calendar></app-calendar>
               ~
               <app-calendar></app-calendar>
@@ -125,6 +141,77 @@
           <td>
             <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
           </td>
+        </tr>
+      </tbody>
+    </app-table>
+  </app-col>
+  <app-col>
+    <ion-toolbar color="white">
+      <h5>사용자 메뉴얼 목록 (총70건)</h5>
+    </ion-toolbar>
+    <app-table>
+      <thead>
+        <tr>
+          <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+          <th style="width: 40px;" >★</th>
+          <th>구분</th>
+          <th>제목</th>
+          <th>회사명</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>회원가입</td>
+          <td>회원가입 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>작업계획</td>
+          <td>작업 계획서 작성 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>20</td>
+        </tr>
+        <tr class="button">
+          <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>안전교육</td>
+          <td>안전교육 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+          <td></td>
+          <td>통합관제</td>
+          <td>통합관제 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
+          <td></td>
+          <td>장비관리</td>
+          <td>장비관리 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>50</td>
         </tr>
       </tbody>
     </app-table>

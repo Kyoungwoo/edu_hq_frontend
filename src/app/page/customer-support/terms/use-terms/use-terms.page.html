@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>플랫폼 이용약관</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-toolbar color="white">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [scrollable]="true">
+          <ion-segment-button>플랫폼 이용약관</ion-segment-button>
+          <ion-segment-button>개인정보 수집 및 이용</ion-segment-button>
+          <ion-segment-button>위치정보 이용</ion-segment-button>
+          <ion-segment-button>제3자 정보제공</ion-segment-button>
+          <ion-segment-button>민감정보 수집 및 이용</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+</ion-content>

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'manual-edit',
+    redirectTo: 'use-terms',
     pathMatch: 'full'
   },
   {
@@ -94,7 +94,12 @@ const routes: Routes = [
   {
     path: 'manual-edit',
     loadChildren: () => import('./page/customer-support/user-manual/manual-edit/manual-edit.module').then( m => m.ManualEditPageModule)
+  },
+  {
+    path: 'use-terms',
+    loadChildren: () => import('./page/customer-support/terms/use-terms/use-terms.module').then( m => m.UseTermsPageModule)
   }
+
 
 
 
