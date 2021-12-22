@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ManualListPageRoutingModule } from './manual-list-routing.module';
+import { ManualEditPageRoutingModule } from './manual-edit-routing.module';
 
-import { ManualListPage } from './manual-list.page';
+import { ManualEditPage } from './manual-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { DirectiveModule } from 'src/app/basic/directive/directive.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DirectiveModule,
     ComponentModule,
-    ManualListPageRoutingModule
+    ManualEditPageRoutingModule
   ],
-  declarations: [ManualListPage]
+  declarations: [ManualEditPage]
 })
-export class ManualListPageModule {}
+export class ManualEditPageModule {}
