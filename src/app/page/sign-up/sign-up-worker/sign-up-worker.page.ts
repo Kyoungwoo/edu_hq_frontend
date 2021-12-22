@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserGender } from 'src/app/basic/service/core/user.service';
@@ -42,6 +43,7 @@ class SignUpWorkerForm {
   selector: 'app-sign-up-worker',
   templateUrl: './sign-up-worker.page.html',
   styleUrls: ['./sign-up-worker.page.scss'],
+  animations: [ fadeAnimation ]
 })
 export class SignUpWorkerPage implements OnInit {
 
@@ -53,8 +55,10 @@ export class SignUpWorkerPage implements OnInit {
     account_token: ''
   }
 
-  resOverlabId:ConnectResult;
-  resCountry:ConnectResult;
+  resOverlapId:ConnectResult;
+  resOverlapPhone:ConnectResult;
+  resAligoCheck:ConnectResult;
+  resAligoSend:ConnectResult;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -68,11 +72,27 @@ export class SignUpWorkerPage implements OnInit {
   }
 
   timeoutOverlapId;
-  public overlapId(account_id) {
+  public overlapId() {
+    const { account_id } = this.form;
     clearTimeout(this.timeoutOverlapId);
-    if(account_id?.length < 2) return this.resOverlabId = null;
+    if(account_id?.length < 2) return this.resOverlapId = null;
     this.timeoutOverlapId = setTimeout(async() => {
-      this.resOverlabId = await this.connect.run('/forSignUp/overlap/id', { account_id });
+      this.resOverlapId = await this.connect.run('/forSignUp/overlap/id', { account_id });
     }, 200);
+  }
+  
+  timeouOverlapPhone;
+  public overlapPhone() {
+    const { user_phone } = this.form;
+    clearTimeout(this.timeouOverlapPhone);
+    if(user_phone?.length < 2) return this.resOverlapPhone = null;
+    this.timeoutOverlapId = setTimeout(async() => {
+      this.resOverlapPhone = await this.connect.run('/forSignUp/overlap/phone', { user_phone });
+    }, 200);
+  }
+
+  public async aligoCheck() {
+    const { user_phone } = this.form;
+    this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    
   }
 }
