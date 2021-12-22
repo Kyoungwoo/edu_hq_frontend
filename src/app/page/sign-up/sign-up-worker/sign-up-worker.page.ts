@@ -46,6 +46,9 @@ export class SignUpWorkerPage implements OnInit {
   params:SignUpCompanyInfo;
 
   form:SignUpWorkerForm = new SignUpWorkerForm();
+  confirm = {
+    account_token: ''
+  }
 
   constructor(
     private activedRoute: ActivatedRoute
