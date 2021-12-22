@@ -81,7 +81,7 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:SelectPeriodComponent
+      component:PeopleViewComponent
     });
     modal.present();
 

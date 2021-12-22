@@ -43,7 +43,7 @@ describe('SignUpTypePage', () => {
     expect(buttonFooter).toBeFalsy();
   });
 
-  it('각 타입을 선택하면 해당 카드가 하이라이트 되고, [다음] 버튼이 나타나게 된다. 클릭 시, 회사 선택 페이지로 이동한다.', async() => {
+  it('각 타입을 선택하면 해당 카드가 하이라이트 되고, [다음] 버튼이 나타나게 된다. 클릭 시, 업체 선택 페이지로 이동한다.', async() => {
     let url;
     router.events.subscribe((nav => {
       if(nav instanceof NavigationEnd) {

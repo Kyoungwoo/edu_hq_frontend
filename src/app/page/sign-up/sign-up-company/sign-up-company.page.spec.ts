@@ -65,7 +65,7 @@ describe('SignUpCompanyPage', () => {
     expect(resultFail).toBeTruthy();
   });
 
-  it('회사 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 회사가 나온다. 이때 클릭하면 타입에 따라, 회사정보를 들고, 회원가입 페이지로 넘어간다.', async() => {
+  it('업체 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 업체가 나온다. 이때 클릭하면 타입에 따라, 업체정보를 들고, 회원가입 페이지로 넘어간다.', async() => {
     component.params.userType = 'WORKER';
     component.nextRouterLink = component.getNextRouterLink(component.params.userType);
 
