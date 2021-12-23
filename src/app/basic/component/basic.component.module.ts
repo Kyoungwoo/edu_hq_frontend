@@ -45,6 +45,7 @@ import { InputGroupComponent } from './input/input-group/input-group.component';
 import { PagerComponent } from './ui/pager/pager.component';
 import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.component';
 import { EmailComponent } from './input/email/email.component';
+import { SmarteditComponent } from './ui/smartedit/smartedit.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -85,7 +86,8 @@ import { EmailComponent } from './input/email/email.component';
     LogoComponent,
     RowComponent,
     TableComponent,
-    PagerComponent
+    PagerComponent,
+    SmarteditComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +134,8 @@ import { EmailComponent } from './input/email/email.component';
     LogoComponent,
     RowComponent,
     TableComponent,
-    PagerComponent
+    PagerComponent,
+    SmarteditComponent
   ]
 })
 export class BasicComponentModule { }

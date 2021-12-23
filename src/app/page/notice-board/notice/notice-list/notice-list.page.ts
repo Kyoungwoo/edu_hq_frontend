@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var nhn:any
 
 @Component({
   selector: 'app-notice-list',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoticeListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    
+  ) { }
 
   ngOnInit() {
   }
