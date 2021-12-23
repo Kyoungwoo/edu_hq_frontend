@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'use-terms',
+    redirectTo: 'privacy',
     pathMatch: 'full'
   },
   {
@@ -98,7 +98,17 @@ const routes: Routes = [
   {
     path: 'use-terms',
     loadChildren: () => import('./page/customer-support/terms/use-terms/use-terms.module').then( m => m.UseTermsPageModule)
+  },
+  {
+    path: 'sign-up-health',
+    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health/sign-up-health.module').then( m => m.SignUpHealthPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./page/customer-support/terms/privacy/privacy.module').then( m => m.PrivacyPageModule)
   }
+
+
 
 
 
