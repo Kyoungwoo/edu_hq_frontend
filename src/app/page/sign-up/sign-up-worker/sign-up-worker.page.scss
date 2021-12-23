@@ -2,6 +2,9 @@ app-avatar {
     margin-top: 30px;
     margin-bottom: 20px;
 }
+app-row {
+    align-items: flex-start;
+}
 .file-card {
     --padding: 8px;
     app-col {
@@ -13,15 +16,5 @@ app-avatar {
     }
     app-button {
         border-radius: 0;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .mobile-div {
-        display: block;
-        >app-col {
-            padding-left: 0;
-            padding-right: 0;
-        }
     }
 }

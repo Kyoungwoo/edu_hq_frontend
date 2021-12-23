@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 declare var nhn:any
 
 @Component({
@@ -9,10 +11,14 @@ declare var nhn:any
 export class NoticeListPage implements OnInit {
 
   constructor(
-    
+    private modal:ModalController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // const modal = await this.modal.create({
+    //   component:NoticeEditPage
+    // });
+    // modal.present();
   }
 
 }

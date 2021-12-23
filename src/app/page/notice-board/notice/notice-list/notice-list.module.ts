@@ -8,12 +8,14 @@ import { NoticeListPageRoutingModule } from './notice-list-routing.module';
 
 import { NoticeListPage } from './notice-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentModule,
     BasicComponentModule,
     NoticeListPageRoutingModule
   ],

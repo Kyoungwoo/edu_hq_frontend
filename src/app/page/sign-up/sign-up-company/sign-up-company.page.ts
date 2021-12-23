@@ -2,8 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserType } from 'src/app/basic/service/core/user.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 
+export interface SignUpCompanyInfo {
+  company_id:number, 
+  business_register_no:number, 
+  company_name:string, 
+  company_ceo:number
+}
 @Component({
   selector: 'app-sign-up-company',
   templateUrl: './sign-up-company.page.html',
@@ -12,12 +19,16 @@ import { RegexService } from 'src/app/basic/service/util/regex.service';
 })
 export class SignUpCompanyPage implements OnInit {
 
+  params = {
+    userType: '' as UserType
+  }
+
   form = {
     search_text: ''
   }
-  res:ConnectResult;
+  res:ConnectResult<SignUpCompanyInfo>;
 
-  selectedCompany = null;
+  selectedCompany:SignUpCompanyInfo;
 
   nextRouterLink:string;
 
@@ -28,17 +39,18 @@ export class SignUpCompanyPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(queryParams => {
-      const { userType } = queryParams;
+    this.activatedRoute.queryParams.subscribe(({ userType }) => {
+      this.params.userType = userType;
       this.nextRouterLink = this.getNextRouterLink(userType);
     });
   }
 
-  public async searchCompany() {
+  async searchCompany() {
     this.res = await this.connect.run('/forSignUp/company/get', this.form);
+    return this.res;
   }
 
-  private getNextRouterLink(userType) {
+  getNextRouterLink(userType) {
     switch(userType) {
       case 'WORKER':
         return '/sign-up-worker';

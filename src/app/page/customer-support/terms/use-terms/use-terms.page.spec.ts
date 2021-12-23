@@ -2,17 +2,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from '../../component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
-import { SelectNationComponent } from './select-nation.component';
+import { UseTermsPage } from './use-terms.page';
 
-describe('SelectNationComponent', () => {
-  let component: SelectNationComponent;
-  let fixture: ComponentFixture<SelectNationComponent>;
+describe('UseTermsPage', () => {
+  let component: UseTermsPage;
+  let fixture: ComponentFixture<UseTermsPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectNationComponent ],
+      declarations: [ UseTermsPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('SelectNationComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectNationComponent);
+    fixture = TestBed.createComponent(UseTermsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

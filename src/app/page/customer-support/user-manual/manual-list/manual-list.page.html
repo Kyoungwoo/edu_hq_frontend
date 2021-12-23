@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="white">
     <ion-title>사용자 메뉴얼</ion-title>
     <ion-buttons slot="end">
@@ -23,69 +23,201 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>작업계획서 작성 메뉴얼</h5>
-        <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">작업계획</ion-chip>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>안전교육 메뉴얼</h5>
-        <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">안전교육</ion-chip>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>장비관리 메뉴얼</h5>
-        <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">장비관리</ion-chip>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>회원가입 메뉴얼</h5>
-        <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">회원가입</ion-chip>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>안전 마일리지 사용 메뉴얼</h5>
-        <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">안전 마일리지</ion-chip>
-      </app-col>
-    </app-row>
-  </app-card>
+  <ng-container>
+    <app-card>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <h5>작업계획서 작성 메뉴얼</h5>
+          <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="primary">작업계획</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <h5>안전교육 메뉴얼</h5>
+          <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="primary">안전교육</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <h5>장비관리 메뉴얼</h5>
+          <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="primary">장비관리</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <h5>회원가입 메뉴얼</h5>
+          <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="primary">회원가입</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <h5>안전 마일리지 사용 메뉴얼</h5>
+          <p>한국토지 주택공사/박소현<br>작성일:2021.10.18</p>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="primary">안전 마일리지</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+  </ng-container>
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>사용자 메뉴얼</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<app-row style="align-items: flex-start;">
+  <app-col size="280px">
+    <app-table type="card">
+      <tbody>
+        <tr>
+          <td>
+            <app-select label="구분" value="전체">
+              <app-select-option value="전체">전체</app-select-option>
+            </app-select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-radio-input label="등록일" style="width:100%;">
+              <app-row>
+                <app-radio value="전체">전체</app-radio>
+                <app-radio value="전주">전주</app-radio>
+                <app-radio value="오늘">오늘</app-radio>
+              </app-row>
+              <app-row>
+                <app-radio value="금주">금주</app-radio>
+                <app-radio value="차주">차주</app-radio>
+                <app-radio value="당월">당월</app-radio>
+              </app-row>
+            </app-radio-input>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-input-group>
+              <app-calendar></app-calendar>
+              ~
+              <app-calendar></app-calendar>
+            </app-input-group>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+          </td>
+        </tr>
+      </tbody>
+    </app-table>
+  </app-col>
+  <app-col>
+    <ion-toolbar color="white">
+      <h5>사용자 메뉴얼 목록 (총70건)</h5>
+    </ion-toolbar>
+    <app-table>
+      <thead>
+        <tr>
+          <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+          <th style="width: 40px;" >★</th>
+          <th>구분</th>
+          <th>제목</th>
+          <th>회사명</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>회원가입</td>
+          <td>회원가입 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>작업계획</td>
+          <td>작업 계획서 작성 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>20</td>
+        </tr>
+        <tr class="button">
+          <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+          <td>★</td>
+          <td>안전교육</td>
+          <td>안전교육 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+          <td></td>
+          <td>통합관제</td>
+          <td>통합관제 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
+          <td></td>
+          <td>장비관리</td>
+          <td>장비관리 메뉴얼</td>
+          <td>한국토지주택공사</td>
+          <td>박소현</td>
+          <td>2021.10.26</td>
+          <td>50</td>
+        </tr>
+      </tbody>
+    </app-table>
+  </app-col>
+</app-row>
 </ion-content>
+<app-button-footer>
+  <app-button slot="end">등록</app-button>
+</app-button-footer>

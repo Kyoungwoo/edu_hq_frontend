@@ -8,7 +8,7 @@
     max-width: 640px;
 }
 :host ::ng-deep {
-    :first-child {
+    >:first-child {
         margin-top: 0;
     }
 }

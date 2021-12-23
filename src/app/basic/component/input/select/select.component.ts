@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
-import { ComponentRef } from '@ionic/core';
+import { Color, ComponentRef } from '@ionic/core';
 import { Subscription } from 'rxjs';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
@@ -23,6 +23,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
 
   @ContentChildren(SelectOptionComponent) options:QueryList<SelectOptionComponent>;
 
+  @Input() color:Color;
   @Input() label:string;
   @Input() placeholder = '선택';
   @Input() multiple:boolean = false;

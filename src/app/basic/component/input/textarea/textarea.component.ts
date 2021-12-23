@@ -18,6 +18,7 @@ export class TextareaComponent implements OnInit, ControlValueAccessor {
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 1000;
   @Input() autoGrow:boolean = false;
+  @Input() rows:number = 2;
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
 
   constructor() { }

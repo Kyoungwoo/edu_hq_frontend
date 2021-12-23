@@ -7,12 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { NoticeEditPageRoutingModule } from './notice-edit-routing.module';
 
 import { NoticeEditPage } from './notice-edit.page';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentModule,
+    BasicComponentModule,
     NoticeEditPageRoutingModule
   ],
   declarations: [NoticeEditPage]

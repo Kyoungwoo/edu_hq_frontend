@@ -90,7 +90,27 @@ const routes: Routes = [
   {
     path: 'manual-detail-search',
     loadChildren: () => import('./page/customer-support/user-manual/manual-detail-search/manual-detail-search.module').then( m => m.ManualDetailSearchPageModule)
+  },
+  {
+    path: 'manual-edit',
+    loadChildren: () => import('./page/customer-support/user-manual/manual-edit/manual-edit.module').then( m => m.ManualEditPageModule)
+  },
+  {
+    path: 'use-terms',
+    loadChildren: () => import('./page/customer-support/terms/use-terms/use-terms.module').then( m => m.UseTermsPageModule)
+  },
+  {
+    path: 'sign-up-health',
+    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health/sign-up-health.module').then( m => m.SignUpHealthPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./page/customer-support/terms/privacy/privacy.module').then( m => m.PrivacyPageModule)
   }
+
+
+
+
 
 
 ];

@@ -1,0 +1,85 @@
+
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>사용자 메뉴얼 상세</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <h4>사용자 메뉴얼</h4>
+ <app-card>
+   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+     <app-col>
+       <app-row>
+         <app-col size="auto">
+           <h5>회사명</h5>
+         </app-col>
+         <app-col>
+           <p>한국토지주택공사</p>
+          </app-col>
+       </app-row>
+     </app-col>
+     <app-col>
+       <app-row>
+        <app-col size="auto">
+          <h5>작성자</h5>
+        </app-col>
+        <app-col>
+          <p>박소현</p>
+         </app-col>
+      </app-row>
+     </app-col>
+   </app-row>
+   <app-row mobileBreak>
+     <app-col>
+       <app-row>
+         <app-col size="auto">
+           <h5>작성일</h5>
+         </app-col>
+         <app-col>
+           <p>2021.10.26</p>
+          </app-col>
+       </app-row>
+     </app-col>
+     <app-col>
+       <app-row>
+         <app-col size="auto">
+           <h5>구분</h5>
+         </app-col>
+         <app-col>
+           <p>작업계획</p>
+          </app-col>
+       </app-row>
+     </app-col>
+  </app-row>
+ </app-card>
+ <app-card>
+   <app-row>
+     <app-col size="auto">
+       <h5>제목</h5>
+     </app-col>
+     <app-col>
+       <p>작업계획 메뉴얼 입니다.</p>
+     </app-col>
+   </app-row>
+ </app-card>
+ <app-card>
+  <app-row style="min-height: 300px;">
+    <app-col size="auto">
+      <h5>내용</h5>
+    </app-col>
+    <app-col>
+      <p>작업계획서 작성 메뉴얼 참고 바랍니다.</p>
+    </app-col>
+  </app-row>
+</app-card>
+    <h4>첨부자료</h4>
+<app-card href="https://i.ytimg.com/vi/b3rBSubQufc/maxresdefault.jpg" download="tree.jpg" target="_blank">
+  작업계획서 작성 메뉴얼
+</app-card>
+</ion-content>
+<app-button-footer>
+  <app-button slot="end" color="secondary">수정</app-button>
+</app-button-footer>

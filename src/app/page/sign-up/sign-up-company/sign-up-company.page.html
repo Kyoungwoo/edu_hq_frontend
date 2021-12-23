@@ -3,33 +3,34 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/sign-up-type"></ion-back-button>
     </ion-buttons>
-    <ion-title>회사 검색</ion-title>
+    <ion-title>업체 검색</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <app-container size="small">
-    <h4>회사 검색을 위해<br><b>사업자 등록번호</b> 또는 <b>회사명</b>을 입력해주세요.</h4>
-    <app-input label="사업자등록번호(-제외) 또는 회사명" [(ngModel)]="form.search_text" (keyup.enter)="searchCompany()" (buttonClick)="searchCompany()">
+    <h4>업체 검색을 위해<br><b>사업자 등록번호</b> 또는 <b>업체명</b>을 입력해주세요.</h4>
+    <app-input id="input-search" label="사업자등록번호(-제외) 또는 업체명" [(ngModel)]="form.search_text" (keyup.enter)="searchCompany()" (buttonClick)="searchCompany()">
       <app-img style="margin-right: 4px" name="search"></app-img> 조회
     </app-input>
     <ng-container *ngIf="!res; else tempRes">
-      <h5><ion-text color="medium">회사정보를 검색해주세요.</ion-text></h5>
+      <h5 id="result-null"><ion-text color="medium">업체정보를 검색해주세요.</ion-text></h5>
     </ng-container>
     <ng-template #tempRes>
       <ng-container *ngIf="res.rsCode === 0; else tempFail">
-        <h6>회사 정보</h6>
-        <app-card [button]="true" [color]="company === selectedCompany ? 'secondary' : 'white'" *ngFor="let company of res.rsMap" (click)="selectedCompany = company">
+        <h6 id="result-success">업체 정보</h6>
+        <app-card data-test="company-item" [button]="true" [color]="company === selectedCompany ? 'secondary' : 'white'" *ngFor="let company of res.rsMap" (click)="selectedCompany = company">
           <h4>{{ company.company_name }}</h4>
           <p>{{ regex.replace.companyLicenseNo(company.business_register_no) }} / {{company.company_ceo }}</p>
         </app-card>
       </ng-container>
       <ng-template #tempFail>
-        <h5><ion-text color="danger">{{ res.rsMsg }}</ion-text></h5>
+        <h5 id="result-fail"><ion-text color="danger">{{ res.rsMsg }}</ion-text></h5>
       </ng-template>
     </ng-template>
   </app-container>
 </ion-content>
 <app-button-footer>
   <app-button fill="translucent" routerLink="/sign-up-type" routerDirection="back">이전</app-button>
-  <app-button *ngIf="selectedCompany" @fadeInAnimation [routerLink]="nextRouterLink">다음</app-button>
+  <app-button data-test="button-next" *ngIf="selectedCompany" @fadeInAnimation 
+  [routerLink]="nextRouterLink" [queryParams]="selectedCompany">다음</app-button>
 </app-button-footer>

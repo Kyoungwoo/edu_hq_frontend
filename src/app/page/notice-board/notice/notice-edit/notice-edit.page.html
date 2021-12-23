@@ -5,5 +5,42 @@
 </ion-header>
 
 <ion-content>
-
+  <app-row>
+    <app-col>
+      <app-table>
+        <tr>
+          <th>현장명</th>
+          <td><app-input></app-input></td>
+          <th>회사명</th>
+          <td><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><app-input></app-input></td>
+          <th>작성일</th>
+          <td><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>구분</th>
+          <td>
+            <app-select>
+              <app-select-option></app-select-option>
+            </app-select>
+          </td>
+          <th>게시물 공개범위</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td colspan="3"><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td colspan="3">
+            <app-smartedit></app-smartedit>
+          </td>
+        </tr>
+      </app-table>
+    </app-col>
+  </app-row>
 </ion-content>
