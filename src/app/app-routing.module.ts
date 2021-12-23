@@ -4,11 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-<<<<<<< HEAD
-    redirectTo: 'notice-list',
-=======
     redirectTo: 'heavy-equip-list',
->>>>>>> c7e6c5c3a8d36935ad9bbf1a07052797dc2b7019
     pathMatch: 'full'
   },
   {
