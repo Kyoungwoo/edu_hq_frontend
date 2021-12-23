@@ -4,7 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
+<<<<<<< HEAD
     redirectTo: 'notice-list',
+=======
+    redirectTo: 'heavy-equip-list',
+>>>>>>> c7e6c5c3a8d36935ad9bbf1a07052797dc2b7019
     pathMatch: 'full'
   },
   {
@@ -106,7 +110,12 @@ const routes: Routes = [
   {
     path: 'privacy',
     loadChildren: () => import('./page/customer-support/terms/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'heavy-equip-list',
+    loadChildren: () => import('./page/equipment-management/heavy-equip-management/heavy-equip-list/heavy-equip-list.module').then( m => m.HeavyEquipListPageModule)
   }
+
 
 
 
