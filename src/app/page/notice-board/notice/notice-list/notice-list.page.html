@@ -28,28 +28,24 @@
         <tbody>
           <tr>
             <td>
-              <app-select label="현장명" value="세종">
-                <app-select-option value="세종">세종</app-select-option>
-              </app-select>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+                <tr>
+            <td>
+              <app-select-company></app-select-company>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="결재현황" value="전체">
+              <app-select label="구분" value="전체">
                 <app-select-option value="전체">전체</app-select-option>
               </app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="공종" value="전체">
-                <app-select-option value="전체">전체</app-select-option>
-              </app-select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <app-input-group label="작업기간">
+              <app-input-group label="등록일">
                 <app-calendar></app-calendar>
                 ~
                 <app-calendar></app-calendar>

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'heavy-equip-list',
+    redirectTo: 'minutes-list',
     pathMatch: 'full'
   },
   {
@@ -110,6 +110,10 @@ const routes: Routes = [
   {
     path: 'heavy-equip-list',
     loadChildren: () => import('./page/equipment-management/heavy-equip-management/heavy-equip-list/heavy-equip-list.module').then( m => m.HeavyEquipListPageModule)
+  },
+  {
+    path: 'scene-list',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-list/scene-list.module').then( m => m.SceneListPageModule)
   }
 
 

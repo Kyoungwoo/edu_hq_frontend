@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>notice-edit</ion-title>
+    <ion-title>공지사항 등록</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +10,7 @@
       <app-table>
         <tr>
           <th>현장명</th>
-          <td><app-input></app-input></td>
+          <td><app-select-scene label=""></app-select-scene></td>
           <th>회사명</th>
           <td><app-input></app-input></td>
         </tr>
@@ -37,10 +37,23 @@
         <tr>
           <th>내용</th>
           <td colspan="3">
-            <app-smartedit></app-smartedit>
+            <app-smartedit [(ngModel)]="smarteditText"></app-smartedit>
           </td>
         </tr>
       </app-table>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col size="2">
+     <h5>첨부 자료</h5>
+    </app-col>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-button>
+        <ion-icon name="attach-outline"></ion-icon>
+        <app-file name="input" view_type="NOTICE"
+        ></app-file>
+      </app-button>
     </app-col>
   </app-row>
 </ion-content>

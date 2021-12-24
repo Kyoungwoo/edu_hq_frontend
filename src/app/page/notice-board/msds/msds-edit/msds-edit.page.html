@@ -1,9 +1,59 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>msds-edit</ion-title>
+    <ion-title>MSDS 등록</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-row>
+    <app-col>
+      <app-table>
+        <tr>
+          <th>현장명</th>
+          <td><app-select-scene label=""></app-select-scene></td>
+          <th>회사명</th>
+          <td><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td><app-input></app-input></td>
+          <th>작성일</th>
+          <td><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>구분</th>
+          <td>
+            <app-select>
+              <app-select-option></app-select-option>
+            </app-select>
+          </td>
+          <th>게시물 공개범위</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td colspan="3"><app-input></app-input></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td colspan="3">
+            <app-smartedit [(ngModel)]="smarteditText"></app-smartedit>
+          </td>
+        </tr>
+      </app-table>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col size="2">
+     <h5>첨부 자료</h5>
+    </app-col>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-button>
+        <ion-icon name="attach-outline"></ion-icon>
+        <app-file name="input" view_type="NOTICE"
+        ></app-file>
+      </app-button>
+    </app-col>
+  </app-row>
 </ion-content>

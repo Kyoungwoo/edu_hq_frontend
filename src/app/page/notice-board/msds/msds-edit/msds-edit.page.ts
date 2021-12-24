@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./msds-edit.page.scss'],
 })
 export class MsdsEditPage implements OnInit {
-
+  smarteditText:string = '';
   constructor() { }
 
   ngOnInit() {

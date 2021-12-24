@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 declare var nhn:any
 
 @Component({
   selector: 'app-smartedit',
   templateUrl: './smartedit.component.html',
   styleUrls: ['./smartedit.component.scss'],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => SmarteditComponent),
+    multi: true
+  }]
 })
 export class SmarteditComponent implements OnInit {
 
+  @Output() change = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -32,4 +39,21 @@ export class SmarteditComponent implements OnInit {
       }
     });
   }
+  public _value:boolean = false;
+  @Input()
+  set value(v:any) {
+    if(v !== this.value) {
+      this._value = v;
+      this.change.emit(v);
+    }
+  }
+  get value() { return this._value; }
+  
+  writeValue(v:any): void {
+    if(v !== this._value) this._value = v; 
+  }
+  private _onChangeCallback = (v) => {};
+  private _onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
 }
