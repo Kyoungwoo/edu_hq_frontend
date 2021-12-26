@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SceneListPageRoutingModule } from './scene-list-routing.module';
+import { SceneEditPageRoutingModule } from './scene-edit-routing.module';
 
-import { SceneListPage } from './scene-list.page';
+import { SceneEditPage } from './scene-edit.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
@@ -17,8 +17,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    SceneListPageRoutingModule
+    SceneEditPageRoutingModule
   ],
-  declarations: [SceneListPage]
+  declarations: [SceneEditPage]
 })
-export class SceneListPageModule {}
+export class SceneEditPageModule {}

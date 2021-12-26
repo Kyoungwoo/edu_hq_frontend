@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'minutes-list',
+    redirectTo: 'scene-list',
     pathMatch: 'full'
   },
   {
@@ -114,6 +114,10 @@ const routes: Routes = [
   {
     path: 'scene-list',
     loadChildren: () => import('./page/scene-management/scene-management/scene-list/scene-list.module').then( m => m.SceneListPageModule)
+  },
+  {
+    path: 'scene-edit',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-edit/scene-edit.module').then( m => m.SceneEditPageModule)
   }
 
 
