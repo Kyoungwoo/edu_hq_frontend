@@ -43,7 +43,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
   
   async init() {
-    console.log("123123---------",this.value)
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
     const position = new naver.maps.LatLng(37.5795423, 126.8897844);
@@ -65,7 +64,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
         }
       }
     }
-    console.log("aa------------------------------------------------------------------------",this.infoMarker)
     this.map.setSize(size);
     
     const polygon = new naver.maps.Polygon({

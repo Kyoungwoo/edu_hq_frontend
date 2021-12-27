@@ -3,9 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>현장관리</ion-title>
+    <ion-title>원청사 관리</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <app-row style="align-items: flex-start;">
     <app-col size="280px">
@@ -41,34 +42,21 @@
     </app-col>
     <app-col>
       <ion-toolbar color="white">
-        <ion-buttons slot="start">
-          <app-col>
-            <app-button fill="translucent">신규 등록</app-button>
-            <app-button>엑셀 다운로드</app-button>
-          </app-col>
-        </ion-buttons>
-          <app-col style="text-align: right;">
-            <app-button>저장</app-button>
-          </app-col>
-      </ion-toolbar>
-      <ion-toolbar color="white">
         <h5>수시 위험성평가 목록 (총90건)</h5>
-      </ion-toolbar>
-       <!-- check-group ngModel -->
-      <app-check-group>
+      </ion-toolbar>      
         <app-table>
           <thead>
             <tr>
-              <th><app-check type="all" color="white" size="small" name="check"></app-check></th>
+              <th>No</th>
               <th>지역본부</th>
               <th>사업본부</th>
               <th>현장명</th>
               <th>원청사</th>
-              <th>감리사</th>
-              <th>공사기간</th>
+              <th>사업자등록번호</th>
+              <th>대표자</th>
               <th>최근 업데이트</th>
-              <th>사용여부</th>
-            </tr>    
+              <th>작성자</th>
+            </tr>
           </thead>
           <tbody>
             <tr>
@@ -83,7 +71,6 @@
             </tr>
           </tbody>
         </app-table>
-      </app-check-group>
       <app-pager></app-pager>
     </app-col>
   </app-row>

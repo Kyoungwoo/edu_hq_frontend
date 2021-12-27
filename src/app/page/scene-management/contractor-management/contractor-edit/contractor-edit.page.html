@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>현장관리</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-row>
+      <app-col class="title">
+        <ion-toolbar>
+          <ion-title>회사정보</ion-title>
+        </ion-toolbar>
+      </app-col>
+    </app-row>
+  <app-table>
+    <tr>
+      <th style="width:230px;"><span>*</span>회사명</th>
+      <td></td>
+      <th style="width:230px;"><span>*</span>사업자등록번호</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th style="width:230px;"><span>*</span>대표자</th>
+      <td></td>
+      <th style="width:230px;"><span>*</span>회사로고</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th style="width:230px;">현장 전화번호</th>
+      <td></td>
+      <th style="width:230px;"></th>
+      <td></td>
+    </tr>
+  </app-table>
+  <app-row>
+    <app-col class="title">
+      <ion-icon style="font-size: 10px;" name="ellipse"></ion-icon>&nbsp;담당자 정보
+    </app-col>
+  </app-row>
+<app-table>
+  <tr>
+    <th style="width:230px;"><span>*</span>성명</th>
+    <td></td>
+    <th style="width:230px;"><span>*</span>수탁자</th>
+    <td></td>
+    <th style="width:230px;"><span>*</span>동의현황</th>
+    <td></td>
+  </tr>
+</app-table>
+<app-row>
+  <app-col class="title">
+    <ion-icon style="font-size: 10px;" name="ellipse"></ion-icon>&nbsp;개인정보 처리 위탁 동의
+  </app-col>
+</app-row>
+<app-table>
+<tr>
+  <th style="width:230px;"><span>*</span>위탁자</th>
+  <td></td>
+  <th style="width:230px;"><span>*</span>수탁자</th>
+  <td></td>
+  <th style="width:230px;"><span>*</span>동의현황</th>
+  <td></td>
+</tr>
+</app-table>
+<app-row>
+  <app-col>
+    <app-textarea [rows]="10" [(ngModel)]="textarea"></app-textarea>
+  </app-col>
+</app-row>
+<app-row>
+  <app-col>
+   <app-button>동의합니다.</app-button>
+  </app-col>
+</app-row>
+</ion-content>

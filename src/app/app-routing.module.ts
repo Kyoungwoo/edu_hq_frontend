@@ -118,6 +118,18 @@ const routes: Routes = [
   {
     path: 'scene-edit',
     loadChildren: () => import('./page/scene-management/scene-management/scene-edit/scene-edit.module').then( m => m.SceneEditPageModule)
+  },
+  {
+    path: 'scene-area-set',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-area-set/scene-area-set.module').then( m => m.SceneAreaSetPageModule)
+  },
+  {
+    path: 'contractor-list',
+    loadChildren: () => import('./page/scene-management/contractor-management/contractor-list/contractor-list.module').then( m => m.ContractorListPageModule)
+  },
+  {
+    path: 'contractor-edit',
+    loadChildren: () => import('./page/scene-management/contractor-management/contractor-edit/contractor-edit.module').then( m => m.ContractorEditPageModule)
   }
 
 
