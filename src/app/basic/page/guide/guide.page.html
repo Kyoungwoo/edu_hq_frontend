@@ -1689,7 +1689,21 @@
             </tr>
           </tbody>
         </app-table>
-        
+
+        <h4 id="qr">qr-service</h4>
+        <p>qr을 스캔하는 서비스입니다.</p>
+
+        <h4 id="nfc">nfc</h4>
+        <p>nfc 태깅을 위한 API 입니다. </p>
+          <pre><code ngNonBindable>const modal = await this.modal.present(&#123;
+            component : ScanPage,
+            componentProps:&#123;
+              데이터
+            &#125;
+            &#125;);
+            modal.present();
+        </code></pre>
+
       </app-container>
     </ion-content>
   </ion-nav>

@@ -1,0 +1,50 @@
+
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>공지사항 등록</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>공지사항</h4>
+ <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+   <app-col>
+      <app-select-scene [required]="true" label="현장명"></app-select-scene>
+   </app-col>
+   <app-col>
+    <app-input></app-input>
+   </app-col>
+ </app-row>
+<app-row>
+  <app-col>
+    <app-input name="사업자등록번호" [required]="true" label="사업자등록번호"></app-input>
+  </app-col>
+  <app-col>
+    <app-input name="회사명" label="회사명"></app-input>
+  </app-col>
+</app-row>
+<app-row>
+  <app-col>
+    <app-input name="대표자" [required]="true" label="대표자"></app-input>
+  </app-col>
+  <app-col>
+    <app-input name="회사전화" label="회사전화"></app-input>
+  </app-col>
+</app-row>
+<h4>계약 정보</h4>
+<h4>담당자 정보</h4>
+<app-row>
+  <app-col>
+    <app-input name="성명" label="성명"></app-input>
+  </app-col>
+  <app-col>
+    <app-input name="연락처" [type]="'tel'" label="연락처"></app-input>
+  </app-col>
+  <app-col>
+    <app-input name="이메일" label="이메일" [type]="'email'"></app-input>
+  </app-col>
+</app-row>
+<h4>개인정보 처리 위탁 동의</h4>
+</ion-content>

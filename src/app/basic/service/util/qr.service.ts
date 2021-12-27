@@ -26,14 +26,7 @@ export class QrService {
   }
 
   constructor(
-    private connect: ConnectService,
-    private toast : ToastService,
-    private alert:AlertService,
-    private navCtrl: NavService,
-    private _modal : ModalController,
-    private nav:NavService,
-    private router:Router,
-    private qrScanner: QRScanner
+    private _modal : ModalController
   ) { }
 
   qrCallback;

@@ -18,6 +18,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string = "현장";
+  @Input() required:boolean = false;
 
   constructor(
     private _modal:ModalController

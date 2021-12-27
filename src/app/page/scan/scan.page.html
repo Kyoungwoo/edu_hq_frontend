@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/worker/main"></ion-back-button>
@@ -14,14 +14,4 @@
   <ion-button *ngIf="ios" (click)="nfcScan()">
     ios 태깅 버튼
   </ion-button>
-  <ion-button (click)="qr = !qr">qr</ion-button>
-  <app-qr-scanner  (scan)="qrScan($event)"></app-qr-scanner>
-</ion-content> -->
-<div class="qr-layout-inner">
-  <div class="qr-label">QR코드를 스캔해주세요.</div>
-</div>
-<div class="rotate-button-position">
-  <ion-button class="rotate-button" (click)="rotateCamera()">
-    <ion-icon slot="icon-only" name="sync-outline"></ion-icon>
-  </ion-button>
-</div>
+</ion-content>

@@ -130,6 +130,14 @@ const routes: Routes = [
   {
     path: 'contractor-edit',
     loadChildren: () => import('./page/scene-management/contractor-management/contractor-edit/contractor-edit.module').then( m => m.ContractorEditPageModule)
+  },
+  {
+    path: 'partner-list',
+    loadChildren: () => import('./page/scene-management/partner-management/partner-list/partner-list.module').then( m => m.PartnerListPageModule)
+  },
+  {
+    path: 'partner-edit',
+    loadChildren: () => import('./page/scene-management/partner-management/partner-edit/partner-edit.module').then( m => m.PartnerEditPageModule)
   }
 
 

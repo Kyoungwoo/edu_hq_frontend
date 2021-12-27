@@ -14,7 +14,9 @@ declare var nhn:any
 })
 export class SmarteditComponent implements OnInit {
 
+  @Input() placeholder:string;
   @Output() change = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class SmarteditComponent implements OnInit {
       }
     });
   }
-  public _value:boolean = false;
+  public _value:string = '';
   @Input()
   set value(v:any) {
     if(v !== this.value) {

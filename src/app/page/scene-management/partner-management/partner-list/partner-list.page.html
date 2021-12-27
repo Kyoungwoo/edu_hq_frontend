@@ -3,12 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>게시판</ion-title>
-  </ion-toolbar>
-  <ion-toolbar color="white">
-    <ion-title>
-      <h4>회의록</h4>
-    </ion-title>
+    <ion-title>협력사 관리</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -29,29 +24,13 @@
         <tbody>
           <tr>
             <td>
-              <app-select-scene></app-select-scene>
+              <app-select-company></app-select-company>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="구분" value="전체">
-                <app-select-option value="전체">전체</app-select-option>
-              </app-select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <app-input-group label="회의 일자">
-                <app-calendar></app-calendar>
-                ~
-                <app-calendar></app-calendar>
-              </app-input-group>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <app-select label="결재현황" value="전체">
-                <app-select-option value="전체">전체</app-select-option>
+              <app-select>
+                <app-select-option></app-select-option>
               </app-select>
             </td>
           </tr>
@@ -71,20 +50,28 @@
           <thead>
             <tr>
               <th>NO</th>
-              <th>회의록</th>
-              <th>회의 일자</th>
-              <th>회사명</th>
+              <th>현장명</th>
+              <th>원청사명</th>
+              <th>협력사명</th>
+              <th>사업자등록번호</th>
+              <th>대표자</th>
+              <th>공종</th>
+              <th>전화번호</th>
+              <th>최근 업데이트</th>
               <th>작성자</th>
-              <th>작성일</th>
             </tr>
           </thead>
             <tr>
               <td>1</td>
-              <td>안전 및 보건에 관한 협의체 회의록</td>
-              <td>2021.06.15</td>
-              <td>(주)남광토건</td>
-              <td>이상범</td>
-              <td>2021.09.15</td>
+              <td>수원당수 공공주택지구 조성공사</td>
+              <td>(주)원청사</td>
+              <td>GSIL</td>
+              <td>264-81-14771</td>
+              <td>이건창</td>
+              <td>건설임</td>
+              <td>010-7574-1728</td>
+              <td>2021.08.06</td>
+              <td>이건창</td>
             </tr>
           <tbody>
           </tbody>

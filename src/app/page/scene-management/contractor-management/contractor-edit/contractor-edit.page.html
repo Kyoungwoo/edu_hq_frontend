@@ -1,75 +1,59 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>현장관리</ion-title>
+    <ion-title>원창사 정보</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-    <app-row>
-      <app-col class="title">
-        <ion-toolbar>
-          <ion-title>회사정보</ion-title>
-        </ion-toolbar>
+  <h4>회사 정보</h4>
+  <app-card>
+    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+      <app-col>
+        <app-select-company></app-select-company>
+      </app-col>
+      <app-col>
+        <app-input label="사업자등록번호" [required]="true"></app-input>
       </app-col>
     </app-row>
-  <app-table>
-    <tr>
-      <th style="width:230px;"><span>*</span>회사명</th>
-      <td></td>
-      <th style="width:230px;"><span>*</span>사업자등록번호</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th style="width:230px;"><span>*</span>대표자</th>
-      <td></td>
-      <th style="width:230px;"><span>*</span>회사로고</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th style="width:230px;">현장 전화번호</th>
-      <td></td>
-      <th style="width:230px;"></th>
-      <td></td>
-    </tr>
-  </app-table>
-  <app-row>
-    <app-col class="title">
-      <ion-icon style="font-size: 10px;" name="ellipse"></ion-icon>&nbsp;담당자 정보
-    </app-col>
-  </app-row>
-<app-table>
-  <tr>
-    <th style="width:230px;"><span>*</span>성명</th>
-    <td></td>
-    <th style="width:230px;"><span>*</span>수탁자</th>
-    <td></td>
-    <th style="width:230px;"><span>*</span>동의현황</th>
-    <td></td>
-  </tr>
-</app-table>
-<app-row>
-  <app-col class="title">
-    <ion-icon style="font-size: 10px;" name="ellipse"></ion-icon>&nbsp;개인정보 처리 위탁 동의
-  </app-col>
-</app-row>
-<app-table>
-<tr>
-  <th style="width:230px;"><span>*</span>위탁자</th>
-  <td></td>
-  <th style="width:230px;"><span>*</span>수탁자</th>
-  <td></td>
-  <th style="width:230px;"><span>*</span>동의현황</th>
-  <td></td>
-</tr>
-</app-table>
-<app-row>
-  <app-col>
-    <app-textarea [rows]="10" [(ngModel)]="textarea"></app-textarea>
-  </app-col>
-</app-row>
-<app-row>
-  <app-col>
-   <app-button>동의합니다.</app-button>
-  </app-col>
-</app-row>
+    <app-row mobileBreak>
+      <app-col>
+        <app-input label="대표자" [required]="true"></app-input>
+      </app-col>
+      <app-col>
+        <app-input label="회사로고"></app-input>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input label="현장 전화번호"></app-input>
+      </app-col>
+    </app-row>
+  </app-card>
+  <h4>담당자 정보</h4>
+  <app-card>
+    <app-row>
+      <app-col>
+        <app-input label="성명"></app-input>
+      </app-col>
+      <app-col>
+        <app-input label="연락처"></app-input>
+      </app-col>
+      <app-col>
+        <app-input label="이메일"></app-input>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <h4>개인정보 처리 위탁 동의</h4>
+    <app-row style="min-height: 300px;">
+      <app-col>
+        <app-textarea [rows]="11"></app-textarea>
+      </app-col>
+    </app-row>
+  </app-card>
 </ion-content>
+<app-button-footer>
+  <app-button slot="end" color="secondary">동의합니다.</app-button>
+</app-button-footer>
