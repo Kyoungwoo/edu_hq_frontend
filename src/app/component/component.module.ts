@@ -39,6 +39,7 @@ import { SelectPeriodComponent } from './select/select-period/select-period.comp
 import { DetailSearchComponent } from './modal/detail-search/detail-search.component';
 import { SelectContractorComponent } from './select/select-contractor/select-contractor.component';
 import { SearchContractorComponent } from './modal/search-contractor/search-contractor.component';
+import { SelectConstructionMachineryComponent } from './select/select-construction-machinery/select-construction-machinery.component';
 
 
 
@@ -77,7 +78,8 @@ import { SearchContractorComponent } from './modal/search-contractor/search-cont
     SelectOccupationComponent,
     DetailSearchComponent,
     SelectContractorComponent,
-    SearchContractorComponent
+    SearchContractorComponent,
+    SelectConstructionMachineryComponent
    
   ],
   imports: [
@@ -121,7 +123,8 @@ import { SearchContractorComponent } from './modal/search-contractor/search-cont
     SelectOccupationComponent,
     DetailSearchComponent,
     SelectContractorComponent,
-    SearchContractorComponent
+    SearchContractorComponent,
+    SelectConstructionMachineryComponent
   ]
 })
 export class ComponentModule { }
