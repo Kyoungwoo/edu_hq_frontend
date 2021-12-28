@@ -14,23 +14,59 @@
         <app-select-company></app-select-company>
       </app-col>
       <app-col>
-        <app-input label="사업자등록번호" [required]="true"></app-input>
+        <app-select-contractor></app-select-contractor>
       </app-col>
     </app-row>
-    <app-row mobileBreak>
+    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
       <app-col>
-        <app-input label="대표자" [required]="true"></app-input>
+        <app-input label="사업자등록번호"></app-input>
       </app-col>
       <app-col>
-        <app-input label="회사로고"></app-input>
+        <app-select-company></app-select-company>
       </app-col>
     </app-row>
-    <app-row>
+    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
       <app-col>
-        <app-input label="현장 전화번호"></app-input>
+        <app-input label="대표자"></app-input>
+      </app-col>
+      <app-col>
+        <app-input label="회사전화"></app-input>
       </app-col>
     </app-row>
   </app-card>
+  <h4>계약 정보</h4>
+  <app-check-group>
+    <app-table>
+      <thead>
+        <tr>
+          <th><app-check></app-check></th>
+          <th>계약공종</th>
+          <th>계약명</th>
+          <th>계약기간</th>
+          <th>계약금액<br>(원/VAT별도)</th>
+          <th>혐력사 소장</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><app-check></app-check></td>
+          <td>
+            <app-select>
+              <app-select-option></app-select-option>
+            </app-select>
+        </td>
+          <td><app-input></app-input></td>
+          <td>
+            <app-calendar></app-calendar>
+            ~
+            <app-calendar></app-calendar>
+          </td>
+          <td><app-input placeholder="계약금액을 적어주세요."></app-input></td>
+          <td><app-select-contractor></app-select-contractor></td>
+        </tr>
+      </tbody>
+    </app-table>
+  </app-check-group>
   <h4>담당자 정보</h4>
   <app-card>
     <app-row>

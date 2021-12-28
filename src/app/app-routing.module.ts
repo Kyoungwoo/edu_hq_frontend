@@ -142,6 +142,18 @@ const routes: Routes = [
   {
     path: 'heavy-equip-edit',
     loadChildren: () => import('./page/equipment-management/heavy-equip-edit/heavy-equip-edit.module').then( m => m.HeavyEquipEditPageModule)
+  },
+  {
+    path: 'member-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/member-standard-set/member-standard-set.module').then( m => m.MemberStandardSetPageModule)
+  },
+  {
+    path: 'area-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/area-standard-set/area-standard-set.module').then( m => m.AreaStandardSetPageModule)
+  },
+  {
+    path: 'work-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/work-standard-set/work-standard-set.module').then( m => m.WorkStandardSetPageModule)
   }
 
 
