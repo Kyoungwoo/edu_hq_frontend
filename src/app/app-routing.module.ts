@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'heavy-equip-edit',
+    redirectTo: 'each-device-add',
     pathMatch: 'full'
   },
   {
@@ -141,14 +141,24 @@ const routes: Routes = [
   },
   {
     path: 'heavy-equip-edit',
-    loadChildren: () => import('./page/equipment-management/heavy-equip-edit/heavy-equip-edit.module').then( m => m.HeavyEquipEditPageModule)
+    loadChildren: () => import('./page/equipment-management/heavy-equip-management/heavy-equip-edit/heavy-equip-edit.module').then( m => m.HeavyEquipEditPageModule)
+  },
+  {
+    path: 'serial-no-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/serial-no-list/serial-no-list.module').then( m => m.SerialNoListPageModule)
+  },
+  {
+    path: 'each-device-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-list/each-device-list.module').then( m => m.EachDeviceListPageModule)
+  },
+  {
+    path: 'smart-detail-search',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/smart-detail-search/smart-detail-search.module').then( m => m.SmartDetailSearchPageModule)
+  },
+  {
+    path: 'each-device-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
   }
-
-
-
-
-
-
 
 
 ];
