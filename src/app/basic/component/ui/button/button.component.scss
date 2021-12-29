@@ -10,7 +10,7 @@
     background: var(--ion-color-base);
     font-size: var(--font-size-h5);
     box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
-    padding: 8px 16px;
+    padding: 0 16px;
     min-width: 42px;
     min-height: 42px;
     position: relative;
@@ -50,11 +50,11 @@ app-button + :host {
 
 /** size */
 :host.button-small {
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 28px;
+    min-height: 28px;
     font-size: var(--font-size-h6);
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /** shape */
