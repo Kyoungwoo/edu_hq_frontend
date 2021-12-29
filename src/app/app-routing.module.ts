@@ -159,8 +159,6 @@ const routes: Routes = [
     path: 'each-device-add',
     loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
   }
-
-
 ];
 
 @NgModule({
