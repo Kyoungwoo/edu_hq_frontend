@@ -124,6 +124,18 @@ const routes: Routes = [
     loadChildren: () => import('./page/scene-management/scene-management/scene-area-set/scene-area-set.module').then( m => m.SceneAreaSetPageModule)
   },
   {
+    path: 'member-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/member-standard-set/member-standard-set.module').then( m => m.MemberStandardSetPageModule)
+  },
+  {
+    path: 'area-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/area-standard-set/area-standard-set.module').then( m => m.AreaStandardSetPageModule)
+  },
+  {
+    path: 'work-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/work-standard-set/work-standard-set.module').then( m => m.WorkStandardSetPageModule)
+  },
+  {
     path: 'contractor-list',
     loadChildren: () => import('./page/scene-management/contractor-management/contractor-list/contractor-list.module').then( m => m.ContractorListPageModule)
   },
@@ -160,6 +172,7 @@ const routes: Routes = [
     loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
   },
   {
+<<<<<<< HEAD
     path: 'heavy-device-list',
     loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-list/heavy-device-list.module').then( m => m.HeavyDeviceListPageModule)
   },
@@ -171,6 +184,11 @@ const routes: Routes = [
 
 
 
+=======
+    path: 'system-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+  }
+>>>>>>> 9f219e3a5312afec356c82aff1c052cf96443b6d
 ];
 
 @NgModule({
