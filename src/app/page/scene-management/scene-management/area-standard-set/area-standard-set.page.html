@@ -3,18 +3,21 @@
     <ion-title>장소 정보 기준 설정</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-toolbar slot="top" color="white">
+  <app-row>
+    <app-col>
+      <ion-segment color="primary" [value]="1">
+        <ion-segment-button (click)="menuCount = 1" [value]="1">장소</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 2">위험지역</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 3">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
+      </ion-segment>
+    </app-col>
+  </app-row>
+</ion-toolbar>
 
 <ion-content>
-  <ion-segment style="--background: white ;" color="primary" [value]="1">
-    <ion-segment-button (click)="menuCount = 1" [value]="1">장소</ion-segment-button>
-    <ion-segment-button (click)="menuCount = 2">위험지역</ion-segment-button>
-    <ion-segment-button (click)="menuCount = 3">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
-  </ion-segment>
-
   <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
     <app-col size="280px">
-
       <app-table type="card">
         <thead>
           <tr>
@@ -41,15 +44,20 @@
     </app-col>
 
     <app-col>
-      <h4>현장 안내도</h4>
-      <h4>장소등록</h4>
       <app-row>
+        <app-col>
+          <h4>현장 안내도</h4>
+          <h4>장소등록</h4>
+        </app-col>
+      </app-row>
+      <app-row style="height: 300px;">
         <app-col>
           <ion-buttons>
             <app-button color="secondary">수정</app-button>
-            <app-button color="">추가</app-button>
+            <app-button fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
           </ion-buttons>
+
           <app-check-group>
             <app-table class="edit">
               <tbody>
@@ -72,11 +80,13 @@
           </app-check-group>
         </app-col>
         <app-col>
+
           <ion-buttons>
-            <app-button>추가</app-button>
+            <app-button color="secondary">수정</app-button>
+            <app-button fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
-            <app-button>수정</app-button>
           </ion-buttons>
+
           <app-check-group>
             <app-table class="edit">
               <tbody>
@@ -95,11 +105,13 @@
           </app-check-group>
         </app-col>
         <app-col>
+
           <ion-buttons>
-            <app-button>추가</app-button>
+            <app-button color="secondary">수정</app-button>
+            <app-button fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
-            <app-button>수정</app-button>
           </ion-buttons>
+
           <app-check-group>
             <app-table class="edit">
               <thead>
@@ -120,9 +132,6 @@
       </app-row>
     </app-col>
   </app-row>
-
-
-
 
   <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
     <app-col size="280px">
@@ -151,9 +160,6 @@
       </app-table>
     </app-col>
     <app-col>
-
-
-
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
@@ -178,7 +184,14 @@
               <th rowspan="2">위험지역명</th>
               <th rowspan="2">실내/실외</th>
               <th rowspan="2">
-                GPS 좌표<br>(실외)<app-button>?</app-button>
+                <app-row>
+                  <app-col>
+                    GPS 좌표<br>(실외)
+                  </app-col>
+                  <app-col size="auto">
+                    <app-button>?</app-button>
+                  </app-col>
+                </app-row>
               </th>
               <th rowspan="2">NFC No.<br>(실내)</th>
               <th colspan="2">관리 책임자(인가자)</th>
