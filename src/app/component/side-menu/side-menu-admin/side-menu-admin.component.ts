@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { listAnimation } from 'src/app/basic/basic.animation';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
-interface MenuItem {
+export interface MenuItem {
   title: string,
   img: string,
   subMenuList: SubMenuItem[]
 }
-interface SubMenuItem {
+export interface SubMenuItem {
   title: string,
   link?: string,
   toggle?: boolean,
   thirdMenuList?: ThirdMenuItem[]
 }
-interface ThirdMenuItem {
+export interface ThirdMenuItem {
   title: string,
   link: string
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-side-menu-admin',
   templateUrl: './side-menu-admin.component.html',
@@ -66,9 +70,9 @@ export class SideMenuAdminComponent implements OnInit {
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
       { title: '중장비 관리', link: ''},
       { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
-        { title: '시리얼 No', link: '' },
+        { title: '시리얼 No', link: '/serial-no-list' },
         { title: '개인 디바이스', link: '' },
-        { title: '중장비 디바이스', link: '' },
+        { title: '중장비 디바이스', link: '/heavy-device-list' },
         { title: '위험지역 디바이스', link: '' }
       ]}
     ]},
@@ -104,17 +108,28 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '알림함', link: ''}
     ]}
   ]
+
+  selectedMenu:MenuItem;
+
+  url:string;
+  
   
   constructor(
-    private alert: AlertService
+    private alert: AlertService,
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {}
 
+  menuClose() {
+    this._modal.dismiss();
+  }
   notReady() {
     this.alert.present({
       message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
       header: '준비중'
     });
   }
+
+
 }

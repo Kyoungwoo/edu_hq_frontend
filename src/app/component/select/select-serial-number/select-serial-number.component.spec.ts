@@ -2,26 +2,26 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from 'src/app/component/component.module';
+import { ComponentModule } from '../../component.module';
 
-import { ScanPage } from './scan.page';
+import { SelectSerialNumberComponent } from './select-serial-number.component';
 
-describe('ScanPage', () => {
-  let component: ScanPage;
-  let fixture: ComponentFixture<ScanPage>;
+describe('SelectSerialNumberComponent', () => {
+  let component: SelectSerialNumberComponent;
+  let fixture: ComponentFixture<SelectSerialNumberComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScanPage ],
+      declarations: [ SelectSerialNumberComponent ],
       imports: [
         IonicModule.forRoot(),
-        AppModule,
         FormsModule,
+        AppModule,
         ComponentModule
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanPage);
+    fixture = TestBed.createComponent(SelectSerialNumberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

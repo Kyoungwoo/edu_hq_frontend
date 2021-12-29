@@ -146,24 +146,7 @@ export class MoniterPage implements OnInit, OnDestroy {
         this.dust = res.rsObj;
     }
   }
-
-  // async qrScanStart(){
-  //   let test=2;
-  //     const $qr = this.qr.subscribe(async (data) => { // => qr이 켜짐
-  //     if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
-  //     const res = 0 //await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
-  //     if(0 === test) {
-  //       console.log($qr);
-  //        $qr.then((res) =>{
-  //         // res.unsubscribe();+
-  //        }); // => qr이 꺼짐. subscribe가 unsubscribe 됨
-  //     } else {
-  //       this.connect.error('asdf',res);
-  //     }
-  //   });
-  // }
   async qrScanStart(){
-    let test=2;
       const $qr = await this.qr.subscribe(async (data) => { // => qr이 켜짐
       if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
       const res = await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
@@ -175,12 +158,3 @@ export class MoniterPage implements OnInit, OnDestroy {
     });
   }
 }
-// const $qr = this.qr.subscribe((data) => { // => qr이 켜짐
-//   if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
-//   const res = await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
-//   if(res.code === 0) {
-//     $qr.unsubscribe(); // => qr이 꺼짐. subscribe가 unsubscribe 됨
-//   } else {
-//     this.connect.error(res);
-//   }
-// });

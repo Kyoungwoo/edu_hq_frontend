@@ -8,7 +8,6 @@ import { HeavyDeviceListPageRoutingModule } from './heavy-device-list-routing.mo
 
 import { HeavyDeviceListPage } from './heavy-device-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     HeavyDeviceListPageRoutingModule
   ],
   declarations: [HeavyDeviceListPage]

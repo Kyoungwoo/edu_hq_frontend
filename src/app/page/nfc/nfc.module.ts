@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScanPageRoutingModule } from './scan-routing.module';
+import { NfcPageRoutingModule } from './nfc-routing.module';
 
-import { ScanPage } from './scan.page';
+import { NfcPage } from './nfc.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule,
+    NfcPageRoutingModule,
     ComponentModule
   ],
-  declarations: [ScanPage]
+  declarations: [NfcPage]
 })
-export class ScanPageModule {}
+export class NfcPageModule {}

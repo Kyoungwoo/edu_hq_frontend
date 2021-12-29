@@ -8,8 +8,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'scan',
-    loadChildren: () => import('./page/scan/scan.module').then(m => m.ScanPageModule)
+    path: 'nfc',
+    loadChildren: () => import('./page/nfc/nfc.module').then(m => m.NfcPageModule)
   },
   {
     path: 'basic/guide',
@@ -202,6 +202,22 @@ const routes: Routes = [
   {
     path: 'notice-open-range',
     loadChildren: () => import('./page/notice-board/notice-open-range/notice-open-range.module').then( m => m.NoticeOpenRangePageModule)
+  },
+  {
+    path: 'heavy-device-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module').then( m => m.HeavyDeviceAddPageModule)
+  },
+  {
+    path: 'system-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+  },
+  {
+    path: 'danger-area-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-list/danger-area-list.module').then( m => m.DangerAreaListPageModule)
+  },
+  {
+    path: 'danger-area-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
   }
 ];
 

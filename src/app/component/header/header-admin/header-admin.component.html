@@ -13,4 +13,20 @@
       <app-button color="white" fill="clear">비상상황관리</app-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar color="white" *ngIf="selectedSecondMenu">
+    <ion-title>
+      <h4>{{ selectedSecondMenu.title }}</h4>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white" *ngIf="selectedSecondMenu?.thirdMenuList">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [scrollable]="true" [(ngModel)]="url">
+          <ion-segment-button *ngFor="let thirdMenu of selectedSecondMenu.thirdMenuList" 
+          [routerLink]="thirdMenu.link || null"
+          [value]="thirdMenu.link" [disabled]="!thirdMenu.link">{{ thirdMenu.title }}</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
 </ion-header>

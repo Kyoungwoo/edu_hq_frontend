@@ -1,0 +1,238 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>위험지역 디바이스</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th>
+                <app-row style="justify-content: space-between;">
+                  <app-col size="auto"><h5>필터</h5></app-col>
+                  <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+                </app-row>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+               <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+             <app-select label="스마트 장비"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">신규배정</app-button>
+            <app-button fill="translucent">수정</app-button>
+            <app-button fill="translucent">삭제</app-button>
+            <app-button fill="translucent">저장</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>위험지역 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+              <th>스마트 장비</th>
+              <th>시리얼 No.</th>
+              <th>원청사명</th>
+              <th>장소</th>
+              <th>위험지역 유형</th>
+              <th>위험지역명</th>
+              <th>배정일시</th>
+              <th>사용여부</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+              <td>변위감지</td>
+              <td>E0002</td>
+              <td>구일종합건설㈜</td>
+              <td>101동</td>
+              <td>전기실</td>
+              <td>고압변전 지역B</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr>
+              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>변위감지</td>
+              <td>E0002</td>
+              <td>구일종합건설㈜</td>
+              <td>101동</td>
+              <td>전기실</td>
+              <td>고압변전 지역B</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr class="button">
+              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>변위감지</td>
+              <td>E0002</td>
+              <td>구일종합건설㈜</td>
+              <td>101동</td>
+              <td>전기실</td>
+              <td>고압변전 지역B</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr>
+              <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+              <td>변위감지</td>
+              <td>E0002</td>
+              <td>구일종합건설㈜</td>
+              <td>101동</td>
+              <td>전기실</td>
+              <td>고압변전 지역B</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr>
+              <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>변위감지</td>
+              <td>E0002</td>
+              <td>구일종합건설㈜</td>
+              <td>101동</td>
+              <td>전기실</td>
+              <td>고압변전 지역B</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+    </ion-content>
+</ng-container>
+    
+    <!-- 모바일 -->
+    <ng-container *mobileShow>
+    <ion-header>
+      <ion-toolbar color="white">
+        <ion-title>위험지역 디바이스</ion-title>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <app-row>
+          <app-col>
+           <app-select-scene></app-select-scene>
+          </app-col>
+            <app-button>상세검색</app-button>
+        </app-row>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ng-container>
+        <app-card>
+          <app-row>
+            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+            <app-col size="auto"><ion-badge>반납</ion-badge></app-col>
+          </app-row>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <p>구일종합건설(주)/101동</p>
+              <p>A0001/2021.10.18</p>
+            </app-col>
+            <app-col size="auto">
+            </app-col>
+          </app-row>
+        </app-card>
+        <app-card>
+          <app-row>
+            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+            <app-col size="auto"><ion-badge color="danger">미사용</ion-badge></app-col>
+          </app-row>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <p>구일종합건설(주)/101동</p>
+              <p>A0001/2021.10.18</p>
+            </app-col>
+            <app-col size="auto">
+            </app-col>
+          </app-row>
+        </app-card>
+        <app-card>
+          <app-row>
+            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+            <app-col size="auto"><ion-badge>반납</ion-badge></app-col>
+          </app-row>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <p>구일종합건설(주)/101동</p>
+              <p>A0001/2021.10.18</p>
+            </app-col>
+            <app-col size="auto">
+            </app-col>
+          </app-row>
+        </app-card>
+        <app-card>
+          <app-row>
+            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+            <app-col size="auto"><ion-badge>반납</ion-badge></app-col>
+          </app-row>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <p>구일종합건설(주)/101동</p>
+              <p>A0001/2021.10.18</p>
+            </app-col>
+            <app-col size="auto">
+            </app-col>
+          </app-row>
+        </app-card>
+        <app-card>
+          <app-row>
+            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+            <app-col size="auto"><ion-badge>반납</ion-badge></app-col>
+          </app-row>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <p>구일종합건설(주)/101동</p>
+              <p>A0001/2021.10.18</p>
+            </app-col>
+            <app-col size="auto">
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-container>
+    </ion-content>
+    <app-button-footer>
+      <app-button>신규배정</app-button>
+    </app-button-footer>
+  </ng-container>
+  
