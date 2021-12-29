@@ -71,9 +71,9 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '중장비 관리', link: ''},
       { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
         { title: '시리얼 No', link: '/serial-no-list' },
-        { title: '개인 디바이스', link: '' },
+        { title: '개인 디바이스', link: '/each-device-list' },
         { title: '중장비 디바이스', link: '/heavy-device-list' },
-        { title: '위험지역 디바이스', link: '' }
+        { title: '위험지역 디바이스', link: '/danger-area-list' }
       ]}
     ]},
     { title: '위험작업관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [

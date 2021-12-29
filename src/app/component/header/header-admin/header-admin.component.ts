@@ -14,7 +14,7 @@ import { SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-m
 export class HeaderAdminComponent implements OnInit, OnDestroy {
 
   url:string;
-  selectedSecondMenu:SubMenuItem;
+  selectedSubMenu:SubMenuItem;
   selectedThirdMenu:ThirdMenuItem;
 
   $router:Subscription;
@@ -26,12 +26,10 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
     public adminMenu: SideMenuAdminComponent,
     private changeDetector: ChangeDetectorRef
   ) {
-    console.log(this.adminMenu.menuList);
-    // this.openSideMenu(); 
-    this.$router = this.router.events.subscribe(nav => {
+    this.$router = this.router.events.subscribe(async(nav) => {
       if(nav instanceof NavigationEnd) {
         const selectedMenuIndex = [null,null,null];
-        this.url = nav.urlAfterRedirects;
+        if(this.url !== nav.urlAfterRedirects) this.url = nav.urlAfterRedirects;
 
         selectedMenuIndex[0] = this.adminMenu.menuList.findIndex(menu => {
 
@@ -56,8 +54,10 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.selectedSecondMenu = this.adminMenu.menuList[selectedMenuIndex[0]].subMenuList[selectedMenuIndex[1]];
-        this.selectedThirdMenu = this.adminMenu.menuList[selectedMenuIndex[0]].subMenuList[selectedMenuIndex[1]].thirdMenuList[selectedMenuIndex[2]];
+        const newSubMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]];
+        const newThirdMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]]?.thirdMenuList[selectedMenuIndex[2]];
+        if(this.selectedSubMenu !== newSubMenu) this.selectedSubMenu = newSubMenu;
+        if(this.selectedThirdMenu !== newThirdMenu) this.selectedThirdMenu = newThirdMenu;
         this.changeDetector.detectChanges();
       }
     });
