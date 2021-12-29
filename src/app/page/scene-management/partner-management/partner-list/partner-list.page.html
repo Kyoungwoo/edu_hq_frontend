@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>협력사 관리</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--padding-top:15px">
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <thead>
+          <tr>
+            <th>
+              <app-row style="justify-content: space-between;">
+                <app-col size="auto"><h5>필터</h5></app-col>
+                <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              </app-row>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-company></app-select-company>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select>
+                <app-select-option></app-select-option>
+              </app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <h5>수시 위험성평가 목록 (총90건)</h5>
+      </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th>NO</th>
+              <th>현장명</th>
+              <th>원청사명</th>
+              <th>협력사명</th>
+              <th>사업자등록번호</th>
+              <th>대표자</th>
+              <th>공종</th>
+              <th>전화번호</th>
+              <th>최근 업데이트</th>
+              <th>작성자</th>
+            </tr>
+          </thead>
+            <tr>
+              <td>1</td>
+              <td>수원당수 공공주택지구 조성공사</td>
+              <td>(주)원청사</td>
+              <td>GSIL</td>
+              <td>264-81-14771</td>
+              <td>이건창</td>
+              <td>건설임</td>
+              <td>010-7574-1728</td>
+              <td>2021.08.06</td>
+              <td>이건창</td>
+            </tr>
+          <tbody>
+          </tbody>
+        </app-table>
+      <app-pager></app-pager>
+    </app-col>
+  </app-row>
+</ion-content>

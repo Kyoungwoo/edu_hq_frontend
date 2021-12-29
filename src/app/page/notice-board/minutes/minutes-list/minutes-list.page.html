@@ -1,4 +1,10 @@
-<ion-header>
+<!-- <ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>게시판</ion-title>
+  </ion-toolbar>
   <ion-toolbar color="white">
     <ion-title>
       <h4>회의록</h4>
@@ -6,37 +12,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-toolbar>
-  <app-row>
-    <app-col>
-      <app-select-scene></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-select-company></app-select-company>
-    </app-col>
-    <app-col>
-      <app-select label="구분">
-        <app-select-option></app-select-option>
-      </app-select>
-    </app-col>
-  </app-row>
-  <app-row>
-    <app-col size="4">
-      <app-calendar label="등록일"></app-calendar>
-    </app-col>
-    <app-col>
-      <app-input placeholder="검색어를 입력해주세요"></app-input>
-    </app-col>
-    <app-col size="auto">
-      <app-button>검색</app-button>
-    </app-col>
-  </app-row>
-</ion-toolbar>
-
 <ion-content style="--padding-top:15px">
   <app-row style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
+        <thead>
+          <tr>
+            <th>
+              <app-row style="justify-content: space-between;">
+                <app-col size="auto"><h5>필터</h5></app-col>
+                <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              </app-row>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>
@@ -45,23 +34,25 @@
           </tr>
           <tr>
             <td>
-              <app-select-company></app-select-company>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <app-select label="구분" value="구분">
+              <app-select label="구분" value="전체">
                 <app-select-option value="전체">전체</app-select-option>
               </app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-input-group label="등록일">
+              <app-input-group label="회의 일자">
                 <app-calendar></app-calendar>
                 ~
                 <app-calendar></app-calendar>
               </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select label="결재현황" value="전체">
+                <app-select-option value="전체">전체</app-select-option>
+              </app-select>
             </td>
           </tr>
           <tr>
@@ -74,93 +65,88 @@
     </app-col>
     <app-col>
       <ion-toolbar color="white">
-        <ion-buttons slot="start">
-          <app-button fill="translucent">신규작성</app-button>
-          <app-button fill="translucent">복사 작성</app-button>
-          <app-button fill="translucent">미결 문서</app-button>
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <ion-segment color="primary">
-            <ion-segment-button>최초</ion-segment-button>
-            <ion-segment-button>정기</ion-segment-button>
-            <ion-segment-button>수시</ion-segment-button>
-          </ion-segment>
-        </ion-buttons>
-      </ion-toolbar>
-      <ion-toolbar color="white">
         <h5>수시 위험성평가 목록 (총90건)</h5>
       </ion-toolbar>
-      <app-check-group>
         <app-table>
           <thead>
             <tr>
-              <th><app-check type="all" color="white" size="small" name="check"></app-check></th>
-              <th><ion-icon name="star"></ion-icon></th>
-              <th>구분</th>
-              <th>제목</th>
-              <th>업체명</th>
+              <th>NO</th>
+              <th>회의록</th>
+              <th>회의 일자</th>
+              <th>회사명</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>조회수</th>
             </tr>
           </thead>
+            <tr>
+              <td>1</td>
+              <td>안전 및 보건에 관한 협의체 회의록</td>
+              <td>2021.06.15</td>
+              <td>(주)남광토건</td>
+              <td>이상범</td>
+              <td>2021.09.15</td>
+            </tr>
           <tbody>
-            <tr>
-              <td><app-check  color="white" size="small" name="check"></app-check></td>
-              <td><ion-icon name="star"></ion-icon></td>
-              <td>일반</td>
-              <td>앱사용금지</td>
-              <td>구일종합건설(주)</td>
-              <td>박소현</td>
-              <td>2021.10.26</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td><app-check  color="white" size="small" name="check"></app-check></td>
-              <td><ion-icon name="star"></ion-icon></td>
-              <td>일반</td>
-              <td>앱사용금지</td>
-              <td>구일종합건설(주)</td>
-              <td>박소현</td>
-              <td>2021.10.26</td>
-              <td>10</td>
-            </tr>
           </tbody>
         </app-table>
-      </app-check-group>
       <app-pager></app-pager>
     </app-col>
   </app-row>
-
-  <!-- <app-row>
-    <app-col>
-      <app-input name="with img">
-      </app-input>
-    </app-col>
-    <app-col size="auto">
-      <app-button (click)="detailSerach()">상세검색</app-button>
-    </app-col>
-  </app-row>
-  <app-card (click)="minutesEditl()">
+</ion-content> -->
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>회의록</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-row>
+      <app-col>
+        <app-input label="현장명" [readonly]="true"></app-input>
+      </app-col>
+      <app-button>상세검색</app-button>
+    </app-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card>
     <app-row>
       <app-col size="auto">
       </app-col>
       <app-col>
-        <h5>이상범</h5>
-        <p>(주)지에스아이엘/대리/안전관리자</p>
+        <h5>앱 사용 공지</h5>
+        <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
       </app-col>
-      <ion-col size="auto">
-        <ion-chip color="primary">건축</ion-chip>
-      </ion-col>
       <app-col size="auto">
+        <ion-chip color="primary">일반</ion-chip>
       </app-col>
     </app-row>
-  </app-card> -->
-  
-  <!-- WEB -->
-
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="auto">
+      </app-col>
+      <app-col>
+        <h5>앱 사용 공지</h5>
+        <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="primary">안전관리</ion-chip>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="auto">
+      </app-col>
+      <app-col>
+        <h5>앱 사용 공지</h5>
+        <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="primary">현장관리</ion-chip>
+      </app-col>
+    </app-row>
+  </app-card>
 </ion-content>
-<!-- <app-button-footer>
-  <app-button>취소</app-button>
-  <app-button>적용</app-button>
-</app-button-footer> -->

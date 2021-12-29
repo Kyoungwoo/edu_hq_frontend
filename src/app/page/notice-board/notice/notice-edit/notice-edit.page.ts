@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoticeEditPage implements OnInit {
 
+  smarteditText:string = '';
   constructor() { }
 
   ngOnInit() {

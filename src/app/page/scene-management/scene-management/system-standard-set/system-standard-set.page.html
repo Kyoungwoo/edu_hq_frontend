@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>시스템 활용 기준 설정</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar slot="top" color="white">
+  <app-row>
+    <app-col>
+      <ion-segment color="primary" [value]="1">
+        <ion-segment-button (click)="menuCount = 1" [value]="1">어드민 권한</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 2">시스템 사용유무</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 3">결재선 사용유무</ion-segment-button>
+      </ion-segment>
+    </app-col>
+  </app-row>
+</ion-toolbar>
+
+<ion-content>
+  <app-row style="align-items: flex-start;" *ngIf="menuCount === 2">
+    <app-col size="280px">
+      <app-table type="card">
+        <thead>
+          <tr>
+            <th>
+              <app-row style="justify-content: space-between;">
+                <app-col size="auto">
+                  <h5>필터</h5>
+                </app-col>
+                <app-col size="auto">
+                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
+                </app-col>
+              </app-row>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-company></app-select-company>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent">전체 사용</app-button>
+          <app-button fill="translucent">전체 미사용</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>공종 목록 (총90건)</h5>
+      </ion-toolbar>
+      <h4>시스템 기능 사용 설정</h4>
+      <app-table>
+        <thead>
+          <tr>
+            <th>목록</th>
+            <th>사용 여부</th>
+            <th>목록</th>
+            <th>사용 여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>
+            <app-input [readonly]="true" value="위험성 평가 시스템"></app-input>
+          </td>
+          <td>
+            <app-select>
+              <app-select-option value="Y">Y</app-select-option>
+              <app-select-option value="N">N</app-select-option>
+            </app-select>
+          </td>
+          <td>
+            <app-input [readonly]="true" value="필폐공간 자동 계측"></app-input>
+          </td>
+          <td>
+            <app-select>
+              <app-select-option value="Y">Y</app-select-option>
+              <app-select-option value="N">N</app-select-option>
+            </app-select>
+          </td>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
+</ion-content>

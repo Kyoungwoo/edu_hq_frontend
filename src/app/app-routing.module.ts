@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'heavy-equip-list',
+    redirectTo: 'heavy-device-list',
     pathMatch: 'full'
   },
   {
@@ -110,14 +110,85 @@ const routes: Routes = [
   {
     path: 'heavy-equip-list',
     loadChildren: () => import('./page/equipment-management/heavy-equip-management/heavy-equip-list/heavy-equip-list.module').then( m => m.HeavyEquipListPageModule)
+  },
+  {
+    path: 'scene-list',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-list/scene-list.module').then( m => m.SceneListPageModule)
+  },
+  {
+    path: 'scene-edit',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-edit/scene-edit.module').then( m => m.SceneEditPageModule)
+  },
+  {
+    path: 'scene-area-set',
+    loadChildren: () => import('./page/scene-management/scene-management/scene-area-set/scene-area-set.module').then( m => m.SceneAreaSetPageModule)
+  },
+  {
+    path: 'member-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/member-standard-set/member-standard-set.module').then( m => m.MemberStandardSetPageModule)
+  },
+  {
+    path: 'area-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/area-standard-set/area-standard-set.module').then( m => m.AreaStandardSetPageModule)
+  },
+  {
+    path: 'work-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/work-standard-set/work-standard-set.module').then( m => m.WorkStandardSetPageModule)
+  },
+  {
+    path: 'contractor-list',
+    loadChildren: () => import('./page/scene-management/contractor-management/contractor-list/contractor-list.module').then( m => m.ContractorListPageModule)
+  },
+  {
+    path: 'contractor-edit',
+    loadChildren: () => import('./page/scene-management/contractor-management/contractor-edit/contractor-edit.module').then( m => m.ContractorEditPageModule)
+  },
+  {
+    path: 'partner-list',
+    loadChildren: () => import('./page/scene-management/partner-management/partner-list/partner-list.module').then( m => m.PartnerListPageModule)
+  },
+  {
+    path: 'partner-edit',
+    loadChildren: () => import('./page/scene-management/partner-management/partner-edit/partner-edit.module').then( m => m.PartnerEditPageModule)
+  },
+  {
+    path: 'heavy-equip-edit',
+    loadChildren: () => import('./page/equipment-management/heavy-equip-management/heavy-equip-edit/heavy-equip-edit.module').then( m => m.HeavyEquipEditPageModule)
+  },
+  {
+    path: 'serial-no-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/serial-no-list/serial-no-list.module').then( m => m.SerialNoListPageModule)
+  },
+  {
+    path: 'each-device-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-list/each-device-list.module').then( m => m.EachDeviceListPageModule)
+  },
+  {
+    path: 'smart-detail-search',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/smart-detail-search/smart-detail-search.module').then( m => m.SmartDetailSearchPageModule)
+  },
+  {
+    path: 'each-device-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
+  },
+  {
+<<<<<<< HEAD
+    path: 'heavy-device-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-list/heavy-device-list.module').then( m => m.HeavyDeviceListPageModule)
+  },
+  {
+    path: 'heavy-device-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module').then( m => m.HeavyDeviceAddPageModule)
   }
 
 
 
 
-
-
-
+=======
+    path: 'system-standard-set',
+    loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+  }
+>>>>>>> 9f219e3a5312afec356c82aff1c052cf96443b6d
 ];
 
 @NgModule({

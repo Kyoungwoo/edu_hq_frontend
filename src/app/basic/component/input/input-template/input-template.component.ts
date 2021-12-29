@@ -22,7 +22,9 @@ export class InputTemplateComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.required);
+  }
 
   onButtonClick() {
     this.buttonClick.emit();

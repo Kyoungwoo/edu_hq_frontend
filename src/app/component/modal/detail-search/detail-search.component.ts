@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -8,11 +8,16 @@ import { ModalController } from '@ionic/angular';
 })
 export class DetailSearchComponent implements OnInit {
   scene = '';
+
+  
+
   constructor(
     private _modal : ModalController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 
   dismiss(){
     this._modal.dismiss();

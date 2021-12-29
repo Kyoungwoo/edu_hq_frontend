@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { IonContent, IonHeader, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
+import { IonContent, IonHeader, ModalController, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
+import { ScanPage } from 'src/app/page/scan/scan.page';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../basic.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';
 import { AlertService } from '../../service/ionic/alert.service';
@@ -101,7 +102,8 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
     private navCtrl: NavService,
     private toast: ToastService,
     private promise: PromiseService,
-    public regex: RegexService
+    public regex: RegexService,
+    private modal : ModalController
   ) {}
 
   ngOnInit() {
