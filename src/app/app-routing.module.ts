@@ -182,7 +182,20 @@ const routes: Routes = [
   {
     path: 'system-standard-set',
     loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+  },
+  {
+    path: 'danger-area-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-list/danger-area-list.module').then( m => m.DangerAreaListPageModule)
+  },
+  {
+    path: 'danger-area-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
   }
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 781b60b7b97f532d4d11f4eb9a81a7fd073f08d7
 ];
 
 @NgModule({

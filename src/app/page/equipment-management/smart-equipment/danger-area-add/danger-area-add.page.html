@@ -1,29 +1,30 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>중장비 디바이스 등록</ion-title>
+    <ion-title>위험지역 디바이스 등록</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
     <ion-buttons >
-      <ion-segment color="primary" [value]="1">
-        <ion-segment-button (click)="menuCount = 1" [value]="1">건설기계 NFC</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 2">크레인 상하차 알림 장치</ion-segment-button>
+      <ion-segment color="primary">
+        <ion-segment-button>출입 NFC</ion-segment-button>
+        <ion-segment-button>밀폐환경 센서</ion-segment-button>
+        <ion-segment-button>변위감지</ion-segment-button>
       </ion-segment>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-construction-machinery></app-select-construction-machinery>
-  <app-select-serial-number label="시리얼No."></app-select-serial-number>
+  <app-select-dangerous-area label="위험지역"></app-select-dangerous-area>
+ <app-select-serial-number label="시리얼No."></app-select-serial-number>
   <ng-container>
     <h5>디바이스 등록 현황</h5>
     <app-card>
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
+          <p>디바이스 구분 : 환경센서</p>
+          <p>시리얼 No. : A0001</p>
           <p>사용여부 : Y</p>
         </app-col>
       </app-row>
@@ -31,8 +32,8 @@
     <app-card>
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
+          <p>디바이스 구분 : 위험지역 NFC</p>
+          <p>시리얼 No. : A0001</p>
           <p>사용여부 : Y</p>
         </app-col>
       </app-row>
@@ -40,8 +41,8 @@
     <app-card>
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
+          <p>디바이스 구분 : 위험지역 NFC</p>
+          <p>시리얼 No. : A0001</p>
           <p>사용여부 : Y</p>
         </app-col>
       </app-row>
@@ -49,15 +50,17 @@
     <app-card>
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
+          <p>디바이스 구분 : 환경센서</p>
+          <p>시리얼 No. : A0001</p>
           <p>사용여부 : Y</p>
         </app-col>
       </app-row>
     </app-card>
   </ng-container>
-  <app-button fill="translucent">{{menuCount ===1 ? '등록할 NFC태깅':'장비인식'}}</app-button>
+  <app-button fill="translucent">등록할 NFC태깅</app-button>
+  <app-button fill="translucent">위험지역 인식</app-button>
 </ion-content>
 <app-button-footer>
   <app-button>저장</app-button>
 </app-button-footer>
+
