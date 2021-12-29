@@ -4,14 +4,14 @@
       <h2>{{ menu.title }}</h2>
       <ul class="sub-menu">
         <li *ngFor="let subMenu of menu.subMenuList">
-          <app-button fill="clear" color="dark" style="width: 100%;" [routerLink]="subMenu.link" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? null : notReady()">
+          <app-button fill="clear" color="dark" [routerLink]="subMenu.link" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? null : notReady()">
             {{ subMenu.title }}
             <app-img slot="end" *ngIf="subMenu.thirdMenuList" [src]="subMenu.toggle ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
           </app-button>
           <ng-container *ngIf="subMenu.toggle">
             <ul class="third-menu" [@listAnimation]="subMenu.thirdMenuList?.length">
-              <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link" (click)="thirdMenu.link ? null : notReady()">
-                <app-button fill="clear" color="dark"  style="width: 100%;">
+              <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link" (click)="thirdMenu.link ? menuClose() : notReady()">
+                <app-button fill="clear" color="dark" [style.opacity]="thirdMenu.link ? 1 : 0.5">
                   {{ thirdMenu.title }}
                 </app-button>
               </li>
