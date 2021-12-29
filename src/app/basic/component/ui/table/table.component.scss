@@ -32,7 +32,7 @@
     }
     td {
         background: var(--ion-color-white);
-        font-size: var(--font-size-n);
+        font-size: var(--font-size-h6);
         border: 1px solid var(--ion-color-step-100);
         padding: 8px 6px;
         vertical-align: top;
@@ -44,6 +44,10 @@
         padding: 8px;
     }
 
+    app-col {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
     app-button,
     app-check,
     app-radio,
@@ -61,7 +65,9 @@
     }
 }
 :host.table-card {
-    padding: 5px 8px 0;
+    .table-wrapper {
+        padding: 5px 10px;
+    }
 }
 :host.table-card ::ng-deep {
     th {
@@ -69,12 +75,29 @@
         border: none;
         border-bottom: 1px solid var(--ion-color-step-100);
         text-align: center;
+        padding-left: 2px;
+        padding-right: 0px;
     }
     td {
         border: none;
         border-bottom: 1px solid var(--ion-color-step-100);
         vertical-align: middle;
         text-align: center;
+        padding-left: 2px;
+        padding-right: 0px;
+        >app-img,
+        >a>app-img {
+            width: 1.2em;
+        }
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+    ion-toolbar {
+        box-shadow: none;
+        border-bottom: 1px solid var(--ion-color-step-300);
+        --padding-start: 12px;
+        --padding-end: 10px;
     }
 }
 

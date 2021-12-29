@@ -61,19 +61,19 @@
   --font-size-h1: 54px;
   --font-size-h2: 36px;
   --font-size-h3: 28px;
-  --font-size-h4: 21px;
-  --font-size-h5: 16px;
+  --font-size-h4: 18px;
+  --font-size-h5: 14px;
   --font-size-h6: 13px;
   --font-size-h6-small: 11px;
   /** input은 보통 앱이나 웹 둘다 16px을 많이 쓴다 */
-  --font-size-input: 16px;
+  --font-size-input: 14px;
   
   /** app-col, button margin의 padding 값 */
   --app-padding: 6px;
   /** container, input 등이 기본적으로 가지는 바깥 margin */
   --app-margin: 16px;
   /** input, button, card의 border radius */
-  --app-border-radius: 5px;
+  --app-border-radius: 3px;
   /** input, button, card의 box shadow */
   --app-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
   /** placeholder color */
@@ -89,7 +89,7 @@
     --font-size-h6: 13px;
     --font-size-h6-small: 11px;
 
-    --font-size-input: 16px;
+    --font-size-input: 14px;
     
     /** app-col 의 padding 값 */
     --app-padding: 4px;

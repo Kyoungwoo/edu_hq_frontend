@@ -15,7 +15,6 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    DirectiveModule,
     ComponentModule,
     HeavyEquipListPageRoutingModule
   ],

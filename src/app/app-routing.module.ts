@@ -191,8 +191,11 @@ const routes: Routes = [
     path: 'danger-area-add',
     loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
   }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 781b60b7b97f532d4d11f4eb9a81a7fd073f08d7
 ];
 
 @NgModule({

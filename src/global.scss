@@ -155,11 +155,11 @@
     --border-width: 0;
     --border-color: transparent;
     --background: var(--ion-background-color);
-    box-shadow: var(--app-box-shadow);
     --padding-start: var(--app-margin);
     --padding-end: var(--app-margin);
     --padding-top: 0;
     --padding-bottom: 0;
+    --min-height: 52px;
     overflow: hidden;
   }
   ion-toolbar:first-child {
@@ -169,16 +169,26 @@
   ion-toolbar:last-child {
     border-bottom-left-radius: var(--app-border-radius);
     border-bottom-right-radius: var(--app-border-radius);
+    box-shadow: var(--app-box-shadow);
   }
   ion-toolbar + ion-toolbar {
-    border-top: 1px solid var(--ion-color-step-50);
+    border-top: 1px solid var(--ion-color-step-300);
   }
   ion-toolbar {
     >app-input-group>app-input-template {
       margin-left: 16px;
       margin-right: 16px;
     }
-
+    .buttons-first-slot {
+      margin-left: 0;
+    }
+    .buttons-last-slot {
+      margin-right: 0;
+    }
+    ion-title {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
     }
@@ -192,7 +202,10 @@
     --padding-start: 0;
     --padding-end: 0;
     border-radius: 0;
-    box-shadow: none;
+    box-shadow: none !important;
+  }
+  ion-header ion-toolbar + ion-toolbar {
+    border-top: 1px solid var(--ion-color-step-50);
   }
   ion-toolbar app-row:first-child>app-col {
     padding-top: 0;
@@ -242,8 +255,16 @@
     min-height: 56px;
   }
   ion-segment-button {
+    background: var(--ion-color-white);
+    border-radius: 0;
     color: var(--ion-color-dark);
-    max-width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: auto;
+    //max-width: 100%;
+  }
+  ion-segment-button::before {
+    content: none;
   }
   ion-segment-button::part(indicator-background) {
     height: 4px;
@@ -257,12 +278,11 @@
   .custom-alert {
     --width: 280px;
   }
-}
-    .scan-modal {
-      .modal-wrapper.sc-ion-modal-md{
-        background: transparent !important;
-      }
+  .scan-modal {
+    .modal-wrapper.sc-ion-modal-md{
+      background: transparent !important;
     }
+  }
   ion-alert {
     --backdrop-opacity: 0.1;
     --background: var(--ion-color-white);
@@ -388,3 +408,4 @@
   ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
     background: transparent none !important; 
   }
+}
