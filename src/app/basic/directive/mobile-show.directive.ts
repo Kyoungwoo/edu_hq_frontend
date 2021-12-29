@@ -1,4 +1,4 @@
-import { Directive, HostListener, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, HostListener, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[mobileShow]'
