@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'each-device-add',
+    redirectTo: 'heavy-device-list',
     pathMatch: 'full'
   },
   {
@@ -158,7 +158,17 @@ const routes: Routes = [
   {
     path: 'each-device-add',
     loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
+  },
+  {
+    path: 'heavy-device-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-list/heavy-device-list.module').then( m => m.HeavyDeviceListPageModule)
+  },
+  {
+    path: 'heavy-device-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module').then( m => m.HeavyDeviceAddPageModule)
   }
+
+
 
 
 ];

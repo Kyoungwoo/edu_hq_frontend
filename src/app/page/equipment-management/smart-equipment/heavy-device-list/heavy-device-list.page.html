@@ -1,0 +1,226 @@
+<!-- pc -->
+<!-- <ion-header>
+  <ion-toolbar color="white">
+    <ion-title>중장비 디바이스</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+             <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+           <app-select label="장비구분"></app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent">신규배정</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>건설기계 목록(총50건)</h5>
+      </ion-toolbar>
+      <app-table>
+        <thead>
+          <tr>
+            <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+            <th>원청사명</th>
+            <th>업체명</th>
+            <th>건설기계 구분</th>
+            <th>등록번호</th>
+            <th>장비구분</th>
+            <th>시리얼No.</th>
+            <th>배정일시</th>
+            <th>사용여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+            <td>구일종합건설(주)</td>
+            <td>협력사1</td>
+            <td>공기압축기</td>
+            <td>52두 3337</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>E0002</td>
+            <td>2021.10.16 10:22:13</td>
+            <td>Y</td>
+          </tr>
+          <tr>
+            <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+            <td>남광토건(주)</td>
+            <td>협력사1</td>
+            <td>공기압축기</td>
+            <td>52두 3337</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>E0002</td>
+            <td>2021.10.16 10:22:13</td>
+            <td>Y</td>
+          </tr>
+          <tr class="button">
+            <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+            <td>계룡건설산업(주)</td>
+            <td>협력사1</td>
+            <td>공기압축기</td>
+            <td>52두 3337</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>E0002</td>
+            <td>2021.10.16 10:22:13</td>
+            <td>Y</td>
+          </tr>
+          <tr>
+            <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+            <td>구일종합건설(주)</td>
+            <td>협력사1</td>
+            <td>공기압축기</td>
+            <td>52두 3337</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>E0002</td>
+            <td>2021.10.16 10:22:13</td>
+            <td>Y</td>
+          </tr>
+          <tr>
+            <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
+            <td>구일종합건설(주)</td>
+            <td>협력사1</td>
+            <td>공기압축기</td>
+            <td>52두 3337</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>E0002</td>
+            <td>2021.10.16 10:22:13</td>
+            <td>Y</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
+  </ion-content>
+  <app-button-footer>
+    <app-button>삭제</app-button>
+    <app-button>저장</app-button>
+    <app-button *ngIf="false" slot="end" color="secondary">수정</app-button>
+  </app-button-footer> -->
+  
+  <!-- 모바일 -->
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>중장비 디바이스</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-row>
+        <app-col>
+         <app-select-scene></app-select-scene>
+        </app-col>
+          <app-button>상세검색</app-button>
+      </app-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-card>
+        <app-row>
+          <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <p>구일종합건설(주)/타워크레인/52두3338</p>
+            <p>A0001/2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col size="auto"><ion-badge color="success">인식용 NFC</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <p>구일종합건설(주)/타워크레인/52두3338</p>
+            <p>A0001/2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <p>구일종합건설(주)/타워크레인/52두3338</p>
+            <p>A0001/2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col size="auto"><ion-badge color="success">인식용 NFC</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <p>구일종합건설(주)/타워크레인/52두3338</p>
+            <p>A0001/2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <p>구일종합건설(주)/타워크레인/52두3338</p>
+            <p>A0001/2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>신규배정</app-button>
+  </app-button-footer>
