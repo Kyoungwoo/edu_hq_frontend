@@ -40,6 +40,9 @@ import { DetailSearchComponent } from './modal/detail-search/detail-search.compo
 import { SelectContractorComponent } from './select/select-contractor/select-contractor.component';
 import { SearchContractorComponent } from './modal/search-contractor/search-contractor.component';
 import { SelectConstructionMachineryComponent } from './select/select-construction-machinery/select-construction-machinery.component';
+import { SearchSerialNumberComponent } from './modal/search-serial-number/search-serial-number.component';
+import { SelectSerialNumberComponent } from './select/select-serial-number/select-serial-number.component';
+import { SelectDangerousAreaComponent } from './select/select-dangerous-area/select-dangerous-area.component';
 
 
 
@@ -79,7 +82,12 @@ import { SelectConstructionMachineryComponent } from './select/select-constructi
     DetailSearchComponent,
     SelectContractorComponent,
     SearchContractorComponent,
-    SelectConstructionMachineryComponent
+    SelectConstructionMachineryComponent,
+    SearchSerialNumberComponent,
+    SelectSerialNumberComponent,
+    SelectDangerousAreaComponent
+
+    
    
   ],
   imports: [
@@ -124,7 +132,10 @@ import { SelectConstructionMachineryComponent } from './select/select-constructi
     DetailSearchComponent,
     SelectContractorComponent,
     SearchContractorComponent,
-    SelectConstructionMachineryComponent
+    SelectConstructionMachineryComponent,
+    SearchSerialNumberComponent,
+    SelectSerialNumberComponent,
+    SelectDangerousAreaComponent
   ]
 })
 export class ComponentModule { }

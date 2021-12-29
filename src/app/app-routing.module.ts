@@ -172,23 +172,27 @@ const routes: Routes = [
     loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module').then( m => m.EachDeviceAddPageModule)
   },
   {
-<<<<<<< HEAD
     path: 'heavy-device-list',
     loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-list/heavy-device-list.module').then( m => m.HeavyDeviceListPageModule)
   },
   {
     path: 'heavy-device-add',
     loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module').then( m => m.HeavyDeviceAddPageModule)
-  }
-
-
-
-
-=======
+  },
+  {
     path: 'system-standard-set',
     loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+  },
+  {
+    path: 'danger-area-list',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-list/danger-area-list.module').then( m => m.DangerAreaListPageModule)
+  },
+  {
+    path: 'danger-area-add',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
   }
->>>>>>> 9f219e3a5312afec356c82aff1c052cf96443b6d
+
+
 ];
 
 @NgModule({

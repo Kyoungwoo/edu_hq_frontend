@@ -1,16 +1,24 @@
 <!-- pc -->
-<!-- <ion-header>
+<ng-container *mobileHidden>
+<ion-header>
   <ion-toolbar color="white">
     <ion-title>개인 디바이스</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <app-row style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
+        <thead>
+          <tr>
+            <th>
+              <app-row style="justify-content: space-between;">
+                <app-col size="auto"><h5>필터</h5></app-col>
+                <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              </app-row>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>
@@ -39,6 +47,9 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">신규배정</app-button>
+          <app-button fill="translucent">수정</app-button>
+          <app-button fill="translucent">삭제</app-button>
+          <app-button fill="translucent">저장</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
@@ -125,19 +136,13 @@
     </app-col>
   </app-row>
   </ion-content>
-  <app-button-footer>
-    <app-button>삭제</app-button>
-    <app-button>저장</app-button>
-    <app-button *ngIf="false" slot="end" color="secondary">수정</app-button>
-  </app-button-footer> -->
+</ng-container>
   
   <!-- 모바일 -->
+ <ng-container *mobileShow>
   <ion-header>
     <ion-toolbar color="white">
       <ion-title>개인 디바이스</ion-title>
-      <ion-buttons slot="end">
-        <app-dismiss-button></app-dismiss-button>
-      </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-row>
@@ -248,3 +253,4 @@
   <app-button-footer>
     <app-button>신규배정</app-button>
   </app-button-footer>
+</ng-container>

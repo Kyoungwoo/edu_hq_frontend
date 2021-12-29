@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./heavy-device-add.page.scss'],
 })
 export class HeavyDeviceAddPage implements OnInit {
-
+  menuCount:Number = 1;
   constructor() { }
 
   ngOnInit() {
