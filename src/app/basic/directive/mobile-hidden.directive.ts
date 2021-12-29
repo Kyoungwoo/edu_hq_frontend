@@ -6,8 +6,9 @@ import { Directive, HostListener, TemplateRef, ViewContainerRef } from '@angular
 export class MobileHiddenDirective {
 
   @HostListener('window:resize', ['$event'])
-  onResize($event) {
-    if($event.target.innerWidth > 768) {
+  onResize() {
+    console.log(window.innerWidth);
+    if(window.innerWidth > 768) {
       if(!this.container.length) this.container.createEmbeddedView(this.templateRef);
     } else {
       if(this.container.length) this.container.clear();
@@ -17,6 +18,8 @@ export class MobileHiddenDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private container: ViewContainerRef
-  ) { }
+  ) { 
+    this.onResize();
+  }
 
 }

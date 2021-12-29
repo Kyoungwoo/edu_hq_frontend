@@ -3,11 +3,11 @@ import { Directive, HostListener, OnDestroy, OnInit, TemplateRef, ViewContainerR
 @Directive({
   selector: '[mobileShow]'
 })
-export class MobileShowDirective implements OnInit, OnDestroy {
+export class MobileShowDirective {
 
   @HostListener('window:resize', ['$event'])
-  onResize($event) {
-    if($event.target.innerWidth > 768) {
+  onResize() {
+    if(window.innerWidth > 768) {
       if(this.container.length) this.container.clear();
     } else {
       if(!this.container.length) this.container.createEmbeddedView(this.templateRef);
@@ -18,13 +18,7 @@ export class MobileShowDirective implements OnInit, OnDestroy {
     private templateRef: TemplateRef<any>,
     private container: ViewContainerRef
   ) {
-    
+    this.onResize();
   }
 
-  ngOnInit() {
-
-  }
-  ngOnDestroy() {
-      
-  }
 }
