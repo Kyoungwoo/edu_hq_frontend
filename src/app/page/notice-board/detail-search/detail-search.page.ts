@@ -1,24 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-search',
-  templateUrl: './detail-search.component.html',
-  styleUrls: ['./detail-search.component.scss'],
+  templateUrl: './detail-search.page.html',
+  styleUrls: ['./detail-search.page.scss'],
 })
-export class DetailSearchComponent implements OnInit {
-
-
-  
+export class DetailSearchPage implements OnInit {
+  scene = '';
 
   constructor(
     private _modal : ModalController
   ) { }
 
   ngOnInit() {
-   
   }
-
   dismiss(){
     this._modal.dismiss();
   }

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from '../component.module';
+import { ComponentModule } from '../../../../component/component.module';
 
 import { QrScannerComponent } from './qr-scanner.component';
 

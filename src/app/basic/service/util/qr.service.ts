@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { QrScannerComponent } from 'src/app/component/qr-scanner/qr-scanner.component';
-import { ConnectService } from '../core/connect.service';
-import { ToastService } from '../ionic/toast.service';
-import Nfc from 'src/app/basic/plugin/nfc.plugin';
-import { AlertService } from '../ionic/alert.service';
-import { NavService } from '../ionic/nav.service';
-import { ScanPage } from 'src/app/page/scan/scan.page';
-import { Router } from '@angular/router';
-import Qr from "src/app/basic/plugin/qr-plugin";
-import { Observable, Subscription } from 'rxjs';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,9 +42,11 @@ export class QrService {
           console.log("unsubscribe ----- ",this.qr_response);
           this.qrCallback = null;
           modal.dismiss();
+          const routerEl = document.querySelector('ion-router-outlet');
+          routerEl.style.display = 'flex';
           this.qr_response.qr_modal.dismiss();
           this.qr_response.qr_subs.unsubscribe();
-          this.qr_response.qr_qrScanner.distroy();
+          // this.qr_response.qr_qrScanner.distroy();
         }
       }
   }
@@ -69,6 +62,7 @@ export class QrService {
   // }
   async getQrData(value) {
     this.qr_response = {...value};
+    console.log("this.qr_response",this.qr_response)
     return this.qrCallback(value);
   }
 }

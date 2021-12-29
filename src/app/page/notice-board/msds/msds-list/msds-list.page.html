@@ -1,7 +1,9 @@
-<!-- <ion-header>
+<ng-container *mobileHidden>
+  <ion-header>
+    <app-header-admin></app-header-admin>
     <ion-toolbar color="white">
       <ion-buttons slot="start">
-        <ion-back-button defaultHref=""></ion-back-button>
+        <ion-back-button defaultHref="/basic/guide"></ion-back-button>
       </ion-buttons>
       <ion-title>게시판</ion-title>
     </ion-toolbar>
@@ -89,8 +91,11 @@
         <app-pager></app-pager>
       </app-col>
     </app-row>
-  </ion-content> -->
-  <ion-header>
+  </ion-content>
+</ng-container>
+<!--  -->
+<ng-container *mobileShow>
+  <ion-header >
     <ion-toolbar color="white">
       <ion-title>MSDS</ion-title>
       <ion-buttons slot="end">
@@ -147,3 +152,4 @@
       </app-row>
     </app-card>
   </ion-content>
+</ng-container>

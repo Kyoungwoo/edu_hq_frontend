@@ -9,7 +9,7 @@ import { BasicComponentModule } from '../basic/component/basic.component.module'
 import { SideMenuUserComponent } from './side-menu/side-menu-user/side-menu-user.component';
 import { SideMenuAdminComponent } from './side-menu/side-menu-admin/side-menu-admin.component';
 import { HeaderAdminComponent } from './header/header-admin/header-admin.component';
-import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
+import { QrScannerComponent } from '../basic/component/dialog/qr-scanner/qr-scanner.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { SearchPeopleComponent } from './modal/search-people/search-people.component';
 import { SearchCompanyComponent } from './modal/search-company/search-company.component';
@@ -124,7 +124,8 @@ import { SelectConstructionMachineryComponent } from './select/select-constructi
     DetailSearchComponent,
     SelectContractorComponent,
     SearchContractorComponent,
-    SelectConstructionMachineryComponent
+    SelectConstructionMachineryComponent,
+    SideMenuAdminComponent
   ]
 })
 export class ComponentModule { }

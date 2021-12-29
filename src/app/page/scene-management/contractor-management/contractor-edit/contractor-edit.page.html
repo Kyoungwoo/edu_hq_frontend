@@ -8,65 +8,30 @@
 </ion-header>
 <ion-content>
   <h4>회사 정보</h4>
-  <app-card>
-    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-      <app-col>
-        <app-select-company></app-select-company>
-      </app-col>
-      <app-col>
-        <app-select-contractor></app-select-contractor>
-      </app-col>
-    </app-row>
-    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-      <app-col>
-        <app-input label="사업자등록번호"></app-input>
-      </app-col>
-      <app-col>
-        <app-select-company></app-select-company>
-      </app-col>
-    </app-row>
-    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-      <app-col>
-        <app-input label="대표자"></app-input>
-      </app-col>
-      <app-col>
-        <app-input label="회사전화"></app-input>
-      </app-col>
-    </app-row>
-  </app-card>
-  <h4>계약 정보</h4>
-  <app-check-group>
-    <app-table>
-      <thead>
-        <tr>
-          <th><app-check></app-check></th>
-          <th>계약공종</th>
-          <th>계약명</th>
-          <th>계약기간</th>
-          <th>계약금액<br>(원/VAT별도)</th>
-          <th>혐력사 소장</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><app-check></app-check></td>
-          <td>
-            <app-select>
-              <app-select-option></app-select-option>
-            </app-select>
-        </td>
-          <td><app-input></app-input></td>
-          <td>
-            <app-calendar></app-calendar>
-            ~
-            <app-calendar></app-calendar>
-          </td>
-          <td><app-input placeholder="계약금액을 적어주세요."></app-input></td>
-          <td><app-select-contractor></app-select-contractor></td>
-        </tr>
-      </tbody>
-    </app-table>
-  </app-check-group>
+  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+    <app-col>
+      <app-select-company name="company-name"></app-select-company>
+    </app-col>
+    <app-col>
+      <app-input [required]="true" label="사업자등록번호"></app-input>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+    <app-col>
+      <app-input label="대표자"></app-input>
+    </app-col>
+    <app-col>
+      <app-input label="회사로고"></app-input>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+    <app-col>
+      <app-input label="현장 전화번호"></app-input>
+    </app-col>
+    <app-col>
+
+    </app-col>
+  </app-row>
   <h4>담당자 정보</h4>
   <app-card>
     <app-row>
@@ -77,17 +42,21 @@
         <app-input label="연락처"></app-input>
       </app-col>
       <app-col>
-        <app-input label="이메일"></app-input>
+        <app-input type="email" label="이메일"></app-input>
       </app-col>
     </app-row>
   </app-card>
+  <h4>개인정보 처리 위탁 동의</h4>
   <app-card>
-    <h4>개인정보 처리 위탁 동의</h4>
-    <app-row style="min-height: 300px;">
-      <app-col>
-        <app-textarea [rows]="11"></app-textarea>
-      </app-col>
-    </app-row>
+    <span class="font-height">
+      <h3 style="text-align: center;">개인정보 처리 위탁 동의서</h3>
+      산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
+      1. 작업의 시작 시간<br>
+      2. 작업 또는 작업장 간의 연락방법<br>
+      3. 재해발생 위험이 있는 경우 대피방법<br>
+      4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항<br>
+      5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
+    </span>
   </app-card>
 </ion-content>
 <app-button-footer>
