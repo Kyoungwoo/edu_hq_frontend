@@ -488,7 +488,7 @@
       file upload
       &lt;app-file name="input" view_type="NOTICE"
       [value]=&rdquo;form.list&rdquo;
-      [files]=&rdquo;form.files&rdquo;
+      [file]=&rdquo;form.files&rdquo;
       [file_json]=&rdquo;form.file_json&rdquo;
       &gt;&lt;/app-file&gt;
     &lt;/app-button&gt;</code></pre>
@@ -497,19 +497,19 @@
           <app-col size="auto">
             <app-button>
               <small>[multiple=false]<br>[type=MAIN]</small>
-              <app-file view_type="MAIN" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
+              <app-file view_type="MAIN" [value]="file.list" [file]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[multiple=true]<br>[type=SUB]</small>
-              <app-file view_type="SUB" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+              <app-file view_type="SUB" [value]="file.list" [file]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[accept=camera]<br>[type=AVATAR]</small>
-              <app-file view_type="AVATAR" [value]="file.list" [files]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
+              <app-file view_type="AVATAR" [value]="file.list" [file]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
             </app-button>
           </app-col>
         </app-row>
