@@ -19,6 +19,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "현장";
   @Input() required:boolean = false;
+  @Input() text:string;
 
   constructor(
     private _modal:ModalController
@@ -26,17 +27,20 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {}
-  async scene(){
+  public async openModal() {
     const modal = await this._modal.create({
-      component:SearchSceneComponent
+      component:SearchSceneComponent,
+      componentProps: {
+        value: this.value
+      }
     });
     modal.present();
   }
 
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:number;
+  @Input() set value(v:number) {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
@@ -46,7 +50,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
+  writeValue(v:number): void { 
     if(v !== this._value) this._value = v;
     this.onChangeCallback(v);
     this.change.emit(v);

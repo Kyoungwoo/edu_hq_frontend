@@ -31,10 +31,13 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     private differs: IterableDiffers,
     private fileService: FileService,
     private camera: CameraService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.differ = this.differs.find([]).create(null);
+    if(!this.view_type) {
+      console.error('app-file must have view_type attribute!!');
+    }
   }
   ngDoCheck() {
     const changes = this.differ.diff(this.value);

@@ -41,7 +41,7 @@ export class RegexService {
       return String(number).replace(/(\d{4})(\d{2})(\d{0,2})/, "$1-$2-$3");
     },
     /** 사업자 등록번호 */
-    companyLicenseNo: (number:string | number) => {
+    businessRegisterNo: (number:string | number) => {
       return String(number).replace(/(\d{3})(\d{2})(\d{0,5})/, "$1-$2-$3");
     },
     /** 숫자를 01, 001 등으로 표현해준다. */

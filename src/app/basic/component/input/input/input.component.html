@@ -5,6 +5,7 @@
   [type]="type"
   [readonly]="readonly"
   [disabled]="disabled"
-  [maxlength]="maxlength">
+  [maxlength]="maxlength"
+  (keyup.enter)="buttonClick.emit()">
   <ng-content></ng-content>
 </app-input-template>

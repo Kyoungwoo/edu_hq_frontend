@@ -20,7 +20,7 @@
         <h6 id="result-success">업체 정보</h6>
         <app-card data-test="company-item" [button]="true" [color]="company === selectedCompany ? 'secondary' : 'white'" *ngFor="let company of res.rsMap" (click)="selectedCompany = company">
           <h4>{{ company.company_name }}</h4>
-          <p>{{ regex.replace.companyLicenseNo(company.business_register_no) }} / {{company.company_ceo }}</p>
+          <p>{{ regex.replace.businessRegisterNo(company.business_register_no) }} / {{company.company_ceo }}</p>
         </app-card>
       </ng-container>
       <ng-template #tempFail>

@@ -27,16 +27,16 @@ const getConfig = () => {
           console.log(headerEl);
           const opacityAnimation = createAnimation()
           .addElement(enterEl)
-          .duration(100)
+          .duration(90)
           .fromTo('opacity', '0', '1');
           const transformAnimation = createAnimation()
           .addElement(enterEl)
-          .duration(180)
+          .duration(120)
           .easing('ease-out')
           .fromTo('transform', 'translateY(50px)', 'translateY(0px)');
           const headerAnimation = createAnimation()
           .addElement(headerEl)
-          .delay(200)
+          .delay(120)
           .fromTo('opacity', '0', '1');
           return createAnimation().addAnimation([opacityAnimation, transformAnimation, headerAnimation]);
         } else if(opts.direction === 'back') {

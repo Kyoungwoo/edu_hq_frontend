@@ -7,36 +7,39 @@
     border: 1px solid var(--ion-color-base, var(--ion-color-white));
     padding: 7px;
 
-    display: block;
-    position: relative;
+    display: flex;
+    align-items: flex-end;
     text-align: left;
-    font-size: 16px;
+    font-size: var(--app-font-size-input);
+    position: relative;
     z-index: 1;
-    >label {
+    .input-group {
+        flex: 1 1 0%;
+        width: 100%;
+    }
+    label {
         display: block;
         font-size: var(--font-size-h6);
         color: var(--ion-text-color);
         font-weight: 500;
     }
-    >.input {
+    .input {
         min-height: 26px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         color: var(--ion-text-color);
     }
-    >.button {
-        position: absolute;
+    .button {
         margin-top: 0;
         margin-bottom: 0;
-        z-index: 2;
         font-size: var(--font-size-h6);
         text-align: right;
     }
-    >.button:focus {
+    .button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
     }
-    >.button.empty {
+    .button.empty {
         display: none;
     }
 }
@@ -93,25 +96,20 @@
 
 :host.input-label {
     >.button {
-        bottom: 8px;
-        right: 8px;
         min-height: 43px;
         min-width: 43px;
         padding-left: 12px;
         padding-right: 12px;
-        border-radius: 2px;
     }
 }
 :host.input-label ::ng-deep {
-    >app-button app-img {
+    >.button app-img {
         width: 20px;
     }
 }
 
 :host.input-no-label {
     >.button {
-        bottom: 8px;
-        right: 8px;
         min-height: 25px;
         min-width: 25px;
         padding-left: 5px;
@@ -120,7 +118,7 @@
     }
 }
 :host.input-no-label ::ng-deep {
-    >app-button app-img {
+    >.button app-img {
         width: 15px;
     }
 }

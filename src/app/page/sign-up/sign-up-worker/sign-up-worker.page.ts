@@ -4,16 +4,18 @@ import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserGender } from 'src/app/basic/service/core/user.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
 
-class SignUpWorkerForm {
+export class SignUpWorkerForm {
   account_id:string; // 아이디
   account_token:string; //비밀번호
   ctgo_country_id:number; //국적 ID
   company_id:number; //소속 업체 ID
   ctgo_construction_id:number; //공종 ID
   ctgo_occupation_id:number; //직종 ID
-  project_id:number; //소속 현장 ID
+  project_id:number = 1; //소속 현장 ID
   user_name:string; //이름
   user_gender:UserGender; //성별
   user_birth:string; //생년월일
@@ -57,12 +59,14 @@ export class SignUpWorkerPage implements OnInit {
 
   resOverlapId:ConnectResult;
   resOverlapPhone:ConnectResult;
-  resAligoCheck:ConnectResult;
   resAligoSend:ConnectResult;
+  resAligoCheck:ConnectResult;
 
   constructor(
     private activedRoute: ActivatedRoute,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private nav: NavService,
+    public regex: RegexService
   ) { }
 
   ngOnInit() {
@@ -91,6 +95,10 @@ export class SignUpWorkerPage implements OnInit {
     }, 200);
   }
 
+  public async aligoSend() {
+    const { user_phone } = this.form;
+    this.resAligoSend = await this.connect.run('/aligo/send', { user_phone });    
+  }
   public async aligoCheck() {
     const { user_phone } = this.form;
     this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    

@@ -754,7 +754,7 @@
         </app-table>
   
         <h4 id="input-group">input-group</h4>
-        <p>이런 것 까지 만들게 할 줄이야. 대단하다.</p>
+        <p><code>input</code>들 및 <code>button</code>여러개를 1개처럼 보이게 하는 목적으로 만들어진 그룹입니다. 1개의 요소를 위해 사용을 권장하지는 않습니다.</p>
   
         <app-row>
           <app-col size="200px">
@@ -1142,7 +1142,7 @@
     <pre><code ngNonBindable>&lt;app-avatar src="https://www.devmonster.co.kr/assets/img/logo.svg"&gt;&lt;/app-avatar&gt;</code></pre>
         <app-row>
           <app-col size="auto">
-            <app-avatar src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
+            <app-avatar view_type="profile" src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
           </app-col>
           <app-col size="auto">
             <app-avatar [readonly]="false"></app-avatar>
@@ -1871,11 +1871,11 @@
             <ion-item routerLink="/basic/guide" fragment="input-caption">
               <ion-label>input-caption</ion-label>
             </ion-item>
-            <ion-item routerLink="/basic/guide" fragment="input-template">
-              <ion-label>input-template</ion-label>
-            </ion-item>
             <ion-item routerLink="/basic/guide" fragment="input-group">
               <ion-label>input-group</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="input-template">
+              <ion-label>input-template</ion-label>
             </ion-item>
             <ion-item routerLink="/basic/guide" fragment="naver-map">
               <ion-label>naver-map</ion-label>
