@@ -35,26 +35,26 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '통합관제', link: ''}
     ]},
     { title: '결재', img: 'assets/img/menu/sign.svg', subMenuList: [
-      { title: '미결함', link: ''},
+      { title: '미결함', link: '/confirm-pending-list'},
       { title: '문서함', thirdMenuList: [
-        { title: '기안/임시저장함', link: ''},
-        { title: '진행/완료/반려함', link: ''},
-        { title: '참조함', link: ''}
+        { title: '기안/임시저장함', link: '/confirm-obtain-list'},
+        { title: '진행/완료/반려함', link: '/confirm-progress-list'},
+        { title: '참조함', link: '/confirm-cc-list'}
       ]},
       { title: '결재설정', thirdMenuList: [
-        { title: '기본 결재선 지정', link: ''},
+        { title: '기본 결재선 지정', link: '/approval-edit'},
         { title: '위임 관리', link: ''}
       ]}
     ]},
     { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
-      { title: '교육현황', link: ''},
-      { title: '교육 결과 보고', link: ''},
-      { title: '교육이력', link: ''}
+      { title: '교육현황', link: '/safety-education-list'},
+      { title: '교육 결과 보고', link: '/safety-education-result-list'},
+      { title: '교육이력', link: '/safety-education-history-list'}
     ]},
     { title: '작업계획', img: 'assets/img/menu/work-plan.svg', subMenuList: [
       { title: '위험성 평가', thirdMenuList: [
-        { title: '위험성평가 작성', link: '' },
-        { title: '평가표 정보 추가 요청', link: '' }
+        { title: '위험성평가 작성', link: '/risk-list' },
+        { title: '평가표 정보 추가 요청', link: '/risk-evaluation-edit' }
       ]},
       { title: '위험 작업 허가', link: ''},
       { title: '장비작업계획', link: ''},
@@ -68,7 +68,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '현장기상정보', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
-      { title: '중장비 관리', link: ''},
+      { title: '중장비 관리', link: '/heavy-equip-list'},
       { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
         { title: '시리얼 No', link: '/serial-no-list' },
         { title: '개인 디바이스', link: '/each-device-list' },
@@ -88,24 +88,24 @@ export class SideMenuAdminComponent implements OnInit {
     ]},
     { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
       { title: '1:1 문의', link: ''},
-      { title: '사용자 매뉴얼', link: ''},
+      { title: '사용자 매뉴얼', link: '/manual-list'},
       { title: '언어 설정', link: ''},
-      { title: '시스템 이용 약관', link: ''},
-      { title: '개인정보처리방침', link: ''}
+      { title: '시스템 이용 약관', link: '/use-terms'},
+      { title: '개인정보처리방침', link: '/privacy'}
     ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
-      { title: '현장 등록', link: ''},
-      { title: '원청사 등록', link: ''}, 
-      { title: '장소 등록', link: ''},
-      { title: '기준 정보 관리', link: ''}
+      { title: '현장 등록', link: '/scene-area-set'},
+      { title: '원청사 등록', link: '/contractor-edit'}, 
+      { title: '장소 등록', link: '/area-standard-set'},
+      { title: '기준 정보 관리', link: '/system-standard-set'}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
-      { title: '공지사항', link: ''},
-      { title: 'MSDS', link: ''},
-      { title: '회의록', link: ''},
+      { title: '공지사항', link: '/notice-list'},
+      { title: 'MSDS', link: '/msds-list'},
+      { title: '회의록', link: '/minutes-list'},
     ]},
     { title: '알림함', img: 'assets/img/menu/notification-box.svg', subMenuList: [
-      { title: '알림함', link: ''}
+      { title: '알림함', link: '/notice-list'}
     ]}
   ]
 

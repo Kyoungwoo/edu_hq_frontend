@@ -230,11 +230,13 @@ const routes: Routes = [
   {
     path: 'danger-area-detail-search',
     loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-detail-search/danger-area-detail-search.module').then( m => m.DangerAreaDetailSearchPageModule)
+  },
+  {
+    path: 'confirm-pending-list',
+    loadChildren: () => import('./page/confirm/box/confirm-pending-list/confirm-pending-list.module').then( m => m.ConfirmPendingListPageModule)
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> a63c6f655fa954d203338902ea7554e9ba6b41e5
+
 ];
 
 @NgModule({

@@ -29,7 +29,6 @@ import { SelectConstructionComponent } from 'src/app/component/select/select-con
 import { SelectOccupationComponent } from 'src/app/component/select/select-occupation/select-occupation.component';
 import { SelectPositionComponent } from 'src/app/component/select/select-position/select-position.component';
 import { SelectOrganizationComponent } from 'src/app/component/select/select-organization/select-organization.component';
-import { SelectPeriodComponent } from 'src/app/component/select/select-period/select-period.component';
 import { SelectCountryComponent } from 'src/app/component/select/select-country/select-country.component';
 
 @Component({

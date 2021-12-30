@@ -24,7 +24,16 @@
             </tr>
             <tr>
               <td>
-            <app-select label="장비구분"></app-select>
+            <app-select label="디바이스 구분"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="배정일">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
               </td>
             </tr>
             <tr>
@@ -39,9 +48,9 @@
         <ion-toolbar color="white">
           <ion-buttons slot="start">
             <app-button fill="translucent">신규배정</app-button>
-            <app-button fill="translucent">삭제</app-button>
+            <app-button fill="translucent">수정</app-button>
+            <app-button fill="translucent" color="danger">삭제</app-button>
             <app-button fill="translucent">저장</app-button>
-            <app-button *ngIf="false" fill="translucent" color="secondary">수정</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -62,6 +71,35 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
+              <td>구일종합건설(주)</td>
+              <td>협력사1</td>
+              <td>
+                <app-button fill="translucent" size="small">
+                <app-img name="search"></app-img>
+                </app-button>
+            </td>
+              <td>52두 3338</td>
+              <td>
+                <app-select value="건설기계 NFC">
+                  <app-select-option value="건설기계 NFC">건설기계 NFC</app-select-option>
+                  <app-select-option value="크레인 상하차 알림장치">크레인 상하차 알림장치</app-select-option>
+                </app-select>
+              </td>
+              <td> 
+                <app-button fill="translucent" size="small">
+                <app-img name="search"></app-img>
+                </app-button>
+              </td>
+              <td>2021.09.16 10:50:26</td>
+              <td>
+                <app-select value="Y">
+                  <app-select-option value="Y">Y</app-select-option>
+                  <app-select-option value="N">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
             <tr>
               <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
               <td>구일종합건설(주)</td>
