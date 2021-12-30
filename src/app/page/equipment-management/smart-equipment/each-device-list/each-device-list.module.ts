@@ -9,6 +9,7 @@ import { EachDeviceListPageRoutingModule } from './each-device-list-routing.modu
 import { EachDeviceListPage } from './each-device-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { EachDeviceDetailSearchPageModule } from '../each-device-detail-search/each-device-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    EachDeviceListPageRoutingModule
+    EachDeviceListPageRoutingModule,
+    EachDeviceDetailSearchPageModule
   ],
   declarations: [EachDeviceListPage]
 })

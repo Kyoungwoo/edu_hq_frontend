@@ -1,4 +1,4 @@
-<button class="button" [disabled]="disabled" *ngIf="!href; else tempLink">
+<button class="button" *ngIf="!href; else tempLink">
   <ng-container *ngTemplateOutlet="tempButton"></ng-container>
 </button>
 <ng-template #tempLink>
@@ -10,11 +10,6 @@
 
 <ng-template #tempButton>
   <div class="button-inner">
-    <slot name="top">
-      <ng-content select="[slot=top]"></ng-content>
-    </slot>
-    <slot>
-      <ng-content></ng-content>
-    </slot>
+    <ng-content></ng-content>
   </div>
 </ng-template>

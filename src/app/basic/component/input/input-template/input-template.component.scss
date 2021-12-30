@@ -1,6 +1,6 @@
 :host {
-    margin-top: var(--app-padding);
-    margin-bottom: var(--app-padding);
+    margin-top: calc(var(--app-padding)*2);
+    margin-bottom: calc(var(--app-padding)*2);
     border-radius: var(--app-border-radius);
     box-shadow: var(--app-box-shadow);
     background: var(--ion-color-white);
@@ -103,7 +103,7 @@
     }
 }
 :host.input-label ::ng-deep {
-    app-img {
+    >app-button app-img {
         width: 20px;
     }
 }
@@ -114,13 +114,13 @@
         right: 8px;
         min-height: 25px;
         min-width: 25px;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-left: 5px;
+        padding-right: 5px;
         border-radius: 15px;
     }
 }
 :host.input-no-label ::ng-deep {
-    app-img {
+    >app-button app-img {
         width: 15px;
     }
 }

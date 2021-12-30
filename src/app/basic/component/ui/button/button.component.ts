@@ -24,6 +24,7 @@ export class ButtonComponent implements OnInit {
   }
   
   @Input() color:Color;
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() disabled:boolean = false;
   @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
   @Input() shape:'round' | 'circle' | 'square';

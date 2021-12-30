@@ -52,6 +52,11 @@ app-button + :host {
     margin-left: var(--app-padding);
 }
 
+:host.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 /** size */
 :host.button-small {
     min-width: 28px;
@@ -122,7 +127,6 @@ app-button + :host {
         padding: 4px;
     }
     app-img {
-        //display: block;
         width: 1.2em;
     }
     app-img[slot=start] {
