@@ -1,20 +1,34 @@
-<ion-content>
+
+
+<app-radio-input label="작업기간">
   <app-row>
-  <app-radio-input label="작업기간" style="width:100%;">
-    <app-radio value="전체">전체</app-radio>
-    <app-radio value="전주">전주</app-radio>
-    <app-radio value="오늘">오늘</app-radio>
-    <app-radio value="금주">금주</app-radio>
-    <app-radio value="차주">차주</app-radio>
-    <app-radio value="당월">당월</app-radio>
-  </app-radio-input>
+    <app-col>
+      <app-radio value="전체">전체</app-radio>
+    </app-col>
+    <app-col>
+      <app-radio value="전주">전주</app-radio>
+    </app-col>
+    <app-col>
+      <app-radio value="오늘">오늘</app-radio>
+    </app-col>
+  </app-row>
+  <app-row style="border-bottom: 1px solid var(--ion-color-step-100);">
+    <app-col>
+      <app-radio value="금주">금주</app-radio>
+    </app-col>
+    <app-col>
+      <app-radio value="차주">차주</app-radio>
+    </app-col>
+    <app-col>
+      <app-radio value="당월">당월</app-radio>
+    </app-col>
   </app-row>
   <app-row>
     <app-col>
-      <app-calendar name="calendar" label="작업시작일"></app-calendar>
+      <app-calendar name="calendar"></app-calendar>
     </app-col>
     <app-col>
-      <app-calendar name="calendar" label="작업종료일"></app-calendar>
+      <app-calendar name="calendar"></app-calendar>
     </app-col>
   </app-row>
-</ion-content>
+</app-radio-input>

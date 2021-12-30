@@ -9,16 +9,12 @@
   <app-row style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
-        <thead>
-          <tr>
-            <th>
-              <app-row style="justify-content: space-between;">
-                <app-col size="auto"><h5>필터</h5></app-col>
-                <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
-              </app-row>
-            </th>
-          </tr>
-        </thead>
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+          </app-row>
+        </ion-toolbar>
         <tbody>
           <tr>
             <td>
@@ -27,12 +23,22 @@
           </tr>
           <tr>
             <td>
-             <app-select-contractor></app-select-contractor>
+            <app-select-contractor></app-select-contractor>
             </td>
           </tr>
           <tr>
             <td>
-           <app-select label="장비구분"></app-select>
+          <app-select label="디바이스 구분"></app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+          <app-select label="반납 여부"></app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+          <!-- <app-select-period></app-select-period> -->
             </td>
           </tr>
           <tr>

@@ -190,12 +190,20 @@ const routes: Routes = [
   {
     path: 'danger-area-add',
     loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
+  },
+  {
+    path: 'each-device-detail-search',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-detail-search/each-device-detail-search.module').then( m => m.EachDeviceDetailSearchPageModule)
+  },
+  {
+    path: 'heavy-device-detail-search',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-device-detail-search/heavy-device-detail-search.module').then( m => m.HeavyDeviceDetailSearchPageModule)
+  },
+  {
+    path: 'danger-area-detail-search',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-detail-search/danger-area-detail-search.module').then( m => m.DangerAreaDetailSearchPageModule)
   }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 781b60b7b97f532d4d11f4eb9a81a7fd073f08d7
 ];
 
 @NgModule({
