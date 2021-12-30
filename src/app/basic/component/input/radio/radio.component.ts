@@ -11,14 +11,14 @@ export class RadioComponent implements OnInit {
 
   @HostListener('click') onClick() {
     if(this.radioInput) this.radioInput.value = this.value;
-    if(this.RadioGroup) this.RadioGroup.value = this.value;
+    if(this.radioGroup) this.radioGroup.value = this.value;
   }
 
   @Input() value:any;
 
   constructor(
     @Optional() private radioInput:RadioInputComponent,
-    @Optional() private RadioGroup:RadioGroupComponent
+    @Optional() private radioGroup:RadioGroupComponent
   ) { }
 
   ngOnInit() {

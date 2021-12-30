@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-title>Library Guide</ion-title>
         <ion-buttons slot="end">
-          <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout" routerDirection="root">guide-table-layout</app-button>
+          <app-button color="primary" fill="translucent" routerLink="/basic/guide-table-layout">guide-table-layout</app-button>
           <app-button color="primary" routerLink="/basic/guide-card-layout">guide-card-layout</app-button>
         </ion-buttons>
       </ion-toolbar>
@@ -530,7 +530,7 @@
       file upload
       &lt;app-file name="input" view_type="NOTICE"
       [value]=&rdquo;form.list&rdquo;
-      [files]=&rdquo;form.files&rdquo;
+      [file]=&rdquo;form.file&rdquo;
       [file_json]=&rdquo;form.file_json&rdquo;
       &gt;&lt;/app-file&gt;
     &lt;/app-button&gt;</code></pre>
@@ -539,19 +539,19 @@
           <app-col size="auto">
             <app-button>
               <small>[multiple=false]<br>[type=MAIN]</small>
-              <app-file view_type="MAIN" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
+              <app-file view_type="MAIN" [value]="file.list" [file]="file.file" [file_json]="file.file_json" [multiple]="false"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[multiple=true]<br>[type=SUB]</small>
-              <app-file view_type="SUB" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+              <app-file view_type="SUB" [value]="file.list" [file]="file.file" [file_json]="file.file_json" [multiple]="true"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[accept=camera]<br>[type=AVATAR]</small>
-              <app-file view_type="AVATAR" [value]="file.list" [files]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
+              <app-file view_type="AVATAR" [value]="file.list" [file]="file.file" [file_json]="file.file_json" accept="camera"></app-file>
             </app-button>
           </app-col>
         </app-row>
@@ -842,6 +842,58 @@
         <h4 id="radio-input">radio-input</h4>
         <p>
           <a routerLink="/basic/guide" fragment="radio"><code>radio</code></a>를 사용하기 위한 레이아웃이 <code>input</code>형태의 component 입니다.
+        </p>
+
+        <h5>Examples</h5>
+<pre><code ngNonBindable>&lt;app-segment [(ngModel)]=&quot;form.nav&quot;&gt;
+  &lt;app-segment-button value=&quot;apple&quot;&gt;apple&lt;/app-segment-button&gt;
+  &lt;app-segment-button value=&quot;banana&quot;&gt;banana&lt;/app-segment-button&gt;
+  &lt;app-segment-button value=&quot;cinamon&quot;&gt;cinamon&lt;/app-segment-button&gt;
+&lt;/app-segment&gt;</code></pre>
+
+        <app-row>
+          <app-col>
+            <app-radio-input label="radio input">
+              <app-radio value="전체">전체</app-radio>
+              <app-radio value="전주">전주</app-radio>
+              <app-radio value="오늘">오늘</app-radio>
+              <app-radio value="금주">금주</app-radio>
+              <app-radio value="차주">차주</app-radio>
+              <app-radio value="당월">당월</app-radio>
+            </app-radio-input>
+          </app-col>
+          <app-col>
+            <app-radio-input label="radio group">
+              <app-row>
+                <app-col>
+                  <app-radio value="전체">전체</app-radio>
+                </app-col>
+                <app-col>
+                  <app-radio value="전주">전주</app-radio>
+                </app-col>
+                <app-col>
+                  <app-radio value="오늘">오늘</app-radio>
+                </app-col>
+              </app-row>
+              <app-row>
+                <app-col>
+                  <app-radio value="금주">금주</app-radio>
+                </app-col>
+                <app-col>
+                  <app-radio value="차주">차주</app-radio>
+                </app-col>
+                <app-col>
+                  <app-radio value="당월">당월</app-radio>
+                </app-col>
+              </app-row>
+              <app-img name="search"></app-img>
+            </app-radio-input>
+          </app-col>
+        </app-row>
+
+        <h4 id="segment">segment</h4>
+        <p>
+          네비게이션 및 텝 등을 표현하기 위한 <code>input</code> 입니다.<a routerLink="/basic/guide" fragment="segment-button"><code>segment-button</code></a>과 함께 사용됩니다.
         </p>
         <app-row>
           <app-col>
@@ -1833,6 +1885,12 @@
             </ion-item>
             <ion-item routerLink="/basic/guide" fragment="radio-input">
               <ion-label>radio-input</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="segment">
+              <ion-label>segment</ion-label>
+            </ion-item>
+            <ion-item routerLink="/basic/guide" fragment="segment-button">
+              <ion-label>segment-button</ion-label>
             </ion-item>
             <ion-item routerLink="/basic/guide" fragment="select">
               <ion-label>select</ion-label>
