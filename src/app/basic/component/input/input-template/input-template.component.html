@@ -1,8 +1,7 @@
 <label>{{ label }} <ion-text *ngIf="required" color="danger">*</ion-text></label>
-<div class="input" [style.padding-right.px]="slot.childElementCount ? button.offsetWidth + 4 : 0">
+<div class="input" [style.padding-right.px]="slot.childElementCount ? button.el.nativeElement.offsetWidth + 4 : 0">
   <ng-content select="[slot=input]"></ng-content>
 </div>
-<button #button class="ion-activatable ripple-parent" [class.empty]="!slot.childElementCount" [disabled]="disabled || readonly" (click)="onButtonClick()">
+<app-button #button class="button ion-activatable ripple-parent" [class.empty]="!slot.childNodes.length" [disabled]="disabled || readonly" (click)="onButtonClick()">
   <slot #slot><ng-content></ng-content></slot>
-  <ion-ripple-effect></ion-ripple-effect>
-</button>
+</app-button>

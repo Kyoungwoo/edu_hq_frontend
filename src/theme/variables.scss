@@ -12,7 +12,7 @@
   @include generateColor('secondary', #D1F6E3, #2F8D38);
   @include generateColor('tertiary', #25A485, #ffffff);
   @include generateColor('success', #46BDE2, #ffffff);
-  @include generateColor('warning', #ff9041, #271f17);
+  @include generateColor('warning', #ff9041, #ffffff);
   @include generateColor('danger', #FF6060, #ffffff);
   @include generateColor('light', #F7F9FC, #000000);
   @include generateColor('medium', #9CB3BE, #ffffff);
@@ -40,7 +40,7 @@
     @include generateColor('secondary', #D1F6E3, #2F8D38);
     @include generateColor('tertiary', #25A485, #ffffff);
     @include generateColor('success', #25A485, #ffffff);
-    @include generateColor('warning', #ff9041, #271f17);
+    @include generateColor('warning', #ff9041, #ffffff);
     @include generateColor('danger', #FF6060, #ffffff);
     @include generateColor('dark', #445760, #222120);
     @include generateColor('medium', #9CB3BE, #222120);
@@ -68,10 +68,12 @@
   /** input은 보통 앱이나 웹 둘다 16px을 많이 쓴다 */
   --font-size-input: 15px;
   
-  /** app-col, button margin의 padding 값 */
+  /** app-col 등 element 간의 margin/padding 값 */
   --app-padding: 6px;
-  /** container, input 등이 기본적으로 가지는 바깥 margin */
-  --app-margin: 16px;
+  /** card 여백 등의 margin/padding 값 */
+  --app-margin: 12px;
+  /** 페이지 여백 등의 margin/padding 값 */
+  --app-page-padding: 16px;
   /** input, button, card의 border radius */
   --app-border-radius: 3px;
   /** input, button, card의 box shadow */
@@ -91,9 +93,11 @@
 
     --font-size-input: 15px;
     
-    /** app-col 의 padding 값 */
+    /** app-col 등 element 간의 margin/padding 값 */
     --app-padding: 4px;
-    /** app-row, input, 등이 기본적으로 가지는 1줄의 margin */
-    --app-margin: 8px;
+    /** card 여백 등의 margin/padding 값 */
+    --app-margin: 10px;
+    /** 페이지 여백 등의 margin/padding 값 */
+    --app-page-padding: 16px;
   }
 }
