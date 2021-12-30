@@ -35,6 +35,8 @@
     }
     .button-inner {
         display: block;
+        width: 100%;
+        flex: 0 0 100%;
     }
     slot {
         display: block;

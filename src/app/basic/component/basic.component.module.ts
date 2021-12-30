@@ -46,6 +46,7 @@ import { PagerComponent } from './ui/pager/pager.component';
 import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.component';
 import { EmailComponent } from './input/email/email.component';
 import { SmarteditComponent } from './input/smartedit/smartedit.component';
+import { MenuButtonComponent } from './ui/menu-button/menu-button.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -84,6 +85,7 @@ import { SmarteditComponent } from './input/smartedit/smartedit.component';
     ImgComponent,
     LineComponent,
     LogoComponent,
+    MenuButtonComponent,
     RowComponent,
     TableComponent,
     PagerComponent,
@@ -132,6 +134,7 @@ import { SmarteditComponent } from './input/smartedit/smartedit.component';
     ImgComponent,
     LineComponent,
     LogoComponent,
+    MenuButtonComponent,
     RowComponent,
     TableComponent,
     PagerComponent,

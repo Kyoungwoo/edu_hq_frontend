@@ -164,17 +164,26 @@
 </ng-container>
   
   <!-- 모바일 -->
- <ng-container *mobileShow>
+<ng-container *mobileShow>
   <ion-header>
     <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
       <ion-title>개인 디바이스</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-row>
         <app-col>
-         <app-select-scene></app-select-scene>
+          <h6>현장</h6>
+          <p>수원 당수</p>
         </app-col>
+        <app-col size="auto">
           <app-button>상세검색</app-button>
+        </app-col>
       </app-row>
     </ion-toolbar>
     <ion-toolbar color="white">
