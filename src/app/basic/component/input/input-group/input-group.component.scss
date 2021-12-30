@@ -2,13 +2,7 @@
     /* .input-group>.input {
         flex-wrap: nowrap !important;
     } */
-    .input-group>.input>app-calendar,
-    .input-group>.input>app-datetime,
-    .input-group>.input>app-email,
-    .input-group>.input>app-input,
-    .input-group>.input>app-radio-input,
-    .input-group>.input>app-radio-select,
-    .input-group>.input>app-radio-textarea {
+    .input-group>.input>:not(app-button) {
         padding-left: 4px;
         padding-right: 4px;
         flex: 1 1 0%;
@@ -26,7 +20,7 @@
         margin-top: 0;
         margin-bottom: 0;
         font-size: 14px;
-        .button {
+        app-button {
             right: 0 !important;
             bottom: 0 !important;
         }
