@@ -23,6 +23,8 @@ const getConfig = () => {
         if(opts.direction === 'forward') {
           const _leaveEl = <HTMLElement>opts.leavingEl;
           const enterEl = <HTMLElement>opts.enteringEl;
+          const headerEl = enterEl.querySelector('app-header-admin');
+          console.log(headerEl);
           const opacityAnimation = createAnimation()
           .addElement(enterEl)
           .duration(100)
@@ -33,9 +35,8 @@ const getConfig = () => {
           .easing('ease-out')
           .fromTo('transform', 'translateY(50px)', 'translateY(0px)');
           const headerAnimation = createAnimation()
-          .addElement(enterEl.querySelector('app-header-admin'))
-          .delay(300)
-          .duration(100)
+          .addElement(headerEl)
+          .delay(200)
           .fromTo('opacity', '0', '1');
           return createAnimation().addAnimation([opacityAnimation, transformAnimation, headerAnimation]);
         } else if(opts.direction === 'back') {

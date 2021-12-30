@@ -7,7 +7,6 @@ export class MobileHiddenDirective {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    console.log(window.innerWidth);
     if(window.innerWidth > 768) {
       if(!this.container.length) this.container.createEmbeddedView(this.templateRef);
     } else {
