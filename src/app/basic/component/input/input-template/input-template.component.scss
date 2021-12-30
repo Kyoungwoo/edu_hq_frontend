@@ -36,6 +36,7 @@
         font-size: var(--font-size-h6);
         outline: none !important;
         text-align: right;
+        color: var(--ion-color-primary-shade);
     }
     >button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);

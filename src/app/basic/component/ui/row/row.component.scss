@@ -19,6 +19,12 @@
         align-items: stretch;
     }
 }
+:host:first-child ::ng-deep>app-col {
+    padding-top: 0;
+}
+:host:last-child ::ng-deep>app-col {
+    padding-bottom: 0;
+}
 :host[mobileBreak] {
     @media screen and (max-width: 768px) {
         display: block;

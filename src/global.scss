@@ -137,10 +137,16 @@
 
   /** ionic tags / classes */
   ion-content {
-    --padding-start: 16px;
-    --padding-end: 16px;
+    --padding-start: var(--app-page-padding);
+    --padding-end: var(--app-page-padding);
     --padding-top: 30px;
     --padding-bottom: 40px;
+  }
+  @media screen and (max-width: 768px) {
+    ion-content {
+      --padding-top: 10px;
+      --padding-bottom: 20px;
+    }
   }
   ion-header {
     box-shadow: 0px 0 3px 0 rgba(0, 0, 0, 0.08);
@@ -175,13 +181,13 @@
     border-top: 1px solid var(--ion-color-step-300);
   }
   ion-toolbar {
-    >app-input-group>app-input-template {
-      margin-left: 16px;
-      margin-right: 16px;
-    }
-    >app-row {
-      padding-left: 16px;
-      padding-right: 16px;
+    >*>app-input-template {
+      box-shadow: none;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 8px;
+      margin-right: 8px;
+      border-radius: 0;
     }
     .buttons-first-slot {
       margin-left: 0;
@@ -235,7 +241,8 @@
   }
   ion-badge {
     vertical-align: middle;
-    border-radius: 10px;
+    font-weight: 500;
+    border-radius: 15px;
     --padding-start: 10px;
     --padding-end: 10px;
     --padding-top: 5px;
