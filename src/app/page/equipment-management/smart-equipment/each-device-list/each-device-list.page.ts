@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
 
 @Component({
   selector: 'app-each-device-list',
@@ -9,9 +8,7 @@ import { DetailSearchComponent } from 'src/app/component/modal/detail-search/det
 })
 export class EachDeviceListPage implements OnInit {
 
-  constructor(
-    private modal:ModalController
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }

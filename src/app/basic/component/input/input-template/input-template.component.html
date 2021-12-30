@@ -2,6 +2,9 @@
 <div class="input" [style.padding-right.px]="slot.childElementCount ? button.el.nativeElement.offsetWidth + 4 : 0">
   <ng-content select="[slot=input]"></ng-content>
 </div>
-<app-button #button class="button ion-activatable ripple-parent" [class.empty]="!slot.childNodes.length" [disabled]="disabled || readonly" (click)="onButtonClick()">
+<app-button #button class="button ion-activatable ripple-parent" 
+[class.empty]="!slot.childNodes.length" 
+[fill]="buttonFill"
+[disabled]="disabled || readonly" (click)="onButtonClick()">
   <slot #slot><ng-content></ng-content></slot>
 </app-button>
