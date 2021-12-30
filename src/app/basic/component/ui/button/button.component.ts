@@ -2,6 +2,7 @@ import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
+export type ButtonFill = 'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -40,7 +41,7 @@ export class ButtonComponent implements OnInit {
   }
   
   constructor(
-    private el: ElementRef<HTMLElement>
+    public el: ElementRef<HTMLElement>
   ) {}
  
   ngOnInit() {

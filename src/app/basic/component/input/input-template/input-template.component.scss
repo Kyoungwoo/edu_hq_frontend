@@ -25,28 +25,23 @@
         flex-wrap: wrap;
         color: var(--ion-text-color);
     }
-    >button {
-        background: var(--ion-color-primary-translucent);
-        cursor: pointer;
+    >.button {
         position: absolute;
+        margin-top: 0;
+        margin-bottom: 0;
         z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-size: var(--font-size-h6);
-        outline: none !important;
         text-align: right;
-        color: var(--ion-color-primary-shade);
     }
-    >button:focus {
+    >.button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
     }
-    >button.empty {
+    >.button.empty {
         display: none;
     }
 }
 :host.readonly {
-    >button {
+    >.button {
         cursor: default;
         opacity: var(--app-readonly-opacity);
     }
@@ -58,7 +53,7 @@
     >.input {
         opacity: var(--app-disabled-opacity);
     }
-    >button {
+    >.button {
         cursor: default;
         opacity: var(--app-disabled-opacity);
         display: none;
@@ -97,10 +92,10 @@
 }
 
 :host.input-label {
-    >button {
+    >.button {
         bottom: 8px;
         right: 8px;
-        height: 43px;
+        min-height: 43px;
         min-width: 43px;
         padding-left: 12px;
         padding-right: 12px;
@@ -114,10 +109,10 @@
 }
 
 :host.input-no-label {
-    >button {
+    >.button {
         bottom: 8px;
         right: 8px;
-        height: 25px;
+        min-height: 25px;
         min-width: 25px;
         padding-left: 4px;
         padding-right: 4px;

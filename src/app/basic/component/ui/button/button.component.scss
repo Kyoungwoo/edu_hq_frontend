@@ -2,6 +2,7 @@
     border-radius: var(--app-border-radius);
     margin-top: var(--app-margin);
     margin-bottom: var(--app-margin);
+    padding: 0 16px;
 
     cursor: pointer;
     display: inline-flex;
@@ -26,8 +27,8 @@
     .button {
         display: flex;
         align-items: center;
-        padding: 0 16px;
         width: 100%;
+        padding: 0;
         color: inherit;
         font-size: inherit;
         background: transparent;
@@ -63,9 +64,9 @@ app-button + :host {
 /** shape */
 :host.button-circle,
 :host.button-square {
+    padding: 0;
     .button {
         height: 0;
-        padding: 0;
         padding-bottom: 100%;
     }
     .button-inner {
