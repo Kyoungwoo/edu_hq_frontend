@@ -85,7 +85,7 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
   /** file */
   file = {
     list: [] as FutItem[],
-    files: [] as (File | FileBlob)[],
+    file: [] as (File | FileBlob)[],
     file_json: {
       insert: [],
       update: [],

@@ -31,7 +31,6 @@ export class PagerComponent implements OnInit {
       return page;
     });
     this.adminNavArray = this.cleanArr(this.adminNavArray);
-    console.log(this.adminNavArray);
     if(!this.adminNavArray){
       return this.adminNavArray + 1;
     } else {

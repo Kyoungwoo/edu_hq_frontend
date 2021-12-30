@@ -28,6 +28,7 @@ export class ButtonComponent implements OnInit {
   @Input() shape:'round' | 'circle' | 'square';
   @Input() size:'default' | 'small';
   @Input() href:string | SafeUrl;
+  @Input() routerLink:string;
   @Input() download:string;
   @Input() target:string;
 
