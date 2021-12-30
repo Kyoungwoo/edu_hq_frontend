@@ -19,6 +19,11 @@
             </tr>
             <tr>
               <td>
+                <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-input-group label="작성일">
                   <app-calendar></app-calendar>
                   ~
@@ -36,21 +41,13 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <ion-buttons slot="start">
-            <app-button fill="translucent">신규배정</app-button>
-            <app-button fill="translucent">수정</app-button>
-            <app-button fill="translucent" color="danger">삭제</app-button>
-            <app-button fill="translucent">저장</app-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <ion-toolbar color="white">
           <h5>미결 목록(총50건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
               <th style="width: 40px;">No.</th>
-              <th style="width: 300px;">서식명</th>
+              <th>서식명</th>
               <th>업체명</th>
               <th>작성자</th>
               <th>작성일</th>
@@ -95,4 +92,108 @@
       </app-col>
     </app-row>
   </ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>미결함</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-row>
+        <app-col>
+         <app-select-scene></app-select-scene>
+        </app-col>
+          <app-button>상세검색</app-button>
+      </app-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto"><ion-badge color="success">진행중</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto"><ion-badge color="success">진행중</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto"><ion-badge color="success">진행중</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto"><ion-badge color="success">진행중</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto"><ion-badge color="success">진행중</ion-badge></app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>신규배정</app-button>
+  </app-button-footer>
 </ng-container>

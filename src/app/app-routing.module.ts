@@ -234,7 +234,12 @@ const routes: Routes = [
   {
     path: 'confirm-pending-list',
     loadChildren: () => import('./page/confirm/box/confirm-pending-list/confirm-pending-list.module').then( m => m.ConfirmPendingListPageModule)
-  }
+  },
+  {
+    path: 'confirm-pending-detail-search',
+    loadChildren: () => import('./page/confirm/box/confirm-pending-detail-search/confirm-pending-detail-search.module').then( m => m.ConfirmPendingDetailSearchPageModule)
+  },
+  
 
 
 ];
