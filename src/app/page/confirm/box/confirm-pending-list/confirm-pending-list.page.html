@@ -19,22 +19,7 @@
             </tr>
             <tr>
               <td>
-              <app-select-contractor></app-select-contractor>
-              </td>
-            </tr>
-            <tr>
-              <td>
-            <app-select label="디바이스 구분"></app-select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-            <app-select label="반납 여부"></app-select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-input-group label="배정일">
+                <app-input-group label="작성일">
                   <app-calendar></app-calendar>
                   ~
                   <app-calendar></app-calendar>
@@ -59,26 +44,21 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>회원 목록(총50건)</h5>
+          <h5>미결 목록(총50건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
-              <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
-              <th>장비구분</th>
-              <th>시리얼 No.</th>
-              <th>원청사명</th>
+              <th>No.</th>
+              <th>서식명</th>
               <th>업체명</th>
-              <th>성명</th>
-              <th>배정일시</th>
-              <th>반납</th>
-              <th>반납일시</th>
-              <th>사용여부</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>결재상태</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
               <td>
                 <app-select value="출석용 NFC">
                   <app-select-option value="헬스케어밴드">헬스케어밴드</app-select-option>
@@ -109,7 +89,6 @@
               </td>
             </tr>
             <tr>
-              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
               <td>안전고리</td>
               <td>C0005</td>
               <td>남광토건(주)</td>
@@ -121,7 +100,6 @@
               <td>Y</td>
             </tr>
             <tr class="button">
-              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
               <td>출석용 NFC</td>
               <td>C0005</td>
               <td>극동건설(주)</td>
@@ -133,7 +111,6 @@
               <td>Y</td>
             </tr>
             <tr>
-              <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
               <td>안전고리</td>
               <td>C0003</td>
               <td>계룡건설산업(주)</td>
@@ -145,7 +122,6 @@
               <td>N</td>
             </tr>
             <tr>
-              <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
               <td>헬스케어밴드</td>
               <td>C0002</td>
               <td>남광토건(주)</td>
