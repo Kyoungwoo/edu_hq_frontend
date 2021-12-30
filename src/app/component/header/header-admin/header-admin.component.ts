@@ -35,27 +35,41 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
 
           const selectedSecondMenuIndex = menu.subMenuList.findIndex(subMenu => {
             
-            const selectedTirdMenuIndex = subMenu.thirdMenuList?.findIndex(thirdMenu => {
-              return this.url === thirdMenu.link;
-            });
+            if(subMenu.thirdMenuList) {
+              
+              const selectedTirdMenuIndex = subMenu.thirdMenuList.findIndex(thirdMenu => {
+                return this.url === thirdMenu.link;
+              });
+  
+              if(selectedTirdMenuIndex > -1) {
+                selectedMenuIndex[2] = selectedTirdMenuIndex;
+                return true;
+              } else {
+                return false;
+              }
 
-            if(selectedTirdMenuIndex > -1) {
-              selectedMenuIndex[2] = selectedTirdMenuIndex;
-              return true;
             } else {
-              return false;
+
+              return this.url === subMenu.link;
+
             }
           });
 
           if(selectedSecondMenuIndex > -1) {
-            return selectedMenuIndex[1] = selectedSecondMenuIndex;
+            selectedMenuIndex[1] = selectedSecondMenuIndex;
+            return true;
           } else {
             return false;
           }
         });
-
+        
         const newSubMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]];
-        const newThirdMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]]?.thirdMenuList[selectedMenuIndex[2]];
+        let newThirdMenu;
+        try {
+          newThirdMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]]?.thirdMenuList[selectedMenuIndex[2]];
+        } catch(e) {
+
+        }
         if(this.selectedSubMenu !== newSubMenu) this.selectedSubMenu = newSubMenu;
         if(this.selectedThirdMenu !== newThirdMenu) this.selectedThirdMenu = newThirdMenu;
         this.changeDetector.detectChanges();
