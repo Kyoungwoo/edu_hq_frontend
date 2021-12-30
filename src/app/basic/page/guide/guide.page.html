@@ -200,6 +200,48 @@
         <h4 id="daum">daum<ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge> <ion-badge>by juntae</ion-badge></h4>
         <p><a href="https://postcode.map.daum.net/guide" target="_blank"><code>Daum 우편번호 서비스 <ion-icon name="open-outline"></ion-icon></code></a>를 연동하여 만들어져 있습니다. <a routerLink="/basic/guide" fragment="daum-service"><code>daum service</code></a> 에서 호출됩니다.</p>
       
+        <h4 id="qr">QR  <ion-badge color="danger">private</ion-badge><ion-badge>service</ion-badge></h4>
+        <p>qr을 스캔하는 서비스입니다.</p>
+        <pre><code ngNonBindable>
+          const $qr = await this.qr.subscribe(async (data) => &#123;
+            if(!data?.user_id) return this.toast.present(&#123; message: 'qr을 다시 스캔해주세요.' &#125;);
+            const res = await this.connect.run('/user/user_in/qr', &#123; user_id: data.user_id &#125;);
+            if(res.rsCode === 0) &#123;
+              $qr.unsubscribe();
+              &#125; else &#123;
+              this.connect.error('asdf',res);
+            &#125;
+          &#125;);
+      </code></pre>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>Prop</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>subscribe</td>
+            <td>qr스캔을 위해 카메라를 활성화하고 qr스캔을 시작합니다.</td>
+          </tr>
+          <tr>
+            <td>unsubscribe()</td>
+            <td>qr스캔이 완료 되면 qr스캔이 종료됩니다.</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+        <h4 id="nfc">NFC  <ion-badge color="danger">modal</ion-badge></h4>
+        <p>nfc 태깅을 위한 component입니다.<br>modal을 이용해 component를 띄웁니다.<br></p>
+        
+          <pre><code ngNonBindable>const modal = await this.modal.present(&#123;
+            component : ScanPage,
+            &#125;);
+            modal.present();
+        </code></pre>
+
         <h3 id="input">Input</h3>
         <p>기본적으로 <code>form</code> 안에서 사용하며, <code><ion-text color="danger">[name]</ion-text></code> 이 반드시 들어가야 합니다.<br>
         모든 <code>input</code> 형태의 레이아웃은 <a routerLink="/basic/guide" fragment="input-template"><code>input-template</code>을 상속합니다.</a>
@@ -488,7 +530,7 @@
       file upload
       &lt;app-file name="input" view_type="NOTICE"
       [value]=&rdquo;form.list&rdquo;
-      [file]=&rdquo;form.files&rdquo;
+      [files]=&rdquo;form.files&rdquo;
       [file_json]=&rdquo;form.file_json&rdquo;
       &gt;&lt;/app-file&gt;
     &lt;/app-button&gt;</code></pre>
@@ -497,19 +539,19 @@
           <app-col size="auto">
             <app-button>
               <small>[multiple=false]<br>[type=MAIN]</small>
-              <app-file view_type="MAIN" [value]="file.list" [file]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
+              <app-file view_type="MAIN" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="false"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[multiple=true]<br>[type=SUB]</small>
-              <app-file view_type="SUB" [value]="file.list" [file]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
+              <app-file view_type="SUB" [value]="file.list" [files]="file.files" [file_json]="file.file_json" [multiple]="true"></app-file>
             </app-button>
           </app-col>
           <app-col size="auto">
             <app-button>
               <small>[accept=camera]<br>[type=AVATAR]</small>
-              <app-file view_type="AVATAR" [value]="file.list" [file]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
+              <app-file view_type="AVATAR" [value]="file.list" [files]="file.files" [file_json]="file.file_json" accept="camera"></app-file>
             </app-button>
           </app-col>
         </app-row>
@@ -1689,21 +1731,6 @@
             </tr>
           </tbody>
         </app-table>
-
-        <h4 id="qr">qr-service</h4>
-        <p>qr을 스캔하는 서비스입니다.</p>
-
-        <h4 id="nfc">nfc</h4>
-        <p>nfc 태깅을 위한 API 입니다. </p>
-          <pre><code ngNonBindable>const modal = await this.modal.present(&#123;
-            component : ScanPage,
-            componentProps:&#123;
-              데이터
-            &#125;
-            &#125;);
-            modal.present();
-        </code></pre>
-
       </app-container>
     </ion-content>
   </ion-nav>

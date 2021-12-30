@@ -1,146 +1,151 @@
 <!-- pc -->
 <ng-container *mobileHidden>
-<ion-header>
-  <ion-toolbar color="white">
-    <ion-title>개인 디바이스</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <app-row style="align-items: flex-start;">
-    <app-col size="280px">
-      <app-table type="card">
-        <ion-toolbar slot="top" color="white">
-          <app-row style="justify-content: space-between;">
-            <app-col size="auto"><h5>필터</h5></app-col>
-            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
-          </app-row>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+            <app-select label="장비구분"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">신규배정</app-button>
+            <app-button fill="translucent">수정</app-button>
+            <app-button fill="translucent" color="danger">삭제</app-button>
+            <app-button fill="translucent">저장</app-button>
+          </ion-buttons>
         </ion-toolbar>
-        <tbody>
-          <tr>
-            <td>
-              <app-select-scene></app-select-scene>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            <app-select-contractor></app-select-contractor>
-            </td>
-          </tr>
-          <tr>
-            <td>
-          <app-select label="디바이스 구분"></app-select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-          <app-select label="반납 여부"></app-select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-          <!-- <app-select-period></app-select-period> -->
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
-            </td>
-          </tr>
-        </tbody>
-      </app-table>
-    </app-col>
-    <app-col>
-      <ion-toolbar color="white">
-        <ion-buttons slot="start">
-          <app-button fill="translucent">신규배정</app-button>
-          <app-button fill="translucent">수정</app-button>
-          <app-button fill="translucent">삭제</app-button>
-          <app-button fill="translucent">저장</app-button>
-        </ion-buttons>
-      </ion-toolbar>
-      <ion-toolbar color="white">
-        <h5>회원 목록(총50건)</h5>
-      </ion-toolbar>
-      <app-table>
-        <thead>
-          <tr>
-            <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
-            <th>장비구분</th>
-            <th>시리얼 No.</th>
-            <th>원청사명</th>
-            <th>업체명</th>
-            <th>성명</th>
-            <th>배정일시</th>
-            <th>반납</th>
-            <th>반납일시</th>
-            <th>사용여부</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
-            <td>헬스케어밴드</td>
-            <td>C0006</td>
-            <td>남광토건(주)</td>
-            <td>협력사1</td>
-            <td>박소현</td>
-            <td>2021.09.16 10:22:13</td>
-            <td>Y</td>
-            <td>2021.10.16 10:22:13</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
-            <td>안전고리</td>
-            <td>C0005</td>
-            <td>남광토건(주)</td>
-            <td>협력사2</td>
-            <td>이소현</td>
-            <td>2021.09.16 10:22:13</td>
-            <td>Y</td>
-            <td>2021.10.16 10:22:13</td>
-            <td>Y</td>
-          </tr>
-          <tr class="button">
-            <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
-            <td>출석용 NFC</td>
-            <td>C0005</td>
-            <td>극동건설(주)</td>
-            <td>협력사4</td>
-            <td>김소현</td>
-            <td>2021.09.16 10:22:13</td>
-            <td>Y</td>
-            <td>2021.10.16 10:22:13</td>
-            <td>Y</td>
-          </tr>
-          <tr>
-            <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
-            <td>안전고리</td>
-            <td>C0003</td>
-            <td>계룡건설산업(주)</td>
-            <td>협력사13</td>
-            <td>최소현</td>
-            <td>2021.09.16 10:22:13</td>
-            <td>N</td>
-            <td>2021.10.16 10:22:13</td>
-            <td>N</td>
-          </tr>
-          <tr>
-            <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
-            <td>헬스케어밴드</td>
-            <td>C0002</td>
-            <td>남광토건(주)</td>
-            <td>협력사5</td>
-            <td>이소현</td>
-            <td>2021.09.16 10:22:13</td>
-            <td>N</td>
-            <td>2021.10.16 10:22:13</td>
-            <td>Y</td>
-          </tr>
-        </tbody>
-      </app-table>
-    </app-col>
-  </app-row>
+        <ion-toolbar color="white">
+          <h5>회원 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
+              <th>장비구분</th>
+              <th>시리얼 No.</th>
+              <th>원청사명</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>배정일시</th>
+              <th>반납</th>
+              <th>반납일시</th>
+              <th>사용여부</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
+              <td>
+                <app-select value="출석용 NFC">
+                  <app-select-option value="헬스케어밴드">헬스케어밴드</app-select-option>
+                  <app-select-option value="안전고리">안전고리</app-select-option>
+                  <app-select-option value="출석용 NFC">출석용 NFC</app-select-option>
+                </app-select>
+              </td>
+              <td>
+                <app-button fill="translucent" size="small">
+                  <app-img name="search"></app-img>
+                </app-button>
+              </td>
+              <td>남광토건(주)</td>
+              <td>협력사1</td>
+              <td>
+                <app-button fill="translucent" size="small">
+                  <app-img name="search"></app-img>
+                </app-button>
+              </td>
+              <td>2021.09.16 10:22:13</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <app-select value="Y">
+                  <app-select-option value="Y">Y</app-select-option>
+                  <app-select-option value="N">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>안전고리</td>
+              <td>C0005</td>
+              <td>남광토건(주)</td>
+              <td>협력사2</td>
+              <td>이소현</td>
+              <td>2021.09.16 10:22:13</td>
+              <td>Y</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr class="button">
+              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>출석용 NFC</td>
+              <td>C0005</td>
+              <td>극동건설(주)</td>
+              <td>협력사4</td>
+              <td>김소현</td>
+              <td>2021.09.16 10:22:13</td>
+              <td>Y</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+            <tr>
+              <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
+              <td>안전고리</td>
+              <td>C0003</td>
+              <td>계룡건설산업(주)</td>
+              <td>협력사13</td>
+              <td>최소현</td>
+              <td>2021.09.16 10:22:13</td>
+              <td>N</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>N</td>
+            </tr>
+            <tr>
+              <td style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>헬스케어밴드</td>
+              <td>C0002</td>
+              <td>남광토건(주)</td>
+              <td>협력사5</td>
+              <td>이소현</td>
+              <td>2021.09.16 10:22:13</td>
+              <td>N</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
   </ion-content>
 </ng-container>
   

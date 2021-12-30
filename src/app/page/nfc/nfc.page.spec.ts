@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { ScanPage } from './scan.page';
+import { NfcPage } from './nfc.page';
 
 describe('ScanPage', () => {
-  let component: ScanPage;
-  let fixture: ComponentFixture<ScanPage>;
+  let component: NfcPage;
+  let fixture: ComponentFixture<NfcPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScanPage ],
+      declarations: [ NfcPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('ScanPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ScanPage);
+    fixture = TestBed.createComponent(NfcPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

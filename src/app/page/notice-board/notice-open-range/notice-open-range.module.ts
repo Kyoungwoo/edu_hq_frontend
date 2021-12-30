@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScanPageRoutingModule } from './scan-routing.module';
+import { NoticeOpenRangePageRoutingModule } from './notice-open-range-routing.module';
 
-import { ScanPage } from './scan.page';
+import { NoticeOpenRangePage } from './notice-open-range.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule,
-    ComponentModule
+    ComponentModule,
+    NoticeOpenRangePageRoutingModule
   ],
-  declarations: [ScanPage]
+  declarations: [NoticeOpenRangePage]
 })
-export class ScanPageModule {}
+export class NoticeOpenRangePageModule {}

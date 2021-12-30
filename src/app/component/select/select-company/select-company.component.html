@@ -1,3 +1,4 @@
-<app-input (click)="company()" name="with img" [readonly]="true" label="업체">
-  <app-img name="search"></app-img>
-</app-input>
+<app-input-template [required]="required">
+  <input (click)="company()" name="with img" [readonly]="true" label="업체">
+    <app-img name="search"></app-img>
+</app-input-template>

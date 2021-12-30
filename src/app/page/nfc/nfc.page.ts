@@ -12,10 +12,10 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 @Component({
   selector: 'app-scan',
-  templateUrl: './scan.page.html',
-  styleUrls: ['./scan.page.scss'],
+  templateUrl: './nfc.page.html',
+  styleUrls: ['./nfc.page.scss'],
 })
-export class ScanPage implements OnInit,OnDestroy {
+export class NfcPage implements OnInit,OnDestroy {
   qr_subs:Subscription;
   qr_timeout;
   camera_rotate = 0;

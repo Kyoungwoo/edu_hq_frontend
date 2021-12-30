@@ -201,7 +201,7 @@
   ion-footer ion-toolbar {
     --padding-start: 0;
     --padding-end: 0;
-    border-radius: 0;
+    border-radius: 0 !important;
     box-shadow: none !important;
   }
   ion-header ion-toolbar + ion-toolbar {
@@ -252,7 +252,8 @@
   }
   ion-segment {
 	  font-weight: bold;
-    min-height: 56px;
+    min-height: 52px;
+    border-radius: 0;
   }
   ion-segment-button {
     background: var(--ion-color-white);
@@ -262,13 +263,21 @@
     margin-bottom: 0;
     min-width: auto;
     //max-width: 100%;
+    --indicator-box-shadow: none;
+    --indicator-color: var(--ion-color-base);
   }
   ion-segment-button::before {
     content: none;
   }
+  ion-segment-button::part(indicator) {
+    z-index: 99;
+    top: auto;
+    bottom: 0;
+  }
   ion-segment-button::part(indicator-background) {
     height: 4px;
     border-radius: 4px 4px 0 0;
+    background: var(--ion-color-base);
   }
 
   ripple-parent {

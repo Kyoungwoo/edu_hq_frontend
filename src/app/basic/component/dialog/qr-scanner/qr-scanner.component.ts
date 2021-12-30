@@ -84,23 +84,17 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     Qr.transparent();
     const routerEl = document.querySelector('ion-router-outlet');
     routerEl.style.display = 'none';
-    this.qr_subs = this.qrScanner.scan().subscribe(async(data:string) => {
+    this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
       let res = {
         qr_qrScanner: this.qrScanner,
         qr_modal: this._modal,
         qr_subs : this.qr_subs,
-        qr_data: data,
+        qr_data: data
       };
       this.getQrData(res);
-      if(data){
-        const routerEl = document.querySelector('ion-router-outlet');
-        routerEl.style.display = 'flex';
-        this.scan.emit(data);
-      } else {
         setTimeout(() => {
           this.scanQR();
         }, 3000);
-      }
     });
   }
   rotateCamera() {

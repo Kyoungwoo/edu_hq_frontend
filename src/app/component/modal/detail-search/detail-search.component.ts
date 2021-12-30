@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./detail-search.component.scss'],
 })
 export class DetailSearchComponent implements OnInit {
-  scene = '';
+
 
   
 

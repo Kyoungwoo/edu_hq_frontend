@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonHeader, ModalController, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
-import { ScanPage } from 'src/app/page/scan/scan.page';
+import { NfcPage } from 'src/app/page/nfc/nfc.page';
 import { fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation } from '../../basic.animation';
 import { FileBlob, FileJson, FutItem } from '../../service/core/file.service';
 import { AlertService } from '../../service/ionic/alert.service';

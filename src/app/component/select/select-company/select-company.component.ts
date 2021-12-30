@@ -18,6 +18,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string = "업체";
+  @Input() required:boolean = false;
 
   constructor(
     private _modal:ModalController
