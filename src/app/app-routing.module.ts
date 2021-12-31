@@ -239,6 +239,64 @@ const routes: Routes = [
     path: 'confirm-pending-detail-search',
     loadChildren: () => import('./page/confirm/box/confirm-pending-detail-search/confirm-pending-detail-search.module').then( m => m.ConfirmPendingDetailSearchPageModule)
   },
+  {
+    path: 'confirm-obtain-list',
+    loadChildren: () => import('./page/confirm/box/confirm-obtain-list/confirm-obtain-list.module').then( m => m.ConfirmObtainListPageModule)
+  },
+  {
+    path: 'confirm-obtain-detail-search',
+    loadChildren: () => import('./page/confirm/box/confirm-obtain-detail-search/confirm-obtain-detail-search.module').then( m => m.ConfirmObtainDetailSearchPageModule)
+  },
+  {
+    path: 'confirm-progress-list',
+    loadChildren: () => import('./page/confirm/box/confirm-progress-list/confirm-progress-list.module').then( m => m.ConfirmProgressListPageModule)
+  },
+  {
+    path: 'confirm-progress-detail-search',
+    loadChildren: () => import('./page/confirm/box/confirm-progress-detail-search/confirm-progress-detail-search.module').then( m => m.ConfirmProgressDetailSearchPageModule)
+  },
+  {
+    path: 'confirm-cc-list',
+    loadChildren: () => import('./page/confirm/box/confirm-cc-list/confirm-cc-list.module').then( m => m.ConfirmCcListPageModule)
+  },
+  {
+    path: 'confirm-cc-detail-search',
+    loadChildren: () => import('./page/confirm/box/confirm-cc-detail-search/confirm-cc-detail-search.module').then( m => m.ConfirmCcDetailSearchPageModule)
+  },
+  {
+    path: 'approval-edit',
+    loadChildren: () => import('./page/confirm/box/approval-edit/approval-edit.module').then( m => m.ApprovalEditPageModule)
+  },
+  {
+    path: 'worker-minutes-list',
+    loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-list/worker-minutes-list.module').then( m => m.WorkerMinutesListPageModule)
+  },
+  {
+    path: 'worker-minutes-detail-search',
+    loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-detail-search/worker-minutes-detail-search.module').then( m => m.WorkerMinutesDetailSearchPageModule)
+  },
+  {
+    path: 'supervision-list',
+    loadChildren: () => import('./page/scene-management/supervision-management/supervision-list/supervision-list.module').then( m => m.SupervisionListPageModule)
+  },
+  {
+    path: 'supervision-edit',
+    loadChildren: () => import('./page/scene-management/supervision-management/supervision-edit/supervision-edit.module').then( m => m.SupervisionEditPageModule)
+  },
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
   
 
 

@@ -30,6 +30,7 @@ import { SelectOccupationComponent } from 'src/app/component/select/select-occup
 import { SelectPositionComponent } from 'src/app/component/select/select-position/select-position.component';
 import { SelectOrganizationComponent } from 'src/app/component/select/select-organization/select-organization.component';
 import { SelectCountryComponent } from 'src/app/component/select/select-country/select-country.component';
+import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
 
 @Component({
   selector: 'app-moniter',
@@ -81,7 +82,7 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     // const modal = await this.modal.create({
-    //   component:SelectPeriodComponent
+    //   component:ConfirmProcessPopupComponent
     // });
     // modal.present();
 

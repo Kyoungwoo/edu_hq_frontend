@@ -2,26 +2,26 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from '../component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 
-import { ConfirmComponent } from './confirm.component';
+import { ConfirmProgressListPage } from './confirm-progress-list.page';
 
-describe('ConfirmComponent', () => {
-  let component: ConfirmComponent;
-  let fixture: ComponentFixture<ConfirmComponent>;
+describe('ConfirmProgressListPage', () => {
+  let component: ConfirmProgressListPage;
+  let fixture: ComponentFixture<ConfirmProgressListPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfirmComponent ],
+      declarations: [ ConfirmProgressListPage ],
       imports: [
         IonicModule.forRoot(),
-        FormsModule,
         AppModule,
+        FormsModule,
         ComponentModule
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConfirmComponent);
+    fixture = TestBed.createComponent(ConfirmProgressListPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

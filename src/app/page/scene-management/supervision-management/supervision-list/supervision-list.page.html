@@ -1,0 +1,100 @@
+
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select label="지역본부"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="사업본부"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <h5>감리사 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>지역본부</th>
+              <th>사업본부</th>
+              <th>현장명</th>
+              <th>감리사</th>
+              <th>사업자등록번호</th>
+              <th>대표자</th>
+              <th>최근 업데이트</th>
+              <th>작성자</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9</td>
+              <td>경기지역본부</td>
+              <td>성남판교사업본부</td>
+              <td>수원당수 아파트 A-1BL</td>
+              <td>(주)건창</td>
+              <td>264-81-14771</td>
+              <td>홍길동</td>
+              <td>2021.08.06</td>
+              <td>박소현</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>경기지역본부</td>
+              <td>성남판교사업본부</td>
+              <td>수원당수 아파트 A-1BL</td>
+              <td>(주)건창</td>
+              <td>264-81-14771</td>
+              <td>홍길동</td>
+              <td>2021.08.06</td>
+              <td>박소현</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>경기지역본부</td>
+              <td>성남판교사업본부</td>
+              <td>수원당수 아파트 A-1BL</td>
+              <td>(주)건창</td>
+              <td>264-81-14771</td>
+              <td>홍길동</td>
+              <td>2021.08.06</td>
+              <td>박소현</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>경기지역본부</td>
+              <td>성남판교사업본부</td>
+              <td>수원당수 아파트 A-1BL</td>
+              <td>(주)건창</td>
+              <td>264-81-14771</td>
+              <td>홍길동</td>
+              <td>2021.08.06</td>
+              <td>박소현</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+

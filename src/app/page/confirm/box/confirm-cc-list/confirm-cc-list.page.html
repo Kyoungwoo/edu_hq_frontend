@@ -24,6 +24,11 @@
             </tr>
             <tr>
               <td>
+                <app-select label="결재상태"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-input-group label="작성일">
                   <app-calendar></app-calendar>
                   ~
@@ -41,7 +46,7 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>미결 목록(총50건)</h5>
+          <h5>참조 목록(총50건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -98,7 +103,7 @@
 <ng-container *mobileShow>
   <ion-header>
     <ion-toolbar color="white">
-      <ion-title>미결함</ion-title>
+      <ion-title>진행/완료/반려함</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -125,6 +130,26 @@
           <app-col>
             <p>(주)지에스아이엘/이상범</p>
             <p>작성일: 21.05.21 09:00</p>
+            <p>결재일: 21.05.22 17:00</p>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>정기 교육 결과 보고서</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="danger">반려</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘/이상범</p>
+            <p>작성일: 21.05.21 09:00</p>
+            <p>결재일: 21.05.22 17:00</p>
           </app-col>
           <app-col size="auto">
           </app-col>
@@ -143,6 +168,7 @@
           <app-col>
             <p>(주)지에스아이엘/이상범</p>
             <p>작성일: 21.05.21 09:00</p>
+            <p>결재일: 21.05.22 17:00</p>
           </app-col>
           <app-col size="auto">
           </app-col>
@@ -161,6 +187,7 @@
           <app-col>
             <p>(주)지에스아이엘/이상범</p>
             <p>작성일: 21.05.21 09:00</p>
+            <p>결재일: 21.05.22 17:00</p>
           </app-col>
           <app-col size="auto">
           </app-col>
@@ -179,24 +206,7 @@
           <app-col>
             <p>(주)지에스아이엘/이상범</p>
             <p>작성일: 21.05.21 09:00</p>
-          </app-col>
-          <app-col size="auto">
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row>
-          <app-col>
-            <h5>정기 교육 결과 보고서</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>(주)지에스아이엘/이상범</p>
-            <p>작성일: 21.05.21 09:00</p>
+            <p>결재일: 21.05.22 17:00</p>
           </app-col>
           <app-col size="auto">
           </app-col>
@@ -204,3 +214,6 @@
       </app-card>
     </ng-container>
   </ion-content>
+
+
+

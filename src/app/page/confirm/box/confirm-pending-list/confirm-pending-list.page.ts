@@ -15,4 +15,5 @@ export class ConfirmPendingListPage implements OnInit {
   ngOnInit() {
   }
 
+  
 }

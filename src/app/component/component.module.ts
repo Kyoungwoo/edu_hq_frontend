@@ -10,7 +10,6 @@ import { SideMenuUserComponent } from './side-menu/side-menu-user/side-menu-user
 import { SideMenuAdminComponent } from './side-menu/side-menu-admin/side-menu-admin.component';
 import { HeaderAdminComponent } from './header/header-admin/header-admin.component';
 import { QrScannerComponent } from '../basic/component/dialog/qr-scanner/qr-scanner.component';
-import { ConfirmComponent } from './confirm/confirm.component';
 import { SearchPeopleComponent } from './modal/search-people/search-people.component';
 import { SearchCompanyComponent } from './modal/search-company/search-company.component';
 import { SearchDangerousAreaComponent } from './modal/search-dangerous-area/search-dangerous-area.component';
@@ -42,12 +41,14 @@ import { SelectConstructionMachineryComponent } from './select/select-constructi
 import { SearchSerialNumberComponent } from './modal/search-serial-number/search-serial-number.component';
 import { SelectSerialNumberComponent } from './select/select-serial-number/select-serial-number.component';
 import { SelectDangerousAreaComponent } from './select/select-dangerous-area/select-dangerous-area.component';
+import { ConfirmSettingPopupComponent } from './confirm/confirm-setting-popup/confirm-setting-popup.component';
+import { ConfirmProcessPopupComponent } from './confirm/confirm-process-popup/confirm-process-popup.component';
+import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.component';
 
 
 
 @NgModule({
   declarations: [
-    ConfirmComponent,
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
@@ -83,7 +84,10 @@ import { SelectDangerousAreaComponent } from './select/select-dangerous-area/sel
     SelectConstructionMachineryComponent,
     SearchSerialNumberComponent,
     SelectSerialNumberComponent,
-    SelectDangerousAreaComponent
+    SelectDangerousAreaComponent,
+    ConfirmSettingPopupComponent,
+    ConfirmProcessPopupComponent,
+    ConfirmPopupComponent
 
     
    
@@ -98,7 +102,6 @@ import { SelectDangerousAreaComponent } from './select/select-dangerous-area/sel
   ],
   exports: [
     BasicComponentModule,
-    ConfirmComponent,
     HeaderAdminComponent,
     QrScannerComponent,
     SearchPeopleComponent,
@@ -133,7 +136,10 @@ import { SelectDangerousAreaComponent } from './select/select-dangerous-area/sel
     SideMenuAdminComponent,
     SearchSerialNumberComponent,
     SelectSerialNumberComponent,
-    SelectDangerousAreaComponent
+    SelectDangerousAreaComponent,
+    ConfirmSettingPopupComponent,
+    ConfirmProcessPopupComponent,
+    ConfirmPopupComponent
   ]
 })
 export class ComponentModule { }

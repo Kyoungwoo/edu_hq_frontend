@@ -52,6 +52,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '교육이력', link: '/safety-education-history-list'}
     ]},
     { title: '작업계획', img: 'assets/img/menu/work-plan.svg', subMenuList: [
+      { title: '회의록', link: '/worker-minutes-list'},
       { title: '위험성 평가', thirdMenuList: [
         { title: '위험성평가 작성', link: '/risk-list' },
         { title: '평가표 정보 추가 요청', link: '/risk-evaluation-edit' }
@@ -105,7 +106,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '회의록', link: '/minutes-list'},
     ]},
     { title: '알림함', img: 'assets/img/menu/notification-box.svg', subMenuList: [
-      { title: '알림함', link: '/notice-list'}
+      { title: '알림함', link: ''}
     ]}
   ]
 
