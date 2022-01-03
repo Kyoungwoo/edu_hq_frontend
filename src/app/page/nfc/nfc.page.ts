@@ -30,13 +30,8 @@ export class NfcPage implements OnInit,OnDestroy {
   ios:boolean = false;
 
   constructor(
-    private qrScanner: QRScanner,
-    private file: File,
-    private media: Media,
     private alert:AlertService,
-    private navCtrl: NavService,
-    private nav:NavService,
-    private Toast:ToastService
+    private navCtrl: NavService
   ) { }
   async ngOnInit() {
       var varUa = navigator.userAgent.toLowerCase();
