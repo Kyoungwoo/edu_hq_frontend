@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ConfirmProgressDetailSearchPage } from '../confirm-progress-detail-search/confirm-progress-detail-search.page';
 
 @Component({
   selector: 'app-confirm-progress-list',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmProgressListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _modal: ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  public async openDetailSearch() {
+    const modal = await this._modal.create({
+      component: ConfirmProgressDetailSearchPage,
+
+    })
+    modal.present();
+  }
 }

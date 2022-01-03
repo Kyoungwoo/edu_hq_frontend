@@ -9,6 +9,7 @@ import { ConfirmCcListPageRoutingModule } from './confirm-cc-list-routing.module
 import { ConfirmCcListPage } from './confirm-cc-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ConfirmCcDetailSearchPageModule } from '../confirm-cc-detail-search/confirm-cc-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    ConfirmCcListPageRoutingModule
+    ConfirmCcListPageRoutingModule,
+    ConfirmCcDetailSearchPageModule
   ],
   declarations: [ConfirmCcListPage]
 })

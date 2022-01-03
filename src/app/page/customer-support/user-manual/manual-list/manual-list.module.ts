@@ -9,6 +9,8 @@ import { ManualListPageRoutingModule } from './manual-list-routing.module';
 import { ManualListPage } from './manual-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { DirectiveModule } from 'src/app/basic/directive/directive.module';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ManualDetailSearchPageModule } from '../manual-detail-search/manual-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { DirectiveModule } from 'src/app/basic/directive/directive.module';
     IonicModule,
     DirectiveModule,
     ComponentModule,
-    ManualListPageRoutingModule
+    BasicComponentModule,
+    ManualListPageRoutingModule,
+    ManualDetailSearchPageModule
   ],
   declarations: [ManualListPage]
 })

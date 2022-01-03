@@ -283,6 +283,24 @@ const routes: Routes = [
     path: 'supervision-edit',
     loadChildren: () => import('./page/scene-management/supervision-management/supervision-edit/supervision-edit.module').then( m => m.SupervisionEditPageModule)
   },
+  {
+    path: 'safety-education-list',
+    loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-list/safety-education-list.module').then( m => m.SafetyEducationListPageModule)
+  },
+  {
+    path: 'risk-list',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-list/risk-list.module').then( m => m.RiskListPageModule)
+  },
+  {
+    path: 'risk-detail-search',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-detail-search/risk-detail-search.module').then( m => m.RiskDetailSearchPageModule)
+  },
+
+
+
+  
+  
+
 
 
 

@@ -9,6 +9,7 @@ import { WorkerMinutesListPageRoutingModule } from './worker-minutes-list-routin
 import { WorkerMinutesListPage } from './worker-minutes-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { WorkerMinutesDetailSearchPageModule } from '../worker-minutes-detail-search/worker-minutes-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    WorkerMinutesListPageRoutingModule
+    WorkerMinutesListPageRoutingModule,
+    WorkerMinutesDetailSearchPageModule
   ],
   declarations: [WorkerMinutesListPage]
 })

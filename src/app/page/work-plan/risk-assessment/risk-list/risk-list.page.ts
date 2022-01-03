@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ManualDetailSearchPage } from '../manual-detail-search/manual-detail-search.page';
+import { RiskDetailSearchPage } from '../risk-detail-search/risk-detail-search.page';
 
 @Component({
-  selector: 'app-manual-list',
-  templateUrl: './manual-list.page.html',
-  styleUrls: ['./manual-list.page.scss'],
+  selector: 'app-risk-list',
+  templateUrl: './risk-list.page.html',
+  styleUrls: ['./risk-list.page.scss'],
 })
-export class ManualListPage implements OnInit {
+export class RiskListPage implements OnInit {
 
   constructor(
     private _modal: ModalController
@@ -15,9 +15,10 @@ export class ManualListPage implements OnInit {
 
   ngOnInit() {
   }
+
   public async openDetailSearch() {
     const modal = await this._modal.create({
-      component: ManualDetailSearchPage,
+      component: RiskDetailSearchPage,
 
     })
     modal.present();

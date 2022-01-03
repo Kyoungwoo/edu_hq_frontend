@@ -1,0 +1,274 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-company></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-occupation></app-select-occupation>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="결재현황"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="작업기간">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">신규 작성</app-button>
+            <app-button fill="translucent">미결 문서</app-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-segment color="primary">
+              <ion-segment-button>최초</ion-segment-button>
+              <ion-segment-button>정기</ion-segment-button>
+              <ion-segment-button>수시</ion-segment-button>
+            </ion-segment>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>수시 위험성평가 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+              <th rowspan="2">No</th>
+              <th rowspan="2">공종</th>
+              <th rowspan="2">업체명</th>
+              <th rowspan="2">작업기간</th>
+              <th rowspan="2">공사명</th>
+              <th rowspan="2">단위작업</th>
+              <th rowspan="2">장소</th>
+              <th rowspan="2">건설기계</th>
+              <th rowspan="2">특수 공도구</th>
+              <th rowspan="2">위험요인</th>
+              <th colspan="3">위험성</th>
+              <th rowspan="2">감소대책</th>
+              <th rowspan="2">결재현황</th>
+            </tr>
+            <tr>
+              <th>빈도</th>
+              <th>강도</th>
+              <th>위험도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of [1,1,1]">
+              <tr>
+                <td rowspan="5"><app-check color="white" size="small" name="check"></app-check></td>
+                <td rowspan="5">10</td>
+                <td rowspan="5"><ion-chip color="success">토목</ion-chip></td>
+                <td rowspan="5"></td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td rowspan="2">1</td>
+                <td>1</td>
+                <td rowspan="5">1</td>
+                <td rowspan="5"><ion-chip outline color="success">진행중</ion-chip></td>
+              </tr>
+              <tr>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td rowspan="3">3</td>
+                <td rowspan="2">3</td>
+                <td rowspan="2">3</td>
+                <td rowspan="2">3</td>
+                <td rowspan="2">3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td><ion-chip outline color="success">진행중</ion-chip></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+ <!-- 모바일 -->
+ <ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>위험성 평가 보고</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <ion-segment color="primary">
+        <ion-segment-button>최초</ion-segment-button>
+        <ion-segment-button>정기</ion-segment-button>
+        <ion-segment-button>수시</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-row>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">신규등록</app-button>
+        </app-col>
+      </app-row>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>수시 위험성 평가표</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘</p>
+            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">토목</ion-badge>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>수시 위험성 평가표</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘</p>
+            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">전기</ion-badge>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>수시 위험성 평가표</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘</p>
+            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">소방</ion-badge>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>수시 위험성 평가표</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="primary">승인</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘</p>
+            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">전기</ion-badge>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>수시 위험성 평가표</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="danger">반려</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>(주)지에스아이엘</p>
+            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">토목</ion-badge>
+      </app-card>
+    </ng-container>
+    </ion-content>
