@@ -51,7 +51,7 @@ export class QrService {
         }
       };
   };
-  x
+  
   async getQrData(value) {
     this.qr_response = {...value};
     return this.qrCallback(value);
