@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmPopupComponent implements OnInit {
 
+  test:boolean = false;
   constructor() { }
 
   ngOnInit() {}

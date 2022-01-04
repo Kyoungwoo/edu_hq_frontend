@@ -299,6 +299,13 @@ const routes: Routes = [
     path: 'risk-detail-search',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-detail-search/risk-detail-search.module').then( m => m.RiskDetailSearchPageModule)
   },
+  {
+    path: 'risk-evaluation-edit',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
+  },
+
+ 
+
 
 
 
