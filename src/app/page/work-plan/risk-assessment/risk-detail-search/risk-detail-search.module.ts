@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ConfirmProgressListPageRoutingModule } from './confirm-progress-list-routing.module';
+import { RiskDetailSearchPageRoutingModule } from './risk-detail-search-routing.module';
 
-import { ConfirmProgressListPage } from './confirm-progress-list.page';
+import { RiskDetailSearchPage } from './risk-detail-search.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
-import { ConfirmProgressDetailSearchPageModule } from '../confirm-progress-detail-search/confirm-progress-detail-search.module';
 
 @NgModule({
   imports: [
@@ -18,9 +17,8 @@ import { ConfirmProgressDetailSearchPageModule } from '../confirm-progress-detai
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    ConfirmProgressListPageRoutingModule,
-    ConfirmProgressDetailSearchPageModule
+    RiskDetailSearchPageRoutingModule
   ],
-  declarations: [ConfirmProgressListPage]
+  declarations: [RiskDetailSearchPage]
 })
-export class ConfirmProgressListPageModule {}
+export class RiskDetailSearchPageModule {}

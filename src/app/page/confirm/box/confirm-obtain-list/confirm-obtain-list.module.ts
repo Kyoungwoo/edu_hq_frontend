@@ -9,6 +9,7 @@ import { ConfirmObtainListPageRoutingModule } from './confirm-obtain-list-routin
 import { ConfirmObtainListPage } from './confirm-obtain-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ConfirmObtainDetailSearchPageModule } from '../confirm-obtain-detail-search/confirm-obtain-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    ConfirmObtainListPageRoutingModule
+    ConfirmObtainListPageRoutingModule,
+    ConfirmObtainDetailSearchPageModule
   ],
   declarations: [ConfirmObtainListPage]
 })

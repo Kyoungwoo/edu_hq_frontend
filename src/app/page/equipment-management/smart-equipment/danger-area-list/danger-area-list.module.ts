@@ -9,6 +9,7 @@ import { DangerAreaListPageRoutingModule } from './danger-area-list-routing.modu
 import { DangerAreaListPage } from './danger-area-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { DangerAreaDetailSearchPageModule } from '../danger-area-detail-search/danger-area-detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    DangerAreaListPageRoutingModule
+    DangerAreaListPageRoutingModule,
+    DangerAreaDetailSearchPageModule
   ],
   declarations: [DangerAreaListPage]
 })

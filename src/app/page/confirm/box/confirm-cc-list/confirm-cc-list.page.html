@@ -111,14 +111,14 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
-        <app-button>상세검색</app-button>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ng-container>
       <app-card>
-        <app-row>
+        <app-row style="align-items: flex-start;">
           <app-col>
             <h5>정기 교육 결과 보고서</h5>
           </app-col>
@@ -132,12 +132,10 @@
             <p>작성일: 21.05.21 09:00</p>
             <p>결재일: 21.05.22 17:00</p>
           </app-col>
-          <app-col size="auto">
-          </app-col>
         </app-row>
       </app-card>
       <app-card>
-        <app-row>
+        <app-row style="align-items: flex-start;">
           <app-col>
             <h5>정기 교육 결과 보고서</h5>
           </app-col>
@@ -151,12 +149,10 @@
             <p>작성일: 21.05.21 09:00</p>
             <p>결재일: 21.05.22 17:00</p>
           </app-col>
-          <app-col size="auto">
-          </app-col>
         </app-row>
       </app-card>
       <app-card>
-        <app-row>
+        <app-row style="align-items: flex-start;">
           <app-col>
             <h5>정기 교육 결과 보고서</h5>
           </app-col>
@@ -170,12 +166,10 @@
             <p>작성일: 21.05.21 09:00</p>
             <p>결재일: 21.05.22 17:00</p>
           </app-col>
-          <app-col size="auto">
-          </app-col>
         </app-row>
       </app-card>
       <app-card>
-        <app-row>
+        <app-row style="align-items: flex-start;">
           <app-col>
             <h5>정기 교육 결과 보고서</h5>
           </app-col>
@@ -189,12 +183,10 @@
             <p>작성일: 21.05.21 09:00</p>
             <p>결재일: 21.05.22 17:00</p>
           </app-col>
-          <app-col size="auto">
-          </app-col>
         </app-row>
       </app-card>
       <app-card>
-        <app-row>
+        <app-row style="align-items: flex-start;">
           <app-col>
             <h5>정기 교육 결과 보고서</h5>
           </app-col>
@@ -207,8 +199,6 @@
             <p>(주)지에스아이엘/이상범</p>
             <p>작성일: 21.05.21 09:00</p>
             <p>결재일: 21.05.22 17:00</p>
-          </app-col>
-          <app-col size="auto">
           </app-col>
         </app-row>
       </app-card>

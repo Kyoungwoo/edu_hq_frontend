@@ -287,6 +287,24 @@ const routes: Routes = [
     path: 'area-add',
     loadChildren: () => import('./page/scene-management/scene-management/area-standard-set/area-add/area-add.module').then( m => m.AreaAddPageModule)
   },
+  {
+    path: 'safety-education-list',
+    loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-list/safety-education-list.module').then( m => m.SafetyEducationListPageModule)
+  },
+  {
+    path: 'risk-list',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-list/risk-list.module').then( m => m.RiskListPageModule)
+  },
+  {
+    path: 'risk-detail-search',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-detail-search/risk-detail-search.module').then( m => m.RiskDetailSearchPageModule)
+  },
+
+
+
+  
+  
+
 
 
 
