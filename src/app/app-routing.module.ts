@@ -302,7 +302,14 @@ const routes: Routes = [
   {
     path: 'worker-status-add',
     loadChildren: () => import('./page/today-work/my-status-situation/worker-status-add/worker-status-add.module').then( m => m.WorkerStatusAddPageModule)
-  }
+  },
+  {
+    path: 'risk-evaluation-edit',
+    loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
+  },
+
+ 
+
 
 
 
