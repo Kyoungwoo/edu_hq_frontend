@@ -23,13 +23,13 @@ app-col>app-row:last-child>:host {
     padding-bottom: 0;
 }
 :host ::ng-deep {
-    >*:first-child {
+    >:first-child {
         margin-top: 0;
         app-input-template {
             margin-top: 0;
         }
     }
-    >*:last-child {
+    >:last-child {
         margin-bottom: 0;
         app-input-template {
             margin-bottom: 0;

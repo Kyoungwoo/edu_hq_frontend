@@ -9,6 +9,7 @@ import { AreaStandardSetPageRoutingModule } from './area-standard-set-routing.mo
 import { AreaStandardSetPage } from './area-standard-set.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { AreaAddPageModule } from './area-add/area-add.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    AreaStandardSetPageRoutingModule
+    AreaStandardSetPageRoutingModule,
+    AreaAddPageModule,
   ],
   declarations: [AreaStandardSetPage]
 })

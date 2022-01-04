@@ -270,12 +270,16 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select>
+                  <app-select-option></app-select-option>
+                </app-select>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company></app-select-company>
+                <app-select>
+                  <app-select-option></app-select-option>
+                </app-select>
               </td>
             </tr>
           </tbody>
@@ -284,7 +288,7 @@
       <app-col>
         <app-row style="align-items: flex-start;">
           <app-col style="margin: 10px;">
-            <h2>안전 및 보건에 관한 협의체</h2>
+            <h3>안전 및 보건에 관한 협의체</h3>
             <app-card>
               <span class="font-height">
                 산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
@@ -299,7 +303,7 @@
         </app-row>
         <app-row *ngIf="menuCount === 8">
           <app-col style="margin: 10px;">
-            <h2>노사 협의체</h2>
+            <h3>노사 협의체</h3>
             <app-card>
               <span class="font-height">
                 산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>
@@ -312,7 +316,7 @@
         </app-row>
         <app-row *ngIf="menuCount === 8">
           <app-col style="margin: 10px;">
-            <h2>산업안전 보건 위원회</h2>
+            <h3>산업안전 보건 위원회</h3>
             <app-card>
               <span class="font-height">
                 산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>

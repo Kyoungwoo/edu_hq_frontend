@@ -46,6 +46,8 @@ import { PagerComponent } from './ui/pager/pager.component';
 import { DismissButtonComponent } from './ui/dismiss-button/dismiss-button.component';
 import { EmailComponent } from './input/email/email.component';
 import { SmarteditComponent } from './input/smartedit/smartedit.component';
+import { MenuButtonComponent } from './ui/menu-button/menu-button.component';
+import { NfcComponent } from './dialog/nfc/nfc.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -84,10 +86,12 @@ import { SmarteditComponent } from './input/smartedit/smartedit.component';
     ImgComponent,
     LineComponent,
     LogoComponent,
+    MenuButtonComponent,
     RowComponent,
     TableComponent,
     PagerComponent,
-    SmarteditComponent
+    SmarteditComponent,
+    NfcComponent
   ],
   imports: [
     CommonModule,
@@ -132,10 +136,12 @@ import { SmarteditComponent } from './input/smartedit/smartedit.component';
     ImgComponent,
     LineComponent,
     LogoComponent,
+    MenuButtonComponent,
     RowComponent,
     TableComponent,
     PagerComponent,
-    SmarteditComponent
+    SmarteditComponent,
+    NfcComponent
   ]
 })
 export class BasicComponentModule { }

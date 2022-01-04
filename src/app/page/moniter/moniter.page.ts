@@ -29,8 +29,11 @@ import { SelectConstructionComponent } from 'src/app/component/select/select-con
 import { SelectOccupationComponent } from 'src/app/component/select/select-occupation/select-occupation.component';
 import { SelectPositionComponent } from 'src/app/component/select/select-position/select-position.component';
 import { SelectOrganizationComponent } from 'src/app/component/select/select-organization/select-organization.component';
-import { SelectPeriodComponent } from 'src/app/component/select/select-period/select-period.component';
 import { SelectCountryComponent } from 'src/app/component/select/select-country/select-country.component';
+import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
+import { NfcService } from 'src/app/basic/service/util/nfc.service';
+import { NfcPage } from '../nfc/nfc.page';
+import { NfcComponent } from 'src/app/basic/component/dialog/nfc/nfc.component';
 
 @Component({
   selector: 'app-moniter',
@@ -74,15 +77,15 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   constructor(
     private connect:ConnectService,
-    private modal : ModalController,
     private qr:QrService,
     private toast:ToastService,
-    private nav:NavService
+    private nfc : NfcService,
+    private modal : ModalController
   ) { }
 
   async ngOnInit() {
     // const modal = await this.modal.create({
-    //   component:SelectPeriodComponent
+    //   component:ConfirmProcessPopupComponent
     // });
     // modal.present();
 
@@ -154,6 +157,19 @@ export class MoniterPage implements OnInit, OnDestroy {
         $qr.unsubscribe();
       } else {
         this.connect.error('asdf',res);
+      }
+    });
+  }
+
+  async nfcScanStart() {
+    const $nfc = await this.nfc.subscribe(async (data) => {
+      console.log("data",data);
+      // const res = await this.connect.run('/user/user_in/nfc',{user_id:data.user_id});
+      if(data) {
+        console.log("test");
+        $nfc.unsubscribe();
+      } else { 
+        // this.connect.error('asdf',res);
       }
     });
   }

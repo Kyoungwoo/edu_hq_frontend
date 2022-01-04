@@ -38,7 +38,8 @@
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
           <app-button fill="translucent">수정</app-button>
-          <app-button fill="translucent">삭제</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
+          <app-button fill="translucent">저장</app-button>
         </ion-buttons>
         <ion-buttons slot="end">
           <ion-segment color="primary">
@@ -66,6 +67,24 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
+            <td>구일종합건설(주)</td>
+            <td>
+              <app-select value="장비구분"></app-select>
+            </td>
+            <td>B0003</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <app-select value="Y">
+                <app-select-option value="Y">Y</app-select-option>
+                <app-select-option value="N">N</app-select-option>
+              </app-select>
+            </td>
+            <td>-</td>
+          </tr>
           <tr>
             <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
             <td>구일종합건설(주)</td>

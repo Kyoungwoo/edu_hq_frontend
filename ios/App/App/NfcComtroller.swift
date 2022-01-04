@@ -18,34 +18,33 @@ class NfcController:NSObject, NFCNDEFReaderSessionDelegate {
         for message in messages {
             
             for record in message.records {
+                print("message",record)
                 if let nfcMessage = String(data: record.payload,encoding:.ascii){
-                    // test = nfcMessage
-                    print("asdfasdfasdfsdfasdfasdfasdfasdfasdf+++___________",nfcMessage)
                     if(nfcCallBack != nil) {
+                        
                         nfcCallBack(nfcMessage);
                         session.invalidate()
                     }
                 }
-                print("New Record Found:")
-                print(record.identifier)
-                print(record.payload)
-                print(record.type)
-                print(record.typeNameFormat)
+//                print("New Record Found:")
+//                print(record.identifier)
+//                print(record.payload)
+//                print(record.type)
+//                print(record.typeNameFormat)
             }
         }
     }
     
     
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        
         print("NFC NDEF Invalidated")
         print("\(error)")
     }
     
-    func beginSession(callback:@escaping (_ String:String) ->()) {
+    func beginSession(_callback:@escaping (_ String:String) ->()) {
         let session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
         
-        self.nfcCallBack = callback;
+        self.nfcCallBack = _callback;
         
         session.begin()
     }

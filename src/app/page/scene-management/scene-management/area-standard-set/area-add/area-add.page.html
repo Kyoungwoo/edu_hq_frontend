@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>작업 장소 추가</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-table>
+    <thead>
+      <tr>
+        <th style="vertical-align: middle;">{{ area }}</th>
+        <td><app-textarea [(ngModel)]="text" placeholder="추가 할 내용을 입력해주세요." [rows]="5"></app-textarea></td>
+      </tr>
+    </thead>
+  </app-table>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>

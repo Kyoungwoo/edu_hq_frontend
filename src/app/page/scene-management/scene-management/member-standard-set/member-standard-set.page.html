@@ -27,23 +27,11 @@
           <tr>
             <th>
               <app-row style="justify-content: space-between;">
-                <app-col size="auto">
-                  <h5>필터</h5>
-                </app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
-                </app-col>
+                <app-col size="auto"><app-input label="업체명" value="한국토지주택공사" [readonly]="true"></app-input></app-col>
               </app-row>
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <app-select-company></app-select-company>
-            </td>
-          </tr>
-        </tbody>
       </app-table>
     </app-col>
     <app-col>
@@ -131,31 +119,23 @@
             <th>
               <app-row style="justify-content: space-between;">
                 <app-col size="auto">
-                  <h5>필터</h5>
-                </app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
+                  <app-input label="업체명" [readonly]="true"></app-input>
                 </app-col>
               </app-row>
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <app-select-company></app-select-company>
-            </td>
-          </tr>
-        </tbody>
       </app-table>
     </app-col>
     <app-col>
       <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
       <app-row>
+        <app-col></app-col>
         <app-col>
           <app-input placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
           <app-input placeholder="비밀번호 확인"></app-input>
         </app-col>
+        <app-col></app-col>
       </app-row>
     </app-col>
   </app-row>
@@ -180,7 +160,10 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company></app-select-company>
+              <app-select>
+                <app-select-option value="원청사">원청사</app-select-option>
+                <app-select-option value="협럭사">협력사</app-select-option>
+              </app-select>
             </td>
           </tr>
         </tbody>
@@ -256,13 +239,14 @@
         </thead>
         <tbody>
           <tr>
-            <td>
-              <app-select-company></app-select-company>
-            </td>
+            <app-select label="업체명">
+              <app-select-option value="원청사">원청사</app-select-option>
+              <app-select-option value="협럭사">협력사</app-select-option>
+            </app-select>
           </tr>
           <tr>
             <td>
-              <app-select placeholder="구분">
+              <app-select label="구분">
                 <app-select-option value="관리자">관리자</app-select-option>
                 <app-select-option value="작업자">작업자</app-select-option>
               </app-select>

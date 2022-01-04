@@ -1,13 +1,10 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import Qr from "src/app/basic/plugin/qr-plugin";
 import Nfc from 'src/app/basic/plugin/nfc.plugin';
 import { Subscription } from 'rxjs';
-import { Media, MediaObject } from '@ionic-native/media/ngx';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { File } from "@ionic-native/file/ngx";
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { MediaObject } from '@ionic-native/media/ngx';
+
 
 
 @Component({
@@ -40,26 +37,27 @@ export class NfcPage implements OnInit,OnDestroy {
       } else { 
         this.ios = true;
       }
-      console.log("varUa",varUa)
-    const { permission } = await Nfc.permission();
-    if(permission === null) {
-      this.alert.present({
-        header: "NFC를 사용할 수 없습니다.",
-        message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
-      });
-      this.navCtrl.back();
-    }
-    else if(permission === "disabled") {
-      this.alert.present({
-        header: "NFC 비활성화 됨",
-        message: "NFC를 활성화해주세요."
-      });
-      this.navCtrl.back();
-    }
-    else {
-      this.nfcScan();
-    }
-    
+      console.log("varUa",varUa);
+      if(this.android){
+        const { permission } = await Nfc.permission();
+        if(permission === null) {
+          this.alert.present({
+            header: "NFC를 사용할 수 없습니다.",
+            message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
+          });
+          this.navCtrl.back();
+        }
+        else if(permission === "disabled") {
+          this.alert.present({
+            header: "NFC 비활성화 됨",
+            message: "NFC를 활성화해주세요."
+          });
+          this.navCtrl.back();
+        }
+        else {
+          this.nfcScan();
+        }
+      }
   }
   ngOnDestroy() {
     this.pageAlive = false;
@@ -79,7 +77,4 @@ export class NfcPage implements OnInit,OnDestroy {
 // async qrScan(event) {
 //   window.dispatchEvent(new CustomEvent("main:afterQRScan", { detail: event }));
 // }
-  
-
-
 }

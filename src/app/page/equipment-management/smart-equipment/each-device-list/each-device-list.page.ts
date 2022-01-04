@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
+import { EachDeviceDetailSearchPage } from '../each-device-detail-search/each-device-detail-search.page';
 
 @Component({
   selector: 'app-each-device-list',
@@ -10,10 +10,17 @@ import { DetailSearchComponent } from 'src/app/component/modal/detail-search/det
 export class EachDeviceListPage implements OnInit {
 
   constructor(
-    private modal:ModalController
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {
   }
 
+  public async openDetailSearch() {
+    const modal = await this._modal.create({
+      component: EachDeviceDetailSearchPage,
+
+    })
+    modal.present();
+  }
 }

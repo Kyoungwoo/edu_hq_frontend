@@ -1,51 +1,50 @@
 :host {
-    margin-top: var(--app-padding);
-    margin-bottom: var(--app-padding);
+    margin-top: calc(var(--app-padding)*2);
+    margin-bottom: calc(var(--app-padding)*2);
     border-radius: var(--app-border-radius);
     box-shadow: var(--app-box-shadow);
     background: var(--ion-color-white);
     border: 1px solid var(--ion-color-base, var(--ion-color-white));
     padding: 7px;
 
-    display: block;
-    position: relative;
+    display: flex;
+    align-items: flex-end;
     text-align: left;
-    font-size: 16px;
+    font-size: var(--app-font-size-input);
+    position: relative;
     z-index: 1;
-    >label {
+    .input-group {
+        flex: 1 1 0%;
+        width: 100%;
+    }
+    label {
         display: block;
         font-size: var(--font-size-h6);
         color: var(--ion-text-color);
         font-weight: 500;
     }
-    >.input {
-        min-height: 25px;
+    .input {
+        min-height: 26px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         color: var(--ion-text-color);
     }
-    >button {
-        background: var(--ion-color-primary-translucent);
-        cursor: pointer;
-        position: absolute;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .button {
+        margin-top: 0;
+        margin-bottom: 0;
         font-size: var(--font-size-h6);
-        outline: none !important;
         text-align: right;
     }
-    >button:focus {
+    .button:focus {
         background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
     }
-    >button.empty {
+    .button.empty {
         display: none;
     }
 }
 :host.readonly {
-    >button {
+    >.button {
         cursor: default;
         opacity: var(--app-readonly-opacity);
     }
@@ -57,7 +56,7 @@
     >.input {
         opacity: var(--app-disabled-opacity);
     }
-    >button {
+    >.button {
         cursor: default;
         opacity: var(--app-disabled-opacity);
         display: none;
@@ -96,35 +95,30 @@
 }
 
 :host.input-label {
-    >button {
-        bottom: 8px;
-        right: 8px;
-        height: 43px;
+    >.button {
+        min-height: 43px;
         min-width: 43px;
         padding-left: 12px;
         padding-right: 12px;
-        border-radius: 2px;
     }
 }
 :host.input-label ::ng-deep {
-    app-img {
+    >.button app-img {
         width: 20px;
     }
 }
 
 :host.input-no-label {
-    >button {
-        bottom: 8px;
-        right: 8px;
-        height: 25px;
+    >.button {
+        min-height: 25px;
         min-width: 25px;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-left: 5px;
+        padding-right: 5px;
         border-radius: 15px;
     }
 }
 :host.input-no-label ::ng-deep {
-    app-img {
+    >.button app-img {
         width: 15px;
     }
 }

@@ -23,7 +23,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   
   
   @Input() getQrData;
-  @Input() unsubscribe
+  @Input() unsubscribe;
   @Input() qrModal:boolean;
   @Input() scandata;
   @Input() QrController;
@@ -84,6 +84,8 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     Qr.transparent();
     const routerEl = document.querySelector('ion-router-outlet');
     routerEl.style.display = 'none';
+    const ionApp = document.getElementsByTagName('ion-app')[0];
+    ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
       let res = {
         qr_qrScanner: this.qrScanner,

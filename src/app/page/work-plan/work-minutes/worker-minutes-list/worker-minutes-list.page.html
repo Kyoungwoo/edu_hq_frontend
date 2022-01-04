@@ -1,0 +1,195 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="회의록"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="결재현황"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="회의일자">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">신규 작성</app-button>
+            <app-button fill="translucent">미결 문서</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>회의록 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>회의록</th>
+              <th>회의일자</th>
+              <th>회사명</th>
+              <th>작성자</th>
+              <th>결재현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9</td>
+              <td>노사 협의체 회의록</td>
+              <td>2021.09.15</td>
+              <td>(주)남광토건</td>
+              <td>이상범</td>
+              <td>진행중</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>안전 및 보건에 관한 협의체 회의록</td>
+              <td>2021.09.15</td>
+              <td>(주)남광토건</td>
+              <td>이상범</td>
+              <td>진행중</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>산업안전보건위원회 회의록</td>
+              <td>2021.09.15</td>
+              <td>(주)남광토건</td>
+              <td>이상범</td>
+              <td>진행중</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>노사 협의체 회의록</td>
+              <td>2021.09.15</td>
+              <td>(주)남광토건</td>
+              <td>이상범</td>
+              <td>진행중</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>회의록</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button>상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <ion-segment color="primary">
+        <ion-segment-button>진행중인 회의</ion-segment-button>
+        <ion-segment-button>회의록</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-row>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">미결문서</app-button>
+        </app-col>
+      </app-row>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>안전 및 보건에 관한 협의체 회의록</h5>
+            <p>(주)남광토건</p>
+            <p>회의일자: 2021.09.17</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>안전 및 보건에 관한 협의체 회의록</h5>
+            <p>(주)남광토건</p>
+            <p>회의일자: 2021.09.17</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>안전 및 보건에 관한 협의체 회의록</h5>
+            <p>(주)남광토건</p>
+            <p>회의일자: 2021.09.17</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="danger">반려</ion-chip>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>안전 및 보건에 관한 협의체 회의록</h5>
+            <p>(주)남광토건</p>
+            <p>회의일자: 2021.09.17</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>신규배정</app-button>
+  </app-button-footer>
+</ng-container>
+

@@ -39,30 +39,21 @@ export class QrService {
 
       return {
         unsubscribe: () => {
-          console.log("unsubscribe ----- ",this.qr_response);
           this.qrCallback = null;
           modal.dismiss();
           const routerEl = document.querySelector('ion-router-outlet');
+          const ionApp = document.getElementsByTagName('ion-app')[0];
+          ionApp.style.backgroundColor = 'transparent';
           routerEl.style.display = 'flex';
           this.qr_response.qr_modal.dismiss();
           this.qr_response.qr_subs.unsubscribe();
           // this.qr_response.qr_qrScanner.distroy();
         }
-      }
-  }
-  // return {
-  //   unsubscribe: () => {
-  //     this.qrCallback = null;
-  //     this.qrModal = false;
-  //     this._modal.dismiss();
-  //     value.qr_modal.dismiss();
-  //     // value.qr_subs.unsubscribe();
-  //     // value.qrScanner.destroy();
-  //   }
-  // }
+      };
+  };
+  x
   async getQrData(value) {
     this.qr_response = {...value};
-    console.log("this.qr_response",this.qr_response)
     return this.qrCallback(value);
   }
 }

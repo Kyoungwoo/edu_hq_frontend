@@ -56,11 +56,12 @@
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-header> 
+</ion-header>
 
 <ion-content>
 
-<!-- <app-asd [items]="theme_1"></app-asd> -->
+  <!-- <app-asd [items]="theme_1"></app-asd> -->
 
-<ion-button (click)="qrScanStart()"></ion-button>
+  <ion-button (click)="nfcScanStart()">nfc</ion-button>
+  <ion-button (click)="qrScanStart()">qr</ion-button>
 </ion-content>

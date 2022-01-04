@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Color } from '@ionic/core';
+import { ButtonFill } from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-input-template',
@@ -17,6 +18,7 @@ export class InputTemplateComponent implements OnInit {
 
   @Input() label:string;
   @Input() color:Color = 'white';
+  @Input() buttonFill:ButtonFill = 'translucent';
 
   @Output() buttonClick = new EventEmitter();
 

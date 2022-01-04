@@ -39,6 +39,16 @@
               <app-select-company></app-select-company>
             </td>
           </tr>
+          <tr>
+            <td>
+              <app-select>
+                <app-select-option value="단지개발">단지개발</app-select-option>
+                <app-select-option value="아파트">아파트</app-select-option>
+                <app-select-option value="교량">교량</app-select-option>
+                <app-select-option value="터널">터널</app-select-option>
+              </app-select>
+            </td>
+          </tr>
         </tbody>
       </app-table>
     </app-col>
@@ -54,7 +64,7 @@
         <app-col>
           <ion-buttons>
             <app-button color="secondary">수정</app-button>
-            <app-button fill="translucent">추가</app-button>
+            <app-button (click)="areaAdd('area1')" fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
           </ion-buttons>
 
@@ -83,7 +93,7 @@
 
           <ion-buttons>
             <app-button color="secondary">수정</app-button>
-            <app-button fill="translucent">추가</app-button>
+            <app-button (click)="areaAdd('area2')" fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
           </ion-buttons>
 
@@ -93,7 +103,7 @@
                 <th style="width: 20px;">
                   <app-check></app-check>
                 </th>
-                <th>Area1</th>
+                <th>Area2</th>
               </tbody>
               <tbody>
                 <td>
@@ -105,10 +115,9 @@
           </app-check-group>
         </app-col>
         <app-col>
-
           <ion-buttons>
             <app-button color="secondary">수정</app-button>
-            <app-button fill="translucent">추가</app-button>
+            <app-button (click)="areaAdd('area3')" fill="translucent">추가</app-button>
             <app-button>삭제</app-button>
           </ion-buttons>
 
@@ -118,7 +127,7 @@
                 <th style="width: 20px;">
                   <app-check></app-check>
                 </th>
-                <th>Area1</th>
+                <th>Area3</th>
               </thead>
               <tbody>
                 <td>
@@ -274,3 +283,6 @@
     </app-table>
   </ng-container>
 </ion-content>
+<app-button-footer>
+  <app-button>저장</app-button>
+</app-button-footer>

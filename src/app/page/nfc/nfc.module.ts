@@ -14,8 +14,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    NfcPageRoutingModule,
-    ComponentModule
+    ComponentModule,
+    NfcPageRoutingModule
   ],
   declarations: [NfcPage]
 })

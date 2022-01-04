@@ -1,7 +1,6 @@
 :host {
-  --padding: var(--app-margin);
-  margin-top: var(--app-margin);
-  margin-bottom: var(--app-margin);
+  margin-top: calc(var(--app-padding)*2);
+  margin-bottom: calc(var(--app-padding)*2);
   border-radius: var(--app-border-radius);
   box-shadow: var(--app-box-shadow);
   background: var(--ion-color-base);
@@ -25,7 +24,7 @@
     border-bottom-right-radius: 0;
   }
   ion-card-content {
-    padding: var(--padding);
+    padding: var(--app-margin);
   }
   ion-card-content>*:first-child {
     margin-top: 0;

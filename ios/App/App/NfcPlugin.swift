@@ -15,12 +15,8 @@ public class NfcPlugin: CAPPlugin {
     
     let nfcReader = NfcController()
     
-//    @objc func echo(_ call: CAPPluginCall) {
-//        let value = call.getString("value") ?? ""
-//        call.resolve(["value": value])
-//    }
     @objc func getData(_ call: CAPPluginCall) {
-        nfcReader.beginSession(callback: { (message) in
+        nfcReader.beginSession(_callback: { (message) in
             print("permission callback called: \(message)");
             call.resolve(["message": "\(message)"]);
         })

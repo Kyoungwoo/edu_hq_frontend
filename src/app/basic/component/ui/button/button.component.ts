@@ -2,6 +2,7 @@ import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core
 import { SafeUrl } from '@angular/platform-browser';
 import { Color } from '@ionic/core';
 
+export type ButtonFill = 'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -23,11 +24,13 @@ export class ButtonComponent implements OnInit {
   }
   
   @Input() color:Color;
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() disabled:boolean = false;
   @Input() fill:'clear' | 'default' | 'outline' | 'solid' | 'translucent' | 'translucent-outline';
   @Input() shape:'round' | 'circle' | 'square';
   @Input() size:'default' | 'small';
   @Input() href:string | SafeUrl;
+  @Input() routerLink:string;
   @Input() download:string;
   @Input() target:string;
 
@@ -39,7 +42,7 @@ export class ButtonComponent implements OnInit {
   }
   
   constructor(
-    private el: ElementRef<HTMLElement>
+    public el: ElementRef<HTMLElement>
   ) {}
  
   ngOnInit() {
