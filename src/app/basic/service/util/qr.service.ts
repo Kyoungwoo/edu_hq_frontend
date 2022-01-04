@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
 import { Subscription } from 'rxjs';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class QrService {
   }
 
   constructor(
-    private _modal : ModalController
+    private _modal : ModalController,
+    private qr_scanner : QRScanner
   ) { }
 
   qrCallback;
@@ -39,20 +41,22 @@ export class QrService {
 
       return {
         unsubscribe: () => {
-          this.qrCallback = null;
           modal.dismiss();
           const routerEl = document.querySelector('ion-router-outlet');
+          console.log("test");
+          routerEl.style.display = 'flex';
           const ionApp = document.getElementsByTagName('ion-app')[0];
           ionApp.style.backgroundColor = 'transparent';
-          routerEl.style.display = 'flex';
+          // this.qr_response.qr_qrScanner.distroy();
           this.qr_response.qr_modal.dismiss();
           this.qr_response.qr_subs.unsubscribe();
-          // this.qr_response.qr_qrScanner.distroy();
+          // this.qrCallback = null;
         }
       };
   };
   
   async getQrData(value) {
+    console.log("value",value);
     this.qr_response = {...value};
     return this.qrCallback(value);
   }

@@ -9,6 +9,7 @@ import { MinutesListPageRoutingModule } from './minutes-list-routing.module';
 import { MinutesListPage } from './minutes-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    MinutesListPageRoutingModule
+    MinutesListPageRoutingModule,
+    DetailSearchPageModule
   ],
   declarations: [MinutesListPage]
 })

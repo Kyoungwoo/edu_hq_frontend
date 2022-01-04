@@ -9,6 +9,7 @@ import { WorkerStatusListPageRoutingModule } from './worker-status-list-routing.
 import { WorkerStatusListPage } from './worker-status-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { WorkerStatusAddPageModule } from '../worker-status-add/worker-status-add.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    WorkerStatusListPageRoutingModule
+    WorkerStatusListPageRoutingModule,
+    WorkerStatusAddPageModule
   ],
   declarations: [WorkerStatusListPage]
 })

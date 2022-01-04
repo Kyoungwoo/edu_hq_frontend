@@ -42,7 +42,6 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
-    console.log("url",url)
     this.qr_sound = this.media.create(url);
     this.qr_sound.onSuccess.subscribe(e => {
       console.log('success', e);
@@ -54,7 +53,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
     if(this.qr_subs) this.qr_subs.unsubscribe();
-    // this.hideCamera();
+    console.log("durlfh??")
     this.qrScanner.destroy();
   }
   prepareQR() {
@@ -81,7 +80,8 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   }
   async scanQR() {
     await this.qrScanner.show();
-    if(Qr){
+    let divice = navigator.userAgent.toLowerCase();
+    if(divice === 'android'){
       Qr.transparent();
     }
     const routerEl = document.querySelector('ion-router-outlet');
@@ -96,9 +96,11 @@ export class QrScannerComponent implements OnInit,OnDestroy {
         qr_data: data
       };
       this.getQrData(res);
+      if(data){
         setTimeout(() => {
           this.scanQR();
-        }, 3000);
+        }, 1000);
+      }
     });
   }
   rotateCamera() {

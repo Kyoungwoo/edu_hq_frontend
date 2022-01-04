@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-my-status-list',
-  templateUrl: './my-status-list.page.html',
-  styleUrls: ['./my-status-list.page.scss'],
+  selector: 'app-worker-status-add',
+  templateUrl: './worker-status-add.page.html',
+  styleUrls: ['./worker-status-add.page.scss'],
 })
-export class MyStatusListPage implements OnInit {
-
-  open:boolean = false;
+export class WorkerStatusAddPage implements OnInit {
   dummyArr = [
     {
-      open: false,
+      checked:false,
       title:'앱 사용 공지',
       company:'구일종합건설㈜',
       user_name:'김준태',
@@ -19,63 +17,51 @@ export class MyStatusListPage implements OnInit {
       status_hour:'12:30'
     },
     {
-      open: false,
-      user_id:2,
+      checked:false,
       title:'dev 공지',
       company:'구일종합건설㈜',
-      user_name:'김준태',
+      user_name:'홍길동',
       write_date:'2021.10.18',
       status:'입장',
       status_hour:'12:31'
     },
     {
-      open: false,
-      user_id:3,
+      checked:false,
       title:'gsil 공지',
       company:'구일종합건설㈜',
-      user_name:'김준태',
+      user_name:'구루무',
       write_date:'2021.10.18',
       status:'퇴장',
       status_hour:'12:33'
     },
     {
-      open: false,
-      user_id:4,
+      checked:false,
       title:'LH 공지',
       company:'구일종합건설㈜',
-      user_name:'김준태',
+      user_name:'구구야',
       write_date:'2021.10.18',
       status:'퇴장',
       status_hour:'12:36'
     },
   ]
-  hourArr1 = [
-    {
-      status:'입장',
-      status_hour:'12:30'
-    },
-    {
-      status:'입장',
-      status_hour:'12:31'
-    },
-    {
-      status:'퇴장',
-      status_hour:'12:33'
-    },
-    {
-      user_id:2,
-      status:'퇴장',
-      status_hour:'12:36'
-    },
-  ]
-
+  selectData = [];
   constructor() { }
 
   ngOnInit() {
-
   }
 
-  status(item) {
-    item.open = !item.open;
+  checkName(item) {
+    // console.log(item);
+    item.checked = !item.checked;
+    if(item.checked) {
+      this.selectData.push({
+        user_name:item.user_name
+      });
+      this.selectData.filter((item, index) => {
+        return this.selectData.indexOf(item.user_name) !== index;
+      });
+      console.log(this.selectData);
+    } else { 
+    }
   }
 }

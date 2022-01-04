@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 declare var nhn:any
 
@@ -19,6 +20,12 @@ export class NoticeListPage implements OnInit {
     //   component:NoticeEditPage
     // });
     // modal.present();
+  }
+  async detailSearch() {
+    const modal = await this.modal.create({
+      component:DetailSearchPage
+    });
+    modal.present();
   }
 
 }

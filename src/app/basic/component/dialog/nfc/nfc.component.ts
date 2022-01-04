@@ -39,7 +39,6 @@ export class NfcComponent implements OnInit {
       if(this.android){
         const { permission } = await Nfc.permission();
         if(permission === null) {
-          console.log("------------------------1");
           this.alert.present({
             header: "NFC를 사용할 수 없습니다.",
             message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
@@ -47,7 +46,6 @@ export class NfcComponent implements OnInit {
           this.navCtrl.back();
         }
         else if(permission === "disabled") {
-          console.log("------------------------2");
           this.alert.present({
             header: "NFC 비활성화 됨",
             message: "NFC를 활성화해주세요."
@@ -55,7 +53,6 @@ export class NfcComponent implements OnInit {
           this.navCtrl.back();
         }
         else {
-          console.log("------------------------3");
           this.nfcScan();
         }
       }
@@ -66,7 +63,7 @@ export class NfcComponent implements OnInit {
   }
   
   async nfcScan() {
-    console.log("---------------4");
+
     const { message } = await Nfc.getData();
     console.log("message",message);
     this.getNfcData(message);

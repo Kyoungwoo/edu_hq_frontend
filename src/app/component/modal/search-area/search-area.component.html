@@ -6,59 +6,57 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input-group>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-        <app-img name="search"></app-img>
-      </app-input>
-    </app-input-group>
+    <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-img name="search"></app-img>
+    </app-input>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<app-card (click)="area11 = !area11">
-  <app-row>
-    <app-col>
-      Area1
-    </app-col>
-    <app-img  [src]="area11 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-  </app-row>
-</app-card>
-<ng-container *ngIf="area11">
-  <app-table *ngFor="let item of area1">
-    <tr>
-      <td>{{item.ground}}</td>
-    </tr>
-  </app-table>
-</ng-container>
-<app-card (click)="area22 = !area22">
-  <app-row>
-    <app-col>
-      Area2
-    </app-col>
-    <app-img  [src]="area22 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-  </app-row>
-</app-card>
-<ng-container *ngIf="area22">
-  <app-table *ngFor="let item of area2">
-    <tr>
-      <td>{{item.building}}</td>
-    </tr>
-  </app-table>
-</ng-container>
-<app-card (click)="area33 = !area33">
-  <app-row>
-    <app-col>
-      Area3
-    </app-col>
-    <app-img  [src]="area33 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-  </app-row>
-</app-card>
-<ng-container *ngIf="area33">
-  <app-table *ngFor="let item of area3">
-    <tr>
-      <td>{{item.floor}}</td>
-    </tr>
-  </app-table>
-</ng-container>
+  <app-card (click)="area11 = !area11">
+    <app-row>
+      <app-col>
+        Area1
+      </app-col>
+      <app-img [src]="area11 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+    </app-row>
+  </app-card>
+  <ng-container *ngIf="area11">
+    <app-table *ngFor="let item of area1">
+      <tr>
+        <td>{{item.ground}}</td>
+      </tr>
+    </app-table>
+  </ng-container>
+  <app-card (click)="area22 = !area22">
+    <app-row>
+      <app-col>
+        Area2
+      </app-col>
+      <app-img [src]="area22 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+    </app-row>
+  </app-card>
+  <ng-container *ngIf="area22">
+    <app-table *ngFor="let item of area2">
+      <tr>
+        <td>{{item.building}}</td>
+      </tr>
+    </app-table>
+  </ng-container>
+  <app-card (click)="area33 = !area33">
+    <app-row>
+      <app-col>
+        Area3
+      </app-col>
+      <app-img [src]="area33 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+    </app-row>
+  </app-card>
+  <ng-container *ngIf="area33">
+    <app-table *ngFor="let item of area3">
+      <tr>
+        <td>{{item.floor}}</td>
+      </tr>
+    </app-table>
+  </ng-container>
 </ion-content>
 <app-button-footer>
   <app-button>취소</app-button>

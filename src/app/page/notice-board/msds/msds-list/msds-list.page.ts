@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { DetailSearchPage } from '../../detail-search/detail-search.page';
 
 @Component({
   selector: 'app-msds-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsdsListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
   }
-
+  async detailSearch() {
+    const modal = await this.modal.create({
+      component:DetailSearchPage
+    });
+    modal.present();
+  }
 }

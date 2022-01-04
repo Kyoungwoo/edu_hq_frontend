@@ -27,7 +27,9 @@
           <tr>
             <th>
               <app-row style="justify-content: space-between;">
-                <app-col size="auto"><app-input label="업체명" value="한국토지주택공사" [readonly]="true"></app-input></app-col>
+                <app-col size="auto">
+                  <app-input label="업체명" value="한국토지주택공사" [readonly]="true"></app-input>
+                </app-col>
               </app-row>
             </th>
           </tr>
@@ -40,28 +42,28 @@
         <app-button>삭제</app-button>
         <app-button>수정</app-button>
       </ion-buttons>
-        <app-col>
-          <app-check-group>
-            <app-table class="edit">
-              <tbody>
-                <tr>
-                  <th style="width: 20px;">
-                    <app-check></app-check>
-                  </th>
-                  <th>Area1</th>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr>
-                  <td>
-                    <app-check></app-check>
-                  </td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </app-table>
-          </app-check-group>
-        </app-col>
+      <app-col>
+        <app-check-group>
+          <app-table class="edit">
+            <tbody>
+              <tr>
+                <th style="width: 20px;">
+                  <app-check></app-check>
+                </th>
+                <th>Area1</th>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td>
+                  <app-check></app-check>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+      </app-col>
     </app-col>
     <app-col>
       <ion-buttons>
@@ -143,20 +145,16 @@
   <app-row *ngIf="menuCount === 5" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
-        <thead>
-          <tr>
-            <th>
-              <app-row style="justify-content: space-between;">
-                <app-col size="auto">
-                  <h5>필터</h5>
-                </app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
-                </app-col>
-              </app-row>
-            </th>
-          </tr>
-        </thead>
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <tbody>
           <tr>
             <td>
@@ -185,7 +183,9 @@
         <app-table>
           <thead>
             <tr>
-              <th><app-check type="all"></app-check></th>
+              <th>
+                <app-check type="all"></app-check>
+              </th>
               <th>No</th>
               <th>직위명</th>
               <th>영어</th>
@@ -198,7 +198,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><app-check></app-check></td>
+              <td>
+                <app-check></app-check>
+              </td>
               <td>1</td>
               <td>과장</td>
               <td></td>
@@ -223,20 +225,16 @@
   <app-row *ngIf="menuCount === 6" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
-        <thead>
-          <tr>
-            <th>
-              <app-row style="justify-content: space-between;">
-                <app-col size="auto">
-                  <h5>필터</h5>
-                </app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
-                </app-col>
-              </app-row>
-            </th>
-          </tr>
-        </thead>
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <tbody>
           <tr>
             <app-select label="업체명">
@@ -271,7 +269,9 @@
         <app-table>
           <thead>
             <tr>
-              <th><app-check type="all"></app-check></th>
+              <th>
+                <app-check type="all"></app-check>
+              </th>
               <th>No</th>
               <th>안전 직무명</th>
               <th>영어</th>
@@ -284,7 +284,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><app-check></app-check></td>
+              <td>
+                <app-check></app-check>
+              </td>
               <td>1</td>
               <td>전무</td>
               <td></td>
@@ -300,14 +302,28 @@
               </td>
             </tr>
             <tr>
-              <td><app-check></app-check></td>
+              <td>
+                <app-check></app-check>
+              </td>
               <td>1</td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
               <td>
                 <app-select>
                   <app-select-option value="Y">Y</app-select-option>
@@ -324,20 +340,16 @@
   <app-row *ngIf="menuCount === 7" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
-        <thead>
-          <tr>
-            <th>
-              <app-row style="justify-content: space-between;">
-                <app-col size="auto">
-                  <h5>필터</h5>
-                </app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent" style="width: 100px;">검색</app-button>
-                </app-col>
-              </app-row>
-            </th>
-          </tr>
-        </thead>
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <tbody>
           <tr>
             <td>
@@ -365,7 +377,9 @@
         <app-table>
           <thead>
             <tr>
-              <th><app-check type="all"></app-check></th>
+              <th>
+                <app-check type="all"></app-check>
+              </th>
               <th>No</th>
               <th>직종 명</th>
               <th>영어</th>
@@ -378,14 +392,28 @@
           </thead>
           <tbody>
             <tr>
-              <td><app-check></app-check></td>
+              <td>
+                <app-check></app-check>
+              </td>
               <td>2</td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
-              <td><app-input placeholder="입력하세요."></app-input></td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-input placeholder="입력하세요."></app-input>
+              </td>
               <td>
                 <app-select>
                   <app-select-option value="Y">Y</app-select-option>
@@ -394,7 +422,9 @@
               </td>
             </tr>
             <tr>
-              <td><app-check></app-check></td>
+              <td>
+                <app-check></app-check>
+              </td>
               <td>1</td>
               <td>전무</td>
               <td></td>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>회원 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input-group>
+      <app-select label="유형" name="select">
+        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
+      </app-select>
+      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+        <app-img name="search"></app-img>
+      </app-input>
+    </app-input-group>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card [button]="true" (click)="checkName(item)" *ngFor="let item of dummyArr">
+    <app-row>
+      <app-col size="auto">
+      </app-col>
+      <app-col>
+        <h5>{{ item.user_name}}</h5>
+        <p>{{ item.company }}/대리/안전관리자</p>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="primary">건축</ion-chip>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="auto">
+        <ion-chip *ngFor="let name of selectData " color="primary">{{ name.user_name }}</ion-chip>
+      </app-col>
+    </app-row>
+  </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button>취소</app-button>
+  <app-button>적용</app-button>
+</app-button-footer>
+
+

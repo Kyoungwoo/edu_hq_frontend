@@ -17,6 +17,12 @@
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
             <tbody>
                 <tr>
                   <td>
@@ -95,59 +101,47 @@
 </ng-container>
 <!--  -->
 <ng-container *mobileShow>
-  <ion-header >
+  <ion-header>
     <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
       <ion-title>MSDS</ion-title>
       <ion-buttons slot="end">
-        <app-dismiss-button></app-dismiss-button>
+        <app-menu-button></app-menu-button>
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
-      <app-row>
-        <app-col>
-          <app-input label="현장명" [readonly]="true"></app-input>
-        </app-col>
-        <app-button>상세검색</app-button>
-      </app-row>
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button (click)="detailSearch()">상세검색</app-button>
+      </app-input-group>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card>
-      <app-row>
-        <app-col size="auto">
-        </app-col>
+    <app-card *ngFor="let item of [1,2,3,4]">
+      <app-row style="align-items: flex-start;">
         <app-col>
-          <h5>앱 사용 공지</h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
+          <p>구일종합건설(주)/박소현/A001</p>
+          <p>배정일: 2021.10.18</p>
         </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">일반</ion-chip>
+      </app-row>
+      <app-row>
+        <app-col>
+          <ion-badge color="success">폭발성 가스</ion-badge>
         </app-col>
       </app-row>
     </app-card>
-    <app-card>
-      <app-row>
-        <app-col size="auto">
-        </app-col>
+    <app-card *ngFor="let item of [1,2,3,4]">
+      <app-row style="align-items: flex-start;">
         <app-col>
-          <h5>앱 사용 공지</h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">안전관리</ion-chip>
+          <p>구일종합건설(주)/박소현/A001</p>
+          <p>배정일: 2021.10.18</p>
         </app-col>
       </app-row>
-    </app-card>
-    <app-card>
       <app-row>
-        <app-col size="auto">
-        </app-col>
         <app-col>
-          <h5>앱 사용 공지</h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">현장관리</ion-chip>
+          <ion-badge color="success">인화성 물질</ion-badge>
         </app-col>
       </app-row>
     </app-card>

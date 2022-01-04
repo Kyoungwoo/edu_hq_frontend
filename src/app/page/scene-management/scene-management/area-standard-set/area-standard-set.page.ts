@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AreaAddPage } from './area-add/area-add.page';
+import { AreaAddPage } from '../area-add/area-add.page';
 
 @Component({
   selector: 'app-area-standard-set',

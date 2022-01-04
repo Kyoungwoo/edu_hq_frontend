@@ -9,6 +9,7 @@ import { MsdsListPageRoutingModule } from './msds-list-routing.module';
 import { MsdsListPage } from './msds-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    MsdsListPageRoutingModule
+    MsdsListPageRoutingModule,
+    DetailSearchPageModule
   ],
   declarations: [MsdsListPage]
 })

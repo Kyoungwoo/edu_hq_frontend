@@ -150,11 +150,12 @@ export class MoniterPage implements OnInit, OnDestroy {
     }
   }
   async qrScanStart(){
-      const $qr = await this.qr.subscribe(async (data) => { // => qr이 켜짐
-      if(!data?.user_id) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+      const qr = await this.qr.subscribe(async (data) => { // => qr이 켜짐
+        alert(data.qr_data);
+      if(data) return this.toast.present({ message: 'qr을 다시 스캔해주세요.'});
       const res = await this.connect.run('/user/user_in/qr', { user_id: data.user_id });
       if(res.rsCode === 0) {
-        $qr.unsubscribe();
+        qr.unsubscribe();
       } else {
         this.connect.error('asdf',res);
       }
@@ -163,13 +164,13 @@ export class MoniterPage implements OnInit, OnDestroy {
 
   async nfcScanStart() {
     const $nfc = await this.nfc.subscribe(async (data) => {
-      console.log("data",data);
-      // const res = await this.connect.run('/user/user_in/nfc',{user_id:data.user_id});
+      console.log("data",data.qr_data);
+      const res = await this.connect.run('/user/user_in/nfc',{user_id:data.user_id});
       if(data) {
         console.log("test");
         $nfc.unsubscribe();
       } else { 
-        // this.connect.error('asdf',res);
+        this.connect.error('asdf',res);
       }
     });
   }

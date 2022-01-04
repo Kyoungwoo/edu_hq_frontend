@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { DetailSearchPage } from '../../detail-search/detail-search.page';
 
 @Component({
   selector: 'app-minutes-list',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MinutesListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
   }
@@ -16,5 +20,11 @@ export class MinutesListPage implements OnInit {
   }
   detailSerach(){
     
+  }
+  async detailSearch() {
+    const modal = await this.modal.create({
+      component:DetailSearchPage
+    });
+    modal.present();
   }
 }
