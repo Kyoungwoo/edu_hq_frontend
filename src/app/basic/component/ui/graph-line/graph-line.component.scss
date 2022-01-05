@@ -1,0 +1,85 @@
+:host {
+    display: block;
+    position: relative;
+    color: var(--ion-color-primary-shade);
+    .y-label-list {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(100% - 20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .y-label {
+        border-bottom: 1px solid var(--ion-color-step-100);
+        width: 100%;
+    }
+    svg {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+    }
+    .x-label-list {
+        position: absolute;
+        left: 10px;
+        bottom: 0;
+        width: calc(100% - 20px);
+        height: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .x-label {
+        position: relative;
+        width: 0;
+    }
+    .x-label-inner {
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .detail {
+        pointer-events: none;
+    }
+    .detail-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width: 1px;
+        background: var(--ion-color-step-100);
+    }
+    .detail-card {
+        position: absolute;
+        border: 1px solid var(--ion-color-step-200);
+        border-radius: var(--app-border-radius);
+        box-shadow: var(--app-box-shadow);
+        background: white;
+        width: 150px;
+    }
+    .detail-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--ion-color-step-100);
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .detail-content {
+        padding-top: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 8px;
+    }
+    .detail-circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background: var(--ion-color-primary);
+    }
+}

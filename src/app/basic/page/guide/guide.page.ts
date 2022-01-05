@@ -65,6 +65,19 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
     }
   ]
 
+  graph = [
+    { color: '#25A485', name: '작업대기', data: [
+      {value: 20, label: '8시'},
+      {value: 60, label: '9시'},
+      {value: 50, label: '10시'}
+    ]},
+    { color: '#78CE5C', name: '작업중', data: [
+      {value: 30, label: '8시'},
+      {value: 20, label: '9시'},
+      {value: 80, label: '10시'}
+    ]}
+  ]
+
   
   @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;

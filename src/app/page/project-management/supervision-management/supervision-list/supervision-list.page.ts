@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SupervisionEditPage } from '../supervision-edit/supervision-edit.page';
 
 @Component({
   selector: 'app-supervision-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupervisionListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal: ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  async openEdit() {
+    const modal = await this.modal.create({
+      component: SupervisionEditPage
+    });
+    modal.present();
+  }
 }

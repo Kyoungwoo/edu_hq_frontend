@@ -9,6 +9,7 @@ import { SupervisionListPageRoutingModule } from './supervision-list-routing.mod
 import { SupervisionListPage } from './supervision-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { SupervisionEditPageModule } from '../supervision-edit/supervision-edit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    SupervisionListPageRoutingModule
+    SupervisionListPageRoutingModule,
+    SupervisionEditPageModule
   ],
   declarations: [SupervisionListPage]
 })

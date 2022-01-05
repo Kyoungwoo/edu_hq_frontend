@@ -1167,7 +1167,7 @@
             <app-avatar view_type="profile" src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
           </app-col>
           <app-col size="auto">
-            <app-avatar [readonly]="false"></app-avatar>
+            <app-avatar view_type="profile" [readonly]="false"></app-avatar>
           </app-col>
         </app-row>
     
@@ -1410,10 +1410,12 @@
         <h4 id="graph">graph</h4>
         <p>그래프 예시 입니다.</p>
 
-        <svg height="200" width="400">
-          <path stroke="green" d="M150 0 L75 200 Z"></path>
-          <path stroke="green" d="M150 0 L75 200 Z"></path>
-        </svg>
+        <app-graph-line style="width: 100%; height: 200px;">
+          <app-graph-group [color]="graphItem.color" [name]="graphItem.name" *ngFor="let graphItem of graph">
+            <app-graph-value *ngFor="let graphData of graphItem.data" 
+            [label]="graphData.label" [value]="graphData.value"></app-graph-value>
+          </app-graph-group>
+        </app-graph-line>
     
         <h4 id="img">img</h4>
         <p>img component 입니다. 다크모드 호환, 이미지 사이즈 조정 등을 하기위해 만들었습니다.</p>

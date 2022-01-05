@@ -48,6 +48,9 @@ import { EmailComponent } from './input/email/email.component';
 import { SmarteditComponent } from './input/smartedit/smartedit.component';
 import { MenuButtonComponent } from './ui/menu-button/menu-button.component';
 import { NfcComponent } from './dialog/nfc/nfc.component';
+import { GraphGroupComponent } from './ui/graph-group/graph-group.component';
+import { GraphValueComponent } from './ui/graph-value/graph-value.component';
+import { GraphLineComponent } from './ui/graph-line/graph-line.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -83,6 +86,9 @@ import { NfcComponent } from './dialog/nfc/nfc.component';
     ContainerComponent,
     CopyRightComponent,
     DismissButtonComponent,
+    GraphGroupComponent,
+    GraphLineComponent,
+    GraphValueComponent,
     ImgComponent,
     LineComponent,
     LogoComponent,
@@ -133,6 +139,9 @@ import { NfcComponent } from './dialog/nfc/nfc.component';
     ContainerComponent,
     CopyRightComponent,
     DismissButtonComponent,
+    GraphGroupComponent,
+    GraphLineComponent,
+    GraphValueComponent,
     ImgComponent,
     LineComponent,
     LogoComponent,
