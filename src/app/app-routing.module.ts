@@ -304,7 +304,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
   },
   {
-<<<<<<< HEAD
     path: 'security-password',
     loadChildren: () => import('./page/member-management/member-approval-wait/security-password/security-password.module').then( m => m.SecurityPasswordPageModule)
   },
@@ -312,7 +311,7 @@ const routes: Routes = [
     path: 'worker-approval-list',
     loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule)
   },
-=======
+  {
     path: 'risk-evaluation-confirm',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-confirm/risk-evaluation-confirm.module').then( m => m.RiskEvaluationConfirmPageModule)
   },
@@ -320,9 +319,9 @@ const routes: Routes = [
     path: 'risk-evaluation-popup',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module').then( m => m.RiskEvaluationPopupPageModule)
   },
+  
 
 
->>>>>>> 3ccb8a6e752e7d33f101243c74ce578d47a69a11
 
  
 

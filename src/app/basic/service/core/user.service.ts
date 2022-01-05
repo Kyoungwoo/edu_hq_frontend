@@ -49,9 +49,6 @@ export class UserService {
       storage = window.localStorage;
       this.autoLogin = true;
     }
-  setAuthToken(rsObj: any) {
-    throw new Error('Method not implemented.');
-  }
     if(storage) { this.userData = JSON.parse(storage.getItem(TAG.UserData)) }
     else this.userData = new UserData();
   }
