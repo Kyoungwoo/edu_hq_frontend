@@ -47,6 +47,7 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
 
 
 
+
 @NgModule({
   declarations: [
     HeaderAdminComponent,
@@ -87,10 +88,7 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
     SelectDangerousAreaComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
-    ConfirmPopupComponent
-
-    
-   
+    ConfirmPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -139,7 +137,7 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
     SelectDangerousAreaComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
-    ConfirmPopupComponent
+    ConfirmPopupComponent,
   ]
 })
 export class ComponentModule { }
