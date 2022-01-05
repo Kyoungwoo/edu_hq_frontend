@@ -30,78 +30,87 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
-          <h5>결재자</h5>
-          <ion-buttons slot="end">
-            <app-button fill="translucent">초기화</app-button>
-            <app-button fill="translucent">추가</app-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <app-table type="card">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>구분</th>
-              <th>성명</th>
-              <th>이동</th>
-              <th>삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>-</td>
-              <td>작성</td>
-              <td>이건창</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>-</td>
-              <td>검토</td>
-              <td>이은주</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>최종</td>
-              <td>승인</td>
-              <td>이은주</td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-col>
-      <app-col>
-        <ion-toolbar color="white">
-          <h5>참조자</h5>
-          <ion-buttons slot="end">
-            <app-button fill="translucent">초기화</app-button>
-            <app-button fill="translucent">추가</app-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <app-table type="card">
-          <thead>
-            <tr>
-              <th>성명</th>
-              <th>삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>박소현</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>이건창</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>이건창</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </app-table>
+        <app-row>
+          <ion-toolbar color="white">
+            <app-button fill="translucent">저장</app-button>
+          </ion-toolbar>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-toolbar color="white">
+              <h5>결재자</h5>
+              <ion-buttons slot="end">
+                <app-button fill="translucent">초기화</app-button>
+                <app-button fill="translucent">추가</app-button>
+              </ion-buttons>
+            </ion-toolbar>
+            <app-table type="card">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>구분</th>
+                  <th>성명</th>
+                  <th>이동</th>
+                  <th>삭제</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>-</td>
+                  <td>작성</td>
+                  <td>이건창</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>-</td>
+                  <td>검토</td>
+                  <td>이은주</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>최종</td>
+                  <td>승인</td>
+                  <td>이은주</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-col>
+          <app-col>
+            <ion-toolbar color="white">
+              <h5>참조자</h5>
+              <ion-buttons slot="end">
+                <app-button fill="translucent">초기화</app-button>
+                <app-button fill="translucent">추가</app-button>
+              </ion-buttons>
+            </ion-toolbar>
+            <app-table type="card">
+              <thead>
+                <tr>
+                  <th>성명</th>
+                  <th>삭제</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>박소현</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>이건창</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>이건창</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-col>
+        </app-row>
       </app-col>
     </app-row>
   </ion-content>

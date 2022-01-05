@@ -35,6 +35,7 @@ import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { NfcPage } from '../nfc/nfc.page';
 import { NfcComponent } from 'src/app/basic/component/dialog/nfc/nfc.component';
 import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
+import { RiskEvaluationPopupPage } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page';
 
 @Component({
   selector: 'app-moniter',
@@ -85,10 +86,10 @@ export class MoniterPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:ConfirmPopupComponent
-    });
-    modal.present();
+    // const modal = await this.modal.create({
+    //   component:RiskEvaluationPopupPage,
+    // });
+    // modal.present();
 
 
     this.getDust();

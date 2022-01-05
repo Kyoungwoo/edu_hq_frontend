@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MoniterPageRoutingModule } from './moniter-routing.module';
+import { RiskEvaluationPopupPageRoutingModule } from './risk-evaluation-popup-routing.module';
 
-import { MoniterPage } from './moniter.page';
-import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { RiskEvaluationPopupPage } from './risk-evaluation-popup.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 
 @NgModule({
   imports: [
@@ -17,8 +17,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    MoniterPageRoutingModule,
+    RiskEvaluationPopupPageRoutingModule
   ],
-  declarations: [MoniterPage]
+  declarations: [RiskEvaluationPopupPage]
 })
-export class MoniterPageModule {}
+export class RiskEvaluationPopupPageModule {}
