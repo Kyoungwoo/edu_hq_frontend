@@ -318,7 +318,17 @@ const routes: Routes = [
   {
     path: 'risk-evaluation-popup',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module').then( m => m.RiskEvaluationPopupPageModule)
+  },
+  {
+    path: 'safety-education-detail-search',
+    loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-search/safety-education-detail-search.module').then( m => m.SafetyEducationDetailSearchPageModule)
+  },
+  {
+    path: 'safety-education-detail-list',
+    loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-list/safety-education-detail-list.module').then( m => m.SafetyEducationDetailListPageModule)
   }
+
+
 ];
 
 @NgModule({

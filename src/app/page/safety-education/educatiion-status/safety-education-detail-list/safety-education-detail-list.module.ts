@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SafetyEducationListPageRoutingModule } from './safety-education-list-routing.module';
+import { SafetyEducationDetailListPageRoutingModule } from './safety-education-detail-list-routing.module';
 
-import { SafetyEducationListPage } from './safety-education-list.page';
+import { SafetyEducationDetailListPage } from './safety-education-detail-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
-import { SafetyEducationDetailSearchPageModule } from '../safety-education-detail-search/safety-education-detail-search.module';
 
 @NgModule({
   imports: [
@@ -18,9 +17,8 @@ import { SafetyEducationDetailSearchPageModule } from '../safety-education-detai
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    SafetyEducationListPageRoutingModule,
-    SafetyEducationDetailSearchPageModule
+    SafetyEducationDetailListPageRoutingModule
   ],
-  declarations: [SafetyEducationListPage]
+  declarations: [SafetyEducationDetailListPage]
 })
-export class SafetyEducationListPageModule {}
+export class SafetyEducationDetailListPageModule {}
