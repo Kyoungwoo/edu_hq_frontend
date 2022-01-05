@@ -17,6 +17,36 @@ export class AreaStandardSetPage implements OnInit {
     },
     {
       text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
+    },
+    {
+      text:'1블록'
     }
   ]
   constructor(

@@ -23,5 +23,7 @@ export class WorkerStatusListPage implements OnInit {
       component:WorkerStatusAddPage
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
   }
 }

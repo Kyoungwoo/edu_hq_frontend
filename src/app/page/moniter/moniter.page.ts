@@ -32,7 +32,6 @@ import { SelectOrganizationComponent } from 'src/app/component/select/select-org
 import { SelectCountryComponent } from 'src/app/component/select/select-country/select-country.component';
 import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { NfcPage } from '../nfc/nfc.page';
 import { NfcComponent } from 'src/app/basic/component/dialog/nfc/nfc.component';
 import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
 

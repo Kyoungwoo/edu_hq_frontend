@@ -32,15 +32,20 @@
   </app-card>
   <app-card>
     <app-row>
-      <app-col size="auto">
-        <ion-chip *ngFor="let name of selectData " color="primary">{{ name.user_name }}</ion-chip>
+      <app-col (click)="deleteName()" size="auto">
+        <div>
+          <ion-chip style="margin-top: 3px; margin-left: 0; margin-right: 3px;" *ngFor="let name of selectData " color="primary">{{ name }}
+              <ion-icon  name="close-outline"></ion-icon>
+          </ion-chip>
+        </div>
       </app-col>
     </app-row>
   </app-card>
+  <app-input label="시간"></app-input>
 </ion-content>
 <app-button-footer>
   <app-button>취소</app-button>
-  <app-button>적용</app-button>
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>
 
 

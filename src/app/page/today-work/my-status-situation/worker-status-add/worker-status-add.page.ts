@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-worker-status-add',
@@ -45,7 +46,9 @@ export class WorkerStatusAddPage implements OnInit {
     },
   ]
   selectData = [];
-  constructor() { }
+  constructor(
+    private _modal : ModalController
+  ) { }
 
   ngOnInit() {
   }
@@ -53,15 +56,27 @@ export class WorkerStatusAddPage implements OnInit {
   checkName(item) {
     // console.log(item);
     item.checked = !item.checked;
-    if(item.checked) {
-      this.selectData.push({
-        user_name:item.user_name
+    if(item.checked){
+      this.selectData.push(item.user_name);
+      this.selectData = this.selectData.filter((data,index) => {
+        return this.selectData.indexOf(data) === index;
       });
-      this.selectData.filter((item, index) => {
-        return this.selectData.indexOf(item.user_name) !== index;
-      });
-      console.log(this.selectData);
-    } else { 
     }
+  }
+
+  deleteName() { 
+    this.dummyArr.forEach((item,i) => {
+      if(!item.checked){
+       this.selectData.forEach((i) => {
+         this.selectData.splice(i,1);
+       }) 
+      }
+    })
+  }
+
+  submit() {
+    this._modal.dismiss({
+      user_name:this.selectData
+    })  
   }
 }

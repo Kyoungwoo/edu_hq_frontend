@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'nfc',
-    loadChildren: () => import('./page/nfc/nfc.module').then(m => m.NfcPageModule)
-  },
-  {
     path: 'basic/guide',
     loadChildren: () => import('./basic/page/guide/guide.module').then(m => m.GuidePageModule)
   },
@@ -113,43 +109,43 @@ const routes: Routes = [
   },
   {
     path: 'scene-list',
-    loadChildren: () => import('./page/scene-management/scene-management/scene-list/scene-list.module').then(m => m.SceneListPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/scene-list/scene-list.module').then(m => m.SceneListPageModule)
   },
   {
     path: 'scene-edit',
-    loadChildren: () => import('./page/scene-management/scene-management/scene-edit/scene-edit.module').then(m => m.SceneEditPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/scene-edit/scene-edit.module').then(m => m.SceneEditPageModule)
   },
   {
     path: 'scene-area-set',
-    loadChildren: () => import('./page/scene-management/scene-management/scene-area-set/scene-area-set.module').then(m => m.SceneAreaSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/scene-area-set/scene-area-set.module').then(m => m.SceneAreaSetPageModule)
   },
   {
     path: 'member-standard-set',
-    loadChildren: () => import('./page/scene-management/scene-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
   },
   {
     path: 'area-standard-set',
-    loadChildren: () => import('./page/scene-management/scene-management/area-standard-set/area-standard-set.module').then(m => m.AreaStandardSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/area-standard-set/area-standard-set.module').then(m => m.AreaStandardSetPageModule)
   },
   {
     path: 'work-standard-set',
-    loadChildren: () => import('./page/scene-management/scene-management/work-standard-set/work-standard-set.module').then(m => m.WorkStandardSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/work-standard-set/work-standard-set.module').then(m => m.WorkStandardSetPageModule)
   },
   {
     path: 'contractor-list',
-    loadChildren: () => import('./page/scene-management/contractor-management/contractor-list/contractor-list.module').then(m => m.ContractorListPageModule)
+    loadChildren: () => import('./page/project-management/contractor-management/contractor-list/contractor-list.module').then(m => m.ContractorListPageModule)
   },
   {
     path: 'contractor-edit',
-    loadChildren: () => import('./page/scene-management/contractor-management/contractor-edit/contractor-edit.module').then(m => m.ContractorEditPageModule)
+    loadChildren: () => import('./page/project-management/contractor-management/contractor-edit/contractor-edit.module').then(m => m.ContractorEditPageModule)
   },
   {
     path: 'partner-list',
-    loadChildren: () => import('./page/scene-management/partner-management/partner-list/partner-list.module').then(m => m.PartnerListPageModule)
+    loadChildren: () => import('./page/project-management/partner-management/partner-list/partner-list.module').then(m => m.PartnerListPageModule)
   },
   {
     path: 'partner-edit',
-    loadChildren: () => import('./page/scene-management/partner-management/partner-edit/partner-edit.module').then(m => m.PartnerEditPageModule)
+    loadChildren: () => import('./page/project-management/partner-management/partner-edit/partner-edit.module').then(m => m.PartnerEditPageModule)
   },
   {
     path: 'heavy-equip-edit',
@@ -181,7 +177,7 @@ const routes: Routes = [
   },
   {
     path: 'system-standard-set',
-    loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then(m => m.SystemStandardSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/system-standard-set/system-standard-set.module').then(m => m.SystemStandardSetPageModule)
   },
   {
     path: 'my-status-list',
@@ -209,7 +205,7 @@ const routes: Routes = [
   },
   {
     path: 'system-standard-set',
-    loadChildren: () => import('./page/scene-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/system-standard-set/system-standard-set.module').then( m => m.SystemStandardSetPageModule)
   },
   {
     path: 'danger-area-list',
@@ -277,15 +273,15 @@ const routes: Routes = [
   },
   {
     path: 'supervision-list',
-    loadChildren: () => import('./page/scene-management/supervision-management/supervision-list/supervision-list.module').then( m => m.SupervisionListPageModule)
+    loadChildren: () => import('./page/project-management/supervision-management/supervision-list/supervision-list.module').then( m => m.SupervisionListPageModule)
   },
   {
     path: 'supervision-edit',
-    loadChildren: () => import('./page/scene-management/supervision-management/supervision-edit/supervision-edit.module').then( m => m.SupervisionEditPageModule)
+    loadChildren: () => import('./page/project-management/supervision-management/supervision-edit/supervision-edit.module').then( m => m.SupervisionEditPageModule)
   },
   {
     path: 'area-add',
-    loadChildren: () => import('./page/scene-management/scene-management/area-add/area-add.module').then( m => m.AreaAddPageModule)
+    loadChildren: () => import('./page/project-management/scene-management/area-add/area-add.module').then( m => m.AreaAddPageModule)
   },
   {
     path: 'safety-education-list',
@@ -306,6 +302,14 @@ const routes: Routes = [
   {
     path: 'risk-evaluation-edit',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
+  },
+  {
+    path: 'security-password',
+    loadChildren: () => import('./page/member-management/member-approval-wait/security-password/security-password.module').then( m => m.SecurityPasswordPageModule)
+  },
+  {
+    path: 'worker-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule)
   },
 
  

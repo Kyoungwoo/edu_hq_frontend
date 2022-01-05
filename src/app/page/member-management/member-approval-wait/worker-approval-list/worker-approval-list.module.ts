@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NfcPageRoutingModule } from './nfc-routing.module';
+import { WorkerApprovalListPageRoutingModule } from './worker-approval-list-routing.module';
 
-import { NfcPage } from './nfc.page';
+import { WorkerApprovalListPage } from './worker-approval-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    NfcPageRoutingModule
+    WorkerApprovalListPageRoutingModule
   ],
-  declarations: [NfcPage]
+  declarations: [WorkerApprovalListPage]
 })
-export class NfcPageModule {}
+export class WorkerApprovalListPageModule {}
