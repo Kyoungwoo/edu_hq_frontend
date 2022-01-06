@@ -137,8 +137,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   @Input() set value(v:FutItem[]) {
     if(v !== this._value) {
       this._value = v || [];
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.onChangeCallback(this._value);
+      this.change.emit(this._value);
     }
   }
   get value() {
@@ -147,8 +147,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   writeValue(v:FutItem[]): void { 
     if(v !== this._value)  {
       this._value = v || [];
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.onChangeCallback(this._value);
+      this.change.emit(this._value);
     }
   }
 
