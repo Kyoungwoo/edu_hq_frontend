@@ -304,6 +304,13 @@
     }
   }
 
+  .risk-modal {
+    .modal-wrapper{
+      --width:800px;
+      --height:475px;
+    }
+  }
+
   .area-add-modal {
     .modal-wrapper.sc-ion-modal-md{
       --width:300px;

@@ -44,6 +44,8 @@ import { SelectDangerousAreaComponent } from './select/select-dangerous-area/sel
 import { ConfirmSettingPopupComponent } from './confirm/confirm-setting-popup/confirm-setting-popup.component';
 import { ConfirmProcessPopupComponent } from './confirm/confirm-process-popup/confirm-process-popup.component';
 import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.component';
+import { SearchAttendanceComponent } from './modal/search-attendance/search-attendance.component';
+import { SelectAttendanceComponent } from './select/select-attendance/select-attendance.component';
 
 
 
@@ -89,6 +91,8 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
     ConfirmPopupComponent,
+    SearchAttendanceComponent,
+    SelectAttendanceComponent
   ],
   imports: [
     CommonModule,
@@ -138,6 +142,8 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
     ConfirmPopupComponent,
+    SearchAttendanceComponent,
+    SelectAttendanceComponent
   ]
 })
 export class ComponentModule { }

@@ -326,7 +326,12 @@ const routes: Routes = [
   {
     path: 'safety-education-detail-list',
     loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-list/safety-education-detail-list.module').then( m => m.SafetyEducationDetailListPageModule)
+  },
+  {
+    path: 'safety-education-detail-edit',
+    loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-edit/safety-education-detail-edit.module').then( m => m.SafetyEducationDetailEditPageModule)
   }
+
 
 
 ];

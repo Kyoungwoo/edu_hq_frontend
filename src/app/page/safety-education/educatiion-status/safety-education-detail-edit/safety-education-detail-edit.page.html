@@ -1,0 +1,257 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row>
+      <app-col>
+        <h4>교육 정보</h4>
+      </app-col>
+      <app-col size="auto">
+        <app-button color="secondary">수정</app-button>
+      </app-col>
+      <app-col size="auto">
+        <app-button color="danger" fill="translucent">삭제</app-button>
+      </app-col>
+      <app-col size="auto">
+        <app-button fill="translucent">저장</app-button>
+      </app-col>
+    </app-row>
+    <form>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="현장명" value="세종시 단독 주택 공사"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="교육상태" value="교육중"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="교육명" value="채용 시 교육"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="교육대상" value="신규 채용 근로자"></app-input>
+        </app-col>
+          <app-col>
+            <app-input [readonly]="true" label="교육장소" value="A 교육장"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="교육일" value="2021.05.06(화)"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="교육시간" value="07:00~17:00(8H)"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="출석진행자" value="이상범,박소현"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="강사" value="이상범,박소현,이신범"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-textarea label="교육내용" [rows]="10" value="
+          1. 기계· 기구의 위험성 동선에 관한 사항  
+          2. 작업 개시 전 점검에 관한 사항
+          3. 정리정돈 및 청소에 관한 사항
+          4. 사고 발생시 긴급조치에 관한 사항
+          5. 산업보건 및 직업병 예방에 관한 사항
+          6. 산업안전보건법 및 일반관리에 관한 사항
+          7. 직무스트레스 예방 및 관리에 관한 사항
+          8. 물질안전보건자료에 관한 사항
+          *상세 교육 내용은 신규자 교육 교안 및 물질안전보건자료집 참조 
+          "></app-textarea>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>출석 현황 : 00명</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-button color="danger" fill="translucent">출석삭제</app-button>
+        </app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">출석등록(검색)</app-button>
+        </app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">출석등록(QR)</app-button>
+        </app-col>
+      </app-row>
+    </form>
+    <app-table>
+      <thead>
+        <tr>
+          <th style="width: 40px;">No</th>
+          <th>업체명</th>
+          <th>성명</th>
+          <th>서명일시</th>
+          <th style="width: 40px;">No</th>
+          <th>업체명</th>
+          <th>성명</th>
+          <th>서명일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+          <td>2</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+          <td>4</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+          <td>6</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+          <td>8</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+          <td>10</td>
+          <td>지에스아이엘</td>
+          <td>이상범(lsb1234)</td>
+          <td>2021.09.16 10:22:13</td>
+        </tr>
+      </tbody>
+    </app-table>
+  </ion-content>
+  </ng-container>
+
+  <!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <form>
+        <app-row>
+          <app-col>
+            <app-input [readonly]="true" label="현장명" value="세종시 단독 주택 공사"></app-input>
+          </app-col>
+          <app-col>
+            <app-input [readonly]="true" label="교육상태" value="교육중"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
+          </app-col>
+          <app-col>
+            <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select-education></app-select-education>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input label="교육대상" placeholder="교육 대상을 입력하세요"></app-input>
+          </app-col>
+            <app-col>
+            <app-input label="교육장소" placeholder="교육 장소를 입력하세요"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-calendar label="교육일"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-input-group>
+            <app-datetime label="교육 시간"></app-datetime>
+            ~
+            <app-datetime></app-datetime>
+          </app-input-group>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select-attendance></app-select-attendance>
+          </app-col>
+          <app-col>
+            <app-input label="강사" placeholder="강사를 입력하세요"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-textarea label="교육내용" [rows]="10" value="
+            1. 기계· 기구의 위험성 동선에 관한 사항  
+            2. 작업 개시 전 점검에 관한 사항
+            3. 정리정돈 및 청소에 관한 사항
+            4. 사고 발생시 긴급조치에 관한 사항
+            5. 산업보건 및 직업병 예방에 관한 사항
+            6. 산업안전보건법 및 일반관리에 관한 사항
+            7. 직무스트레스 예방 및 관리에 관한 사항
+            8. 물질안전보건자료에 관한 사항
+            *상세 교육 내용은 신규자 교육 교안 및 물질안전보건자료집 참조 
+            "></app-textarea>
+          </app-col>
+        </app-row>
+      </form>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>삭제</app-button>
+    <app-button>저장</app-button>
+  </app-button-footer>
+</ng-container>

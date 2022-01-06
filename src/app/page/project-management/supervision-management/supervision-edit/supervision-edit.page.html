@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>회사 정보</ion-title>
+    <ion-title>감리사 정보</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -12,15 +12,15 @@
   <form>
     <app-row>
       <app-col>
-        <app-input name="input buisnessman" label="사업자등록번호" placeholder="사업자등록번호"></app-input>
+        <app-input [required]="true" name="input buisnessman" label="사업자등록번호" placeholder="사업자등록번호"></app-input>
       </app-col>
       <app-col>
-        <app-input name="input" label="회사명" placeholder="회사명"></app-input>
+        <app-input [required]="true" name="input" label="업체명" placeholder="구일종합건설(주)"></app-input>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-input name="input buisnessman" label="대표자" placeholder="회사전화"></app-input>
+        <app-input [required]="true" name="input buisnessman" label="대표자" placeholder="홍길동"></app-input>
       </app-col>
       <app-col>
       </app-col>

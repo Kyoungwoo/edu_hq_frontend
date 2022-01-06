@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>출석 진행자 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input-group>
+      <app-select label="유형" name="select">
+        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
+      </app-select>
+      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+        <app-img name="search"></app-img>
+      </app-input>
+    </app-input-group>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card>
+    <app-row>
+      <app-col size="3">
+        <h5>업체명</h5>
+        <p>(주)지에스아이엘</p>
+      </app-col>
+      <app-col>
+        <h5>성명</h5>
+        <p>이상범</p>
+      </app-col>
+      <app-col>
+        <h5>직위</h5>
+        <p>프로</p>
+      </app-col>
+      <app-col>
+        <h5>안전직무</h5>
+        <p>관리감독자</p>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="3">
+        <h5>업체명</h5>
+        <p>(주)지에스아이엘</p>
+      </app-col>
+      <app-col>
+        <h5>성명</h5>
+        <p>이상범</p>
+      </app-col>
+      <app-col>
+        <h5>직위</h5>
+        <p>프로</p>
+      </app-col>
+      <app-col>
+        <h5>안전직무</h5>
+        <p>관리감독자</p>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="3">
+        <h5>업체명</h5>
+        <p>(주)지에스아이엘</p>
+      </app-col>
+      <app-col>
+        <h5>성명</h5>
+        <p>이상범</p>
+      </app-col>
+      <app-col>
+        <h5>직위</h5>
+        <p>프로</p>
+      </app-col>
+      <app-col>
+        <h5>안전직무</h5>
+        <p>관리감독자</p>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col size="3">
+        <h5>업체명</h5>
+        <p>(주)지에스아이엘</p>
+      </app-col>
+      <app-col>
+        <h5>성명</h5>
+        <p>이상범</p>
+      </app-col>
+      <app-col>
+        <h5>직위</h5>
+        <p>프로</p>
+      </app-col>
+      <app-col>
+        <h5>안전직무</h5>
+        <p>관리감독자</p>
+      </app-col>
+    </app-row>
+  </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button>취소</app-button>
+  <app-button>적용</app-button>
+</app-button-footer>
+
+
