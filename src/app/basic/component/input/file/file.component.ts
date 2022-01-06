@@ -136,7 +136,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   private _value:FutItem[] = [];
   @Input() set value(v:FutItem[]) {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v || [];
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -145,9 +145,11 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     return this._value;
   }
   writeValue(v:FutItem[]): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    if(v !== this._value)  {
+      this._value = v || [];
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};
