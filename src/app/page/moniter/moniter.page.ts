@@ -60,7 +60,6 @@ export class MoniterPage implements OnInit, OnDestroy {
     // });
     // modal.present();
 
-
     this.getDust();
     this.getWeather();
     

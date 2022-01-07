@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar class="ttet" color="tertiary">
+    <ion-buttons slot="start">
+      <app-logo></app-logo>
+      <app-button color="white" fill="clear" class="menu"><app-img name="menu"></app-img></app-button>
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+          <app-row class="tab-list">
+            <div *ngFor="let tab of tabList; let i = index;"
+            class="tab-item" [class.active]="tab === tabActive" [style.z-index]="10 - i" (click)="tabClick(tab, i)">
+              <span>{{ tab.text }}</span>
+            </div>
+          </app-row>
+        </app-col>
+      </app-row>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- <ion-toolbar color="white" *ngIf="selectedSubMenu">
+    <ion-title>
+      <h4>{{ selectedSubMenu.title }}</h4>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white" *ngIf="selectedSubMenu?.thirdMenuList">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [scrollable]="true" [value]="url">
+          <ion-segment-button *ngFor="let thirdMenu of selectedSubMenu.thirdMenuList" 
+          [routerLink]="thirdMenu.link || null"
+          [value]="thirdMenu.link" [disabled]="!thirdMenu.link">{{ thirdMenu.title }}</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
+  </ion-toolbar> -->
+</ion-header>

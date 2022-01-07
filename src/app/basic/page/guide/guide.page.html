@@ -14,6 +14,13 @@
     </ion-header>
     <ion-content #content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="scrollStart($event)">
       <app-container>
+        <!-- <app-row class="tab-list">
+          <div *ngFor="let tab of tabList; let i = index;"
+          class="tab-item" [class.active]="tab === tabActive" [style.z-index]="10 - i" (click)="tabClick(tab, i)">
+            <span>{{ tab.text }}</span>
+          </div>
+        </app-row> -->
+
         <h1>Library Guide</h1>
         <p>Devmonster의 기본 프론트 개발 library guide 입니다. 모든 값의 디폴트 설정은 <code>app.module.ts</code>에서 설정을 하게 됩니다.</p>
       
@@ -1831,6 +1838,9 @@
         <ion-menu-toggle>
           <ion-item routerLink="/basic/guide" fragment="top">
             <ion-label>home</ion-label>
+          </ion-item>
+          <ion-item href="/basic/guide-image" target="_blank">
+            <ion-label>icons <app-img name="search"></app-img></ion-label>
           </ion-item>
           
           <ion-list-header routerLink="/basic/guide" fragment="animation">
