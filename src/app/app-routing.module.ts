@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./basic/page/guide/guide.module').then(m => m.GuidePageModule)
   },
   {
+    path: 'basic/guide-image',
+    loadChildren: () => import('./basic/page/guide-image/guide-image.module').then( m => m.GuideImagePageModule)
+  },
+  {
     path: 'basic/guide-card-layout',
     loadChildren: () => import('./basic/page/guide-card-layout/guide-card-layout.module').then(m => m.GuideCardLayoutPageModule)
   },
@@ -331,9 +335,6 @@ const routes: Routes = [
     path: 'safety-education-detail-edit',
     loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-edit/safety-education-detail-edit.module').then( m => m.SafetyEducationDetailEditPageModule)
   }
-
-
-
 ];
 
 @NgModule({
