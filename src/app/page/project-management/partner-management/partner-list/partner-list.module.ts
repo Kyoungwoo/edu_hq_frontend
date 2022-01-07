@@ -9,6 +9,7 @@ import { PartnerListPageRoutingModule } from './partner-list-routing.module';
 import { PartnerListPage } from './partner-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { PartnerEditPageModule } from '../partner-edit/partner-edit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    PartnerListPageRoutingModule
+    PartnerListPageRoutingModule,
+    PartnerEditPageModule
   ],
   declarations: [PartnerListPage]
 })

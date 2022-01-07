@@ -17,7 +17,6 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     MoniterPageRoutingModule,
     RiskEvaluationPopupPageModule,
   ],

@@ -1,40 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
-import { SearchCompanyComponent } from 'src/app/component/modal/search-company/search-company.component';
-import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
-import { SearchHeavyComponent } from 'src/app/component/modal/search-heavy/search-heavy.component';
-import { SearchSceneComponent } from 'src/app/component/modal/search-scene/search-scene.component';
-import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
-import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
-import { SearchEducationComponent } from 'src/app/component/modal/search-education/search-education.component';
-import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
-import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
-import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
-import { SelectToolComponent } from 'src/app/component/select/select-tool/select-tool.component';
-import { SelectHeavyComponent } from 'src/app/component/select/select-heavy/select-heavy.component';
-import { SelectEducationComponent } from 'src/app/component/select/select-education/select-education.component';
-import { SelectCompanyComponent } from 'src/app/component/select/select-company/select-company.component';
-import { SelectSceneComponent } from 'src/app/component/select/select-scene/select-scene.component';
-import { SelectPeopleComponent } from 'src/app/component/select/select-people/select-people.component';
-import { SelectBusinessComponent } from 'src/app/component/select/select-business/select-business.component';
-import { SelectSafetymanagerComponent } from 'src/app/component/select/select-safetymanager/select-safetymanager.component';
-import { SelectConstructionComponent } from 'src/app/component/select/select-construction/select-construction.component';
-import { SelectOccupationComponent } from 'src/app/component/select/select-occupation/select-occupation.component';
-import { SelectPositionComponent } from 'src/app/component/select/select-position/select-position.component';
-import { SelectOrganizationComponent } from 'src/app/component/select/select-organization/select-organization.component';
-import { SelectCountryComponent } from 'src/app/component/select/select-country/select-country.component';
-import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { NfcComponent } from 'src/app/basic/component/dialog/nfc/nfc.component';
-import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
-import { RiskEvaluationPopupPage } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page';
 
 @Component({
   selector: 'app-moniter',
@@ -85,11 +54,11 @@ export class MoniterPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:RiskEvaluationPopupPage,
-      cssClass:"risk-modal"
-    });
-    modal.present();
+    // const modal = await this.modal.create({
+    //   component:RiskEvaluationPopupPage,
+    //   cssClass:"risk-modal"
+    // });
+    // modal.present();
 
 
     this.getDust();
