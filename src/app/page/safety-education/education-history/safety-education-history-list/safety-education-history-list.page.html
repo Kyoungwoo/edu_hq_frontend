@@ -1,0 +1,131 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input name="성별" label="교육상태">
+                  <app-radio value="양호">양호</app-radio>
+                  <app-radio value="필요">필요</app-radio>
+                  <app-radio value="기한초과">기한초과</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-item-group slot="start">
+            <ion-chip outline color="primary">양호</ion-chip>
+            <ion-chip outline color="warning">필요</ion-chip>
+            <ion-chip outline color="danger">기한초과</ion-chip>
+          </ion-item-group>
+          <ion-buttons slot="end">
+            <ion-segment color="primary">
+              <ion-segment-button>작업자</ion-segment-button>
+            </ion-segment>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>근로자 교육 이력(총00건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>직종</th>
+              <th>안전직무</th>
+              <th>계약유형</th>
+              <th>채용시</th>
+              <th>정기</th>
+              <th>채용시</th>
+              <th>출역상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9</td>
+              <td>(주)세미</td>
+              <td>전다영</td>
+              <td>작업자</td>
+              <td>철근공</td>
+              <td>신호수</td>
+              <td>일용직</td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td><ion-chip outline color="warning">양호</ion-chip></td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td>출역중</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>(주)세미</td>
+              <td>전다영</td>
+              <td>작업자</td>
+              <td>철근공</td>
+              <td>신호수</td>
+              <td>일용직</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>출역종료</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>(주)세미</td>
+              <td>전다영</td>
+              <td>작업자</td>
+              <td>철근공</td>
+              <td>신호수</td>
+              <td>일용직</td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td><ion-chip outline color="warning">양호</ion-chip></td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td>출역중</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>(주)세미</td>
+              <td>전다영</td>
+              <td>작업자</td>
+              <td>철근공</td>
+              <td>신호수</td>
+              <td>일용직</td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td><ion-chip outline color="warning">양호</ion-chip></td>
+              <td><ion-chip outline color="primary">양호</ion-chip></td>
+              <td>출역중</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>

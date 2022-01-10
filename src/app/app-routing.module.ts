@@ -334,7 +334,52 @@ const routes: Routes = [
   {
     path: 'safety-education-detail-edit',
     loadChildren: () => import('./page/safety-education/educatiion-status/safety-education-detail-edit/safety-education-detail-edit.module').then( m => m.SafetyEducationDetailEditPageModule)
+  },
+  {
+    path: 'safety-education-result-list',
+    loadChildren: () => import('./page/safety-education/education-result/safety-education-result-list/safety-education-result-list.module').then( m => m.SafetyEducationResultListPageModule)
+  },
+  {
+    path: 'new-write-target',
+    loadChildren: () => import('./page/safety-education/education-result/new-write-target/new-write-target.module').then( m => m.NewWriteTargetPageModule)
+  },
+  {
+    path: 'education-confirm-pending-list',
+    loadChildren: () => import('./page/safety-education/education-result/education-confirm-pending-list/education-confirm-pending-list.module').then( m => m.EducationConfirmPendingListPageModule)
+  },
+  {
+    path: 'safety-education-result-edit',
+    loadChildren: () => import('./page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.module').then( m => m.SafetyEducationResultEditPageModule)
+  },
+  {
+    path: 'safety-education-result-detail-search',
+    loadChildren: () => import('./page/safety-education/education-result/safety-education-result-detail-search/safety-education-result-detail-search.module').then( m => m.SafetyEducationResultDetailSearchPageModule)
+  },
+  {
+    path: 'my-education-list',
+    loadChildren: () => import('./page/safety-education/my-education/my-education-list/my-education-list.module').then( m => m.MyEducationListPageModule)
+  },
+  {
+    path: 'my-education-detail-list',
+    loadChildren: () => import('./page/safety-education/my-education/my-education-detail-list/my-education-detail-list.module').then( m => m.MyEducationDetailListPageModule)
+  },
+  {
+    path: 'safety-education-history-list',
+    loadChildren: () => import('./page/safety-education/education-history/safety-education-history-list/safety-education-history-list.module').then( m => m.SafetyEducationHistoryListPageModule)
+  },
+  {
+    path: 'safety-education-history-detail',
+    loadChildren: () => import('./page/safety-education/education-history/safety-education-history-detail/safety-education-history-detail.module').then( m => m.SafetyEducationHistoryDetailPageModule)
   }
+
+
+
+
+
+
+
+
+
 ];
 
 @NgModule({

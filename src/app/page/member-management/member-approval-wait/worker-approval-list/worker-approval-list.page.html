@@ -1,9 +1,145 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>worker-approval-list</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-occupation></app-select-occupation>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-company></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="신청일">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input label="승인현황">
+                  <app-radio value="전체">전체</app-radio>
+                  <app-radio value="미승인">미승인</app-radio>
+                  <app-radio value="반려">반려</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">엑셀 업로드</app-button>
+            <app-button fill="translucent">양식 다운로드</app-button>
+            <app-button fill="translucent">가입승인</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>작업자 가입 신청 목록(총00건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th>
+                <app-check type="all" color="white" size="small" name="check"></app-check>
+              </th>
+              <th style="width: 40px;">No.</th>
+              <th>구분</th>
+              <th>공종</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>국적</th>
+              <th>건강 문진</th>
+              <th>신청일</th>
+              <th>승인현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>50</td>
+              <td>신규가입</td>
+              <td>건축</td>
+              <td>(주)지에스아이엘</td>
+              <td>구범수</td>
+              <td>대한민국</td>
+              <td>정상</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>49</td>
+              <td>신규가입</td>
+              <td>건축</td>
+              <td>(주)지에스아이엘</td>
+              <td>구범수</td>
+              <td>대한민국</td>
+              <td>정상</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>48</td>
+              <td>신규가입</td>
+              <td>건축</td>
+              <td>(주)지에스아이엘</td>
+              <td>구범수</td>
+              <td>대한민국</td>
+              <td>정상</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>47</td>
+              <td>신규가입</td>
+              <td>건축</td>
+              <td>(주)지에스아이엘</td>
+              <td>구범수</td>
+              <td>대한민국</td>
+              <td>정상</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>

@@ -47,6 +47,7 @@ import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.com
 import { SearchAttendanceComponent } from './modal/search-attendance/search-attendance.component';
 import { SelectAttendanceComponent } from './select/select-attendance/select-attendance.component';
 import { MoniterComponent } from './header/moniter/moniter.component';
+import { ApprovalPopupComponent } from '../page/member-management/member-approval-wait/approval-popup/approval-popup.component';
 
 
 
@@ -94,7 +95,8 @@ import { MoniterComponent } from './header/moniter/moniter.component';
     ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
-    MoniterComponent
+    MoniterComponent,
+    ApprovalPopupComponent
   ],
   imports: [
     CommonModule,
@@ -146,7 +148,8 @@ import { MoniterComponent } from './header/moniter/moniter.component';
     ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
-    MoniterComponent
+    MoniterComponent,
+    ApprovalPopupComponent
   ]
 })
 export class ComponentModule { }

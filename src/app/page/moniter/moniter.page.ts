@@ -4,6 +4,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
+import { ApprovalPopupComponent } from '../member-management/member-approval-wait/approval-popup/approval-popup.component';
 
 @Component({
   selector: 'app-moniter',
@@ -54,11 +55,11 @@ export class MoniterPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    // const modal = await this.modal.create({
-    //   component:RiskEvaluationPopupPage,
-    //   cssClass:"risk-modal"
-    // });
-    // modal.present();
+    const modal = await this.modal.create({
+      component:ApprovalPopupComponent,
+      cssClass:"modal-7"
+    });
+    modal.present();
 
     this.getDust();
     this.getWeather();

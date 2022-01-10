@@ -1,0 +1,215 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-education></app-select-education>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="교육일">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="결재 현황"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">신규 작성</app-button>
+            <app-button fill="translucent">미결 문서</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>결과 보고 목록(총00건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>업체명</th>
+              <th>교육명</th>
+              <th>교육대상</th>
+              <th>교육일</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>결재현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9</td>
+              <td>(주)제일</td>
+              <td>작업 변겅시 교육</td>
+              <td>일용근로자</td>
+              <td>2021.05.21(금)</td>
+              <td>이상범</td>
+              <td>2021.09.15</td>
+              <td>승인</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>(주)제일</td>
+              <td>작업 변겅시 교육</td>
+              <td>일용근로자</td>
+              <td>2021.05.21(금)</td>
+              <td>이상범</td>
+              <td>2021.09.15</td>
+              <td>승인</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>(주)제일</td>
+              <td>작업 변겅시 교육</td>
+              <td>일용근로자</td>
+              <td>2021.05.21(금)</td>
+              <td>이상범</td>
+              <td>2021.09.15</td>
+              <td>승인</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>(주)제일</td>
+              <td>작업 변겅시 교육</td>
+              <td>일용근로자</td>
+              <td>2021.05.21(금)</td>
+              <td>이상범</td>
+              <td>2021.09.15</td>
+              <td>승인</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>교육 결과 보고</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row>
+      <app-col></app-col>
+      <app-col size="auto">
+        <app-button fill="translucent">미결문서</app-button>
+      </app-col>
+    </app-row>
+    <ng-container>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>채용 시 교육 결과 보고서</h5>
+            <p>(주)남광토건/교육일:2021.05.20(목)</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">채용시</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>작업자 정기 교육 결과 보고서</h5>
+            <p>(주)남광토건/교육일:2021.05.20(목)</p>
+        </app-col>
+          <app-col size="auto">
+            <ion-chip color="danger">반려</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">정기(작업자)</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>관리감독자 정기 교육 결과 보고서</h5>
+            <p>(주)남광토건/교육일:2021.05.20(목)</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">정기(관리감독자)</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>특별 교육 결과 보고서</h5>
+            <p>(주)남광토건/교육일:2021.05.20(목)</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="primary">승인</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">특별04</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+</ng-container>

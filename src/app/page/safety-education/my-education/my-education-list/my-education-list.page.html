@@ -1,0 +1,53 @@
+
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>나의 교육</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <p>(주)남광토건</p>
+            <p>(주)건영작업자/A교육장/이상범,구범수</p>
+            <p>21.05.21(금)/06:00~08:00</p>
+        </app-col>
+          <app-col size="auto">
+            <ion-chip color="medium">교육종료</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">채용시</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <p>(주)남광토건</p>
+            <p>(주)건영작업자/A교육장/이상범,구범수</p>
+            <p>21.05.21(금)/06:00~08:00</p>
+        </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">교육중</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">정기(작업자)</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>교육출석(QR)</app-button>
+  </app-button-footer>
