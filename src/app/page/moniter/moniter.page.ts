@@ -46,6 +46,38 @@ export class MoniterPage implements OnInit, OnDestroy {
   intervalWeather;
   intervalDust;
 
+
+  maxIndex = 300;
+  graphArrCount =[];
+  graphArr = [
+    {
+      name:'기계'
+    },
+    {
+      name:'건축'
+    },
+    {
+      name:'조경'
+    },
+    {
+      name:'토목'
+    },
+    {
+      name:'전기'
+    }
+]
+graph = [
+  { color: '#25A485', name: '작업대기', data: [
+    {value: 20, label: '8시'},
+    {value: 60, label: '9시'},
+    {value: 50, label: '10시'}
+  ]},
+  { color: '#78CE5C', name: '작업중', data: [
+    {value: 30, label: '8시'},
+    {value: 20, label: '9시'},
+    {value: 80, label: '10시'}
+  ]}
+]
   constructor(
     private connect:ConnectService,
     private qr:QrService,
@@ -60,6 +92,12 @@ export class MoniterPage implements OnInit, OnDestroy {
       cssClass:"modal-7"
     });
     modal.present();
+    this.graphData()
+    // const modal = await this.modal.create({
+    //   component:RiskEvaluationPopupPage,
+    //   cssClass:"risk-modal"
+    // });
+    // modal.present();
 
     this.getDust();
     this.getWeather();
@@ -75,9 +113,6 @@ export class MoniterPage implements OnInit, OnDestroy {
     clearInterval(this.intervalDust);
   }
 
-  test(){
-    // this.qr.subscribe
-  }
 
   // async getWeatherGroup() {
     // const resultDust = await Promise.all([    
@@ -144,5 +179,15 @@ export class MoniterPage implements OnInit, OnDestroy {
         this.connect.error('asdf',res);
       }
     });
+  }
+  graphData() {
+    let index = Math.ceil(this.maxIndex/100);
+    console.log("index",index);
+    if(this.maxIndex/100 !== 0) {
+      for(let i= 0; i<index; i++){
+        this.graphArrCount.push(i);
+      }
+    }
+    this.graphArrCount.push(index);
   }
 }
