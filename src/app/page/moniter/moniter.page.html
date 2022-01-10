@@ -1,63 +1,370 @@
 <ion-header>
   <ion-toolbar>
     <app-moniter-header></app-moniter-header>
-    <app-row>
-      <app-col size="3">
-        <app-select>
-          <app-select-option>전체</app-select-option>
-        </app-select>
-      </app-col>
-      <app-col></app-col>
-      <app-col size="auto">
-        <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
-          <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
-        </app-button>
-      </app-col>
-      <app-col size="auto">
-        <app-row class="weather-temp">
-          {{ weather.weather_temp + "&deg;C"}}
-        </app-row>
-        <app-row class="ratio">
-          {{ weather.high_weather_temp + "&deg;C" }}
-          {{ weather.low_weather_temp + "&deg;C"}}
-        </app-row>
-      </app-col>
-      <app-col class="colstyle" size="auto">
-        <app-row class="title">
-          강수량
-        </app-row>
-        <app-row class="ratio">
-          {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
-        </app-row>
-      </app-col>
-      <app-col class="colstyle" size="auto">
-        <app-row class="title">
-          적설량
-        </app-row>
-        <app-row class="ratio">
-          {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
-        </app-row>
-      </app-col>
-      <app-col class="colstyle" size="auto">
-        <app-row class="title">
-          최대풍속
-        </app-row>
-        <app-row class="ratio">
-          {{ weather.weather_speed + "m/s"}}
-        </app-row>
-      </app-col>
-      <app-col class="colstyle" size="auto">
-        <app-row class="title">
-          미세먼지
-        </app-row>
-        <app-row class="ratio">
-          <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
-          {{ dust.grade_name}}
-        </app-row>
-      </app-col>
-    </app-row>
+    <app-card class="margin-card">
+      <app-row>
+        <app-col size="3">
+          <app-select>
+            <app-select-option>전체</app-select-option>
+          </app-select>
+        </app-col>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
+            <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+          </app-button>
+        </app-col>
+        <app-col size="auto">
+          <app-row class="weather-temp">
+            {{ weather.weather_temp + "&deg;C"}}
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.high_weather_temp + "&deg;C" }}
+            {{ weather.low_weather_temp + "&deg;C"}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            강수량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            적설량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            최대풍속
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_speed + "m/s"}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            미세먼지
+          </app-row>
+          <app-row class="ratio">
+            <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+            {{ dust.grade_name}}
+          </app-row>
+        </app-col>
+      </app-row>
+    </app-card>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col>
+      <app-card color="white">
+        <app-row style="align-items: stretch;">
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h3>금일 출역 근로자</h3>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <ion-chip class="chip-back">총 113명</ion-chip>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;" size="7">
+                <div style="width: 250px; position: relative;">
+                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
+                    <!-- <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="orange" stroke-width="4" 
+                      stroke-dasharray="30 70"
+                      stroke-dashoffset="25"></circle>
+                      <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eeeeee" stroke-width="4" 
+                      stroke-dasharray="30 70"
+                      stroke-dashoffset="95"></circle> -->
+                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
+                    </circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
+                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+                  </svg>
+                  <div class="donut-in-count">
+                    113
+                  </div>
+                  <div class="donut-in-text">
+                    총 출역인원
+                  </div>
+                </div>
+              </app-col>
+              <app-col size="4">
+                <app-row>
+                  <app-col style="display: flex;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-worker.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">작업자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+                <app-row style="margin-bottom: 15px;">
+                  <div class="dount-worker"></div>
+                  <div style="height: 10px; width: 150px;background-color: #44C650; opacity: 0.3;"></div>
+                </app-row>
+                <app-row>
+                  <app-col style="display: flex;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-partner.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">관리자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <div class="dount-partner"></div>
+                  <div style="height: 10px; width: 150px;background-color: #2F8D38; opacity: 0.3;"></div>
+                </app-row>
+              </app-col>
+            </app-row>
+          </app-col>
+          <app-col class="middle-box">
+            <ion-row>
+              <app-col>
+                <h3>금일 출역 근로자</h3>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <ion-chip class="chip-back">총 113명</ion-chip>
+              </app-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div style="position: relative;">
+                  <ng-container *ngFor="let item of graphArrCount let i = index">
+                    <div class="graph-box">
+                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
+                      <div class="grach-line"></div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="graph-rod-group">
+                  <ng-container *ngFor="let item of graphArr let i = index">
+                    <div class="graph-rod-main">
+                      <div class="graph-rod-tow"></div>
+                      <div class="graph-rod-one"></div>
+                      <div style="position: absolute; bottom: -25px; width: 100%; text-align: center;">{{ item.name }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ion-col>
+              <ion-col class="graph-sub">
+                <app-row>
+                  <app-col style="display: flex;justify-content: end;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-worker.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">작업자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="display: flex; justify-content: end;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-partner.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">관리자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+              </ion-col>
+            </ion-row>
+          </app-col>
+          <app-col>
+            <app-graph-line style="width: 100%; height: 200px;">
+              <app-graph-group [color]="graphItem.color" [name]="graphItem.name" *ngFor="let graphItem of graph">
+                <app-graph-value *ngFor="let graphData of graphItem.data" 
+                [label]="graphData.label" [value]="graphData.value"></app-graph-value>
+              </app-graph-group>
+            </app-graph-line>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card color="white">
+        <app-row style="align-items: stretch;">
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h3>금일 작업 계획</h3>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <ion-chip class="chip-back">총 33명</ion-chip>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;" size="7">
+                <div style="width: 250px; position: relative;">
+                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
+                    <!-- <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="orange" stroke-width="4" 
+                      stroke-dasharray="30 70"
+                      stroke-dashoffset="25"></circle>
+                      <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eeeeee" stroke-width="4" 
+                      stroke-dasharray="30 70"
+                      stroke-dashoffset="95"></circle> -->
+                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
+                    </circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
+                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+                  </svg>
+                  <div class="donut-in-count">
+                    33
+                  </div>
+                  <div class="donut-in-text">
+                    총 작업
+                  </div>
+                </div>
+              </app-col>
+              <app-col size="4">
+                <app-row>
+                  <app-col style="display: flex;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-worker.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">작업자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="display: flex;">
+                    <app-img style="width: 35px;" src="/assets/img/monitor/monitor-partner.svg"></app-img>
+                    <p style="padding-left: 8px; font-size: 25px;">관리자</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3 style="font-weight: 800; color: #9CB3BE;">50</h3>
+                  </app-col>
+                </app-row>
+              </app-col>
+            </app-row>
+          </app-col>
+          <app-col size="4" class="middle-box">
+            <ion-row>
+              <app-col>
+                <h3>공종별 작업 현황</h3>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <ion-chip class="chip-back">총 113명</ion-chip>
+              </app-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div style="position: relative;">
+                  <ng-container *ngFor="let item of graphArrCount let i = index">
+                    <div class="graph-box">
+                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
+                      <div class="grach-line"></div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="graph-rod-group">
+                  <ng-container *ngFor="let item of graphArr let i = index">
+                    <div class="graph-rod-main-2">
+                      <div class="graph-rod-tow"></div>
+                      <div class="graph-rod-one"></div>
+                      <div style="position: absolute; bottom: -25px; width: 100%; text-align: center;">{{ item.name }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ion-col>
+              <ion-col class="graph-sub">
+                <app-row>
+                  <app-col class="sub-graph">
+                    <!-- <app-img style="width: 35px;" src="/assets/img/menu/monitor-worker.svg"></app-img>
+                     -->
+                     <div class="circlel-plan"></div>
+                    <p style="padding-left: 8px; font-size: 25px;">계획</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3>50</h3>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col class="sub-graph">
+                    <!-- <app-img style="width: 35px;" src="/assets/img/menu/monitor-partner.svg"></app-img> -->
+                    <div class="circlel-per"></div>
+                    <p style="padding-left: 8px; font-size: 25px;">실적</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <h3>50</h3>
+                  </app-col>
+                </app-row>
+              </ion-col>
+            </ion-row>
+          </app-col>
+
+          <app-col>
+          </app-col>
+        </app-row>
+      </app-card>
+
+
+      <app-card>
+        <app-row>
+          <app-col>
+            
+          </app-col>
+          <app-col>
+
+          </app-col>
+          <app-col>
+
+          </app-col>
+        </app-row>
+      </app-card>
+
+    </app-col>
+    <app-col style="flex: 0 0 250px;">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h4>위험 감지</h4></app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td><app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img></td>
+            <td class="table-text">중장비<br>접금감지</td>
+            <td class="table-count">1</td>
+          </tr>
+          <tr>
+            <td><app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img></td>
+            <td class="table-text">위험지역<br>접금감지</td>
+            <td class="table-count">3</td>
+          </tr>
+          <tr>
+            <td><app-img style="width: 50px;" src="/assets/img/monitor/safetyhook.svg"></app-img></td>
+            <td class="table-text">안전고리<br>미체결</td>
+            <td class="table-count">4</td>
+          </tr>
+          <tr>
+            <td><app-img style="width: 50px;" src="/assets/img/monitor/closeness.svg"></app-img></td>
+            <td class="table-text">밀폐환경정보<br>모니터링</td>
+            <td class="table-count">5</td>
+          </tr>
+          <tr>
+            <td><app-img style="width: 50px;" src="/assets/img/monitor/smart.svg"></app-img></td>
+            <td class="table-text">스마트<br>헬스케어 밴드</td>
+            <td class="table-count">6</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
 </ion-content>
