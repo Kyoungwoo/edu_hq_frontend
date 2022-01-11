@@ -168,15 +168,12 @@ graph = [
   ) { }
 
   async ngOnInit() {
-<<<<<<< HEAD:src/app/page/monitor/monitor.page.ts
-=======
     // const modal = await this.modal.create({
     //   component:PeopleViewComponent,
     //   // cssClass:"modal-4"
     // });
     // modal.present();
     // this.graphData()
->>>>>>> 05ffd94058e585adb5265a32dbf39004f8069e00:src/app/page/moniter/moniter.page.ts
     // const modal = await this.modal.create({
     //   component:ApprovalPopupComponent,
     //   cssClass:"modal-7"
