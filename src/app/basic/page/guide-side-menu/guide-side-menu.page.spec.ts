@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SecurityPasswordPage } from './security-password.page';
+import { GuideSideMenuPage } from './guide-side-menu.page';
 
-describe('SecurityPasswordPage', () => {
-  let component: SecurityPasswordPage;
-  let fixture: ComponentFixture<SecurityPasswordPage>;
+describe('GuideSideMenuPage', () => {
+  let component: GuideSideMenuPage;
+  let fixture: ComponentFixture<GuideSideMenuPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SecurityPasswordPage ],
+      declarations: [ GuideSideMenuPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SecurityPasswordPage);
+    fixture = TestBed.createComponent(GuideSideMenuPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

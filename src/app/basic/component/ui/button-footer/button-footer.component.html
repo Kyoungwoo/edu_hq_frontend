@@ -1,7 +1,10 @@
 <ion-footer>
   <ion-toolbar color="white">
-    <div class="button-list">
+    <div class="content">
       <ng-content></ng-content>
+    </div>
+    <div class="button-list">
+      <ng-content select="app-button"></ng-content>
     </div>
   </ion-toolbar>
 </ion-footer>

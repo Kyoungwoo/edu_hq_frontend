@@ -1,0 +1,126 @@
+
+
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+    <ion-toolbar color="white">
+      <ion-title>
+        <h4>LH 관리자 가입승인</h4>
+      </ion-title>
+    </ion-toolbar>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-organization></app-select-organization>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="신청일">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input label="승인현황">
+                  <app-radio value="전체">전체</app-radio>
+                  <app-radio value="미승인">미승인</app-radio>
+                  <app-radio value="반려">반려</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">엑셀 업로드</app-button>
+            <app-button fill="translucent">양식 다운로드</app-button>
+            <app-button fill="translucent">가입승인</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>LH 관리자 가입 신청 목록(총00건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+              <th style="width: 40px;">No.</th>
+              <th>조직기구</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>신청일</th>
+              <th>승인현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>50</td>
+              <td>서울지역본부</td>
+              <td>구범수</td>
+              <td>부장</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>49</td>
+              <td>서울지역본부</td>
+              <td>구범수</td>
+              <td>부장</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>48</td>
+              <td>서울지역본부</td>
+              <td>구범수</td>
+              <td>부장</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+            <tr>
+              <td>
+                <app-check color="white" size="small" name="check"></app-check>
+              </td>
+              <td>47</td>
+              <td>서울지역본부</td>
+              <td>구범수</td>
+              <td>부장</td>
+              <td>2021-05-20</td>
+              <td>미승인</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
