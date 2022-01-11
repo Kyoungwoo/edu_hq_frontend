@@ -14,10 +14,17 @@
       <app-avatar view_type="PROFILE" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
       <app-row mobileBreak>
         <app-col>
-          <app-input name="성명" label="성명" placeholder="이름을 입력해주세요." [(ngModel)]="form.user_name" [required]="true"></app-input>
+          <app-input
+          name="성명" label="성명"
+          placeholder="이름을 입력해주세요."
+          [color]="resCheck && 'danger'"
+          [(ngModel)]="form.user_name" [required]="true"></app-input>
+          <app-input-caption *ngIf="resCheck" color="danger">{{ resCheck.rsMsg }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-input name="아이디" label="아이디" placeholder="영문과 숫자만 입력해주세요."
+          <app-input
+          name="아이디" label="아이디"
+          placeholder="영문과 숫자만 입력해주세요."
           [color]="
           resOverlapId && resOverlapId.rsCode !== 0 ? 'warning' :
           resOverlapId && resOverlapId.rsCode === 0 ? 'primary' :
@@ -30,7 +37,7 @@
       <app-row mobileBreak>
         <app-col>
           <app-input name="비밀번호" label="비밀번호" placeholder="영문, 숫자, 조합(6~20자)" type="password"
-          [(ngModel)]="form.account_token" [required]="true"></app-input>
+          [(ngModel)]="form.account_token" (keyup)="checkPass()" [required]="true"></app-input>
         </app-col>
         <app-col>
           <app-input name="비밀번호 확인" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
@@ -92,5 +99,5 @@
 </ion-content>
 <app-button-footer>
   <app-button routerLink="/sign-up-company" [queryParams]="{userType: 'WORKER'}" routerDirection="back">이전</app-button>
-  <app-button routerLink="/sign-up-terms" [queryParams]="{userType: 'WORKER'}">다음</app-button>
+  <app-button (click)="next()">다음</app-button>
 </app-button-footer>

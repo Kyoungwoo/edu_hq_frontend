@@ -35,7 +35,7 @@ describe('LoginPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('로그인 정보를 부정확하게 입력함', async() => {
+  it('로그인 정보를 부정확하게 입력하면 피드백이 나와야 함', async() => {
     const el = fixture.debugElement;
     const inputId = <InputComponent>el.query(By.css('.input-id')).componentInstance;
     const inputPassword = <InputComponent>el.query(By.css('.input-password')).componentInstance;
@@ -53,14 +53,7 @@ describe('LoginPage', () => {
     expect(inputCaptionInvalid).toBeTruthy();
   });
 
-  it('로그인 근로자 정보를 정확하게 입력함. 토큰을 받고, 근로자 메인페이지로 이동', async() => {
-    let url;
-    router.events.subscribe((nav) => {
-      if(nav instanceof NavigationEnd) {
-        url = nav.url;
-      }
-    })
-
+  it('로그인 근로자 정보를 정확하게 입력함. 토큰을 받고, 각 타입에 따라 페이지를 이동한다.', async() => {
     const el = fixture.debugElement;
     const inputId = <InputComponent>el.query(By.css('.input-id')).componentInstance;
     const inputPassword = <InputComponent>el.query(By.css('.input-password')).componentInstance;

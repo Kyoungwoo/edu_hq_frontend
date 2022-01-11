@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -47,7 +47,7 @@ export class SignUpWorkerForm {
   styleUrls: ['./sign-up-worker.page.scss'],
   animations: [ fadeAnimation ]
 })
-export class SignUpWorkerPage implements OnInit {
+export class SignUpWorkerPage implements OnInit, DoCheck {
 
   params:SignUpCompanyInfo;
 
@@ -58,9 +58,12 @@ export class SignUpWorkerPage implements OnInit {
   }
 
   resOverlapId:ConnectResult;
+  resCheckPass:ConnectResult;
   resOverlapPhone:ConnectResult;
   resAligoSend:ConnectResult;
   resAligoCheck:ConnectResult;
+
+  resCheck:ConnectResult;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -72,16 +75,30 @@ export class SignUpWorkerPage implements OnInit {
   ngOnInit() {
     this.activedRoute.queryParams.subscribe((queryParams:SignUpCompanyInfo) => {
       this.params = queryParams;
+      this.form.company_id = this.params.company_id;
     });
+  }
+  ngDoCheck() {
+    console.log('Do Check');
   }
 
   timeoutOverlapId;
   public overlapId() {
     const { account_id } = this.form;
     clearTimeout(this.timeoutOverlapId);
-    if(account_id?.length < 2) return this.resOverlapId = null;
+    if(account_id?.length < 3) return this.resOverlapId = null;
     this.timeoutOverlapId = setTimeout(async() => {
       this.resOverlapId = await this.connect.run('/forSignUp/overlap/id', { account_id });
+    }, 200);
+  }
+
+  timeoutCheckPass;
+  public checkPass() {
+    const { user_phone } = this.form;
+    clearTimeout(this.timeoutCheckPass);
+    if(user_phone?.length < 3) return this.resCheckPass = null;
+    this.timeoutCheckPass = setTimeout(async() => {
+      this.resCheckPass = await this.connect.run('/forSignUp/check/pass', { user_phone });
     }, 200);
   }
   
@@ -89,8 +106,8 @@ export class SignUpWorkerPage implements OnInit {
   public overlapPhone() {
     const { user_phone } = this.form;
     clearTimeout(this.timeouOverlapPhone);
-    if(user_phone?.length < 2) return this.resOverlapPhone = null;
-    this.timeoutOverlapId = setTimeout(async() => {
+    if(user_phone?.length < 3) return this.resOverlapPhone = null;
+    this.timeouOverlapPhone = setTimeout(async() => {
       this.resOverlapPhone = await this.connect.run('/forSignUp/overlap/phone', { user_phone });
     }, 200);
   }
@@ -102,5 +119,29 @@ export class SignUpWorkerPage implements OnInit {
   public async aligoCheck() {
     const { user_phone } = this.form;
     this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    
+  }
+
+  public next() {
+    /* if(!this.form.account_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.account_token) return {color: 'warning', message: '비밀번호를 입력해주세요.'};
+    if(!this.confirm.account_token) return {color: 'warning', message: '비밀번호 확인을 입력해주세요.'};
+    if(!this.form.ctgo_country_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.company_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.ctgo_construction_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.ctgo_occupation_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.project_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.user_name) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.user_gender) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.user_birth) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.user_email) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.user_phone) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.sms_token) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.basic_safe_edu_date) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.file) return {color: 'warning', message: '아이디를 입력해주세요.'};
+    if(!this.form.file_json) return {color: 'warning', message: '아이디를 입력해주세요.'}; */
+    
+    this.resCheck = new ConnectResult();
+
+    // this.nav.navigateForward('/sign-up-health');
   }
 }

@@ -8,6 +8,9 @@
     padding-right: var(--app-page-padding);
     text-align: center;
   }
+  .content:empty {
+    display: none;
+  }
   .button-list {
     display: flex;
     justify-content: flex-end;
