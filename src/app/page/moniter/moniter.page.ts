@@ -5,6 +5,8 @@ import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ApprovalPopupComponent } from '../member-management/member-approval-wait/approval-popup/approval-popup.component';
+import { SecurityPasswordComponent } from '../member-management/member-approval-wait/security-password/security-password.component';
+import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 
 @Component({
   selector: 'app-moniter',
@@ -87,12 +89,12 @@ graph = [
   ) { }
 
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:ApprovalPopupComponent,
-      cssClass:"modal-7"
-    });
-    modal.present();
-    this.graphData()
+    // const modal = await this.modal.create({
+    //   component:PeopleViewComponent,
+    //   // cssClass:"modal-4"
+    // });
+    // modal.present();
+    // this.graphData()
     // const modal = await this.modal.create({
     //   component:RiskEvaluationPopupPage,
     //   cssClass:"risk-modal"

@@ -308,10 +308,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
   },
   {
-    path: 'security-password',
-    loadChildren: () => import('./page/member-management/member-approval-wait/security-password/security-password.module').then( m => m.SecurityPasswordPageModule)
-  },
-  {
     path: 'worker-approval-list',
     loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule)
   },
@@ -370,7 +366,46 @@ const routes: Routes = [
   {
     path: 'safety-education-history-detail',
     loadChildren: () => import('./page/safety-education/education-history/safety-education-history-detail/safety-education-history-detail.module').then( m => m.SafetyEducationHistoryDetailPageModule)
-  }
+  },
+  {
+    path: 'lh-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/lh-approval-list/lh-approval-list.module').then( m => m.LhApprovalListPageModule)
+  },
+  {
+    path: 'supervision-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/supervision-approval-list/supervision-approval-list.module').then( m => m.SupervisionApprovalListPageModule)
+  },
+  {
+    path: 'partner-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/partner-approval-list/partner-approval-list.module').then( m => m.PartnerApprovalListPageModule)
+  },
+  {
+    path: 'worker-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/worker-info-list/worker-info-list.module').then( m => m.WorkerInfoListPageModule)
+  },
+  {
+    path: 'lh-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/lh-info-list/lh-info-list.module').then( m => m.LhInfoListPageModule)
+  },
+  {
+    path: 'supervision-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/supervision-info-list/supervision-info-list.module').then( m => m.SupervisionInfoListPageModule)
+  },
+  {
+    path: 'partner-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/partner-info-list/partner-info-list.module').then( m => m.PartnerInfoListPageModule)
+  },
+  {
+    path: 'worker-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-edit/worker-approval-edit.module').then( m => m.WorkerApprovalEditPageModule)
+  },
+
+
+
+
+
+
+
 
 
 

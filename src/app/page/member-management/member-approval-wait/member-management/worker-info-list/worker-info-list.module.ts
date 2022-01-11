@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SecurityPasswordPageRoutingModule } from './security-password-routing.module';
+import { WorkerInfoListPageRoutingModule } from './worker-info-list-routing.module';
 
-import { SecurityPasswordPage } from './security-password.page';
+import { WorkerInfoListPage } from './worker-info-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    SecurityPasswordPageRoutingModule
+    WorkerInfoListPageRoutingModule
   ],
-  declarations: [SecurityPasswordPage]
+  declarations: [WorkerInfoListPage]
 })
-export class SecurityPasswordPageModule {}
+export class WorkerInfoListPageModule {}
