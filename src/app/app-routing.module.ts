@@ -399,9 +399,26 @@ const routes: Routes = [
     path: 'worker-approval-edit',
     loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-edit/worker-approval-edit.module').then( m => m.WorkerApprovalEditPageModule)
   },
-
-
-
+  { 
+    path: 'guide-side-menu',
+    loadChildren: () => import('./basic/page/guide-side-menu/guide-side-menu.module').then( m => m.GuideSideMenuPageModule)
+  },
+  {
+    path: 'belong-info-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/belong-info-edit/belong-info-edit.module').then( m => m.BelongInfoEditPageModule)
+  },
+  {
+    path: 'lh-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/lh-approval-edit/lh-approval-edit.module').then( m => m.LhApprovalEditPageModule)
+  },
+  {
+    path: 'supervision-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/supervision-approval-edit/supervision-approval-edit.module').then( m => m.SupervisionApprovalEditPageModule)
+  },
+  {
+    path: 'partner-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/partner-approval-edit/partner-approval-edit.module').then( m => m.PartnerApprovalEditPageModule)
+  }
 
 
 
