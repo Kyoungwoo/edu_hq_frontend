@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'moniter',
-    loadChildren: () => import('./page/moniter/moniter.module').then(m => m.MoniterPageModule)
+    loadChildren: () => import('./page/monitor/monitor.module').then(m => m.MoniterPageModule)
   },
   {
     path: 'manual-list',

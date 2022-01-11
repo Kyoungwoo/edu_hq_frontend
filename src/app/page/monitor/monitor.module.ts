@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MoniterPageRoutingModule } from './moniter-routing.module';
+import { MonitorPageRoutingModule } from './monitor-routing.module';
 
-import { MoniterPage } from './moniter.page';
+import { MonitorPage } from './monitor.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module';
@@ -17,9 +17,9 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
     FormsModule,
     IonicModule,
     ComponentModule,
-    MoniterPageRoutingModule,
+    MonitorPageRoutingModule,
     RiskEvaluationPopupPageModule,
   ],
-  declarations: [MoniterPage]
+  declarations: [MonitorPage]
 })
 export class MoniterPageModule {}

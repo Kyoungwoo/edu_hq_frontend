@@ -8,10 +8,10 @@ import { ApprovalPopupComponent } from '../member-management/member-approval-wai
 
 @Component({
   selector: 'app-moniter',
-  templateUrl: './moniter.page.html',
-  styleUrls: ['./moniter.page.scss'],
+  templateUrl: './monitor.page.html',
+  styleUrls: ['./monitor.page.scss'],
 })
-export class MoniterPage implements OnInit, OnDestroy {
+export class MonitorPage implements OnInit, OnDestroy {
   // theme_1 = [
   //   {qwe_id:1, qwe_name:"test_1"},
   //   {qwe_id:2, qwe_name:"test_2"},
@@ -66,6 +66,85 @@ export class MoniterPage implements OnInit, OnDestroy {
       name:'전기'
     }
 ]
+
+graphArr2 = [
+  {
+    name:'작업대기',
+    count:230
+  },
+  {
+    name:'작업중',
+    count:50
+  },
+  {
+    name:'작업종료',
+    count:70
+  }
+]
+
+graphArr3 = [
+  {
+    name:'1등급',
+    count:230
+  },
+  {
+    name:'2등급',
+    count:150
+  },
+  {
+    name:'3등급',
+    count:140
+  },
+  {
+    name:'4등급',
+    count:260
+  },
+  {
+    name:'5등급',
+    count:120
+  },
+  {
+    name:'6등급',
+    count:160
+  },
+  {
+    name:'9등급',
+    count:70
+  }
+]
+
+graphArr4 = [
+  {
+    name:'인화성 물질 취급',
+    count:10
+  },
+  {
+    name:'비계(설치/해체)',
+    count:2
+  },
+  {
+    name:'고소',
+    count:3
+  },
+  {
+    name:'밀폐공간',
+    count:4
+  },
+  {
+    name:'굴착',
+    count:5
+  },
+  {
+    name:'화기',
+    count:6
+  },
+  {
+    name:'화재/폭발',
+    count:7
+  }
+]
+
+
 graph = [
   { color: '#25A485', name: '작업대기', data: [
     {value: 20, label: '8시'},
@@ -87,18 +166,13 @@ graph = [
   ) { }
 
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:ApprovalPopupComponent,
-      cssClass:"modal-7"
-    });
-    modal.present();
-    this.graphData()
     // const modal = await this.modal.create({
-    //   component:RiskEvaluationPopupPage,
-    //   cssClass:"risk-modal"
+    //   component:ApprovalPopupComponent,
+    //   cssClass:"modal-7"
     // });
     // modal.present();
-
+      
+    this.graphData();
     this.getDust();
     this.getWeather();
     
@@ -189,5 +263,8 @@ graph = [
       }
     }
     this.graphArrCount.push(index);
+  }
+  count_avg(){
+
   }
 }

@@ -18,7 +18,7 @@
 .chip-back{
     background-color: var(--ion-color-light);
     border-radius: 15px;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .donut-group {
@@ -41,17 +41,29 @@
     }
     .dount-worker{
         height: 10px;
-        width: 150px;
+        width: 30%;
         background-color: var(--ion-color-primary);
         position: relative;
-        max-width: 150px;
+    }
+    .dount-worker-sub {
+        height: 10px;
+        width: 100%;
+        background-color: var(--ion-color-primary);
+        position: absolute;
+        opacity: .1;
     }
     .dount-partner {
         height: 10px;
-        width: 150px;
+        width: 30%;
         background-color: var(--ion-color-secondary-contrast);
         position: relative;
-        max-width: 150px;
+    }
+    .dount-partner-sub {
+        height: 10px;
+        width: 100%;
+        background-color: var(--ion-color-secondary-contrast);
+        position: absolute;
+        opacity: .1;
     }
 }
 .graph-box{
@@ -81,11 +93,11 @@
 .graph-rod-group{
     display: flex;
     position: absolute;
-    top: -6px;
-    left: 45px;
+    top: -5px;
+    left: 40px;
     margin-right: 5px;
     height: 100%;
-    width: calc(100% - 52px);
+    width: calc(100% - 35px);
     .graph-rod-main{
         display: flex;
         align-items: flex-end;
@@ -99,6 +111,34 @@
         position: relative;
         flex: 1;
         justify-content: center
+    }
+    .graph-rod-tow-worker{
+        position:absolute;
+        background-color: var(--ion-color-primary);
+        width: 60%;
+    }
+
+    .worker-name {
+        position: absolute;
+        bottom: -25px;
+        width: 100%;
+        text-align: center;
+        font-size: var(--font-size-h5);
+        color: var(--ion-color-secondary-contrast);
+    }
+    .graph-rod-tow-risk{
+        position:absolute;
+        background-color: var(--ion-color-primary);
+        width: 60%;
+    }
+    .risk-name {
+        position: absolute;
+        bottom: -25px;
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+        font-size: var(--font-size-h5);
+        color: var(--ion-color-secondary-contrast);
     }
     .graph-rod-main:hover{
      background-color: var(--ion-color-secondary);   
@@ -115,30 +155,64 @@
     height: 50px;
     background-color: var(--ion-color-primary);
 }
-.graph-sub{
+.rod-name { 
+    color: var(--ion-color-secondary-contrast);
+    font-size: var(--font-size-h5);
+    position: absolute; 
+    bottom: -25px; 
+    width: 100%; 
+    text-align: center;
+}
+.graph-sub {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    h3 {
+    .count-contant {
         font-weight: 800;
         color: var(--ion-color-medium);
+        font-size: 20px;
+    }
+    .sub-info {
+        display: flex; 
+        justify-content: center;
+    }
+    .circle1 {
+        background-color: var(--ion-color-primary);
+        width: 20px;
+        height: 20px;
+        border-radius: 75px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 12px;
+        vertical-align: middle;
+        line-height: 150px;
+    }
+    .circlel-plan{
+        background-color:var(--ion-color-success);
+        width: 20px;
+        height: 20px;
+        border-radius: 75px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 12px;
+        vertical-align: middle;
+        line-height: 150px;
+    }
+    .circlel-per{
+        background-color: var(--ion-color-secondary-contrast);
+        width: 20px;
+        height: 20px;
+        border-radius: 75px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 12px;
+        vertical-align: middle;
+        line-height: 150px;
     }
     .sub-graph{
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
-        .circlel-plan{
-            background-color:var(--ion-color-success);
-            width:25px;
-            height:25px;
-            border-radius:75px;
-        }
-        .circlel-per{
-            background-color: var(--ion-color-secondary-contrast);
-            width:25px;
-            height:25px;
-            border-radius:75px;
-        }
     }
 }
 
@@ -152,5 +226,16 @@
     text-align: center;
     font-size: 21px;
     font-weight: 700;
+    color: var(--ion-color-secondary-contrast);
+}
+
+.risk-type-name {
+    text-align: right;
+    font-size: 17px;
+    color: var(--ion-color-secondary-contrast);
+}
+.count-name{
+    padding-left: 8px; 
+    font-size: 20px;
     color: var(--ion-color-secondary-contrast);
 }
