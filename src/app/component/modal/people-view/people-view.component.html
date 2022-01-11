@@ -87,6 +87,54 @@
       </app-col>
     </app-row>
   </app-card>
+  <app-row>
+    <app-col>
+      <ion-toolbar color="white">
+       <h4>안전 마일리지 지급 내역</h4>
+        <ion-buttons slot="end">
+          <app-button fill="clear" color="dark" (click)="menu = !menu">
+            <app-img [src]="menu ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
+          </app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <app-table @fadeInAnimation *ngIf="menu">
+        <thead>
+          <tr>
+            <th>지급 하는자</th>
+            <th>지급일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>나성진</td>
+            <td>2021-08-07</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>마일리지 지급 유형</th>
+            <th>지급 마일리지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>안전 활동 우수</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="2">상세 사유</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">안전 활동이 우수하여 지급함</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
 </ion-content>
 <app-button-footer>
   <app-button>확인</app-button>

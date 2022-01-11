@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/basic/guide"></ion-back-button>
+    </ion-buttons>
+    <ion-title>회원정보</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-card color="light" [button]="false">
+    <ion-toolbar slot="top" color="white">
+      <h5>회원정보</h5>
+    </ion-toolbar>
+    <form>
+      <app-avatar class="avatar" [readonly]="false"></app-avatar>
+      <app-row>
+        <app-col>
+          <app-input name="input disabled" label="아이디" value="gsil1" [disabled]="true" [required]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-input name="input" label="성명" placeholder="김소령"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-calendar name="calendar" label="생년월일"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-radio-input name="성별" label="성별">
+            <app-radio value="MAL">남</app-radio>
+            <app-radio value="WOMAN">여</app-radio>
+          </app-radio-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input type="tel" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+        </app-col>
+        <app-col>
+          <app-input label="이메일" name="select" placeholder="email" type="email"></app-input>
+        </app-col>
+      </app-row>
+      <h5 style="margin-top: 30px;">소속정보</h5>
+      <app-row>
+        <app-col>
+          <app-input [disabled]="true" label="업체명" value="한국토지주택공사"></app-input>
+        </app-col>
+        <app-col>
+          <app-select-position></app-select-position>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-scene></app-select-scene>
+        </app-col>
+        <app-col>
+          <app-select-occupation></app-select-occupation>
+        </app-col>
+      </app-row>
+    </form>
+    <ion-toolbar slot="bottom" color="white">
+      <ion-buttons slot="end">
+        <app-button fill="translucent"style="width: 120px;">가입승인</app-button>
+        <app-button style="width: 120px;">저장</app-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </app-card>
+</ion-content>
+

@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'moniter',
-    loadChildren: () => import('./page/moniter/moniter.module').then(m => m.MoniterPageModule)
+    loadChildren: () => import('./page/monitor/monitor.module').then(m => m.MoniterPageModule)
   },
   {
     path: 'manual-list',
@@ -308,10 +308,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module').then( m => m.RiskEvaluationEditPageModule)
   },
   {
-    path: 'security-password',
-    loadChildren: () => import('./page/member-management/member-approval-wait/security-password/security-password.module').then( m => m.SecurityPasswordPageModule)
-  },
-  {
     path: 'worker-approval-list',
     loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule)
   },
@@ -372,9 +368,61 @@ const routes: Routes = [
     loadChildren: () => import('./page/safety-education/education-history/safety-education-history-detail/safety-education-history-detail.module').then( m => m.SafetyEducationHistoryDetailPageModule)
   },
   {
+    path: 'lh-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/lh-approval-list/lh-approval-list.module').then( m => m.LhApprovalListPageModule)
+  },
+  {
+    path: 'supervision-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/supervision-approval-list/supervision-approval-list.module').then( m => m.SupervisionApprovalListPageModule)
+  },
+  {
+    path: 'partner-approval-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/partner-approval-list/partner-approval-list.module').then( m => m.PartnerApprovalListPageModule)
+  },
+  {
+    path: 'worker-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/worker-info-list/worker-info-list.module').then( m => m.WorkerInfoListPageModule)
+  },
+  {
+    path: 'lh-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/lh-info-list/lh-info-list.module').then( m => m.LhInfoListPageModule)
+  },
+  {
+    path: 'supervision-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/supervision-info-list/supervision-info-list.module').then( m => m.SupervisionInfoListPageModule)
+  },
+  {
+    path: 'partner-info-list',
+    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/partner-info-list/partner-info-list.module').then( m => m.PartnerInfoListPageModule)
+  },
+  {
+    path: 'worker-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-edit/worker-approval-edit.module').then( m => m.WorkerApprovalEditPageModule)
+  },
+  { 
     path: 'guide-side-menu',
     loadChildren: () => import('./basic/page/guide-side-menu/guide-side-menu.module').then( m => m.GuideSideMenuPageModule)
+  },
+  {
+    path: 'belong-info-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/belong-info-edit/belong-info-edit.module').then( m => m.BelongInfoEditPageModule)
+  },
+  {
+    path: 'lh-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/lh-approval-edit/lh-approval-edit.module').then( m => m.LhApprovalEditPageModule)
+  },
+  {
+    path: 'supervision-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/supervision-approval-edit/supervision-approval-edit.module').then( m => m.SupervisionApprovalEditPageModule)
+  },
+  {
+    path: 'partner-approval-edit',
+    loadChildren: () => import('./page/member-management/member-approval-wait/partner-approval-edit/partner-approval-edit.module').then( m => m.PartnerApprovalEditPageModule)
   }
+
+
+
+
 
 
 
