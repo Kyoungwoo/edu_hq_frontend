@@ -370,6 +370,10 @@ const routes: Routes = [
   {
     path: 'safety-education-history-detail',
     loadChildren: () => import('./page/safety-education/education-history/safety-education-history-detail/safety-education-history-detail.module').then( m => m.SafetyEducationHistoryDetailPageModule)
+  },
+  {
+    path: 'guide-side-menu',
+    loadChildren: () => import('./basic/page/guide-side-menu/guide-side-menu.module').then( m => m.GuideSideMenuPageModule)
   }
 
 

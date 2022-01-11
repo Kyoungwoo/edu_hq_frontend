@@ -9,9 +9,6 @@ import { ToastService } from '../../service/ionic/toast.service';
 import { PromiseService } from '../../service/util/promise.service';
 import { RegexService } from '../../service/util/regex.service';
 
-// interface Tab {
-//   text:string
-// }
 @Component({
   selector: 'app-guide',
   templateUrl: './guide.page.html',
@@ -19,16 +16,6 @@ import { RegexService } from '../../service/util/regex.service';
   animations: [ fadeAnimation, fadeInAnimation, listAnimation, listInAnimation, bounceInAnimation ]
 })
 export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillLeave {
-
-  // tabList:Tab[] = [
-  //   { text: '통합관제' },
-  //   { text: '이것덜ㅈ댜ㅓㄹㅈ댜러' },
-  //   { text: '통합관' }
-  // ]
-  // tabActive:Tab;
-  // tabClick(tab, i) {
-  //   this.tabActive = tab;
-  // }
 
   markerList = [
     {x: 0, y: 0, userInfo: {
