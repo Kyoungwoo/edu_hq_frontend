@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
@@ -7,6 +7,7 @@ import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ApprovalPopupComponent } from '../member-management/member-approval-wait/approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../member-management/member-approval-wait/security-password/security-password.component';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-moniter',
@@ -20,6 +21,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   //   {qwe_id:3, qwe_name:"test_3"},
   // ]
 
+  
   weather:any = {
     weather_speed:"", // 풍속,
     weather_id: "", // 아이디,
@@ -159,15 +161,21 @@ graph = [
     {value: 80, label: '10시'}
   ]}
 ]
+
+  data = {
+    monitor:''
+  };
+  query:any;
   constructor(
     private connect:ConnectService,
     private qr:QrService,
     private toast:ToastService,
     private nfc : NfcService,
-    private modal : ModalController
-  ) { }
-
+    private modal : ModalController,
+    private route: ActivatedRoute
+  ) { this.monitorQuery();}
   async ngOnInit() {
+    // monitorQuery.unsubscribe();
     // const modal = await this.modal.create({
     //   component:PeopleViewComponent,
     //   // cssClass:"modal-4"
@@ -184,6 +192,7 @@ graph = [
     this.getDust();
     this.getWeather();
     
+    
     setInterval(() => {
       this.getDust();
       this.getWeather();
@@ -193,8 +202,14 @@ graph = [
   ngOnDestroy() {
     clearInterval(this.intervalWeather);
     clearInterval(this.intervalDust);
+    this.query.unsubscribe();
+    console.log("파괘");
   }
-
+  ngAfterViewInit() {
+    this.data = {
+      monitor:'통합관제'
+    };
+  }
 
   // async getWeatherGroup() {
     // const resultDust = await Promise.all([    
@@ -272,7 +287,12 @@ graph = [
     }
     this.graphArrCount.push(index);
   }
-  count_avg(){
-
+  monitorQuery(){
+   this.query =  this.route.queryParams.subscribe(params => {
+        this.data = {
+          monitor:params.monitor
+        }
+      }
+    );
   }
 }

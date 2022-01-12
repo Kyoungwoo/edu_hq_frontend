@@ -62,7 +62,7 @@
 </ion-header>
 
 <ion-content>
-  <app-row style="align-items: flex-start;">
+  <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
     <app-col>
       <app-card color="white">
         <app-row style="align-items: stretch;">
@@ -130,6 +130,7 @@
               </app-col>
             </app-row>
           </app-col>
+
           <app-col class="middle-box donut-group">
             <ion-row>
               <app-col>
@@ -155,7 +156,8 @@
                     <div class="graph-rod-main">
                       <div class="graph-rod-tow"></div>
                       <div class="graph-rod-one"></div>
-                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">{{ item.name }}
+                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">
+                        {{ item.name }}
                       </div>
                     </div>
                   </ng-container>
@@ -197,8 +199,8 @@
               <ion-col>
                 <app-graph-line style="width: 100%; height: 200px;">
                   <app-graph-group [color]="graphItem.color" [name]="graphItem.name" *ngFor="let graphItem of graph">
-                    <app-graph-value *ngFor="let graphData of graphItem.data" 
-                    [label]="graphData.label" [value]="graphData.value"></app-graph-value>
+                    <app-graph-value *ngFor="let graphData of graphItem.data" [label]="graphData.label"
+                      [value]="graphData.value"></app-graph-value>
                   </app-graph-group>
                 </app-graph-line>
               </ion-col>
@@ -210,35 +212,35 @@
                   <app-col size="auto">
                     <p class="count-contant">50</p>
                   </app-col>
-                  </app-row>
-                  <app-row style="position: relative;">
-                    <div class="dount-partner"></div>
-                    <div class="dount-partner-sub"></div>
-                  </app-row>
-                  <app-row>
-                    <app-col style="display: flex;">
-                      <p class="count-name">작업중</p>
-                    </app-col>
-                    <app-col size="auto">
-                      <p class="count-contant">50</p>
-                    </app-col>
-                  </app-row>
-                  <app-row style="position: relative;">
-                    <div class="dount-partner"></div>
-                    <div class="dount-partner-sub"></div>
-                  </app-row>
-                  <app-row>
-                    <app-col style="display: flex;">
-                      <p class="count-name">작업종료</p>
-                    </app-col>
-                    <app-col size="auto">
-                      <p class="count-contant">50</p>
-                    </app-col>
-                  </app-row>
-                  <app-row style="position: relative;">
-                    <div class="dount-partner"></div>
-                    <div class="dount-partner-sub"></div>
-                  </app-row>
+                </app-row>
+                <app-row style="position: relative;">
+                  <div class="dount-partner"></div>
+                  <div class="dount-partner-sub"></div>
+                </app-row>
+                <app-row>
+                  <app-col style="display: flex;">
+                    <p class="count-name">작업중</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <p class="count-contant">50</p>
+                  </app-col>
+                </app-row>
+                <app-row style="position: relative;">
+                  <div class="dount-partner"></div>
+                  <div class="dount-partner-sub"></div>
+                </app-row>
+                <app-row>
+                  <app-col style="display: flex;">
+                    <p class="count-name">작업종료</p>
+                  </app-col>
+                  <app-col size="auto">
+                    <p class="count-contant">50</p>
+                  </app-col>
+                </app-row>
+                <app-row style="position: relative;">
+                  <div class="dount-partner"></div>
+                  <div class="dount-partner-sub"></div>
+                </app-row>
               </app-col>
             </ion-row>
           </app-col>
@@ -329,7 +331,8 @@
                     <div class="graph-rod-main-2">
                       <div class="graph-rod-tow"></div>
                       <div class="graph-rod-one"></div>
-                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">{{ item.name }}
+                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">
+                        {{ item.name }}
                       </div>
                     </div>
                   </ng-container>
@@ -357,7 +360,7 @@
               </app-col>
             </ion-row>
           </app-col>
-            
+
           <app-col>
             <app-row>
               <app-col>
@@ -369,7 +372,7 @@
               </app-col>
             </app-row>
             <app-row>
-                       <ion-col>
+              <ion-col>
                 <div style="position: relative;">
                   <ng-container *ngFor="let item of graphArrCount let i = index">
                     <div class="graph-box">
@@ -416,11 +419,11 @@
                       stroke-dashoffset="95"></circle> -->
                     <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
                     <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff9041" stroke-width="6"
-                    stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
                     <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6"
-                    stroke-dasharray="20 80" stroke-dashoffset="75"></circle>
+                      stroke-dasharray="20 80" stroke-dashoffset="75"></circle>
                     <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
-                    stroke-dasharray="30 70" stroke-dashoffset="55"></circle>
+                      stroke-dasharray="30 70" stroke-dashoffset="55"></circle>
                   </svg>
                   <div class="donut-in-count">
                     33
@@ -505,10 +508,11 @@
             </app-row>
             <app-row *ngFor="let item of graphArr4 let i = index">
               <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
-                <app-col style="display: flex; align-items: center;">
-                  <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;" [style.width]="item.count + '%'"></div>
-                  <h4>{{item.count}}</h4>
-                </app-col>
+              <app-col style="display: flex; align-items: center;">
+                <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                  [style.width]="item.count + '%'"></div>
+                <h4>{{item.count}}</h4>
+              </app-col>
             </app-row>
           </app-col>
         </app-row>
@@ -519,37 +523,178 @@
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
           <app-row style="justify-content: space-between;">
-            <app-col size="auto"><h4>위험 감지</h4></app-col>
+            <app-col size="auto">
+              <h4>위험 감지</h4>
+            </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
-            <td><app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img></td>
+            <td>
+              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
+            </td>
             <td class="table-text">중장비<br>접금감지</td>
             <td class="table-count">1</td>
           </tr>
           <tr>
-            <td><app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img></td>
+            <td>
+              <app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img>
+            </td>
             <td class="table-text">위험지역<br>접금감지</td>
             <td class="table-count">3</td>
           </tr>
           <tr>
-            <td><app-img style="width: 50px;" src="/assets/img/monitor/safetyhook.svg"></app-img></td>
+            <td>
+              <app-img style="width: 50px;" src="/assets/img/monitor/safetyhook.svg"></app-img>
+            </td>
             <td class="table-text">안전고리<br>미체결</td>
             <td class="table-count">4</td>
           </tr>
           <tr>
-            <td><app-img style="width: 50px;" src="/assets/img/monitor/closeness.svg"></app-img></td>
+            <td>
+              <app-img style="width: 50px;" src="/assets/img/monitor/closeness.svg"></app-img>
+            </td>
             <td class="table-text">밀폐환경정보<br>모니터링</td>
             <td class="table-count">5</td>
           </tr>
           <tr>
-            <td><app-img style="width: 50px;" src="/assets/img/monitor/smart.svg"></app-img></td>
+            <td>
+              <app-img style="width: 50px;" src="/assets/img/monitor/smart.svg"></app-img>
+            </td>
             <td class="table-text">스마트<br>헬스케어 밴드</td>
             <td class="table-count">6</td>
           </tr>
         </tbody>
       </app-table>
+    </app-col>
+  </app-row>
+
+
+  <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
+    <app-col>
+      <app-card color="white">
+        <app-row style="align-items: stretch;">
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h4>CCTV 설치 장소 1</h4>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <app-button>수정</app-button>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;">
+                <div style="border: 1px solid; height: 500px; position: relative;">
+                </div>
+              </app-col>
+            </app-row>
+          </app-col>
+
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h4>CCTV 설치 장소 2</h4>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <app-button>수정</app-button>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;">
+                <div style="border: 1px solid; height: 500px; position: relative;">
+                </div>
+              </app-col>
+            </app-row>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
+
+
+  <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
+    <app-col>
+      <app-card color="white">
+        <app-row style="align-items: stretch;">
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h4>CCTV 설치 장소 3</h4>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <app-button>수정</app-button>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;">
+                <div style="border: 1px solid; height: 500px; position: relative;">
+                </div>
+              </app-col>
+            </app-row>
+          </app-col>
+
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h4>CCTV 설치 장소 4</h4>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <app-button>수정</app-button>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;">
+                <div style="border: 1px solid; height: 500px; position: relative;">
+                </div>
+              </app-col>
+            </app-row>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
+
+  <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
+    <app-col>
+      <app-card>
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <app-naver-map></app-naver-map>
+          </app-col>
+          <app-col size="4">
+            <ion-toolbar color="light">
+              <h5>수시 위험성평가 목록 (총90건)</h5>
+            </ion-toolbar>
+            <app-table>
+              <thead>
+                <tr>
+                  <th>회사명</th>
+                  <th>성명</th>
+                  <th>공종</th>
+                  <th>근로자 구분</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>구일종합건설(주)</td>
+                <td>김준태</td>
+                <td>토목</td>
+                <td>작업자</td>
+              </tbody>
+            </app-table>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
+
+  <app-row>
+    <app-col>
+      <app-textarea value="svg 만들지 못함"></app-textarea>
     </app-col>
   </app-row>
 </ion-content>

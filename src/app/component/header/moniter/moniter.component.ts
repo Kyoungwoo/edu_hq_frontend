@@ -1,14 +1,18 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, Injectable, OnInit } from '@angular/core';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
 
 interface Tab {
-  text:string
+  text:string,
+  data:string
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-moniter-header',
   templateUrl: './moniter.component.html',
@@ -17,9 +21,15 @@ interface Tab {
 export class MoniterComponent implements OnInit {
 
   tabList:Tab[] = [
-    { text: '통합관제' },
-    { text: 'CCTV 모니터링' },
-    { text: '근로자 실시간 위치 모니터링' }
+    { text: '통합관제',
+      data:'통합관제'
+    },
+    { text: 'CCTV 모니터링',
+      data:'CCTV 모니터링'
+    },
+    { text: '근로자 실시간 위치 모니터링',
+      data:'근로자 실시간 위치 모니터링'
+    }
   ]
 
   tabActive:Tab = this.tabList[0];
@@ -30,6 +40,7 @@ export class MoniterComponent implements OnInit {
   constructor(
     private animationCtrl: AnimationController,
     private modal:ModalController,
+    private nav: NavService,
     public adminMenu: SideMenuAdminComponent,
     
   ) { }
@@ -37,7 +48,7 @@ export class MoniterComponent implements OnInit {
   ngOnInit() {}
   
   tabClick(tab, i) {
-    console.log(tab);
+    // console.log(tab);
     this.tabActive = tab;
   }
 
