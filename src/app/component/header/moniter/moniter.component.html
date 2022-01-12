@@ -9,7 +9,7 @@
         <app-col>
           <app-row class="tab-list">
             <div *ngFor="let tab of tabList; let i = index;"
-            class="tab-item" [class.active]="tab === tabActive" [style.z-index]="10 - i" (click)="tabClick(tab, i)">
+            class="tab-item" [class.active]="tab === tabActive" routerLink="/monitor" [queryParams]="{monitor:tab.data}" [style.z-index]="10 - i" (click)="tabClick(tab, i)">
               <span>{{ tab.text }}</span>
             </div>
           </app-row>

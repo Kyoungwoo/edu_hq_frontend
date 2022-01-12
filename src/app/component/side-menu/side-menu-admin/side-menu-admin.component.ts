@@ -32,7 +32,7 @@ export class SideMenuAdminComponent implements OnInit {
 
   menuList:MenuItem[] = [
     { title: '통합관제', img: 'assets/img/menu/control-center.svg', subMenuList: [
-      { title: '통합관제', link: ''}
+      { title: '통합관제', link: '/monitor'}
     ]},
     { title: '결재', img: 'assets/img/menu/sign.svg', subMenuList: [
       { title: '미결함', link: '/confirm-pending-list'},

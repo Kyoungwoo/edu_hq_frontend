@@ -22,4 +22,4 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
   ],
   declarations: [MonitorPage]
 })
-export class MoniterPageModule {}
+export class MonitorPageModule {}
