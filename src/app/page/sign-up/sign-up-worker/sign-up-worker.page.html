@@ -17,38 +17,34 @@
           <app-input
           name="성명" label="성명"
           placeholder="이름을 입력해주세요."
-          [color]="resCheck && 'danger'"
+          [color]="validator.user_name?.valid === false && 'warning'"
           [(ngModel)]="form.user_name" [required]="true"></app-input>
-          <app-input-caption *ngIf="resCheck" color="danger">{{ resCheck.rsMsg }}</app-input-caption>
+          <app-input-caption *ngIf="validator.user_name?.valid === false" color="warning">{{validator.user_name?.message }}</app-input-caption>
         </app-col>
         <app-col>
           <app-input
           name="아이디" label="아이디"
           placeholder="영문과 숫자만 입력해주세요."
-          [color]="
-          resOverlapId && resOverlapId.rsCode !== 0 ? 'warning' :
-          resOverlapId && resOverlapId.rsCode === 0 ? 'primary' :
-          'white'"
+          [color]="validator.account_id?.valid === false && 'warning'"
           [(ngModel)]="form.account_id" (keyup)="overlapId()" [required]="true"></app-input>
-          <app-input-caption color="warning" *ngIf="resOverlapId && resOverlapId.rsCode !== 0">{{ resOverlapId.rsMsg }}</app-input-caption>
-          <app-input-caption color="primary" *ngIf="resOverlapId && resOverlapId.rsCode === 0">사용할 수 있는 아이디 입니다.</app-input-caption>
+          <app-input-caption *ngIf="validator.account_id?.valid === false" color="warning">{{validator.account_id?.message }}</app-input-caption>
         </app-col>
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-input name="비밀번호" label="비밀번호" placeholder="영문, 숫자, 조합(6~20자)" type="password"
+          <app-input name="비밀번호" label="비밀번호" type="password"
+          placeholder="영문, 숫자, 조합(6~20자)"
+          [color]="validator.account_token?.valid === false && 'warning'"
           [(ngModel)]="form.account_token" (keyup)="checkPass()" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.account_token?.valid === false" color="warning">{{validator.account_token?.message }}</app-input-caption>
         </app-col>
         <app-col>
           <app-input name="비밀번호 확인" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
-          [color]="
-          confirm.account_token && form.account_token !== confirm.account_token ? 'warning' :
-          confirm.account_token && form.account_token === confirm.account_token ? 'primary' :
-          'white'"
-          [(ngModel)]="confirm.account_token" [required]="true"></app-input>
+          [color]="validator.account_token_conform?.valid === false && 'warning'"
+          [(ngModel)]="form.account_token_conform" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.account_token_conform?.valid === false" color="warning">{{validator.account_token_conform?.message }}</app-input-caption>
         </app-col>
       </app-row>
-      <app-input-caption color="warning" *ngIf="confirm.account_token && form.account_token !== confirm.account_token">비밀번호와 비밀번호 확인이 다릅니다.</app-input-caption>
       <app-row mobileBreak>
         <app-col>
           <app-calendar name="생년월일" label="생년월일" [(ngModel)]="form.user_birth" [required]="true"></app-calendar>
@@ -86,7 +82,7 @@
           <app-input-template label="기초안전보건교육 이수증">
             <p slot="input">기초안전보건교육 이수증</p>
             파일찾기
-            <app-file name="기초안전보건교육 이수증" [(ngModel)]="confirm.file" view_type="BASIC_SAFE_EDU" [file]="form.file" [file_json]="form.file_json"></app-file>
+            <app-file name="기초안전보건교육 이수증" [(ngModel)]="form.file_preview" view_type="BASIC_SAFE_EDU" [file]="form.file" [file_json]="form.file_json"></app-file>
           </app-input-template>
         </app-col>
         <app-col>
