@@ -103,14 +103,7 @@
 
 <!-- pc -->
 <ng-container *mobileHidden>
-<ion-header>
-  <ion-toolbar color="white">
-    <ion-title>사용자 메뉴얼</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+  <app-header-admin></app-header-admin>
 <ion-content>
 <app-row style="align-items: flex-start;">
   <app-col size="280px">
@@ -141,6 +134,11 @@
     </app-table>
   </app-col>
   <app-col>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <app-button fill="translucent">등록</app-button>
+      </ion-buttons>
+    </ion-toolbar>
     <ion-toolbar color="white">
       <h5>사용자 메뉴얼 목록 (총70건)</h5>
     </ion-toolbar>
@@ -213,7 +211,4 @@
   </app-col>
 </app-row>
 </ion-content>
-<app-button-footer>
-  <app-button slot="end">등록</app-button>
-</app-button-footer>
 </ng-container>

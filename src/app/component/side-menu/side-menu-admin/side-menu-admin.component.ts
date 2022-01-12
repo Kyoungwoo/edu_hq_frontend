@@ -89,7 +89,7 @@ export class SideMenuAdminComponent implements OnInit {
     ]},
     { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
       { title: '1:1 문의', link: ''},
-      { title: '사용자 매뉴얼', link: '/manual-list'},
+      { title: '사용자 메뉴얼', link: '/manual-list'},
       { title: '언어 설정', link: ''},
       { title: '시스템 이용 약관', link: '/use-terms'},
       { title: '개인정보처리방침', link: '/privacy'}

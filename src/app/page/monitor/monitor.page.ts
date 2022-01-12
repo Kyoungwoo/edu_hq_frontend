@@ -10,6 +10,9 @@ import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-
 import { RiskEvaluationPopupPage } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page';
 import { MileagePopupComponent } from '../member-management/member-management/mileage-popup/mileage-popup.component';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmSettingPopupComponent } from 'src/app/component/confirm/confirm-setting-popup/confirm-setting-popup.component';
+import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
+import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-moniter',
@@ -178,7 +181,7 @@ graph = [
   ) { this.monitorQuery();}
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:RiskEvaluationPopupPage,
+      component:ConfirmPopupComponent,
       // cssClass:"modal-4"
     });
     modal.present();
