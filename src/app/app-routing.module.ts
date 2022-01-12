@@ -381,19 +381,19 @@ const routes: Routes = [
   },
   {
     path: 'worker-info-list',
-    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/worker-info-list/worker-info-list.module').then( m => m.WorkerInfoListPageModule)
+    loadChildren: () => import('./page/member-management/member-management/worker-info-list/worker-info-list.module').then( m => m.WorkerInfoListPageModule)
   },
   {
     path: 'lh-info-list',
-    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/lh-info-list/lh-info-list.module').then( m => m.LhInfoListPageModule)
+    loadChildren: () => import('./page/member-management/member-management/lh-info-list/lh-info-list.module').then( m => m.LhInfoListPageModule)
   },
   {
     path: 'supervision-info-list',
-    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/supervision-info-list/supervision-info-list.module').then( m => m.SupervisionInfoListPageModule)
+    loadChildren: () => import('./page/member-management/member-management/supervision-info-list/supervision-info-list.module').then( m => m.SupervisionInfoListPageModule)
   },
   {
     path: 'partner-info-list',
-    loadChildren: () => import('./page/member-management/member-approval-wait/member-management/partner-info-list/partner-info-list.module').then( m => m.PartnerInfoListPageModule)
+    loadChildren: () => import('./page/member-management/member-management/partner-info-list/partner-info-list.module').then( m => m.PartnerInfoListPageModule)
   },
   {
     path: 'worker-approval-edit',
@@ -418,7 +418,26 @@ const routes: Routes = [
   {
     path: 'partner-approval-edit',
     loadChildren: () => import('./page/member-management/member-approval-wait/partner-approval-edit/partner-approval-edit.module').then( m => m.PartnerApprovalEditPageModule)
+  },
+  {
+    path: 'partner-into-edit',
+    loadChildren: () => import('./page/member-management/member-management/partner-into-edit/partner-into-edit.module').then( m => m.PartnerIntoEditPageModule)
+  },
+  {
+    path: 'supervision-info-edit',
+    loadChildren: () => import('./page/member-management/member-management/supervision-info-edit/supervision-info-edit.module').then( m => m.SupervisionInfoEditPageModule)
+  },
+  {
+    path: 'lh-info-edit',
+    loadChildren: () => import('./page/member-management/member-management/lh-info-edit/lh-info-edit.module').then( m => m.LhInfoEditPageModule)
+  },  {
+    path: 'worker-info-edit',
+    loadChildren: () => import('./page/member-management/member-management/worker-info-edit/worker-info-edit.module').then( m => m.WorkerInfoEditPageModule)
   }
+
+
+
+
 
 
 

@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { NoticeOpenRangePage } from './notice-open-range.page';
+import { WorkerInfoEditPage } from './worker-info-edit.page';
 
-describe('NoticeOpenRangePage', () => {
-  let component: NoticeOpenRangePage;
-  let fixture: ComponentFixture<NoticeOpenRangePage>;
+describe('WorkerInfoEditPage', () => {
+  let component: WorkerInfoEditPage;
+  let fixture: ComponentFixture<WorkerInfoEditPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoticeOpenRangePage ],
+      declarations: [ WorkerInfoEditPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('NoticeOpenRangePage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NoticeOpenRangePage);
+    fixture = TestBed.createComponent(WorkerInfoEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { NoticeOpenRangePage } from './notice-open-range.page';
+import { MileagePopupComponent } from './mileage-popup.component';
 
-describe('NoticeOpenRangePage', () => {
-  let component: NoticeOpenRangePage;
-  let fixture: ComponentFixture<NoticeOpenRangePage>;
+describe('MileagePopupComponent', () => {
+  let component: MileagePopupComponent;
+  let fixture: ComponentFixture<MileagePopupComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoticeOpenRangePage ],
+      declarations: [ MileagePopupComponent ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -21,7 +21,7 @@ describe('NoticeOpenRangePage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NoticeOpenRangePage);
+    fixture = TestBed.createComponent(MileagePopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

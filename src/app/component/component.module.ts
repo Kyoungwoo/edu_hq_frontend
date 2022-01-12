@@ -49,6 +49,7 @@ import { SelectAttendanceComponent } from './select/select-attendance/select-att
 import { MoniterComponent } from './header/moniter/moniter.component';
 import { ApprovalPopupComponent } from '../page/member-management/member-approval-wait/approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../page/member-management/member-approval-wait/security-password/security-password.component';
+import { MileagePopupComponent } from '../page/member-management/member-management/mileage-popup/mileage-popup.component';
 
 
 
@@ -98,7 +99,8 @@ import { SecurityPasswordComponent } from '../page/member-management/member-appr
     SelectAttendanceComponent,
     MoniterComponent,
     ApprovalPopupComponent,
-    SecurityPasswordComponent
+    SecurityPasswordComponent,
+    MileagePopupComponent
   ],
   imports: [
     CommonModule,
@@ -152,7 +154,8 @@ import { SecurityPasswordComponent } from '../page/member-management/member-appr
     SelectAttendanceComponent,
     MoniterComponent,
     ApprovalPopupComponent,
-    SecurityPasswordComponent
+    SecurityPasswordComponent,
+    MileagePopupComponent
   ]
 })
 export class ComponentModule { }

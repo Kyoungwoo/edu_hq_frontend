@@ -7,6 +7,8 @@ import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ApprovalPopupComponent } from '../member-management/member-approval-wait/approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../member-management/member-approval-wait/security-password/security-password.component';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
+import { RiskEvaluationPopupPage } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page';
+import { MileagePopupComponent } from '../member-management/member-management/mileage-popup/mileage-popup.component';
 
 @Component({
   selector: 'app-moniter',
@@ -168,11 +170,11 @@ graph = [
   ) { }
 
   async ngOnInit() {
-    // const modal = await this.modal.create({
-    //   component:PeopleViewComponent,
-    //   // cssClass:"modal-4"
-    // });
-    // modal.present();
+    const modal = await this.modal.create({
+      component:RiskEvaluationPopupPage,
+      // cssClass:"modal-4"
+    });
+    modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
     //   component:ApprovalPopupComponent,

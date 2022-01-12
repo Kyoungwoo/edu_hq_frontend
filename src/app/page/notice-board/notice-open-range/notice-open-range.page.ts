@@ -9,6 +9,54 @@ import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-
 })
 export class NoticeOpenRangePage implements OnInit {
 
+  menuCount:Number = 1;
+  list=
+  [
+    {
+      checked:false,
+      text:'전체'
+    },
+    {
+      checked:false,
+      text:'내 소속사만'
+    },
+    {
+      checked:false,
+      text:'협력사별'
+    },
+  ]
+
+  list1=
+  [
+    {
+      checked:false,
+      text:'전체(관리자+작업자)'
+    },
+    {
+      checked:false,
+      text:'관리자만'
+    },
+    {
+      checked:false,
+      text:'작업자만'
+    },
+  ]
+  list2=
+  [
+    {
+      checked:false,
+      text:'(주)협력사1'
+    },
+    {
+      checked:false,
+      text:'(주)협력사2'
+    },
+    {
+      checked:false,
+      text:'(주)협력사3'
+    },
+  ]
+
   constructor(
     private modal : ModalController
   ) { }
