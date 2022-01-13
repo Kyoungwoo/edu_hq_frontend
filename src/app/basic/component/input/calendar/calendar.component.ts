@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
+import { Color } from '@ionic/core';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 
 import { CalendarPopoverComponent } from '../calendar-popover/calendar-popover.component';
@@ -17,6 +18,7 @@ import { CalendarPopoverComponent } from '../calendar-popover/calendar-popover.c
 })
 export class CalendarComponent implements ControlValueAccessor {
 
+  @Input() color:Color;
   @Input() label:string = "";
   @Input() min:string;
   @Input() max:string;

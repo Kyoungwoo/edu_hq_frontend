@@ -35,7 +35,7 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
   }
 
   private scrollToIndex(virtualScroll:CdkVirtualScrollViewport, list:Array<{value:string}>, value) {
-    const selectedIndex = list.findIndex(hour => hour.value === value);
+    const selectedIndex = list.findIndex(item => item.value === value);
     const limitCount = 20;
     let tryCount = 0;
     const initInterval = setInterval(() => {

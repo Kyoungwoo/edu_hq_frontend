@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
-import { SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-menu/side-menu-admin/side-menu-admin.component';
+import { MenuItem, SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
 @Component({
   selector: 'app-header-admin',
@@ -14,6 +14,7 @@ import { SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-m
 export class HeaderAdminComponent implements OnInit, OnDestroy {
 
   url:string;
+  selectedMenu:MenuItem;
   selectedSubMenu:SubMenuItem;
   selectedThirdMenu:ThirdMenuItem;
 
@@ -63,6 +64,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
           }
         });
         
+        const newMenu = this.adminMenu.menuList[selectedMenuIndex[0]];
         const newSubMenu = this.adminMenu.menuList[selectedMenuIndex[0]]?.subMenuList[selectedMenuIndex[1]];
         let newThirdMenu;
         try {
@@ -70,6 +72,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
         } catch(e) {
 
         }
+        if(this.selectedMenu !== newMenu) this.selectedMenu = newMenu;
         if(this.selectedSubMenu !== newSubMenu) this.selectedSubMenu = newSubMenu;
         if(this.selectedThirdMenu !== newThirdMenu) this.selectedThirdMenu = newThirdMenu;
         this.changeDetector.detectChanges();

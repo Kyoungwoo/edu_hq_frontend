@@ -1,5 +1,6 @@
 import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-radio-input',
@@ -13,6 +14,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class RadioInputComponent implements OnInit, ControlValueAccessor {
 
+  @Input() color:Color;
   @Input() label:string;
 
   constructor() { }

@@ -23,8 +23,8 @@ const getConfig = () => {
         if(opts.direction === 'forward') {
           const _leaveEl = <HTMLElement>opts.leavingEl;
           const enterEl = <HTMLElement>opts.enteringEl;
+          console.log(enterEl);
           const headerEl = enterEl.querySelector('app-header-admin');
-          console.log(headerEl);
           const opacityAnimation = createAnimation()
           .addElement(enterEl)
           .duration(90)
