@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { PartnerIntoEditPageModule } from '../partner-into-edit/partner-into-edit.module';
+import { PartnerIntoEditPage } from '../partner-into-edit/partner-into-edit.page';
 
 @Component({
   selector: 'app-partner-info-list',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartnerInfoListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
+  }
+
+  async edit() {
+    const modal = await this.modal.create({
+      component:PartnerIntoEditPage,
+    });
+    modal.present();
   }
 
 }

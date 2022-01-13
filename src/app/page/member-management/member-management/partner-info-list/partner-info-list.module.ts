@@ -8,6 +8,7 @@ import { PartnerInfoListPageRoutingModule } from './partner-info-list-routing.mo
 
 import { PartnerInfoListPage } from './partner-info-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { PartnerIntoEditPageModule } from '../partner-into-edit/partner-into-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    PartnerInfoListPageRoutingModule
+    PartnerInfoListPageRoutingModule,
+    PartnerIntoEditPageModule
   ],
   declarations: [PartnerInfoListPage]
 })

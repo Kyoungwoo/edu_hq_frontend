@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { SafetyEducationDetailEditPage } from '../safety-education-detail-edit/safety-education-detail-edit.page';
+import { SafetyEducationDetailListPage } from '../safety-education-detail-list/safety-education-detail-list.page';
 import { SafetyEducationDetailSearchPageModule } from '../safety-education-detail-search/safety-education-detail-search.module';
 import { SafetyEducationDetailSearchPage } from '../safety-education-detail-search/safety-education-detail-search.page';
 
@@ -16,11 +18,25 @@ export class SafetyEducationListPage implements OnInit {
 
   ngOnInit() {
   }
+  public async edit() {
+    const modal = await this._modal.create({
+      component: SafetyEducationDetailListPage,
+
+    })
+    modal.present();
+  }
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: SafetyEducationDetailSearchPage,
 
     })
     modal.present();
-  }
+}
+  public async add() {
+    const modal = await this._modal.create({
+      component: SafetyEducationDetailEditPage,
+
+  })
+  modal.present();
+}
 }

@@ -19,7 +19,6 @@ export class PartnerListPage implements OnInit {
   async edit() {
     const modal = await this.modal.create({
       component:PartnerEditPage,
-      cssClass:"modal-5"
     });
     modal.present();
   }

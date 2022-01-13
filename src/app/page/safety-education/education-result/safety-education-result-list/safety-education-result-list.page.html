@@ -53,7 +53,7 @@
         <ion-toolbar color="white">
           <ion-buttons slot="start">
             <app-button fill="translucent">신규 작성</app-button>
-            <app-button fill="translucent">미결 문서</app-button>
+            <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -73,7 +73,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button">
+            <tr class="button" (click)="edit()">
               <td>9</td>
               <td>(주)제일</td>
               <td>작업 변겅시 교육</td>

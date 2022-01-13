@@ -10,6 +10,7 @@ import { RiskListPage } from './risk-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { RiskDetailSearchPageModule } from '../risk-detail-search/risk-detail-search.module';
+import { RiskEvaluationEditPageModule } from '../risk-evaluation-edit/risk-evaluation-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { RiskDetailSearchPageModule } from '../risk-detail-search/risk-detail-se
     ComponentModule,
     BasicComponentModule,
     RiskListPageRoutingModule,
-    RiskDetailSearchPageModule
+    RiskDetailSearchPageModule,
+    RiskEvaluationEditPageModule
   ],
   declarations: [RiskListPage]
 })

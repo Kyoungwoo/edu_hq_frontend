@@ -9,6 +9,7 @@ import { HeavyEquipListPageRoutingModule } from './heavy-equip-list-routing.modu
 import { HeavyEquipListPage } from './heavy-equip-list.page';
 import { DirectiveModule } from 'src/app/basic/directive/directive.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { HeavyEquipEditPageModule } from '../heavy-equip-edit/heavy-equip-edit.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    HeavyEquipListPageRoutingModule
+    HeavyEquipListPageRoutingModule,
+    HeavyEquipEditPageModule
   ],
   declarations: [HeavyEquipListPage]
 })

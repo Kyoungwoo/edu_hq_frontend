@@ -86,7 +86,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" *ngFor="let item of [1,2,3,4]">
+            <tr class="button" *ngFor="let item of [1,2,3,4]" (click)="edit()">
               <td>
                 <app-check color="white" size="small" name="check"></app-check>
               </td>

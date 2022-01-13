@@ -8,6 +8,7 @@ import { PartnerApprovalListPageRoutingModule } from './partner-approval-list-ro
 
 import { PartnerApprovalListPage } from './partner-approval-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { PartnerApprovalEditPageModule } from '../partner-approval-edit/partner-approval-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    PartnerApprovalListPageRoutingModule
+    PartnerApprovalListPageRoutingModule,
+    PartnerApprovalEditPageModule
   ],
   declarations: [PartnerApprovalListPage]
 })

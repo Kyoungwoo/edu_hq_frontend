@@ -10,6 +10,8 @@ import { SafetyEducationListPage } from './safety-education-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { SafetyEducationDetailSearchPageModule } from '../safety-education-detail-search/safety-education-detail-search.module';
+import { SafetyEducationDetailListPageModule } from '../safety-education-detail-list/safety-education-detail-list.module';
+import { SafetyEducationDetailEditPageModule } from '../safety-education-detail-edit/safety-education-detail-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +21,10 @@ import { SafetyEducationDetailSearchPageModule } from '../safety-education-detai
     ComponentModule,
     BasicComponentModule,
     SafetyEducationListPageRoutingModule,
-    SafetyEducationDetailSearchPageModule
+    SafetyEducationDetailListPageModule,
+    SafetyEducationDetailEditPageModule,
+    SafetyEducationDetailSearchPageModule,
+    
   ],
   declarations: [SafetyEducationListPage]
 })

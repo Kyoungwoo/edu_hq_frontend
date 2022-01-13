@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { WorkerApprovalEditPage } from '../worker-approval-edit/worker-approval-edit.page';
 
 @Component({
   selector: 'app-worker-approval-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkerApprovalListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  async edit() {
+    const modal = await this.modal.create({
+      component:WorkerApprovalEditPage,
+    });
+    modal.present();
+  }
 }

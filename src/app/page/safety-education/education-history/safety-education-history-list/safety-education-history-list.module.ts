@@ -9,6 +9,7 @@ import { SafetyEducationHistoryListPageRoutingModule } from './safety-education-
 import { SafetyEducationHistoryListPage } from './safety-education-history-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { SafetyEducationHistoryDetailPageModule } from '../safety-education-history-detail/safety-education-history-detail.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    SafetyEducationHistoryListPageRoutingModule
+    SafetyEducationHistoryListPageRoutingModule,
+    SafetyEducationHistoryDetailPageModule
   ],
   declarations: [SafetyEducationHistoryListPage]
 })

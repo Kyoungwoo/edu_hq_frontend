@@ -8,6 +8,7 @@ import { SupervisionInfoListPageRoutingModule } from './supervision-info-list-ro
 
 import { SupervisionInfoListPage } from './supervision-info-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { SupervisionInfoEditPageModule } from '../supervision-info-edit/supervision-info-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    SupervisionInfoListPageRoutingModule
+    SupervisionInfoListPageRoutingModule,
+    SupervisionInfoEditPageModule
   ],
   declarations: [SupervisionInfoListPage]
 })
