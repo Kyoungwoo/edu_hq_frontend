@@ -181,8 +181,8 @@ graph = [
   ) { }
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:ConfirmSettingPopupComponent,
-      cssClass:"confirm-modal"
+      component:RiskEvaluationPopupPage,
+      // cssClass:"confirm-modal"
     });
     modal.present();
     // this.graphData()
