@@ -181,7 +181,7 @@ graph = [
   ) { this.monitorQuery();}
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:ConfirmPopupComponent,
+      component:ApprovalPopupComponent,
       // cssClass:"modal-4"
     });
     modal.present();

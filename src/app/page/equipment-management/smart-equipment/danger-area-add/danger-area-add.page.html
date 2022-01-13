@@ -18,7 +18,6 @@
 <ion-content>
   <app-select-dangerous-area label="위험지역"></app-select-dangerous-area>
  <app-select-serial-number label="시리얼No."></app-select-serial-number>
-  <ng-container>
     <h5>디바이스 등록 현황</h5>
     <app-card>
       <app-row>
@@ -55,12 +54,20 @@
           <p>사용여부 : Y</p>
         </app-col>
       </app-row>
-    </app-card>
-  </ng-container>
-  <app-button fill="translucent">등록할 NFC태깅</app-button>
-  <app-button fill="translucent">위험지역 인식</app-button>
+    </app-card> 
+    <app-row>
+      <app-col>
+        <app-button style="width: 100%;" fill="translucent">등록할 NFC태깅</app-button>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-button style="width: 100%;" fill="translucent">위험지역 인식</app-button>
+      </app-col>
+    </app-row>
 </ion-content>
 <app-button-footer>
   <app-button>저장</app-button>
 </app-button-footer>
+
 
