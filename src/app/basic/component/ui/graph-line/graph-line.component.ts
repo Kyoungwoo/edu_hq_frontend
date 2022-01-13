@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GraphGroupComponent } from '../graph-group/graph-group.component';
 
@@ -7,13 +7,13 @@ import { GraphGroupComponent } from '../graph-group/graph-group.component';
   templateUrl: './graph-line.component.html',
   styleUrls: ['./graph-line.component.scss'],
 })
-export class GraphLineComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GraphLineComponent implements OnInit, AfterContentInit, OnDestroy {
 
   @ContentChildren(GraphGroupComponent) graphGroupList:QueryList<GraphGroupComponent>;
 
   @ViewChild('graph') graph:ElementRef<SVGElement>;
 
-  viewBox = '0 0 100 100';
+  viewBox = `0 0 100 100`;
   lineList:string[] = [];
   xLabelList:(string|number)[] = [];
 
@@ -26,12 +26,11 @@ export class GraphLineComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.getGroupList();
     this.$graphGroupList = this.graphGroupList.changes.subscribe(() => {
       this.getGroupList();
     });
-    //this.graph.nativeElement.add
   }
   ngOnDestroy() {
     this.$graphGroupList.unsubscribe();

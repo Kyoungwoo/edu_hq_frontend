@@ -11,6 +11,7 @@ import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
 export class SignUpWorkerForm {
   account_id:string; // 아이디
   account_token:string; //비밀번호
+  account_token_conform:string; //비밀번호 확인
   ctgo_country_id:number; //국적 ID
   company_id:number; //소속 업체 ID
   ctgo_construction_id:number; //공종 ID
@@ -23,7 +24,8 @@ export class SignUpWorkerForm {
   user_phone:string;//휴대폰번호
   sms_token:string; //문자 인증번호
   basic_safe_edu_date:string; //기초안전보건교육 이수증
-  file:(File | FileBlob)[];
+  file_preview:FutItem[]; // 파일 미리보기
+  file:(File | FileBlob)[]; // 파일
   file_json:FileJson; //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 
   brain_cure_content:string; //심혈관질환명 / 없을시 빈배열
@@ -41,6 +43,10 @@ export class SignUpWorkerForm {
   vomiting_content:string; //가슴통증 내용
   vomiting_state:boolean; //가슴통증 여부
 }
+``
+type Validator<T> = {
+  [P in keyof T]: { message:string, valid:boolean }
+}
 @Component({
   selector: 'app-sign-up-worker',
   templateUrl: './sign-up-worker.page.html',
@@ -52,18 +58,16 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
   params:SignUpCompanyInfo;
 
   form:SignUpWorkerForm = new SignUpWorkerForm();
-  confirm = {
-    file: [] as FutItem[],
-    account_token: ''
+
+  conform = {
+
   }
 
-  resOverlapId:ConnectResult;
-  resCheckPass:ConnectResult;
   resOverlapPhone:ConnectResult;
   resAligoSend:ConnectResult;
   resAligoCheck:ConnectResult;
 
-  resCheck:ConnectResult;
+  validator:Validator<SignUpWorkerForm> = {} as any;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -86,19 +90,21 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
   public overlapId() {
     const { account_id } = this.form;
     clearTimeout(this.timeoutOverlapId);
-    if(account_id?.length < 3) return this.resOverlapId = null;
+    if(account_id?.length < 3) return this.validator.account_id = { valid: false, message: '아이디를 3자 이상 입력해주세요.' };
     this.timeoutOverlapId = setTimeout(async() => {
-      this.resOverlapId = await this.connect.run('/forSignUp/overlap/id', { account_id });
+      const res = await this.connect.run('/forSignUp/overlap/id', { account_id });
+      this.validator.account_id = { valid: res.rsCode === 0, message: res.rsMsg };
     }, 200);
   }
 
   timeoutCheckPass;
   public checkPass() {
-    const { user_phone } = this.form;
+    const { account_token } = this.form;
     clearTimeout(this.timeoutCheckPass);
-    if(user_phone?.length < 3) return this.resCheckPass = null;
+    if(account_token?.length < 4) return this.validator.account_token = { valid: false, message: '비밀번호를 4자이상 입력해주세요.' };
     this.timeoutCheckPass = setTimeout(async() => {
-      this.resCheckPass = await this.connect.run('/forSignUp/check/pass', { user_phone });
+      const res = await this.connect.run('/forSignUp/check/pass', { account_token });
+      this.validator.account_token = { valid: res.rsCode === 0, message: res.rsMsg };
     }, 200);
   }
   
@@ -122,25 +128,24 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
   }
 
   public next() {
-    /* if(!this.form.account_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.account_token) return {color: 'warning', message: '비밀번호를 입력해주세요.'};
-    if(!this.confirm.account_token) return {color: 'warning', message: '비밀번호 확인을 입력해주세요.'};
-    if(!this.form.ctgo_country_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.company_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.ctgo_construction_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.ctgo_occupation_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.project_id) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.user_name) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.user_gender) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.user_birth) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.user_email) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.user_phone) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.sms_token) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.basic_safe_edu_date) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.file) return {color: 'warning', message: '아이디를 입력해주세요.'};
-    if(!this.form.file_json) return {color: 'warning', message: '아이디를 입력해주세요.'}; */
-    
-    this.resCheck = new ConnectResult();
+    this.validator = {} as any;
+    if(!this.form.account_id) this.validator.account_id = {message: '아이디를 입력해주세요.', valid: false};
+    if(!this.form.account_token) this.validator.account_token = {message: '비밀번호를 입력해주세요.', valid: false};
+    if(!this.form.account_token_conform) this.validator.account_token_conform = {message: '비밀번호 확인을 입력해주세요.', valid: false};
+    if(!this.form.ctgo_country_id) this.validator.ctgo_country_id = {message: '국가를 입력해주세요.', valid: false};
+    if(!this.form.company_id) this.validator.company_id = {message: '회사를 입력해주세요.', valid: false};
+    if(!this.form.ctgo_construction_id) this.validator.ctgo_construction_id = {message: '공종을 입력해주세요.', valid: false};
+    if(!this.form.ctgo_occupation_id) this.validator.ctgo_occupation_id = {message: '직종을 입력해주세요.', valid: false};
+    if(!this.form.project_id) this.validator.project_id = {message: '현장을 입력해주세요.', valid: false};
+    if(!this.form.user_name) this.validator.user_name = {message: '이름을 입력해주세요.', valid: false};
+    if(!this.form.user_gender) this.validator.user_gender = {message: '성별을 입력해주세요.', valid: false};
+    if(!this.form.user_birth) this.validator.user_birth = {message: '생년월일을 입력해주세요.', valid: false};
+    if(!this.form.user_email) this.validator.user_email = {message: '이메일을 입력해주세요.', valid: false};
+    if(!this.form.user_phone) this.validator.user_phone = {message: '휴대폰번호를 입력해주세요.', valid: false};
+    if(!this.form.sms_token) this.validator.sms_token = {message: '문자인증번호를 입력해주세요.', valid: false};
+    if(!this.form.basic_safe_edu_date) this.validator.basic_safe_edu_date = {message: '기초안전보건교육 이수날짜를 입력해주세요.', valid: false};
+    // if(!this.form.file) this.validator.file = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
+    // if(!this.form.file_json) this.validator.file_json = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
 
     // this.nav.navigateForward('/sign-up-health');
   }
