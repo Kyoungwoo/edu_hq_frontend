@@ -195,6 +195,7 @@ graph = [
     this.graphData();
     this.getDust();
     this.getWeather();
+    this.monitorQuery();
     
     
     setInterval(() => {
@@ -296,6 +297,7 @@ graph = [
         this.data = {
           monitor:params.monitor
         }
+        console.log(this.data);
       }
     );
   }
