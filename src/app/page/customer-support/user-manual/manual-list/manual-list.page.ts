@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ManualDetailSearchPage } from '../manual-detail-search/manual-detail-search.page';
+import { ManualEditPage } from '../manual-edit/manual-edit.page';
 
 @Component({
   selector: 'app-manual-list',
@@ -20,6 +21,12 @@ export class ManualListPage implements OnInit {
       component: ManualDetailSearchPage,
 
     })
+    modal.present();
+  }
+  async edit() {
+    const modal = await this._modal.create({
+      component:ManualEditPage,
+    });
     modal.present();
   }
 }

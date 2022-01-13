@@ -11,6 +11,7 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { DirectiveModule } from 'src/app/basic/directive/directive.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ManualDetailSearchPageModule } from '../manual-detail-search/manual-detail-search.module';
+import { ManualEditPageModule } from '../manual-edit/manual-edit.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ManualDetailSearchPageModule } from '../manual-detail-search/manual-det
     ComponentModule,
     BasicComponentModule,
     ManualListPageRoutingModule,
-    ManualDetailSearchPageModule
+    ManualDetailSearchPageModule,
+    ManualEditPageModule
   ],
   declarations: [ManualListPage]
 })

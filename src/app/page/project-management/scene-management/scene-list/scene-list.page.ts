@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SceneEditPage } from '../scene-edit/scene-edit.page';
 
 @Component({
   selector: 'app-scene-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SceneListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
+  }
+  async edit() {
+    const modal = await this.modal.create({
+      component:SceneEditPage,
+    });
+    modal.present();
   }
 
 }

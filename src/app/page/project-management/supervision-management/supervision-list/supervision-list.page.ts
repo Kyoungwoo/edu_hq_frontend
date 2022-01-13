@@ -16,7 +16,7 @@ export class SupervisionListPage implements OnInit {
   ngOnInit() {
   }
 
-  async openEdit() {
+  async edit() {
     const modal = await this.modal.create({
       component: SupervisionEditPage
     });
