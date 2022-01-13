@@ -180,11 +180,11 @@ graph = [
     private route: ActivatedRoute
   ) { }
   async ngOnInit() {
-    // const modal = await this.modal.create({
-    //   component:RiskEvaluationPopupPage,
-    //   // cssClass:"modal-4"
-    // });
-    // modal.present();
+    const modal = await this.modal.create({
+      component: SecurityPasswordComponent,
+      cssClass: "security-password-modal"
+    });
+    modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
     //   component:ApprovalPopupComponent,
