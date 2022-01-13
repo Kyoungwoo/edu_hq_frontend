@@ -46,7 +46,7 @@ import { ConfirmProcessPopupComponent } from './confirm/confirm-process-popup/co
 import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.component';
 import { SearchAttendanceComponent } from './modal/search-attendance/search-attendance.component';
 import { SelectAttendanceComponent } from './select/select-attendance/select-attendance.component';
-import { MoniterComponent } from './header/moniter/moniter.component';
+import { MonitorComponent } from './header/monitor/monitor.component';
 import { ApprovalPopupComponent } from '../page/member-management/member-approval-wait/approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../page/member-management/member-approval-wait/security-password/security-password.component';
 import { MileagePopupComponent } from '../page/member-management/member-management/mileage-popup/mileage-popup.component';
@@ -97,7 +97,7 @@ import { MileagePopupComponent } from '../page/member-management/member-manageme
     ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
-    MoniterComponent,
+    MonitorComponent,
     ApprovalPopupComponent,
     SecurityPasswordComponent,
     MileagePopupComponent
@@ -152,7 +152,7 @@ import { MileagePopupComponent } from '../page/member-management/member-manageme
     ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
-    MoniterComponent,
+    MonitorComponent,
     ApprovalPopupComponent,
     SecurityPasswordComponent,
     MileagePopupComponent

@@ -15,10 +15,10 @@ interface Tab {
 })
 @Component({
   selector: 'app-moniter-header',
-  templateUrl: './moniter.component.html',
-  styleUrls: ['./moniter.component.scss'],
+  templateUrl: './monitor.component.html',
+  styleUrls: ['./monitor.component.scss'],
 })
-export class MoniterComponent implements OnInit {
+export class MonitorComponent implements OnInit {
 
   tabList:Tab[] = [
     { text: '통합관제',

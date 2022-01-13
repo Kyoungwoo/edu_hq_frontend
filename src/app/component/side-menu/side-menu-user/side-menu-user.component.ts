@@ -54,5 +54,4 @@ export class SideMenuUserComponent implements OnInit {
     this.menuSelected = this.menuList[0];
   }
   ngOnInit() {}
-
 }

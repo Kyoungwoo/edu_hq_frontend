@@ -434,14 +434,32 @@
   
   @media only screen and (min-height: 600px) and (min-width: 768px) {
     .sc-ion-modal-md-h {
-        --width: 100%;
-        --height: 100%;
-        --max-width: 1200px;
-        --max-height: 720px;
+      --width: 100%;
+      --height: 100%;
+      --max-width: 1200px;
+      --max-height: 720px;
         .modal-wrapper {
             box-shadow: 0 0 7px 0px rgba(0,0,0,0.15);
         }
     }
+
+    .security-password-modal {
+      --max-width: 400px;
+      --max-height: 340px;
+    }
+
+    .side-menu-admin-modal {
+      --width: 100%;
+      --box-shadow: var(--app-box-shadow);
+      --max-height: 100%;
+      --max-width: 100%;
+      --height: 750px;
+      align-items: flex-start;
+      .modal-wrapper {
+        margin-top: calc(64px + var(--ion-safe-area-top));
+      }
+    }
+    
     .modal-2 {
         --max-width: 800px;
         --max-height: 680px;
@@ -485,15 +503,4 @@
     }
   }
 
-  ion-modal.side-menu-admin-modal {
-    --width: 100%;
-    --box-shadow: var(--app-box-shadow);
-    --max-height: 100%;
-    --max-width: 100%;
-    --height: 750px;
-    align-items: flex-start;
-    .modal-wrapper {
-      margin-top: calc(64px + var(--ion-safe-area-top));
-    }
-  }
 }
