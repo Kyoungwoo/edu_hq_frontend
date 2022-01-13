@@ -22,49 +22,6 @@ export class MainAdminPage implements OnInit {
     high_weather_temp:"", // 최고 기온(온도),
     low_weather_temp:"" // 최저 기온(온도),
   }
-  imgArr = [
-    {
-      src:'assets/img/main/danger-wroker.svg'
-    },
-    {
-      src:'assets/img/main/departure.svg'
-    },
-    {
-      src:'assets/img/main/emergency-manage.svg'
-      
-    },
-    {
-      src:'assets/img/main/meeting.svg'
-      
-    },
-    {
-      src:'assets/img/main/monitor.svg'
-      
-    },
-    {
-      src:'assets/img/main/nocomform.svg'
-      
-    },
-    {
-      src:'assets/img/main/risk-report.svg'
-      
-    },
-    {
-      src:'assets/img/main/smart-safe.svg'
-      
-    },
-    {
-      src:'assets/img/main/support.svg'
-      
-    },
-    {
-      src:'assets/img/main/tbm-history.svg'
-      
-    },
-    {
-      src:'assets/img/main/work-plan.svg'
-    },
-]
   dust:any = {
     dataTime: "",
     grade_name: "",
