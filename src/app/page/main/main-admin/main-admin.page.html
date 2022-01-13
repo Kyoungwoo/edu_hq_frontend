@@ -1,9 +1,288 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>main-admin</ion-title>
+    <app-header-admin></app-header-admin>
+    <app-card class="margin-card">
+      <app-row>
+        <app-col size="3">
+          <app-select>
+            <app-select-option>전체</app-select-option>
+          </app-select>
+        </app-col>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
+            <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+          </app-button>
+        </app-col>
+        <app-col size="auto">
+          <app-row class="weather-temp">
+            {{ weather.weather_temp + "&deg;C"}}
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.high_weather_temp + "&deg;C" }}
+            {{ weather.low_weather_temp + "&deg;C"}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            강수량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            적설량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            최대풍속
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_speed + "m/s"}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            미세먼지
+          </app-row>
+          <app-row class="ratio">
+            <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+            {{ dust.grade_name}}
+          </app-row>
+        </app-col>
+      </app-row>
+    </app-card>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col>
+      <app-card style="height: 700px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>메뉴</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row style="text-align: center;">
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/danger-work.svg"></app-img>
+            <h5>비상알림</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/departure.svg"></app-img>
+            <h5>위험 작업<bR>허가</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
+            <h5>결과 보고</h5>
+          </app-col>
+        </app-row>
+        <app-row style="text-align: center;">
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/meeting.svg"></app-img>
+            <h5>위험성 평가</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/monitor.svg"></app-img>
+            <h5>장비 작업<br>계획</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/nocomform.svg"></app-img>
+            <h5>부적합 조치</h5>
+          </app-col>
+        </app-row>
+        <app-row style="text-align: center;">
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/risk-report.svg"></app-img>
+            <h5>장비관리</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/smart-safe.svg"></app-img>
+            <h5>TBM 일지</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/support.svg"></app-img>
+            <h5>고객지원</h5>
+          </app-col>
+        </app-row>
+        <app-row style="text-align: center;">
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/tbm-history.svg"></app-img>
+            <h5>현장관리</h5>
+          </app-col>
+          <app-col size="4">
+            <app-img style="width: 70%;" src="assets/img/main/work-plan.svg"></app-img>
+            <h5>출역관리</h5>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+    <app-col>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>알림함</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip class="chip-color">정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>공지사항</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>회의록</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
 
+    <app-col>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>미결함</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>회의록</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card style="height: 343px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>교육이수현황</h4>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+    <app-col>
+      <app-card style="height: 300px;">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="margin: 10px;">
+            <app-col size="auto">
+              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
+            </app-col>
+            <app-col>
+              <h4 style="font-weight: 700;">홍길동</h4>
+              <p>구일종합건설(주)</p>
+              <p>대표이사</p>
+              <app-row>
+                <app-col>
+                  <app-button class="button-edit">마이페이지 <ion-icon name="chevron-forward-outline"></ion-icon></app-button>
+                  <app-button class="button-edit">로그아웃 <ion-icon name="chevron-forward-outline"></ion-icon></app-button>
+                </app-col>
+              </app-row>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card style="height: 747px;">
+        <ion-toolbar slot="top" color="white">
+          <ion-row>
+            <ion-col>
+              <h4>금일 비상상황 알림</h4>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col size="auto">
+            <ion-chip>정책 개정</ion-chip>
+          </app-col>
+          <app-col>
+            <div>2021.08.19</div>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
 </ion-content>

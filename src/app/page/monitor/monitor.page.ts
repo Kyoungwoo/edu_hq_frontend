@@ -178,11 +178,11 @@ graph = [
     private nfc : NfcService,
     private modal : ModalController,
     private route: ActivatedRoute
-  ) { this.monitorQuery();}
+  ) { }
   async ngOnInit() {
     const modal = await this.modal.create({
-      component:ApprovalPopupComponent,
-      // cssClass:"modal-4"
+      component:ConfirmSettingPopupComponent,
+      cssClass:"confirm-modal"
     });
     modal.present();
     // this.graphData()
@@ -195,6 +195,7 @@ graph = [
     this.graphData();
     this.getDust();
     this.getWeather();
+    this.monitorQuery();
     
     
     setInterval(() => {
@@ -296,6 +297,7 @@ graph = [
         this.data = {
           monitor:params.monitor
         }
+        console.log(this.data);
       }
     );
   }

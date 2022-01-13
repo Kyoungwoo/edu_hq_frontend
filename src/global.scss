@@ -303,14 +303,6 @@
       background-color: transparent !important;
     }
   }
-
-  .risk-modal {
-    .modal-wrapper{
-      --width:800px;
-      --height:475px;
-    }
-  }
-
   .area-add-modal {
     .modal-wrapper.sc-ion-modal-md{
       --width:300px;
@@ -434,66 +426,55 @@
   
   @media only screen and (min-height: 600px) and (min-width: 768px) {
     .sc-ion-modal-md-h {
-        --width: 100%;
-        --height: 100%;
-        --max-width: 1200px;
-        --max-height: 720px;
+      --width: 100%;
+      --height: 100%;
+      --max-width: 1200px;
+      --max-height: 720px;
         .modal-wrapper {
             box-shadow: 0 0 7px 0px rgba(0,0,0,0.15);
         }
     }
-    .modal-2 {
-        --max-width: 800px;
-        --max-height: 680px;
+
+    .security-password-modal {
+      --max-width: 400px;
+      --max-height: 340px;
     }
-    .modal-3 {
-        --max-width: 680px;
-        --max-height: 620px;
+    .approval-modal {
+      --max-width: 400px;
+      --max-height: 340px;
     }
-    .modal-4 {
-        --max-width: 400px;
-        --max-height: 340px;
+    .mileage-modal {
+      --max-width: 500px;
+      --max-height: 400px;
     }
-    .modal-5 {
-        --max-width: 1500px;
-        // --max-height: 680px;
+    .risk-evaluation-modal {
+      --max-width: 800px;
+      --max-height: 475px;
     }
-    .modal-6 {
-        --max-width: 400px;
-        --max-height: 250px;
+    .confirm-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+    .confirm-process-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+    .confirm-setting-modal {
+      --max-width: 500px;
+      --max-height: 450px;
     }
 
-    .modal-7 {
-      --max-width: 320px;
-      --max-height: 240px;
-  }
-    .modal-hr-1{
-        --max-width: 400px;
-        --max-height: 328px;
-    }
-    .modal-hr-2{
-        --max-width: 400px;
-        --max-height: 310px;
-    }
-    .modal-hr-3{
-        --max-width: 400px;
-        --max-height: 450px;
-    }
-    .modal-ra-detail {
-        --max-width: 1420px;
-        --max-height: 840px;
+    .side-menu-admin-modal {
+      --width: 100%;
+      --box-shadow: var(--app-box-shadow);
+      --max-height: 100%;
+      --max-width: 100%;
+      --height: 750px;
+      align-items: flex-start;
+      .modal-wrapper {
+        margin-top: calc(64px + var(--ion-safe-area-top));
+      }
     }
   }
 
-  ion-modal.side-menu-admin-modal {
-    --width: 100%;
-    --box-shadow: var(--app-box-shadow);
-    --max-height: 100%;
-    --max-width: 100%;
-    --height: 750px;
-    align-items: flex-start;
-    .modal-wrapper {
-      margin-top: calc(64px + var(--ion-safe-area-top));
-    }
-  }
 }

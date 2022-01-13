@@ -1,10 +1,6 @@
 <ion-header>
-  <ion-toolbar color="white">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
-    </ion-buttons>
-    <ion-title>현장관리</ion-title>
-  </ion-toolbar>
+  <app-header-admin></app-header-admin>
+
 </ion-header>
 <ion-content>
   <app-row style="align-items: flex-start;">
@@ -23,12 +19,12 @@
         <tbody>
           <tr>
             <td>
-              <app-input label="지역본부"></app-input>
+              <app-select label="지역본부"></app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-input label="사업본부"></app-input>
+              <app-select label="사업본부"></app-select>
             </td>
           </tr>
           <tr>
@@ -44,11 +40,11 @@
         <ion-buttons slot="start">
           <app-col>
             <app-button fill="translucent">신규 등록</app-button>
-            <app-button>엑셀 다운로드</app-button>
+            <app-button fill="translucent">엑셀 다운로드</app-button>
           </app-col>
         </ion-buttons>
         <app-col style="text-align: right;">
-          <app-button>저장</app-button>
+          <app-button fill="translucent">저장</app-button>
         </app-col>
       </ion-toolbar>
       <ion-toolbar color="white">
@@ -59,7 +55,7 @@
         <app-table>
           <thead>
             <tr>
-              <th>
+              <th style="width: 40px;">
                 <app-check type="all" color="white" size="small" name="check"></app-check>
               </th>
               <th>지역본부</th>
