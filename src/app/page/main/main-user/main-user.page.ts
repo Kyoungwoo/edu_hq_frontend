@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
 
 @Component({
   selector: 'app-main-user',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainUserPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal: ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  async openMenu() {
+    const modal = await this.modal.create({
+      component: SideMenuUserComponent
+    });
+    modal.present();
+  }
 }
