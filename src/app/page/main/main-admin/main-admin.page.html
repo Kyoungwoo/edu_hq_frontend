@@ -64,43 +64,53 @@
 <ion-content>
   <app-row style="align-items: flex-start;">
     <app-col>
-      <app-card style="height: 700px;">
-        <ion-toolbar slot="top" color="white">
-          <ion-row>
-            <ion-col>
-              <h4>메뉴</h4>
-            </ion-col>
-          </ion-row>
+      <app-card>
+        <ion-toolbar style="height: 230px; display: flex;">
+          <app-row>
+            <app-col>
+              <app-select label="지역본부"></app-select>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-select label="사업본부"></app-select>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-select-scene></app-select-scene>
+            </app-col>
+          </app-row>
         </ion-toolbar>
-        <app-row style="text-align: center;">
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/danger-work.svg"></app-img>
+        <app-row class="menu-" style="text-align: center;">
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/danger-work.svg"></app-img>
             <h5>비상알림</h5>
           </app-col>
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/departure.svg"></app-img>
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/departure.svg"></app-img>
             <h5>위험 작업<bR>허가</h5>
           </app-col>
-          <app-col size="4">
+          <!-- <app-col size="6">
             <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
             <h5>결과 보고</h5>
-          </app-col>
+          </app-col> -->
         </app-row>
         <app-row style="text-align: center;">
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/meeting.svg"></app-img>
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/meeting.svg"></app-img>
             <h5>위험성 평가</h5>
           </app-col>
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/monitor.svg"></app-img>
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/monitor.svg"></app-img>
             <h5>장비 작업<br>계획</h5>
           </app-col>
-          <app-col size="4">
+          <!-- <app-col size="6">
             <app-img style="width: 70%;" src="assets/img/main/nocomform.svg"></app-img>
             <h5>부적합 조치</h5>
-          </app-col>
+          </app-col> -->
         </app-row>
-        <app-row style="text-align: center;">
+        <!-- <app-row style="text-align: center;">
           <app-col size="4">
             <app-img style="width: 70%;" src="assets/img/main/risk-report.svg"></app-img>
             <h5>장비관리</h5>
@@ -113,14 +123,14 @@
             <app-img style="width: 70%;" src="assets/img/main/support.svg"></app-img>
             <h5>고객지원</h5>
           </app-col>
-        </app-row>
+        </app-row> -->
         <app-row style="text-align: center;">
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/tbm-history.svg"></app-img>
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/tbm-history.svg"></app-img>
             <h5>현장관리</h5>
           </app-col>
-          <app-col size="4">
-            <app-img style="width: 70%;" src="assets/img/main/work-plan.svg"></app-img>
+          <app-col size="6">
+            <app-img style="width: 45%;" src="assets/img/main/work-plan.svg"></app-img>
             <h5>출역관리</h5>
           </app-col>
         </app-row>
@@ -234,13 +244,14 @@
         </app-row>
       </app-card>
     </app-col>
-    
+
     <app-col>
       <app-card style="height: 300px;">
         <ion-toolbar slot="top" color="white">
           <app-row style="margin: 10px;">
             <app-col size="auto">
-              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg"></app-avatar>
+              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg">
+              </app-avatar>
             </app-col>
             <app-col>
               <h4 style="font-weight: 700;">홍길동</h4>
@@ -248,8 +259,10 @@
               <p>대표이사</p>
               <app-row>
                 <app-col>
-                  <app-button class="button-edit">마이페이지 <ion-icon name="chevron-forward-outline"></ion-icon></app-button>
-                  <app-button class="button-edit">로그아웃 <ion-icon name="chevron-forward-outline"></ion-icon></app-button>
+                  <app-button class="button-edit">마이페이지 <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-button>
+                  <app-button class="button-edit">로그아웃 <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-button>
                 </app-col>
               </app-row>
             </app-col>

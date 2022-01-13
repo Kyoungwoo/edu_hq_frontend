@@ -26,7 +26,7 @@ export class MainAdminPage implements OnInit {
     dataTime: "",
     grade_name: "",
     icon_url: "",
-    pm10Value: 0,
+  pm10Value: 0,
     pm25Grade: 0
   }
   constructor(

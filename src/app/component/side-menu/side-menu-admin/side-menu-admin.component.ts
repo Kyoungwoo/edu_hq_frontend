@@ -95,18 +95,17 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '개인정보처리방침', link: '/privacy'}
     ]},
     { title: '회원관리', img: 'assets/img/menu/member-manage.svg', subMenuList: [
-      { title: '작업자 가입승인', link: ''},
-      { title: '관리자 가입승인', link: ''},
-      { title: '원청사 관리', thirdMenuList:[
-        {title:'LH 관리자 가입 승인',link:''},
-        {title:'감리 가입승인',link:''},
-        {title:'원청사/협력사 관리자 가입승인',link:''}
+      { title: '작업자 가입승인', link: '/worker-approval-list'},
+      { title: '관리자 관리', thirdMenuList:[
+        {title:'LH 관리자 가입 승인',link:'lh-approval-list'},
+        {title:'감리 가입승인',link:'supervision-approval-list'},
+        {title:'원청사/협력사 관리자 가입승인',link:'partner-approval-list'}
       ]},
-      { title: '작업자 정보', link: '/contractor-list'},
+      { title: '작업자 정보', link: 'worker-info-list'},
       { title: '관리자 정보',thirdMenuList:[
-        {title:'LH 관리자 정보',link:''},
-        {title:'감리 정보',link:''},
-        {title:'원청사/협력사 관리자 정보',link:''},
+        {title:'LH 관리자 정보',link:'lh-info-list'},
+        {title:'감리 정보',link:'supervision-info-list'},
+        {title:'원청사/협력사 관리자 정보',link:'partner-info-list'},
       ]},
       {title:'안전마일리지',link:''}
     ]},
