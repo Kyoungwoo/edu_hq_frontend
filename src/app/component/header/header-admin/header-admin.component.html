@@ -2,27 +2,43 @@
   <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <app-logo></app-logo>
-      <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()"><app-img name="menu"></app-img></app-button>
-      <app-button color="white" fill="clear">통합관제</app-button>
-      <app-button color="white" fill="clear">결재</app-button>
-      <app-button color="white" fill="clear">안전교육</app-button>
-      <app-button color="white" fill="clear">작업계획</app-button>
-      <app-button color="white" fill="clear">작업관리</app-button>
-      <app-button color="white" fill="clear">장비관리</app-button>
-      <app-button color="white" fill="clear">위험작업관리</app-button>
-      <app-button color="white" fill="clear">비상상황관리</app-button>
+      <app-button color="white" fill="clear" (click)="openSideMenu()"><app-img name="menu"></app-img></app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/monitor" [class.active]="selectedMenu?.title === '통합관제'" (click)="selectedMenu = adminMenu.menuList[0]; selectedSubMenu = null; selectedThirdMenu = null;">통합관제</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/confirm-pending-list" [class.active]="selectedMenu?.title === '결재'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">결재</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '안전교육'" (click)="selectedMenu = adminMenu.menuList[2]; selectedSubMenu = null; selectedThirdMenu = null;">안전교육</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="//risk-list" [class.active]="selectedMenu?.title === '작업계획'" (click)="selectedMenu = adminMenu.menuList[3]; selectedSubMenu = null; selectedThirdMenu = null;">작업계획</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '작업관리'" (click)="selectedMenu = adminMenu.menuList[4]; selectedSubMenu = null; selectedThirdMenu = null;">작업관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/heavy-equip-list" [class.active]="selectedMenu?.title === '장비관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;">장비관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '위험작업관리'" (click)="selectedMenu = adminMenu.menuList[6]; selectedSubMenu = null; selectedThirdMenu = null;">위험작업관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;">비상상황관리</app-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="white" *ngIf="selectedSubMenu">
+  <ion-toolbar color="white" *ngIf="selectedMenu">
     <ion-title>
-      <h4>{{ selectedSubMenu.title }}</h4>
+      <h4>
+        {{ selectedMenu.title }}
+      </h4>
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white" *ngIf="selectedMenu?.subMenuList">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment class="sub-menu" color="primary" [scrollable]="true" [value]="selectedSubMenu?.title">
+          <ion-segment-button *ngFor="let subMenu of selectedMenu?.subMenuList"
+          [routerLink]="subMenu.link || null"
+          [value]="subMenu.title" [disabled]="!subMenu.link && !subMenu.thirdMenuList"
+          (click)="selectedSubMenu = subMenu">
+            {{ subMenu.title }}
+          </ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
   </ion-toolbar>
   <ion-toolbar color="white" *ngIf="selectedSubMenu?.thirdMenuList">
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [scrollable]="true" [value]="url">
-          <ion-segment-button *ngFor="let thirdMenu of selectedSubMenu.thirdMenuList" 
+          <ion-segment-button class="third-menu" *ngFor="let thirdMenu of selectedSubMenu.thirdMenuList" 
           [routerLink]="thirdMenu.link || null"
           [value]="thirdMenu.link" [disabled]="!thirdMenu.link">{{ thirdMenu.title }}</ion-segment-button>
         </ion-segment>

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <app-moniter-header></app-moniter-header>
     <app-card class="margin-card">
-      <app-row>
+      <ion-row>
         <app-col size="3">
           <app-select>
             <app-select-option>전체</app-select-option>
@@ -56,7 +56,7 @@
             {{ dust.grade_name}}
           </app-row>
         </app-col>
-      </app-row>
+      </ion-row>
     </app-card>
   </ion-toolbar>
 </ion-header>
@@ -66,82 +66,19 @@
     <app-col>
       <app-card color="white">
         <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>금일 작업 계획</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 33명</ion-chip>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;" size="7">
-                <div style="width: 100%; position: relative;">
-                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
-                    <!-- <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="orange" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="25"></circle>
-                      <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eeeeee" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="95"></circle> -->
-                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
-                    </circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
-                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
-                  </svg>
-                  <div class="donut-in-count">
-                    33
-                  </div>
-                  <div class="donut-in-text">
-                    총 출역인원
-                  </div>
-                </div>
-              </app-col>
-              <app-col class="graph-sub" size="4">
-                <app-row>
-                  <app-col size="auto" style="display: flex;">
-                    <app-img src="/assets/img/monitor/monitor-worker.svg"></app-img>
-                    <p class="count-name">작업자</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="position: relative;">
-                  <div class="dount-worker"></div>
-                  <div class="dount-worker-sub"></div>
-                </app-row>
-                <app-row>
-                  <app-col size="auto" style="display: flex;">
-                    <app-img  src="/assets/img/monitor/monitor-partner.svg"></app-img>
-                    <p class="count-name">관리자</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="position: relative;">
-                  <div class="dount-partner"></div>
-                  <div class="dount-partner-sub"></div>
-                </app-row>
-              </app-col>
-            </app-row>
-          </app-col>
-
-          <app-col class="middle-box donut-group">
+          <app-col class="border-box donut-group">
+            <ion-toolbar slot="top" color="white">
+              <ion-row>
+                <app-col>
+                  <h4>금일 출역 근로자</h4>
+                </app-col>
+                <app-col size="auto">
+                  <ion-chip class="chip-back">총 113명</ion-chip>
+                </app-col>
+              </ion-row>
+            </ion-toolbar>
             <ion-row>
-              <app-col>
-                <h4>공종별 출역 근로자</h4>
-              </app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 113명</ion-chip>
-              </app-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
+              <ion-col style="height: 300px;">
                 <div style="position: relative;">
                   <ng-container *ngFor="let item of graphArrCount let i = index">
                     <div class="graph-box">
@@ -154,28 +91,60 @@
                   <ng-container *ngFor="let item of graphArr let i = index">
                     <div class="graph-rod-main">
                       <div class="graph-rod-tow"></div>
-                      <div class="graph-rod-one"></div>
-                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">
-                        {{ item.name }}
+                      <!-- <div class="graph-rod-one"></div> -->
+                      <div class="rod-name"
+                        style="position: absolute; bottom: -55px; width: 100%; left: -30px; text-align: center; transform: rotate(-45deg);">
+                        {{ item.date }}
                       </div>
                     </div>
                   </ng-container>
                 </div>
               </ion-col>
+            </ion-row>
+          </app-col>
+          <app-col class="donut-group">
+            <ion-toolbar slot="top" color="white">
+              <ion-row>
+                <app-col>
+                  <h4>금일 작업 근로자</h4>
+                </app-col>
+                <app-col size="auto">
+                  <ion-chip class="chip-back">총 113명</ion-chip>
+                </app-col>
+              </ion-row>
+            </ion-toolbar>
+            <ion-row>
+              <app-col style="position: relative;" size="7">
+                <div style="width: 75%; position: relative;">
+                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
+                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
+                    </circle>
+                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
+                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+                  </svg>
+                  <div class="donut-in-count">
+                    33
+                  </div>
+                  <div class="donut-in-text">
+                    총 작업
+                  </div>
+                </div>
+              </app-col>
               <app-col class="graph-sub" size="4">
                 <app-row>
-                  <app-col class="sub-info">
-                    <app-img src="/assets/img/monitor/monitor-worker.svg"></app-img>
-                    <p class="count-name">작업자</p>
+                  <app-col size="auto" style="display: flex; align-items: center;">
+                    <div class="circlel-plan"></div>
+                    <p class="count-name">위험</p>
                   </app-col>
                   <app-col size="auto">
-                    <p class="count-contant">50</p>
+                    <p class="count-contant">6</p>
                   </app-col>
                 </app-row>
                 <app-row>
-                  <app-col class="sub-info">
-                    <app-img src="/assets/img/monitor/monitor-partner.svg"></app-img>
-                    <p class="count-name">작업자</p>
+                  <app-col size="auto" style="display: flex; align-items: center;">
+                    <div class="circlel-per"></div>
+                    <p class="count-name">일반</p>
                   </app-col>
                   <app-col size="auto">
                     <p class="count-contant">50</p>
@@ -184,7 +153,31 @@
               </app-col>
             </ion-row>
           </app-col>
-          <app-col class="donut-group">
+          <!-- <app-col class="donut-group">
+            <app-row>
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>공종별 출역 현황</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-chip class="chip-back">총 113명</ion-chip>
+                  </app-col>
+                </app-row>
+                <app-row *ngFor="let item of graphArr4 let i = index">
+                  <app-col size="auto" class="risk-type-name">{{ item.name }}</app-col>
+                  <app-col style="display: flex; align-items: center;">
+                    <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                      [style.width]="item.count + '%'"></div>
+                    <h4>{{item.count}}</h4>
+                  </app-col>
+                </app-row>
+              </app-col>
+            </app-row>
+          </app-col> -->
+
+
+          <!-- <app-col class="donut-group">
             <ion-row>
               <app-col>
                 <h4>작업자 상태</h4>
@@ -242,7 +235,7 @@
                 </app-row>
               </app-col>
             </ion-row>
-          </app-col>
+          </app-col> -->
         </app-row>
       </app-card>
 
@@ -250,150 +243,82 @@
         <app-row style="align-items: stretch;">
           <app-col class="donut-group">
             <app-row>
-              <app-col>
-                <h4>금일 작업 계획</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 33명</ion-chip>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;" size="7">
-                <div style="width: 100%; position: relative;">
-                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
-                    <!-- <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="orange" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="25"></circle>
-                      <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eeeeee" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="95"></circle> -->
-                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
-                    </circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
-                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
-                  </svg>
-                  <div class="donut-in-count">
-                    33
-                  </div>
-                  <div class="donut-in-text">
-                    총 작업
-                  </div>
-                </div>
-              </app-col>
-              <app-col class="graph-sub" size="4">
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-plan"></div>
-                    <p class="count-name">위험작업</p>
+              <app-col class="donut-group">
+                <ion-toolbar slot="top" color="white">
+                  <ion-row>
+                    <app-col>
+                      <h4>공종별 출역 작업자</h4>
+                    </app-col>
+                    <app-col size="auto">
+                      <ion-chip class="chip-back">총 113명</ion-chip>
+                    </app-col>
+                  </ion-row>
+                </ion-toolbar>
+                <ion-row *ngFor="let item of graphArr2 let i = index">
+                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                  <app-col style="display: flex; align-items: center;">
+                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                      [style.width]="item.count + '%'"></div>
+                    <h4>{{item.count}}</h4>
                   </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">6</p>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-per"></div>
-                    <p class="count-name">일반작업</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
+                </ion-row>
               </app-col>
             </app-row>
           </app-col>
 
           <app-col class="middle-box donut-group">
-            <ion-row>
-              <app-col>
-                <h4>공종별 작업 현황</h4>
-              </app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 113명</ion-chip>
-              </app-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <div style="position: relative;">
-                  <ng-container *ngFor="let item of graphArrCount let i = index">
-                    <div class="graph-box">
-                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
-                      <div class="grach-line"></div>
-                    </div>
-                  </ng-container>
-                </div>
-                <div class="graph-rod-group">
-                  <ng-container *ngFor="let item of graphArr let i = index">
-                    <div class="graph-rod-main-2">
-                      <div class="graph-rod-tow"></div>
-                      <div class="graph-rod-one"></div>
-                      <div class="rod-name" style="position: absolute; bottom: -25px; width: 100%; text-align: center;">
-                        {{ item.name }}
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </ion-col>
-              <app-col class="graph-sub" size="4">
-                <app-row style="justify-content: center;">
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-plan"></div>
-                    <p class="count-name">계획</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="justify-content: center;">
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-per"></div>
-                    <p class="count-name">설계</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </ion-row>
-          </app-col>
-
-          <app-col>
             <app-row>
-              <app-col>
-                <h4>작업 상태</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 113명</ion-chip>
+              <app-col class="donut-group">
+                <ion-toolbar slot="top" color="white">
+                  <ion-row>
+                    <app-col>
+                      <h4>작업자 상태</h4>
+                    </app-col>
+                    <app-col size="auto">
+                      <ion-chip class="chip-back">총 113명</ion-chip>
+                    </app-col>
+                  </ion-row>
+                </ion-toolbar>
+                <ion-row *ngFor="let item of graphArr3 let i = index">
+                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                  <app-col style="display: flex; align-items: center;">
+                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                      [style.width]="item.count + '%'"></div>
+                    <h4>{{item.count}}</h4>
+                  </app-col>
+                </ion-row>
               </app-col>
             </app-row>
+          </app-col>
+
+          <app-col class="donut-group">
             <app-row>
-              <ion-col>
-                <div style="position: relative;">
-                  <ng-container *ngFor="let item of graphArrCount let i = index">
-                    <div class="graph-box">
-                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
-                      <div class="grach-line"></div>
-                    </div>
-                  </ng-container>
-                </div>
-                <div class="graph-rod-group">
-                  <ng-container *ngFor="let item of graphArr2 let i = index">
-                    <div class="graph-rod-main-2">
-                      <div class="graph-rod-tow-worker" [style]="'height:'+item.count/2+'px;'"></div>
-                      <div class="worker-name">{{ item.name }}</div>
-                    </div>
-                  </ng-container>
-                </div>
-              </ion-col>
+              <app-col class="donut-group">
+                <ion-toolbar slot="top" color="white">
+                  <ion-row>
+                    <app-col>
+                      <h4>위험공종별 작업 계획</h4>
+                    </app-col>
+                    <app-col size="auto">
+                      <ion-chip class="chip-back">총 113명</ion-chip>
+                    </app-col>
+                  </ion-row>
+                </ion-toolbar>
+                <ion-row *ngFor="let item of graphArr4 let i = index">
+                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                  <app-col style="display: flex; align-items: center;">
+                    <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                      [style.width]="item.count + '%'"></div>
+                    <h4>{{item.count}}</h4>
+                  </app-col>
+                </ion-row>
+              </app-col>
             </app-row>
           </app-col>
         </app-row>
       </app-card>
 
-      <app-card>
+      <!-- <app-card>
         <app-row style="align-items: stretch;">
           <app-col class="donut-group">
             <app-row>
@@ -409,12 +334,6 @@
               <app-col style="position: relative;" size="7">
                 <div style="width: 100%; position: relative;">
                   <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
-                    <!-- <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="orange" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="25"></circle>
-                      <circle class="donut-segment5" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#eeeeee" stroke-width="4" 
-                      stroke-dasharray="30 70"
-                      stroke-dashoffset="95"></circle> -->
                     <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
                     <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff9041" stroke-width="6"
                       stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
@@ -512,39 +431,105 @@
             </app-row>
           </app-col>
         </app-row>
-      </app-card>
+      </app-card> -->
 
     </app-col>
     <app-col style="flex: 0 0 250px;">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
-          <app-row style="justify-content: space-between;">
+          <ion-row style="justify-content: space-between;">
+            <ion-col style="text-align: center;">
+              <h4>스마트 안전 장비</h4>
+            </ion-col>
             <app-col size="auto">
-              <h4>위험 감지</h4>
+              <app-button>수정</app-button>
             </app-col>
-          </app-row>
+          </ion-row>
         </ion-toolbar>
         <tbody>
           <tr>
-            <td>
+            <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
             </td>
-            <td class="table-text">중장비<br>접금감지</td>
-            <td class="table-count">1</td>
+            <td class="table-text">
+              <h5>
+                중장비 접근감지
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+            </td>
           </tr>
           <tr>
-            <td>
+            <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img>
             </td>
-            <td class="table-text">위험지역<br>접금감지</td>
-            <td class="table-count">3</td>
+            <td class="table-text">
+              <h5>
+                위험지역 접근감지
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+            </td>
           </tr>
           <tr>
-            <td>
+            <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/safetyhook.svg"></app-img>
             </td>
-            <td class="table-text">안전고리<br>미체결</td>
-            <td class="table-count">4</td>
+            <td class="table-text">
+              <h5>
+                안전고리 체결
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+            </td>
           </tr>
           <tr>
             <td style="vertical-align: top;">
@@ -575,11 +560,32 @@
             </td>
           </tr>
           <tr>
-            <td>
+            <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/smart.svg"></app-img>
             </td>
-            <td class="table-text">스마트<br>헬스케어 밴드</td>
-            <td class="table-count">6</td>
+            <td class="table-text">
+              <h5>
+                스마트 헬스케어 밴드
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>3대</app-col>
+                </app-row>
+              </p>
+            </td>
           </tr>
         </tbody>
       </app-table>
@@ -706,12 +712,6 @@
           </app-col>
         </app-row>
       </app-card>
-    </app-col>
-  </app-row>
-
-  <app-row>
-    <app-col>
-      <app-textarea value="svg 만들지 못함"></app-textarea>
     </app-col>
   </app-row>
 </ion-content>

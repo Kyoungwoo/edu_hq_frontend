@@ -273,9 +273,10 @@
     margin-top: 0;
     margin-bottom: 0;
     min-width: auto;
-    //max-width: 100%;
     --indicator-box-shadow: none;
     --indicator-color: var(--ion-color-base);
+    /* --padding-start: 8px;
+    --padding-end: 8px; */
   }
   ion-segment-button::before {
     content: none;

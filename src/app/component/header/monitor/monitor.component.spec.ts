@@ -4,15 +4,15 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from '../../component.module';
 
-import { MoniterComponent } from './moniter.component';
+import { MonitorComponent } from './monitor.component';
 
 describe('MoniterComponent', () => {
-  let component: MoniterComponent;
-  let fixture: ComponentFixture<MoniterComponent>;
+  let component: MonitorComponent;
+  let fixture: ComponentFixture<MonitorComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoniterComponent ],
+      declarations: [ MonitorComponent ],
       imports: [
         IonicModule.forRoot(),
         FormsModule,
@@ -21,7 +21,7 @@ describe('MoniterComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MoniterComponent);
+    fixture = TestBed.createComponent(MonitorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

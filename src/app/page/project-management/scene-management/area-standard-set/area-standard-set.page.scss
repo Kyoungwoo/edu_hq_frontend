@@ -5,5 +5,10 @@
     .edit{
         height: 230px;
         overflow: scroll;
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
     }
 }

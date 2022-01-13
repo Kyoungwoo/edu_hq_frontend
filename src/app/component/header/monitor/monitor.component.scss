@@ -24,6 +24,8 @@ ion-header{
 }
 
 .tab-list {
+    position: relative;
+    top: -10px;
     overflow: hidden;
     padding-left: 28px;
     padding-right: 20px;

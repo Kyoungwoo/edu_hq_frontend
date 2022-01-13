@@ -87,16 +87,20 @@ app-img{
     position: relative;
     height: 50px;
     width: 100%; 
-    border-bottom: 1px solid #9CB3BE;
+    border-bottom: 1px solid var(--ion-color-medium);
 }
 .middle-box{
     border-left: 3px solid var(--ion-color-light);
     border-right: 3px solid var(--ion-color-light);
 }
+.border-box{
+    // border-left: 1px solid var(--ion-color-light);
+    border-right: 3px solid var(--ion-color-light);
+}
 .graph-rod-group{
     display: flex;
     position: absolute;
-    top: -5px;
+    top: -96px;
     left: 40px;
     margin-right: 5px;
     height: 100%;
@@ -141,9 +145,6 @@ app-img{
         text-align: center;
         font-size: var(--font-size-h5);
         color: var(--ion-color-secondary-contrast);
-    }
-    .graph-rod-main:hover{
-     background-color: var(--ion-color-secondary);   
     }
 }
 .graph-rod-one {
@@ -219,9 +220,12 @@ app-img{
 }
 
 .table-text{
-    //text-align: left !important;
     font-size: 18px;
     color: var(--ion-color-primary-shade);
+    h5{
+        margin-top: 10px;
+        text-align: left;
+    }
 }
 .table-count{
     width: 30px;
@@ -246,4 +250,14 @@ app-img{
     app-row{
         flex-direction: column !important;
     }
+    .border-box{
+        border-right: none;
+    }
+    .table-text {
+        h5{
+            text-align: center;
+            margin-top: 10px;
+        }
+    }
+
 }

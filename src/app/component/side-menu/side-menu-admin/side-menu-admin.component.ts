@@ -61,9 +61,9 @@ export class SideMenuAdminComponent implements OnInit {
         { title: '평가표 정보 추가 요청', link: '' }
       ]},
       { title: '위험 작업 허가', link: ''},
-      { title: '회의록', link: 'worker-minutes-list'}
+      { title: '회의록', link: '/worker-minutes-list'}
     ]},
-    { title: '작업관리', img: 'assets/img/menu/work-management.svg', subMenuList: [
+    { title: '작업관리', img: 'assets/img/menu/work-manage.svg', subMenuList: [
       { title: '출역 현황', link: ''},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
@@ -94,18 +94,34 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '시스템 이용 약관', link: '/use-terms'},
       { title: '개인정보처리방침', link: '/privacy'}
     ]},
+    { title: '회원관리', img: 'assets/img/menu/member-manage.svg', subMenuList: [
+      { title: '작업자 가입승인', link: ''},
+      { title: '관리자 가입승인', link: ''},
+      { title: '원청사 관리', thirdMenuList:[
+        {title:'LH 관리자 가입 승인',link:''},
+        {title:'감리 가입승인',link:''},
+        {title:'원청사/협력사 관리자 가입승인',link:''}
+      ]},
+      { title: '작업자 정보', link: '/contractor-list'},
+      { title: '관리자 정보',thirdMenuList:[
+        {title:'LH 관리자 정보',link:''},
+        {title:'감리 정보',link:''},
+        {title:'원청사/협력사 관리자 정보',link:''},
+      ]},
+      {title:'안전마일리지',link:''}
+    ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
       { title: '현장 등록', link: '/scene-list'},
-      { title: '감리사 관리', link: '/contractor-list'},
+      { title: '감리사 관리', link: '/supervision-list'},
       { title: '원청사 관리', link: '/contractor-list'},
-      { title: '협력사 관리', link: '/contractor-list'},
+      { title: '협력사 관리', link: '/partner-list'},
       { title: '기준 정보 관리',thirdMenuList:[
         {title:'회원 정보 기준 설정',link:'/member-standard-set'},
         {title:'교육 정보 기준 설정',link:''},
         {title:'장소 정보 기준 설정',link:'/area-standard-set'},
         {title:'작업 정보 기준 설정',link:'/work-standard-set'},
         {title:'비상 관리 기준 설정',link:''},
-        {title:'시스템 활용 기준 설정',link:'/system-standard-set'},
+        {title:'시스템 활용 기준 설정',link:''},
       ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [

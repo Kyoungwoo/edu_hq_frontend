@@ -1,13 +1,16 @@
-<ion-header>
-  <app-header-admin></app-header-admin>
-  <ion-toolbar color="white">
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <ion-toolbar color="white" style="margin-bottom: 20px;">
     <app-row>
       <app-col size="auto">
-        <ion-segment color="primary" [value]="1">
+        <ion-segment class="sub-segment" color="primary" [value]="1">
           <ion-segment-button (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
           <ion-segment-button (click)="menuCount = 2">정보 접근<br>비밀번호</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button (click)="menuCount = 5">직위</ion-segment-button>
           <ion-segment-button (click)="menuCount = 6">안전직무</ion-segment-button>
           <ion-segment-button (click)="menuCount = 7">직종</ion-segment-button>
@@ -15,9 +18,6 @@
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
@@ -35,79 +35,133 @@
       </app-table>
     </app-col>
     <app-col>
-      <ion-buttons>
-        <app-button>추가</app-button>
-        <app-button>삭제</app-button>
-        <app-button>수정</app-button>
-      </ion-buttons>
-      <app-col>
-        <app-check-group>
-          <app-table class="edit">
-            <tbody>
-              <tr>
-                <th style="width: 20px;">
-                  <app-check></app-check>
-                </th>
-                <th>Area1</th>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>
-                  <app-check></app-check>
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </app-table>
-        </app-check-group>
-      </app-col>
-    </app-col>
-    <app-col>
-      <ion-buttons>
-        <app-button>추가</app-button>
-        <app-button>삭제</app-button>
-        <app-button>수정</app-button>
-      </ion-buttons>
-      <app-check-group>
-        <app-table class="edit">
-          <tbody>
-            <th style="width: 20px;">
-              <app-check></app-check>
-            </th>
-            <th>Area1</th>
-          </tbody>
-          <tbody>
-            <td>
-              <app-check></app-check>
-            </td>
-            <td>1블록</td>
-          </tbody>
-        </app-table>
-      </app-check-group>
-    </app-col>
-    <app-col>
-      <ion-buttons>
-        <app-button>추가</app-button>
-        <app-button>삭제</app-button>
-        <app-button>수정</app-button>
-      </ion-buttons>
-      <app-check-group>
-        <app-table class="edit">
-          <thead>
-            <th style="width: 20px;">
-              <app-check></app-check>
-            </th>
-            <th>Area1</th>
-          </thead>
-          <tbody>
-            <td>
-              <app-check></app-check>
-            </td>
-            <td>1블록</td>
-          </tbody>
-        </app-table>
-      </app-check-group>
+      <div>
+      <ion-toolbar style="height: 67px; display: flex;" color="white">
+        <h4>LH 조직관리</h4>
+        <ion-buttons slot="end">
+          <app-button fill="translucent">저장</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </div>
+      <app-card>
+        <app-row>
+          <app-col>
+            <div style="text-align: right;">
+              <app-button fill="translucent">추가</app-button>
+              <app-button fill="translucent">수정</app-button>
+            </div>
+            <app-check-group>
+              <app-table>
+                <thead>
+                  <tr>
+                    <th style="width: 20px;">
+                      <app-check></app-check>
+                    </th>
+                    <th>코드</th>
+                    <th>level 1</th>
+                    <th>권한</th>
+                    <th>사용여부</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                  <tr>
+                    <td>
+                      <app-check></app-check>
+                    </td>
+                    <td></td>
+                    <td>
+                      본사
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-check-group>
+          </app-col>
+          <app-col>
+            <div style="text-align: right;">
+              <app-button fill="translucent">추가</app-button>
+              <app-button fill="translucent">수정</app-button>
+            </div>
+            <app-check-group>
+              <app-table>
+                <thead>
+                  <tr>
+                    <th style="width: 20px;">
+                      <app-check></app-check>
+                    </th>
+                    <th>코드</th>
+                    <th>level 1</th>
+                    <th>권한</th>
+                    <th>사용여부</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                  <tr>
+                    <td>
+                      <app-check></app-check>
+                    </td>
+                    <td></td>
+                    <td>
+                      본사
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-check-group>
+          </app-col>
+
+          <app-col>
+            <div style="text-align: right;">
+              <app-button fill="translucent">추가</app-button>
+              <app-button fill="translucent">수정</app-button>
+            </div>
+            <app-check-group>
+              <app-table>
+                <thead>
+                  <tr>
+                    <th style="width: 20px;">
+                      <app-check></app-check>
+                    </th>
+                    <th>코드</th>
+                    <th>level 1</th>
+                    <th>권한</th>
+                    <th>사용여부</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                  <tr>
+                    <td>
+                      <app-check></app-check>
+                    </td>
+                    <td></td>
+                    <td>
+                      본사
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                    <td>
+                      <app-select></app-select>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-check-group>
+          </app-col>
+        </app-row>
+      </app-card>
     </app-col>
   </app-row>
 
@@ -128,15 +182,25 @@
       </app-table>
     </app-col>
     <app-col>
-      <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
-      <app-row>
-        <app-col></app-col>
-        <app-col>
-          <app-input placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
-          <app-input placeholder="비밀번호 확인"></app-input>
-        </app-col>
-        <app-col></app-col>
-      </app-row>
+      <div>
+        <ion-toolbar style="height: 66px; display: flex;" color="white">
+          <h4>비밀번호 설정</h4>
+          <ion-buttons slot="end">
+            <app-button fill="translucent">저장</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </div>
+      <app-card>
+        <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
+        <app-row>
+          <app-col></app-col>
+          <app-col style="text-align: right;">
+            <app-input placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
+            <app-input placeholder="비밀번호 확인"></app-input>
+          </app-col>
+          <app-col></app-col>
+        </app-row>
+      </app-card>
     </app-col>
   </app-row>
 
@@ -169,22 +233,29 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
           <app-button fill="translucent">전체 사용</app-button>
           <app-button fill="translucent">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>직위 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>직위 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
           <thead>
             <tr>
-              <th>
+              <th style="width: 40px;">
                 <app-check type="all"></app-check>
               </th>
-              <th>No</th>
+              <th style="width:40px">No</th>
               <th>직위명</th>
               <th>영어</th>
               <th>중국어</th>
@@ -255,13 +326,20 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
           <app-button fill="translucent">전체 사용</app-button>
           <app-button fill="translucent">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>안전직무 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>안전직무 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
@@ -363,13 +441,22 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
+          <app-button fill="translucent">엑셀 다운로드</app-button>
+          <app-button fill="translucent">엑셀 업로드</app-button>
+          <app-button fill="translucent">천세 사용</app-button>
           <app-button fill="translucent">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>직종 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>직종 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
@@ -443,6 +530,3 @@
     </app-col>
   </app-row>
 </ion-content>
-<app-button-footer>
-  <app-button (click)="submit()">저장</app-button>
-</app-button-footer>

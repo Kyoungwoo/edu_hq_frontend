@@ -1,5 +1,6 @@
-<ion-header>
-  <app-header-admin></app-header-admin>
+<app-header-admin></app-header-admin>
+
+<ion-content>
   <ion-toolbar color="white">
     <app-row>
       <app-col size="auto">
@@ -11,9 +12,6 @@
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
@@ -31,7 +29,7 @@
           </tr>
           <tr>
             <td>
-              <app-select>
+              <app-select label="사업분야">
                 <app-select-option value="단지개발">단지개발</app-select-option>
                 <app-select-option value="아파트">아파트</app-select-option>
                 <app-select-option value="교량">교량</app-select-option>
@@ -44,91 +42,110 @@
     </app-col>
 
     <app-col>
-      <app-row>
-        <app-col>
-          <h4>현장 안내도</h4>
-          <h4>장소등록</h4>
-        </app-col>
-      </app-row>
-      <app-row style="height: 300px;">
-        <app-col>
-          <ion-buttons>
-            <app-button color="secondary">수정</app-button>
-            <app-button (click)="areaAdd('area1')" fill="translucent">추가</app-button>
-            <app-button>삭제</app-button>
+      <div>
+        <ion-toolbar color="white">
+          <h4>장소</h4>
+          <ion-buttons slot="end">
+            <app-button fill="translucent">저장</app-button>
           </ion-buttons>
+        </ion-toolbar>
+      </div>
 
-          <app-check-group>
-            <app-table class="edit">
-              <tbody>
-                <!-- <tr>
+      <app-card>
+        <ion-toolbar color="white" slot="top">
+          <h5>현장 안내도</h5>
+        </ion-toolbar>
+        <div style="background: lightgray; width: 100%; height: 200px;"></div>
+      </app-card>
+
+      <app-card>
+        <ion-toolbar color="white" slot="top">
+          <h5>장소등록</h5>
+        </ion-toolbar>
+        <app-row style="height: 300px;">
+          <app-col>
+            <div style="text-align: right;">
+              <app-button (click)="areaAdd('area1')" fill="translucent">추가</app-button>
+              <app-button color="danger" fill="translucent">삭제</app-button>
+              <app-button fill="translucent">수정</app-button>
+            </div>
+  
+            <app-check-group>
+              <app-table class="edit">
+                <thead>
+                  <tr>
+                    <th style="width: 20px;">
+                      <app-check></app-check>
+                    </th>
+                    <th>Area1</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of testarr">
+                    <td>
+                      <app-check></app-check>
+                    </td>
+                    <td>{{ item.text }}</td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-check-group>
+          </app-col>
+          <app-col>
+  
+            <div style="text-align: right;">
+              <app-button (click)="areaAdd('area2')" fill="translucent">추가</app-button>
+              <app-button color="danger" fill="translucent">삭제</app-button>
+              <app-button fill="translucent">수정</app-button>
+            </div>
+  
+            <app-check-group>
+              <app-table class="edit">
+                <tbody>
                   <th style="width: 20px;">
                     <app-check></app-check>
                   </th>
-                  <th>Area1</th>
-                </tr> -->
-              </tbody>
-              <tbody>
-                <tr *ngFor="let item of testarr">
-                  <!-- <td>
+                  <th>Area2</th>
+                </tbody>
+                <tbody>
+                  <td>
                     <app-check></app-check>
-                  </td> -->
-                  <td>{{ item.text }}</td>
-                </tr>
-              </tbody>
-            </app-table>
-          </app-check-group>
-        </app-col>
-        <app-col>
-
-          <ion-buttons>
-            <app-button color="secondary">수정</app-button>
-            <app-button (click)="areaAdd('area2')" fill="translucent">추가</app-button>
-            <app-button>삭제</app-button>
-          </ion-buttons>
-
-          <app-check-group>
-            <app-table class="edit">
-              <tbody>
-                <th style="width: 20px;">
-                  <app-check></app-check>
-                </th>
-                <th>Area2</th>
-              </tbody>
-              <tbody>
-                <td>
-                  <app-check></app-check>
-                </td>
-                <td>1블록</td>
-              </tbody>
-            </app-table>
-          </app-check-group>
-        </app-col>
-        <app-col>
-          <ion-buttons>
-            <app-button color="secondary">수정</app-button>
-            <app-button (click)="areaAdd('area3')" fill="translucent">추가</app-button>
-            <app-button>삭제</app-button>
-          </ion-buttons>
-
-          <app-check-group>
-            <app-table class="edit">
-              <thead>
-                <th style="width: 20px;">
-                  <app-check></app-check>
-                </th>
-                <th>Area3</th>
-              </thead>
-              <tbody>
-                <td>
-                  <app-check></app-check>
-                </td>
-                <td>1블록</td>
-              </tbody>
-            </app-table>
-          </app-check-group>
-        </app-col>
-      </app-row>
+                  </td>
+                  <td>1블록</td>
+                </tbody>
+              </app-table>
+            </app-check-group>
+          </app-col>
+          <app-col>
+            <app-row>
+              <app-col>
+                <div style="text-align: right;">
+                  <app-button (click)="areaAdd('area3')" fill="translucent">추가</app-button>
+                  <app-button color="danger" fill="translucent">삭제</app-button>
+                  <app-button fill="translucent">수정</app-button>
+                </div>
+      
+                <app-check-group>
+                  <app-table class="edit">
+                    <thead>
+                      <th style="width: 20px;">
+                        <app-check></app-check>
+                      </th>
+                      <th>Area3</th>
+                    </thead>
+                    <tbody>
+                      <td>
+                        <app-check></app-check>
+                      </td>
+                      <td>1블록</td>
+                    </tbody>
+                  </app-table>
+                </app-check-group>
+              </app-col>
+            </app-row>
+          </app-col>
+        </app-row>
+      </app-card>
     </app-col>
   </app-row>
 
@@ -154,7 +171,7 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
+          <app-button color="danger" fill="translucent">삭제</app-button>
           <app-button fill="translucent">엑셀 다운로드</app-button>
           <app-button fill="translucent">전체 사용</app-button>
           <app-button fill="translucent">전체 미사용</app-button>
@@ -226,32 +243,41 @@
 
 
   <ng-container *ngIf="menuCount === 3">
+    <div>
+      <ion-toolbar color="white">
+        <h5>실외 위험지역</h5>
+        <ion-buttons slot="end">
+          <app-button fill="translucent">저장</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </div>
     <app-card>
       <h5 style="text-align: center;">GPS를 통해 근로자 위치 정보를 수집할 실외 위험지역 영역을 설정하여 주세요</h5>
       <br>
       <h5 style="color: black;">&#8251; 영역 설정 방법</h5>
       <h5 style="color: black;">지도에서 현장 외각을 마우스 클릭을 통해 N개의 점을 선택하여 설정합니다.(점 3개 이상 클릭 필요)</h5>
+      <app-naver-map style="height: 400px;"></app-naver-map>
     </app-card>
-    <app-naver-map style="height: 300px;"></app-naver-map>
-    <h4>실외 위험지역</h4>
-    <app-table>
-      <thead>
-        <tr>
-          <th>장소</th>
-          <th>위험지역 유형</th>
-          <th>위험지역명</th>
-          <th>GPS 좌표값</th>
-        </tr>
-      </thead>
-      <tbody>
-        <td>101동</td>
-        <td>고압변전 지역</td>
-        <td>고압변전 지역A</td>
-        <td>미등록</td>
-      </tbody>
-    </app-table>
+    <app-card>
+      <ion-toolbar slot="top" color="white">
+        <h5>실외 위험지역</h5>
+      </ion-toolbar>
+      <app-table>
+        <thead>
+          <tr>
+            <th>장소</th>
+            <th>위험지역 유형</th>
+            <th>위험지역명</th>
+            <th>GPS 좌표값</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>101동</td>
+          <td>고압변전 지역</td>
+          <td>고압변전 지역A</td>
+          <td>미등록</td>
+        </tbody>
+      </app-table>
+    </app-card>
   </ng-container>
 </ion-content>
-<app-button-footer>
-  <app-button>저장</app-button>
-</app-button-footer>

@@ -1,26 +1,24 @@
-<ion-header>
-  <app-header-admin></app-header-admin>
+<app-header-admin></app-header-admin>
+
+<ion-content>
   <ion-toolbar color="white">
     <app-row>
       <app-col size="auto">
         <ion-segment style="--background: white ;" color="primary" [value]="1">
           <ion-segment-button (click)="menuCount = 1" [value]="1">공종</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 2">위험 공종</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 3">위험성평가<br>항목</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 4">위험성평가<br>추가 항목</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 2">위험 공종</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 3">위험성평가<br>항목</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 4">위험성평가<br>추가 항목</ion-segment-button>
           <ion-segment-button (click)="menuCount = 5">건설기계</ion-segment-button>
           <ion-segment-button (click)="menuCount = 6">특수공도구</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 7">위험지역<br>점검표</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 7">위험지역<br>점검표</ion-segment-button>
           <ion-segment-button (click)="menuCount = 8">회의록<br>협의사항</ion-segment-button>
           <ion-segment-button (click)="menuCount = 9">재해 형태</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 10">작업절차서<br>등록</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 10">작업절차서<br>등록</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <app-row style="align-items: flex-start;" *ngIf="menuCount === 1">
     <app-col size="280px">
       <app-table type="card">
@@ -51,7 +49,14 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>공종 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>공종 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-table>
         <thead>
@@ -107,7 +112,14 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>건설기계 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>건설기계 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
@@ -180,7 +192,14 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>특수공도구 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>특수공도구 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
@@ -189,8 +208,7 @@
               <th style="width: 40px;">
                 <app-check type="all"></app-check>
               </th>
-              <th>건설 기계</th>
-              <th style="width: 130px;">작업계획서 필수 첨부</th>
+              <th>전기 공도구</th>
               <th>사용 여부</th>
             </tr>
           </thead>
@@ -201,9 +219,6 @@
               </td>
               <td>
                 <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-check></app-check>
               </td>
               <td>
                 <app-select>
@@ -218,9 +233,6 @@
               </td>
               <td>
                 코아드릴
-              </td>
-              <td>
-                <app-check></app-check>
               </td>
               <td>
                 <app-select>
@@ -267,49 +279,60 @@
           </tbody>
         </app-table>
       </app-col>
+
       <app-col>
-        <app-row style="align-items: flex-start;">
-          <app-col style="margin: 10px;">
-            <h3>안전 및 보건에 관한 협의체</h3>
-            <app-card>
-              <span class="font-height">
-                산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
-                1. 작업의 시작 시간<br>
-                2. 작업 또는 작업장 간의 연락방법<br>
-                3. 재해발생 위험이 있는 경우 대피방법<br>
-                4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항<br>
-                5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
-              </span>
-            </app-card>
-          </app-col>
-        </app-row>
-        <app-row *ngIf="menuCount === 8">
-          <app-col style="margin: 10px;">
-            <h3>노사 협의체</h3>
-            <app-card>
-              <span class="font-height">
-                산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>
-                1. 산업재해 예방방법 및 산업재해가 발생한 경우의 대피방법<br>
-                2. 작업의 시작시간. 작업 및 작업장 간의 연락 방법<br>
-                3. 그 밖의 산업재해 예방관 관련된 사항 <br>
-              </span>
-            </app-card>
-          </app-col>
-        </app-row>
-        <app-row *ngIf="menuCount === 8">
-          <app-col style="margin: 10px;">
-            <h3>산업안전 보건 위원회</h3>
-            <app-card>
-              <span class="font-height">
-                산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>
-                <br>
-                1. 산업재해 예방계획의 수립에 관한 사항 <br>
-                2. 안전관리규정의 작성 및 변경에 관한 사항 <br>
-                3. 직원의 안전·보건교육에 관한 사항 <br>
-              </span>
-            </app-card>
-          </app-col>
-        </app-row>
+        <ion-toolbar slot="top" color="white">
+          <h4>회의록 협의사항</h4>
+          <ion-buttons slot="end">
+            <app-button fill="translucent">저장</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <app-card>
+          <ion-toolbar slot="top" color="white">
+            <h5>안전 및 보건에 관한 협의체</h5>
+          </ion-toolbar>
+          <app-row>
+            <app-col>
+                <app-textarea [rows]="7" value="산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)
+  1. 작업의 시작 시간
+  2. 작업 또는 작업장 간의 연락방법
+  3. 재해발생 위험이 있는 경우 대피방법
+  4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항
+  5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정">
+                </app-textarea>
+            </app-col>
+          </app-row>
+        </app-card>
+
+        <app-card>
+          <ion-toolbar slot="top" color="white">
+            <h5>노사 협의체</h5>
+          </ion-toolbar>
+          <app-row>
+            <app-col>
+                <app-textarea [rows]="7" value=" 산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)
+  1. 산업재해 예방방법 및 산업재해가 발생한 경우의 대피방법
+  2. 작업의 시작시간. 작업 및 작업장 간의 연락 방법
+  3. 그 밖의 산업재해 예방관 관련된 사항">
+                </app-textarea>
+            </app-col>
+          </app-row>
+        </app-card>
+
+        <app-card>
+          <ion-toolbar color="white">
+            <h5>산업안전 보건 위원회</h5>
+          </ion-toolbar>
+          <app-row>
+            <app-col>
+              <app-textarea [rows]="7" value="산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>
+1. 산업재해 예방계획의 수립에 관한 사항
+2. 안전관리규정의 작성 및 변경에 관한 사항
+3. 직원의 안전·보건교육에 관한 사항">
+              </app-textarea>
+            </app-col>
+          </app-row>
+        </app-card>
       </app-col>
     </app-row>
   </ng-container>
@@ -346,7 +369,14 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>재해형태 목록 (총90건)</h5>
+        <app-row>
+          <app-col>
+            <h5>재해형태 목록 (총90건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">저장</app-button>
+          </app-col>
+        </app-row>
       </ion-toolbar>
       <app-check-group>
         <app-table>
@@ -378,6 +408,3 @@
     </app-col>
   </app-row>
 </ion-content>
-<app-button-footer>
-  <app-button>저장</app-button>
-</app-button-footer>

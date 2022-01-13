@@ -60,112 +60,147 @@ export class MonitorPage implements OnInit, OnDestroy {
   graphArrCount =[];
   graphArr = [
     {
-      name:'기계'
+      date:'21-01-115471'
     },
     {
-      name:'건축'
+      date:'21-01-115471'
     },
     {
-      name:'조경'
+      date:'21-01-115471'
     },
     {
-      name:'토목'
+      date:'21-01-115471'
     },
     {
-      name:'전기'
+      date:'21-01-115471'
+    },
+    {
+      date:'21-01-115471'
+    },
+    {
+      date:'21-01-115471'
     }
 ]
 
+// graphArr2 = [
+//   {
+//     name:'작업대기',
+//     count:230
+//   },
+//   {
+//     name:'작업중',
+//     count:50
+//   },
+//   {
+//     name:'작업종료',
+//     count:70
+//   }
+// ]
+
+// graphArr3 = [
+//   {
+//     name:'1등급',
+//     count:230
+//   },
+//   {
+//     name:'2등급',
+//     count:150
+//   },
+//   {
+//     name:'3등급',
+//     count:140
+//   },
+//   {
+//     name:'4등급',
+//     count:260
+//   },
+//   {
+//     name:'5등급',
+//     count:120
+//   },
+//   {
+//     name:'6등급',
+//     count:160
+//   },
+//   {
+//     name:'9등급',
+//     count:70
+//   }
+// ]
 graphArr2 = [
   {
-    name:'작업대기',
-    count:230
-  },
-  {
-    name:'작업중',
-    count:50
-  },
-  {
-    name:'작업종료',
-    count:70
-  }
-]
-
-graphArr3 = [
-  {
-    name:'1등급',
-    count:230
-  },
-  {
-    name:'2등급',
-    count:150
-  },
-  {
-    name:'3등급',
-    count:140
-  },
-  {
-    name:'4등급',
-    count:260
-  },
-  {
-    name:'5등급',
-    count:120
-  },
-  {
-    name:'6등급',
-    count:160
-  },
-  {
-    name:'9등급',
-    count:70
-  }
-]
-
-graphArr4 = [
-  {
-    name:'인화성 물질 취급',
+    name:'전기',
     count:10
   },
   {
-    name:'비계(설치/해체)',
+    name:'토목',
     count:2
   },
   {
-    name:'고소',
+    name:'조경',
     count:3
   },
   {
-    name:'밀폐공간',
+    name:'건축',
     count:4
   },
   {
-    name:'굴착',
+    name:'기계',
     count:5
   },
+]
+
+
+graphArr3 = [
   {
-    name:'화기',
-    count:6
+    name:'작업전',
+    count:10
   },
   {
-    name:'화재/폭발',
-    count:7
+    name:'작업중',
+    count:2
+  },
+  {
+    name:'작업종료',
+    count:3
   }
 ]
-
-
-graph = [
-  { color: '#25A485', name: '작업대기', data: [
-    {value: 20, label: '8시'},
-    {value: 60, label: '9시'},
-    {value: 50, label: '10시'}
-  ]},
-  { color: '#78CE5C', name: '작업중', data: [
-    {value: 30, label: '8시'},
-    {value: 20, label: '9시'},
-    {value: 80, label: '10시'}
-  ]}
+graphArr4 = [
+  {
+    name:'전기',
+    count:10
+  },
+  {
+    name:'토목',
+    count:2
+  },
+  {
+    name:'조경',
+    count:3
+  },
+  {
+    name:'건축',
+    count:4
+  },
+  {
+    name:'기계',
+    count:5
+  },
 ]
+
+
+// graph = [
+//   { color: '#25A485', name: '작업대기', data: [
+//     {value: 20, label: '8시'},
+//     {value: 60, label: '9시'},
+//     {value: 50, label: '10시'}
+//   ]},
+//   { color: '#78CE5C', name: '작업중', data: [
+//     {value: 30, label: '8시'},
+//     {value: 20, label: '9시'},
+//     {value: 80, label: '10시'}
+//   ]}
+// ]
 
   data = {
     monitor:''
@@ -184,7 +219,7 @@ graph = [
       component:RiskEvaluationPopupPage,
       // cssClass:"confirm-modal"
     });
-    modal.present();
+    // modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
     //   component:ApprovalPopupComponent,
