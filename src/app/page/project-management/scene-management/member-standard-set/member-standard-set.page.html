@@ -1,23 +1,21 @@
 <ion-header>
+  <app-header-admin></app-header-admin>
   <ion-toolbar color="white">
-    <ion-title>회원 정보 기준 설정</ion-title>
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [value]="1">
+          <ion-segment-button (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 2">정보 접근<br>비밀번호</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 5">직위</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 6">안전직무</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 7">직종</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar slot="top" color="white">
-  <app-row>
-    <app-col>
-      <ion-segment color="primary" [value]="1">
-        <ion-segment-button (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 2">정보 접근<br>비밀번호</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 5">직위</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 6">안전직무</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 7">직종</ion-segment-button>
-      </ion-segment>
-    </app-col>
-  </app-row>
-</ion-toolbar>
 
 <ion-content>
   <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">

@@ -15,6 +15,9 @@
     background-color 200ms ease;
 }
 :host::ng-deep {
+  ion-toolbar[slot=top] {
+    border-bottom: 1px solid var(--ion-color-step-100);
+  }
   ion-toolbar:first-child {
     border-top-left-radius: 0;
     border-top-right-radius: 0;

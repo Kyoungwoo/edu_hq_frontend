@@ -175,13 +175,13 @@ graph = [
     private nfc : NfcService,
     private modal : ModalController,
     private route: ActivatedRoute
-  ) { this.monitorQuery();}
+  ) { }
   async ngOnInit() {
-    const modal = await this.modal.create({
-      component:RiskEvaluationPopupPage,
-      // cssClass:"modal-4"
-    });
-    modal.present();
+    // const modal = await this.modal.create({
+    //   component:RiskEvaluationPopupPage,
+    //   // cssClass:"modal-4"
+    // });
+    // modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
     //   component:ApprovalPopupComponent,

@@ -49,24 +49,25 @@ export class SideMenuAdminComponent implements OnInit {
     { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
       { title: '교육현황', link: '/safety-education-list'},
       { title: '교육 결과 보고', link: '/safety-education-result-list'},
-      { title: '교육이력', link: '/safety-education-history-list'}
+      { title: '교육이력', thirdMenuList:[
+        {title:'근로자 교육 이력',link:''},
+        {title:'정기 교육 이력',link:''},
+        {title:'특별 교육 이력',link:''}
+      ]}
     ]},
     { title: '작업계획', img: 'assets/img/menu/work-plan.svg', subMenuList: [
-      { title: '회의록', link: '/worker-minutes-list'},
       { title: '위험성 평가', thirdMenuList: [
-        { title: '위험성평가 작성', link: '/risk-list' },
-        { title: '평가표 정보 추가 요청', link: '/risk-evaluation-edit' }
+        { title: '위험성평가 작성', link: '/risk-list'},
+        { title: '평가표 정보 추가 요청', link: '' }
       ]},
       { title: '위험 작업 허가', link: ''},
-      { title: '장비작업계획', link: ''},
-      { title: '협의체 회의', link: ''}
+      { title: '회의록', link: 'worker-minutes-list'}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-management.svg', subMenuList: [
       { title: '출역 현황', link: ''},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
       { title: '부적합 조치 현황', link: ''},
-      { title: '현장기상정보', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
       { title: '중장비 관리', link: '/heavy-equip-list'},
@@ -85,20 +86,27 @@ export class SideMenuAdminComponent implements OnInit {
     { title: '비상상황관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
       { title: '아차사고 신고', link: ''},
       { title: '비상 알림 관리', link: ''},
-      { title: '사고 보고', link: ''}
+      { title: '안전사고 발생보고', link: ''}
     ]},
     { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
-      { title: '1:1 문의', link: ''},
+      { title: '문의하기', link: ''},
       { title: '사용자 매뉴얼', link: '/manual-list'},
-      { title: '언어 설정', link: ''},
       { title: '시스템 이용 약관', link: '/use-terms'},
       { title: '개인정보처리방침', link: '/privacy'}
     ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
-      { title: '현장 등록', link: '/scene-area-set'},
-      { title: '원청사 등록', link: '/contractor-edit'}, 
-      { title: '장소 등록', link: '/area-standard-set'},
-      { title: '기준 정보 관리', link: '/system-standard-set'}
+      { title: '현장 등록', link: '/scene-list'},
+      { title: '감리사 관리', link: '/contractor-list'},
+      { title: '원청사 관리', link: '/contractor-list'},
+      { title: '협력사 관리', link: '/contractor-list'},
+      { title: '기준 정보 관리',thirdMenuList:[
+        {title:'회원 정보 기준 설정',link:'/member-standard-set'},
+        {title:'교육 정보 기준 설정',link:''},
+        {title:'장소 정보 기준 설정',link:'/area-standard-set'},
+        {title:'작업 정보 기준 설정',link:'/work-standard-set'},
+        {title:'비상 관리 기준 설정',link:''},
+        {title:'시스템 활용 기준 설정',link:'/system-standard-set'},
+      ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
       { title: '공지사항', link: '/notice-list'},
