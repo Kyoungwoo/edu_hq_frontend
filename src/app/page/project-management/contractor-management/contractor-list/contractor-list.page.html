@@ -13,12 +13,12 @@
         <tbody>
           <tr>
             <td>
-              <app-input label="지역본부"></app-input>
+              <app-select label="지역본부"></app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-input label="사업본부"></app-input>
+              <app-select label="사업본부"></app-select>
             </td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@
         <app-table>
           <thead>
             <tr>
-              <th>No</th>
+              <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
               <th>지역본부</th>
               <th>사업본부</th>
               <th>현장명</th>
@@ -48,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="button">
               <td><app-check color="white" size="small" name="check"></app-check></td>
               <td></td>
               <td></td>

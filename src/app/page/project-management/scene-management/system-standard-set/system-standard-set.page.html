@@ -49,9 +49,8 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>공종 목록 (총90건)</h5>
+        <h5>시스템 기능 사용 설정</h5>
       </ion-toolbar>
-      <h4>시스템 기능 사용 설정</h4>
       <app-table>
         <thead>
           <tr>
@@ -62,6 +61,7 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
           <td>
             <app-input [readonly]="true" value="위험성 평가 시스템"></app-input>
           </td>
@@ -80,6 +80,7 @@
               <app-select-option value="N">N</app-select-option>
             </app-select>
           </td>
+        </tr>
         </tbody>
       </app-table>
     </app-col>
