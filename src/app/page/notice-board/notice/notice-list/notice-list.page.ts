@@ -28,4 +28,10 @@ export class NoticeListPage implements OnInit {
     modal.present();
   }
 
+  async edit() {
+    const modal = await this.modal.create({
+      component:NoticeEditPage,
+    });
+    modal.present();
+  }
 }

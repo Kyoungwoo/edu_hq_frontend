@@ -8,6 +8,7 @@ import { LhApprovalListPageRoutingModule } from './lh-approval-list-routing.modu
 
 import { LhApprovalListPage } from './lh-approval-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { LhApprovalEditPageModule } from '../lh-approval-edit/lh-approval-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    LhApprovalListPageRoutingModule
+    LhApprovalListPageRoutingModule,
+    LhApprovalEditPageModule
   ],
   declarations: [LhApprovalListPage]
 })

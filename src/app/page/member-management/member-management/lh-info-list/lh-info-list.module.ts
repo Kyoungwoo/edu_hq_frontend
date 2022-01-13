@@ -8,6 +8,7 @@ import { LhInfoListPageRoutingModule } from './lh-info-list-routing.module';
 
 import { LhInfoListPage } from './lh-info-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { LhInfoEditPageModule } from '../lh-info-edit/lh-info-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    LhInfoListPageRoutingModule
+    LhInfoListPageRoutingModule,
+    LhInfoEditPageModule
   ],
   declarations: [LhInfoListPage]
 })

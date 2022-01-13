@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/basic/guide"></ion-back-button>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
     <ion-title>회원정보</ion-title>
   </ion-toolbar>
@@ -63,12 +63,13 @@
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
         <ion-segment color="primary">
-          <ion-segment-button>소속 정보</ion-segment-button>
-          <ion-segment-button>교육 이력</ion-segment-button>
-          <ion-segment-button>근로 이력</ion-segment-button>
-          <ion-segment-button>안전 마일리지</ion-segment-button>
+          <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
+          <ion-segment-button (click)="menu = 2">교육 이력</ion-segment-button>
+          <ion-segment-button (click)="menu = 3">근로 이력</ion-segment-button>
+          <ion-segment-button (click)="menu = 4">안전 마일리지</ion-segment-button>
         </ion-segment>
       </ion-toolbar>
+      <ng-container *ngIf="menu === 1">
       <h5>소속정보</h5>
       <app-row>
         <app-col>
@@ -165,6 +166,8 @@
           </app-input-group>
         </app-col>
       </app-row>
+    </ng-container>
+    <ng-container *ngIf="menu === 2">
       <!-- 교육이력 -->
       <h5>교육 정보</h5>
       <app-row>
@@ -200,6 +203,8 @@
           </tr>
         </tbody>
       </app-table>
+    </ng-container>
+    <ng-container *ngIf="menu === 4">
       <!-- 안전마일리지 -->
       <h5>마일리지 현황</h5>
       <app-table type="card">
@@ -290,6 +295,7 @@
           <app-button fill="translucent" style="width: 120px;">마일리지 사용</app-button>
         </app-col>
       </app-row>
+    </ng-container>
       <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
           <app-button style="width: 120px;">퇴사</app-button>

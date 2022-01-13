@@ -8,6 +8,7 @@ import { SupervisionApprovalListPageRoutingModule } from './supervision-approval
 
 import { SupervisionApprovalListPage } from './supervision-approval-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { SupervisionEditPageModule } from 'src/app/page/project-management/supervision-management/supervision-edit/supervision-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    SupervisionApprovalListPageRoutingModule
+    SupervisionApprovalListPageRoutingModule,
+    SupervisionEditPageModule
   ],
   declarations: [SupervisionApprovalListPage]
 })

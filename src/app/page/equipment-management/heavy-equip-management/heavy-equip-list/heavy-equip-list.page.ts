@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { HeavyEquipEditPage } from '../heavy-equip-edit/heavy-equip-edit.page';
 
 @Component({
   selector: 'app-heavy-equip-list',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeavyEquipListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
+
 
   ngOnInit() {
   }
 
+  async edit() {
+    const modal = await this.modal.create({
+      component:HeavyEquipEditPage,
+    });
+    modal.present();
+  }
 }

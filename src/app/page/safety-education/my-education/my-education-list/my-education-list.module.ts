@@ -9,6 +9,8 @@ import { MyEducationListPageRoutingModule } from './my-education-list-routing.mo
 import { MyEducationListPage } from './my-education-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { MyEducationDetailListPage } from '../my-education-detail-list/my-education-detail-list.page';
+import { MyEducationDetailListPageModule } from '../my-education-detail-list/my-education-detail-list.module';
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    MyEducationListPageRoutingModule
+    MyEducationListPageRoutingModule,
+    MyEducationDetailListPageModule
   ],
   declarations: [MyEducationListPage]
 })

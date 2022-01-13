@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { HeavyDeviceAddPage } from '../heavy-device-add/heavy-device-add.page';
 import { HeavyDeviceDetailSearchPage } from '../heavy-device-detail-search/heavy-device-detail-search.page';
 
 @Component({
@@ -21,6 +22,13 @@ export class HeavyDeviceListPage implements OnInit {
       component: HeavyDeviceDetailSearchPage,
 
     })
+    modal.present();
+  }
+
+  async edit() {
+    const modal = await this._modal.create({
+      component:HeavyDeviceAddPage,
+    });
     modal.present();
   }
 }

@@ -9,6 +9,7 @@ import { ContractorListPageRoutingModule } from './contractor-list-routing.modul
 import { ContractorListPage } from './contractor-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { ContractorEditPageModule } from '../contractor-edit/contractor-edit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    ContractorListPageRoutingModule
+    ContractorListPageRoutingModule,
+    ContractorEditPageModule
   ],
   declarations: [ContractorListPage]
 })

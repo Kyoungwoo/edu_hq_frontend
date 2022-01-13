@@ -10,6 +10,7 @@ import { EachDeviceListPage } from './each-device-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { EachDeviceDetailSearchPageModule } from '../each-device-detail-search/each-device-detail-search.module';
+import { EachDeviceAddPageModule } from '../each-device-add/each-device-add.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { EachDeviceDetailSearchPageModule } from '../each-device-detail-search/e
     ComponentModule,
     BasicComponentModule,
     EachDeviceListPageRoutingModule,
-    EachDeviceDetailSearchPageModule
+    EachDeviceDetailSearchPageModule,
+    EachDeviceAddPageModule
   ],
   declarations: [EachDeviceListPage]
 })

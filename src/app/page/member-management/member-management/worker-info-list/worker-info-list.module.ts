@@ -8,6 +8,7 @@ import { WorkerInfoListPageRoutingModule } from './worker-info-list-routing.modu
 
 import { WorkerInfoListPage } from './worker-info-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { WorkerInfoEditPageModule } from '../worker-info-edit/worker-info-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    WorkerInfoListPageRoutingModule
+    WorkerInfoListPageRoutingModule,
+    WorkerInfoEditPageModule
   ],
   declarations: [WorkerInfoListPage]
 })

@@ -10,6 +10,7 @@ import { DangerAreaListPage } from './danger-area-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { DangerAreaDetailSearchPageModule } from '../danger-area-detail-search/danger-area-detail-search.module';
+import { DangerAreaAddPageModule } from '../danger-area-add/danger-area-add.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DangerAreaDetailSearchPageModule } from '../danger-area-detail-search/d
     ComponentModule,
     BasicComponentModule,
     DangerAreaListPageRoutingModule,
-    DangerAreaDetailSearchPageModule
+    DangerAreaDetailSearchPageModule,
+    DangerAreaAddPageModule
   ],
   declarations: [DangerAreaListPage]
 })

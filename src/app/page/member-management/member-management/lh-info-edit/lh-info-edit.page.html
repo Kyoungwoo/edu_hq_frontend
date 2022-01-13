@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/basic/guide"></ion-back-button>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
     <ion-title>회원정보</ion-title>
   </ion-toolbar>
@@ -63,10 +63,11 @@
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
         <ion-segment color="primary">
-          <ion-segment-button>소속 정보</ion-segment-button>
-          <ion-segment-button>근로 이력</ion-segment-button>
+          <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
+          <ion-segment-button (click)="menu = 2">근로 이력</ion-segment-button>
         </ion-segment>
       </ion-toolbar>
+      <ng-container *ngIf="menu === 1">
       <h5>소속정보</h5>
       <app-row>
         <app-col>
@@ -107,6 +108,7 @@
           <app-button fill="translucent" style="width: 120px;">현장 추가</app-button>
         </app-col>
       </app-row>
+    </ng-container>
       <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
           <app-button style="width: 120px;">퇴사</app-button>

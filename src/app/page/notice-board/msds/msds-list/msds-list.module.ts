@@ -10,6 +10,7 @@ import { MsdsListPage } from './msds-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
+import { MsdsEditPageModule } from '../msds-edit/msds-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DetailSearchPageModule } from '../../detail-search/detail-search.module
     ComponentModule,
     BasicComponentModule,
     MsdsListPageRoutingModule,
-    DetailSearchPageModule
+    DetailSearchPageModule,
+    MsdsEditPageModule
   ],
   declarations: [MsdsListPage]
 })

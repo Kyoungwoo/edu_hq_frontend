@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartnerIntoEditPage implements OnInit {
 
+  menu:number = 1;
   constructor() { }
 
   ngOnInit() {

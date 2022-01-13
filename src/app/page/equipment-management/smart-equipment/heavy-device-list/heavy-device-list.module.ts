@@ -11,6 +11,7 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { HeavyDeviceDetailSearchPage } from '../heavy-device-detail-search/heavy-device-detail-search.page';
 import { HeavyDeviceDetailSearchPageModule } from '../heavy-device-detail-search/heavy-device-detail-search.module';
+import { HeavyDeviceAddPageModule } from '../heavy-device-add/heavy-device-add.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { HeavyDeviceDetailSearchPageModule } from '../heavy-device-detail-search
     ComponentModule,
     BasicComponentModule,
     HeavyDeviceListPageRoutingModule,
-    HeavyDeviceDetailSearchPageModule
+    HeavyDeviceDetailSearchPageModule,
+    HeavyDeviceAddPageModule
   ],
   declarations: [HeavyDeviceListPage]
 })

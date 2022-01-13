@@ -15,7 +15,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    SupervisionApprovalEditPageRoutingModule
+    SupervisionApprovalEditPageRoutingModule,
   ],
   declarations: [SupervisionApprovalEditPage]
 })

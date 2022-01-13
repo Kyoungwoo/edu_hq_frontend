@@ -9,6 +9,7 @@ import { SceneListPageRoutingModule } from './scene-list-routing.module';
 import { SceneListPage } from './scene-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { SceneEditPageModule } from '../scene-edit/scene-edit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    SceneListPageRoutingModule
+    SceneListPageRoutingModule,
+    SceneEditPageModule
   ],
   declarations: [SceneListPage]
 })

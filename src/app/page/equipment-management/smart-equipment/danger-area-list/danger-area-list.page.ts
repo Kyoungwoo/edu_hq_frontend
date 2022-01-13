@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DangerAreaAddPage } from '../danger-area-add/danger-area-add.page';
 import { DangerAreaDetailSearchPage } from '../danger-area-detail-search/danger-area-detail-search.page';
 
 @Component({
@@ -21,6 +22,12 @@ export class DangerAreaListPage implements OnInit {
       component: DangerAreaDetailSearchPage,
 
     })
+    modal.present();
+  }
+  async edit() {
+    const modal = await this._modal.create({
+      component:DangerAreaAddPage,
+    });
     modal.present();
   }
 }

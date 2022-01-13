@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { LhInfoEditPage } from '../lh-info-edit/lh-info-edit.page';
 
 @Component({
   selector: 'app-lh-info-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LhInfoListPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal : ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  async edit() {
+    const modal = await this.modal.create({
+      component:LhInfoEditPage,
+    });
+    modal.present();
+  }
 }
