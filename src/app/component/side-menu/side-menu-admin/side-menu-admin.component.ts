@@ -67,7 +67,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '출역 현황', link: ''},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
-      { title: '부적합 조치 현황', link: ''},
+      { title: '부적합 조치 현황', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
       { title: '중장비 관리', link: '/heavy-equip-list'},
