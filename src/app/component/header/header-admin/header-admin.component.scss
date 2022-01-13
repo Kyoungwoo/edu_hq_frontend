@@ -8,6 +8,16 @@ app-logo {
     border-radius: 5px;
 }
 app-button {
-    --app-border-radius: 0;
-    --height: 64px;
+    border-radius: 0;
+    height: 64px;
+}
+.menu.active {
+    background: var(--ion-color-secondary);
+    color: var(--ion-color-secondary-contrast);
+}
+.sub-menu {
+    //padding-left: 6px;
+}
+.third-menu::part(indicator) {
+    display: none;
 }

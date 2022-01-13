@@ -109,7 +109,11 @@
     .button {
         cursor: pointer;
         &:hover {
-            background: var(--ion-color-step-100);
+            background: var(--ion-color-step-50);
+            th,
+            td {
+                background: var(--ion-color-step-50);
+            }
         }
     }
 }

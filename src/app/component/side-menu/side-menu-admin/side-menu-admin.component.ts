@@ -61,13 +61,13 @@ export class SideMenuAdminComponent implements OnInit {
         { title: '평가표 정보 추가 요청', link: '' }
       ]},
       { title: '위험 작업 허가', link: ''},
-      { title: '회의록', link: 'worker-minutes-list'}
+      { title: '회의록', link: '/worker-minutes-list'}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-manage.svg', subMenuList: [
       { title: '출역 현황', link: ''},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
-      { title: '부적합 조치 현황', link: ''},
+      { title: '부적합 조치 현황', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
       { title: '중장비 관리', link: '/heavy-equip-list'},
@@ -112,9 +112,9 @@ export class SideMenuAdminComponent implements OnInit {
     ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
       { title: '현장 등록', link: '/scene-list'},
-      { title: '감리사 관리', link: '/contractor-list'},
+      { title: '감리사 관리', link: '/supervision-list'},
       { title: '원청사 관리', link: '/contractor-list'},
-      { title: '협력사 관리', link: '/contractor-list'},
+      { title: '협력사 관리', link: '/partner-list'},
       { title: '기준 정보 관리',thirdMenuList:[
         {title:'회원 정보 기준 설정',link:'/member-standard-set'},
         {title:'교육 정보 기준 설정',link:''},

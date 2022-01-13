@@ -1,7 +1,5 @@
 <ng-container *mobileHidden>
-  <ion-header>
-    <app-header-admin></app-header-admin>
-  </ion-header>
+  <app-header-admin></app-header-admin>
   <ion-content>
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
@@ -60,7 +58,9 @@
           <app-table>
             <thead>
               <tr>
-                <th style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
+                <th style="width: 40px;">
+                  <app-check type="all" color="white" size="small" name="check"></app-check>
+                </th>
                 <th style="width: 40px; text-align: center;"><ion-icon name="star"></ion-icon></th>
                 <th style="width: 80px;">구분</th>
                 <th style="width: 500px;">제목</th>
@@ -70,8 +70,8 @@
                 <th style="width: 50px;">조회수</th>
               </tr>    
             </thead>
-              <tr>
-                <td><app-check color="white" size="small" name="check"></app-check></td>
+              <tr class="button">
+                <td style="width:40px"><app-check color="white" size="small" name="check"></app-check></td>
                 <td></td>
                 <td></td>
                 <td></td>

@@ -107,6 +107,11 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
       this.validator.account_token = { valid: res.rsCode === 0, message: res.rsMsg };
     }, 200);
   }
+  public checkPassConfirm() {
+    const { account_token, account_token_conform } = this.form;
+    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
+    else return this.validator.account_token_conform = null;
+  }
   
   timeouOverlapPhone;
   public overlapPhone() {
@@ -127,20 +132,23 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
     this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    
   }
 
-  public next() {
+  public async next() {
     this.validator = {} as any;
+    if(!this.form.user_name) this.validator.user_name = {message: '이름을 입력해주세요.', valid: false};
     if(!this.form.account_id) this.validator.account_id = {message: '아이디를 입력해주세요.', valid: false};
+    else await this.overlapId();
     if(!this.form.account_token) this.validator.account_token = {message: '비밀번호를 입력해주세요.', valid: false};
+    else await this.checkPass();
     if(!this.form.account_token_conform) this.validator.account_token_conform = {message: '비밀번호 확인을 입력해주세요.', valid: false};
+    else await this.checkPassConfirm();
+    if(!this.form.user_birth) this.validator.user_birth = {message: '생년월일을 입력해주세요.', valid: false};
+    if(!this.form.user_email) this.validator.user_email = {message: '이메일을 입력해주세요.', valid: false};
     if(!this.form.ctgo_country_id) this.validator.ctgo_country_id = {message: '국가를 입력해주세요.', valid: false};
     if(!this.form.company_id) this.validator.company_id = {message: '회사를 입력해주세요.', valid: false};
     if(!this.form.ctgo_construction_id) this.validator.ctgo_construction_id = {message: '공종을 입력해주세요.', valid: false};
     if(!this.form.ctgo_occupation_id) this.validator.ctgo_occupation_id = {message: '직종을 입력해주세요.', valid: false};
     if(!this.form.project_id) this.validator.project_id = {message: '현장을 입력해주세요.', valid: false};
-    if(!this.form.user_name) this.validator.user_name = {message: '이름을 입력해주세요.', valid: false};
     if(!this.form.user_gender) this.validator.user_gender = {message: '성별을 입력해주세요.', valid: false};
-    if(!this.form.user_birth) this.validator.user_birth = {message: '생년월일을 입력해주세요.', valid: false};
-    if(!this.form.user_email) this.validator.user_email = {message: '이메일을 입력해주세요.', valid: false};
     if(!this.form.user_phone) this.validator.user_phone = {message: '휴대폰번호를 입력해주세요.', valid: false};
     if(!this.form.sms_token) this.validator.sms_token = {message: '문자인증번호를 입력해주세요.', valid: false};
     if(!this.form.basic_safe_edu_date) this.validator.basic_safe_edu_date = {message: '기초안전보건교육 이수날짜를 입력해주세요.', valid: false};
