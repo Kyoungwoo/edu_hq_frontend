@@ -1,18 +1,40 @@
-.square {
-    background: red;
-    max-width: 400px;
-    width: 100%;
+
+
+.profile-row {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-left: var(--app-page-padding);
+	app-avatar {
+		width: 38px;
+		height: 38px;
+        margin-right: 5px;
+	}
+    app-logo {
+        width: 30px;
+		height: 30px;
+        margin-right: 20px;
+    }
+    app-col {
+    padding: 0;
+    }
+    p {
+        font-size: var(--font-size-h6-small);
+    }
 }
-.square-inner {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-}
-.square-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
+.main-button {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    .square {
+        width: 100%;
+        height: 100%;
+
+        
+    app-img {
+        width: 50%;
+    }
+    }
+    p {
+        font-size: var(--font-size-h4);
+    }
 }

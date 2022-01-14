@@ -50,7 +50,7 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '교육현황', link: '/safety-education-list'},
       { title: '교육 결과 보고', link: '/safety-education-result-list'},
       { title: '교육이력', thirdMenuList:[
-        {title:'근로자 교육 이력',link:''},
+        {title:'근로자 교육 이력',link:'/safety-education-history-list'},
         {title:'정기 교육 이력',link:''},
         {title:'특별 교육 이력',link:''}
       ]}
