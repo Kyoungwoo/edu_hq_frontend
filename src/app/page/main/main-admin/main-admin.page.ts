@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 @Component({
   selector: 'app-main-admin',
@@ -31,6 +33,8 @@ export class MainAdminPage implements OnInit {
   }
   constructor(
     private connect:ConnectService,
+    private alert : AlertService,
+    private nav:NavService
   ) { }
 
   ngOnInit() {
@@ -58,6 +62,34 @@ export class MainAdminPage implements OnInit {
     switch(res.rsCode) {
       case 0 :
         this.dust = res.rsObj;
+    }
+  }
+  alram() {
+  }
+  router(title:string) {
+    console.log("asdfasdf");
+    switch(title){
+      case '알림함':
+        this.alert.present({
+          message:  '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+          header:'준비중'
+        });      
+        break;
+      case '미결함':
+        this.nav.navigateRoot('/confirm-pending-list');
+        break;
+      case '공지사항':
+        this.nav.navigateRoot('/notice-list');
+        break;
+      case '회의록':
+        this.nav.navigateRoot('/minutes-list');
+        break;
+      case '아차사고신고':
+        this.alert.present({
+          message:  '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+          header:'준비중'
+        });
+        break;
     }
   }
 }
