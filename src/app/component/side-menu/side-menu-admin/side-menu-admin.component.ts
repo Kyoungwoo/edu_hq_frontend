@@ -28,7 +28,7 @@ export interface ThirdMenuItem {
   styleUrls: ['./side-menu-admin.component.scss'],
   animations: [ listAnimation ]
 })
-export class SideMenuAdminComponent implements OnInit {
+export class  SideMenuAdminComponent implements OnInit {
 
   menuList:MenuItem[] = [
     { title: '통합관제', img: 'assets/img/menu/control-center.svg', subMenuList: [
@@ -63,7 +63,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '위험 작업 허가', link: ''},
       { title: '회의록', link: '/worker-minutes-list'}
     ]},
-    { title: '작업관리', img: 'assets/img/menu/work-manage.svg', subMenuList: [
+    { title: '작업관리', img: 'assets/img/menu/work-management.svg', subMenuList: [
       { title: '출역 현황', link: ''},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
@@ -94,7 +94,7 @@ export class SideMenuAdminComponent implements OnInit {
       { title: '시스템 이용 약관', link: '/use-terms'},
       { title: '개인정보처리방침', link: '/privacy'}
     ]},
-    { title: '회원관리', img: 'assets/img/menu/member-manage.svg', subMenuList: [
+    { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
       { title: '작업자 가입승인', link: '/worker-approval-list'},
       { title: '관리자 관리', thirdMenuList:[
         {title:'LH 관리자 가입 승인',link:'lh-approval-list'},
