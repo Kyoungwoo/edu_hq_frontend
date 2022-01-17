@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { AppModule } from 'src/app/app.module';
+import { ComponentModule } from '../project-management/scene-management/member-standard-set/component/component.module';
 
 import { SplashPage } from './splash.page';
 
@@ -10,7 +13,12 @@ describe('SplashPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SplashPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [
+        IonicModule.forRoot(),
+        AppModule,
+        FormsModule,
+        ComponentModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SplashPage);
