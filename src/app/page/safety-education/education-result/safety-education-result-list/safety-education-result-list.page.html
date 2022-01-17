@@ -52,7 +52,7 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent">신규 작성</app-button>
+            <app-button fill="translucent" (click)="add()">신규 작성</app-button>
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
         </ion-toolbar>
@@ -112,7 +112,7 @@
     <app-row>
       <app-col></app-col>
       <app-col size="auto">
-        <app-button fill="translucent">미결문서</app-button>
+        <app-button fill="translucent" (click)="pending()">미결문서</app-button>
       </app-col>
     </app-row>
     <ng-container>

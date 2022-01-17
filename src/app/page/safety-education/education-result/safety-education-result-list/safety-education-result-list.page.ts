@@ -40,4 +40,12 @@ export class SafetyEducationResultListPage implements OnInit {
     });
     modal.present();
   }
+
+  public async add() {
+    const modal = await this._modal.create({
+      component: NewWriteTargetPage,
+
+  })
+  modal.present();
+}
 }
