@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main-admin',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
@@ -442,6 +442,10 @@ const routes: Routes = [
   {
     path: 'open-detail-search',
     loadChildren: () => import('./page/notify-board/notify/open-detail-search/open-detail-search.module').then( m => m.OpenDetailSearchPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./page/splash/splash.module').then( m => m.SplashPageModule)
   }
 
 

@@ -1,0 +1,37 @@
+:host {
+    background: var(--ion-color-white);
+}
+.container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+svg {
+    width: 200px;
+    .animate-group {
+        animation: splash-animation-group forwards 200ms ease-in-out;
+    }
+    .animate-path {
+        animation: splash-animation-path forwards 500ms ease-in-out, splash-animation-path-2 forwards 200ms linear;
+    }
+}
+
+@keyframes splash-animation-group {
+    to {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes splash-animation-path {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes splash-animation-path-2 {
+    to {
+        transform: translateX(0);
+    }
+}

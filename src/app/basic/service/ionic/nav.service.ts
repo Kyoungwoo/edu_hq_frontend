@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent, UrlTree } from '@angular/router';
-import { IonContent, NavController } from '@ionic/angular';
+import { AnimationController, IonContent, NavController } from '@ionic/angular';
+import { NavigationOptions } from '@ionic/angular/providers/nav-controller';
 import { filter } from 'rxjs/operators';
 export interface NavOptions {
   animated?:boolean,
+  animation?:'default' | 'fadeIn'
   force?:boolean
 }
 
@@ -15,6 +17,7 @@ export class NavService {
   force:boolean = true;
 
   constructor(
+    private animationCtrl: AnimationController,
     private navCtrl: NavController,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -24,18 +27,34 @@ export class NavService {
   }
   navigateBack(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
     this.force = options?.force ?? true;
-    return this.navCtrl.navigateBack(url, options as any);
+    const navOptions:NavigationOptions = {};
+    if(options?.animated) navOptions.animated = options?.animated;
+    if(options?.animation === 'fadeIn') {
+      navOptions.animation = this.fadeInAnimation.bind(this);
+    }
+    return this.navCtrl.navigateBack(url, navOptions);
   }
   navigateForward(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
     this.force = options?.force ?? true;
-    return this.navCtrl.navigateForward(url, options as any);
+    const navOptions:NavigationOptions = {};
+    if(options?.animated) navOptions.animated = options?.animated;
+    if(options?.animation === 'fadeIn') {
+      navOptions.animation = this.fadeInAnimation.bind(this);
+    }
+    return this.navCtrl.navigateForward(url, navOptions);
   }
   navigateRoot(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
     this.force = options?.force ?? true;
-    return this.navCtrl.navigateRoot(url, options as any);
+    const navOptions:NavigationOptions = {};
+    if(options?.animated) navOptions.animated = options?.animated;
+    if(options?.animation === 'fadeIn') {
+      navOptions.animation = this.fadeInAnimation.bind(this);
+    }
+    return this.navCtrl.navigateRoot(url, navOptions);
   }
 
-  fragmentScroll(content:IonContent) {
+  /** scroll */
+  public fragmentScroll(content:IonContent) {
     const $router = this.router.events.pipe(
       filter((event: RouterEvent) => event instanceof NavigationEnd)
     ).subscribe(async(e) => {
@@ -89,5 +108,18 @@ export class NavService {
         this.scrollTry = 0;
       }
     })
+  }
+
+  private fadeInAnimation(_, opts) {
+    const _leaveEl = <HTMLElement>opts.leavingEl;
+    const enterEl = <HTMLElement>opts.enteringEl;
+    _leaveEl.style.zIndex = '200';
+    enterEl.style.opacity = '1';
+    const opacityAnimation = this.animationCtrl.create()
+    .addElement(_leaveEl)
+    .duration(300)
+    .easing('ease')
+    .fromTo('opacity', '1', '0');
+    return this.animationCtrl.create().addAnimation([opacityAnimation]);
   }
 }

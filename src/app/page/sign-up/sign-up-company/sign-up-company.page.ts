@@ -45,12 +45,12 @@ export class SignUpCompanyPage implements OnInit {
     });
   }
 
-  async searchCompany() {
+  public async searchCompany() {
     this.res = await this.connect.run('/forSignUp/company/get', this.form);
     return this.res;
   }
 
-  getNextRouterLink(userType) {
+  private getNextRouterLink(userType) {
     switch(userType) {
       case 'WORKER':
         return '/sign-up-worker';

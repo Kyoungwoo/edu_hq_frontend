@@ -4,6 +4,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { BasicComponentModule } from './basic/component/basic.component.module';
@@ -21,6 +22,7 @@ describe('AppComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [ 
         RouterTestingModule.withRoutes([]),
+        IonicModule.forRoot(),
         HttpClientModule,
         FormsModule
       ],

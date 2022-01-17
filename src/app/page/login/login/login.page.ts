@@ -23,8 +23,8 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {}
-  
-  async login() {
+
+  public async login() {
     this.res = await this.connect.run('/token/get', this.form, {
       contentType: ContentType.ApplicationJson,
       loading: '로그인'
@@ -35,7 +35,5 @@ export class LoginPage implements OnInit {
         animated: true
       });
     }
-    console.log(this.res);
-    return this.res;
   }
 }
