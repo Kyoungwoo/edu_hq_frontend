@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { SafetyEducationResultEditPage } from '../safety-education-result-edit/safety-education-result-edit.page';
 
 @Component({
   selector: 'app-new-write-target',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewWriteTargetPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _modal: ModalController
+  ) { }
 
   ngOnInit() {
   }
 
+  public async edit() {
+    const modal = await this._modal.create({
+      component: SafetyEducationResultEditPage
+
+    })
+    modal.present();
+  }
 }

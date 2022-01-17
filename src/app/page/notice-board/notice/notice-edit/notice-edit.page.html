@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>공지사항 등록</ion-title>
+    <ion-title>공지사항 {{ title }}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -41,17 +41,18 @@
   </app-row>
     <app-row>
       <app-col>
-        <app-input label="제목"></app-input>
+        <app-input label="제목" [(ngModel)]="form.notice_title"></app-input>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-smartedit placeholder="내용을 입력하세요."></app-smartedit>
+        <app-smartedit [value]="form.notice_content" placeholder="내용을 입력하세요."></app-smartedit>
       </app-col>
     </app-row>
     <h4>첨부자료</h4>
-
 </ion-content>
 <app-button-footer>
-
+  <app-button fill="translucent" (click)="update()">수정</app-button>
+  <app-button color="danger" fill="translucent">삭제</app-button>
+  <app-button (click)="insert()">등록</app-button>
 </app-button-footer>

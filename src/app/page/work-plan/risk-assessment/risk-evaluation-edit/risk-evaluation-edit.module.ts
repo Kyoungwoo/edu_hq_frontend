@@ -9,6 +9,7 @@ import { RiskEvaluationEditPageRoutingModule } from './risk-evaluation-edit-rout
 import { RiskEvaluationEditPage } from './risk-evaluation-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { RiskEvaluationPopupPageModule } from '../risk-evaluation-popup/risk-evaluation-popup.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    RiskEvaluationEditPageRoutingModule
+    RiskEvaluationEditPageRoutingModule,
+    RiskEvaluationPopupPageModule
   ],
   declarations: [RiskEvaluationEditPage]
 })

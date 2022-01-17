@@ -9,6 +9,8 @@ import { NewWriteTargetPageRoutingModule } from './new-write-target-routing.modu
 import { NewWriteTargetPage } from './new-write-target.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { SafetyEducationDetailEditPageModule } from '../../educatiion-status/safety-education-detail-edit/safety-education-detail-edit.module';
+import { SafetyEducationResultEditPageModule } from '../safety-education-result-edit/safety-education-result-edit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    NewWriteTargetPageRoutingModule
+    NewWriteTargetPageRoutingModule,
+    SafetyEducationResultEditPageModule
   ],
   declarations: [NewWriteTargetPage]
 })
