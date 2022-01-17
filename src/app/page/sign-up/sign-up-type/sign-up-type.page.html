@@ -12,7 +12,7 @@
     <app-sign-up-segment step="step1"></app-sign-up-segment>
     <h4><b>회원유형</b> 을 선택해주세요.</h4>
     <p>회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.</p>
-    <app-card id="card-type-worker" [button]="true" [color]="userType === 'WORKER' ? 'secondary' : 'white'" (click)="userType = 'WORKER'">
+    <app-card name="card-type-worker" [button]="true" [color]="userType === 'WORKER' ? 'secondary' : 'white'" (click)="userType = 'WORKER'">
       <app-row class="card-inner">
         <app-col size="auto">
           <app-img class="helmet" src="assets/img/sign-up/helmet1.svg"></app-img>
@@ -25,7 +25,7 @@
         </app-col>
       </app-row>
     </app-card>
-    <app-card id="card-type-lh" [button]="true" [color]="userType === 'LH' ? 'secondary' : 'white'" (click)="userType = 'LH'">
+    <app-card name="card-type-lh" [button]="true" [color]="userType === 'LH' ? 'secondary' : 'white'" (click)="userType = 'LH'">
       <app-row class="card-inner">
         <app-col size="auto">
           <app-img class="helmet" src="assets/img/sign-up/helmet2.svg"></app-img>
@@ -38,7 +38,7 @@
         </app-col>
       </app-row>
     </app-card>
-    <app-card id="card-type-super" [button]="true" [color]="userType === 'SUPER' ? 'secondary' : 'white'" (click)="userType = 'SUPER'">
+    <app-card name="card-type-super" [button]="true" [color]="userType === 'SUPER' ? 'secondary' : 'white'" (click)="userType = 'SUPER'">
       <app-row class="card-inner">
         <app-col size="auto">
           <app-img class="helmet" src="assets/img/sign-up/helmet3.svg"></app-img>
@@ -51,7 +51,7 @@
         </app-col>
       </app-row>
     </app-card>
-    <app-card id="card-type-company" [button]="true" [color]="userType === 'COMPANY' ? 'secondary' : 'white'" (click)="userType = 'COMPANY'">
+    <app-card name="card-type-company" [button]="true" [color]="userType === 'COMPANY' ? 'secondary' : 'white'" (click)="userType = 'COMPANY'">
       <app-row class="card-inner">
         <app-col size="auto">
           <app-img class="helmet" src="assets/img/sign-up/helmet4.svg"></app-img>
@@ -66,6 +66,6 @@
     </app-card>
   </app-container>
 </ion-content>
-<app-button-footer id="button-footer" *ngIf="userType" @slideUpInAnimation>
-  <app-button id="button-next" routerLink="/sign-up-company" [queryParams]="{ userType: userType }">다음</app-button>
+<app-button-footer name="button-footer" *ngIf="userType" @slideUpInAnimation>
+  <app-button name="button-next" routerLink="/sign-up-company" [queryParams]="{ userType: userType }">다음</app-button>
 </app-button-footer>

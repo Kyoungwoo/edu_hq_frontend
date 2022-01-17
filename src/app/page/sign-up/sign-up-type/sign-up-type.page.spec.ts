@@ -39,7 +39,7 @@ describe('SignUpTypePage', () => {
     expect(component).toBeTruthy();
 
     const el = fixture.debugElement;
-    const buttonFooter = el.query(By.css('#button-footer'));
+    const buttonFooter = el.query(By.css('[name=button-footer'));
     expect(buttonFooter).toBeFalsy();
   });
 
@@ -52,16 +52,16 @@ describe('SignUpTypePage', () => {
     }));
 
     const el = fixture.debugElement;
-    const cardTypeWorker = el.query(By.css('#card-type-worker'));
-    const cardTypeLH= el.query(By.css('#card-type-lh'));
-    const cardTypeSuper = el.query(By.css('#card-type-super'));
-    const cardTypeCompany = el.query(By.css('#card-type-company'));
+    const cardTypeWorker = el.query(By.css('[name=card-type-worker]'));
+    const cardTypeLH = el.query(By.css('[name=card-type-lh]'));
+    const cardTypeSuper = el.query(By.css('[name=card-type-super]'));
+    const cardTypeCompany = el.query(By.css('[name=card-type-company]'));
     
     cardTypeWorker.triggerEventHandler('click', null);
     fixture.detectChanges();
 
-    const buttonFooter = el.query(By.css('#button-footer'));
-    const buttonNext = el.query(By.css('#button-next'));
+    const buttonFooter = el.query(By.css('[name=button-footer]'));
+    const buttonNext = el.query(By.css('[name=button-next]'));
 
     expect(component.userType).toBe('WORKER');
     expect((<CardComponent>cardTypeWorker.componentInstance).color).toBe('secondary');
