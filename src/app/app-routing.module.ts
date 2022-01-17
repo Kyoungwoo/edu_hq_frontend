@@ -434,6 +434,14 @@ const routes: Routes = [
   {
     path: 'worker-info-edit',
     loadChildren: () => import('./page/member-management/member-management/worker-info-edit/worker-info-edit.module').then( m => m.WorkerInfoEditPageModule)
+  },
+  {
+    path: 'notify-list',
+    loadChildren: () => import('./page/notify-board/notify/notify-list/notify-list.module').then( m => m.NotifyListPageModule)
+  },
+  {
+    path: 'open-detail-search',
+    loadChildren: () => import('./page/notify-board/notify/open-detail-search/open-detail-search.module').then( m => m.OpenDetailSearchPageModule)
   }
 
 

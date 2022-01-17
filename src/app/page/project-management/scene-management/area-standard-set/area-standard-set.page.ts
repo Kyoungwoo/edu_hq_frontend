@@ -49,6 +49,29 @@ export class AreaStandardSetPage implements OnInit {
       text:'1블록'
     }
   ]
+
+  // area = [
+  //   {
+  //     x: 126.7552019,
+  //     y: 37.6090918
+  //   },
+  //   {
+  //     x: 126.6865373,
+  //     y: 37.5568537
+  //   },
+  //   {
+  //     x: 126.9090105,
+  //     y: 37.5579424
+  //   },
+  //   [
+  //     {
+  //       x: 127.2825456,
+  //       y: 37.5503214
+  //     }
+  //   ]
+  // ]
+
+
   constructor(
     private modal : ModalController
   ) { }

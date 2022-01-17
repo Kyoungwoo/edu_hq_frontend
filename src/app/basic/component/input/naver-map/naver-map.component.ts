@@ -35,7 +35,13 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     private file: FileService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.value);
+    console.log("this.marker",this.marker);
+    console.log("this.LatLng",this.LatLng);
+    console.log("this.infoMarker",this.infoMarker);
+
+  }
   ngAfterViewInit() {
     this.file.script(`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.naverMapId}`).then(() => {
       this.init();
@@ -50,7 +56,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       center: position,
       zoom: 10
     });
-    // let icon_option = this.text ? 'assets/basic/img/logo.png':''
     for(let i = 0; i < this.value.length;i++){
       if(this.value[i].workerInfo) {
         for(let j = 0; j < this.value[i].workerInfo.length; j++) {
@@ -106,6 +111,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
     naver.maps.Event.addListener(this.map, 'click', (e) => {
       const coord = e.coord;
+      console.log("coord",coord);
       this.LatLng.push(coord);
       this.addMarker(coord);
     });

@@ -26,6 +26,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   //   {qwe_id:3, qwe_name:"test_3"},
   // ]
 
+  menuCount:Number = 1;
   
   weather:any = {
     weather_speed:"", // 풍속,
@@ -81,52 +82,6 @@ export class MonitorPage implements OnInit, OnDestroy {
       date:'21-01-115471'
     }
 ]
-
-// graphArr2 = [
-//   {
-//     name:'작업대기',
-//     count:230
-//   },
-//   {
-//     name:'작업중',
-//     count:50
-//   },
-//   {
-//     name:'작업종료',
-//     count:70
-//   }
-// ]
-
-// graphArr3 = [
-//   {
-//     name:'1등급',
-//     count:230
-//   },
-//   {
-//     name:'2등급',
-//     count:150
-//   },
-//   {
-//     name:'3등급',
-//     count:140
-//   },
-//   {
-//     name:'4등급',
-//     count:260
-//   },
-//   {
-//     name:'5등급',
-//     count:120
-//   },
-//   {
-//     name:'6등급',
-//     count:160
-//   },
-//   {
-//     name:'9등급',
-//     count:70
-//   }
-// ]
 graphArr2 = [
   {
     name:'전기',

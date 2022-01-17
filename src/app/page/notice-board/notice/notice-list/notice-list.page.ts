@@ -52,7 +52,6 @@ export class NoticeListPage implements OnInit {
       loading: '공지사항 불러오기'
     })
     if(res.rsCode === 0) {
-      this.res = res;
     } else {
       this.connect.error('공지사항 불러오기 실패', res);
     }

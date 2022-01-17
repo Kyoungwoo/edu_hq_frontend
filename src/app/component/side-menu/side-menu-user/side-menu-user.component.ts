@@ -7,9 +7,17 @@ interface MenuItem {
 }
 interface SubMenuItem {
   title: string,
-  link: string,
+  link?: string,
+  toggle?: boolean,
+  thirdMenuList?:ThirdMenuItem[],
   params: {[name:string]:any},
+
   permission: () => boolean
+}
+
+export interface ThirdMenuItem {
+  title: string,
+  link: string
 }
 @Component({
   selector: 'app-side-menu-user',
@@ -54,8 +62,12 @@ export class SideMenuUserComponent implements OnInit {
       { title: '위험지역 디바이스', link: '/danger-area-list', params: {}, permission: () => { return true }}
     ]},
     { src:'assets/img/menu/sign.svg',title: '결재', subMenuList: [
-      { title: '미결함', link: '/confirm-pending-list', params: {}, permission: () => { return true }},
-      { title: '문서함', link: '', params: {}, permission: () => { return true }},
+      { title: '미결함', link:'', params: {}, permission: () => { return true }},
+      { title: '문서함', thirdMenuList:[
+        {title: '기안/임시저장함', link: ''},
+        {title: '진행/완료/반려함', link: ''},
+        {title: '참조함', link: ''}
+      ], params: {}, permission: () => { return true }},
       { title: '위임관리', link: '', params: {}, permission: () => { return true }}
     ]},
     { src:'assets/img/menu/board.svg',title: '게시판', subMenuList: [

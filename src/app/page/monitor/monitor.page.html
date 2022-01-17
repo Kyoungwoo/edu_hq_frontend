@@ -1,65 +1,91 @@
-<ion-header>
-  <ion-toolbar>
-    <app-moniter-header></app-moniter-header>
-    <app-card class="margin-card">
-      <ion-row>
-        <app-col size="3">
-          <app-select>
-            <app-select-option>전체</app-select-option>
-          </app-select>
-        </app-col>
-        <app-col></app-col>
-        <app-col size="auto">
-          <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
-            <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
-          </app-button>
-        </app-col>
-        <app-col size="auto">
-          <app-row class="weather-temp">
-            {{ weather.weather_temp + "&deg;C"}}
-          </app-row>
-          <app-row class="ratio">
-            {{ weather.high_weather_temp + "&deg;C" }}
-            {{ weather.low_weather_temp + "&deg;C"}}
-          </app-row>
-        </app-col>
-        <app-col class="colstyle" size="auto">
-          <app-row class="title">
-            강수량
-          </app-row>
-          <app-row class="ratio">
-            {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
-          </app-row>
-        </app-col>
-        <app-col class="colstyle" size="auto">
-          <app-row class="title">
-            적설량
-          </app-row>
-          <app-row class="ratio">
-            {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
-          </app-row>
-        </app-col>
-        <app-col class="colstyle" size="auto">
-          <app-row class="title">
-            최대풍속
-          </app-row>
-          <app-row class="ratio">
-            {{ weather.weather_speed + "m/s"}}
-          </app-row>
-        </app-col>
-        <app-col class="colstyle" size="auto">
-          <app-row class="title">
-            미세먼지
-          </app-row>
-          <app-row class="ratio">
-            <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
-            {{ dust.grade_name}}
-          </app-row>
-        </app-col>
-      </ion-row>
-    </app-card>
-  </ion-toolbar>
-</ion-header>
+<app-moniter-header *mobileHidden></app-moniter-header>
+
+<ion-toolbar *mobileHidden>
+  <app-card class="margin-card">
+    <ion-row>
+      <app-col size="3">
+        <app-select>
+          <app-select-option>전체</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col></app-col>
+      <app-col size="auto">
+        <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
+          <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+        </app-button>
+      </app-col>
+      <app-col size="auto">
+        <app-row class="weather-temp">
+          {{ weather.weather_temp + "&deg;C"}}
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.high_weather_temp + "&deg;C" }}
+          {{ weather.low_weather_temp + "&deg;C"}}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
+          강수량
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
+          적설량
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
+          최대풍속
+        </app-row>
+        <app-row class="ratio">
+          {{ weather.weather_speed + "m/s"}}
+        </app-row>
+      </app-col>
+      <app-col class="colstyle" size="auto">
+        <app-row class="title">
+          미세먼지
+        </app-row>
+        <app-row class="ratio">
+          <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+          {{ dust.grade_name}}
+        </app-row>
+      </app-col>
+    </ion-row>
+  </app-card>
+</ion-toolbar>
+
+<ion-toolbar color="white">
+  <app-row>
+    <app-col>
+      <app-select-scene></app-select-scene>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-select>
+        <app-select-option>전체</app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+</ion-toolbar>
+<ion-toolbar color="white" *mobileShow>
+  <app-row>
+    <app-col>
+      <ion-segment color="primary" [value]="1">
+        <ion-segment-button (click)="menuCount = 1" [value]="1">장소</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 2">위험지역</ion-segment-button>
+        <ion-segment-button (click)="menuCount = 3">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
+      </ion-segment>
+    </app-col>
+  </app-row>
+</ion-toolbar>
+
 
 <ion-content>
   <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
@@ -135,18 +161,14 @@
                 <app-row>
                   <app-col size="auto" style="display: flex; align-items: center;">
                     <div class="circlel-plan"></div>
-                    <p class="count-name">위험</p>
-                  </app-col>
-                  <app-col size="auto">
+                    <p class="count-name">위험&nbsp;&nbsp;</p>
                     <p class="count-contant">6</p>
                   </app-col>
                 </app-row>
                 <app-row>
                   <app-col size="auto" style="display: flex; align-items: center;">
                     <div class="circlel-per"></div>
-                    <p class="count-name">일반</p>
-                  </app-col>
-                  <app-col size="auto">
+                    <p class="count-name">일반&nbsp;&nbsp;&nbsp;</p>
                     <p class="count-contant">50</p>
                   </app-col>
                 </app-row>
@@ -434,7 +456,7 @@
       </app-card> -->
 
     </app-col>
-    <app-col style="flex: 0 0 250px;">
+    <app-col style="flex: 0 0 250px;" *mobileHidden>
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
           <ion-row style="justify-content: space-between;">
@@ -592,8 +614,36 @@
     </app-col>
   </app-row>
 
+  <ng-container  *mobileShow>
+  <app-row  style="align-items: flex-start;" *ngIf="menuCount === 2">
+    <app-col>
+      <app-card color="white">
+        <app-row style="align-items: stretch;">
+          <app-col class="donut-group">
+            <app-row>
+              <app-col>
+                <h4>CCTV 설치 장소 1</h4>
+              </app-col>
+              <app-col></app-col>
+              <app-col size="auto">
+                <app-button>수정</app-button>
+              </app-col>
+            </app-row>
+            <app-row>
+              <app-col style="position: relative;">
+                <div style="border: 1px solid; height: 500px; position: relative;">
+                </div>
+              </app-col>
+            </app-row>
+          </app-col>
+          </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
+</ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
+<ng-container *mobileHidden>
+  <app-row  style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
     <app-col>
       <app-card color="white">
         <app-row style="align-items: stretch;">
@@ -681,6 +731,8 @@
       </app-card>
     </app-col>
   </app-row>
+</ng-container>
+
 
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>

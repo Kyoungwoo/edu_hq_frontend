@@ -50,15 +50,36 @@
   <app-row class="side-menu-tab">
     <app-col class="left">
       <ion-list>
-        <ion-item lines="none" button *ngFor="let menu of menuList" [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ menu.title }}</ion-item>
+        <ion-item  lines="none" button *ngFor="let menu of menuList" [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ menu.title }}</ion-item>
       </ion-list>
     </app-col>
     <app-col class="right"> 
       <ul>
-        <ion-list-header><app-img [src]="menuSelected.src"></app-img>{{ menuSelected.title }}</ion-list-header> 
-        <ion-item *ngFor="let subMenu of menuSelected.subMenuList" 
-        [routerLink]="subMenu.link"
-        [queryParams]="subMenu.params">{{ subMenu.title }}</ion-item>
+        <ion-list-header><app-img [src]="menuSelected.src"></app-img>{{ menuSelected.title }}</ion-list-header>
+        <!-- <ng-container *ngFor="let subMenu of menuSelected.subMenuList">
+          <ion-item
+          (click)="subMenu.toggle = !subMenu.toggle" 
+          [routerLink]="subMenu.link"
+          [queryParams]="subMenu.params">{{ subMenu.title }} 
+            <ng-container *ngIf="subMenu.toggle">
+              <ion-item *ngFor="let thirdMenu of subMenu.thirdMenuList">
+                {{ thirdMenu.title}}
+              </ion-item>
+            </ng-container>
+        </ion-item>
+        </ng-container> -->
+        <ng-container *ngFor="let subMenu of menuSelected.subMenuList">
+          <ion-item
+          (click)="subMenu.toggle = !subMenu.toggle" 
+          [routerLink]="subMenu.link"
+          [queryParams]="subMenu.params">{{ subMenu.title }} 
+        </ion-item>
+        <ng-container *ngIf="subMenu.toggle">
+          <ion-item *ngFor="let thirdMenu of subMenu.thirdMenuList" style="padding-left: 30px;">
+            {{ thirdMenu.title}}
+          </ion-item>
+        </ng-container>
+        </ng-container> 
       </ul>
     </app-col>
   </app-row>

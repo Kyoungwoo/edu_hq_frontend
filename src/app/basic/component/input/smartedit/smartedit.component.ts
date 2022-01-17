@@ -42,10 +42,11 @@ export class SmarteditComponent implements OnInit {
     });
   }
   public _value:string = '';
-  @Input()
-  set value(v:any) {
+  @Input() set value(v:string) {
     if(v !== this.value) {
+      console.log("this.value",this.value);
       this._value = v;
+      this._onChangeCallback(v);
       this.change.emit(v);
     }
   }
@@ -53,6 +54,8 @@ export class SmarteditComponent implements OnInit {
   
   writeValue(v:any): void {
     if(v !== this._value) this._value = v; 
+    this._onChangeCallback(v);
+    this.change.emit(v);
   }
   private _onChangeCallback = (v) => {};
   private _onTouchedCallback = (v) => {};
