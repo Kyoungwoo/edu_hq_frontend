@@ -7,10 +7,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PagerComponent implements OnInit {
 
-  @Input('totalCount') totalCount:number = 0;
-  @Input('limitNo') limitNo:number = 0;
-  @Input('pageCount') adminPageNo:number = 10; // 한 페이저에 들어가는 페이지 갯수
-  @Input('itemCount') adminLimitNo:number = 20; // 한페이지에 보이는 아이템 갯수
+  @Input() totalCount:number = 0;
+  @Input() limitNo:number = 0;
+  @Input() adminPageNo:number = 10; // 한 페이저에 들어가는 페이지 갯수
+  @Input() adminLimitNo:number = 20; // 한페이지에 보이는 아이템 갯수
   
 
   @Output() pagerChange = new EventEmitter();

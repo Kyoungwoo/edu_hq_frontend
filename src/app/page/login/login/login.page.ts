@@ -22,9 +22,8 @@ export class LoginPage implements OnInit {
     private nav: NavService
   ) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
+  
   async login() {
     this.res = await this.connect.run('/token/get', this.form, {
       contentType: ContentType.ApplicationJson,
@@ -36,6 +35,7 @@ export class LoginPage implements OnInit {
         animated: true
       });
     }
+    console.log(this.res);
     return this.res;
   }
 }

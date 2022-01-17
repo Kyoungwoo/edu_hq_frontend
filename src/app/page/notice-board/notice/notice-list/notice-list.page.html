@@ -7,7 +7,9 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button>
+              </app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
@@ -31,9 +33,9 @@
             <tr>
               <td>
                 <app-input-group label="등록일">
-                  <app-calendar></app-calendar>
+                  <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
@@ -72,22 +74,25 @@
                 <th style="width: 50px;">조회수</th>
               </tr>
             </thead>
-            <tr class="button">
-              <td>
-                <app-check color="white" size="small" name="check"></app-check>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
             <tbody>
+              <tr class="button" *ngFor="let item of res?.rsMap">
+                <td>
+                  <app-check color="white" size="small" name="check"></app-check>
+                </td>
+                <td style="text-align: center;">
+                  <ion-icon name="star" *ngIf="item.favorites_state"></ion-icon>
+                </td>
+                <td>{{ item.notice_type }}</td>
+                <td>{{ item.notice_title }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.hit_count }}</td>
+              </tr>
             </tbody>
           </app-table>
         </app-check-group>
-        <app-pager></app-pager>
+        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
       </app-col>
     </app-row>
   </ion-content>
