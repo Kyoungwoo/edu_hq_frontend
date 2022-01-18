@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 
 @Component({
@@ -22,10 +23,15 @@ export class OrganizationSelectPage implements OnInit {
     hq_regional_code: string
     checked:boolean
   }>
-
-  hq_regional_id
+  retrunData = {
+    regName:'',
+    regId:0,
+    busName:'',
+    busId:0
+  }
   constructor(
-    private connect:ConnectService
+    private connect:ConnectService,
+    private _modal:ModalController
   ) { }
 
   ngOnInit() {
@@ -35,6 +41,9 @@ export class OrganizationSelectPage implements OnInit {
     this.regionalItem.rsMap.forEach(data =>{
       if(item.hq_regional_id === data.hq_regional_id){
         data.checked = true;
+        this.retrunData.regName = item.hq_regional_name;
+        this.retrunData.regId = item.hq_regional_id;
+
       } else {
         data.checked = false;
       }
@@ -44,7 +53,6 @@ export class OrganizationSelectPage implements OnInit {
     } else { 
       this.connect.error('불러오기 실패',this.businessItem);
     }
-
   }
   async regional(){
     this.regionalItem = await this.connect.run('/category/organization/regional/get');
@@ -58,9 +66,15 @@ export class OrganizationSelectPage implements OnInit {
     this.businessItem.rsMap.forEach(data => {
       if(item.hq_business_id === data.hq_business_id){
         data.checked = true;
+        this.retrunData.busName = item.hq_business_name;
+        this.retrunData.busId = item.hq_business_id;
       } else { 
         data.checked = false;
       }
-    })
+    });
+  }
+
+  submit(){
+    this._modal.dismiss(this.retrunData);
   }
 }

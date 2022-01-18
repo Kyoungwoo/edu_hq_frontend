@@ -7,6 +7,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  
+  <app-card>
+    <app-row>
+      <app-col>
+        <app-input placeholder="검색어를 입력해주세요">
+          <app-img name="search"></app-img>
+        </app-input>
+      </app-col>
+    </app-row>
+  </app-card>
   <div class="flex-box">
     <div class="flex-revers">
       <!-- header -->
@@ -36,5 +46,5 @@
   </div>
 </ion-content>
 <app-button-footer>
-  <!-- <app-button (click)="submit()">적용</app-button> -->
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>
