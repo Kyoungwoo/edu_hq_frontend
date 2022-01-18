@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>현장등록</ion-title>
+    <ion-title>현장{{title}}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -11,7 +11,9 @@
   <app-card>
     <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
       <app-col>
-        <app-select-organization></app-select-organization>
+        <app-input (click)="organizationSel()" [readonly]="true" [required]="true" label="조직기구">
+          <app-img name="search"></app-img>
+        </app-input>
       </app-col>
       <app-col>
         <app-select-scene></app-select-scene>
@@ -20,21 +22,14 @@
     <app-row mobileBreak>
       <app-col>
         <app-row>
-          <app-col size="auto">
-            <h5>원청사</h5>
-          </app-col>
           <app-col>
-            <p>구일종합건설㈜, 남광토건㈜</p>
+            <app-select-contractor></app-select-contractor>
           </app-col>
         </app-row>
       </app-col>
       <app-col>
         <app-row>
           <app-col size="auto">
-            <h5>감리사</h5>
-          </app-col>
-          <app-col>
-            <p>(주)감리사3, ㈜감리사4</p>
           </app-col>
         </app-row>
       </app-col>

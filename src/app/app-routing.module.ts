@@ -446,6 +446,10 @@ const routes: Routes = [
   {
     path: 'splash',
     loadChildren: () => import('./page/splash/splash.module').then( m => m.SplashPageModule)
+  },
+  {
+    path: 'organization-select',
+    loadChildren: () => import('./page/project-management/scene-management/organization-select/organization-select.module').then( m => m.OrganizationSelectPageModule)
   }
 
 

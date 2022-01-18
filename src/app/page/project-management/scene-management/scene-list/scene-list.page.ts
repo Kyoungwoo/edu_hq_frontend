@@ -61,7 +61,6 @@ export class SceneListPage implements OnInit {
   }
 
   async use_submit() {
-    
     let project_use_state_data = [];
     this.res.rsMap.forEach(item => {
       if(item.state){
@@ -83,7 +82,7 @@ export class SceneListPage implements OnInit {
   async edit(project_id?) {
     const modal = await this.modal.create({
       component:SceneEditPage,
-      componentProps: project_id
+      componentProps:{project_id}
     });
     modal.present();
   }
@@ -97,12 +96,13 @@ export class SceneListPage implements OnInit {
       });
     } else { 
       item.state = true;
-      // if(item.state) {
-      //   this.alert.present({
-      //     header:'안내',
-      //     message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
-      //     +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
-      //   })
+      console.log("item",item);
+      // if(item.project_use_state === 0) {
+      //     this.alert.present({
+      //       header:'안내',
+      //       message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
+      //       +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
+      //     })
       // }
     }
   }
