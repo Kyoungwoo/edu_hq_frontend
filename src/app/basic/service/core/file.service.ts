@@ -143,19 +143,19 @@ export interface FileBlob extends Blob {
   name?:string,
   lastModifiedDate?:Date
 }
-export interface FileJson {
-  insert:{order_no:number, view_type:string}[],
-  update:{order_no:number, view_type:string, seq_no:number}[],
-  delete:{seq_no:number}[]
+export class FileJson<T = string> {
+  insert:{order_no:number, view_type:T}[] = [];
+  update:{order_no:number, view_type:T, seq_no:number}[] = [];
+  delete:{seq_no:number}[] = [];
 }
-export interface FutItem {
+export interface FutItem<T = string> {
   file_url:string | SafeUrl,
   file_name:string,
   seq_no:number,
   order_no:number,
   file_size:number,
   file_type:string,
-  view_type:string,
+  view_type:T,
   content_type:string,
   [name:string]:any
 }

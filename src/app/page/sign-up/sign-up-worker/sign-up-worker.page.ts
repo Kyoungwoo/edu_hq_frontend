@@ -8,6 +8,8 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
 
+/** PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증 */
+export type SignUpViewType = 'PROFILE'|'BASIC_SAFE_EDU'|'CERTIFY';
 export class SignUpWorkerForm {
   account_id:string; // 아이디
   account_token:string; //비밀번호
@@ -24,9 +26,9 @@ export class SignUpWorkerForm {
   user_phone:string;//휴대폰번호
   sms_token:string; //문자 인증번호
   basic_safe_edu_date:string; //기초안전보건교육 이수증
-  file_preview:FutItem[]; // 파일 미리보기
-  file:(File | FileBlob)[]; // 파일
-  file_json:FileJson; //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
+  file_preview:FutItem<SignUpViewType>[] = []; // 파일 미리보기
+  file:(File | FileBlob)[] = []; // 파일
+  file_json:FileJson<SignUpViewType> = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 
   brain_cure_content:string; //심혈관질환명 / 없을시 빈배열
   brain_cure_state:boolean; //심혈관질환 치료여부
@@ -45,7 +47,7 @@ export class SignUpWorkerForm {
 }
 ``
 type Validator<T> = {
-  [P in keyof T]: { message:string, valid:boolean }
+  [P in keyof T]?: { message:string, valid:boolean }
 }
 @Component({
   selector: 'app-sign-up-worker',
@@ -53,21 +55,17 @@ type Validator<T> = {
   styleUrls: ['./sign-up-worker.page.scss'],
   animations: [ fadeAnimation ]
 })
-export class SignUpWorkerPage implements OnInit, DoCheck {
+export class SignUpWorkerPage implements OnInit {
 
   params:SignUpCompanyInfo;
 
   form:SignUpWorkerForm = new SignUpWorkerForm();
 
-  conform = {
-
-  }
-
   resOverlapPhone:ConnectResult;
   resAligoSend:ConnectResult;
   resAligoCheck:ConnectResult;
 
-  validator:Validator<SignUpWorkerForm> = {} as any;
+  validator:Validator<SignUpWorkerForm> = {};
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -81,9 +79,6 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
       this.params = queryParams;
       this.form.company_id = this.params.company_id;
     });
-  }
-  ngDoCheck() {
-    console.log('Do Check');
   }
 
   timeoutOverlapId;
@@ -132,8 +127,12 @@ export class SignUpWorkerPage implements OnInit, DoCheck {
     this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    
   }
 
+  public findFile(view_type:SignUpViewType) {
+    return this.form.file_preview.find(futItem => futItem.view_type === view_type);
+  }
+
   public async next() {
-    this.validator = {} as any;
+    this.validator = {};
     if(!this.form.user_name) this.validator.user_name = {message: '이름을 입력해주세요.', valid: false};
     if(!this.form.account_id) this.validator.account_id = {message: '아이디를 입력해주세요.', valid: false};
     else await this.overlapId();
