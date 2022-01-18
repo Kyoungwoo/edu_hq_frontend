@@ -12,56 +12,19 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
-    <app-row>
-      <app-col size="3">
+  <app-card *ngFor="let item of res?.rsMap" [button]="true" (click)="choiceItem(item)">
+    <app-row >
+      <app-col size="6">
         <h5>현장 코드</h5>
-        <p>20210806</p>
+        <p>{{item.project_code}}</p>
       </app-col>
       <app-col>
         <h5>현장명</h5>
-        <p>P2-PJT UT동</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="3">
-        <h5>현장 코드</h5>
-        <p>20210806</p>
-      </app-col>
-      <app-col>
-        <h5>현장명</h5>
-        <p>P2-PJT UT동</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="3">
-        <h5>현장 코드</h5>
-        <p>20210806</p>
-      </app-col>
-      <app-col>
-        <h5>현장명</h5>
-        <p>P2-PJT UT동</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="3">
-        <h5>현장 코드</h5>
-        <p>20210806</p>
-      </app-col>
-      <app-col>
-        <h5>현장명</h5>
-        <p>P2-PJT UT동</p>
+        <p>{{item.project_name}}동</p>
       </app-col>
     </app-row>
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button>이전</app-button>
-  <app-button>선택</app-button>
+  <app-button (click)="select()">선택</app-button>
 </app-button-footer>

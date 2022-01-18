@@ -29,12 +29,16 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
   public async openModal() {
     const modal = await this._modal.create({
-      component:SearchSceneComponent,
-      componentProps: {
-        value: this.value
-      }
+      component:SearchSceneComponent
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) { 
+      this.value = data.project_name;
+
+      console.log("data",data);
+      console.log("this.value",this.value);
+    }
   }
 
   @Output() change = new EventEmitter();

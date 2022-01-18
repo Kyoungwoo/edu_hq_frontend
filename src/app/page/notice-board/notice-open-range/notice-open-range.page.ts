@@ -60,7 +60,7 @@ export class NoticeOpenRangePage implements OnInit {
 
   constructor(
     private _modal_ : ModalController,
-    private connect:ConnectService
+    private connect: ConnectService
   ) { }
 
   async ngOnInit() {
@@ -113,7 +113,7 @@ export class NoticeOpenRangePage implements OnInit {
       item === data.company_id ? data.checked = true : data.checked = false;
       if(data.checked) {
         this.totalArea.area3 = data.company_name;
-        this.totalArea.area_id = data.company_id
+        this.totalArea.area_id = data.company_id;
       }
     });
   }

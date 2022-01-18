@@ -17,8 +17,8 @@ export class NoticeListPage implements OnInit {
   form = {
     company_ids: [],
     end_date: this.date.today(),
-    notice_types: ['일반'],
-    project_id: 1,
+    notice_types: [],
+    project_id: 0,
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
@@ -45,6 +45,7 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+
     this.get();
   }
 
