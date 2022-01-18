@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
@@ -19,7 +20,7 @@ export class NoticeListPage implements OnInit {
     notice_types: ['일반'],
     project_id: 1,
     search_text: '',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ month: -3 }),
     limit_no: 0
   }
   res:ConnectResult<{
@@ -48,12 +49,12 @@ export class NoticeListPage implements OnInit {
   }
 
   async get() {
-    const res = await this.connect.run('/board/notice/list', this.form, {
+    this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     })
-    if(res.rsCode === 0) {
+    if(this.res.rsCode === 0) {
     } else {
-      this.connect.error('공지사항 불러오기 실패', res);
+      this.connect.error('공지사항 불러오기 실패', this.res);
     }
   }
 
@@ -70,6 +71,12 @@ export class NoticeListPage implements OnInit {
       componentProps:{
         notice_id:notice_id
       }
+    });
+    modal.present();
+  }
+  async add() {
+    const modal = await this.modal.create({
+      component:NoticeEditPage
     });
     modal.present();
   }
