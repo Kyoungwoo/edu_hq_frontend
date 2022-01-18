@@ -9,6 +9,7 @@ import { NoticeEditPageRoutingModule } from './notice-edit-routing.module';
 import { NoticeEditPage } from './notice-edit.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { NoticeOpenRangePageModule } from '../../notice-open-range/notice-open-range.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    NoticeEditPageRoutingModule
+    NoticeEditPageRoutingModule,
+    NoticeOpenRangePageModule
   ],
   declarations: [NoticeEditPage]
 })

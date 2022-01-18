@@ -1,3 +1,4 @@
-<app-input (click)="openModal()" name="with img" [required]="required" [readonly]="true"  [color]="color" [label]="label" [value]="text">
+<app-input (click)="openModal()" name="with img" [required]="required" [readonly]="true"  [color]="color" [label]="label" [value]="text"
+[(ngModel)]="value">
   <app-img name="search"></app-img>
 </app-input>

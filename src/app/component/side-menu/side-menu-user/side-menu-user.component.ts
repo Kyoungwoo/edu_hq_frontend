@@ -62,11 +62,11 @@ export class SideMenuUserComponent implements OnInit {
       { title: '위험지역 디바이스', link: '/danger-area-list', params: {}, permission: () => { return true }}
     ]},
     { src:'assets/img/menu/sign.svg',title: '결재', subMenuList: [
-      { title: '미결함', link:'', params: {}, permission: () => { return true }},
+      { title: '미결함', link:'/confirm-pending-list', params: {}, permission: () => { return true }},
       { title: '문서함', thirdMenuList:[
-        {title: '기안/임시저장함', link: ''},
-        {title: '진행/완료/반려함', link: ''},
-        {title: '참조함', link: ''}
+        {title: '기안/임시저장함', link: '/confirm-obtain-list'},
+        {title: '진행/완료/반려함', link: '/confirm-progress-list'},
+        {title: '참조함', link: '/confirm-cc-list'}
       ], params: {}, permission: () => { return true }},
       { title: '위임관리', link: '', params: {}, permission: () => { return true }}
     ]},
@@ -86,6 +86,8 @@ export class SideMenuUserComponent implements OnInit {
 
   constructor() { 
     this.menuSelected = this.menuList[0];
+    
   }
+
   ngOnInit() {}
 }

@@ -16,7 +16,7 @@
       </div>
       <div class="flex-list" >
         <!-- item -->
-        <div *ngFor="let item of list" class="flex-item" (click)="item.checked = !item.checked" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
+        <div *ngFor="let item of list" class="flex-item" (click)="areaOne(item.text)" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
       </div>
     </div>
     <div class="flex-revers">
@@ -27,7 +27,9 @@
       </div>
       <div class="flex-list">
         <!-- item -->
-        <div *ngFor="let item of list1" class="flex-item" (click)="item.checked = !item.checked" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
+        <ng-container *ngFor="let item of list1">
+          <div *ngIf="area1"  class="flex-item" (click)="areaTow(item.text)" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
+        </ng-container>
       </div>
     </div>
     <div class="flex-revers">
@@ -37,12 +39,14 @@
       </div>
       <div class="flex-list">
         <!-- item -->
-        <div *ngFor="let item of list2" class="flex-item" (click)="item.checked = !item.checked" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}
-        </div>
+        <ng-container *ngFor="let item of res?.rsMap" >
+          <div *ngIf="area2" class="flex-item" (click)="partnerCheck(item.company_id)" [ngClass]="item.checked ? 'check_style':''">{{ item.company_name }}
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
 </ion-content>
 <app-button-footer>
-  <app-button>적용</app-button>
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>

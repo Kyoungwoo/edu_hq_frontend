@@ -75,7 +75,7 @@
           [queryParams]="subMenu.params">{{ subMenu.title }} 
         </ion-item>
         <ng-container *ngIf="subMenu.toggle">
-          <ion-item *ngFor="let thirdMenu of subMenu.thirdMenuList" style="padding-left: 30px;">
+          <ion-item *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link || null" (click)="thirdMenu.link" style="padding-left: 30px;">
             {{ thirdMenu.title}}
           </ion-item>
         </ng-container>
