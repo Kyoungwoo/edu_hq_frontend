@@ -8,7 +8,7 @@ import { NfcComponent } from '../../component/dialog/nfc/nfc.component';
 export class NfcService {
 
   constructor(
-    private _modal : ModalController,
+    private modal : ModalController,
     private toast:ToastController
   ) { }
 
@@ -16,7 +16,7 @@ export class NfcService {
 
   async subscribe(callback) {
     this.nfcallback = callback;
-    const modal = await this._modal.create({
+    const modal = await this.modal.create({
       component:NfcComponent,
       cssClass:'scan-modal',
       componentProps:{
@@ -29,7 +29,7 @@ export class NfcService {
 
     return {
       unsubscribe:async() => {
-        this._modal.dismiss();
+        this.modal.dismiss();
         const toast = await this.toast.create({
           message:'NFC 태그가 완료 되었습니다.',
           duration:1500,
