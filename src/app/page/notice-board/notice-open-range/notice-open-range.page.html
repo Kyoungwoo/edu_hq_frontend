@@ -40,7 +40,7 @@
       <div class="flex-list">
         <!-- item -->
         <ng-container *ngFor="let item of res?.rsMap" >
-          <div *ngIf="area2" class="flex-item" (click)="partnerCheck(item.company_id)" [ngClass]="item.checked ? 'check_style':''">{{ item.company_name }}
+          <div *ngIf="area2 && totalArea.area1 === '협력사별'" class="flex-item" (click)="partnerCheck(item.company_id)" [ngClass]="item.checked ? 'check_style':''">{{ item.company_name }}
           </div>
         </ng-container>
       </div>

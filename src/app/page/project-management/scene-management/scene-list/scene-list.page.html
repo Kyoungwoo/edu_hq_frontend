@@ -78,7 +78,7 @@
               <td>{{ item.contract_start_date}} ~ {{ item.contract_end_date}}</td>
               <td>{{ item.update_date }}</td>
               <td>
-                <app-select (change)="changeUse(item)" [(ngModel)]="item.project_use_state">
+                <app-select (change)="changeUse(item)" (click)="$event.stopPropagation()" [(ngModel)]="item.project_use_state">
                   <app-select-option [value]="1">Y</app-select-option>
                   <app-select-option [value]="0">N</app-select-option>
                 </app-select>
