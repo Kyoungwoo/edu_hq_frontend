@@ -21,11 +21,8 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   @Input() required:boolean = false;
   @Input() text:string;
 
-  id:number;
-  name:string;
   constructor(
     private _modal:ModalController
-
   ) { }
 
   ngOnInit() {}
@@ -35,11 +32,9 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) { 
+    if(data) {
       this.value = data.project_id;
-      this.name = data.project_name;
-      console.log("data",data);
-      console.log("this.value",this.value);
+      this.text = data.project_name;
     }
   }
 
