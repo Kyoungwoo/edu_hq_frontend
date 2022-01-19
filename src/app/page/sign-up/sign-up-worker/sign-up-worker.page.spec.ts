@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
-import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
 
-import { SignUpWorkerForm, SignUpWorkerPage } from './sign-up-worker.page';
+import { SignUpWorkerPage } from './sign-up-worker.page';
+import { SignUpWorkerForm } from './sign-up-worker.interface';
 
 describe('SignUpWorkerPage', () => {
   let component: SignUpWorkerPage;

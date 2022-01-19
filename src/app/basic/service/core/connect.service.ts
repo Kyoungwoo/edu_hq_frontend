@@ -33,10 +33,19 @@ export interface ConnectOptions {
   contentType?:ContentType,
   loading?:string
 }
-export type Validator<T> = {
+/* export type Valid<T> = {
   [P in keyof T]?: { message:string, valid:boolean }
-}
+} */
 
+type form = 'form';
+export class Validator<T> {
+  validator:{[P in keyof T]: { message?:string, valid:boolean }} = {} as any;
+  constructor(form:T) {
+    for(let key in form) {
+      this.validator[key] = { valid:null };
+    }
+  }
+}
 @Injectable({
   providedIn: 'root'
 })

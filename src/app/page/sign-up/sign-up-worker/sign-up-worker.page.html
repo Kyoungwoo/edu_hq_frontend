@@ -10,13 +10,13 @@
   <app-container size="small">
     <app-sign-up-segment step="step2"></app-sign-up-segment>
     <form style="margin-top: 16px;">
-      <app-card color="medium">{{ regex.replace.businessRegisterNo(params.business_register_no) }} / {{ params.company_name }}</app-card>
+      <app-card color="medium">{{ regex.replace.businessRegisterNo(companyInfo.business_register_no) }} / {{ companyInfo.company_name }}</app-card>
       <app-avatar name="input-profile" 
       view_type="PROFILE" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
       <app-row mobileBreak>
         <app-col>
           <app-input
-          name="input-user_name" label="성명"
+          name="user_name" label="성명"
           placeholder="이름을 입력해주세요."
           [color]="validator.user_name?.valid === false && 'warning'"
           [(ngModel)]="form.user_name" [required]="true"></app-input>
@@ -66,22 +66,24 @@
       <app-row mobileBreak>
         <app-col>
           <app-input name="휴대폰" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
-          [color]="validator.user_phone?.valid === false && 'warning'"
+          [color]="validator.user_phone?.valid === false ? 'warning' 
+          : validator.sms_token?.valid === true && 'success'"
           [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
             인증번호<br>받기
           </app-input>
           <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+          <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
         </app-col>
         <app-col>
-          <div @fadeAnimation *ngIf="validator.user_phone?.valid">
+          <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
             <app-input
             name="인증번호" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
             [color]="validator.sms_token?.valid === false && 'warning'"
             [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
               확인
             </app-input>
-            <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
           </div>
+          <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
         </app-col>
       </app-row>
       <app-row mobileBreak>

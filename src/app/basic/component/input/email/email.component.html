@@ -2,7 +2,7 @@
   <app-input name="이메일1" type="email" placeholder="이메일 앞부분" [(ngModel)]="form.id" (keyup)="onChangeId(); onDelayKeyup($event)" [readonly]="readonly" [disabled]="disabled">
   </app-input>
   @
-  <app-select name="이메일2" type="email" [(ngModel)]="form.domain" [readonly]="readonly" [disabled]="disabled" (change)="onChangeDomain(); onDelayKeyup($event)">
+  <app-select name="이메일2" [(ngModel)]="form.domain" [readonly]="readonly" [disabled]="disabled" (change)="onChangeDomain(); onDelayKeyup($event)">
     <app-select-option value="naver.com">naver.com</app-select-option>
     <app-select-option value="gmail.com">gmail.com</app-select-option>
     <app-select-option type="edit">직접입력</app-select-option>

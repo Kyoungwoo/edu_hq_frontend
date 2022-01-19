@@ -25,7 +25,9 @@
     </app-row>
   </app-card>
   <ng-container *ngIf="res && res.rsCode">
-   <p>{{ res.rsMsg }}</p> 
+    <app-card color="light">
+      <p>{{ res.rsMsg }}</p>
+    </app-card>
   </ng-container>
   <p></p>
 </ion-content>

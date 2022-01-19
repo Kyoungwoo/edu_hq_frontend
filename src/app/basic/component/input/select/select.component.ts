@@ -7,8 +7,6 @@ import { FileService } from 'src/app/basic/service/core/file.service';
 import { SelectMultiplePopoverComponent } from '../select-multiple-popover/select-multiple-popover.component';
 import { SelectOption, SelectOptionComponent, SelectOptionType } from '../select-option/select-option.component';
 import { SelectPopoverComponent } from '../select-popover/select-popover.component';
-const noop = () => {};
-
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -49,7 +47,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   ngOnDestroy() {
     this.$options.unsubscribe();
   }
-  getText() {
+  async getText() {
     if(!this.options) return;
 
     const optionList = this.options.toArray();
@@ -58,11 +56,10 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
       const canEdit = optionList.find(opt => opt.type === 'edit');
       if(selectedOpt) {
         this.text = selectedOpt.text;
+      } else if(canEdit && this.value) {
+        this.type = 'edit';
       } else {
         this.text = '';
-        if(this.value && !selectedOpt) {
-          this.type = 'edit';
-        }
       }
     } else {
       const selectedOpt = optionList.filter(opt => {
@@ -71,7 +68,9 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
       });
       this.text = selectedOpt.map(opt => opt.text).join();
     }
+    await new Promise(res => setTimeout(res, 0));
     this.onChangeCallback(this.value);
+    await new Promise(res => setTimeout(res, 0));
     this.change.emit(this.value);
   }
 
@@ -118,8 +117,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Output() change = new EventEmitter();
 
   private _value:any = null;
-  @Input() 
-  set value(v) {
+  @Input() set value(v) {
     if(v !== this._value) {
       this._value = v;
       this.getText();
@@ -133,8 +131,8 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
       this.getText();
     }
   }
-  private onTouchedCallback: () => void = noop;
-  private onChangeCallback: (_: any) => void = noop;
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
   registerOnChange(fn: any) { this.onChangeCallback = fn; }
   registerOnTouched(fn: any) { this.onTouchedCallback = fn; }
 }

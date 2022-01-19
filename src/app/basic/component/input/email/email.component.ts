@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 
@@ -25,12 +25,15 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
     type: '' as 'select' | 'input'
   }
 
-  constructor() { }
+  constructor(
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {}
 
   timeoutKeyup;
   onDelayKeyup($event) {
+    if($event.key === 'Enter') return;
     clearTimeout(this.timeoutKeyup);
     this.timeoutKeyup = setTimeout(() => {
       this.delayKeyup.emit($event);
@@ -55,14 +58,16 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
   }
 
   private setEmailFormat(v:string) {
-    const domainIndex = v?.lastIndexOf('@');
+    const domainIndex = v?.indexOf('@');
     if(domainIndex > -1) {
-      this.form.id = v.substring(0, domainIndex);
-      this.form.domain = v.substring(domainIndex+1);
+      const emailArr = v.split('@');
+      this.form.id = emailArr[0];
+      this.form.domain = emailArr[1];
     } else {
       this.form.id = '';
       this.form.domain = '';
     }
+    this.changeDetector.detectChanges();
   }
 
   //default setting
@@ -83,7 +88,7 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this.getEmailFormat();
   }
-  writeValue(v:string): void { 
+  writeValue(v:string): void {
     if(v !== this.getEmailFormat()) {
       this.setEmailFormat(v);
       this.onChangeCallback(v);

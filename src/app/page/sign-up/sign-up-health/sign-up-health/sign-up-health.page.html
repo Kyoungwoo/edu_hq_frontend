@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/sign-up-company"></ion-back-button>
+      <ion-back-button defaultHref="/sign-up-company?userType=WORKER"></ion-back-button>
     </ion-buttons>
     <ion-title>건강 문진 작성</ion-title>
   </ion-toolbar>
@@ -10,61 +10,81 @@
 <app-container size="small">
   <app-sign-up-segment step="step3"></app-sign-up-segment>
   <form>
-  <h4>1. 현재 복용하고 있는 약물이 있습니까?</h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요."></app-input>
-  <h4>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  * 해당하는 항목에 체크해주세요
-  <app-row>
-    <app-col><app-check name="뇌졸중">뇌졸중</app-check></app-col>
-    <app-col><app-check name="뇌출혈">뇌출혈</app-check></app-col>
-    <app-col><app-check name="협심증">협심증</app-check></app-col>
-    <app-col><app-check name="심근경색">심근경색</app-check></app-col>
-    <app-col><app-check name="간질발작">간질발작</app-check></app-col>
-  </app-row>
-  <h4>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
-  <h4>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
-  <h4>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
-  <h4>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
-    (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
-  </h4>
-  <app-radio-input>
-    <app-radio value="없다">없다</app-radio>
-    <app-radio value="있다">있다</app-radio>
-  </app-radio-input>
-  <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
-  <h4>7. 코로나 백신 접종을 하셨습니까?</h4>
-  <app-radio-input>
-    <app-radio value="미접종">미접종</app-radio>
-    <app-radio value="접종">접종</app-radio>
-  </app-radio-input>
-  <app-check name="동의">본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.</app-check>
-</form>
+    <h4>1. 현재 복용하고 있는 약물이 있습니까?</h4>
+    <app-radio-input name="use_drugs_state" [(ngModel)]="form.use_drugs_state" (change)="form.use_drugs_content = ''">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <app-input @fadeInAnimation *ngIf="form.use_drugs_state" 
+    name="use_drugs_content" placeholder="약물명을 입력해주세요."
+    [(ngModel)]="form.use_drugs_content"></app-input>
+    
+    <h4>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h4>
+    <app-radio-input name="brain_cure_state" [(ngModel)]="form.brain_cure_state" (change)="form.brain_cure_content = []">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <div @fadeInAnimation *ngIf="form.brain_cure_state">
+      * 해당하는 항목에 체크해주세요
+      <app-check-group name="brain_cure_content" [(ngModel)]="form.brain_cure_content">
+        <app-check on="뇌졸중">뇌졸중</app-check>
+        <app-check on="뇌출혈">뇌출혈</app-check>
+        <app-check on="협심증">협심증</app-check>
+        <app-check on="심근경색">심근경색</app-check>
+        <app-check on="간질발작">간질발작</app-check>
+      </app-check-group>
+    </div>
+
+    <h4>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h4>
+    <app-radio-input name="vomiting_state" [(ngModel)]="form.vomiting_state" (change)="form.vomiting_content = ''">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <app-input @fadeInAnimation *ngIf="form.vomiting_state" 
+    name="vomiting_content" placeholder="증상을 적어주세요." 
+    [(ngModel)]="form.vomiting_content"></app-input>
+
+    <h4>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h4>
+    <app-radio-input name="pain_head_state" [(ngModel)]="form.pain_head_state" (change)="form.pain_head_content = ''">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <app-input @fadeInAnimation *ngIf="form.pain_head_content" 
+    name="pain_head_content" placeholder="증상을 적어주세요." 
+    [(ngModel)]="form.pain_head_content"></app-input>
+
+    <h4>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h4>
+    <app-radio-input name="etc_disease_state" [(ngModel)]="form.etc_disease_state" (change)="form.etc_disease_content = ''">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <app-input @fadeInAnimation *ngIf="form.etc_disease_state" 
+    name="etc_disease_content" placeholder="증상을 적어주세요."
+    [(ngModel)]="form.etc_disease_content"></app-input>
+
+    <h4>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
+      (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
+    </h4>
+    <app-radio-input name="covid_nineteen_state" [(ngModel)]="form.covid_nineteen_state" (change)="form.covid_nineteen_content = ''">
+      <app-radio [value]="false">없다</app-radio>
+      <app-radio [value]="true">있다</app-radio>
+    </app-radio-input>
+    <app-input @fadeInAnimation *ngIf="form.covid_nineteen_state" 
+    name="covid_nineteen_content" placeholder="증상을 적어주세요."
+    [(ngModel)]="form.covid_nineteen_content"></app-input>
+
+    <h4>7. 코로나 백신 접종을 하셨습니까?</h4>
+    <app-radio-input name="covid_vaccine_state" [(ngModel)]="form.covid_vaccine_state">
+      <app-radio [value]="false">미접종</app-radio>
+      <app-radio [value]="true">접종</app-radio>
+    </app-radio-input>
+
+    <app-check name="health_terms_state" [(ngModel)]="form.health_terms_state">본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.</app-check>
+    
+  </form>
 </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button>이전</app-button>
-  <app-button>다음</app-button>
+  <app-button (click)="prev()">이전</app-button>
+  <app-button (click)="next()">다음</app-button>
 </app-button-footer>
