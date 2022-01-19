@@ -1,9 +1,10 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserGender } from 'src/app/basic/service/core/user.service';
+import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
@@ -16,9 +17,7 @@ export class SignUpWorkerForm {
   account_token_conform:string; //비밀번호 확인
   ctgo_country_id:number; //국적 ID
   company_id:number; //소속 업체 ID
-  ctgo_construction_id:number; //공종 ID
-  ctgo_occupation_id:number; //직종 ID
-  project_id:number = 1; //소속 현장 ID
+  project_id:number; //소속 현장 ID
   user_name:string; //이름
   user_gender:UserGender; //성별
   user_birth:string; //생년월일
@@ -45,10 +44,7 @@ export class SignUpWorkerForm {
   vomiting_content:string; //가슴통증 내용
   vomiting_state:boolean; //가슴통증 여부
 }
-``
-type Validator<T> = {
-  [P in keyof T]?: { message:string, valid:boolean }
-}
+
 @Component({
   selector: 'app-sign-up-worker',
   templateUrl: './sign-up-worker.page.html',
@@ -61,46 +57,36 @@ export class SignUpWorkerPage implements OnInit {
 
   form:SignUpWorkerForm = new SignUpWorkerForm();
 
-  resOverlapPhone:ConnectResult;
-  resAligoSend:ConnectResult;
-  resAligoCheck:ConnectResult;
-
   validator:Validator<SignUpWorkerForm> = {};
 
   constructor(
     private activedRoute: ActivatedRoute,
     private connect: ConnectService,
     private nav: NavService,
-    public regex: RegexService
+    public regex: RegexService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
     this.activedRoute.queryParams.subscribe((queryParams:SignUpCompanyInfo) => {
+      console.log('routerrouter', queryParams);
       this.params = queryParams;
       this.form.company_id = this.params.company_id;
     });
   }
 
-  timeoutOverlapId;
-  public overlapId() {
+  public async overlapId() {
     const { account_id } = this.form;
-    clearTimeout(this.timeoutOverlapId);
     if(account_id?.length < 3) return this.validator.account_id = { valid: false, message: '아이디를 3자 이상 입력해주세요.' };
-    this.timeoutOverlapId = setTimeout(async() => {
-      const res = await this.connect.run('/forSignUp/overlap/id', { account_id });
-      this.validator.account_id = { valid: res.rsCode === 0, message: res.rsMsg };
-    }, 200);
+    const res = await this.connect.run('/forSignUp/overlap/id', { account_id });
+    this.validator.account_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
-  timeoutCheckPass;
-  public checkPass() {
+  public async checkPass() {
     const { account_token } = this.form;
-    clearTimeout(this.timeoutCheckPass);
     if(account_token?.length < 4) return this.validator.account_token = { valid: false, message: '비밀번호를 4자이상 입력해주세요.' };
-    this.timeoutCheckPass = setTimeout(async() => {
-      const res = await this.connect.run('/forSignUp/check/pass', { account_token });
-      this.validator.account_token = { valid: res.rsCode === 0, message: res.rsMsg };
-    }, 200);
+    const res = await this.connect.run('/forSignUp/check/pass', { account_token });
+    this.validator.account_token = { valid: res.rsCode === 0, message: res.rsMsg };
   }
   public checkPassConfirm() {
     const { account_token, account_token_conform } = this.form;
@@ -108,23 +94,28 @@ export class SignUpWorkerPage implements OnInit {
     else return this.validator.account_token_conform = null;
   }
   
-  timeouOverlapPhone;
-  public overlapPhone() {
+  public async overlapPhone() {
     const { user_phone } = this.form;
-    clearTimeout(this.timeouOverlapPhone);
-    if(user_phone?.length < 3) return this.resOverlapPhone = null;
-    this.timeouOverlapPhone = setTimeout(async() => {
-      this.resOverlapPhone = await this.connect.run('/forSignUp/overlap/phone', { user_phone });
-    }, 200);
+    if(user_phone?.length < 3) return this.validator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
+    const res = await this.connect.run('/forSignUp/overlap/phone', { user_phone });
+    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
   public async aligoSend() {
     const { user_phone } = this.form;
-    this.resAligoSend = await this.connect.run('/aligo/send', { user_phone });    
+    const res = await this.connect.run('/aligo/send', { user_phone });
+    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
   }
   public async aligoCheck() {
-    const { user_phone } = this.form;
-    this.resAligoCheck = await this.connect.run('/aligo/check', { user_phone });    
+    const { user_phone, sms_token } = this.form;
+    const res = await this.connect.run('/aligo/check', { user_phone, sms_token });
+    this.validator.sms_token = { valid: res.rsCode === 0, message: res.rsMsg };    
+  }
+
+  public async overlapEmail() {
+    const { user_email } = this.form;
+    const res = await this.connect.run('/forSignUp/overlap/email', { user_email });
+    this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
   public findFile(view_type:SignUpViewType) {
@@ -132,7 +123,9 @@ export class SignUpWorkerPage implements OnInit {
   }
 
   public async next() {
+    const loading = await this.loading.present();
     this.validator = {};
+    
     if(!this.form.user_name) this.validator.user_name = {message: '이름을 입력해주세요.', valid: false};
     if(!this.form.account_id) this.validator.account_id = {message: '아이디를 입력해주세요.', valid: false};
     else await this.overlapId();
@@ -140,20 +133,31 @@ export class SignUpWorkerPage implements OnInit {
     else await this.checkPass();
     if(!this.form.account_token_conform) this.validator.account_token_conform = {message: '비밀번호 확인을 입력해주세요.', valid: false};
     else await this.checkPassConfirm();
+    if(!this.form.user_phone) this.validator.user_phone = {message: '휴대폰번호를 입력해주세요.', valid: false};
+    else await this.overlapPhone();
+    if(!this.form.sms_token) this.validator.sms_token = {message: '문자인증번호를 입력해주세요.', valid: false};
+    else await this.aligoCheck();
     if(!this.form.user_birth) this.validator.user_birth = {message: '생년월일을 입력해주세요.', valid: false};
     if(!this.form.user_email) this.validator.user_email = {message: '이메일을 입력해주세요.', valid: false};
-    if(!this.form.ctgo_country_id) this.validator.ctgo_country_id = {message: '국가를 입력해주세요.', valid: false};
+    //else await 
+    if(!this.form.user_gender) this.validator.user_gender = {message: '성별을 선택해주세요.', valid: false};
+    if(!this.form.ctgo_country_id) this.validator.ctgo_country_id = {message: '국가를 선택해주세요.', valid: false};
     if(!this.form.company_id) this.validator.company_id = {message: '회사를 입력해주세요.', valid: false};
-    if(!this.form.ctgo_construction_id) this.validator.ctgo_construction_id = {message: '공종을 입력해주세요.', valid: false};
-    if(!this.form.ctgo_occupation_id) this.validator.ctgo_occupation_id = {message: '직종을 입력해주세요.', valid: false};
     if(!this.form.project_id) this.validator.project_id = {message: '현장을 입력해주세요.', valid: false};
-    if(!this.form.user_gender) this.validator.user_gender = {message: '성별을 입력해주세요.', valid: false};
-    if(!this.form.user_phone) this.validator.user_phone = {message: '휴대폰번호를 입력해주세요.', valid: false};
-    if(!this.form.sms_token) this.validator.sms_token = {message: '문자인증번호를 입력해주세요.', valid: false};
     if(!this.form.basic_safe_edu_date) this.validator.basic_safe_edu_date = {message: '기초안전보건교육 이수날짜를 입력해주세요.', valid: false};
     // if(!this.form.file) this.validator.file = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
     // if(!this.form.file_json) this.validator.file_json = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
 
-    // this.nav.navigateForward('/sign-up-health');
+    loading.dismiss();
+
+    console.log(this.form);
+
+    for(const key in this.validator) {
+      if(!this.validator[key].valid) return;
+    }
+
+    this.nav.navigateForward('/sign-up-health', {
+      queryParams: { test: 1 }
+    });
   }
 }

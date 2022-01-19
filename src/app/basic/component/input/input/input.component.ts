@@ -21,10 +21,19 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
+  @Output() delayKeyup:EventEmitter<KeyboardEvent> = new EventEmitter();
 
   constructor() { }
   
   ngOnInit() {}
+
+  timeoutKeyup;
+  public onKeyup($event) {
+    clearTimeout(this.timeoutKeyup);
+    this.timeoutKeyup = setTimeout(() => {
+      this.delayKeyup.emit($event);
+    }, 300);
+  }
   
   //default setting
   @HostBinding('class.readonly') get classReadonly() { return this.readonly }

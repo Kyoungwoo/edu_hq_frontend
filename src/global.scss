@@ -420,6 +420,14 @@
     --max-height: 300px;
   }
 
+  ion-loading {
+    --backdrop-opacity: 0.1;
+    .loading-wrapper {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
   /** custom tags / classes */
   ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
     background: transparent none !important; 

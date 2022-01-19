@@ -16,9 +16,9 @@ import { Color } from '@ionic/core';
 })
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
+  @Input() type:'ALL';
   @Input() color:Color;
   @Input() label:string = "현장";
-  @Input() required:boolean = false;
   @Input() text:string;
 
   constructor(
@@ -28,7 +28,10 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
   public async openModal() {
     const modal = await this._modal.create({
-      component:SearchSceneComponent
+      component:SearchSceneComponent,
+      componentProps: {
+        type: this.type
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
@@ -38,6 +41,10 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  //default setting
+  //@Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:number;

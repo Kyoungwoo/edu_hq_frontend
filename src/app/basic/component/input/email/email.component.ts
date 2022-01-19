@@ -1,5 +1,6 @@
 import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-email',
@@ -13,8 +14,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class EmailComponent implements OnInit, ControlValueAccessor {
 
+  @Input() color:Color;
   @Input() label:string = "";
   @Input() placeholder:string = "";
+  @Output() delayKeyup:EventEmitter<any> = new EventEmitter();
 
   form = {
     id: '',
@@ -26,17 +29,25 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit() {}
 
-  public changeEmailId($event) {
-    const domainIndex = this.form.id?.lastIndexOf('@');
-    if(domainIndex > -1) {
-      const email = this.form.id;
-      this.form.id = email.substring(0, domainIndex);
-      this.form.domain = email.substring(domainIndex+1);
-      
-      const v = this.getEmailFormat();
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
+  timeoutKeyup;
+  onDelayKeyup($event) {
+    clearTimeout(this.timeoutKeyup);
+    this.timeoutKeyup = setTimeout(() => {
+      this.delayKeyup.emit($event);
+    }, 300);
+  }
+
+  public onChangeId() {
+    const v = this.getEmailFormat();
+    this.setEmailFormat(v);
+    this.onChangeCallback(v);
+    this.change.emit(v);
+  }
+  public onChangeDomain() {
+    const v = this.getEmailFormat();
+    this.setEmailFormat(v);
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
   private getEmailFormat() {
@@ -45,7 +56,7 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
 
   private setEmailFormat(v:string) {
     const domainIndex = v?.lastIndexOf('@');
-    if(domainIndex > 0) {
+    if(domainIndex > -1) {
       this.form.id = v.substring(0, domainIndex);
       this.form.domain = v.substring(domainIndex+1);
     } else {

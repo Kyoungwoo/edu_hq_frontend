@@ -22,7 +22,7 @@ app-col>app-row:first-child>:host {
 app-col>app-row:last-child>:host {
     padding-bottom: 0;
 }
-:host ::ng-deep {
+::ng-deep {
     >:first-child {
         margin-top: 0;
         app-input-template {

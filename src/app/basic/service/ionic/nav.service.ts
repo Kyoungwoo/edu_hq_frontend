@@ -6,7 +6,9 @@ import { filter } from 'rxjs/operators';
 export interface NavOptions {
   animated?:boolean,
   animation?:'default' | 'fadeIn'
-  force?:boolean
+  force?:boolean,
+  queryParams?:{[name:string]:any},
+  state?:{[name:string]:any}
 }
 
 @Injectable({
@@ -110,6 +112,7 @@ export class NavService {
     })
   }
 
+  /** animations */
   private fadeInAnimation(_, opts) {
     const _leaveEl = <HTMLElement>opts.leavingEl;
     const enterEl = <HTMLElement>opts.enteringEl;

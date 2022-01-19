@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input name="with img" label="현장명" placeholder="현장명을 검색하세요">
+    <app-input name="input-search" label="현장명" placeholder="현장명을 검색하세요" [(ngModel)]="form.search_text" (buttonClick)="get()">
       <app-img name="search"></app-img>
     </app-input>
   </ion-toolbar>

@@ -33,6 +33,9 @@ export interface ConnectOptions {
   contentType?:ContentType,
   loading?:string
 }
+export type Validator<T> = {
+  [P in keyof T]?: { message:string, valid:boolean }
+}
 
 @Injectable({
   providedIn: 'root'
