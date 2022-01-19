@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
@@ -17,8 +16,8 @@ export class NoticeListPage implements OnInit {
   form = {
     company_ids: [],
     end_date: this.date.today(),
-    notice_types: [],
-    project_id: 0,
+    notice_types: ['일반'],
+    project_id: 1,
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>게시물 공개 범위 설정</ion-title>
+    <ion-title>조직기구 설정</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -25,7 +25,7 @@
         <app-img name="next"></app-img>
       </div>
       <div class="flex-list" >
-        <app-card *ngFor="let item of regionalItem?.rsMap" (click)="business(item)" [ngClass]="item.checked ? 'check_style':''">
+        <app-card *ngFor="let item of regionalItem?.rsMap" (click)="business(item)" [button]="true" [ngClass]="item.checked ? 'check_style':''">
         <!-- item -->
           <div class="flex-item" (click)="business(item)" >{{ item.hq_regional_name }}</div>
         </app-card>

@@ -11,23 +11,23 @@
     <h4>공지사항</h4>
    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
      <app-col>
-        <app-select-scene [(ngModel)]="resItem?.rsObj.project_name" label="현장명"></app-select-scene>
+        <app-select-scene label="현장명" [(ngModel)]="form.project_name" [required]="true"></app-select-scene>
      </app-col>
      <app-col>
-      <app-input label="업체명" [(ngModel)]="resItem?.rsObj.company_name" [disabled]="true"></app-input>
+      <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
      </app-col>
    </app-row>
    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-        <app-input [disabled]="true" label="작성자" [value]="resItem?.rsObj.user_name"></app-input>
+        <app-input label="작성자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-input [disabled]="true" [value]="resItem?.rsObj.create_date" label="작성일"></app-input>
+      <app-input label="작성일" [(ngModel)]="form.create_date" [disabled]="true"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-select [required]="true" label="구분" [(ngModel)]="resItem?.rsObj.notice_type">
+      <app-select label="구분" [(ngModel)]="form.notice_type" [required]="true">
         <app-select-option value="일반">일반</app-select-option>
         <app-select-option value="안전관리">안전관리</app-select-option>
         <app-select-option value="환경관리">환경관리</app-select-option>
@@ -36,19 +36,19 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-input (click)="openRange()" [required]="true" label="게시물 공개범위">
+      <app-input label="게시물 공개범위" (click)="openRange()" [required]="true">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>
   </app-row>
     <app-row>
       <app-col>
-        <app-input label="제목" [(ngModel)]="resItem?.rsObj.notice_title"></app-input>
+        <app-input label="제목" [(ngModel)]="form.notice_title"></app-input>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-smartedit [(ngModel)]="resItem?.rsObj.notice_content" placeholder="내용을 입력하세요."></app-smartedit>
+        <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.notice_content"></app-smartedit>
       </app-col>
     </app-row>
     <h4>첨부자료</h4>
