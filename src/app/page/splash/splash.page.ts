@@ -17,6 +17,6 @@ export class SplashPage implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
-    }, 600);
+    }, 1000);
   }
 }
