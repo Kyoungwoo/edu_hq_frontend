@@ -75,7 +75,7 @@ export class CalendarPopoverComponent implements OnInit {
   ngOnInit(){
     if(!this.value) this.value = new Date();
     else if(isNaN(this.value.getTime())) this.value = new Date();
-    this.displayDate = this.value;
+    this.displayDate = new Date(this.value);
     this.selectedDate = this.value;
     this.setDisplay();
     this.getYearList();
@@ -141,16 +141,12 @@ export class CalendarPopoverComponent implements OnInit {
     }
   }
   setYear(value) {
-    if(this.displayYear !== value) {
-      this.displayDate.setFullYear(value);
-      this.setDisplay();
-    }
+    this.displayDate.setFullYear(value);
+    this.setDisplay();
   }
   setMonth(value) {
-    if(this.displayMonth !== value) {
-      this.displayDate.setMonth(value);
-      this.setDisplay();
-    }
+    this.displayDate.setMonth(value);
+    this.setDisplay();
   }
   setHours(hours) {
     this.displayHours = this.fixHours(hours);

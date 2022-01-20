@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent, UrlTree } from '@angular/router';
-import { AnimationController, IonContent, NavController } from '@ionic/angular';
+import { AnimationController, IonContent, IonRouterOutlet, NavController } from '@ionic/angular';
 import { NavigationOptions } from '@ionic/angular/providers/nav-controller';
 import { filter } from 'rxjs/operators';
 export interface NavOptions {
   animated?:boolean,
   animation?:'default' | 'fadeIn'
-  force?:boolean
+  force?:boolean,
+  queryParams?:{[name:string]:any},
+  state?:{[name:string]:any}
 }
 
 @Injectable({
@@ -26,31 +28,27 @@ export class NavService {
     this.navCtrl.back(options);
   }
   navigateBack(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
-    this.force = options?.force ?? true;
-    const navOptions:NavigationOptions = {};
-    if(options?.animated) navOptions.animated = options?.animated;
-    if(options?.animation === 'fadeIn') {
-      navOptions.animation = this.fadeInAnimation.bind(this);
-    }
-    return this.navCtrl.navigateBack(url, navOptions);
+    return this.navigate('navigateBack', url, options);
   }
   navigateForward(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
-    this.force = options?.force ?? true;
-    const navOptions:NavigationOptions = {};
-    if(options?.animated) navOptions.animated = options?.animated;
-    if(options?.animation === 'fadeIn') {
-      navOptions.animation = this.fadeInAnimation.bind(this);
-    }
-    return this.navCtrl.navigateForward(url, navOptions);
+    return this.navigate('navigateForward', url, options);
   }
   navigateRoot(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
+    return this.navigate('navigateRoot', url, options);
+  }
+
+  /** event */
+  private navigate(direction:string, url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
     this.force = options?.force ?? true;
     const navOptions:NavigationOptions = {};
     if(options?.animated) navOptions.animated = options?.animated;
     if(options?.animation === 'fadeIn') {
       navOptions.animation = this.fadeInAnimation.bind(this);
     }
-    return this.navCtrl.navigateRoot(url, navOptions);
+    if(options?.queryParams) navOptions.queryParams = options.queryParams;
+    if(options?.state) navOptions.state = options.state;
+    console.log(direction);
+    return this.navCtrl[direction](url, navOptions);
   }
 
   /** scroll */
@@ -110,6 +108,7 @@ export class NavService {
     })
   }
 
+  /** animations */
   private fadeInAnimation(_, opts) {
     const _leaveEl = <HTMLElement>opts.leavingEl;
     const enterEl = <HTMLElement>opts.enteringEl;

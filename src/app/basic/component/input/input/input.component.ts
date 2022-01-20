@@ -20,11 +20,22 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() type:"email" | "number" | "password" | "search" | "tel" | "text" | "url" = null;
   @Input() autofocus:boolean = false;
   @Input() maxlength:number = 50;
+  @Input() autocomplete:string;
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
+  @Output() delayKeyup:EventEmitter<null> = new EventEmitter();
 
   constructor() { }
   
   ngOnInit() {}
+
+  timeoutKeyup;
+  public onKeyup($event:KeyboardEvent) {
+    if($event.key === 'Enter') return;
+    clearTimeout(this.timeoutKeyup);
+    this.timeoutKeyup = setTimeout(() => {
+      this.delayKeyup.emit();
+    }, 300);
+  }
   
   //default setting
   @HostBinding('class.readonly') get classReadonly() { return this.readonly }
@@ -46,9 +57,12 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     return this._value;
   }
   writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    if(v !== this._value) {
+      this._value = v;
+      if(v) this.delayKeyup.emit();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

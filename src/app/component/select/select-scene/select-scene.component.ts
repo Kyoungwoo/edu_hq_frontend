@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
 import { Color } from '@ionic/core';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
 
 @Component({
   selector: 'app-select-scene',
@@ -16,19 +17,36 @@ import { Color } from '@ionic/core';
 })
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
+  @Input() type:'ALL';
   @Input() color:Color;
   @Input() label:string = "현장";
-  @Input() required:boolean = false;
   @Input() text:string;
 
+  isModalData:boolean = false;
+
   constructor(
+    private connect: ConnectService,
     private _modal:ModalController
   ) { }
 
   ngOnInit() {}
+
+  public async get() {
+    if(this.isModalData || !this.value) return;
+    const res = await this.connect.run('/forSignUp/project/id/get', {
+      project_id: this.value
+    });
+    if(res.rsCode === 0) {
+      this.text = res.rsObj.project_name
+    }
+  }
   public async openModal() {
+    this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchSceneComponent
+      component:SearchSceneComponent,
+      componentProps: {
+        type: this.type
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
@@ -36,8 +54,13 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       this.value = data.project_id;
       this.text = data.project_name;
     }
+    this.isModalData = false;
   }
 
+  //default setting
+  //@Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:number;
@@ -51,10 +74,13 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:number): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  writeValue(v:number): void {
+    if(v !== this._value) {
+      this._value = v;
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

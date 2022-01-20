@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 import { AppModule } from 'src/app/app.module';
 import { InputComponent } from 'src/app/basic/component/input/input/input.component';
 import { CardComponent } from 'src/app/basic/component/ui/card/card.component';
+import { UserType } from 'src/app/basic/service/core/user.service';
 import { ComponentModule } from 'src/app/component/component.module';
 
 import { SignUpCompanyPage } from './sign-up-company.page';
@@ -68,7 +69,7 @@ describe('SignUpCompanyPage', () => {
   });
 
   it('업체 검색창에 검색어(데브)를 넣어서 검색하면, 서버와 통신하여 업체가 나온다. 이때 클릭하면 타입에 따라, 업체정보를 들고 다음페이지로 넘어감.', async() => {
-    component.params.userType = 'WORKER';
+    component.params.userType = UserType.WORKER;
 
     const el = fixture.debugElement;
     const inputSearch = el.query(By.css('[name=input-search]'));

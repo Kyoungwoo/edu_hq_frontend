@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Color } from '@ionic/core';
 
 @Component({
   selector: 'app-input-group',
@@ -7,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class InputGroupComponent implements OnInit {
 
+  @Input() color:Color;
   @Input() label:string;
   @Input() required:boolean;
 
