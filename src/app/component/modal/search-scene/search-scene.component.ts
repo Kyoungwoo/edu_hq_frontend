@@ -41,7 +41,6 @@ export class SearchSceneComponent implements OnInit {
       this.res = await this.connect.run('/category/certify/search_my_project/get', this.form, { loading: '현장 검색' });
     }
   }
-
   select() {
     this._modal.dismiss(this.selectedItem);
   }

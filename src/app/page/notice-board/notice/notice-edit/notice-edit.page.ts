@@ -21,6 +21,9 @@ export class NoticeItem {
   notice_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
+  public_scope_allstate: boolean;
+  public_scope_one: string;
+  public_scope_two: string;
 };
 
 @Component({
@@ -45,7 +48,7 @@ export class NoticeEditPage implements OnInit {
 
   ngOnInit() {
     if(this.notice_id) {
-      this.title = '수정';
+      this.title = '상세';
       this.get();
     } else {
       this.title = '등록';
