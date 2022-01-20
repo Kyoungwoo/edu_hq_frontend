@@ -6,6 +6,21 @@ import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 
 type NoticeType = "일반" | "안전관리" | "환경관리" | "공사관리" | "품질관리";
+
+class NoticeInfo {
+  company_id: number;
+  company_name: string;
+  create_date: string;
+  favorites_state: number;
+  hit_count: number;
+  notice_id: number;
+  notice_title: string;
+  notice_type: NoticeType;
+  project_id: number;
+  project_name: string;
+  user_name: string;
+  row_count: number;
+}
 @Component({
   selector: 'app-notice-list',
   templateUrl: './notice-list.page.html',
@@ -22,21 +37,8 @@ export class NoticeListPage implements OnInit {
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
   }
-  res:ConnectResult<{
-    company_id: number
-    company_name: string
-    create_date: string
-    favorites_state: number
-    hit_count: number
-    notice_id: number
-    notice_title: string,
-    notice_type: NoticeType
-    project_id: number
-    project_name: string
-    user_name: string
-    row_count: number
-    favorites_state_bool:boolean
-  }>;
+  res:ConnectResult<NoticeInfo>;
+  resFavorite:ConnectResult;
 
   constructor(
     private modal: ModalController,
@@ -53,11 +55,11 @@ export class NoticeListPage implements OnInit {
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     })
-    if(this.res.rsCode === 0) {
+    /* if(this.res.rsCode === 0) {
       this.res.rsMap.forEach(item => {
         if(item.favorites_state) item.favorites_state_bool = true; 
       })
-    }
+    } */
   }
 
   async detailSearch() {
@@ -83,9 +85,9 @@ export class NoticeListPage implements OnInit {
     modal.present();
   }
 
-  async favoritesCheck(item) {
-    item.favorites_state_bool = !item.favorites_state_bool;
-    const res = await this.connect.run('/board/notice/favorites',{notice_id:item.notice_id});
-    if(res.rsCode === 0) {};
+  async favoritesCheck($event:MouseEvent, item:NoticeInfo) {
+    $event.stopPropagation();
+    item.favorites_state = item.favorites_state ? 0 : 1;
+    this.resFavorite = await this.connect.run('/board/notice/favorites', { notice_id:item.notice_id });
   }
 }

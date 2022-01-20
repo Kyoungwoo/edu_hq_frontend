@@ -31,9 +31,18 @@ export class LoginPage implements OnInit {
     });
     if(this.res.rsCode === 0) {
       this.user.setAuthToken(this.res.rsObj);
+      this.getWorkerInfo();
       this.nav.navigateRoot('/main-user', {
         animated: true
       });
+    }
+  }
+  private async getWorkerInfo() {
+    const res = await this.connect.run('/user/basic/get', {}, {
+      parse: ['belong_data']
+    });
+    if(res.rsCode === 0) {
+      this.user.setUserData(res.rsObj);
     }
   }
 }
