@@ -15,24 +15,28 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [(ngModel)]="form.start_date"></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company></app-select-company>
+                <app-select-company [required]="true"></app-select-company>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="구분" value="전체">
-                  <app-select-option value="전체">전체</app-select-option>
+                <app-select label="구분" [(ngModel)]="form.notice_types" [required]="true" [multiple]="true">
+                  <app-select-option value="일반">일반</app-select-option>
+                  <app-select-option value="안전관리">안전관리</app-select-option>
+                  <app-select-option value="환경관리">환경관리</app-select-option>
+                  <app-select-option value="공사관리">공사관리</app-select-option>
+                  <app-select-option value="품질관리">품질관리</app-select-option>
                 </app-select>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input-group label="등록일">
+                <app-input-group label="등록일" [required]="true">
                   <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
                   <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
@@ -41,7 +45,7 @@
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -117,29 +121,12 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card *ngFor="let item of [1,2,3,4]">
-      <app-row style="align-items: flex-start;">
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
+      <app-row style="align-items: flex-start;" >
         <app-col>
-          <p>구일종합건설(주)/박소현/A001</p>
-          <p>배정일: 2021.10.18</p>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <ion-badge color="success">일반</ion-badge>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card *ngFor="let item of [1,2,3,4]">
-      <app-row style="align-items: flex-start;">
-        <app-col>
-          <p>구일종합건설(주)/박소현/A001</p>
-          <p>배정일: 2021.10.18</p>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <ion-badge color="success">안전관리</ion-badge>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+          <ion-badge color="success">{{ item.notice_type }}</ion-badge>
         </app-col>
       </app-row>
     </app-card>

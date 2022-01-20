@@ -14,7 +14,7 @@ type NoticeType = "일반" | "안전관리" | "환경관리" | "공사관리" | 
 export class NoticeListPage implements OnInit {
 
   form = {
-    company_ids: [],
+    company_ids: [1],
     end_date: this.date.today(),
     notice_types: ['일반'],
     project_id: 1,
@@ -52,10 +52,7 @@ export class NoticeListPage implements OnInit {
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     })
-    if(this.res.rsCode === 0) {
-    } else {
-      this.connect.error('공지사항 불러오기 실패', this.res);
-    }
+    if(this.res.rsCode === 0) {}
   }
 
   async detailSearch() {
