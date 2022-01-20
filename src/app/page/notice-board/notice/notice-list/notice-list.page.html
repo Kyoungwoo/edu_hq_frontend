@@ -58,7 +58,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>공지사항 목록 (총90건)</h5>
+          <h5>공지사항 목록 (총{{res?.rsMap.length}}건)</h5>
         </ion-toolbar>
         <app-check-group>
           <app-table>
@@ -67,8 +67,8 @@
                 <th style="width: 40px;">
                   <app-check type="all" color="white" size="small" name="check"></app-check>
                 </th>
-                <th style="width: 40px; text-align: center;">
-                  <ion-icon name="star"></ion-icon>
+                <th style="width: 60px; text-align: center;">
+                  상단노출
                 </th>
                 <th style="width: 80px;">구분</th>
                 <th style="width: 500px;">제목</th>
@@ -80,11 +80,18 @@
             </thead>
             <tbody>
               <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
-                <td>
+                <td (click)="$event.stopPropagation()">
                   <app-check color="white" size="small" name="check"></app-check>
                 </td>
-                <td style="text-align: center;">
-                  <ion-icon name="star" *ngIf="item.favorites_state"></ion-icon>
+                <td (click)="$event.stopPropagation()" style="text-align: center;">
+                  <ion-icon name="star" [class.iconstar]="item.favorites_state_bool"
+                    (click)="favoritesCheck(item)" 
+                    *ngIf="item.favorites_state_bool"></ion-icon>
+                  <ion-icon name="star-outline" 
+                    (click)="favoritesCheck(item)"
+                    [class.iconstar]="item.favorites_state_bool"
+                    (click)="item.favorites_state_bool != item.favorites_state_bool"
+                    *ngIf="!item.favorites_state_bool"></ion-icon>
                 </td>
                 <td>{{ item.notice_type }}</td>
                 <td>{{ item.notice_title }}</td>

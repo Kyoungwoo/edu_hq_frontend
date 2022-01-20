@@ -23,18 +23,19 @@ export class NoticeListPage implements OnInit {
     limit_no: 0
   }
   res:ConnectResult<{
-    company_id: number,
-    company_name: string,
-    create_date: string,
-    favorites_state: number,
-    hit_count: number,
-    notice_id: number,
+    company_id: number
+    company_name: string
+    create_date: string
+    favorites_state: number
+    hit_count: number
+    notice_id: number
     notice_title: string,
-    notice_type: NoticeType,
-    project_id: number,
-    project_name: string,
-    user_name: string,
+    notice_type: NoticeType
+    project_id: number
+    project_name: string
+    user_name: string
     row_count: number
+    favorites_state_bool:boolean
   }>;
 
   constructor(
@@ -52,7 +53,11 @@ export class NoticeListPage implements OnInit {
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     })
-    if(this.res.rsCode === 0) {}
+    if(this.res.rsCode === 0) {
+      this.res.rsMap.forEach(item => {
+        if(item.favorites_state) item.favorites_state_bool = true; 
+      })
+    }
   }
 
   async detailSearch() {
@@ -76,5 +81,11 @@ export class NoticeListPage implements OnInit {
       component:NoticeEditPage
     });
     modal.present();
+  }
+
+  async favoritesCheck(item) {
+    item.favorites_state_bool = !item.favorites_state_bool;
+    const res = await this.connect.run('/board/notice/favorites',{notice_id:item.notice_id});
+    if(res.rsCode === 0) {};
   }
 }

@@ -17,6 +17,7 @@
   @include generateColor('light', #F7F9FC, #000000);
   @include generateColor('medium', #9CB3BE, #ffffff);
   @include generateColor('dark', #445760, #ffffff);
+  @include generateColor('star', #FFD873, #ffffff);
 
   @include generateColor('white', #ffffff, #000000);
 }

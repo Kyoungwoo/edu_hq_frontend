@@ -46,15 +46,23 @@
         <app-input label="제목" [(ngModel)]="form.notice_title"></app-input>
       </app-col>
     </app-row>
-    <app-row>
+    <app-row *mobileHidden>
       <app-col>
         <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.notice_content"></app-smartedit>
       </app-col>
     </app-row>
+    <app-row *mobileShow>
+      <app-col>
+        <app-textarea value="공지합니다" [readonly]="true"></app-textarea>
+      </app-col>
+    </app-row>
     <h4>첨부자료</h4>
 </ion-content>
-<app-button-footer>
+<app-button-footer *mobileHidden>
   <app-button *ngIf="notice_id" fill="translucent" (click)="update()">수정</app-button>
   <app-button *ngIf="notice_id" color="danger" fill="translucent">삭제</app-button>
-  <app-button *ngIf="!notice_id" (click)="noticeInsert()">등록</app-button>
+  <app-button *ngIf="!notice_id" (click)="noticeInsert()">저장</app-button>
+</app-button-footer>
+<app-button-footer *mobileShow>
+  <app-button>확인</app-button>
 </app-button-footer>
