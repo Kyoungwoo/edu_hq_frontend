@@ -1,4 +1,4 @@
-<app-input-template class="input-no-label" [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required" (click)="(readonly || disabled) ? null : popoverSelect()">
+<app-input-template class="input-no-label" [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required">
     <div slot="input" class="input">
         <ng-container *ngIf="type === 'edit'; else tempSelect">
             <input [(ngModel)]="value" placeholder="직접입력" (click)="$event.stopPropagation()">

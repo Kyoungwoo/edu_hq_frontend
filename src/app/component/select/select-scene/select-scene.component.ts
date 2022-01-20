@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
@@ -16,6 +16,10 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
   }]
 })
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
+
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.openModal();
+  }
 
   @Input() type:'ALL';
   @Input() color:Color;
@@ -37,7 +41,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       project_id: this.value
     });
     if(res.rsCode === 0) {
-      this.text = res.rsObj.project_name
+      this.text = res.rsObj.project_name;
     }
   }
   public async openModal() {

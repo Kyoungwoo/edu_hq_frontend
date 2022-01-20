@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { Color, ComponentRef } from '@ionic/core';
@@ -18,6 +18,10 @@ import { SelectPopoverComponent } from '../select-popover/select-popover.compone
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+
+  @HostListener('click') onClick() {
+    if(!this.readonly && !this.disabled) this.popoverSelect();
+  }
 
   @ContentChildren(SelectOptionComponent) options:QueryList<SelectOptionComponent>;
 
@@ -45,7 +49,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
     });
   }
   ngOnDestroy() {
-    this.$options.unsubscribe();
+    this.$options?.unsubscribe();
   }
   async getText() {
     if(!this.options) return;

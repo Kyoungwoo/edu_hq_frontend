@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-back-button [defaultHref]="prevRouterLink"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>약관 동의</ion-title>
   </ion-toolbar>
@@ -25,9 +25,10 @@
         약관 샘플
       </app-card>
     </app-check-group>
+    <app-input-caption *ngIf="res && res.rsCode">{{ res.rsMsg }}</app-input-caption>
   </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button [routerLink]="prevRouterLink" routerDirection="back">이전</app-button>
-  <app-button routerLink="/sign-up-done" [queryParams]="{userType: 'WORKER'}">완료</app-button>
+  <app-button (click)="prev()">이전</app-button>
+  <app-button name="submit" (click)="done()">완료</app-button>
 </app-button-footer>

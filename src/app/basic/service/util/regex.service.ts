@@ -12,6 +12,30 @@ export class RegexService {
 
   constructor() { }
 
+  random = {
+    id: (str) => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      const length = characters.length;
+      let result = '';
+      for(let i = 0; i < 10; i++) {
+        result += characters.charAt(Math.floor(Math.random() * length));
+      }
+      return str + '_' + result;
+    },
+    email: () => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      const length = characters.length;
+      let result = '';
+      for(let i = 0; i < 10; i++) {
+        result += characters.charAt(Math.floor(Math.random() * length));
+      }
+      return result + '@naver.com';
+    },
+    phone: () => {
+      return '010' + Math.random().toString().slice(2, 10);
+    }
+  }
+
   replace = {
     /** 순수한 숫자만 남긴다. */
     number: (number:string | number) => {

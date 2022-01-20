@@ -61,7 +61,7 @@ describe('SignUpTypePage', () => {
     fixture.detectChanges();
 
     const buttonFooter = el.query(By.css('[name=button-footer]'));
-    const buttonNext = el.query(By.css('[name=button-next]'));
+    const buttonNext = el.query(By.css('[name=button_next]'));
 
     expect(component.userType).toBe('WORKER');
     expect((<CardComponent>cardTypeWorker.componentInstance).color).toBe('secondary');

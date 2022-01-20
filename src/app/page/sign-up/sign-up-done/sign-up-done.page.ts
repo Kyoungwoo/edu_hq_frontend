@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sign-up-done',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpDonePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _modal: ModalController
+  ) { }
 
   ngOnInit() {
+    
   }
 
+  dismiss() {
+    this._modal.dismiss();
+  }
 }

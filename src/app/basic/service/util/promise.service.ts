@@ -7,7 +7,7 @@ export class PromiseService {
 
   constructor() { }
 
-  wait(milliseconds) {
+  wait(milliseconds = 500) {
     return new Promise(res => setTimeout(res, milliseconds));
   }
   timeout(promise, milliseconds) {

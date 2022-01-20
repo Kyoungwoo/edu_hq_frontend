@@ -10,9 +10,9 @@
   <app-container size="small">
     <app-sign-up-segment step="step2"></app-sign-up-segment>
     <form style="margin-top: 16px;">
-      <app-card color="medium">{{ regex.replace.businessRegisterNo(companyInfo.business_register_no) }} / {{ companyInfo.company_name }}</app-card>
+      <app-card color="medium">{{ regex.replace.businessRegisterNo(companyInfo?.business_register_no) }} / {{ companyInfo?.company_name }}</app-card>
       <app-avatar name="input-profile" 
-      view_type="PROFILE" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
+      view_type="PROFILE" [(ngModel)]="form.file_preview" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
       <app-row mobileBreak>
         <app-col>
           <app-input
@@ -65,7 +65,7 @@
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-input name="휴대폰" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+          <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
           [color]="validator.user_phone?.valid === false ? 'warning' 
           : validator.sms_token?.valid === true && 'success'"
           [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
@@ -77,7 +77,7 @@
         <app-col>
           <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
             <app-input
-            name="인증번호" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
+            name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
             [color]="validator.sms_token?.valid === false && 'warning'"
             [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
               확인
@@ -96,6 +96,7 @@
         </app-col>
         <app-col>
           <app-select-country name="국가"
+          name="ctgo_country_id"
           [color]="validator.ctgo_country_id?.valid === false && 'warning'"
           [(ngModel)]="form.ctgo_country_id" [required]="true"></app-select-country>
           <app-input-caption *ngIf="validator.ctgo_country_id?.valid === false" color="warning">{{ validator.ctgo_country_id?.message }}</app-input-caption>
@@ -116,7 +117,7 @@
           <app-calendar name="건설업 기초 안전보건교육 이수일" label="건설업 기초 안전보건교육 이수일" [(ngModel)]="form.basic_safe_edu_date"></app-calendar>
         </app-col>
       </app-row>
-      <app-select-scene name="현장" type="ALL"
+      <app-select-scene name="project_id" type="ALL"
       [color]="validator.project_id?.valid === false && 'warning'"
       [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
       <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
@@ -124,6 +125,6 @@
   </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button routerLink="/sign-up-company" [queryParams]="{userType: 'WORKER'}" routerDirection="back">이전</app-button>
-  <app-button (click)="next()">다음</app-button>
+  <app-button (click)="prev()">이전</app-button>
+  <app-button name="button_next" (click)="next()">다음</app-button>
 </app-button-footer>

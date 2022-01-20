@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { Validator } from 'src/app/basic/service/core/connect.service';
 import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import { SignUpCompanyInfo } from '../../sign-up-company/sign-up-company.page';
-import { SignUpWorkerHealth, SignUpWorkerInfo } from '../../sign-up-worker/sign-up-worker.interface';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
+import { SignUpCompanyInfo, SignUpWorkerHealth, SignUpWorkerHealthMock, SignUpWorkerInfo } from '../../sign-up-worker/sign-up-worker.interface';
 
 @Component({
   selector: 'app-sign-up-health',
@@ -22,25 +23,33 @@ export class SignUpHealthPage implements OnInit {
   validator = new Validator(new SignUpWorkerHealth()).validator;
 
   constructor(
-    private activedRoute: ActivatedRoute,
-    private nav: NavService
+    private el: ElementRef<HTMLElement>,
+    private nav: NavService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {
-    if(!this.checkParams()) return;
-    this.companyInfo = <SignUpCompanyInfo>this.activedRoute.snapshot.queryParams;
-    this.signUpworkerInfo = history.state.form;
+    if(!this.checkParams()) return this.nav.navigateBack('/sign-up-company', { queryParams: { userType: 'WORKER' } });
+    this.companyInfo = history.state.companyInfo;
+    this.signUpworkerInfo = history.state.signUpworkerInfo;
+
+    if(environment.autoTest) this.test();
   }
+
+  public async test() {
+    const el = this.el.nativeElement;
+    // 가짜 정보 입력
+    this.form = new SignUpWorkerHealthMock();
+    await this.promise.wait();
+
+    // 다음 페이지로
+    el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
+  }
+
   private checkParams() {
-    if(history.state?.form && this.activedRoute.snapshot.queryParams) return true;
-    else  {
-      this.nav.navigateBack('/sign-up-company', {
-        queryParams: {
-          userType: UserType.WORKER
-        }
-      })
-      return false;
-    }
+    if(history.state?.companyInfo
+    && history.state?.signUpworkerInfo) return true;
+    else return false;
   }
 
 
@@ -48,52 +57,68 @@ export class SignUpHealthPage implements OnInit {
     this.nav.back();
   }
   public next() {
+    if(!this.valid()) return;
 
+    this.nav.navigateForward('/sign-up-terms', {
+      state: {
+        companyInfo: this.companyInfo,
+        signUpworkerInfo: this.signUpworkerInfo,
+        signUpWorkerHealth: this.form
+      }
+    });
   }
   private valid() {
-    if(typeof this.form.use_drugs_state !== 'boolean') this.validator.use_drugs_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.use_drugs_state == null) this.validator.use_drugs_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.use_drugs_state = { valid: true };
 
-    if(typeof this.form.use_drugs_state === 'boolean'
-    && this.form.use_drugs_content === null) this.validator.use_drugs_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.use_drugs_state === true
+    && !this.form.use_drugs_content) this.validator.use_drugs_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.use_drugs_content = { valid: true };
 
-    if(this.form.brain_cure_state === null) this.validator.brain_cure_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.brain_cure_state == null) this.validator.brain_cure_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.brain_cure_state = { valid: true };
 
-    if(this.form.brain_cure_state !== null
-    && this.form.brain_cure_content === null) this.validator.brain_cure_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.brain_cure_state === true
+    && !this.form.brain_cure_content.length) this.validator.brain_cure_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.brain_cure_content = { valid: true };
 
-    if(this.form.vomiting_state === null) this.validator.vomiting_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.vomiting_state == null) this.validator.vomiting_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.vomiting_state = { valid: true };
 
-    if(this.form.vomiting_content === null) this.validator.vomiting_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.vomiting_state === true
+    && !this.form.vomiting_content) this.validator.vomiting_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.vomiting_content = { valid: true };
 
-    if(this.form.pain_head_state === null) this.validator.pain_head_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.pain_head_state == null) this.validator.pain_head_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.pain_head_state = { valid: true };
 
-    if(this.form.pain_head_content === null) this.validator.pain_head_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.pain_head_state === true
+    && !this.form.pain_head_content) this.validator.pain_head_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.pain_head_content = { valid: true };
 
-    if(this.form.etc_disease_state === null) this.validator.etc_disease_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.etc_disease_state == null) this.validator.etc_disease_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.etc_disease_state = { valid: true };
 
-    if(this.form.etc_disease_content === null) this.validator.etc_disease_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.etc_disease_state === true
+    && !this.form.etc_disease_content) this.validator.etc_disease_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.etc_disease_content = { valid: true };
 
-    if(this.form.covid_nineteen_state === null) this.validator.covid_nineteen_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.covid_nineteen_state == null) this.validator.covid_nineteen_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_nineteen_state = { valid: true };
 
-    if(this.form.covid_nineteen_content === null) this.validator.covid_nineteen_content = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.covid_nineteen_state === true
+    && !this.form.covid_nineteen_content) this.validator.covid_nineteen_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_nineteen_content = { valid: true };
 
-    if(this.form.covid_vaccine_state === null) this.validator.covid_vaccine_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.covid_vaccine_state == null) this.validator.covid_vaccine_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_vaccine_state = { valid: true };
 
-    if(this.form.health_terms_state === null) this.validator.health_terms_state = { valid: false, message: '해당 항목에 답해주세요.' };
+    if(this.form.health_terms_state !== true) this.validator.health_terms_state = { valid: false, message: '항목에 동의해주세요.' };
     else this.validator.health_terms_state = { valid: true };
 
+    for(let key in this.validator) {
+      if(!this.validator[key]?.valid) return false;
+    }
+    return true;
   }
 }

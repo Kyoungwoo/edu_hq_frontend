@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../../component/sign-up.component.module';
+import { SignUpCompanyInfoMock, SignUpWorkerInfoMock } from '../../sign-up-worker/sign-up-worker.interface';
 
 import { SignUpHealthPage } from './sign-up-health.page';
 
@@ -13,6 +14,10 @@ describe('SignUpHealthPage', () => {
   let fixture: ComponentFixture<SignUpHealthPage>;
 
   beforeEach(waitForAsync(() => {
+    window.history.pushState({ 
+      companyInfo: new SignUpCompanyInfoMock(),
+      signUpworkerInfo: new SignUpWorkerInfoMock()
+    }, '', '');
     TestBed.configureTestingModule({
       declarations: [ SignUpHealthPage ],
       imports: [

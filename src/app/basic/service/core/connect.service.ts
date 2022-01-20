@@ -31,7 +31,7 @@ export enum ContentType {
 }
 export interface ConnectOptions {
   contentType?:ContentType,
-  loading?:string
+  loading?:string | boolean
 }
 /* export type Valid<T> = {
   [P in keyof T]?: { message:string, valid:boolean }
@@ -84,9 +84,9 @@ export class ConnectService {
 
     let loading:HTMLIonLoadingElement;
     if(!isPlatformServer(this.platformId)) {
-      if(options?.loading) {
+      if(options?.loading != null) {
         loading = await this.loading.present({
-          message: options.loading
+          // message: options.loading
         });
         await loading.present();
       }
@@ -102,7 +102,7 @@ export class ConnectService {
         errorStatus: error.status, 
         rsCode: null, 
         rsObj: error.error, 
-        rsMsg: error.message, 
+        rsMsg: '서버 연결에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.', //error.message, 
         rqMethod: '', 
         rsMap:null
       }
@@ -149,7 +149,7 @@ export class ConnectService {
     for(let key in json) {
       if(typeof json[key] !== 'object') form.append(key, json[key]);
       
-      else if(json[key] === null || json[key] === undefined) form.append(key, json[key]);
+      else if(json[key] === null || json[key] === undefined) {} //form.append(key, json[key]);
 
       else if(json[key].constructor.name !== 'Array') {
 

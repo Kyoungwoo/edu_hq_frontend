@@ -8,6 +8,7 @@ import { SignUpTermsPageRoutingModule } from './sign-up-terms-routing.module';
 
 import { SignUpTermsPage } from './sign-up-terms.page';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
+import { SignUpDonePageModule } from '../sign-up-done/sign-up-done.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     SignUpComponentModule,
-    SignUpTermsPageRoutingModule
+    SignUpTermsPageRoutingModule,
+    SignUpDonePageModule
   ],
   declarations: [SignUpTermsPage]
 })
