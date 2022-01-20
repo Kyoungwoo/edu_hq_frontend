@@ -171,8 +171,10 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
   writeValue(v:any[]): void { 
     if(v !== this.LatLng){
-      this.LatLng = v; 
-    } 
+      this.LatLng = v || []; 
+      this._onChangeCallback(this.LatLng);
+      this.change.emit(this.LatLng);
+    }
   }
 
   private _onChangeCallback = (v) => {};

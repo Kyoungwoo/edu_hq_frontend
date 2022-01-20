@@ -16,21 +16,21 @@
         </app-input>
       </app-col>
       <app-col>
-        <app-select-scene></app-select-scene>
+        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
       </app-col>
     </app-row>
     <app-row mobileBreak>
       <app-col>
         <app-row>
           <app-col>
-            <app-select-contractor></app-select-contractor>
+            <app-select-contractor ></app-select-contractor>
           </app-col>
         </app-row>
       </app-col>
       <app-col>
         <app-row>
           <app-col>
-            <app-input label="감리사">
+            <app-input (click)="supervisionSel()" [value]="form.supervision_name"  label="감리사" [readonly]="true">
               <app-img name="search"></app-img>
             </app-input>
           </app-col>
@@ -39,12 +39,12 @@
     </app-row>
     <app-row mobileBreak>
       <app-col style="display: flex;align-items: baseline;">
-        <app-calendar style="width: 100%;"></app-calendar>
+        <app-calendar [(ngModel)]="form.contract_start_date" style="width: 100%;"></app-calendar>
         <span>&nbsp;~&nbsp;</span>
-        <app-calendar style="width: 100%;"></app-calendar>
+        <app-calendar [(ngModel)]="form.contract_end_date" style="width: 100%;"></app-calendar>
       </app-col>
       <app-col>
-        <app-input label="공사금액"></app-input>
+        <app-input [(ngModel)]="form.construction_amount" label="공사금액"></app-input>
       </app-col>
     </app-row>
     <app-row mobileBreak>
@@ -57,15 +57,16 @@
         </app-select>
       </app-col>
       <app-col>
-        <app-input label="공사내용"></app-input>
+        <app-input [(ngModel)]="form.construction_content" label="공사내용"></app-input>
       </app-col>
     </app-row>
     <app-row mobileBreak>
       <app-col>
-        <app-input label="주소"></app-input>
+        <app-input [readonly] [(ngModel)]="form.project_address" (click)="address()" label="주소"></app-input>
       </app-col>
       <app-col>
-        <app-input label="현장 영역"></app-input>
+        <app-input [(ngModel)]="form.gps_state_con" [readonly]="true" (click)="project_area_set()" label="현장 영역" 
+        [value]="this.form.map_gps"></app-input>
       </app-col>
     </app-row>
   </app-card>
@@ -91,7 +92,7 @@
         </ion-toolbar>
         <app-table>
           <tr *ngFor="let item of form.project_file_data let i = index">
-            <td>
+            <td *ngIf="item.view_type==='BIRDSEYE'">
               <app-row>
                 <app-col>
                   <a [href]="item.full_url" target="_blank" [download]="item.file_name">
@@ -118,10 +119,37 @@
               <h5>조직도</h5>
             </app-col>
             <app-col size="auto">
-              <app-button>추가</app-button>
+              <app-button>추가
+                <app-file name="input" view_type="NOTICE"
+                [(ngModel)]="form.project_file_data"
+                [file]="form.file"
+                [file_json]="form.file_json"
+                ></app-file>
+              </app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
+        <app-table>
+          <tr *ngFor="let item of form.project_file_data let i = index">
+            <td *ngIf="item.view_type==='BIRDSEYE'">
+              <app-row>
+                <app-col>
+                  <a [href]="item.full_url" target="_blank" [download]="item.file_name">
+                    <ion-icon name="save-outline"></ion-icon>
+                    {{ item.file_name }}
+                  </a>
+                </app-col>
+              </app-row>
+              <ion-row
+              *ngIf="item.content_type.startsWith('image')">
+                <ion-col>
+                  <div class="image-detail">이미지 미리보기</div>
+                  <app-img class="image-class" [src]="item.full_url"></app-img>
+                </ion-col>
+              </ion-row>
+            </td>
+          </tr>
+        </app-table>
       </app-col>
     </app-row>
   </app-card>

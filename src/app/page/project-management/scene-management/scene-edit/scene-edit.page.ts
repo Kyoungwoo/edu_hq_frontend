@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { DaumService } from 'src/app/basic/service/util/daum.service';
+import { ProjectAreaSetComponent } from 'src/app/component/modal/project-area-set/project-area-set.component';
+import { SupervisionSearchComponent } from 'src/app/component/modal/supervision-search/supervision-search.component';
 import { OrganizationSelectPage } from '../organization-select/organization-select.page';
 
 export class ProjectDetail {
@@ -29,7 +32,12 @@ export class ProjectDetail {
   project_file_data: FutItem[] = [];
   file: (File|Blob)[] = [];
   file_json: FileJson = new FileJson();
+  supervision_name:string
+  map_gps:string
+  gps_state_con:string
 }
+// {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
+// "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
 
 @Component({
   selector: 'app-scene-edit',
@@ -37,9 +45,12 @@ export class ProjectDetail {
   styleUrls: ['./scene-edit.page.scss'],
 })
 export class SceneEditPage implements OnInit {
-
+  
   @Input() project_id;
-
+  
+  mapData={
+    gps_latitude:[]
+  }
   title:string;
 
   form:ProjectDetail = new ProjectDetail();
@@ -52,7 +63,8 @@ export class SceneEditPage implements OnInit {
   }
   constructor(
     private connect:ConnectService,
-    private _modal:ModalController
+    private _modal:ModalController,
+    private daum:DaumService
   ) { }
 
   ngOnInit() {
@@ -73,6 +85,12 @@ export class SceneEditPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.form = res.rsObj;
+      console.log(this.form);
+      if(res.rsObj.gps_state === 1){
+        this.form.gps_state_con = '설정됨'
+      } else { 
+        this.form.gps_state_con = '설정 안됨'
+      }
       this.organization.name = res.rsObj.hq_regional_name + ', ' + res.rsObj.hq_business_name;
     }
   }
@@ -82,11 +100,51 @@ export class SceneEditPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log("data",data);
     if(data) {
+      console.log("조직기구 모달 데이터",data);
       this.organization.name = data.regName + ', ' + data.busName;
       this.form.hq_regional_id = data.regId;
       this.form.hq_business_id = data.subId;
     }
   }
+  async supervisionSel() {
+    const modal = await this._modal.create({
+      component:SupervisionSearchComponent
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log("감리사 모달 데이터",data);
+    if(data) {
+      let company_name_data = [];
+      let compnay_id_data = [];
+      data.forEach(item => {
+        company_name_data.push(item.company_name);
+      })
+      this.form.supervision_name = company_name_data.toString();
+      this.form.supervision_name = this.form.supervision_name.substring(0,this.form.supervision_name.length-1);
+    }
+  }
 
+  address() {
+    this.daum.open().then((item) => {if(item) this.form.project_address = '['+item.zoneCode+'] '+item.address;});
+  }
+  async project_area_set() {
+    if(this.project_id){
+      const modal = await this._modal.create({
+        component:ProjectAreaSetComponent
+      });
+      modal.present();
+      const { data } = await modal.onDidDismiss();
+      if(data) {
+        let map = [];
+        data.forEach(item => {
+          map.push(item.x,item.y);
+        })
+        this.mapData.gps_latitude.push(map);
+        this.form.map_gps = this.mapData.gps_latitude.toString();
+        console.log(this.form.map_gps);
+      }
+    }
+  }
 }

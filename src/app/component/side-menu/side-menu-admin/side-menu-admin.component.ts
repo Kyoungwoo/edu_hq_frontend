@@ -35,12 +35,10 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '통합관제', link: '/monitor'}
     ]},
     { title: '결재', img: 'assets/img/menu/sign.svg', subMenuList: [
+      { title: '기안/임시저장함', link: '/confirm-obtain-list'},
       { title: '미결함', link: '/confirm-pending-list'},
-      { title: '문서함', thirdMenuList: [
-        { title: '기안/임시저장함', link: '/confirm-obtain-list'},
-        { title: '진행/완료/반려함', link: '/confirm-progress-list'},
-        { title: '참조함', link: '/confirm-cc-list'}
-      ]},
+      { title: '기결함', link: '/confirm-progress-list'},
+      { title: '참조함', link: '/confirm-cc-list'},
       { title: '결재설정', thirdMenuList: [
         { title: '기본 결재선 지정', link: '/approval-edit'},
         { title: '위임 관리', link: ''}

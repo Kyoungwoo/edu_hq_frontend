@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>원청사 검색</ion-title>
+    <ion-title>감리사 검색</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -58,8 +58,7 @@
         <tr *ngFor="let addArr of submitArr let i = index">
           <td><app-input [(ngModel)]="addArr.company_name" placeholder="입력해주세요."></app-input></td>
           <td>
-            <app-input (keyup)="overlap(addArr.business_register_no)"  [(ngModel)]="addArr.business_register_no" placeholder="입력해주세요."></app-input>
-            <app-input-caption color="warning">여기에 입력</app-input-caption>
+            <app-input (keyup)="overlap(addArr.business_register_no)" type="number"  [(ngModel)]="addArr.business_register_no" placeholder="입력해주세요." [maxlength]="10"></app-input>
           </td>
           <td><app-input [(ngModel)]="addArr.company_ceo" placeholder="입력해주세요."></app-input></td>
           <td style="width: 40px;"><app-button (click)="submitArr.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
