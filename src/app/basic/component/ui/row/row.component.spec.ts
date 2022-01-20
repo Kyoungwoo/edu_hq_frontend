@@ -18,8 +18,7 @@ describe('RowComponent', () => {
         IonicModule.forRoot(),
         FormsModule,
         AppModule,
-        ComponentModule,
-        RouterTestingModule
+        ComponentModule
       ]
     }).compileComponents();
 
