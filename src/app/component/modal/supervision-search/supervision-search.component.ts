@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { RegexService } from 'src/app/basic/service/util/regex.service';
 
 @Component({
-  selector: 'app-search-contractor',
-  templateUrl: './search-contractor.component.html',
-  styleUrls: ['./search-contractor.component.scss'],
+  selector: 'app-supervision-search',
+  templateUrl: './supervision-search.component.html',
+  styleUrls: ['./supervision-search.component.scss'],
 })
-export class SearchContractorComponent implements OnInit {
+export class SupervisionSearchComponent implements OnInit {
 
   form = {
-    company_contract_type: '원청사',
+    company_contract_type: '감리사',
     search_text: ''
   }
   res: ConnectResult<{
@@ -27,27 +26,28 @@ export class SearchContractorComponent implements OnInit {
     company_id: 0,
     business_register_no: '',
     company_name: '',
-    company_ceo: '',
-    search_type:'원청사'
+    company_ceo: ''
   }
+
   submitArr = [];
   filteritem = [];
   business_register_no_check: boolean = false;
+  
   constructor(
     private connect: ConnectService,
     private _modal_: ModalController,
-    private toast: ToastService,
-    private regex:RegexService
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
-    this.getCtgoContractor();
+    this.getCtgoSupervision();
   }
 
-
-  async getCtgoContractor() {
+  async getCtgoSupervision() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
-    if (this.res.rsCode === 0) { }
+    if (this.res.rsCode === 0) { 
+      console.log(this.res);
+    }
   }
 
   async addCompany() {
@@ -85,6 +85,7 @@ export class SearchContractorComponent implements OnInit {
       })
     }
   }
+
 
   async overlap(business_register_no) {
     console.log("business_register_no",business_register_no);

@@ -49,18 +49,11 @@ export class OrganizationSelectPage implements OnInit {
       }
     })
     this.businessItem = await this.connect.run('/category/organization/business/get',{hq_regional_id:item.hq_regional_id})
-    if(this.businessItem.rsCode === 0) {
-    } else { 
-      this.connect.error('불러오기 실패',this.businessItem);
-    }
+    if(this.businessItem.rsCode === 0) {}
   }
   async regional(){
     this.regionalItem = await this.connect.run('/category/organization/regional/get');
-    if(this.regionalItem.rsCode === 0) {
-      console.log(this.regionalItem);
-    } else {
-      this.connect.error('불러오기 실패',this.regionalItem)
-    }
+    if(this.regionalItem.rsCode === 0) {}
   }
   checkChange(item) {
     this.businessItem.rsMap.forEach(data => {

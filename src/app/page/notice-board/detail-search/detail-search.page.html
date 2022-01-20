@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar color="white">
-  <ion-buttons (click)="dismiss()" slot="end">
-    <app-img name="close"></app-img>
-  </ion-buttons>
-  <ion-title>상세검색</ion-title>
-</ion-toolbar>
+    <app-row>
+      <app-col>
+        <ion-title>상세검색</ion-title>
+      </app-col>
+      <app-col size="auto">
+        <app-img (click)="dismiss()" name="close"></app-img>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -28,7 +32,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <app-input-group label="작성일">       
+        <app-input-group label="작성일">
           <app-calendar></app-calendar>
           ~
           <app-calendar></app-calendar>

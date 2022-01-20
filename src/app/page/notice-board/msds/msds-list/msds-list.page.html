@@ -7,39 +7,62 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
             <tbody>
                 <tr>
                   <td>
-                    <app-select-scene></app-select-scene>
+                    <app-select-scene [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
                   </td>
                 </tr>
                       <tr>
                   <td>
-                    <app-select-company></app-select-company>
+                    <app-select-company [required]="true"></app-select-company>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <app-select label="구분" value="전체">
-                      <app-select-option value="전체">전체</app-select-option>
+                    <app-select label="구분" value="전체" [(ngModel)]="form.msds_types" [required]="true">
+                      <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
+                      <app-select-option value="인화성 가스">인화성 가스</app-select-option>
+                      <app-select-option value="인화성 액체">인화성 액체</app-select-option>
+                      <app-select-option value="인화성 고체">인화성 고체</app-select-option>
+                      <app-select-option value="에어로졸">에어로졸</app-select-option>
+                      <app-select-option value="물반응성 물질">물반응성 물질</app-select-option>
+                      <app-select-option value="산화성 가스">산화성 가스</app-select-option>
+                      <app-select-option value="산화성 액체">산화성 액체</app-select-option>
+                      <app-select-option value="산화성 고체">산화성 고체</app-select-option>
+                      <app-select-option value="고압가스">고압가스</app-select-option>
+                      <app-select-option value="자기반응성 물질">자기반응성 물질</app-select-option>
+                      <app-select-option value="자연발화성 액체">자연발화성 액체</app-select-option>
+                      <app-select-option value="자연발화성 고체">자연발화성 고체</app-select-option>
+                      <app-select-option value="심한 눈 손상성 또는 자극성 물질">심한 눈 손상성 또는 자극성 물질</app-select-option>
+                      <app-select-option value="호흡기 과민성 물질">호흡기 과민성 물질</app-select-option>
+                      <app-select-option value="피부 과민성 물질">피부 과민성 물질</app-select-option>
+                      <app-select-option value="발암성물질">발암성물질</app-select-option>
+                      <app-select-option value="생식세포 변이원성 물질">생식세포 변이원성 물질</app-select-option>
+                      <app-select-option value="생식독성 물질">생식독성 물질</app-select-option>
+                      <app-select-option value="특정표적장기 독성 물질(1회 노출)">특정표적장기 독성 물질(1회 노출)</app-select-option>
+                      <app-select-option value="특정표적장기 독성 물질(반복 노출)">특정표적장기 독성 물질(반복 노출)</app-select-option>
+                      <app-select-option value="흡인유해성 물질">흡인유해성 물질</app-select-option>
+                      <app-select-option value="수생환경 유해성 물질">수생환경 유해성 물질</app-select-option>
+                      <app-select-option value="오존층 유해성 물질">오존층 유해성 물질</app-select-option>
                     </app-select>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <app-input-group label="등록일">
-                      <app-calendar></app-calendar>
+                    <app-input-group label="등록일" [required]="true">
+                      <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                       ~
-                      <app-calendar></app-calendar>
+                      <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                     </app-input-group>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                    <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
                   </td>
                 </tr>
               </tbody>
@@ -52,7 +75,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>수시 위험성평가 목록 (총90건)</h5>
+          <h5>MSDS 목록 (총{{res?.rsMap.length}}건)</h5>
         </ion-toolbar>
         <app-check-group>
           <app-table>
@@ -61,8 +84,8 @@
                 <th style="width: 40px;">
                   <app-check type="all" color="white" size="small" name="check"></app-check>
                 </th>
-                <th style="width: 40px; text-align: center;"><ion-icon name="star"></ion-icon></th>
-                <th style="width: 80px;">구분</th>
+                <th style="width: 60px; text-align: center;">상단노출</th>
+                <th style="width: 80px;">MSDS 구분</th>
                 <th style="width: 500px;">제목</th>
                 <th style="width: 100px;">업체명</th>
                 <th style="width: 80px;">작성자</th>
@@ -70,20 +93,30 @@
                 <th style="width: 50px;">조회수</th>
               </tr>    
             </thead>
-              <tr class="button">
+              <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
                 <td style="width:40px"><app-check color="white" size="small" name="check"></app-check></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td (click)="$event.stopPropagation()" style="text-align: center;">
+                  <ion-icon name="star" [class.iconstar]="item.favorites_state_bool"
+                    (click)="favoritesCheck(item)" 
+                    *ngIf="item.favorites_state_bool"></ion-icon>
+                  <ion-icon name="star-outline" 
+                    (click)="favoritesCheck(item)"
+                    [class.iconstar]="item.favorites_state_bool"
+                    (click)="item.favorites_state_bool != item.favorites_state_bool"
+                    *ngIf="!item.favorites_state_bool"></ion-icon>
+                </td>
+                <td>{{ item.msds_type }}</td>
+                <td>{{ item.msds_title }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.hit_count }}</td>
               </tr>
             <tbody>
             </tbody>
           </app-table>
         </app-check-group>
-        <app-pager></app-pager>
+        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
       </app-col>
     </app-row>
   </ion-content>
@@ -108,29 +141,12 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card *ngFor="let item of [1,2,3,4]">
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
       <app-row style="align-items: flex-start;">
         <app-col>
-          <p>구일종합건설(주)/박소현/A001</p>
-          <p>배정일: 2021.10.18</p>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <ion-badge color="success">폭발성 가스</ion-badge>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card *ngFor="let item of [1,2,3,4]">
-      <app-row style="align-items: flex-start;">
-        <app-col>
-          <p>구일종합건설(주)/박소현/A001</p>
-          <p>배정일: 2021.10.18</p>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <ion-badge color="success">인화성 물질</ion-badge>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+          <ion-badge color="success">{{ item.msds_type }}</ion-badge>
         </app-col>
       </app-row>
     </app-card>

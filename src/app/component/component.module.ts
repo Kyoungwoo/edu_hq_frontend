@@ -50,6 +50,8 @@ import { MonitorComponent } from './header/monitor/monitor.component';
 import { ApprovalPopupComponent } from '../page/member-management/member-approval-wait/approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../page/member-management/member-approval-wait/security-password/security-password.component';
 import { MileagePopupComponent } from '../page/member-management/member-management/mileage-popup/mileage-popup.component';
+import { SupervisionSearchComponent } from './modal/supervision-search/supervision-search.component';
+import { ProjectAreaSetComponent } from './modal/project-area-set/project-area-set.component';
 
 
 
@@ -100,7 +102,9 @@ import { MileagePopupComponent } from '../page/member-management/member-manageme
     MonitorComponent,
     ApprovalPopupComponent,
     SecurityPasswordComponent,
-    MileagePopupComponent
+    MileagePopupComponent,
+    SupervisionSearchComponent,
+    ProjectAreaSetComponent
   ],
   imports: [
     CommonModule,
@@ -155,7 +159,9 @@ import { MileagePopupComponent } from '../page/member-management/member-manageme
     MonitorComponent,
     ApprovalPopupComponent,
     SecurityPasswordComponent,
-    MileagePopupComponent
+    MileagePopupComponent,
+    SupervisionSearchComponent,
+    ProjectAreaSetComponent
   ]
 })
 export class ComponentModule { }

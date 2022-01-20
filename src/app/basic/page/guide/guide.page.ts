@@ -169,7 +169,7 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
         file_name: 'logo.svg',
         file_size: 23423432,
         file_type: '.svg',
-        file_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
+        full_url: 'https://www.devmonster.co.kr/assets/img/logo.svg',
         order_no: this.file.list.length + 1, 
         seq_no: this.file.list.length + 1,
         view_type: 'SUB'

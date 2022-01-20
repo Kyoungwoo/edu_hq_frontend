@@ -31,7 +31,8 @@ export enum ContentType {
 }
 export interface ConnectOptions {
   contentType?:ContentType,
-  loading?:string | boolean
+  loading?:string | boolean,
+  parse?:string[]
 }
 /* export type Valid<T> = {
   [P in keyof T]?: { message:string, valid:boolean }
@@ -105,6 +106,25 @@ export class ConnectService {
         rsMsg: '서버 연결에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.', //error.message, 
         rqMethod: '', 
         rsMap:null
+      }
+    }
+
+    if(options?.parse) {
+      if(result.rsObj) {
+        try {
+          options?.parse.forEach(key => {
+            result.rsObj[key] = JSON.parse(result.rsObj[key]);
+          });
+        } catch(e) {}
+      }
+      if(result.rsMap) {
+        try {
+          options?.parse.forEach(key => {
+            result.rsMap.forEach(rsObj => {
+              rsObj[key] = JSON.parse(result.rsObj[key]);
+            });
+          });
+        } catch(e) {}
       }
     }
 
