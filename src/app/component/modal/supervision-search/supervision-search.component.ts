@@ -4,14 +4,14 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 @Component({
-  selector: 'app-search-contractor',
-  templateUrl: './search-contractor.component.html',
-  styleUrls: ['./search-contractor.component.scss'],
+  selector: 'app-supervision-search',
+  templateUrl: './supervision-search.component.html',
+  styleUrls: ['./supervision-search.component.scss'],
 })
-export class SearchContractorComponent implements OnInit {
+export class SupervisionSearchComponent implements OnInit {
 
   form = {
-    company_contract_type: '원청사',
+    company_contract_type: '감리사',
     search_text: ''
   }
   res: ConnectResult<{
@@ -30,6 +30,7 @@ export class SearchContractorComponent implements OnInit {
   }
   submitArr = [];
   business_register_no_check: boolean = false;
+  
   constructor(
     private connect: ConnectService,
     private _modal_: ModalController,
@@ -37,11 +38,10 @@ export class SearchContractorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getCtgoContractor();
+    this.getCtgoSupervision();
   }
 
-
-  async getCtgoContractor() {
+  async getCtgoSupervision() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) { }
   }
