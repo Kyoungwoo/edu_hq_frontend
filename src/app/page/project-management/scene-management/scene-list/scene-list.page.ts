@@ -82,7 +82,7 @@ export class SceneListPage implements OnInit {
   async edit(project_id?) {
     const modal = await this.modal.create({
       component:SceneEditPage,
-      componentProps:{project_id}
+      componentProps: { project_id }
     });
     modal.present();
   }

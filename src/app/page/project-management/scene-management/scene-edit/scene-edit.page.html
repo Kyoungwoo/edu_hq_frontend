@@ -81,7 +81,7 @@
             <app-col size="auto">
               <app-button>추가
                 <app-file name="input" view_type="NOTICE"
-                [value]="form.list"
+                [(ngModel)]="form.project_file_data"
                 [file]="form.file"
                 [file_json]="form.file_json"
                 ></app-file>
@@ -90,17 +90,24 @@
           </app-row>
         </ion-toolbar>
         <app-table>
-          <tr *ngFor="let item of form.list let i = index">
-            <Td>
+          <tr *ngFor="let item of form.project_file_data let i = index">
+            <td>
               <app-row>
                 <app-col>
-                  <a *ngIf="item.file_name" [href]="item.file_url + item.file_name" target="_blank" [download]="item.file_name">
+                  <a [href]="item.full_url" target="_blank" [download]="item.file_name">
                     <ion-icon name="save-outline"></ion-icon>
                     {{ item.file_name }}
                   </a>
                 </app-col>
               </app-row>
-            </Td>
+              <ion-row
+              *ngIf="item.content_type.startsWith('image')">
+                <ion-col>
+                  <div class="image-detail">이미지 미리보기</div>
+                  <app-img class="image-class" [src]="item.full_url"></app-img>
+                </ion-col>
+              </ion-row>
+            </td>
           </tr>
         </app-table>
       </app-col>

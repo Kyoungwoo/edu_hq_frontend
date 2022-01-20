@@ -1,6 +1,6 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-declare var nhn:any
+declare var nhn:any;
 
 @Component({
   selector: 'app-smartedit',
@@ -29,7 +29,7 @@ export class SmarteditComponent implements OnInit {
       oAppRef: oEditors,
       elPlaceHolder: "smartEditor",  //textarea ID 입력
       // sSkinURI: "/libs/smarteditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
-      sSkinURI: "assets/lib/smartEditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
+      sSkinURI: "../../assets/lib/smartEditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
       fCreator: "createSEditor2",
       htParams : { 
         // 툴바 사용 여부 (true:사용/ false:사용하지 않음) 

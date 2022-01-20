@@ -10,18 +10,18 @@ export class DetailSearchPage implements OnInit {
   scene = '';
 
   constructor(
-    private _modal : ModalController
+    private _modal_ : ModalController
   ) { }
 
   ngOnInit() {
   }
   dismiss(){
-    this._modal.dismiss();
+    this._modal_.dismiss();
   }
   init(){
     
   }
   search(){
-    this._modal.dismiss();
+    this._modal_.dismiss();
   }
 }

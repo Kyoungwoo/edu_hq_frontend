@@ -18,6 +18,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "원청사";
 
+  name:string;
   constructor(
     private _modal:ModalController
   ) { }
@@ -28,6 +29,11 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       component:SearchContractorComponent
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.value = data.company_id;
+      this.name = data.company_name
+    }
   }
  
 

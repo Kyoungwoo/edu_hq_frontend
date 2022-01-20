@@ -149,7 +149,7 @@ export class FileJson<T = string> {
   delete:{seq_no:number}[] = [];
 }
 export interface FutItem<T = string> {
-  file_url:string | SafeUrl,
+  full_url:string | SafeUrl,
   file_name:string,
   seq_no:number,
   order_no:number,

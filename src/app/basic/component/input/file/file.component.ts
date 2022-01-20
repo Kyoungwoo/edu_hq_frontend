@@ -84,7 +84,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       file_name: file.name,
       file_size: file.size,
       file_type: this.fileService.getMimeType(file),
-      file_url: this.fileService.createObjectURL(file),
+      full_url: this.fileService.createObjectURL(file),
       order_no,
       view_type,
       seq_no: 0

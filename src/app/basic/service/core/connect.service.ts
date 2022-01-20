@@ -31,7 +31,8 @@ export enum ContentType {
 }
 export interface ConnectOptions {
   contentType?:ContentType,
-  loading?:string
+  loading?:string,
+  parse?:string[]
 }
 
 @Injectable({
@@ -93,6 +94,25 @@ export class ConnectService {
         rsMsg: error.message, 
         rqMethod: '', 
         rsMap:null
+      }
+    }
+
+    if(options?.parse) {
+      if(result.rsObj) {
+        try {
+          options?.parse.forEach(key => {
+            result.rsObj[key] = JSON.parse(result.rsObj[key]);
+          });
+        } catch(e) {}
+      }
+      if(result.rsMap) {
+        try {
+          options?.parse.forEach(key => {
+            result.rsMap.forEach(rsObj => {
+              rsObj[key] = JSON.parse(result.rsObj[key]);
+            });
+          });
+        } catch(e) {}
       }
     }
 
