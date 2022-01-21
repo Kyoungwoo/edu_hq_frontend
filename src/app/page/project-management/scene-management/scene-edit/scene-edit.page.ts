@@ -7,6 +7,10 @@ import { ProjectAreaSetComponent } from 'src/app/component/modal/project-area-se
 import { SupervisionSearchComponent } from 'src/app/component/modal/supervision-search/supervision-search.component';
 import { OrganizationSelectPage } from '../organization-select/organization-select.page';
 
+export interface COMPANY_DATA{
+  company_type:string,
+  company_id:number
+}
 export class ProjectDetail {
   create_user_id: number; // 작성자 유저 ID
   hq_business_name: string; // 사업본부 (null일 수 있습니다)
@@ -32,9 +36,10 @@ export class ProjectDetail {
   project_file_data: FutItem[] = [];
   file: (File|Blob)[] = [];
   file_json: FileJson = new FileJson();
-  supervision_name:string
-  map_gps:string
-  gps_state_con:string
+  supervision_name:string;
+  map_gps:string;
+  gps_state_con:string;
+  company_data:COMPANY_DATA[] = [];
 }
 // {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
 // "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
@@ -48,6 +53,7 @@ export class SceneEditPage implements OnInit {
   
   @Input() project_id;
   
+  contractor_id = [];
   mapData={
     gps_latitude:[]
   }
@@ -94,6 +100,21 @@ export class SceneEditPage implements OnInit {
       this.organization.name = res.rsObj.hq_regional_name + ', ' + res.rsObj.hq_business_name;
     }
   }
+
+  async sceneInsert(){
+    console.log(this.contractor_id);
+    let contractor_ids = [];
+    this.contractor_id.forEach(item => {
+      contractor_ids.push({
+        company_type:'감리사',
+        company_id:item.company_id
+      });
+    })
+    this.form.company_data = contractor_ids;
+    const res = await this.connect.run('/project/insert',this.form);
+    if(res.rsCode === 0) {
+    }
+  }
   async organizationSel(){
     const modal = await this._modal.create({
       component:OrganizationSelectPage
@@ -117,8 +138,14 @@ export class SceneEditPage implements OnInit {
     console.log("감리사 모달 데이터",data);
     if(data) {
       let company_name_data = [];
-      let compnay_id_data = [];
+      let company_data = [];
       data.forEach(item => {
+        company_data.push({
+          company_type:'감리사',
+          company_id:item.company_id
+        });
+        this.form.company_data = company_data;
+        console.log("this.form.company_data",company_data);
         company_name_data.push(item.company_name);
       })
       this.form.supervision_name = company_name_data.toString();

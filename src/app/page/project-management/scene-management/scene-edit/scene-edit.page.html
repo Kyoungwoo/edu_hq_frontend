@@ -23,7 +23,7 @@
       <app-col>
         <app-row>
           <app-col>
-            <app-select-contractor ></app-select-contractor>
+            <app-select-contractor [(ngModel)]="contractor_id"></app-select-contractor>
           </app-col>
         </app-row>
       </app-col>
@@ -131,7 +131,7 @@
         </ion-toolbar>
         <app-table>
           <tr *ngFor="let item of form.project_file_data let i = index">
-            <td *ngIf="item.view_type==='BIRDSEYE'">
+            <td *ngIf="item.view_type==='FLOOR'">
               <app-row>
                 <app-col>
                   <a [href]="item.full_url" target="_blank" [download]="item.file_name">
@@ -167,5 +167,5 @@
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button slot="end">저장</app-button>
+  <app-button slot="end" (click)="sceneInsert()">저장</app-button>
 </app-button-footer>
