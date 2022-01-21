@@ -1,7 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
+import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+
+export type scopeOne = '현장전체' | '내 소속사만' | '협력사별';
+export type scopeTwo = '전체' | '관리자' | '작업자';
+export class NoticePublicScope {
+  company_id: number;
+  company_name: string;
+  public_scope_allstate: boolean;
+  public_scope_one: scopeOne;
+  public_scope_two: scopeTwo;
+}
+interface scopeItem<T> {
+  value: T,
+  text: string
+}
+
+interface companyItem {
+  company_ceo: string,
+  company_id: number,
+  company_name: string
+}
 
 @Component({
   selector: 'app-notice-open-range',
@@ -10,115 +29,115 @@ import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-
 })
 export class NoticeOpenRangePage implements OnInit {
 
+  @Input() form:NoticePublicScope;
+  validator = new Validator(new NoticePublicScope()).validator;
+
   menuCount:Number = 1;
-  list=
-  [
+  
+  list1:scopeItem<scopeOne>[] = [
     {
-      checked:false,
+      value: '현장전체',
       text:'전체'
     },
     {
-      checked:false,
+      value: '내 소속사만',
       text:'내 소속사만'
     },
     {
-      checked:false,
+      value: '협력사별',
       text:'협력사별'
-    },
+    }
   ]
 
-  list1=
-  [
+  list2:scopeItem<scopeTwo>[] = [
     {
-      checked:false,
+      value: '전체',
       text:'전체(관리자+작업자)'
     },
     {
-      checked:false,
+      value: '관리자',
       text:'관리자만'
     },
     {
-      checked:false,
+      value: '작업자',
       text:'작업자만'
-    },
+    }
   ]
-  area1:boolean = false;
-  area2:boolean = false;
-  totalArea = {
-    area1:'',
-    area2:'',
-    area3:'',
-    area_id:0
-  }
 
-  res:ConnectResult <{
-    company_all:string
-    company_ceo: string
-    company_id: number
-    company_name: string
-    checked:boolean
-  }>
+  res:ConnectResult<companyItem>;
 
   constructor(
-    private _modal_ : ModalController,
+    private _modal: ModalController,
     private connect: ConnectService
   ) { }
 
-  async ngOnInit() {
-    this.list[0].checked = true;
-    // const modal = await this.modal.create({
-    //   component:SearchAreaComponent
-    // });
-    // modal.present();
+  ngOnInit() {
+    this.get();
   }
 
-  async partnerCtgo() {
-    this.res = await this.connect.run('/category/certify/company/get',{
+  async get(){
+    this.res = await this.connect.run('/category/certify/company/get', {
       company_contract_type:'협력사',
       search_text:''
     });
-    if(this.res.rsCode === 0) {
-      console.log("----------------",this.res.rsMap);
-    } 
   }
 
 
-  areaOne(item) {
-    this.list.forEach(data => {
-      item === data.text ? data.checked = true : data.checked = false;
-      if(data.checked) return this.totalArea.area1 = data.text;
-    });
-    console.log("this.totalArea",this.totalArea);
-    if(item !== '전체') {
-      this.area1 = true;
-    } else {
-      this.area2 = false;
-      this.area1 = false;
-    }
+  select1(item:scopeItem<scopeOne>) {
+    this.form.public_scope_one = item.value;
+    // this.form.public_scope_two
+    this.form.public_scope_allstate = false;
+    this.form.company_id = 0;
+    this.form.company_name = '';
   }
 
-  areaTow(item?){
-    if(item !== '전체(관리자+작업자)') {
-      this.area2 = true;
-      this.partnerCtgo();
-    } else this.area2 = false;
-    this.list1.forEach(data => {
-      item === data.text ? data.checked = true : data.checked = false;
-      if(data.checked) return this.totalArea.area2 = data.text;
-    })
+  select2(item:scopeItem<scopeTwo>) {
+    // this.form.public_scope_one
+    this.form.public_scope_two = item.value;
+    // this.form.public_scope_allstate
+    // this.form.company_id
+    // this.form.company_name
+  }
+  select3All() {
+    this.form.public_scope_allstate = true;
+    this.form.company_id = 0;
+    this.form.company_name = '';
+  }
+  select3(item:companyItem) {
+    // this.form.public_scope_one
+    // this.form.public_scope_two
+    this.form.public_scope_allstate = false;
+    this.form.company_id = item.company_id;
+    this.form.company_name = item.company_name;
   }
   
-  partnerCheck(item) {
-    console.log(item);
-    this.res.rsMap.forEach(data => {
-      item === data.company_id ? data.checked = true : data.checked = false;
-      if(data.checked) {
-        this.totalArea.area3 = data.company_name;
-        this.totalArea.area_id = data.company_id;
-      }
-    });
-  }
   submit() {
-    this._modal_.dismiss(this.totalArea);
+    if(!this.valid()) return;
+    this._modal.dismiss(this.form);
+  }
+
+  valid() {
+    if(!this.form.public_scope_one) this.validator.public_scope_one = { valid: false, message: '항목을 선택해주세요.' };
+    else this.validator.public_scope_one = { valid: true };
+
+    if(!this.form.public_scope_two) this.validator.public_scope_two = { valid: false, message: '항목을 선택해주세요.' };
+    else this.validator.public_scope_two = { valid: true };
+
+    if(this.form.public_scope_one === '협력사별') {
+      if(this.form.public_scope_allstate == null) this.validator.company_id = { valid: false, message: '항목을 선택해주세요.' };
+      else if(this.form.public_scope_allstate == false) {
+        if(!this.form.company_id) this.validator.company_id = { valid: false, message: '항목을 선택해주세요.' };
+        else {
+          this.validator.public_scope_allstate = { valid: true };
+          this.validator.company_id = { valid: true };
+          this.validator.company_name = { valid: true };
+        }
+      }
+    } else this.validator.company_id = { valid: true };
+  
+    for(let key in this.validator) {
+      if(!this.validator[key]?.valid) return false;
+    }
+    return true;
   }
 }

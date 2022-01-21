@@ -36,7 +36,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-input [(ngModel)]="form.public_scope_name" label="게시물 공개범위" (click)="openRange()" [required]="true">
+      <app-input label="게시물 공개범위" (click)="openRange()" [value]="rangeText" [readonly]="true" [required]="true">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>

@@ -4,12 +4,12 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NoticeOpenRangePage } from '../../notice-open-range/notice-open-range.page';
+import { NoticeOpenRangePage, NoticePublicScope, scopeOne, scopeTwo } from '../../notice-open-range/notice-open-range.page';
 
-export class NoticeItem {
+
+export class NoticeItem implements NoticePublicScope {
   notice_title: string;
   notice_content: string;
-  company_id: number;
   project_id: number;
   user_name: string;
   company_name: string;
@@ -20,12 +20,13 @@ export class NoticeItem {
   notice_type: string;
   notice_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
-  file_json: FileJson = new FileJson();
+  file_json: FileJson = new FileJson(); 
+
+  company_id: number;
   public_scope_allstate: boolean;
-  public_scope_one: string;
-  public_scope_two: string;
-  public_scope_name: string;
-};
+  public_scope_one: scopeOne;
+  public_scope_two: scopeTwo;
+}
 
 @Component({
   selector: 'app-notice-edit',
@@ -40,11 +41,14 @@ export class NoticeEditPage implements OnInit {
 
   form = new NoticeItem();
 
+  rangeText = '';
+
   constructor(
     private connect: ConnectService,
     private _modal: ModalController,
     private toast: ToastService,
-    public user: UserService
+    public user: UserService,
+    private noticeRange: NoticeOpenRangePage
   ) { }
 
   ngOnInit() {
@@ -83,15 +87,30 @@ export class NoticeEditPage implements OnInit {
     }
   }
   async openRange() {
+    const { 
+      company_id,
+      public_scope_allstate,
+      public_scope_one,
+      public_scope_two
+     } = this.form;
     const modal = await this._modal.create({
-      component:NoticeOpenRangePage
+      component:NoticeOpenRangePage,
+      componentProps: {
+        form: {
+          company_id,
+          public_scope_allstate,
+          public_scope_one,
+          public_scope_two
+        }
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) { 
-      this.form.public_scope_name = data.area1 + ' ' + data.area2 + ' ' + data.area3
-      console.log("data",data);
-      console.log("this.form",this.form);
+    const scope = <NoticePublicScope>data;
+    if(scope) {
+      const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
+      const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
+      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.company_name}`;
     }
   }
 }
