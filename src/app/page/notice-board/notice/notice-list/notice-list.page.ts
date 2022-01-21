@@ -47,19 +47,13 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-
     this.get();
   }
 
   async get() {
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
-    })
-    /* if(this.res.rsCode === 0) {
-      this.res.rsMap.forEach(item => {
-        if(item.favorites_state) item.favorites_state_bool = true; 
-      })
-    } */
+    });
   }
 
   async detailSearch() {

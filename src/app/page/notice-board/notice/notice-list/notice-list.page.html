@@ -67,9 +67,6 @@
               <app-table>
                 <thead>
                   <tr>
-                    <th style="width: 40px;">
-                      <app-check type="all" color="white" size="small" name="check"></app-check>
-                    </th>
                     <th style="width: 100px;">
                       상단노출
                     </th>
@@ -83,12 +80,9 @@
                 </thead>
                 <tbody>
                   <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
-                    <td (click)="$event.stopPropagation()">
-                      <app-check color="white" size="small" name="check"></app-check>
-                    </td>
-                    <td (click)="$event.stopPropagation()">
+                    <td (click)="favoritesCheck($event, item)">
                       <app-button size="small" shape="square" fill="translucent"
-                      [color]="item.favorites_state ? 'star' : 'medium'" (click)="favoritesCheck($event, item)">
+                      [color]="item.favorites_state ? 'star' : 'medium'">
                         <ion-icon name="star"></ion-icon>
                       </app-button>
                     </td>
