@@ -17,9 +17,9 @@
   @include generateColor('light', #F7F9FC, #000000);
   @include generateColor('medium', #9CB3BE, #ffffff);
   @include generateColor('dark', #445760, #ffffff);
-  @include generateColor('star', #FFD873, #ffffff);
-
+  
   @include generateColor('white', #ffffff, #000000);
+  @include generateColor('star', #ffba0d, #ffffff);
 }
 @include generateColorClass('primary');
 @include generateColorClass('secondary');
@@ -32,6 +32,7 @@
 @include generateColorClass('dark');
 
 @include generateColorClass('white');
+@include generateColorClass('star');
 
 @media (prefers-color-scheme: dark) {
   body {
@@ -48,6 +49,7 @@
     @include generateColor('light', #f1f0ef, #222120);
 
     @include generateColor('white', #181818, white);
+    @include generateColor('star', #ffba0d, #ffffff);
   }
 }
 

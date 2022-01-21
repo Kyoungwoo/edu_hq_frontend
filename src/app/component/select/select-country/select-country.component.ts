@@ -1,7 +1,9 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 
 export interface Country {
   ctgo_country_id: number,

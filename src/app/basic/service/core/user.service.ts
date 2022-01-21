@@ -6,12 +6,7 @@ enum TAG {
   UserData = 'Devmonster@UserData'
 }
 
-export enum UserType { 
-  WORKER = 'WORKER', 
-  LH = 'LH',
-  SUPER = 'SUPER', 
-  COMPANY = 'COMPANY'
-}
+export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {
@@ -19,7 +14,21 @@ export interface AuthToken {
   refresh_token:string;
 }
 export class UserData {
-  
+  account_id:string; // "worker_sh"
+  belong_data = {
+    company_id: 0,
+    project_id: 0
+  }; // "{\"company_id\": 1, \"project_id\": 61}"
+  old_token_state:boolean; // false
+  user_birth:string; // "1987-07-26"
+  user_email:string; // "BOcilSPgIm@naver.com"
+  user_gender:string; // "남"
+  user_id:number; // 8573724717
+  user_name:string; // "김수홍"
+  user_phone:string; // "01000249857"
+  user_profile:string; // "null"
+  user_role:string; // "COMPANY_WORKER"
+  user_type:UserType; // "WORKER"
 }
 @Injectable({
   providedIn: 'root'
@@ -34,6 +43,7 @@ export class UserService {
     @Inject(PLATFORM_ID) private platformId
   ) {
     this.getAuthToken();
+    this.getUserData();
   }
   getAuthToken() {
     if(isPlatformServer(this.platformId)) return this.authToken = null; // ssr에서 auth token을 어떠헥 처리해야 하지? 쿠키로 해야하나? 아니면 정보를 안띄워야 하나?

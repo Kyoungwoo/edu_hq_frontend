@@ -49,7 +49,7 @@
     </app-row>
     <app-row mobileBreak>
       <app-col>
-        <app-select label="사업분야">
+        <app-select [(ngModel)]="form.ctgo_business_field_name" label="사업분야">
           <app-select-option value="단지개발">단지개발</app-select-option>
           <app-select-option value="아파트">아파트</app-select-option>
           <app-select-option value="교량 및 도로">교량 및 도로</app-select-option>
@@ -62,19 +62,20 @@
     </app-row>
     <app-row mobileBreak>
       <app-col>
-        <app-input [readonly] [(ngModel)]="form.project_address" (click)="address()" label="주소"></app-input>
+        <app-input [readonly]="true" [(ngModel)]="form.project_address" (click)="address()" label="주소"></app-input>
       </app-col>
       <app-col>
-        <app-input [(ngModel)]="form.gps_state_con" [readonly]="true" (click)="project_area_set()" label="현장 영역" 
-        [value]="this.form.map_gps"></app-input>
+        <app-input [(ngModel)]="form.gps_coordinate_data"
+         [value]="project_id ? form.gps_state_con:form.add_gps_state_con" 
+         [readonly]="true" (click)="project_area_set()" label="현장 영역"></app-input>
       </app-col>
     </app-row>
   </app-card>
 
   <app-card>
-    <app-row>
+    <app-row style="align-items: flex-start;">
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar slot="top" color="white">
           <app-row>
             <app-col>
               <h5>조감도</h5>
@@ -113,7 +114,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar slot="top" color="white">
           <app-row>
             <app-col>
               <h5>조직도</h5>

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
-import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
-import { SignUpCompanyInfo } from '../sign-up-company/sign-up-company.page';
-import { SignUpViewType, SignUpWorkerInfoMock, SignUpWorkerInfo } from './sign-up-worker.interface';
+import { environment } from 'src/environments/environment';
+import { SignUpViewType, SignUpWorkerInfoMock, SignUpWorkerInfo, SignUpCompanyInfo } from './sign-up-worker.interface';
 
 @Component({
   selector: 'app-sign-up-worker',
@@ -18,24 +18,67 @@ export class SignUpWorkerPage implements OnInit {
 
   companyInfo:SignUpCompanyInfo;
 
-  form = new SignUpWorkerInfoMock();
+  form = new SignUpWorkerInfo();
   validator = new Validator(new SignUpWorkerInfo()).validator;
 
   constructor(
-    private activedRoute: ActivatedRoute,
+    private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
     private nav: NavService,
     public regex: RegexService,
-    private loading: LoadingService
+    private promise: PromiseService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    console.log(this.form);
-    this.activedRoute.queryParams.subscribe((queryParams:SignUpCompanyInfo) => {
-      console.log('routerrouter', queryParams);
-      this.companyInfo = queryParams;
-      this.form.company_id = this.companyInfo.company_id;
-    });
+    console.log('companyInfo', history.state.companyInfo);
+    if(!this.checkParams()) return this.nav.navigateBack('/sign-up-company', { queryParams: { userType: 'WORKER' } });
+    this.companyInfo = history.state.companyInfo;
+    this.form.company_id = this.companyInfo.company_id;
+
+    if(environment.autoTest) this.test();
+  }
+
+  public async test() {
+    const el = this.el.nativeElement;
+    await this.promise.wait();
+
+    // 가짜 데이터 삽입
+    this.form = new SignUpWorkerInfoMock();
+    this.form.company_id = this.companyInfo.company_id;
+
+    // 핸드폰 중복 체크
+    el.querySelector('[name=user_phone]').dispatchEvent(new Event('delayKeyup'));
+    await this.promise.wait();
+    // 문자 인증 전송
+    el.querySelector('[name=user_phone]').dispatchEvent(new Event('buttonClick'));
+    await this.promise.wait(1500);
+
+    // 문자 인증번호 가져와서 넣기
+    const { user_phone } = this.form;
+    const res = await this.connect.run('/test/sms/get', { user_phone });
+    this.form.sms_token = res.rsObj.sms_token;
+    await this.promise.wait();
+    
+    // 문자 인증
+    this.changeDetector.detectChanges();
+    el.querySelector('[name=sms_token]').dispatchEvent(new Event('buttonClick'));
+    await this.promise.wait();
+
+    /* // 국가 가져오기
+    el.querySelector('[name=ctgo_country_id]').dispatchEvent(new Event('click')); */
+
+    // 현장 가져오기
+    el.querySelector('[name=project_id]').dispatchEvent(new Event('click'));
+    await this.promise.wait(3000);
+    
+    // 다음 페이지로
+    // el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
+  }
+
+  private checkParams() {
+    if(history.state?.companyInfo) return true;
+    else return false;
   }
 
   public async overlapId() {
@@ -87,13 +130,16 @@ export class SignUpWorkerPage implements OnInit {
     return this.form.file_preview.find(futItem => futItem.view_type === view_type);
   }
 
+  public prev() {
+    this.nav.back();
+  }
   public async next() {
     if(!this.valid()) return;
 
     this.nav.navigateForward('/sign-up-health', {
       state: {
-        form: this.form,
-        companyInfo: this.companyInfo
+        companyInfo: this.companyInfo,
+        signUpworkerInfo: this.form
       }
     });
   }
@@ -124,7 +170,7 @@ export class SignUpWorkerPage implements OnInit {
     if(!this.form.user_birth) this.validator.user_birth = { message: '생년월일을 입력해주세요.', valid: false };
     else this.validator.user_birth = { valid: true };
 
-    // if(!this.form.user_email) this.validator.user_email = {message: '이메일을 입력해주세요.', valid: false};
+    if(this.validator.user_email?.valid)
     this.validator.user_email = { valid: true };
 
     if(!this.form.user_gender) this.validator.user_gender = { message: '성별을 선택해주세요.', valid: false };

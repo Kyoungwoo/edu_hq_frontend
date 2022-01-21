@@ -47,7 +47,7 @@ export class NavService {
     }
     if(options?.queryParams) navOptions.queryParams = options.queryParams;
     if(options?.state) navOptions.state = options.state;
-    console.log(direction);
+    
     return this.navCtrl[direction](url, navOptions);
   }
 
