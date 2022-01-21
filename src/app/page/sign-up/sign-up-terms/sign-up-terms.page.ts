@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
 import { SignUpDonePage } from '../sign-up-done/sign-up-done.page';
+import { SignUpLhForm } from '../sign-up-lh/sign-up-lh.interface';
 import { SignUpWorkerForm } from '../sign-up-worker/sign-up-worker.interface';
 
 @Component({
@@ -15,7 +16,8 @@ import { SignUpWorkerForm } from '../sign-up-worker/sign-up-worker.interface';
 })
 export class SignUpTermsPage implements OnInit {
 
-  form = new SignUpWorkerForm();
+  userType:UserType;
+  form:SignUpWorkerForm | SignUpLhForm;
   res:ConnectResult;
 
   constructor(
@@ -28,10 +30,15 @@ export class SignUpTermsPage implements OnInit {
 
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
-    const { signUpworkerInfo, signUpWorkerHealth } = history.state;
-    this.form = {
-      ...signUpworkerInfo,
-      ...signUpWorkerHealth
+    if(this.userType === 'WORKER') {
+      const { signUpWorkerInfo, signUpWorkerHealth } = history.state;
+      this.form = {
+        ...signUpWorkerInfo,
+        ...signUpWorkerHealth
+      }
+    } else if(this.userType === 'LH') {
+      const { signUpLhForm } = history.state;
+      this.form = signUpLhForm;
     }
 
     if(environment.autoTest) this.test();
@@ -47,9 +54,16 @@ export class SignUpTermsPage implements OnInit {
   }
 
   private checkParams() {
-    if(history.state?.companyInfo
-    && history.state?.signUpworkerInfo
-    && history.state?.signUpWorkerHealth) return true;
+    if(history.state?.signUpLhForm) {
+      this.userType = 'LH';
+      return true;
+    }
+    else if(history.state?.companyInfo
+    && history.state?.signUpWorkerInfo
+    && history.state?.signUpWorkerHealth) {
+      this.userType = 'WORKER';
+      return true;
+    }
     else return false;
   }
 
@@ -61,7 +75,13 @@ export class SignUpTermsPage implements OnInit {
   }
 
   private async signUp() {
-    this.res = await this.connect.run('/sign/up/worker', this.form, {
+    let api = '';
+    if(this.userType === 'WORKER') {
+      api = '/sign/up/worker';
+    } else if(this.userType === 'LH') {
+      api = '/sign/up/lh';
+    }
+    this.res = await this.connect.run(api, this.form, {
       loading: true
     });
     if(this.res.rsCode === 0) {

@@ -67,5 +67,5 @@
   </app-container>
 </ion-content>
 <app-button-footer name="button-footer" *ngIf="userType" @slideUpInAnimation>
-  <app-button name="button_next" routerLink="/sign-up-company" [queryParams]="{ userType: userType }">다음</app-button>
+  <app-button name="button_next" (click)="next()">다음</app-button>
 </app-button-footer>

@@ -6,7 +6,8 @@ import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
-import { SignUpCompanyInfo, SignUpWorkerHealth, SignUpWorkerHealthMock, SignUpWorkerInfo } from '../../sign-up-worker/sign-up-worker.interface';
+import { signUpWorkerInfo, SignUpWorkerHealth, SignUpWorkerHealthMock } from '../../sign-up-worker/sign-up-worker.interface';
+import { SignUpCompanyInfo } from '../../sign-up.interface';
 
 @Component({
   selector: 'app-sign-up-health',
@@ -17,7 +18,7 @@ import { SignUpCompanyInfo, SignUpWorkerHealth, SignUpWorkerHealthMock, SignUpWo
 export class SignUpHealthPage implements OnInit {
 
   companyInfo:SignUpCompanyInfo;
-  signUpworkerInfo = new SignUpWorkerInfo();
+  signUpWorkerInfo = new signUpWorkerInfo();
 
   form = new SignUpWorkerHealth();
   validator = new Validator(new SignUpWorkerHealth()).validator;
@@ -31,7 +32,7 @@ export class SignUpHealthPage implements OnInit {
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/sign-up-company', { queryParams: { userType: 'WORKER' } });
     this.companyInfo = history.state.companyInfo;
-    this.signUpworkerInfo = history.state.signUpworkerInfo;
+    this.signUpWorkerInfo = history.state.signUpWorkerInfo;
 
     if(environment.autoTest) this.test();
   }
@@ -48,7 +49,7 @@ export class SignUpHealthPage implements OnInit {
 
   private checkParams() {
     if(history.state?.companyInfo
-    && history.state?.signUpworkerInfo) return true;
+    && history.state?.signUpWorkerInfo) return true;
     else return false;
   }
 
@@ -62,7 +63,7 @@ export class SignUpHealthPage implements OnInit {
     this.nav.navigateForward('/sign-up-terms', {
       state: {
         companyInfo: this.companyInfo,
-        signUpworkerInfo: this.signUpworkerInfo,
+        signUpWorkerInfo: this.signUpWorkerInfo,
         signUpWorkerHealth: this.form
       }
     });

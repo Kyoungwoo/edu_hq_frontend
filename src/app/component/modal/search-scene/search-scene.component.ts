@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
 type ProjectSearchType = 'ALL' | null;
-class ProjectItem {
+export class ProjectItem {
   project_name: string;
   project_id: number;
   project_code: string;
@@ -23,6 +23,8 @@ export class SearchSceneComponent implements OnInit {
     search_text: ''
   }
   res:ConnectResult<ProjectItem>;
+
+  allState:boolean = false;
   selectedItem:ProjectItem;
 
   constructor(
@@ -66,6 +68,9 @@ export class SearchSceneComponent implements OnInit {
     }
   }
   select() {
-    this._modal.dismiss(this.selectedItem);
+    this._modal.dismiss({
+      selectedItem: this.selectedItem,
+      allState: this.allState
+    });
   }
 }

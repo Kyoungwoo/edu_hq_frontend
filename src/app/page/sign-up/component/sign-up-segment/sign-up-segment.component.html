@@ -24,7 +24,7 @@
         </div>
       </div>
     </ion-segment-button>
-    <ion-segment-button mode="md" value="step3">
+    <ion-segment-button *ngIf="type === 'WORKER'" mode="md" value="step3">
       <div class="segment-inner">
         <div class="segment-img">
           <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>

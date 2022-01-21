@@ -25,13 +25,15 @@ app-col>app-row:last-child>:host {
 :host::ng-deep {
     >:first-child {
         margin-top: 0;
-        app-input-template {
+        >app-input-template,
+        >*>app-input-template {
             margin-top: 0;
         }
     }
     >:last-child {
         margin-bottom: 0;
-        app-input-template {
+        >app-input-template,
+        >*>app-input-template {
             margin-bottom: 0;
         }
     }

@@ -3,21 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from 'src/app/component/component.module';
+import { ComponentModule } from '../../project-management/scene-management/member-standard-set/component/component.module';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
 
-import { SignUpWorkerPage } from './sign-up-worker.page';
-import { SignUpCompanyInfoMock } from '../sign-up.interface';
+import { SignUpLhPage } from './sign-up-lh.page';
 
-describe('SignUpWorkerPage', () => {
-  let component: SignUpWorkerPage;
-  let fixture: ComponentFixture<SignUpWorkerPage>;
+describe('SignUpLhPage', () => {
+  let component: SignUpLhPage;
+  let fixture: ComponentFixture<SignUpLhPage>;
 
   beforeEach(waitForAsync(() => {
-    window.history.pushState({ companyInfo: new SignUpCompanyInfoMock() }, '', '');
-
     TestBed.configureTestingModule({
-      declarations: [ SignUpWorkerPage ],
+      declarations: [ SignUpLhPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -28,12 +25,12 @@ describe('SignUpWorkerPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignUpWorkerPage);
+    fixture = TestBed.createComponent(SignUpLhPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
-  it('should create', async() => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

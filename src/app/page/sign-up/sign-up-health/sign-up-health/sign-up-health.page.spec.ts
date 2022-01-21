@@ -5,7 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../../component/sign-up.component.module';
-import { SignUpCompanyInfoMock, SignUpWorkerInfoMock } from '../../sign-up-worker/sign-up-worker.interface';
+import { signUpWorkerInfoMock } from '../../sign-up-worker/sign-up-worker.interface';
+import { SignUpCompanyInfoMock, SignUpCountryMock, SignUpProjectInfoMock } from '../../sign-up.interface';
 
 import { SignUpHealthPage } from './sign-up-health.page';
 
@@ -16,7 +17,11 @@ describe('SignUpHealthPage', () => {
   beforeEach(waitForAsync(() => {
     window.history.pushState({ 
       companyInfo: new SignUpCompanyInfoMock(),
-      signUpworkerInfo: new SignUpWorkerInfoMock()
+      signUpWorkerInfo: new signUpWorkerInfoMock(
+        new SignUpCountryMock(),
+        new SignUpCompanyInfoMock(),
+        new SignUpProjectInfoMock()
+      )
     }, '', '');
     TestBed.configureTestingModule({
       declarations: [ SignUpHealthPage ],

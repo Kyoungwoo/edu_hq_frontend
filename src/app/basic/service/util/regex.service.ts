@@ -33,6 +33,10 @@ export class RegexService {
     },
     phone: () => {
       return '010' + Math.random().toString().slice(2, 10);
+    },
+    file: () => {
+      const binary = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAC3CAMAAADkUVG/AAAAclBMVEUAAAD///+mpqbi4uLOzs6tra3w8PDZ2dmYmJjm5ua+vr5jY2O4uLhGRkZtbW3d3d35+fnHx8eLi4vT09Pz8/M8PDyEhIR0dHR6enrExMRQUFBbW1saGhqRkZGfn5/r6+tEREReXl4rKyswMDASEhIkJCSHFvSNAAAE1klEQVR4nO2d3XaqMBBGBQRFVBD89wja077/Kx7pqasy83U1TQ2KfvvCi2mAZHdCF1MTeoXn9TOv75FPeoWXDbN5cet+3BW9QX+9H60p5ZJTpnj53KOUS06ZUgyKYlP0BcXADHnc6UiDCIyhZrYY9f2rPvT+u5mXcdAgLntGvFSBIM7jbyOn2F7F+qE6cKZDm7EKjUa6lVHnt7Lz8ew99CElGskUGptJmejk8w0iKFbNVCjWfxVTPdPTgQ4ZdX6qL5jUn3ckJbaVMqAU91JiSmlekJlCKeZSOH3EBZkplEIplEIplNJRKQeT4bqWkqpQ0J6UP8u15KhLEnsDAVeVkvqqD2EiO7pyJWWhx5brVnpGOZaC0iKSjbLbStmqRjeQEstGc0qhlGtL+Vk58kmkMFPEBSmF08dcCjNFXJBSKIVSKOXJpAS3lbKRPx45lhKqiPU/2GPQ1Uo2snhKnq9DwRqc5G0sW4U73ervZiRQJz8xVZFyqULDXIeG8uwjH3S1lMehRhM1nvJQh347fUASLNVxr7qR9fRBaaHmCijGtXlPMZLyRzey/n4KkhKoVsWjSDH769OClJRSmmdnplCKuRROH3F2ZgqlUAqlUAqlUMr9SbGtp1hLAfUUbaDSxZMK9As8JStPZvWUqlFPWfkCWE8JZSt/qiKgxPKq6zDW9RS05GavOpGrEDpuosYzXNShVjLFNY4yxe09xTWdvNG6hlIAlAKgFAClACgFQCkASgFQCoBSAJQCoBRAa/UUQym6LPI4T8mqnoK/n+KXkkRFyq1rB4pc9WG5lJEhOO4q9ZRH4yr1lEfD1RrCTkMpAEoBUAqAUgCUAqAUAKUAKAVAKQBKAVAK4CrfT3k0vqun7HJBYn2p14nkRUUmkzejcy3UcQsQsu3pYi9HvT5c1FNQXcoWvTIMlOc8VMTS6D10Yr3XEPpyky2ri0xxKwUtl0M732jAbktmawhtoRRALWVPKU1qKWtKacJMAfCeAqAUAKUAKAVAKQBKAVAK4LZSzB4IjaSgJUC2uJOSNfFKGTnFzDKlUAcO+ipktiOvGdMsiiIHUjrNrt78hVKauJo+nYZSAK6ekjuNq3pKp6ml9CmlCe8pAEoBUAqAUgCUAqAUAKUAKAVAKYDk4i247UvZBuLlxenMT1Wo9W4di8/3JbcvJVFVRbD1atR6t247fbQUsCfTNb+OYwalACgFQCkASgFQCoBSAJQCoBQApQAoBUApgHuTwgfC3jZOBbNQRtJ+6906DoqiOK/3Cau4QYXeh/NoJGLQcVzsgtPvgsvlmvc1riGkFAClACgFQCkASgFQCoBSAJQCoBQApQAoBUApgO9eDZzPNg1m4EXID8dWDHqzCd9D50wJo6pBVGZzSdZpUYknhxNs55UYdbGrQ19OH7Tnyf7WA/sNoP65++k9Ba37oxRKoRRKoZQPKAVAKQBKAVAKgFIAlAKgFICFFLX16hM8EEZH7alRT1mPBSsZOGG/HesdMFHD8RcqVB7qz3OmjOWmL77auyVDU6o7b4JSe91k8U6FgqQO/aie0mUpkd4V6To3WkqhFEqhFEqhFEqhFEqhFEqhlEeT0qUHQpNXA8+1lEhLqY7153m9z1C+JLeUARxDoWHbGHULtPoq1AMJ8fRQCoBSAP8A5cbxIRuVHvAAAAAASUVORK5CYII=`;
+      return this.dataUrlToBlob(binary);
     }
   }
 
@@ -80,6 +84,51 @@ export class RegexService {
       else if(number.length > length) number = number.substring(number.length - length, number.length);
       
       return number;
+    }
+  }
+
+
+  // 임시. 사용하지 말것. 지우지 말것.
+  private async dataUrlToBlob(dataUrl:string):Promise<any> {
+    const mimeString = dataUrl.split(",")[0].split(":")[1].split(";")[0];
+    const ab = await fetch(dataUrl)
+    .then(response => response.arrayBuffer())
+    .then(buffer => {
+      return new Uint8Array(buffer);
+    });
+    const blob:any = new Blob([ab], {
+      type: mimeString
+    });
+    blob.name = `file_${new Date().getTime()}${this.getMimeType(blob)}`;
+    blob.lastModifiedDate = new Date();
+    return blob;
+  }
+  private getMimeType(blob:any) {
+    switch(blob.type) {
+      case "audio/mpeg":
+        return ".mp3";
+      case "audio/wav":
+        return ".wav";
+      case "image/jpeg":
+        return ".jpeg";
+      case "image/png":
+        return ".png";
+      case "image/gif":
+        return ".gif";
+      case "image/svg+xml":
+        return ".svg";
+      case "image/webp":
+        return ".webp";
+      case "application/pdf":
+        return ".pdf";
+      case "video/mp4":
+        return ".mp4";
+      case "text/calendar":
+        return ".ics";
+      case "application/octet-stream":
+        return ".hwp";
+      default:
+        return null;
     }
   }
 }

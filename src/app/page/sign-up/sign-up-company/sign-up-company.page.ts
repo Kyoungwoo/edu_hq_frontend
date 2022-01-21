@@ -7,7 +7,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
-import { SignUpCompanyInfo } from '../sign-up-worker/sign-up-worker.interface';
+import { SignUpCompanyInfo } from '../sign-up.interface';
 @Component({
   selector: 'app-sign-up-company',
   templateUrl: './sign-up-company.page.html',
@@ -16,9 +16,7 @@ import { SignUpCompanyInfo } from '../sign-up-worker/sign-up-worker.interface';
 })
 export class SignUpCompanyPage implements OnInit {
 
-  params = {
-    userType: '' as UserType
-  }
+  userType:UserType;
 
   form = {
     search_text: ''
@@ -41,8 +39,7 @@ export class SignUpCompanyPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(({ userType }) => {
-      this.params.userType = userType;
-      this.nextRouterLink = this.getNextRouterLink(userType);
+      this.userType = userType;
 
       if(environment.autoTest) this.test();
     });
@@ -75,14 +72,14 @@ export class SignUpCompanyPage implements OnInit {
   }
 
   next() {
-    this.nav.navigateForward('/sign-up-worker', {
+    this.nav.navigateForward(this.nextLink(this.userType), {
       state: { 
         companyInfo: this.selectedCompany
       }
     });
   }
 
-  private getNextRouterLink(userType) {
+  private nextLink(userType) {
     switch(userType) {
       case 'WORKER':
         return '/sign-up-worker';

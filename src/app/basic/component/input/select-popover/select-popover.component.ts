@@ -1,6 +1,8 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 import { SelectOption } from '../select-option/select-option.component';
 
 
@@ -21,12 +23,23 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
   initInterval;
 
   constructor(
-    private _popover: PopoverController
+    private el: ElementRef<HTMLElement>,
+    private _popover: PopoverController,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {}
   ngAfterViewInit() {
     this.scrollToIndex(this.virtualScroll, this.opts, this.value);
+    if(environment.autoTest) this.test();
+  }
+
+  private async test() {
+    await this.promise.wait();
+    const el = this.el.nativeElement;
+
+    // 가장 첫번째 놈을 클릭해서 값을 가져온다.
+    el.querySelector('[name=select_option]').dispatchEvent(new Event('click'));
   }
 
   onClick(item) {

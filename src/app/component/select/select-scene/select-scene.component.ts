@@ -1,7 +1,7 @@
 import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
+import { ProjectItem, SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
 import { Color } from '@ionic/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 
@@ -21,7 +21,8 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     if(!this.disabled) this.openModal();
   }
 
-  @Input() type:'ALL';
+  @Input() type:'ALL'; // 'ALL'은 모든 현장 검색
+  @Input() all:boolean = false; // 전체 현장 노출 여부
   @Input() color:Color;
   @Input() label:string = "현장";
   @Input() text:string;
@@ -49,14 +50,22 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     const modal = await this._modal.create({
       component:SearchSceneComponent,
       componentProps: {
-        type: this.type
+        type: this.type,
+        all: this.all
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.value = data.project_id;
-      this.text = data.project_name;
+      const allState = <Boolean>data.allState;
+      const selectedItem = <ProjectItem>data.selectedItem;
+      if(allState) {
+        this.value = 0;
+        this.text = '전체';
+      } else {
+        this.value = selectedItem.project_id;
+        this.text = selectedItem.project_name;
+      }
     }
     this.isModalData = false;
   }
