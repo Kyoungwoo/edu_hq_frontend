@@ -24,6 +24,7 @@ export class NoticeItem {
   public_scope_allstate: boolean;
   public_scope_one: string;
   public_scope_two: string;
+  public_scope_name: string;
 };
 
 @Component({
@@ -88,7 +89,9 @@ export class NoticeEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) { 
+      this.form.public_scope_name = data.area1 + ' ' + data.area2 + ' ' + data.area3
       console.log("data",data);
+      console.log("this.form",this.form);
     }
   }
 }

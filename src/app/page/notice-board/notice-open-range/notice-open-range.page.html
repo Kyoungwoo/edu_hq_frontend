@@ -14,9 +14,10 @@
         <div>범위1</div>
         <app-img name="next"></app-img>
       </div>
-      <div class="flex-list" >
+      <div class="flex-list">
         <!-- item -->
-        <div *ngFor="let item of list" class="flex-item" (click)="areaOne(item.text)" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
+        <div *ngFor="let item of list" class="flex-item" (click)="areaOne(item.text)"
+          [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
       </div>
     </div>
     <div class="flex-revers">
@@ -28,7 +29,8 @@
       <div class="flex-list">
         <!-- item -->
         <ng-container *ngFor="let item of list1">
-          <div *ngIf="area1"  class="flex-item" (click)="areaTow(item.text)" [ngClass]="item.checked ? 'check_style':''">{{ item.text }}</div>
+          <div *ngIf="area1" class="flex-item" (click)="areaTow(item.text)" [ngClass]="item.checked ? 'check_style':''">
+            {{ item.text }}</div>
         </ng-container>
       </div>
     </div>
@@ -39,8 +41,9 @@
       </div>
       <div class="flex-list">
         <!-- item -->
-        <ng-container *ngFor="let item of res?.rsMap" >
-          <div *ngIf="area2 && totalArea.area1 === '협력사별'" class="flex-item" (click)="partnerCheck(item.company_id)" [ngClass]="item.checked ? 'check_style':''">{{ item.company_name }}
+        <ng-container *ngFor="let item of res?.rsMap">
+          <div *ngIf="area2 && totalArea.area1 === '협력사별'" class="flex-item" (click)="partnerCheck(item.company_id)"
+            [ngClass]="item.checked ? 'check_style':''">{{ item.company_name }}
           </div>
         </ng-container>
       </div>

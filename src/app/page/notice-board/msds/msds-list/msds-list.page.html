@@ -94,16 +94,14 @@
               </tr>    
             </thead>
               <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
-                <td style="width:40px"><app-check color="white" size="small" name="check"></app-check></td>
-                <td (click)="$event.stopPropagation()" style="text-align: center;">
-                  <ion-icon name="star" [class.iconstar]="item.favorites_state_bool"
-                    (click)="favoritesCheck(item)" 
-                    *ngIf="item.favorites_state_bool"></ion-icon>
-                  <ion-icon name="star-outline" 
-                    (click)="favoritesCheck(item)"
-                    [class.iconstar]="item.favorites_state_bool"
-                    (click)="item.favorites_state_bool != item.favorites_state_bool"
-                    *ngIf="!item.favorites_state_bool"></ion-icon>
+                <td (click)="$event.stopPropagation()">
+                  <app-check color="white" size="small" name="check"></app-check>
+                </td>
+                <td (click)="$event.stopPropagation()">
+                  <app-button size="small" shape="square" fill="translucent"
+                  [color]="item.favorites_state ? 'star' : 'medium'" (click)="favoritesCheck($event, item)">
+                    <ion-icon name="star"></ion-icon>
+                  </app-button>
                 </td>
                 <td>{{ item.msds_type }}</td>
                 <td>{{ item.msds_title }}</td>

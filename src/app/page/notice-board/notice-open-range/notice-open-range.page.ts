@@ -52,6 +52,7 @@ export class NoticeOpenRangePage implements OnInit {
   }
 
   res:ConnectResult <{
+    company_all:string
     company_ceo: string
     company_id: number
     company_name: string
@@ -71,14 +72,14 @@ export class NoticeOpenRangePage implements OnInit {
     // modal.present();
   }
 
-  async partnerCtgo(){
+  async partnerCtgo() {
     this.res = await this.connect.run('/category/certify/company/get',{
       company_contract_type:'협력사',
       search_text:''
     });
-    if(this.res.rsCode === 0) [ 
-      console.log(this.res)
-    ]
+    if(this.res.rsCode === 0) {
+      console.log("----------------",this.res.rsMap);
+    } 
   }
 
 
