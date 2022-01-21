@@ -12,11 +12,28 @@ type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "
 | "생식세포 변이원성 물질" | "생식독성 물질" | "특정표적장기 독성 물질(1회 노출)" | "특정표적장기 독성 물질(반복 노출)"
 | "흡인유해성 물질" | "수생환경 유해성 물질" | "오존층 유해성 물질" ;
 
+class MsdsInfo {
+  company_id: number
+  company_name: string
+  create_date: string
+  favorites_state: number
+  hit_count: number
+  msds_id: number
+  msds_title: string
+  msds_type: MsdsType
+  project_id: number
+  project_name: string
+  user_name: string
+  row_count: number
+  favorites_state_bool:boolean
+}
+
 @Component({
   selector: 'app-msds-list',
   templateUrl: './msds-list.page.html',
   styleUrls: ['./msds-list.page.scss'],
 })
+
 export class MsdsListPage implements OnInit {
 
   form = {
@@ -28,21 +45,8 @@ export class MsdsListPage implements OnInit {
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
   }
-  res:ConnectResult<{
-    company_id: number
-    company_name: string
-    create_date: string
-    favorites_state: number
-    hit_count: number
-    msds_id: number
-    msds_title: string
-    msds_type: MsdsType
-    project_id: number
-    project_name: string
-    user_name: string
-    row_count: number
-    favorites_state_bool:boolean
-  }>;
+  res:ConnectResult<MsdsInfo>;
+  resFavorite:ConnectResult;
 
   constructor(
     private modal : ModalController,
@@ -72,14 +76,14 @@ export class MsdsListPage implements OnInit {
     const modal = await this.modal.create({
       component:MsdsEditPage,
       componentProps:{
-        notice_id:msds_id
+        msds_id:msds_id
       }
     });
     modal.present();
   }
-  async favoritesCheck(item) {
-    item.favorites_state_bool = !item.favorites_state_bool;
-    const res = await this.connect.run('/board/msds/favorites',{msds_id:item.msds_id});
-    if(res.rsCode === 0) {};
+  async favoritesCheck($event:MouseEvent, item:MsdsInfo) {
+    $event.stopPropagation();
+    item.favorites_state = item.favorites_state ? 0 : 1;
+    this.resFavorite = await this.connect.run('/board/msds/favorites', { msds_id:item.msds_id });
   }
 }

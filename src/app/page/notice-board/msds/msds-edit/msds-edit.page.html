@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>MSDS 등록</ion-title>
+    <ion-title>MSDS {{ title }}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -9,45 +9,66 @@
 
 <ion-content>
   <h4>MSDS</h4>
- 
+
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-       <app-select-scene label="현장명"></app-select-scene>
+      <app-select-scene label="현장명" [(ngModel)]="form.project_name" [required]="true"></app-select-scene>
     </app-col>
     <app-col>
-     <app-input label="업체명" [disabled]="true"></app-input>
+      <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-   <app-col>
-       <app-input [disabled]="true" label="작성자"></app-input>
-   </app-col>
-   <app-col>
-     <app-input [disabled]="true" label="작성일"></app-input>
-   </app-col>
- </app-row>
- <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-   <app-col>
-     <app-select [required]="true" label="구분">
-       <app-select-option></app-select-option>
-     </app-select>
-   </app-col>
-   <app-col>
-     <app-select [required]="true" label="게시물 공개범위">
-       <app-select-option>현장 전체</app-select-option>
-       <app-select-option>본인 하위 회사에 공개</app-select-option>
-       <app-select-option>본인 회사에만 공개</app-select-option>
-     </app-select>
-   </app-col>
- </app-row>
-   <app-row>
-     <app-col>
-       <app-input label="제목"></app-input>
-     </app-col>
-   </app-row>
-   <app-row *mobileHidden>
     <app-col>
-      <app-smartedit placeholder="내용을 입력하세요."></app-smartedit>
+      <app-input label="작성자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input label="작성일" [(ngModel)]="form.create_date" [disabled]="true"></app-input>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+    <app-col>
+      <app-select label="구분" [(ngModel)]="form.msds_type" [required]="true">
+        <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
+        <app-select-option value="인화성 가스">인화성 가스</app-select-option>
+        <app-select-option value="인화성 액체">인화성 액체</app-select-option>
+        <app-select-option value="인화성 고체">인화성 고체</app-select-option>
+        <app-select-option value="에어로졸">에어로졸</app-select-option>
+        <app-select-option value="물반응성 물질">물반응성 물질</app-select-option>
+        <app-select-option value="산화성 가스">산화성 가스</app-select-option>
+        <app-select-option value="산화성 액체">산화성 액체</app-select-option>
+        <app-select-option value="산화성 고체">산화성 고체</app-select-option>
+        <app-select-option value="고압가스">고압가스</app-select-option>
+        <app-select-option value="자기반응성 물질">자기반응성 물질</app-select-option>
+        <app-select-option value="자연발화성 액체">자연발화성 액체</app-select-option>
+        <app-select-option value="자연발화성 고체">자연발화성 고체</app-select-option>
+        <app-select-option value="심한 눈 손상성 또는 자극성 물질">심한 눈 손상성 또는 자극성 물질</app-select-option>
+        <app-select-option value="호흡기 과민성 물질">호흡기 과민성 물질</app-select-option>
+        <app-select-option value="피부 과민성 물질">피부 과민성 물질</app-select-option>
+        <app-select-option value="발암성물질">발암성물질</app-select-option>
+        <app-select-option value="생식세포 변이원성 물질">생식세포 변이원성 물질</app-select-option>
+        <app-select-option value="생식독성 물질">생식독성 물질</app-select-option>
+        <app-select-option value="특정표적장기 독성 물질(1회 노출)">특정표적장기 독성 물질(1회 노출)</app-select-option>
+        <app-select-option value="특정표적장기 독성 물질(반복 노출)">특정표적장기 독성 물질(반복 노출)</app-select-option>
+        <app-select-option value="흡인유해성 물질">흡인유해성 물질</app-select-option>
+        <app-select-option value="수생환경 유해성 물질">수생환경 유해성 물질</app-select-option>
+        <app-select-option value="오존층 유해성 물질">오존층 유해성 물질</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col>
+      <app-input [(ngModel)]="form.public_scope_name" label="게시물 공개범위" (click)="openRange()" [required]="true">
+        <app-img name="search"></app-img>
+      </app-input>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input label="제목" [(ngModel)]="form.msds_title"></app-input>
+    </app-col>
+  </app-row>
+  <app-row *mobileHidden>
+    <app-col>
+      <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.msds_content"></app-smartedit>
     </app-col>
   </app-row>
   <app-row *mobileShow>
@@ -55,14 +76,14 @@
       <app-textarea value="공지합니다" [readonly]="true"></app-textarea>
     </app-col>
   </app-row>
-   <h4>첨부자료</h4>
-   
+  <h4>첨부자료</h4>
+
 </ion-content>
 <app-button-footer *mobileShow>
   <app-button>확인</app-button>
 </app-button-footer>
 <app-button-footer *mobileHidden>
-  <app-button fill="translucent">수정</app-button>
-  <app-button color="danger" fill="translucent">삭제</app-button>
-  <app-button>저장</app-button>
+  <app-button *ngIf="msds_id" (click)="update()" fill="translucent">수정</app-button>
+  <app-button *ngIf="msds_id" color="danger" fill="translucent">삭제</app-button>
+  <app-button *ngIf="!msds_id" (click)="MsdsInsert()">저장</app-button>
 </app-button-footer>

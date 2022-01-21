@@ -19,7 +19,7 @@
    </app-row>
    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-        <app-input label="작성자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
+        <app-input label="작성자" [(ngModel)]="form.user_name"  [disabled]="true"></app-input>
     </app-col>
     <app-col>
       <app-input label="작성일" [(ngModel)]="form.create_date" [disabled]="true"></app-input>
@@ -36,7 +36,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-input label="게시물 공개범위" (click)="openRange()" [required]="true">
+      <app-input label="게시물 공개범위" (click)="openRange()" [value]="rangeText" [readonly]="true" [required]="true">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>

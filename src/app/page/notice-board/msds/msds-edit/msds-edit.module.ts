@@ -9,6 +9,7 @@ import { MsdsEditPageRoutingModule } from './msds-edit-routing.module';
 import { MsdsEditPage } from './msds-edit.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { NoticeOpenRangePageModule } from '../../notice-open-range/notice-open-range.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    MsdsEditPageRoutingModule
+    MsdsEditPageRoutingModule,
+    NoticeOpenRangePageModule
+    
   ],
   declarations: [MsdsEditPage]
 })

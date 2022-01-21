@@ -10,6 +10,7 @@ import { NoticeEditPage } from './notice-edit.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { NoticeOpenRangePageModule } from '../../notice-open-range/notice-open-range.module';
+import { NoticeOpenRangePage } from '../../notice-open-range/notice-open-range.page';
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import { NoticeOpenRangePageModule } from '../../notice-open-range/notice-open-r
     NoticeEditPageRoutingModule,
     NoticeOpenRangePageModule
   ],
-  declarations: [NoticeEditPage]
+  declarations: [NoticeEditPage],
+  providers: [
+    NoticeOpenRangePage
+  ]
 })
 export class NoticeEditPageModule {}
