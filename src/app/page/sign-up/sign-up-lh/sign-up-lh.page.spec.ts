@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
-import { ComponentModule } from '../../project-management/scene-management/member-standard-set/component/component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 import { SignUpLhPage } from './sign-up-lh.page';

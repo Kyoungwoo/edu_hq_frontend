@@ -8,7 +8,7 @@ const regex = new RegexService();
 export class signUpWorkerInfo {
   account_id:string = null; // 아이디
   account_token:string = null; //비밀번호
-  account_token_conform:string = null; //비밀번호 확인
+  account_token_conform:string = null; //account_token_conform
   ctgo_country_id:number = null; //국적 ID
   company_id:number = null; //소속 업체 ID
   project_id:number = null; //소속 현장 ID
@@ -42,7 +42,7 @@ export class SignUpWorkerHealth {
 export class SignUpWorkerForm implements signUpWorkerInfo, SignUpWorkerHealth {
   account_id:string = null; // 아이디
   account_token:string = null; //비밀번호
-  account_token_conform:string = null; //비밀번호 확인
+  account_token_conform:string = null; //account_token_conform
   ctgo_country_id:number = null; //국적 ID
   company_id:number = null; //소속 업체 ID
   project_id:number = null; //소속 현장 ID
@@ -85,7 +85,7 @@ export class signUpWorkerInfoMock implements signUpWorkerInfo {
   }
   account_id:string = regex.random.id('worker'); // 아이디
   account_token:string = 'qwer1234'; //비밀번호
-  account_token_conform:string = 'qwer1234'; //비밀번호 확인
+  account_token_conform:string = 'qwer1234'; //account_token_conform
   ctgo_country_id:number; //국적 ID
   company_id:number; //소속 업체 ID
   project_id:number; //소속 현장 ID

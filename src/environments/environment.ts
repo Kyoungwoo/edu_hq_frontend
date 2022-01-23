@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  autoTest: true
+  autoTest: true,
+  signUpTest: 0
 };
 
 /*

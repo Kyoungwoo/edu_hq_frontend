@@ -101,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'sign-up-health',
-    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health/sign-up-health.module').then(m => m.SignUpHealthPageModule)
+    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health.module').then(m => m.SignUpHealthPageModule)
   },
   {
     path: 'privacy',

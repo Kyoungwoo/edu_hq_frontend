@@ -31,7 +31,14 @@ export class SelectPositionComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "직위";
   @Input() placeholder:string = "선택";
-  @Input() company_id:number;
+  private _company_id:number;
+  @Input() set company_id(v:number) {
+    if(this._company_id !== v) {
+      this._company_id = v;
+      this.get();
+    }
+  }
+  get company_id() { return this._company_id }
 
   res:ConnectResult<PositionItem>;
   constructor(
@@ -40,10 +47,11 @@ export class SelectPositionComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-    this.get();
+
   }
 
   private async get() {
+    if(!this.company_id) return;
     this.res = await this.connect.run('/category/job_position/get', {
       company_id: this.company_id
     });

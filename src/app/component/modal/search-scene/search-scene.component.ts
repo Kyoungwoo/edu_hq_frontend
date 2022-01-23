@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
-type ProjectSearchType = 'ALL' | null;
+export type ProjectSearchType = 'SIGNUP' | 'SIGNUPLH' | null;
 export class ProjectItem {
   project_name: string;
   project_id: number;
@@ -18,13 +18,14 @@ export class ProjectItem {
 export class SearchSceneComponent implements OnInit {
 
   @Input() type:ProjectSearchType;
-
-  form = {
+  @Input() all:boolean = false;
+  @Input() form = {
+    company_id: 0,
     search_text: ''
   }
   res:ConnectResult<ProjectItem>;
 
-  allState:boolean = false;
+  allState:boolean = false; // 전체현장을 선택했는지?
   selectedItem:ProjectItem;
 
   constructor(
@@ -35,9 +36,7 @@ export class SearchSceneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.type !== 'ALL') {
-      this.get();
-    }
+    if(this.type !== 'SIGNUPLH') this.get();
     if(environment.autoTest) this.test();
   }
 
@@ -45,7 +44,6 @@ export class SearchSceneComponent implements OnInit {
     const el = this.el.nativeElement;
 
     // 가짜 데이터 삽입
-    this.form.search_text = '데브';
     await this.promise.wait();
 
     // 검색
@@ -61,9 +59,13 @@ export class SearchSceneComponent implements OnInit {
   }
   
   async get() {
-    if(this.type === 'ALL') {
-      this.res = await this.connect.run('/forSignUp/project/get', this.form, { loading: '현장 검색' })
-    } else {
+    if(this.type === 'SIGNUP') {
+      this.res = await this.connect.run('/forSignUp/project/company_get', this.form, { loading: '현장 검색' });
+    } 
+    else if(this.type === 'SIGNUPLH') {
+      this.res = await this.connect.run('/forSignUp/project/get', this.form, { loading: '현장 검색' });
+    }
+    else {
       this.res = await this.connect.run('/category/certify/search_my_project/get', this.form, { loading: '현장 검색' });
     }
   }

@@ -83,12 +83,12 @@ export class SignUpCompanyPage implements OnInit {
     switch(userType) {
       case 'WORKER':
         return '/sign-up-worker';
-      case 'LH':
-        return '/sign-up-lh';
+      /* case 'LH':
+        return '/sign-up-lh'; */
       case 'SUPER':
-        return '/sign-up-super';
+        return '/sign-up-supervision';
       case 'COMPANY':
-        return '/sign-up-company';
+        return '/sign-up-partner';
     }
   }
 }

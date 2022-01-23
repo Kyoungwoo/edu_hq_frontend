@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 
@@ -13,6 +13,9 @@ import { Color } from '@ionic/core';
   }]
 })
 export class EmailComponent implements OnInit, ControlValueAccessor {
+  @HostListener('setValue', ['$event']) setValue({ detail:value }) {
+    this.value = value;
+  }
 
   @Input() color:Color;
   @Input() label:string = "";

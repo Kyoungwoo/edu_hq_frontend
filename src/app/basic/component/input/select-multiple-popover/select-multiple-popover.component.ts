@@ -31,7 +31,6 @@ export class SelectMultiplePopoverComponent implements OnInit {
 
   public onClick(item:SelectOption) {
     if(item.type === 'all') {
-      console.log(this.value, item.value);
       if(this.file.shallowEqual(this.value, item.value)) this.value = null;
       else this.value = this.file.clone(item.value);
     } else {

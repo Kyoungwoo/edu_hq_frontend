@@ -1,13 +1,11 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { Validator } from 'src/app/basic/service/core/connect.service';
-import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
-import { signUpWorkerInfo, SignUpWorkerHealth, SignUpWorkerHealthMock } from '../../sign-up-worker/sign-up-worker.interface';
-import { SignUpCompanyInfo } from '../../sign-up.interface';
+import { signUpWorkerInfo, SignUpWorkerHealth, SignUpWorkerHealthMock } from '../sign-up-worker/sign-up-worker.interface';
+import { SignUpCompanyInfo } from '../sign-up.interface';
 
 @Component({
   selector: 'app-sign-up-health',

@@ -7,6 +7,8 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
 import { SignUpDonePage } from '../sign-up-done/sign-up-done.page';
 import { SignUpLhForm } from '../sign-up-lh/sign-up-lh.interface';
+import { SignUpPartnerForm } from '../sign-up-partner/sign-up-partner.inerface';
+import { SignUpSupervisionForm } from '../sign-up-supervision/sign-up-supervision.interface';
 import { SignUpWorkerForm } from '../sign-up-worker/sign-up-worker.interface';
 
 @Component({
@@ -17,7 +19,7 @@ import { SignUpWorkerForm } from '../sign-up-worker/sign-up-worker.interface';
 export class SignUpTermsPage implements OnInit {
 
   userType:UserType;
-  form:SignUpWorkerForm | SignUpLhForm;
+  form:SignUpLhForm | SignUpSupervisionForm | SignUpPartnerForm | SignUpWorkerForm;
   res:ConnectResult;
 
   constructor(
@@ -30,16 +32,25 @@ export class SignUpTermsPage implements OnInit {
 
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
-    if(this.userType === 'WORKER') {
+    if(this.userType === 'LH') {
+      const { signUpLhForm } = history.state;
+      this.form = signUpLhForm;
+    }
+    else if(this.userType === 'SUPER') {
+      const { signUpSupervisionForm } = history.state;
+      this.form = signUpSupervisionForm;
+    }
+    else if(this.userType === 'COMPANY') {
+      const { signUpPartnerForm } = history.state;
+      this.form = signUpPartnerForm;
+    }
+    else if(this.userType === 'WORKER') {
       const { signUpWorkerInfo, signUpWorkerHealth } = history.state;
       this.form = {
         ...signUpWorkerInfo,
         ...signUpWorkerHealth
       }
-    } else if(this.userType === 'LH') {
-      const { signUpLhForm } = history.state;
-      this.form = signUpLhForm;
-    }
+    } 
 
     if(environment.autoTest) this.test();
   }
@@ -56,6 +67,14 @@ export class SignUpTermsPage implements OnInit {
   private checkParams() {
     if(history.state?.signUpLhForm) {
       this.userType = 'LH';
+      return true;
+    }
+    else if(history.state?.signUpSupervisionForm) {
+      this.userType = 'SUPER';
+      return true;
+    }
+    else if(history.state?.signUpPartnerForm) {
+      this.userType = 'COMPANY';
       return true;
     }
     else if(history.state?.companyInfo
@@ -76,11 +95,18 @@ export class SignUpTermsPage implements OnInit {
 
   private async signUp() {
     let api = '';
-    if(this.userType === 'WORKER') {
-      api = '/sign/up/worker';
-    } else if(this.userType === 'LH') {
+    if(this.userType === 'LH') {
       api = '/sign/up/lh';
     }
+    else if(this.userType === 'SUPER') {
+      api = '/sign/up/super';
+    }
+    else if(this.userType === 'COMPANY') {
+      api = '/sign/up/company';
+    }
+    else if(this.userType === 'WORKER') {
+      api = '/sign/up/worker';
+    } 
     this.res = await this.connect.run(api, this.form, {
       loading: true
     });

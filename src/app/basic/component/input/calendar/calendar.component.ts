@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -17,6 +17,9 @@ import { CalendarPopoverComponent } from '../calendar-popover/calendar-popover.c
   }]
 })
 export class CalendarComponent implements ControlValueAccessor {
+  @HostListener('setValue', ['$event']) setValue({ detail:value }) {
+    this.value = value;
+  }
 
   @Input() color:Color;
   @Input() label:string = "";

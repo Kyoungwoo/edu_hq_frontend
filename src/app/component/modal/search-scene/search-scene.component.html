@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.selectedItem = null">
+  <app-card *ngIf="all" name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.selectedItem = null">
     <app-row>
       <app-col>
         <h5>전체 현장</h5>

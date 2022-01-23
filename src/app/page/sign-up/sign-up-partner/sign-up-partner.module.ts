@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { SignUpPartnerPageRoutingModule } from './sign-up-partner-routing.module';
 
 import { SignUpPartnerPage } from './sign-up-partner.page';
+import { ComponentModule } from 'src/app/component/component.module';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SignUpPartnerPageRoutingModule
+    ComponentModule,
+    SignUpComponentModule,
+    SignUpPartnerPageRoutingModule,
   ],
   declarations: [SignUpPartnerPage]
 })

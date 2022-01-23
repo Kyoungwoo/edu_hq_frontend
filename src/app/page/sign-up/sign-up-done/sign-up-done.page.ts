@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sign-up-done',
@@ -9,11 +11,19 @@ import { ModalController } from '@ionic/angular';
 export class SignUpDonePage implements OnInit {
 
   constructor(
-    private _modal: ModalController
+    private el: ElementRef<HTMLElement>,
+    private _modal: ModalController,
+    private promise: PromiseService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    
+    if(environment.autoTest) this.test();
+  }
+
+  private async test() {
+    await this.promise.wait();
+    this._modal.dismiss();
   }
 
   dismiss() {

@@ -8,7 +8,7 @@ import { SignUpHealthPageRoutingModule } from './sign-up-health-routing.module';
 
 import { SignUpHealthPage } from './sign-up-health.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { SignUpComponentModule } from '../../component/sign-up.component.module';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 @NgModule({
   imports: [

@@ -1,5 +1,3 @@
-import { RegexService } from "src/app/basic/service/util/regex.service";
-
 export class SignUpCompanyInfo {
   company_id:number = null;
   business_register_no:number = null;

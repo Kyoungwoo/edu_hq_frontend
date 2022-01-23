@@ -44,13 +44,11 @@ export class SignUpWorkerPage implements OnInit {
 
     // 가짜 데이터 삽입
     this.form = new signUpWorkerInfoMock();
+    this.form.company_id = this.companyInfo.company_id;
 
     // 프로필 사진 넣기
     // el.querySelector('')
 
-    // 핸드폰 중복 체크
-    el.querySelector('[name=user_phone]').dispatchEvent(new Event('delayKeyup'));
-    await this.promise.wait();
     // 문자 인증 전송
     el.querySelector('[name=user_phone]').dispatchEvent(new Event('buttonClick'));
     await this.promise.wait(1500);
@@ -67,10 +65,12 @@ export class SignUpWorkerPage implements OnInit {
     await this.promise.wait();
 
     // 국가 가져오기
+    this.changeDetector.detectChanges();
     el.querySelector('[name=ctgo_country_id]').dispatchEvent(new Event('click'));
     await this.promise.wait();
 
     // 현장 가져오기
+    this.changeDetector.detectChanges();
     el.querySelector('[name=project_id]').dispatchEvent(new Event('click'));
     await this.promise.wait(3000);
     
@@ -102,13 +102,14 @@ export class SignUpWorkerPage implements OnInit {
   }
   public checkPassConfirm() {
     const { account_token, account_token_conform } = this.form;
-    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
+    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 account_token_conform이 다릅니다.' };
     else return this.validator.account_token_conform = { valid: true };
   }
   
   // user_phone은 overlapPhone 과 aligoSend 두개를 모두 실행해야 valid 된다.
   public async overlapPhone() {
     const { user_phone } = this.form;
+    if(!user_phone) return this.validator.user_phone = null;
     if(user_phone?.length < 3) return this.validator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
     const res = await this.connect.run('/forSignUp/overlap/phone', { user_phone });
     this.validator.user_phone = res.rsCode === 0 ? null : { valid: res.rsCode === 0, message: res.rsMsg };
@@ -116,6 +117,7 @@ export class SignUpWorkerPage implements OnInit {
   }
   public async aligoSend() {
     const { user_phone } = this.form;
+    if(this.validator.user_phone?.valid === false) return;
     const res = await this.connect.run('/aligo/send', { user_phone });
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
   }
@@ -163,7 +165,7 @@ export class SignUpWorkerPage implements OnInit {
     else if(this.validator.account_token?.valid) 
     this.validator.account_token = { valid: true };
 
-    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: '비밀번호 확인을 입력해주세요.', valid: false };
+    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: 'account_token_conform을 입력해주세요.', valid: false };
     else if(this.validator.account_token_conform?.valid)
     this.validator.account_token_conform = { valid: true };
 
