@@ -1,5 +1,4 @@
 <ion-header>
-  <app-header-admin></app-header-admin>
   <ion-toolbar color="white">
     <ion-title>원창사 정보</ion-title>
     <ion-buttons slot="end">
@@ -11,28 +10,60 @@
   <h4>회사 정보</h4>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-select-company name="company-name"></app-select-company>
+      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="업체명" name="input"
+      [(ngModel)]="form.company_name"></app-input>
     </app-col>
     <app-col>
-      <app-input [required]="true" label="사업자등록번호"></app-input>
-    </app-col>
-  </app-row>
-  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
-    <app-col>
-      <app-input label="대표자"></app-input>
-    </app-col>
-    <app-col>
-      <app-input label="회사로고"></app-input>
+      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="사업자등록번호"
+      [(ngModel)]="form.business_register_no"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-input label="현장 전화번호"></app-input>
+      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" name="input buisnessman"
+        [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
     </app-col>
     <app-col>
+      <app-input label="현장 전화번호" [(ngModel)]="form.company_phone"></app-input>
+    </app-col>
+  </app-row>
+  <h4>회사 로고</h4>
+  <app-card>
+    <app-row>
+      <app-col>
+        <app-col size="auto" style="text-align: right;">
+          <app-button>추가
+            <app-file name="input" view_type="LOGO" [(ngModel)]="form.company_file_data" [file]="form.file"
+              [file_json]="form.file_json"></app-file>
+          </app-button>
+        </app-col>
+        <app-table *ngIf="form.company_file_data.length else fileData">
+          <tr *ngFor="let item of form.company_file_data let i = index">
+            <td>
+              <app-row>
+                <app-col>
+                  <a [href]="item.full_url" target="_blank" [download]="item.file_name">
+                    <ion-icon name="save-outline"></ion-icon>
+                    {{ item.file_name }}
+                  </a>
+                </app-col>
+              </app-row>
+              <ion-row *ngIf="item.content_type.startsWith('image')">
+                <ion-col>
+                  <div class="image-detail">이미지 미리보기</div>
+                  <app-img class="image-class" [src]="item.full_url"></app-img>
+                </ion-col>
+              </ion-row>
+            </td>
+          </tr>
+        </app-table>
+        <ng-template #fileData>
+          <h5>첨부 파일이 없습니다.</h5>
+        </ng-template>
+      </app-col>
+    </app-row>
+  </app-card>
 
-    </app-col>
-  </app-row>
   <h4>담당자 정보</h4>
   <app-card>
     <app-row>
@@ -48,18 +79,33 @@
     </app-row>
   </app-card>
   <h4>개인정보 처리 위탁 동의</h4>
-  <app-card>
-    <span class="font-height">
-      <h3 style="text-align: center;">개인정보 처리 위탁 동의서</h3>
-      산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
-      1. 작업의 시작 시간<br>
-      2. 작업 또는 작업장 간의 연락방법<br>
-      3. 재해발생 위험이 있는 경우 대피방법<br>
-      4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항<br>
-      5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
-    </span>
-  </app-card>
+    <app-row>
+      <app-col>
+        <app-input name="consigner" [(ngModel)]="form.company_name" label="위탁자"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="fiduciary" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="consent" [(ngModel)]="form.consignee_consent_date" label="동의현황" [type]="'email'"></app-input>
+      </app-col>
+    </app-row>
+    <app-card>
+      <span class="font-height">
+        <h3 style="text-align: center;">개인정보 처리 위탁 동의서</h3>
+        산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
+        1. 작업의 시작 시간<br>
+        2. 작업 또는 작업장 간의 연락방법<br>
+        3. 재해발생 위험이 있는 경우 대피방법<br>
+        4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항<br>
+        5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
+      </span>
+    </app-card>
+  
+  <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
 </ion-content>
 <app-button-footer>
-  <app-button slot="end" color="secondary">동의합니다.</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contUpdate()">수정</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contDelete()" color="danger">삭제</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contSave()">저장</app-button>
 </app-button-footer>

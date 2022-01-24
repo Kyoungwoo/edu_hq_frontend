@@ -16,7 +16,7 @@
         </app-input>
       </app-col>
       <app-col>
-        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+        <app-input [(ngModel)]="form.project_name" label="현장명"></app-input>
       </app-col>
     </app-row>
     <app-row mobileBreak>
@@ -49,11 +49,8 @@
     </app-row>
     <app-row mobileBreak>
       <app-col>
-        <app-select [(ngModel)]="form.ctgo_business_field_name" label="사업분야">
-          <app-select-option value="단지개발">단지개발</app-select-option>
-          <app-select-option value="아파트">아파트</app-select-option>
-          <app-select-option value="교량 및 도로">교량 및 도로</app-select-option>
-          <app-select-option value="터널">터널</app-select-option>
+        <app-select [(ngModel)]="form.ctgo_business_field_id" label="사업분야">
+          <app-select-option *ngFor="let opt of ctgo_Business" [value]="opt.ctgo_business_field_id"> {{ opt.ctgo_business_field_name }}</app-select-option>
         </app-select>
       </app-col>
       <app-col>
@@ -61,11 +58,17 @@
       </app-col>
     </app-row>
     <app-row mobileBreak>
-      <app-col>
+      <app-col size="1">
+        <app-input [readonly]="true" [(ngModel)]="form.project_postal_code"  label="우편번호"></app-input>
+      </app-col>
+      <app-col size="2">
         <app-input [readonly]="true" [(ngModel)]="form.project_address" (click)="address()" label="주소"></app-input>
       </app-col>
+      <app-col size="3">
+        <app-input [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
+      </app-col>
       <app-col>
-        <app-input [(ngModel)]="form.gps_coordinate_data"
+        <app-input [(ngModel)]="form.gps_state_con"
          [value]="project_id ? form.gps_state_con:form.add_gps_state_con" 
          [readonly]="true" (click)="project_area_set()" label="현장 영역"></app-input>
       </app-col>
@@ -75,7 +78,6 @@
   <app-card>
     <app-row style="align-items: flex-start;">
       <app-col>
-        <ion-toolbar slot="top" color="white">
           <app-row>
             <app-col>
               <h5>조감도</h5>
@@ -90,7 +92,6 @@
               </app-button>
             </app-col>
           </app-row>
-        </ion-toolbar>
         <app-table>
           <tr *ngFor="let item of form.project_file_data let i = index">
             <td *ngIf="item.view_type==='BIRDSEYE'">
@@ -114,14 +115,13 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar slot="top" color="white">
           <app-row>
             <app-col>
               <h5>조직도</h5>
             </app-col>
             <app-col size="auto">
               <app-button>추가
-                <app-file name="input" view_type="NOTICE"
+                <app-file name="input" view_type="FLOOR"
                 [(ngModel)]="form.project_file_data"
                 [file]="form.file"
                 [file_json]="form.file_json"
@@ -129,7 +129,6 @@
               </app-button>
             </app-col>
           </app-row>
-        </ion-toolbar>
         <app-table>
           <tr *ngFor="let item of form.project_file_data let i = index">
             <td *ngIf="item.view_type==='FLOOR'">
@@ -159,10 +158,10 @@
   <app-card>
     <app-row>
       <app-col>
-        <app-input label="작성일"></app-input>
+        <app-input [readonly]="true" [value]="today" label="작성일"></app-input>
       </app-col>
       <app-col>
-        <app-input label="작성자"></app-input>
+        <app-input [readonly]="true" [value]="user.name" label="작성자"></app-input>
       </app-col>
     </app-row>
   </app-card>

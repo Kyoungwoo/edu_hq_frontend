@@ -16,13 +16,15 @@
         <tbody>
           <tr>
             <td>
-              <app-select label="지역본부"></app-select>
+              <app-select label="지역본부" [(ngModel)]="form.hq_regional_ids">
+                <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
+              </app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="사업본부" [(ngModel)]="form.hq_regional_ids">
-                <app-select-option *ngFor="let opt of ctgoRegional.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
+              <app-select label="사업본부" [(ngModel)]="form.hq_business_ids">
+                <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_business_name }}</app-select-option>
               </app-select>
             </td>
           </tr>
@@ -51,7 +53,7 @@
       </ion-toolbar>
       <!-- check-group ngModel -->
       <app-check-group >
-        <app-table>
+        <app-table *ngIf="res?.rsCode === 0 else emptyList">
           <thead>
             <tr>
               <th style="width: 40px;">
@@ -89,7 +91,7 @@
           </tbody>
         </app-table>
       </app-check-group>
-      <ng-template>
+      <ng-template #emptyList>
         <app-card>
           <h5>현장 등록 목록이 없습니다.</h5>
         </app-card>

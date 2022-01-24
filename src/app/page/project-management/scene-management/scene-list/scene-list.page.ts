@@ -43,6 +43,14 @@ export class SceneListPage implements OnInit {
     hq_regional_id: number
   }>
 
+  ctgoBusiness:ConnectResult<{
+    hq_business_name: string,
+    hq_business_entire_state: number,
+    hq_regional_id: number,
+    hq_business_code: string,
+    hq_business_id: number
+  }>
+
   constructor(
     private modal:ModalController,
     private connect:ConnectService,
@@ -52,6 +60,7 @@ export class SceneListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getCtgoBusiness();
     this.getCtgoRegional();
     this.getList();
   }
@@ -60,27 +69,31 @@ export class SceneListPage implements OnInit {
     const res = await this.connect.run('/project/list',this.form,{
       loading:'현장 불러온느중'
     });
-    if(res.rsCode === 0) this.res = res;
+    console.log("---------------",res);
+    if(res.rsCode === 0) {
+      this.res = res;
+    }
   }
 
   async use_submit() {
-    let project_use_state_data = [];
-    this.res.rsMap.forEach(item => {
-      if(item.state){
-        project_use_state_data.push({
-          project_id:item.project_id,
-          project_use_state:item.project_use_state
-        });
-      }
-    })
-    console.log(project_use_state_data);
-    const res = await this.connect.run('/project/use/update',{project_use_state_data:project_use_state_data});
-    if(res.rsCode === 0) {
-      this.toast.present({message:'사용여부가 변경되었습니다.',position:'bottom',color:'primary'});
-      this.getList();
-    } else {
-      this.connect.error('변경실패',res);
-    }
+    console.log(this.form.hq_regional_ids);
+    // let project_use_state_data = [];
+    // this.res.rsMap.forEach(item => {
+    //   if(item.state){
+    //     project_use_state_data.push({
+    //       project_id:item.project_id,
+    //       project_use_state:item.project_use_state
+    //     });
+    //   }
+    // })
+    // console.log(project_use_state_data);
+    // const res = await this.connect.run('/project/use/update',{project_use_state_data:project_use_state_data});
+    // if(res.rsCode === 0) {
+    //   this.toast.present({message:'사용여부가 변경되었습니다.',position:'bottom',color:'primary'});
+    //   this.getList();
+    // } else {
+    //   this.connect.error('변경실패',res);
+    // }
   }
   async edit(project_id?) {
     const modal = await this.modal.create({
@@ -111,7 +124,12 @@ export class SceneListPage implements OnInit {
   async getCtgoRegional() {
     this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
     if(this.ctgoRegional.rsCode === 0) {
-      console.log("this.res",this.ctgoRegional);
     }
+  }
+  async getCtgoBusiness() {
+    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids},{});
+    console.log(this,this.ctgoRegional);
+    // if(this.ctgoRegional.rsCode === 0) {
+    // }
   }
 }

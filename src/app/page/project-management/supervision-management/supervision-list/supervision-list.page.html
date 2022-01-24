@@ -31,36 +31,38 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>감리사 목록(총50건)</h5>
+          <h5>감리사 목록(총{{res?.rsMap.length}}건)</h5>
         </ion-toolbar>
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">No.</th>
-              <th>지역본부</th>
-              <th>사업본부</th>
-              <th>현장명</th>
-              <th>감리사</th>
-              <th>사업자등록번호</th>
-              <th>대표자</th>
-              <th>최근 업데이트</th>
-              <th>작성자</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="button" (click)="edit()">
-              <td>9</td>
-              <td>경기지역본부</td>
-              <td>성남판교사업본부</td>
-              <td>수원당수 아파트 A-1BL</td>
-              <td>(주)건창</td>
-              <td>264-81-14771</td>
-              <td>홍길동</td>
-              <td>2021.08.06</td>
-              <td>박소현</td>
-            </tr>
-          </tbody>
-        </app-table>
+        <app-check-group>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">No.</th>
+                <th>지역본부</th>
+                <th>사업본부</th>
+                <th>현장명</th>
+                <th>감리사</th>
+                <th>사업자등록번호</th>
+                <th>대표자</th>
+                <th>최근 업데이트</th>
+                <th>작성자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+                <td>{{ i+1 }}</td>
+                <td>{{ item.hq_regional_name }}</td>
+                <td>{{ item.hq_business_name }}</td>
+                <td>{{ item.project_name }}</td>
+                <td></td>
+                <td>{{ item.business_register_no }}</td>
+                <td>{{ item.company_ceo }}</td>
+                <td>{{ item.update_date }}</td>
+                <td>{{ item.create_user_name }}</td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
       </app-col>
     </app-row>
   </ion-content>

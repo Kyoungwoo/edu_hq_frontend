@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar color="white">
     <ion-title>감리사 정보</ion-title>
@@ -12,42 +11,57 @@
   <form>
     <app-row>
       <app-col>
-        <app-input [required]="true" name="input buisnessman" label="사업자등록번호" placeholder="사업자등록번호"></app-input>
+        <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="업체명" name="input"
+          [(ngModel)]="form.company_name" placeholder=""></app-input>
       </app-col>
       <app-col>
-        <app-input [required]="true" name="input" label="업체명" placeholder="구일종합건설(주)"></app-input>
+        <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="사업자등록번호"
+          [(ngModel)]="form.business_register_no" name="input buisnessman" placeholder=""></app-input>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-input [required]="true" name="input buisnessman" label="대표자" placeholder="홍길동"></app-input>
+        <app-input [readonly]="this.updateStatus ? false:true" [required]="true" name="input buisnessman"
+          [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
       </app-col>
-      <app-col>
-      </app-col>
+      <app-col></app-col>
     </app-row>
   </form>
+
   <h4>담당자 정보</h4>
   <app-row>
     <app-col>
-      <app-input name="name" label="성명"></app-input>
+      <app-input [readonly]="this.updateStatus ? false:true" name="name" [(ngModel)]="form.manager_name" label="성명">
+      </app-input>
     </app-col>
     <app-col>
-      <app-input name="phoneNumber" [type]="'tel'" label="연락처"></app-input>
+      <app-input [readonly]="this.updateStatus ? false:true" name="phoneNumber" [(ngModel)]="form.manager_phone"
+        [type]="'tel'" label="연락처"></app-input>
     </app-col>
     <app-col>
-      <app-select name="email" label="이메일"></app-select>
+      <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
+      </app-input>
+      <ng-template #not_id>
+        <app-input-group label="이메일">
+          <app-input [(ngModel)]="email" placeholder="입력"></app-input>
+          @
+          <app-select [(ngModel)]="emailaddress" placeholder="선택">
+            <app-select-option value="naver.com">naver.com</app-select-option>
+          </app-select>
+        </app-input-group>
+      </ng-template>
     </app-col>
   </app-row>
   <h4>개인정보 처리 위탁 동의</h4>
   <app-row>
     <app-col>
-      <app-input name="consigner" label="위탁자"></app-input>
+      <app-input name="consigner" [(ngModel)]="form.company_name" label="위탁자"></app-input>
     </app-col>
     <app-col>
-      <app-input name="fiduciary" label="수탁자"></app-input>
+      <app-input name="fiduciary" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
     </app-col>
     <app-col>
-      <app-input name="consent" label="동의현황" [type]="'email'"></app-input>
+      <app-input name="consent" [(ngModel)]="form.consignee_consent_date" label="동의현황" [type]="'email'"></app-input>
     </app-col>
   </app-row>
   <app-row>
@@ -63,12 +77,12 @@
           5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
         </span>
       </app-card>
-      <app-button style="width:100%">동의합니다</app-button>
+      <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
     </app-col>
   </app-row>
 </ion-content>
 <app-button-footer>
-  <app-button color="secondary">수정</app-button>
-  <app-button>삭제</app-button>
-  <app-button>저장</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="superupdate()">수정</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="superDelete()" color="danger">삭제</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="superSave()">저장</app-button>
 </app-button-footer>
