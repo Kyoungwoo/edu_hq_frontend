@@ -41,6 +41,8 @@ export class SearchSceneComponent implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    
     const el = this.el.nativeElement;
 
     // 가짜 데이터 삽입

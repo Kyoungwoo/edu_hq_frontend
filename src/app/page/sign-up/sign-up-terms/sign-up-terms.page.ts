@@ -56,6 +56,9 @@ export class SignUpTermsPage implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     const el = this.el.nativeElement;
 
     // 약관 동의 (현재 없음)

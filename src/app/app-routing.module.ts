@@ -462,24 +462,11 @@ const routes: Routes = [
   {
     path: 'sign-up-partner',
     loadChildren: () => import('./page/sign-up/sign-up-partner/sign-up-partner.module').then( m => m.SignUpPartnerPageModule)
+  },
+  {
+    path: 'find-pc',
+    loadChildren: () => import('./page/login/find-pc/find-pc.module').then( m => m.FindPcPageModule)
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ];
 
 @NgModule({
