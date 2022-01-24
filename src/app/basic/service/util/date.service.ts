@@ -18,16 +18,18 @@ export class DateService {
   ) { }
 
   /** 오늘날짜, 혹은 오늘날짜를 기준으로 하는 다른 날짜들을 구한다. */
-  today(opts:{year?, month?, date?} = {year: 0, month: 0, date: 0}, type: 'DATE' | 'TIME' = 'DATE') {
+  today(opts:{year?, month?, date?} = {year: 0, month: 0, date: 0}, type: 'DATE' | 'MINUTE' | 'SECOND' = 'DATE') {
     const resDate = new Date();
     if (opts.year) resDate.setFullYear(resDate.getFullYear() + opts.year);
     if (opts.month) resDate.setMonth(resDate.getMonth() + opts.month);
     if (opts.date) resDate.setDate(resDate.getDate() + opts.date);
     switch(type) {
-        case 'DATE':
-            return resDate.getFullYear() + '-' + this.regex.replace.fix(resDate.getMonth() + 1, 2) + '-' + this.regex.replace.fix(resDate.getDate(), 2);
-        case 'TIME':
-            return new Date().toISOString();
+      case 'DATE':
+        return resDate.getFullYear() + '-' + this.regex.replace.fix(resDate.getMonth() + 1, 2) + '-' + this.regex.replace.fix(resDate.getDate(), 2);
+      case 'MINUTE':
+        return resDate.getFullYear() + '-' + this.regex.replace.fix(resDate.getMonth() + 1, 2) + '-' + this.regex.replace.fix(resDate.getDate(), 2) +  ' ' + this.regex.replace.fix(resDate.getHours(), 2) + ':' + this.regex.replace.fix(resDate.getMinutes(), 2);
+      case 'SECOND':
+        return resDate.getFullYear() + '-' + this.regex.replace.fix(resDate.getMonth() + 1, 2) + '-' + this.regex.replace.fix(resDate.getDate(), 2) +  ' ' + this.regex.replace.fix(resDate.getHours(), 2) + ':' + this.regex.replace.fix(resDate.getMinutes(), 2) + ':' + this.regex.replace.fix(resDate.getSeconds(), 2);
     }
   }
   /** Date 타입의 형태를 바꾼다. 요일 속성(day)를 활용하여 요일을 구할 수도 있다.. ex) 2021-01-01, 2021년 01월 01일 수요일 */

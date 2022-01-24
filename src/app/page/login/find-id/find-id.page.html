@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>아이디 찾기</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+    <app-card color="light">
+      <ion-toolbar slot="top" color="white">
+        <ion-segment color="primary" [(ngModel)]="segment" (ionChange)="changeSegment()">
+          <ion-segment-button value="find-id">아이디 찾기</ion-segment-button>
+          <ion-segment-button value="find-password">비밀번호 찾기</ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+      <h4>아이디를 잊으셨나요?</h4>
+      <app-radio-group value="phone">
+        <app-radio value="phone">등록된 휴대폰번호로 찾기</app-radio>
+
+        <app-input
+        name="user_name" label="성명"
+        placeholder="이름을 입력해주세요."
+        [color]="validator.user_name?.valid === false && 'warning'"
+        [(ngModel)]="form.user_name" [required]="true"></app-input>
+        <app-input-caption *ngIf="validator.user_name?.valid === false" color="warning">{{ validator.user_name?.message }}</app-input-caption>
+        <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+        [color]="validator.user_phone?.valid === false ? 'warning' 
+        : validator.sms_token?.valid === true && 'success'"
+        [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
+          인증번호<br>받기
+        </app-input>
+        <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+        <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
+        <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
+          <app-input
+          name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
+          [color]="validator.sms_token?.valid === false && 'warning'"
+          [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
+            확인
+          </app-input>
+          <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
+        </div>
+      </app-radio-group>
+      <ion-toolbar slot="bottom" color="white">
+        <ion-buttons slot="end">
+          <app-button (click)="">다음</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </app-card>
+  </app-container>
+</ion-content>

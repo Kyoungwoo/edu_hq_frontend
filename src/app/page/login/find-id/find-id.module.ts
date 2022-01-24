@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { FindIdPageRoutingModule } from './find-id-routing.module';
 
-import { LoginPage } from './login.page';
+import { FindIdPage } from './find-id.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    LoginPageRoutingModule,
+    FindIdPageRoutingModule
   ],
-  declarations: [LoginPage]
+  declarations: [FindIdPage]
 })
-export class LoginPageModule {}
+export class FindIdPageModule {}

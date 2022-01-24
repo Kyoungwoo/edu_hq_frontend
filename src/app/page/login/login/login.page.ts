@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
+import { DeviceService } from 'src/app/basic/service/core/device.service';
+import { AuthToken, UserData, UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -17,6 +18,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
     accountID: '',
     accountToken: ''
   }
+  saveId:boolean = false;
+  autoLogin:boolean = false;
   res:ConnectResult;
 
   constructor(
@@ -25,21 +28,21 @@ export class LoginPage implements OnInit, ViewDidEnter {
     private user: UserService,
     private nav: NavService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private device: DeviceService
   ) { }
 
   ngOnInit() {
     
   }
   ionViewDidEnter(): void {
-    //if(environment.autoTest) this.test();
+    // if(environment.autoTest) this.test();
   }
 
   private test() {
     this.testSignUp();
   }
   private async testSignUp() {
-    console.log(environment.signUpTest);
     const el = this.el.nativeElement;
     await this.promise.wait();
 
@@ -54,19 +57,32 @@ export class LoginPage implements OnInit, ViewDidEnter {
       loading: '로그인'
     });
     if(this.res.rsCode === 0) {
-      this.user.setAuthToken(this.res.rsObj);
-      this.getWorkerInfo();
-      this.nav.navigateRoot('/main-user', {
-        animated: true
-      });
+      this.getWorkerInfo(this.res.rsObj);
+      
     }
   }
-  private async getWorkerInfo() {
+  private async getWorkerInfo(authToken:AuthToken) {
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
     if(res.rsCode === 0) {
-      this.user.setUserData(res.rsObj);
+      const userData:UserData = res.rsObj;
+
+      if(this.device.platform_type < 3) {
+        this.nav.navigateRoot('/main-user', {
+          animated: true
+        });
+      } else {
+        if(!environment.production
+        && userData.user_type === 'WORKER') {
+          return;
+        }
+        this.nav.navigateRoot('/main-admin', {
+          animated: true
+        });
+      }
+      this.user.setAuthToken(authToken, this.autoLogin);
+      this.user.setUserData(userData, this.autoLogin);
     }
   }
 }
