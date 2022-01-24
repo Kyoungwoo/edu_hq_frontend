@@ -7,7 +7,7 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 import { SignUpWorkerPage } from './sign-up-worker.page';
-import { SignUpCompanyInfoMock } from './sign-up-worker.interface';
+import { SignUpCompanyInfoMock } from '../sign-up.interface';
 
 describe('SignUpWorkerPage', () => {
   let component: SignUpWorkerPage;

@@ -55,7 +55,6 @@ export class DaumService {
                   extraAddr = ' (' + extraAddr + ')';
               }
           }
-          console.log(data);
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
           res({
             zoneCode: data.zonecode,//우편번호

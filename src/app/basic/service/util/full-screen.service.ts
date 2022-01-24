@@ -8,7 +8,6 @@ export class FullScreenService {
   constructor() { }
   present() {
     const elem:any = document.documentElement;
-    console.log(elem.webkitRequestFullscreen);
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) { /* Firefox */
@@ -22,7 +21,6 @@ export class FullScreenService {
 
   exit() {
     const elem:any = document;
-    // console.log(elem.webkitRequestFullscreen);
     if (elem.fullscreenElement) {
       elem.exitFullscreen();
     } 

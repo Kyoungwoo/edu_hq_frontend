@@ -36,6 +36,12 @@ export class SceneListPage implements OnInit {
     state:boolean
   }>;
   
+  ctgoRegional:ConnectResult<{
+    hq_regional_name:string,
+    hq_regional_entire_state: number,
+    hq_regional_code: string,
+    hq_regional_id: number
+  }>
 
   constructor(
     private modal:ModalController,
@@ -46,6 +52,7 @@ export class SceneListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getCtgoRegional();
     this.getList();
   }
 
@@ -53,11 +60,7 @@ export class SceneListPage implements OnInit {
     const res = await this.connect.run('/project/list',this.form,{
       loading:'현장 불러온느중'
     });
-    if(res.rsCode === 0){
-      this.res = res;
-    } else { 
-      this.connect.error('현장 불러오기 실패',res);
-    }
+    if(res.rsCode === 0) this.res = res;
   }
 
   async use_submit() {
@@ -96,7 +99,6 @@ export class SceneListPage implements OnInit {
       });
     } else { 
       item.state = true;
-      console.log("item",item);
       // if(item.project_use_state === 0) {
       //     this.alert.present({
       //       header:'안내',
@@ -104,6 +106,12 @@ export class SceneListPage implements OnInit {
       //       +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
       //     })
       // }
+    }
+  }
+  async getCtgoRegional() {
+    this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
+    if(this.ctgoRegional.rsCode === 0) {
+      console.log("this.res",this.ctgoRegional);
     }
   }
 }

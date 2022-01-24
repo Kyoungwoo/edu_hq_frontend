@@ -4,22 +4,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
-import { SignUpComponentModule } from '../../component/sign-up.component.module';
-import { SignUpCompanyInfoMock, SignUpWorkerInfoMock } from '../../sign-up-worker/sign-up-worker.interface';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
-import { SignUpHealthPage } from './sign-up-health.page';
+import { SignUpLhPage } from './sign-up-lh.page';
 
-describe('SignUpHealthPage', () => {
-  let component: SignUpHealthPage;
-  let fixture: ComponentFixture<SignUpHealthPage>;
+describe('SignUpLhPage', () => {
+  let component: SignUpLhPage;
+  let fixture: ComponentFixture<SignUpLhPage>;
 
   beforeEach(waitForAsync(() => {
-    window.history.pushState({ 
-      companyInfo: new SignUpCompanyInfoMock(),
-      signUpworkerInfo: new SignUpWorkerInfoMock()
-    }, '', '');
     TestBed.configureTestingModule({
-      declarations: [ SignUpHealthPage ],
+      declarations: [ SignUpLhPage ],
       imports: [
         IonicModule.forRoot(),
         AppModule,
@@ -30,7 +25,7 @@ describe('SignUpHealthPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignUpHealthPage);
+    fixture = TestBed.createComponent(SignUpLhPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

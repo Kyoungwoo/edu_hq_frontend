@@ -21,7 +21,9 @@
           </tr>
           <tr>
             <td>
-              <app-select label="사업본부"></app-select>
+              <app-select label="사업본부" [(ngModel)]="form.hq_regional_ids">
+                <app-select-option *ngFor="let opt of ctgoRegional.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
+              </app-select>
             </td>
           </tr>
           <tr>
@@ -48,7 +50,7 @@
         <h5>수시 위험성평가 목록 (총90건)</h5>
       </ion-toolbar>
       <!-- check-group ngModel -->
-      <app-check-group>
+      <app-check-group >
         <app-table>
           <thead>
             <tr>
@@ -87,6 +89,11 @@
           </tbody>
         </app-table>
       </app-check-group>
+      <ng-template>
+        <app-card>
+          <h5>현장 등록 목록이 없습니다.</h5>
+        </app-card>
+      </ng-template>
       <app-pager></app-pager>
     </app-col>
   </app-row>

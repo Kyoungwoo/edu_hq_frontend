@@ -158,7 +158,6 @@ export class StorageService {
     set: (data:USER_DATA, auto:boolean = true) => {
       if(location.href.indexOf('employee-app/signup') == -1) this.user.clear();
       if(!isPlatformServer(this.platformId)) {
-        console.log(data);
         let storage:string = auto ? 'localStorage' : 'sessionStorage';
         for(let key in this.user.data) {
           window[storage].setItem(this.name + key, data[key] || this.user.data[key]);

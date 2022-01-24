@@ -50,8 +50,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   changeInputFile($event) {
     const fileList:File[] = Array.from($event.target.files);
+    console.log(fileList);
     if(!fileList.length) return;
-
     this.fileAdd(fileList);
     $event.target.value = null;
   }
@@ -93,7 +93,10 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     this.file_json.insert.push({
       order_no,
       view_type
-    })
+    });
+    console.log(this.value);
+    console.log(this.file);
+    console.log(this.file_json);
   }
 
   private fileDelete(item:FutItem) {

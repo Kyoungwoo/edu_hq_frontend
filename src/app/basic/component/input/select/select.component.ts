@@ -18,8 +18,8 @@ import { SelectPopoverComponent } from '../select-popover/select-popover.compone
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
-
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event']) onClick($event:MouseEvent) {
+    $event?.stopPropagation();
     if(!this.readonly && !this.disabled) this.popoverSelect();
   }
 

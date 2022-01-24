@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 
@@ -13,6 +13,10 @@ import { Color } from '@ionic/core';
   }]
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
+  @HostListener('setValue', ['$event']) setValue({ detail:value }) {
+    this.value = value;
+    this.onKeyup();
+  }
 
   @Input() color:Color;
   @Input() label:string = "";
@@ -29,8 +33,8 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   timeoutKeyup;
-  public onKeyup($event:KeyboardEvent) {
-    if($event.key === 'Enter') return;
+  public onKeyup($event?:KeyboardEvent) {
+    if($event?.key === 'Enter') return;
     clearTimeout(this.timeoutKeyup);
     this.timeoutKeyup = setTimeout(() => {
       this.delayKeyup.emit();
@@ -56,10 +60,10 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
+  writeValue(v:string): void {
     if(v !== this._value) {
       this._value = v;
-      if(v) this.delayKeyup.emit();
+      this.delayKeyup.emit();
       this.onChangeCallback(v);
       this.change.emit(v);
     }

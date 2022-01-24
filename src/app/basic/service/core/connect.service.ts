@@ -101,7 +101,7 @@ export class ConnectService {
     } catch(error) {
       result = {
         errorStatus: error.status, 
-        rsCode: null, 
+        rsCode: 500, 
         rsObj: error.error, 
         rsMsg: '서버 연결에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.', //error.message, 
         rqMethod: '', 

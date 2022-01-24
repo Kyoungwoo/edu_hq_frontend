@@ -1,32 +1,14 @@
 import { FutItem, FileBlob, FileJson } from "src/app/basic/service/core/file.service";
 import { UserGender } from "src/app/basic/service/core/user.service";
 import { RegexService } from "src/app/basic/service/util/regex.service";
+import { SignUpViewType, SignUpCountryMock, SignUpCompanyInfoMock, SignUpProjectInfoMock } from "../sign-up.interface";
 
 const regex = new RegexService();
-export class SignUpCompanyInfo {
-  company_id:number = null;
-  business_register_no:number = null;
-  company_name:string = null;
-  company_ceo:number = null;
-}
-export class SignUpCompanyInfoMock {
-  company_id:number = 1;
-  business_register_no:number = null;
-  company_name:string = null;
-  company_ceo:number = null;
-}
-export class SignUpProjectInfoMock {
-  project_code = "PKWA46";
-  project_id = 61;
-  project_name = "데브현장";
-}
 
-/** PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증 */
-export type SignUpViewType = 'PROFILE'|'BASIC_SAFE_EDU'|'CERTIFY';
-export class SignUpWorkerInfo {
+export class signUpWorkerInfo {
   account_id:string = null; // 아이디
   account_token:string = null; //비밀번호
-  account_token_conform:string = null; //비밀번호 확인
+  account_token_conform:string = null; //account_token_conform
   ctgo_country_id:number = null; //국적 ID
   company_id:number = null; //소속 업체 ID
   project_id:number = null; //소속 현장 ID
@@ -57,10 +39,10 @@ export class SignUpWorkerHealth {
   covid_vaccine_state:boolean = null; //코로나 백신접종 여부
   health_terms_state:boolean = null; //문진표 작성동의 여부
 }
-export class SignUpWorkerForm implements SignUpWorkerInfo, SignUpWorkerHealth {
+export class SignUpWorkerForm implements signUpWorkerInfo, SignUpWorkerHealth {
   account_id:string = null; // 아이디
   account_token:string = null; //비밀번호
-  account_token_conform:string = null; //비밀번호 확인
+  account_token_conform:string = null; //account_token_conform
   ctgo_country_id:number = null; //국적 ID
   company_id:number = null; //소속 업체 ID
   project_id:number = null; //소속 현장 ID
@@ -91,21 +73,35 @@ export class SignUpWorkerForm implements SignUpWorkerInfo, SignUpWorkerHealth {
   health_terms_state:boolean = null; //문진표 작성동의 여부
 }
 
-export class SignUpWorkerInfoMock extends SignUpWorkerInfo {
+export class signUpWorkerInfoMock implements signUpWorkerInfo {
+  constructor(
+    country?:SignUpCountryMock,
+    company?:SignUpCompanyInfoMock,
+    project?:SignUpProjectInfoMock
+  ) {
+    if(country) this.ctgo_country_id = country.ctgo_country_id;
+    if(company) this.company_id = company.company_id;
+    if(project) this.project_id = project.project_id;
+  }
   account_id:string = regex.random.id('worker'); // 아이디
   account_token:string = 'qwer1234'; //비밀번호
-  account_token_conform:string = 'qwer1234'; //비밀번호 확인
-  ctgo_country_id:number = 1; //국적 ID
-  company_id:number = new SignUpCompanyInfoMock().company_id; //소속 업체 ID
-  project_id:number = new SignUpProjectInfoMock().project_id; //소속 현장 ID
+  account_token_conform:string = 'qwer1234'; //account_token_conform
+  ctgo_country_id:number; //국적 ID
+  company_id:number; //소속 업체 ID
+  project_id:number; //소속 현장 ID
   user_name:string = '김수홍'; //이름
   user_gender:UserGender = '남'; //성별
   user_birth:string = '1987-07-26'; //생년월일
   user_email:string = regex.random.email();; //이메일
-  user_phone:string =  regex.random.phone(); //'01056044147';//휴대폰번호
+  user_phone:string = regex.random.phone(); //'01056044147';//휴대폰번호
+  sms_token: string = '';
+  basic_safe_edu_date:string = null; //기초안전보건교육 이수증
+  file_preview:FutItem<SignUpViewType>[] = []; // 파일 미리보기
+  file:(File | FileBlob)[] = []; // 파일
+  file_json:FileJson<SignUpViewType> = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 }
 
-export class SignUpWorkerHealthMock extends SignUpWorkerHealth {
+export class SignUpWorkerHealthMock implements SignUpWorkerHealth {
   use_drugs_state:boolean = true; //약물복용여부 (false - 없다, 미접종, 미동의 / true - 있다, 접종, 동의)
   use_drugs_content:string = '통풍약'; //약물명
   brain_cure_state:boolean = true; //심혈관질환 치료여부

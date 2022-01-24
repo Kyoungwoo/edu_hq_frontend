@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -21,6 +21,9 @@ export interface Country {
   }]
 })
 export class SelectCountryComponent implements OnInit, ControlValueAccessor {
+  @HostListener('click') onClick() {
+    this.el.nativeElement.querySelector('[name=select]').dispatchEvent(new Event('click'));
+  }
   
   @Input() color:Color;
   @Input() label:string = "국가";
@@ -29,7 +32,9 @@ export class SelectCountryComponent implements OnInit, ControlValueAccessor {
   res:ConnectResult<Country>;
 
   constructor(
-    private connect: ConnectService
+    private el: ElementRef<HTMLElement>,
+    private connect: ConnectService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {

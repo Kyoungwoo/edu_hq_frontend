@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content>
   <app-container size="small">
-    <app-sign-up-segment step="step2"></app-sign-up-segment>
+    <app-sign-up-segment step="step2" type="WORKER"></app-sign-up-segment>
     <form style="margin-top: 16px;">
       <app-card color="medium">{{ regex.replace.businessRegisterNo(companyInfo?.business_register_no) }} / {{ companyInfo?.company_name }}</app-card>
       <app-avatar name="input-profile" 
@@ -24,7 +24,7 @@
         </app-col>
         <app-col>
           <app-input
-          name="input-account_id" label="아이디"
+          name="account_id" label="아이디"
           placeholder="영문과 숫자만 입력해주세요."
           [color]="validator.account_id?.valid === false && 'warning'"
           [(ngModel)]="form.account_id" (delayKeyup)="overlapId()" [required]="true"></app-input>
@@ -33,14 +33,14 @@
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-input name="input-account_token" label="비밀번호" type="password"
+          <app-input name="account_token" label="비밀번호" type="password"
           placeholder="영문, 숫자, 조합(6~20자)"
           [color]="validator.account_token?.valid === false && 'warning'"
           [(ngModel)]="form.account_token" (delayKeyup)="checkPass()" [required]="true"></app-input>
           <app-input-caption *ngIf="validator.account_token?.valid === false" color="warning">{{ validator.account_token?.message }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-input name="비밀번호 확인" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
+          <app-input name="account_token_conform" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
           [color]="validator.account_token_conform?.valid === false && 'warning'"
           [(ngModel)]="form.account_token_conform" (delayKeyup)="checkPassConfirm()" [required]="true"></app-input>
           <app-input-caption *ngIf="validator.account_token_conform?.valid === false" color="warning">{{ validator.account_token_conform?.message }}</app-input-caption>
@@ -48,13 +48,13 @@
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-calendar name="생년월일" label="생년월일" 
+          <app-calendar name="user_birth" label="생년월일" 
           [color]="validator.user_birth?.valid === false && 'warning'"
           [(ngModel)]="form.user_birth" [required]="true"></app-calendar>
           <app-input-caption *ngIf="validator.user_birth?.valid === false" color="warning">{{ validator.user_birth?.message }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-radio-input name="성별" label="성별" 
+          <app-radio-input name="user_gender" label="성별" 
           [color]="validator.user_gender?.valid === false && 'warning'"
           [(ngModel)]="form.user_gender" [required]="true">
             <app-radio value="남">남</app-radio>
@@ -88,7 +88,7 @@
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-email name="이메일" label="이메일" 
+          <app-email name="user_email" label="이메일" 
           [color]="validator.user_email?.valid === false && 'warning'"
           (delayKeyup)="overlapEmail()"
           [(ngModel)]="form.user_email" [required]="true"></app-email>
@@ -117,7 +117,8 @@
           <app-calendar name="건설업 기초 안전보건교육 이수일" label="건설업 기초 안전보건교육 이수일" [(ngModel)]="form.basic_safe_edu_date"></app-calendar>
         </app-col>
       </app-row>
-      <app-select-scene name="project_id" type="ALL"
+      <app-select-scene name="project_id" type="SIGNUP"
+      [company_id]="form.company_id"
       [color]="validator.project_id?.valid === false && 'warning'"
       [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
       <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>

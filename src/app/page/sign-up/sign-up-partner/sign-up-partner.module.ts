@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SignUpHealthPageRoutingModule } from './sign-up-health-routing.module';
+import { SignUpPartnerPageRoutingModule } from './sign-up-partner-routing.module';
 
-import { SignUpHealthPage } from './sign-up-health.page';
+import { SignUpPartnerPage } from './sign-up-partner.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { SignUpComponentModule } from '../../component/sign-up.component.module';
+import { SignUpComponentModule } from '../component/sign-up.component.module';
 
 @NgModule({
   imports: [
@@ -17,8 +17,8 @@ import { SignUpComponentModule } from '../../component/sign-up.component.module'
     IonicModule,
     ComponentModule,
     SignUpComponentModule,
-    SignUpHealthPageRoutingModule
+    SignUpPartnerPageRoutingModule,
   ],
-  declarations: [SignUpHealthPage]
+  declarations: [SignUpPartnerPage]
 })
-export class SignUpHealthPageModule {}
+export class SignUpPartnerPageModule {}

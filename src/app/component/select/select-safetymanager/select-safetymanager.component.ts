@@ -1,7 +1,19 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
+export interface SafeJob {
+  company_id: number, // 업체 ID
+  ctgo_safe_job_id: number, // 안전직무 ID
+  ctgo_safe_job_name_kr: string, // 직무명 한국
+  ctgo_safe_job_name_vi: string, // 직무명 베트남
+  ctgo_safe_job_name_ch: string, // 직무명 중국
+  ctgo_safe_job_use_state: 0|1, // 1 사용 0 미사용
+  ctgo_safe_job_name_en: string, // 직무명 영어
+  ctgo_safe_job_role: string // 권한 1차 미사용 신경쓰지마세요.
+}
 @Component({
   selector: 'app-select-safetymanager',
   templateUrl: './select-safetymanager.component.html',
@@ -13,15 +25,51 @@ import { Color } from '@ionic/core';
   }]
 })
 export class SelectSafetymanagerComponent implements OnInit, ControlValueAccessor {
+  @HostListener('click') onClick() {
+    this.el.nativeElement.querySelector('[name=select]').dispatchEvent(new Event('click'));
+  }
 
   @Input() color:Color;
   @Input() label:string = "안전직무";
   @Input() placeholder:string = "선택";
 
-  constructor() { }
+  private _company_id:number;
+  @Input() set company_id(v:number) {
+    console.log(v);
+    if(this._company_id !== v) {
+      this._company_id = v;
+      this.get();
+    }
+  }
+  get company_id() { return this._company_id }
+
+  @Input() user_type:string;
+
+  res:ConnectResult<SafeJob>;
+
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    private connect: ConnectService,
+    private promise: PromiseService
+  ) { }
 
   ngOnInit() {}
 
+  private async get() {
+    if(!this.company_id || !this.user_type) return;
+    this.res = await this.connect.run('/category/safe_job/get', {
+      company_id: this.company_id,
+      user_type: this.user_type
+    });
+  }
+
+
+  //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
+  @Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
 
   @Output() change = new EventEmitter();
 

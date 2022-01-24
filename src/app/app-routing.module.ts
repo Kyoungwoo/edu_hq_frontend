@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'splash',
+    redirectTo: 'scene-list',
     pathMatch: 'full'
   },
   {
@@ -101,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'sign-up-health',
-    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health/sign-up-health.module').then(m => m.SignUpHealthPageModule)
+    loadChildren: () => import('./page/sign-up/sign-up-health/sign-up-health.module').then(m => m.SignUpHealthPageModule)
   },
   {
     path: 'privacy',
@@ -450,6 +450,18 @@ const routes: Routes = [
   {
     path: 'organization-select',
     loadChildren: () => import('./page/project-management/scene-management/organization-select/organization-select.module').then( m => m.OrganizationSelectPageModule)
+  },
+  {
+    path: 'sign-up-lh',
+    loadChildren: () => import('./page/sign-up/sign-up-lh/sign-up-lh.module').then( m => m.SignUpLhPageModule)
+  },
+  {
+    path: 'sign-up-supervision',
+    loadChildren: () => import('./page/sign-up/sign-up-supervision/sign-up-supervision.module').then( m => m.SignUpSupervisionPageModule)
+  },
+  {
+    path: 'sign-up-partner',
+    loadChildren: () => import('./page/sign-up/sign-up-partner/sign-up-partner.module').then( m => m.SignUpPartnerPageModule)
   }
 
 

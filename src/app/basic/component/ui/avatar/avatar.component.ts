@@ -42,7 +42,7 @@ export class AvatarComponent implements OnInit, DoCheck, ControlValueAccessor {
   }
 
   private changeAvatar(futItem:FutItem) {
-    this.src = futItem.file_url;
+    this.src = futItem.full_url;
   }
 
 
