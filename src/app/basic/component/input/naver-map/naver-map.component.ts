@@ -145,16 +145,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
   }
   private changeMarker() {
-    console.log("asdfsadf");
-    this.path = [];
-    this.marker = [];
-    this.LatLng = [];
-    console.log("this.marker",this.marker);
-    /* const newPos = this.value.filter(pos => {
-      pos.
-    })
-    this.LatLng
-    this.value */
+    
   }
 
   private getMapSize(): Promise<DOMRect> {
