@@ -36,6 +36,9 @@ export class SignUpHealthPage implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     const el = this.el.nativeElement;
     // 가짜 정보 입력
     this.form = new SignUpWorkerHealthMock();

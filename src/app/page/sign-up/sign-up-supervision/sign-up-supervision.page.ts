@@ -39,6 +39,9 @@ export class SignUpSupervisionPage implements OnInit {
   }
  
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     const el = this.el.nativeElement;
     await this.promise.wait();
 
@@ -49,10 +52,8 @@ export class SignUpSupervisionPage implements OnInit {
       const input = el.querySelector(`[name=${key}]`);
       if(input && value) input.dispatchEvent(new CustomEvent('setValue', { detail: value }));
     }
-
-    // 핸드폰 중복 체크
-    el.querySelector('[name=user_phone]').dispatchEvent(new Event('delayKeyup'));
     await this.promise.wait();
+
     // 문자 인증 전송
     el.querySelector('[name=user_phone]').dispatchEvent(new Event('buttonClick'));
     await this.promise.wait(1500);
@@ -122,7 +123,7 @@ export class SignUpSupervisionPage implements OnInit {
   }
   public checkPassConfirm() {
     const { account_token, account_token_conform } = this.form;
-    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 account_token_conform이 다릅니다.' };
+    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
     else return this.validator.account_token_conform = { valid: true };
   }
   
@@ -171,7 +172,7 @@ export class SignUpSupervisionPage implements OnInit {
     else if(this.validator.account_token?.valid) 
     this.validator.account_token = { valid: true };
 
-    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: 'account_token_conform을 입력해주세요.', valid: false };
+    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: '비밀번호 확인을 입력해주세요.', valid: false };
     else if(this.validator.account_token_conform?.valid)
     this.validator.account_token_conform = { valid: true };
 

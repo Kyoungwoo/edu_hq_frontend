@@ -39,6 +39,9 @@ export class SignUpWorkerPage implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     const el = this.el.nativeElement;
     await this.promise.wait();
 
@@ -85,6 +88,20 @@ export class SignUpWorkerPage implements OnInit {
     else return false;
   }
 
+  public prev() {
+    this.nav.back();
+  }
+  public async next() {
+    if(!this.valid()) return;
+
+    this.nav.navigateForward('/sign-up-health', {
+      state: {
+        companyInfo: this.companyInfo,
+        signUpWorkerInfo: this.form
+      }
+    });
+  }
+
   public async overlapId() {
     const { account_id } = this.form;
     if(!account_id) return this.validator.account_id = null;
@@ -102,7 +119,7 @@ export class SignUpWorkerPage implements OnInit {
   }
   public checkPassConfirm() {
     const { account_token, account_token_conform } = this.form;
-    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 account_token_conform이 다릅니다.' };
+    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
     else return this.validator.account_token_conform = { valid: true };
   }
   
@@ -138,21 +155,6 @@ export class SignUpWorkerPage implements OnInit {
     return this.form.file_preview.find(futItem => futItem.view_type === view_type);
   }
 
-
-  public prev() {
-    this.nav.back();
-  }
-  public async next() {
-    if(!this.valid()) return;
-
-    this.nav.navigateForward('/sign-up-health', {
-      state: {
-        companyInfo: this.companyInfo,
-        signUpWorkerInfo: this.form
-      }
-    });
-  }
-
   private valid():boolean {
     if(!this.form.user_name) this.validator.user_name = { message: '이름을 입력해주세요.', valid: false };
     else this.validator.user_name = { valid: true };
@@ -165,7 +167,7 @@ export class SignUpWorkerPage implements OnInit {
     else if(this.validator.account_token?.valid) 
     this.validator.account_token = { valid: true };
 
-    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: 'account_token_conform을 입력해주세요.', valid: false };
+    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: '비밀번호 확인을 입력해주세요.', valid: false };
     else if(this.validator.account_token_conform?.valid)
     this.validator.account_token_conform = { valid: true };
 

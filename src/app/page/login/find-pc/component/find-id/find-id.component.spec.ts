@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FindIdPage } from './find-id.page';
+import { FindIdComponent } from './find-id.component';
 
-describe('FindIdPage', () => {
-  let component: FindIdPage;
-  let fixture: ComponentFixture<FindIdPage>;
+describe('FindIdComponent', () => {
+  let component: FindIdComponent;
+  let fixture: ComponentFixture<FindIdComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FindIdPage ],
+      declarations: [ FindIdComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FindIdPage);
+    fixture = TestBed.createComponent(FindIdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

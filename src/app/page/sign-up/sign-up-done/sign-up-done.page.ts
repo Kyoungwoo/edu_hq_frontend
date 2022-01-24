@@ -22,6 +22,9 @@ export class SignUpDonePage implements OnInit {
   }
 
   private async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     await this.promise.wait();
     this._modal.dismiss();
   }

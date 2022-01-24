@@ -34,6 +34,9 @@ export class SignUpLhPage implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+    
     const el = this.el.nativeElement;
     await this.promise.wait();
 
@@ -116,7 +119,7 @@ export class SignUpLhPage implements OnInit {
   }
   public checkPassConfirm() {
     const { account_token, account_token_conform } = this.form;
-    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 account_token_conform이 다릅니다.' };
+    if(account_token !== account_token_conform) return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
     else return this.validator.account_token_conform = { valid: true };
   }
   
@@ -164,7 +167,7 @@ export class SignUpLhPage implements OnInit {
     else if(this.validator.account_token?.valid) 
     this.validator.account_token = { valid: true };
 
-    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: 'account_token_conform을 입력해주세요.', valid: false };
+    if(!this.form.account_token_conform) this.validator.account_token_conform = { message: '비밀번호 확인을 입력해주세요.', valid: false };
     else if(this.validator.account_token_conform?.valid)
     this.validator.account_token_conform = { valid: true };
 

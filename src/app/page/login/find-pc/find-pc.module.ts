@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FindIdPageRoutingModule } from './find-id-routing.module';
+import { FindPcPageRoutingModule } from './find-pc-routing.module';
 
-import { FindIdPage } from './find-id.page';
+import { FindPcPage } from './find-pc.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { FindPcComponentModule } from './component/component.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    FindIdPageRoutingModule
+    FindPcComponentModule,
+    FindPcPageRoutingModule
   ],
-  declarations: [FindIdPage]
+  declarations: [FindPcPage]
 })
-export class FindIdPageModule {}
+export class FindPcPageModule {}

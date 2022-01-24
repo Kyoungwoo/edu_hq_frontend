@@ -24,7 +24,7 @@ export class AlertService {
   
   async present(opts:AlertOptions = {}) {
     if(opts?.mode) opts.mode = this.getMode(opts?.mode);
-    this._presentIonicAlert(opts);
+    return this._presentIonicAlert(opts);
   }
   getTop() {
     return this.alert.getTop();

@@ -1,0 +1,16 @@
+<app-card color="light">
+  <ion-toolbar slot="top" color="white">
+    <ion-segment color="primary" [(ngModel)]="type" (ionChange)="changeType.emit(type)">
+      <ion-segment-button value="find-id">아이디 찾기</ion-segment-button>
+      <ion-segment-button value="find-password">비밀번호 찾기</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <h4>회원님의 아이디는 다음과 같습니다.</h4>
+  <app-card><h3><ion-text color="primary">{{ res.rsObj.account_id }}</ion-text></h3></app-card>
+  <ion-toolbar slot="bottom" color="white">
+    <ion-buttons slot="end">
+      <app-button name="button_find_password" fill="translucent" (click)="navFindPassword()">비밀번호 찾기</app-button>
+      <app-button name="button_login" (click)="navLogin()">로그인하기</app-button>
+    </ion-buttons>
+  </ion-toolbar>
+</app-card>

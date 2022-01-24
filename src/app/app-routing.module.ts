@@ -464,30 +464,9 @@ const routes: Routes = [
     loadChildren: () => import('./page/sign-up/sign-up-partner/sign-up-partner.module').then( m => m.SignUpPartnerPageModule)
   },
   {
-    path: 'find-id',
-    loadChildren: () => import('./page/login/find-id/find-id.module').then( m => m.FindIdPageModule)
-  },
-  {
-    path: 'find-password',
-    loadChildren: () => import('./page/login/find-password/find-password.module').then( m => m.FindPasswordPageModule)
+    path: 'find-pc',
+    loadChildren: () => import('./page/login/find-pc/find-pc.module').then( m => m.FindPcPageModule)
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ];
 
 @NgModule({

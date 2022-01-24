@@ -35,6 +35,7 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
   }
 
   private async test() {
+    if(!environment.autoTest.core.test) return;
     await this.promise.wait();
     const el = this.el.nativeElement;
 

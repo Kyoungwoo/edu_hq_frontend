@@ -29,15 +29,18 @@ export class SignUpTypePage implements OnInit {
   }
 
   public async test() {
+    if(!environment.autoTest.core.test) return;
+    if(!environment.autoTest.SignUp.test) return;
+
     const el = this.el.nativeElement;
     await this.promise.wait();
 
     const els = el.querySelectorAll('[name=card_type]');
-    els[environment.signUpTest].dispatchEvent(new Event('click'));
+    els[environment.autoTest.SignUp.num].dispatchEvent(new Event('click'));
     await this.promise.wait();
 
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-    environment.signUpTest += 1;
+    environment.autoTest.SignUp.num += 1;
   }
 
   next() {
