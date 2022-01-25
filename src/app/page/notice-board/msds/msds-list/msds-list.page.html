@@ -13,7 +13,7 @@
             <tbody>
                 <tr>
                   <td>
-                    <app-select-scene [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+                    <app-select-scene [(ngModel)]="form.project_ids" [required]="true"></app-select-scene>
                   </td>
                 </tr>
                       <tr>
@@ -75,46 +75,47 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>MSDS 목록 (총{{res?.rsMap.length}}건)</h5>
+          <h5>MSDS 목록 (총{{res?.rsMap?.length}}건)</h5>
         </ion-toolbar>
-        <app-check-group>
-          <app-table>
-            <thead>
-              <tr>
-                <th style="width: 40px;">
-                  <app-check type="all" color="white" size="small" name="check"></app-check>
-                </th>
-                <th style="width: 60px; text-align: center;">상단노출</th>
-                <th style="width: 80px;">MSDS 구분</th>
-                <th style="width: 500px;">제목</th>
-                <th style="width: 100px;">업체명</th>
-                <th style="width: 80px;">작성자</th>
-                <th style="width: 80px;">작성일</th>
-                <th style="width: 50px;">조회수</th>
-              </tr>    
-            </thead>
-              <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
-                <td (click)="$event.stopPropagation()">
-                  <app-check color="white" size="small" name="check"></app-check>
-                </td>
-                <td (click)="$event.stopPropagation()">
-                  <app-button size="small" shape="square" fill="translucent"
-                  [color]="item.favorites_state ? 'star' : 'medium'" (click)="favoritesCheck($event, item)">
-                    <ion-icon name="star"></ion-icon>
-                  </app-button>
-                </td>
-                <td>{{ item.msds_type }}</td>
-                <td>{{ item.msds_title }}</td>
-                <td>{{ item.company_name }}</td>
-                <td>{{ item.user_name }}</td>
-                <td>{{ item.create_date }}</td>
-                <td>{{ item.hit_count }}</td>
-              </tr>
-            <tbody>
-            </tbody>
-          </app-table>
-        </app-check-group>
-        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
+        <app-card *ngIf="resFavorite?.rsCode" color="warning">{{ resFavorite.rsMsg }}</app-card>
+        <ng-container *ngIf="res">
+          <ng-container *ngIf="res.rsCode === 0 else tempFail"></ng-container>
+          <app-check-group>
+            <app-table>
+              <thead>
+                <tr>
+                  <th style="width: 60px;">상단노출</th>
+                  <th style="width: 80px;">MSDS 구분</th>
+                  <th style="width: 500px;">제목</th>
+                  <th style="width: 100px;">업체명</th>
+                  <th style="width: 80px;">작성자</th>
+                  <th style="width: 80px;">작성일</th>
+                  <th style="width: 50px;">조회수</th>
+                </tr>    
+              </thead>
+                <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
+                  <td (click)="favoritesCheck($event, item)">
+                    <app-button size="small" shape="square" fill="translucent"
+                    [color]="item.favorites_state ? 'star' : 'medium'">
+                      <ion-icon name="star"></ion-icon>
+                    </app-button>
+                  </td>
+                  <td>{{ item.msds_type }}</td>
+                  <td>{{ item.msds_title }}</td>
+                  <td>{{ item.company_name }}</td>
+                  <td>{{ item.user_name }}</td>
+                  <td>{{ item.create_date }}</td>
+                  <td>{{ item.hit_count }}</td>
+                </tr>
+              <tbody>
+              </tbody>
+            </app-table>
+          </app-check-group>
+          <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
+        </ng-container>
+        <ng-template #tempFail>
+          <app-card>{{ res.rsMsg }}</app-card>
+        </ng-template>
       </app-col>
     </app-row>
   </ion-content>

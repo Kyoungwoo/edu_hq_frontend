@@ -10,6 +10,7 @@ import { MinutesListPage } from './minutes-list.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
+import { MinutesEditPageModule } from '../minutes-edit/minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DetailSearchPageModule } from '../../detail-search/detail-search.module
     ComponentModule,
     BasicComponentModule,
     MinutesListPageRoutingModule,
-    DetailSearchPageModule
+    DetailSearchPageModule,
+    MinutesEditPageModule
   ],
   declarations: [MinutesListPage]
 })

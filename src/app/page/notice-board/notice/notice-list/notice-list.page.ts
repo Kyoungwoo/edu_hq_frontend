@@ -32,7 +32,7 @@ export class NoticeListPage implements OnInit {
     company_ids: [1],
     end_date: this.date.today(),
     notice_types: ['일반'],
-    project_id: 1,
+    project_ids: 1,
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
@@ -51,6 +51,8 @@ export class NoticeListPage implements OnInit {
   }
 
   async get() {
+    let trans_form = JSON.parse(JSON.stringify(this.form));
+    trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     });
@@ -58,7 +60,10 @@ export class NoticeListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:DetailSearchPage
+      component:DetailSearchPage,
+      componentProps:{
+        type:'공지사항'
+      }
     });
     modal.present();
   }

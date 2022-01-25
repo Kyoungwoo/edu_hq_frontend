@@ -15,24 +15,60 @@
   <app-card>
     <app-row>
       <app-col>
-        <app-select-scene></app-select-scene>
+        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-select-company></app-select-company>
+        <app-select-company [(ngModel)]="form.company_name"></app-select-company>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-select label="구분">
-          <app-select-option></app-select-option>
+        <app-select label="공지사항 구분" *ngIf="type === '공지사항'">
+          <app-select-option value="일반">일반</app-select-option>
+          <app-select-option value="안전관리">안전관리</app-select-option>
+          <app-select-option value="환경관리">환경관리</app-select-option>
+          <app-select-option value="공사관리">공사관리</app-select-option>
+          <app-select-option value="품질관리">품질관리</app-select-option>
+        </app-select>
+        <app-select label="MSDS 구분" *ngIf="type === 'MSDS'">
+          <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
+          <app-select-option value="인화성 가스">인화성 가스</app-select-option>
+          <app-select-option value="인화성 액체">인화성 액체</app-select-option>
+          <app-select-option value="인화성 고체">인화성 고체</app-select-option>
+          <app-select-option value="에어로졸">에어로졸</app-select-option>
+          <app-select-option value="물반응성 물질">물반응성 물질</app-select-option>
+          <app-select-option value="산화성 가스">산화성 가스</app-select-option>
+          <app-select-option value="산화성 액체">산화성 액체</app-select-option>
+          <app-select-option value="산화성 고체">산화성 고체</app-select-option>
+          <app-select-option value="고압가스">고압가스</app-select-option>
+          <app-select-option value="자기반응성 물질">자기반응성 물질</app-select-option>
+          <app-select-option value="자연발화성 액체">자연발화성 액체</app-select-option>
+          <app-select-option value="자연발화성 고체">자연발화성 고체</app-select-option>
+          <app-select-option value="심한 눈 손상성 또는 자극성 물질">심한 눈 손상성 또는 자극성 물질</app-select-option>
+          <app-select-option value="호흡기 과민성 물질">호흡기 과민성 물질</app-select-option>
+          <app-select-option value="피부 과민성 물질">피부 과민성 물질</app-select-option>
+          <app-select-option value="발암성물질">발암성물질</app-select-option>
+          <app-select-option value="생식세포 변이원성 물질">생식세포 변이원성 물질</app-select-option>
+          <app-select-option value="생식독성 물질">생식독성 물질</app-select-option>
+          <app-select-option value="특정표적장기 독성 물질(1회 노출)">특정표적장기 독성 물질(1회 노출)</app-select-option>
+          <app-select-option value="특정표적장기 독성 물질(반복 노출)">특정표적장기 독성 물질(반복 노출)</app-select-option>
+          <app-select-option value="흡인유해성 물질">흡인유해성 물질</app-select-option>
+          <app-select-option value="수생환경 유해성 물질">수생환경 유해성 물질</app-select-option>
+          <app-select-option value="오존층 유해성 물질">오존층 유해성 물질</app-select-option>
+        </app-select>
+        <app-select label="회의록 구분" *ngIf="type === '회의록'">
+          <app-select-option value="전체">전체</app-select-option>
+          <app-select-option value="안전 및 보건에 관한 협의체 회의록">안전 및 보건에 관한 협의체 회의록</app-select-option>
+          <app-select-option value="노사 협의체 회의록">노사 협의체 회의록</app-select-option>
+          <app-select-option value="산업안전보건위원회 회의록">산업안전보건위원회 회의록</app-select-option>
         </app-select>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-input-group label="작성일">
+        <app-input-group label="작성일" [(ngModel)]="form.create_date">
           <app-calendar></app-calendar>
           ~
           <app-calendar></app-calendar>
