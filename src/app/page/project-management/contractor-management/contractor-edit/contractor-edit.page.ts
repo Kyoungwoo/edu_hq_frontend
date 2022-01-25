@@ -60,7 +60,10 @@ export class ContractorEditPage implements OnInit {
       parse: ['company_file_data']
     });
     if (res.rsCode === 0) {
-      this.form = res.rsObj;
+      this.form = {
+        ...this.form,
+        ...res.rsObj
+      }
     }
   }
   
@@ -69,7 +72,7 @@ export class ContractorEditPage implements OnInit {
     if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
     if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
+    // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
     this.form.manager_email = this.email + '@' + this.emailaddress;
     
     this.alert.present({

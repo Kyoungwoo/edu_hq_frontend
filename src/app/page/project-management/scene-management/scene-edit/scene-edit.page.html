@@ -30,7 +30,7 @@
       <app-col>
         <app-row>
           <app-col>
-            <app-input (click)="supervisionSel()" [value]="form.supervision_name"  label="감리사" [readonly]="true">
+            <app-input (click)="supervisionSel()" [value]="form.supervision_name" [(ngModel)]="this.supervision_id"  label="감리사" [readonly]="true">
               <app-img name="search"></app-img>
             </app-input>
           </app-col>
@@ -39,9 +39,9 @@
     </app-row>
     <app-row mobileBreak>
       <app-col style="display: flex;align-items: baseline;">
-        <app-calendar [(ngModel)]="form.contract_start_date" style="width: 100%;"></app-calendar>
+        <app-calendar [(ngModel)]="form.contract_start_date" style="width: 100%;" [max]="form.contract_end_date"></app-calendar>
         <span>&nbsp;~&nbsp;</span>
-        <app-calendar [(ngModel)]="form.contract_end_date" style="width: 100%;"></app-calendar>
+        <app-calendar [(ngModel)]="form.contract_end_date" style="width: 100%;" [min]="form.contract_start_date"></app-calendar>
       </app-col>
       <app-col>
         <app-input [(ngModel)]="form.construction_amount" label="공사금액"></app-input>

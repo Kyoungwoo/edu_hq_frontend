@@ -27,11 +27,18 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     private _modal:ModalController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+
+  ionViewDidEnter(){
+    // console.log("this.value",this.value);
+  }
 
   async contractor(){
     const modal = await this._modal.create({
-      component:SearchContractorComponent
+      component:SearchContractorComponent,
+      componentProps:{value:this.value}
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
@@ -42,9 +49,9 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         company_name_data.push(item.company_name);
         this.value.push(item.company_id);
       })
-
       console.log(this.value);
       this.name = company_name_data.toString();
+      console.log("company_name_data",company_name_data);
       this.name = this.name.substring(0,this.name.length-1);
     }
   }
@@ -56,6 +63,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:ValueData[]) {
     if(v !== this._value) {
       this._value = v || [];
+      this.name = this.value.toString();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -66,6 +74,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   writeValue(v:[]): void { 
     if(v !== this._value) 
     this._value = v || [];
+    this.name = this.value.toString();
     this.onChangeCallback(this._value);
     this.change.emit(this._value);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -11,6 +11,7 @@ import { RegexService } from 'src/app/basic/service/util/regex.service';
 })
 export class SearchContractorComponent implements OnInit {
 
+  @Input() value;
   form = {
     company_contract_type: '원청사',
     search_text: ''
@@ -41,13 +42,22 @@ export class SearchContractorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getCtgoContractor();
+    this.getCtgoContractor();    
   }
-
 
   async getCtgoContractor() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
-    if (this.res.rsCode === 0) { }
+    if (this.res.rsCode === 0) {
+      console.log("this.res",this.res)
+      if(this.value) {
+        this.value.forEach(item => {
+          console.log("this.res.rsMap",this.res);
+          this.res?.rsMap?.forEach(data => {
+            if(item === data.company_id) this.submitArr.push(data);
+          });
+        });
+      }
+     }
   }
 
   async addCompany() {
@@ -134,9 +144,9 @@ export class SearchContractorComponent implements OnInit {
         if(item.business_register_no.length < 10) return this.toast.present({message:'사업자등록번호를 확인해주세요.', color:"danger"});
         if(item.business_register_no.length > 10) this.overlap(item.business_register_no);
         if(!item.company_ceo) return this.toast.present({message:'대표자를 입력해 주세요.', color:"danger"});
-        console.log("this.submitArr",this.submitArr);
-        console.log("this.filteritem",conArr);
       })
+      console.log("this.submitArr",this.submitArr);
+      console.log("this.filteritem",conArr);
       this._modal_.dismiss(conArr);
     }
   }

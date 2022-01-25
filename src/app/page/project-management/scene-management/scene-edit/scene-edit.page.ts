@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { StorageService } from 'src/app/basic/service/core/storage.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { ProjectAreaSetComponent } from 'src/app/component/modal/project-area-set/project-area-set.component';
@@ -43,7 +45,7 @@ export class ProjectDetail {
   file: (File | Blob)[] = [];
   file_json: FileJson = new FileJson();
   supervision_name: string;
-  add_gps_state_con:string
+  add_gps_state_con:string;
   gps_state_con: string;
   company_data: COMPANY_DATA[] = [];
   gps_coordinate_data:object;
@@ -61,6 +63,7 @@ export class SceneEditPage implements OnInit {
   @Input() project_id;
 
   contractor_id = [];
+  supervision_id = [];
   mapData = {
     gps_latitude:[]
   }
@@ -93,7 +96,9 @@ export class SceneEditPage implements OnInit {
     private _modal: ModalController,
     private daum: DaumService,
     private Date: DateService,
-    public user: StorageService
+    public user: StorageService,
+    private alert: AlertService,
+    private changeRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -117,24 +122,66 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
-      console.log("this.form",this.form);
-      console.log(this.form);
+      console.log("----------------- test getItem -----------------");
+      
+      if(res.rsObj.company_data){
+        let company_name_string = [];
+        let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
+
+        console.log("josncompany",josncompany);
+        for(let i = 0; i < josncompany.length; i++){
+          console.log(josncompany[i]);
+          if(josncompany[i].company_contract_type === '원청사'){
+            for(let x = 0; x < josncompany[i].company_data.length; x++){
+              company_name_string.push(josncompany[i].company_data[x].company_name);
+              this.contractor_id.push(josncompany[i].company_data[x].company_id);
+            }
+          }
+        }
+
+        console.log("company_name_string",company_name_string.toString());
+        console.log("----------------- test getItem -----------------");
+
+        
+      }
+      // this.contractor_id = "테스트";
       if (res.rsObj.gps_state === 1) {
         this.form.gps_state_con = '설정됨'
       } else {
         this.form.gps_state_con = '설정 안됨'
       }
       this.organization.name = res.rsObj.hq_regional_name + ', ' + res.rsObj.hq_business_name;
+
+      this.changeRef.detectChanges();
     }
   }
 
   async sceneInsert() {
-    console.log("ㅁㅇㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹs",this.contractor_id);
-    this.organization_data = {
-      company_type: '원청사',
-      company_id:this.contractor_id
-    }
-    console.log("this.organization_data",this.organization_data);
+    const alert = await this.alert.present({
+      message:'저장 하시겠습니까?',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler: async() => {
+            if(this.contractor_id.length) {
+              this.form.company_data.push(
+                {
+                  company_type:'원청사',
+                  company_id:this.contractor_id
+                }
+              )
+            };
+            this.form.gps_coordinate_data = this.mapData;
+            const res = await this.connect.run('/project/insert', this.form);
+            if (res.rsCode === 0) {}
+          }
+        }
+      ]
+    })
+
+  }
+  contracorname() {
+    console.log("asdfasdfasdf");
     if(this.contractor_id.length) {
       this.form.company_data.push(
         {
@@ -143,12 +190,7 @@ export class SceneEditPage implements OnInit {
         }
       )
     }
-    this.form.gps_coordinate_data = this.mapData;
-    const res = await this.connect.run('/project/insert', this.form);
-    if (res.rsCode === 0) {
-    }
   }
-
   async organizationSel() {
     const modal = await this._modal.create({
       component: OrganizationSelectPage
@@ -166,22 +208,22 @@ export class SceneEditPage implements OnInit {
 
   async supervisionSel() {
     const modal = await this._modal.create({
-      component: SupervisionSearchComponent
+      component: SupervisionSearchComponent,
+      componentProps:{supervision_id:this.supervision_id}
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     console.log("감리사 모달 데이터", data);
     if (data) {
       let company_name_data = [];
-      let compnay_ids = [];
       console.log(this.form.company_data);
       data.forEach(item => {
-        compnay_ids.push(item.company_id);
+        this.supervision_id.push(item.company_id);
         company_name_data.push(item.company_name);
       });
       this.form.company_data.push({
         company_type: '감리사',
-        company_id:compnay_ids
+        company_id:this.supervision_id
       })
       // this.comapny_data.company_type = '원청사'
       console.log("compnay_ids",this.supervision_data);

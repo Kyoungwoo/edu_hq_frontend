@@ -24,7 +24,7 @@
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
     </app-col>
     <app-col>
-      <app-input label="현장 전화번호" [(ngModel)]="form.company_phone"></app-input>
+      <app-input [readonly]="this.updateStatus ? false:true" label="현장 전화번호" [(ngModel)]="form.company_phone"></app-input>
     </app-col>
   </app-row>
   <h4>회사 로고</h4>
@@ -33,8 +33,10 @@
       <app-col>
         <app-col size="auto" style="text-align: right;">
           <app-button>추가
-            <app-file name="input" view_type="LOGO" [(ngModel)]="form.company_file_data" [file]="form.file"
-              [file_json]="form.file_json"></app-file>
+            <app-file name="input"  view_type="LOGO"
+             [(ngModel)]="form.company_file_data"
+             [file]="form.file"
+             [file_json]="form.file_json"></app-file>
           </app-button>
         </app-col>
         <app-table *ngIf="form.company_file_data.length else fileData">
@@ -68,13 +70,25 @@
   <app-card>
     <app-row>
       <app-col>
-        <app-input label="성명"></app-input>
+        <app-input [readonly]="this.updateStatus ? false:true" name="name" [(ngModel)]="form.manager_name" label="성명">
+        </app-input>
       </app-col>
       <app-col>
-        <app-input label="연락처"></app-input>
+        <app-input [readonly]="this.updateStatus ? false:true" name="phoneNumber" [(ngModel)]="form.manager_phone"
+          [type]="'tel'" label="연락처"></app-input>
       </app-col>
       <app-col>
-        <app-input type="email" label="이메일"></app-input>
+        <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
+        </app-input>
+        <ng-template #not_id>
+          <app-input-group label="이메일">
+            <app-input [(ngModel)]="email" placeholder="입력"></app-input>
+            @
+            <app-select [(ngModel)]="emailaddress" placeholder="선택">
+              <app-select-option value="naver.com">naver.com</app-select-option>
+            </app-select>
+          </app-input-group>
+        </ng-template>
       </app-col>
     </app-row>
   </app-card>
