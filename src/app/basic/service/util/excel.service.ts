@@ -3,7 +3,7 @@ declare var XLSX;
 
 export interface Sheet {
   name: string,
-  data: Array<Array<{
+  data: {
     text?: string | number,
     rowspan?: number,
     colspan?: number,
@@ -15,7 +15,7 @@ export interface Sheet {
       width?:number,
       height?:number
     }
-  }>>
+  }[][]
 };
 
 export interface SheetStyle {
