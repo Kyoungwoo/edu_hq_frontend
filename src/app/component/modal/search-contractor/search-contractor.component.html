@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
+  <app-card *ngIf="!isModalStatus">
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>

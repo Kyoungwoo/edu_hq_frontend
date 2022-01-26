@@ -1,8 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
 
 export interface ValueData{
   company_id:[]
@@ -18,52 +19,49 @@ export interface ValueData{
   }]
 })
 export class SelectContractorComponent implements OnInit, ControlValueAccessor {
+
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.openModal();
+  }
   @Input() color:Color;
   @Input() label:string = "원청사";
+  @Input() text:string;
+  isModalData:boolean = false;
 
-  name:string
-
+ 
   constructor(
-    private _modal:ModalController
+    private _modal:ModalController,
+    private connect:ConnectService
   ) { }
 
   ngOnInit() {
     
   }
-
-  ionViewDidEnter(){
-    // console.log("this.value",this.value);
+  public async get() {
   }
-
-  async contractor(){
+  
+  public async openModal() {
+    this.isModalData = true;
     const modal = await this._modal.create({
       component:SearchContractorComponent,
-      componentProps:{value:this.value}
+      componentProps:{
+        value:this.value,
+        form : {
+          company_contract_type: this.label,
+          search_text: ''
+        }
+      }
     });
     modal.present();
-    const { data } = await modal.onDidDismiss();
-    console.log("data",data);
-    if(data) {
-      let company_name_data = [];
-      data.forEach(item => {
-        company_name_data.push(item.company_name);
-        this.value.push(item.company_id);
-      })
-      console.log(this.value);
-      this.name = company_name_data.toString();
-      console.log("company_name_data",company_name_data);
-      this.name = this.name.substring(0,this.name.length-1);
-    }
   }
  
-
+  @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:ValueData[] = [];
   @Input() set value(v:ValueData[]) {
     if(v !== this._value) {
       this._value = v || [];
-      this.name = this.value.toString();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -74,9 +72,9 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   writeValue(v:[]): void { 
     if(v !== this._value) 
     this._value = v || [];
-    this.name = this.value.toString();
-    this.onChangeCallback(this._value);
-    this.change.emit(this._value);
+    this.get();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
   private onChangeCallback = (v) => {};

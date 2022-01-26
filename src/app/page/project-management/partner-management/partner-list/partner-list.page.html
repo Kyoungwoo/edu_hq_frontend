@@ -33,7 +33,14 @@
     </app-col>
     <app-col>
       <ion-toolbar color="white">
-        <h5>수시 위험성평가 목록 (총90건)</h5>
+        <ion-buttons slot="start">
+          <app-col>
+            <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+          </app-col>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>협력사 관리 목록 (총{{ res?.rsMap?.length}}건)</h5>
       </ion-toolbar>
         <app-table>
           <thead>
@@ -50,17 +57,17 @@
               <th>작성자</th>
             </tr>
           </thead>
-            <tr class="button" (click)="edit()">
-              <td>1</td>
-              <td>수원당수 공공주택지구 조성공사</td>
-              <td>(주)원청사</td>
-              <td>GSIL</td>
-              <td>264-81-14771</td>
-              <td>이건창</td>
-              <td>건설임</td>
-              <td>010-7574-1728</td>
-              <td>2021.08.06</td>
-              <td>이건창</td>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item.company_id)">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.project_name }}</td>
+              <td>{{ item.master_company_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.business_register_no }}</td>
+              <td>{{ item.company_ceo}}</td>
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_phone }}</td>
+              <td>{{ item.update_date }}</td>
+              <td>{{ item.create_user_name}}</td>
             </tr>
           <tbody>
           </tbody>

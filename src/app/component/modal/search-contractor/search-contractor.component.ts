@@ -12,7 +12,7 @@ import { RegexService } from 'src/app/basic/service/util/regex.service';
 export class SearchContractorComponent implements OnInit {
 
   @Input() value;
-  form = {
+  @Input() form = {
     company_contract_type: '원청사',
     search_text: ''
   }
@@ -34,31 +34,38 @@ export class SearchContractorComponent implements OnInit {
   submitArr = [];
   filteritem = [];
   business_register_no_check: boolean = false;
+  isModalStatus:boolean = false;
   constructor(
     private connect: ConnectService,
     private _modal_: ModalController,
     private toast: ToastService,
-    private regex:RegexService
   ) { }
 
   ngOnInit() {
-    this.getCtgoContractor();    
+    if(Array.isArray(this.value)) this.isModalStatus = true;
+    this.getCtgoContractor();
   }
 
   async getCtgoContractor() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
-      console.log("this.res",this.res)
-      if(this.value) {
-        this.value.forEach(item => {
-          console.log("this.res.rsMap",this.res);
-          this.res?.rsMap?.forEach(data => {
-            if(item === data.company_id) this.submitArr.push(data);
-          });
+      console.log("this.isModalStatus",this.isModalStatus)
+      if(this.isModalStatus) {        
+        console.log("this.value====--------------------",this.value);
+        this.res?.rsMap?.forEach(data => {
+          
+        })
+        }
+      } else {
+        this.res?.rsMap?.forEach(data => {
+          if(this.value === data.company_id){
+            data.checked = true;
+            this.submitArr.push(data);
+          } 
         });
-      }
+       }
      }
-  }
+  
 
   async addCompany() {
     let filteritem = [];

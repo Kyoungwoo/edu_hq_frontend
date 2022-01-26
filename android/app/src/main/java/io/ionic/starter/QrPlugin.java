@@ -15,6 +15,6 @@ public class QrPlugin extends Plugin {
     WebView webView = this.bridge.getWebView();
 
     webView.setBackgroundColor(Color.TRANSPARENT);
-    webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+//    webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
   }
 }
