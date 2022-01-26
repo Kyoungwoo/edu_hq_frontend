@@ -122,8 +122,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
       const userData:UserData = res.rsObj;
 
       if(userData.user_type === 'WORKER') {
-        this.res.rsCode = 1002;
-        this.res.rsMsg = '근로자는 앱으로 로그인 해주세요.';
+        this.res.rsCode = 500;
+        this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
         this.user.clear();
         return;
       }

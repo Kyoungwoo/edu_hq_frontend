@@ -103,7 +103,8 @@ export class UserService {
     let deleteStorage:Storage = autoLogin ? window.sessionStorage : window.localStorage;
     storage.setItem(TAG.UserData, JSON.stringify(data));
     deleteStorage.removeItem(TAG.AuthToken);
-    //this.get();
+    
+    this.getUserData();
   }
   clear() {
     if(isPlatformServer(this.platformId)) return;

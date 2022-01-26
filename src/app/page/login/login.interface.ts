@@ -6,7 +6,7 @@ export class LoginFormWorkerMock implements LoginForm {
   accountID = 'workrer_sh';
   accountToken = 'qwer1234';
 }
-export class LoginFormLHMock implements LoginForm {
+export class LoginFormLhMock implements LoginForm {
   accountID = 'lh_sh';
   accountToken = 'qwer1234';
 }
