@@ -26,6 +26,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "원청사";
   @Input() text:string;
+  @Input() type?:boolean;
   isModalData:boolean = false;
 
  
@@ -35,9 +36,34 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-    
+    console.log("this.type",this.type);
   }
+
   public async get() {
+    if(this.isModalData || !this.value) return;
+    const res = await this.connect.run('/category/certify/company/get', {
+      company_contract_type: '원청사',
+      search_text: ''
+    });
+    if(this.type){
+      let textArr = [];
+      if(res.rsCode === 0) {
+        for (let i = 0; i < res.rsMap.length; i++) {
+          for (let x = 0; x < this.value.length; x++) {
+            if (res.rsMap[i].company_id === this.value[x]) {
+              textArr.push(res.rsMap[i].company_name);
+            }
+          }
+        }
+        this.text = textArr.toString();
+      }
+    } else {
+      for(let i = 0; i < res.rsMap.length; i++) {
+        if(res.rsMap[i].company_id === this.value) {
+          this.text = res.rsMap[i].compnay_id;
+        }
+      }
+    }
   }
   
   public async openModal() {
@@ -45,6 +71,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     const modal = await this._modal.create({
       component:SearchContractorComponent,
       componentProps:{
+        type:this.type,
         value:this.value,
         form : {
           company_contract_type: this.label,

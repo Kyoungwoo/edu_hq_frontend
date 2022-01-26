@@ -44,6 +44,7 @@ export class PartnerEditPage implements OnInit {
     project_name: string;
   }> = [];
 
+  selected_check = [];
   Ctgoconstruction:ConnectResult <{
     ctgo_construction_id: number,
     ctgo_construction_name: string,
@@ -96,7 +97,7 @@ export class PartnerEditPage implements OnInit {
     }
   }
   agreement() {
-    this.resObj.consignee_consent_date = this.date.today();
+    this.resObj.consignee_consent_date = this.date.today({},'SECOND');
   }
 
   async contSave() {
@@ -130,6 +131,7 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contDelete() {
+    console.log("asdfasdfasdf",this.selected_check);
     // const alert = await this.alert.present({
     //   message: '삭제 하시겠습니까?',
     //   buttons: [

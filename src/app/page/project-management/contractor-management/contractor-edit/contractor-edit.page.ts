@@ -118,7 +118,7 @@ export class ContractorEditPage implements OnInit {
     })
   }
   agreement() {
-    this.form.consignee_consent_date = this.date.today();
+    this.form.consignee_consent_date = this.date.today({},'SECOND');
   }
   
   contUpdate() {

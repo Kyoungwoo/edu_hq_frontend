@@ -113,7 +113,7 @@ export class SupervisionEditPage implements OnInit {
   }
 
   agreement() {
-    this.form.consignee_consent_date = this.date.today();
+    this.form.consignee_consent_date = this.date.today({},'SECOND');
   }
   superupdate() {
     let spliteamil = this.form.manager_email.split('@');
