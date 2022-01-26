@@ -1,52 +1,49 @@
 import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
-import { SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { SupervisionSearchComponent } from '../../modal/supervision-search/supervision-search.component';
 
 export interface ValueData{
   company_id:[]
 }
+
 @Component({
-  selector: 'app-select-contractor',
-  templateUrl: './select-contractor.component.html',
-  styleUrls: ['./select-contractor.component.scss'],
+  selector: 'app-select-supervision',
+  templateUrl: './select-supervision.component.html',
+  styleUrls: ['./select-supervision.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SelectContractorComponent),
+    useExisting: forwardRef(() => SelectSupervisionComponent),
     multi: true
   }]
 })
-export class SelectContractorComponent implements OnInit, ControlValueAccessor {
-
+export class SelectSupervisionComponent implements OnInit, ControlValueAccessor {
   @HostListener('click') onClick() {
     if(!this.disabled) this.openModal();
   }
   @Input() color:Color;
-  @Input() label:string = "원청사";
+  @Input() label:string = "감리사";
   @Input() text:string;
-  @Input() type?:boolean;
-  isModalData:boolean = false;
 
- 
+  isModalData:boolean = false;
   constructor(
     private _modal:ModalController,
     private connect:ConnectService
   ) { }
 
   ngOnInit() {
-    console.log("this.type",this.type);
+    console.log("this.value",this.value);
   }
 
   public async get() {
-    console.log("dsfasdf-=----this.value",this.value);
+    console.log("this.value",this.value);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type: '원청사',
+      company_contract_type: '감리사',
       search_text: ''
     });
-    if(this.type){
       let textArr = [];
       if(res.rsCode === 0) {
         for (let i = 0; i < res.rsMap.length; i++) {
@@ -58,21 +55,13 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         }
         this.text = textArr.toString();
       }
-    } else {
-      for(let i = 0; i < res.rsMap.length; i++) {
-        if(res.rsMap[i].company_id === this.value) {
-          this.text = res.rsMap[i].company_name;
-        }
-      }
-    }
   }
-  
+
   public async openModal() {
     this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchContractorComponent,
+      component:SupervisionSearchComponent,
       componentProps:{
-        type:this.type,
         value:this.value,
         form : {
           company_contract_type: this.label,
@@ -81,19 +70,17 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       }
     });
     modal.present();
-    const { data } = await modal.onDidDismiss();
+    const { data } = await modal.onDidDismiss()
     if(data) {
       let compnay_name_string = [];
       console.log(data);
       for(let i = 0; i < data.length; i++) {
        compnay_name_string.push(data[i].company_name);
       }
-      
-      console.log("compnay_name_string",compnay_name_string);
       this.text = compnay_name_string.toString();
-    } 
+    }
   }
- 
+   
   @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
 

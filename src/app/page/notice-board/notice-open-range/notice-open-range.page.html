@@ -40,15 +40,15 @@
       <div class="flex-header">
         <div>협력사명</div>
       </div>
-      <div class="flex-list" [class.invalid]="validator.company_id?.valid === false">
+      <div class="flex-list" [class.invalid]="validator.scope_company_id?.valid === false">
         <!-- item -->
         <ng-container>
           <div class="flex-item" [class.active]="form.public_scope_allstate" (click)="select3All()">전체</div>
           <div *ngFor="let item of res?.rsMap" 
-          class="flex-item" [class.active]="form.company_id === item.company_id" (click)="select3(item)">{{ item.company_name }}</div>
+          class="flex-item" [class.active]="form.scope_company_id === item.company_id" (click)="select3(item)">{{ item.company_name }}</div>
         </ng-container>
       </div>
-      <app-input-caption color="warning" *ngIf="validator.company_id?.valid === false">{{ validator.company_id.message }}</app-input-caption>
+      <app-input-caption color="warning" *ngIf="validator.scope_company_id?.valid === false">{{ validator.scope_company_id.message }}</app-input-caption>
     </app-col>
   </app-row>
 </ion-content>

@@ -347,7 +347,7 @@
           white-space: pre-line;
         }
         .alert-sub-title {
-          color: #849CB1;
+          color: var(--ion-color-step-500);
           font-size: var(--font-size-h5);
           white-space: pre-line;
           margin-bottom: 20px;
@@ -374,8 +374,8 @@
         }
         .alert-button:not(:last-child) {
           margin-right: 4px;
-          background: var(--ion-color-step-100);
-          color: var(--ion-color-tertiary-shade);
+          background: var(--ion-color-white);
+          color: var(--ion-color-step-500);
           border-radius: var(--app-border-radius);
         }
         .alert-button:last-child {

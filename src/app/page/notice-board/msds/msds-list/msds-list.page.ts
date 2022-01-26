@@ -37,10 +37,10 @@ class MsdsInfo {
 export class MsdsListPage implements OnInit {
 
   form = {
-    company_ids: [],
+    company_ids: [1],
     end_date: this.date.today(),
-    msds_types : ['일반'],
-    project_ids: 1,
+    msds_types : [],
+    project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
@@ -75,6 +75,12 @@ export class MsdsListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.form.search_text = data.search_text;
+      this.get();
+    }
+    console.log(data);
   }
   async edit(msds_id?) {
     const modal = await this.modal.create({
@@ -84,6 +90,11 @@ export class MsdsListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log("data",data);
+      this.get();
+    }
   }
   async favoritesCheck($event:MouseEvent, item:MsdsInfo) {
     $event.stopPropagation();
