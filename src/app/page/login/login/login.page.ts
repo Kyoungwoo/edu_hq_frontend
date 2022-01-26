@@ -19,7 +19,6 @@ export class LoginPage implements OnInit, ViewDidEnter {
     accountToken: ''
   }
   saveId:boolean = false;
-  autoLogin:boolean = false;
   res:ConnectResult;
 
   constructor(
@@ -34,7 +33,10 @@ export class LoginPage implements OnInit, ViewDidEnter {
   ) { }
 
   ngOnInit() {
-    
+    if(this.user.accountID) {
+      this.form.accountID = this.user.accountID;
+      this.saveId = true;
+    }
   }
   ionViewDidEnter(): void {
     if(environment.autoTest) this.test();
@@ -57,7 +59,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    if(environment.autoTest.SignUp.num < 4) {
+    if(environment.autoTest.SignUp.type.length) {
       el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
       return false;
     } else {
@@ -95,26 +97,38 @@ export class LoginPage implements OnInit, ViewDidEnter {
     });
     if(this.res.rsCode === 0) {
       this.getWorkerInfo(this.res.rsObj);
-      
+    } else if(this.res.rsCode === 500) {
+      this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
+    } else if(this.res.rsCode === 3003) {
+      this.alert.present({
+        message: this.res.rsMsg
+      });
+    } else if(this.res.rsCode === 3004) {
+      this.alert.present({
+        message: this.res.rsMsg,
+        buttons: [
+          { text: '예, 재가입 신청하겠습니다.' },
+          { text: '아니오, 가입하지 않겠습니다.' }
+        ]
+      });
     }
   }
   private async getWorkerInfo(authToken:AuthToken) {
-    this.user.setAuthToken(authToken, this.autoLogin);
+    this.user.setAuthToken(authToken, false);
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
 
-      if(!environment.production
-      && userData.user_type === 'WORKER') {
+      if(userData.user_type === 'WORKER') {
         this.res.rsCode = 1002;
         this.res.rsMsg = '근로자는 앱으로 로그인 해주세요.';
         this.user.clear();
         return;
       }
 
-      this.user.setUserData(userData, this.autoLogin);
+      this.user.setUserData(userData, false);
       this.nav.navigateRoot('/main-admin', {
         animated: true
       });

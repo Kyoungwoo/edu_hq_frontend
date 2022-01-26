@@ -31,16 +31,17 @@ export class SignUpTypePage implements OnInit {
   public async test() {
     if(!environment.autoTest.core.test) return;
     if(!environment.autoTest.SignUp.test) return;
+    if(!environment.autoTest.SignUp.type.length) return;
 
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    const els = el.querySelectorAll('[name=card_type]');
-    els[environment.autoTest.SignUp.num].dispatchEvent(new Event('click'));
+    const cardTypeEl = el.querySelector(`[name=card_type_${environment.autoTest.SignUp.type[0]}]`);
+    cardTypeEl.dispatchEvent(new Event('click'));
     await this.promise.wait();
 
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-    environment.autoTest.SignUp.num += 1;
+    environment.autoTest.SignUp.type.splice(0, 1);
   }
 
   next() {
