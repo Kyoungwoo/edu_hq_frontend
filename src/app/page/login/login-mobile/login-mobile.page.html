@@ -1,0 +1,28 @@
+<ion-content>
+  <app-card class="login-card" color="light">
+    <app-logo class="logo"></app-logo>
+    <form>
+      <app-img class="logo-text" src="assets/img/logo-text.svg"></app-img>
+   
+      <app-input
+      [color]="res && res.rsCode !== 0 && 'warning'"
+      name="input-id" label="아이디" placeholder="아이디" 
+      [(ngModel)]="form.accountID"></app-input>
+      <app-input 
+      [color]="res && res.rsCode !== 0 && 'warning'" 
+      name="input-password" label="비밀번호" type="password" placeholder="비밀번호"
+      [(ngModel)]="form.accountToken" 
+      (keyup.enter)="login()"></app-input>
+
+      <app-input-caption color="warning" name="caption-invalid" *ngIf="res && res.rsCode !== 0">아이디와 비밀번호를 확인해주세요.</app-input-caption>
+
+      <app-button name="button-login" style="width: 100%" (click)="login()">로그인</app-button>
+      <app-check name="auto_login" [(ngModel)]="saveId">아이디 저장</app-check>
+    </form>
+  </app-card>
+  <app-row class="sub-buttons-row">
+    <app-col><app-button name="button_sign_up" color="dark" fill="clear" size="small" routerLink="/sign-up-type">회원가입</app-button></app-col><span></span>
+    <app-col><app-button name="button_find_id" color="dark" fill="clear" size="small" routerLink="/find-pc" [queryParams]="{ type: 'find-id' }">아이디 찾기</app-button></app-col><span></span>
+    <app-col><app-button name="button_find_password" color="dark" fill="clear" size="small" routerLink="/find-pc" [queryParams]="{ type: 'find-password' }">비밀번호 찾기</app-button></app-col>
+  </app-row>
+</ion-content>

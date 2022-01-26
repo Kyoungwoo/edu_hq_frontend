@@ -13,11 +13,13 @@ export class DeviceService {
   constructor(
     @Inject(PLATFORM_ID) private platformId,
     private platform: Platform
-  ) {}
+  ) {
+    this.get();
+  }
 
   isIE() {
     var agent = navigator.userAgent.toLowerCase();
-    if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) { // IE 일 경우
+    if ( (navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) { // IE 일 경우
       return true;
     }
     else {
