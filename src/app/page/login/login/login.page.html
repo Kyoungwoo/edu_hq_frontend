@@ -14,7 +14,7 @@
       [(ngModel)]="form.accountToken" 
       (keyup.enter)="login()"></app-input>
 
-      <app-input-caption color="warning" name="caption-invalid" *ngIf="res && res.rsCode !== 0">{{ res.rsMsg }}</app-input-caption>
+      <app-input-caption color="warning" name="caption-invalid" *ngIf="res?.rsCode === 500">{{ res.rsMsg }}</app-input-caption>
 
       <app-button name="button-login" style="width: 100%" (click)="login()">로그인</app-button>
       <app-check name="auto_login" [(ngModel)]="saveId">아이디 저장</app-check>

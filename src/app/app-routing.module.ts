@@ -470,6 +470,30 @@ const routes: Routes = [
   {
     path: 'login-mobile',
     loadChildren: () => import('./page/login/login-mobile/login-mobile.module').then( m => m.LoginMobilePageModule)
+  },
+  {
+    path: 'find-id-mobile-type',
+    loadChildren: () => import('./page/login/find-mobile/find-id-mobile-type/find-id-mobile-type.module').then( m => m.FindIdMobileTypePageModule)
+  },
+  {
+    path: 'find-id-mobile-phone',
+    loadChildren: () => import('./page/login/find-mobile/find-id-mobile-phone/find-id-mobile-phone.module').then( m => m.FindIdMobilePhonePageModule)
+  },
+  {
+    path: 'find-id-mobile-result',
+    loadChildren: () => import('./page/login/find-mobile/find-id-mobile-result/find-id-mobile-result.module').then( m => m.FindIdMobileResultPageModule)
+  },
+  {
+    path: 'find-password-mobile-type',
+    loadChildren: () => import('./page/login/find-mobile/find-password-mobile-type/find-password-mobile-type.module').then( m => m.FindPasswordMobileTypePageModule)
+  },
+  {
+    path: 'find-password-mobile-phone',
+    loadChildren: () => import('./page/login/find-mobile/find-password-mobile-phone/find-password-mobile-phone.module').then( m => m.FindPasswordMobilePhonePageModule)
+  },
+  {
+    path: 'find-password-mobile-result',
+    loadChildren: () => import('./page/login/find-mobile/find-password-mobile-result/find-password-mobile-result.module').then( m => m.FindPasswordMobileResultPageModule)
   }
 ];
 
