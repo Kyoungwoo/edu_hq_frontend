@@ -1,14 +1,14 @@
 
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>회사 정보</ion-title>
+    <ion-title>협력사 정보</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <h4>회사정보</h4>
+  <h4>협력사 정보</h4>
   <form>
     <app-row>
       <app-col>
@@ -75,25 +75,41 @@
 <h4>담당자 정보</h4>
 <app-row>
   <app-col>
-    <app-input name="name" label="성명"></app-input>
+    <app-input name="name" [(ngModel)]="resObj.manager_name" label="성명"></app-input>
   </app-col>
   <app-col>
-    <app-input name="phoneNumber" [type]="'tel'" label="연락처"></app-input>
+    <app-input name="phoneNumber" [(ngModel)]="resObj.manager_phone" [type]="'tel'" label="연락처"></app-input>
   </app-col>
   <app-col>
-    <app-input name="email" label="이메일" [type]="'email'"></app-input>
+    <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="resObj.manager_email">
+    </app-input>
+    <ng-template #not_id>
+      <app-input-group label="이메일">
+        <app-input [(ngModel)]="email" placeholder="입력"></app-input>
+        @
+        <app-input placeholder="직접입력" *ngIf="emailaddress === '직접입력'" [readonly]="emailaddress === '직접입력' ? false : true" [(ngModel)]="directlyInput"></app-input>
+        <app-input placeholder="직접입력" *ngIf="emailaddress !== '직접입력'" [readonly]="emailaddress !== '직접입력' ? false : true" [(ngModel)]="emailaddress"></app-input>
+        <app-select [(ngModel)]="emailaddress" placeholder="선택">
+          <app-select-option value="직접입력">직접입력</app-select-option>
+          <app-select-option value="lh.or.kr">lh.or.kr</app-select-option>
+          <app-select-option value="gmail.com">gmail.com</app-select-option>
+          <app-select-option value="naver.com">naver.com</app-select-option>
+          <app-select-option value="hanmail.net">hanmail.net</app-select-option>
+        </app-select>
+      </app-input-group>
+    </ng-template>
   </app-col>
 </app-row>
 <h4>개인정보 처리 위탁 동의</h4>
 <app-row>
   <app-col>
-    <app-input name="consigner" label="위탁자"></app-input>
+    <app-input name="consigner" [(ngModel)]="resObj.company_name"  label="위탁자"></app-input>
   </app-col>
   <app-col>
-    <app-input name="fiduciary" label="수탁자"></app-input>
+    <app-input name="fiduciary" value="한국토지주택공사" label="수탁자"></app-input>
   </app-col>
   <app-col>
-    <app-input name="consent" label="동의현황" [type]="'email'"></app-input>
+    <app-input name="consent" [(ngModel)]="resObj.consignee_consent_date" label="동의현황" [type]="'email'"></app-input>
   </app-col>
 </app-row>
 <app-row>
@@ -109,6 +125,12 @@
         5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
       </span>
     </app-card>
+    <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
   </app-col>
 </app-row>
 </ion-content>
+<app-button-footer>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contUpdate()">수정</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contDelete()" color="danger">삭제</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contSave()">저장</app-button>
+</app-button-footer>

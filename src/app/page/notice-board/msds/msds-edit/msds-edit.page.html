@@ -6,10 +6,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content *mobileHidden>
   <h4>MSDS</h4>
-
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
       <app-select-scene label="현장명" [(ngModel)]="form.project_name" [required]="true"></app-select-scene>
@@ -56,7 +54,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-input [(ngModel)]="form.public_scope_name" label="게시물 공개범위" (click)="openRange()" [required]="true">
+      <app-input label="게시물 공개범위" (click)="openRange()" [value]="rangeText" [readonly]="true" [required]="true">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>
@@ -77,13 +75,136 @@
     </app-col>
   </app-row>
   <h4>첨부자료</h4>
-
+  <app-card>
+    <app-row>
+      <app-col></app-col>
+      <app-col size="auto">
+        <app-button>추가
+          <app-file name="input" view_type="SAFETY_MEETING"
+          [(ngModel)]="form.msds_file_data"
+          [file]="form.file"
+          [file_json]="form.file_json"
+          ></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-table>
+    <tr *ngFor="let item of form.msds_file_data let i = index">
+      <td *ngIf="item.view_type==='MSDS'">
+        <app-row>
+          <app-col>
+            <a [href]="item.full_url" target="_blank" [download]="item.file_name">
+              <ion-icon name="save-outline"></ion-icon>
+              {{ item.file_name }}
+            </a>
+          </app-col>
+        </app-row>
+        <ion-row
+        *ngIf="item.content_type.startsWith('image')">
+          <ion-col>
+            <div class="image-detail">이미지 미리보기</div>
+            <app-img class="image-class" [src]="item.full_url"></app-img>
+          </ion-col>
+        </ion-row>
+      </td>
+    </tr>
+  </app-table>
 </ion-content>
-<app-button-footer *mobileShow>
-  <app-button>확인</app-button>
-</app-button-footer>
 <app-button-footer *mobileHidden>
   <app-button *ngIf="msds_id" (click)="update()" fill="translucent">수정</app-button>
   <app-button *ngIf="msds_id" color="danger" fill="translucent">삭제</app-button>
   <app-button *ngIf="!msds_id" (click)="MsdsInsert()">저장</app-button>
+</app-button-footer>
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-content>
+    <app-row>
+      <app-col>
+        <h4>MSDS</h4>
+      </app-col>
+    </app-row>
+    <app-card>
+      <app-row>
+        <app-col>
+          <h5>현장명</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.project_name}}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>업체명</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.company_name }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>작성자</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.user_name }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>작성일</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.create_date }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>구분</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.msds_type }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>제목</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.msds_title }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>내용</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.msds_content }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-table>
+      <tr *ngFor="let item of form.msds_file_data let i = index">
+        <td *ngIf="item.view_type==='SAFETY_MEETING'">
+          <app-row>
+            <app-col>
+              <a [href]="item.full_url" target="_blank" [download]="item.file_name">
+                <ion-icon name="save-outline"></ion-icon>
+                {{ item.file_name }}
+              </a>
+            </app-col>
+          </app-row>
+          <ion-row
+          *ngIf="item.content_type.startsWith('image')">
+            <ion-col>
+              <div class="image-detail">이미지 미리보기</div>
+              <app-img class="image-class" [src]="item.full_url"></app-img>
+            </ion-col>
+          </ion-row>
+        </td>
+      </tr>
+    </app-table>
+  </ion-content>
+</ng-container>
+<app-button-footer *mobileShow>
+  <app-button>확인</app-button>
 </app-button-footer>

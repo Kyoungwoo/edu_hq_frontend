@@ -38,6 +38,7 @@ export class ContractorEditPage implements OnInit {
   
   email:string;
   emailaddress:string
+  directlyInput:string;
 
   constructor(
     private connect: ConnectService,
@@ -73,7 +74,11 @@ export class ContractorEditPage implements OnInit {
     if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
     // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
-    this.form.manager_email = this.email + '@' + this.emailaddress;
+    if(this.emailaddress !== '직접입력') {
+      this.form.manager_email = this.email + '@' + this.emailaddress;
+  } else {
+    this.form.manager_email = this.email + '@' + this.directlyInput;
+  }
     
     this.alert.present({
       message: '저장하시겠습니까?',
@@ -117,6 +122,7 @@ export class ContractorEditPage implements OnInit {
   }
   
   contUpdate() {
+    //나중에 정규식으로 고침
     let spliteamil = this.form.manager_email.split('@');
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];

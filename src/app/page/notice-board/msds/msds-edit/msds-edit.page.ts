@@ -4,12 +4,12 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NoticeOpenRangePage } from '../../notice-open-range/notice-open-range.page';
+import { DateService } from 'src/app/basic/service/util/date.service';
+import { NoticeOpenRangePage, NoticePublicScope, scopeOne, scopeTwo } from '../../notice-open-range/notice-open-range.page';
 
 export class MsdsItem {
   msds_title: string;
   msds_content: string;
-  company_id: number;
   project_id: number;
   user_name: string;
   company_name: string;
@@ -21,10 +21,12 @@ export class MsdsItem {
   msds_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
+
+  company_id: number;
   public_scope_allstate: boolean;
-  public_scope_one: string;
-  public_scope_two: string;
-  public_scope_name: string;
+  public_scope_one: scopeOne;
+  public_scope_two: scopeTwo;
+
 };
 
 @Component({
@@ -38,6 +40,8 @@ export class MsdsEditPage implements OnInit {
 
   title:string;
 
+  rangeText = '';
+
   form = new MsdsItem();
   // smarteditText:string = '';
 
@@ -45,7 +49,9 @@ export class MsdsEditPage implements OnInit {
     private connect: ConnectService,
     private _modal: ModalController,
     private toast: ToastService,
-    public user: UserService
+    public user: UserService,
+    private noticeRange: NoticeOpenRangePage,
+    private date: DateService,
   ) { }
 
   ngOnInit() {
@@ -53,8 +59,12 @@ export class MsdsEditPage implements OnInit {
       this.title = '상세';
       this.get();
     } else {
+      this.form.company_name = this.user.userData.user_role;
+      this.form.user_name = this.user.userData.user_name;
+      console.log(this.form.user_name);
+      this.form.create_date = this.date.today();
       this.title = '등록';
-    }
+    } 
   }
   async get() { //상세보기
     const res = await this.connect.run('/board/msds/detail', { msds_id: this.msds_id });
@@ -81,15 +91,30 @@ export class MsdsEditPage implements OnInit {
     }
   }
   async openRange() {
+    const { 
+      company_id,
+      public_scope_allstate,
+      public_scope_one,
+      public_scope_two
+     } = this.form;
     const modal = await this._modal.create({
-      component:NoticeOpenRangePage
+      component:NoticeOpenRangePage,
+      componentProps: {
+        form: {
+          company_id,
+          public_scope_allstate,
+          public_scope_one,
+          public_scope_two
+        }
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) { 
-      this.form.public_scope_name = data.area1 + ' ' + data.area2 + ' ' + data.area3
-      console.log("data",data);
-      console.log("this.form",this.form);
+    const scope = <NoticePublicScope>data;
+    if(scope) {
+      const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
+      const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
+      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.company_name}`;
     }
   }
 }
