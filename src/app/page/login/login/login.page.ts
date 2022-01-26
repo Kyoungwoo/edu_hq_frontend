@@ -91,6 +91,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
   }
 
   public async login() {
+    if(this.saveId) this.user.setId(this.form.accountID);
     this.res = await this.connect.run('/token/get', this.form, {
       contentType: ContentType.ApplicationJson,
       loading: '로그인'

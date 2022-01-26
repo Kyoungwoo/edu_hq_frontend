@@ -44,6 +44,7 @@ export class UserService {
   constructor(
     @Inject(PLATFORM_ID) private platformId
   ) {
+    this.getId();
     this.getAuthToken();
     this.getUserData();
   }
@@ -51,10 +52,10 @@ export class UserService {
   getId() {
     this.accountID = window.localStorage.getItem(TAG.Id) || null;
   }
-  setId(id) {
+  setId(accountID:string) {
     if(isPlatformServer(this.platformId)) return;
 
-    window.localStorage.setItem(TAG.Id, id);
+    window.localStorage.setItem(TAG.Id, accountID);
     this.getId();
   }
 
@@ -109,6 +110,7 @@ export class UserService {
   clear() {
     if(isPlatformServer(this.platformId)) return;
 
+    window.localStorage.removeItem(TAG.Id);
     window.sessionStorage.removeItem(TAG.AuthToken);
     window.localStorage.removeItem(TAG.AuthToken);
     window.sessionStorage.removeItem(TAG.UserData);
