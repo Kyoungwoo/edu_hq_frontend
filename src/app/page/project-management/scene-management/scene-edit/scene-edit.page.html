@@ -30,9 +30,7 @@
       <app-col>
         <app-row>
           <app-col>
-            <app-input (click)="supervisionSel()" [value]="form.supervision_name" [(ngModel)]="this.supervision_id"  label="감리사" [readonly]="true">
-              <app-img name="search"></app-img>
-            </app-input>
+            <app-select-supervision [(ngModel)]="supervision_id"></app-select-supervision>
           </app-col>
         </app-row>
       </app-col>
@@ -68,8 +66,7 @@
         <app-input [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
       </app-col>
       <app-col>
-        <app-input [(ngModel)]="form.gps_state_con"
-         [value]="project_id ? form.gps_state_con:form.add_gps_state_con" 
+        <app-input [(ngModel)]="form.gps_state_con" 
          [readonly]="true" (click)="project_area_set()" label="현장 영역"></app-input>
       </app-col>
     </app-row>
@@ -167,5 +164,6 @@
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button slot="end" (click)="sceneInsert()">저장</app-button>
+  <app-button slot="end" *ngIf="!project_id" (click)="sceneInsert()">저장</app-button>
+  <app-button slot="end" *ngIf="project_id" (click)="sceneUpdate()">수정</app-button>
 </app-button-footer>

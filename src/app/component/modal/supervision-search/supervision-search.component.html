@@ -23,7 +23,7 @@
     <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [ngClass]="item.checked ? 'check_style':''">
       <app-row>
         <app-col size="4">
-          <h5>원청사명</h5>
+          <h5>감리사명</h5>
           <p>{{ item.company_name }}</p>
         </app-col>
         <app-col size="4">

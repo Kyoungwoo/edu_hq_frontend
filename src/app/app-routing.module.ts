@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'scene-list',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
@@ -466,6 +466,10 @@ const routes: Routes = [
   {
     path: 'find-pc',
     loadChildren: () => import('./page/login/find-pc/find-pc.module').then( m => m.FindPcPageModule)
+  },
+  {
+    path: 'login-mobile',
+    loadChildren: () => import('./page/login/login-mobile/login-mobile.module').then( m => m.LoginMobilePageModule)
   }
 ];
 

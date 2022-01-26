@@ -101,6 +101,10 @@ export class SceneListPage implements OnInit {
       componentProps: { project_id }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getList();
+    }
   }
 
   async changeUse(item){

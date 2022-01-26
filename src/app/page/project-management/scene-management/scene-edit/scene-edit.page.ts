@@ -13,11 +13,12 @@ import { OrganizationSelectPage } from '../organization-select/organization-sele
 
 export interface COMPANY_DATA {
   company_type: string,
-  company_id:any
+  company_id: any
 }
 
 export interface GPS_COORDINATE_DATA {
-  gps_latitude:[];
+  gps_latitude: [];
+  gps_longitude: [];
 }
 export class ProjectDetail {
   create_user_id: number; // 작성자 유저 ID
@@ -45,10 +46,10 @@ export class ProjectDetail {
   file: (File | Blob)[] = [];
   file_json: FileJson = new FileJson();
   supervision_name: string;
-  add_gps_state_con:string;
+  add_gps_state_con: string;
   gps_state_con: string;
   company_data: COMPANY_DATA[] = [];
-  gps_coordinate_data:object;
+  gps_coordinate_data: object;
 }
 // {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
 // "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
@@ -65,25 +66,26 @@ export class SceneEditPage implements OnInit {
   contractor_id = [];
   supervision_id = [];
   mapData = {
-    gps_latitude:[]
+    gps_latitude: [],
+    gps_longitude: []
   }
 
   organization_data = {
     company_type: '',
-    company_id:[]
+    company_id: []
   }
   supervision_data = {
     company_type: '',
-    company_id:[]
+    company_id: []
   }
   today = this.Date.today();
   title: string;
   returnData: [];
   form: ProjectDetail = new ProjectDetail();
 
-  ctgo_Business:Array <{
-    ctgo_business_field_name:string, // 사업분야명
-    ctgo_business_field_id:number // 사업분야 ID
+  ctgo_Business: Array<{
+    ctgo_business_field_name: string, // 사업분야명
+    ctgo_business_field_id: number // 사업분야 ID
   }> = [];
 
   organization = {
@@ -122,27 +124,25 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
-      console.log("----------------- test getItem -----------------");
-      
-      if(res.rsObj.company_data){
-        let company_name_string = [];
+      if (res.rsObj.company_data) {
         let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
 
-        console.log("josncompany",josncompany);
-        for(let i = 0; i < josncompany.length; i++){
+        console.log("josncompany", josncompany);
+        for (let i = 0; i < josncompany.length; i++) {
           console.log(josncompany[i]);
-          if(josncompany[i].company_contract_type === '원청사'){
-            for(let x = 0; x < josncompany[i].company_data.length; x++){
-              company_name_string.push(josncompany[i].company_data[x].company_name);
+          if (josncompany[i].company_contract_type === '원청사') {
+            for (let x = 0; x < josncompany[i].company_data.length; x++) {
               this.contractor_id.push(josncompany[i].company_data[x].company_id);
             }
+          } else {
+            for (let x = 0; x < josncompany[i].company_data.length; x++) {
+              this.supervision_id.push(josncompany[i].company_data[x].company_id);
+            }
+            console.log("this.supervision_id", this.supervision_id);
           }
         }
 
-        console.log("company_name_string",company_name_string.toString());
-        console.log("----------------- test getItem -----------------");
 
-        
       }
       // this.contractor_id = "테스트";
       if (res.rsObj.gps_state === 1) {
@@ -158,39 +158,49 @@ export class SceneEditPage implements OnInit {
 
   async sceneInsert() {
     const alert = await this.alert.present({
-      message:'저장 하시겠습니까?',
-      buttons:[
-        {text:'아니요'},
-        {text:'예',
-          handler: async() => {
-            if(this.contractor_id.length) {
-              this.form.company_data.push(
-                {
-                  company_type:'원청사',
-                  company_id:this.contractor_id
-                }
-              )
-            };
+      message: '저장 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
             this.form.gps_coordinate_data = this.mapData;
             const res = await this.connect.run('/project/insert', this.form);
-            if (res.rsCode === 0) {}
+            if (res.rsCode === 0) { }
           }
         }
       ]
     })
-
   }
-  contracorname() {
-    console.log("asdfasdfasdf");
-    if(this.contractor_id.length) {
-      this.form.company_data.push(
+  async sceneUpdate() {
+    this.form.company_data = [];
+    const alert = await this.alert.present({
+      message: '수정 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
         {
-          company_type:'원청사',
-          company_id:this.contractor_id
+          text: '예',
+          handler: async () => {
+            console.log(this.form.company_data);
+            this.form.company_data.push({
+              company_type: '원청사',
+              company_id: this.contractor_id
+            });
+            this.form.company_data.push({
+              company_type: '감리사',
+              company_id: this.supervision_id
+            });
+            this.form.gps_coordinate_data = this.mapData;
+            const res = await this.connect.run('/project/update', this.form, {});
+            if (res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            }
+          }
         }
-      )
-    }
+      ]
+    })
   }
+
   async organizationSel() {
     const modal = await this._modal.create({
       component: OrganizationSelectPage
@@ -206,37 +216,10 @@ export class SceneEditPage implements OnInit {
     }
   }
 
-  async supervisionSel() {
-    const modal = await this._modal.create({
-      component: SupervisionSearchComponent,
-      componentProps:{supervision_id:this.supervision_id}
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    console.log("감리사 모달 데이터", data);
-    if (data) {
-      let company_name_data = [];
-      console.log(this.form.company_data);
-      data.forEach(item => {
-        this.supervision_id.push(item.company_id);
-        company_name_data.push(item.company_name);
-      });
-      this.form.company_data.push({
-        company_type: '감리사',
-        company_id:this.supervision_id
-      })
-      // this.comapny_data.company_type = '원청사'
-      console.log("compnay_ids",this.supervision_data);
-      this.form.supervision_name = company_name_data.toString();
-      console.log("this.form.supervision_name",this.form.supervision_name);
-      this.form.supervision_name = this.form.supervision_name.substring(0, this.form.supervision_name.length - 1);
-    }
-  }
-
   address() {
     // this.daum.open().then((item) => { if (item) this.form.project_address = '[' + item.zoneCode + '] ' + item.address; });
     this.daum.open().then((item) => {
-      if(item) {
+      if (item) {
         this.form.project_address = item.address;
         this.form.project_postal_code = item.zoneCode;
       }
@@ -244,36 +227,39 @@ export class SceneEditPage implements OnInit {
   }
 
   async project_area_set() {
-    let map = [];
-    // this.gps_latitude = [];
-    console.log("mapinput",map);
-    if (!this.project_id) {
-      const modal = await this._modal.create({
-        component: ProjectAreaSetComponent,
-        componentProps:
+    let map_x = [];
+    let map_y = [];
+    const modal = await this._modal.create({
+      component: ProjectAreaSetComponent,
+      componentProps:
         { returnData: this.returnData }
-      });
-      modal.present();
-      const { data } = await modal.onDidDismiss();
-      console.log("data",data);
-      console.log("map",map);
-      if (data) {
-        this.form.add_gps_state_con = '설장 됨';
-        this.returnData = data
-        data.forEach(item => {
-          map.push(item.x, item.y);
-        })
-        this.mapData.gps_latitude.push(map);
-        console.log("this.mapData",this.mapData);
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+
+    if (data) {
+      if (this.project_id) {
+        console.log("this.project_id", this.project_id);
+        this.form.gps_state = 1;
+        console.log("this.form.gps_state", this.form.gps_state);
+
       }
+      this.form.gps_state_con = '설장 됨';
+      this.returnData = data
+      data.forEach(item => {
+        map_x.push(item.x);
+        map_y.push(item.y);
+      })
+      this.mapData.gps_latitude.push(map_x);
+      this.mapData.gps_longitude.push(map_x);
     }
   }
 
   async ctgoBusiness() {
-    const res = await this.connect.run('/category/business_field/get',{},{});
-    if(res.rsCode === 0) {
+    const res = await this.connect.run('/category/business_field/get', {}, {});
+    if (res.rsCode === 0) {
       this.ctgo_Business = res.rsMap;
     }
   }
-  
+
 }

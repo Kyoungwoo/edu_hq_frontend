@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 @Component({
@@ -9,14 +10,28 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 export class SplashPage implements OnInit, AfterViewInit {
 
   constructor(
-    private nav: NavService
+    private nav: NavService,
+    private device: DeviceService
   ) { }
 
   ngOnInit() {
   }
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
+
+  }
+  goToInitPage() {
+    const loadingRoof = setTimeout(() => {
+      if(!this.device.platform_type) {
+        clearTimeout(loadingRoof);
+        this.goToInitPage();
+        return;
+      }
+
+      if(this.device.platform_type < 3) {
+        this.nav.navigateRoot('/login-mobile', { animated: true, animation: 'fadeIn' });  
+      } else {
+        this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
+      }
     }, 1000);
   }
 }
