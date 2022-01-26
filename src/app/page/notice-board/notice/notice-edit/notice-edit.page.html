@@ -62,7 +62,7 @@
           <app-col></app-col>
           <app-col size="auto">
             <app-button>추가
-              <app-file name="input" view_type="SAFETY_MEETING"
+              <app-file name="input" view_type="NOTICE"
               [(ngModel)]="form.notice_file_data"
               [file]="form.file"
               [file_json]="form.file_json"
@@ -95,7 +95,7 @@
 </ion-content>
 <app-button-footer *mobileHidden>
   <app-button *ngIf="notice_id" fill="translucent" (click)="update()">수정</app-button>
-  <app-button *ngIf="notice_id" color="danger" fill="translucent">삭제</app-button>
+  <app-button *ngIf="notice_id" color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
   <app-button *ngIf="!notice_id" (click)="noticeInsert()">저장</app-button>
 </app-button-footer>
 <!-- 모바일 -->

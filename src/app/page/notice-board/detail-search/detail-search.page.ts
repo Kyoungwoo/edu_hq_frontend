@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { ExcelService } from 'src/app/basic/service/util/excel.service';
 
 export class NoticeItem  {
-  
   project_id: number;
-  company_name: string;
-  create_date: string;
-  
+  company_id: number;
+  select_type: string;
+  search_text: string;
+  end_date: string;
+  start_date: string;
 }
 @Component({
   selector: 'app-detail-search',
@@ -33,16 +33,26 @@ export class DetailSearchPage implements OnInit {
   ) { }
 
   
-  ngOnInit() {
+  async ngOnInit() {
+
+   
   }
+
   dismiss(){
     this._modal.dismiss();
   }
-  init(){
-    
+  remove(){
+    this.form.project_id = 0;
+    this.form.company_id = 0;
+    this.form.select_type = '';
+    this.form.search_text = '';
+    this.form.end_date = '';
+    this.form.start_date = '';
   }
-  search(){
-    this._modal.dismiss();
+  async search(){
+    this._modal.dismiss(
+      this.form
+    );
   }
 }
 

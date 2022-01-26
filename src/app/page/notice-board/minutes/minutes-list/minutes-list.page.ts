@@ -29,10 +29,10 @@ class SafetyMeetingInfo {
 export class MinutesListPage implements OnInit {
 
   form = {
-    company_ids: [],
+    company_ids: [1],
     end_date: this.date.today(),
     safety_meeting_types: [],
-    project_ids: 1,
+    project_ids: [],
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0,
@@ -71,6 +71,11 @@ export class MinutesListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.form.search_text = data.search_text;
+      this.get();
+    }
   }
   async edit(safety_meeting_id) {
     console.log("---------------------",safety_meeting_id);

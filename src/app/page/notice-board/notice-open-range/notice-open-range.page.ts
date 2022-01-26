@@ -5,8 +5,8 @@ import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/
 export type scopeOne = '현장전체' | '내 소속사만' | '협력사별';
 export type scopeTwo = '전체' | '관리자' | '작업자';
 export class NoticePublicScope {
-  company_id: number;
-  company_name: string;
+  scope_company_id: number;
+  scope_company_name: string;
   public_scope_allstate: boolean;
   public_scope_one: scopeOne;
   public_scope_two: scopeTwo;
@@ -87,8 +87,8 @@ export class NoticeOpenRangePage implements OnInit {
     this.form.public_scope_one = item.value;
     // this.form.public_scope_two
     this.form.public_scope_allstate = false;
-    this.form.company_id = 0;
-    this.form.company_name = '';
+    this.form.scope_company_id = 0;
+    this.form.scope_company_name = '';
   }
 
   select2(item:scopeItem<scopeTwo>) {
@@ -100,15 +100,15 @@ export class NoticeOpenRangePage implements OnInit {
   }
   select3All() {
     this.form.public_scope_allstate = true;
-    this.form.company_id = 0;
-    this.form.company_name = '';
+    this.form.scope_company_id = 0;
+    this.form.scope_company_name = '';
   }
   select3(item:companyItem) {
     // this.form.public_scope_one
     // this.form.public_scope_two
     this.form.public_scope_allstate = false;
-    this.form.company_id = item.company_id;
-    this.form.company_name = item.company_name;
+    this.form.scope_company_id = item.company_id;
+    this.form.scope_company_name = item.company_name;
   }
   
   submit() {
@@ -124,16 +124,16 @@ export class NoticeOpenRangePage implements OnInit {
     else this.validator.public_scope_two = { valid: true };
 
     if(this.form.public_scope_one === '협력사별') {
-      if(this.form.public_scope_allstate == null) this.validator.company_id = { valid: false, message: '항목을 선택해주세요.' };
+      if(this.form.public_scope_allstate == null) this.validator.scope_company_id = { valid: false, message: '항목을 선택해주세요.' };
       else if(this.form.public_scope_allstate == false) {
-        if(!this.form.company_id) this.validator.company_id = { valid: false, message: '항목을 선택해주세요.' };
+        if(!this.form.scope_company_id) this.validator.scope_company_id = { valid: false, message: '항목을 선택해주세요.' };
         else {
           this.validator.public_scope_allstate = { valid: true };
-          this.validator.company_id = { valid: true };
-          this.validator.company_name = { valid: true };
+          this.validator.scope_company_id = { valid: true };
+          this.validator.scope_company_name = { valid: true };
         }
       }
-    } else this.validator.company_id = { valid: true };
+    } else this.validator.scope_company_id = { valid: true };
   
     for(let key in this.validator) {
       if(!this.validator[key]?.valid) return false;
