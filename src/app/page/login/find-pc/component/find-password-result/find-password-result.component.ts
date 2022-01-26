@@ -4,24 +4,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
-
-export class UpdatePasswordForm {
-  account_id:string = null; // 아이디
-  account_token:string = null; // 변경할 비밀번호
-  account_token_conform:string = null;
-  sms_token:string = null; // 인증번호
-  user_name:string = null; // 성명
-  user_phone:string = null; // 휴대폰번호
-}
-
-export class UpdatePasswordFormMock implements UpdatePasswordForm {
-  account_id:string = null; // 아이디
-  account_token:string = 'qwer1234'; // 변경할 비밀번호
-  account_token_conform:string = 'qwer1234'; // 변경할 비밀번호 확인
-  sms_token:string = null; // 인증번호
-  user_name:string = null; // 성명
-  user_phone:string = null; // 휴대폰번호
-}
+import { UpdatePasswordForm, UpdatePasswordFormMock } from '../../../login.interface';
 
 @Component({
   selector: 'app-find-password-result',
@@ -68,11 +51,15 @@ export class FindPasswordResultComponent implements OnInit {
     await this.promise.wait();
 
     el.querySelector('[name=button_submit]').dispatchEvent(new Event('click'));
-    await this.promise.wait();
+    console.log(this.form);
+    console.log(this.validator);
+    await this.promise.wait(800);
     document.querySelector('.alert-button').dispatchEvent(new Event('click'));
   }
 
   public async submit() {
+    if(!this.valid()) return;
+
     this.res = await this.connect.run('/sign/find/update/account_token', this.form, {
       loading: true
     });
@@ -104,6 +91,11 @@ export class FindPasswordResultComponent implements OnInit {
   }
 
   private valid():boolean {
+    this.validator.account_id = { valid: true };
+    this.validator.user_name = { valid: true };
+    this.validator.user_phone = { valid: true };
+    this.validator.sms_token = { valid: true };
+
     if(!this.form.account_token) this.validator.account_token = { message: '비밀번호를 입력해주세요.', valid: false };
     else if(this.validator.account_token?.valid) 
     this.validator.account_token = { valid: true };

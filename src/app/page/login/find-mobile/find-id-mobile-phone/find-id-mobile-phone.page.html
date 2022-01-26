@@ -1,9 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>find-id-mobile-phone</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/find-id-mobile-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>아이디 찾기</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-container size="small">
+    <h4>등록한 휴대폰으로 찾기</h4>
+    <app-card *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-card>
+    <app-input
+    name="user_name" label="성명"
+    placeholder="이름을 입력해주세요."
+    [color]="validator.user_name?.valid === false && 'warning'"
+    [(ngModel)]="form.user_name" [required]="true"></app-input>
+    <app-input-caption *ngIf="validator.user_name?.valid === false" color="warning">{{ validator.user_name?.message }}</app-input-caption>
+    <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+    [color]="validator.user_phone?.valid === false ? 'warning' 
+    : validator.sms_token?.valid === true && 'success'"
+    [(ngModel)]="form.user_phone" (delayKeyup)="validator.user_phone = null" (buttonClick)="aligoSend()" [required]="true">
+      인증번호<br>받기
+    </app-input>
+    <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+    <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
+    <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
+      <app-input
+      name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
+      [color]="validator.sms_token?.valid === false && 'warning'"
+      [(ngModel)]="form.sms_token" (delayKeyup)="validator.sms_token = null" (buttonClick)="aligoCheck()" [required]="true">
+        확인
+      </app-input>
+      <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
+    </div>
+  </app-container>
 </ion-content>
+<app-button-footer>
+  <app-button (click)="prev()">이전</app-button>
+  <app-button name="button_next" (click)="next()">다음</app-button>
+</app-button-footer>

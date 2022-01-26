@@ -6,21 +6,9 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
-import { UpdatePasswordForm } from '../find-password-result/find-password-result.component';
+import { FindPasswordForm, FindPasswordFormMock } from '../../../login.interface';
 
-export class FindPasswordForm {
-  account_id:string = null; // 아이디
-  user_name:string = null; // 성명
-  user_phone:string = null; // 휴대폰 번호
-  sms_token:string = null; // 인증번호
-}
 
-export class FindPasswordFormMock implements FindPasswordForm {
-  account_id:string = 'worker_sh'; // 아이디
-  user_name:string = '김수홍'; // 성명
-  user_phone:string = '01000249857'; // 휴대폰 번호
-  sms_token:string = null; // 인증번호
-}
 
 @Component({
   selector: 'app-find-password',

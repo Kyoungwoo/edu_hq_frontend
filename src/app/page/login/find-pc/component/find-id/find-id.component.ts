@@ -1,23 +1,12 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
-import { Validator, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { Validator, ConnectService, ConnectResult } from 'src/app/basic/service/core/connect.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
-
-export class FindIdForm {
-  user_name:string = null; // 성명
-  user_phone:string = null; // 휴대폰 번호
-  sms_token:string = null; // 인증번호
-}
-
-export class FindIdFormMock implements FindIdForm {
-  user_name:string = '김수홍'; // 성명
-  user_phone:string = '01000249857'; // 휴대폰 번호
-  sms_token:string = null; // 인증번호
-}
+import { FindIdForm, FindIdFormMock } from '../../../login.interface';
 
 @Component({
   selector: 'app-find-id',
@@ -34,7 +23,7 @@ export class FindIdComponent implements OnInit {
 
   form = new FindIdForm();
   validator = new Validator(new FindIdForm()).validator;
-  res;
+  res:ConnectResult;
 
   constructor(
     private el: ElementRef<HTMLElement>,

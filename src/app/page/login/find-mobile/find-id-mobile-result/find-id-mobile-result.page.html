@@ -1,9 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>find-id-mobile-result</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/find-id-mobile-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>아이디 찾기</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <app-container size="small">
+    <h4>아이디 찾기 결과</h4>
+    <app-card>
+      <h4><ion-text color="primary">{{ result.user_name }}</ion-text> 님의 아이디는</h4>
+      <h4><ion-text color="primary">{{ result.account_id }}</ion-text> 입니다.</h4>
+    </app-card>
+  </app-container>
 </ion-content>
+<app-button-footer>
+  <app-button name="button_find_password" (click)="navFindPassword()">비밀번호 찾기</app-button>
+  <app-button name="button_login" (click)="navLogin()">로그인 하기</app-button>
+</app-button-footer>

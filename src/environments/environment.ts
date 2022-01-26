@@ -7,11 +7,11 @@ import { UserType } from "src/app/basic/service/core/user.service";
 export const environment = {
   production: false,
   autoTest: {
-    core: { test: false, done: false },
-    SignUp: { test: true, done: false, type: ['SUPER', 'COMPANY'] as UserType[] },
-    FindId: { test: false, done: false },
-    FindPassword: { test: false, done: false },
-    Login: {  test: true, done: false }
+    core: { test: true, done: false },
+    SignUp: { test: false, done: false, type: ["WORKER", "LH", 'SUPER', 'COMPANY'] as UserType[] },
+    FindId: { test: true, done: false, type: ['PHONE'] },
+    FindPassword: { test: true, done: false },
+    Login: {  test: false, done: false }
   }
 };
 

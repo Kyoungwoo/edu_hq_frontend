@@ -18,7 +18,7 @@
     <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
     [color]="validator.user_phone?.valid === false ? 'warning' 
     : validator.sms_token?.valid === true && 'success'"
-    [(ngModel)]="form.user_phone" (buttonClick)="aligoSend()" [required]="true">
+    [(ngModel)]="form.user_phone" (delayKeyup)="validator.user_phone = null" (buttonClick)="aligoSend()" [required]="true">
       인증번호<br>받기
     </app-input>
     <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
@@ -27,7 +27,7 @@
       <app-input
       name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
       [color]="validator.sms_token?.valid === false && 'warning'"
-      [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
+      [(ngModel)]="form.sms_token" (delayKeyup)="validator.sms_token = null" (buttonClick)="aligoCheck()" [required]="true">
         확인
       </app-input>
       <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>

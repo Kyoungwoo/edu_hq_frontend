@@ -5,7 +5,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
-import { UpdatePasswordForm } from './component/find-password-result/find-password-result.component';
+import { UpdatePasswordForm } from '../login.interface';
 
 @Component({
   selector: 'app-find-pc',
