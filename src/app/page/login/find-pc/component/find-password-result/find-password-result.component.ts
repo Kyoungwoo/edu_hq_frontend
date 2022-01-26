@@ -31,12 +31,12 @@ export class FindPasswordResultComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   private async test() {
-    if(!environment.autoTest.core.test) return;
-    if(!environment.autoTest.FindPassword.test) return;
+    if(!environment.test.core.test) return;
+    if(!environment.test.FindPassword.test) return;
 
     const el = this.el.nativeElement;
     await this.promise.wait();

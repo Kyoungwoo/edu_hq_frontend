@@ -30,12 +30,12 @@ export class SignUpLhPage implements OnInit {
 
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   public async test() {
-    if(!environment.autoTest.core.test) return;
-    if(!environment.autoTest.SignUp.test) return;
+    if(!environment.test.core.test) return;
+    if(!environment.test.SignUp.test) return;
     
     const el = this.el.nativeElement;
     await this.promise.wait();

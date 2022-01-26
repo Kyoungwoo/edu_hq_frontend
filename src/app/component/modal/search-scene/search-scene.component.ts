@@ -37,11 +37,11 @@ export class SearchSceneComponent implements OnInit {
 
   ngOnInit() {
     if(this.type !== 'SIGNUPLH') this.get();
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   public async test() {
-    if(!environment.autoTest.core.test) return;
+    if(!environment.test.core.test) return;
     
     const el = this.el.nativeElement;
 

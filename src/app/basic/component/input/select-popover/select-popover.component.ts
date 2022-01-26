@@ -31,11 +31,11 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
   ngAfterViewInit() {
     this.scrollToIndex(this.virtualScroll, this.opts, this.value);
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   private async test() {
-    if(!environment.autoTest.core.test) return;
+    if(!environment.test.core.test) return;
     await this.promise.wait();
     const el = this.el.nativeElement;
 

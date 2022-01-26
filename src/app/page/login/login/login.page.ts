@@ -39,11 +39,11 @@ export class LoginPage implements OnInit, ViewDidEnter {
     }
   }
   ionViewDidEnter(): void {
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   private async test() {
-    if(!environment.autoTest.core.test) return;
+    if(!environment.test.core.test) return;
     if(!await this.testSignUp()) return;
     if(!await this.testFindId()) return;
     if(!await this.testFindPassord()) return;
@@ -53,24 +53,24 @@ export class LoginPage implements OnInit, ViewDidEnter {
     });
   }
   private async testSignUp():Promise<boolean> {
-    if(!environment.autoTest.SignUp.test) return true;
-    if(environment.autoTest.SignUp.done) return true;
+    if(!environment.test.SignUp.test) return true;
+    if(environment.test.SignUp.done) return true;
     
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    if(environment.autoTest.SignUp.type.length) {
+    if(environment.test.SignUp.type.length) {
       el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
       return false;
     } else {
-      environment.autoTest.SignUp.done = true;
+      environment.test.SignUp.done = true;
       return true;
     }
   }
   private async testFindId():Promise<boolean> {
-    if(!environment.autoTest.FindId.test) return true;
-    if(environment.autoTest.FindId.done) return true;
-    environment.autoTest.FindId.done = true;
+    if(!environment.test.FindId.test) return true;
+    if(environment.test.FindId.done) return true;
+    environment.test.FindId.done = true;
 
     const el = this.el.nativeElement;
     await this.promise.wait();
@@ -79,9 +79,9 @@ export class LoginPage implements OnInit, ViewDidEnter {
     return false;
   }
   private async testFindPassord():Promise<boolean> {
-    if(!environment.autoTest.FindPassword.test) return true;
-    if(environment.autoTest.FindPassword.done) return true;
-    environment.autoTest.FindPassword.done = true;
+    if(!environment.test.FindPassword.test) return true;
+    if(environment.test.FindPassword.done) return true;
+    environment.test.FindPassword.done = true;
 
     const el = this.el.nativeElement;
     await this.promise.wait();

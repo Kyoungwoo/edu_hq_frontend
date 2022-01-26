@@ -18,12 +18,12 @@ export class SignUpDonePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   private async test() {
-    if(!environment.autoTest.core.test) return;
-    if(!environment.autoTest.SignUp.test) return;
+    if(!environment.test.core.test) return;
+    if(!environment.test.SignUp.test) return;
     
     await this.promise.wait();
     this._modal.dismiss();

@@ -30,18 +30,18 @@ export class FindIdMobileResultPage implements OnInit {
     if(!this.checkParams()) return this.nav.navigateBack('/find-id-mobile-type');
     this.result = history.state.result;
 
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
   
   private async test() {
-    if(!environment.autoTest.core.test) return;
-    if(!environment.autoTest.FindId.test) return;
+    if(!environment.test.core.test) return;
+    if(!environment.test.FindId.test) return;
 
     const el = this.el.nativeElement;
     await this.promise.wait();
     
     el.querySelector('[name=button_login]').dispatchEvent(new Event('click'));
-    environment.autoTest.FindId.done = true;
+    environment.test.FindId.done = true;
   }
 
   private checkParams() {

@@ -22,23 +22,23 @@ export class FindIdMobileTypePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(environment.autoTest) this.test();
+    if(environment.test) this.test();
   }
 
   private async test() {
-    if(!environment.autoTest.core.test) return;
-    if(!environment.autoTest.FindId.test) return;
-    if(!environment.autoTest.FindId.type.length) return;
+    if(!environment.test.core.test) return;
+    if(!environment.test.FindId.test) return;
+    if(!environment.test.FindId.type.length) return;
 
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    const cardTypeEl = el.querySelector(`[name=card_type_${environment.autoTest.FindId.type[0]}]`);
+    const cardTypeEl = el.querySelector(`[name=card_type_${environment.test.FindId.type[0]}]`);
     cardTypeEl.dispatchEvent(new Event('click'));
     await this.promise.wait();
 
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-    environment.autoTest.SignUp.type.splice(0, 1);
+    environment.test.SignUp.type.splice(0, 1);
   }
 
   next() {
