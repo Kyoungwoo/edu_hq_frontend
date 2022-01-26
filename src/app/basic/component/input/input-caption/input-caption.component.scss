@@ -14,10 +14,14 @@
         background: var(--ion-color-translucent);
         display: block;
         font-size: var(--font-size-h6-small);
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 8px;
+        padding-right: 8px;
+        line-height: 1.2em;
         border-radius: 0 0 var(--app-border-radius) var(--app-border-radius);
         color: var(--ion-color-base);
-        height: 28px;
+        min-height: 28px;
         display: flex;
         align-items: center;
         font-weight: bold;

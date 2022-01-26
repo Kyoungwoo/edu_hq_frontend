@@ -2,13 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { UserType } from "src/app/basic/service/core/user.service";
+
 export const environment = {
   production: false,
   autoTest: {
     core: { test: false, done: false },
-    SignUp: { test: true, done: false, num: 0 },
-    FindId: { test: true, done: false },
-    FindPassword: { test: true, done: false }
+    SignUp: { test: true, done: false, type: ['SUPER', 'COMPANY'] as UserType[] },
+    FindId: { test: false, done: false },
+    FindPassword: { test: false, done: false },
+    Login: {  test: true, done: false }
   }
 };
 

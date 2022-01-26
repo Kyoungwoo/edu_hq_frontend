@@ -17,7 +17,7 @@ export class SplashPage implements OnInit, AfterViewInit {
   ngOnInit() {
   }
   ngAfterViewInit(): void {
-
+    this.goToInitPage();
   }
   goToInitPage() {
     const loadingRoof = setTimeout(() => {

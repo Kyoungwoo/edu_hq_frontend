@@ -88,7 +88,7 @@ export class SignUpPartnerPage implements OnInit {
     await this.promise.wait(1000);
     
     // 다음 페이지로
-    el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
+    //el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
 
     console.log(this.form);
     console.log(this.validator);
