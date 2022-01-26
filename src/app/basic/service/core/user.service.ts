@@ -2,6 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 enum TAG {
+  Id = 'Devmonster@Id',
   AuthToken = 'Devmonster@AuthToken',
   UserData = 'Devmonster@UserData'
 }
@@ -37,6 +38,7 @@ export class UserService {
 
   authToken:AuthToken;
   userData:UserData = new UserData();
+  accountID:string;
   autoLogin:boolean = false;
 
   constructor(
@@ -45,6 +47,17 @@ export class UserService {
     this.getAuthToken();
     this.getUserData();
   }
+  
+  getId() {
+    this.accountID = window.localStorage.getItem(TAG.Id) || null;
+  }
+  setId(id) {
+    if(isPlatformServer(this.platformId)) return;
+
+    window.localStorage.setItem(TAG.Id, id);
+    this.getId();
+  }
+
   getAuthToken() {
     if(isPlatformServer(this.platformId)) return this.authToken = null; // ssr에서 auth token을 어떠헥 처리해야 하지? 쿠키로 해야하나? 아니면 정보를 안띄워야 하나?
 
@@ -63,7 +76,9 @@ export class UserService {
     if(isPlatformServer(this.platformId)) return;
 
     let storage:Storage = autoLogin ? window.localStorage : window.sessionStorage;
+    let deleteStorage:Storage = autoLogin ? window.sessionStorage : window.localStorage;
     storage.setItem(TAG.AuthToken, JSON.stringify(authToken));
+    deleteStorage.removeItem(TAG.AuthToken);
 
     this.getAuthToken();
   }
@@ -85,8 +100,9 @@ export class UserService {
     if(isPlatformServer(this.platformId)) return;
 
     let storage:Storage = autoLogin ? window.localStorage : window.sessionStorage;
+    let deleteStorage:Storage = autoLogin ? window.sessionStorage : window.localStorage;
     storage.setItem(TAG.UserData, JSON.stringify(data));
-
+    deleteStorage.removeItem(TAG.AuthToken);
     //this.get();
   }
   clear() {

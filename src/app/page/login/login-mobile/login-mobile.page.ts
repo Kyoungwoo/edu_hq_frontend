@@ -4,9 +4,9 @@ import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { UserService, AuthToken, UserData } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import { ExcelService, Sheet } from 'src/app/basic/service/util/excel.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
+import { LoginForm } from '../login.interface';
 
 @Component({
   selector: 'app-login-mobile',
@@ -15,11 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginMobilePage implements OnInit {
 
-  form = {
-    accountID: '',
-    accountToken: ''
-  }
-  saveId:boolean = false;
+  form = new LoginForm();
   autoLogin:boolean = false;
   res:ConnectResult;
 
@@ -34,7 +30,11 @@ export class LoginMobilePage implements OnInit {
     private alert: AlertService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.user.autoLogin) {
+      this.tokenLogin();
+    }
+  }
   ionViewDidEnter(): void {
     if(environment.autoTest) this.test();
   }
@@ -56,7 +56,7 @@ export class LoginMobilePage implements OnInit {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    if(environment.autoTest.SignUp.num < 4) {
+    if(environment.autoTest.SignUp.type.length) {
       el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
       return false;
     } else {
@@ -86,6 +86,12 @@ export class LoginMobilePage implements OnInit {
     el.querySelector('[name=button_find_password]').dispatchEvent(new Event('click'));
     return false;
   }
+  private async testLogin():Promise<boolean> {
+    if(!environment.autoTest.Login.test) return true;
+    if(environment.autoTest.Login.done) return true;
+
+
+  }
 
   public async login() {
     this.res = await this.connect.run('/token/get', this.form, {
@@ -93,11 +99,47 @@ export class LoginMobilePage implements OnInit {
       loading: '로그인'
     });
     if(this.res.rsCode === 0) {
-      this.getWorkerInfo(this.res.rsObj);
-      
+      this.getWorkerInfo(this.res.rsObj, { animated: true });
+    } else if(this.res.rsCode === 500) {
+      this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
+    } else if(this.res.rsCode === 3003) {
+      this.alert.present({
+        message: this.res.rsMsg
+      });
+    } else if(this.res.rsCode === 3004) {
+      this.alert.present({
+        message: this.res.rsMsg,
+        buttons: [
+          { text: '예, 재가입 신청하겠습니다.' },
+          { text: '아니오, 가입하지 않겠습니다.' }
+        ]
+      });
     }
   }
-  private async getWorkerInfo(authToken:AuthToken) {
+  public async tokenLogin() {
+    this.res = await this.connect.run('/token/refresh', {
+      accountID: this.user.userData.account_id,
+      refreshToken: this.user.authToken.refresh_token
+    });
+    if(this.res.rsCode === 0) {
+      this.getWorkerInfo(this.res.rsObj, { animated: false });
+    } else if(this.res.rsCode === 500) {
+      this.res.rsMsg = '인증 토큰이 만료되었습니다. 다시 로그인해주세요.';
+    } else if(this.res.rsCode === 3003) {
+      this.alert.present({
+        message: this.res.rsMsg
+      });
+    } else if(this.res.rsCode === 3004) {
+      this.alert.present({
+        message: this.res.rsMsg,
+        buttons: [
+          { text: '예, 재가입 신청하겠습니다.' },
+          { text: '아니오, 가입하지 않겠습니다.' }
+        ]
+      });
+    }
+  }
+  private async getWorkerInfo(authToken:AuthToken, { animated }) {
     this.user.setAuthToken(authToken, this.autoLogin);
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
@@ -105,17 +147,9 @@ export class LoginMobilePage implements OnInit {
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
 
-      if(!environment.production
-      && userData.user_type === 'WORKER') {
-        this.res.rsCode = 1002;
-        this.res.rsMsg = '근로자는 앱으로 로그인 해주세요.';
-        this.user.clear();
-        return;
-      }
-
       this.user.setUserData(userData, this.autoLogin);
-      this.nav.navigateRoot('/main-admin', {
-        animated: true
+      this.nav.navigateRoot('/main-user', {
+        animated
       });
     }
   }

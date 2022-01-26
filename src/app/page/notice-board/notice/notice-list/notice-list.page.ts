@@ -31,8 +31,8 @@ export class NoticeListPage implements OnInit {
   form = {
     company_ids: [1],
     end_date: this.date.today(),
-    notice_types: ['일반'],
-    project_ids: 1,
+    notice_types: [],
+    project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -3 }),
     limit_no: 0
@@ -66,6 +66,11 @@ export class NoticeListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.form.search_text = data.search_text;
+      this.get();
+    }
   }
 
   async edit(notice_id?) {
@@ -77,6 +82,11 @@ export class NoticeListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log("data",data);
+      this.get();
+    }
   }
 
   async favoritesCheck($event:MouseEvent, item:NoticeInfo) {
