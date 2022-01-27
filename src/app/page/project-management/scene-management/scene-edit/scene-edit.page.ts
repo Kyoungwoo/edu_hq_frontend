@@ -16,9 +16,9 @@ export interface COMPANY_DATA {
   company_id: any
 }
 
-export interface GPS_COORDINATE_DATA {
-  gps_latitude: [];
-  gps_longitude: [];
+export class GPS_COORDINATE_DATA {
+  gps_latitude:number[] = [];
+  gps_longitude:number[] = [];
 }
 export class ProjectDetail {
   create_user_id: number; // 작성자 유저 ID
@@ -49,7 +49,7 @@ export class ProjectDetail {
   add_gps_state_con: string;
   gps_state_con: string;
   company_data: COMPANY_DATA[] = [];
-  gps_coordinate_data: object;
+  gps_coordinate_data = new GPS_COORDINATE_DATA();
 }
 // {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
 // "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
@@ -65,10 +65,6 @@ export class SceneEditPage implements OnInit {
 
   contractor_id = [];
   supervision_id = [];
-  mapData = {
-    gps_latitude: [],
-    gps_longitude: []
-  }
 
   organization_data = {
     company_type: '',
@@ -164,7 +160,20 @@ export class SceneEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            this.form.gps_coordinate_data = this.mapData;
+            console.log("this.contractor_id",this.contractor_id);
+            console.log("this.supervision_id",this.supervision_id);
+            this.form.company_data.push({
+              company_type: '원청사',
+              company_id: this.contractor_id
+            });
+            this.form.company_data.push({
+              company_type: '감리사',
+              company_id: this.supervision_id
+            });
+            if(this.form.gps_coordinate_data) {
+              this.form.gps_state = 1;
+            }
+            // this.form.gps_coordinate_data = this.mapData;
             const res = await this.connect.run('/project/insert', this.form);
             if (res.rsCode === 0) { }
           }
@@ -190,7 +199,10 @@ export class SceneEditPage implements OnInit {
               company_type: '감리사',
               company_id: this.supervision_id
             });
-            this.form.gps_coordinate_data = this.mapData;
+            if(this.form.gps_coordinate_data) {
+              this.form.gps_state = 1;
+            }
+            
             const res = await this.connect.run('/project/update', this.form, {});
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
@@ -227,8 +239,8 @@ export class SceneEditPage implements OnInit {
   }
 
   async project_area_set() {
-    let map_x = [];
-    let map_y = [];
+    let gps_latitude = [];
+    let gps_longitude = [];
     const modal = await this._modal.create({
       component: ProjectAreaSetComponent,
       componentProps:
@@ -239,19 +251,21 @@ export class SceneEditPage implements OnInit {
 
     if (data) {
       if (this.project_id) {
-        console.log("this.project_id", this.project_id);
         this.form.gps_state = 1;
-        console.log("this.form.gps_state", this.form.gps_state);
-
       }
       this.form.gps_state_con = '설장 됨';
-      this.returnData = data
+      this.returnData = data;
       data.forEach(item => {
-        map_x.push(item.x);
-        map_y.push(item.y);
-      })
-      this.mapData.gps_latitude.push(map_x);
-      this.mapData.gps_longitude.push(map_x);
+        const { x, y } = item;
+        gps_latitude.push(x);
+        gps_longitude.push(y);
+      });
+      this.form.gps_coordinate_data = {
+        gps_latitude,
+        gps_longitude
+      }
+      
+      console.log("this.form.gps_coordinate_data",this.form.gps_coordinate_data);
     }
   }
 
