@@ -19,14 +19,15 @@ export interface ValueData{
   }]
 })
 export class SelectContractorComponent implements OnInit, ControlValueAccessor {
-
   @HostListener('click') onClick() {
     if(!this.disabled) this.openModal();
   }
+  
   @Input() color:Color;
   @Input() label:string = "원청사";
   @Input() text:string;
   @Input() type?:boolean;
+  @Input() required:boolean = false;
   isModalData:boolean = false;
 
  

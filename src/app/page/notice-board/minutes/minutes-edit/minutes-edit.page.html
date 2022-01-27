@@ -17,23 +17,23 @@
         <app-button style="margin-bottom: 50px;" fill="translucent">인쇄</app-button>
       </app-col>
     </app-row>
-    <app-row>
+    <app-row mobileBreak>
       <app-col>
         <h4>기본 정보</h4>
       </app-col>
     </app-row>
-    <app-row>
+    <app-row mobileBreak>
       <app-col>
         <app-input label="현장명" [(ngModel)]="form.project_name" [readonly]="true"></app-input>
-      </app-col>
-      <app-col>
+      </app-col >
+      <app-col mobileBreak>
         <app-input label="작성일" [(ngModel)]="form.create_date" [readonly]="true"></app-input>
       </app-col>
       <app-col>
         <app-input label="작성자" [(ngModel)]="form.user_name" [readonly]="true"></app-input>
       </app-col>
     </app-row>
-   <app-row>
+   <app-row mobileBreak>
     <app-col>
         <app-input label="회의록 구분" [(ngModel)]="form.safety_meeting_type" [readonly]="true" ></app-input>
     </app-col>
@@ -45,7 +45,7 @@
     </app-col>
   </app-row>
   <h4>회의 내용</h4>
-  <app-row>
+  <app-row mobileBreak>
       <app-col>
           <app-textarea [rows]="10" label="협의 사항" [(ngModel)]="form.safety_meeting_content" [readonly]="true"></app-textarea>
       </app-col>
@@ -55,25 +55,11 @@
   </app-row>
   <h4>기타 사항</h4>
   <app-textarea [rows]="3" [(ngModel)]="form.safety_meeting_etc"></app-textarea>
-  <app-row>
+  <app-row mobileBreak>
     <app-col>
       <h4>첨부 자료</h4>
     </app-col>
     </app-row>
-    <app-card>
-      <app-row>
-        <app-col></app-col>
-        <app-col size="auto">
-          <app-button>추가
-            <app-file name="input" view_type="SAFETY_MEETING"
-            [(ngModel)]="form.safety_meeting_file_data"
-            [file]="form.file"
-            [file_json]="form.file_json"
-            ></app-file>
-          </app-button>
-        </app-col>
-      </app-row>
-    </app-card>
     <app-table>
       <tr *ngFor="let item of form.safety_meeting_file_data let i = index">
         <td *ngIf="item.view_type==='SAFETY_MEETING'">
@@ -84,9 +70,14 @@
                 {{ item.file_name }}
               </a>
             </app-col>
+            <app-col size="auto">
+              <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.safety_meeting_file_data.splice(i,1)">
+                <app-img name="minus"></app-img>
+              </app-button>
+            </app-col> 
           </app-row>
           <ion-row
-          *ngIf="item.content_type.startsWith('image')">
+          *ngIf="item.content_type.startsWith('image')">  
             <ion-col>
               <div class="image-detail">이미지 미리보기</div>
               <app-img class="image-class" [src]="item.full_url"></app-img>

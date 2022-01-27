@@ -34,7 +34,7 @@ export class NoticeListPage implements OnInit {
     notice_types: [],
     project_ids: [1],
     search_text: '',
-    start_date: this.date.today({ month: -3 }),
+    start_date: this.date.today({ month: -1 }),
     limit_no: 0
   }
   res:ConnectResult<NoticeInfo>;

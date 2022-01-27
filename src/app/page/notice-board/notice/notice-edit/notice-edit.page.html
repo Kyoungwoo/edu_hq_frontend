@@ -81,6 +81,11 @@
                   {{ item.file_name }}
                 </a>
               </app-col>
+              <app-col size="auto">
+                <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.notice_file_data.splice(i,1)">
+                  <app-img name="minus"></app-img>
+                </app-button>
+              </app-col> 
             </app-row>
             <ion-row
             *ngIf="item.content_type.startsWith('image')">
@@ -164,9 +169,14 @@
         </app-col>
       </app-row>
     </app-card>
+    <app-row>
+      <app-col>
+        <h4>첨부자료</h4>
+      </app-col>
+    </app-row>
     <app-table>
       <tr *ngFor="let item of form.notice_file_data let i = index">
-        <td *ngIf="item.view_type==='SAFETY_MEETING'">
+        <td *ngIf="item.view_type==='NOTICE'">
           <app-row>
             <app-col>
               <a [href]="item.full_url" target="_blank" [download]="item.file_name">
@@ -174,6 +184,11 @@
                 {{ item.file_name }}
               </a>
             </app-col>
+            <app-col size="auto">
+              <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.notice_file_data.splice(i,1)">
+                <app-img name="minus"></app-img>
+              </app-button>
+            </app-col> 
           </app-row>
           <ion-row
           *ngIf="item.content_type.startsWith('image')">
