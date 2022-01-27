@@ -23,7 +23,7 @@ export class MsdsItem {
   msds_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
-
+  create_user_id:number;
   public_scope_allstate: boolean;
   public_scope_one: scopeOne;
   public_scope_two: scopeTwo;
@@ -60,10 +60,11 @@ export class MsdsEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.user.userData.user_name === this.item.user_name) {
+    console.log("555555555555",this.user.userData.user_id);
+    if(this.form.create_user_id === this.user.userData.user_id) {
       this.updateState = false;
     }
-    
+
     console.log("this.item",this.item);
     if(this.item.msds_id) {
       this.title = '상세';

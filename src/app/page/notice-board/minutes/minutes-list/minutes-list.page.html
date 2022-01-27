@@ -13,17 +13,17 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [(ngModel)]="form.project_ids" [required]="true"></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_ids"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [required]="true"></app-select-contractor>
+                <app-select-contractor></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="회의록 구분" [(ngModel)]="form.safety_meeting_types" [required]="true">
+                <app-select label="회의록 구분" [(ngModel)]="form.safety_meeting_types">
                   <app-select-option value="전체">전체</app-select-option>
                   <app-select-option value="안전 및 보건에 관한 협의체 회의록">안전 및 보건에 관한 협의체 회의록</app-select-option>
                   <app-select-option value="노사 협의체 회의록">노사 협의체 회의록</app-select-option>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
               <td>
-                <app-input-group label="작성일" [required]="true">
+                <app-input-group label="작성일">
                   <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
                   <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>

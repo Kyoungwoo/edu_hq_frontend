@@ -38,7 +38,7 @@ export class NoticeItem implements NoticePublicScope {
 })
 export class NoticeEditPage implements OnInit {
 
-  @Input() notice_id; //LIST 에서 가져오는 값
+  @Input() item; //LIST 에서 가져오는 값
 
   title:string;
 
@@ -56,8 +56,11 @@ export class NoticeEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("zzzzzzzzzzzzzzzzzzzzzz",this.notice_id);
-    if(this.notice_id) {
+    console.log("-----------------------",this.user.userData.user_id);
+    if(this.user.userData.user_id === this.item.user_id) {
+      
+    }
+    if(this.item.notice_id) {
       this.title = '상세';
       this.get();
     } else {
@@ -70,7 +73,7 @@ export class NoticeEditPage implements OnInit {
   }
 
   async get() { //상세보기
-    const res = await this.connect.run('/board/notice/detail', { notice_id: this.notice_id });
+    const res = await this.connect.run('/board/notice/detail', { notice_id: this.item.notice_id });
     if(res.rsCode ===  0) {
       this.form = {
         ...this.form,
@@ -79,7 +82,10 @@ export class NoticeEditPage implements OnInit {
       console.log("---------------------form",this.form);
       const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name}`;
+      this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
+      // if(!this.form.scope_company_name) {
+      //   this.rangeText.substring(1,this.rangeText.length -1);
+      // }
     }
   }
 
@@ -134,7 +140,7 @@ export class NoticeEditPage implements OnInit {
           text: '예',
           handler: async () => {
             const res = await this.connect.run('/board/notice/delete', {
-              notice_ids: [this.notice_id]
+              notice_ids: [this.item.notice_id]
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
@@ -146,7 +152,7 @@ export class NoticeEditPage implements OnInit {
   }
 
   async openRange() {
-    const {      
+    const {
       scope_company_id,
       scope_company_name,
       public_scope_allstate,
@@ -178,7 +184,8 @@ export class NoticeEditPage implements OnInit {
     if(scope) {
       const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name}`;
+      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name === 'null' ? scope.scope_company_name:''}`;
+      console.log("asdfasdfasdfasdf--------------",this.rangeText);
     }
   }
 }
