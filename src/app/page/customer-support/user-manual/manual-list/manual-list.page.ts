@@ -13,6 +13,7 @@ class MenualListForm {
   start_date:string = null; // 작성검색시작일
   end_date:string = null; // 작성검색종료일
   search_text:string = ''; // 검색어(제목)
+  limit_no:number = 0; //
 }
 @Component({
   selector: 'app-manual-list',

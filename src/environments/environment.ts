@@ -14,7 +14,8 @@ export const environment = {
     Login: { test: false, done: false },
     UserMenual: { test: false, done: false }
   }
-};
+}
+// SignUp: { valid: false, message: '아 뭔가 문제가 생겼어.' };
 
 /*
  * For easier debugging in development mode, you can import the following file
