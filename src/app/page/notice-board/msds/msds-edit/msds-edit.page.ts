@@ -37,12 +37,14 @@ export class MsdsItem {
   styleUrls: ['./msds-edit.page.scss'],
 })
 export class MsdsEditPage implements OnInit {
-
-  @Input() msds_id;
-
+  
+  @Input() item;
+  
   title:string;
-
+  
   rangeText = '';
+  
+  updateState:boolean = true;
 
   form = new MsdsItem();
   // smarteditText:string = '';
@@ -58,7 +60,12 @@ export class MsdsEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.msds_id) {
+    if(this.user.userData.user_name === this.item.user_name) {
+      this.updateState = false;
+    }
+    
+    console.log("this.item",this.item);
+    if(this.item.msds_id) {
       this.title = '상세';
       this.get();
     } else{
@@ -70,7 +77,7 @@ export class MsdsEditPage implements OnInit {
     } 
   }
   async get() { //상세보기
-    const res = await this.connect.run('/board/msds/detail', { msds_id: this.msds_id });
+    const res = await this.connect.run('/board/msds/detail', { msds_id: this.item.msds_id });
     if(res.rsCode ===  0) {
       this.form = {
         ...this.form,
@@ -99,6 +106,7 @@ export class MsdsEditPage implements OnInit {
     });
     alert.present();
   }
+  
   async update() { //수정
     if(!this.form.company_name) return this.toast.present({message:'업체명을 입력해주세요.'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.'});
@@ -129,7 +137,7 @@ export class MsdsEditPage implements OnInit {
           text: '예',
           handler: async () => {
             const res = await this.connect.run('/board/msds/delete', {
-              msds_ids: [this.msds_id]
+              msds_ids: [this.item.msds_id]
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');

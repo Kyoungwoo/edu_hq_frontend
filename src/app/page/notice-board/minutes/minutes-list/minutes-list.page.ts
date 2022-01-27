@@ -34,7 +34,7 @@ export class MinutesListPage implements OnInit {
     safety_meeting_types: [],
     project_ids: [],
     search_text: '',
-    start_date: this.date.today({ month: -3 }),
+    start_date: this.date.today({ month: -1 }),
     limit_no: 0,
     cnt_approval_answers :[]
   }

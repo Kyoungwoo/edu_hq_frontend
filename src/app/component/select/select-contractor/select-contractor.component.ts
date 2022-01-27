@@ -27,6 +27,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() label:string = "원청사";
   @Input() text:string;
   @Input() type?:boolean;
+  @Input() required:boolean = false;
   isModalData:boolean = false;
 
  

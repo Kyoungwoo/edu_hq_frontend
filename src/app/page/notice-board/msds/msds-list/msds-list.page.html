@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-company [required]="true"></app-select-company>
+                <app-select-contractor [required]="true"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
+                  <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
                     <td (click)="favoritesCheck($event, item)">
                       <app-button size="small" shape="square" fill="translucent"
                         [color]="item.favorites_state ? 'star' : 'medium'">
@@ -145,7 +145,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
       <app-row style="align-items: flex-start;">
         <app-col>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>

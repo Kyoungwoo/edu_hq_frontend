@@ -42,7 +42,7 @@ export class MsdsListPage implements OnInit {
     msds_types : [],
     project_ids: [1],
     search_text: '',
-    start_date: this.date.today({ month: -3 }),
+    start_date: this.date.today({ month: -1 }),
     limit_no: 0
   }
   res:ConnectResult<MsdsInfo>;
@@ -82,11 +82,11 @@ export class MsdsListPage implements OnInit {
     }
     console.log(data);
   }
-  async edit(msds_id?) {
+  async edit(item?) {
     const modal = await this.modal.create({
       component:MsdsEditPage,
       componentProps:{
-        msds_id:msds_id
+        item
       }
     });
     modal.present();
