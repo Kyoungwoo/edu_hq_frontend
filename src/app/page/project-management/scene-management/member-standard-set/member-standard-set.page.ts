@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { OrganizationEditComponent } from './component/organization-edit/organization-edit.component';
 
 @Component({
   selector: 'app-member-standard-set',
@@ -28,27 +30,22 @@ export class MemberStandardSetPage implements OnInit {
   }>
 
   resLevel3:ConnectResult <{
-    account_id: string,
-    belong_data: string,
-    old_token_state: boolean,
-    user_birth: string,
-    user_email: string,
-    user_gender: string,
-    user_id: number,
-    user_name: string,
-    user_phone: string,
-    user_profile: string,
-    user_role: string,
-    user_type: string
+    hq_department_use_state: number, // 사용 = 1
+    hq_department_id: number, // 부서 ID
+    hq_department_name: string, // 부서명
+    hq_regional_id: number, // 지역본부 ID
+    hq_department_code: string, // 코드
+    hq_business_id: number // 사업본부 ID
   }>
 
   selectId = [];
   constructor(
-    private connect: ConnectService
+    private connect: ConnectService,
+    private modal: ModalController
   ) { }
 
   ngOnInit() {
-    this.level1()
+    this.level1();
   }
 
   //본부, 지역본부
@@ -56,17 +53,53 @@ export class MemberStandardSetPage implements OnInit {
     this.resLevel1 = await this.connect.run('/project/organization/regional/get',{},{});
     if(this.resLevel1.rsCode === 0) {}
   }
-  //지역본부, 사업본부
-  async level2() {
-    this.resLevel2 = await this.connect.run('/project/organization/regional/get',{},{});
-    if(this.resLevel2.rsCode === 0) {}
-  }
-  //
-  async level3() {
-    this.resLevel3 = await this.connect.run('/project/organization/department/get',{},{});
-    if(this.resLevel3.rsCode === 0) {}
+  // //지역본부, 사업본부
+  // async level2() {
+  //   this.resLevel2 = await this.connect.run('/project/organization/regional/get',{},{});
+  //   if(this.resLevel2.rsCode === 0) {}
+  // }
+  // //
+  // async level3() {
+  //   this.resLevel3 = await this.connect.run('/project/organization/department/get',{},{});
+  //   if(this.resLevel3.rsCode === 0) {}
+  // }
+
+  async level2In(item){
+    console.log(item.hq_regional_id)
+      this.resLevel2 = await this.connect.run('/project/organization/business/get',{
+        hq_regional_id:item.hq_regional_id
+      },{});
+      if(this.resLevel2.rsCode === 0) {
+        console.log("this.resLevel2",this.resLevel2);
+      }
   }
 
+  async level3In(item) {
+    console.log("this.hq_regional_id",item.hq_regional_id);
+    console.log("hq_business_id",item.hq_business_id);
+
+    this.resLevel3 = await this.connect.run('/project/organization/department/get',{
+      hq_regional_id:item.hq_regional_id,
+      hq_business_id:item.hq_business_id
+    },{});
+    if(this.resLevel3.rsCode === 0) {
+      console.log("this.resLevel3",this.resLevel3);
+
+    }
+  }
+
+  async levelAdd() {
+    const modal = await this.modal.create({
+      component:OrganizationEditComponent,
+      componentProps:{
+        selectId:this.selectId
+      },
+      cssClass:'lhOrganization'
+      
+    });
+    modal.present();
+  }
+  
   async submit(){
     switch(this.menuCount){
       case 1:

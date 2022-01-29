@@ -445,6 +445,10 @@
         }
     }
 
+    .lhOrganization {
+      --max-width: 300px;
+      --max-height: 280px;
+    }
     .security-password-modal {
       --max-width: 400px;
       --max-height: 340px;

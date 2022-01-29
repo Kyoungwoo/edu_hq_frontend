@@ -109,6 +109,7 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   
   writeValue(v:any[]): void { 
     if(v !== this._value) this._value = v; 
+    console.log("this.value",this.value);
   }
   private _onChangeCallback = (v) => {};
   private _onTouchedCallback = (v) => {};
