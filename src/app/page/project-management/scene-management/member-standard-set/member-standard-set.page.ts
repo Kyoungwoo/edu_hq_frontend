@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { OrganizationEditComponent } from './component/organization-edit/organization-edit.component';
 
 @Component({
@@ -12,12 +13,14 @@ export class MemberStandardSetPage implements OnInit {
 
   menuCount:Number = 1;
 
+  //lh 조직관리 시작
   resLevel1:ConnectResult <{
     hq_regional_entire_state: number, // 본사권한 = 1
     hq_regional_id: number, // id
     hq_regional_code: string, // 코드
     hq_regional_name: string, // 지역본부명
-    hq_regional_use_state: number // 사용 = 1
+    hq_regional_use_state: number, // 사용 = 1
+    checked:boolean
   }>
 
   resLevel2:ConnectResult <{
@@ -26,7 +29,9 @@ export class MemberStandardSetPage implements OnInit {
     hq_business_use_state: number,
     hq_regional_id: number,
     hq_business_code: string,
-    hq_business_id: number
+    hq_business_id: number,
+    checked:boolean
+
   }>
 
   resLevel3:ConnectResult <{
@@ -35,18 +40,33 @@ export class MemberStandardSetPage implements OnInit {
     hq_department_name: string, // 부서명
     hq_regional_id: number, // 지역본부 ID
     hq_department_code: string, // 코드
-    hq_business_id: number // 사업본부 ID
+    hq_business_id: number, // 사업본부 ID
+    checked:boolean
   }>
 
-  selectId = [];
+  //lh 조직관리 끝
+
+  //정보 접근 비밀번호
+  form = {
+    company_id:0,
+    company_password:''
+  }
+  subpassword:''
+  selectList = [];
   constructor(
     private connect: ConnectService,
-    private modal: ModalController
+    private modal: ModalController,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
+    //lh조직기구
     this.level1();
+
+
   }
+
+  //-->  lh조직관리 시작
 
   //본부, 지역본부
   async level1() {
@@ -88,16 +108,53 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
 
-  async levelAdd() {
+  async levelEdit(level) {
+    console.log("this.selectId",this.selectList);
     const modal = await this.modal.create({
       component:OrganizationEditComponent,
       componentProps:{
-        selectId:this.selectId
+        selectList:this.selectList
       },
       cssClass:'lhOrganization'
-      
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.level1();
+    }
+  }
+
+  checkState(ev,item,level) {
+    ev.stopPropagation();
+    console.log(item.checked);
+  }
+
+  //-->  lh조직관리 끝
+
+  passwordCheck() {
+    let rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/
+    const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+    console.log(regExp.test(this.form.company_password || this.subpassword));
+    if(regExp.test(this.form.company_password || this.subpassword)){
+      this.form.company_password = '';
+      this.subpassword = '';
+      return this.toast.present({message:'한글입력은 불가능합니다.'});
+    }
+    if(rex.test(this.form.company_password)){
+    } else {
+      this.toast.present({message:'비밀번호 양식에 맞춰주세요.'});
+    }
+  }
+  subPasswordCheck() {
+    if(this.form.company_password !== this.subpassword) return this.toast.present({message:'비밀번호가 일치하지 않습니다.'});
+    
+  }
+  //회원관리 비밀번호 시작
+  async memberPasswordUdpate() {
+    const res = await this.connect.run('/project/company/pass/update',this.form,{});
+    if(res.rsCode === 0) {
+      const toast = await this.toast.present({message:'비밀번호가 변경 되었습니다.'});
+    }
   }
   
   async submit(){
@@ -125,4 +182,6 @@ export class MemberStandardSetPage implements OnInit {
         break;
     }
   }
+
+
 }
