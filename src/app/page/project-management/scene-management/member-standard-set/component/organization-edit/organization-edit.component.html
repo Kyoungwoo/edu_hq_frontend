@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons (click)="dismiss()" slot="end">
+      <app-img name="close"></app-img>
+    </ion-buttons>
+    <ion-title>조직 기구 추가</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-card>
+      <app-row style="height: 100px;">
+        <app-col size="auto">
+          <h5> level</h5>
+        </app-col>
+        <app-col>
+          <app-textarea [(ngModel)]="level1.hq_regional_name" [rows]="5" placeholder="추가할 내용을 입력해주세요&#13;&#10;(20글자 이내)" [maxlength]="20"></app-textarea>
+        </app-col>
+      </app-row>
+    </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button fill="translucent" (click)="addOrganization()">적용</app-button>
+</app-button-footer>

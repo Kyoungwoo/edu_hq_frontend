@@ -45,19 +45,17 @@
     </div>
       <app-card>
         <app-row style="align-items: stretch; ">
-
-          <div>
             <app-col>
               <div style="text-align: right;">
-                <app-button fill="translucent">추가</app-button>
-                <app-button fill="translucent">수정</app-button>
+                <app-button fill="translucent" (click)="levelEdit('level1')">추가</app-button>
+                <app-button fill="translucent" (click)="levelEdit('level1')">수정</app-button>
               </div>
-              <app-check-group [(ngModel)]="selectId">
+              <app-check-group [(ngModel)]="selectList">
                 <app-table>
                   <thead>
                     <tr>
                       <th style="width: 20px;">
-                        <app-check type="all"></app-check>
+                        <app-check type="default"></app-check>
                       </th>
                       <th>코드</th>
                       <th>level 1</th>
@@ -66,41 +64,41 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of resLevel1?.rsMap">
+                    <tr class="button" *ngFor="let item of resLevel1?.rsMap" (click)="level2In(item)">
                       <td>
-                        <app-check [on]="item.hq_regional_id" type="all"></app-check>
+                        <app-check name="level1" [on]="item" (click)="checkState($event,item,'level1')"></app-check>
                       </td>
+                      <td>{{ item.hq_regional_code }}</td>
                       <td>{{ item.hq_regional_name }}</td>
                       <td>
-                        본사
-                      </td>
-                      <td>
-                        <app-select>
-                          <app-select-option>본사</app-select-option>
-                          <app-select-option>사업본부</app-select-option>
+                        <app-select [(ngModel)]="item.hq_regional_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
                         </app-select>
                       </td>
                       <td>
-                        <app-select></app-select>
+                        <app-select [(ngModel)]="item.hq_regional_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
                       </td>
                     </tr>
                   </tbody>
                 </app-table>
               </app-check-group>
             </app-col>
-          </div>
-          <div>
+
             <app-col>
               <div style="text-align: right;">
-                <app-button fill="translucent">추가</app-button>
-                <app-button fill="translucent">수정</app-button>
+                <app-button fill="translucent" (click)="levelEdit('level2')">추가</app-button>
+                <app-button fill="translucent" (click)="levelEdit('level2')">수정</app-button>
               </div>
-              <app-check-group>
+              <app-check-group [(ngModel)]="selectList">
                 <app-table>
                   <thead>
                     <tr>
                       <th style="width: 20px;">
-                        <app-check></app-check>
+                        <app-check type="all"></app-check>
                       </th>
                       <th>코드</th>
                       <th>level 2</th>
@@ -108,37 +106,37 @@
                       <th>사용여부</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let item of [1,2,3,4,5,6,7,8]">
-                    <tr>
+                  <tbody>
+                    <tr  class="button" *ngFor="let item of resLevel2?.rsMap" (click)="level3In(item)">
                       <td>
-                        <app-check></app-check>
+                        <app-check [on]="item"></app-check>
                       </td>
-                      <td></td>
+                      <td>{{ item.hq_business_code }}</td>
+                      <td>{{ item.hq_business_name }}</td>
                       <td>
-                        본사
-                      </td>
-                      <td>
-                        <app-select>
-                          <app-select-option>지역본부</app-select-option>
-                          <app-select-option>사업본부</app-select-option>
+                        <app-select [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
                         </app-select>
                       </td>
                       <td>
-                        <app-select></app-select>
+                        <app-select [(ngModel)]="item.hq_business_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
                       </td>
                     </tr>
                   </tbody>
                 </app-table>
               </app-check-group>
             </app-col>
-          </div>
 
           <app-col>
             <div style="text-align: right;">
-              <app-button fill="translucent">추가</app-button>
-              <app-button fill="translucent">수정</app-button>
+              <app-button fill="translucent" (click)="levelEdit('level3')">추가</app-button>
+              <app-button fill="translucent" (click)="levelEdit('level3')">수정</app-button>
             </div>
-            <app-check-group>
+            <app-check-group [(ngModel)]="selectList">
               <app-table>
                 <thead>
                   <tr>
@@ -151,20 +149,18 @@
                     <th>사용여부</th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                <tbody *ngFor="let item of resLevel3?.rsMap">
                   <tr>
                     <td>
-                      <app-check></app-check>
+                      <app-check [on]="item"></app-check>
                     </td>
-                    <td></td>
+                    <td>{{ item.hq_department_name }}</td>
+                    <td>{{ item.hq_department_name }}</td>
                     <td>
-                      본사
-                    </td>
-                    <td>
-                      <app-select></app-select>
-                    </td>
-                    <td>
-                      <app-select></app-select>
+                      <app-select [(ngModel)]="item.hq_department_use_state">
+                        <app-select-option [value]="1">사용</app-select-option>
+                        <app-select-option [value]="0">미사용</app-select-option>
+                      </app-select>
                     </td>
                   </tr>
                 </tbody>
@@ -184,7 +180,7 @@
             <th>
               <app-row style="justify-content: space-between;">
                 <app-col size="auto">
-                  <app-input label="업체명" [readonly]="true"></app-input>
+                  <app-select-company ></app-select-company>
                 </app-col>
               </app-row>
             </th>
@@ -197,7 +193,7 @@
         <ion-toolbar style="height: 66px; display: flex;" color="white">
           <h4>비밀번호 설정</h4>
           <ion-buttons slot="end">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="memberPasswordUdpate()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
       </div>
@@ -206,8 +202,10 @@
         <app-row>
           <app-col></app-col>
           <app-col style="text-align: right;">
-            <app-input placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
-            <app-input placeholder="비밀번호 확인"></app-input>
+            <app-input [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()" placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
+            <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
+            <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
+            <app-input-caption *ngIf="!subpasscheck" color="danger">{{ subpasswordMeassge }}</app-input-caption>
           </app-col>
           <app-col></app-col>
         </app-row>
@@ -259,7 +257,7 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="selectList">
         <app-table>
           <thead>
             <tr>
@@ -271,27 +269,23 @@
               <th>영어</th>
               <th>중국어</th>
               <th>배트남어</th>
-              <th>다국어4</th>
-              <th>다국어5</th>
               <th>사용여부</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of resJobPosition?.rsMap let i = index">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item.ctgo_job_position_id"></app-check>
               </td>
-              <td>1</td>
-              <td>과장</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{ i+1 }}</td>
+              <td>{{ item.ctgo_job_position_name_kr }}</td>
+              <td>{{ item.ctgo_job_position_name_en }}</td>
+              <td>{{ item.ctgo_job_position_name_ch }}</td>
+              <td>{{ item.ctgo_job_position_name_vi }}</td>
               <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_job_position_use_state">
+                  <app-select-option value="1">Y</app-select-option>
+                  <app-select-option value="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>

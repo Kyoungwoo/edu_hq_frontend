@@ -9,6 +9,7 @@ import { MemberStandardSetPageRoutingModule } from './member-standard-set-routin
 import { MemberStandardSetPage } from './member-standard-set.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { MemberStandardSetComponentModule } from './component/member-standard-set.component.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
+    MemberStandardSetComponentModule,
     MemberStandardSetPageRoutingModule
   ],
   declarations: [MemberStandardSetPage]

@@ -50,6 +50,7 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
       this._value = v === this.on ? true : false;
       this.onChangeCallback(this.value);
       this.change.emit(this.value);
+
     }
   }
   get value() { return this._value ? this.on : this.off; }
