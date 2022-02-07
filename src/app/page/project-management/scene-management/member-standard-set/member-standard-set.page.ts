@@ -168,11 +168,8 @@ export class MemberStandardSetPage implements OnInit {
      if (!rex.test(this.form.company_password)){
       this.passchkck = false;
       this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';
-      console.log("다시해본ㄷ");
     } else  {
       this.passchkck = true;
-      console.log("다시해본ㄷ끝ㄴ");
-
     }
     
   }

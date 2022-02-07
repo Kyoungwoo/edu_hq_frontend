@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { AreaAddPage } from '../area-add/area-add.page';
 
 @Component({
@@ -10,45 +11,14 @@ import { AreaAddPage } from '../area-add/area-add.page';
 export class AreaStandardSetPage implements OnInit {
 
   menuCount:Number = 1;
-  testarr=
-  [
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    },
-    {
-      text:'1블록'
-    }
-  ]
+  resAreaOne:ConnectResult <{
+    area_top_name: string,
+    area_top_id: number
+  }>;
+
+  AreaOneForm = {
+    project_id:0
+  }
 
   // area = [
   //   {
@@ -73,10 +43,15 @@ export class AreaStandardSetPage implements OnInit {
 
 
   constructor(
-    private modal : ModalController
+    private modal: ModalController,
+    private connect: ConnectService
   ) { }
 
   ngOnInit() {
+  }
+
+  async getArea() {
+    const res = await this.connect.run('/project/area/top/get', )
   }
 
   async areaAdd(area){
@@ -84,11 +59,11 @@ export class AreaStandardSetPage implements OnInit {
     const modal =  await this.modal.create({
       component:AreaAddPage,
       componentProps:{area},
-      cssClass:'area-add-modal'
+      cssClass:'lhOrganization'
     });
     modal.present();
     const {data} = await modal.onDidDismiss();
     console.log('dsfasdfasdf',data);
-    if(data) this.testarr.push({text:data.text});
+    // if(data) this.testarr.push({text:data.text});
   }
 }

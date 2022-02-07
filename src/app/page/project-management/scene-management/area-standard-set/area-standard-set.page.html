@@ -75,17 +75,17 @@
                 <thead>
                   <tr>
                     <th style="width: 20px;">
-                      <app-check></app-check>
+                      <app-check type="all"></app-check>
                     </th>
                     <th>Area1</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of testarr">
+                  <tr *ngFor="let item of resAreaOne?.rsMap">
                     <td>
                       <app-check></app-check>
                     </td>
-                    <td>{{ item.text }}</td>
+                    <td>{{ item.area_top_name }}</td>
                   </tr>
                 </tbody>
               </app-table>
