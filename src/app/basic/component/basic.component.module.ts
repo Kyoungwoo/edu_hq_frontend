@@ -51,6 +51,7 @@ import { NfcComponent } from './dialog/nfc/nfc.component';
 import { GraphGroupComponent } from './ui/graph-group/graph-group.component';
 import { GraphValueComponent } from './ui/graph-value/graph-value.component';
 import { GraphLineComponent } from './ui/graph-line/graph-line.component';
+import { FilePreviewComponent } from './ui/file-preview/file-preview.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -86,6 +87,7 @@ import { GraphLineComponent } from './ui/graph-line/graph-line.component';
     ContainerComponent,
     CopyRightComponent,
     DismissButtonComponent,
+    FilePreviewComponent,
     GraphGroupComponent,
     GraphLineComponent,
     GraphValueComponent,
@@ -139,6 +141,7 @@ import { GraphLineComponent } from './ui/graph-line/graph-line.component';
     ContainerComponent,
     CopyRightComponent,
     DismissButtonComponent,
+    FilePreviewComponent,
     GraphGroupComponent,
     GraphLineComponent,
     GraphValueComponent,
