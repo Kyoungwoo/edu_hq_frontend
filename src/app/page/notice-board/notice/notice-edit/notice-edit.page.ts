@@ -24,6 +24,7 @@ export class NoticeItem implements NoticePublicScope {
   notice_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
+  create_user_id:number;
   
   public_scope_one: scopeOne;
   public_scope_two: scopeTwo;
@@ -44,6 +45,7 @@ export class NoticeEditPage implements OnInit {
 
   form:NoticeItem = new NoticeItem();
   rangeText = '';
+  useNotice:boolean = true;
 
   constructor(
     private connect: ConnectService,
@@ -56,11 +58,7 @@ export class NoticeEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("-----------------------",this.user.userData.user_id);
-    if(this.user.userData.user_id === this.item.user_id) {
-      
-    }
-    if(this.item.notice_id) {
+    if(this.item?.notice_id) {
       this.title = '상세';
       this.get();
     } else {
@@ -79,7 +77,10 @@ export class NoticeEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       } 
-      console.log("---------------------form",this.form);
+
+      if(this.user.userData.user_id === this.form.create_user_id) {
+        this.useNotice = false;
+      }
       const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
       this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
