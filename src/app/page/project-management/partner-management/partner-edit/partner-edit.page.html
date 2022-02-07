@@ -40,7 +40,6 @@
   <app-table>
     <thead>
       <tr>
-        <th style="width: 40px;"><app-check type="all"></app-check></th>
         <th>현장명</th>
         <th>원청사명</th>
         <th>계약공종</th>
@@ -51,7 +50,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of resMap">
-        <td><app-check type="all"></app-check></td>
         <td><app-select-scene [(ngModel)]="item.project_id"></app-select-scene></td>
         <td><app-select-contractor [(ngModel)]="item.master_company_id"></app-select-contractor></td>
         <td>
@@ -130,7 +128,7 @@
 </app-row>
 </ion-content>
 <app-button-footer>
-  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contUpdate()">수정</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="contDelete()" color="danger">삭제</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="contSave()">저장</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>
+  <app-button fill="translucent" color="danger" *ngIf="updateStatus" (click)="contDelete()" >삭제</app-button>
+  <app-button *ngIf="!updateStatus" (click)="contSave()">저장</app-button>
 </app-button-footer>

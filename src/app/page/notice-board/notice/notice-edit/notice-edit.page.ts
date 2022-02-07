@@ -189,4 +189,8 @@ export class NoticeEditPage implements OnInit {
       console.log("asdfasdfasdfasdf--------------",this.rangeText);
     }
   }
+
+  dismiss() {
+    this._modal.dismiss();
+  }
 }
