@@ -7,6 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <app-card *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-card>
   <h4>사용자 메뉴얼</h4>
   <app-row mobileBreak>
     <app-col>
@@ -26,14 +27,18 @@
   </app-row>
   <app-row>
     <app-col>
-      <app-input label="제목">
+      <app-input name="manual_title" label="제목" 
+      [color]="validator.manual_title?.valid === false && 'warning'"
+      [(ngModel)]="form.manual_title" [required]="true">
         <app-check>상단고정</app-check>
       </app-input>
+      <app-input-caption *ngIf="validator.manual_title?.valid === false">{{ validator.manual_title.message }}</app-input-caption>
     </app-col>
   </app-row>
   <app-row>
     <app-col>
       <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.manual_text"></app-smartedit>
+      <app-input-caption *ngIf="validator.manual_title?.valid === false">{{ validator.manual_title.message }}</app-input-caption>
     </app-col>
   </app-row>
   <h4>
@@ -56,6 +61,8 @@
 </ion-content>
 <app-button-footer>
   <app-button>삭제</app-button>
-  <app-button>저장</app-button>
-  <app-button *ngIf="false" slot="end" color="secondary">수정</app-button>
+  <app-button *ngIf="form.manual_id; else tempAdd" (click)="update()">수정</app-button>
+  <ng-template #tempAdd>
+    <app-button (click)="insert()">저장</app-button>
+  </ng-template>
 </app-button-footer>

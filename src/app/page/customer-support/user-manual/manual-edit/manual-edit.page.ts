@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angular/core';
-import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -36,6 +36,7 @@ export class ManualEditPage implements OnInit {
 
   form = new ManualUpdateForm();
   validator = new Validator(new ManualUpdateForm()).validator;
+  res:ConnectResult;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -72,23 +73,19 @@ export class ManualEditPage implements OnInit {
     }
   }
 
-  public submit() {
-    if(this.form.manual_id) {
-      this.update();
-    } else {
-      this.insert();
-    }
-  }
-
-  private async insert() {
+  public async insert() {
     if(!this.valid()) return;
 
-    this.connect.run('/manual/insert', this.form, {
+    this.res = await this.connect.run('/manual/insert', this.form, {
       loading: true
     });
   }
-  private update() {
-    // this.connect.run('/')
+  public async update() {
+    if(!this.valid()) return;
+
+    const res = await this.connect.run('/support/manual/update', this.form, {
+      loading: true
+    })
   }
   private valid():boolean {
     this.validator.ctgo_manual_id = { valid: true };
