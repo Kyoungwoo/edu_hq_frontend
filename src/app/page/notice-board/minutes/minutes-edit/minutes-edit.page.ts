@@ -57,4 +57,7 @@ export class MinutesEditPage implements OnInit {
       console.log("---------------------------",this.form);
     }
   }
+  dismiss() {
+    this._modal.dismiss();
+  }
 }

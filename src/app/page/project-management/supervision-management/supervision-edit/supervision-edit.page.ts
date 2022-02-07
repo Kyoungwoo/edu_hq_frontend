@@ -35,7 +35,7 @@ export class SupervisionEditPage implements OnInit {
   directlyInput:string;
   form: SupervisionEdit = new SupervisionEdit();
 
-  updateStatus: boolean = false;
+  updateStatus: boolean = true;
   constructor(
     private connect: ConnectService,
     private alert: AlertService,
@@ -120,7 +120,7 @@ export class SupervisionEditPage implements OnInit {
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     console.log(this.email)
-    this.updateStatus = true;
+    this.updateStatus = false;
   }
 
 }

@@ -12,11 +12,13 @@ export class SupervisionListPage implements OnInit {
 
   form = {
     company_contract_type: '감리사',
-    hq_business_ids:[],
-    hq_regional_ids: [1],
+    // hq_business_ids:[],
+    // hq_regional_ids: [1],
     limit_no: 0,
     master_company_ids:[],
-    search_text: ''
+    search_text: '',
+    hq_regional_id: 0,
+    hq_business_id: 0
   }
 
   res:ConnectResult <{
@@ -39,6 +41,21 @@ export class SupervisionListPage implements OnInit {
     create_user_name: string
   }>
 
+  ctgoRegional:ConnectResult<{
+    hq_regional_name:string,
+    hq_regional_entire_state: number,
+    hq_regional_code: string,
+    hq_regional_id: number
+  }>
+
+  ctgoBusiness:ConnectResult<{
+    hq_business_name: string,
+    hq_business_entire_state: number,
+    hq_regional_id: number,
+    hq_business_code: string,
+    hq_business_id: number
+  }>
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService
@@ -46,6 +63,8 @@ export class SupervisionListPage implements OnInit {
 
   ngOnInit() {
     this.getList();
+    this.getCtgoBusiness();
+    this.getCtgoRegional();
   }
 
   async getList() {
@@ -68,4 +87,16 @@ export class SupervisionListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) this.getList();
   }
+  async getCtgoRegional() {
+    this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
+    if(this.ctgoRegional.rsCode === 0) {
+    }
+  }
+  async getCtgoBusiness() {
+    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_id},{});
+    console.log(this,this.ctgoRegional);
+    // if(this.ctgoRegional.rsCode === 0) {
+    // }
+  }
+
 }

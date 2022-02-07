@@ -53,5 +53,10 @@ export class PartnerListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log("data",data);
+      this.getList();
+    }
   }
 }

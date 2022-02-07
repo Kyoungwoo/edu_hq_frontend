@@ -24,6 +24,7 @@ export class MsdsItem {
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
   create_user_id:number;
+
   public_scope_allstate: boolean;
   public_scope_one: scopeOne;
   public_scope_two: scopeTwo;
@@ -43,6 +44,7 @@ export class MsdsEditPage implements OnInit {
   title:string;
   
   rangeText = '';
+  useMsds:boolean = true;
   
   updateState:boolean = true;
 
@@ -60,13 +62,9 @@ export class MsdsEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("555555555555",this.user.userData.user_id);
-    if(this.form.create_user_id === this.user.userData.user_id) {
-      this.updateState = false;
-    }
-
+  
     console.log("this.item",this.item);
-    if(this.item.msds_id) {
+    if(this.item?.msds_id) {
       this.title = '상세';
       this.get();
     } else{
@@ -83,6 +81,10 @@ export class MsdsEditPage implements OnInit {
       this.form = {
         ...this.form,
         ...res.rsObj
+      }
+
+        if(this.user.userData.user_id === this.form.create_user_id) {
+        this.useMsds = false;
       }
     }
   }
@@ -180,5 +182,9 @@ export class MsdsEditPage implements OnInit {
       const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
       this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name}`;
     }
+  }
+
+  dismiss() {
+    this._modal.dismiss();
   }
 }
