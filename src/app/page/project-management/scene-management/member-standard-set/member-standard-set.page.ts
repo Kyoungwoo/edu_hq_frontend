@@ -52,7 +52,26 @@ export class MemberStandardSetPage implements OnInit {
     company_password:''
   }
   subpassword:''
+  passwordMeassge:string = '';
+  passchkck:boolean = false;
+  subpasscheck:boolean = false;
+  subpasswordMeassge:string = '';
+
+
+  
+  //직위 관리
+  resJobPosition:ConnectResult <{
+    ctgo_job_position_name_kr: string,
+    ctgo_job_position_use_state: number,
+    ctgo_job_position_name_en: string,
+    company_id: number,
+    ctgo_job_position_name_vi: string,
+    ctgo_job_position_id: number,
+    ctgo_job_position_name_ch: string
+  }>
+  
   selectList = [];
+
   constructor(
     private connect: ConnectService,
     private modal: ModalController,
@@ -62,7 +81,7 @@ export class MemberStandardSetPage implements OnInit {
   ngOnInit() {
     //lh조직기구
     this.level1();
-
+    this.getJobPosition();
 
   }
 
@@ -131,31 +150,62 @@ export class MemberStandardSetPage implements OnInit {
 
   //-->  lh조직관리 끝
 
+  //-->  회원관리 비밀번호 시작
   passwordCheck() {
-    let rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/
+    const rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-    console.log(regExp.test(this.form.company_password || this.subpassword));
-    if(regExp.test(this.form.company_password || this.subpassword)){
-      this.form.company_password = '';
-      this.subpassword = '';
-      return this.toast.present({message:'한글입력은 불가능합니다.'});
+    console.log("ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴ",rex.test(this.form.company_password || this.subpassword));
+    // if(regExp.test(this.form.company_password || this.subpassword)){
+    //   this.form.company_password = '';
+    //   this.subpassword = '';
+    //   this.passwordChedk = false;
+    //   this.passwordMeassge = '한글입력은 불가능합니다.'
+    // }
+    // else {
+    //   this.passwordChedk = true;
+    // }
+
+     if (!rex.test(this.form.company_password)){
+      this.passchkck = false;
+      this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';
+      console.log("다시해본ㄷ");
+    } else  {
+      this.passchkck = true;
+      console.log("다시해본ㄷ끝ㄴ");
+
     }
-    if(rex.test(this.form.company_password)){
-    } else {
-      this.toast.present({message:'비밀번호 양식에 맞춰주세요.'});
-    }
-  }
-  subPasswordCheck() {
-    if(this.form.company_password !== this.subpassword) return this.toast.present({message:'비밀번호가 일치하지 않습니다.'});
     
   }
-  //회원관리 비밀번호 시작
+  subPasswordCheck() {
+    if(this.form.company_password !== this.subpassword) {
+      this.subpasscheck = false;
+      this.subpasswordMeassge = '비밀번호가 일치 하지 않습니다.';
+    } else { 
+      this.subpasscheck = true;
+    }
+  }
   async memberPasswordUdpate() {
+    console.log("this.subpasscheck",this.subpasscheck);
+    console.log("this.passchkck",this.passchkck);
+    if(this.form.company_password !== this.subpassword) return this.toast.present({message:'비밀번호를 확인해 주세요.',color:"danger"});
     const res = await this.connect.run('/project/company/pass/update',this.form,{});
     if(res.rsCode === 0) {
       const toast = await this.toast.present({message:'비밀번호가 변경 되었습니다.'});
     }
   }
+  //-->  회원관리 비밀번호 끝
+
+  //--> 직위 관리 시작
+
+  async getJobPosition() {
+    console.log("---------들어왔니?")
+    const res = await this.connect.run('/project/job_position/get',{company_id:1});
+    if(res.rsCode === 0) {
+      this.resJobPosition = res;
+    }
+  }
+
+  // /project/job_position/get
   
   async submit(){
     switch(this.menuCount){

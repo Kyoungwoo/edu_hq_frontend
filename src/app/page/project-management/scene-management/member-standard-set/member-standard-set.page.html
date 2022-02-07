@@ -202,8 +202,10 @@
         <app-row>
           <app-col></app-col>
           <app-col style="text-align: right;">
-            <app-input [(ngModel)]="form.company_password" (keyup.enter)="passwordCheck()" placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
-            <app-input [(ngModel)]="subpassword" (keyup.enter)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
+            <app-input [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()" placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
+            <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
+            <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
+            <app-input-caption *ngIf="!subpasscheck" color="danger">{{ subpasswordMeassge }}</app-input-caption>
           </app-col>
           <app-col></app-col>
         </app-row>
@@ -255,7 +257,7 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="selectList">
         <app-table>
           <thead>
             <tr>
@@ -267,27 +269,23 @@
               <th>영어</th>
               <th>중국어</th>
               <th>배트남어</th>
-              <th>다국어4</th>
-              <th>다국어5</th>
               <th>사용여부</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of resJobPosition?.rsMap let i = index">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item.ctgo_job_position_id"></app-check>
               </td>
-              <td>1</td>
-              <td>과장</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{ i+1 }}</td>
+              <td>{{ item.ctgo_job_position_name_kr }}</td>
+              <td>{{ item.ctgo_job_position_name_en }}</td>
+              <td>{{ item.ctgo_job_position_name_ch }}</td>
+              <td>{{ item.ctgo_job_position_name_vi }}</td>
               <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_job_position_use_state">
+                  <app-select-option value="1">Y</app-select-option>
+                  <app-select-option value="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>
