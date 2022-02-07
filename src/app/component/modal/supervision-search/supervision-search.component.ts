@@ -49,16 +49,16 @@ export class SupervisionSearchComponent implements OnInit {
     console.log("this.value", this.value);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
-      if (this.type) {
         for (let i = 0; i < this.res.rsMap.length; i++) {
           for (let x = 0; x < this.value.length; x++) {
             if (this.res.rsMap[i].company_id === this.value[x]) {
               this.res.rsMap[i].checked = true;
+              console.log("this.res.rsMap[i].checked",this.res.rsMap[i].checked);
               this.filteritem.push(this.res.rsMap[i]);
+              console.log("this.filteritem",this.filteritem);
             }
           }
         }
-      }
     } else {
       
     }

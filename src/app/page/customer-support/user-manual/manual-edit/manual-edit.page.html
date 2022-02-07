@@ -32,16 +32,16 @@
    </app-row>
   <app-row>
   <app-col>
-    <app-textarea [rows]="20" label="내용"></app-textarea>
+    <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.manual_text"></app-smartedit>
   </app-col>
   </app-row>
-    <h4>첨부자료</h4>
-<app-card href="https://i.ytimg.com/vi/b3rBSubQufc/maxresdefault.jpg" download="tree.jpg" target="_blank">
-  작업계획서 작성 메뉴얼
-</app-card>
+  <h4>첨부자료</h4>
+  <app-card href="https://i.ytimg.com/vi/b3rBSubQufc/maxresdefault.jpg" download="tree.jpg" target="_blank">
+    작업계획서 작성 메뉴얼
+  </app-card>
 </ion-content>
 <app-button-footer>
-    <app-button>삭제</app-button>
-    <app-button>저장</app-button>
+  <app-button>삭제</app-button>
+  <app-button>저장</app-button>
   <app-button *ngIf="false" slot="end" color="secondary">수정</app-button>
 </app-button-footer>
