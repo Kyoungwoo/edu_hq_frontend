@@ -75,8 +75,7 @@ export class NoticeEditPage implements OnInit {
       this.form = {
         ...this.form,
         ...res.rsObj
-      } 
-      console.log("---------------------form",this.form);
+      }
       const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
       this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name}`;

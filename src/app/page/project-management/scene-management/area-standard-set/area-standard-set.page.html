@@ -18,18 +18,18 @@
         <ion-toolbar slot="top" color="white">
           <app-row style="justify-content: space-between;">
             <app-col size="auto"><h5>필터</h5></app-col>
-            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="AreaOne()">검색</app-button></app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-scene></app-select-scene>
+              <app-select-scene [(ngModel)]="AreaOneForm.project_id"></app-select-scene>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="사업분야">
+              <app-select [disabled]="true" label="사업분야">
                 <app-select-option value="단지개발">단지개발</app-select-option>
                 <app-select-option value="아파트">아파트</app-select-option>
                 <app-select-option value="교량">교량</app-select-option>
@@ -50,14 +50,17 @@
           </ion-buttons>
         </ion-toolbar>
       </div>
-
-      <app-card>
-        <ion-toolbar color="white" slot="top">
-          <h5>현장 안내도</h5>
-        </ion-toolbar>
-        <div style="background: lightgray; width: 100%; height: 200px;"></div>
-      </app-card>
-
+      <!-- <app-row>
+        <ion-col>
+          <app-button>추가
+            <app-file name="input" view_type="GUIDE_MAP"
+            [(ngModel)]="file."
+            [file]="file.file"
+            [file_json]="file.file_json"
+            ></app-file>
+          </app-button>
+        </ion-col>
+      </app-row> -->
       <app-card>
         <ion-toolbar color="white" slot="top">
           <h5>장소등록</h5>
@@ -65,12 +68,12 @@
         <app-row style="height: 300px;">
           <app-col>
             <div style="text-align: right;">
-              <app-button (click)="areaAdd('area1')" fill="translucent">추가</app-button>
-              <app-button color="danger" fill="translucent">삭제</app-button>
-              <app-button fill="translucent">수정</app-button>
+              <app-button (click)="areaOneEdit('area1')" fill="translucent">추가</app-button>
+              <app-button (click)="deleteArea(1)" color="danger" fill="translucent">삭제</app-button>
+              <app-button (click)="areaOneEdit('area1',1)" fill="translucent">수정</app-button>
             </div>
   
-            <app-check-group>
+            <app-check-group [(ngModel)]="selectDataArea1">
               <app-table class="edit">
                 <thead>
                   <tr>
@@ -81,9 +84,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of resAreaOne?.rsMap">
+                  <tr class="button" *ngFor="let item of resAreaOne?.rsMap" (click)="areaTow(item.area_top_id)" >
                     <td>
-                      <app-check></app-check>
+                      <app-check (click)="$event.stopPropagation()" [on]="item"></app-check>
                     </td>
                     <td>{{ item.area_top_name }}</td>
                   </tr>
@@ -92,26 +95,27 @@
             </app-check-group>
           </app-col>
           <app-col>
-  
             <div style="text-align: right;">
-              <app-button (click)="areaAdd('area2')" fill="translucent">추가</app-button>
-              <app-button color="danger" fill="translucent">삭제</app-button>
-              <app-button fill="translucent">수정</app-button>
+              <app-button (click)="areaTwoEdit('area2')" fill="translucent">추가</app-button>
+              <app-button (click)="deleteArea(2)" color="danger" fill="translucent">삭제</app-button>
+              <app-button (click)="areaTwoEdit('area2',1)" fill="translucent">수정</app-button>
             </div>
   
-            <app-check-group>
+            <app-check-group [(ngModel)]="selectDataArea2">
               <app-table class="edit">
                 <tbody>
                   <th style="width: 20px;">
-                    <app-check></app-check>
+                    <app-check type="all"></app-check>
                   </th>
                   <th>Area2</th>
                 </tbody>
                 <tbody>
-                  <td>
-                    <app-check></app-check>
-                  </td>
-                  <td>1블록</td>
+                  <tr class="button" *ngFor="let areaTwo of resAreaTwo?.rsMap" (click)="areaThree(areaTwo.area_middle_id)">
+                    <td>
+                      <app-check [on]="areaTwo" (click)="$event.stopPropagation()"></app-check>
+                    </td>
+                    <td>{{ areaTwo.area_middle_name}}</td>
+                  </tr>
                 </tbody>
               </app-table>
             </app-check-group>
@@ -120,24 +124,26 @@
             <app-row>
               <app-col>
                 <div style="text-align: right;">
-                  <app-button (click)="areaAdd('area3')" fill="translucent">추가</app-button>
-                  <app-button color="danger" fill="translucent">삭제</app-button>
-                  <app-button fill="translucent">수정</app-button>
+                  <app-button (click)="areaThreeEdit('area3')" fill="translucent">추가</app-button>
+                  <app-button (click)="deleteArea(3)" color="danger" fill="translucent">삭제</app-button>
+                  <app-button (click)="areaThreeEdit('area3',1)" fill="translucent">수정</app-button>
                 </div>
       
-                <app-check-group>
+                <app-check-group [(ngModel)]="selectDataArea3">
                   <app-table class="edit">
                     <thead>
                       <th style="width: 20px;">
-                        <app-check></app-check>
+                        <app-check type="all"></app-check>
                       </th>
                       <th>Area3</th>
                     </thead>
                     <tbody>
-                      <td>
-                        <app-check></app-check>
-                      </td>
-                      <td>1블록</td>
+                      <tr class="button" *ngFor="let areathree of resAreaThree?.rsMap">
+                        <td>
+                          <app-check [on]="areathree"></app-check>
+                        </td>
+                        <td>{{ areathree.area_bottom_name }}</td>
+                      </tr>
                     </tbody>
                   </app-table>
                 </app-check-group>
@@ -170,7 +176,7 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
+          <app-button fill="translucent" (click)="addRiskArea()">추가</app-button>
           <app-button color="danger" fill="translucent">삭제</app-button>
           <app-button fill="translucent">엑셀 다운로드</app-button>
           <app-button fill="translucent">전체 사용</app-button>
@@ -180,12 +186,13 @@
       <ion-toolbar color="white">
         <h5>위험지역 목록 (총90건)</h5>
       </ion-toolbar>
-      <app-check-group>
+
+      <app-check-group [(ngModel)]="riskAreaData">
         <app-table>
           <thead>
             <tr>
               <th rowspan="2" style="width: 40px;">
-                <app-check></app-check>
+                <app-check type="all"></app-check>
               </th>
               <th rowspan="2" style="width: 70px;">장소</th>
               <th rowspan="2">위험지역 유형</th>
@@ -202,9 +209,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of addRiskAreaArr">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item"></app-check>
+              </td>
+              <td>
+                <app-img style="width: 45%;" name="search"></app-img>
+              </td>
+              <td>
+                <app-select>
+                  <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{ opt.ctgo_area_risk_name }}</app-select-option>
+                </app-select>
+              </td>
+              <td><app-input placeholder="직접 입력"></app-input></td>
+              <td>
+                <app-select>
+                  <app-select-option value="실내">실내</app-select-option>
+                  <app-select-option value="실외">실외</app-select-option>
+                </app-select>
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <app-img style="width: 45%;" name="search"></app-img>
+              </td>
+              <td>
+                <app-img style="width: 45%;" name="search"></app-img>
+              </td>
+              <td>
+                <app-select>
+                  <app-select-option></app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr *ngFor="let item of resRiskArea?.rsMap">
+              <td>
+                <app-check [on]="item"></app-check>
               </td>
               <td>
                 <app-img style="width: 45%;" name="search"></app-img>
