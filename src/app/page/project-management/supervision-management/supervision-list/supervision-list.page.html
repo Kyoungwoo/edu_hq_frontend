@@ -13,21 +13,21 @@
           <tbody>
             <tr>
               <td>
-                <app-select label="지역본부" [(ngModel)]="form.hq_regional_id" (change)="getCtgoBusiness()">
+                <app-select label="지역본부" [(ngModel)]="form.hq_regional_ids" (change)="getCtgoBusiness()">
                   <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
                 </app-select>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="사업본부" [(ngModel)]="form.hq_business_id">
+                <app-select label="사업본부" [(ngModel)]="form.hq_business_ids">
                   <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_business_name }}</app-select-option>
                 </app-select>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -67,6 +67,7 @@
             </tbody>
           </app-table>
         </app-check-group>
+        <app-pager></app-pager>
       </app-col>
     </app-row>
   </ion-content>

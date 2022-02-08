@@ -12,16 +12,16 @@
   <form>
     <app-row>
       <app-col>
-        <app-input name="input" label="업체명" [(ngModel)]="resObj.company_name" placeholder="업체명"></app-input>
+        <app-select-company name="input" label="업체명" [(ngModel)]="resObj.company_name" placeholder="업체명"></app-select-company>
       </app-col>
       <app-col>
-        <app-input name="input buisnessman" label="사업자등록번호" [(ngModel)]="resObj.business_register_no" placeholder="사업자등록번호"></app-input>
+        <app-input name="input buisnessman" [disabled]="true" label="사업자등록번호" [(ngModel)]="resObj.business_register_no" placeholder="사업자등록번호"></app-input>
       </app-col>
       <app-col>
-        <app-input name="input buisnessman" label="대표자" [(ngModel)]="resObj.company_ceo"  placeholder="대표자"></app-input>
+        <app-input name="input buisnessman" [disabled]="true" label="대표자" [(ngModel)]="resObj.company_ceo"  placeholder="대표자"></app-input>
       </app-col>
       <app-col>
-        <app-input name="input" label="회사전화" [(ngModel)]="resObj.company_phone" placeholder="회사전화"></app-input>
+        <app-input name="input" label="회사전화" [readonly]="this.updateStatus" [(ngModel)]="resObj.company_phone" placeholder="회사전화"></app-input>
       </app-col>
     </app-row>
     <app-row>
@@ -42,6 +42,7 @@
       <tr>
         <th>현장명</th>
         <th>원청사명</th>
+        <th>계약명</th>
         <th>계약공종</th>
         <th>계약금액<br>(원/VAT 별도)</th>
         <th style="width: 280px;">계약기간</th>
@@ -52,6 +53,7 @@
       <tr *ngFor="let item of resMap">
         <td><app-select-scene [(ngModel)]="item.project_id"></app-select-scene></td>
         <td><app-select-contractor [(ngModel)]="item.master_company_id"></app-select-contractor></td>
+        <td><app-input [(ngModel)]="item.contract_name"></app-input></td>
         <td>
           <app-select [(ngModel)]="item.ctgo_construction_id">
             <app-select-option *ngFor="let opt of this.Ctgoconstruction.rsMap" [value]="opt.ctgo_construction_id">{{ opt.ctgo_construction_name }}</app-select-option>
@@ -73,13 +75,13 @@
 <h4>담당자 정보</h4>
 <app-row>
   <app-col>
-    <app-input name="name" [(ngModel)]="resObj.manager_name" label="성명"></app-input>
+    <app-input name="name" [readonly]="this.updateStatus" [(ngModel)]="resObj.manager_name" label="성명"></app-input>
   </app-col>
   <app-col>
-    <app-input name="phoneNumber" [(ngModel)]="resObj.manager_phone" [type]="'tel'" label="연락처"></app-input>
+    <app-input name="phoneNumber" [readonly]="this.updateStatus" [(ngModel)]="resObj.manager_phone" [type]="'tel'" label="연락처"></app-input>
   </app-col>
   <app-col>
-    <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="resObj.manager_email">
+    <app-input *ngIf="updateStatus else not_id" label="이메일" type="email" [(ngModel)]="resObj.manager_email">
     </app-input>
     <ng-template #not_id>
       <app-input-group label="이메일">
@@ -127,8 +129,11 @@
   </app-col>
 </app-row>
 </ion-content>
-<app-button-footer>
+<app-button-footer *ngIf="!savestatus">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>
-  <app-button fill="translucent" color="danger" *ngIf="updateStatus" (click)="contDelete()" >삭제</app-button>
+  <app-button fill="translucent" color="danger" *ngIf="!updateStatus" (click)="contDelete()" >삭제</app-button>
   <app-button *ngIf="!updateStatus" (click)="contSave()">저장</app-button>
 </app-button-footer>
+<app-button-footer *ngIf="savestatus">
+  <app-button *ngIf="!updateStatus" (click)="contSave()">저장</app-button>
+</app-button-footer>    

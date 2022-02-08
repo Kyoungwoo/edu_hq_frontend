@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
 export class resObj {
   business_register_no: string;
-  company_ceo: string
-  company_file_data: null
+  company_ceo: string;
+  company_file_data: null;
   company_id: number;
   company_name: string;
   company_phone: string;
@@ -25,7 +28,7 @@ export class PartnerEditPage implements OnInit {
 
   resObj:resObj = new resObj();
   updateStatus: boolean = false;
-
+  savestatus:boolean = false;
   email:string;
   emailaddress:string
   directlyInput:string;
@@ -52,13 +55,20 @@ export class PartnerEditPage implements OnInit {
   }>
   constructor(
     private connect: ConnectService,
-    private date:DateService
+    private alert: AlertService,
+    private date: DateService,
+    private toast: ToastService,
+    private _modal: ModalController,
+
   ) { }
 
   ngOnInit() {
     if(this.company_id){
       this.updateStatus = true;
       this.getItem();
+    }
+    else{
+      this.savestatus = true;
     }
     this.getCtgoCon();
   
@@ -102,33 +112,38 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contSave() {
+    console.log("----------------88888888",this.resObj);
+    if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
+    // if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
+    // if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
+    // if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
     if(this.emailaddress !== '직접입력') {
         this.resObj.manager_email = this.email + '@' + this.emailaddress;
     } else {
       this.resObj.manager_email = this.email + '@' + this.directlyInput;
     }
-    // if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
-    // if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
-    // if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
-    // if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    // // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
+    
+    // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
     // this.form.manager_email = this.email + '@' + this.emailaddress;
     
-    // this.alert.present({
-    //   message: '저장하시겠습니까?',
-    //   buttons: [
-    //     { text: '아니오' },
-    //     {
-    //       text: '예',
-    //       handler: async () => {
-    //         const res = await this.connect.run('/project/company/masters/update', this.form, {});
-    //         if (res.rsCode === 0) {
-    //           this._modal.dismiss();
-    //         }
-    //       }
-    //     }
-    //   ]
-    // })
+    const alert = await this.alert.present({
+      message: '저장하시겠습니까?',
+      buttons: [
+        { text: '아니오' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/project/company/partner/insert', this.resObj, {});
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.connect.error('저장실패', res);
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   async contDelete() {
@@ -159,6 +174,6 @@ export class PartnerEditPage implements OnInit {
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     console.log(this.email)
-    this.updateStatus = true;
+    this.updateStatus = false;
   }
 }

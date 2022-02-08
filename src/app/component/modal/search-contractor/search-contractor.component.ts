@@ -18,11 +18,11 @@ export class SearchContractorComponent implements OnInit {
     search_text: ''
   }
   res: ConnectResult<{
-    company_id: number
-    business_register_no: string
-    company_name: string
-    company_ceo: string
-    checked: boolean
+    company_id: number;
+    business_register_no: string;
+    company_name: string;
+    company_ceo: string;
+    checked: boolean;
   }>
 
   submitItem = {
@@ -67,26 +67,26 @@ export class SearchContractorComponent implements OnInit {
   }
 
 
-  async addCompany() {
-    // this.filteritem = this.res.rsMap.filter((data, i) => {
-    //   return data.checked === true;
-    // })
-    if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
-      const toast = await this.toast.present({
-        message: '최대 선택 개수는 5개입니다.',
-        position: 'botton',
-        color: 'primary'
-      });
-    } else {
-      this.submitArr.push({
-        company_id: 0,
-        business_register_no: '',
-        company_name: '',
-        company_ceo: '',
-        search_type: '원청사'
-      });
-    }
-  }
+  // async addCompany() {
+  //   // this.filteritem = this.res.rsMap.filter((data, i) => {
+  //   //   return data.checked === true;
+  //   // })
+  //   if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
+  //     const toast = await this.toast.present({
+  //       message: '최대 선택 개수는 5개입니다.',
+  //       position: 'botton',
+  //       color: 'primary'
+  //     });
+  //   } else {
+  //     this.submitArr.push({
+  //       company_id: 0,
+  //       business_register_no: '',
+  //       company_name: '',
+  //       company_ceo: '',
+  //       search_type: '원청사'
+  //     });
+  //   }
+  // }
 
   async choicCompany(item) {
     item.checked = !item.checked;
@@ -94,13 +94,13 @@ export class SearchContractorComponent implements OnInit {
       return data.checked === true;
     })
     console.log("this.filteritem", this.filteritem);
-    if (this.filteritem.length > 5) {
-      const toast = await this.toast.present({
-        message: '최대 선택 개수는 5개입니다.',
-        position: 'botton',
-        color: 'primary'
-      })
-    }
+    // if (this.filteritem.length > 5) {
+    //   const toast = await this.toast.present({
+    //     message: '최대 선택 개수는 5개입니다.',
+    //     position: 'botton',
+    //     color: 'primary'
+    //   })
+    // }
   }
 
   async overlap(business_register_no) {
