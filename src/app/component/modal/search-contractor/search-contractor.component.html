@@ -12,13 +12,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="type">
-  <app-card>
+  <!-- <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card>
+  </app-card> -->
   <div style="height: 250px; overflow: scroll;">
     <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [class.check_style]="item.checked">
       <app-row>
@@ -77,13 +77,13 @@
 </ion-content>
 
 <ion-content *ngIf="!type">
-  <app-card>
+  <!-- <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card>
+  </app-card> -->
   <div style="overflow: scroll;">
     <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [ngClass]="item.checked ? 'check_style':''">
       <app-row>
