@@ -10,11 +10,11 @@
   <h4>회사 정보</h4>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="업체명" name="input"
+      <app-input [readonly]="this.updateStatus" [required]="true" label="업체명" name="input"
       [(ngModel)]="form.company_name"></app-input>
     </app-col>
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="사업자등록번호"
+      <app-input [readonly]="this.updateStatus" [required]="true" label="사업자등록번호"
       [(ngModel)]="form.business_register_no"></app-input>
     </app-col>
   </app-row>
@@ -29,56 +29,38 @@
   </app-row>
   <h4>회사 로고</h4>
   <app-card>
-    <app-row>
-      <app-col>
-        <app-col size="auto" style="text-align: right;">
-          <app-button>추가
-            <app-file name="input"  view_type="LOGO"
-             [(ngModel)]="form.company_file_data"
-             [file]="form.file"
-             [file_json]="form.file_json"></app-file>
+    <h4>
+      <app-row>
+        <app-col>
+          첨부자료
+        </app-col>
+        <app-col size="auto">
+          <app-button>
+            <app-file
+            [(ngModel)]="form.company_file_data"
+            [file]="form.file"
+            [file_json]="form.file_json" [multiple]="true"></app-file>
+            추가
           </app-button>
         </app-col>
-        <app-table *ngIf="form.company_file_data.length else fileData">
-          <tr *ngFor="let item of form.company_file_data let i = index">
-            <td>
-              <app-row>
-                <app-col>
-                  <a [href]="item.full_url" target="_blank" [download]="item.file_name">
-                    <ion-icon name="save-outline"></ion-icon>
-                    {{ item.file_name }}
-                  </a>
-                </app-col>
-              </app-row>
-              <ion-row *ngIf="item.content_type.startsWith('image')">
-                <ion-col>
-                  <div class="image-detail">이미지 미리보기</div>
-                  <app-img class="image-class" [src]="item.full_url"></app-img>
-                </ion-col>
-              </ion-row>
-            </td>
-          </tr>
-        </app-table>
-        <ng-template #fileData>
-          <h5>첨부 파일이 없습니다.</h5>
-        </ng-template>
-      </app-col>
-    </app-row>
+      </app-row>
+    </h4>
+    <!-- <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem"></app-file-preview> -->
   </app-card>
 
   <h4>담당자 정보</h4>
   <app-card>
     <app-row>
       <app-col>
-        <app-input [readonly]="this.updateStatus ? false:true" name="name" [(ngModel)]="form.manager_name" label="성명">
+        <app-input [readonly]="this.updateStatus" name="name" [(ngModel)]="form.manager_name" label="성명">
         </app-input>
       </app-col>
       <app-col>
-        <app-input [readonly]="this.updateStatus ? false:true" name="phoneNumber" [(ngModel)]="form.manager_phone"
+        <app-input [readonly]="this.updateStatus" name="phoneNumber" [(ngModel)]="form.manager_phone"
           [type]="'tel'" label="연락처"></app-input>
       </app-col>
       <app-col>
-        <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
+        <app-input *ngIf="updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
         </app-input>
         <ng-template #not_id>
           <app-input-group label="이메일">
@@ -125,7 +107,7 @@
   <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
 </ion-content>
 <app-button-footer>
-  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contUpdate()">수정</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="contDelete()" color="danger">삭제</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="contSave()">저장</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contDelete()" color="danger">삭제</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="contSave()">저장</app-button>
 </app-button-footer>

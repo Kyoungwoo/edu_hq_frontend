@@ -67,7 +67,6 @@ export class ContractorListPage implements OnInit {
       }
     });
     modal.present();
-    modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.getList();
   }
