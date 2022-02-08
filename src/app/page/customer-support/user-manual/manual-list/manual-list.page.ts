@@ -50,10 +50,7 @@ export class ManualListPage implements OnInit {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    // el.querySelector
-  }
-  private async getCtgo() {
-    
+    el.querySelector('[name=add]').dispatchEvent(new Event('click'));
   }
   public async get() {
     this.res = await this.connect.run('/support/manual/list', this.form)
