@@ -12,7 +12,7 @@ export const environment = {
     FindId: { test: true, done: false, type: ['PHONE'] },
     FindPassword: { test: true, done: false },
     Login: { test: false, done: false },
-    UserMenual: { test: false, done: false }
+    UserManual: { test: false, done: false }
   }
 }
 // SignUp: { valid: false, message: '아 뭔가 문제가 생겼어.' };

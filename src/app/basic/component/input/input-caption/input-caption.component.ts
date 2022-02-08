@@ -8,7 +8,7 @@ import { Color } from '@ionic/core';
 })
 export class InputCaptionComponent implements OnInit {
 
-  @Input() color:Color = null;
+  @Input() color:Color = 'warning';
   @Input() icon:string = null;
 
   constructor() { }

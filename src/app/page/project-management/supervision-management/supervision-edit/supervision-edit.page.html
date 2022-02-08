@@ -11,11 +11,11 @@
   <form>
     <app-row>
       <app-col>
-        <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="업체명" name="input"
+        <app-input [readonly]="this.updateStatus" [required]="true" label="업체명" name="input"
           [(ngModel)]="form.company_name" placeholder=""></app-input>
       </app-col>
       <app-col>
-        <app-input [readonly]="this.updateStatus ? false:true" [required]="true" label="사업자등록번호"
+        <app-input [readonly]="this.updateStatus" [required]="true" label="사업자등록번호"
           [(ngModel)]="form.business_register_no" name="input buisnessman" placeholder=""></app-input>
       </app-col>
     </app-row>
@@ -31,15 +31,15 @@
   <h4>담당자 정보</h4>
   <app-row>
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" name="name" [(ngModel)]="form.manager_name" label="성명">
+      <app-input [readonly]="this.updateStatus" name="name" [(ngModel)]="form.manager_name" label="성명">
       </app-input>
     </app-col>
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" name="phoneNumber" [(ngModel)]="form.manager_phone"
+      <app-input [readonly]="this.updateStatus" name="phoneNumber" [(ngModel)]="form.manager_phone"
         [type]="'tel'" label="연락처"></app-input>
     </app-col>
     <app-col>
-      <app-input *ngIf="!updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
+      <app-input *ngIf="updateStatus else not_id" label="이메일" type="email" [(ngModel)]="form.manager_email">
       </app-input>
       <ng-template #not_id>
         <app-input-group label="이메일">
@@ -88,7 +88,7 @@
   </app-row>
 </ion-content>
 <app-button-footer>
-  <app-button fill="translucent" *ngIf="!updateStatus" (click)="superupdate()">수정</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="superDelete()" color="danger">삭제</app-button>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="superSave()">저장</app-button>
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="superupdate()">수정</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="superDelete()" color="danger">삭제</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="superSave()">저장</app-button>
 </app-button-footer>

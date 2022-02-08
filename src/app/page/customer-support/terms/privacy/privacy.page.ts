@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+
 
 @Component({
   selector: 'app-privacy',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrivacyPage implements OnInit {
 
-  constructor() { }
+ form = {
+    terms_title: '개인정보 처리방침'
+ }
 
-  ngOnInit() {
+  res:ConnectResult<{
+    terms_title: '',
+    terms_text: '',
+    update_date: '',
+    create_date: '',
+  }>;
+  constructor(
+    private connect: ConnectService,
+  ) { }
+
+  async ngOnInit() {
+    this.get();
   }
 
+  async get() {
+    this.res = await this.connect.run('/support/terms/get', this.form, {});
+    console.log(this.res)
+  }
 }

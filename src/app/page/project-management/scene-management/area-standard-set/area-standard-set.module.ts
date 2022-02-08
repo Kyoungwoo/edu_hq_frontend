@@ -10,6 +10,7 @@ import { AreaStandardSetPage } from './area-standard-set.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { AreaAddPageModule } from '../area-add/area-add.module';
+import { AreaModule } from './component/area.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AreaAddPageModule } from '../area-add/area-add.module';
     BasicComponentModule,
     AreaStandardSetPageRoutingModule,
     AreaAddPageModule,
+    AreaModule
   ],
   declarations: [AreaStandardSetPage]
 })

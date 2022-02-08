@@ -1,32 +1,59 @@
-<ion-header>
-  <app-header-admin></app-header-admin>
-  <ion-toolbar color="white">
-    <ion-title>플랫폼 이용약관</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-toolbar color="white" style="margin-bottom: 50px;">
-    <app-row>
-      <app-col size="auto">
-        <ion-segment color="primary" [scrollable]="true">
-          <ion-segment-button>플랫폼 이용약관</ion-segment-button>
-          <ion-segment-button>개인정보 수집 및 이용</ion-segment-button>
-          <ion-segment-button>위치정보 이용</ion-segment-button>
-          <ion-segment-button>제3자 정보제공</ion-segment-button>
-          <ion-segment-button>민감정보 수집 및 이용</ion-segment-button>
-        </ion-segment>
-      </app-col>
-    </app-row>
-  </ion-toolbar>
-  <form>
-    <app-row style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
+<ng-container *mobileHidden>
+  <ion-header>
+    <app-header-admin></app-header-admin>
+    <!-- <ion-toolbar color="white">
+      <ion-title>플랫폼 이용약관</ion-title>
+    </ion-toolbar> -->
+  </ion-header>
+  <ion-content>
+    <!-- <ion-toolbar color="white" style="margin-bottom: 50px;">
+      <app-row>
+        <app-col size="auto">
+          <ion-segment color="primary" [scrollable]="true">
+            <ion-segment-button>플랫폼 이용약관</ion-segment-button>
+            <ion-segment-button>개인정보 수집 및 이용</ion-segment-button>
+            <ion-segment-button>위치정보 이용</ion-segment-button>
+            <ion-segment-button>제3자 정보제공</ion-segment-button>
+            <ion-segment-button>민감정보 수집 및 이용</ion-segment-button>
+          </ion-segment>
+        </app-col>
+      </app-row>
+    </ion-toolbar> -->
+    <form>
+      <app-row style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
+        <app-col>
+          <h5>S-Keeper 플랫폼 서비스의 이용과 관련하여 필요한 사항을 규정합니다.</h5>
+        </app-col>
+        <app-col size="auto">
+          <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
+        </app-col>
+      </app-row>
+          <app-textarea [rows]="20" name="플랫폼 이용약관" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea>
+    </form>
+  </ion-content>
+</ng-container>
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ res?.rsObj?.terms_title}}</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
       <app-col>
         <h5>S-Keeper 플랫폼 서비스의 이용과 관련하여 필요한 사항을 규정합니다.</h5>
       </app-col>
       <app-col size="auto">
-        <p>시행일자 : 2021년 11월 15일</p>
+        <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
       </app-col>
     </app-row>
-        <app-textarea [rows]="20" name="플랫폼 이용약관" value="위치정보 이용약관에 동의하시면, 위치를 활용한 정보 수신 등을" [readonly]="true"></app-textarea>
-  </form>
-</ion-content>
+        <app-textarea [rows]="20" name="플랫폼 이용약관" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea>
+  </ion-content>
+</ng-container>

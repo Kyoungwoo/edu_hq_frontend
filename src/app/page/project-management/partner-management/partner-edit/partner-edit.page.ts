@@ -57,6 +57,7 @@ export class PartnerEditPage implements OnInit {
 
   ngOnInit() {
     if(this.company_id){
+      this.updateStatus = true;
       this.getItem();
     }
     this.getCtgoCon();

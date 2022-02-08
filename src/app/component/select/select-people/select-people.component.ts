@@ -2,7 +2,9 @@ import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@ang
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
-import { SearchPeopleComponent } from '../../modal/search-people/search-people.component';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
+import { ctgoMemberItem, SearchPeopleComponent } from '../../modal/search-people/search-people.component';
 
 @Component({
   selector: 'app-select-people',
@@ -18,23 +20,59 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string = "회원";
+  @Input() user_type:string;
+  @Input() text:string;
 
+  isModalData:boolean = false;
   constructor(
-    private _modal:ModalController
+    private _modal:ModalController,
+    private connect: ConnectService,
+    private user: UserService
   ) { }
 
   ngOnInit() {}
+
+  // public async get() {
+  //   console.log("this.value",this.value);
+  //   console.log("this.user_type",this.user_type);
+  //   if(this.isModalData || !this.value) return;
+  //   const res = await this.connect.run('/category/education/manager/get', {
+  //     project_id: this.value,
+  //     user_type:this.user_type
+  //   });
+  //   if(res.rsCode === 0) {
+  //     console.log("res.rsObj.user_name",res)
+  //     // this.text = res.rsObj.user_name;
+  //   }
+  // }
+
   async people(){
+    console.log("this.value",this.value);
+    console.log("this.user_type",this.user_type);
     const modal = await this._modal.create({
-      component:SearchPeopleComponent
+      component:SearchPeopleComponent,
+      componentProps:{
+        form: {
+          project_id:this.user.userData.belong_data.project_id,
+          user_type:this.user_type,
+          search_text: ''
+        }
+      }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+    if(data){
+      const selectedItem = <ctgoMemberItem>data.selectedItem
+      this.value = selectedItem.user_id
+      this.text = selectedItem.user_name
+    }
   }
 
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:number;
+  @Input() set value(v:number) {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
@@ -44,8 +82,10 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
+  writeValue(v:number): void { 
+    if(v !== this._value) 
+    this._value = v;
+    // this.get();
     this.onChangeCallback(v);
     this.change.emit(v);
   }

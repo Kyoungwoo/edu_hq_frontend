@@ -17,17 +17,17 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [(ngModel)]="form.project_ids" [required]="true"></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_ids"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [required]="true"></app-select-contractor>
+                <app-select-contractor></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="MSDS 구분" value="전체" [(ngModel)]="form.msds_types" [required]="true">
+                <app-select label="MSDS 구분" value="전체" [(ngModel)]="form.msds_types">
                   <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
                   <app-select-option value="인화성 가스">인화성 가스</app-select-option>
                   <app-select-option value="인화성 액체">인화성 액체</app-select-option>
@@ -57,7 +57,7 @@
             </tr>
             <tr>
               <td>
-                <app-input-group label="등록일" [required]="true">
+                <app-input-group label="등록일">
                   <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
                   <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
