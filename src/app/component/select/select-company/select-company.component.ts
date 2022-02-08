@@ -19,6 +19,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "업체";
   @Input() required:boolean = false;
+  @Input() text:string;
 
   constructor(
     private _modal:ModalController
@@ -30,6 +31,12 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
       component:SearchCompanyComponent
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) { 
+      console.log(data);
+      this.value = data.company_id;
+      this.text = data.company_name;
+    }
   }
 
   @Output() change = new EventEmitter();

@@ -28,7 +28,7 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getConstruction()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
@@ -51,7 +51,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>공종 목록 (총90건)</h5>
+            <h5>공종 목록 (총{{resConstruction?.rsMap?.length}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent">저장</app-button>
@@ -91,14 +91,14 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getMachinery()" >검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company></app-select-company>
+              <app-select-company [(ngModel)]="machineryFrom"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -108,7 +108,7 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
           <app-button fill="translucent">전체 사용</app-button>
           <app-button fill="translucent">전체 미사용</app-button>
         </ion-buttons>
@@ -116,14 +116,14 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>건설기계 목록 (총90건)</h5>
+            <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="machineryData">
         <app-table>
           <thead>
             <tr>
@@ -136,21 +136,23 @@
             </tr>
           </thead>
           <tbody>
-            <td>
-              <app-check></app-check>
-            </td>
-            <td>
-              <app-input placeholder="입력하세요."></app-input>
-            </td>
-            <td>
-              <app-check></app-check>
-            </td>
-            <td>
-              <app-select>
-                <app-select-option value="Y">Y</app-select-option>
-                <app-select-option value="N">N</app-select-option>
-              </app-select>
-            </td>
+            <tr *ngFor="let item of resMachinery?.rsMap">
+              <td>
+                <app-check [on]="item"></app-check>
+              </td>
+              <td>
+                {{ item.ctgo_machinery_name }}
+              </td>
+              <td>
+                <app-check></app-check>
+              </td>
+              <td>
+                <app-select>
+                  <app-select-option value="Y">Y</app-select-option>
+                  <app-select-option value="N">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
           </tbody>
         </app-table>
       </app-check-group>

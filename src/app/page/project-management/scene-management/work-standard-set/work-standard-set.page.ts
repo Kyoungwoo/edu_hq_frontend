@@ -48,12 +48,23 @@ export class WorkStandardSetPage implements OnInit {
     }
 ]
   //공종 끝
+
+  //건설기계
+  machineryFrom = 0;
+  resMachinery:ConnectResult <{
+    ctgo_machinery_id: number,
+    company_id: number,
+    ctgo_machinery_name: string,
+    ctgo_machinery_doc_state: number,
+    ctgo_machinery_use_state: number
+  }>
+  machineryData;
+  //건설기계 끝
   constructor(
     private connect: ConnectService
   ) { }
 
   ngOnInit() {
-    this.getConstruction();
   }
 
   //공종 시작
@@ -63,4 +74,11 @@ export class WorkStandardSetPage implements OnInit {
   }
   
   //공종 끝
+
+  //건설기계
+  async getMachinery() {
+    this.resMachinery = await this.connect.run('/project/machinery/get',{company_id:this.machineryFrom});
+    if(this.resMachinery.rsCode === 0) {};
+  }
+  //건설기계끝
 }
