@@ -17,36 +17,36 @@ export class WorkStandardSetPage implements OnInit {
     project_id: number, // 현장 ID
     ctgo_construction_use_state: number// 1 사용 / 0 미사용
   }>
-  basicArr = [
-    {
-      ctgo_construction_name:'기계',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'건축',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'조경',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'토목',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'전기',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'소방',
-      ctgo_construction_use_state:1
-    },
-    {
-      ctgo_construction_name:'통신',
-      ctgo_construction_use_state:1
-    }
-]
+//   basicArr = [
+//     {
+//       ctgo_construction_name:'기계',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'건축',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'조경',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'토목',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'전기',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'소방',
+//       ctgo_construction_use_state:1
+//     },
+//     {
+//       ctgo_construction_name:'통신',
+//       ctgo_construction_use_state:1
+//     }
+// ]
   //공종 끝
 
   //건설기계

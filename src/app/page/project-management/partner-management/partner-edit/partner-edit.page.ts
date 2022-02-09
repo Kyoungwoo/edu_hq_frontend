@@ -77,17 +77,17 @@ export class PartnerEditPage implements OnInit {
     console.log(this.company_id)
     if(this.company_id){
       this.updateStatus = true;
-      this.getItem();
     }
     else{
       this.savestatus = true;
     }
     this.getCtgoCon();
-  
+    this.getItem();
   }
 
   async getItem() {
-    const res = await this.connect.run('/project/company/partner/detail',{company_id:this.company_id},{});
+    const res = await this.connect.run('/project/company/partner/detail',
+    {company_id:this.company_id},{});
     if(res.rsCode === 0) {
       this.resMap = res.rsMap;
       this.resObj = res.rsObj;

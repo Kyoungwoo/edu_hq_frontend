@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { OrganizationEditComponent } from './component/organization-edit/organization-edit.component';
 
@@ -70,19 +72,44 @@ export class MemberStandardSetPage implements OnInit {
     ctgo_job_position_name_ch: string
   }>
   
+  jobForm:number = 0;
+  addPosition = [];
+
   selectList = [];
+
+  //직위 관리 끝
+
+  //안전직무
+  safeJobForm = {
+    company_id:0,
+    user_type:''
+  }
+
+  resSafeJob:ConnectResult <{
+    ctgo_safe_job_name_vi: string,
+    ctgo_safe_job_name_ch: string,
+    ctgo_safe_job_use_state: number,
+    company_id: number,
+    ctgo_safe_job_name_kr: string,
+    ctgo_safe_job_name_en: string,
+    ctgo_safe_job_id: number,
+    ctgo_safe_job_role: string
+    user_type:string
+  }>
+
+  safeJobSelected = [];
+  //안전직무 끝
 
   constructor(
     private connect: ConnectService,
     private modal: ModalController,
-    private toast: ToastService
+    private toast: ToastService,
+    private alert: AlertService
   ) { }
 
   ngOnInit() {
     //lh조직기구
     this.level1();
-    this.getJobPosition();
-
   }
 
   //-->  lh조직관리 시작
@@ -195,40 +222,124 @@ export class MemberStandardSetPage implements OnInit {
   //--> 직위 관리 시작
 
   async getJobPosition() {
-    console.log("---------들어왔니?")
-    const res = await this.connect.run('/project/job_position/get',{company_id:1});
+    const res = await this.connect.run('/project/job_position/get',{company_id:this.jobForm});
     if(res.rsCode === 0) {
       this.resJobPosition = res;
     }
   }
-
-  // /project/job_position/get
-  
-  async submit(){
-    switch(this.menuCount){
-      case 1:
-        console.log("this.menuCount === 1");
-        break;
-      case 2:
-        console.log("this.menuCount === 2");
-        break;
-      case 3:
-        console.log("this.menuCount === 3");
-        break;
-      case 4:
-        console.log("this.menuCount === 4");
-        break;
-      case 5:
-        console.log("this.menuCount === 5");
-        break;
-      case 6:
-        console.log("this.menuCount === 6");
-        break;
-      case 7:
-        console.log("this.menuCount === 7");
-        break;
-    }
+  async addJobPosstion() {
+  if(!this.jobForm) return await this.toast.present({message:'업체를 선택해 주세요.',color:'danger'});
+   this.resJobPosition.rsMap.unshift({
+    ctgo_job_position_name_kr:'',
+    ctgo_job_position_use_state:0,
+    ctgo_job_position_name_en:'',
+    company_id:this.jobForm,
+    ctgo_job_position_name_vi:'',
+    ctgo_job_position_id:0,
+    ctgo_job_position_name_ch:''
+   })
   }
 
+  async jobAddSave() {
+    this.resJobPosition.rsMap.forEach(async(item) => {
+      if(item.ctgo_job_position_id === 0) {
+        const res = await this.connect.run('/project/job_position/insert',item,{});
+        if(res.rsCode === 0) {};
+      } else {
+        const res = await this.connect.run('/project/job_position/update',item,{});
+        if(res.rsCode === 0) {};
+      }
+    });
+  }
+  state(state) {
+    if(state) { 
+      for(let j = 0; j < this.resJobPosition.rsMap.length; j++) {
+        this.resJobPosition.rsMap[j].ctgo_job_position_use_state = 1
+      }
+    } else {
+      for(let j = 0; j < this.resJobPosition.rsMap.length; j++) {
+        this.resJobPosition.rsMap[j].ctgo_job_position_use_state = 0
+      }
+    }
+  }
+  async postionDelete() {
+    console.log(this.selectList);
+    if(!this.selectList.length) return await this.toast.present({message:'최소 1개 이상 선택해주세요.'});
+    const alert = await this.alert.present({
+      message:'삭제 하시겠습니까?',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler:async() =>{
+            const list = this.resJobPosition.rsMap;
+            this.selectList.forEach(async (checkedItem) => {
+              console.log("checkedItem",checkedItem);
+              if(checkedItem.ctgo_job_position_id === 0) {
+                list.splice(list.findIndex(item => item === checkedItem), 1);
+              } else {
+                const res = await this.connect.run('/project/job_position/delete',{
+                  company_id:checkedItem.company_id,
+                  ctgo_job_position_id:checkedItem.ctgo_job_position_id
+                })
+                if(res.rsCode === 0) {
+                  this.getJobPosition();
+                };
+              }
+            });
+            this.selectList = [];
+          }
+        }
+      ]
+    })
+  }
 
+  async getSafeJob() {
+    this.resSafeJob = await this.connect.run('/project/safe_job/get',this.safeJobForm);
+    if(this.resSafeJob.rsCode === 0) {};
+  }
+
+  async addSafeJob() {
+    if(!this.safeJobForm.company_id) return await this.toast.present({message:'업체를 선택해 주세요.',color:'danger'});
+    if(!this.safeJobForm.user_type) return await this.toast.present({message:'구분를 선택해 주세요.',color:'danger'});
+     this.resSafeJob.rsMap.unshift({
+      ctgo_safe_job_name_vi: '',
+      ctgo_safe_job_name_ch: '',
+      ctgo_safe_job_use_state: 0,
+      company_id: this.safeJobForm.company_id,
+      ctgo_safe_job_name_kr: '',
+      ctgo_safe_job_name_en: '',
+      ctgo_safe_job_id: 0,
+      ctgo_safe_job_role: '',
+      user_type:this.safeJobForm.user_type
+     })
+    }
+
+   async safeJobSave() {
+    this.resSafeJob.rsMap.forEach(async(item) => {
+      if(item.ctgo_safe_job_id === 0) {
+        console.log('----------------',item)
+        const res = await this.connect.run('/project/safe_job/insert',item,{});
+        if(res.rsCode === 0) {};
+      } else {
+        const res = await this.connect.run('/project/safe_job/update',item,{});
+        if(res.rsCode === 0) {};
+      }
+    });
+  }
+
+    safeState(state) {
+      if(state) { 
+        for(let j = 0; j < this.resSafeJob.rsMap.length; j++) {
+          this.resSafeJob.rsMap[j].ctgo_safe_job_use_state = 1
+        }
+      } else {
+        for(let j = 0; j < this.resSafeJob.rsMap.length; j++) {
+          this.resSafeJob.rsMap[j].ctgo_safe_job_use_state = 0
+        }
+      }
+    }
+
+    safeDelete() {
+      
+    }
 }

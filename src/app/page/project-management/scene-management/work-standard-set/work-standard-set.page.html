@@ -58,27 +58,28 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-table>
-        <thead>
-          <tr>
-            <th>공종 목록</th>
-            <th style="width: 100px;">사용 여부</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let basic of basicArr">
-            <td>
-              {{basic.ctgo_construction_name}}
-            </td>
-            <td>
-              <app-select [(ngModel)]="basic.ctgo_construction_use_state">
-                <app-select-option [value]="1">Y</app-select-option>
-                <app-select-option [value]="0">N</app-select-option>
-              </app-select>
-            </td>
-          </tr>
-        </tbody>
-      </app-table>
+
+        <app-table>
+          <thead>
+            <tr>
+              <th>공종 목록</th>
+              <th style="width: 100px;">사용 여부</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of resConstruction?.rsMap">
+              <td>
+                {{item.ctgo_construction_name}}
+              </td>
+              <td>
+                <app-select [(ngModel)]="item.ctgo_construction_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
     </app-col>
   </app-row>
 
