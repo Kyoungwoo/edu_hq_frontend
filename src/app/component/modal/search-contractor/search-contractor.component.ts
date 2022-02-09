@@ -19,7 +19,7 @@ export class SearchContractorComponent implements OnInit {
 
   @Input() value;
   @Input() type?: boolean = false;
-  @Input() multifull:boolean;
+  @Input() multiple:boolean;
   @Input() form = {
     company_contract_type: '원청사',
     search_text: ''
@@ -53,7 +53,7 @@ export class SearchContractorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.multifull",this.multifull);
+    console.log("this.multiple",this.multiple);
     this.getCtgoContractor();
   }
 
@@ -81,7 +81,7 @@ export class SearchContractorComponent implements OnInit {
     // this.filteritem = this.res.rsMap.filter((data, i) => {
     //   return data.checked === true;
     // })
-    if(this.multifull){
+    if(this.multiple){
       if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
         const toast = await this.toast.present({
           message: '최대 선택 개수는 5개입니다.',
@@ -125,7 +125,7 @@ export class SearchContractorComponent implements OnInit {
 
   async overlap(business_register_no) {
     console.log("business_register_no", business_register_no);
-    if(this.multifull) {
+    if(this.multiple) {
       if (business_register_no.length >= 10) {
         const res = await this.connect.run('/project/overlap/business_register_no', { business_register_no: business_register_no });
         if (res.rsCode === 0) {
@@ -147,7 +147,7 @@ export class SearchContractorComponent implements OnInit {
   }
 
   async submit() {
-    if(this.multifull){
+    if(this.multiple){
       if (this.business_register_no_check) {
         let conArr = this.filteritem.concat(this.submitArr);
         for (let i = 0; i < this.submitArr.length; i++) {

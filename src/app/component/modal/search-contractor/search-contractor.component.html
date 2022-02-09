@@ -11,7 +11,7 @@
     </app-input>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="multifull">
+<ion-content *ngIf="multiple">
   <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
@@ -76,7 +76,7 @@
   </div>
 </ion-content>
 
-<ion-content *ngIf="!multifull">
+<ion-content *ngIf="!multiple">
   <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">

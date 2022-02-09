@@ -44,24 +44,29 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="constructionAdd()">추가</app-button>
+          <app-button fill="translucent" (click)="constructionDelete()" color="danger">식제</app-button>
+          <app-button fill="translucent" (click)='constructionState(1)'>전체 사용</app-button>
+          <app-button fill="translucent" (click)='constructionState(0)'>전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>공종 목록 (총{{resConstruction?.rsMap?.length}}건)</h5>
+            <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-
+      <app-check-group [(ngModel)]="constructionSelected">
         <app-table>
           <thead>
             <tr>
+              <th style="width: 40px;">
+                <app-check type="all"></app-check>
+              </th>
               <th>공종 목록</th>
               <th style="width: 100px;">사용 여부</th>
             </tr>
@@ -69,7 +74,10 @@
           <tbody>
             <tr *ngFor="let item of resConstruction?.rsMap">
               <td>
-                {{item.ctgo_construction_name}}
+                <app-check [on]="item"></app-check>
+              </td>
+              <td>
+                <app-input [(ngModel)]="item.ctgo_construction_name"></app-input>
               </td>
               <td>
                 <app-select [(ngModel)]="item.ctgo_construction_use_state">
@@ -80,6 +88,7 @@
             </tr>
           </tbody>
         </app-table>
+      </app-check-group>
     </app-col>
   </app-row>
 
@@ -108,10 +117,10 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent" color="danger">삭제</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="machineryAdd()">추가</app-button>
+          <app-button fill="translucent" (click)="machineryDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="machineryState(1)">전체 사용</app-button>
+          <app-button fill="translucent" (click)="machineryState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
@@ -120,11 +129,11 @@
             <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length}}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="machinerySave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group [(ngModel)]="machineryData">
+      <app-check-group [(ngModel)]="selectedMachinery">
         <app-table>
           <thead>
             <tr>
@@ -142,15 +151,15 @@
                 <app-check [on]="item"></app-check>
               </td>
               <td>
-                {{ item.ctgo_machinery_name }}
+                <app-input [(ngModel)]="item.ctgo_machinery_name"></app-input>
               </td>
               <td>
-                <app-check></app-check>
+                <app-check [(ngModel)]="item.ctgo_machinery_doc"></app-check>
               </td>
               <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_machinery_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -169,19 +178,19 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getTool()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-scene></app-select-scene>
+              <app-select-scene [(ngModel)]="toolForm.project_id"></app-select-scene>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-company></app-select-company>
+              <app-select-company [(ngModel)]="toolForm.company_id"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -190,23 +199,23 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent">삭제</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="toolAdd()">추가</app-button>
+          <app-button fill="translucent" (click)="toolDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="toolState(1)">전체 사용</app-button>
+          <app-button fill="translucent" (click)="toolState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>특수공도구 목록 (총90건)</h5>
+            <h5>특수공도구 목록 (총{{resTool?.rsMap?.length ? resTool?.rsMap?.length :0}}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="toolSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="slectedTool">
         <app-table>
           <thead>
             <tr>
@@ -218,31 +227,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of resTool?.rsMap">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item"></app-check>
               </td>
               <td>
-                <app-input placeholder="입력하세요."></app-input>
+                <app-input [(ngModel)]="item.ctgo_tool_name" placeholder="입력하세요."></app-input>
               </td>
               <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-check></app-check>
-              </td>
-              <td>
-                코아드릴
-              </td>
-              <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_tool_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -262,23 +257,19 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;">검색</app-button>
+                <app-button fill="translucent" style="width: 100px;" (click)="getMeeting()">검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select>
-                  <app-select-option></app-select-option>
-                </app-select>
+                <app-select-scene [(ngModel)]="meetingForm.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select>
-                  <app-select-option></app-select-option>
-                </app-select>
+                <app-select-company [(ngModel)]="meetingForm.company_id"></app-select-company>
               </td>
             </tr>
           </tbody>
@@ -289,7 +280,7 @@
         <ion-toolbar slot="top" color="white">
           <h4>회의록 협의사항</h4>
           <ion-buttons slot="end">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="meetingUpdate()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
         <app-card>
@@ -298,13 +289,7 @@
           </ion-toolbar>
           <app-row>
             <app-col>
-                <app-textarea [rows]="7" value="산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)
-  1. 작업의 시작 시간
-  2. 작업 또는 작업장 간의 연락방법
-  3. 재해발생 위험이 있는 경우 대피방법
-  4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항
-  5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정">
-                </app-textarea>
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
             </app-col>
           </app-row>
         </app-card>
@@ -315,10 +300,7 @@
           </ion-toolbar>
           <app-row>
             <app-col>
-                <app-textarea [rows]="7" value=" 산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)
-  1. 산업재해 예방방법 및 산업재해가 발생한 경우의 대피방법
-  2. 작업의 시작시간. 작업 및 작업장 간의 연락 방법
-  3. 그 밖의 산업재해 예방관 관련된 사항">
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
                 </app-textarea>
             </app-col>
           </app-row>
@@ -330,10 +312,7 @@
           </ion-toolbar>
           <app-row>
             <app-col>
-              <app-textarea [rows]="7" value="산업안전보건법 시행규칙 제 93 조 (노사협의체의 협의 사항 등)<br>
-1. 산업재해 예방계획의 수립에 관한 사항
-2. 안전관리규정의 작성 및 변경에 관한 사항
-3. 직원의 안전·보건교육에 관한 사항">
+              <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
               </app-textarea>
             </app-col>
           </app-row>
@@ -351,14 +330,14 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getDisaster()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company></app-select-company>
+              <app-select-company [(ngModel)]="disasterForm"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -367,46 +346,48 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="disasterAdd()">추가</app-button>
+          <app-button fill="translucent" (click)="disasterDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="disasterState(1)">전체 사용</app-button>
+          <app-button fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>재해형태 목록 (총90건)</h5>
+            <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length}}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="disasterSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="disasterSelected">
         <app-table>
           <thead>
             <tr>
               <th style="width: 40px;">
-                <app-check></app-check>
+                <app-check type="all"></app-check>
               </th>
               <th>재해 형태 목록</th>
               <th>사용 여부</th>
             </tr>
           </thead>
           <tbody>
-            <td>
-              <app-check></app-check>
-            </td>
-            <td>
-              <app-input placeholder="입력하세요."></app-input>
-            </td>
-            <td>
-              <app-select>
-                <app-select-option value="Y">Y</app-select-option>
-                <app-select-option value="N">N</app-select-option>
-              </app-select>
-            </td>
+            <tr *ngFor="let item of resDisaster?.rsMap">
+              <td>
+                <app-check [on]="item"></app-check>
+              </td>
+              <td>
+                <app-input [(ngModel)]="item.ctgo_disaster_name" placeholder="입력하세요."></app-input>
+              </td>
+              <td>
+                <app-select [(ngModel)]="item.ctgo_disaster_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
           </tbody>
         </app-table>
       </app-check-group>

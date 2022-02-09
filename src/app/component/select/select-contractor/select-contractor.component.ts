@@ -28,7 +28,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() text:string;
   @Input() type?:boolean;
   @Input() required:boolean = false;
-  @Input() multifull:boolean;
+  @Input() multiple:boolean;
   isModalData:boolean = false;
 
  
@@ -71,14 +71,14 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
   
   public async openModal() {
-    console.log(this.multifull);
+    console.log(this.multiple);
     this.isModalData = true;
     const modal = await this._modal.create({
       component:SearchContractorComponent,
       componentProps:{
         type:this.type,
         value:this.value,
-        multifull:this.multifull,
+        multiple:this.multiple,
         form : {
           company_contract_type: this.label,
           search_text: ''
@@ -89,7 +89,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     const { data } = await modal.onDidDismiss();
     if(data) {
       console.log("data",data);
-      if(this.multifull){
+      if(this.multiple){
         let compnay_name_string = [];
         console.log(data);
         for(let i = 0; i < data.length; i++) {
