@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -9,6 +9,11 @@ import { UserService } from 'src/app/basic/service/core/user.service';
   styleUrls: ['./search-company.component.scss'],
 })
 export class SearchCompanyComponent implements OnInit {
+
+
+  @Input() value;
+  @Input() type?: boolean = false;
+  
 
   form = {
     company_contract_type:this.user.userData.user_type,
@@ -30,10 +35,10 @@ export class SearchCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getConpany();
+    this.getCompany();
   }
 
-  async getConpany() {
+  async getCompany() {
     console.log(this.form.company_contract_type);
     this.companyData = await this.connect.run('/category/certify/company/get',this.form,{});
     if(this.companyData.rsCode === 0) { };

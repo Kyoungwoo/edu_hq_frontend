@@ -94,8 +94,11 @@ export class SupervisionListPage implements OnInit {
     }
   }
   async getCtgoBusiness() {
-    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids},{});
-    console.log(this,this.ctgoRegional);
+    if(this.form.hq_regional_ids.length){
+      this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+    }
+    
+    // console.log(this,this.ctgoRegional);
     // if(this.ctgoRegional.rsCode === 0) {
     // }
   }

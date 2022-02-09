@@ -67,26 +67,26 @@ export class SearchContractorComponent implements OnInit {
   }
 
 
-  // async addCompany() {
-  //   // this.filteritem = this.res.rsMap.filter((data, i) => {
-  //   //   return data.checked === true;
-  //   // })
-  //   if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
-  //     const toast = await this.toast.present({
-  //       message: '최대 선택 개수는 5개입니다.',
-  //       position: 'botton',
-  //       color: 'primary'
-  //     });
-  //   } else {
-  //     this.submitArr.push({
-  //       company_id: 0,
-  //       business_register_no: '',
-  //       company_name: '',
-  //       company_ceo: '',
-  //       search_type: '원청사'
-  //     });
-  //   }
-  // }
+  async addCompany() {
+    this.filteritem = this.res.rsMap.filter((data, i) => {
+      return data.checked === true;
+    })
+    if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
+      const toast = await this.toast.present({
+        message: '최대 선택 개수는 5개입니다.',
+        position: 'botton',
+        color: 'primary'
+      });
+    } else {
+      this.submitArr.push({
+        company_id: 0,
+        business_register_no: '',
+        company_name: '',
+        company_ceo: '',
+        search_type: '원청사'
+      });
+    }
+  }
 
   async choicCompany(item) {
     item.checked = !item.checked;

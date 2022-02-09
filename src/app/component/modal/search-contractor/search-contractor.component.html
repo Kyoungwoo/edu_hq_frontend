@@ -6,19 +6,19 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input name="with img" label="원청사" [(ngModel)]="form.search_text" placeholder="원청사명을 검색하세요">
+    <app-input name="with img" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요.">
       <app-img name="search"></app-img>
     </app-input>
   </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="type">
-  <!-- <app-card>
+  <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card> -->
+  </app-card>
   <div style="height: 250px; overflow: scroll;">
     <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [class.check_style]="item.checked">
       <app-row>
@@ -64,7 +64,7 @@
           <td style="width: 40px;"><app-button (click)="submitArr.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
         </tr>
         <ng-container *ngFor="let data of res?.rsMap let i = index">
-          <tr *ngIf="data.checked">
+          <tr *ngIf="data.checked"> 
             <td>{{ data.company_name }}</td>
             <td>{{ data.business_register_no }}</td>
             <td>{{ data.company_ceo}}</td>

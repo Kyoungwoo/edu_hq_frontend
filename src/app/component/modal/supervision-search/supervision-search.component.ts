@@ -18,17 +18,18 @@ export class SupervisionSearchComponent implements OnInit {
   }
   res: ConnectResult<{
     company_id: number
-    business_register_no: string
-    company_name: string
-    company_ceo: string
-    checked: boolean
+    business_register_no: string;
+    company_name: string;
+    company_ceo: string;
+    checked: boolean;
   }>
 
   submitItem = {
     company_id: 0,
     business_register_no: '',
     company_name: '',
-    company_ceo: ''
+    company_ceo: '',
+    search_type: '감리사'
   }
 
   submitArr = [];
@@ -65,9 +66,9 @@ export class SupervisionSearchComponent implements OnInit {
   }
 
   async addCompany() {
-    // this.filteritem = this.res.rsMap.filter((data, i) => {
-    //   return data.checked === true;
-    // })
+    this.filteritem = this.res.rsMap.filter((data, i) => {
+      return data.checked === true;
+    })
     if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
       const toast = await this.toast.present({
         message: '최대 선택 개수는 5개입니다.',
