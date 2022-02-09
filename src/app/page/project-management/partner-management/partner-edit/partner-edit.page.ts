@@ -145,7 +145,7 @@ export class PartnerEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            const res = await this.connect.run('/project/company/partner/update', this.resObj, {});
+            const res = await this.connect.run('/project/company/partner/insert', this.resObj, {});
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             }
