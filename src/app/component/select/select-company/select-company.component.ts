@@ -20,6 +20,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() label:string = "업체";
   @Input() required:boolean = false;
   @Input() text:string;
+  @Input() type?:boolean;
 
   constructor(
     private _modal:ModalController

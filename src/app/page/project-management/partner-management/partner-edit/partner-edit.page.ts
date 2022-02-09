@@ -25,12 +25,13 @@ export class resObj {
 export class PartnerEditPage implements OnInit {
 
   @Input() company_id;
+  @Input() type?: boolean = false;
 
   resObj:resObj = new resObj();
   updateStatus: boolean = false;
   savestatus:boolean = false;
   email:string;
-  emailaddress:string
+  emailaddress:string;
   directlyInput:string;
   resMap:Array <{
     contract_amount: string;
@@ -47,11 +48,21 @@ export class PartnerEditPage implements OnInit {
     project_name: string;
   }> = [];
 
+  selectList = [];
   selected_check = [];
-  Ctgoconstruction:ConnectResult <{
+  res:ConnectResult <{
+    checked: boolean;
     ctgo_construction_id: number,
     ctgo_construction_name: string,
-    project_id: number
+    project_id: number,
+    master_company_id: number,
+    contract_name: string,
+    contract_amount: number,
+    contract_start_date: number,
+    contract_end_date: number,
+
+
+
   }>
   constructor(
     private connect: ConnectService,
@@ -63,19 +74,20 @@ export class PartnerEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.company_id)
     if(this.company_id){
       this.updateStatus = true;
-      this.getItem();
     }
     else{
       this.savestatus = true;
     }
     this.getCtgoCon();
-  
+    this.getItem();
   }
 
   async getItem() {
-    const res = await this.connect.run('/project/company/partner/detail',{company_id:this.company_id},{});
+    const res = await this.connect.run('/project/company/partner/detail',
+    {company_id:this.company_id},{});
     if(res.rsCode === 0) {
       this.resMap = res.rsMap;
       this.resObj = res.rsObj;
@@ -102,8 +114,8 @@ export class PartnerEditPage implements OnInit {
     )
   }
   async getCtgoCon() {
-    this.Ctgoconstruction = await this.connect.run('/category/construction/get',{project_id:1});
-    if(this.Ctgoconstruction.rsCode === 0) {
+    this.res = await this.connect.run('/category/construction/get',{project_id:1});
+    if(this.res.rsCode === 0) {
 
     }
   }
@@ -136,8 +148,6 @@ export class PartnerEditPage implements OnInit {
             const res = await this.connect.run('/project/company/partner/insert', this.resObj, {});
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
-            } else {
-              this.connect.error('저장실패', res);
             }
           }
         }
@@ -148,24 +158,23 @@ export class PartnerEditPage implements OnInit {
 
   async contDelete() {
     console.log("asdfasdfasdf",this.selected_check);
-    // const alert = await this.alert.present({
-    //   message: '삭제 하시겠습니까?',
-    //   buttons: [
-    //     { text: '아니요' },
-    //     {
-    //       text: '예',
-    //       handler: async () => {
-    //         const res = await this.connect.run('/project/company/masters/delete', {
-    //           company_id: this.company_id,
-    //           project_id: this.project_id
-    //         });
-    //         if (res.rsCode === 0) {
-    //           this._modal.dismiss('Y');
-    //         }
-    //       }
-    //     }
-    //   ]
-    // })
+    const alert = await this.alert.present({
+      message: '삭제 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/project/company/partner/delete', {
+              company_id: this.company_id,
+            });
+            if (res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            }
+          }
+        }
+      ]
+    })
   }
 
   contUpdate() {
@@ -175,5 +184,34 @@ export class PartnerEditPage implements OnInit {
     this.emailaddress = spliteamil[1];
     console.log(this.email)
     this.updateStatus = false;
+  }
+
+  async selectDelete() {
+    const list = this.resMap
+    console.log(this.selectList);
+    this.selectList.forEach(checkedItem => {
+      console.log("checkedItem",checkedItem);
+        list.splice(checkedItem, 1);
+    });
+    this.selectList = [];
+    // const alert = await this.alert.present({
+    //   message: '삭제 하시겠습니까?',
+    //   buttons: [
+    //     { text: '아니요' },
+    //     {
+    //       text: '예',
+    //       handler: async () => {
+    //             for (let i = 0; i < this.selectList.length; i++) {
+    //               const res = await this.connect.run('/project/company/masters/delete', {
+    //                 project_id: this.res.project_id
+    //               });
+    //               if (res.rsCode === 0) { this.getCtgoCon() };
+    //             }
+    //         }
+    //       }
+        
+    //   ]
+    // });
+    // alert.present();
   }
 }
