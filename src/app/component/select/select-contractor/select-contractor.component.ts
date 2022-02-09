@@ -39,6 +39,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit() {
     console.log("this.type",this.type);
+    console.log("this.value",this.value);
   }
 
   public async get() {
@@ -87,15 +88,18 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      let compnay_name_string = [];
-      console.log(data);
-      for(let i = 0; i < data.length; i++) {
-       compnay_name_string.push(data[i].company_name);
-      }
-      
-      console.log("compnay_name_string",compnay_name_string);
-      this.text = compnay_name_string.toString();
-    } 
+      console.log("data",data);
+      if(this.multifull){
+        let compnay_name_string = [];
+        console.log(data);
+        for(let i = 0; i < data.length; i++) {
+         compnay_name_string.push(data[i].company_name);
+        }
+        this.text = compnay_name_string.toString();
+      } else {
+        this.text = data.company_name
+      } 
+    }
   }
  
   @Input() disabled:boolean = false;

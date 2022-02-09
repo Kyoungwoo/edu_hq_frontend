@@ -183,7 +183,10 @@ export class SearchContractorComponent implements OnInit {
         this._modal_.dismiss(conArr);
       }
     } else {
-
+      if(!this.selectItem.company_name) return await this.toast.present({message:'회사명을 입력하세요'});
+      if(!this.selectItem.business_register_no) return await this.toast.present({message:'사업자등록번호를 입력하세요'});
+      if(!this.selectItem.company_ceo) return await this.toast.present({message:'대표자를 입력하세요'});
+      this._modal_.dismiss(this.selectItem);
     }
     console.log(this.business_register_no_check);
   }

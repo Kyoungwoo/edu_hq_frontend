@@ -280,7 +280,7 @@ export class MemberStandardSetPage implements OnInit {
                 const res = await this.connect.run('/project/job_position/delete',{
                   company_id:checkedItem.company_id,
                   ctgo_job_position_id:checkedItem.ctgo_job_position_id
-                })
+                });
                 if(res.rsCode === 0) {
                   this.getJobPosition();
                 };
@@ -290,7 +290,7 @@ export class MemberStandardSetPage implements OnInit {
           }
         }
       ]
-    })
+    });
   }
 
   async getSafeJob() {
@@ -319,10 +319,14 @@ export class MemberStandardSetPage implements OnInit {
       if(item.ctgo_safe_job_id === 0) {
         console.log('----------------',item)
         const res = await this.connect.run('/project/safe_job/insert',item,{});
-        if(res.rsCode === 0) {};
+        if(res.rsCode === 0) {
+          return await this.toast.present({message:'저장 되었습니다.',color:'primary'});
+        };
       } else {
         const res = await this.connect.run('/project/safe_job/update',item,{});
-        if(res.rsCode === 0) {};
+        if(res.rsCode === 0) {
+          return await this.toast.present({message:'저장 되었습니다.',color:'primary'});
+        };
       }
     });
   }
@@ -339,7 +343,36 @@ export class MemberStandardSetPage implements OnInit {
       }
     }
 
-    safeDelete() {
-      
+   async safeDelete() {
+      if(!this.safeJobSelected.length) return await this.toast.present({message:'최소 1개 이상 선택해주세요.'});
+      const alert = await this.alert.present({
+        message:'삭제 하시겠습니까?',
+        buttons:[
+          {text:'아니요'},
+          {text:'예',
+            handler:async() =>{
+              const list = this.resSafeJob.rsMap;
+              this.safeJobSelected.forEach(async (checkedItem) => {
+                  console.log("---------asdfasdfasdf",checkedItem.ctgo_safe_job_id);
+
+                if(checkedItem.ctgo_safe_job_id === 0) {
+                  list.splice(list.findIndex(item => item === checkedItem), 1);
+                } else {
+                  console.log("asdfasdfasdf")
+                  const res = await this.connect.run('/project/safe_job/delete',{
+                    company_id:checkedItem.company_id,
+                    ctgo_job_position_id:checkedItem.ctgo_safe_job_id
+                  });
+                  if(res.rsCode === 0) {
+                    this.getSafeJob();
+                  };
+                }
+                this.safeJobSelected = [];
+              });
+            }
+          }
+        ]
+      });
+      alert.present();
     }
 }
