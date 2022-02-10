@@ -1,9 +1,10 @@
 import { FileBlob, FileJson, FutItem } from "src/app/basic/service/core/file.service";
 import { RegexService } from "src/app/basic/service/util/regex.service";
+import { SignUpTerms } from "../sign-up.interface";
 
 const regex = new RegexService();
 
-export class SignUpSupervisionForm {
+export class SignUpSuperForm {
   company_id:number = null; //소속 업체 ID
   user_name:string = null; //이름
   account_id:string = null; //아이디
@@ -22,7 +23,7 @@ export class SignUpSupervisionForm {
   file_json:FileJson = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 }
 
-export class SignUpSupervisionFormMock implements SignUpSupervisionForm {
+export class SignUpSuperFormMock implements SignUpSuperForm, SignUpTerms {
   company_id:number = null; //소속 업체 ID
   user_name:string = regex.random.id('김수홍_super');; //이름
   account_id:string = regex.random.id('super'); //아이디
@@ -39,4 +40,9 @@ export class SignUpSupervisionFormMock implements SignUpSupervisionForm {
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
   file_json:FileJson = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
+
+  system_terms:number = null; // 시스템 이용약관
+  personal_terms:number = null; // 개인정보 이용약관
+  gps_terms:number = null; // 위치정보 이용약관
+  sharing_terms:number = null; // 제 3자 정보제공 이용약관
 }

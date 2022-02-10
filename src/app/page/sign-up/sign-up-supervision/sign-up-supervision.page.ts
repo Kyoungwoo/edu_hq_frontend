@@ -6,7 +6,7 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
 import { SignUpCompanyInfo, SignUpViewType } from '../sign-up.interface';
-import { SignUpSupervisionForm, SignUpSupervisionFormMock } from './sign-up-supervision.interface';
+import { SignUpSuperForm, SignUpSuperFormMock } from './sign-up-supervision.interface';
 
 @Component({
   selector: 'app-sign-up-supervision',
@@ -18,8 +18,8 @@ export class SignUpSupervisionPage implements OnInit {
 
   companyInfo:SignUpCompanyInfo;
 
-  form = new SignUpSupervisionForm();
-  validator = new Validator(new SignUpSupervisionForm()).validator;
+  form = new SignUpSuperForm();
+  validator = new Validator(new SignUpSuperForm()).validator;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -46,7 +46,7 @@ export class SignUpSupervisionPage implements OnInit {
     await this.promise.wait();
 
     // 입력 데이터 삽입
-    const form = new SignUpSupervisionFormMock();
+    const form = new SignUpSuperFormMock();
     for(const key in form) {
       const value = form[key];
       const input = el.querySelector(`[name=${key}]`);
@@ -101,7 +101,7 @@ export class SignUpSupervisionPage implements OnInit {
 
     this.nav.navigateForward('/sign-up-terms', {
       state: {
-        signUpSupervisionForm: this.form
+        SignUpSuperForm: this.form
       }
     });
   }
@@ -207,7 +207,6 @@ export class SignUpSupervisionPage implements OnInit {
 
     if(this.form.ctgo_construction_id == null) this.validator.ctgo_construction_id = { message: '공종을 입력해주세요.', valid: false };
     else this.validator.ctgo_construction_id = { valid: true };
-
 
     this.validator.file_preview = { valid: true };
     this.validator.file = { valid: true };

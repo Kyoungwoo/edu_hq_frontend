@@ -24,19 +24,22 @@ export class ToastService {
   async present(opts:ToastOptions) {
     const toast = await this.toast.create({
       color: opts?.color || "white",
-      position: "top",
+      position: "bottom",
       header: opts?.header,
       message: opts?.message,
-      cssClass: opts?.cssClass || "basic-toast-top",
+      cssClass: opts?.cssClass || "basic-toast-bottom",
       buttons: opts?.buttons,
       duration: opts?.duration || 1800,
       enterAnimation: (baseEl:ShadowRoot) => {
         const wrapperEl = <HTMLElement>baseEl.childNodes[0];
+        wrapperEl.style.bottom = '0';
+        wrapperEl.style.paddingBottom = 'calc(var(--ion-safe-area-bottom, 0px))';
+
         const wrapperAnimation = this.animationCtrl.create()
         .addElement(wrapperEl)
         .duration(100)
         .fromTo('opacity', '0', '1')
-        .fromTo('transform', 'translateY(-10px)', 'translateY(0)');
+        .fromTo('transform', 'translateY(10px)', 'translateY(0)');
 
         return wrapperAnimation;
       }

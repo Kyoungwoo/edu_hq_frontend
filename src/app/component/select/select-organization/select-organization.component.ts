@@ -1,7 +1,9 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 
 export class RegionalItem {
   hq_regional_entire_state: 0|1; // 본사권한 = 1
@@ -52,11 +54,19 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
   res3:ConnectResult<DepartmentItem>;
 
   constructor(
-    private connect: ConnectService
+    private el: ElementRef<HTMLElement>,
+    private connect: ConnectService,
+    private promise: PromiseService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.get1();
+    if(environment.test) this.test();
+  }
+
+  private async test() {
+    if(!environment.test.core.test) return;
   }
 
   private async get1() {

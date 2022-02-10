@@ -406,9 +406,11 @@
   }
 
   /** devmonster basic tags / classes */
-  .basic-toast-top {
+  .basic-toast-bottom {
     --min-width: 100%;
-    top: var(--ion-safe-area-top, 0px);
+    --border-radius: 0;
+    --start: 0;
+    --end: 0;
   }
 
   ion-popover.calendar-popover {

@@ -70,19 +70,20 @@ export class SignUpLhPage implements OnInit {
     el.querySelector('[name=hq_regional_id]').dispatchEvent(new Event('click'));
     await this.promise.wait(1500);
 
-    this.changeDetector.detectChanges();
-    el.querySelector('[name=hq_business_id]').dispatchEvent(new Event('click'));
-    await this.promise.wait(1500);
+    if(el.querySelector('[name=hq_business_id]')) {
+      this.changeDetector.detectChanges();
+      el.querySelector('[name=hq_business_id]').dispatchEvent(new Event('click'));
+      await this.promise.wait(1500);
+    }
 
-    this.changeDetector.detectChanges();
-    el.querySelector('[name=hq_department_id]').dispatchEvent(new Event('click'));
-    await this.promise.wait(1000);
+    if(el.querySelector('[name=hq_department_id]')) {
+      this.changeDetector.detectChanges();
+      el.querySelector('[name=hq_department_id]').dispatchEvent(new Event('click'));
+      await this.promise.wait(1000);
+    }
     
     // 다음 페이지로
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-
-    console.log(this.form);
-    console.log(this.validator);
   }
 
   private checkParams() {
@@ -93,6 +94,8 @@ export class SignUpLhPage implements OnInit {
     this.nav.navigateBack('/sign-up-type');
   }
   public async next() {
+    console.log(this.form);
+    console.log(this.validator);
     if(!this.valid()) return;
 
     this.nav.navigateForward('/sign-up-terms', {
