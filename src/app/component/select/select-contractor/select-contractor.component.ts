@@ -98,7 +98,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         this.text = compnay_name_string.toString();
       } else {
         this.text = data.company_name
-      } 
+      }
     }
   }
  

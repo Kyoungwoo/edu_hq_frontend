@@ -13,7 +13,7 @@ export class ContractorListPage implements OnInit {
   form = {
     company_contract_type: '원청사',
     hq_business_ids:[],
-    hq_regional_ids: [1],
+    hq_regional_ids: [],
     limit_no: 0,
     master_company_ids:[],
     search_text: ''
@@ -60,6 +60,15 @@ export class ContractorListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ctgoBusiness = {
+      errorStatus: null,
+      rsCode: null,
+      rsObj: null,
+      rsMsg: '',
+      rsMap: [],
+      rqMethod: ''
+    }
+    
     this.getList();
     this.getCtgoBusiness();
     this.getCtgoRegional();
@@ -92,15 +101,14 @@ export class ContractorListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
-  async getCtgoBusiness() {
-    if(this.form.hq_regional_ids.length){
-      this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
-    } else {
-      this.ctgoBusiness.rsMap = [];
-    }
+ async getCtgoBusiness() {
+    console.log(this.form.hq_regional_ids);
+    this.ctgoBusiness.rsMap = [];
+    if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+
     
     // console.log(this,this.ctgoRegional);
     // if(this.ctgoRegional.rsCode === 0) {
     // }
-  } 
+  }
 }

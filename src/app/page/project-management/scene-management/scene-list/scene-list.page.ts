@@ -60,6 +60,15 @@ export class SceneListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ctgoBusiness = {
+      errorStatus: null,
+      rsCode: null,
+      rsObj: null,
+      rsMsg: '',
+      rsMap: [],
+      rqMethod: ''
+    }
+
     this.getCtgoBusiness();
     this.getCtgoRegional();
     this.getList();
@@ -131,8 +140,12 @@ export class SceneListPage implements OnInit {
     }
   }
   async getCtgoBusiness() {
-    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids},{});
-    console.log(this,this.ctgoRegional);
+    console.log(this.form.hq_regional_ids);
+    this.ctgoBusiness.rsMap = [];
+    if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+
+    
+    // console.log(this,this.ctgoRegional);
     // if(this.ctgoRegional.rsCode === 0) {
     // }
   }

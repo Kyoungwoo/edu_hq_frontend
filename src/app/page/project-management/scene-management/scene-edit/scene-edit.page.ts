@@ -253,7 +253,7 @@ export class SceneEditPage implements OnInit {
       if (this.project_id) {
         this.form.gps_state = 1;
       }
-      this.form.gps_state_con = '설장 됨';
+      this.form.gps_state_con = '설정 됨';
       this.returnData = data;
       data.forEach(item => {
         const { x, y } = item;

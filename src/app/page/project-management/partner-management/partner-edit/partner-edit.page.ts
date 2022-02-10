@@ -5,6 +5,18 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
+
+export interface company_contract_data {
+  ctgo_construction_id: number, //계약공종
+  contract_name: string, //계약명
+  contract_start_date: string, //계약기간~
+  contract_end_date: string, //~계약기간
+  contract_amount: string, //계약금액
+  manager_user_id: number, //협력사소장
+  master_company_id: number, //원청사ID
+  project_id: number, //현장ID
+} 
+
 export class resObj {
   business_register_no: string;
   company_ceo: string;
@@ -16,6 +28,7 @@ export class resObj {
   manager_email: string;
   manager_name: string;
   manager_phone: string;
+  company_contract_data: company_contract_data[] = [];
 }
 @Component({
   selector: 'app-partner-edit',
@@ -33,19 +46,16 @@ export class PartnerEditPage implements OnInit {
   email:string;
   emailaddress:string;
   directlyInput:string;
+
   resMap:Array <{
-    contract_amount: string;
-    contract_end_date: string;
-    contract_name: string;
-    contract_start_date: string;
-    ctgo_construction_id: number;
-    ctgo_construction_name: string;
-    manager_user_id: number;
-    manager_user_name: string;
-    master_company_id: number;
-    master_company_name: string;
-    project_id: number;
-    project_name: string;
+    ctgo_construction_id:0, // 계약공종
+    contract_name:'', // 계약명
+    contract_start_date:'', // 계약기간 ~
+    contract_end_date:'', // ~ 계약기간
+    contract_amount:'', // 계약금액
+    manager_user_id:0, // 협력사 소장
+    master_company_id:0, // 원청사 ID
+    project_id:0 // 현장 ID }
   }> = [];
 
   selectList = [];
@@ -59,11 +69,9 @@ export class PartnerEditPage implements OnInit {
     contract_name: string,
     contract_amount: number,
     contract_start_date: number,
-    contract_end_date: number,
-
-
-
+    contract_end_date: number
   }>
+
   constructor(
     private connect: ConnectService,
     private alert: AlertService,
@@ -98,18 +106,14 @@ export class PartnerEditPage implements OnInit {
   addContractInfo() {
     this.resMap.push(
       {
-        contract_amount: '',
-        contract_end_date: '',
-        contract_name: '',
-        contract_start_date: '',
-        ctgo_construction_id: 0,        
-        ctgo_construction_name: '',
-        manager_user_id: 0,
-        manager_user_name: '',
-        master_company_id: 0,
-        master_company_name: '',
-        project_id: 0,
-        project_name: ''     
+        ctgo_construction_id:0, // 계약공종
+        contract_name:'', // 계약명
+        contract_start_date:'', // 계약기간 ~
+        contract_end_date:'', // ~ 계약기간
+        contract_amount:'', // 계약금액
+        manager_user_id:0, // 협력사 소장
+        master_company_id:0, // 원청사 ID
+        project_id:0 // 현장 ID }
       }
     )
   }
@@ -124,7 +128,11 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contSave() {
-    console.log("----------------88888888",this.resObj);
+    let contractInfo = [];
+    this.resMap.forEach(item => {
+      contractInfo.push(item);
+    });
+    this.resObj.company_contract_data = contractInfo;
     if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
     // if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
     // if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
