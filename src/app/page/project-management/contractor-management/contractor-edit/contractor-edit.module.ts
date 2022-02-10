@@ -16,7 +16,6 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     ContractorEditPageRoutingModule
   ],
   declarations: [ContractorEditPage]

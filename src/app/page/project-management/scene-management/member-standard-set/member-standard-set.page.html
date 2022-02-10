@@ -222,18 +222,13 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getJobPosition()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
-            <td>
-              <app-select>
-                <app-select-option value="원청사">원청사</app-select-option>
-                <app-select-option value="협럭사">협력사</app-select-option>
-              </app-select>
-            </td>
+            <app-select-company [(ngModel)]="jobForm"></app-select-company>
           </tr>
         </tbody>
       </app-table>
@@ -241,19 +236,19 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent" color="danger">삭제</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="addJobPosstion()">추가</app-button>
+          <app-button fill="translucent" (click)="postionDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="state(1)">전체 사용</app-button>
+          <app-button fill="translucent" (click)="state(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>직위 목록 (총90건)</h5>
+            <h5>직위 목록 (총{{ resJobPosition?.rsMap?.length }}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="jobAddSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
@@ -273,19 +268,35 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of resJobPosition?.rsMap let i = index">
+            <!-- <tr *ngFor="let item of addPosition let i = index">
               <td>
-                <app-check [on]="item.ctgo_job_position_id"></app-check>
+                <app-check [on]="item"></app-check>
               </td>
               <td>{{ i+1 }}</td>
-              <td>{{ item.ctgo_job_position_name_kr }}</td>
-              <td>{{ item.ctgo_job_position_name_en }}</td>
-              <td>{{ item.ctgo_job_position_name_ch }}</td>
-              <td>{{ item.ctgo_job_position_name_vi }}</td>
+              <td><app-input [(ngModel)]="item.ctgo_job_position_name_kr"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_job_position_name_en"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_job_position_name_ch"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_job_position_name_vi"></app-input></td>
               <td>
                 <app-select [(ngModel)]="item.ctgo_job_position_use_state">
-                  <app-select-option value="1">Y</app-select-option>
-                  <app-select-option value="0">N</app-select-option>
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
+                </app-select>
+              </td>
+            </tr> -->
+            <tr *ngFor="let res of resJobPosition?.rsMap let i = index">
+              <td>
+                <app-check [on]="res"></app-check>
+              </td>
+              <td>{{ i+1 }}</td>
+              <td><app-input [(ngModel)]="res.ctgo_job_position_name_kr"></app-input></td>
+              <td><app-input [(ngModel)]="res.ctgo_job_position_name_en"></app-input></td>
+              <td><app-input [(ngModel)]="res.ctgo_job_position_name_ch"></app-input></td>
+              <td><app-input [(ngModel)]="res.ctgo_job_position_name_vi"></app-input></td>
+              <td>
+                <app-select [(ngModel)]="res.ctgo_job_position_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -305,22 +316,19 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getSafeJob()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
-            <app-select label="업체명">
-              <app-select-option value="원청사">원청사</app-select-option>
-              <app-select-option value="협럭사">협력사</app-select-option>
-            </app-select>
+            <app-select-company [(ngModel)]="safeJobForm.company_id"></app-select-company>
           </tr>
           <tr>
             <td>
-              <app-select label="구분">
-                <app-select-option value="관리자">관리자</app-select-option>
-                <app-select-option value="작업자">작업자</app-select-option>
+              <app-select label="구분" [(ngModel)]="safeJobForm.user_type">
+                <app-select-option value="COMPANY">관리자</app-select-option>
+                <app-select-option value="WORKER">작업자</app-select-option>
               </app-select>
             </td>
           </tr>
@@ -330,23 +338,23 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent" color="danger">삭제</app-button>
-          <app-button fill="translucent">전체 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="addSafeJob()">추가</app-button>
+          <app-button fill="translucent" (click)="safeDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="safeState(1)">전체 사용</app-button>
+          <app-button fill="translucent" (click)="safeState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>안전직무 목록 (총90건)</h5>
+            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length}}건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="safeJobSelected">
         <app-table>
           <thead>
             <tr>
@@ -358,57 +366,23 @@
               <th>영어</th>
               <th>중국어</th>
               <th>배트남어</th>
-              <th>다국어4</th>
-              <th>다국어5</th>
               <th>사용여부</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of resSafeJob?.rsMap let i = index">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item"></app-check>
               </td>
-              <td>1</td>
-              <td>전무</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{ i+1 }}</td>
+              <td><app-input [(ngModel)]="item.ctgo_safe_job_name_kr"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_safe_job_name_en"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_safe_job_name_ch"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_safe_job_name_vi"></app-input></td>
               <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-check></app-check>
-              </td>
-              <td>1</td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_safe_job_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -427,14 +401,14 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;">검색</app-button>
+              <app-button fill="translucent" style="width: 100px;" (click)="getOccupation()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company></app-select-company>
+              <app-select-company [(ngModel)]="occupationForm"></app-select-company>
             </td>
           </tr>
           <tr>
@@ -445,12 +419,12 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent">추가</app-button>
-          <app-button fill="translucent" color="danger">삭제</app-button>
+          <app-button fill="translucent" (click)="addOccupation()">추가</app-button>
+          <app-button fill="translucent" (click)="deleteOccupation()" color="danger">삭제</app-button>
           <app-button fill="translucent">엑셀 다운로드</app-button>
           <app-button fill="translucent">엑셀 업로드</app-button>
-          <app-button fill="translucent">천세 사용</app-button>
-          <app-button fill="translucent">전체 미사용</app-button>
+          <app-button fill="translucent" (click)="occupationState(1)">천세 사용</app-button>
+          <app-button fill="translucent" (click)="occupationState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar color="white">
@@ -459,15 +433,15 @@
             <h5>직종 목록 (총90건)</h5>
           </app-col>
           <app-col size="auto">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="occupationSave()">저장</app-button>
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group>
+      <app-check-group [(ngModel)]="occupationSelected">
         <app-table>
           <thead>
             <tr>
-              <th>
+              <th style="width: 40px;">
                 <app-check type="all"></app-check>
               </th>
               <th>No</th>
@@ -475,57 +449,23 @@
               <th>영어</th>
               <th>중국어</th>
               <th>배트남어</th>
-              <th>다국어4</th>
-              <th>다국어5</th>
               <th>사용여부</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of resOccupation?.rsMap let i = index">
               <td>
-                <app-check></app-check>
+                <app-check [on]="item"></app-check>
               </td>
-              <td>2</td>
+              <td>{{i + 1}}</td>
+              <td><app-input [(ngModel)]="item.ctgo_occupation_name_kr"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_occupation_name_en"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_occupation_name_ch"></app-input></td>
+              <td><app-input [(ngModel)]="item.ctgo_occupation_name_vi"></app-input></td>
               <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-input placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-check></app-check>
-              </td>
-              <td>1</td>
-              <td>전무</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <app-select>
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
+                <app-select [(ngModel)]="item.ctgo_occupation_use_state">
+                  <app-select-option [value]="1">Y</app-select-option>
+                  <app-select-option [value]="0">N</app-select-option>
                 </app-select>
               </td>
             </tr>

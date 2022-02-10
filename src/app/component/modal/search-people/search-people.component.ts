@@ -1,6 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 
+export class ctgoMemberItem {
+  ctgo_job_position_name_kr: string;
+  company_id: number;
+  ctgo_safe_job_name_kr: string;
+  user_id: number;
+  ctgo_job_position_id: number;
+  user_name: string;
+  company_name: string;
+  user_safe_job_id: number;
+  ctgo_safe_job_id: number;
+}
 @Component({
   selector: 'app-search-people',
   templateUrl: './search-people.component.html',
@@ -8,23 +21,34 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 })
 export class SearchPeopleComponent implements OnInit {
 
-  ctgoConstuctionItem:ConnectResult <{
-    ctgo_construction_id: number,
-    ctgo_construction_name: string,
-    project_id:number 
-  }>
+
+  @Input() form = {
+    project_id:0,
+    search_text:'',
+    user_type:''
+  }
+  ctgoMemberItem:ConnectResult <ctgoMemberItem>
+
+  selectedItem:ctgoMemberItem;
   constructor(
-    private connect: ConnectService
+    private connect: ConnectService,
+    private user: UserService,
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {
-    this.ctgoConstruction();
   }
 
   async ctgoConstruction() {
-    this.ctgoConstuctionItem = await this.connect.run('/category/construction/get',{company_id:1});
-    if(this.ctgoConstuctionItem.rsCode === 9 ) {
-      console.log(this.ctgoConstuctionItem)
+    console.log("this.form",this.form);
+    this.ctgoMemberItem = await this.connect.run('/category/education/manager/get',this.form);
+    if(this.ctgoMemberItem.rsCode === 9 ) {
+      console.log(this.ctgoMemberItem)
     }
+  }
+  select() {
+    this._modal.dismiss({
+      selectedItem: this.selectedItem
+    })
   }
 }

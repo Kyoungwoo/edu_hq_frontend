@@ -18,6 +18,7 @@ export class SupervisionEdit {
   file: (File | Blob)[] = [];
   file_json: FileJson = new FileJson();
   company_ceo: string;
+  project_id:number;
   manager_email: string;
 }
 
@@ -31,13 +32,13 @@ export class ContractorEditPage implements OnInit {
   @Input() company_id;
   @Input() project_id;
 
-  updateStatus: boolean = false;
+  updateStatus: boolean = true;
 
 
   form: SupervisionEdit = new SupervisionEdit();
   
   email:string;
-  emailaddress:string
+  emailaddress:string;
   directlyInput:string;
 
   constructor(
@@ -50,6 +51,7 @@ export class ContractorEditPage implements OnInit {
 
   ngOnInit() {
     console.log(this.company_id, this.project_id);
+    this.form.project_id = this.project_id;
     this.getItem();
   }
 
@@ -127,6 +129,6 @@ export class ContractorEditPage implements OnInit {
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     console.log(this.email)
-    this.updateStatus = true;
+    this.updateStatus = false;
   }
 }

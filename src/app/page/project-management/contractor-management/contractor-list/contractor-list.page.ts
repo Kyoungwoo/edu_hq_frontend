@@ -39,6 +39,20 @@ export class ContractorListPage implements OnInit {
     create_user_name: string
   }>
 
+  ctgoRegional:ConnectResult<{
+    hq_regional_name:string,
+    hq_regional_entire_state: number,
+    hq_regional_code: string,
+    hq_regional_id: number
+  }>
+
+  ctgoBusiness:ConnectResult<{
+    hq_business_name: string,
+    hq_business_entire_state: number,
+    hq_regional_id: number,
+    hq_business_code: string,
+    hq_business_id: number
+  }>
   
   constructor(
     private modal : ModalController,
@@ -47,6 +61,8 @@ export class ContractorListPage implements OnInit {
 
   ngOnInit() {
     this.getList();
+    this.getCtgoBusiness();
+    this.getCtgoRegional();
   }
 
   async getList() {
@@ -67,10 +83,24 @@ export class ContractorListPage implements OnInit {
       }
     });
     modal.present();
-    modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.getList();
   }
 
-  
+  async getCtgoRegional() {
+    this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
+    if(this.ctgoRegional.rsCode === 0) {
+    }
+  }
+  async getCtgoBusiness() {
+    if(this.form.hq_regional_ids.length){
+      this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+    } else {
+      this.ctgoBusiness.rsMap = [];
+    }
+    
+    // console.log(this,this.ctgoRegional);
+    // if(this.ctgoRegional.rsCode === 0) {
+    // }
+  } 
 }

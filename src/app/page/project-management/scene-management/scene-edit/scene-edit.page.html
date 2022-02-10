@@ -11,7 +11,7 @@
   <app-card>
     <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
       <app-col>
-        <app-input (click)="organizationSel()" [(ngModel)]="organization.name" [readonly]="true" [required]="true" label="조직기구">
+        <app-input (click)="organizationSel()" [(ngModel)]="organization.name" [readonly]="true" label="조직기구">
           <app-img name="search"></app-img>
         </app-input>
       </app-col>
@@ -23,7 +23,11 @@
       <app-col>
         <app-row>
           <app-col>
-            <app-select-contractor [type]="true" [(ngModel)]="contractor_id"></app-select-contractor>
+<<<<<<< HEAD
+            <app-select-contractor [multiple]="false" [type]="true" [(ngModel)]="contractor_id"></app-select-contractor>
+=======
+            <app-select-contractor [multifull]="true" [type]="true" [(ngModel)]="contractor_id"></app-select-contractor>
+>>>>>>> c6c246f08c864bdf2ad042966ff24a3764e8b890
           </app-col>
         </app-row>
       </app-col>

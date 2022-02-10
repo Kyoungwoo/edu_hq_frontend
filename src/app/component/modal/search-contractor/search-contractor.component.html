@@ -6,12 +6,12 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input name="with img" label="원청사" [(ngModel)]="form.search_text" placeholder="원청사명을 검색하세요">
+    <app-input name="with img" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요.">
       <app-img name="search"></app-img>
     </app-input>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="type">
+<ion-content *ngIf="multiple">
   <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
@@ -64,7 +64,7 @@
           <td style="width: 40px;"><app-button (click)="submitArr.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
         </tr>
         <ng-container *ngFor="let data of res?.rsMap let i = index">
-          <tr *ngIf="data.checked">
+          <tr *ngIf="data.checked"> 
             <td>{{ data.company_name }}</td>
             <td>{{ data.business_register_no }}</td>
             <td>{{ data.company_ceo}}</td>
@@ -76,16 +76,21 @@
   </div>
 </ion-content>
 
-<ion-content *ngIf="!type">
+<<<<<<< HEAD
+<ion-content *ngIf="!multiple">
   <app-card>
+=======
+<ion-content *ngIf="!multifull">
+  <!-- <app-card>
+>>>>>>> c6c246f08c864bdf2ad042966ff24a3764e8b890
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card>
+  </app-card> -->
   <div style="overflow: scroll;">
-    <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [ngClass]="item.checked ? 'check_style':''">
+    <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectItem === item ? 'secondary' : 'white'" (click)="selectItem = item">
       <app-row>
         <app-col size="4">
           <h5>원청사명</h5>
@@ -102,6 +107,25 @@
       </app-row>
     </app-card>
   </div>
+
+  <!-- <app-table class="button" >
+    <thead>
+      <tr>
+        <th>회사명</th>
+        <th>사업자등록번호</th>
+        <th>대표자</th>
+        <th>삭제</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="selectItem">
+        <td>{{selectItem?.company_name}}</td>
+        <td>{{selectItem?.business_register_no}}</td>
+        <td>{{selectItem?.company_ceo}}</td>
+        <td style="width: 40px;"><app-button (click)="selectItem = null" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
+      </tr>
+    </tbody>
+  </app-table> -->
 </ion-content>
 
 <app-button-footer>

@@ -31,7 +31,7 @@ export class SupervisionEditPage implements OnInit {
   @Input() company_id;
   @Input() project_id;
   email:string;
-  emailaddress:string
+  emailaddress:string;
   directlyInput:string;
   form: SupervisionEdit = new SupervisionEdit();
 

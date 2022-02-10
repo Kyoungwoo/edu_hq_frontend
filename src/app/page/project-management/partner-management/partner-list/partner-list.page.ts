@@ -49,7 +49,7 @@ export class PartnerListPage implements OnInit {
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
-        company_id:company_id
+        company_id
       }
     });
     modal.present();

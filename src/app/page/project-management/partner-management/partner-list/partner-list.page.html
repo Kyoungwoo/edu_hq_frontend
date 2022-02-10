@@ -7,7 +7,9 @@
         <ion-toolbar slot="top" color="white">
           <app-row style="justify-content: space-between;">
             <app-col size="auto"><h5>필터</h5></app-col>
-            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button>
+            </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
@@ -23,7 +25,7 @@
           </tr>
           <tr>
             <td>
-              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
             </td>
           </tr>
         </tbody>
@@ -36,7 +38,7 @@
             <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
           </app-col>
         </ion-buttons>
-      </ion-toolbar>
+      </ion-toolbar>        
       <ion-toolbar color="white">
         <h5>협력사 관리 목록 (총{{ res?.rsMap?.length}}건)</h5>
       </ion-toolbar>

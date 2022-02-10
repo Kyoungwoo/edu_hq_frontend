@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
 export class resObj {
   business_register_no: string;
-  company_ceo: string
-  company_file_data: null
+  company_ceo: string;
+  company_file_data: null;
   company_id: number;
   company_name: string;
   company_phone: string;
@@ -22,12 +25,13 @@ export class resObj {
 export class PartnerEditPage implements OnInit {
 
   @Input() company_id;
+  @Input() type?: boolean = false;
 
   resObj:resObj = new resObj();
   updateStatus: boolean = false;
-
+  savestatus:boolean = false;
   email:string;
-  emailaddress:string
+  emailaddress:string;
   directlyInput:string;
   resMap:Array <{
     contract_amount: string;
@@ -44,28 +48,46 @@ export class PartnerEditPage implements OnInit {
     project_name: string;
   }> = [];
 
+  selectList = [];
   selected_check = [];
-  Ctgoconstruction:ConnectResult <{
+  res:ConnectResult <{
+    checked: boolean;
     ctgo_construction_id: number,
     ctgo_construction_name: string,
-    project_id: number
+    project_id: number,
+    master_company_id: number,
+    contract_name: string,
+    contract_amount: number,
+    contract_start_date: number,
+    contract_end_date: number,
+
+
+
   }>
   constructor(
     private connect: ConnectService,
-    private date:DateService
+    private alert: AlertService,
+    private date: DateService,
+    private toast: ToastService,
+    private _modal: ModalController,
+
   ) { }
 
   ngOnInit() {
+    console.log(this.company_id)
     if(this.company_id){
       this.updateStatus = true;
-      this.getItem();
+    }
+    else{
+      this.savestatus = true;
     }
     this.getCtgoCon();
-  
+    this.getItem();
   }
 
   async getItem() {
-    const res = await this.connect.run('/project/company/partner/detail',{company_id:this.company_id},{});
+    const res = await this.connect.run('/project/company/partner/detail',
+    {company_id:this.company_id},{});
     if(res.rsCode === 0) {
       this.resMap = res.rsMap;
       this.resObj = res.rsObj;
@@ -92,8 +114,8 @@ export class PartnerEditPage implements OnInit {
     )
   }
   async getCtgoCon() {
-    this.Ctgoconstruction = await this.connect.run('/category/construction/get',{project_id:1});
-    if(this.Ctgoconstruction.rsCode === 0) {
+    this.res = await this.connect.run('/category/construction/get',{project_id:1});
+    if(this.res.rsCode === 0) {
 
     }
   }
@@ -102,55 +124,57 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contSave() {
+    console.log("----------------88888888",this.resObj);
+    if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
+    // if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
+    // if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
+    // if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
     if(this.emailaddress !== '직접입력') {
         this.resObj.manager_email = this.email + '@' + this.emailaddress;
     } else {
       this.resObj.manager_email = this.email + '@' + this.directlyInput;
     }
-    // if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
-    // if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
-    // if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
-    // if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    // // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
+    
+    // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
     // this.form.manager_email = this.email + '@' + this.emailaddress;
     
-    // this.alert.present({
-    //   message: '저장하시겠습니까?',
-    //   buttons: [
-    //     { text: '아니오' },
-    //     {
-    //       text: '예',
-    //       handler: async () => {
-    //         const res = await this.connect.run('/project/company/masters/update', this.form, {});
-    //         if (res.rsCode === 0) {
-    //           this._modal.dismiss();
-    //         }
-    //       }
-    //     }
-    //   ]
-    // })
+    const alert = await this.alert.present({
+      message: '저장하시겠습니까?',
+      buttons: [
+        { text: '아니오' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/project/company/partner/insert', this.resObj, {});
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   async contDelete() {
     console.log("asdfasdfasdf",this.selected_check);
-    // const alert = await this.alert.present({
-    //   message: '삭제 하시겠습니까?',
-    //   buttons: [
-    //     { text: '아니요' },
-    //     {
-    //       text: '예',
-    //       handler: async () => {
-    //         const res = await this.connect.run('/project/company/masters/delete', {
-    //           company_id: this.company_id,
-    //           project_id: this.project_id
-    //         });
-    //         if (res.rsCode === 0) {
-    //           this._modal.dismiss('Y');
-    //         }
-    //       }
-    //     }
-    //   ]
-    // })
+    const alert = await this.alert.present({
+      message: '삭제 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/project/company/partner/delete', {
+              company_id: this.company_id,
+            });
+            if (res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            }
+          }
+        }
+      ]
+    })
   }
 
   contUpdate() {
@@ -159,6 +183,35 @@ export class PartnerEditPage implements OnInit {
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     console.log(this.email)
-    this.updateStatus = true;
+    this.updateStatus = false;
+  }
+
+  async selectDelete() {
+    const list = this.resMap
+    console.log(this.selectList);
+    this.selectList.forEach(checkedItem => {
+      console.log("checkedItem",checkedItem);
+        list.splice(checkedItem, 1);
+    });
+    this.selectList = [];
+    // const alert = await this.alert.present({
+    //   message: '삭제 하시겠습니까?',
+    //   buttons: [
+    //     { text: '아니요' },
+    //     {
+    //       text: '예',
+    //       handler: async () => {
+    //             for (let i = 0; i < this.selectList.length; i++) {
+    //               const res = await this.connect.run('/project/company/masters/delete', {
+    //                 project_id: this.res.project_id
+    //               });
+    //               if (res.rsCode === 0) { this.getCtgoCon() };
+    //             }
+    //         }
+    //       }
+        
+    //   ]
+    // });
+    // alert.present();
   }
 }

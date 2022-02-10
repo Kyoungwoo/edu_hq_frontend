@@ -12,13 +12,13 @@ export class SupervisionListPage implements OnInit {
 
   form = {
     company_contract_type: '감리사',
-    // hq_business_ids:[],
-    // hq_regional_ids: [1],
+    hq_business_ids:[],
+    hq_regional_ids: [],
     limit_no: 0,
     master_company_ids:[],
     search_text: '',
-    hq_regional_id: 0,
-    hq_business_id: 0
+    // hq_regional_id: 0,
+    // hq_business_id: 0
   }
 
   res:ConnectResult <{
@@ -62,17 +62,23 @@ export class SupervisionListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ctgoBusiness = {
+      errorStatus: null,
+      rsCode: null,
+      rsObj: null,
+      rsMsg: '',
+      rsMap: [],
+      rqMethod: ''
+    }
     this.getList();
     this.getCtgoBusiness();
     this.getCtgoRegional();
   }
 
   async getList() {
+
     const res = await this.connect.run('/project/company/masters/list',this.form);
-    if(res.rsCode === 0 ) {
-      this.res = res;
-      console.log("res",res);
-    }
+    if(res.rsCode === 0 ) this.res = res;
   }
 
   async edit(item) {
@@ -93,8 +99,12 @@ export class SupervisionListPage implements OnInit {
     }
   }
   async getCtgoBusiness() {
-    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_id},{});
-    console.log(this,this.ctgoRegional);
+    console.log(this.form.hq_regional_ids);
+    this.ctgoBusiness.rsMap = [];
+    if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+
+    
+    // console.log(this,this.ctgoRegional);
     // if(this.ctgoRegional.rsCode === 0) {
     // }
   }

@@ -7,28 +7,32 @@
         <ion-toolbar slot="top" color="white">
           <app-row style="justify-content: space-between;">
             <app-col size="auto"><h5>필터</h5></app-col>
-            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button></app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select label="지역본부"></app-select>
+              <app-select label="지역본부"  [(ngModel)]="form.hq_regional_ids" (change)="getCtgoBusiness()">
+                <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="[opt.hq_regional_id]">{{ opt.hq_regional_name }}</app-select-option>
+              </app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select label="사업본부"></app-select>
+              <app-select label="사업본부" [(ngModel)]="form.hq_business_ids">
+                <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_business_name }}</app-select-option>
+              </app-select>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-contractor [(ngModel)]="form.master_company_ids"></app-select-contractor>
+              <app-select-contractor [type]="false" [(ngModel)]="form.master_company_ids"></app-select-contractor>
             </td>
           </tr>
           <tr>
             <td>
-              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
             </td>
           </tr>
         </tbody>
