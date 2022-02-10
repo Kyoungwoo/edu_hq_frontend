@@ -45,7 +45,7 @@
         </app-col>
       </app-row>
     </ion-toolbar>
-    <app-table class="button" >
+    <app-table class="button">
       <thead>
         <tr>
           <th>회사명</th>
@@ -83,7 +83,7 @@
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card> -->
+  </app-card>
   <div style="overflow: scroll;">
     <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectItem === item ? 'secondary' : 'white'" (click)="selectItem = item">
       <app-row>

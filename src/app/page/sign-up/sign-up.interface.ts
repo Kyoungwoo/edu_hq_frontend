@@ -20,5 +20,13 @@ export class SignUpProjectInfoMock {
   project_name = "데브현장";
 }
 
+export class SignUpTerms {
+  system_terms:number = null; // 시스템 이용약관
+  personal_terms:number = null; // 개인정보 이용약관
+  sensitive_terms?:number = null; // 민감정보 이용약관
+  gps_terms:number = null; // 위치정보 이용약관
+  sharing_terms:number = null; // 제 3자 정보제공 이용약관
+}
+
 /** PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증 */
 export type SignUpViewType = 'PROFILE'|'BASIC_SAFE_EDU'|'CERTIFY';

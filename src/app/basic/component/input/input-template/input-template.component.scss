@@ -92,6 +92,9 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+    app-check + app-check {
+        margin-top: var(--app-padding);
+    }
     app-check {
         --app-size: 26px;
     }

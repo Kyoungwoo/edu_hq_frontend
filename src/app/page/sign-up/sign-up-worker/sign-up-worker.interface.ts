@@ -1,7 +1,7 @@
 import { FutItem, FileBlob, FileJson } from "src/app/basic/service/core/file.service";
 import { UserGender } from "src/app/basic/service/core/user.service";
 import { RegexService } from "src/app/basic/service/util/regex.service";
-import { SignUpViewType, SignUpCountryMock, SignUpCompanyInfoMock, SignUpProjectInfoMock } from "../sign-up.interface";
+import { SignUpViewType, SignUpCountryMock, SignUpCompanyInfoMock, SignUpProjectInfoMock, SignUpTerms } from "../sign-up.interface";
 
 const regex = new RegexService();
 
@@ -39,7 +39,7 @@ export class SignUpWorkerHealth {
   covid_vaccine_state:boolean = null; //코로나 백신접종 여부
   health_terms_state:boolean = null; //문진표 작성동의 여부
 }
-export class SignUpWorkerForm implements signUpWorkerInfo, SignUpWorkerHealth {
+export class SignUpWorkerForm implements signUpWorkerInfo, SignUpWorkerHealth, SignUpTerms {
   account_id:string = null; // 아이디
   account_token:string = null; //비밀번호
   account_token_conform:string = null; //account_token_conform
@@ -71,6 +71,12 @@ export class SignUpWorkerForm implements signUpWorkerInfo, SignUpWorkerHealth {
   covid_nineteen_content:string = null; //코로나 증상내용
   covid_vaccine_state:boolean = null; //코로나 백신접종 여부
   health_terms_state:boolean = null; //문진표 작성동의 여부
+
+  system_terms:number = null; // 시스템 이용약관
+  personal_terms:number = null; // 개인정보 이용약관
+  sensitive_terms:number = null; // 민감정보 이용약관
+  gps_terms:number = null; // 위치정보 이용약관
+  sharing_terms:number = null; // 제 3자 정보제공 이용약관
 }
 
 export class signUpWorkerInfoMock implements signUpWorkerInfo {

@@ -14,6 +14,7 @@
           <tr>
             <td>
               <app-select label="지역본부"  [(ngModel)]="form.hq_regional_ids" (change)="getCtgoBusiness()">
+                <app-select-option [value]="[]">전체</app-select-option>
                 <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="[opt.hq_regional_id]">{{ opt.hq_regional_name }}</app-select-option>
               </app-select>
             </td>
@@ -27,7 +28,7 @@
           </tr>
           <tr>
             <td>
-              <app-select-contractor [type]="false" [(ngModel)]="form.master_company_ids"></app-select-contractor>
+              <app-select-contractor [multiple]="false" [(ngModel)]="form.master_company_ids"></app-select-contractor>
             </td>
           </tr>
           <tr>

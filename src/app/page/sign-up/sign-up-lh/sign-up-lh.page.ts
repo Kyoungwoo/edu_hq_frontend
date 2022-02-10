@@ -84,9 +84,6 @@ export class SignUpLhPage implements OnInit {
     
     // 다음 페이지로
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-
-    console.log(this.form);
-    console.log(this.validator);
   }
 
   private checkParams() {
@@ -97,6 +94,8 @@ export class SignUpLhPage implements OnInit {
     this.nav.navigateBack('/sign-up-type');
   }
   public async next() {
+    console.log(this.form);
+    console.log(this.validator);
     if(!this.valid()) return;
 
     this.nav.navigateForward('/sign-up-terms', {
@@ -215,11 +214,6 @@ export class SignUpLhPage implements OnInit {
     this.validator.file_preview = { valid: true };
     this.validator.file = { valid: true };
     this.validator.file_json = { valid: true };
-
-    this.validator.system_terms = { valid: true }; // 시스템 이용약관
-    this.validator.personal_terms = { valid: true }; // 개인정보 이용약관
-    this.validator.gps_terms = { valid: true }; // 위치정보 이용약관
-    this.validator.sharing_terms = { valid: true }; // 제 3자 정보제공 이용약관
 
     for(let key in this.validator) {
       if(!this.validator[key]?.valid) return false;

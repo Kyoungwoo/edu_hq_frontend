@@ -31,7 +31,6 @@ export class ToastService {
       buttons: opts?.buttons,
       duration: opts?.duration || 1800,
       enterAnimation: (baseEl:ShadowRoot) => {
-        console.log(baseEl);
         const wrapperEl = <HTMLElement>baseEl.childNodes[0];
         wrapperEl.style.bottom = '0';
         wrapperEl.style.paddingBottom = 'calc(var(--ion-safe-area-bottom, 0px))';
