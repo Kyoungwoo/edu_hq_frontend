@@ -59,13 +59,13 @@ export class LoginPage implements OnInit, ViewDidEnter {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    if(environment.test.SignUp.type.length) {
-      el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
-      return false;
-    } else {
-      environment.test.SignUp.done = true;
-      return true;
-    }
+    // if(environment.test.SignUp.type.length) {
+    //   el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
+    //   return false;
+    // } else {
+    //   environment.test.SignUp.done = true;
+    //   return true;
+    // }
   }
   private async testFindId():Promise<boolean> {
     if(!environment.test.FindId.test) return true;

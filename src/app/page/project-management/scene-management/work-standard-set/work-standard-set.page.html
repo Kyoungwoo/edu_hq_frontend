@@ -126,7 +126,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length}}건)</h5>
+            <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length ? resMachinery?.rsMap?.length: 0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="machinerySave()">저장</app-button>
@@ -355,7 +355,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length}}건)</h5>
+            <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length ? resDisaster?.rsMap?.length:0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="disasterSave()">저장</app-button>
