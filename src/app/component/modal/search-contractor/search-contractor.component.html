@@ -77,13 +77,13 @@
 </ion-content>
 
 <ion-content *ngIf="!multiple">
-  <!-- <app-card>
+  <app-card>
     <app-row>
       <app-col style="cursor: pointer;" (click)="addCompany()">
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
-  </app-card> -->
+  </app-card>
   <div style="overflow: scroll;">
     <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectItem === item ? 'secondary' : 'white'" (click)="selectItem = item">
       <app-row>

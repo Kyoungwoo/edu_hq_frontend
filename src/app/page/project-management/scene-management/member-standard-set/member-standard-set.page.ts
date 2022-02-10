@@ -16,6 +16,8 @@ export class MemberStandardSetPage implements OnInit {
   menuCount: Number = 1;
 
   //lh 조직관리 시작
+
+
   resLevel1: ConnectResult<{
     hq_regional_entire_state: number, // 본사권한 = 1
     hq_regional_id: number, // id
@@ -45,6 +47,13 @@ export class MemberStandardSetPage implements OnInit {
     hq_business_id: number, // 사업본부 ID
     checked: boolean
   }>
+  area1SelectList = [];
+  area2SelectList = [];
+  area3SelectList = [];
+
+  area1SelectCheck:boolean;
+  area2SelectCheck:boolean;
+  area3SelectCheck:boolean;
 
   //lh 조직관리 끝
 
@@ -74,7 +83,6 @@ export class MemberStandardSetPage implements OnInit {
 
   jobForm: number = 0;
   addPosition = [];
-
   selectList = [];
 
   //직위 관리 끝
@@ -172,11 +180,25 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async levelEdit(level) {
-    console.log("this.selectId", this.selectList);
+    console.log("this.area1SelectList",this.area1SelectList);
+    let selectData = [];
+    switch(level) {
+      case 'level1':
+        selectData = this.area1SelectList;
+      break;
+      case 'level2':
+        selectData = this.area2SelectList;
+      break;
+      case 'level3':
+        selectData = this.area3SelectList;
+      break;
+    }
+    console.log("selectData",selectData);
     const modal = await this.modal.create({
       component: OrganizationEditComponent,
       componentProps: {
-        selectList: this.selectList
+        selectList: selectData,
+        level:level
       },
       cssClass: 'lhOrganization'
     });
@@ -187,10 +209,6 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
 
-  checkState(ev, item, level) {
-    ev.stopPropagation();
-    console.log(item.checked);
-  }
 
   //-->  lh조직관리 끝
 

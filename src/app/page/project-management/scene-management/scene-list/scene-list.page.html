@@ -16,7 +16,7 @@
         <tbody>
           <tr>
             <td>
-              <app-select label="지역본부" [(ngModel)]="form.hq_regional_ids">
+              <app-select label="지역본부" [(ngModel)]="form.hq_regional_ids" (change)="getCtgoBusiness()">
                 <app-select-option [value]="[]">전체</app-select-option>
                 <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="[opt.hq_regional_id]">{{ opt.hq_regional_name }}</app-select-option>
               </app-select>
@@ -24,8 +24,8 @@
           </tr>
           <tr>
             <td>
-              <app-select label="사업본부" [(ngModel)]="form.hq_business_ids">
-                <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_business_name }}</app-select-option>
+              <app-select label="사업본부" [disabled]="businessState" [(ngModel)]="form.hq_business_ids">
+                <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="[opt.hq_regional_id]">{{ opt.hq_business_name }}</app-select-option>
               </app-select>
             </td>
           </tr>
@@ -50,7 +50,7 @@
         </app-col>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>현장 목록 (총90건)</h5>
+        <h5>현장 목록 (총{{res?.rsMap?.length ? res?.rsMap?.length : 0}}건)</h5>
       </ion-toolbar>
       <!-- check-group ngModel -->
       <app-check-group >

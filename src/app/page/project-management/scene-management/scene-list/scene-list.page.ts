@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -51,37 +52,31 @@ export class SceneListPage implements OnInit {
     hq_business_id: number
   }>
 
+  businessState:boolean = true;
   constructor(
     private modal:ModalController,
     private connect:ConnectService,
     private toast:ToastService,
     private date:DateService,
-    private alert:AlertService
+    private alert:AlertService,
+    private user: UserService
   ) { }
 
   ngOnInit() {
-    this.ctgoBusiness = {
-      errorStatus: null,
-      rsCode: null,
-      rsObj: null,
-      rsMsg: '',
-      rsMap: [],
-      rqMethod: ''
-    }
-
-    this.getCtgoBusiness();
+    console.log("this.user.userData",this.user.userData);
     this.getCtgoRegional();
-    this.getList();
   }
 
   async getList() {
-    const res = await this.connect.run('/project/list',this.form,{
+    this.res = await this.connect.run('/project/list',{
+      hq_business_ids:this.form.hq_business_ids,
+      hq_regional_ids:this.form.hq_regional_ids,
+      search_text:'',
+      limit_no:0,
+    },{
       loading:'현장 불러온느중'
     });
-    console.log("---------------",res);
-    if(res.rsCode === 0) {
-      this.res = res;
-    }
+    if(this.res.rsCode === 0) {}
   }
 
   async use_submit() {
@@ -105,6 +100,9 @@ export class SceneListPage implements OnInit {
     // }
   }
   async edit(project_id?) {
+    if(this.form.hq_regional_ids.length) {
+      if(!this.form.hq_business_ids.length) return this.toast.present({message:'사업본부를 선택해주세요.',color:'danger'});
+    }
     const modal = await this.modal.create({
       component:SceneEditPage,
       componentProps: { project_id }
@@ -139,14 +137,17 @@ export class SceneListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
+  
   async getCtgoBusiness() {
-    console.log(this.form.hq_regional_ids);
-    this.ctgoBusiness.rsMap = [];
-    if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
-
-    
-    // console.log(this,this.ctgoRegional);
-    // if(this.ctgoRegional.rsCode === 0) {
-    // }
+    console.log("this.form.hq_regional_ids",this.form.hq_regional_ids);
+      if(this.form.hq_regional_ids.length){
+        this.businessState = false;
+        this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+        console.log(this,this.ctgoRegional);
+        if(this.ctgoRegional.rsCode === 0) {}
+      } else {
+        this.businessState = true;
+        this.form.hq_business_ids = [];
+      }
   }
 }

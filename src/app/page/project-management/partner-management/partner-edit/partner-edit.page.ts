@@ -69,7 +69,8 @@ export class PartnerEditPage implements OnInit {
     contract_name: string,
     contract_amount: number,
     contract_start_date: number,
-    contract_end_date: number
+    contract_end_date: number,
+    business_register_no: string;
   }>
 
   constructor(
@@ -185,14 +186,16 @@ export class PartnerEditPage implements OnInit {
     })
   }
 
-  contUpdate() {
+  async contUpdate() {
     //나중에 정규식으로 고침
     let spliteamil = this.resObj.manager_email.split('@');
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     console.log(this.email)
     this.updateStatus = false;
+ 
   }
+  
 
   async selectDelete() {
     const list = this.resMap
