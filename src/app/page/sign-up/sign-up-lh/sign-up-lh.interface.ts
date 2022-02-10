@@ -23,9 +23,14 @@ export class SignUpLhForm {
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
   file_json:FileJson = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
+
+  system_terms:number = null; // 시스템 이용약관
+  personal_terms:number = null; // 개인정보 이용약관
+  gps_terms:number = null; // 위치정보 이용약관
+  sharing_terms:number = null; // 제 3자 정보제공 이용약관
 }
 
-export class SignUpLhFormMock implements SignUpLhForm{
+export class SignUpLhFormMock implements SignUpLhForm {
   user_name:string = regex.random.id('김수홍_lh');; //이름
   account_id:string = regex.random.id('lh'); //아이디
   account_token:string = 'qwer1234'; //비밀번호
@@ -45,4 +50,9 @@ export class SignUpLhFormMock implements SignUpLhForm{
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
   file_json:FileJson = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
+
+  system_terms:number = null; // 시스템 이용약관
+  personal_terms:number = null; // 개인정보 이용약관
+  gps_terms:number = null; // 위치정보 이용약관
+  sharing_terms:number = null; // 제 3자 정보제공 이용약관
 }
