@@ -111,20 +111,20 @@ export class ConnectService {
 
     if(options?.parse) {
       if(result.rsObj) {
-        try {
-          options?.parse.forEach(key => {
+        options?.parse.forEach(key => {
+          try {
             result.rsObj[key] = JSON.parse(result.rsObj[key]);
-          });
-        } catch(e) {}
+          } catch(e) {}
+        });
       }
       if(result.rsMap) {
-        try {
-          options?.parse.forEach(key => {
-            result.rsMap.forEach(rsObj => {
-              rsObj[key] = JSON.parse(result.rsObj[key]);
-            });
+        options?.parse.forEach(key => {
+          result.rsMap.forEach(rsObj => {
+            try {
+              rsObj[key] = JSON.parse(rsObj[key]);
+            } catch(e) {}
           });
-        } catch(e) {}
+        });
       }
     }
 
