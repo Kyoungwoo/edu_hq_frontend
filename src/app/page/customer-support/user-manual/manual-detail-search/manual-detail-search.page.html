@@ -7,24 +7,15 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-input-group label="구분">
-    <app-select placeholder="선택">
-      <app-select-option value="로그인">로그인</app-select-option>
-      <app-select-option value="회원가입">회원가입</app-select-option>
-      <app-select-option value="회원관리">회원관리</app-select-option>
-      <app-select-option value="마이페이지">마이페이지</app-select-option>
-      <app-select-option value="현장관리">현장관리</app-select-option>
-    </app-select>
+  <app-select-manual [(ngModel)]="temptForm.ctgo_manual_ids" [multiple]="true"></app-select-manual>
+  <app-input-group label="등록일" [required]="true">
+    <app-calendar name="start_date" [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
+    ~
+    <app-calendar name="end_date" [(ngModel)]="temptForm.end_date" [min]="temptForm.start_date"></app-calendar>
   </app-input-group>
-    <app-input-group label="등록일">
-      <app-calendar name="calendar"></app-calendar>
-      ~
-      <app-calendar name="calendar"></app-calendar>
-    </app-input-group>
-    <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-    </app-input>
+  <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="temptForm.search_text"></app-input>
 </ion-content>
 <app-button-footer>
-  <app-button>초기화</app-button>
-  <app-button>검색</app-button>
+  <app-button (click)="reset()">초기화</app-button>
+  <app-button (click)="search()">검색</app-button>
 </app-button-footer>

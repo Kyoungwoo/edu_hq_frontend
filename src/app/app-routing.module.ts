@@ -494,6 +494,10 @@ const routes: Routes = [
   {
     path: 'find-password-mobile-result',
     loadChildren: () => import('./page/login/find-mobile/find-password-mobile-result/find-password-mobile-result.module').then( m => m.FindPasswordMobileResultPageModule)
+  },
+  {
+    path: 'manual-detail',
+    loadChildren: () => import('./page/user-manual/manual-detail/manual-detail.module').then( m => m.ManualDetailPageModule)
   }
 ];
 

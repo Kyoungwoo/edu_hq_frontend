@@ -1,7 +1,9 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 import { SelectOption } from '../select-option/select-option.component';
 
 @Component({
@@ -20,13 +22,31 @@ export class SelectMultiplePopoverComponent implements OnInit {
   initInterval;
 
   constructor(
+    private el: ElementRef<HTMLElement>,
     private _popover: PopoverController,
-    private file: FileService
+    private file: FileService,
+    private promise: PromiseService
   ) {}
 
   ngOnInit() {}
   ngAfterViewInit() {
     this.scrollToIndex(this.virtualScroll, this.opts, this.value);
+    if(environment.test) this.test();
+  }
+
+  private async test() {
+    if(!environment.test.core.test) return;
+    const el = this.el.nativeElement;
+    await this.promise.wait();
+
+    // 가장 첫번째 놈과 두번째놈을 클릭해서 값을 가져온다.
+    const options = el.querySelectorAll('[name=select_option]');
+    options[0]?.dispatchEvent(new Event('click'));
+    options[1]?.dispatchEvent(new Event('click'));
+    await this.promise.wait();
+
+    // 선택
+    el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
   }
 
   public onClick(item:SelectOption) {

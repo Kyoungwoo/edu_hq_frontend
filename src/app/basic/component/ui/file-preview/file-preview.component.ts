@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FutItem } from 'src/app/basic/service/core/file.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { FutItem } from 'src/app/basic/service/core/file.service';
 export class FilePreviewComponent implements OnInit {
 
   @Input() futItem:FutItem;
+
+  @Output() buttonClick = new EventEmitter();
 
   constructor() { }
 

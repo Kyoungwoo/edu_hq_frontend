@@ -18,6 +18,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.onKeyup();
   }
 
+  @Input() name:string = '';
   @Input() color:Color;
   @Input() label:string = "";
   @Input() placeholder:string = "";

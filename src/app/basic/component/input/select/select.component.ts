@@ -28,6 +28,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() color:Color;
   @Input() label:string;
   @Input() placeholder = '선택';
+  @Input() button:boolean = true;
   @Input() multiple:boolean = false;
 
   public type:SelectOptionType = 'default';
