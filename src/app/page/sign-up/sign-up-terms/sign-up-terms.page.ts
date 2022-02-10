@@ -1,30 +1,29 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { fadeInAnimation } from 'src/app/basic/basic.animation';
+import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
 import { SignUpDonePage } from '../sign-up-done/sign-up-done.page';
-import { SignUpLhForm } from '../sign-up-lh/sign-up-lh.interface';
-import { SignUpPartnerForm } from '../sign-up-partner/sign-up-partner.inerface';
-import { SignUpSupervisionForm } from '../sign-up-supervision/sign-up-supervision.interface';
-import { SignUpWorkerForm } from '../sign-up-worker/sign-up-worker.interface';
+import { SignUpTerms } from '../sign-up.interface';
 
 @Component({
   selector: 'app-sign-up-terms',
   templateUrl: './sign-up-terms.page.html',
   styleUrls: ['./sign-up-terms.page.scss'],
+  animations: [ fadeInAnimation ]
 })
 export class SignUpTermsPage implements OnInit {
 
   userType:UserType;
   
-  lhForm:SignUpLhForm;
-  supervisionForm:SignUpSupervisionForm;
-  partnerForm:SignUpPartnerForm;
-  workerForm:SignUpWorkerForm;
+  prevForm;
+  form = new SignUpTerms();
+
+  validator = new Validator(new SignUpTerms()).validator;
 
   res:ConnectResult;
 
@@ -41,19 +40,19 @@ export class SignUpTermsPage implements OnInit {
     if(!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
     if(this.userType === 'LH') {
       const { signUpLhForm } = history.state;
-      this.lhForm = signUpLhForm;
+      this.prevForm = signUpLhForm;
     }
     else if(this.userType === 'SUPER') {
-      const { signUpSupervisionForm } = history.state;
-      this.supervisionForm = signUpSupervisionForm;
+      const { SignUpSuperForm } = history.state;
+      this.prevForm = SignUpSuperForm;
     }
     else if(this.userType === 'COMPANY') {
       const { signUpPartnerForm } = history.state;
-      this.partnerForm = signUpPartnerForm;
+      this.prevForm = signUpPartnerForm;
     }
     else if(this.userType === 'WORKER') {
       const { signUpWorkerInfo, signUpWorkerHealth } = history.state;
-      this.workerForm = {
+      this.prevForm = {
         ...signUpWorkerInfo,
         ...signUpWorkerHealth
       }
@@ -67,12 +66,17 @@ export class SignUpTermsPage implements OnInit {
     if(!environment.test.SignUp.test) return;
     
     const el = this.el.nativeElement;
+    await this.promise.wait();
 
-    // 약관 동의 (현재 없음)
-
+    // 약관 동의
+    el.querySelector('[name=system_terms]').dispatchEvent(new Event('click'));
+    el.querySelector('[name=personal_terms]').dispatchEvent(new Event('click'));
+    if(this.userType === 'WORKER') el.querySelector('[name=sensitive_terms]').dispatchEvent(new Event('click'));
+    el.querySelector('[name=gps_terms]').dispatchEvent(new Event('click'));
+    el.querySelector('[name=sharing_terms]').dispatchEvent(new Event('click'));
 
     // 회원 가입
-    // el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
+    el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
   }
 
   private checkParams() {
@@ -80,7 +84,7 @@ export class SignUpTermsPage implements OnInit {
       this.userType = 'LH';
       return true;
     }
-    else if(history.state?.signUpSupervisionForm) {
+    else if(history.state?.SignUpSuperForm) {
       this.userType = 'SUPER';
       return true;
     }
@@ -101,29 +105,32 @@ export class SignUpTermsPage implements OnInit {
     this.nav.back();
   }
   done() {
+    console.log(this.prevForm);
+    console.log(this.form);
+    console.log(this.validator);
+    if(!this.valid()) return;
     this.signUp();
   }
 
   private async signUp() {
     let api = '';
-    let form;
     if(this.userType === 'LH') {
       api = '/sign/up/lh';
-      form = this.lhForm;
     }
     else if(this.userType === 'SUPER') {
       api = '/sign/up/super';
-      form = this.supervisionForm;
     }
     else if(this.userType === 'COMPANY') {
       api = '/sign/up/company';
-      form = this.partnerForm;
     }
     else if(this.userType === 'WORKER') {
       api = '/sign/up/worker';
-      form = this.workerForm;
-    } 
-    this.res = await this.connect.run(api, form, {
+    }
+
+    this.res = await this.connect.run(api, {
+      ...this.prevForm,
+      ...this.form
+    }, {
       loading: true
     });
     if(this.res.rsCode === 0) {
@@ -134,11 +141,34 @@ export class SignUpTermsPage implements OnInit {
       this.nav.navigateRoot('/login', {
         force: true
       });
-    } else {
-      this.toast.present({
-        color: 'warning',
-        message: this.res.rsMsg
-      });
     }
+  }
+
+  private valid():boolean {
+    if(!this.form.system_terms) this.validator.system_terms = { message: '시스템 이용약관에 동의해주세요.', valid: false };
+    else this.validator.system_terms = { valid: true };
+
+    if(!this.form.personal_terms) this.validator.personal_terms = { message: '개인정보 수집 및 이용에 동의해주세요.', valid: false };
+    else this.validator.personal_terms = { valid: true };
+
+    if(this.userType === 'WORKER') {
+      // 민감정보는 worker 만 받음
+      if(!this.form.sensitive_terms) this.validator.sensitive_terms = { message: '민감정보 제공 및 이용에 동의해주세요.', valid: false };
+      else this.validator.sensitive_terms = { valid: true };
+    } else {
+      this.validator.sensitive_terms = { valid: true };
+    }
+
+    if(!this.form.gps_terms) this.validator.gps_terms = { message: '위치정보 시스템 이용약관에 동의해주세요.', valid: false };
+    else this.validator.gps_terms = { valid: true };
+
+    if(!this.form.sharing_terms) this.validator.sharing_terms = { message: '제3자 정보제공에 동의해주세요.', valid: false };
+    else this.validator.sharing_terms = { valid: true };
+    
+    for(let key in this.validator) {
+      if(!this.validator[key]?.valid) return false;
+    }
+
+    return true;
   }
 }
