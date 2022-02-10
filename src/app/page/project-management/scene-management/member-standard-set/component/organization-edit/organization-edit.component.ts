@@ -37,7 +37,7 @@ export class OrganizationEditComponent implements OnInit {
     hq_regional_id: 6,
     hq_regional_name: ''
   }
-
+  title = '';
 
   constructor(
     private connect: ConnectService,
@@ -48,35 +48,52 @@ export class OrganizationEditComponent implements OnInit {
   ngOnInit() {
     console.log("this.selectList",this.selectList);
     console.log("this.selectList",this.level);
-    if(this.level === 'level1') {
-      this.level1 = this.selectList[0];
-      console.log('inptuselect',this.level1);
-    }
-    if(this.level === 'level2') {
-      this.level2 = this.selectList[0];
-      console.log('inptuselect',this.level1);
-    }
-    if(this.level === 'level3') {
-      this.level3 = this.selectList[0];
-      console.log('inptuselect',this.level1);
-    }
+    if(this.selectList.length) {
+      this.title = '수정';
+      if(this.level === 'level1') {
+        this.level1 = this.selectList[0];
+        console.log('inptuselect',this.level1);
+      }
+      if(this.level === 'level2') {
+        this.level2 = this.selectList[0];
+        console.log('inptuselect',this.level1);
+      }
+      if(this.level === 'level3') {
+        this.level3 = this.selectList[0];
+        console.log('inptuselect',this.level1);
+      }
+    } else  this.title = '추가'
   }
 
   dismiss(){
     this._modal.dismiss();
   }
   async addOrganization(){
-    console.log(this.level1);
+    console.log(this.level);
     const alert = await this.alert.present({
-      message:'적용 하시겠습니까?',
+      message:`${this.title} 하시겠습니까?`,
       buttons:[
         {text:'아니요'},
         {text:'예',
           handler: async() =>{
             console.log(this.level1);
-            const res = await this.connect.run('/project/organization/regional/insert',this.level1,{});
-            if(res.rsCode === 0) {
-              this._modal.dismiss('level1');
+            if(this.level === 'level1'){
+              const res = await this.connect.run('/project/organization/regional/insert',this.level1,{});
+              if(res.rsCode === 0) {
+                this._modal.dismiss('level1');
+              }
+            }
+            if(this.level === 'level2'){
+              const res = await this.connect.run('/project/organization/business/insert',this.level2,{});
+              if(res.rsCode === 0) {
+                this._modal.dismiss('level2');
+              }
+            }
+            if(this.level === 'level3'){
+              const res = await this.connect.run('/project/organization/department/insert',this.level3,{});
+              if(res.rsCode === 0) {
+                this._modal.dismiss('level3');
+              }
             }
           }
         }

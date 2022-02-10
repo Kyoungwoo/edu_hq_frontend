@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
@@ -10,6 +12,10 @@ export class ManualUpdateForm {
   ctgo_manual_id:number = null; // 구분 ID
   manual_id:number = null; // 사용자 매뉴얼 ID
   pin_state: number = 0; // 상단 고정
+  manual_ctgo_data: {
+    ctgo_manual_id: number,
+    ctgo_manual_name: string
+  }[] = [];
   manual_title:string = null; // 제목
   manual_text:string = null; // 내용
   manual_file_data: FutItem[];
@@ -20,6 +26,7 @@ export class ManualUpdateForm {
   create_user_name: string;
   create_date: string;
   company_id: number;
+  company_name: string;
   manual_views: number;
   update_user_id: string;
   update_user_name: string;
@@ -42,6 +49,8 @@ export class ManualEditPage implements OnInit {
     private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
     private nav: NavService,
+    private date: DateService,
+    private user: UserService,
     public regex: RegexService,
     private promise: PromiseService,
     private changeDetector: ChangeDetectorRef
@@ -51,6 +60,12 @@ export class ManualEditPage implements OnInit {
     if(this.manual_id) {
       this.form.manual_id = this.manual_id;
       this.get();
+    } else {
+      const userData = this.user.userData;
+      this.form.create_date = this.date.today();
+      this.form.update_date = this.form.create_date;
+      this.form.create_user_name = userData.user_name;
+      this.form.company_name = userData.belong_data.company_name;
     }
     if(environment.test) this.test();
   }
@@ -60,13 +75,15 @@ export class ManualEditPage implements OnInit {
   }
 
   private async get() {
-    const res = await this.connect.run('/manual/get', {
+    const res = await this.connect.run('/support/manual/get', {
       manual_id: this.form.manual_id
+    }, {
+      parse: ['manual_ctgo_data']
     });
     if(res.rsCode === 0) {
       this.form = {
-        ...res.rsObj,
-        ...this.form
+        ...this.form,
+        ...res.rsObj
       }
     } else {
       this.connect.error('error', res);
@@ -76,7 +93,7 @@ export class ManualEditPage implements OnInit {
   public async insert() {
     if(!this.valid()) return;
 
-    this.res = await this.connect.run('/manual/insert', this.form, {
+    this.res = await this.connect.run('/support/manual/insert', this.form, {
       loading: true
     });
   }

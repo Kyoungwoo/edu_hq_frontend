@@ -55,7 +55,7 @@
                   <thead>
                     <tr>
                       <th style="width: 20px;">
-                        <app-check type="default"></app-check>
+                        <app-check type="all"></app-check>
                       </th>
                       <th>코드</th>
                       <th>level 1</th>
@@ -66,7 +66,7 @@
                   <tbody>
                     <tr class="button" *ngFor="let item of resLevel1?.rsMap" (click)="level2In(item)">
                       <td>
-                        <app-check name="level1" [on]="item" [(ngModel)]="area1SelectCheck" (click)="$event.stopPropagation()"></app-check>
+                        <app-check name="level1" [on]="item" (click)="$event.stopPropagation()"></app-check>
                       </td>
                       <td>{{ item.hq_regional_code }}</td>
                       <td>{{ item.hq_regional_name }}</td>
@@ -109,7 +109,7 @@
                   <tbody>
                     <tr  class="button" *ngFor="let item of resLevel2?.rsMap" (click)="level3In(item)">
                       <td>
-                        <app-check [on]="item"></app-check>
+                        <app-check [on]="item" (click)="$event.stopPropagation(); area1SelectList = []; area3SelectList = []"></app-check>
                       </td>
                       <td>{{ item.hq_business_code }}</td>
                       <td>{{ item.hq_business_name }}</td>

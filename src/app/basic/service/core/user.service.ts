@@ -18,8 +18,10 @@ export class UserData {
   account_id:string; // "worker_sh"
   belong_data = {
     company_id: 0,
-    project_id: 0
-  }; // "{\"company_id\": 1, \"project_id\": 61}"
+    company_name: '',
+    project_id: 0,
+    project_name: ''
+  };
   old_token_state:boolean; // false
   user_birth:string; // "1987-07-26"
   user_email:string; // "BOcilSPgIm@naver.com"

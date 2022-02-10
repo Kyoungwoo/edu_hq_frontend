@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { FutItem } from 'src/app/basic/service/core/file.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -15,6 +16,27 @@ class MenualListForm {
   search_text:string = ''; // 검색어(제목)
   limit_no:number = 0; //
 }
+interface MenualListItem {
+  company_id: number,
+  company_name: string,
+  create_date: string,
+  create_user_id: number,
+  create_user_name: string,
+  ctgo_manual_name: string,
+  manual_ctgo_data: {
+    ctgo_manual_id: number,
+    ctgo_manual_name: string
+  }[],
+  manual_file_data: FutItem[],
+  manual_id: number,
+  manual_text: string,
+  manual_title: string,
+  manual_views: number,
+  pin_state: 0|1,
+  update_date: string,
+  update_user_id: number,
+  update_user_name: string
+}
 @Component({
   selector: 'app-manual-list',
   templateUrl: './manual-list.page.html',
@@ -27,7 +49,7 @@ export class ManualListPage implements OnInit {
     ctgo_manual_id: number,
     ctgo_manual_name: string
   }>;
-  res:ConnectResult;
+  res:ConnectResult<MenualListItem>;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -47,13 +69,18 @@ export class ManualListPage implements OnInit {
     if(environment.test) this.test();
   }
   public async test() {
+    if(!environment.test.core.test) return;
+    if(!environment.test.UserManual.test) return;
+
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    el.querySelector('[name=add]').dispatchEvent(new Event('click'));
+    // el.querySelector('[name=add]').dispatchEvent(new Event('click'));
   }
   public async get() {
-    this.res = await this.connect.run('/support/manual/list', this.form)
+    this.res = await this.connect.run('/support/manual/list', this.form, {
+      parse: ['manual_ctgo_data']
+    });
   }
   public async openDetailSearch() {
     const modal = await this._modal.create({
@@ -62,9 +89,12 @@ export class ManualListPage implements OnInit {
     })
     modal.present();
   }
-  async edit(item?) {
+  async edit(item?:MenualListItem) {
     const modal = await this._modal.create({
       component:ManualEditPage,
+      componentProps: {
+        manual_id: item?.manual_id
+      }
     });
     modal.present();
   }

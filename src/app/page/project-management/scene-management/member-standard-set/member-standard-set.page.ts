@@ -51,6 +51,10 @@ export class MemberStandardSetPage implements OnInit {
   area2SelectList = [];
   area3SelectList = [];
 
+  area1SelectCheck:boolean;
+  area2SelectCheck:boolean;
+  area3SelectCheck:boolean;
+
   //lh 조직관리 끝
 
   //정보 접근 비밀번호
