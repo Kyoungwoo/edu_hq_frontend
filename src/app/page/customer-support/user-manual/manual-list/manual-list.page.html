@@ -161,10 +161,11 @@
               <th style="width: 100px;">
                 상단노출
               </th>
+              <th>구분</th>
               <th>제목</th>
               <th>업체명</th>
-              <th>작성자</th>
-              <th>작성일</th>
+              <th>작성자/수정자</th>
+              <th>작성일/수정일</th>
               <th>조회수</th>
             </tr>
           </thead>
@@ -172,16 +173,21 @@
             <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
               <td (click)="favoritesCheck($event, item)">
                 <app-button size="small" shape="square" fill="translucent"
-                [color]="item.favorites_state ? 'star' : 'medium'">
+                [color]="item.pin_state ? 'star' : 'medium'">
                   <ion-icon name="star"></ion-icon>
                 </app-button>
               </td>
-              <td>안전교육</td>
-              <td>안전교육 메뉴얼</td>
-              <td>한국토지주택공사</td>
-              <td>박소현</td>
-              <td>2021.10.26</td>
-              <td>30</td>
+              <td>
+                <span *ngFor="let menual_ctgo of item.manual_ctgo_data; let l = last">
+                  {{ menual_ctgo.ctgo_manual_name }}
+                  <span *ngIf="!l">/</span>
+                </span>
+              </td>
+              <td>{{ item.manual_title }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.create_user_name }}{{ item.create_date !== item.update_date ? ' / ' + item.update_user_name : '' }}</td>
+              <td>{{ item.create_date }}{{ item.create_date !== item.update_date ? ' / ' + item.update_date : '' }}</td>
+              <td>{{ item.manual_views }}</td>
             </tr>
           </tbody>
         </app-table>

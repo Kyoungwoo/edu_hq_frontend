@@ -11,18 +11,24 @@
   <h4>사용자 메뉴얼</h4>
   <app-row mobileBreak>
     <app-col>
-      <app-input [disabled]="true" label="업체"></app-input>
+      <app-select-company label="업체" [(ngModel)]="form.company_id" [disabled]="true"></app-select-company>
     </app-col>
     <app-col>
-      <app-input [disabled]="true" label="작성자"></app-input>
+      <app-input *ngIf="form.create_date === form.update_date; else tempUpdateUserName" [disabled]="true" label="작성자" [value]="form.create_user_name"></app-input>
+      <ng-template #tempUpdateUserName>
+        <app-input [disabled]="true" label="작성자/수정자" [value]="form.create_user_name + ' / ' + form.update_user_name"></app-input>
+      </ng-template>
     </app-col>
    </app-row>
    <app-row mobileBreak>
     <app-col>
-      <app-input [disabled]="true" label="작성일"></app-input>
+      <app-input *ngIf="form.create_date === form.update_date; else tempUpdateDate" [disabled]="true" label="작성일" [value]="form.create_date"></app-input>
+      <ng-template #tempUpdateDate>
+        <app-input [disabled]="true" label="작성일/수정일" [value]="form.create_date + ' / ' + form.update_date"></app-input>
+      </ng-template>
     </app-col>
     <app-col>
-      <app-select  label="구분"></app-select>
+      <app-select label="구분"></app-select>
     </app-col>
   </app-row>
   <app-row>

@@ -1,3 +1,4 @@
-<app-input label="업체" [required]="required" [readonly]="true" [disabled]="disabled" [(ngModel)]="text"  (click)="openModal()">
+<app-input name="search-company" [label]="label" 
+[(ngModel)]="text" [required]="required" [readonly]="true" [disabled]="disabled">
   <app-img name="search"></app-img>
 </app-input>

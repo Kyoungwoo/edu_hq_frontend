@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -18,8 +18,12 @@ import { SearchCompanyComponent } from '../../modal/search-company/search-compan
 })
 export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.openModal();
+  }
+
   @Input() color:Color;
-  @Input() label:string = "원청사";
+  @Input() label:string = "업체";
   @Input() required:boolean = false;
   @Input() text:string;
   @Input() type?:boolean;
