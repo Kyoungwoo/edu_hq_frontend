@@ -497,7 +497,7 @@ const routes: Routes = [
   },
   {
     path: 'manual-detail',
-    loadChildren: () => import('./page/user-manual/manual-detail/manual-detail.module').then( m => m.ManualDetailPageModule)
+    loadChildren: () => import('./page/customer-support/user-manual/manual-detail/manual-detail.module').then( m => m.ManualDetailPageModule)
   }
 ];
 

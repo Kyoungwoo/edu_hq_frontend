@@ -53,6 +53,18 @@
   p {
     color: var(--ion-color-step-500);
   }
+  dt, dd {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+  dt {
+    color: var(--ion-color-step-700);
+    font-weight: 500;
+  }
+  dd {
+    color: var(--ion-color-dark);
+  }
 }
 .ios {
   :host {
