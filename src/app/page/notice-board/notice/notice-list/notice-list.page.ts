@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 
@@ -15,6 +16,7 @@ class NoticeInfo {
   hit_count: number;
   notice_id: number;
   notice_title: string;
+  notice_content: string;
   notice_type: NoticeType;
   project_id: number;
   project_name: string;
@@ -50,7 +52,10 @@ export class NoticeListPage implements OnInit {
     this.get();
   }
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+
+    this.form.limit_no = limit_no;
+
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
     this.res = await this.connect.run('/board/notice/list', this.form, {
@@ -60,7 +65,7 @@ export class NoticeListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:DetailSearchPage,
+      component:DetailSearchComponent,
       componentProps:{
         type:'공지사항'
       }

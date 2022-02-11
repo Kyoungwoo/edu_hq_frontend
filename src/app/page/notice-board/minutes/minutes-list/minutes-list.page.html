@@ -18,7 +18,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor></app-select-contractor>
+                <app-select-company></app-select-company>
               </td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>회의록 목록 (총{{res?.rsMap?.length}}건)</h5>
+          <h5>회의록 목록 (총{{res?.rsMap?.length || 0 }}건)</h5>
         </ion-toolbar>
           <app-table>
             <thead>
@@ -74,7 +74,7 @@
             <tbody>
             </tbody>
           </app-table>
-        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
+          <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content> 

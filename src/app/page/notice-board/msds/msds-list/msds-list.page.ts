@@ -13,19 +13,20 @@ type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "
 | "흡인유해성 물질" | "수생환경 유해성 물질" | "오존층 유해성 물질" ;
 
 class MsdsInfo {
-  company_id: number
-  company_name: string
-  create_date: string
-  favorites_state: number
-  hit_count: number
-  msds_id: number
-  msds_title: string
-  msds_type: MsdsType
-  project_id: number
-  project_name: string
-  user_name: string
-  row_count: number
-  favorites_state_bool:boolean
+  company_id: number;
+  company_name: string;
+  create_date: string;
+  favorites_state: number;
+  hit_count: number;
+  msds_id: number;
+  msds_title: string;
+  msds_content: string;
+  msds_type: MsdsType;
+  project_id: number;
+  project_name: string;
+  user_name: string;
+  row_count: number;
+  favorites_state_bool:boolean;
 }
 
 @Component({
@@ -59,7 +60,9 @@ export class MsdsListPage implements OnInit {
     this.get();
   }
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
     this.res = await this.connect.run('/board/msds/list', this.form, {
