@@ -21,7 +21,6 @@ import { ManualDetailPageModule } from '../manual-detail/manual-detail.module';
     IonicModule,
     DirectiveModule,
     ComponentModule,
-    BasicComponentModule,
     ManualListPageRoutingModule,
     ManualDetailSearchPageModule,
     ManualEditPageModule,

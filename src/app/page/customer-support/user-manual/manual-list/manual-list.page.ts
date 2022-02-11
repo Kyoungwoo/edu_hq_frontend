@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem } from 'src/app/basic/service/core/file.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -43,7 +44,12 @@ export class ManualListPage implements OnInit {
   form = new ManualListForm();
   res:ConnectResult<ManualListItem>;
 
+  permission = {
+    edit: false
+  }
+
   constructor(
+    public user: UserService,
     private el: ElementRef<HTMLElement>,
     private _modal: ModalController,
     private connect: ConnectService,
@@ -54,6 +60,8 @@ export class ManualListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getPermission();
+
     this.form.start_date = this.date.today({ month: -1 });
     this.form.end_date = this.date.today();
     this.get();
@@ -67,21 +75,28 @@ export class ManualListPage implements OnInit {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    //추가
-    el.querySelector('[name=add]').dispatchEvent(new Event('click'));
-    await this.promise.wait();
-    await this.promise.toggleWait(async() => await this._modal.getTop());
-    await this.promise.wait();
-    
-    //가장 위엣놈 클릭 후 수정
-    el.querySelector('[name=item]').dispatchEvent(new Event('click'));
-    await this.promise.wait();
-    await this.promise.toggleWait(async() => await this._modal.getTop());
-    await this.promise.wait();
+    // 권한체크
+    if(this.permission.edit) {
+      //추가
+      el.querySelector('[name=add]').dispatchEvent(new Event('click'));
+      await this.promise.wait();
+      await this.promise.toggleWait(async() => await this._modal.getTop());
+      await this.promise.wait();
+      
+      //가장 위엣놈 클릭 후 수정
+      el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+      await this.promise.wait();
+      await this.promise.toggleWait(async() => await this._modal.getTop());
+      await this.promise.wait();
+  
+      //가장 위앳놈 삭제
+      el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+      //await 
+    }
+  }
 
-    //가장 위앳놈 삭제
-    el.querySelector('[name=item]').dispatchEvent(new Event('click'));
-    //await 
+  private getPermission() {
+    this.permission.edit = this.user.userData.user_role === 'LH_HEAD';
   }
 
   public async getMobile($event) {
