@@ -50,7 +50,6 @@
                 <app-button fill="translucent" (click)="levelAdd('level1')">추가</app-button>
                 <app-button fill="translucent" (click)="levelUpdate('level1')">수정</app-button>
                 <app-button fill="translucent" (click)="organizationSave('level1')">저장</app-button>
-
               </div>
               <app-radio-group [(ngModel)]="area1SelectList">
                 <app-table style="height: 600px; overflow: auto;">
@@ -72,7 +71,17 @@
                           <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation()" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
                         </ng-template>
                       </td>
-                      <td><app-input [(ngModel)]="item.hq_regional_code"></app-input></td>
+                      <td *ngIf="!area1SelectCheck else out1">
+                        {{item.hq_regional_code}}
+                      </td>
+                      <ng-template #out1>
+                        <td>
+                          <app-input [(ngModel)]="item.hq_regional_code"></app-input>
+                        </td>
+                      </ng-template>
+                      <td>
+                        <app-input [(ngModel)]="item.hq_regional_code"></app-input>
+                      </td>
                       <td><app-input [(ngModel)]="item.hq_regional_name"></app-input></td>
                       <td>
                         <app-select [(ngModel)]="item.hq_regional_entire_state">
