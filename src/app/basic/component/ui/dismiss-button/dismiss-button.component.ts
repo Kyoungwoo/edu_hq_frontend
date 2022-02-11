@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,6 +7,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./dismiss-button.component.scss'],
 })
 export class DismissButtonComponent implements OnInit {
+
+  @HostListener('click') onClick() {
+    this.dismiss();
+  }
 
   constructor(
     private _modal: ModalController

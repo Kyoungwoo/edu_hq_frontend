@@ -59,19 +59,35 @@ export class ManualDetailPage implements OnInit {
 
     const el = this.el.nativeElement;
     await this.promise.wait();
+    
+    if(this.permission.edit) {
+      const editIndex = environment.test.UserManual.type.indexOf('EDIT');
+      if(editIndex > -1) {
+        // 수정
+        el.querySelector('[name=edit]').dispatchEvent(new Event('click'));
+        await this.promise.wait();
+        await this.promise.toggleWait(async() => {
+          const modal = await this._modal.getTop();
+          const elEdit = modal.querySelector('app-manual-edit');
+          return elEdit;
+        });
+        return;
+      }
 
-    el.querySelector('[name=ctgo_manual_ids]').dispatchEvent(new Event('click'));
-    await this.promise.wait();
-    
-    el.querySelector('[name=pin_state]').dispatchEvent(new CustomEvent('click'));
-    el.querySelector('[name=manual_title]').dispatchEvent(new CustomEvent('setValue', { detail: '테스트 타이틀' }));
-    el.querySelector('[name=manual_text]').dispatchEvent(new CustomEvent('setValue', { detail: '테스트 내용' }));
-    await this.promise.wait();
-    
-    /* const toast = await this.toast.present({ color: 'warning', message: '파일을 업로드 테스트 대기 10초', duration: 10000, buttons: [{ text: 'X' }] });
-    await toast.onDidDismiss(); */
-    
-    el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
+      const removeIndex = environment.test.UserManual.type.indexOf('REMOVE');
+      if(removeIndex > -1) {
+        // 삭제
+        el.querySelector('[name=remove]').dispatchEvent(new Event('click'));
+        await this.promise.wait();
+        
+        const alertButtons = document.querySelector('ion-alert').querySelectorAll('[type=button]');
+        alertButtons[1].dispatchEvent(new Event('click'));
+        return;
+      }
+    } else {
+      // 닫기
+      el.querySelector('name=dismiss').dispatchEvent(new Event('click'));
+    }
   }
 
   private getPermission() {
@@ -123,5 +139,11 @@ export class ManualDetailPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      setTimeout(() => {
+        this._modal.dismiss(data);
+      }, 100);
+    }
   }
 }

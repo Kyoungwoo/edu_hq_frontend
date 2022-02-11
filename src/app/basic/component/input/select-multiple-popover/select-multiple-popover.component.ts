@@ -39,10 +39,11 @@ export class SelectMultiplePopoverComponent implements OnInit {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    // 가장 첫번째 놈과 두번째놈을 클릭해서 값을 가져온다.
+    // 앞에 3놈 클릭
     const options = el.querySelectorAll('[name=select_option]');
     options[0]?.dispatchEvent(new Event('click'));
     options[1]?.dispatchEvent(new Event('click'));
+    options[2]?.dispatchEvent(new Event('click'));
     await this.promise.wait();
 
     // 선택
