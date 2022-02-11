@@ -3,6 +3,7 @@ import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -28,6 +29,10 @@ export class SupervisionEdit {
 })
 export class SupervisionEditPage implements OnInit {
 
+  permission = {
+    edit: false
+  }
+
   @Input() company_id;
   @Input() project_id;
   email:string;
@@ -42,14 +47,27 @@ export class SupervisionEditPage implements OnInit {
     private date: DateService,
     private toast: ToastService,
     private _modal: ModalController,
+    public user: UserService,
   ) { }
 
   ngOnInit() {
+    this.getPermission();
     console.log(this.company_id);
     console.log(this.project_id);
     this.form.project_id = this.project_id;
     this.getItem();
   }
+
+  getPermission() {
+    const company_contract_type = this.user.userData.belong_data.company_contract_type;
+    if(company_contract_type === 'LH'
+    || company_contract_type === '감리사') {
+      this.permission.edit = true;
+    } else {
+      this.permission.edit = false;
+    }
+  }
+
   async getItem() {
     const res = await this.connect.run('/project/company/masters/detail', {
       company_id: this.company_id
@@ -64,16 +82,11 @@ export class SupervisionEditPage implements OnInit {
     }
   }
   async superSave() {
-    if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
+    if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger'})
     if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
     if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    if(this.emailaddress !== '직접입력') {
-      this.form.manager_email = this.email + '@' + this.emailaddress;
-    } else {
-      this.form.manager_email = this.email + '@' + this.directlyInput;
-    }
-
+   
     this.alert.present({
       message: '저장하시겠습니까?',
       buttons: [

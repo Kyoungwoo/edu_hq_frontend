@@ -58,6 +58,20 @@
   <app-row mobileBreak>
     <app-col>
       <h4>첨부 자료</h4>
+      <app-card>
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <app-button>추가
+              <app-file name="input" view_type="NOTICE"
+              [(ngModel)]="form.safety_meeting_file_data"
+              [file]="form.file"
+              [file_json]="form.file_json"
+              ></app-file>
+            </app-button>
+          </app-col>
+        </app-row>
+      </app-card>
     </app-col>
     </app-row>
     <app-table>

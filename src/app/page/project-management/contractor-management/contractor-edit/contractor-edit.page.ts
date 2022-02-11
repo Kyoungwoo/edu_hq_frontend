@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -29,6 +30,10 @@ export class SupervisionEdit {
 })
 export class ContractorEditPage implements OnInit {
 
+  permission = {
+    edit: false
+  }
+
   @Input() company_id;
   @Input() project_id;
 
@@ -46,15 +51,25 @@ export class ContractorEditPage implements OnInit {
     private alert: AlertService,
     private date: DateService,
     private toast: ToastService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    public user: UserService,
   ) { }
 
   ngOnInit() {
+    this.getPermission();
     console.log(this.company_id, this.project_id);
     this.form.project_id = this.project_id;
     this.getItem();
   }
-
+  getPermission() {
+    const company_contract_type = this.user.userData.belong_data.company_contract_type;
+    if(company_contract_type === 'LH'
+    || company_contract_type === '원청사') {
+      this.permission.edit = true;
+    } else {
+      this.permission.edit = false;
+    }
+  }
   
   async getItem() {
     const res = await this.connect.run('/project/company/masters/detail', {

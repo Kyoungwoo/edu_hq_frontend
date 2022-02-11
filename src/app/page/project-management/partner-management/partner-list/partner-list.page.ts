@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { PartnerEditPage } from '../partner-edit/partner-edit.page';
 
 @Component({
@@ -34,7 +35,10 @@ export class PartnerListPage implements OnInit {
   }>
   constructor(
     private modal: ModalController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    public user: UserService,
+    
+
   ) { }
 
   ngOnInit() {
@@ -47,11 +51,13 @@ export class PartnerListPage implements OnInit {
     if(this.res.rsCode ===0) {};
   }
 
-  async edit(company_id?) {
+  async edit(item?) {
+    console.log("-----------------------------55",item)
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
-        company_id
+        company_id: item?.company_id,
+        project_id: item?.project_id
       }
     });
     modal.present();

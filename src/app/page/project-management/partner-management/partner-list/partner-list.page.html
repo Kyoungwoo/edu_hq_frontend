@@ -35,12 +35,13 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-col>
-            <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+            <app-button *ngIf="user.userData.user_role === 'LH_HEAD' 
+            || user.userData.user_role  === 'COMPANY_HEAD'" fill="translucent" (click)="edit()">신규 등록</app-button>
           </app-col>
         </ion-buttons>
       </ion-toolbar>        
       <ion-toolbar color="white">
-        <h5>협력사 관리 목록 (총{{ res?.rsMap?.length}}건)</h5>
+        <h5>협력사 관리 목록 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
       </ion-toolbar>
         <app-table>
           <thead>
@@ -57,7 +58,7 @@
               <th>작성자</th>
             </tr>
           </thead>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item.company_id)">
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ i+1 }}</td>
               <td>{{ item.project_name }}</td>
               <td>{{ item.master_company_name }}</td>
