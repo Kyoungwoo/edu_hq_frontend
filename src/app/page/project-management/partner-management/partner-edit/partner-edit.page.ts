@@ -172,17 +172,12 @@ export class PartnerEditPage implements OnInit {
     });
     this.resObj.company_contract_data = contractInfo;
     if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' })
-    // if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
-    // if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
-    // if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    if(this.emailaddress !== '직접입력') {
-        this.resObj.manager_email = this.email + '@' + this.emailaddress;
-    } else {
-      this.resObj.manager_email = this.email + '@' + this.directlyInput;
-    }
+    if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
+    if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
+    if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
+  
     
-    // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
-    // this.form.manager_email = this.email + '@' + this.emailaddress;
+ 
     
     const alert = await this.alert.present({
       message: '저장하시겠습니까?',
@@ -191,7 +186,7 @@ export class PartnerEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            const res = await this.connect.run('/project/company/partner/update', this.resObj, {});
+            const res = await this.connect.run('/project/company/partner/insert', this.resObj, {});
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             }
@@ -224,15 +219,37 @@ export class PartnerEditPage implements OnInit {
     })
     alert.present();
   }
-
-  async contUpdate() {
-    //나중에 정규식으로 고침
-    let spliteamil = this.resObj.manager_email.split('@');
-    this.email = spliteamil[0];
-    this.emailaddress = spliteamil[1];
-    console.log(this.email)
+  contEdit() {
     this.updateStatus = false;
- 
+  }
+  
+  async contUpdate() { //수정
+   
+    let contractInfo = [];
+    this.resMap.forEach(item => {
+      contractInfo.push(item);
+    });
+    this.resObj.company_contract_data = contractInfo;
+    if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' })
+    if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
+    if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
+    if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
+    const alert = await this.alert.present({
+      message:'수정 하시겠습니까?',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler:async() => {
+            const res = await this.connect.run('/project/company/partner/update', this.resObj);
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.connect.error('등록실패', res);
+            }
+          }
+        }
+      ]
+    });
   }
   
 

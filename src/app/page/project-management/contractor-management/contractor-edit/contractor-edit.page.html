@@ -20,11 +20,11 @@
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" [required]="true" [disabled]="true" name="input buisnessman"
+      <app-input [required]="true" [disabled]="true" name="input buisnessman"
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
     </app-col>
     <app-col>
-      <app-input [readonly]="this.updateStatus ? false:true" label="현장 전화번호" [disabled]="this.updateStatus" [(ngModel)]="form.company_phone"></app-input>
+      <app-input label="현장 전화번호" [disabled]="this.updateStatus" [(ngModel)]="form.company_phone"></app-input>
     </app-col>
   </app-row>
   <h4>회사 로고</h4>
@@ -45,7 +45,7 @@
         </app-col>
       </app-row>
     </h4>
-    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="this.updateStatus ? false:true"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
   </app-card>
 
   <h4>담당자 정보</h4>

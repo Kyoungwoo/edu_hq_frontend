@@ -86,12 +86,7 @@ export class SupervisionEditPage implements OnInit {
     if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
     if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    if(this.emailaddress !== '직접입력') {
-      this.form.manager_email = this.email + '@' + this.emailaddress;
-    } else {
-      this.form.manager_email = this.email + '@' + this.directlyInput;
-    }
-
+   
     this.alert.present({
       message: '저장하시겠습니까?',
       buttons: [
