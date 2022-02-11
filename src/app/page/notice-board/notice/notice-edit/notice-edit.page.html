@@ -48,7 +48,10 @@
     </app-row>
     <app-row *mobileHidden>
       <app-col>
-        <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.notice_content"></app-smartedit>
+        <app-smartedit name="notice_text" placeholder="내용을 입력하세요." 
+        [color]="validator.notice_title?.valid === false && 'warning'"
+        [(ngModel)]="form.notice_content"></app-smartedit>
+        <app-input-caption *ngIf="validator.notice_title?.valid === false">{{ validator.notice_title.message }}</app-input-caption>
       </app-col>
     </app-row>
     <app-row *mobileShow>

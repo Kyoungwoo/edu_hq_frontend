@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -44,6 +44,7 @@ export class NoticeEditPage implements OnInit {
   title:string;
 
   form:NoticeItem = new NoticeItem();
+  validator = new Validator(new NoticeItem()).validator;
   rangeText = '';
   useNotice:boolean = true;
 
