@@ -120,11 +120,13 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         let compnay_name_string = [];
         console.log(data);
         for(let i = 0; i < data.length; i++) {
-         compnay_name_string.push(data[i].company_name);
+          this.value = data;
+          compnay_name_string.push(data[i].company_name);
         }
         this.text = compnay_name_string.toString();
       } else {
         this.text = data.company_name
+        this.value = data[0];
         console.log("eeeeeeeee",this.text);
       } 
     }

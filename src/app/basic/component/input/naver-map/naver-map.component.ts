@@ -154,6 +154,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       for(let i = 0; i < this.marker.length; i++) {
         this.marker[i].setMap(null);
         // this.marker.splice(0,this.marker.length);
+        this.path.splice(markerIndex,this.marker.length);
+        this.LatLng.splice(markerIndex,this.marker.length);
       }
     
       console.log("this.LatLng",this.LatLng);
