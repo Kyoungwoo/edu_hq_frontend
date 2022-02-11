@@ -93,6 +93,21 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
     });
   }
 
+  private valueChange() {
+    if(!this.checkList) return;
+    const checkList = this.checkList.toArray();
+    const checkAllList = checkList.filter(check => check.type === 'all');
+    const checkNormalList = checkList.filter(check => check.type === 'default');
+    checkNormalList.forEach(check => {
+      if(this.value.some(v => v === check.on)) {
+        check._value = true;
+      } else {
+        check._value = false;
+        checkAllList.forEach(checkAll => checkAll._value = false);
+      }
+    });
+  }
+
   //default setting
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
@@ -101,18 +116,27 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   public _value:any[] = [];
   @Input()
   set value(v:any[]) {
+    console.log('setValue', v);
     if(v !== this._value) {
       this._value = v;
+      this.valueChange();
+      this.onChangeCallback(this.value);
       this.change.emit(v);
     }
   }
   get value() { return this._value; }
   
   writeValue(v:any[]): void { 
-    if(v !== this._value) this._value = v;
+    console.log('writeValue', v);
+    if(v !== this._value) {
+      this._value = v;
+      this.valueChange();
+      this.onChangeCallback(this.value);
+      this.change.emit(v);
+    }
   }
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
+  private onChangeCallback = (v) => {};
+  private onTouchedCallback = (v) => {};
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }

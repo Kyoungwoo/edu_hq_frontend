@@ -47,15 +47,16 @@
         <app-row style="align-items: stretch; ">
             <app-col>
               <div style="text-align: right;">
-                <app-button fill="translucent" (click)="levelEdit('level1')">추가</app-button>
-                <app-button fill="translucent" (click)="levelEdit('level1')">수정</app-button>
+                <app-button fill="translucent" (click)="levelAdd('level1')">추가</app-button>
+                <app-button fill="translucent" (click)="levelUpdate('level1')">수정</app-button>
+                <app-button fill="translucent" (click)="organizationSave('level1')">저장</app-button>
+
               </div>
-              <app-check-group [(ngModel)]="area1SelectList">
-                <app-table>
+              <app-radio-group [(ngModel)]="area1SelectList">
+                <app-table style="height: 600px; overflow: auto;">
                   <thead>
                     <tr>
                       <th style="width: 20px;">
-                        <app-check type="all"></app-check>
                       </th>
                       <th>코드</th>
                       <th>level 1</th>
@@ -64,12 +65,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="button" *ngFor="let item of resLevel1?.rsMap" (click)="level2In(item)">
+                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index">
                       <td>
-                        <app-check name="level1" [on]="item" (click)="$event.stopPropagation()"></app-check>
+                        <app-radio *ngIf="item.hq_regional_id; else deletebutton"  name="level1" [value]="item" (click)="level2In(item,$event)"></app-radio>
+                        <ng-template #deletebutton>
+                          <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation()" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
+                        </ng-template>
                       </td>
-                      <td>{{ item.hq_regional_code }}</td>
-                      <td>{{ item.hq_regional_name }}</td>
+                      <td><app-input [(ngModel)]="item.hq_regional_code"></app-input></td>
+                      <td><app-input [(ngModel)]="item.hq_regional_name"></app-input></td>
                       <td>
                         <app-select [(ngModel)]="item.hq_regional_entire_state">
                           <app-select-option [value]="1">본사</app-select-option>
@@ -85,21 +89,20 @@
                     </tr>
                   </tbody>
                 </app-table>
-              </app-check-group>
+              </app-radio-group>
             </app-col>
 
             <app-col>
               <div style="text-align: right;">
-                <app-button fill="translucent" (click)="levelEdit('level2')">추가</app-button>
-                <app-button fill="translucent" (click)="levelEdit('level2')">수정</app-button>
+                <app-button fill="translucent" (click)="levelAdd('level2')">추가</app-button>
+                <app-button fill="translucent" (click)="levelUpdate('level2')">수정</app-button>
+                <app-button fill="translucent" (click)="organizationSave('level2')">저장</app-button>
               </div>
-              <app-check-group [(ngModel)]="area2SelectList">
-                <app-table>
+              <app-radio-group [(ngModel)]="area2SelectList">
+                <app-table style="height: 600px; overflow: auto;">
                   <thead>
                     <tr>
-                      <th style="width: 20px;">
-                        <app-check type="all"></app-check>
-                      </th>
+                      <th style="width: 20px;"></th>
                       <th>코드</th>
                       <th>level 2</th>
                       <th>권한</th>
@@ -107,12 +110,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr  class="button" *ngFor="let item of resLevel2?.rsMap" (click)="level3In(item)">
+                    <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index">
                       <td>
-                        <app-check [on]="item" (click)="$event.stopPropagation(); area1SelectList = []; area3SelectList = []"></app-check>
+                        <app-radio *ngIf="item.hq_regional_id; else deletebutton"  name="level1" [value]="item" (click)="level3In(item,$event)"></app-radio>
+                        <ng-template #deletebutton>
+                          <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation()" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
+                        </ng-template>
                       </td>
-                      <td>{{ item.hq_business_code }}</td>
-                      <td>{{ item.hq_business_name }}</td>
+                      <td><app-input [(ngModel)]="item.hq_business_code"></app-input></td>
+                      <td><app-input [(ngModel)]="item.hq_business_name"></app-input></td>
                       <td>
                         <app-select [(ngModel)]="item.hq_business_entire_state">
                           <app-select-option [value]="1">본사</app-select-option>
@@ -128,34 +134,36 @@
                     </tr>
                   </tbody>
                 </app-table>
-              </app-check-group>
+              </app-radio-group>
             </app-col>
 
           <app-col>
             <div style="text-align: right;">
-              <app-button fill="translucent" (click)="levelEdit('level3')">추가</app-button>
-              <app-button fill="translucent" (click)="levelEdit('level3')">수정</app-button>
+              <app-button fill="translucent" (click)="levelAdd('level3')">추가</app-button>
+              <app-button fill="translucent" (click)="levelUpdate('level3')">수정</app-button>
+              <app-button fill="translucent" (click)="organizationSave('level3')">저장</app-button>
             </div>
-            <app-check-group [(ngModel)]="area3SelectList">
-              <app-table>
+            <app-radio-group [(ngModel)]="area3SelectList">
+              <app-table style="height: 600px; overflow: auto;">
                 <thead>
                   <tr>
                     <th style="width: 20px;">
-                      <app-check></app-check>
                     </th>
                     <th>코드</th>
                     <th>level 3</th>
-                    <th>권한</th>
                     <th>사용여부</th>
                   </tr>
                 </thead>
-                <tbody *ngFor="let item of resLevel3?.rsMap">
+                <tbody *ngFor="let item of resLevel3?.rsMap let i = index">
                   <tr>
                     <td>
-                      <app-check [on]="item"></app-check>
+                      <app-radio *ngIf="item.hq_regional_id; else deletebutton"  name="level1" [value]="item" (click)="$event.stopPropagation()"></app-radio>
+                      <ng-template #deletebutton>
+                        <app-button (click)="resLevel3.rsMap.splice(i,1); $event.stopPropagation()" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
+                      </ng-template>
                     </td>
-                    <td>{{ item.hq_department_name }}</td>
-                    <td>{{ item.hq_department_name }}</td>
+                    <td><app-input [(ngModel)]="item.hq_department_code"></app-input></td>
+                    <td><app-input [(ngModel)]="item.hq_department_name"></app-input></td>                    
                     <td>
                       <app-select [(ngModel)]="item.hq_department_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
@@ -165,7 +173,7 @@
                   </tr>
                 </tbody>
               </app-table>
-            </app-check-group>
+            </app-radio-group>
           </app-col>
         </app-row>
       </app-card>

@@ -106,7 +106,9 @@
 }
 
 :host ::ng-deep {
-    .button {
+    tr.button,
+    th.button,
+    td.button {
         cursor: pointer;
         &:hover {
             background: var(--ion-color-step-50);
