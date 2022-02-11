@@ -49,7 +49,7 @@ export class MemberStandardSetPage implements OnInit {
   area2SelectList;
   area3SelectList;
 
-  area1SelectCheck: boolean;
+  area1SelectCheck: boolean = false;
   area2SelectCheck: boolean;
   area3SelectCheck: boolean;
 
@@ -316,14 +316,19 @@ export class MemberStandardSetPage implements OnInit {
     switch (level) {
       case 'level1':
         for (let i = 0; i < this.resLevel1?.rsMap?.length; i++) {
-          const res = await this.connect.run('/project/organization/regional/update', this.resLevel1.rsMap[i]);
-          if (res.rsCode === 0) {
-           const toast =  await this.toast.present({ message: '수정 되었습니다.' ,color:'primary'});
-            this.level1();
-          }
+          console.log(this.area1SelectList);
+          console.log(this.resLevel1.rsMap[i]);
+          if(this.area1SelectList === this.resLevel1?.rsMap[i]) this.area1SelectCheck = true;
+          console.log(this.area1SelectCheck);
+          // const res = await this.connect.run('/project/organization/regional/update', this.resLevel1.rsMap[i]);
+          // if (res.rsCode === 0) {
+          //  const toast =  await this.toast.present({ message: '수정 되었습니다.' ,color:'primary'});
+          //   this.level1();
+          // }
         }
         break;
       case 'level2':
+        this.area2SelectCheck = true;
         for (let i = 0; i < this.resLevel2?.rsMap?.length; i++) {
           const res = await this.connect.run('/project/organization/business/update', this.resLevel2.rsMap[i]);
           if (res.rsCode === 0) {
@@ -333,6 +338,7 @@ export class MemberStandardSetPage implements OnInit {
         }
         break;
       case 'level3':
+        this.area3SelectCheck = true;
         for (let i = 0; i < this.resLevel3?.rsMap?.length; i++) {
           const res = await this.connect.run('/project/organization/department/update', this.resLevel3.rsMap[i]);
           if (res.rsCode === 0) {

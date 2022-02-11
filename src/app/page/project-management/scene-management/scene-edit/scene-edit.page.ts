@@ -154,6 +154,8 @@ export class SceneEditPage implements OnInit {
 
   async sceneInsert() {
     this.form.company_data = [];
+    console.log("this.supervision_id",this.supervision_id);
+
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [
@@ -183,9 +185,9 @@ export class SceneEditPage implements OnInit {
     })
   }
   async sceneUpdate() {
-    this.form.company_data = [];
-    let contractor_ids = [];
-    let supervision_ids = [];
+    this.form.company_data = []
+    console.log("this.supervision_id",this.supervision_id);
+
     const alert = await this.alert.present({
       message: '수정 하시겠습니까?',
       buttons: [
