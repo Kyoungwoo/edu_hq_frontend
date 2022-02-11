@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
@@ -45,7 +46,8 @@ export class NoticeListPage implements OnInit {
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    private date: DateService
+    private date: DateService,
+    public user: UserService
   ) { }
 
   async ngOnInit() {

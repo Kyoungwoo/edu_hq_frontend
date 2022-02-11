@@ -89,6 +89,9 @@ export class MsdsEditPage implements OnInit {
         if(this.user.userData.user_id === this.form.create_user_id) {
         this.useMsds = false;
       }
+      const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
+      const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
+      this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
     }
   }
   public submit() {
