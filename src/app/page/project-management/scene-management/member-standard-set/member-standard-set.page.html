@@ -266,19 +266,24 @@
                     <td *ngIf="item.checked">
                       <app-input [(ngModel)]="item.hq_department_code"></app-input>
                     </td>
-                    <td *ngIf="!item.checked && item.hq_regional_id">
+                    <td *ngIf="!item.checked && item.hq_department_id">
                       {{item.hq_department_code}}
                     </td>
-                    <td *ngIf="!item.checked && !item.hq_regional_id">
+                    <td *ngIf="!item.checked && !item.hq_department_id">
                       <app-input [(ngModel)]="item.hq_department_code"></app-input>
                     </td>
 
-                    <td>
-                      <app-input [(ngModel)]="item.hq_department_code"></app-input>
+
+                    <td *ngIf="!item.checked && item.hq_department_id">
+                      {{item.hq_department_name}}
                     </td>
-                    <td>
+                    <td *ngIf="item.checked">
                       <app-input [(ngModel)]="item.hq_department_name"></app-input>
                     </td>
+                    <td *ngIf="!item.checked && !item.hq_department_id">
+                      <app-input [(ngModel)]="item.hq_department_name"></app-input>
+                    </td>
+                    
                     <td>
                       <app-select [(ngModel)]="item.hq_department_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
