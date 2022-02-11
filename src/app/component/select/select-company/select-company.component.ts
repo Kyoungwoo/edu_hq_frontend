@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -34,8 +34,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() multiple:boolean;
   @Input() disabled:boolean;
 
-
   isModalData:boolean = false;
+
+  private data;
 
   constructor(
     private _modal:ModalController,
@@ -43,7 +44,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     private user: UserService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   
   // async company(){
@@ -114,47 +117,43 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      this.data = data;
       console.log("data",data);
       console.log("ddddddddddd",this.multiple);
       if(this.multiple){
-        let compnay_name_string = [];
         console.log(data);
-        for(let i = 0; i < data.length; i++) {
-          this.value = data;
-          compnay_name_string.push(data[i].company_name);
-        }
-        this.text = compnay_name_string.toString();
+        this.value = data.map(company => company.company_id);
+        this.text = data.map(company => company.company_name).join();
       } else {
-        this.text = data.company_name
-        console.log("---------------------data",data);
-        this.value = data;
-        console.log("this.value",this.value);
-      } 
+        this.text = data.company_name;
+        // console.log("---------------------data",data);
+        this.value = data.company_id;
+        // console.log("this.value",this.value);
+      }
     }
   }
   
  
   @Output() change = new EventEmitter();
 
-  private _value:CompanyData[] = [];
+  private _value:any;
   @Input() set value(v:CompanyData[]) {
     if(v !== this._value) {
       this._value = v || [];
       console.log("=================1",v);
       this.onChangeCallback(v);
-      this.change.emit(v);
+      this.change.emit(this.data);
     }
   }
   get value() {
     return this._value;
   }
-  writeValue(v:[]): void { 
+  writeValue(v:any): void { 
     if(v !== this._value) {
       this._value = v || [];
-      console.log("=================2",v);
       this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.onChangeCallback(this.data);
+      this.change.emit(this.data);
     }
   }
 

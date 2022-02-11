@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {  Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+
 
 
 export interface company_contract_data {
@@ -40,6 +41,7 @@ export class PartnerEditPage implements OnInit {
   @Input() company_id;
   @Input() type?: boolean = false;
 
+
   resObj:resObj = new resObj();
   updateStatus: boolean = false;
   savestatus:boolean = false;
@@ -57,12 +59,6 @@ export class PartnerEditPage implements OnInit {
     master_company_id:0, // 원청사 ID
     project_id:0 // 현장 ID }
   }> = [];
-data = [{
-  business_register_no: "",
-  company_ceo: "",
-  company_id: 0,
-  company_name: ""
-}];
   selectList = [];
   selected_check = [];
   res:ConnectResult <{
@@ -88,7 +84,7 @@ data = [{
   ) { }
 
   ngOnInit() {
-    console.log(this.company_id)
+    // console.log("this.compnayData",this.compnayData);
     if(this.company_id){
       this.updateStatus = true;
     }
@@ -109,6 +105,14 @@ data = [{
      }
   }
 
+  test(ev) {
+    console.log("ev",ev.business_register_no);
+    this.resObj.business_register_no = ev.business_register_no;
+    this.resObj.company_ceo = ev.company_ceo;
+    console.log(this.resObj);
+    console.log(this.resObj.business_register_no);
+    console.log(this.resObj.company_ceo);
+  }
   addContractInfo() {
     this.resMap.push(
       {
@@ -134,7 +138,6 @@ data = [{
   }
 
   async contSave() {
-    console.log(this.data); 
     let contractInfo = [];
     this.resMap.forEach(item => {
       contractInfo.push(item);

@@ -168,6 +168,9 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     SupervisionSearchComponent,
     ProjectAreaSetComponent,
     SelectSupervisionComponent
+  ],
+  providers:[
+    SelectCompanyComponent
   ]
 })
 export class ComponentModule { }
