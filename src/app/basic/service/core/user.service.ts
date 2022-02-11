@@ -8,7 +8,8 @@ enum TAG {
 }
 
 export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
-export type UserRole = 'COMPANY_WORKER' | 'COMPANY_GENERAL';
+export type UserRole = 'COMPANY_WORKER' | 'COMPANY_GENERAL' | 'COMPANY_HEAD' | 'LH_PROJECT' |
+'LH_BUSINESS' | 'LH_REGION' | 'LH_ADMIN' | 'LH_HEAD' ;
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {

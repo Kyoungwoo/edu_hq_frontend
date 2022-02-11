@@ -35,7 +35,8 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-col>
-            <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+            <app-button *ngIf="user.userData.user_role === 'LH_HEAD' 
+            || user.userData.user_role  === 'COMPANY_HEAD'" fill="translucent" (click)="edit()">신규 등록</app-button>
           </app-col>
         </ion-buttons>
       </ion-toolbar>        
