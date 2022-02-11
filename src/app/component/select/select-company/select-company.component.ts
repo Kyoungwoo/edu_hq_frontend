@@ -6,6 +6,10 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { SearchCompanyComponent } from '../../modal/search-company/search-company.component';
 
+export class CompanyData {
+  company_contract_type:string;
+  search_text:string;
+}
 @Component({
   selector: 'app-select-company',
   templateUrl: './select-company.component.html',
@@ -68,7 +72,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     console.log("dsfasdf-=----this.value",this.value);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type: '원청사',
+      company_contract_type: this.user.userData.user_type,
       search_text: ''
     });
     if(this.type){
@@ -93,7 +97,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   }
   
   public async openModal() {
-    console.log(this.multiple);
+    console.log(this.user.userData.user_type);
     this.isModalData = true;
     const modal = await this._modal.create({
       component:SearchCompanyComponent,
@@ -129,10 +133,10 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
  
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:CompanyData[] = [];
+  @Input() set value(v:CompanyData[]) {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v || [];
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -140,10 +144,13 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  writeValue(v:[]): void { 
+    if(v !== this._value) {
+      this._value = v || [];
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

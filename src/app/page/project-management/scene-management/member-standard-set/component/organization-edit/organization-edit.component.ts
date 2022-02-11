@@ -9,17 +9,19 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
   styleUrls: ['./organization-edit.component.scss'],
 })
 export class OrganizationEditComponent implements OnInit {
-  
+
   @Input() selectList;
-  @Input() level:string;
-  
+  @Input() level: string;
+
   level1 = {
-      hq_regional_code:0,
-      hq_regional_entire_state:0,
-      hq_regional_name:'',
-      hq_regional_use_state:0
-    }
-  level2 ={
+    hq_regional_code: '',
+    hq_regional_entire_state: 0,
+    hq_regional_name: '',
+    hq_regional_id: 0,
+    hq_regional_use_state: 0
+  }
+  
+  level2 = {
     hq_business_code: "",
     hq_business_entire_state: 0,
     hq_business_id: 0,
@@ -46,52 +48,58 @@ export class OrganizationEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.selectList",this.selectList);
-    console.log("this.selectList",this.level);
-    if(this.selectList.length) {
+    console.log("this.selectList", this.selectList);
+    if (this.selectList) {
       this.title = '수정';
-      if(this.level === 'level1') {
-        this.level1 = this.selectList[0];
-        console.log('inptuselect',this.level1);
+      if (this.level === 'level1') {
+        this.level1 = this.selectList;
+        console.log('inptuselect', this.level1);
       }
-      if(this.level === 'level2') {
-        this.level2 = this.selectList[0];
-        console.log('inptuselect',this.level1);
+      if (this.level === 'level2') {
+        this.level2 = this.selectList;
+        console.log('inptuselect', this.level1);
       }
-      if(this.level === 'level3') {
-        this.level3 = this.selectList[0];
-        console.log('inptuselect',this.level1);
+      if (this.level === 'level3') {
+        this.level3 = this.selectList;
+        console.log('inptuselect', this.level1);
       }
-    } else  this.title = '추가'
+    } else this.title = '추가'
   }
 
-  dismiss(){
+  dismiss() {
     this._modal.dismiss();
   }
-  async addOrganization(){
+  async addOrganization() {
     console.log(this.level);
     const alert = await this.alert.present({
-      message:`${this.title} 하시겠습니까?`,
-      buttons:[
-        {text:'아니요'},
-        {text:'예',
-          handler: async() =>{
-            console.log(this.level1);
-            if(this.level === 'level1'){
-              const res = await this.connect.run('/project/organization/regional/insert',this.level1,{});
-              if(res.rsCode === 0) {
+      message: `${this.title} 하시겠습니까?`,
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            if (this.level === 'level1') {
+              console.log(this.level1);
+              const res = await this.connect.run(
+                this.title === '추가' ? '/project/organization/regional/insert' : '/project/organization/regional/update'
+                , this.level1, {});
+              if (res.rsCode === 0) {
                 this._modal.dismiss('level1');
               }
             }
-            if(this.level === 'level2'){
-              const res = await this.connect.run('/project/organization/business/insert',this.level2,{});
-              if(res.rsCode === 0) {
+            if (this.level === 'level2') {
+              const res = await this.connect.run(
+                this.title === '추가' ? '/project/organization/business/insert' : '/project/organization/business/update'
+                , this.level2, {});
+              if (res.rsCode === 0) {
                 this._modal.dismiss('level2');
               }
             }
-            if(this.level === 'level3'){
-              const res = await this.connect.run('/project/organization/department/insert',this.level3,{});
-              if(res.rsCode === 0) {
+            if (this.level === 'level3') {
+              const res = await this.connect.run(
+                this.title === '추가' ? '/project/organization/department/insert' : '/project/organization/department/update'
+                , this.level3, {});
+              if (res.rsCode === 0) {
                 this._modal.dismiss('level3');
               }
             }
