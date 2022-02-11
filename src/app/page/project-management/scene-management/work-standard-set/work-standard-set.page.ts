@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
@@ -80,14 +81,20 @@ export class WorkStandardSetPage implements OnInit {
   }>
 
   disasterSelected = [];
+
+  workRoleCheck:boolean = true;
   //재해 형태 끝
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
-    private alert: AlertService
+    private alert: AlertService,
+    public user: UserService
   ) { }
 
   ngOnInit() {
+    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+      this.workRoleCheck = false;;
+    }
   }
 
   //공종 시작

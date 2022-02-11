@@ -7,8 +7,8 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { SearchCompanyComponent } from '../../modal/search-company/search-company.component';
 
 export class CompanyData {
-  company_contract_type:string;
-  search_text:string;
+  company_contract_type: string;
+  search_text: string;
 }
 @Component({
   selector: 'app-select-company',
@@ -23,24 +23,24 @@ export class CompanyData {
 export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
+    if (!this.disabled) this.openModal();
   }
 
-  @Input() color:Color;
-  @Input() label:string = "업체";
-  @Input() required:boolean = false;
-  @Input() text:string;
-  @Input() type?:boolean;
-  @Input() multiple:boolean;
-  @Input() disabled:boolean;
+  @Input() color: Color;
+  @Input() label: string = "업체";
+  @Input() required: boolean = false;
+  @Input() text: string;
+  @Input() type?: boolean;
+  @Input() multiple: boolean;
+  @Input() disabled: boolean;
 
-  isModalData:boolean = false;
+  isModalData: boolean = false;
 
   private data;
 
   constructor(
-    private _modal:ModalController,
-    private connect:ConnectService,
+    private _modal: ModalController,
+    private connect: ConnectService,
     private user: UserService
   ) { }
 
@@ -48,7 +48,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   }
 
-  
+
   // async company(){
   //   const modal = await this._modal.create({
   //     component:SearchCompanyComponent,
@@ -72,43 +72,53 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   // }
 
   public async get() {
-    console.log("dsfasdf-=----this.value",this.value);
-    if(this.isModalData || !this.value) return;
+    let UserRole = ''
+    if(this.user.userData.user_type === 'COMPANY') {
+      UserRole = '원청사';
+    }
+    console.log("dsfasdf-=----this.value", this.value);
+    console.log("dsfasdf-=----this.multiple", this.multiple);
+    if (this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type: this.user.userData.user_type,
+      company_contract_type: UserRole,
       search_text: ''
     });
-    if(this.type){
-      let textArr = [];
-      if(res.rsCode === 0) {
+    if (this.multiple) {
+      if (res.rsCode === 0) {
         for (let i = 0; i < res.rsMap.length; i++) {
           for (let x = 0; x < this.value.length; x++) {
             if (res.rsMap[i].company_id === this.value[x]) {
-              textArr.push(res.rsMap[i].company_name);
+              this.text = res.rsMap[i].company_name;
             }
           }
         }
-        this.text = textArr.toString();
+        this.text = this.text.toString();
       }
     } else {
-      for(let i = 0; i < res.rsMap.length; i++) {
-        if(res.rsMap[i].company_id === this.value) {
-          this.text = res.rsMap[i].company_name;
+      if (res?.rsMap?.length) {
+        for (let i = 0; i < res.rsMap.length; i++) {
+          console.log(res.rsMap[i].company_id === this.value);
+          console.log("res.rsMap[i].company_id", res.rsMap[i].company_id);
+          console.log("this.value", this.value);
+          if (res.rsMap[i].company_id === this.value) {
+            this.text = res.rsMap[i].company_name;
+            console.log("this.text", this.text);
+          }
         }
       }
     }
   }
-  
+
   public async openModal() {
     console.log(this.user.userData.user_type);
     this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchCompanyComponent,
-      componentProps:{
-        type:this.type,
-        value:this.value,
-        multiple:this.multiple,
-       form : {
+      component: SearchCompanyComponent,
+      componentProps: {
+        type: this.type,
+        value: this.value,
+        multiple: this.multiple,
+        form: {
           company_contract_type: this.user.userData.user_type,
           search_text: ''
         }
@@ -116,11 +126,11 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) {
+    if (data) {
       this.data = data;
-      console.log("data",data);
-      console.log("ddddddddddd",this.multiple);
-      if(this.multiple){
+      console.log("data", data);
+      console.log("ddddddddddd", this.multiple);
+      if (this.multiple) {
         console.log(data);
         this.value = data.map(company => company.company_id);
         this.text = data.map(company => company.company_name).join();
@@ -132,15 +142,15 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
       }
     }
   }
-  
- 
+
+
   @Output() change = new EventEmitter();
 
-  private _value:any;
-  @Input() set value(v:CompanyData[]) {
-    if(v !== this._value) {
+  private _value: any;
+  @Input() set value(v: CompanyData[]) {
+    if (v !== this._value) {
       this._value = v || [];
-      console.log("=================1",v);
+      console.log("=================1", v);
       this.onChangeCallback(v);
       this.change.emit(this.data);
     }
@@ -148,17 +158,18 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:any): void { 
-    if(v !== this._value) {
+  writeValue(v: any): void {
+    if (v !== this._value) {
       this._value = v || [];
       this.get();
-      this.onChangeCallback(this.data);
+      console.log("=================2", v);
+      this.onChangeCallback(v);
       this.change.emit(this.data);
     }
   }
 
-  private onChangeCallback = (v) => {};
-  private onTouchedCallback = (v) => {};
+  private onChangeCallback = (v) => { };
+  private onTouchedCallback = (v) => { };
   registerOnChange(fn: any): void { this.onChangeCallback = fn; }
   registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }
