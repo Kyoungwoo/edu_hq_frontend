@@ -25,6 +25,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_code: string, // 코드
     hq_regional_name: string, // 지역본부명
     hq_regional_use_state: number, // 사용 = 1
+    checked:boolean;
   }>
 
   resLevel2: ConnectResult<{
@@ -34,7 +35,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_id: number,
     hq_business_code: string,
     hq_business_id: number,
-
+    checked:boolean;
   }>
 
   resLevel3: ConnectResult<{
@@ -44,6 +45,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_id: number, // 지역본부 ID
     hq_department_code: string, // 코드
     hq_business_id: number, // 사업본부 ID
+    checked:boolean
   }>
   area1SelectList;
   area2SelectList;
@@ -190,11 +192,13 @@ export class MemberStandardSetPage implements OnInit {
     this.area3SelectList = [];
     this.hq_regional_id = item.hq_regional_id;
     console.log(item.hq_regional_id)
-    this.resLevel2 = await this.connect.run('/project/organization/business/get', {
-      hq_regional_id: item.hq_regional_id
-    }, {});
-    if (this.resLevel2.rsCode === 0) {
-      console.log("this.resLevel2", this.resLevel2);
+    if(item.hq_regional_id){
+      this.resLevel2 = await this.connect.run('/project/organization/business/get', {
+        hq_regional_id: item.hq_regional_id
+      }, {});
+      if (this.resLevel2.rsCode === 0) {
+        console.log("this.resLevel2", this.resLevel2);
+      }
     }
   }
 
@@ -206,6 +210,27 @@ export class MemberStandardSetPage implements OnInit {
       hq_business_id: item.hq_business_id
     }, {});
     if (this.resLevel3.rsCode === 0) {}
+  }
+
+
+  radioChange(ev,level) {
+    ev.stopPropagation();
+    switch(level) {
+      case 'level1':
+        this.resLevel1?.rsMap.forEach((item,i) => {
+          if(this.area1SelectList !== item) { 
+            item.checked = false;
+          }
+        });
+      break;
+      case 'level2':
+        this.resLevel2?.rsMap.forEach((item,i) => {
+          if(this.area2SelectList !== item) { 
+            item.checked = false;
+          }
+        });
+      break;
+    }
   }
 
   // async levelEdit(level,update?) {
@@ -249,12 +274,14 @@ export class MemberStandardSetPage implements OnInit {
   async levelAdd(level) {
     switch (level) {
       case 'level1':
+        console.log(this.resLevel1.rsMap);
         this.resLevel1.rsMap.unshift({
           hq_regional_entire_state: 0, // 본사권한 = 1
           hq_regional_id: 0, // id
           hq_regional_code: '', // 코드
           hq_regional_name: '', // 지역본부명
           hq_regional_use_state: 0, // 사용 = 1
+          checked:false
         });
         break;
       case 'level2':
@@ -269,6 +296,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
+              checked:false
             });
           } else {
             this.resLevel2.rsMap = [];
@@ -279,6 +307,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
+              checked:false
             });
           }
         }
@@ -296,6 +325,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0, // 지역본부 ID
               hq_department_code: '', // 코드
               hq_business_id: 0, // 사업본부 ID
+              checked:false
             });
           } else {
             this.resLevel3.rsMap = [];
@@ -306,6 +336,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0, // 지역본부 ID
               hq_department_code: '', // 코드
               hq_business_id: 0, // 사업본부 ID
+              checked:false
             });
           }
         }
@@ -315,27 +346,25 @@ export class MemberStandardSetPage implements OnInit {
   async levelUpdate(level) {
     switch (level) {
       case 'level1':
-        for (let i = 0; i < this.resLevel1?.rsMap?.length; i++) {
-          console.log(this.area1SelectList);
-          console.log(this.resLevel1.rsMap[i]);
-          if(this.area1SelectList === this.resLevel1?.rsMap[i]) this.area1SelectCheck = true;
-          console.log(this.area1SelectCheck);
-          // const res = await this.connect.run('/project/organization/regional/update', this.resLevel1.rsMap[i]);
-          // if (res.rsCode === 0) {
-          //  const toast =  await this.toast.present({ message: '수정 되었습니다.' ,color:'primary'});
-          //   this.level1();
-          // }
-        }
+        this.resLevel1?.rsMap.forEach((item,i) => {
+          if(this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+            item.checked = true;
+            console.log(this.area1SelectCheck);
+          } else {
+            item.checked = false;
+          }
+        });
         break;
       case 'level2':
-        this.area2SelectCheck = true;
-        for (let i = 0; i < this.resLevel2?.rsMap?.length; i++) {
-          const res = await this.connect.run('/project/organization/business/update', this.resLevel2.rsMap[i]);
-          if (res.rsCode === 0) {
-            const toast =  await this.toast.present({ message: '수정 되었습니다.' ,color:'primary'});
-            this.level2()
+        this.resLevel2?.rsMap.forEach((item,i) => {
+          console.log(item)
+          if(this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+            item.checked = true;
+            console.log(this.area1SelectCheck);
+          } else {
+            item.checked = false;
           }
-        }
+        });
         break;
       case 'level3':
         this.area3SelectCheck = true;
@@ -355,31 +384,47 @@ export class MemberStandardSetPage implements OnInit {
     // this.hq_regional_id = this.area1SelectList.hq_regional_id;
     // this.hq_business_id = this.area2SelectList.hq_business_id;
     switch (level) {
-      case 'level1':
-        for (let i = 0; i < this.resLevel1?.rsMap?.length; i++) {
-          if(!this.resLevel1?.rsMap[i].hq_regional_id){
-            const res = await this.connect.run('/project/organization/regional/insert', this.resLevel1.rsMap[i]);
+      case 'level1':       
+        this.resLevel1?.rsMap.forEach(async (item, i) => {
+          if (item.hq_regional_id && item.checked) {
+            console.log("true");
+            const res = await this.connect.run('/project/organization/regional/update', item);
             if (res.rsCode === 0) {
-              const toast = await this.toast.present({ message: '저장 되었습니다.',color:'primary' });
+              const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
+              this.level1();
+            }
+          } else if(!item.hq_regional_id && !item.checked){
+            console.log('false');
+            const res = await this.connect.run('/project/organization/regional/insert', item);
+            if (res.rsCode === 0) {
+              const toast = await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
               this.level1();
             }
           }
-        }
+        });
         this.level1();
         break;
       case 'level2':
-        
-        for (let i = 0; i < this.resLevel2?.rsMap?.length; i++) {
-          console.log(this.resLevel2.rsMap[i]);    
-          if(!this.resLevel2?.rsMap[i].hq_business_id) {
-            this.resLevel2.rsMap[i].hq_regional_id = this.hq_regional_id;
-            const res = await this.connect.run('/project/organization/business/insert', this.resLevel2.rsMap[i]);
+        this.resLevel2?.rsMap.forEach(async (item, i) => {
+          if (item.hq_business_id && item.checked) {
+            console.log("item.hq_regional_id",item.hq_regional_id);
+            console.log("this.hq_regional_id",this.hq_regional_id);
+            item.hq_regional_id = this.hq_regional_id;
+            const res = await this.connect.run('/project/organization/business/update', item);
             if (res.rsCode === 0) {
-             const toast = await this.toast.present({ message: '저장 되었습니다.',color:'primary' });
-             this.level2();
+              const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
+              this.level2();
+            }
+          } else if(!item.hq_business_id && !item.checked){
+            item.hq_regional_id = this.hq_regional_id;
+            console.log('false');
+            const res = await this.connect.run('/project/organization/business/insert', item);
+            if (res.rsCode === 0) {
+              const toast = await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+              this.level2();
             }
           }
-        }
+        });
         break;
       case 'level3':
         for (let i = 0; i < this.resLevel3?.rsMap?.length; i++) {
