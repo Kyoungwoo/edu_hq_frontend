@@ -152,10 +152,11 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       const markerIndex = this.marker.indexOf(marker);
       console.log("markerIndex",markerIndex);
       for(let i = 0; i < this.marker.length; i++) {
-        this.marker[i].setMap(null);
+        // this.marker.splice(markerIndex,this.marker.length);
         // this.marker.splice(0,this.marker.length);
         this.path.splice(markerIndex,this.marker.length);
         this.LatLng.splice(markerIndex,this.marker.length);
+        // this.marker[i].setMap(null);
       }
     
       console.log("this.LatLng",this.LatLng);

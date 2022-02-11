@@ -57,7 +57,12 @@ export class PartnerEditPage implements OnInit {
     master_company_id:0, // 원청사 ID
     project_id:0 // 현장 ID }
   }> = [];
-
+data = [{
+  business_register_no: "",
+  company_ceo: "",
+  company_id: 0,
+  company_name: ""
+}];
   selectList = [];
   selected_check = [];
   res:ConnectResult <{
@@ -129,6 +134,7 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contSave() {
+    console.log(this.data); 
     let contractInfo = [];
     this.resMap.forEach(item => {
       contractInfo.push(item);
