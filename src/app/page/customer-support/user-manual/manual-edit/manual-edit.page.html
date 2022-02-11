@@ -35,7 +35,7 @@
       <app-input name="manual_title" label="제목" 
       [color]="validator.manual_title?.valid === false && 'warning'"
       [(ngModel)]="form.manual_title" [required]="true">
-        <app-check name="pin_state">상단고정</app-check>
+        <app-check name="pin_state" [(ngModel)]="form.pin_state" [on]="1" [off]="0">상단고정</app-check>
       </app-input>
       <app-input-caption *ngIf="validator.manual_title?.valid === false">{{ validator.manual_title.message }}</app-input-caption>
     </app-col>
@@ -67,11 +67,16 @@
   </h4>
   <app-file-preview *ngFor="let futItem of form.manual_file_data; let i = index;" [futItem]="futItem" (buttonClick)="form.manual_file_data.splice(i, 1)"></app-file-preview>
 </ion-content>
-<app-button-footer>
+<app-button-footer *ngIf="form.manual_id; else tempAdd">
   <app-card *ngIf="res && res.rsCode" color="warning" slot="top">{{ res.rsMsg }}</app-card>
-  <app-button>삭제</app-button>
-  <app-button name="submit" *ngIf="form.manual_id; else tempAdd" (click)="submit()">수정</app-button>
-  <ng-template #tempAdd>
-    <app-button name="submit" (click)="submit()">저장</app-button>
-  </ng-template>
+  <app-button name="remove" (click)="remove()">삭제</app-button>
+  <app-button name="submit" (click)="update()">수정</app-button>
+  <ng-container >
+  </ng-container>
 </app-button-footer>
+<ng-template #tempAdd>
+  <app-button-footer>
+    <app-card *ngIf="res && res.rsCode" color="warning" slot="top">{{ res.rsMsg }}</app-card>
+    <app-button name="submit" (click)="insert()">저장</app-button>
+  </app-button-footer>
+</ng-template>

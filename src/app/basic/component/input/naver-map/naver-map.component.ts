@@ -1,3 +1,4 @@
+import { newArray } from '@angular/compiler/src/util';
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, InjectionToken, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FileService } from 'src/app/basic/service/core/file.service';
@@ -129,17 +130,13 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private addMarker(coord) {
-    console.log("coord",coord)
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
       draggable: true
     });
     this.path.push(coord);
-    console.log("this.path",this.path);
     this.marker.push(marker);
-    console.log("this.marker",this.marker);
-    
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
       const point = e.coord;
@@ -147,33 +144,32 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       this.path.splice(markerIndex, 1, point);
       this.LatLng.splice(markerIndex, 1, point);
     });
-    naver.maps.Event.addListener(marker, "click", (e) => {
+    naver.maps.Event.addListener(marker, "dblclick", (e) => {
+      marker.setMap(null);
       const point = e.coord;
+      
       const markerIndex = this.marker.indexOf(marker);
-      console.log("markerIndex",markerIndex);
-      for(let i = 0; i < this.marker.length; i++) {
-        // this.marker.splice(markerIndex,this.marker.length);
-        // this.marker.splice(0,this.marker.length);
-        this.path.splice(markerIndex,this.marker.length);
-        this.LatLng.splice(markerIndex,this.marker.length);
-        // this.marker[i].setMap(null);
-      }
-    
-      console.log("this.LatLng",this.LatLng);
-      // this.map.removePane();
-      // this.marker.splice(markerIndex,1);
-      // this.path.splice(markerIndex, 1);
-      // this.LatLng.splice(markerIndex, 1);
-      // this.init();
+      this.marker.forEach((item,i) => {
+        this.path.forEach((data,i) => {
+          if(item.position.x === data.x){
+              this.marker.splice(markerIndex,1);
+              this.path.splice(markerIndex,1);
+              this.LatLng.splice(markerIndex,1);
+          }
+        })
+      });
     });
+
+    
   }
   private changeMarker() {
-    console.log("this.value",this.value);
-    for(let i = 0; i < this.value.length; i++) {
-      console.log(this.value[i]);
-      const x = this.value[i].gps_longitude;
-      const y = this.value[i].gps_latitude;
-      this.addMarker({ x, y });
+    if(this.value.length){
+      for(let i = 0; i < this.value.length; i++) {
+        console.log(this.value[i]);
+        const x = this.value[i].gps_longitude;
+        const y = this.value[i].gps_latitude;
+        this.addMarker({ x, y });
+      }
     }
   }
 

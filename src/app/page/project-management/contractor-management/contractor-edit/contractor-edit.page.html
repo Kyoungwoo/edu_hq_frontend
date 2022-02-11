@@ -35,7 +35,7 @@
           첨부자료
         </app-col>
         <app-col size="auto">
-          <app-button>
+          <app-button *ngIf="!updateStatus">
             <app-file
             [(ngModel)]="form.company_file_data"
             [file]="form.file"
@@ -45,7 +45,7 @@
         </app-col>
       </app-row>
     </h4>
-    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="this.updateStatus ? false:true"></app-file-preview>
   </app-card>
 
   <h4>담당자 정보</h4>
@@ -86,7 +86,7 @@
       </span>
     </app-card>
   
-  <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
+  <app-button style="width:100%" *ngIf="!updateStatus" (click)="agreement()">동의합니다</app-button>
 </ion-content>
 <app-button-footer *ngIf="permission.edit">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>

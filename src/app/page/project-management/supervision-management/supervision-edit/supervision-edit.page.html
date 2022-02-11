@@ -67,7 +67,7 @@
           5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
         </span>
       </app-card>
-      <app-button style="width:100%" (click)="agreement()">동의합니다</app-button>
+      <app-button style="width:100%" *ngIf="!updateStatus" (click)="agreement()">동의합니다</app-button>
     </app-col>
   </app-row>
 </ion-content>

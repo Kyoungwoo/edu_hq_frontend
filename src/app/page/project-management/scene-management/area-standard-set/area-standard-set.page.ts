@@ -165,7 +165,7 @@ export class AreaStandardSetPage implements OnInit {
   //     y: 37.5579424
   //   }
   // ]
-
+  areaRoleCheck:boolean = true;
 
   constructor(
     private modal: ModalController,
@@ -176,6 +176,9 @@ export class AreaStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+      this.areaRoleCheck = false;;
+    }
     this.getGuidemap();
     this.AreaOne();
     this.CtgoRisk();

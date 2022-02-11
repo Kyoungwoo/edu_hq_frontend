@@ -11,6 +11,7 @@ export class InputGroupComponent implements OnInit {
   @Input() color:Color;
   @Input() label:string;
   @Input() required:boolean;
+  @Input() disabled:boolean;
 
   constructor() { }
 

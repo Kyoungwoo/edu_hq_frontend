@@ -21,7 +21,7 @@ export class MsdsItem {
   project_name: string;
   msds_id: number;
   msds_type: string;
-  msds_file_data: FutItem[] = [];
+  file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
   create_user_id:number;
@@ -79,7 +79,9 @@ export class MsdsEditPage implements OnInit {
     } 
   }
   async get() { //상세보기
-    const res = await this.connect.run('/board/msds/detail', { msds_id: this.item.msds_id });
+    const res = await this.connect.run('/board/msds/detail', { 
+      msds_id: this.item.msds_id
+     }, { parse: ['file_data'] });
     if(res.rsCode ===  0) {
       this.form = {
         ...this.form,

@@ -9,6 +9,7 @@ import { FutItem } from 'src/app/basic/service/core/file.service';
 export class FilePreviewComponent implements OnInit {
 
   @Input() futItem:FutItem;
+  @Input() readonly:boolean = false;
 
   @Output() buttonClick = new EventEmitter();
 

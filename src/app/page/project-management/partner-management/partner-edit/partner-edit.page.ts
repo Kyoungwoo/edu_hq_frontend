@@ -83,8 +83,35 @@ export class PartnerEditPage implements OnInit {
 
   ) { }
 
+
+  // [
+  //   {
+  //     "ctgo_construction_id":2,
+  //     "contract_name":"dfasd",
+  //     "contract_start_date":"2022-01-31",
+  //     "contract_end_date":"2022-02-25",
+  //     "contract_amount":"324234234",
+  //     "manager_user_id":0,
+  //     "master_company_id":3366458717,
+  //     "project_id":8
+  //   }
+  // ]
+  // [
+  //   {
+  //     "ctgo_construction_id":0, // 계약공종
+  //   "contract_name":"따따따", // 계약명
+  //   "contract_start_date":"2021-01-01", // 계약기간 ~
+  //   "contract_end_date":"2022-12-01", // ~ 계약기간
+  //   "contract_amount":1000000, // 계약금액
+  //   "manager_user_id":0, // 협력사 소장
+  //   "company_id":4, // 원청사 ID
+  //   "project_id":59 // 현장 ID 
+  //   }
+  // ]
   ngOnInit() {
-    // console.log("this.compnayData",this.compnayData);
+    this.getItem();
+    console.log('input company',this.company_id);
+    console.log('resObj company',this.resObj.company_id);
     if(this.company_id){
       
       this.updateStatus = true;
@@ -93,7 +120,6 @@ export class PartnerEditPage implements OnInit {
       this.savestatus = true;
     }
     this.getCtgoCon();
-    this.getItem();
   }
 
   async getItem() {
@@ -108,6 +134,7 @@ export class PartnerEditPage implements OnInit {
 
   test(ev) {
     console.log("ev",ev.business_register_no);
+    this.resObj.company_id = ev.company_id;
     this.resObj.business_register_no = ev.business_register_no;
     this.resObj.company_ceo = ev.company_ceo;
     console.log(this.resObj);
