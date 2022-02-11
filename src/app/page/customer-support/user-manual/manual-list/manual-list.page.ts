@@ -66,7 +66,7 @@ export class ManualListPage implements OnInit {
     this.form.end_date = this.date.today();
     this.get();
 
-    // if(environment.test) this.test();
+    if(environment.test) this.test();
   }
   public async test() {
     if(!environment.test.core.test) return;
@@ -101,11 +101,17 @@ export class ManualListPage implements OnInit {
   
       const removeIndex = environment.test.UserManual.type.indexOf('REMOVE');
       if(removeIndex > -1) {
-        //가장 위앳놈 삭제
+        // 가장 위앳놈 삭제
         el.querySelector('[name=item]').dispatchEvent(new Event('click'));
-      
+        await this.promise.wait();
+        await this.promise.toggleWait(async() => await this._modal.getTop());
         environment.test.UserManual.type.splice(removeIndex, 1);
       }
+
+      // 가장 위엣놈 즐겨찾기 삭제 및 새로고침
+      el.querySelector('[name=pin_state]').dispatchEvent(new Event('click'));
+      await this.promise.wait();
+      el.querySelector('[name=search]').dispatchEvent(new Event('click'));
     }
   }
 

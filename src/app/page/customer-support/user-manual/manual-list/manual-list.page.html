@@ -59,7 +59,7 @@
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button>
+                <app-button name="search" fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
@@ -112,7 +112,7 @@
             </thead>
             <tbody>
               <tr name="item" class="button" *ngFor="let item of res?.rsMap" (click)="detail(item)">
-                <td (click)="pinStateChange($event, item)">
+                <td name="pin_state" (click)="pinStateChange($event, item)">
                   <app-button size="small" shape="square" fill="translucent"
                   [color]="item.pin_state ? 'star' : 'medium'">
                     <ion-icon name="star"></ion-icon>

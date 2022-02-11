@@ -17,7 +17,7 @@ export const environment = {
     ] as UserType[] },
     FindId: { test: false, done: false, type: ['PHONE'] },
     FindPassword: { test: false, done: false },
-    Login: { test: false, done: false },
+    Login: { test: true, done: false },
     UserManual: { test: true, done: false, type: [
       'ADD',
       'EDIT',

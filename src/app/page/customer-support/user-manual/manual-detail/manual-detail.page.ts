@@ -68,7 +68,7 @@ export class ManualDetailPage implements OnInit {
         await this.promise.wait();
         await this.promise.toggleWait(async() => {
           const modal = await this._modal.getTop();
-          const elEdit = modal.querySelector('app-manual-edit');
+          const elEdit = modal?.querySelector('app-manual-edit');
           return elEdit;
         });
         return;
@@ -120,6 +120,8 @@ export class ManualDetailPage implements OnInit {
         { text: '삭제', handler: async() => {
           const res = await this.connect.run('/support/manual/delete', {
             manual_ids: [this.form.manual_id]
+          }, {
+            loading: true
           });
           if(res.rsCode === 0) {
             this._modal.dismiss(true);
