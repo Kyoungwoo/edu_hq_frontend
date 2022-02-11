@@ -48,12 +48,12 @@ export class PartnerListPage implements OnInit {
   }
 
   async edit(item?) {
+    console.log("-----------------------------55",item)
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
-        company_id:item.company_id,
-        project_id:item.project_id
-
+        company_id:item?.company_id,
+        project_id:item?.project_id
       }
     });
     modal.present();
