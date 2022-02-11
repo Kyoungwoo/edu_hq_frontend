@@ -73,27 +73,31 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     console.log("dsfasdf-=----this.value",this.value);
+    console.log("dsfasdf-=----this.multiple",this.multiple);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: this.user.userData.user_type,
       search_text: ''
     });
-    if(this.type){
-      let textArr = [];
+    if(this.multiple){
       if(res.rsCode === 0) {
         for (let i = 0; i < res.rsMap.length; i++) {
           for (let x = 0; x < this.value.length; x++) {
             if (res.rsMap[i].company_id === this.value[x]) {
-              textArr.push(res.rsMap[i].company_name);
+              this.text = res.rsMap[i].company_name;
             }
           }
         }
-        this.text = textArr.toString();
+        this.text = this.text.toString();
       }
     } else {
       for(let i = 0; i < res.rsMap.length; i++) {
+        console.log(res.rsMap[i].company_id === this.value);
+        console.log("res.rsMap[i].company_id",res.rsMap[i].company_id);
+        console.log("this.value",this.value);
         if(res.rsMap[i].company_id === this.value) {
           this.text = res.rsMap[i].company_name;
+          console.log("this.text",this.text);
         }
       }
     }
@@ -152,7 +156,8 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     if(v !== this._value) {
       this._value = v || [];
       this.get();
-      this.onChangeCallback(this.data);
+      console.log("=================2",v);
+      this.onChangeCallback(v);
       this.change.emit(this.data);
     }
   }

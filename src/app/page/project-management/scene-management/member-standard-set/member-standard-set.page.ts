@@ -92,7 +92,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //안전직무
   safeJobForm = {
-    company_id: this.user.userData.belong_data.company_id,
+    company_id: 0,
     user_type: ''
   }
 
@@ -171,22 +171,13 @@ export class MemberStandardSetPage implements OnInit {
   menuCount6() {
     this.menuCount = 6;
     this.getSafeJob(); 
-    if(this.user.userData.user_role === 'LH_HEAD') {
-      this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
-      console.log()
-    }
-    if(this.user.userData.user_role === 'COMPANY_HEAD') {
-      this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
-    }
   }
 
   menuCount7() {
     this.menuCount = 7;
-    this.getOccupation();
-    console.log()
-    if(this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
     if(this.user.userData.user_role === 'COMPANY_HEAD') {
       this.jobForm = this.user.userData.belong_data.company_id;
+      this.getOccupation();
     }
   }
   //-->  lh조직관리 시작
@@ -274,6 +265,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async levelAdd(level) {
+    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
     switch (level) {
       case 'level1':
         console.log(this.resLevel1.rsMap);
@@ -345,6 +337,7 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async levelUpdate(level) {
+    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
     switch (level) {
       case 'level1':
         this.resLevel1?.rsMap.forEach((item,i) => {
@@ -385,6 +378,8 @@ export class MemberStandardSetPage implements OnInit {
   async organizationSave(level) {
     // this.hq_regional_id = this.area1SelectList.hq_regional_id;
     // this.hq_business_id = this.area2SelectList.hq_business_id;
+    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
+
     switch (level) {
       case 'level1':       
         this.resLevel1?.rsMap.forEach(async (item, i) => {
@@ -590,7 +585,12 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getSafeJob() {
-    this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
+    if(this.user.userData.user_role === 'COMPANY_HEAD') {
+      this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
+      this.safeJobForm.user_type = 'COMPANY';
+    }
+    console.log("this.safeJobForm.user_type",this.safeJobForm.user_type);
+    console.log("this.safeJobForm.company_id",this.safeJobForm.company_id);
     this.resSafeJob = await this.connect.run('/project/safe_job/get', this.safeJobForm);
     if (this.resSafeJob.rsCode === 0) { };
   }

@@ -341,7 +341,7 @@
         <app-row>
           <app-col></app-col>
           <app-col style="text-align: right;">
-            <app-input [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
+            <app-input [disabled]="user.userData.user_role !== 'LH_ADMIN' || user.userData.user_role !== 'COMPANY_HEAD'" [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
               placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
             <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
             <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>

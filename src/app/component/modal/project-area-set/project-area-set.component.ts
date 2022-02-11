@@ -46,7 +46,8 @@ export class ProjectAreaSetComponent implements OnInit {
 
   @Input() set _value(v:any[]) {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v || []; 
+      this._onChangeCallback(v);
       this.change.emit(v);
     }
   }
