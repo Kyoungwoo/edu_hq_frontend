@@ -12,8 +12,8 @@
           <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button (click)="menuCount5()">직위</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 6">안전직무</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 7">직종</ion-segment-button>
+          <ion-segment-button (click)="menuCount6()">안전직무</ion-segment-button>
+          <ion-segment-button (click)="menuCount7()">직종</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
@@ -64,8 +64,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index"
-                    >
+                  <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index">
                     <td>
                       <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
                         (click)="radioChange($event,'level1'); level2In(item,$event)"></app-radio>
@@ -157,11 +156,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index"
-                    (click)="level3In(item,$event)">
+                  <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index">
                     <td>
-                      <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
-                      (click)="radioChange($event,'level2')"></app-radio>
+                      <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level2" [value]="item"
+                      (click)="radioChange($event,'level2'); level3In(item,$event)"></app-radio>
                       <ng-template #deletebutton>
                         <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation()" size="small"
                           color="danger">
@@ -253,7 +251,7 @@
                 <tbody *ngFor="let item of resLevel3?.rsMap let i = index">
                   <tr>
                     <td>
-                      <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
+                      <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level3" [value]="item"
                         (click)="$event.stopPropagation()"></app-radio>
                       <ng-template #deletebutton>
                         <app-button (click)="resLevel3.rsMap.splice(i,1); $event.stopPropagation()" size="small"
@@ -284,8 +282,20 @@
                       <app-input [(ngModel)]="item.hq_department_name"></app-input>
                     </td>
                     
-                    <td>
-                      <app-select [(ngModel)]="item.hq_department_use_state">
+                    <td *ngIf="item.checked">
+                      <app-select [disabled]="false" [(ngModel)]="item.hq_department_use_state">
+                        <app-select-option [value]="1">사용</app-select-option>
+                        <app-select-option [value]="0">미사용</app-select-option>
+                      </app-select>
+                    </td>
+                    <td *ngIf="!item.checked && item.hq_department_id">
+                      <app-select [disabled]="true" [(ngModel)]="item.hq_department_use_state">
+                        <app-select-option [value]="1">사용</app-select-option>
+                        <app-select-option [value]="0">미사용</app-select-option>
+                      </app-select>
+                    </td>
+                    <td *ngIf="!item.checked && !item.hq_department_id">
+                      <app-select [disabled]="false" [(ngModel)]="item.hq_department_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
                         <app-select-option [value]="0">미사용</app-select-option>
                       </app-select>
