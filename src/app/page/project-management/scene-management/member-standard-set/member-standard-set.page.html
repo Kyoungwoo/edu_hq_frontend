@@ -5,19 +5,20 @@
     <app-row>
       <app-col size="auto">
         <ion-segment class="sub-segment" color="primary" [value]="1">
-          <ion-segment-button (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
-          <ion-segment-button (click)="menuCount2()">정보 접근<br>비밀번호</ion-segment-button>
+          <ion-segment-button [disabled]="lhHeadCheck" (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount2()">정보 접근<br>비밀번호</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
-          <ion-segment-button (click)="menuCount5()">직위</ion-segment-button>
-          <ion-segment-button (click)="menuCount6()">안전직무</ion-segment-button>
-          <ion-segment-button (click)="menuCount7()">직종</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount5()">직위</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount6()">안전직무</ion-segment-button>
+          <ion-segment-button [disabled]="memberRoleCheck" (click)="menuCount7()">직종</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
+  <ng-container *ngIf="!lhHeadCheck">
   <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
@@ -309,6 +310,7 @@
       </app-card>
     </app-col>
   </app-row>
+</ng-container>
 
   <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
     <app-col size="280px">
@@ -341,7 +343,7 @@
         <app-row>
           <app-col></app-col>
           <app-col style="text-align: right;">
-            <app-input [disabled]="user.userData.user_role !== 'LH_ADMIN' || user.userData.user_role !== 'COMPANY_HEAD'" [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
+            <app-input [disabled]="roleCheck" [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
               placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
             <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
             <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
@@ -470,7 +472,7 @@
         </ion-toolbar>
         <tbody>
           <tr>
-            <app-select-company [(ngModel)]="safeJobForm.company_id"></app-select-company>
+            <app-select-company [multiple]="false" [(ngModel)]="safeJobForm.company_id"></app-select-company>
           </tr>
           <tr>
             <td>

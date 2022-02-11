@@ -61,6 +61,8 @@ export class MemberStandardSetPage implements OnInit {
   //lh 조직관리 끝
 
   //정보 접근 비밀번호
+
+  roleCheck:boolean = false;
   form = {
     company_id: 0,
     company_password: ''
@@ -113,7 +115,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //직종
 
-  occupationForm = 0
+  occupationForm = 0;
 
   resOccupation: ConnectResult<{
     ctgo_occupation_use_state: number,
@@ -128,16 +130,25 @@ export class MemberStandardSetPage implements OnInit {
   occupationSelected = [];
   //직종 끝
 
+
+  memberRoleCheck:boolean = true;
+  lhHeadCheck:boolean = true;
   constructor(
     private connect: ConnectService,
     private modal: ModalController,
     private toast: ToastService,
     private alert: AlertService,
-    private user: UserService
+    public user: UserService
   ) { }
 
   ngOnInit() {
 
+    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+      this.memberRoleCheck = false;
+    }
+    if(this.user.userData.user_role === 'LH_HEAD') {
+      this.lhHeadCheck = false;
+    }
     //lh조직기구
     console.log("this.user.userData",this.user.userData.user_role === "LH_HEAD");
     if(this.user.userData.user_role === "LH_HEAD"){
@@ -151,13 +162,6 @@ export class MemberStandardSetPage implements OnInit {
 
   menuCount2() {
     this.menuCount = 2;
-    // 권한 체크
-    // if(this.user.userData.user_role === '' ||
-    // this.user.userData.user_role === '' ||
-    // this.user.userData.user_role === ''
-    // ){
-
-    // }
   }
   menuCount5() {
     this.menuCount = 5;
@@ -169,16 +173,15 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   menuCount6() {
+    console.log("안전",this.user.userData);
     this.menuCount = 6;
     this.getSafeJob(); 
   }
 
   menuCount7() {
     this.menuCount = 7;
-    if(this.user.userData.user_role === 'COMPANY_HEAD') {
-      this.jobForm = this.user.userData.belong_data.company_id;
-      this.getOccupation();
-    }
+    this.getOccupation();
+
   }
   //-->  lh조직관리 시작
 
@@ -379,7 +382,6 @@ export class MemberStandardSetPage implements OnInit {
     // this.hq_regional_id = this.area1SelectList.hq_regional_id;
     // this.hq_business_id = this.area2SelectList.hq_business_id;
     if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
-
     switch (level) {
       case 'level1':       
         this.resLevel1?.rsMap.forEach(async (item, i) => {
@@ -483,6 +485,7 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
+    if(this.roleCheck) return await this.toast.present({message:'권한이 없습니다.'});
     console.log("this.subpasscheck", this.subpasscheck);
     console.log("this.passchkck", this.passchkck);
     if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "danger" });
@@ -589,8 +592,6 @@ export class MemberStandardSetPage implements OnInit {
       this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
       this.safeJobForm.user_type = 'COMPANY';
     }
-    console.log("this.safeJobForm.user_type",this.safeJobForm.user_type);
-    console.log("this.safeJobForm.company_id",this.safeJobForm.company_id);
     this.resSafeJob = await this.connect.run('/project/safe_job/get', this.safeJobForm);
     if (this.resSafeJob.rsCode === 0) { };
   }
@@ -693,6 +694,9 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getOccupation() {
+    if(this.user.userData.user_role === 'COMPANY_HEAD') {
+      this.occupationForm = this.user.userData.belong_data.company_id;
+    }
     this.resOccupation = await this.connect.run('/project/occupation/get', { company_id: this.occupationForm });
     if (this.resOccupation.rsCode === 0) { };
   }

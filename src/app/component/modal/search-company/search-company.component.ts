@@ -24,7 +24,7 @@ export class SearchCompanyComponent implements OnInit {
   @Input() type?: boolean = false;
   @Input() multiple:boolean;
   @Input() form = {
-    company_contract_type: '원청사',
+    company_contract_type: '',
     search_text: ''
   }
 
@@ -44,7 +44,7 @@ export class SearchCompanyComponent implements OnInit {
     business_register_no: '',
     company_name: '',
     company_ceo: '',
-    search_type: '원청사'
+    search_type: ''
   }
 
   selectItem:SelectItem;
@@ -60,14 +60,18 @@ export class SearchCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.value",this.value);
-    console.log("this.type",this.type);
-    console.log("this.multiple",this.multiple);
+    // console.log("this.value",this.value);
+    // console.log("this.type",this.type);
+    // console.log("this.multiple",this.multiple);
+    // console.log("this.form",this.form);
+    if(this.form.company_contract_type === 'COMPANY') {
+      this.form.company_contract_type = '원청사';
+    }
     this.getCompany();
   }
 
   async getCompany() {
-    console.log("this.value", this.value);
+    console.log("this.form", this.form);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
       if (this.type) {

@@ -2,13 +2,14 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angula
 import { ModalController } from '@ionic/angular';
 import { Validator, ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
-import { ManualUpdateForm } from '../manual-edit/manual-edit.page';
+import { ManualEditPage, ManualUpdateForm } from '../manual-edit/manual-edit.page';
 
 @Component({
   selector: 'app-manual-detail',
@@ -18,12 +19,17 @@ import { ManualUpdateForm } from '../manual-edit/manual-edit.page';
 export class ManualDetailPage implements OnInit {
   @Input() manual_id:number;
 
+  permission = {
+    edit: false
+  }
+
   form = new ManualUpdateForm();
   validator = new Validator(new ManualUpdateForm()).validator;
   res:ConnectResult;
 
   constructor(
     private el: ElementRef<HTMLElement>,
+    private alert: AlertService,
     private connect: ConnectService,
     private nav: NavService,
     private date: DateService,
@@ -37,14 +43,13 @@ export class ManualDetailPage implements OnInit {
 
   ngOnInit() {
     if(this.manual_id) {
+      this.getPermission();
+
       this.form.manual_id = this.manual_id;
       this.get();
     } else {
-      const userData = this.user.userData;
-      this.form.create_date = this.date.today();
-      this.form.update_date = this.form.create_date;
-      this.form.create_user_name = userData.user_name;
-      this.form.company_name = userData.belong_data.company_name;
+      this.toast.present({ color: 'warning', message: '잘못된 접근입니다.' });
+      this._modal.dismiss();
     }
     if(environment.test) this.test();
   }
@@ -69,6 +74,11 @@ export class ManualDetailPage implements OnInit {
     el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
   }
 
+  private getPermission() {
+    this.permission.edit = this.user.userData.user_role === 'LH_HEAD';
+    console.log(this.permission);
+  }
+
   private async get() {
     const res = await this.connect.run('/support/manual/get', {
       manual_id: this.form.manual_id
@@ -85,19 +95,33 @@ export class ManualDetailPage implements OnInit {
     }
   }
 
-  public submit() {
-    if(this.form.manual_id) {
-      this.update();
-    } else {
-      this.insert();
-    }
+  public async remove() {
+    this.alert.present({
+      header: '사용자 메뉴얼 삭제',
+      message: '사용자 메뉴얼을 삭제하시겠습니까?',
+      buttons: [
+        { text: '취소' },
+        { text: '삭제', handler: async() => {
+          const res = await this.connect.run('/support/manual/delete', {
+            manual_ids: [this.form.manual_id]
+          });
+          if(res.rsCode === 0) {
+            this._modal.dismiss(true);
+          } else {
+            this.toast.present({ color: 'warning', message: res.rsMsg });
+          }
+        }}
+      ]
+    });
   }
 
-  public async insert() {
-
+  public async edit() {
+    const modal = await this._modal.create({
+      component: ManualEditPage,
+      componentProps: {
+        manual_id: this.form.manual_id
+      }
+    });
+    modal.present();
   }
-  public async update() {
-
-  }
-
 }

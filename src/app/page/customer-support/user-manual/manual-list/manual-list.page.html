@@ -87,7 +87,7 @@
       </app-table>
     </app-col>
     <app-col>
-      <ion-toolbar color="white">
+      <ion-toolbar color="white" *ngIf="user.userData.user_role === 'LH_HEAD'">
         <ion-buttons slot="start">
           <app-button name="add" fill="translucent" (click)="edit()">등록</app-button>
         </ion-buttons>
