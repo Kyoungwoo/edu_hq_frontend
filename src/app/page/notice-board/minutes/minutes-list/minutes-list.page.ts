@@ -36,7 +36,7 @@ export class MinutesListPage implements OnInit {
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0,
-    cnt_approval_answers :[]
+    approval_cnt_answer: ['임시저장']
   }
 
   res:ConnectResult<SafetyMeetingInfo>;
@@ -51,10 +51,12 @@ export class MinutesListPage implements OnInit {
   async ngOnInit() {
     this.get();
   }
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
-
+    console.log("111111111111111111",trans_form);
     this.res = await this.connect.run('/board/safety_meeting/list', trans_form, {
       loading: '회의록 불러오기'
     });

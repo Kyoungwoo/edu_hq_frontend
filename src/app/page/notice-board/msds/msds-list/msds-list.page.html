@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor></app-select-contractor>
+                <app-select-company></app-select-company>
               </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>MSDS 목록 (총{{res?.rsMap?.length}}건)</h5>
+          <h5>MSDS 목록 (총{{res?.rsMap?.length || 0 }}건)</h5>
         </ion-toolbar>
         <app-card *ngIf="resFavorite?.rsCode" color="warning">{{ resFavorite.rsMsg }}</app-card>
         <ng-container *ngIf="res">
@@ -115,7 +115,7 @@
                 </tbody>
               </app-table>
             </app-check-group>
-            <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no"></app-pager>
+            <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
           </ng-container>
           <ng-template #tempFail>
             <app-card>{{ res.rsMsg }}</app-card>

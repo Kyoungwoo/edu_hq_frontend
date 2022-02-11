@@ -12,7 +12,6 @@
 </ion-header>
 
 <ion-content>
-  <app-card>
     <app-row>
       <app-col>
         <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
@@ -80,7 +79,6 @@
         <app-input name="input scene" [(ngModel)]="form.search_text" label="검색어"></app-input>
       </app-col>
     </app-row>
-  </app-card>
 </ion-content>
 <app-button-footer>
   <app-button (click)="remove()">초기화</app-button>

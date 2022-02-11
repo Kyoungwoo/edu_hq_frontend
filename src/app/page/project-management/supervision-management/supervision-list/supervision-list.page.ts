@@ -38,7 +38,8 @@ export class SupervisionListPage implements OnInit {
     company_id: number,
     company_name: string,
     create_user_id: number,
-    create_user_name: string
+    create_user_name: string,
+    row_count: number
   }>
 
   ctgoRegional:ConnectResult<{
@@ -75,8 +76,9 @@ export class SupervisionListPage implements OnInit {
     this.getCtgoRegional();
   }
 
-  async getList() {
-
+  async getList(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) this.res = res;
   }

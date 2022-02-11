@@ -71,7 +71,7 @@
             </tr>
           </tbody>
         </app-table>
-      <app-pager></app-pager>
+        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
     </app-col>
   </app-row>
 </ion-content>

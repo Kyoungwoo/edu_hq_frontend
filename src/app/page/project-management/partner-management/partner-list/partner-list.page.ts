@@ -29,7 +29,8 @@ export class PartnerListPage implements OnInit {
     company_ceo: string,
     project_name: string,
     master_company_name: string,
-    update_date: string
+    update_date: string,
+    row_count: number
   }>
   constructor(
     private modal: ModalController,
@@ -40,7 +41,8 @@ export class PartnerListPage implements OnInit {
     this.getList();
   }
 
-  async getList() {
+  async getList(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
     this.res = await this.connect.run('/project/company/partner/list',this.form,{loading:'협력사 불러오는 중...'});
     if(this.res.rsCode ===0) {};
   }

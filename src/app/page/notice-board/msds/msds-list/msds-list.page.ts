@@ -59,7 +59,9 @@ export class MsdsListPage implements OnInit {
     this.get();
   }
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
     this.res = await this.connect.run('/board/msds/list', this.form, {
