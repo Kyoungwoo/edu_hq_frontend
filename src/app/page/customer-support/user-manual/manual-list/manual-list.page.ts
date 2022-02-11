@@ -6,17 +6,11 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
-import { ManualDetailSearchPage } from '../manual-detail-search/manual-detail-search.page';
+import { ManualDetailSearchPage, ManualListForm } from '../manual-detail-search/manual-detail-search.page';
 import { ManualEditPage } from '../manual-edit/manual-edit.page';
 
-class MenualListForm {
-  ctgo_manual_ids:number[] = []; // 사용자 매뉴얼 구분 ID
-  start_date:string = null; // 작성검색시작일
-  end_date:string = null; // 작성검색종료일
-  search_text:string = ''; // 검색어(제목)
-  limit_no:number = 0; //
-}
-interface MenualListItem {
+
+interface ManualListItem {
   company_id: number,
   company_name: string,
   create_date: string,
@@ -35,7 +29,8 @@ interface MenualListItem {
   pin_state: 0|1,
   update_date: string,
   update_user_id: number,
-  update_user_name: string
+  update_user_name: string,
+  row_count: number
 }
 @Component({
   selector: 'app-manual-list',
@@ -44,12 +39,8 @@ interface MenualListItem {
 })
 export class ManualListPage implements OnInit {
 
-  form = new MenualListForm();
-  resMenualCtgo:ConnectResult<{
-    ctgo_manual_id: number,
-    ctgo_manual_name: string
-  }>;
-  res:ConnectResult<MenualListItem>;
+  form = new ManualListForm();
+  res:ConnectResult<ManualListItem>;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -75,21 +66,73 @@ export class ManualListPage implements OnInit {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    // el.querySelector('[name=add]').dispatchEvent(new Event('click'));
+    //추가
+    el.querySelector('[name=add]').dispatchEvent(new Event('click'));
+    await this.promise.wait();
+    await this.promise.toggleWait(async() => await this._modal.getTop());
+    await this.promise.wait();
+    
+    //가장 위엣놈 클릭 후 수정
+    el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+    await this.promise.wait();
+    await this.promise.toggleWait(async() => await this._modal.getTop());
+    await this.promise.wait();
+
+    //가장 위앳놈 삭제
+    el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+    //await 
   }
-  public async get() {
-    this.res = await this.connect.run('/support/manual/list', this.form, {
-      parse: ['manual_ctgo_data']
+
+  public async getMobile($event) {
+    this.form.limit_no = this.res.rsMap.length;
+
+    const res = await this.connect.run('/support/manual/list', this.form, {
+      parse: ['manual_ctgo_data', 'manual_file_data']
     });
+    if(res.rsCode === 0) {
+      res.rsMap.forEach(item => {
+        this.res.rsMap.push(item);
+      });
+    } else if(res.rsCode === 1008) {
+      // 더 로딩할 데이터가 없음
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+    setTimeout(() => {
+      $event.target.complete();
+    }, 50);
   }
+  public async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    
+    const res = await this.connect.run('/support/manual/list', this.form, {
+      parse: ['manual_ctgo_data', 'manual_file_data']
+    });
+    if(res.rsCode === 0) {
+      this.res = res;
+    } else if(res.rsCode === 1008) {
+      if(!this.form.limit_no) this.toast.present({ color: 'warning', message: res.rsMsg });
+      // else 더 로딩할 데이터가 없음
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: ManualDetailSearchPage,
-
-    })
+      componentProps: {
+        form: this.form
+      }
+    });
     modal.present();
+    const { data } = await modal.onWillDismiss();
+    if(data) {
+      this.form = data;
+      this.get(0);
+    }
   }
-  async edit(item?:MenualListItem) {
+  async edit(item?:ManualListItem) {
     const modal = await this._modal.create({
       component:ManualEditPage,
       componentProps: {
@@ -97,10 +140,21 @@ export class ManualListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onWillDismiss();
+    if(data) {
+      this.get();
+    }
   }
-  async favoritesCheck($event:MouseEvent, item) {
+  async pinStateChange($event:MouseEvent, item:ManualListItem) {
     $event.stopPropagation();
-    item.favorites_state = item.favorites_state ? 0 : 1;
-    const res = await this.connect.run('/board/notice/favorites', { notice_id:item.notice_id });
+
+    item.pin_state = item.pin_state ? 0 : 1;
+    const res = await this.connect.run('/support/manual/pin/insert', { 
+      manual_id: item.manual_id,
+      pin_state: item.pin_state
+    });
+    if(res.rsCode) {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
   }
 }

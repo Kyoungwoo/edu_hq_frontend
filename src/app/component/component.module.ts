@@ -53,6 +53,7 @@ import { MileagePopupComponent } from '../page/member-management/member-manageme
 import { SupervisionSearchComponent } from './modal/supervision-search/supervision-search.component';
 import { ProjectAreaSetComponent } from './modal/project-area-set/project-area-set.component';
 import { SelectSupervisionComponent } from './select/select-supervision/select-supervision.component';
+import { SelectManualComponent } from './select/select-manual/select-manual.component';
 
 
 
@@ -75,8 +76,9 @@ import { SelectSupervisionComponent } from './select/select-supervision/select-s
     PeopleDeleteComponent,
     SearchAreaComponent,
     SelectToolComponent,
-    SelectHeavyComponent,
     SelectEducationComponent,
+    SelectHeavyComponent,
+    SelectManualComponent,
     SelectCompanyComponent,
     SelectSceneComponent,
     SelectPeopleComponent,
@@ -132,8 +134,9 @@ import { SelectSupervisionComponent } from './select/select-supervision/select-s
     PeopleDeleteComponent,
     SearchAreaComponent,
     SelectToolComponent,
-    SelectHeavyComponent,
     SelectEducationComponent,
+    SelectHeavyComponent,
+    SelectManualComponent,
     SelectCompanyComponent,
     SelectSceneComponent,
     SelectPeopleComponent,
