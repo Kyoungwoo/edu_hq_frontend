@@ -8,6 +8,7 @@ enum TAG {
 }
 
 export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
+export type UserRole = 'COMPANY_WORKER' | 'COMPANY_GENERAL';
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {
@@ -17,6 +18,7 @@ export interface AuthToken {
 export class UserData {
   account_id:string; // "worker_sh"
   belong_data = {
+    company_contract_type: "" as "원청사" | "협력사" | "감리사" | "LH",
     company_id: 0,
     company_name: '',
     project_id: 0,
@@ -30,7 +32,7 @@ export class UserData {
   user_name:string; // "김수홍"
   user_phone:string; // "01000249857"
   user_profile:string; // "null"
-  user_role:string; // "COMPANY_WORKER"
+  user_role:string; // "COMPANY_WORKER" | "COMPANY_GENERAL" | ""
   user_type:UserType; // "WORKER"
 }
 @Injectable({

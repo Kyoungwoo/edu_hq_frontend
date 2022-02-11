@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 interface MenuItem {
   title: string,
@@ -82,10 +83,15 @@ export class SideMenuUserComponent implements OnInit {
     ]}
   ]
 
-  constructor() { 
+  constructor(
+    public _modal: ModalController
+  ) { 
     this.menuSelected = this.menuList[0];
-    
   }
 
   ngOnInit() {}
+  dismiss() {
+    console.log('here');
+    this._modal.dismiss();
+  }
 }
