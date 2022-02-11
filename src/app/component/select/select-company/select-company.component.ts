@@ -126,8 +126,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         this.text = compnay_name_string.toString();
       } else {
         this.text = data.company_name
-        this.value = data[0];
-        console.log("eeeeeeeee",this.text);
+        console.log("---------------------data",data);
+        this.value = data;
+        console.log("this.value",this.value);
       } 
     }
   }
@@ -139,6 +140,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:CompanyData[]) {
     if(v !== this._value) {
       this._value = v || [];
+      console.log("=================1",v);
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -149,6 +151,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   writeValue(v:[]): void { 
     if(v !== this._value) {
       this._value = v || [];
+      console.log("=================2",v);
       this.get();
       this.onChangeCallback(v);
       this.change.emit(v);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 declare var nhn:any;
@@ -30,7 +30,9 @@ export class SmarteditComponent implements OnInit {
 
   oEditors:any = [];
   
-  constructor() { }
+  constructor(
+    private el: ElementRef<HTMLElement>
+  ) { }
 
   ngOnInit() {
     this.smartEditor();
@@ -55,13 +57,14 @@ export class SmarteditComponent implements OnInit {
   }
   private insert() {
     try {
-      this.oEditors.getById["smartEditor"].exec("PASTE_HTML", [this.value]);
+      //this.oEditors.getById["smartEditor"].exec("PASTE_HTML", [this.value]);
+      this.oEditors.getById["smartEditor"].exec("SET_IR", [this.value]);
     } catch(e) {}
   }
   public update() {
-    console.log(this.value);
     try {
       this.oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+      this.value = this.el.nativeElement.querySelector('#smartEditor')['value'];
     } catch(e) {}
   }
 

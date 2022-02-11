@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { SmarteditComponent } from 'src/app/basic/component/input/smartedit/smartedit.component';
+import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -38,11 +39,13 @@ export class MsdsItem {
   styleUrls: ['./msds-edit.page.scss'],
 })
 export class MsdsEditPage implements OnInit {
+
+  @ViewChild('msdsText') msdsText:SmarteditComponent;
   
   @Input() item;
   
   title:string;
-  
+  validator = new Validator(new MsdsItem()).validator;
   rangeText = '';
   useMsds:boolean = true;
   
@@ -88,6 +91,16 @@ export class MsdsEditPage implements OnInit {
       }
     }
   }
+  public submit() {
+    this.msdsText.update();
+    if(this.form.msds_id) {
+      this.update();
+    } else {
+      this.MsdsInsert();
+    }
+  }
+
+
   async MsdsInsert() { //등록
     if(!this.form.msds_title) return this.toast.present({ message:'제목을 입력하세요.' });
     //메소드 호출

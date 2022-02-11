@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { SmarteditComponent } from 'src/app/basic/component/input/smartedit/smartedit.component';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -38,6 +39,8 @@ export class NoticeItem implements NoticePublicScope {
   styleUrls: ['./notice-edit.page.scss'],
 })
 export class NoticeEditPage implements OnInit {
+
+  @ViewChild('noticeText') noticeText:SmarteditComponent;
 
   @Input() item; //LIST 에서 가져오는 값
 
@@ -88,6 +91,15 @@ export class NoticeEditPage implements OnInit {
       // if(!this.form.scope_company_name) {
       //   this.rangeText.substring(1,this.rangeText.length -1);
       // }
+    }
+  }
+
+  public submit() {
+    this.noticeText.update();
+    if(this.form.notice_id) {
+      this.update();
+    } else {
+      this.noticeInsert();
     }
   }
 

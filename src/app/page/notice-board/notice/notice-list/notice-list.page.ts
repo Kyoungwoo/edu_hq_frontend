@@ -16,6 +16,7 @@ class NoticeInfo {
   hit_count: number;
   notice_id: number;
   notice_title: string;
+  notice_content: string;
   notice_type: NoticeType;
   project_id: number;
   project_name: string;

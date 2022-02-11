@@ -66,7 +66,10 @@
   </app-row>
   <app-row *mobileHidden>
     <app-col>
-      <app-smartedit placeholder="내용을 입력하세요." [(ngModel)]="form.msds_content"></app-smartedit>
+      <app-smartedit #msdsText name="msds_text" placeholder="내용을 입력하세요." 
+        [color]="validator.msds_title?.valid === false && 'warning'"
+        [(ngModel)]="form.msds_content"></app-smartedit>
+        <app-input-caption *ngIf="validator.msds_title?.valid === false">{{ validator.msds_title.message }}</app-input-caption>
     </app-col>
   </app-row>
   <app-row *mobileShow>
@@ -117,9 +120,9 @@
   </app-table>
 </ion-content>
 <app-button-footer *mobileHidden>
-  <app-button *ngIf="item" [disabled]="useMsds" (click)="update()" fill="translucent">수정</app-button>
+  <app-button *ngIf="item" [disabled]="useMsds" (click)="submit()" fill="translucent">수정</app-button>
   <app-button *ngIf="item" [disabled]="useMsds" color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
-  <app-button *ngIf="!item" (click)="MsdsInsert()">저장</app-button>
+  <app-button *ngIf="!item" (click)="submit()">저장</app-button>
 </app-button-footer>
 <!-- 모바일 -->
 <ng-container *mobileShow>

@@ -46,13 +46,6 @@ export class PartnerEditPage implements OnInit {
   email: string;
   emailaddress: string;
   directlyInput: string;
-  
-  data = {
-    business_register_no: "",
-    company_ceo: "",
-    company_id: 0,
-    company_name: ""
-  }
   resMap:Array <{
     ctgo_construction_id: 0, // 계약공종
     contract_name: '', // 계약명
@@ -63,7 +56,12 @@ export class PartnerEditPage implements OnInit {
     master_company_id: 0, // 원청사 ID
     project_id: 0 // 현장 ID }
   }> = [];
-
+data = {
+  business_register_no: "",
+  company_ceo: "",
+  company_id: 0,
+  company_name: ""
+};
   selectList = [];
   selected_check = [];
   res:ConnectResult <{
@@ -136,12 +134,14 @@ export class PartnerEditPage implements OnInit {
 
   async contSave() {
     console.log(this.data);
+    this.resObj.business_register_no = this.data.business_register_no
+    this.resObj.company_ceo = this.data.company_ceo
     let contractInfo = [];
     this.resMap.forEach(item => {
       contractInfo.push(item);
     });
     this.resObj.company_contract_data = contractInfo;
-    if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.' })
+    if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' })
     // if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
     // if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     // if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
