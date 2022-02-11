@@ -47,11 +47,13 @@ export class PartnerListPage implements OnInit {
     if(this.res.rsCode ===0) {};
   }
 
-  async edit(company_id?) {
+  async edit(item?) {
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
-        company_id
+        company_id:item.company_id,
+        project_id:item.project_id
+
       }
     });
     modal.present();

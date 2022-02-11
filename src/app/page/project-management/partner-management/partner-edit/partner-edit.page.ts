@@ -38,6 +38,7 @@ export class resObj {
 export class PartnerEditPage implements OnInit {
   
   @Input() company_id;
+  @Input() project_id;
   @Input() type?: boolean = false;
   
   resObj:resObj = new resObj();
@@ -56,12 +57,6 @@ export class PartnerEditPage implements OnInit {
     master_company_id: 0, // 원청사 ID
     project_id: 0 // 현장 ID }
   }> = [];
-data = {
-  business_register_no: "",
-  company_ceo: "",
-  company_id: 0,
-  company_name: ""
-};
   selectList = [];
   selected_check = [];
   res:ConnectResult <{
@@ -133,9 +128,6 @@ data = {
   }
 
   async contSave() {
-    console.log(this.data);
-    this.resObj.business_register_no = this.data.business_register_no
-    this.resObj.company_ceo = this.data.company_ceo
     let contractInfo = [];
     this.resMap.forEach(item => {
       contractInfo.push(item);
@@ -183,6 +175,7 @@ data = {
           handler: async () => {
             const res = await this.connect.run('/project/company/partner/delete', {
               company_id: this.company_id,
+              project_id: this.project_id
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
@@ -191,6 +184,7 @@ data = {
         }
       ]
     })
+    alert.present();
   }
 
   async contUpdate() {

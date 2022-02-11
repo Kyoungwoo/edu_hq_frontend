@@ -57,7 +57,7 @@
               <th>작성자</th>
             </tr>
           </thead>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item.company_id)">
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ i+1 }}</td>
               <td>{{ item.project_name }}</td>
               <td>{{ item.master_company_name }}</td>
