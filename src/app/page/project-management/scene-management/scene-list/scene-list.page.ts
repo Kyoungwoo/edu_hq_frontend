@@ -34,7 +34,8 @@ export class SceneListPage implements OnInit {
     contract_start_date: string, // 공사기간 ~
     project_use_state: Number, // 1 사용, 0 미사용
     update_date:string, // 최근 업데이트
-    state:boolean
+    state:boolean,
+    row_count: number
   }>;
   
   ctgoRegional:ConnectResult<{
@@ -69,7 +70,10 @@ export class SceneListPage implements OnInit {
     this.getCtgoRegional();
   }
 
-  async getList() {
+  async getList(limit_no = this.form.limit_no) {
+
+    this.form.limit_no = limit_no;
+    
     this.res = await this.connect.run('/project/list',{
       hq_business_ids:this.form.hq_business_ids,
       hq_regional_ids:this.form.hq_regional_ids,

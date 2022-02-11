@@ -36,26 +36,32 @@ export class resObj {
   styleUrls: ['./partner-edit.page.scss'],
 })
 export class PartnerEditPage implements OnInit {
-
+  
   @Input() company_id;
   @Input() type?: boolean = false;
-
+  
   resObj:resObj = new resObj();
   updateStatus: boolean = false;
-  savestatus:boolean = false;
-  email:string;
-  emailaddress:string;
-  directlyInput:string;
-
+  savestatus: boolean = false;
+  email: string;
+  emailaddress: string;
+  directlyInput: string;
+  
+  data = {
+    business_register_no: "",
+    company_ceo: "",
+    company_id: 0,
+    company_name: ""
+  }
   resMap:Array <{
-    ctgo_construction_id:0, // 계약공종
-    contract_name:'', // 계약명
-    contract_start_date:'', // 계약기간 ~
-    contract_end_date:'', // ~ 계약기간
-    contract_amount:'', // 계약금액
-    manager_user_id:0, // 협력사 소장
-    master_company_id:0, // 원청사 ID
-    project_id:0 // 현장 ID }
+    ctgo_construction_id: 0, // 계약공종
+    contract_name: '', // 계약명
+    contract_start_date: '', // 계약기간 ~
+    contract_end_date: '', // ~ 계약기간
+    contract_amount: '', // 계약금액
+    manager_user_id: 0, // 협력사 소장
+    master_company_id: 0, // 원청사 ID
+    project_id: 0 // 현장 ID }
   }> = [];
 
   selectList = [];
@@ -129,6 +135,7 @@ export class PartnerEditPage implements OnInit {
   }
 
   async contSave() {
+    console.log(this.data);
     let contractInfo = [];
     this.resMap.forEach(item => {
       contractInfo.push(item);

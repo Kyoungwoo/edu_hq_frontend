@@ -97,7 +97,7 @@
           <h5>현장 등록 목록이 없습니다.</h5>
         </app-card>
       </ng-template>
-      <app-pager></app-pager>
+      <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
     </app-col>
   </app-row>
 </ion-content>
