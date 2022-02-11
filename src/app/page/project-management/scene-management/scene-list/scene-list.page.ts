@@ -63,6 +63,8 @@ export class SceneListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getList();
+
     console.log("this.user.userData",this.user.userData);
     this.getCtgoRegional();
   }
@@ -100,9 +102,6 @@ export class SceneListPage implements OnInit {
     // }
   }
   async edit(project_id?) {
-    if(this.form.hq_regional_ids.length) {
-      if(!this.form.hq_business_ids.length) return this.toast.present({message:'사업본부를 선택해주세요.',color:'danger'});
-    }
     const modal = await this.modal.create({
       component:SceneEditPage,
       componentProps: { project_id }

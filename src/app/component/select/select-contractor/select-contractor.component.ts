@@ -91,13 +91,15 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       console.log("data",data);
       if(this.multiple){
         let compnay_name_string = [];
-        console.log(data);
+        console.log("--------------data",data);
         for(let i = 0; i < data.length; i++) {
-         compnay_name_string.push(data[i].company_name);
+          this.value.push(data[i].company_id);
+          compnay_name_string.push(data[i].company_name);
         }
         this.text = compnay_name_string.toString();
       } else {
-        this.text = data.company_name
+        this.text = data.company_name;
+        this.value = data[0].company_id;
       }
     }
   }

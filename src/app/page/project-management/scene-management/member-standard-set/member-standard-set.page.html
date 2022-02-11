@@ -6,12 +6,12 @@
       <app-col size="auto">
         <ion-segment class="sub-segment" color="primary" [value]="1">
           <ion-segment-button (click)="menuCount = 1" [value]="1">LH 조직관리</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 2">정보 접근<br>비밀번호</ion-segment-button>
+          <ion-segment-button (click)="menuCount2()">정보 접근<br>비밀번호</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 5">직위</ion-segment-button>
+          <ion-segment-button (click)="menuCount5()">직위</ion-segment-button>
           <ion-segment-button (click)="menuCount = 6">안전직무</ion-segment-button>
           <ion-segment-button (click)="menuCount = 7">직종</ion-segment-button>
         </ion-segment>
@@ -183,17 +183,18 @@
   <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
     <app-col size="280px">
       <app-table type="card">
-        <thead>
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
           <tr>
-            <th>
-              <app-row style="justify-content: space-between;">
-                <app-col size="auto">
-                  <app-select-company ></app-select-company>
-                </app-col>
-              </app-row>
-            </th>
+            <app-select-company [(ngModel)]="form.company_id"></app-select-company>
           </tr>
-        </thead>
+        </tbody>
       </app-table>
     </app-col>
     <app-col>
@@ -355,7 +356,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length}}건)</h5>
+            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
@@ -366,7 +367,7 @@
         <app-table>
           <thead>
             <tr>
-              <th>
+              <th style="width: 40px;">
                 <app-check type="all"></app-check>
               </th>
               <th>No</th>
@@ -438,7 +439,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>직종 목록 (총90건)</h5>
+            <h5>직종 목록 (총{{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="occupationSave()">저장</app-button>

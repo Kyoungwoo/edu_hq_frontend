@@ -153,6 +153,7 @@ export class SceneEditPage implements OnInit {
   }
 
   async sceneInsert() {
+    this.form.company_data = [];
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [
@@ -183,6 +184,8 @@ export class SceneEditPage implements OnInit {
   }
   async sceneUpdate() {
     this.form.company_data = [];
+    let contractor_ids = [];
+    let supervision_ids = [];
     const alert = await this.alert.present({
       message: '수정 하시겠습니까?',
       buttons: [
@@ -195,6 +198,7 @@ export class SceneEditPage implements OnInit {
               company_type: '원청사',
               company_id: this.contractor_id
             });
+            console.log("this.contractor_id",this.contractor_id);
             this.form.company_data.push({
               company_type: '감리사',
               company_id: this.supervision_id
@@ -210,7 +214,8 @@ export class SceneEditPage implements OnInit {
           }
         }
       ]
-    })
+    });
+    alert.present();
   }
 
   async organizationSel() {

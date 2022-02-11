@@ -75,9 +75,11 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
       let compnay_name_string = [];
       console.log(data);
       for(let i = 0; i < data.length; i++) {
-       compnay_name_string.push(data[i].company_name);
+        this.value.push(data[i].company_id);
+        compnay_name_string.push(data[i].company_name);
       }
       this.text = compnay_name_string.toString();
+      this.value = data[0].company_id;
     }
   }
    

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { OrganizationEditComponent } from './component/organization-edit/organization-edit.component';
@@ -59,7 +60,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //정보 접근 비밀번호
   form = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     company_password: ''
   }
   subpassword: ''
@@ -81,7 +82,7 @@ export class MemberStandardSetPage implements OnInit {
     ctgo_job_position_name_ch: string
   }>
 
-  jobForm: number = 0;
+  jobForm: number = this.user.userData.belong_data.company_id;
   addPosition = [];
   selectList = [];
 
@@ -89,7 +90,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //안전직무
   safeJobForm = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     user_type: ''
   }
 
@@ -129,12 +130,36 @@ export class MemberStandardSetPage implements OnInit {
     private connect: ConnectService,
     private modal: ModalController,
     private toast: ToastService,
-    private alert: AlertService
+    private alert: AlertService,
+    private user: UserService
   ) { }
 
   ngOnInit() {
     //lh조직기구
-    this.level1();
+    console.log("this.user.userData",this.user.userData.user_role === "LH_HEAD");
+    if(this.user.userData.user_role === "LH_HEAD"){
+      this.level1();
+    }
+  }
+
+  menuCount2() {
+    this.menuCount = 2;
+    // 권한 체크
+    // if(this.user.userData.user_role === '' ||
+    // this.user.userData.user_role === '' ||
+    // this.user.userData.user_role === ''
+    // ){
+
+    // }
+  }
+  menuCount5() {
+    this.menuCount = 5;
+    this.getJobPosition();
+    console.log()
+    if(this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
+    if(this.user.userData.user_role === 'COMPANY_HEAD') {
+      this.jobForm = this.user.userData.belong_data.company_id;
+    }
   }
 
   //-->  lh조직관리 시작
@@ -144,6 +169,7 @@ export class MemberStandardSetPage implements OnInit {
     this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
     if (this.resLevel1.rsCode === 0) { }
   }
+
   // //지역본부, 사업본부
   async level2() {
     this.resLevel2 = await this.connect.run('/project/organization/business/get',{
@@ -154,7 +180,6 @@ export class MemberStandardSetPage implements OnInit {
   //
   async level3() {
     this.resLevel3 = await this.connect.run('/project/organization/department/get',{
-
     },{});
     if(this.resLevel3.rsCode === 0) {}
   }
