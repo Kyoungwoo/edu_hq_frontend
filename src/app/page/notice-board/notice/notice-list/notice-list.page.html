@@ -20,12 +20,13 @@
             </tr>
             <tr>
               <td>
-                <app-select-company [(ngModel)]="form.company_ids"></app-select-company>
+                <app-select-contractor [(ngModel)]="form.company_ids"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="공지사항 구분" [(ngModel)]="form.notice_types" [multiple]="true">
+                <app-select label="공지 구분" [(ngModel)]="form.notice_types" [multiple]="true">
+                  <app-select-option type="all" [value]="[]">전체</app-select-option>
                   <app-select-option value="일반">일반</app-select-option>
                   <app-select-option value="안전관리">안전관리</app-select-option>
                   <app-select-option value="환경관리">환경관리</app-select-option>
@@ -61,7 +62,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>공지사항 목록 (총{{res?.rsMap?.length || 0 }}건)</h5>
+          <h5>공지사항 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-card *ngIf="resFavorite?.rsCode" color="warning">{{ resFavorite.rsMsg }}</app-card>
         <ng-container *ngIf="res">
@@ -136,5 +137,9 @@
         </app-col>
       </app-row>
     </app-card>
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-content>
 </ng-container>

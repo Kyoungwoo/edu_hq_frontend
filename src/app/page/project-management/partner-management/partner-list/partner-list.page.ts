@@ -36,7 +36,9 @@ export class PartnerListPage implements OnInit {
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    public user: UserService
+    public user: UserService,
+    
+
   ) { }
 
   ngOnInit() {

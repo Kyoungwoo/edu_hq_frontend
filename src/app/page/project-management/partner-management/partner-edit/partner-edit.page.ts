@@ -86,6 +86,7 @@ export class PartnerEditPage implements OnInit {
   ngOnInit() {
     // console.log("this.compnayData",this.compnayData);
     if(this.company_id){
+      
       this.updateStatus = true;
     }
     else{

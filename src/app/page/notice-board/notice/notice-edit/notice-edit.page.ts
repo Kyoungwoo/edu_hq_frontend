@@ -40,6 +40,10 @@ export class NoticeItem implements NoticePublicScope {
 })
 export class NoticeEditPage implements OnInit {
 
+  permission = {
+    edit: false
+  }
+
   @ViewChild('noticeText') noticeText:SmarteditComponent;
 
   @Input() item; //LIST 에서 가져오는 값
@@ -49,7 +53,6 @@ export class NoticeEditPage implements OnInit {
   form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
   rangeText = '';
-  useNotice:boolean = true;
 
   constructor(
     private connect: ConnectService,
@@ -62,6 +65,7 @@ export class NoticeEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getPermission();
     if(this.item?.notice_id) {
       this.title = '상세';
       this.get();
@@ -74,17 +78,26 @@ export class NoticeEditPage implements OnInit {
     }
   }
 
+  getPermission() {
+    const company_contract_type = this.user.userData.belong_data.company_contract_type;
+    if(company_contract_type === 'LH'
+    || company_contract_type === '원청사') {
+      this.permission.edit = true;
+    } else {
+      this.permission.edit = false;
+    }
+  }
+
   async get() { //상세보기
-    const res = await this.connect.run('/board/notice/detail', { notice_id: this.item.notice_id });
+    const res = await this.connect.run('/board/notice/detail', { 
+      notice_id: this.item.notice_id 
+    }, { loading: true, parse: ['notice_file_data'] });
     if(res.rsCode ===  0) {
       this.form = {
         ...this.form,
         ...res.rsObj
       } 
 
-      if(this.user.userData.user_id === this.form.create_user_id) {
-        this.useNotice = false;
-      }
       const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
       this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;

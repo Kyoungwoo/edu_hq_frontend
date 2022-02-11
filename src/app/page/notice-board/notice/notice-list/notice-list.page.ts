@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
@@ -47,11 +48,30 @@ export class NoticeListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     private date: DateService,
-    public user: UserService
+    public user: UserService,
+    private toast: ToastService
   ) { }
 
   async ngOnInit() {
     this.get();
+  }
+  public async getMobile($event) {
+    this.form.limit_no = this.res.rsMap.length;
+
+    const res = await this.connect.run('/board/notice/list', this.form, {
+    });
+    if(res.rsCode === 0) {
+      res.rsMap.forEach(item => {
+        this.res.rsMap.push(item);
+      });
+    } else if(res.rsCode === 1008) {
+      // 더 로딩할 데이터가 없음
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+    setTimeout(() => {
+      $event.target.complete();
+    }, 50);
   }
 
   async get(limit_no = this.form.limit_no) {
@@ -67,15 +87,16 @@ export class NoticeListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:DetailSearchComponent,
+      component:DetailSearchPage,
       componentProps:{
-        type:'공지사항'
+        type:'공지사항',
+        form: this.form
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.form.search_text = data.search_text;
+      this.form = data;
       this.get();
     }
   }

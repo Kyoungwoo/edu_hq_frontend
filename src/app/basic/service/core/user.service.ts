@@ -8,8 +8,16 @@ enum TAG {
 }
 
 export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
-export type UserRole = 'COMPANY_WORKER' | 'COMPANY_GENERAL' | 'COMPANY_HEAD' | 'LH_PROJECT' |
-'LH_BUSINESS' | 'LH_REGION' | 'LH_ADMIN' | 'LH_HEAD' ;
+export type UserRole = 
+'LH_HEAD'  // LH 본사 마스터
+| 'LH_ADMIN' // LH 본사 관리자
+| 'LH_REGION' // LH 지역본부 관리자
+| 'LH_BUSINESS' // LH 사업본부 관리자
+| 'LH_PROJECT' // LH 현장 관리자
+
+| 'COMPANY_HEAD' // 업체 마스터
+| 'COMPANY_GENERAL' // 업체 일반 관리자
+| 'COMPANY_WORKER'; // 업체 작업자
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {
@@ -33,7 +41,7 @@ export class UserData {
   user_name:string; // "김수홍"
   user_phone:string; // "01000249857"
   user_profile:string; // "null"
-  user_role:string; // "COMPANY_WORKER" | "COMPANY_GENERAL" | ""
+  user_role:UserRole; // "COMPANY_WORKER" | "COMPANY_GENERAL" | ""
   user_type:UserType; // "WORKER"
 }
 @Injectable({

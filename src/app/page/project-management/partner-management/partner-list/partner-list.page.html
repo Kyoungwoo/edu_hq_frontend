@@ -41,7 +41,7 @@
         </ion-buttons>
       </ion-toolbar>        
       <ion-toolbar color="white">
-        <h5>협력사 관리 목록 (총{{ res?.rsMap?.length}}건)</h5>
+        <h5>협력사 관리 목록 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
       </ion-toolbar>
         <app-table>
           <thead>
