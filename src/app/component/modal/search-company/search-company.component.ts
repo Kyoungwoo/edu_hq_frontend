@@ -46,12 +46,6 @@ export class SearchCompanyComponent implements OnInit {
     company_ceo: '',
     search_type: '원청사'
   }
-  // companyData:ConnectResult <{
-  //   company_id: number,
-  //   business_register_no: string,
-  //   company_name: string,
-  //   company_ceo: string
-  // }>
 
   selectItem:SelectItem;
 
@@ -62,7 +56,6 @@ export class SearchCompanyComponent implements OnInit {
   constructor(
     private connect: ConnectService,
     private _modal: ModalController,
-    // private user: UserService,
     private toast: ToastService,
   ) { }
 
@@ -73,11 +66,6 @@ export class SearchCompanyComponent implements OnInit {
     this.getCompany();
   }
 
-  // async getCompany() {
-  //   console.log(this.form.company_contract_type);
-  //   this.companyData = await this.connect.run('/category/certify/company/get',this.form,{});
-  //   if(this.companyData.rsCode === 0) { };
-  // }
   async getCompany() {
     console.log("this.value", this.value);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
@@ -97,9 +85,6 @@ export class SearchCompanyComponent implements OnInit {
     }
   }
   async addCompany() {
-    // this.filteritem = this.res.rsMap.filter((data, i) => {
-    //   return data.checked === true;
-    // })
     if(this.multiple){
       if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
         const toast = await this.toast.present({
