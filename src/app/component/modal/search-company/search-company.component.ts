@@ -137,7 +137,7 @@ export class SearchCompanyComponent implements OnInit {
         message: '최대 선택 개수는 5개입니다.',
         position: 'botton',
         color: 'primary'
-      })
+      });
     }
   }
 
