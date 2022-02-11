@@ -13,6 +13,10 @@ import { environment } from 'src/environments/environment';
 
 export class ManualUpdateForm {
   ctgo_manual_ids:number[] = []; // 구분 ID
+  manual_ctgo_data: {
+    ctgo_manual_id: number,
+    ctgo_manual_name: string
+  }[];
   manual_id:number = null; // 사용자 매뉴얼 ID
   pin_state: number = 0; // 상단 고정
   manual_title:string = null; // 제목

@@ -7,6 +7,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
 import { ManualDetailSearchPage, ManualListForm } from '../manual-detail-search/manual-detail-search.page';
+import { ManualDetailPage } from '../manual-detail/manual-detail.page';
 import { ManualEditPage } from '../manual-edit/manual-edit.page';
 
 
@@ -135,6 +136,19 @@ export class ManualListPage implements OnInit {
   async edit(item?:ManualListItem) {
     const modal = await this._modal.create({
       component:ManualEditPage,
+      componentProps: {
+        manual_id: item?.manual_id
+      }
+    });
+    modal.present();
+    const { data } = await modal.onWillDismiss();
+    if(data) {
+      this.get();
+    }
+  }
+  async detail(item:ManualListItem) {
+    const modal = await this._modal.create({
+      component:ManualDetailPage,
       componentProps: {
         manual_id: item?.manual_id
       }

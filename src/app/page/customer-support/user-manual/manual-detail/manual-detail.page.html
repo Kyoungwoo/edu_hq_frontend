@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>사용자 메뉴얼 수정</ion-title>
+    <ion-title>사용자 메뉴얼</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -8,6 +8,77 @@
 </ion-header>
 <ion-content>
   <h4>사용자 메뉴얼</h4>
+  <app-card>
+    <app-row mobileBreak>
+      <app-col>
+        <app-row>
+          <app-col size="100px">
+            <dt>회사명</dt>
+          </app-col>
+          <app-col>
+            <dd>한국 토지 주택 공사</dd>
+          </app-col>
+        </app-row>
+      </app-col>
+      <app-col>
+        <app-row>
+          <app-col size="100px">
+            <dt>작성자</dt>
+          </app-col>
+          <app-col>
+            <dd>박소현</dd>
+          </app-col>
+        </app-row>
+      </app-col>
+    </app-row>
+    <app-row mobileBreak>
+      <app-col>
+        <app-row>
+          <app-col size="100px">
+            <dt>작성일</dt>
+          </app-col>
+          <app-col>
+            <dd *ngIf="form.create_date === form.update_date; else tempUpdateDate">{{ form.create_date }}</dd>
+            <ng-container>
+              
+            </ng-container>
+            <dd>{{ form.create_date }}</dd>
+          </app-col>
+        </app-row>
+      </app-col>
+      <app-col>
+        <app-row>
+          <app-col size="100px">구분</app-col>
+          <app-col>
+            <p>
+              <span *ngFor="let menual_ctgo of form.manual_ctgo_data; let l = last">
+                {{ menual_ctgo.ctgo_manual_name }}
+                <span *ngIf="!l">/</span>
+              </span>
+            </p>
+          </app-col>
+        </app-row>
+      </app-col>
+    </app-row>
+  </app-card>
+
+  <app-card>
+    <app-row>
+      <app-col size="100px">제목</app-col>
+      <app-col>
+        <p>{{ form.manual_title }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="100px">내용</app-col>
+      <app-col>
+        <p [innerHtml]="form.manual_text"></p>
+      </app-col>
+    </app-row>
+  </app-card>
+
+
+  
   <app-row mobileBreak>
     <app-col>
       <app-input label="업체" [value]="form.company_name" [disabled]="true"></app-input>
