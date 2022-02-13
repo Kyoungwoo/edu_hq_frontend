@@ -84,8 +84,6 @@ export class SupervisionSearchComponent implements OnInit {
   }
   
   async choicCompany(item) {
-    console.log("this.filteritem", this.filteritem);
-    console.log("this.filteritem.length > 5",this.filteritem.length < 6);
     this.max_out = true;
     if (this.filteritem.length < 5 ) {
       item.checked = !item.checked;
