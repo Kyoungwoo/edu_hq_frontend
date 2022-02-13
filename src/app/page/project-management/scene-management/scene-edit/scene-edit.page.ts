@@ -113,13 +113,14 @@ export class SceneEditPage implements OnInit {
     const res = await this.connect.run('/project/detail', {
       project_id: this.project_id
     }, {
-      parse: ['project_file_data']
+      parse: ['project_file_data','gps_coordinate_data']
     });
     if (res.rsCode === 0) {
       this.form = {
         ...this.form,
         ...res.rsObj
       }
+      console.log()
       if (res.rsObj.company_data) {
         let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
 
@@ -163,6 +164,7 @@ export class SceneEditPage implements OnInit {
           handler: async () => {
             console.log("this.contractor_id",this.contractor_id);
             console.log("this.supervision_id",this.supervision_id);
+            this.form.company_data = [];
             this.form.company_data.push({
               company_type: '원청사',
               company_id: this.contractor_id
@@ -245,33 +247,23 @@ export class SceneEditPage implements OnInit {
   }
 
   async project_area_set() {
-    let gps_latitude = [];
-    let gps_longitude = [];
     const modal = await this._modal.create({
       component: ProjectAreaSetComponent,
       componentProps:
-        { returnData: this.returnData }
+        { 
+          gps_coordinate_data:this.form.gps_coordinate_data
+        }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-
     if (data) {
       if (this.project_id) {
         this.form.gps_state = 1;
       }
       this.form.gps_state_con = '설정 됨';
-      this.returnData = data;
-      data.forEach(item => {
-        const { x, y } = item;
-        gps_latitude.push(x);
-        gps_longitude.push(y);
-      });
-      this.form.gps_coordinate_data = {
-        gps_latitude,
-        gps_longitude
-      }
-      
-      console.log("this.form.gps_coordinate_data",this.form.gps_coordinate_data);
+      console.log('scene_eidt_data',data);
+      this.form.gps_coordinate_data = data;
+      console.log(this.form.gps_coordinate_data)
     }
   }
 

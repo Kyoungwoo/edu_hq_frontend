@@ -68,7 +68,7 @@
             <td>{{ data.company_name }}</td>
             <td>{{ data.business_register_no }}</td>
             <td>{{ data.company_ceo}}</td>
-            <td style="width: 40px;"><app-button (click)="data.checked = false" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
+            <td style="width: 40px;"><app-button (click)="data.checked = false; this.filteritem.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
           </tr>
         </ng-container>
       </tbody>

@@ -54,6 +54,8 @@ export class SceneListPage implements OnInit {
   }>
 
   businessState:boolean = true;
+
+  listLoading:boolean = false;
   constructor(
     private modal:ModalController,
     private connect:ConnectService,
@@ -71,7 +73,7 @@ export class SceneListPage implements OnInit {
   }
 
   async getList(limit_no = this.form.limit_no) {
-
+    this.listLoading = true;
     this.form.limit_no = limit_no;
     
     this.res = await this.connect.run('/project/list',{
@@ -83,6 +85,9 @@ export class SceneListPage implements OnInit {
       loading:'현장 불러온느중'
     });
     if(this.res.rsCode === 0) {}
+    setTimeout(() => {
+      this.listLoading = false;
+    }, 1000);
   }
 
   async use_submit() {
@@ -106,6 +111,9 @@ export class SceneListPage implements OnInit {
     // }
   }
   async edit(project_id?) {
+    if(this.user.userData.user_role !== 'LH_HEAD') {
+      return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
+    }
     const modal = await this.modal.create({
       component:SceneEditPage,
       componentProps: { project_id }
@@ -118,12 +126,15 @@ export class SceneListPage implements OnInit {
   }
 
   async changeUse(item){
-    let maxdate = this.date.dirrerence(item.contract_end_date,this.date.today())
+    if(this.listLoading) return;
+    let maxdate = this.date.dirrerence(item.contract_end_date,this.date.today());
     if(maxdate < 0) {
       await this.alert.present({
         header:'안내',
         message:'공사 기간 만료 전에는 미사용으로 변경할 수 없습니다.'
       });
+      this.getList();
+      
     } else { 
       item.state = true;
       // if(item.project_use_state === 0) {

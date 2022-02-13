@@ -45,6 +45,7 @@ export class SearchContractorComponent implements OnInit {
   submitArr = [];
   filteritem = [];
   business_register_no_check: boolean = false;
+  max_out:boolean = false;
 
   constructor(
     private connect: ConnectService,
@@ -61,7 +62,6 @@ export class SearchContractorComponent implements OnInit {
     console.log("this.value", this.value);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
-      if (this.type) {
         for (let i = 0; i < this.res.rsMap.length; i++) {
           for (let x = 0; x < this.value.length; x++) {
             if (this.res.rsMap[i].company_id === this.value[x]) {
@@ -70,9 +70,6 @@ export class SearchContractorComponent implements OnInit {
             }
           }
         }
-      }
-    } else {
-      
     }
   }
 
@@ -80,13 +77,14 @@ export class SearchContractorComponent implements OnInit {
   async addCompany() {
     // this.filteritem = this.res.rsMap.filter((data, i) => {
     //   return data.checked === true;
-    // })
+    // });
     if(this.multiple){
+      console.log(this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5);
       if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
-        const toast = await this.toast.present({
+        return await this.toast.present({
           message: '최대 선택 개수는 5개입니다.',
           position: 'botton',
-          color: 'primary'
+          color: 'danger'
         });
       } else {
         this.submitArr.push({
@@ -109,17 +107,23 @@ export class SearchContractorComponent implements OnInit {
   }
 
   async choicCompany(item) {
-    item.checked = !item.checked;
-    this.filteritem = this.res.rsMap.filter((data, i) => {
-      return data.checked === true;
-    })
     console.log("this.filteritem", this.filteritem);
-    if (this.filteritem.length > 5) {
-      const toast = await this.toast.present({
+    console.log("this.filteritem.length > 5",this.filteritem.length < 6);
+    this.max_out = true;
+    if (this.filteritem.length < 5 ) {
+      item.checked = !item.checked;
+      this.filteritem = this.res.rsMap.filter((data, i) => {
+        return data.checked === true;
+      });
+    } else {
+      this.max_out = false;
+    }
+    if(!this.max_out) {
+      return await this.toast.present({
         message: '최대 선택 개수는 5개입니다.',
         position: 'botton',
-        color: 'primary'
-      })
+        color: 'danger'
+      });
     }
   }
 
@@ -148,13 +152,13 @@ export class SearchContractorComponent implements OnInit {
 
   async submit() {
     if(this.multiple){
-      if (this.business_register_no_check) {
-        let conArr = this.filteritem.concat(this.submitArr);
+      console.log(this.business_register_no_check);
+        // let conArr = this.filteritem.concat(this.submitArr);
         for (let i = 0; i < this.submitArr.length; i++) {
-          if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.' });
-          if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.' });
+          if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "danger" });
+          if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "danger" });
           if (this.submitArr[i].business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
-          if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.' });
+          if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "danger" });
           const res = await this.connect.run('/project/company/insert', {
             business_register_no: this.submitArr[i].business_register_no,
             company_ceo: this.submitArr[i].company_ceo,
@@ -162,30 +166,27 @@ export class SearchContractorComponent implements OnInit {
             company_contract_type: '원청사'
           });
           if (res.rsCode === 0) {
-            console.log(conArr);
-            this._modal_.dismiss(conArr);
+            this.getCtgoContractor();
+            this.submitArr = [];
+            return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
+            this._modal_.dismiss(this.filteritem);
+          } else {
+            return this.toast.present({message:res.rsMsg,color:'danger'});
           }
         }
-      } else {
-        console.log("this.filteritem---------1", this.filteritem);
-        console.log("this.submitArr-------------2", this.submitArr);
-        let conArr = this.filteritem.concat(this.submitArr);
-        conArr.forEach(item => {
-          console.log(item);
+        // let conArr = this.filteritem.concat(this.submitArr);
+        this.filteritem.forEach(item => {
           if (!item.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "danger" });
           if (!item.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "danger" });
           if (item.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
-          if (item.business_register_no.length > 10) this.overlap(item.business_register_no);
           if (!item.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "danger" });
-        })
-        console.log("this.submitArr------------3", this.submitArr);
-        console.log("this.conArr", conArr);
-        this._modal_.dismiss(conArr);
-      }
+        });
+        this._modal_.dismiss(this.filteritem);
+      
     } else {
-      if(!this.selectItem.company_name) return await this.toast.present({message:'회사명을 입력하세요'});
-      if(!this.selectItem.business_register_no) return await this.toast.present({message:'사업자등록번호를 입력하세요'});
-      if(!this.selectItem.company_ceo) return await this.toast.present({message:'대표자를 입력하세요'});
+      if(!this.selectItem.company_name) return await this.toast.present({message:'회사명을 입력하세요', color: "danger"});
+      if(!this.selectItem.business_register_no) return await this.toast.present({message:'사업자등록번호를 입력하세요', color: "danger"});
+      if(!this.selectItem.company_ceo) return await this.toast.present({message:'대표자를 입력하세요', color: "danger"});
       this._modal_.dismiss(this.selectItem);
     }
     console.log(this.business_register_no_check);

@@ -16,7 +16,8 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 })
 export class ProjectAreaSetComponent implements OnInit {
 
-  @Input() returnData;
+  @Input() returnData
+  @Input() gps_coordinate_data;
   initCheck:boolean
   mapData = [];
   constructor(
@@ -25,22 +26,18 @@ export class ProjectAreaSetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mapData = this.returnData;
-    
+    this.mapData = this.gps_coordinate_data;
+    console.log("this.mapData",this.gps_coordinate_data);
   }
   
   submint() {
+    console.log("this.mapData",this.mapData);
     if(!this.initCheck){
-      this.modal_.dismiss(this.mapData)
+      this.modal_.dismiss(this.mapData);
     }
     else if(this.mapData.length < 3) {
       return this.toast.present({message:'점을 3개 이상 설정해주세요.',color:'danger'});
     }
-  }
-
-  remove() {
-    this.mapData = [];
-    this.initCheck = true;
   }
   @Output() change = new EventEmitter();
 
@@ -56,7 +53,8 @@ export class ProjectAreaSetComponent implements OnInit {
   }
   writeValue(v:any[]): void { 
     if(v !== this._value){
-      this._value = v || []; 
+      this._value = v || [];
+      console.log("this.value-------------------",this.value)
       this._onChangeCallback(v);
       this.change.emit(v);
     }
