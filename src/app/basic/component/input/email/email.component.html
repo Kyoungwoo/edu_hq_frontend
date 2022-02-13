@@ -1,4 +1,4 @@
-<app-input-group [color]="color" [label]="label" [required]="required">
+<app-input-group [color]="color" [label]="label" [required]="required" [disabled]="disabled">
   <app-input name="이메일1" type="email" placeholder="이메일 앞부분" [(ngModel)]="form.id" (keyup)="onChangeId(); onDelayKeyup($event)" [readonly]="readonly" [disabled]="disabled">
   </app-input>
   @

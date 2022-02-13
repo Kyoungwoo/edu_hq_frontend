@@ -77,21 +77,41 @@ export class ManualListPage implements OnInit {
 
     // 권한체크
     if(this.permission.edit) {
-      //추가
-      el.querySelector('[name=add]').dispatchEvent(new Event('click'));
-      await this.promise.wait();
-      await this.promise.toggleWait(async() => await this._modal.getTop());
-      await this.promise.wait();
+      const addIndex = environment.test.UserManual.type.indexOf('ADD');
+      if(addIndex> -1) {
+        //추가
+        el.querySelector('[name=add]').dispatchEvent(new Event('click'));
+        await this.promise.wait();
+        await this.promise.toggleWait(async() => await this._modal.getTop());
+        await this.promise.wait();
+
+        environment.test.UserManual.type.splice(addIndex, 1);
+      }
       
-      //가장 위엣놈 클릭 후 수정
-      el.querySelector('[name=item]').dispatchEvent(new Event('click'));
-      await this.promise.wait();
-      await this.promise.toggleWait(async() => await this._modal.getTop());
-      await this.promise.wait();
+      const editIndex = environment.test.UserManual.type.indexOf('EDIT');
+      if(editIndex > -1) {
+        //가장 위엣놈 클릭 후 수정
+        el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+        await this.promise.wait();
+        await this.promise.toggleWait(async() => await this._modal.getTop());
+        await this.promise.wait();
+
+        environment.test.UserManual.type.splice(editIndex, 1);
+      }
   
-      //가장 위앳놈 삭제
-      el.querySelector('[name=item]').dispatchEvent(new Event('click'));
-      //await 
+      const removeIndex = environment.test.UserManual.type.indexOf('REMOVE');
+      if(removeIndex > -1) {
+        // 가장 위앳놈 삭제
+        el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+        await this.promise.wait();
+        await this.promise.toggleWait(async() => await this._modal.getTop());
+        environment.test.UserManual.type.splice(removeIndex, 1);
+      }
+
+      // 가장 위엣놈 즐겨찾기 삭제 및 새로고침
+      el.querySelector('[name=pin_state]').dispatchEvent(new Event('click'));
+      await this.promise.wait();
+      el.querySelector('[name=search]').dispatchEvent(new Event('click'));
     }
   }
 

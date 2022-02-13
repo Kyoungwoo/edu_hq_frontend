@@ -14,24 +14,25 @@
 <ion-content>
     <app-row>
       <app-col>
-        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+        <app-select-scene [(ngModel)]="temptForm.project_ids"></app-select-scene>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-select-company [(ngModel)]="form.company_id"></app-select-company>
+        <app-select-contractor [(ngModel)]="temptForm.company_ids"></app-select-contractor>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-select label="공지사항 구분" [(ngModel)]="form.select_type" *ngIf="type === '공지사항'">
-          <app-select-option value="일반">일반</app-select-option>
+        <app-select label="공지사항 구분" [(ngModel)]="temptForm.notice_types" *ngIf="type === '공지사항'" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option value="안전관리">안전관리</app-select-option>
           <app-select-option value="환경관리">환경관리</app-select-option>
           <app-select-option value="공사관리">공사관리</app-select-option>
           <app-select-option value="품질관리">품질관리</app-select-option>
         </app-select>
-        <app-select label="MSDS 구분" [(ngModel)]="form.select_type" *ngIf="type === 'MSDS'">
+        <app-select label="MSDS 구분" [(ngModel)]="temptForm.msds_types" *ngIf="type === 'MSDS'" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
           <app-select-option value="인화성 가스">인화성 가스</app-select-option>
           <app-select-option value="인화성 액체">인화성 액체</app-select-option>
@@ -57,8 +58,8 @@
           <app-select-option value="수생환경 유해성 물질">수생환경 유해성 물질</app-select-option>
           <app-select-option value="오존층 유해성 물질">오존층 유해성 물질</app-select-option>
         </app-select>
-        <app-select label="회의록 구분" [(ngModel)]="form.select_type" *ngIf="type === '회의록'">
-          <app-select-option value="전체">전체</app-select-option>
+        <app-select label="회의록 구분" [(ngModel)]="temptForm.safety_meeting_types" *ngIf="type === '회의록'" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
           <app-select-option value="안전 및 보건에 관한 협의체 회의록">안전 및 보건에 관한 협의체 회의록</app-select-option>
           <app-select-option value="노사 협의체 회의록">노사 협의체 회의록</app-select-option>
           <app-select-option value="산업안전보건위원회 회의록">산업안전보건위원회 회의록</app-select-option>
@@ -68,15 +69,15 @@
     <app-row>
       <app-col>
         <app-input-group label="작성일">
-          <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+          <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
           ~
-          <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+          <app-calendar [(ngModel)]="temptForm.end_date" [min]="temptForm.start_date"></app-calendar>
         </app-input-group>
       </app-col>
     </app-row>
     <app-row>
       <app-col>
-        <app-input name="input scene" [(ngModel)]="form.search_text" label="검색어"></app-input>
+        <app-input name="input scene" [(ngModel)]="temptForm.search_text" label="검색어"></app-input>
       </app-col>
     </app-row>
 </ion-content>

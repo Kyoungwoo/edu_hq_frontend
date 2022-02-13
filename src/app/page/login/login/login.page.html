@@ -6,17 +6,17 @@
    
       <app-input 
       [color]="res && res.rsCode !== 0 && 'warning'"
-      name="input-id" label="아이디" placeholder="아이디" 
+      name="accountID" label="아이디" placeholder="아이디" 
       [(ngModel)]="form.accountID"></app-input>
       <app-input 
       [color]="res && res.rsCode !== 0 && 'warning'" 
-      name="input-password" label="비밀번호" type="password" placeholder="비밀번호"
+      name="accountToken" label="비밀번호" type="password" placeholder="비밀번호"
       [(ngModel)]="form.accountToken" 
       (keyup.enter)="login()"></app-input>
 
       <app-input-caption color="warning" name="caption-invalid" *ngIf="res?.rsCode === 500">{{ res.rsMsg }}</app-input-caption>
 
-      <app-button name="button-login" style="width: 100%" (click)="login()">로그인</app-button>
+      <app-button name="button_login" style="width: 100%" (click)="login()">로그인</app-button>
       <app-check name="auto_login" [(ngModel)]="saveId">아이디 저장</app-check>
     </form>
   </app-card>

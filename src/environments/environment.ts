@@ -8,7 +8,7 @@ import { UserType } from "src/app/basic/service/core/user.service";
 export const environment = {
   production: false,
   test: {
-    core: { test: false, done: false },
+    core: { test: true, done: false },
     SignUp: { test: false, done: false, type: [
       "WORKER",
       "LH",
@@ -17,11 +17,16 @@ export const environment = {
     ] as UserType[] },
     FindId: { test: false, done: false, type: ['PHONE'] },
     FindPassword: { test: false, done: false },
-    Login: { test: false, done: false },
-    UserManual: { test: true, done: false }
+    Login: { test: true, done: false },
+    UserManual: { test: true, done: false, type: [
+      'ADD',
+      'EDIT',
+      'REMOVE'
+    ] }
   }
 }
 // SignUp: { valid: false, message: '아 뭔가 문제가 생겼어.' };
+//type 은 나중에 todo 로 바꾸는게 더 세련될듯?
 
 /*
  * For easier debugging in development mode, you can import the following file

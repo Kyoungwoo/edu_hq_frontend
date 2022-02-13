@@ -4,6 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { MsdsEditPage } from '../msds-edit/msds-edit.page';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -52,12 +53,33 @@ export class MsdsListPage implements OnInit {
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
-    private date: DateService
+    private date: DateService,
+    private toast: ToastService
+
   ) { }
 
   async ngOnInit() {
 
     this.get();
+  }
+
+  public async getMobile($event) {
+    this.form.limit_no = this.res.rsMap.length;
+
+    const res = await this.connect.run('/board/msds/list', this.form, {
+    });
+    if(res.rsCode === 0) {
+      res.rsMap.forEach(item => {
+        this.res.rsMap.push(item);
+      });
+    } else if(res.rsCode === 1008) {
+      // 더 로딩할 데이터가 없음
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+    setTimeout(() => {
+      $event.target.complete();
+    }, 50);
   }
 
   async get(limit_no = this.form.limit_no) {
@@ -74,13 +96,14 @@ export class MsdsListPage implements OnInit {
     const modal = await this.modal.create({
       component:DetailSearchPage,
       componentProps:{
-        type:'MSDS'
+        type:'MSDS',
+        form: this.form
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.form.search_text = data.search_text;
+      this.form = data;
       this.get();
     }
     console.log(data);

@@ -7,11 +7,12 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content *mobileHidden>
+<ng-container *mobileHidden>
+  <ion-content>
     <h4>공지사항</h4>
    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
      <app-col>
-        <app-select-scene label="현장명" [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+        <app-select-scene label="현장명" [(ngModel)]="form.project_id" [required]="true" [disabled]="!permission.edit"></app-select-scene>
      </app-col>
      <app-col>
       <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
@@ -46,7 +47,7 @@
         <app-input label="제목" [(ngModel)]="form.notice_title"></app-input>
       </app-col>
     </app-row>
-    <app-row *mobileHidden>
+    <app-row>
       <app-col>
         <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
         [color]="validator.notice_title?.valid === false && 'warning'"
@@ -101,11 +102,13 @@
         </tr>
       </app-table>
 </ion-content>
-<app-button-footer *mobileHidden>
-  <app-button *ngIf="item" [disabled]="useNotice" fill="translucent" (click)="submit()">수정</app-button>
-  <app-button *ngIf="item" [disabled]="useNotice" color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
+<app-button-footer *ngIf="permission.edit">
+  <app-button *ngIf="item" fill="translucent" (click)="submit()">수정</app-button>
+  <app-button *ngIf="item" color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
   <app-button *ngIf="!item" (click)="submit()">저장</app-button>
 </app-button-footer>
+</ng-container>
+
 <!-- 모바일 -->
 <ng-container *mobileShow>
   <ion-content>

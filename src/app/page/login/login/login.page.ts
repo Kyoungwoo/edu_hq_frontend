@@ -47,6 +47,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
     if(!await this.testSignUp()) return;
     if(!await this.testFindId()) return;
     if(!await this.testFindPassord()) return;
+    if(!await this.testLogin()) return;
+    
     this.alert.present({
       header: '테스트 완료',
       message: '테스트 완료'
@@ -59,13 +61,13 @@ export class LoginPage implements OnInit, ViewDidEnter {
     const el = this.el.nativeElement;
     await this.promise.wait();
 
-    // if(environment.test.SignUp.type.length) {
-    //   el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
-    //   return false;
-    // } else {
-    //   environment.test.SignUp.done = true;
-    //   return true;
-    // }
+    if(environment.test.SignUp.type.length) {
+      el.querySelector('[name=button_sign_up]').dispatchEvent(new Event('click'));
+      return false;
+    } else {
+      environment.test.SignUp.done = true;
+      return true;
+    }
   }
   private async testFindId():Promise<boolean> {
     if(!environment.test.FindId.test) return true;
@@ -88,6 +90,19 @@ export class LoginPage implements OnInit, ViewDidEnter {
 
     el.querySelector('[name=button_find_password]').dispatchEvent(new Event('click'));
     return false;
+  }
+  private async testLogin():Promise<boolean> {
+    if(!environment.test.Login.test) return true;
+    if(environment.test.Login.done) return true;
+    environment.test.Login.done = true;
+
+    const el = this.el.nativeElement;
+    await this.promise.wait();
+
+    //lh 마스터 테스트
+    el.querySelector('[name=accountID]').dispatchEvent(new CustomEvent('setValue', { detail: 'lh' }));
+    el.querySelector('[name=accountToken]').dispatchEvent(new CustomEvent('setValue', { detail: 'qwer1234' }));
+    el.querySelector('[name=button_login]').dispatchEvent(new Event('click'));
   }
 
   public async login() {

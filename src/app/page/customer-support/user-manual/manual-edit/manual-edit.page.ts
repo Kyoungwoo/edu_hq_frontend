@@ -4,6 +4,7 @@ import { SmarteditComponent } from 'src/app/basic/component/input/smartedit/smar
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -60,6 +61,7 @@ export class ManualEditPage implements OnInit {
     private promise: PromiseService,
     private toast: ToastService,
     private _modal: ModalController,
+    private alert: AlertService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -87,13 +89,12 @@ export class ManualEditPage implements OnInit {
     await this.promise.wait();
     
     el.querySelector('[name=pin_state]').dispatchEvent(new CustomEvent('click'));
-    el.querySelector('[name=manual_title]').dispatchEvent(new CustomEvent('setValue', { detail: '테스트 타이틀' }));
-    el.querySelector('[name=manual_text]').dispatchEvent(new CustomEvent('setValue', { detail: '테스트 내용' }));
+    el.querySelector('[name=manual_title]').dispatchEvent(new CustomEvent('setValue', { detail: this.regex.random.id('테스트 타이틀') }));
+    el.querySelector('[name=manual_text]').dispatchEvent(new CustomEvent('setValue', { detail: this.regex.random.id('테스트 내용', 200) }));
     await this.promise.wait();
     
-    /* const toast = await this.toast.present({ color: 'warning', message: '파일을 업로드 테스트 대기 10초', duration: 10000, buttons: [{ text: 'X' }] });
-    await toast.onDidDismiss(); */
-    
+    const toast = await this.toast.present({ color: 'warning', message: '파일을 업로드 테스트 대기 10초', duration: 10000, buttons: [{ text: '완료' }] });
+    await toast.onDidDismiss();
     el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
   }
 
@@ -101,7 +102,7 @@ export class ManualEditPage implements OnInit {
     const res = await this.connect.run('/support/manual/get', {
       manual_id: this.form.manual_id
     }, {
-      parse: ['ctgo_manual_ids', 'manual_file_data']
+      parse: ['ctgo_manual_ids', 'manual_file_data', 'manual_ctgo_data']
     });
     if(res.rsCode === 0) {
       this.form = {
@@ -112,17 +113,9 @@ export class ManualEditPage implements OnInit {
       this.connect.error('error', res);
     }
   }
-
-  public submit() {
-    this.menualText.update();
-    if(this.form.manual_id) {
-      this.update();
-    } else {
-      this.insert();
-    }
-  }
-
+  
   public async insert() {
+    this.menualText.update();
     if(!this.valid()) return;
 
     this.res = await this.connect.run('/support/manual/insert', this.form, {
@@ -133,6 +126,7 @@ export class ManualEditPage implements OnInit {
     }
   }
   public async update() {
+    this.menualText.update();
     if(!this.valid()) return;
 
     this.res = await this.connect.run('/support/manual/update', this.form, {
@@ -141,6 +135,27 @@ export class ManualEditPage implements OnInit {
     if(this.res.rsCode === 0) {
       this._modal.dismiss(true);
     }
+  }
+  public async remove() {
+    this.alert.present({
+      header: '사용자 메뉴얼 삭제',
+      message: '사용자 메뉴얼을 삭제하시겠습니까?',
+      buttons: [
+        { text: '취소' },
+        { text: '삭제', handler: async() => {
+          const res = await this.connect.run('/support/manual/delete', {
+            manual_ids: [this.form.manual_id]
+          }, {
+            loading: true
+          });
+          if(res.rsCode === 0) {
+            this._modal.dismiss(true);
+          } else {
+            this.toast.present({ color: 'warning', message: res.rsMsg });
+          }
+        }}
+      ]
+    });
   }
   private valid():boolean {
     this.validator.manual_id = { valid: true };

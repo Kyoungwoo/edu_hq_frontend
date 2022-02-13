@@ -13,11 +13,11 @@ export class RegexService {
   constructor() { }
 
   random = {
-    id: (str) => {
+    id: (str, num = 10) => {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
       const length = characters.length;
       let result = '';
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < num; i++) {
         result += characters.charAt(Math.floor(Math.random() * length));
       }
       return str + '_' + result;

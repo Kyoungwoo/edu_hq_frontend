@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-admin',
@@ -32,9 +34,11 @@ export class MainAdminPage implements OnInit {
     pm25Grade: 0
   }
   constructor(
+    private el: ElementRef<HTMLElement>,
     private connect:ConnectService,
     private alert : AlertService,
-    private nav:NavService
+    private nav:NavService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {
@@ -46,6 +50,31 @@ export class MainAdminPage implements OnInit {
       this.getDust();
       this.getWeather();
     },1800000);
+
+    if(environment.test) this.test();
+  }
+
+  private async test() {
+    if(!environment.test.core.test) return;
+    if(!await this.testUserManual()) return;
+    
+    /* this.alert.present({
+      header: '테스트 완료',
+      message: '테스트 완료'
+    }); */
+  }
+  private async testUserManual():Promise<boolean> {
+    if(!environment.test.UserManual.test) return true;
+    if(environment.test.UserManual.done) return true;
+    
+    const el = this.el.nativeElement;
+    await this.promise.wait();
+    
+    el.querySelector('[name=menu_button]').dispatchEvent(new Event('click'));
+    await this.promise.wait();
+    
+    document.querySelector('[name=button_manual-list]').dispatchEvent(new Event('click'));
+    return true;
   }
 
   async getWeather() {

@@ -2,7 +2,7 @@
   <ion-toolbar color="white">
     <ion-title>사용자 메뉴얼</ion-title>
     <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
+      <app-dismiss-button name="dismiss"></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -78,12 +78,14 @@
       </app-col>
     </app-row>
   </app-card>
-  <h4>
-    첨부자료
-  </h4>
-  <app-file-preview *ngFor="let futItem of form.manual_file_data; let i = index;" [futItem]="futItem" (buttonClick)="form.manual_file_data.splice(i, 1)"></app-file-preview>
+  <ng-container *ngIf="form.manual_file_data && form.manual_file_data.length">
+    <h4>
+      첨부자료
+    </h4>
+    <app-file-preview *ngFor="let futItem of form.manual_file_data; let i = index;" [futItem]="futItem" [readonly]="true"></app-file-preview>
+  </ng-container>
 </ion-content>
 <app-button-footer *ngIf="permission.edit">
-  <app-button name="submit" (click)="remove()">삭제</app-button>
-  <app-button name="submit" (click)="edit()">수정</app-button>
+  <app-button name="remove" (click)="remove()">삭제</app-button>
+  <app-button name="edit" (click)="edit()">수정</app-button>
 </app-button-footer>

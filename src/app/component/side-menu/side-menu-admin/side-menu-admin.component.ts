@@ -112,13 +112,13 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '감리사 관리', link: '/supervision-list'},
       { title: '원청사 관리', link: '/contractor-list'},
       { title: '협력사 관리', link: '/partner-list'},
-      { title: '기준 정보 관리',thirdMenuList:[
-        {title:'회원 정보 기준 설정',link:'/member-standard-set'},
-        {title:'교육 정보 기준 설정',link:''},
-        {title:'장소 정보 기준 설정',link:'/area-standard-set'},
-        {title:'작업 정보 기준 설정',link:'/work-standard-set'},
-        {title:'비상 관리 기준 설정',link:''},
-        {title:'시스템 활용 기준 설정',link:''},
+      { title: '기준 정보 관리',thirdMenuList: [
+        { title:'회원 정보 기준 설정',link:'/member-standard-set' },
+        { title:'교육 정보 기준 설정',link:'' },
+        { title:'장소 정보 기준 설정',link:'/area-standard-set' },
+        { title:'작업 정보 기준 설정',link:'/work-standard-set' },
+        { title:'비상 관리 기준 설정',link:'' },
+        { title:'시스템 활용 기준 설정',link:'' },
       ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
