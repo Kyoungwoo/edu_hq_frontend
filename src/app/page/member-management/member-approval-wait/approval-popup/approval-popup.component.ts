@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-approval-popup',
@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovalPopupComponent implements OnInit {
 
+  @Input() selectedList
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("this.selectedList",this.selectedList);
+  }
 
 }

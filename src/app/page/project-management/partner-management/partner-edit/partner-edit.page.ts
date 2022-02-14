@@ -172,9 +172,9 @@ export class PartnerEditPage implements OnInit {
     });
     this.resObj.company_contract_data = contractInfo;
     if(!this.resObj.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' })
-    if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
-    if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
-    if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
+    if(!this.resObj.company_name) return this.toast.present({ message: '업체명을 입력해주세요.',color:'danger'});
+    if(!this.resObj.business_register_no) return this.toast.present({ message: '사업자등록번호 10자리를 입력해주세요.',color:'danger'});
+    if(!this.resObj.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.',color:'danger'});
   
     
  

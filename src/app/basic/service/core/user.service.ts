@@ -4,7 +4,8 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 enum TAG {
   Id = 'Devmonster@Id',
   AuthToken = 'Devmonster@AuthToken',
-  UserData = 'Devmonster@UserData'
+  UserData = 'Devmonster@UserData',
+  memberAuthToken = 'Devmonster@MemberAuthToken'
 }
 
 export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
@@ -52,6 +53,7 @@ export class UserService {
   authToken:AuthToken;
   userData:UserData = new UserData();
   accountID:string;
+  memberAuthToken:string;
   autoLogin:boolean = false;
 
   constructor(
@@ -120,6 +122,17 @@ export class UserService {
     
     this.getUserData();
   }
+
+  getMemberAuthToken() {
+    this.memberAuthToken = window.localStorage.getItem(TAG.memberAuthToken) || null;
+  }
+  setMemberAuthToken(authToken:string) {
+    if(isPlatformServer(this.platformId)) return;
+
+    window.localStorage.setItem(TAG.memberAuthToken, authToken);
+    this.getId();
+  }
+
   clear() {
     if(isPlatformServer(this.platformId)) return;
 

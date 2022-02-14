@@ -107,7 +107,9 @@ export class MsdsEditPage implements OnInit {
 
 
   async MsdsInsert() { //등록
-    if(!this.form.msds_title) return this.toast.present({ message:'제목을 입력하세요.' });
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
+    if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'danger'});
+    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'danger'});
     //메소드 호출
     const alert = await this.alert.present({
       message:'등록 하시겠습니까?',
@@ -129,7 +131,7 @@ export class MsdsEditPage implements OnInit {
   }
   
   async update() { //수정
-    if(!this.form.company_name) return this.toast.present({message:'업체명을 입력해주세요.'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.'});
     if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.'});
     const alert = await this.alert.present({
