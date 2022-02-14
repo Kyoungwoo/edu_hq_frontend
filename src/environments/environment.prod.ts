@@ -13,6 +13,10 @@ export const environment = {
     FindId: { test: false, done: false, type: ['PHONE'] },
     FindPassword: { test: false, done: false },
     Login: { test: false, done: false },
-    UserManual: { test: false, done: false }
+    UserManual: { test: false, done: false, type: [
+      'ADD',
+      'EDIT',
+      'REMOVE'
+    ]}
   }
 };
