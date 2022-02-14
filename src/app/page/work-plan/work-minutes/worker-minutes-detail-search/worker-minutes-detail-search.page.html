@@ -7,17 +7,30 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-scene></app-select-scene>
-  <app-select label="회의록"></app-select>
-  <app-select label="결재현황"></app-select>
+  <app-select-scene [(ngModel)]="form.project_ids"></app-select-scene>
+  <app-select [(ngModel)]="form.safety_meeting_types"  label="회의록">
+    <app-select-option [value]="[]">전체</app-select-option>
+    <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
+    <app-select-option value="노사">노사 협의체 회의록</app-select-option>
+    <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
+  </app-select>      
+  <app-select [(ngModel)]="form.approval_cnt_answer" label="결재현황">
+    <app-select-option [value]="[]">전체</app-select-option>
+    <app-select-option value="임시저장">임시저장</app-select-option>
+    <app-select-option value="진행중">진행 중</app-select-option>
+    <app-select-option value="승인">승인</app-select-option>
+    <app-select-option value="반려">반려</app-select-option>
+  </app-select>
   <app-input-group label="회의일자">
-  <app-calendar></app-calendar>
-  ~
-  <app-calendar></app-calendar>
+    <app-input-group label="회의일자">
+      <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+      ~
+      <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+    </app-input-group>
   </app-input-group>
-  <app-input label="검색어" placeholder="검색어를 입력하세요"></app-input>
+  <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력하세요"></app-input>
 </ion-content>
 <app-button-footer>
-  <app-button>초기화</app-button>
-  <app-button>검색</app-button>
+  <app-button (click)="remove()">초기화</app-button>
+  <app-button (click)="search()">검색</app-button>
 </app-button-footer>

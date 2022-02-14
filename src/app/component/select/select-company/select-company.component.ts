@@ -72,40 +72,46 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   // }
 
   public async get() {
-    let UserRole = ''
+    let UserRole = '원청사'
     if(this.user.userData.user_type === 'COMPANY') {
       UserRole = '원청사';
+    } else if(this.user.userData.user_type === 'LH'){
+      UserRole = 'LH';  
     }
-    console.log("dsfasdf-=----this.value", this.value);
-    console.log("dsfasdf-=----this.multiple", this.multiple);
+    console.log("dsfasdf-=----UserRole", UserRole);
     if (this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: UserRole,
       search_text: ''
     });
-    if (this.multiple) {
-      if (res.rsCode === 0) {
+    if (res.rsCode === 0) {
+      console.log("dsfasdf-=----this.multiple", this.multiple);
+        if (this.multiple) {
         for (let i = 0; i < res.rsMap.length; i++) {
           for (let x = 0; x < this.value.length; x++) {
             if (res.rsMap[i].company_id === this.value[x]) {
               this.text = res.rsMap[i].company_name;
+              console.log("this.text",this.text);
             }
           }
         }
-        this.text = this.text.toString();
-      }
-    } else {
-      if (res?.rsMap?.length) {
-        for (let i = 0; i < res.rsMap.length; i++) {
-          console.log(res.rsMap[i].company_id === this.value);
-          console.log("res.rsMap[i].company_id", res.rsMap[i].company_id);
-          console.log("this.value", this.value);
-          if (res.rsMap[i].company_id === this.value) {
-            this.text = res.rsMap[i].company_name;
-            console.log("this.text", this.text);
+      } else {
+        console.log("------------this.value---------------",this.value);
+        console.log("this=============res",res.rsMap.length);
+        if (res?.rsMap?.length) {
+        console.log("this.value-----------------2",this.value);
+          for (let i = 0; i < res.rsMap.length; i++) {
+            console.log(res.rsMap[i].company_id === this.value);
+            console.log("res.rsMap[i].company_id", res.rsMap[i].company_id);
+            console.log("this.value", this.value);
+            if (res.rsMap[i].company_id === this.value) {
+              this.text = res.rsMap[i].company_name;
+              console.log("this.text", this.text);
+            }
           }
         }
       }
+        this.text = this.text.toString();
     }
   }
 
@@ -150,6 +156,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v: CompanyData[]) {
     if (v !== this._value) {
       this._value = v || [];
+      this.get();
       console.log("=================1", v);
       this.onChangeCallback(v);
       this.change.emit(this.data);

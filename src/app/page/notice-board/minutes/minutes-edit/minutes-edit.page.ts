@@ -4,6 +4,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { DateService } from 'src/app/basic/service/util/date.service';
 
 export class SafetyMeetingItem {
   safety_meeting_resolve: string;
@@ -32,7 +33,7 @@ export class SafetyMeetingItem {
 })
 export class MinutesEditPage implements OnInit {
 
-  @Input() safety_meeting_id;
+  @Input() item;
 
   form:SafetyMeetingItem = new SafetyMeetingItem();
 
@@ -43,18 +44,48 @@ export class MinutesEditPage implements OnInit {
     private _modal: ModalController,
     private toast: ToastService,
     public user: UserService,
+    private date: DateService
   ) { }
 
   ngOnInit() {
-    console.log("sdfasfdsdafsdafsdaf",this.safety_meeting_id);
-    this.get();
+    this.form.project_name = this.user.userData.belong_data.project_name;
+    this.form.company_name = this.user.userData.belong_data.company_name;
+    this.form.safety_meeting_date = this.date.today();
+    this.form.user_name = this.user.userData.user_name;
+    
+    if(this.item.safety_meeting_id) {
+      this.get();
+    } else {
+      this.getDefault();
+      if(this.item === '안전 및 보건에 관한 협의체 회의록') {
+        this.form.safety_meeting_place = '안전';
+      } else if(this.item === '노사 협의체 회의록') {
+        this.form.safety_meeting_place = '노사';
+      } else {
+        this.form.safety_meeting_place = '산업';
+      }
+    }
   }
 
   async get() { 
-    const res = await this.connect.run('/board/safety_meeting/detail', { safety_meeting_id: this.safety_meeting_id });
+    const res = await this.connect.run('/board/safety_meeting/detail', { safety_meeting_id: this.item.safety_meeting_id });
     if(res.rsCode ===  0) {
       this.form = res.rsObj;
-      console.log("---------------------------",this.form);
+    }
+  }
+  async getDefault() {
+    const res = await this.connect.run('/board/safety_meeting/default/get',{
+      company_id:this.user.userData.belong_data.company_id,
+      project_id:this.user.userData.belong_data.project_id
+    });
+    if(res.rsCode === 0 ) {
+      if(this.form.safety_meeting_place === '안전') {
+        this.form.safety_meeting_content = res.rsObj.safety_default;
+      } else if(this.form.safety_meeting_place === '노사') {
+        this.form.safety_meeting_content = res.rsObj.union_default;
+      } else {
+        this.form.safety_meeting_content = res.rsObj.health_default;
+      }
     }
   }
   dismiss() {

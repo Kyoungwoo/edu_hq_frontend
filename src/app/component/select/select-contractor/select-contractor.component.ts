@@ -29,6 +29,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() type?:boolean;
   @Input() required:boolean = false;
   @Input() multiple:boolean;
+  @Input() disabled:boolean = false;
+
   isModalData:boolean = false;
 
  
@@ -38,12 +40,9 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-    console.log("this.type",this.type);
-    console.log("this.value",this.value);
   }
 
   public async get() {
-    console.log("dsfasdf-=----this.value",this.value);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: '원청사',
@@ -104,7 +103,6 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     }
   }
  
-  @Input() disabled:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:ValueData[] = [];

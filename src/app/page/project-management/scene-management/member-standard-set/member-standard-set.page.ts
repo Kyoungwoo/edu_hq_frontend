@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { OrganizationEditComponent } from './component/organization-edit/organization-edit.component';
 
 @Component({
   selector: 'app-member-standard-set',
@@ -25,7 +23,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_code: string, // 코드
     hq_regional_name: string, // 지역본부명
     hq_regional_use_state: number, // 사용 = 1
-    checked:boolean;
+    checked: boolean;
   }>
 
   resLevel2: ConnectResult<{
@@ -35,7 +33,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_id: number,
     hq_business_code: string,
     hq_business_id: number,
-    checked:boolean;
+    checked: boolean;
   }>
 
   resLevel3: ConnectResult<{
@@ -45,7 +43,7 @@ export class MemberStandardSetPage implements OnInit {
     hq_regional_id: number, // 지역본부 ID
     hq_department_code: string, // 코드
     hq_business_id: number, // 사업본부 ID
-    checked:boolean
+    checked: boolean
   }>
   area1SelectList;
   area2SelectList;
@@ -58,11 +56,12 @@ export class MemberStandardSetPage implements OnInit {
   hq_regional_id = 0
   hq_business_id = 0
 
+  lhHeadCheck: boolean = true;
   //lh 조직관리 끝
 
   //정보 접근 비밀번호
 
-  roleCheck:boolean = false;
+  rolepass: boolean = true;
   form = {
     company_id: 0,
     company_password: ''
@@ -86,7 +85,7 @@ export class MemberStandardSetPage implements OnInit {
     ctgo_job_position_name_ch: string
   }>
 
-  jobForm:number = this.user.userData.belong_data.company_id;
+  jobForm: number = this.user.userData.belong_data.company_id;
   addPosition = [];
   selectList = [];
 
@@ -131,8 +130,7 @@ export class MemberStandardSetPage implements OnInit {
   //직종 끝
 
 
-  memberRoleCheck:boolean = true;
-  lhHeadCheck:boolean = true;
+  memberRoleCheck: boolean = true;
   constructor(
     private connect: ConnectService,
     private modal: ModalController,
@@ -143,78 +141,136 @@ export class MemberStandardSetPage implements OnInit {
 
   ngOnInit() {
 
-    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
       this.memberRoleCheck = false;
     }
-    if(this.user.userData.user_role === 'LH_HEAD') {
+    if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
     }
     //lh조직기구
-    console.log("this.user.userData",this.user.userData.user_role === "LH_HEAD");
-    if(this.user.userData.user_role === "LH_HEAD"){
-      this.level1();
-    }
+
+    this.level1();
+
+
     console.log(this.user.userData.belong_data.company_id);
     console.log(this.form.company_id);
     this.form.company_id = this.user.userData.belong_data.company_id;
-    
+
   }
 
-  menuCount2() {
-    this.menuCount = 2;
+  async menuCount1() {
+    this.menuCount = 1;
+    if (!this.lhHeadCheck) {
+      this.level1();
+    } else {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
   }
-  menuCount5() {
+  async menuCount2() {
+    this.menuCount = 2;
+    if (!this.lhHeadCheck || !this.memberRoleCheck) {
+      this.rolepass = false;
+    } else {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
+  }
+  async menuCount5() {
     this.menuCount = 5;
-    this.getJobPosition();
-    if(this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
-    if(this.user.userData.user_role === 'COMPANY_HEAD') {
-      this.jobForm = this.user.userData.belong_data.company_id;
+    console.log()
+    if (!this.lhHeadCheck || !this.memberRoleCheck) {
+      this.getJobPosition();
+      this.rolepass = false;
+      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
+      if (this.user.userData.user_role === 'COMPANY_HEAD') {
+        this.jobForm = this.user.userData.belong_data.company_id;
+      }
+    } else {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
     }
   }
 
-  menuCount6() {
-    console.log("안전",this.user.userData);
+  async menuCount6() {
     this.menuCount = 6;
-    this.getSafeJob(); 
+    if (!this.lhHeadCheck || !this.memberRoleCheck) {
+      this.getSafeJob();
+      this.rolepass = false;
+    } else {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
+    console.log("안전", this.user.userData);
   }
 
-  menuCount7() {
+  async menuCount7() {
     this.menuCount = 7;
-    this.getOccupation();
+    if (!this.lhHeadCheck || !this.memberRoleCheck) {
+      this.rolepass = false;
+      this.getOccupation();
+    } else {
+      console.log("ddddddddd")
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
 
   }
   //-->  lh조직관리 시작
 
   //본부, 지역본부
   async level1() {
-    this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
-    if (this.resLevel1.rsCode === 0) { }
+    if (!this.lhHeadCheck) {
+      this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
+      if (this.resLevel1.rsCode === 0) { }
+    } else {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
   }
 
   // //지역본부, 사업본부
   async level2() {
-    this.resLevel2 = await this.connect.run('/project/organization/business/get',{
+    this.resLevel2 = await this.connect.run('/project/organization/business/get', {
       hq_regional_id: this.hq_regional_id
-    },{});
-    if(this.resLevel2.rsCode === 0) {}
+    }, {});
+    if (this.resLevel2.rsCode === 0) { }
   }
   //
   async level3() {
-    this.resLevel3 = await this.connect.run('/project/organization/department/get',{
-      hq_business_id:this.hq_business_id,
-      hq_regional_id:this.hq_regional_id
-    },{});
-    if(this.resLevel3.rsCode === 0) {}
+    this.resLevel3 = await this.connect.run('/project/organization/department/get', {
+      hq_business_id: this.hq_business_id,
+      hq_regional_id: this.hq_regional_id
+    }, {});
+    if (this.resLevel3.rsCode === 0) { }
   }
 
   async level2In(item, ev) {
     ev.stopPropagation();
     // this.area2SelectList = [];
     // this.area3SelectList = [];
-    
+
     this.hq_regional_id = item.hq_regional_id;
     console.log(item.hq_regional_id)
-    if(item.hq_regional_id){
+    if (item.hq_regional_id) {
       this.resLevel2 = await this.connect.run('/project/organization/business/get', {
         hq_regional_id: item.hq_regional_id
       }, {});
@@ -224,23 +280,23 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
 
-  async level3In(item,ev) {
+  async level3In(item, ev) {
     ev.stopPropagation();
     this.hq_business_id = item.hq_business_id;
     this.resLevel3 = await this.connect.run('/project/organization/department/get', {
       hq_regional_id: item.hq_regional_id,
       hq_business_id: item.hq_business_id
     }, {});
-    if (this.resLevel3.rsCode === 0) {}
+    if (this.resLevel3.rsCode === 0) { }
   }
 
 
-  radioChange(ev,level) {
+  radioChange(ev, level) {
     ev.stopPropagation();
-    switch(level) {
+    switch (level) {
       case 'level1':
-        this.resLevel1?.rsMap.forEach((item,i) => {
-          if(this.area1SelectList !== item) {
+        this.resLevel1?.rsMap.forEach((item, i) => {
+          if (this.area1SelectList !== item) {
             console.log("asdfasdfasdfasf");
             // this.resLevel3.rsMap = [];
             item.checked = false;
@@ -248,27 +304,27 @@ export class MemberStandardSetPage implements OnInit {
             console.log('여기로 들어오냐?');
           }
         });
-      break;
+        break;
       case 'level2':
-        this.resLevel2?.rsMap.forEach((item,i) => {
-          if(this.area2SelectList !== item) { 
+        this.resLevel2?.rsMap.forEach((item, i) => {
+          if (this.area2SelectList !== item) {
             this.area3SelectList = [];
             item.checked = false;
           }
         });
-      break;
+        break;
       case 'level3':
-        this.resLevel3?.rsMap.forEach((item,i) => {
-          if(this.area2SelectList !== item) {
+        this.resLevel3?.rsMap.forEach((item, i) => {
+          if (this.area2SelectList !== item) {
             item.checked = false;
           }
         });
-      break;
+        break;
     }
   }
 
   async levelAdd(level) {
-    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
     switch (level) {
       case 'level1':
         console.log(this.resLevel1.rsMap);
@@ -278,7 +334,7 @@ export class MemberStandardSetPage implements OnInit {
           hq_regional_code: '', // 코드
           hq_regional_name: '', // 지역본부명
           hq_regional_use_state: 0, // 사용 = 1
-          checked:false
+          checked: false
         });
         break;
       case 'level2':
@@ -293,7 +349,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
-              checked:false
+              checked: false
             });
           } else {
             this.resLevel2.rsMap = [];
@@ -304,7 +360,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
-              checked:false
+              checked: false
             });
           }
         }
@@ -321,7 +377,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0, // 지역본부 ID
               hq_department_code: '', // 코드
               hq_business_id: 0, // 사업본부 ID
-              checked:false
+              checked: false
             });
           } else {
             this.resLevel3.rsMap = [];
@@ -332,7 +388,7 @@ export class MemberStandardSetPage implements OnInit {
               hq_regional_id: 0, // 지역본부 ID
               hq_department_code: '', // 코드
               hq_business_id: 0, // 사업본부 ID
-              checked:false
+              checked: false
             });
           }
         }
@@ -340,11 +396,11 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async levelUpdate(level) {
-    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
     switch (level) {
       case 'level1':
-        this.resLevel1?.rsMap.forEach((item,i) => {
-          if(this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+        this.resLevel1?.rsMap.forEach((item, i) => {
+          if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
             console.log(this.area1SelectCheck);
           } else {
@@ -353,9 +409,9 @@ export class MemberStandardSetPage implements OnInit {
         });
         break;
       case 'level2':
-        this.resLevel2?.rsMap.forEach((item,i) => {
+        this.resLevel2?.rsMap.forEach((item, i) => {
           console.log(item)
-          if(this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+          if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
             console.log(this.area1SelectCheck);
           } else {
@@ -364,9 +420,9 @@ export class MemberStandardSetPage implements OnInit {
         });
         break;
       case 'level3':
-        this.resLevel3?.rsMap.forEach((item,i) => {
+        this.resLevel3?.rsMap.forEach((item, i) => {
           console.log(item)
-          if(this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+          if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
             console.log(this.area3SelectCheck);
           } else {
@@ -381,9 +437,9 @@ export class MemberStandardSetPage implements OnInit {
   async organizationSave(level) {
     // this.hq_regional_id = this.area1SelectList.hq_regional_id;
     // this.hq_business_id = this.area2SelectList.hq_business_id;
-    if(this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
     switch (level) {
-      case 'level1':       
+      case 'level1':
         this.resLevel1?.rsMap.forEach(async (item, i) => {
           if (item.hq_regional_id && item.checked) {
             console.log("true");
@@ -392,7 +448,7 @@ export class MemberStandardSetPage implements OnInit {
               const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
               this.level1();
             }
-          } else if(!item.hq_regional_id && !item.checked){
+          } else if (!item.hq_regional_id && !item.checked) {
             console.log('false');
             const res = await this.connect.run('/project/organization/regional/insert', item);
             if (res.rsCode === 0) {
@@ -406,15 +462,15 @@ export class MemberStandardSetPage implements OnInit {
       case 'level2':
         this.resLevel2?.rsMap.forEach(async (item, i) => {
           if (item.hq_business_id && item.checked) {
-            console.log("item.hq_regional_id",item.hq_regional_id);
-            console.log("this.hq_regional_id",this.hq_regional_id);
+            console.log("item.hq_regional_id", item.hq_regional_id);
+            console.log("this.hq_regional_id", this.hq_regional_id);
             item.hq_regional_id = this.hq_regional_id;
             const res = await this.connect.run('/project/organization/business/update', item);
             if (res.rsCode === 0) {
               const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
               this.level2();
             }
-          } else if(!item.hq_business_id && !item.checked){
+          } else if (!item.hq_business_id && !item.checked) {
             item.hq_regional_id = this.hq_regional_id;
             console.log('false');
             const res = await this.connect.run('/project/organization/business/insert', item);
@@ -435,7 +491,7 @@ export class MemberStandardSetPage implements OnInit {
               const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
               this.level3();
             }
-          } else if(!item.hq_department_id && !item.checked){
+          } else if (!item.hq_department_id && !item.checked) {
             item.hq_business_id = this.hq_business_id;
             item.hq_regional_id = this.hq_regional_id;
             console.log('false');
@@ -485,7 +541,7 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
-    if(this.roleCheck) return await this.toast.present({message:'권한이 없습니다.'});
+    if (this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' });
     console.log("this.subpasscheck", this.subpasscheck);
     console.log("this.passchkck", this.passchkck);
     if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "danger" });
@@ -588,7 +644,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getSafeJob() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD') {
+    if (this.user.userData.user_role === 'COMPANY_HEAD') {
       this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
       this.safeJobForm.user_type = 'COMPANY';
     }
@@ -694,7 +750,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getOccupation() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD') {
+    if (this.user.userData.user_role === 'COMPANY_HEAD') {
       this.occupationForm = this.user.userData.belong_data.company_id;
     }
     this.resOccupation = await this.connect.run('/project/occupation/get', { company_id: this.occupationForm });

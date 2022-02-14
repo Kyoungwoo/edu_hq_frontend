@@ -34,13 +34,14 @@ interface ManualListItem {
   update_user_name: string,
   row_count: number
 }
+
 @Component({
   selector: 'app-manual-list',
   templateUrl: './manual-list.page.html',
   styleUrls: ['./manual-list.page.scss']
 })
 export class ManualListPage implements OnInit {
-
+  
   form = new ManualListForm();
   res:ConnectResult<ManualListItem>;
 

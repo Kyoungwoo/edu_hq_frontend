@@ -446,7 +446,10 @@
             box-shadow: 0 0 7px 0px rgba(0,0,0,0.15);
         }
     }
-
+    .worker-minutes-modal {
+      --max-width: 300px;
+      --max-height: 230px;
+    }
     .lhOrganization {
       --max-width: 300px;
       --max-height: 280px;

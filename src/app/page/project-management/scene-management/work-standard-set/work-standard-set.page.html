@@ -5,94 +5,114 @@
     <app-row>
       <app-col size="auto">
         <ion-segment style="--background: white ;" color="primary" [value]="1">
-          <ion-segment-button [disabled]="workRoleCheck" (click)="menuCount = 1" [value]="1">공종</ion-segment-button>
+          <ion-segment-button (click)="menuCount1()" [value]="1">공종</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 2">위험 공종</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 3">위험성평가<br>항목</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 4">위험성평가<br>추가 항목</ion-segment-button>
-          <ion-segment-button [disabled]="workRoleCheck" (click)="menuCount = 5">건설기계</ion-segment-button>
-          <ion-segment-button [disabled]="workRoleCheck" (click)="menuCount = 6">특수공도구</ion-segment-button>
+          <ion-segment-button (click)="menuCount5()">건설기계</ion-segment-button>
+          <ion-segment-button (click)="menuCount6()">특수공도구</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 7">위험지역<br>점검표</ion-segment-button>
-          <ion-segment-button [disabled]="workRoleCheck" (click)="menuCount = 8">회의록<br>협의사항</ion-segment-button>
-          <ion-segment-button [disabled]="workRoleCheck" (click)="menuCount = 9">재해 형태</ion-segment-button>
+          <ion-segment-button (click)="menuCount8()">회의록<br>협의사항</ion-segment-button>
+          <ion-segment-button (click)="menuCount9()">재해 형태</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 10">작업절차서<br>등록</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
-  <ng-container *ngIf="!workRoleCheck">
-  <app-row style="align-items: flex-start;" *ngIf="menuCount === 1">
-    <app-col size="280px">
-      <app-table type="card">
-        <ion-toolbar slot="top" color="white">
-          <app-row style="justify-content: space-between;">
-            <app-col size="auto">
-              <h5>필터</h5>
-            </app-col>
-            <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;" (click)="getConstruction()">검색</app-button>
-            </app-col>
-          </app-row>
-        </ion-toolbar>
-        <tbody>
-          <tr>
-            <td>
-              <app-select-scene [(ngModel)]="constructionForm"></app-select-scene>
-            </td>
-          </tr>
-        </tbody>
-      </app-table>
-    </app-col>
-    <app-col>
-      <ion-toolbar color="white">
-        <ion-buttons slot="start">
-          <app-button fill="translucent" (click)="constructionAdd()">추가</app-button>
-          <app-button fill="translucent" (click)="constructionDelete()" color="danger">식제</app-button>
-          <app-button fill="translucent" (click)='constructionState(1)'>전체 사용</app-button>
-          <app-button fill="translucent" (click)='constructionState(0)'>전체 미사용</app-button>
-        </ion-buttons>
-      </ion-toolbar>
-      <ion-toolbar color="white">
-        <app-row>
-          <app-col>
-            <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
-          </app-col>
-        </app-row>
-      </ion-toolbar>
-      <app-check-group [(ngModel)]="constructionSelected">
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">
-                <app-check type="all"></app-check>
-              </th>
-              <th>공종 목록</th>
-              <th style="width: 100px;">사용 여부</th>
-            </tr>
-          </thead>
+  <ng-container>
+    <app-row style="align-items: flex-start;" *ngIf="menuCount === 1">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" [disabled]="workRoleCheck" style="width: 100px;"
+                  (click)="getConstruction()">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
           <tbody>
-            <tr *ngFor="let item of resConstruction?.rsMap">
+            <tr>
               <td>
-                <app-check [on]="item"></app-check>
-              </td>
-              <td>
-                <app-input [(ngModel)]="item.ctgo_construction_name"></app-input>
-              </td>
-              <td>
-                <app-select [(ngModel)]="item.ctgo_construction_use_state">
-                  <app-select-option [value]="1">Y</app-select-option>
-                  <app-select-option [value]="0">N</app-select-option>
-                </app-select>
+                <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="constructionForm"></app-select-scene>
               </td>
             </tr>
           </tbody>
         </app-table>
-      </app-check-group>
-    </app-col>
-  </app-row>
-</ng-container>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent" [disabled]="workRoleCheck" (click)="constructionAdd()">추가</app-button>
+            <app-button fill="translucent" [disabled]="workRoleCheck" (click)="constructionDelete()" color="danger">식제
+            </app-button>
+            <app-button fill="translucent" [disabled]="workRoleCheck" (click)='constructionState(1)'>전체 사용</app-button>
+            <app-button fill="translucent" [disabled]="workRoleCheck" (click)='constructionState(0)'>전체 미사용</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ng-container *ngIf="!workRoleCheck else constructionEmpty">
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+          <app-check-group [(ngModel)]="constructionSelected">
+            <app-table>
+              <thead>
+                <tr>
+                  <th style="width: 40px;">
+                    <app-check type="all"></app-check>
+                  </th>
+                  <th>공종 목록</th>
+                  <th style="width: 100px;">사용 여부</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of resConstruction?.rsMap">
+                  <td>
+                    <app-check [on]="item"></app-check>
+                  </td>
+                  <td>
+                    <app-input [(ngModel)]="item.ctgo_construction_name"></app-input>
+                  </td>
+                  <td>
+                    <app-select [(ngModel)]="item.ctgo_construction_use_state">
+                      <app-select-option [value]="1">Y</app-select-option>
+                      <app-select-option [value]="0">N</app-select-option>
+                    </app-select>
+                  </td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-check-group>
+          <app-row *ngIf="!resConstruction?.rsMap?.length">
+            <app-col>
+              <app-card>
+                <h5>목록이 없습니다.</h5>
+              </app-card>
+            </app-col>
+          </app-row>
+        </ng-container>
+        <ng-template #constructionEmpty>
+          <app-row>
+            <app-col>
+              <app-card>
+                <h5>권한이 없습니다.</h5>
+              </app-card>
+            </app-col>
+          </app-row>
+        </ng-template>
+      </app-col>
+    </app-row>
+  </ng-container>
 
   <app-row style="align-items: flex-start;" *ngIf="menuCount === 5">
     <app-col size="280px">
@@ -103,14 +123,15 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;" (click)="getMachinery()" >검색</app-button>
+              <app-button [disabled]="workRoleCheck" fill="translucent" style="width: 100px;" (click)="getMachinery()">
+                검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company [(ngModel)]="machineryFrom"></app-select-company>
+              <app-select-company [disabled]="workRoleCheck" [(ngModel)]="machineryFrom"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -119,12 +140,14 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent" (click)="machineryAdd()">추가</app-button>
-          <app-button fill="translucent" (click)="machineryDelete()" color="danger">삭제</app-button>
-          <app-button fill="translucent" (click)="machineryState(1)">전체 사용</app-button>
-          <app-button fill="translucent" (click)="machineryState(0)">전체 미사용</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="machineryAdd()">추가</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="machineryDelete()" color="danger">삭제
+          </app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="machineryState(1)">전체 사용</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="machineryState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
+      <ng-container *ngIf="!workRoleCheck; else roleEmpty">
       <ion-toolbar color="white">
         <app-row>
           <app-col>
@@ -135,39 +158,56 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group [(ngModel)]="selectedMachinery">
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">
-                <app-check type="all"></app-check>
-              </th>
-              <th>건설 기계</th>
-              <th style="width: 130px;">작업계획서 필수 첨부</th>
-              <th>사용 여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of resMachinery?.rsMap">
-              <td>
-                <app-check [on]="item"></app-check>
-              </td>
-              <td>
-                <app-input [(ngModel)]="item.ctgo_machinery_name"></app-input>
-              </td>
-              <td>
-                <app-check [(ngModel)]="item.ctgo_machinery_doc"></app-check>
-              </td>
-              <td>
-                <app-select [(ngModel)]="item.ctgo_machinery_use_state">
-                  <app-select-option [value]="1">Y</app-select-option>
-                  <app-select-option [value]="0">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-check-group>
+        <app-check-group [(ngModel)]="selectedMachinery">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th>건설 기계</th>
+                <th style="width: 130px;">작업계획서 필수 첨부</th>
+                <th>사용 여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resMachinery?.rsMap">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_machinery_name"></app-input>
+                </td>
+                <td>
+                  <app-check [(ngModel)]="item.ctgo_machinery_doc"></app-check>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_machinery_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-card *ngIf="!resMachinery?.rsMap?.length">
+          <app-row>
+            <app-col>
+              <h5>목록이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-container>
+      <ng-template #roleEmpty>
+        <app-card>
+          <app-row>
+            <app-col>
+              <h5>권한이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-template>
     </app-col>
   </app-row>
 
@@ -180,19 +220,20 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;" (click)="getTool()">검색</app-button>
+              <app-button fill="translucent" [disabled]="workRoleCheck" style="width: 100px;" (click)="getTool()">검색
+              </app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-scene [(ngModel)]="toolForm.project_id"></app-select-scene>
+              <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="toolForm.project_id"></app-select-scene>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-company [(ngModel)]="toolForm.company_id"></app-select-company>
+              <app-select-company [disabled]="workRoleCheck" [(ngModel)]="toolForm.company_id"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -201,12 +242,14 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent" (click)="toolAdd()">추가</app-button>
-          <app-button fill="translucent" (click)="toolDelete()" color="danger">삭제</app-button>
-          <app-button fill="translucent" (click)="toolState(1)">전체 사용</app-button>
-          <app-button fill="translucent" (click)="toolState(0)">전체 미사용</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="toolAdd()">추가</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="toolDelete()" color="danger">삭제
+          </app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="toolState(1)">전체 사용</app-button>
+          <app-button fill="translucent" [disabled]="workRoleCheck" (click)="toolState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
+      <ng-container *ngIf="!workRoleCheck else roleEmpty">
       <ion-toolbar color="white">
         <app-row>
           <app-col>
@@ -217,35 +260,52 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group [(ngModel)]="slectedTool">
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">
-                <app-check type="all"></app-check>
-              </th>
-              <th>전기 공도구</th>
-              <th>사용 여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of resTool?.rsMap">
-              <td>
-                <app-check [on]="item"></app-check>
-              </td>
-              <td>
-                <app-input [(ngModel)]="item.ctgo_tool_name" placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-select [(ngModel)]="item.ctgo_tool_use_state">
-                  <app-select-option [value]="1">Y</app-select-option>
-                  <app-select-option [value]="0">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-check-group>
+        <app-check-group [(ngModel)]="slectedTool">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th>전기 공도구</th>
+                <th>사용 여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resTool?.rsMap">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_tool_name" placeholder="입력하세요."></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_tool_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-card *ngIf="!resTool?.rsMap?.length">
+          <app-row>
+            <app-col>
+              <h5>목록이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-container>
+      <ng-template #roleEmpty>
+        <app-card>
+          <app-row>
+            <app-col>
+              <h5>권한이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-template>
     </app-col>
   </app-row>
 
@@ -259,19 +319,20 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;" (click)="getMeeting()">검색</app-button>
+                <app-button [disabled]="workRoleCheck" fill="translucent" style="width: 100px;" (click)="getMeeting()">
+                  검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene [(ngModel)]="meetingForm.project_id"></app-select-scene>
+                <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="meetingForm.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company [(ngModel)]="meetingForm.company_id"></app-select-company>
+                <app-select-company [disabled]="workRoleCheck" [multiple]="false" [(ngModel)]="meetingForm.company_id"></app-select-company>
               </td>
             </tr>
           </tbody>
@@ -282,43 +343,54 @@
         <ion-toolbar slot="top" color="white">
           <h4>회의록 협의사항</h4>
           <ion-buttons slot="end">
-            <app-button fill="translucent" (click)="meetingUpdate()">저장</app-button>
+            <app-button [disabled]="workRoleCheck" fill="translucent" (click)="meetingUpdate()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
+        <ng-container *ngIf="!workRoleCheck else roleEmpty">
         <app-card>
           <ion-toolbar slot="top" color="white">
             <h5>안전 및 보건에 관한 협의체</h5>
           </ion-toolbar>
           <app-row>
             <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
+              <app-textarea [(ngModel)]="resMeeting?.rsObj.safety_default" [rows]="7" ></app-textarea>
             </app-col>
           </app-row>
         </app-card>
-
-        <app-card>
-          <ion-toolbar slot="top" color="white">
-            <h5>노사 협의체</h5>
-          </ion-toolbar>
-          <app-row>
-            <app-col>
+  
+          <app-card>
+            <ion-toolbar slot="top" color="white">
+              <h5>노사 협의체</h5>
+            </ion-toolbar>
+            <app-row>
+              <app-col>
                 <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
                 </app-textarea>
-            </app-col>
-          </app-row>
-        </app-card>
-
-        <app-card>
-          <ion-toolbar color="white">
-            <h5>산업안전 보건 위원회</h5>
-          </ion-toolbar>
-          <app-row>
-            <app-col>
-              <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
-              </app-textarea>
-            </app-col>
-          </app-row>
-        </app-card>
+              </app-col>
+            </app-row>
+          </app-card>
+  
+          <app-card>
+            <ion-toolbar color="white">
+              <h5>산업안전 보건 위원회</h5>
+            </ion-toolbar>
+            <app-row>
+              <app-col>
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
+                </app-textarea>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ng-container>
+        <ng-template #roleEmpty>
+          <app-card>
+            <app-row>
+              <app-col>
+                <h5>권한이 없습니다.</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ng-template>
       </app-col>
     </app-row>
   </ng-container>
@@ -332,14 +404,14 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" style="width: 100px;" (click)="getDisaster()">검색</app-button>
+              <app-button fill="translucent" [disabled]="workRoleCheck" style="width: 100px;" (click)="getDisaster()">검색</app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-company [disabled]="workRoleCheck" [(ngModel)]="disasterForm"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -348,12 +420,13 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent" (click)="disasterAdd()">추가</app-button>
-          <app-button fill="translucent" (click)="disasterDelete()" color="danger">삭제</app-button>
-          <app-button fill="translucent" (click)="disasterState(1)">전체 사용</app-button>
-          <app-button fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
+          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterAdd()">추가</app-button>
+          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterDelete()" color="danger">삭제</app-button>
+          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(1)">전체 사용</app-button>
+          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
+      <ng-container *ngIf="!workRoleCheck else roleEmpty">
       <ion-toolbar color="white">
         <app-row>
           <app-col>
@@ -364,35 +437,53 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <app-check-group [(ngModel)]="disasterSelected">
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">
-                <app-check type="all"></app-check>
-              </th>
-              <th>재해 형태 목록</th>
-              <th>사용 여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of resDisaster?.rsMap">
-              <td>
-                <app-check [on]="item"></app-check>
-              </td>
-              <td>
-                <app-input [(ngModel)]="item.ctgo_disaster_name" placeholder="입력하세요."></app-input>
-              </td>
-              <td>
-                <app-select [(ngModel)]="item.ctgo_disaster_use_state">
-                  <app-select-option [value]="1">Y</app-select-option>
-                  <app-select-option [value]="0">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-check-group>
+        <app-check-group [(ngModel)]="disasterSelected">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th>재해 형태 목록</th>
+                <th>사용 여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resDisaster?.rsMap">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_disaster_name" placeholder="입력하세요."></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_disaster_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-card *ngIf="!resDisaster?.rsMap?.length">
+          <app-row>
+            <app-col>
+              <h5>목록이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-container>
+      <ng-template #roleEmpty>
+        <app-card>
+          <app-row>
+            <app-col>
+              <h5>권한이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-template>
+
     </app-col>
   </app-row>
 </ion-content>

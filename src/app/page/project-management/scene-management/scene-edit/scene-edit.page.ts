@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { StorageService } from 'src/app/basic/service/core/storage.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
@@ -89,12 +90,15 @@ export class SceneEditPage implements OnInit {
     name: '',
     type: '지역' || '사업'
   }
+
+  roleCheck:boolean = true;
+
   constructor(
     private connect: ConnectService,
     private _modal: ModalController,
     private daum: DaumService,
     private Date: DateService,
-    public user: StorageService,
+    public user: UserService,
     private alert: AlertService,
     private changeRef: ChangeDetectorRef
   ) { }
@@ -104,8 +108,10 @@ export class SceneEditPage implements OnInit {
     if (this.project_id) {
       this.getItem();
       this.title = '상세';
+     
     } else {
       this.title = '등록';
+      this.roleCheck = false;
     }
   }
 
@@ -120,11 +126,21 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      console.log("this.form",this.form);
+      console.log("this.form.create_user_id",this.form.create_user_id);
+      console.log("this.user.userData.user_id",this.user.userData.user_id);
+      console.log("this.user.userData.user_role === 'LH_HEAD'",this.user.userData.user_role === 'LH_HEAD');
+      console.log((this.form.create_user_id === this.user.userData.user_id) && (this.user.userData.user_role === 'LH_HEAD'))
+      if((this.form.create_user_id === this.user.userData.user_id) || 
+      (this.user.userData.user_role === 'LH_HEAD')
+      ) {
+        console.log("허락한다.");
+        this.roleCheck = false;
+        console.log(this.roleCheck);
+      }
       console.log()
       if (res.rsObj.company_data) {
         let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
-
-        console.log("josncompany", josncompany);
         for (let i = 0; i < josncompany.length; i++) {
           console.log(josncompany[i]);
           if (josncompany[i].company_contract_type === '원청사') {
@@ -222,17 +238,19 @@ export class SceneEditPage implements OnInit {
   }
 
   async organizationSel() {
-    const modal = await this._modal.create({
-      component: OrganizationSelectPage
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    console.log("data", data);
-    if (data) {
-      console.log("조직기구 모달 데이터", data);
-      this.organization.name = data.regName + ', ' + data.busName;
-      this.form.hq_regional_id = data.regId;
-      this.form.hq_business_id = data.busId;
+    if(!this.roleCheck){
+      const modal = await this._modal.create({
+        component: OrganizationSelectPage
+      });
+      modal.present();
+      const { data } = await modal.onDidDismiss();
+      console.log("data", data);
+      if (data) {
+        console.log("조직기구 모달 데이터", data);
+        this.organization.name = data.regName + ', ' + data.busName;
+        this.form.hq_regional_id = data.regId;
+        this.form.hq_business_id = data.busId;
+      }
     }
   }
 

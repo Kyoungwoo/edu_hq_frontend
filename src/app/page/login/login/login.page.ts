@@ -43,16 +43,16 @@ export class LoginPage implements OnInit, ViewDidEnter {
   }
 
   private async test() {
-    if(!environment.test.core.test) return;
-    if(!await this.testSignUp()) return;
-    if(!await this.testFindId()) return;
-    if(!await this.testFindPassord()) return;
-    if(!await this.testLogin()) return;
+    // if(!environment.test.core.test) return;
+    // if(!await this.testSignUp()) return;
+    // if(!await this.testFindId()) return;
+    // if(!await this.testFindPassord()) return;
+    // if(!await this.testLogin()) return;
     
-    this.alert.present({
-      header: '테스트 완료',
-      message: '테스트 완료'
-    });
+    // this.alert.present({
+    //   header: '테스트 완료',
+    //   message: '테스트 완료'
+    // });
   }
   private async testSignUp():Promise<boolean> {
     if(!environment.test.SignUp.test) return true;
@@ -100,9 +100,9 @@ export class LoginPage implements OnInit, ViewDidEnter {
     await this.promise.wait();
 
     //lh 마스터 테스트
-    el.querySelector('[name=accountID]').dispatchEvent(new CustomEvent('setValue', { detail: 'lh' }));
-    el.querySelector('[name=accountToken]').dispatchEvent(new CustomEvent('setValue', { detail: 'qwer1234' }));
-    el.querySelector('[name=button_login]').dispatchEvent(new Event('click'));
+    // el.querySelector('[name=accountID]').dispatchEvent(new CustomEvent('setValue', { detail: 'lh' }));
+    // el.querySelector('[name=accountToken]').dispatchEvent(new CustomEvent('setValue', { detail: 'qwer1234' }));
+    // el.querySelector('[name=button_login]').dispatchEvent(new Event('click'));
   }
 
   public async login() {

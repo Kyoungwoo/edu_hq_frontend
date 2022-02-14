@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -19,15 +19,15 @@ export class FileData {
 }
 
 export class GPS_COORDINATE_DATA {
-  gps_latitude:number[] = [];
-  gps_longitude:number[] = [];
+  gps_latitude: number[] = [];
+  gps_longitude: number[] = [];
 }
 
 export class SelectItem {
   area_bottom_id: number;
   area_bottom_name: string;
   area_middle_id: number;
-  area_middle_name:string;
+  area_middle_name: string;
   area_risk_id: number;
   area_risk_name: string;
   area_top_id: number;
@@ -72,6 +72,7 @@ export class AreaStandardSetPage implements OnInit {
   }
   riskProjectForm = {
     limit_no: 0,
+    // project_id: this.user.userData.belong_data.project_id
     project_id: this.user.userData.belong_data.project_id
   }
   selectDataArea1 = [];
@@ -108,6 +109,7 @@ export class AreaStandardSetPage implements OnInit {
     area_risk_use_state: number, // 사용여부
     area_top_name: string, // 장소1
     gps_state: number // GPS 등록여부 / 1 등록, 0 미등록
+    row_count: number
   }>;
 
   riskAreaName: string;
@@ -124,7 +126,9 @@ export class AreaStandardSetPage implements OnInit {
   riskAreaData = [];
 
 
-  resGPS:ConnectResult <{
+  gps_coordinate_data = new GPS_COORDINATE_DATA();
+  
+  resGPS: ConnectResult<{
     area_bottom_name: string,
     area_risk_id: number,
     gps_id: number,
@@ -134,23 +138,20 @@ export class AreaStandardSetPage implements OnInit {
     area_top_id: number,
     area_middle_id: number,
     area_bottom_id: number,
-    area_top_name:string,
-    gps_state:number,
-    area_risk_name:string
+    area_top_name: string,
+    gps_state: number,
+    area_risk_name: string
   }>
 
-  resGPScood = [
-    {
-      order_no: 0,
-      gps_id: 0,
-      gps_latitude: 0,
-      gps_longitude: 0,
-      x: 0,
-      y: 0
-    }
-  ]
-  gpsselected:SelectItem = new SelectItem();
+  resGPScood:ConnectResult <{
+    order_no: number,
+    gps_id: number,
+    gps_latitude: number,
+    gps_longitude: number
+  }>
+  gpsselected: SelectItem = new SelectItem();
 
+  naverMapSetting:boolean = true;
   // area = [
   //   {
   //     x: 126.7552019,
@@ -165,25 +166,38 @@ export class AreaStandardSetPage implements OnInit {
   //     y: 37.5579424
   //   }
   // ]
-  areaRoleCheck:boolean = true;
+  areaRoleCheck: boolean = true;
 
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
     private toast: ToastService,
     private alert: AlertService,
-    public user: UserService
+    public user: UserService,
+    private changeRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' 
+    || this.user.userData.user_role === 'LH_HEAD') {
       this.areaRoleCheck = false;;
     }
+    this.area();
     this.getGuidemap();
     this.AreaOne();
     this.CtgoRisk();
   }
 
+  async area() {
+    this.menuCount = 1;
+    if (this.areaRoleCheck) {
+      const alert = await this.alert.present({
+        message: '권한이 없습니다.',
+        buttons: [{ text: '확인' }]
+      });
+      alert.present();
+    }
+  }
   async getGuidemap() {
     const res = await this.connect.run('/project/area/guidemap/get', { project_id: this.AreaOneForm.project_id, }, {
       parse: ['file_data']
@@ -359,12 +373,15 @@ export class AreaStandardSetPage implements OnInit {
   }
 
 
-  async getRiskArea() {
-    this.menuCount = 2; 
+  async getRiskArea(limit_no = this.riskProjectForm.limit_no) {
+    this.riskProjectForm.limit_no = limit_no;
+    this.menuCount = 2;
     this.resRiskArea = await this.connect.run('/project/area/risk/get', this.riskProjectForm);
     if (this.resRiskArea.rsCode === 0) {
-      console.log("this.resRiskArea",this.resRiskArea);
-     };
+      console.log("this.resRiskArea", this.resRiskArea);
+    } else if(this.resRiskArea.rsCode === 1008) {
+      if(!this.riskProjectForm.limit_no) this.toast.present({color:'dnager',message:this.resRiskArea.rsMsg});
+    }
   }
 
   addRiskArea() {
@@ -372,16 +389,16 @@ export class AreaStandardSetPage implements OnInit {
       area_middle_name: '', // 장소2
       area_bottom_name: '', // 장소3
       area_top_name: '', // 장소1
-      area_bottom_id:0, // 장소3 ID
-      area_middle_id:0, // 장소2 ID
-      area_risk_name:'',// 위험지역명
-      area_risk_type:'',// 실내/실외
-      area_risk_use_state:0, // 사용 1 / 미사용 0
-      area_top_id:0, // 장소1 ID
-      ctgo_area_risk_id:0, // 위험지역 유형 ID
-      manager_user_id:0, // 관리책임자 정 ID
-      project_id:0, // 현장 ID
-      second_user_id:0, // 관리책임자 부 ID
+      area_bottom_id: 0, // 장소3 ID
+      area_middle_id: 0, // 장소2 ID
+      area_risk_name: '',// 위험지역명
+      area_risk_type: '',// 실내/실외
+      area_risk_use_state: 0, // 사용 1 / 미사용 0
+      area_top_id: 0, // 장소1 ID
+      ctgo_area_risk_id: 0, // 위험지역 유형 ID
+      manager_user_id: 0, // 관리책임자 정 ID
+      project_id: 0, // 현장 ID
+      second_user_id: 0, // 관리책임자 부 ID
     })
   }
 
@@ -392,10 +409,10 @@ export class AreaStandardSetPage implements OnInit {
 
   async riskSave() {
     console.log(this.addRiskAreaArr);
-    for(let i = 0; i < this.addRiskAreaArr.length; i++) {
+    for (let i = 0; i < this.addRiskAreaArr.length; i++) {
       this.addRiskAreaArr[i].project_id = this.riskProjectForm.project_id;
-      const res = await this.connect.run('/project/risk_area/insert',this.addRiskAreaArr[i]);
-      if(res.rsCode === 0) {
+      const res = await this.connect.run('/project/risk_area/insert', this.addRiskAreaArr[i]);
+      if (res.rsCode === 0) {
         console.log('good');
       }
     }
@@ -403,9 +420,9 @@ export class AreaStandardSetPage implements OnInit {
 
   async nfcView(area_risk_id) {
     const modal = await this.modal.create({
-      component:NfcInfoComponent,
-      componentProps:{area_risk_id},
-      cssClass:'lhOrganization'
+      component: NfcInfoComponent,
+      componentProps: { area_risk_id },
+      cssClass: 'lhOrganization'
     });
     modal.present();
   }
@@ -434,15 +451,15 @@ export class AreaStandardSetPage implements OnInit {
     }
   }
 
-  async deleteRisk() { 
+  async deleteRisk() {
     console.log(this.riskAreaData);
-    if(this.riskAreaData) {
-      for(let i = 0; i < this.riskAreaData.length; i++) {
-        if(this.riskAreaData[i].area_risk_id) {
-          
+    if (this.riskAreaData) {
+      for (let i = 0; i < this.riskAreaData.length; i++) {
+        if (this.riskAreaData[i].area_risk_id) {
+
         } else {
           console.log('아이디 없다');
-          this.addRiskAreaArr.splice(i,1);
+          this.addRiskAreaArr.splice(i, 1);
         }
       }
     }
@@ -456,37 +473,46 @@ export class AreaStandardSetPage implements OnInit {
 
   async areaGPS() {
     this.menuCount = 3;
-    this.resGPS = await this.connect.run('/project/area/risk/gps/get',this.riskProjectForm);
-    if(this.resGPS.rsCode === 0) {};
+    this.resGPS = await this.connect.run('/project/area/risk/gps/get', this.riskProjectForm);
+    if (this.resGPS.rsCode === 0) { };
   }
 
   async getGpsCoodrinate(item) {
     this.gpsselected = item;
-    console.log(this.gpsselected);
-    const res = await this.connect.run('/project/area/risk/gps_coodrinate/get',{gps_id:item.gps_id});
-    this.resGPScood = res.rsMap;
-    // if(this.resGPScood.rsCode === 0) {};
+    console.log(item);
+    this.naverMapSetting = false;
+    this.gps_coordinate_data.gps_latitude = [];
+    this.gps_coordinate_data.gps_longitude = [];
+    console.log("this.gpsselected",this.gpsselected);
+    this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
+    if(this.resGPScood.rsCode === 0) {
+      console.log("this.resGPScood" ,this.resGPScood);
+      this.resGPScood.rsMap.forEach(data => {
+        this.gps_coordinate_data.gps_latitude.push(data.gps_latitude);
+        this.gps_coordinate_data.gps_longitude.push(data.gps_longitude);
+      });
+      this.changeRef.detectChanges();
+      console.log("this.gps_coordinate_data",this.gps_coordinate_data);
+    };
   }
-
   async gpsSave() {
     console.log(this.resGPScood);
-    let gps_latitude = [];
-    let gps_longitude = [];
-    for(let i = 0; i < this.resGPScood.length; i++) {
-      if(this.resGPScood[i].gps_id) {
-        gps_latitude.push(this.resGPScood[i].gps_latitude);
-        gps_longitude.push(this.resGPScood[i].gps_longitude);
-      } else {
-        gps_latitude.push(this.resGPScood[i].y);
-        gps_longitude.push(this.resGPScood[i].x);
-      }
-    }
-    this.gpsselected.gps_coordinate_data = {
-      gps_latitude,
-      gps_longitude
-    }
-    console.log("this.gpsselected.gps_coordinate_data",this.gpsselected.gps_coordinate_data);
-    const res = await this.connect.run('/project/area/risk/gps/insert',this.gpsselected,{});
-    if(res.rsCode === 0 ) {};
+    this.gpsselected.gps_coordinate_data = this.gps_coordinate_data;
+    // for (let i = 0; i < this.resGPScood.length; i++) {
+    //   if (this.resGPScood[i].gps_id) {
+    //     gps_latitude.push(this.resGPScood[i].gps_latitude);
+    //     gps_longitude.push(this.resGPScood[i].gps_longitude);
+    //   } else {
+    //     gps_latitude.push(this.resGPScood[i].y);
+    //     gps_longitude.push(this.resGPScood[i].x);
+    //   }
+    // }
+    // this.gpsselected.gps_coordinate_data = {
+    //   gps_latitude,
+    //   gps_longitude
+    // }
+    console.log("this.gpsselected.gps_coordinate_data", this.gpsselected.gps_coordinate_data);
+    const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsselected, {});
+    if (res.rsCode === 0) { };
   }
 }

@@ -13,7 +13,7 @@ export class WorkStandardSetPage implements OnInit {
 
   menuCount: Number = 1;
   //공종 시작
-  constructionForm = 0;
+  constructionForm = this.user.userData.belong_data.project_id;
   resConstruction: ConnectResult<{
     ctgo_construction_id: number, // 공종ID
     ctgo_construction_name: string, // 공종명
@@ -25,7 +25,7 @@ export class WorkStandardSetPage implements OnInit {
   //공종 끝
 
   //건설기계
-  machineryFrom = 0;
+  machineryFrom = this.user.userData.belong_data.company_id;
   resMachinery: ConnectResult<{
     ctgo_machinery_id: number,
     company_id: number,
@@ -39,8 +39,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //특수 공도구
   toolForm = {
-    company_id:0,
-    project_id:0
+    company_id:this.user.userData.belong_data.company_id,
+    project_id:this.user.userData.belong_data.project_id
   }
   resTool:ConnectResult<{
     ctgo_tool_id: number,
@@ -55,8 +55,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 현의사항
   meetingForm = {
-    company_id:0,
-    project_id:0
+    company_id:this.user.userData.belong_data.company_id,
+    project_id:this.user.userData.belong_data.project_id
   }
 
   resMeeting:ConnectResult<{
@@ -70,7 +70,7 @@ export class WorkStandardSetPage implements OnInit {
 
 
   //재해 형태
-  disasterForm = 0;
+  disasterForm = this.user.userData.belong_data.company_id;
 
   resDisaster:ConnectResult<{
     ctgo_disaster_name:string,
@@ -92,11 +92,49 @@ export class WorkStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_role === 'LH_HEAD') {
       this.workRoleCheck = false;;
+    } else {
+      this.roleWarning();
     }
+    this.menuCount1();
   }
 
+  async roleWarning() {
+    if(this.workRoleCheck) {
+      const alert = await this.alert.present({
+        message:'권한이 없습니다.',
+        buttons:[{text:'확인'}]
+      });
+      alert.present();
+    }
+  }
+  menuCount1() { 
+    this.menuCount = 1;
+      this.roleWarning();
+      this.getConstruction()
+  }
+  menuCount5() {
+    this.menuCount = 5;
+      this.roleWarning();
+        this.getMachinery()
+  }
+
+  menuCount6() {
+    this.menuCount = 6;
+      this.roleWarning();
+      this.getTool();
+  }
+  menuCount8() {
+    this.menuCount = 8;
+    this.getMeeting();
+    this.roleWarning();
+  }
+  menuCount9() {
+    this.menuCount = 9;
+    this.roleWarning();
+    this.getDisaster();
+  }
   //공종 시작
   async getConstruction() {
     if (!this.constructionForm) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });

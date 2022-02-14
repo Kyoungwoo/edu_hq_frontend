@@ -1,5 +1,5 @@
 import { newArray } from '@angular/compiler/src/util';
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, InjectionToken, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, InjectionToken, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FileService } from 'src/app/basic/service/core/file.service';
 declare const naver;
@@ -28,6 +28,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   @HostBinding('id') get id() { return this._id };
   private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
 
+  @Input() disabled;
   map: any;
   // text:boolean = true;
   path = [];
@@ -61,7 +62,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       center: position,
       zoom: 10
     });
-    for (let i = 0; i < this.value.length; i++) {
+    for (let i = 0; i < this.value?.length; i++) {
       if (this.value[i].workerInfo) {
         for (let j = 0; j < this.value[i].workerInfo.length; j++) {
           const infoposition = new naver.maps.LatLng(this.value[i].workerInfo[j].x, this.value[i].workerInfo[j].y);
@@ -114,12 +115,14 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     })
 
 
-    naver.maps.Event.addListener(this.map, 'click', (e) => {
-      const coord = e.coord;
-      this.LatLng.gps_latitude.push(coord.x);
-      this.LatLng.gps_longitude.push(coord.y);
-      this.addMarker(coord);
-    });
+    // if(!this.disabled){
+      naver.maps.Event.addListener(this.map, 'click', (e) => {
+        const coord = e.coord;
+        this.LatLng.gps_latitude.push(coord.x);
+        this.LatLng.gps_longitude.push(coord.y);
+        this.addMarker(coord);
+      });
+    // }
 
     // const length = this.value.length;
     // for (let i = 0; i < length; i++) {
@@ -132,6 +135,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   };
 
   private addMarker(coord) {
+    console.log(coord)
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -167,10 +171,11 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
   }
 
-  private changeMarker() {
+  changeMarker() {
     let x = 0;
     let y = 0;
-    if(this.value.gps_latitude.length){
+    if(this.value?.gps_latitude?.length){
+      console.log("testt ---------------------------",this.value.gps_latitude);
       for(let i = 0; i < this.value.gps_latitude.length; i++) {
         x = this.value.gps_latitude[i];
         y = this.value.gps_longitude[i];
@@ -200,7 +205,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   @Input() set value(v:any) {
     if(!this.file.shallowEqual(v, this.LatLng)) {
       this.LatLng = v;
-      // this.changeMarker();
+      console.log("--------------Value = v",v);
+      this.changeMarker();
       this._onChangeCallback(this.LatLng);
       this.change.emit(this.LatLng);
     }
@@ -209,10 +215,11 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     return this.LatLng;
   }
   writeValue(v:any): void {
+    console.log("-------------- 2 2222222",v);
     if(!this.file.shallowEqual(v, this.LatLng)) {
       console.log("--------------writeValue = v",v);
       this.LatLng = v;
-      // this.changeMarker();
+      this.changeMarker();
       this._onChangeCallback(this.LatLng);
       this.change.emit(this.LatLng);
     }

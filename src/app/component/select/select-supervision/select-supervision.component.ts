@@ -26,6 +26,7 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
   @Input() color:Color;
   @Input() label:string = "감리사";
   @Input() text:string;
+  @Input() disabled:boolean = false;
 
   isModalData:boolean = false;
   constructor(
@@ -82,8 +83,7 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
       this.text = compnay_name_string.toString();
     }
   }
-   
-  @Input() disabled:boolean = false;
+
   @Output() change = new EventEmitter();
 
   private _value:ValueData[] = [];

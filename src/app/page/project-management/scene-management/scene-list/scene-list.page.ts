@@ -62,7 +62,7 @@ export class SceneListPage implements OnInit {
     private toast:ToastService,
     private date:DateService,
     private alert:AlertService,
-    private user: UserService
+    public user: UserService
   ) { }
 
   ngOnInit() {
@@ -73,18 +73,20 @@ export class SceneListPage implements OnInit {
   }
 
   async getList(limit_no = this.form.limit_no) {
-    this.listLoading = true;
-    this.form.limit_no = limit_no;
+    console.log("limit_no",limit_no);
+    this.form.limit_no = limit_no;  
     
-    this.res = await this.connect.run('/project/list',{
-      hq_business_ids:this.form.hq_business_ids,
-      hq_regional_ids:this.form.hq_regional_ids,
-      search_text:'',
-      limit_no:0,
-    },{
+    this.listLoading = true;
+    
+    const res = await this.connect.run('/project/list',this.form,{
       loading:'현장 불러온느중'
     });
-    if(this.res.rsCode === 0) {}
+    if(res.rsCode === 0) {
+      this.res = res;
+    } else if(this.res.rsCode === 1008) {
+      if(!this.form.limit_no) this.toast.present({ color: 'warning', message: res.rsMsg });
+      // else 더 로딩할 데이터가 없음
+    }
     setTimeout(() => {
       this.listLoading = false;
     }, 1000);
@@ -137,13 +139,13 @@ export class SceneListPage implements OnInit {
       
     } else { 
       item.state = true;
-      // if(item.project_use_state === 0) {
-      //     this.alert.present({
-      //       header:'안내',
-      //       message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
-      //       +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
-      //     })
-      // }
+      if(item.project_use_state === 0) {
+          this.alert.present({
+            header:'안내',
+            message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
+            +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
+          })
+      }
     }
   }
   async getCtgoRegional() {
