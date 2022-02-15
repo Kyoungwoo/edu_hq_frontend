@@ -7,7 +7,10 @@ import { environment } from 'src/environments/environment';
 
 export interface Country {
   ctgo_country_id: number,
-  ctgo_country_name: string
+  ctgo_country_name_ch: string,
+  ctgo_country_name_en: string,
+  ctgo_country_name_kr: string,
+  ctgo_country_name_vi: string
 }
 
 @Component({

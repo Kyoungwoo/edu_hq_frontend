@@ -9,11 +9,11 @@ export const environment = {
   production: false,
   test: {
     core: { test: false, done: false },
-    SignUp: { test: false, done: false, type: [
+    SignUp: { test: true, done: false, type: [
       "WORKER",
-      "LH",
-      "SUPER",
-      "COMPANY"
+      //"LH",
+      //"SUPER",
+      //"COMPANY"
     ] as UserType[] },
     FindId: { test: false, done: false, type: ['PHONE'] },
     FindPassword: { test: false, done: false },

@@ -40,7 +40,7 @@ export class SelectPopoverComponent implements OnInit, AfterViewInit {
     const el = this.el.nativeElement;
 
     // 가장 첫번째 놈을 클릭해서 값을 가져온다.
-    // el.querySelector('[name=select_option]').dispatchEvent(new Event('click'));
+    el.querySelector('[name=select_option]').dispatchEvent(new Event('click'));
   }
 
   onClick(item) {

@@ -62,6 +62,7 @@ export class UserService {
     this.getId();
     this.getAuthToken();
     this.getUserData();
+    this.getMemberAuthToken();
   }
   
   getId() {
@@ -130,7 +131,7 @@ export class UserService {
     if(isPlatformServer(this.platformId)) return;
 
     window.localStorage.setItem(TAG.memberAuthToken, authToken);
-    this.getId();
+    this.getMemberAuthToken();
   }
 
   clear() {

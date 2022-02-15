@@ -36,7 +36,9 @@ export class AvatarComponent implements OnInit, DoCheck, ControlValueAccessor {
     const changes = this.differ.diff(this.value);
     if(changes) {
       changes.forEachAddedItem((record) => {
-        this.changeAvatar(record.item);
+        if(this.view_type === record.item.view_type) {
+          this.changeAvatar(record.item);
+        }
       })
     }
   }

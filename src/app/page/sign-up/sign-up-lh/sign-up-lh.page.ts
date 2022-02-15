@@ -185,7 +185,8 @@ export class SignUpLhPage implements OnInit {
     this.validator.user_phone = { valid: true };
 
     if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
-    else if(this.validator.sms_token?.valid)
+    else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
+    else
     this.validator.sms_token = { valid: true };
 
     if(this.validator.user_email?.valid)

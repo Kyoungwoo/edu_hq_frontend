@@ -186,7 +186,8 @@ export class SignUpSupervisionPage implements OnInit {
     else this.validator.company_id = { valid: true };
 
     if(!this.form.user_phone) this.validator.user_phone = { message: '휴대폰번호를 입력해주세요.', valid: false };
-    else if(this.validator.user_phone?.valid)
+    else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
+    else
     this.validator.user_phone = { valid: true };
 
     if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
