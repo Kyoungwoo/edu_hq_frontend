@@ -18,7 +18,10 @@ export class ApprovalPopupComponent implements OnInit {
     user_id: this.user.userData.user_id,
     approval_user_ids: [],
     approval_text: '',
-    user_name: []
+    user_name: [],
+    company_id: this.user.userData.belong_data.company_id,
+    user_manage_session: ''
+
   }
   @Input() selectedList
 
