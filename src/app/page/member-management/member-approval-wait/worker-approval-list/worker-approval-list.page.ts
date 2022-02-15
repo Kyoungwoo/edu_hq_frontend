@@ -34,13 +34,15 @@ export class WorkerApprovalListPage implements OnInit {
 
   form = {
     approval_states: [],
-    company_ids: [2],
+    company_ids: this.user.userData.belong_data.company_id,
+    company_id: this.user.userData.belong_data.company_id,
     ctgo_construction_ids: [],
     end_date: this.date.today(),
-    project_ids: [],
+    project_ids: this.user.userData.belong_data.project_id,
     search_text: '',
     start_date: this.date.today({ month: -1 }),
-    limit_no: 0
+    limit_no: 0,
+    user_manage_session: ''
   };
 
   res:ConnectResult<WorkerInfo>;
@@ -55,14 +57,14 @@ export class WorkerApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.get();
+
+this.getPassword();
   }
 
   async get(limit_no = this.form.limit_no) {
-
     this.form.limit_no = limit_no;
     const authToken = this.user.memberAuthToken;
-    //this.form.auth_token = authToken;
+    this.form.user_manage_session = authToken;
 
     this.res = await this.connect.run('/approval/worker/list', this.form, {
       loading: true
@@ -72,7 +74,7 @@ export class WorkerApprovalListPage implements OnInit {
     } else if(this.res.rsCode === 1008) {
       // 데이터 없음
     }
-    else if(this.res.rsCode === 3000) {
+    else if(this.res.rsCode === 3008) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
     } else {
@@ -83,7 +85,10 @@ export class WorkerApprovalListPage implements OnInit {
   async getPassword() {
     const modal = await this.modal.create({
       component: SecurityPasswordComponent,
+      backdropDismiss:false,
+      cssClass:"security-password-modal"
     });
+    modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.get();
