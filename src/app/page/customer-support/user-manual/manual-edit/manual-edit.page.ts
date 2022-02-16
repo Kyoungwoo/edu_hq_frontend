@@ -90,7 +90,7 @@ export class ManualEditPage implements OnInit {
     
     el.querySelector('[name=pin_state]').dispatchEvent(new CustomEvent('click'));
     el.querySelector('[name=manual_title]').dispatchEvent(new CustomEvent('setValue', { detail: this.regex.random.id('테스트 타이틀') }));
-    el.querySelector('[name=manual_text]').dispatchEvent(new CustomEvent('setValue', { detail: this.regex.random.id('테스트 내용', 200) }));
+    el.querySelector('[name=manual_text]').dispatchEvent(new CustomEvent('setValue', { detail: `<p>${this.regex.random.id('테스트 내용', 50)}</p>\n<p>test end</p>` }));
     await this.promise.wait();
     
     const toast = await this.toast.present({ color: 'warning', message: '파일을 업로드 테스트 대기 10초', duration: 10000, buttons: [{ text: '완료' }] });
