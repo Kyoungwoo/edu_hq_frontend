@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>작업자 상세</ion-title>
+    <ion-title>작업자 가입승인 상세</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -37,7 +37,9 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input type="tel" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+            <app-input name="phone-number" label="휴대폰">
+              중복확인
+              </app-input>
           </app-col>
           <app-col>
             <app-select label="국적" name="select">
@@ -50,7 +52,11 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-email label="이메일" name="email"></app-email>
+            <app-email name="user_email" label="이메일" 
+          [color]="validator.user_email?.valid === false && 'warning'"
+          (delayKeyup)="overlapEmail()"
+          [(ngModel)]="form.user_email" [required]="true"></app-email>
+          <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
           </app-col>
           <app-col></app-col>
         </app-row>
@@ -68,7 +74,7 @@
           <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
           <ion-segment-button (click)="menu = 2">건강 문진</ion-segment-button>
           <ion-segment-button (click)="menu = 3">교육 이력</ion-segment-button>
-          <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button>
+          <!-- <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button> -->
         </ion-segment>
 
       </ion-toolbar>

@@ -33,7 +33,7 @@ class WorkerInfo {
 export class WorkerApprovalListPage implements OnInit {
 
   form = {
-    approval_states: [],
+    approval_state: '전체',
     company_ids: this.user.userData.belong_data.company_id,
     company_id: this.user.userData.belong_data.company_id,
     ctgo_construction_ids: [],
@@ -57,8 +57,7 @@ export class WorkerApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-this.getPassword();
+    this.get();
   }
 
   async get(limit_no = this.form.limit_no) {
@@ -74,7 +73,7 @@ this.getPassword();
     } else if(this.res.rsCode === 1008) {
       // 데이터 없음
     }
-    else if(this.res.rsCode === 3008) {
+    else if(this.res.rsCode === 3009) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
     } else {

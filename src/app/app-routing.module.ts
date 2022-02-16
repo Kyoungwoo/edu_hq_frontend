@@ -309,7 +309,8 @@ const routes: Routes = [
   },
   {
     path: 'worker-approval-list',
-    loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule)
+    loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-list/worker-approval-list.module').then( m => m.WorkerApprovalListPageModule),
+    canDeactivate: []
   },
   {
     path: 'risk-evaluation-confirm',

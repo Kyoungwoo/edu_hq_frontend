@@ -20,7 +20,7 @@ export class ApprovalPopupComponent implements OnInit {
     approval_text: '',
     user_name: [],
     company_id: this.user.userData.belong_data.company_id,
-    user_manage_session: ''
+    user_manage_session: this.user.memberAuthToken
 
   }
   @Input() selectedList
@@ -44,6 +44,7 @@ export class ApprovalPopupComponent implements OnInit {
     // 텍스트 형식으로 바꿈
     console.log("this.form.approval_text", this.form.approval_text);
     console.log("this.selectedList", this.selectedList);
+    console.log("this.ASD", this.user.memberAuthToken);
   }
 
   async companion() {
@@ -57,25 +58,10 @@ export class ApprovalPopupComponent implements OnInit {
   async approval() {
     const res = await this.connect.run('/approval/worker/approval/update', this.form);
     if (res.rsCode === 0) {
-      const alert = await this.alert.present({
-        message: '작업자 정보로 이동하시겠습니까?',
-        buttons: [
-          {
-            text: '아니오',
-            handler: async () => {
-              this._modal.dismiss('Y');
-            }
-          },
-          {
-            text: '예',
-            handler: async () => {
-              this.nav.navigateForward('/worker-info-list');
-            }
-          }
-        ]
+      this._modal.dismiss();
+      this.nav.navigateForward('/worker-info-list', {
+        force: true
       });
-      alert.present();
     }
   }
 }
-

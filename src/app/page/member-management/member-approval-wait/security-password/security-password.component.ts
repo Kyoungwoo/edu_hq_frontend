@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 @Component({
   selector: 'app-security-password',
@@ -21,7 +22,9 @@ export class SecurityPasswordComponent implements OnInit {
   constructor(
     private _modal : ModalController,
     private user: UserService,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private alert: AlertService
+    
   ) { }
 
   ngOnInit() {}
@@ -37,8 +40,8 @@ export class SecurityPasswordComponent implements OnInit {
       console.log(this.res.rsObj.user_manage_session)
       this.user.setMemberAuthToken(this.res.rsObj.user_manage_session);
       this._modal.dismiss(true);
-    } else {
-      // 그외. 인터넷안됨, 서버연결안됨 등등
+    } else if(this.res.rsCode === 3008) {
+      this.res.rsMsg = '비밀번호가 올바르지 않습니다.'
     }
   }
 }
