@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
 export class WorkerApprovalItem {
   company_id: number;
@@ -10,6 +14,7 @@ export class WorkerApprovalItem {
   system_terms: number;
   user_name: string;
   user_gender: string;
+  user_birth: string;
   ctgo_country_name_kr: string;
   account_id: string;
   user_id: number;
@@ -21,6 +26,7 @@ export class WorkerApprovalItem {
   file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
+  
 
 };
 
@@ -40,7 +46,10 @@ export class WorkerApprovalEditPage implements OnInit {
   company_id: any;
   user_id: any;
   constructor(
+    private modal : ModalController,
     private connect: ConnectService,
+    private user: UserService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -54,9 +63,11 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
   async getItem() {
+
     const res = await this.connect.run('/approval/worker/basic/detail', {
-      company_id: this.company_id,
-      user_id : this.user_id 
+      company_id : this.item.company_id,
+      user_id : this.item.user_id,
+      user_manage_session : this.user.memberAuthToken
     }, {
       parse: ['user_profile_file_data']
     });
@@ -65,6 +76,24 @@ export class WorkerApprovalEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+    } else if(res.rsCode === 3009) {
+       // 비밀번호 없거나 틀렸음
+       this.getPassword();
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  async getPassword() {
+    const modal = await this.modal.create({
+      component: SecurityPasswordComponent,
+      backdropDismiss:false,
+      cssClass:"security-password-modal"
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getItem();
     }
   }
 

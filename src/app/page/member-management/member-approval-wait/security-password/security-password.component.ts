@@ -31,7 +31,6 @@ export class SecurityPasswordComponent implements OnInit {
 
   async submit() {
 
-
     this.res = await this.connect.run('/info/user/login', this.form, {
       loading: true
     });
@@ -40,8 +39,6 @@ export class SecurityPasswordComponent implements OnInit {
       console.log(this.res.rsObj.user_manage_session)
       this.user.setMemberAuthToken(this.res.rsObj.user_manage_session);
       this._modal.dismiss(true);
-    } else if(this.res.rsCode === 3008) {
-      this.res.rsMsg = '비밀번호가 올바르지 않습니다.'
     }
-  }
+}
 }
