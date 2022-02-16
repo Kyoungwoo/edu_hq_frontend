@@ -500,6 +500,30 @@ const routes: Routes = [
     path: 'manual-detail',
     loadChildren: () => import('./page/customer-support/user-manual/manual-detail/manual-detail.module').then( m => m.ManualDetailPageModule)
   },
+  {
+    path: 'my-page',
+    loadChildren: () => import('./page/my-page/my-page/my-page.module').then( m => m.MyPagePageModule)
+  },
+  {
+    path: 'my-page-type',
+    loadChildren: () => import('./page/my-page/my-page-type/my-page-type.module').then( m => m.MyPageTypePageModule)
+  },
+  {
+    path: 'my-page-info',
+    loadChildren: () => import('./page/my-page/my-page-info/my-page-info.module').then( m => m.MyPageInfoPageModule)
+  },
+  {
+    path: 'my-page-health',
+    loadChildren: () => import('./page/my-page/my-page-health/my-page-health.module').then( m => m.MyPageHealthPageModule)
+  },
+  {
+    path: 'my-page-education',
+    loadChildren: () => import('./page/my-page/my-page-education/my-page-education.module').then( m => m.MyPageEducationPageModule)
+  },
+  {
+    path: 'my-page-mileage',
+    loadChildren: () => import('./page/my-page/my-page-mileage/my-page-mileage.module').then( m => m.MyPageMileagePageModule)
+  },
   
 
 ];

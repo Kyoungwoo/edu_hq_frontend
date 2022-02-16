@@ -52,6 +52,7 @@ import { GraphGroupComponent } from './ui/graph-group/graph-group.component';
 import { GraphValueComponent } from './ui/graph-value/graph-value.component';
 import { GraphLineComponent } from './ui/graph-line/graph-line.component';
 import { FilePreviewComponent } from './ui/file-preview/file-preview.component';
+import { FilePopoverComponent } from './input/file-popover/file-popover.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -65,6 +66,7 @@ import { FilePreviewComponent } from './ui/file-preview/file-preview.component';
     DatetimePopoverComponent,
     EmailComponent,
     FileComponent,
+    FilePopoverComponent,
     InputComponent,
     InputCaptionComponent,
     InputGroupComponent,
