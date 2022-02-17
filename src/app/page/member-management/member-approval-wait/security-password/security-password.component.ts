@@ -12,9 +12,9 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 export class SecurityPasswordComponent implements OnInit {
 
   form = {
-    company_id : this.user.userData.belong_data.company_id,
+    session_company_id : this.user.userData.belong_data.company_id,
     company_password : '',
-    user_manage_session: ''
+    user_manage_session : ''
   };
 
   res:ConnectResult<any>;
@@ -27,18 +27,18 @@ export class SecurityPasswordComponent implements OnInit {
     
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async submit() {
 
     this.res = await this.connect.run('/info/user/login', this.form, {
       loading: true
     });
-    if(this.res.rsCode === 0) {
+    if (this.res.rsCode === 0) {
       // 정상
       console.log(this.res.rsObj.user_manage_session)
       this.user.setMemberAuthToken(this.res.rsObj.user_manage_session);
       this._modal.dismiss(true);
     }
-}
+  }
 }
