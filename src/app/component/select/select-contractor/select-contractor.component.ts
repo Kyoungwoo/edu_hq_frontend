@@ -61,6 +61,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         this.text = textArr.toString();
       }
     } else {
+      console.log("res.rsMap",res.rsMap);
       for(let i = 0; i < res.rsMap.length; i++) {
         if(res.rsMap[i].company_id === this.value) {
           this.text = res.rsMap[i].company_name;

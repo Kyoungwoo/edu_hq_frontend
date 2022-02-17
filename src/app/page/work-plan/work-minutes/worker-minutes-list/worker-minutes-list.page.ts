@@ -21,7 +21,7 @@ export class WorkerMinutesListPage implements OnInit {
 
   form = {
     approval_cnt_answer: [],//결재상태('임시저장’, '결재중’, '결재완료’, ‘반려’)
-    company_ids: [1],
+    company_ids: [this.user.userData.belong_data.company_id],
     end_date: this.date.today(),
     limit_no: 0,
     project_ids: this.user.userData.belong_data.project_id,
@@ -52,6 +52,7 @@ export class WorkerMinutesListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getList();
   }
 
   async getList(limit_no = this.form.limit_no) {
@@ -60,7 +61,6 @@ export class WorkerMinutesListPage implements OnInit {
     if (!this.form.end_date) return await this.toast.present({ message: '끝날짜를 선택하세요', color: 'danger' });
     if (!this.form.start_date) return await this.toast.present({ message: '시작날짜를 선택하세요', color: 'danger' });
     if (!this.form.project_ids) return await this.toast.present({ message: '현장을 선택하세요', color: 'danger' });
-    this.form.approval_cnt_answer = [this.form.approval_cnt_answer];
     const res = await this.connect.run('/board/safety_meeting/list', this.form, {});
     if (res.rsCode === 0) {
       this.res = res;
@@ -101,5 +101,9 @@ export class WorkerMinutesListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getList();
+    }
   }
 }

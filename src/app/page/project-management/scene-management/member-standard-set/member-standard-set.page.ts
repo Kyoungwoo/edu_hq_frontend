@@ -68,8 +68,8 @@ export class MemberStandardSetPage implements OnInit {
   }
   subpassword: ''
   passwordMeassge: string = '';
-  passchkck: boolean = false;
-  subpasscheck: boolean = false;
+  passchkck: boolean = true;
+  subpasscheck: boolean = true;
   subpasswordMeassge: string = '';
 
 

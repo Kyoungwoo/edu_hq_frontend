@@ -18,7 +18,7 @@
       <app-col>
         <app-row style="height: 50px; justify-content: flex-end;">
           <ion-buttons>
-            <app-button fill="translucent">임시저장</app-button>
+            <app-button fill="translucent" (click)="whileSave()">임시저장</app-button>
             <app-button fill="translucent">결재선</app-button>
             <app-button fill="translucent">결재요청</app-button>
             <app-button fill="translucent">인쇄</app-button>
@@ -58,7 +58,7 @@
         <app-calendar label="회의 일자" [(ngModel)]="form.safety_meeting_date"></app-calendar>
       </app-col>
       <app-col mobileBreak>
-        <app-input label="회의장소" placeholder="회의장소를 입력하세요." [(ngModel)]="form.create_date"></app-input>
+        <app-input label="회의장소" placeholder="회의장소를 입력하세요." [(ngModel)]="form.safety_meeting_place"></app-input>
       </app-col>
     </app-row>
     <app-row mobileBreak>
@@ -69,12 +69,13 @@
         <app-input label="작성자" [(ngModel)]="form.user_name" [readonly]="true"></app-input>
       </app-col>
     <app-col>
-      <app-select [(ngModel)]="form.safety_meeting_place"  label="회의록">
+      <!-- <app-select [(ngModel)]="form.safety_meeting_place" [readonly]="true" label="회의 유형">
         <app-select-option [value]="[]">전체</app-select-option>
         <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
         <app-select-option value="노사">노사 협의체 회의록</app-select-option>
         <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
-      </app-select>   
+      </app-select>    -->
+      <app-input [readonly]="true" label="회의 유형" [(ngModel)]="form.safety_meeting_type"></app-input>
     </app-col>
   </app-row>
   <h4>회의 내용</h4>
@@ -96,7 +97,7 @@
           <app-col></app-col>
           <app-col size="auto">
             <app-button>추가
-              <app-file name="input" view_type="NOTICE"
+              <app-file name="input" view_type="SAFETY_MEETING"
               [(ngModel)]="form.safety_meeting_file_data"
               [file]="form.file"
               [file_json]="form.file_json" [multiple]="true"></app-file>
