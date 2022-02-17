@@ -2,12 +2,8 @@ import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Outpu
 import { ModalController } from '@ionic/angular';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
-import { SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
-
-export interface ValueData{
-  company_id:[]
-}
+import { Constractor, SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 @Component({
   selector: 'app-select-contractor',
   templateUrl: './select-contractor.component.html',
@@ -20,16 +16,37 @@ export interface ValueData{
 })
 export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
+    if(!this.disabled) {
+      if(this.project_id) {
+        this.openModal();
+      } else {
+        this.res = new ConnectResult();
+        this.res.rsCode = 1008;
+        this.res.rsMsg = '현장을 선택해주세요.';
+      }
+    }
   }
   
   @Input() color:Color;
   @Input() label:string = "원청사";
   @Input() text:string;
-  @Input() type?:boolean;
+  @Input() editable:boolean = false;
+  @Input() allState:boolean = false;
   @Input() required:boolean = false;
-  @Input() multiple:boolean;
+  @Input() multiple:boolean = false;
   @Input() disabled:boolean = false;
+
+  private _project_id:number = 0;
+  @Input() set project_id(v:number) {
+    if(this._project_id !== v) {
+      this._project_id = v;
+      this.value = this.multiple ? [] : 0;
+    }
+  }
+  get project_id() { return this._project_id }
+
+  res:ConnectResult<Constractor>;
+
 
   isModalData:boolean = false;
 
@@ -43,72 +60,60 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
-    if(this.isModalData || !this.value) return;
-    const res = await this.connect.run('/category/certify/company/get', {
+    if(!this.project_id || !this.value) {
+      if(this.allState) this.text = '전체';
+      else this.text = '';
+      return;
+    }
+    this.res = await this.connect.run('/category/certify/company/master/get', {
+      project_id: this.project_id,
       company_contract_type: '원청사',
       search_text: ''
     });
-    if(this.type){
-      let textArr = [];
-      if(res.rsCode === 0) {
-        for (let i = 0; i < res.rsMap.length; i++) {
-          for (let x = 0; x < this.value.length; x++) {
-            if (res.rsMap[i].company_id === this.value[x]) {
-              textArr.push(res.rsMap[i].company_name);
-            }
-          }
-        }
-        this.text = textArr.toString();
-      }
-    } else {
-      for(let i = 0; i < res.rsMap.length; i++) {
-        if(res.rsMap[i].company_id === this.value) {
-          this.text = res.rsMap[i].company_name;
-        }
+    if(this.res.rsCode === 0) {
+      const { rsMap } = this.res;
+      if(this.multiple) {
+        this.text = rsMap
+        .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
+        .map(constractor => constractor.company_name).join();
+      } else {
+        console.log(rsMap, this.value, rsMap.find(constractor => constractor.company_id === this.value));
+        this.text = rsMap.find(constractor => constractor.company_id === this.value).company_name;
       }
     }
   }
   
   public async openModal() {
-    console.log(this.multiple);
     this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchContractorComponent,
-      componentProps:{
-        type:this.type,
-        value:this.value,
-        multiple:this.multiple,
-        form : {
-          company_contract_type: this.label,
-          search_text: ''
-        }
+      component: SearchContractorComponent,
+      componentProps: {
+        allState: this.allState,
+        project_id: this.project_id,
+        multiple: this.multiple,
+        editable: this.editable
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
-      if(this.multiple){
-        let compnay_name_string = [];
-        console.log("--------------data",data);
-        for(let i = 0; i < data.length; i++) {
-          this.value.push(data[i].company_id);
-          compnay_name_string.push(data[i].company_name);
-        }
-        this.text = compnay_name_string.toString();
+      if(this.multiple) {
+        const values:Constractor[] = data;
+        this.value = values.map(constractor => constractor.company_id);
       } else {
-        this.text = data.company_name;
-        this.value = data.company_id;
+        const value:Constractor = data;
+        this.value = value?.company_id || 0;
       }
     }
   }
  
   @Output() change = new EventEmitter();
 
-  private _value:ValueData[] = [];
-  @Input() set value(v:ValueData[]) {
+  private _value:number[] | number;
+  @Input() set value(v:number[] | number) {
     if(v !== this._value) {
-      this._value = v || [];
+      this._value = v ? v : this.multiple ? [] : 0;
+      this.get();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -117,11 +122,12 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     return this._value;
   }
   writeValue(v:[]): void { 
-    if(v !== this._value) 
-    this._value = v || [];
-    this.get();
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    if(v !== this._value) {
+      this._value = v ? v : this.multiple ? [] : 0;
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

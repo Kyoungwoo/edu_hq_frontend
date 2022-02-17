@@ -12,10 +12,10 @@ import { PartnerEditPage } from '../partner-edit/partner-edit.page';
 export class PartnerListPage implements OnInit {
 
   form = {
-    limit_no:0,
-    master_company_ids:[],
-    project_ids:[],
-    search_text:''
+    project_id: this.user.userData.belong_data.project_id,
+    master_company_id: 0,
+    search_text: '',
+    limit_no: 0
   }
 
   res:ConnectResult <{
@@ -33,26 +33,40 @@ export class PartnerListPage implements OnInit {
     update_date: string,
     row_count: number
   }>
+
+  permission = {
+    edit: false
+  }
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    public user: UserService,
-    
-
+    public user: UserService
   ) { }
 
   ngOnInit() {
     this.getList();
   }
 
+  async getPromission() {
+    const { user_role, belong_data } = this.user.userData;
+    if(user_role === 'LH_HEAD') {
+      this.permission.edit = true;
+    } 
+    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+      this.permission.edit = true;
+    } else {
+      this.permission.edit = false;
+    }
+  }
+
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    this.res = await this.connect.run('/project/company/partner/list',this.form,{loading:'협력사 불러오는 중...'});
+    this.res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
     if(this.res.rsCode ===0) {};
   }
 
   async edit(item?) {
-    console.log("-----------------------------55",item)
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
@@ -63,7 +77,6 @@ export class PartnerListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.getList();
     }
   }
