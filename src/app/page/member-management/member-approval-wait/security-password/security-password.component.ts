@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 @Component({
   selector: 'app-security-password',
@@ -11,9 +12,9 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 export class SecurityPasswordComponent implements OnInit {
 
   form = {
-    company_id : this.user.userData.belong_data.company_id,
+    session_company_id : this.user.userData.belong_data.company_id,
     company_password : '',
-    user_manage_session: ''
+    user_manage_session : ''
   };
 
   res:ConnectResult<any>;
@@ -21,24 +22,23 @@ export class SecurityPasswordComponent implements OnInit {
   constructor(
     private _modal : ModalController,
     private user: UserService,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private alert: AlertService
+    
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async submit() {
-
 
     this.res = await this.connect.run('/info/user/login', this.form, {
       loading: true
     });
-    if(this.res.rsCode === 0) {
+    if (this.res.rsCode === 0) {
       // 정상
       console.log(this.res.rsObj.user_manage_session)
       this.user.setMemberAuthToken(this.res.rsObj.user_manage_session);
       this._modal.dismiss(true);
-    } else {
-      // 그외. 인터넷안됨, 서버연결안됨 등등
     }
   }
 }
