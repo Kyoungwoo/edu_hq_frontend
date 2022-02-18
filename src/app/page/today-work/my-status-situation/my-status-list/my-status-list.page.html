@@ -4,9 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>나의 출입 현황</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-row>
@@ -49,5 +46,6 @@
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button>근로자 출입 관리</app-button>
+  <app-button (click)="workerSatus()">근로자 출입 관리</app-button>
+  <app-button>출입(NFC / QR)</app-button>
 </app-button-footer>

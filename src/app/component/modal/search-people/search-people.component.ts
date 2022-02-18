@@ -27,6 +27,7 @@ export class SearchPeopleComponent implements OnInit {
     search_text:'',
     user_type:''
   }
+  @Input() type:string
   ctgoMemberItem:ConnectResult <ctgoMemberItem>
 
   selectedItem:ctgoMemberItem;
@@ -37,10 +38,14 @@ export class SearchPeopleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.type === 'approval') {
+      this.form.user_type = '관리자';
+      this.ctgoConstruction();
+    }
   }
 
   async ctgoConstruction() {
-    console.log("this.form",this.form);
+    console.log("this.form",this);
     this.ctgoMemberItem = await this.connect.run('/category/education/manager/get',this.form);
     if(this.ctgoMemberItem.rsCode === 9 ) {
       console.log(this.ctgoMemberItem)

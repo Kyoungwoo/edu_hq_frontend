@@ -18,6 +18,7 @@ export class ProjectAreaSetComponent implements OnInit {
 
   @Input() returnData
   @Input() gps_coordinate_data;
+  @Input() type;
   initCheck:boolean
   mapData = [];
   constructor(

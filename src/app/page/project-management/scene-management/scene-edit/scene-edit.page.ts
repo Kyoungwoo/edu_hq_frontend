@@ -126,11 +126,6 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
-      console.log("this.form",this.form);
-      console.log("this.form.create_user_id",this.form.create_user_id);
-      console.log("this.user.userData.user_id",this.user.userData.user_id);
-      console.log("this.user.userData.user_role === 'LH_HEAD'",this.user.userData.user_role === 'LH_HEAD');
-      console.log((this.form.create_user_id === this.user.userData.user_id) && (this.user.userData.user_role === 'LH_HEAD'))
       if((this.form.create_user_id === this.user.userData.user_id) || 
       (this.user.userData.user_role === 'LH_HEAD')
       ) {
@@ -269,6 +264,7 @@ export class SceneEditPage implements OnInit {
       component: ProjectAreaSetComponent,
       componentProps:
         { 
+          type:this.title,
           gps_coordinate_data:this.form.gps_coordinate_data
         }
     });

@@ -78,8 +78,6 @@ export class SignUpWorkerPage implements OnInit {
     await this.promise.wait(3000);
     
     // 다음 페이지로
-    console.log(this.form);
-    console.log(this.validator);
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
   }
 
@@ -92,6 +90,8 @@ export class SignUpWorkerPage implements OnInit {
     this.nav.back();
   }
   public async next() {
+    console.log(this.form);
+    console.log(this.validator);
     if(!this.valid()) return;
 
     console.log("asdfasdfsdaf");
@@ -177,7 +177,8 @@ export class SignUpWorkerPage implements OnInit {
     this.validator.user_phone = { valid: true };
 
     if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
-    else if(this.validator.sms_token?.valid)
+    else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
+    else
     this.validator.sms_token = { valid: true };
 
     if(!this.form.user_birth) this.validator.user_birth = { message: '생년월일을 입력해주세요.', valid: false };

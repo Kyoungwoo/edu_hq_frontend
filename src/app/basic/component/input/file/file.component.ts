@@ -1,7 +1,9 @@
 import { Component, DoCheck, EventEmitter, forwardRef, HostBinding, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { PopoverController } from '@ionic/angular';
 import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/core/file.service';
 import { CameraService } from 'src/app/basic/service/native/camera.service';
+import { FilePopoverComponent } from '../file-popover/file-popover.component';
 
 @Component({
   selector: 'app-file',
@@ -30,7 +32,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   constructor(
     private differs: IterableDiffers,
     private fileService: FileService,
-    private camera: CameraService
+    private camera: CameraService,
+    private popover: PopoverController
   ) {}
 
   ngOnInit() {
@@ -50,19 +53,43 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   changeInputFile($event) {
     const fileList:File[] = Array.from($event.target.files);
-    console.log(fileList);
     if(!fileList.length) return;
     this.fileAdd(fileList);
     $event.target.value = null;
   }
-  async getPhoto() {
-    const blob = await this.camera.getPhoto({
-      width: 1024,
-      height: 1024
-    });
-    if(blob) {
-      this.fileAdd([blob]);
+  async getPhoto($event) {
+    const fileIndex = this.value.findIndex(file => file.view_type === this.view_type);
+
+    if(fileIndex > -1) {
+      // 기 선택된 파일이 있다면 삭제 여부를 물어봄
+      const popover = await this.popover.create({
+        component: FilePopoverComponent,
+        event: $event
+      });
+      await popover.present();
+      const { data } = await popover.onDidDismiss();
+      if(data === 'edit') {
+        const blob = await this.camera.getPhoto({
+          width: 1024,
+          height: 1024
+        });
+        if(blob) {
+          this.fileAdd([blob]);
+        }
+      } else if(data === 'remove') {
+        this.value.splice(fileIndex, 1);
+      }
+    } else {
+      // 기 선택된 파일이 없으면 파일 선택
+      const blob = await this.camera.getPhoto({
+        width: 1024,
+        height: 1024
+      });
+      if(blob) {
+        this.fileAdd([blob]);
+      }
     }
+
   }
   fileAdd(fileList:(File | FileBlob)[]) {
     const existLength = this.value.filter(item => item.seq_no).length;
@@ -94,9 +121,6 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       order_no,
       view_type
     });
-    console.log(this.value);
-    console.log(this.file);
-    console.log(this.file_json);
   }
 
   private fileDelete(item:FutItem) {

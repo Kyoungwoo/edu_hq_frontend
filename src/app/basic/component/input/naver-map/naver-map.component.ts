@@ -29,6 +29,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
 
   @Input() disabled;
+  @Input() type;
   map: any;
   // text:boolean = true;
   path = [];
@@ -118,8 +119,10 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     // if(!this.disabled){
       naver.maps.Event.addListener(this.map, 'click', (e) => {
         const coord = e.coord;
+        console.log("coord",coord);
         this.LatLng.gps_latitude.push(coord.x);
         this.LatLng.gps_longitude.push(coord.y);
+        console.log("this.LatLng",this.LatLng);
         this.addMarker(coord);
       });
     // }
@@ -131,11 +134,11 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     //     this.addMarker({ x, y });
     //   }
     // }
+    console.log("this.type",this.type);
       this.changeMarker();
   };
 
   private addMarker(coord) {
-    console.log(coord)
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -147,12 +150,16 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
       const point = e.coord;
+      console.log(this.marker);
+      console.log("------------------1",marker);
       const markerIndex = this.marker.indexOf(marker);
+      console.log("markerIndex",markerIndex);
+      console.log("this.path",this.path);
+      console.log("this.latlng",this.LatLng);
+      this.marker.splice(markerIndex,1,marker);
       this.path.splice(markerIndex, 1, point);
       this.LatLng.gps_latitude.splice(markerIndex, 1, point.x);
       this.LatLng.gps_longitude.splice(markerIndex, 1, point.y);
-
-      // this.LatLng.splice(markerIndex, 1, point);
     });
     naver.maps.Event.addListener(marker, "dblclick", (e) => {
       marker.setMap(null);
@@ -174,12 +181,12 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   changeMarker() {
     let x = 0;
     let y = 0;
-    if(this.value?.gps_latitude?.length){
-      console.log("testt ---------------------------",this.value.gps_latitude);
-      for(let i = 0; i < this.value.gps_latitude.length; i++) {
+    if(this.type !=='등록') {
+      for (let i = 0; i < this.value.gps_latitude.length; i++) {
         x = this.value.gps_latitude[i];
         y = this.value.gps_longitude[i];
-        this.addMarker({x,y});        
+        console.log("----------------------- kk : " + i);
+        this.addMarker({ x, y });
       }
     }
   }
@@ -206,8 +213,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     if(!this.file.shallowEqual(v, this.LatLng)) {
       this.LatLng = v;
       console.log("--------------Value = v",v);
-      this.changeMarker();
-      this._onChangeCallback(this.LatLng);
+      // this.changeMarker();
+      this._onChangeCallback(v);
       this.change.emit(this.LatLng);
     }
   }
@@ -219,8 +226,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     if(!this.file.shallowEqual(v, this.LatLng)) {
       console.log("--------------writeValue = v",v);
       this.LatLng = v;
-      this.changeMarker();
-      this._onChangeCallback(this.LatLng);
+      // this.changeMarker();
+      this._onChangeCallback(v);
       this.change.emit(this.LatLng);
     }
   }

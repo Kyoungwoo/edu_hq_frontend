@@ -19,6 +19,7 @@ export class RadioInputComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string;
+  @Input() required:boolean;
 
   constructor() { }
 

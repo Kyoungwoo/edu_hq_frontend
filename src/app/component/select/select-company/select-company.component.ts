@@ -111,7 +111,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
           }
         }
       }
-        this.text = this.text.toString();
+        this.text = this.text;
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 @Component({
   selector: 'app-my-status-list',
@@ -69,7 +70,9 @@ export class MyStatusListPage implements OnInit {
     },
   ]
 
-  constructor() { }
+  constructor(
+    private nav:NavService
+  ) { }
 
   ngOnInit() {
 
@@ -77,5 +80,9 @@ export class MyStatusListPage implements OnInit {
 
   status(item) {
     item.open = !item.open;
+  }
+
+  workerSatus() {
+    this.nav.navigateForward('/worker-status-list');
   }
 }

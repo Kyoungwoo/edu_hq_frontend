@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>작업자 상세</ion-title>
+    <ion-title>작업자 가입승인 상세</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,19 +17,19 @@
         <app-avatar class="avatar" [readonly]="false"></app-avatar>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="아이디" value="input disabled" [disabled]="true" [required]="true">
+            <app-input name="input disabled" label="아이디" [(ngModel)]="form.account_id" value="input disabled" [disabled]="true" [required]="true">
             </app-input>
           </app-col>
           <app-col>
-            <app-input name="input" label="성명" placeholder="김소령"></app-input>
+            <app-input name="input" label="성명" [(ngModel)]="form.user_name" placeholder="김소령" [required]="true"></app-input>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-calendar name="calendar" label="생년월일"></app-calendar>
+            <app-calendar name="calendar" label="생년월일" [(ngModel)]="form.user_birth" [required]="true"></app-calendar>
           </app-col>
           <app-col>
-            <app-radio-input name="user_gender" label="성별">
+            <app-radio-input name="user_gender" label="성별" [(ngModel)]="form.user_gender" [required]="true">
               <app-radio value="MAL">남</app-radio>
               <app-radio value="WOMAN">여</app-radio>
             </app-radio-input>
@@ -37,10 +37,12 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input type="tel" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+            <app-input name="phone-number" label="휴대폰" [(ngModel)]="form.user_phone" [required]="true">
+              중복확인
+              </app-input>
           </app-col>
           <app-col>
-            <app-select label="국적" name="select">
+            <app-select label="국적" name="select" [(ngModel)]="form.ctgo_country_name_kr" [required]="true">
               <app-select-option>대한민국</app-select-option>
               <app-select-option>중국</app-select-option>
               <app-select-option>태국</app-select-option>
@@ -50,7 +52,11 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-email label="이메일" name="email"></app-email>
+            <app-email name="user_email" label="이메일" [(ngModel)]="form.user_email"
+          [color]="validator.user_email?.valid === false && 'warning'"
+          (delayKeyup)="overlapEmail()"
+          [(ngModel)]="form.user_email"></app-email>
+          <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
           </app-col>
           <app-col></app-col>
         </app-row>
@@ -68,7 +74,7 @@
           <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
           <ion-segment-button (click)="menu = 2">건강 문진</ion-segment-button>
           <ion-segment-button (click)="menu = 3">교육 이력</ion-segment-button>
-          <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button>
+          <!-- <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button> -->
         </ion-segment>
 
       </ion-toolbar>
