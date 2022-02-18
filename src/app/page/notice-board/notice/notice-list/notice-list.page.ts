@@ -102,7 +102,6 @@ export class NoticeListPage implements OnInit {
   }
 
   async edit(item?) {
-    console.log("---------------------",item);
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{

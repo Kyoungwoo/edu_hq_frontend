@@ -66,14 +66,12 @@ export class MsdsEditPage implements OnInit {
 
   ngOnInit() {
   
-    console.log("this.item",this.item);
     if(this.item?.msds_id) {
       this.title = '상세';
       this.get();
     } else{
       this.form.company_name = this.user.userData.user_role;
       this.form.user_name = this.user.userData.user_name;
-      console.log(this.form.user_name);
       this.form.create_date = this.date.today();
       this.title = '등록';
     } 
@@ -107,9 +105,9 @@ export class MsdsEditPage implements OnInit {
 
 
   async MsdsInsert() { //등록
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
-    if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'danger'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'danger'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
+    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     //메소드 호출
     const alert = await this.alert.present({
       message:'등록 하시겠습니까?',
@@ -131,9 +129,9 @@ export class MsdsEditPage implements OnInit {
   }
   
   async update() { //수정
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
-    if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
+    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     const alert = await this.alert.present({
       message:'수정 하시겠습니까?',
       buttons:[

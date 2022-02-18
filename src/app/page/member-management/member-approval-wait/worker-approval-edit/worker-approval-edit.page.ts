@@ -70,7 +70,6 @@ export class WorkerApprovalEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("777777777777777777777777",this.item)
     this.getItem();
   }
 
@@ -116,7 +115,6 @@ export class WorkerApprovalEditPage implements OnInit {
   
 
   async getPassword() { //비밀번호
-    console.log("11111111111111111111111111111111");
     const modal = await this._modal_.create({
       component: SecurityPasswordComponent,
       backdropDismiss:false,
@@ -130,7 +128,7 @@ export class WorkerApprovalEditPage implements OnInit {
   
   }
   async approval() { //가입승인
-    console.log("item",this.item);
+  
     const modal = await this._modal_.create({
       component:ApprovalPopupComponent,
       componentProps:{

@@ -36,8 +36,6 @@ export class ApprovalPopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("user_name",this.user_name);
-    console.log("approval_user_ids",this.approval_user_ids);
     if(this.selectedList.length){
       this.selectedList?.forEach(item => {
         //selectedList에 무슨 데이터 담겨있는지 알 수 있는 콘솔
@@ -50,10 +48,6 @@ export class ApprovalPopupComponent implements OnInit {
       this.form.approval_user_ids = [this.approval_user_ids]
       this.form.user_name = this.user_name;
     } 
-    // 텍스트 형식으로 바꿈
-    console.log("this.form.approval_text", this.form.approval_text);
-    console.log("this.selectedList", this.selectedList);
-    console.log("this.ASD", this.user.memberAuthToken);
   }
 
   async companion() {
