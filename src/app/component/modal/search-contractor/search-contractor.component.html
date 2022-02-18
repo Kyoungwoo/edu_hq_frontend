@@ -13,9 +13,9 @@
 </ion-header>
 
 <ion-content>
-  <app-card *ngIf="editable">
+  <app-card *ngIf="editable" (click)="newConstractor()" [button]="true">
     <app-row>
-      <app-col style="cursor: pointer;" (click)="newConstractor()">
+      <app-col>
         <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
       </app-col>
     </app-row>
@@ -27,7 +27,7 @@
       </app-col>
     </app-row>
   </app-card>
-  <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="getActive(item)" (click)="selectConstractor(item)">
+  <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="getActive(item)" [button]="true" (click)="selectConstractor(item)">
     <app-row>
       <app-col size="4">
         <h5>원청사명</h5>
@@ -46,7 +46,7 @@
 </ion-content>
 
 <app-button-footer>
-  <div slot="top" *ngIf="multiple">
+  <div slot="top">
     <ion-toolbar>
       <app-row>
         <app-col>
@@ -76,7 +76,7 @@
               <app-input [(ngModel)]="value.company_ceo" placeholder="입력해주세요."></app-input>
             </td>
             <td style="width: 40px;">
-              <app-button (click)="values.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
+              <app-button (click)="this.newValues.splice(i, 1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button>
             </td>
           </tr>
 

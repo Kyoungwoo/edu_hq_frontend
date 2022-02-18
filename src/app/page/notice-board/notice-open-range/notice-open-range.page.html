@@ -12,7 +12,7 @@
     <app-col>
       <!-- header -->
       <div class="flex-header">
-        <div>범위1</div>
+        <div>전파 범위</div>
         <app-img name="next"></app-img>
       </div>
       <div class="flex-list" [class.invalid]="validator.public_scope_one?.valid === false">
@@ -25,7 +25,7 @@
     <app-col>
       <!-- header -->
       <div class="flex-header">
-        <div>범위2</div>
+        <div>조회자 유형</div>
         <app-img name="next"></app-img>
       </div>
       <div class="flex-list" [class.invalid]="validator.public_scope_two?.valid === false">
@@ -38,12 +38,12 @@
     <app-col *ngIf="form.public_scope_one === '협력사별'">
       <!-- header -->
       <div class="flex-header">
-        <div>협력사명</div>
+        <div>회사명</div>
       </div>
       <div class="flex-list" [class.invalid]="validator.scope_company_id?.valid === false">
         <!-- item -->
         <ng-container>
-          <div class="flex-item" [class.active]="form.public_scope_allstate" (click)="select3All()">전체</div>
+          <div class="flex-item" [class.active]="form.public_scope_allstate" (click)="select3All()">전체 협력사</div>
           <div *ngFor="let item of res?.rsMap" 
           class="flex-item" [class.active]="form.scope_company_id === item.company_id" (click)="select3(item)">{{ item.company_name }}</div>
         </ng-container>

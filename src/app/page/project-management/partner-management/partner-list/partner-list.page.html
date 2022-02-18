@@ -42,37 +42,37 @@
       <ion-toolbar color="white">
         <h5>협력사 관리 목록 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
       </ion-toolbar>
-        <app-table>
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>현장명</th>
-              <th>원청사명</th>
-              <th>협력사명</th>
-              <th>사업자등록번호</th>
-              <th>대표자</th>
-              <th>공종</th>
-              <th>전화번호</th>
-              <th>최근 업데이트</th>
-              <th>작성자</th>
-            </tr>
-          </thead>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.project_name }}</td>
-              <td>{{ item.master_company_name }}</td>
-              <td>{{ item.company_name }}</td>
-              <td>{{ item.business_register_no }}</td>
-              <td>{{ item.company_ceo}}</td>
-              <td>{{ item.ctgo_construction_name }}</td>
-              <td>{{ item.company_phone }}</td>
-              <td>{{ item.update_date }}</td>
-              <td>{{ item.create_user_name}}</td>
-            </tr>
-          <tbody>
-          </tbody>
-        </app-table>
-        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
+      <app-table>
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>현장명</th>
+            <th>원청사명</th>
+            <th>협력사명</th>
+            <th>사업자등록번호</th>
+            <th>대표자</th>
+            <th>공종</th>
+            <th>전화번호</th>
+            <th>최근 업데이트</th>
+            <th>작성자</th>
+          </tr>
+        </thead>
+          <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.project_name }}</td>
+            <td>{{ item.master_company_name }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.business_register_no }}</td>
+            <td>{{ item.company_ceo}}</td>
+            <td>{{ item.ctgo_construction_name }}</td>
+            <td>{{ item.company_phone }}</td>
+            <td>{{ item.update_date }}</td>
+            <td>{{ item.create_user_name}}</td>
+          </tr>
+        <tbody>
+        </tbody>
+      </app-table>
+      <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
     </app-col>
   </app-row>
 </ion-content>

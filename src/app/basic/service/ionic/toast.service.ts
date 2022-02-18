@@ -29,7 +29,7 @@ export class ToastService {
       message: opts?.message,
       cssClass: opts?.cssClass || "basic-toast-bottom",
       buttons: opts?.buttons,
-      duration: opts?.duration || 1800,
+      duration: opts?.duration || 2800,
       enterAnimation: (baseEl:ShadowRoot) => {
         const wrapperEl = <HTMLElement>baseEl.childNodes[0];
         wrapperEl.style.bottom = '0';

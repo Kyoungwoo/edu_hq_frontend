@@ -8,7 +8,7 @@ import { UserType } from "src/app/basic/service/core/user.service";
 export const environment = {
   production: false,
   test: {
-    core: { test: false, done: false },
+    core: { test: true, done: false },
     SignUp: { test: true, done: false, type: [
       "WORKER",
       //"LH",
@@ -22,7 +22,10 @@ export const environment = {
       'ADD',
       'EDIT',
       'REMOVE'
-    ] }
+    ]},
+    Project: { test: true, done: false, type: [
+      'PARTNER'
+    ]}
   }
 }
 // SignUp: { valid: false, message: '아 뭔가 문제가 생겼어.' };
