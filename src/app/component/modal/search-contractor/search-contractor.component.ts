@@ -39,7 +39,6 @@ export class SearchContractorComponent implements OnInit {
   res:ConnectResult<Constractor>;
 
   selectAll:boolean;
-  value:Constractor;
   values:Constractor[] = [];
   newValues:Constractor[] = [];
   
@@ -68,7 +67,6 @@ export class SearchContractorComponent implements OnInit {
   selectAllConstractor() {
     this.selectAll = true;
     
-    this.value = new Constractor();
     this.values = [];
     this.newValues = [];
   }
@@ -84,16 +82,12 @@ export class SearchContractorComponent implements OnInit {
         });
       }
     } else {
-      this.value = item;
+      this.values = [item];
+      this.newValues = [];
     }
   }
   getActive(item:Constractor) {
-    if(this.multiple) {
-      return this.values.indexOf(item);
-    }
-    else {
-      return this.value === item;
-    }
+    return this.values.indexOf(item) > -1;
   }
 
   async newConstractor() {
@@ -108,11 +102,9 @@ export class SearchContractorComponent implements OnInit {
       }
     } 
     else {
-      this.value = new Constractor();
+      this.values = [];
+      this.newValues = [new Constractor()];
     }
-  }
-  async removeConstractor(index) {
-
   }
 
   async overlap(business_register_no) {
@@ -169,7 +161,7 @@ export class SearchContractorComponent implements OnInit {
       this._modal_.dismiss(this.values);
     }
     else {
-      this._modal_.dismiss(this.value);
+      this._modal_.dismiss(this.values[0]);
     }
   }
 }

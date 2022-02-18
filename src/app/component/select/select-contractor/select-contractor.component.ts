@@ -77,8 +77,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();
       } else {
-        console.log(rsMap, this.value, rsMap.find(constractor => constractor.company_id === this.value));
-        this.text = rsMap.find(constractor => constractor.company_id === this.value).company_name;
+        this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
       }
     }
   }
