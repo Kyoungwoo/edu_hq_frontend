@@ -33,6 +33,7 @@ class NoticeInfo {
 export class NoticeListPage implements OnInit {
 
   form = {
+    project_id: this.user.userData.belong_data.project_id,
     company_ids: [1],
     end_date: this.date.today(),
     notice_types: [],
@@ -102,7 +103,6 @@ export class NoticeListPage implements OnInit {
   }
 
   async edit(item?) {
-    console.log("---------------------",item);
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{

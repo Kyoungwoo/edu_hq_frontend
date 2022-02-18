@@ -5,6 +5,7 @@ import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { MsdsEditPage } from '../msds-edit/msds-edit.page';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -39,6 +40,7 @@ class MsdsInfo {
 export class MsdsListPage implements OnInit {
 
   form = {
+    project_id: this.user.userData.belong_data.project_id,
     company_ids: [1],
     end_date: this.date.today(),
     msds_types : [],
@@ -54,7 +56,8 @@ export class MsdsListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     private date: DateService,
-    private toast: ToastService
+    private toast: ToastService,
+    private user: UserService
 
   ) { }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { ContractorEditPage } from '../contractor-edit/contractor-edit.page';
 
 @Component({
@@ -11,11 +12,12 @@ import { ContractorEditPage } from '../contractor-edit/contractor-edit.page';
 export class ContractorListPage implements OnInit {
 
   form = {
+    project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_business_ids:[],
+    hq_business_ids: [],
     hq_regional_ids: [],
     limit_no: 0,
-    master_company_ids:[],
+    master_company_ids: [],
     search_text: ''
   }
 
@@ -40,14 +42,14 @@ export class ContractorListPage implements OnInit {
     row_count: number
   }>
 
-  ctgoRegional:ConnectResult<{
-    hq_regional_name:string,
+  ctgoRegional: ConnectResult<{
+    hq_regional_name: string,
     hq_regional_entire_state: number,
     hq_regional_code: string,
     hq_regional_id: number
   }>
 
-  ctgoBusiness:ConnectResult<{
+  ctgoBusiness: ConnectResult<{
     hq_business_name: string,
     hq_business_entire_state: number,
     hq_regional_id: number,
@@ -57,7 +59,8 @@ export class ContractorListPage implements OnInit {
   
   constructor(
     private modal : ModalController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    public user: UserService,
   ) { }
 
   ngOnInit() {
@@ -80,7 +83,6 @@ export class ContractorListPage implements OnInit {
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
-      console.log("res",res);
     }
   }
 
@@ -104,7 +106,6 @@ export class ContractorListPage implements OnInit {
     }
   }
  async getCtgoBusiness() {
-    console.log(this.form.hq_regional_ids);
     this.ctgoBusiness.rsMap = [];
     if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
 

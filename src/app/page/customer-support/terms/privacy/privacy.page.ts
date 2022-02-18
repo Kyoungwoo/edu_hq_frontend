@@ -29,6 +29,5 @@ export class PrivacyPage implements OnInit {
 
   async get() {
     this.res = await this.connect.run('/support/terms/get', this.form, {});
-    console.log(this.res)
   }
 }

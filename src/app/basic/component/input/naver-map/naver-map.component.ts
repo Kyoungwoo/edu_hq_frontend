@@ -135,7 +135,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     //   }
     // }
     console.log("this.type",this.type);
-      this.changeMarker();
+      // this.changeMarker();
   };
 
   private addMarker(coord) {
@@ -150,17 +150,19 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
     naver.maps.Event.addListener(marker, "dragend", (e) => {
       const point = e.coord;
+      const markerIndex = this.marker.indexOf(marker);
       console.log(this.marker);
       console.log("------------------1",marker);
-      const markerIndex = this.marker.indexOf(marker);
       console.log("markerIndex",markerIndex);
       console.log("this.path",this.path);
       console.log("this.latlng",this.LatLng);
-      this.marker.splice(markerIndex,1,marker);
+      this.marker.splice(markerIndex, 1,marker);
       this.path.splice(markerIndex, 1, point);
       this.LatLng.gps_latitude.splice(markerIndex, 1, point.x);
       this.LatLng.gps_longitude.splice(markerIndex, 1, point.y);
     });
+
+
     naver.maps.Event.addListener(marker, "dblclick", (e) => {
       marker.setMap(null);
       const point = e.coord;
