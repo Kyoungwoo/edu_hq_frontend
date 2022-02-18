@@ -17,6 +17,7 @@ export const environment = {
       'ADD',
       'EDIT',
       'REMOVE'
-    ]}
+    ]},
+    Project: { test: false }
   }
 };

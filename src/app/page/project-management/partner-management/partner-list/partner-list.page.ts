@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PartnerEditPage } from '../partner-edit/partner-edit.page';
 
 @Component({
@@ -41,14 +42,17 @@ export class PartnerListPage implements OnInit {
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    public user: UserService
+    public user: UserService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
+    this.getPromission();
+    this.getForm();
     this.getList();
   }
 
-  async getPromission() {
+  getPromission() {
     const { user_role, belong_data } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.permission.edit = true;
@@ -59,11 +63,21 @@ export class PartnerListPage implements OnInit {
       this.permission.edit = false;
     }
   }
+  getForm() {
+    const { user_type, belong_data } = this.user.userData;
+    if(user_type === 'LH') {
+      this.form.master_company_id = 0;
+    } else {
+      this.form.master_company_id = belong_data.company_id;
+    }
+  }
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
-    if(this.res.rsCode ===0) {};
+    if(this.res.rsCode !== 0) {
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    }
   }
 
   async edit(item?) {

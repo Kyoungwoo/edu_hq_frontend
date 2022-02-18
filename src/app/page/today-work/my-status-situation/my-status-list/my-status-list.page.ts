@@ -119,6 +119,6 @@ export class MyStatusListPage implements OnInit {
   }
 
   async inNfcQr() {
-
+    
   }
 }

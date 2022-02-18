@@ -60,10 +60,6 @@ export class SearchCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log("this.value",this.value);
-    // console.log("this.type",this.type);
-    // console.log("this.multiple",this.multiple);
-    // console.log("this.form",this.form);
     if(this.form.company_contract_type === 'COMPANY') {
       this.form.company_contract_type = '원청사';
     }
@@ -71,21 +67,10 @@ export class SearchCompanyComponent implements OnInit {
   }
 
   async getCompany() {
-    console.log("this.form", this.form);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
-      if (this.type) {
-        for (let i = 0; i < this.res.rsMap.length; i++) {
-          for (let x = 0; x < this.value.length; x++) {
-            if (this.res.rsMap[i].company_id === this.value[x]) {
-              this.res.rsMap[i].checked = true;
-              this.filteritem.push(this.res.rsMap[i]);
-            }
-          }
-        }
-      }
     } else {
-      
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
   async addCompany() {
@@ -119,8 +104,7 @@ export class SearchCompanyComponent implements OnInit {
     item.checked = !item.checked;
     this.filteritem = this.res.rsMap.filter((data, i) => {
       return data.checked === true;
-    })
-    console.log("this.filteritem", this.filteritem);
+    });
     if (this.filteritem.length > 5) {
       const toast = await this.toast.present({
         message: '최대 선택 개수는 5개입니다.',
@@ -131,25 +115,22 @@ export class SearchCompanyComponent implements OnInit {
   }
 
   async overlap(business_register_no) {
-    console.log("business_register_no", business_register_no);
     if(this.multiple) {
       if (business_register_no.length >= 10) {
         const res = await this.connect.run('/project/overlap/business_register_no', { business_register_no: business_register_no });
         if (res.rsCode === 0) {
           this.business_register_no_check = true;
         } else if (business_register_no.length > 10) {
-          return this.toast.present({ message: '10자 이하로 입력해주세요', color: 'danger' });
+          return this.toast.present({ message: '10자 이하로 입력해주세요', color: 'warning' });
         }
         else {
           const toast = await this.toast.present({
             message: '이미 등록된 사업자등록번호입니다. 등록된 회사 목록에서 선택하여 주세요.',
             position: 'botton',
-            color: 'danger'
+            color: 'warning'
           });
         }
       }
-    } else {
-
     }
   }
 
@@ -169,24 +150,18 @@ export class SearchCompanyComponent implements OnInit {
             company_contract_type: '원청사'
           });
           if (res.rsCode === 0) {
-            console.log(conArr);
             this._modal.dismiss(conArr);
           }
         }
       } else {
-        console.log("this.filteritem---------1", this.filteritem);
-        console.log("this.submitArr-------------2", this.submitArr);
         let conArr = this.filteritem.concat(this.submitArr);
         conArr.forEach(item => {
-          console.log(item);
-          if (!item.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "danger" });
-          if (!item.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "danger" });
-          if (item.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
+          if (!item.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning" });
+          if (!item.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning" });
+          if (item.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
           if (item.business_register_no.length > 10) this.overlap(item.business_register_no);
-          if (!item.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "danger" });
-        })
-        console.log("this.submitArr------------3", this.submitArr);
-        console.log("this.conArr", conArr);
+          if (!item.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning" });
+        });
         this._modal.dismiss(conArr);
       }
     } else {
@@ -195,7 +170,6 @@ export class SearchCompanyComponent implements OnInit {
       if(!this.selectItem.company_ceo) return await this.toast.present({message:'대표자를 입력하세요'});
       this._modal.dismiss(this.selectItem);
     }
-    console.log(this.business_register_no_check);
   }
   // select(){
   //   this._modal.dismiss(this.selectedItem);

@@ -37,15 +37,15 @@ export class NoticeOpenRangePage implements OnInit {
   list1:scopeItem<scopeOne>[] = [
     {
       value: '현장전체',
-      text:'전체'
+      text:'현장'
     },
     {
       value: '내 소속사만',
-      text:'내 소속사만'
+      text:'내 소속'
     },
     {
       value: '협력사별',
-      text:'협력사별'
+      text:'협력사'
     }
   ]
 
@@ -56,11 +56,11 @@ export class NoticeOpenRangePage implements OnInit {
     },
     {
       value: '관리자',
-      text:'관리자만'
+      text:'관리자'
     },
     {
       value: '작업자',
-      text:'작업자만'
+      text:'작업자'
     }
   ]
 
