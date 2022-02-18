@@ -31,7 +31,7 @@ export class SelectMultiplePopoverComponent implements OnInit {
   ngOnInit() {}
   ngAfterViewInit() {
     this.scrollToIndex(this.virtualScroll, this.opts, this.value);
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

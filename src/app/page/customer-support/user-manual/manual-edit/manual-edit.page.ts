@@ -76,7 +76,7 @@ export class ManualEditPage implements OnInit {
       this.form.create_user_name = userData.user_name;
       this.form.company_name = userData.belong_data.company_name;
     }
-    if(environment.test) this.test();
+    this.test();
   }
   public async test() {
     if(!environment.test.core.test) return;

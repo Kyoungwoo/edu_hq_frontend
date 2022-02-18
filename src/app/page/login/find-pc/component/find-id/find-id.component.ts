@@ -38,7 +38,7 @@ export class FindIdComponent implements OnInit {
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/login');
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

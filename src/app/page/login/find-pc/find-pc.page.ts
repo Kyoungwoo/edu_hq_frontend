@@ -36,7 +36,7 @@ export class FindPcPage implements OnInit {
     const { type } = this.activedRoute.snapshot.queryParams;
     this.type = type;
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

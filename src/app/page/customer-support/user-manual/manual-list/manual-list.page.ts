@@ -67,7 +67,7 @@ export class ManualListPage implements OnInit {
     this.form.end_date = this.date.today();
     this.get();
 
-    if(environment.test) this.test();
+    this.test();
   }
   public async test() {
     if(!environment.test.core.test) return;

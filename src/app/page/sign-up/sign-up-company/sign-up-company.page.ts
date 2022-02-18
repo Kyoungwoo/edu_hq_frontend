@@ -41,7 +41,7 @@ export class SignUpCompanyPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(({ userType }) => {
       this.userType = userType;
 
-      if(environment.test) this.test();
+      this.test();
     });
   }
 

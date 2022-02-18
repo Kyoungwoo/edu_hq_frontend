@@ -23,11 +23,11 @@ export class SearchPeopleComponent implements OnInit {
 
 
   @Input() form = {
-    project_id:0,
-    search_text:'',
-    user_type:''
+    project_id: 0,
+    search_text: '',
+    user_type: ''
   }
-  ctgoMemberItem:ConnectResult <ctgoMemberItem>
+  ctgoMemberItem:ConnectResult<ctgoMemberItem>;
 
   selectedItem:ctgoMemberItem;
   constructor(
@@ -40,11 +40,7 @@ export class SearchPeopleComponent implements OnInit {
   }
 
   async ctgoConstruction() {
-    console.log("this.form",this.form);
     this.ctgoMemberItem = await this.connect.run('/category/education/manager/get',this.form);
-    if(this.ctgoMemberItem.rsCode === 9 ) {
-      console.log(this.ctgoMemberItem)
-    }
   }
   select() {
     this._modal.dismiss({

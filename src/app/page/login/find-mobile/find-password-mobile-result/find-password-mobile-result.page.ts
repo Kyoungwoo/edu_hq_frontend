@@ -30,7 +30,7 @@ export class FindPasswordMobileResultPage implements OnInit {
     if(!this.checkParams()) return this.nav.navigateBack('/find-password-mobile-type');
     this.form = history.state.form;
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

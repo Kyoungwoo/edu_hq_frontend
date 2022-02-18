@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { RegexService } from 'src/app/basic/service/util/regex.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { environment } from 'src/environments/environment';
 
 export class Constractor {
   business_register_no = "";
@@ -45,13 +46,32 @@ export class SearchContractorComponent implements OnInit {
   allBusinessRegisterNoChecked:boolean = false;
 
   constructor(
+    private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
     private _modal_: ModalController,
     private toast: ToastService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {
     this.get();
+    this.test();
+  }
+
+  private async test() {
+    if(!environment.test.core.test) return;
+
+    const el = this.el.nativeElement;
+
+    // 가짜 데이터 삽입
+    await this.promise.wait();
+
+    // 가장 위엣놈 클릭
+    el.querySelector('[name=item]').dispatchEvent(new Event('click'));
+    await this.promise.wait();
+
+    // 적용
+    el.querySelector('[name=submit]').dispatchEvent(new Event('click'));
   }
 
   async get() {
@@ -72,6 +92,7 @@ export class SearchContractorComponent implements OnInit {
   }
 
   async selectConstractor(item) {
+    this.selectAll = false;
     if(this.multiple) {
       if(this.values.length + this.newValues.length < 5) {
         this.values.push(item);

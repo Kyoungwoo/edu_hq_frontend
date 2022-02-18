@@ -27,7 +27,7 @@
       </app-col>
     </app-row>
   </app-card>
-  <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="getActive(item)" [button]="true" (click)="selectConstractor(item)">
+  <app-card name="item" *ngFor="let item of res?.rsMap let i = index" [class.active]="getActive(item)" [button]="true" (click)="selectConstractor(item)">
     <app-row>
       <app-col size="4">
         <h5>원청사명</h5>
@@ -46,7 +46,7 @@
 </ion-content>
 
 <app-button-footer>
-  <div slot="top">
+  <div *ngIf="multiple && (newValues?.length || values?.length)" slot="top" class="add-list">
     <ion-toolbar>
       <app-row>
         <app-col>
@@ -92,6 +92,6 @@
       </app-table>
     </ion-toolbar>
   </div>
-  <app-button (click)="submit()">적용</app-button>
+  <app-button name="submit" (click)="submit()">적용</app-button>
 </app-button-footer>
 

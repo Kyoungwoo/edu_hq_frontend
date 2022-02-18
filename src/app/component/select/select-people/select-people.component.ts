@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -18,6 +18,10 @@ import { ctgoMemberItem, SearchPeopleComponent } from '../../modal/search-people
 })
 export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
 
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.openModal();
+  }
+
   @Input() color:Color;
   @Input() label:string = "회원";
   @Input() user_type:string;
@@ -32,29 +36,17 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit() {}
 
-  // public async get() {
-  //   console.log("this.value",this.value);
-  //   console.log("this.user_type",this.user_type);
-  //   if(this.isModalData || !this.value) return;
-  //   const res = await this.connect.run('/category/education/manager/get', {
-  //     project_id: this.value,
-  //     user_type:this.user_type
-  //   });
-  //   if(res.rsCode === 0) {
-  //     console.log("res.rsObj.user_name",res)
-  //     // this.text = res.rsObj.user_name;
-  //   }
-  // }
+  public async get() {
+    
+  }
 
-  async people(){
-    console.log("this.value",this.value);
-    console.log("this.user_type",this.user_type);
+  public async openModal() {
     const modal = await this._modal.create({
-      component:SearchPeopleComponent,
-      componentProps:{
+      component: SearchPeopleComponent,
+      componentProps: {
         form: {
-          project_id:this.user.userData.belong_data.project_id,
-          user_type:this.user_type,
+          project_id: this.user.userData.belong_data.project_id,
+          user_type: this.user_type,
           search_text: ''
         }
       }
@@ -69,6 +61,10 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  //default setting
+  //@Input() readonly:boolean = false;
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
   private _value:number;
@@ -82,12 +78,13 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:number): void { 
-    if(v !== this._value) 
-    this._value = v;
-    // this.get();
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  writeValue(v:number): void {
+    if(v !== this._value) {
+      this._value = v;
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

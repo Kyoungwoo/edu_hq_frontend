@@ -39,7 +39,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
     }
   }
   ionViewDidEnter(): void {
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

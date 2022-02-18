@@ -32,7 +32,7 @@ export class SignUpHealthPage implements OnInit {
     this.companyInfo = history.state.companyInfo;
     this.signUpWorkerInfo = history.state.signUpWorkerInfo;
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   public async test() {

@@ -58,7 +58,7 @@ export class SignUpTermsPage implements OnInit {
       }
     }
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   public async test() {

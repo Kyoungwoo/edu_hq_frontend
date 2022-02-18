@@ -18,7 +18,7 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
   }
 
   @Input() color:Color;
-  @Input() label:string = "";
+  @Input() label:string = "이메일";
   @Input() placeholder:string = "";
   @Output() delayKeyup:EventEmitter<any> = new EventEmitter();
 

@@ -51,7 +51,7 @@ export class MainAdminPage implements OnInit {
       this.getWeather();
     },1800000);
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

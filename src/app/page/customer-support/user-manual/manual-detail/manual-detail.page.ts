@@ -51,7 +51,7 @@ export class ManualDetailPage implements OnInit {
       this.toast.present({ color: 'warning', message: '잘못된 접근입니다.' });
       this._modal.dismiss();
     }
-    if(environment.test) this.test();
+    this.test();
   }
   public async test() {
     if(!environment.test.core.test) return;

@@ -36,7 +36,7 @@ export class LoginMobilePage implements OnInit {
     }
   }
   ionViewDidEnter(): void {
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

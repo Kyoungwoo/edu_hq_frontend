@@ -18,7 +18,7 @@ export class SignUpDonePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {

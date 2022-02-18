@@ -35,7 +35,7 @@ export class SignUpWorkerPage implements OnInit {
     this.companyInfo = history.state.companyInfo;
     this.form.company_id = this.companyInfo.company_id;
 
-    if(environment.test) this.test();
+    this.test();
   }
 
   public async test() {

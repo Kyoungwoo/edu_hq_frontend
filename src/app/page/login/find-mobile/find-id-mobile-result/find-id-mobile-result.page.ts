@@ -30,7 +30,7 @@ export class FindIdMobileResultPage implements OnInit {
     if(!this.checkParams()) return this.nav.navigateBack('/find-id-mobile-type');
     this.result = history.state.result;
 
-    if(environment.test) this.test();
+    this.test();
   }
   
   private async test() {

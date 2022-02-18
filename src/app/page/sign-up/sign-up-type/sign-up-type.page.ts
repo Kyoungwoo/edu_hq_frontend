@@ -25,7 +25,7 @@ export class SignUpTypePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(environment.test) this.test();
+    this.test();
   }
 
   public async test() {

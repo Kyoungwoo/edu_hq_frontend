@@ -62,7 +62,7 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
 
   ngOnInit() {
     this.get1();
-    if(environment.test) this.test();
+    this.test();
   }
 
   private async test() {
