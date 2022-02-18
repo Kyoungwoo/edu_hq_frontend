@@ -33,6 +33,7 @@ class NoticeInfo {
 export class NoticeListPage implements OnInit {
 
   form = {
+    project_id: this.user.userData.belong_data.project_id,
     company_ids: [1],
     end_date: this.date.today(),
     notice_types: [],

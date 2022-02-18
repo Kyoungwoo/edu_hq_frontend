@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { ContractorEditPage } from '../contractor-edit/contractor-edit.page';
 
 @Component({
@@ -11,6 +12,7 @@ import { ContractorEditPage } from '../contractor-edit/contractor-edit.page';
 export class ContractorListPage implements OnInit {
 
   form = {
+    project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
     hq_business_ids: [],
     hq_regional_ids: [],
@@ -57,7 +59,8 @@ export class ContractorListPage implements OnInit {
   
   constructor(
     private modal : ModalController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    public user: UserService,
   ) { }
 
   ngOnInit() {

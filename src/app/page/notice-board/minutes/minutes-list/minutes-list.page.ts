@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
@@ -29,7 +30,8 @@ class SafetyMeetingInfo {
 })
 export class MinutesListPage implements OnInit {
 
-  form = {
+  form = { 
+    project_id: this.user.userData.belong_data.project_id,
     company_ids: [1],
     end_date: this.date.today(),
     safety_meeting_types: [],
@@ -47,7 +49,8 @@ export class MinutesListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     private date: DateService,
-    private toast: ToastService
+    private toast: ToastService,
+    public user: UserService,
   ) { }
 
   async ngOnInit() {
@@ -78,11 +81,9 @@ export class MinutesListPage implements OnInit {
     
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
-    console.log("111111111111111111",trans_form);
     this.res = await this.connect.run('/board/safety_meeting/list', trans_form, {
       loading: '회의록 불러오기'
     });
-    console.log("---------------------------",this.res);
   }
   minutesEditl(){
 
@@ -103,7 +104,6 @@ export class MinutesListPage implements OnInit {
     }
   }
   async edit(safety_meeting_id) {
-    console.log("---------------------",safety_meeting_id);
     const modal = await this.modal.create({
       component:MinutesEditPage,
       componentProps:{

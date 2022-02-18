@@ -47,9 +47,9 @@ export class MsdsEditPage implements OnInit {
   title:string;
   validator = new Validator(new MsdsItem()).validator;
   rangeText = '';
-  useMsds:boolean = true;
+  useMsds: boolean = true;
   
-  updateState:boolean = true;
+  updateState: boolean = true;
 
   form = new MsdsItem();
   // smarteditText:string = '';
@@ -119,7 +119,7 @@ export class MsdsEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -142,7 +142,7 @@ export class MsdsEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -162,6 +162,8 @@ export class MsdsEditPage implements OnInit {
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }

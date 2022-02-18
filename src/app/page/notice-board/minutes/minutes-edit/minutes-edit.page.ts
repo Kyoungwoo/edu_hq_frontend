@@ -35,7 +35,7 @@ export class MinutesEditPage implements OnInit {
 
   @Input() item;
 
-  form:SafetyMeetingItem = new SafetyMeetingItem();
+  form: SafetyMeetingItem = new SafetyMeetingItem();
 
   rangeText = '';
 

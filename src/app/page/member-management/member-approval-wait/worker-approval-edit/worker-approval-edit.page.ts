@@ -141,7 +141,7 @@ export class WorkerApprovalEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this._modal_.dismiss('Y');
-    }
+    } 
   }
   // public submit() {
   //   this.noticeText.update();

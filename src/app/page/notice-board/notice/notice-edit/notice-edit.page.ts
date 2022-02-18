@@ -131,7 +131,7 @@ export class NoticeEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -153,7 +153,7 @@ export class NoticeEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -173,6 +173,8 @@ export class NoticeEditPage implements OnInit {
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -203,7 +205,6 @@ export class NoticeEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     const scope = <NoticePublicScope>data;
-    console.log("scope",scope);
     this.form = {
       ...this.form,
       ...scope
