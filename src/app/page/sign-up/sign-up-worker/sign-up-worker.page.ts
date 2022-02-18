@@ -94,6 +94,7 @@ export class SignUpWorkerPage implements OnInit {
     console.log(this.validator);
     if(!this.valid()) return;
 
+    console.log("asdfasdfsdaf");
     this.nav.navigateForward('/sign-up-health', {
       state: {
         companyInfo: this.companyInfo,

@@ -1,21 +1,15 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>근로자 출입 관리</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-title>근로자 출입 관리</ion-title>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-row>
-      <app-col size="auto">
-        <app-calendar></app-calendar>
-      </app-col>
-      <app-col>
-        <app-input name="with img" placeholder="검색어를 입력하세요">
-          <app-img name="search"></app-img>
-        </app-input>
-      </app-col>
-    </app-row>
+    <app-input-group>
+      <app-input label="현장" [readonly]="true"></app-input>
+      <app-button (click)="detailSearch()">상세검색</app-button>
+    </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-toolbar slot="top" color="white">

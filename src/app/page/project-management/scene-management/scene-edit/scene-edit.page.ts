@@ -1,25 +1,18 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
+import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
-import { StorageService } from 'src/app/basic/service/core/storage.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { ProjectAreaSetComponent } from 'src/app/component/modal/project-area-set/project-area-set.component';
-import { SupervisionSearchComponent } from 'src/app/component/modal/supervision-search/supervision-search.component';
 import { OrganizationSelectPage } from '../organization-select/organization-select.page';
 
-export interface COMPANY_DATA {
+export interface CompanyData {
   company_type: string,
   company_id: any
-}
-
-export class GPS_COORDINATE_DATA {
-  gps_latitude:number[] = [];
-  gps_longitude:number[] = [];
 }
 export class ProjectDetail {
   create_user_id: number; // 작성자 유저 ID
@@ -49,8 +42,8 @@ export class ProjectDetail {
   supervision_name: string;
   add_gps_state_con: string;
   gps_state_con: string;
-  company_data: COMPANY_DATA[] = [];
-  gps_coordinate_data = new GPS_COORDINATE_DATA();
+  company_data: CompanyData[] = [];
+  gps_coordinate_data = new GpsCoordinateData();
 }
 // {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
 // "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
@@ -119,21 +112,15 @@ export class SceneEditPage implements OnInit {
     const res = await this.connect.run('/project/detail', {
       project_id: this.project_id
     }, {
-      parse: ['project_file_data','gps_coordinate_data']
+      parse: ['project_file_data', 'gps_coordinate_data']
     });
     if (res.rsCode === 0) {
       this.form = {
         ...this.form,
         ...res.rsObj
       }
-      console.log("this.form",this.form);
-      console.log("this.form.create_user_id",this.form.create_user_id);
-      console.log("this.user.userData.user_id",this.user.userData.user_id);
-      console.log("this.user.userData.user_role === 'LH_HEAD'",this.user.userData.user_role === 'LH_HEAD');
-      console.log((this.form.create_user_id === this.user.userData.user_id) && (this.user.userData.user_role === 'LH_HEAD'))
       if((this.form.create_user_id === this.user.userData.user_id) || 
-      (this.user.userData.user_role === 'LH_HEAD')
-      ) {
+      (this.user.userData.user_role === 'LH_HEAD')) {
         console.log("허락한다.");
         this.roleCheck = false;
         console.log(this.roleCheck);
@@ -267,21 +254,17 @@ export class SceneEditPage implements OnInit {
   async project_area_set() {
     const modal = await this._modal.create({
       component: ProjectAreaSetComponent,
-      componentProps:
-        { 
-          gps_coordinate_data:this.form.gps_coordinate_data
-        }
+      componentProps:{ 
+        gps_coordinate_data: this.form.gps_coordinate_data
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if (data) {
-      if (this.project_id) {
+    if(data) {
+      if(this.project_id) {
         this.form.gps_state = 1;
       }
-      this.form.gps_state_con = '설정 됨';
-      console.log('scene_eidt_data',data);
       this.form.gps_coordinate_data = data;
-      console.log(this.form.gps_coordinate_data)
     }
   }
 

@@ -1,67 +1,33 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { NaverMapComponent } from 'src/app/basic/component/input/naver-map/naver-map.component';
+import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-
 @Component({
   selector: 'app-project-area-set',
   templateUrl: './project-area-set.component.html',
-  styleUrls: ['./project-area-set.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => NaverMapComponent),
-    multi: true
-  }]
+  styleUrls: ['./project-area-set.component.scss']
 })
 export class ProjectAreaSetComponent implements OnInit {
 
-  @Input() returnData
   @Input() gps_coordinate_data;
-  initCheck:boolean
-  mapData = [];
+  mapData:GpsCoordinateData;
+
   constructor(
-    private modal_:ModalController,
-    private toast:ToastService
+    private _modal:ModalController,
+    private toast:ToastService,
+    private file: FileService
   ) { }
 
   ngOnInit() {
-    this.mapData = this.gps_coordinate_data;
-    console.log("this.mapData",this.gps_coordinate_data);
+    this.mapData = this.file.clone(this.gps_coordinate_data);
   }
   
-  submint() {
-    console.log("this.mapData",this.mapData);
-    if(!this.initCheck){
-      this.modal_.dismiss(this.mapData);
-    }
-    else if(this.mapData.length < 3) {
-      return this.toast.present({message:'점을 3개 이상 설정해주세요.',color:'danger'});
+  submit() {
+    if(this.mapData.gps_latitude.length < 3) {
+      this.toast.present({message:'점을 3개 이상 설정해주세요.',color:'danger'});
+    } else {
+      this._modal.dismiss(this.mapData);
     }
   }
-  @Output() change = new EventEmitter();
-
-  @Input() set _value(v:any[]) {
-    if(v !== this._value) {
-      this._value = v || []; 
-      this._onChangeCallback(v);
-      this.change.emit(v);
-    }
-  }
-  get value() {
-    return this._value;
-  }
-  writeValue(v:any[]): void { 
-    if(v !== this._value){
-      this._value = v || [];
-      console.log("this.value-------------------",this.value)
-      this._onChangeCallback(v);
-      this.change.emit(v);
-    }
-  }
-
-  private _onChangeCallback = (v) => {};
-  private _onTouchedCallback = (v) => {};
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
 }

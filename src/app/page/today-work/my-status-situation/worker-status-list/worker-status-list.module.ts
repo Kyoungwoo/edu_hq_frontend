@@ -10,6 +10,7 @@ import { WorkerStatusListPage } from './worker-status-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { WorkerStatusAddPageModule } from '../worker-status-add/worker-status-add.module';
+import { StatusSearchModule } from '../../component/status-search.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { WorkerStatusAddPageModule } from '../worker-status-add/worker-status-ad
     ComponentModule,
     BasicComponentModule,
     WorkerStatusListPageRoutingModule,
-    WorkerStatusAddPageModule
+    WorkerStatusAddPageModule,
+    StatusSearchModule
   ],
   declarations: [WorkerStatusListPage]
 })

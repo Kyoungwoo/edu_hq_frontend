@@ -117,9 +117,9 @@ export class NoticeEditPage implements OnInit {
   }
 
   async noticeInsert() { //등록
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
-    if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'danger'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'danger'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
+    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     //메소드 호출
     const alert = await this.alert.present({
       message:'등록 하시겠습니까?',
@@ -131,7 +131,7 @@ export class NoticeEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -140,9 +140,9 @@ export class NoticeEditPage implements OnInit {
     alert.present();
   }
   async update() { //수정
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'danger'});
-    if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'danger'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'danger'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
+    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     const alert = await this.alert.present({
       message:'수정 하시겠습니까?',
       buttons:[
@@ -153,7 +153,7 @@ export class NoticeEditPage implements OnInit {
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
-              this.connect.error('등록실패', res);
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -173,6 +173,8 @@ export class NoticeEditPage implements OnInit {
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -202,19 +204,16 @@ export class NoticeEditPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log("---------------------form",data);
     const scope = <NoticePublicScope>data;
-    console.log("scope",scope);
     this.form = {
       ...this.form,
       ...scope
     }
-    console.log("this.form",this.form);
     if(scope) {
       const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
       const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
       this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name === 'null' ? scope.scope_company_name:''}`;
-      console.log("asdfasdfasdfasdf--------------",this.rangeText);
+      
     }
   }
 

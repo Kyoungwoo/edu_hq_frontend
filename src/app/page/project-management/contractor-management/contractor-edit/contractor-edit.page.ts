@@ -103,6 +103,8 @@ export class ContractorEditPage implements OnInit {
             const res = await this.connect.run('/project/company/masters/update', this.form, {});
             if (res.rsCode === 0) {
               this._modal.dismiss();
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -124,6 +126,8 @@ export class ContractorEditPage implements OnInit {
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -139,7 +143,6 @@ export class ContractorEditPage implements OnInit {
     let spliteamil = this.form.manager_email.split('@');
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
-    console.log(this.email)
     this.updateStatus = false;
   }
 }

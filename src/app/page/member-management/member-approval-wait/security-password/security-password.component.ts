@@ -36,7 +36,6 @@ export class SecurityPasswordComponent implements OnInit {
     });
     if (this.res.rsCode === 0) {
       // 정상
-      console.log(this.res.rsObj.user_manage_session)
       this.user.setMemberAuthToken(this.res.rsObj.user_manage_session);
       this._modal.dismiss(true);
     }

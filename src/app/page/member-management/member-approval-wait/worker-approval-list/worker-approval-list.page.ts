@@ -78,7 +78,7 @@ export class WorkerApprovalListPage implements OnInit {
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      this.toast.present({ color: 'danger', message: this.res.rsMsg });
     }
   }
 
@@ -106,7 +106,7 @@ export class WorkerApprovalListPage implements OnInit {
   }
 
   async approval() {
-    if(!this.selectedList.length) return await this.toast.present({message:'작업자를 선택해주세요.', color:'danger'})
+    if(!this.selectedList.length) return await this.toast.present({message:'작업자를 선택해주세요.', color:'warning'})
     const modal = await this.modal.create({
       component:ApprovalPopupComponent,
       componentProps:{

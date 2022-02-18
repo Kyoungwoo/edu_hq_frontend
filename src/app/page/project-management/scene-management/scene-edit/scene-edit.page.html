@@ -10,7 +10,8 @@
   <h4>현장 개요</h4>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-input (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true" label="조직기구">
+      <app-input (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
+        label="조직기구">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>
@@ -22,7 +23,8 @@
     <app-col>
       <app-row>
         <app-col>
-          <app-select-contractor [disabled]="roleCheck" [multiple]="true" [type]="true" [(ngModel)]="contractor_id"></app-select-contractor>
+          <app-select-contractor [disabled]="roleCheck" [multiple]="true" [(ngModel)]="contractor_id">
+          </app-select-contractor>
         </app-col>
       </app-row>
     </app-col>
@@ -36,10 +38,12 @@
   </app-row>
   <app-row mobileBreak>
     <app-col style="display: flex;align-items: baseline;">
-      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_start_date" style="width: 100%;" [max]="form.contract_end_date">
+      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_start_date" style="width: 100%;"
+        [max]="form.contract_end_date">
       </app-calendar>
       <span>&nbsp;~&nbsp;</span>
-      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_end_date" style="width: 100%;" [min]="form.contract_start_date">
+      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_end_date" style="width: 100%;"
+        [min]="form.contract_start_date">
       </app-calendar>
     </app-col>
     <app-col>
@@ -58,40 +62,47 @@
     </app-col>
   </app-row>
   <app-row mobileBreak>
-    <app-col  size="1">
-      <app-input  [disabled]="roleCheck" [readonly]="true" [(ngModel)]="form.project_postal_code" label="우편번호"></app-input>
+    <app-col size="1">
+      <app-input [disabled]="roleCheck" [readonly]="true" [(ngModel)]="form.project_postal_code" label="우편번호">
+      </app-input>
     </app-col>
     <app-col size="2">
-      <app-input [disabled]="roleCheck" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()" label="주소"></app-input>
+      <app-input [disabled]="roleCheck" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()"
+        label="주소"></app-input>
     </app-col>
     <app-col size="3">
       <app-input [disabled]="roleCheck" [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
     </app-col>
     <app-col>
-      <app-input [disabled]="roleCheck" [(ngModel)]="form.gps_state_con" [readonly]="true" (click)="project_area_set()" label="현장 영역">
+      <app-input [disabled]="roleCheck"
+      [value]="form.gps_coordinate_data.gps_latitude.length ? '설정됨' : ''" [readonly]="true" (click)="project_area_set()"
+        label="현장 영역">
       </app-input>
     </app-col>
   </app-row>
 
   <app-row style="align-items: flex-start;">
     <app-col>
-      <app-card>
+      <ion-toolbar color="white">
         <app-row>
           <app-col>
             <h5>조감도</h5>
           </app-col>
           <app-col *ngIf="!roleCheck" size="auto">
-            <app-button >추가
+            <app-button>추가
               <app-file name="input" view_type="BIRDSEYE" [(ngModel)]="form.project_file_data" [file]="form.file"
                 [file_json]="form.file_json"></app-file>
             </app-button>
           </app-col>
         </app-row>
-          <app-file-preview *ngFor="let futItem of form.project_file_data let i = index" [futItem]="futItem" (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
-      </app-card>
+      </ion-toolbar>
+      <ng-container *ngFor="let futItem of form.project_file_data let i = index">
+        <app-file-preview *ngIf="futItem.view_type === 'BIRDSEYE'" [futItem]="futItem"
+          (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
+      </ng-container>
     </app-col>
     <app-col>
-      <app-card>
+      <ion-toolbar color="white">
         <app-row>
           <app-col>
             <h5>조직도</h5>
@@ -103,8 +114,11 @@
             </app-button>
           </app-col>
         </app-row>
-          <app-file-preview *ngFor="let futItem of form.project_file_data let i = index" [futItem]="futItem" (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
-      </app-card>
+      </ion-toolbar>
+      <ng-container *ngFor="let futItem of form.project_file_data let i = index">
+        <app-file-preview *ngIf="futItem.view_type === 'FLOOR'" [futItem]="futItem"
+          (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
+      </ng-container>
     </app-col>
   </app-row>
 

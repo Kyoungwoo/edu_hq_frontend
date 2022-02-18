@@ -18,8 +18,8 @@ export class SupervisionEdit {
   company_name: string;
   file: (File | Blob)[] = [];
   file_json: FileJson = new FileJson();
-  company_ceo:string;
-  project_id:number;
+  company_ceo: string;
+  project_id: number;
   manager_email: string;
 }
 @Component({
@@ -35,9 +35,9 @@ export class SupervisionEditPage implements OnInit {
 
   @Input() company_id;
   @Input() project_id;
-  email:string;
-  emailaddress:string;
-  directlyInput:string;
+  email: string;
+  emailaddress: string;
+  directlyInput: string;
   form: SupervisionEdit = new SupervisionEdit();
 
   updateStatus: boolean = true;
@@ -52,8 +52,6 @@ export class SupervisionEditPage implements OnInit {
 
   ngOnInit() {
     this.getPermission();
-    console.log(this.company_id);
-    console.log(this.project_id);
     this.form.project_id = this.project_id;
     this.getItem();
   }
@@ -82,7 +80,7 @@ export class SupervisionEditPage implements OnInit {
     }
   }
   async superSave() {
-    if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger'})
+    if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning'})
     // if(!this.form.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
     // if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     // if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
@@ -97,6 +95,8 @@ export class SupervisionEditPage implements OnInit {
             const res = await this.connect.run('/project/company/masters/update', this.form, {});
             if (res.rsCode === 0) {
               this._modal.dismiss();
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -118,6 +118,8 @@ export class SupervisionEditPage implements OnInit {
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
@@ -132,7 +134,6 @@ export class SupervisionEditPage implements OnInit {
     let spliteamil = this.form.manager_email.split('@');
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
-    console.log(this.email)
     this.updateStatus = false;
   }
 

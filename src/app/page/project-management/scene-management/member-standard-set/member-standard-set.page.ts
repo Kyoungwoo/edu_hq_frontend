@@ -68,8 +68,8 @@ export class MemberStandardSetPage implements OnInit {
   }
   subpassword: ''
   passwordMeassge: string = '';
-  passchkck: boolean = false;
-  subpasscheck: boolean = false;
+  passchkck: boolean = true;
+  subpasscheck: boolean = true;
   subpasswordMeassge: string = '';
 
 
@@ -150,10 +150,6 @@ export class MemberStandardSetPage implements OnInit {
     //lh조직기구
 
     this.level1();
-
-
-    console.log(this.user.userData.belong_data.company_id);
-    console.log(this.form.company_id);
     this.form.company_id = this.user.userData.belong_data.company_id;
 
   }
@@ -184,7 +180,6 @@ export class MemberStandardSetPage implements OnInit {
   }
   async menuCount5() {
     this.menuCount = 5;
-    console.log()
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getJobPosition();
       this.rolepass = false;
@@ -213,7 +208,6 @@ export class MemberStandardSetPage implements OnInit {
       });
       alert.present();
     }
-    console.log("안전", this.user.userData);
   }
 
   async menuCount7() {
@@ -222,7 +216,6 @@ export class MemberStandardSetPage implements OnInit {
       this.rolepass = false;
       this.getOccupation();
     } else {
-      console.log("ddddddddd")
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -269,13 +262,11 @@ export class MemberStandardSetPage implements OnInit {
     // this.area3SelectList = [];
 
     this.hq_regional_id = item.hq_regional_id;
-    console.log(item.hq_regional_id)
     if (item.hq_regional_id) {
       this.resLevel2 = await this.connect.run('/project/organization/business/get', {
         hq_regional_id: item.hq_regional_id
       }, {});
       if (this.resLevel2.rsCode === 0) {
-        console.log("this.resLevel2", this.resLevel2);
       }
     }
   }
@@ -297,11 +288,8 @@ export class MemberStandardSetPage implements OnInit {
       case 'level1':
         this.resLevel1?.rsMap.forEach((item, i) => {
           if (this.area1SelectList !== item) {
-            console.log("asdfasdfasdfasf");
             // this.resLevel3.rsMap = [];
             item.checked = false;
-          } else {
-            console.log('여기로 들어오냐?');
           }
         });
         break;
@@ -324,10 +312,9 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async levelAdd(level) {
-    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'warning' });
     switch (level) {
       case 'level1':
-        console.log(this.resLevel1.rsMap);
         this.resLevel1.rsMap.unshift({
           hq_regional_entire_state: 0, // 본사권한 = 1
           hq_regional_id: 0, // id
@@ -339,7 +326,7 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level2':
         if (!this.area1SelectList || !this.area1SelectList.hq_regional_id) {
-          return await this.toast.present({ message: 'level1 항목을 선택해주세요.', color: 'danger' });
+          return await this.toast.present({ message: 'level1 항목을 선택해주세요.', color: 'warning' });
         } else {
           if (this.resLevel2?.rsMap?.length) {
             this.resLevel2.rsMap.unshift({
@@ -367,7 +354,7 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level3':
         if (!this.area2SelectList || !this.area2SelectList.hq_business_id) {
-          return await this.toast.present({ message: 'level2 항목을 선택해주세요.', color: 'danger' });
+          return await this.toast.present({ message: 'level2 항목을 선택해주세요.', color: 'warning' });
         } else {
           if (this.resLevel3?.rsMap?.length) {
             this.resLevel3.rsMap.unshift({
@@ -396,13 +383,12 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async levelUpdate(level) {
-    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'warning' });
     switch (level) {
       case 'level1':
         this.resLevel1?.rsMap.forEach((item, i) => {
           if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
-            console.log(this.area1SelectCheck);
           } else {
             item.checked = false;
           }
@@ -410,10 +396,8 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level2':
         this.resLevel2?.rsMap.forEach((item, i) => {
-          console.log(item)
           if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
-            console.log(this.area1SelectCheck);
           } else {
             item.checked = false;
           }
@@ -421,10 +405,8 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level3':
         this.resLevel3?.rsMap.forEach((item, i) => {
-          console.log(item)
           if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
             item.checked = true;
-            console.log(this.area3SelectCheck);
           } else {
             item.checked = false;
           }
@@ -437,19 +419,17 @@ export class MemberStandardSetPage implements OnInit {
   async organizationSave(level) {
     // this.hq_regional_id = this.area1SelectList.hq_regional_id;
     // this.hq_business_id = this.area2SelectList.hq_business_id;
-    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'danger' });
+    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'warning' });
     switch (level) {
       case 'level1':
         this.resLevel1?.rsMap.forEach(async (item, i) => {
           if (item.hq_regional_id && item.checked) {
-            console.log("true");
             const res = await this.connect.run('/project/organization/regional/update', item);
             if (res.rsCode === 0) {
               const toast = await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
               this.level1();
             }
           } else if (!item.hq_regional_id && !item.checked) {
-            console.log('false');
             const res = await this.connect.run('/project/organization/regional/insert', item);
             if (res.rsCode === 0) {
               const toast = await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
@@ -462,8 +442,6 @@ export class MemberStandardSetPage implements OnInit {
       case 'level2':
         this.resLevel2?.rsMap.forEach(async (item, i) => {
           if (item.hq_business_id && item.checked) {
-            console.log("item.hq_regional_id", item.hq_regional_id);
-            console.log("this.hq_regional_id", this.hq_regional_id);
             item.hq_regional_id = this.hq_regional_id;
             const res = await this.connect.run('/project/organization/business/update', item);
             if (res.rsCode === 0) {
@@ -472,7 +450,6 @@ export class MemberStandardSetPage implements OnInit {
             }
           } else if (!item.hq_business_id && !item.checked) {
             item.hq_regional_id = this.hq_regional_id;
-            console.log('false');
             const res = await this.connect.run('/project/organization/business/insert', item);
             if (res.rsCode === 0) {
               const toast = await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
@@ -494,7 +471,6 @@ export class MemberStandardSetPage implements OnInit {
           } else if (!item.hq_department_id && !item.checked) {
             item.hq_business_id = this.hq_business_id;
             item.hq_regional_id = this.hq_regional_id;
-            console.log('false');
             const res = await this.connect.run('/project/organization/department/insert', item);
             if (res.rsCode === 0) {
               const toast = await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
@@ -513,16 +489,6 @@ export class MemberStandardSetPage implements OnInit {
   passwordCheck() {
     const rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-    console.log("ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴ", rex.test(this.form.company_password || this.subpassword));
-    // if(regExp.test(this.form.company_password || this.subpassword)){
-    //   this.form.company_password = '';
-    //   this.subpassword = '';
-    //   this.passwordChedk = false;
-    //   this.passwordMeassge = '한글입력은 불가능합니다.'
-    // }
-    // else {
-    //   this.passwordChedk = true;
-    // }
 
     if (!rex.test(this.form.company_password)) {
       this.passchkck = false;
@@ -542,9 +508,7 @@ export class MemberStandardSetPage implements OnInit {
   }
   async memberPasswordUdpate() {
     if (this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' });
-    console.log("this.subpasscheck", this.subpasscheck);
-    console.log("this.passchkck", this.passchkck);
-    if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "danger" });
+    if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
     const res = await this.connect.run('/project/company/pass/update', this.form, {});
     if (res.rsCode === 0) {
       const toast = await this.toast.present({ message: '비밀번호가 변경 되었습니다.' });
@@ -562,7 +526,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async addJobPosstion() {
-    if (!this.jobForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'danger' });
+    if (!this.jobForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
     if (this.resJobPosition?.rsMap?.length) {
       this.resJobPosition?.rsMap?.unshift({
         ctgo_job_position_name_kr: '',
@@ -574,9 +538,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_job_position_name_ch: ''
       });
     } else {
-      console.log("Asdfasdfasdf");
       this.resJobPosition.rsMap = [];
-      console.log("this.resJobPosition", this.resJobPosition.rsMap);
       this.resJobPosition?.rsMap?.push({
         ctgo_job_position_name_kr: '',
         ctgo_job_position_use_state: 0,
@@ -612,7 +574,6 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async postionDelete() {
-    console.log(this.selectList);
     if (!this.selectList.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
@@ -623,7 +584,6 @@ export class MemberStandardSetPage implements OnInit {
           handler: async () => {
             const list = this.resJobPosition.rsMap;
             this.selectList.forEach(async (checkedItem) => {
-              console.log("checkedItem", checkedItem);
               if (checkedItem.ctgo_job_position_id === 0) {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
@@ -654,10 +614,8 @@ export class MemberStandardSetPage implements OnInit {
 
   async addSafeJob() {
     this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
-    console.log(this.user.userData.belong_data.company_id);
-    console.log(this.safeJobForm.company_id);
-    if (!this.safeJobForm.company_id) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'danger' });
-    if (!this.safeJobForm.user_type) return await this.toast.present({ message: '구분를 선택해 주세요.', color: 'danger' });
+    if (!this.safeJobForm.company_id) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
+    if (!this.safeJobForm.user_type) return await this.toast.present({ message: '구분를 선택해 주세요.', color: 'warning' });
 
     if (this.resJobPosition?.rsMap?.length) {
       this.resSafeJob?.rsMap?.unshift({
@@ -673,7 +631,6 @@ export class MemberStandardSetPage implements OnInit {
       });
     } else {
       this.resSafeJob.rsMap = [];
-      console.log("this.resSafeJob.rsMap", this.resSafeJob?.rsMap);
       this.resSafeJob?.rsMap?.push({
         ctgo_safe_job_name_vi: '',
         ctgo_safe_job_name_ch: '',
@@ -691,7 +648,6 @@ export class MemberStandardSetPage implements OnInit {
   async safeJobSave() {
     this.resSafeJob.rsMap.forEach(async (item) => {
       if (item.ctgo_safe_job_id === 0) {
-        console.log('----------------', item)
         const res = await this.connect.run('/project/safe_job/insert', item, {});
         if (res.rsCode === 0) {
           return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
@@ -759,7 +715,7 @@ export class MemberStandardSetPage implements OnInit {
 
 
   async addOccupation() {
-    if (!this.occupationForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'danger' });
+    if (!this.occupationForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
     if (this.resOccupation?.rsMap?.length) {
       this.resOccupation?.rsMap.unshift({
         ctgo_occupation_use_state: 0,

@@ -27,7 +27,8 @@ export class SearchPeopleComponent implements OnInit {
     search_text: '',
     user_type: ''
   }
-  ctgoMemberItem:ConnectResult<ctgoMemberItem>;
+  @Input() type:string
+  ctgoMemberItem:ConnectResult <ctgoMemberItem>
 
   selectedItem:ctgoMemberItem;
   constructor(
@@ -37,6 +38,10 @@ export class SearchPeopleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.type === 'approval') {
+      this.form.user_type = '관리자';
+      this.ctgoConstruction();
+    }
   }
 
   async ctgoConstruction() {
