@@ -37,7 +37,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input name="phone-number" label="휴대폰" [(ngModel)]="form.user_phone" [required]="true">
+            <app-input name="phone-number" label="휴대폰" [(ngModel)]="form.user_phone" [required]="true" (click)="overlapPhone()">
               중복확인
               </app-input>
           </app-col>
@@ -78,10 +78,16 @@
       </ion-toolbar>
 
       <ng-container *ngIf="menu === 1">
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : 2021년 06월 01일</p>
+          </app-col>
+        </app-row>
         <h5>소속정보</h5>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="업체명" value="input disabled" [disabled]="true"></app-input>
+            <app-input name="input disabled" label="업체명" value="input disabled" [disabled]="true" [(ngModel)]="form.company_id"></app-input>
           </app-col>
           <app-col>
             <app-select label="직위" name="select">
@@ -131,7 +137,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
+              <td style="text-align: left;">1</td>
               <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
               <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
               <td><a>선임서.pdf<app-img name="search"></app-img></a>
@@ -145,7 +151,7 @@
                 <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
             </tr>
             <tr>
-            <td>1</td>
+            <td style="text-align: left;">1</td>
             <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
             <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
             <td><a>선임서.pdf<app-img name="search"></app-img></a>
@@ -160,12 +166,12 @@
           </tr>
           </tbody>
         </app-table>
-        <app-row>
+        <!-- <app-row>
           <app-col></app-col>
           <app-col size="auto">
             <app-button fill="translucent" style="width: 120px;">정보 불러오기</app-button>
           </app-col>
-        </app-row>
+        </app-row> -->
 
 
 
@@ -174,40 +180,39 @@
           <thead>
             <tr>
               <th style="text-align: left;">No</th>
-              <th style="text-align: left;">안전 직무</th>
-              <th style="text-align: left;">안전직무 선임일</th>
-              <th style="text-align: left;"></th>
+              <th style="text-align: left;">면허번호</th>
+              <th style="text-align: left;">면허증</th>
               <th style="text-align: left;"></th>
               <th style="text-align: left;"></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-              <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-              <td><a>선임서.pdf<app-img name="search"></app-img></a>
+              <td style="text-align: left;">1</td>
+              <td style="text-align: left;"><app-input name="면허번호" placedholder="면허번호를 입력해주세요."></app-input></td>
+              <td style="text-align: left;"><a>선임서.pdf<app-img name="search"></app-img></a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
                 </app-button>
               </td>
               <td>
               </td>
-              <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
+              <td style="text-align: right;">
+                <app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
                 <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
             </tr>
             <tr>
-              <td>1</td>
-              <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-              <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-              <td><a>선임서.pdf<app-img name="search"></app-img></a>
+              <td style="text-align: left;">1</td>
+              <td style="text-align: left;"><app-input name="면허번호" placedholder="면허번호를 입력해주세요."></app-input></td>
+              <td style="text-align: left;"><a>선임서.pdf<app-img name="search"></app-img></a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
                 </app-button>
               </td>
               <td>
               </td>
-              <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
+              <td style="text-align: right;">
+                <app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
                 <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
             </tr>
           </tbody>

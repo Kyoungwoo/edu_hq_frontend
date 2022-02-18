@@ -13,8 +13,9 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
   styleUrls: ['./approval-popup.component.scss'],
 })
 export class ApprovalPopupComponent implements OnInit {
-  @Input() selectedList
-  @Input() approval_user_ids
+  @Input() selectedList = [];
+  @Input() approval_user_ids;
+  @Input() user_name;
 
   form = {
     user_id: this.user.userData.user_id,
@@ -35,6 +36,8 @@ export class ApprovalPopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("user_name",this.user_name);
+    console.log("approval_user_ids",this.approval_user_ids);
     if(this.selectedList.length){
       this.selectedList?.forEach(item => {
         //selectedList에 무슨 데이터 담겨있는지 알 수 있는 콘솔
@@ -43,7 +46,10 @@ export class ApprovalPopupComponent implements OnInit {
         this.form.user_name.push(item.user_name);
       });
 
-    }else this.approval_user_ids = [this.approval_user_ids]
+    }else{
+      this.form.approval_user_ids = [this.approval_user_ids]
+      this.form.user_name = this.user_name;
+    } 
     // 텍스트 형식으로 바꿈
     console.log("this.form.approval_text", this.form.approval_text);
     console.log("this.selectedList", this.selectedList);
@@ -51,7 +57,7 @@ export class ApprovalPopupComponent implements OnInit {
   }
 
   async companion() {
-    const res = await this.connect.run('/approval/worker/companion/update', this.form);
+    const res = await this.connect.run('/usermanage/approval/worker/companion/update', this.form);
     if (res.rsCode === 0) {
       this._modal.dismiss('Y');
     }
@@ -59,9 +65,9 @@ export class ApprovalPopupComponent implements OnInit {
 
 
   async approval() {
-    const res = await this.connect.run('/approval/worker/approval/update', this.form);
+    const res = await this.connect.run('/usermanage/approval/worker/approval/update', this.form);
     if (res.rsCode === 0) {
-      this._modal.dismiss();
+      this._modal.dismiss('Y');
       this.nav.navigateForward('/worker-info-list', {
         force: true
       });
