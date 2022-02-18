@@ -31,7 +31,7 @@ export class SecurityPasswordComponent implements OnInit {
 
   async submit() {
 
-    this.res = await this.connect.run('/info/user/login', this.form, {
+    this.res = await this.connect.run('/usermanage/password/login', this.form, {
       loading: true
     });
     if (this.res.rsCode === 0) {

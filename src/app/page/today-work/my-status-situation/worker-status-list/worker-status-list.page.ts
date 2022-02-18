@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
 
@@ -35,8 +36,9 @@ export class WorkerStatusListPage implements OnInit {
     search_text:''
   }
   constructor(
-    private modal : ModalController,
-    private connect: ConnectService
+    private modal: ModalController,
+    private connect: ConnectService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,8 @@ export class WorkerStatusListPage implements OnInit {
     this.gateList = await this.connect.run('/nfc_beacon/gate/list',this.gateForm,{});
     if(this.gateList.rsCode === 0) {
       
+    } else {
+      this.toast.present({ color: 'warning', message: this.gateList.rsMsg });
     }
   }
 

@@ -158,10 +158,10 @@ export class SearchCompanyComponent implements OnInit {
       if (this.business_register_no_check) {
         let conArr = this.filteritem.concat(this.submitArr);
         for (let i = 0; i < this.submitArr.length; i++) {
-          if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.' });
-          if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.' });
-          if (this.submitArr[i].business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
-          if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.' });
+          if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.',color: "warning" });
+          if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning"});
+          if (this.submitArr[i].business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
+          if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning"});
           const res = await this.connect.run('/project/company/insert', {
             business_register_no: this.submitArr[i].business_register_no,
             company_ceo: this.submitArr[i].company_ceo,
