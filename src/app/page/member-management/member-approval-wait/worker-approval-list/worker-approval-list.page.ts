@@ -34,13 +34,11 @@ export class WorkerApprovalListPage implements OnInit {
 
   form = {
     approval_state: '전체',
-    // company_ids: [this.user.userData.belong_data.company_id],
-    company_id: 1,
+    company_id: 0,
     session_company_id: this.user.userData.belong_data.company_id,
     ctgo_construction_ids: [],
     end_date: this.date.today(),
-    project_id: 1,
-    // project_ids: [this.user.userData.belong_data.project_id],
+    project_id: 0,
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0,
@@ -59,8 +57,7 @@ export class WorkerApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.getPassword();
-   
+      this.get();
   }
 
   async get(limit_no = this.form.limit_no) {
@@ -68,7 +65,7 @@ export class WorkerApprovalListPage implements OnInit {
     const authToken = this.user.memberAuthToken;
     this.form.user_manage_session = authToken;
 
-    this.res = await this.connect.run('/approval/worker/list', this.form, {
+    this.res = await this.connect.run('/usermanage/approval/worker/list', this.form, {
       loading: true
     });
     if(this.res.rsCode === 0) {

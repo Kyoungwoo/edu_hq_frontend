@@ -27,8 +27,23 @@ export class WorkerApprovalItem {
   file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
-  
 
+  //소속정보
+  ctgo_job_position_name_kr: string;
+  ctgo_construction_id: number;
+  ctgo_job_position_id: number;
+  ctgo_construction_name: string;
+  ctgo_occupation_name_kr: string;
+  project_name: string;
+  ctgo_occupation_id: number;
+  project_id: number;
+  company_name: string;
+  work_contract_type: string;
+  // user_safe_job_file_data: [];
+  // user_safe_job_data: [];
+  // user_certify_file_data: [];
+  // user_certify_data: [];
+  
 };
 
 @Component({
@@ -48,7 +63,7 @@ export class WorkerApprovalEditPage implements OnInit {
   user_id: any;
   approval_user_ids: [];
   constructor(
-    private _modal : ModalController,
+    private _modal_ : ModalController,
     private connect: ConnectService,
     private user: UserService,
     private toast: ToastService
@@ -60,15 +75,26 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
   public async overlapEmail() { //이메일
-    const { user_email } = this.form;
+    const { user_email,user_id } = this.form;
     if(!user_email) return this.validator.user_email = null;
-    const res = await this.connect.run('/approval/worker/overlap/email', { user_email });
+    if(!user_id) return this.validator.user_id = null;
+    const res = await this.connect.run('/usermanage/approval/worker/overlap/email', { user_email,user_id });
     this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
+    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
+  }
+
+  public async overlapPhone() { //휴대폰
+    const { user_phone,user_id } = this.form;
+    if(!user_phone) return this.validator.user_phone = null;
+    if(!user_id) return this.validator.user_id = null;
+    const res = await this.connect.run('/usermanage/approval/worker/overlap/phone', { user_phone,user_id });
+    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
+    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
   async getItem() {
 
-    const res = await this.connect.run('/approval/worker/basic/detail', {
+    const res = await this.connect.run('/usermanage/approval/worker/basic/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
       user_manage_session : this.user.memberAuthToken
@@ -89,9 +115,9 @@ export class WorkerApprovalEditPage implements OnInit {
   }
   
 
-  async getPassword() {
+  async getPassword() { //비밀번호
     console.log("11111111111111111111111111111111");
-    const modal = await this._modal.create({
+    const modal = await this._modal_.create({
       component: SecurityPasswordComponent,
       backdropDismiss:false,
       cssClass:"security-password-modal"
@@ -103,21 +129,29 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   
   }
-  async approval() {
-    const modal = await this._modal.create({
+  async approval() { //가입승인
+    console.log("item",this.item);
+    const modal = await this._modal_.create({
       component:ApprovalPopupComponent,
       componentProps:{
-        approval_user_ids:this.approval_user_ids
+        approval_user_ids:this.form.user_id,
+        user_name:this.form.user_name
       },
       cssClass:"approval-modal"
     });
     modal.present();
-
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.getItem();
+      this._modal_.dismiss('Y');
     }
   }
-  
+  // public submit() {
+  //   this.noticeText.update();
+  //   if(this.form.notice_id) {
+  //     this.update();
+  //   } else {
+  //     this.noticeInsert();
+  //   }
+  // }
 }
 
