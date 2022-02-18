@@ -4,11 +4,19 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 
-export class SelectItem {
-  company_id: number;
-  business_register_no: string;
-  company_name: string;
-  company_ceo: string;
+export class Constractor {
+  business_register_no = "";
+  company_ceo = "";
+  company_id = 0;
+  company_name = "";
+  company_phone = "";
+  create_user_id = 0;
+  create_user_name = "";
+  ctgo_construction_name = "";
+  master_company_name = "";
+  project_id = 0;
+  project_name = "";
+  update_date = "";
 }
 @Component({
   selector: 'app-search-contractor',
@@ -16,36 +24,26 @@ export class SelectItem {
   styleUrls: ['./search-contractor.component.scss'],
 })
 export class SearchContractorComponent implements OnInit {
+  @Input() set project_id(_project_id:number) {
+    this.form.project_id = _project_id;
+  }
+  @Input() allState:boolean = false;
+  @Input() editable:boolean = false;
+  @Input() multiple:boolean = false;
 
-  @Input() value;
-  @Input() type?: boolean = false;
-  @Input() multiple:boolean;
-  @Input() form = {
+  form = {
     company_contract_type: '원청사',
+    project_id: 0,
     search_text: ''
   }
-  res: ConnectResult<{
-    company_id: number;
-    business_register_no: string;
-    company_name: string;
-    company_ceo: string;
-    checked: boolean;
-  }>
+  res:ConnectResult<Constractor>;
 
-  submitItem = {
-    company_id: 0,
-    business_register_no: '',
-    company_name: '',
-    company_ceo: '',
-    search_type: '원청사'
-  }
-
-  selectItem:SelectItem;
-
-  submitArr = [];
-  filteritem = [];
-  business_register_no_check: boolean = false;
-  max_out:boolean = false;
+  selectAll:boolean;
+  value:Constractor;
+  values:Constractor[] = [];
+  newValues:Constractor[] = [];
+  
+  allBusinessRegisterNoChecked:boolean = false;
 
   constructor(
     private connect: ConnectService,
@@ -54,141 +52,124 @@ export class SearchContractorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.multiple",this.multiple);
-    this.getCtgoContractor();
+    this.get();
   }
 
-  async getCtgoContractor() {
-    console.log("this.value", this.value);
-    this.res = await this.connect.run('/category/certify/company/get', this.form);
-    if (this.res.rsCode === 0) {
-        for (let i = 0; i < this.res.rsMap.length; i++) {
-          for (let x = 0; x < this.value.length; x++) {
-            if (this.res.rsMap[i].company_id === this.value[x]) {
-              this.res.rsMap[i].checked = true;
-              this.filteritem.push(this.res.rsMap[i]);
-            }
-          }
-        }
-    }
-  }
-
-
-  async addCompany() {
-    // this.filteritem = this.res.rsMap.filter((data, i) => {
-    //   return data.checked === true;
-    // });
-    if(this.multiple){
-      console.log(this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5);
-      if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
-        return await this.toast.present({
-          message: '최대 선택 개수는 5개입니다.',
-          position: 'botton',
-          color: 'danger'
-        });
-      } else {
-        this.submitArr.push({
-          company_id: 0,
-          business_register_no: '',
-          company_name: '',
-          company_ceo: '',
-          search_type: '원청사'
-        });
-      }
-    } else { 
-      this.selectItem = {
-        company_id: 0,
-        business_register_no: '',
-        company_name: '',
-        company_ceo: '',
-        
-      }
-    }
-  }
-
-  async choicCompany(item) {
-    console.log("this.filteritem", this.filteritem);
-    console.log("this.filteritem.length > 5",this.filteritem.length < 6);
-    this.max_out = true;
-    if (this.filteritem.length < 5 ) {
-      item.checked = !item.checked;
-      this.filteritem = this.res.rsMap.filter((data, i) => {
-        return data.checked === true;
-      });
+  async get() {
+    // 현장에 관계 없이, 원청사 전체를 검색을 할 수 있어야 되는 상황이 있는건지?
+    this.res = await this.connect.run('/category/certify/company/master/get', this.form);
+    if(this.res.rsCode === 0) {
+      
     } else {
-      this.max_out = false;
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
-    if(!this.max_out) {
-      return await this.toast.present({
-        message: '최대 선택 개수는 5개입니다.',
-        position: 'botton',
-        color: 'danger'
-      });
+  }
+
+  selectAllConstractor() {
+    this.selectAll = true;
+    
+    this.value = new Constractor();
+    this.values = [];
+    this.newValues = [];
+  }
+
+  async selectConstractor(item) {
+    if(this.multiple) {
+      if(this.values.length + this.newValues.length < 5) {
+        this.values.push(item);
+      } else {
+        this.toast.present({
+          message: '최대 선택 개수는 5개입니다.',
+          color: 'warning'
+        });
+      }
+    } else {
+      this.value = item;
     }
+  }
+  getActive(item:Constractor) {
+    if(this.multiple) {
+      return this.values.indexOf(item);
+    }
+    else {
+      return this.value === item;
+    }
+  }
+
+  async newConstractor() {
+    if(this.multiple) {
+      if(this.values.length + this.newValues.length < 5) {
+        this.newValues.push(new Constractor());
+      } else {
+        this.toast.present({
+          message: '최대 선택 개수는 5개입니다.',
+          color: 'warning'
+        });
+      }
+    } 
+    else {
+      this.value = new Constractor();
+    }
+  }
+  async removeConstractor(index) {
+
   }
 
   async overlap(business_register_no) {
-    console.log("business_register_no", business_register_no);
-    if(this.multiple) {
-      if (business_register_no.length >= 10) {
-        const res = await this.connect.run('/project/overlap/business_register_no', { business_register_no: business_register_no });
-        if (res.rsCode === 0) {
-          this.business_register_no_check = true;
-        } else if (business_register_no.length > 10) {
-          return this.toast.present({ message: '10자 이하로 입력해주세요', color: 'danger' });
-        }
-        else {
-          const toast = await this.toast.present({
-            message: '이미 등록된 사업자등록번호입니다. 등록된 회사 목록에서 선택하여 주세요.',
-            position: 'botton',
-            color: 'danger'
-          });
-        }
+    if (business_register_no.length >= 10) {
+      const res = await this.connect.run('/project/overlap/business_register_no', { business_register_no: business_register_no });
+      if (res.rsCode === 0) {
+        this.allBusinessRegisterNoChecked = true;
+      } 
+      else if (business_register_no.length > 10) {
+        this.allBusinessRegisterNoChecked = false;
+        this.toast.present({ message: '10자 이하로 입력해주세요', color: 'warning' });
+      }
+      else {
+        this.allBusinessRegisterNoChecked = false;
+        this.toast.present({
+          message: '이미 등록된 사업자등록번호입니다. 등록된 회사 목록에서 선택하여 주세요.',
+          color: 'warning'
+        });
       }
     } else {
-
+      this.allBusinessRegisterNoChecked = false;
     }
   }
 
   async submit() {
-    if(this.multiple){
-      console.log(this.business_register_no_check);
-        // let conArr = this.filteritem.concat(this.submitArr);
-        for (let i = 0; i < this.submitArr.length; i++) {
-          if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "danger" });
-          if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "danger" });
-          if (this.submitArr[i].business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
-          if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "danger" });
-          const res = await this.connect.run('/project/company/insert', {
-            business_register_no: this.submitArr[i].business_register_no,
-            company_ceo: this.submitArr[i].company_ceo,
-            company_name: this.submitArr[i].company_name,
-            company_contract_type: '원청사'
-          });
-          if (res.rsCode === 0) {
-            this.getCtgoContractor();
-            this.submitArr = [];
-            return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
-            this._modal_.dismiss(this.filteritem);
-          } else {
-            return this.toast.present({message:res.rsMsg,color:'danger'});
-          }
-        }
-        // let conArr = this.filteritem.concat(this.submitArr);
-        this.filteritem.forEach(item => {
-          if (!item.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "danger" });
-          if (!item.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "danger" });
-          if (item.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "danger" });
-          if (!item.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "danger" });
+    if(this.editable) {
+      for(let i = 0; i < this.newValues.length; i++) {
+        const newValue = this.newValues[i];
+        if (!newValue.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning" });
+
+        if (!newValue.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning" });
+        else if (newValue.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
+        else if(!this.allBusinessRegisterNoChecked) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
+
+        if (!newValue.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning" });
+      }
+
+      for(let i = 0; i < this.newValues.length; i++) {
+        const newValue = this.newValues[i];
+        const res = await this.connect.run('/project/company/insert', {
+          business_register_no: newValue.business_register_no,
+          company_ceo: newValue.company_ceo,
+          company_name: newValue.company_name,
+          company_contract_type: '원청사'
         });
-        this._modal_.dismiss(this.filteritem);
-      
-    } else {
-      if(!this.selectItem.company_name) return await this.toast.present({message:'회사명을 입력하세요', color: "danger"});
-      if(!this.selectItem.business_register_no) return await this.toast.present({message:'사업자등록번호를 입력하세요', color: "danger"});
-      if(!this.selectItem.company_ceo) return await this.toast.present({message:'대표자를 입력하세요', color: "danger"});
-      this._modal_.dismiss(this.selectItem);
+        
+        if (res.rsCode !== 0) {
+          return this.toast.present({ message: res.rsMsg, color: 'warning' });
+        }
+      }
+      this._modal_.dismiss(this.values);
     }
-    console.log(this.business_register_no_check);
+    else if(this.multiple) {
+      this._modal_.dismiss(this.values);
+    }
+    else {
+      this._modal_.dismiss(this.value);
+    }
   }
 }

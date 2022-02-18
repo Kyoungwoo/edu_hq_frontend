@@ -45,7 +45,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-
+console.log("999999999999999999999999",this.value);
   }
 
 

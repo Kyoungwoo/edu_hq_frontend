@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatusSearchComponent } from './component/status-search.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { PipesModule } from 'src/app/basic/pipes/pipes.module';
 import { ComponentModule } from 'src/app/component/component.module';
+import { DetailSearchComponent } from './status-search/detail-search/detail-search.component';
 
 
 
 @NgModule({
   declarations: [
-    StatusSearchComponent
+    DetailSearchComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     ComponentModule
   ],
   exports:[
-    StatusSearchComponent
+    DetailSearchComponent
   ]
 })
 export class StatusSearchModule { }

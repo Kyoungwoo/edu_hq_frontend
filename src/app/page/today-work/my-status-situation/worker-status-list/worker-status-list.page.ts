@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
-import { SelectPeopleComponent } from 'src/app/component/select/select-people/select-people.component';
-import { StatusSearchComponent } from '../../component/status-search.component';
+import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
 
 @Component({
@@ -59,10 +57,13 @@ export class WorkerStatusListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     console.log(data);
   }
+
   async detailSearch() {
     const modal = await this.modal.create({
-      component:StatusSearchComponent
+      component:DetailSearchComponent
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.getGate();
   }
 }

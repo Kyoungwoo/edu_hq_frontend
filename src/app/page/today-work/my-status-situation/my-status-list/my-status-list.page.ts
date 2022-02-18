@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 
 @Component({
   selector: 'app-my-status-list',
@@ -9,73 +12,64 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 export class MyStatusListPage implements OnInit {
 
   open:boolean = false;
-  dummyArr = [
-    {
-      open: false,
-      title:'앱 사용 공지',
-      company:'구일종합건설㈜',
-      user_name:'김준태',
-      write_date:'2021.10.18',
-      status:'입장',
-      status_hour:'12:30'
-    },
-    {
-      open: false,
-      user_id:2,
-      title:'dev 공지',
-      company:'구일종합건설㈜',
-      user_name:'김준태',
-      write_date:'2021.10.18',
-      status:'입장',
-      status_hour:'12:31'
-    },
-    {
-      open: false,
-      user_id:3,
-      title:'gsil 공지',
-      company:'구일종합건설㈜',
-      user_name:'김준태',
-      write_date:'2021.10.18',
-      status:'퇴장',
-      status_hour:'12:33'
-    },
-    {
-      open: false,
-      user_id:4,
-      title:'LH 공지',
-      company:'구일종합건설㈜',
-      user_name:'김준태',
-      write_date:'2021.10.18',
-      status:'퇴장',
-      status_hour:'12:36'
-    },
-  ]
-  hourArr1 = [
-    {
-      status:'입장',
-      status_hour:'12:30'
-    },
-    {
-      status:'입장',
-      status_hour:'12:31'
-    },
-    {
-      status:'퇴장',
-      status_hour:'12:33'
-    },
-    {
-      user_id:2,
-      status:'퇴장',
-      status_hour:'12:36'
-    },
-  ]
+
+  form = {
+    master_company_id: 1,
+    project_id:0
+  }
+
+  resgate:ConnectResult<{
+    area_bottom_name: string,
+    area_risk_id: number,
+    last_state: string,
+    user_id: number,
+    area_middle_name: string,
+    last_time: string,
+    area_top_name: string,
+    inner_data: [{
+      work_state: string,
+      inside_time: string,
+      serial_type: string,
+      area_risk_id: number,
+      outside_time: string,
+      area_top_name: string,
+      area_risk_name: string,
+      area_bottom_name: string,
+      area_middle_name: string,
+    }],
+    area_risk_name: string
+  }>
 
   constructor(
-    private nav:NavService
+    private nav: NavService,
+    private modal: ModalController,
+    private connect: ConnectService
   ) { }
 
   ngOnInit() {
+  }
 
+  async get() {
+    this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list',this.form,{parse:['inner_data']});
+    if(this.resgate.rsCode === 0) {
+      console.log(this.resgate);
+    }
+  }
+
+  async detailSearch() {
+    const modal = await this.modal.create({
+      component:DetailSearchComponent,
+      componentProps:{
+        type:'my'
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      // this.form.master_company_id = data.master_company_id;
+      this.form.project_id = data.project_id;
+      this.get();
+    }
   }
 
   status(item) {

@@ -28,7 +28,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   @Input() label:string = "공종";
   @Input() placeholder:string = "선택";
   
-  private _project_id:number;
+  private _project_id:number = 0;
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
@@ -53,6 +53,13 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
     this.res = await this.connect.run('/category/construction/get', {
       project_id: this.project_id
     });
+  }
+  checkProject() {
+    if(!this.project_id) {
+      this.res = new ConnectResult();
+      this.res.rsCode = 1008;
+      this.res.rsMsg = '현장을 선택해주세요.';
+    }
   }
 
   //default setting

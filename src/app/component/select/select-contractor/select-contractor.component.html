@@ -1,3 +1,7 @@
-<app-input name="with img" [(ngModel)]="text" [disabled]="disabled" [readonly]="true" label="원청사">
+<app-input name="with img" label="원청사"
+[color]="res && res.rsCode ? 'warning' : color"
+[(ngModel)]="text"
+placeholder="선택" [readonly]="true" [disabled]="disabled">
   <app-img name="search"></app-img>
 </app-input>
+<app-input-caption *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-input-caption>
