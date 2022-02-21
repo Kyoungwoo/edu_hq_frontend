@@ -34,10 +34,10 @@ export class NoticeListPage implements OnInit {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    company_ids: [1],
+    company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     notice_types: [],
-    project_ids: [1],
+    // project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0
@@ -80,7 +80,7 @@ export class NoticeListPage implements OnInit {
     this.form.limit_no = limit_no;
 
     let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
+    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/board/notice/list', this.form, {
       loading: '공지사항 불러오기'
     });
@@ -112,7 +112,6 @@ export class NoticeListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.get();
     }
   }
@@ -121,5 +120,8 @@ export class NoticeListPage implements OnInit {
     $event.stopPropagation();
     item.favorites_state = item.favorites_state ? 0 : 1;
     this.resFavorite = await this.connect.run('/board/notice/favorites', { notice_id:item.notice_id });
+    if(this.resFavorite.rsCode === 0) {
+      this.get();
+    }
   }
 }

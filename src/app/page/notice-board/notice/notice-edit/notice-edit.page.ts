@@ -72,7 +72,6 @@ export class NoticeEditPage implements OnInit {
     } else {
       this.form.company_name = this.user.userData.user_role;
       this.form.user_name = this.user.userData.user_name;
-      console.log(this.form.user_name);
       this.form.create_date = this.date.today();
       this.title = '등록';
     }

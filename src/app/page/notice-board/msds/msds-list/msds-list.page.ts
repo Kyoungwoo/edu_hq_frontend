@@ -41,10 +41,10 @@ export class MsdsListPage implements OnInit {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    company_ids: [1],
+    company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     msds_types : [],
-    project_ids: [1],
+    // project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0
@@ -89,7 +89,7 @@ export class MsdsListPage implements OnInit {
     this.form.limit_no = limit_no;
 
     let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
+    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/board/msds/list', this.form, {
       loading: 'MSDS 불러오기'
     })
@@ -109,7 +109,6 @@ export class MsdsListPage implements OnInit {
       this.form = data;
       this.get();
     }
-    console.log(data);
   }
   async edit(item?) {
     const modal = await this.modal.create({
@@ -121,7 +120,6 @@ export class MsdsListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.get();
     }
   }
@@ -129,5 +127,8 @@ export class MsdsListPage implements OnInit {
     $event.stopPropagation();
     item.favorites_state = item.favorites_state ? 0 : 1;
     this.resFavorite = await this.connect.run('/board/msds/favorites', { msds_id:item.msds_id });
+    if(this.resFavorite.rsCode === 0) {
+      this.get();
+    }
   }
 }
