@@ -14,7 +14,6 @@ export class Constractor {
   create_user_id = 0;
   create_user_name = "";
   ctgo_construction_name = "";
-  master_company_name = "";
   project_id = 0;
   project_name = "";
   update_date = "";

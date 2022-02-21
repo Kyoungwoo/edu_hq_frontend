@@ -30,7 +30,11 @@
           </tr>
           <tr>
             <td>
-              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              <app-input-group label="기간">
+                <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                ~
+                <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+              </app-input-group>
             </td>
           </tr>
         </tbody>
@@ -50,29 +54,25 @@
       <app-table>
         <thead>
           <tr>
-            <th>NO</th>
-            <th>현장명</th>
-            <th>원청사명</th>
-            <th>협력사명</th>
-            <th>사업자등록번호</th>
-            <th>대표자</th>
-            <th>공종</th>
-            <th>전화번호</th>
-            <th>최근 업데이트</th>
-            <th>작성자</th>
+            <th colspan="2">출역일</th>
+            <th rowspan="2">원청사</th>
+            <th rowspan="2">협력사</th>
+            <th colspan="2">합계</th>
+          </tr>
+          <tr>
+            <th>관리자</th>
+            <th>작업자</th>
+            <th>관리자</th>
+            <th>작업자</th>
           </tr>
         </thead>
-          <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
-            <td>{{ i + 1 }}</td>
-            <td>{{ item.project_name }}</td>
-            <td>{{ item.master_company_name }}</td>
-            <td>{{ item.company_name }}</td>
-            <td>{{ item.business_register_no }}</td>
-            <td>{{ item.company_ceo}}</td>
-            <td>{{ item.ctgo_construction_name }}</td>
-            <td>{{ item.company_phone }}</td>
-            <td>{{ item.update_date }}</td>
-            <td>{{ item.create_user_name}}</td>
+          <tr class="button" *ngFor="let item of res?.rsMap; let i = index" (click)="edit(item)">
+            <td>{{ item.work_date }}</td>
+            <td>{{ item.master_admin }}</td>
+            <td>{{ item.master_worker }}</td>
+            <td>{{ item.company_admin }}</td>
+            <td>{{ item.company_worker }}</td>
+            <td>{{ item.total_cnt }}</td>
           </tr>
         <tbody>
         </tbody>

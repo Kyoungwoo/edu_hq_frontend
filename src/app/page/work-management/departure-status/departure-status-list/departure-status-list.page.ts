@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { DateService } from 'src/app/basic/service/util/date.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PartnerEditPage } from 'src/app/page/project-management/partner-management/partner-edit/partner-edit.page';
 
 @Component({
@@ -13,27 +15,22 @@ import { PartnerEditPage } from 'src/app/page/project-management/partner-managem
 export class DepartureStatusListPage implements OnInit {
 
   form = {
-    project_id: this.user.userData.belong_data.project_id,
-    master_company_id: 0,
-    ctgo_construction_ids: [],
-    search_text: '',
-    limit_no: 0
+    project_id: this.user.userData.belong_data.project_id, // 현장 ID
+    master_company_id: 0, // 원청사 ID
+    ctgo_construction_ids: [], // 공종 ID
+    start_date: this.date.today({ month: -1 }), // 검색 시작일
+    end_date: this.date.today(), // 검색 종료일
+    limit_no: 0 // limit_no
   }
 
   res:ConnectResult <{
-    company_phone: string,
-    create_user_id: number,
-    company_id: number,
-    create_user_name: string,
-    project_id: number,
-    business_register_no: string,
-    company_name: string,
-    ctgo_construction_name: string,
-    company_ceo: string,
-    project_name: string,
-    master_company_name: string,
-    update_date: string,
-    row_count: number
+    company_admin:number,
+    company_worker:number,
+    master_admin:number,
+    master_worker:number,
+    total_cnt:number,
+    work_date:string,
+    row_count:number
   }>
 
   permission = {
@@ -44,7 +41,9 @@ export class DepartureStatusListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     public user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private date: DateService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {
@@ -74,8 +73,10 @@ export class DepartureStatusListPage implements OnInit {
   }
 
   async getList(limit_no = this.form.limit_no) {
+    await this.promise.wait(() => this.form.master_company_id);
+    
     this.form.limit_no = limit_no;
-    this.res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
+    this.res = await this.connect.run('/work_state/list', this.form, { loading: true });
     if(this.res.rsCode !== 0) {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }

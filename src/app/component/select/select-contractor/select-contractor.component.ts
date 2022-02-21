@@ -4,6 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { Constractor, SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 @Component({
   selector: 'app-select-contractor',
   templateUrl: './select-contractor.component.html',
@@ -47,24 +48,31 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
 
   res:ConnectResult<Constractor>;
 
-
-  isModalData:boolean = false;
-
+  loading:boolean = false;
  
   constructor(
     private _modal:ModalController,
-    private connect:ConnectService
+    private connect:ConnectService,
+    private user: UserService
   ) { }
 
   ngOnInit() {
   }
 
   public async get() {
+    if(this.loading) return;
+    this.loading = true;
+    const { user_type } = this.user.userData;
     if(!this.project_id || !this.value) {
       if(this.allState) this.text = '전체';
       else this.text = '';
-      return;
+
+      if(user_type !== 'LH') {
+        this.loading = false;
+        return;
+      }
     }
+
     this.res = await this.connect.run('/category/certify/company/master/get', {
       project_id: this.project_id,
       company_contract_type: '원청사',
@@ -73,17 +81,26 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
       if(this.multiple) {
+        if(!this.value && user_type === 'LH') {
+          this.value = [rsMap[0].company_id];
+        }
+
         this.text = rsMap
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();
       } else {
+        if(!this.value && user_type === 'LH') {
+          this.value = rsMap[0].company_id;
+        }
+
         this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
       }
     }
+    this.loading = false;
   }
   
   public async openModal() {
-    this.isModalData = true;
+    this.loading = true;
     const modal = await this._modal.create({
       component: SearchContractorComponent,
       componentProps: {
@@ -98,12 +115,15 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     if(data) {
       if(this.multiple) {
         const values:Constractor[] = data;
-        this.value = values.map(constractor => constractor.company_id);
+        this.value = values?.map(constractor => constractor.company_id);
+        this.text = values?.map(constractor => constractor.company_name).join();
       } else {
         const value:Constractor = data;
         this.value = value?.company_id || 0;
+        this.text = value?.company_name;
       }
     }
+    this.loading = false;
   }
  
   @Output() change = new EventEmitter();
