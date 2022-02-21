@@ -156,8 +156,6 @@ console.log("999999999999999999999999",this.value);
   @Input() set value(v: CompanyData[]) {
     if (v !== this._value) {
       this._value = v || [];
-      this.get();
-      console.log("=================1", v);
       this.onChangeCallback(v);
       this.change.emit(this.data);
     }
@@ -168,8 +166,6 @@ console.log("999999999999999999999999",this.value);
   writeValue(v: any): void {
     if (v !== this._value) {
       this._value = v || [];
-      this.get();
-      console.log("=================2", v);
       this.onChangeCallback(v);
       this.change.emit(this.data);
     }

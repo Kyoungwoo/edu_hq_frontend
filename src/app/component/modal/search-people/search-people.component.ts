@@ -27,8 +27,7 @@ export class SearchPeopleComponent implements OnInit {
     search_text: '',
     user_type: ''
   }
-  @Input() type:string
-  ctgoMemberItem:ConnectResult <ctgoMemberItem>
+  res:ConnectResult<ctgoMemberItem>
 
   selectedItem:ctgoMemberItem;
   constructor(
@@ -38,18 +37,15 @@ export class SearchPeopleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.type === 'approval') {
-      this.form.user_type = '관리자';
-      this.ctgoConstruction();
-    }
+    this.get();
   }
 
-  async ctgoConstruction() {
-    this.ctgoMemberItem = await this.connect.run('/category/education/manager/get',this.form);
+  async get() {
+    this.res = await this.connect.run('/category/certify/company/user/get',this.form);
   }
   select() {
     this._modal.dismiss({
       selectedItem: this.selectedItem
-    })
+    });
   }
 }

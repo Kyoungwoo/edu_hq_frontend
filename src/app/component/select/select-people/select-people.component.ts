@@ -24,8 +24,14 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string = "회원";
-  @Input() user_type:string;
-  @Input() text:string;
+
+  private _company_id:number = 0;
+  @Input() set company_id(v:number) { this._company_id = v; };
+  get company_id() { return this._company_id };
+  @Input() user_type:'COMPANY' | 'WORKER' = 'COMPANY';
+  @Input() user_type_editable:boolean = false;
+
+  text:string;
 
   isModalData:boolean = false;
   constructor(
@@ -37,7 +43,16 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   public async get() {
-    
+    console.log(this.company_id, this.value);
+    if(!this.company_id || !this.value) return;
+    const res = await this.connect.run('/category/certify/company/user/get', {
+      company_id: this.company_id,
+      user_type: this.user_type,
+      search_text: ''
+    });
+    if(res.rsCode === 0) {
+      this.text = res.rsMap.find(user => user.user_id === this.value)?.user_name || '없음';
+    }
   }
 
   public async openModal() {
@@ -45,7 +60,7 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
       component: SearchPeopleComponent,
       componentProps: {
         form: {
-          project_id: this.user.userData.belong_data.project_id,
+          company_id: this.company_id,
           user_type: this.user_type,
           search_text: ''
         }
@@ -53,8 +68,7 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log(data);
-    if(data){
+    if(data) {
       const selectedItem = <ctgoMemberItem>data.selectedItem
       this.value = selectedItem.user_id
       this.text = selectedItem.user_name
@@ -71,6 +85,7 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:number) {
     if(v !== this._value) {
       this._value = v;
+      this.get();
       this.onChangeCallback(v);
       this.change.emit(v);
     }

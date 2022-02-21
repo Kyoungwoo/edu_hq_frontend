@@ -81,7 +81,11 @@
             </app-input-group>
           </td>
           <td>
-            <app-select-people name="manager_user_id" [(ngModel)]="item.manager_user_id"></app-select-people>
+            <app-select-people name="manager_user_id"
+            [company_id]="form.company_id"
+            [user_type]="'COMPANY'"
+            [user_type_editable]="false"
+            [(ngModel)]="item.manager_user_id"></app-select-people>
           </td>
         </tr>
       </ng-container>

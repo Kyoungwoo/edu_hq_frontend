@@ -121,7 +121,7 @@ export class MyStatusListPage implements OnInit {
   }
 
   workerSatus() {
-    this.nav.navigateForward('/worker-status-list');
+    this.nav.navigateForward('/worker-status-list',{state:this.form});
   }
 
   async inNfcQr() {
