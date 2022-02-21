@@ -162,6 +162,7 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck) {
       this.level1();
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -174,6 +175,7 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.rolepass = false;
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -192,6 +194,7 @@ export class MemberStandardSetPage implements OnInit {
         this.jobForm.company_id = this.user.userData.belong_data.company_id;
       }
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -206,6 +209,7 @@ export class MemberStandardSetPage implements OnInit {
       this.getSafeJob();
       this.rolepass = false;
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -220,6 +224,7 @@ export class MemberStandardSetPage implements OnInit {
       this.rolepass = false;
       this.getOccupation();
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -236,6 +241,7 @@ export class MemberStandardSetPage implements OnInit {
       this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
       if (this.resLevel1.rsCode === 0) { }
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
