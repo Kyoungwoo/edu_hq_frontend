@@ -3,12 +3,15 @@ import { ModalController } from '@ionic/angular';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
 export class WorkerApprovalItem {
   company_id: number;
+  approval_user_id: number;
+  session_company_id: number;
   user_manage_session: string;
   user_email: string;
   sharing_terms: number;
@@ -29,6 +32,7 @@ export class WorkerApprovalItem {
   file_json: FileJson = new FileJson();
 
   //소속정보
+  update_date: string;
   ctgo_job_position_name_kr: string;
   ctgo_construction_id: number;
   ctgo_job_position_id: number;
@@ -39,8 +43,14 @@ export class WorkerApprovalItem {
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  // user_safe_job_file_data: [];
-  // user_safe_job_data: [];
+  user_safe_job_file_data: [];
+  user_safe_job_data: [{
+    ctgo_safe_job_id: 0,
+    ctgo_safe_job_name_kr: "",
+    safe_job_start_date: "",
+    user_id: 0, 
+    user_safe_job_id: 0
+  }];
   // user_certify_file_data: [];
   // user_certify_data: [];
   
@@ -66,7 +76,8 @@ export class WorkerApprovalEditPage implements OnInit {
     private _modal_ : ModalController,
     private connect: ConnectService,
     private user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private alert: AlertService,
   ) { }
 
   ngOnInit() {
@@ -92,7 +103,7 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
   async getItem() {
-
+    //기본정보
     const res = await this.connect.run('/usermanage/approval/worker/basic/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
@@ -100,6 +111,7 @@ export class WorkerApprovalEditPage implements OnInit {
     }, {
       parse: ['user_profile_file_data']
     });
+    
     if (res.rsCode === 0) {
       this.form = {
         ...this.form,
@@ -110,6 +122,27 @@ export class WorkerApprovalEditPage implements OnInit {
        this.getPassword();
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+
+    //소속정보
+    const ress = await this.connect.run('/usermanage/approval/worker/belong/detail', {
+      session_company_id : this.user.userData.belong_data.company_id,
+      user_id : this.item.user_id,
+      user_manage_session : this.user.memberAuthToken
+    }, {
+      parse: ['user_safe_job_data','user_safe_job_file_data','user_certify_file_data','user_certify_data']
+    });
+    
+    if (res.rsCode === 0) {
+      this.form = {
+        ...this.form,
+        ...ress.rsObj
+      }
+    } else if(res.rsCode === 3008) {
+       // 비밀번호 없거나 틀렸음
+       this.getPassword();
+    } else {
+      this.toast.present({ color: 'warning', message: ress.rsMsg });
     }
   }
   
@@ -143,13 +176,53 @@ export class WorkerApprovalEditPage implements OnInit {
       this._modal_.dismiss('Y');
     } 
   }
-  // public submit() {
-  //   this.noticeText.update();
-  //   if(this.form.notice_id) {
-  //     this.update();
-  //   } else {
-  //     this.noticeInsert();
-  //   }
-  // }
+  async submit() { 
+    //기본정보 저장
+    // if(!this.valid()) return;
+    this.form.session_company_id = this.user.userData.belong_data.company_id;
+    this.form.user_manage_session = this.user.memberAuthToken;
+    this.form.approval_user_id = this.form.user_id
+
+    this.alert.present({
+      message:'저장 하시겠습니까?',
+      buttons:[
+        { text:'아니요' },
+        {
+          text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
+            if(res.rsCode === 0) {
+              this._modal_.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    });
+
+    //소속정보 저장
+    // this.form.session_company_id = this.user.userData.belong_data.company_id;
+    // this.form.user_manage_session = this.user.memberAuthToken;
+    // this.form.approval_user_id = this.form.user_id;
+    // this.alert.present({
+    //   message:'저장 하시겠습니까?',
+    //   buttons:[
+    //     { text:'아니요' },
+    //     {
+    //       text:'예',
+    //       handler: async() => {
+    //         const ress = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
+    //         if(ress.rsCode === 0) {
+    //           this._modal_.dismiss('Y');
+    //         } else {
+    //           this.toast.present({ color: 'warning', message: ress.rsMsg });
+    //         }
+    //       }
+    //     }
+    //   ]
+    // });
+
+  }
 }
 

@@ -12,6 +12,7 @@ class WorkerInfo {
   ctgo_construction_id: number;
   create_user_id: number;
   company_id: number;
+  project_id: number;
   user_name: string;
   ctgo_construction_name: string;
   ctgo_country_name_kr: string;
@@ -65,6 +66,8 @@ export class WorkerApprovalListPage implements OnInit {
     const authToken = this.user.memberAuthToken;
     this.form.user_manage_session = authToken;
 
+    // let trans_form = JSON.parse(JSON.stringify(this.form));
+    // trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/usermanage/approval/worker/list', this.form, {
       loading: true
     });
@@ -78,7 +81,8 @@ export class WorkerApprovalListPage implements OnInit {
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.toast.present({ color: 'danger', message: this.res.rsMsg });
+      this.getPassword();
+      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
 

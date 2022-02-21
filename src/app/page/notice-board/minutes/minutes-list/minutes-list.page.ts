@@ -32,10 +32,10 @@ export class MinutesListPage implements OnInit {
 
   form = { 
     project_id: this.user.userData.belong_data.project_id,
-    company_ids: [1],
+    company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     safety_meeting_types: [],
-    project_ids: [],
+    // project_ids: [],
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0,
@@ -80,7 +80,7 @@ export class MinutesListPage implements OnInit {
     this.form.limit_no = limit_no;
     
     let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_ids = trans_form.project_ids ? [trans_form.project_ids] : [];
+    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/board/safety_meeting/list', trans_form, {
       loading: '회의록 불러오기'
     });
