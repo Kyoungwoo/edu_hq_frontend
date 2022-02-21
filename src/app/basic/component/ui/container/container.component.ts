@@ -13,7 +13,7 @@ export class ContainerComponent implements OnInit {
     return _class.join(' ');
   }
 
-  @Input() size:'small' | 'default' | 'large';
+  @Input() size:'small' | 'default' | 'large' = 'large';
 
   constructor() { }
 
