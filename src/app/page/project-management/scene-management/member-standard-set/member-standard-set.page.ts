@@ -143,7 +143,7 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    console.log(this.user.userData);
     if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_type === 'COMPANY') {
       this.memberRoleCheck = false;
     }

@@ -40,6 +40,7 @@
             <app-input name="phone-number" label="휴대폰" [(ngModel)]="form.user_phone" [required]="true" (click)="overlapPhone()">
               중복확인
               </app-input>
+              <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
           </app-col>
           <app-col>
             <app-select-country name="국가"
@@ -62,7 +63,7 @@
       <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
           <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
-          <app-button style="width: 120px;">저장</app-button>
+          <app-button style="width: 120px;" (click)="submit()">저장</app-button>
         </ion-buttons>
       </ion-toolbar>
     </app-card>
@@ -81,45 +82,35 @@
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
-            <p>최종 수정일 : 2021년 06월 01일</p>
+            <p>최종 수정일 : {{ item.update_date }}</p>
           </app-col>
         </app-row>
         <h5>소속정보</h5>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="업체명" value="input disabled" [disabled]="true" [(ngModel)]="form.company_id"></app-input>
+            <app-input name="input disabled" label="업체명" [disabled]="true" [(ngModel)]="form.company_name"></app-input>
           </app-col>
           <app-col>
-            <app-select label="직위" name="select">
-              <app-select-option>작업자</app-select-option>
-              <app-select-option>작업자</app-select-option>
-              <app-select-option>작업자</app-select-option>
-              <app-select-option>작업자</app-select-option>
-            </app-select>
+            <app-select-position [company_id]="form.company_id" name="직위" label="직위" [(ngModel)]="form.ctgo_job_position_id" [required]="true"></app-select-position>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="현장명" value="input disabled" [disabled]="true"></app-input>
+            <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="form.project_id"></app-input>
           </app-col>
           <app-col>
-            <app-select label="공종" name="select">
-              <app-select-option>건축</app-select-option>
-              <app-select-option>토목</app-select-option>
-              <app-select-option>건설</app-select-option>
-              <app-select-option>전기</app-select-option>
-            </app-select>
+            <app-select-construction [project_id]="form.project_id" name="공종" label="공종"  [(ngModel)]="form.ctgo_construction_id" [required]="true"></app-select-construction>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-radio-input name="계약유형" label="계약유형">
+            <app-radio-input name="계약유형" label="계약유형" [(ngModel)]="form.work_contract_type">
               <app-radio value="상용직">상용직</app-radio>
               <app-radio value="일용직">일용직</app-radio>
             </app-radio-input>
           </app-col>
           <app-col>
-            <app-input name="with img" label="직종" placeholder="장비운전원">
+            <app-input name="with img" label="직종" placeholder="장비운전원" [(ngModel)]="form.ctgo_occupation_name_kr">
               <app-img name="search"></app-img>
             </app-input>
           </app-col>
@@ -136,13 +127,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of form.user_safe_job_data">
               <td style="text-align: left;">1</td>
-              <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-              <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-              <td><a>선임서.pdf<app-img name="search"></app-img></a>
+              <td><app-select-safetymanager name="안전직무" [company_id]="form.company_id" user_type="WORKER" [(ngModel)]="item.ctgo_safe_job_id" [required]="true"></app-select-safetymanager></td>
+              <td><app-calendar [(ngModel)]="item.safe_job_start_date" name="안전직무선임일"></app-calendar></td>
+              <td><a>선임서.pdf</a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
+                  <app-file name="input" view_type="JOB"
+                  [(ngModel)]="form.file_data"
+                  [file]="form.file"
+                  [file_json]="form.file_json"
+                  ></app-file>
                 </app-button>
               </td>
               <td>
@@ -150,20 +146,6 @@
               <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
                 <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
             </tr>
-            <tr>
-            <td style="text-align: left;">1</td>
-            <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-            <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-            <td><a>선임서.pdf<app-img name="search"></app-img></a>
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="save"></app-img>
-              </app-button>
-            </td>
-            <td>
-            </td>
-            <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-              <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
-          </tr>
           </tbody>
         </app-table>
         <!-- <app-row>
@@ -190,21 +172,7 @@
             <tr>
               <td style="text-align: left;">1</td>
               <td style="text-align: left;"><app-input name="면허번호" placedholder="면허번호를 입력해주세요."></app-input></td>
-              <td style="text-align: left;"><a>선임서.pdf<app-img name="search"></app-img></a>
-                <app-button shape="circle" size="small" fill="translucent">
-                  <app-img name="save"></app-img>
-                </app-button>
-              </td>
-              <td>
-              </td>
-              <td style="text-align: right;">
-                <app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-                <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
-            </tr>
-            <tr>
-              <td style="text-align: left;">1</td>
-              <td style="text-align: left;"><app-input name="면허번호" placedholder="면허번호를 입력해주세요."></app-input></td>
-              <td style="text-align: left;"><a>선임서.pdf<app-img name="search"></app-img></a>
+              <td style="text-align: left;"><a>선임서.pdf</a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
                 </app-button>

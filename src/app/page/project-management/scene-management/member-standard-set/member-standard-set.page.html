@@ -490,7 +490,7 @@
         <tbody>
           <tr>
             <app-select-company [disabled]="rolepass || 
-             user.userData.user_role === 'COMPANY_HEAD' || user.userData.user_type === 'COMPANY'" [project_id]="this.user.userData.belong_data.project_id" [multiple]="false" [(ngModel)]="safeJobForm.company_id">
+             user.userData.user_role === 'COMPANY_HEAD' || user.userData.user_type === 'COMPANY'" [multiple]="false" [(ngModel)]="safeJobForm.company_id">
             </app-select-company>
           </tr>
           <tr>
@@ -604,7 +604,7 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [disabled]="rolepass" [project_id]="user.userData.belong_data.project_id" [multiple]="false" [(ngModel)]="occupationForm"></app-select-company>
+              <app-select-company [disabled]="rolepass" [multiple]="false" [(ngModel)]="occupationForm"></app-select-company>
             </td>
           </tr>
           <tr>

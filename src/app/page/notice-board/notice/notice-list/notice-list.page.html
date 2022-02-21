@@ -17,12 +17,12 @@
               <td>
                 <app-select-scene 
                 [company_id]="user.userData.belong_data.company_id" 
-                [(ngModel)]="form.project_ids"></app-select-scene>
+                [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_ids"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
