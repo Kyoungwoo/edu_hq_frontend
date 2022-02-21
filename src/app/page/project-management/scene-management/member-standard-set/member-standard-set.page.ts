@@ -84,8 +84,11 @@ export class MemberStandardSetPage implements OnInit {
     ctgo_job_position_id: number,
     ctgo_job_position_name_ch: string
   }>
-
-  jobForm: number = this.user.userData.belong_data.company_id;
+  
+  jobForm = {
+    company_id: this.user.userData.belong_data.company_id,
+    project_id: this.user.userData.belong_data.project_id
+  } 
   addPosition = [];
   selectList = [];
 
@@ -93,7 +96,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //안전직무
   safeJobForm = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     user_type: ''
   }
 
@@ -114,7 +117,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //직종
 
-  occupationForm = 0;
+  occupationForm =  this.user.userData.belong_data.company_id;
 
   resOccupation: ConnectResult<{
     ctgo_occupation_use_state: number,
@@ -140,8 +143,8 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+    
+    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_type === 'COMPANY') {
       this.memberRoleCheck = false;
     }
     if (this.user.userData.user_role === 'LH_HEAD') {
@@ -159,6 +162,7 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck) {
       this.level1();
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -171,6 +175,7 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.rolepass = false;
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -180,14 +185,16 @@ export class MemberStandardSetPage implements OnInit {
   }
   async menuCount5() {
     this.menuCount = 5;
+    console.log(this.user.userData)
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getJobPosition();
       this.rolepass = false;
-      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
-      if (this.user.userData.user_role === 'COMPANY_HEAD') {
-        this.jobForm = this.user.userData.belong_data.company_id;
+      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm.company_id = this.user.userData.belong_data.company_id;
+      if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_type === 'COMPANY') {
+        this.jobForm.company_id = this.user.userData.belong_data.company_id;
       }
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -202,6 +209,7 @@ export class MemberStandardSetPage implements OnInit {
       this.getSafeJob();
       this.rolepass = false;
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -216,6 +224,7 @@ export class MemberStandardSetPage implements OnInit {
       this.rolepass = false;
       this.getOccupation();
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -232,6 +241,7 @@ export class MemberStandardSetPage implements OnInit {
       this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
       if (this.resLevel1.rsCode === 0) { }
     } else {
+      this.rolepass = true;
       const alert = await this.alert.present({
         message: '권한이 없습니다.',
         buttons: [{ text: '확인' }]
@@ -532,7 +542,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_job_position_name_kr: '',
         ctgo_job_position_use_state: 0,
         ctgo_job_position_name_en: '',
-        company_id: this.jobForm,
+        company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
         ctgo_job_position_id: 0,
         ctgo_job_position_name_ch: ''
@@ -543,7 +553,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_job_position_name_kr: '',
         ctgo_job_position_use_state: 0,
         ctgo_job_position_name_en: '',
-        company_id: this.jobForm,
+        company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
         ctgo_job_position_id: 0,
         ctgo_job_position_name_ch: ''

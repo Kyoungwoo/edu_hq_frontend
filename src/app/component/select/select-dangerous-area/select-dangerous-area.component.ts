@@ -17,7 +17,17 @@ import { SearchDangerousAreaComponent } from '../../modal/search-dangerous-area/
 export class SelectDangerousAreaComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
+  @Input() multiple:boolean = false;
   @Input() label:string = "위험지역";
+
+  private _project_id:number = 0;
+  @Input() set project_id(v:number) {
+    if(this._project_id !== v) {
+      this._project_id = v;
+      this.value = this.multiple ? [] : 0;
+    }
+  }
+  get project_id() { return this._project_id }
 
   constructor(
     private _modal:ModalController
@@ -25,18 +35,23 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
 
   ngOnInit() {}
   async dangerous(){
+    console.log("this.projcet_id",this.project_id);
     const modal = await this._modal.create({
-      component:SearchDangerousAreaComponent
+      component:SearchDangerousAreaComponent,
+      componentProps: {
+        project_id:this.project_id
+      }
     });
     modal.present();
   }
 
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:number[] | number;
+  @Input() set value(v:number[] | number) {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v ? v : this.multiple ? [] : 0;
+      // this.get();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -44,10 +59,13 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  writeValue(v:[]): void { 
+    if(v !== this._value) {
+      this._value = v ? v : this.multiple ? [] : 0;
+      // this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

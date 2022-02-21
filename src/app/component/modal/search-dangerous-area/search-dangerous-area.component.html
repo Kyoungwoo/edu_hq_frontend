@@ -7,58 +7,34 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-select label="구분" name="select">
-        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
+      <app-select label="위험지역유형" name="select" [(ngModel)]="form.ctgo_area_risk_id">
+        <app-select-option *ngFor="let opt of ctgoAreaType?.rsMap" [value]="opt.ctgo_area_risk_id">{{ opt.ctgo_area_risk_name }}</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-        <app-img name="search"></app-img>
+        <app-img (click)="riskTypeGet()" name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
+  <app-card *ngFor="let item of resRiskArea?.rsMap" [color]="selectList === item ? 'secondary' : 'white'" (click)="selectList = item">
     <app-row>
       <app-col size="auto">
-        <h5>전기실</h5>
-        <p>전기실A / 101동 1층</p>
+        <h5>장소</h5>
+        <p>{{ item.area_top_name }} / {{ item.area_middle_name }} / {{ item.area_bottom_name }}</p>
       </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
       <app-col size="auto">
-        <h5>기계실</h5>
-        <p>기계실A / 105동 2층</p>
+        <h5>위험지역 유형</h5>
+        <p>{{ item.ctgo_area_risk_name }}</p>
       </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
       <app-col size="auto">
-        <h5>전기실</h5>
-        <p>전기실B / 102동 8층</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>기계실</h5>
-        <p>기계실C / 201동 1층</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>전기실</h5>
-        <p>전기실C / 401동 4층</p>
+        <h5>위험지역명</h5>
+        <p>{{ item.area_risk_name }}</p>
       </app-col>
     </app-row>
   </app-card>
 </ion-content>
 <app-button-footer>
   <app-button>취소</app-button>
-  <app-button>적용</app-button>
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>

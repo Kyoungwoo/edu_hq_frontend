@@ -51,6 +51,7 @@ export class WorkerStatusListPage implements OnInit {
     project_id:0,
     search_text:''
   }
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
@@ -58,14 +59,15 @@ export class WorkerStatusListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.gateForm = history.state;
-    console.log(this.gateForm);
+    console.log(history.state.project_id);
+    this.gateForm.project_id = history.state.project_id;
+    console.log(this.gateForm.project_id);
     this.getGate();
   }
 
   async getGate() {
     this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.gateForm,{
-      parse:['inner_data', 'ctgo_job_position_name',]
+      parse:['inner_data', 'ctgo_job_position_name','ctgo_occupation_name','ctgo_safe_job_name']
     });
     if(this.gateList.rsCode === 0) {
       

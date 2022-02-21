@@ -6,10 +6,10 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 
 export class SelectItem {
-  company_id: number;
-  business_register_no: string;
-  company_name: string;
-  company_ceo: string;
+  company_id: 0;
+  business_register_no: '';
+  company_name: '';
+  company_ceo: '';
 } 
 
 @Component({
@@ -19,12 +19,10 @@ export class SelectItem {
 })
 export class SearchCompanyComponent implements OnInit {
 
-
-  @Input() value;
   @Input() type?: boolean = false;
   @Input() multiple:boolean;
   @Input() form = {
-    company_contract_type: '',
+    project_id:0,
     search_text: ''
   }
 
@@ -47,7 +45,7 @@ export class SearchCompanyComponent implements OnInit {
     search_type: ''
   }
 
-  selectItem:SelectItem;
+  selectItem;
 
   submitArr = [];
   filteritem = [];
@@ -60,14 +58,12 @@ export class SearchCompanyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.form.company_contract_type === 'COMPANY') {
-      this.form.company_contract_type = '원청사';
-    }
+    
     this.getCompany();
   }
 
   async getCompany() {
-    this.res = await this.connect.run('/category/certify/company/get', this.form);
+    this.res = await this.connect.run('/category/certify/company/partner_master/get', this.form);
     if (this.res.rsCode === 0) {
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });

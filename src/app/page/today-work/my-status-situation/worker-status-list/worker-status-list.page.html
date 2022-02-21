@@ -22,65 +22,59 @@
     </app-col>
   </app-row>
 </ion-toolbar>
-<app-row *ngIf="menuCount === 2">
+<app-row>
+  <app-col *ngIf="menuCount === 2">
+    <app-select-dangerous-area [project_id]="gateForm.project_id"></app-select-dangerous-area>
+  </app-col>
+</app-row>
+<app-row>
   <app-col>
-    <app-select-dangerous-area></app-select-dangerous-area>
+    <app-input label="" placeholder="검색어를 입력하세요"></app-input>
+  </app-col>
+  <app-col size="auto">
+    <app-button>검색</app-button>
   </app-col>
 </app-row>
 <ion-content>
   <ng-container *ngIf="menuCount === 1">
-    <app-card>
-      <app-row>
-        <app-col size="auto">
-        </app-col>
-        <app-col>
-          <h5></h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">일반</ion-chip>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">12:30</ion-chip>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col size="auto">
-        </app-col>
-        <app-col>
-          <h5>앱 사용 공지</h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">안전관리</ion-chip>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">12:30</ion-chip>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col size="auto">
-        </app-col>
-        <app-col>
-          <h5>앱 사용 공지</h5>
-          <p>구일종합건설㈜ | 박소현 | 작성일: 2021.10.18</p>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">현장관리</ion-chip>
-        </app-col>
-        <app-col size="auto">
-          <ion-chip color="primary">12:30</ion-chip>
-        </app-col>
-      </app-row>
-    </app-card>
-  </ng-container>
-</ion-content>
-
-<app-button-footer>
+      <ng-container *ngFor="let gate of gateList?.rsMap" (click)="gateOpen = !gateOpen">
+        <app-card>
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <h5>{{ gate.user_name }}</h5>
+              <p>{{ gate.company_name }} | {{ gate.ctgo_job_position_name }} | {{ gate.inside_time }}</p>
+            </app-col>
+            <app-col size="auto">
+              <ion-chip [color]="gate.inside_state ? 'primary' : gate.outside_state ? 'medium':''">{{ gate.inside_state ?  '입장' : gate.outside_state ? '퇴장' :''  }}</ion-chip>
+            </app-col>
+            <app-col size="auto">
+              <ion-chip color="primary">{{ gate.inside_state ?  gate.inside_time : gate.outside_state ? gate.outside_time :'' }}</ion-chip>
+            </app-col>
+          </app-row>
+        </app-card>
+        <app-card>
+          <ng-container>
+            <app-row *ngFor="let item of gate.inner_data">
+              <app-col size="auto">
+              </app-col>
+              <app-col>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip [color]="item.inside_state ? 'primary' : item.outside_state ? 'medium':''">{{ item.inside_state ?  '입장' : item.outside_state ? '퇴장' :''  }}</ion-chip>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip color="primary">{{ item.inside_state ?  item.inside_time : item.outside_state ? item.outside_time :'' }}</ion-chip>
+              </app-col>
+            </app-row>
+          </ng-container>
+        </app-card>
+      </ng-container>
+    </ng-container>
+  </ion-content>
+  
+  <app-button-footer>
   <app-button *ngIf="menuCount === 1" (click)="add_work()">근로자 입장 등록</app-button>
   <app-button *ngIf="menuCount === 1">근로자 퇴장 등록</app-button>
 </app-button-footer>
