@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PartnerListPageRoutingModule } from './partner-list-routing.module';
+import { DepartureStatusListPageRoutingModule } from './departure-status-list-routing.module';
 
-import { PartnerListPage } from './partner-list.page';
+import { DepartureStatusListPage } from './departure-status-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { PartnerEditPageModule } from '../partner-edit/partner-edit.module';
 
 @NgModule({
   imports: [
@@ -16,9 +15,8 @@ import { PartnerEditPageModule } from '../partner-edit/partner-edit.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    PartnerListPageRoutingModule,
-    PartnerEditPageModule
+    DepartureStatusListPageRoutingModule
   ],
-  declarations: [PartnerListPage]
+  declarations: [DepartureStatusListPage]
 })
-export class PartnerListPageModule {}
+export class DepartureStatusListPageModule {}

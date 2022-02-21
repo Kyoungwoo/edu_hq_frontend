@@ -27,12 +27,14 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   @Input() color:Color;
   @Input() label:string = "공종";
   @Input() placeholder:string = "선택";
+  @Input() allState:boolean = false;
+  @Input() multiple:boolean = false;
   
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      if(this._project_id) this.get();
+      this.get();
     }
   }
   get project_id() { return this._project_id }
@@ -50,6 +52,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
 
   private async get() {
+    if(!this.project_id) this.res = null;
     this.res = await this.connect.run('/category/construction/get', {
       project_id: this.project_id
     });
@@ -82,9 +85,11 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
     return this._value;
   }
   writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    if(v !== this._value) {
+      this._value = v;
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

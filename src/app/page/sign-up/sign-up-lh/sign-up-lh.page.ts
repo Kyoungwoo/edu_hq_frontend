@@ -204,7 +204,8 @@ export class SignUpLhPage implements OnInit {
     else this.validator.hq_business_id = { valid: true };
 
     // 사업본부 선택을 했는데 사업본부 본사면 통과
-    if(!this.form.hq_business_entire_state
+    if(!this.form.hq_regional_entire_state
+    && !this.form.hq_business_entire_state
     && !this.form.hq_department_id) this.validator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
     else this.validator.hq_department_id = { valid: true };
 

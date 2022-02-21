@@ -5,3 +5,6 @@ app-avatar {
 app-row {
     align-items: flex-start;
 }
+app-input-caption + app-input-caption {
+    margin-top: 0;
+}

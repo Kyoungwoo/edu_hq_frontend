@@ -41,7 +41,7 @@
           <app-input-caption *ngIf="validator.account_token?.valid === false" color="warning">{{ validator.account_token?.message }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-input name="account_token_conform" label="account_token_conform" placeholder="비밀번호를 재입력 해주세요." type="password"
+          <app-input name="account_token_conform" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
           [color]="validator.account_token_conform?.valid === false && 'warning'"
           [(ngModel)]="form.account_token_conform" (delayKeyup)="checkPassConfirm()" [required]="true"></app-input>
           <app-input-caption *ngIf="validator.account_token_conform?.valid === false" color="warning">{{ validator.account_token_conform?.message }}</app-input-caption>
@@ -104,6 +104,9 @@
       [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
       <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
       <app-select-organization name="hq" [(ngModel)]="form" [required]="true"></app-select-organization>
+      <app-input-caption *ngIf="validator.hq_regional_id?.valid === false" color="warning">{{ validator.hq_regional_id?.message }}</app-input-caption>
+      <app-input-caption *ngIf="validator.hq_business_id?.valid === false" color="warning">{{ validator.hq_business_id?.message }}</app-input-caption>
+      <app-input-caption *ngIf="validator.hq_department_id?.valid === false" color="warning">{{ validator.hq_department_id?.message }}</app-input-caption>
     </form>
   </app-container>
 </ion-content>

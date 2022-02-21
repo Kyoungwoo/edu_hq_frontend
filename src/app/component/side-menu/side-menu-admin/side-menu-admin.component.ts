@@ -62,7 +62,7 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '회의록', link: '/worker-minutes-list'}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-management.svg', subMenuList: [
-      { title: '출역 현황', link: ''},
+      { title: '출역 현황', link: '/departure-status-list'},
       { title: 'TBM 일지', link: ''},
       { title: '점검현황', link: ''},
       { title: '부적합 조치 현황', link: ''}

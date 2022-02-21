@@ -524,6 +524,18 @@ const routes: Routes = [
     path: 'my-page-mileage',
     loadChildren: () => import('./page/my-page/my-page-mileage/my-page-mileage.module').then( m => m.MyPageMileagePageModule)
   },
+  {
+    path: 'departure-status-list',
+    loadChildren: () => import('./page/work-management/departure-status/departure-status-list/departure-status-list.module').then( m => m.DepartureStatusListPageModule)
+  },
+  {
+    path: 'today-departure-status-list',
+    loadChildren: () => import('./page/work-management/departure-status/today-departure-status-list/today-departure-status-list.module').then( m => m.TodayDepartureStatusListPageModule)
+  },
+  {
+    path: 'today-departure-status-edit',
+    loadChildren: () => import('./page/work-management/departure-status/today-departure-status-edit/today-departure-status-edit.module').then( m => m.TodayDepartureStatusEditPageModule)
+  },
   
 
 ];

@@ -18,6 +18,8 @@ export const environment = {
       'EDIT',
       'REMOVE'
     ]},
-    Project: { test: false }
+    Project: { test: false, done: false, type: [
+      'PARTNER'
+    ]}
   }
 };
