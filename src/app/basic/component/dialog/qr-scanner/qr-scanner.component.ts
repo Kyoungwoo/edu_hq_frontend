@@ -50,6 +50,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       console.log('error', e);
     })
   }
+  
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
     if(this.qr_subs) this.qr_subs.unsubscribe();

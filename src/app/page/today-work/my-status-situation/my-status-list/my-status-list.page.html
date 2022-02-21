@@ -48,7 +48,7 @@
   </app-card>
 
   <ng-container *ngFor="let risk of resrisk?.rsMap">
-    <app-card (click)="risk.checked = !risk.checked">
+    <app-card *ngIf="resrisk.rsCode === 0" (click)="risk.checked = !risk.checked">
       <app-row>
         <app-col>
           <h4>{{ risk.area_top_name }}/{{ risk.area_middle_name }}/{{ risk.area_bottom_name }}</h4>
@@ -78,8 +78,7 @@
   </ng-container>
 </ion-content>
 
-
 <app-button-footer>
   <app-button (click)="workerSatus()">근로자 출입 관리</app-button>
-  <app-button>출입(NFC / QR)</app-button>
+  <app-button (click)="inNfcQr()">출입(NFC / QR)</app-button>
 </app-button-footer>
