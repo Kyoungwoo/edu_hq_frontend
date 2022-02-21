@@ -35,11 +35,11 @@
             </tr>
             <tr>
               <td>
-                <app-select [disabled]="true" label="사업분야">
-                  <app-select-option value="단지개발">단지개발</app-select-option>
-                  <app-select-option value="아파트">아파트</app-select-option>
-                  <app-select-option value="교량">교량</app-select-option>
-                  <app-select-option value="터널">터널</app-select-option>
+                <app-select [disabled]="true" label="사업분야" [(ngModel)]="form.ctgo_business_field_id">
+                  <app-select-option [value]="1">단지개발</app-select-option>
+                  <app-select-option [value]="2">아파트</app-select-option>
+                  <app-select-option [value]="3">교량 및 도록</app-select-option>
+                  <app-select-option [value]="4">터널</app-select-option>
                 </app-select>
               </td>
             </tr>

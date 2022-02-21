@@ -327,12 +327,12 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="meetingForm.project_id"></app-select-scene>
+                <app-select-scene [disabled]="workRoleCheck" [company_id]="meetingForm.company_id" [(ngModel)]="meetingForm.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company [disabled]="workRoleCheck" [multiple]="false" [(ngModel)]="meetingForm.company_id"></app-select-company>
+                <app-select-company [disabled]="workRoleCheck" [project_id]="meetingForm.project_id" [multiple]="false" [(ngModel)]="meetingForm.company_id"></app-select-company>
               </td>
             </tr>
           </tbody>
@@ -353,7 +353,7 @@
           </ion-toolbar>
           <app-row>
             <app-col>
-              <app-textarea [(ngModel)]="resMeeting?.rsObj.safety_default" [rows]="7" ></app-textarea>
+              <app-textarea [rows]="7"  [(ngModel)]="resMeeting.rsObj.safety_default" ></app-textarea>
             </app-col>
           </app-row>
         </app-card>
@@ -364,7 +364,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting.rsObj.union_default">
                 </app-textarea>
               </app-col>
             </app-row>
@@ -376,7 +376,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting.rsObj.health_default">
                 </app-textarea>
               </app-col>
             </app-row>

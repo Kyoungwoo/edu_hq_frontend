@@ -14,7 +14,7 @@ export class FileData {
   file_json: FileJson = new FileJson();
   project_id: number
   file_data: FutItem[] = [];
-  ctgo_business_field_id: number;
+  ctgo_business_field_id: string;
   ctgo_business_field_name: string;
 }
 
@@ -82,14 +82,8 @@ export class AreaStandardSetPage implements OnInit {
   area_top_id: number;
   area_middle_id: number;
 
-  resFileData: ConnectResult<{
-    ctgo_business_field_id: number,
-    ctgo_business_field_name: string,
-    project_name: string,
-    file_data
-  }>
 
-  //장소
+  //장소 끝
 
   resRiskArea: ConnectResult<{
     second_user_id: number, // 관리 책임자 부
@@ -178,6 +172,7 @@ export class AreaStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.user.userData);
     if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' 
     || this.user.userData.user_role === 'LH_HEAD') {
       this.areaRoleCheck = false;;
@@ -204,9 +199,10 @@ export class AreaStandardSetPage implements OnInit {
     });
     if (res.rsCode === 0) {
       this.form = {
-        ...res.rsObj,
-        ...this.form
-      }
+        ...this.form,
+        ...res.rsObj
+      };
+      console.log("this.form",this.form);
     }
   }
 

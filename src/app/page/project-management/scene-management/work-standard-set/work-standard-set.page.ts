@@ -123,7 +123,7 @@ export class WorkStandardSetPage implements OnInit {
   menuCount6() {
     this.menuCount = 6;
       this.roleWarning();
-      this.getTool();
+      // this.getTool();
   }
   menuCount8() {
     this.menuCount = 8;

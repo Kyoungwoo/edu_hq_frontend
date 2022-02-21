@@ -69,6 +69,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
         this.value = 0;
         this.text = '전체';
       } else {
+        console.log("selectedItem",selectedItem);
         this.value = selectedItem.project_id;
         this.text = selectedItem.project_name;
       }

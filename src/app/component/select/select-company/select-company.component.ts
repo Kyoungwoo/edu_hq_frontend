@@ -65,14 +65,15 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
+    console.log('select project_id', this.project_id);
     if (this.isModalData || !this.value) return;
-    this.res= await this.connect.run('/category/certify/company/partner_master/get', {
-      project_id: this.project_id,
+    this.res = await this.connect.run('/category/certify/company/get', {
+      company_contract_type:this.user.userData.user_type,
       search_text: ''
     });
-    console.log(this.multiple);
     if (this.res.rsCode === 0) {
-
+      console.log(this.multiple);
+      console.log(this.res);
       const { rsMap } = this.res;
         if (this.multiple) {
           this.text = rsMap
@@ -80,7 +81,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
           .map(constractor => constractor.company_name).join();
       } else {
         this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
-        console.log(this.text);
+        console.log("this.text",this.text);
       }
     }
   }
