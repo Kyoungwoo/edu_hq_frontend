@@ -4,6 +4,13 @@
     max-width: 920px;
     margin: auto;
 }
+:host.container-large {
+    min-width: 1200px;
+    max-width: 100%;
+}
+:host.container-default {
+    max-width: 960px;
+}
 :host.container-small {
     max-width: 640px;
 }

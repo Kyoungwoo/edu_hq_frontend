@@ -14,7 +14,7 @@ export class PromiseService {
       return new Promise(res => setTimeout(res, milliseconds));
     } else {
       const callback = params;
-      const max = 20;
+      const max = 100;
       let step = 0;
       return new Promise(res => {
         const roof = async() => {
@@ -29,7 +29,7 @@ export class PromiseService {
           } else {
             setTimeout(() => {
               roof();
-            }, 1000);
+            }, 200);
           }
         }
         roof();

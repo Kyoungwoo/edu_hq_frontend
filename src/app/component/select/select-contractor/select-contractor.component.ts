@@ -17,7 +17,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 })
 export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @HostListener('click') onClick() {
-    if(!this.disabled) {
+    if(!this.disabled && !this.readonly) {
       if(this.project_id) {
         this.openModal();
       } else {
@@ -35,6 +35,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() allState:boolean = false;
   @Input() required:boolean = false;
   @Input() multiple:boolean = false;
+  @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
 
   private _project_id:number = 0;

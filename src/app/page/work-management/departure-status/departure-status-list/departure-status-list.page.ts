@@ -34,7 +34,7 @@ export class DepartureStatusListPage implements OnInit {
   }>
 
   permission = {
-    edit: false
+    contractor: false
   }
 
   constructor(
@@ -53,14 +53,12 @@ export class DepartureStatusListPage implements OnInit {
   }
 
   getPromission() {
-    const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.permission.edit = true;
-    } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
-      this.permission.edit = true;
-    } else {
-      this.permission.edit = false;
+    const { user_type, user_role, belong_data } = this.user.userData;
+    if(user_type === 'LH') {
+      this.permission.contractor = true;
+    }
+    else {
+      this.permission.contractor = false;
     }
   }
   getForm() {
