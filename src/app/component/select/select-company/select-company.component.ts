@@ -2,9 +2,9 @@ import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Outpu
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { SearchCompanyComponent } from '../../modal/search-company/search-company.component';
+import { SearchCompanyComponent, SelectItem } from '../../modal/search-company/search-company.component';
 
 export class CompanyData {
   company_contract_type: string;
@@ -23,19 +23,36 @@ export class CompanyData {
 export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if (!this.disabled) this.openModal();
+    if(!this.disabled) {
+      if(this.project_id) {
+        this.openModal();
+      } else {
+        this.res = new ConnectResult();
+        this.res.rsCode = 1008;
+        this.res.rsMsg = '현장을 선택해주세요.';
+      }
+    }
   }
 
   @Input() color: Color;
   @Input() label: string = "업체";
   @Input() required: boolean = false;
   @Input() text: string;
-  @Input() type?: boolean;
   @Input() multiple: boolean;
   @Input() disabled: boolean;
 
-  isModalData: boolean = false;
+  private _project_id:number = 0;
+  @Input() set project_id(v:number) {
+    if(this._project_id !== v) {
+      this._project_id = v;
+      this.value = this.multiple ? [] : 0;
+    }
+  }
+  get project_id() { return this._project_id }
 
+  isModalData: boolean = false;
+  
+  res:ConnectResult<SelectItem>
   private data;
 
   constructor(
@@ -45,87 +62,38 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-console.log("999999999999999999999999",this.value);
   }
 
-
-  // async company(){
-  //   const modal = await this._modal.create({
-  //     component:SearchCompanyComponent,
-  //     componentProps:{
-  //       type:this.type,
-  //       multiple:this.multiple,
-  //       value:this.value,
-  //       form : {
-  //         company_contract_type: this.user.userData.user_type,
-  //         search_text: ''
-  //       }
-  //     }
-  //   });
-  //   modal.present();
-  //   const { data } = await modal.onDidDismiss();
-  //   if(data) { 
-  //     console.log(data);
-  //     this.value = data.company_id;
-  //     this.text = data.company_name;
-  //   }
-  // }
-
   public async get() {
-    let UserRole = '원청사'
-    if(this.user.userData.user_type === 'COMPANY') {
-      UserRole = '원청사';
-    } else if(this.user.userData.user_type === 'LH'){
-      UserRole = 'LH';  
-    }
-    console.log("dsfasdf-=----UserRole", UserRole);
     if (this.isModalData || !this.value) return;
-    const res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type: UserRole,
+    this.res= await this.connect.run('/category/certify/company/partner_master/get', {
+      project_id: this.project_id,
       search_text: ''
     });
-    if (res.rsCode === 0) {
-      console.log("dsfasdf-=----this.multiple", this.multiple);
+    console.log(this.multiple);
+    if (this.res.rsCode === 0) {
+
+      const { rsMap } = this.res;
         if (this.multiple) {
-        for (let i = 0; i < res.rsMap.length; i++) {
-          for (let x = 0; x < this.value.length; x++) {
-            if (res.rsMap[i].company_id === this.value[x]) {
-              this.text = res.rsMap[i].company_name;
-              console.log("this.text",this.text);
-            }
-          }
-        }
+          this.text = rsMap
+          .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
+          .map(constractor => constractor.company_name).join();
       } else {
-        console.log("------------this.value---------------",this.value);
-        console.log("this=============res",res.rsMap.length);
-        if (res?.rsMap?.length) {
-        console.log("this.value-----------------2",this.value);
-          for (let i = 0; i < res.rsMap.length; i++) {
-            console.log(res.rsMap[i].company_id === this.value);
-            console.log("res.rsMap[i].company_id", res.rsMap[i].company_id);
-            console.log("this.value", this.value);
-            if (res.rsMap[i].company_id === this.value) {
-              this.text = res.rsMap[i].company_name;
-              console.log("this.text", this.text);
-            }
-          }
-        }
+        this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
+        console.log(this.text);
       }
-        this.text = this.text;
     }
   }
 
   public async openModal() {
-    console.log(this.user.userData.user_type);
     this.isModalData = true;
     const modal = await this._modal.create({
       component: SearchCompanyComponent,
       componentProps: {
-        type: this.type,
         value: this.value,
         multiple: this.multiple,
         form: {
-          company_contract_type: this.user.userData.user_type,
+          project_id: this.project_id,
           search_text: ''
         }
       }
@@ -134,8 +102,6 @@ console.log("999999999999999999999999",this.value);
     const { data } = await modal.onDidDismiss();
     if (data) {
       this.data = data;
-      console.log("data", data);
-      console.log("ddddddddddd", this.multiple);
       if (this.multiple) {
         console.log(data);
         this.value = data.map(company => company.company_id);
@@ -153,21 +119,23 @@ console.log("999999999999999999999999",this.value);
   @Output() change = new EventEmitter();
 
   private _value: any;
-  @Input() set value(v: CompanyData[]) {
-    if (v !== this._value) {
-      this._value = v || [];
+  @Input() set value(v:number[] | number) {
+    if(v !== this._value) {
+      this._value = v ? v : this.multiple ? [] : 0;
+      this.get();
       this.onChangeCallback(v);
-      this.change.emit(this.data);
+      this.change.emit(v);
     }
   }
   get value() {
     return this._value;
   }
-  writeValue(v: any): void {
-    if (v !== this._value) {
-      this._value = v || [];
+  writeValue(v:[]): void { 
+    if(v !== this._value) {
+      this._value = v ? v : this.multiple ? [] : 0;
+      this.get();
       this.onChangeCallback(v);
-      this.change.emit(this.data);
+      this.change.emit(v);
     }
   }
 

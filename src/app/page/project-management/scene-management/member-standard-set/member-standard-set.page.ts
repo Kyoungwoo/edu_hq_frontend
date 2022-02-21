@@ -84,8 +84,11 @@ export class MemberStandardSetPage implements OnInit {
     ctgo_job_position_id: number,
     ctgo_job_position_name_ch: string
   }>
-
-  jobForm: number = this.user.userData.belong_data.company_id;
+  
+  jobForm = {
+    company_id: this.user.userData.belong_data.company_id,
+    project_id: this.user.userData.belong_data.project_id
+  } 
   addPosition = [];
   selectList = [];
 
@@ -93,7 +96,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //안전직무
   safeJobForm = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     user_type: ''
   }
 
@@ -114,7 +117,7 @@ export class MemberStandardSetPage implements OnInit {
 
   //직종
 
-  occupationForm = 0;
+  occupationForm =  this.user.userData.belong_data.company_id;
 
   resOccupation: ConnectResult<{
     ctgo_occupation_use_state: number,
@@ -140,8 +143,8 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN') {
+    
+    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_type === 'COMPANY') {
       this.memberRoleCheck = false;
     }
     if (this.user.userData.user_role === 'LH_HEAD') {
@@ -180,12 +183,13 @@ export class MemberStandardSetPage implements OnInit {
   }
   async menuCount5() {
     this.menuCount = 5;
+    console.log(this.user.userData)
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getJobPosition();
       this.rolepass = false;
-      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm = this.user.userData.belong_data.company_id;
-      if (this.user.userData.user_role === 'COMPANY_HEAD') {
-        this.jobForm = this.user.userData.belong_data.company_id;
+      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm.company_id = this.user.userData.belong_data.company_id;
+      if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_type === 'COMPANY') {
+        this.jobForm.company_id = this.user.userData.belong_data.company_id;
       }
     } else {
       const alert = await this.alert.present({
@@ -532,7 +536,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_job_position_name_kr: '',
         ctgo_job_position_use_state: 0,
         ctgo_job_position_name_en: '',
-        company_id: this.jobForm,
+        company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
         ctgo_job_position_id: 0,
         ctgo_job_position_name_ch: ''
@@ -543,7 +547,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_job_position_name_kr: '',
         ctgo_job_position_use_state: 0,
         ctgo_job_position_name_en: '',
-        company_id: this.jobForm,
+        company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
         ctgo_job_position_id: 0,
         ctgo_job_position_name_ch: ''
