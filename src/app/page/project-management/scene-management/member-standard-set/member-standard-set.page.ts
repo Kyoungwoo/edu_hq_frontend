@@ -143,13 +143,17 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.user.userData);
-    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_type === 'COMPANY') {
-      this.memberRoleCheck = false;
-    }
+    if (this.user.userData.user_role === 'COMPANY_HEAD' ||
+        this.user.userData.user_role === 'MASTER_HEAD' ||
+        this.user.userData.user_role === 'LH_HEAD') {this.memberRoleCheck = false;}
+
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
+    } else if(this.lhHeadCheck) {
+      this.menuCount = 2;
+      this.menuCount2();
     }
+
     //lh조직기구
 
     this.level1();
@@ -161,27 +165,10 @@ export class MemberStandardSetPage implements OnInit {
     this.menuCount = 1;
     if (!this.lhHeadCheck) {
       this.level1();
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
     }
   }
   async menuCount2() {
     this.menuCount = 2;
-    if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.rolepass = false;
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
-    }
   }
   async menuCount5() {
     this.menuCount = 5;
@@ -189,17 +176,6 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getJobPosition();
       this.rolepass = false;
-      if (this.user.userData.user_role === 'LH_HEAD') this.jobForm.company_id = this.user.userData.belong_data.company_id;
-      if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_type === 'COMPANY') {
-        this.jobForm.company_id = this.user.userData.belong_data.company_id;
-      }
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
     }
   }
 
@@ -208,13 +184,6 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getSafeJob();
       this.rolepass = false;
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
     }
   }
 
@@ -223,13 +192,6 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.rolepass = false;
       this.getOccupation();
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
     }
 
   }
@@ -240,13 +202,6 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.lhHeadCheck) {
       this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
       if (this.resLevel1.rsCode === 0) { }
-    } else {
-      this.rolepass = true;
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
     }
   }
 

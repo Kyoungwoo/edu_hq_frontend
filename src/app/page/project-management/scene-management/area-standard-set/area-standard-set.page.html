@@ -1,18 +1,18 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <ion-toolbar color="white">
+  <ion-toolbar color="white" *ngIf="!areaRoleCheck">
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [value]="1">
-          <ion-segment-button (click)="area()" [value]="1">장소</ion-segment-button>
+          <ion-segment-button (click)="this.menuCount = 1;" [value]="1">장소</ion-segment-button>
           <ion-segment-button (click)="getRiskArea()">위험지역</ion-segment-button>
           <ion-segment-button (click)="areaGPS()">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
-  <ng-container>
+  <ng-container *ngIf="!areaRoleCheck">
     <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">

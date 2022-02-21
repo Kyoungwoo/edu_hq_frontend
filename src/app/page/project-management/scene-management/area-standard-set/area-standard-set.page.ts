@@ -172,26 +172,15 @@ export class AreaStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.user.userData);
-    if (this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' 
-    || this.user.userData.user_role === 'LH_HEAD') {
-      this.areaRoleCheck = false;;
+    console.log('----------------------',this.user.userData);
+    if (this.user.userData.user_role === 'MASTER_HEAD' ||
+        this.user.userData.user_role === 'LH_ADMIN' ||
+        this.user.userData.user_role === 'LH_HEAD') {
+      this.areaRoleCheck = false;
     }
-    this.area();
     this.getGuidemap();
     this.AreaOne();
     this.CtgoRisk();
-  }
-
-  async area() {
-    this.menuCount = 1;
-    if (this.areaRoleCheck) {
-      const alert = await this.alert.present({
-        message: '권한이 없습니다.',
-        buttons: [{ text: '확인' }]
-      });
-      alert.present();
-    }
   }
   async getGuidemap() {
     const res = await this.connect.run('/project/area/guidemap/get', { project_id: this.AreaOneForm.project_id, }, {

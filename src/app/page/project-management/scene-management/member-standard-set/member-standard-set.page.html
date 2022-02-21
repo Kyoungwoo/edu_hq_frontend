@@ -4,22 +4,22 @@
   <ion-toolbar color="white" style="margin-bottom: 20px;">
     <app-row>
       <app-col size="auto">
-        <ion-segment class="sub-segment" color="primary" [value]="1">
-          <ion-segment-button (click)="menuCount1()" [value]="1">LH 조직관리</ion-segment-button>
-          <ion-segment-button (click)="menuCount2()">정보 접근<br>비밀번호</ion-segment-button>
+        <ion-segment class="sub-segment" color="primary" [value]="this.lhHeadCheck ? 2 : 1">
+          <ion-segment-button *ngIf="!lhHeadCheck" (click)="menuCount1()" [value]="1">LH 조직관리</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount2()" [value]="2">정보 접근<br>비밀번호</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
-          <ion-segment-button (click)="menuCount5()">직위</ion-segment-button>
-          <ion-segment-button (click)="menuCount6()">안전직무</ion-segment-button>
-          <ion-segment-button (click)="menuCount7()">직종</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount5()">직위</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount6()">안전직무</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount7()">직종</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
-  <ng-container *ngIf="menuCount === 1">
-    <app-row style="align-items: flex-start;">
+  <ng-container *ngIf="!lhHeadCheck">
+    <app-row  *ngIf="menuCount === 1" style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
           <thead>
@@ -316,57 +316,50 @@
     </app-row>
   </ng-container>
 
-  <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
-    <app-col size="280px">
-      <app-table type="card">
-        <ion-toolbar slot="top" color="white">
-          <app-row style="justify-content: space-between;">
-            <app-col size="auto">
-              <h5>필터</h5>
+  <ng-container *ngIf="!memberRoleCheck">
+    <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <app-select-company [multiple]="false" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="form.company_id"></app-select-company>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <div>
+          <ion-toolbar style="height: 66px; display: flex;" color="white">
+            <h4>비밀번호 설정</h4>
+            <ion-buttons slot="end">
+              <app-button fill="translucent" (click)="memberPasswordUdpate()">저장</app-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </div>
+        <app-card >
+          <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
+          <app-row>
+            <app-col></app-col>
+            <app-col style="text-align: right;">
+              <app-input [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
+                placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
+              <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
+              <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
+              <app-input-caption *ngIf="!subpasscheck" color="danger">{{ subpasswordMeassge }}</app-input-caption>
             </app-col>
+            <app-col></app-col>
           </app-row>
-        </ion-toolbar>
-        <tbody>
-          <tr>
-            <app-select-company [disabled]="rolepass" [multiple]="false" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="form.company_id"></app-select-company>
-          </tr>
-        </tbody>
-      </app-table>
-    </app-col>
-    <app-col>
-      <div>
-        <ion-toolbar style="height: 66px; display: flex;" color="white">
-          <h4>비밀번호 설정</h4>
-          <ion-buttons slot="end">
-            <app-button fill="translucent" (click)="memberPasswordUdpate()">저장</app-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </div>
-      <app-card *ngIf="!rolepass; else rolepassout">
-        <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
-        <app-row>
-          <app-col></app-col>
-          <app-col style="text-align: right;">
-            <app-input [(ngModel)]="form.company_password" (delayKeyup)="passwordCheck()"
-              placeholder="비밀번호(영문,숫자,특수문자 조합(8~20자))"></app-input>
-            <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
-            <app-input [(ngModel)]="subpassword" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
-            <app-input-caption *ngIf="!subpasscheck" color="danger">{{ subpasswordMeassge }}</app-input-caption>
-          </app-col>
-          <app-col></app-col>
-        </app-row>
-      </app-card>
-      <ng-template #rolepassout>
-        <app-row>
-          <app-col>
-            <app-card>
-              <h5>권한이 없습니다.</h5>
-            </app-card>
-          </app-col>
-        </app-row>
-      </ng-template>
-    </app-col>
-  </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
 
   <app-row *ngIf="menuCount === 5" style="align-items: flex-start;">
     <app-col size="280px">

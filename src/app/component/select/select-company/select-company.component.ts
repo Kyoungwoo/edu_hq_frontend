@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { SearchCompanyComponent, SelectItem } from '../../modal/search-company/search-company.component';
 
 export class CompanyData {
@@ -66,9 +67,10 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     console.log('select project_id', this.project_id);
+    
     if (this.isModalData || !this.value) return;
     this.res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type:this.user.userData.user_type,
+      company_contract_type:'원청사',
       search_text: ''
     });
     if (this.res.rsCode === 0) {
@@ -80,8 +82,13 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
           .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
           .map(constractor => constractor.company_name).join();
       } else {
-        this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
-        console.log("this.text",this.text);
+        if(this.user.userData.belong_data.company_contract_type === 'LH') {
+          this.text = rsMap[0].company_name
+        } else {
+          console.log("rsMap",rsMap);
+          this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
+          console.log("this.text",this.text);
+        }
       }
     }
   }

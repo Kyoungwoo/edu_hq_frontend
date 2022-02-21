@@ -3,6 +3,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
 @Component({
   selector: 'app-work-standard-set',
@@ -88,51 +89,38 @@ export class WorkStandardSetPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private alert: AlertService,
-    public user: UserService
+    public user: UserService,
+    private promise: PromiseService
   ) { }
 
   ngOnInit() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD' || this.user.userData.user_role === 'LH_ADMIN' || this.user.userData.user_role === 'LH_HEAD') {
+    if(this.user.userData.user_role === 'COMPANY_HEAD' ||
+     this.user.userData.user_role === 'LH_ADMIN' ||
+      this.user.userData.user_role === 'LH_HEAD') {
       this.workRoleCheck = false;;
-    } else {
-      this.roleWarning();
     }
     this.menuCount1();
   }
 
-  async roleWarning() {
-    if(this.workRoleCheck) {
-      const alert = await this.alert.present({
-        message:'권한이 없습니다.',
-        buttons:[{text:'확인'}]
-      });
-      alert.present();
-    }
-  }
   menuCount1() { 
     this.menuCount = 1;
-      this.roleWarning();
       this.getConstruction()
   }
   menuCount5() {
     this.menuCount = 5;
-      this.roleWarning();
         this.getMachinery()
   }
 
   menuCount6() {
     this.menuCount = 6;
-      this.roleWarning();
       // this.getTool();
   }
   menuCount8() {
     this.menuCount = 8;
     this.getMeeting();
-    this.roleWarning();
   }
   menuCount9() {
     this.menuCount = 9;
-    this.roleWarning();
     this.getDisaster();
   }
   //공종 시작
@@ -224,13 +212,15 @@ export class WorkStandardSetPage implements OnInit {
 
   //건설기계
   async getMachinery() {
-    this.resMachinery = await this.connect.run('/project/machinery/get', { company_id: this.machineryFrom });
+  await this.promise.wait(() => this.machineryFrom);
+  this.resMachinery = await this.connect.run('/project/machinery/get', { company_id: this.machineryFrom });
     if (this.resMachinery.rsCode === 0) { 
       this.resMachinery.rsMap.forEach(item => {
         item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc = true : item.ctgo_machinery_doc = false;
       })
     };
   }
+
   async machineryAdd() {
     if (!this.machineryFrom) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
     if (this.resMachinery?.rsMap?.length) {
@@ -412,6 +402,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 협의체
   async getMeeting() {
+    await this.promise.wait(() => this.meetingForm);
+    
     this.resMeeting = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
     if(this.resMeeting.rsCode === 0) {};
   }

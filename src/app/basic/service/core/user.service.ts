@@ -17,8 +17,10 @@ export type UserRole =
 | 'LH_PROJECT' // LH 현장 관리자
 
 | 'COMPANY_HEAD' // 업체 마스터
+| 'MASTER_HEAD' //원청사 마스터
 | 'COMPANY_GENERAL' // 업체 일반 관리자
-| 'COMPANY_WORKER'; // 업체 작업자
+| 'COMPANY_WORKER' // 업체 작업자
+| 'PARTNER_HEAD' // 협력사 마스터
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {
