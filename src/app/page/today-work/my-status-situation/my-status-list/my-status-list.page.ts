@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
@@ -73,10 +76,13 @@ export class MyStatusListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     private qr: QrService,
-    private nfc: NfcService
+    private nfc: NfcService,
+    private alert: AlertService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
+    
   }
 
   async get() {

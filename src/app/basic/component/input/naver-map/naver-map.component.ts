@@ -115,7 +115,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     naver.maps.Event.addListener(marker, "dblclick", (e) => {
       const index = this.marker.indexOf(marker);
 
-      this.marker.splice(index, 1)
+      this.marker.splice(index, 1);
       this.path.splice(index, 1);
 
       this._value.gps_latitude.splice(index, 1);
