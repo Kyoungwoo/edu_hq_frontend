@@ -35,7 +35,7 @@ export class SignUpPartnerPage implements OnInit {
     this.companyInfo = history.state.companyInfo;
     this.form.company_id = this.companyInfo.company_id;
 
-    this.test();
+    if(environment.test) this.test();
   }
  
   public async test() {

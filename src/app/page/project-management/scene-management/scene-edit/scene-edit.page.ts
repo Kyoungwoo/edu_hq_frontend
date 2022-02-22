@@ -121,15 +121,11 @@ export class SceneEditPage implements OnInit {
       }
       if((this.form.create_user_id === this.user.userData.user_id) || 
       (this.user.userData.user_role === 'LH_HEAD')) {
-        console.log("허락한다.");
         this.roleCheck = false;
-        console.log(this.roleCheck);
       }
-      console.log()
       if (res.rsObj.company_data) {
         let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
         for (let i = 0; i < josncompany.length; i++) {
-          console.log(josncompany[i]);
           if (josncompany[i].company_contract_type === '원청사') {
             for (let x = 0; x < josncompany[i].company_data.length; x++) {
               this.contractor_id.push(josncompany[i].company_data[x].company_id);
@@ -138,11 +134,8 @@ export class SceneEditPage implements OnInit {
             for (let x = 0; x < josncompany[i].company_data.length; x++) {
               this.supervision_id.push(josncompany[i].company_data[x].company_id);
             }
-            console.log("this.supervision_id", this.supervision_id);
           }
         }
-
-
       }
       // this.contractor_id = "테스트";
       if (res.rsObj.gps_state === 1) {
@@ -165,8 +158,6 @@ export class SceneEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            console.log("this.contractor_id",this.contractor_id);
-            console.log("this.supervision_id",this.supervision_id);
             this.form.company_data = [];
             this.form.company_data.push({
               company_type: '원청사',

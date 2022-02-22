@@ -24,7 +24,8 @@ export class WorkerStatusAddPage implements OnInit {
   @Input() area_risk_id:number;
   
   form = {
-    master_company_id: this.user.userData.belong_data.company_id,
+    // master_company_id: this.user.userData.belong_data.company_id,
+    master_company_id: 12,
     project_id: 0,
     search_text:'',
     select_type:'',
@@ -66,5 +67,8 @@ export class WorkerStatusAddPage implements OnInit {
   selectItem(item) {
     item.checked = !item.checked;
     if(!this.selectData.includes(item)) this.selectData.push(item);
+  }
+  async workerIn() {
+
   }
 }
