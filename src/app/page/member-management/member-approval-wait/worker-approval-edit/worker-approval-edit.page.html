@@ -82,7 +82,7 @@
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
-            <p>최종 수정일 : {{ item.update_date }}</p>
+            <p>최종 수정일 : {{ form.update_date }}</p>
           </app-col>
         </app-row>
         <h5>소속정보</h5>
@@ -127,24 +127,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of form.user_safe_job_data">
+            <tr *ngFor="let item of form.user_safe_job_data let i = index">
               <td style="text-align: left;">1</td>
               <td><app-select-safetymanager name="안전직무" [company_id]="form.company_id" user_type="WORKER" [(ngModel)]="item.ctgo_safe_job_id" [required]="true"></app-select-safetymanager></td>
               <td><app-calendar [(ngModel)]="item.safe_job_start_date" name="안전직무선임일"></app-calendar></td>
-              <td><a>선임서.pdf</a>
+              <td>
+                <a [href]="item.full_url" target="_blank" [download]="item.file_name"></a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
                   <app-file name="input" view_type="JOB"
-                  [(ngModel)]="form.file_data"
-                  [file]="form.file"
-                  [file_json]="form.file_json"
+                  [(ngModel)]="form.user_safe_job_file_data"
+                  [file]="form.safe_file"
+                  [file_json]="form.safe_file_json"
                   ></app-file>
                 </app-button>
               </td>
               <td>
               </td>
-              <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-                <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
+              <td style="text-align: right;">
+              <app-button shape="circle" size="small" fill="translucent" (click)="addSafeJobData()">
+                <app-img name="plus"></app-img>
+              </app-button>
+                <app-button *ngIf="i !== 0" shape="circle" size="small" color="danger" fill="translucent" (click)="form.user_safe_job_data.splice(i,1)">
+                  <app-img name="minus"></app-img>
+                </app-button>
+              </td>
             </tr>
           </tbody>
         </app-table>
@@ -169,19 +176,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let item of form.user_certify_data let i = index">
               <td style="text-align: left;">1</td>
-              <td style="text-align: left;"><app-input name="면허번호" placedholder="면허번호를 입력해주세요."></app-input></td>
+              <td style="text-align: left;"><app-input name="면허번호"></app-input></td>
               <td style="text-align: left;"><a>선임서.pdf</a>
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
+                  <app-file name="input" view_type="CERTIFY"
+                  [(ngModel)]="form.user_certify_file_data"
+                  [file]="form.file"
+                  [file_json]="form.file_json"
+                  ></app-file>
                 </app-button>
               </td>
               <td>
               </td>
               <td style="text-align: right;">
-                <app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-                <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
+                <app-button shape="circle" size="small" fill="translucent" (click)="addCertifyData()">
+                  <app-img name="plus"></app-img>
+                </app-button>
+                <app-button *ngIf="i !== 0" shape="circle" size="small" color="danger" fill="translucent" (click)="form.user_certify_data.splice(i,1)">
+                  <app-img name="minus"></app-img>
+                </app-button>
+              </td>
             </tr>
           </tbody>
         </app-table>

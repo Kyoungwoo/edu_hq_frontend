@@ -41,7 +41,7 @@ export class WorkerApprovalListPage implements OnInit {
     end_date: this.date.today(),
     project_id: 0,
     search_text: '',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ month: -3 }),
     limit_no: 0,
     user_manage_session: ''
   };

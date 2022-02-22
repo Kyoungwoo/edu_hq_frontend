@@ -43,18 +43,49 @@ export class WorkerApprovalItem {
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  user_safe_job_file_data: [];
+  user_safe_job_file_data: FutItem[] = [];
   user_safe_job_data: [{
     ctgo_safe_job_id: 0,
-    ctgo_safe_job_name_kr: "",
-    safe_job_start_date: "",
+    ctgo_safe_job_name_kr: '',
+    safe_job_start_date: '',
     user_id: 0, 
-    user_safe_job_id: 0
+    user_safe_job_id: 0,
+    file_name: '';
+    full_url: '';
   }];
-  // user_certify_file_data: [];
-  // user_certify_data: [];
+  user_certify_file_data: FutItem[] = [];
+  user_certify_data: [{
+    file_name: '',
+    full_url: '',
+    user_certify_id: 0,
+    user_certify_no: '',
+    user_id: 0,
+  }];
+  certify_data: [];
+  certify_file: (File|FileBlob)[] = [];
+  certify_file_json: FileJson = new FileJson();
+  safe_job_data: [];
+  safe_file: (File|FileBlob)[] = [];
+  safe_file_json: FileJson = new FileJson();
   
 };
+export class addSafeJobData {
+  ctgo_safe_job_id: 0;
+  ctgo_safe_job_name_kr: '';
+  safe_job_start_date: '';
+  user_id: 0;
+  user_safe_job_id: 0;
+  file_name: '';
+  full_url: '';
+} 
+
+export class addCertifyData {
+  file_name: '';
+  full_url: '';
+  user_certify_id: 0;
+  user_certify_no: '';
+  user_id: 0;
+} 
 
 @Component({
   selector: 'app-worker-approval-edit',
@@ -177,12 +208,10 @@ export class WorkerApprovalEditPage implements OnInit {
     } 
   }
   async submit() { 
-    //기본정보 저장
-    // if(!this.valid()) return;
+    // 기본정보 저장
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
-    this.form.approval_user_id = this.form.user_id
-
+    this.form.approval_user_id = this.form.user_id;
     this.alert.present({
       message:'저장 하시겠습니까?',
       buttons:[
@@ -190,7 +219,12 @@ export class WorkerApprovalEditPage implements OnInit {
         {
           text:'예',
           handler: async() => {
-            const res = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
+            const ress = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
+            if(ress.rsCode === 0) {
+            } else {
+              this.toast.present({ color: 'warning', message: ress.rsMsg });
+            }
+            const res = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
             if(res.rsCode === 0) {
               this._modal_.dismiss('Y');
             } else {
@@ -200,29 +234,34 @@ export class WorkerApprovalEditPage implements OnInit {
         }
       ]
     });
+  }
 
-    //소속정보 저장
-    // this.form.session_company_id = this.user.userData.belong_data.company_id;
-    // this.form.user_manage_session = this.user.memberAuthToken;
-    // this.form.approval_user_id = this.form.user_id;
-    // this.alert.present({
-    //   message:'저장 하시겠습니까?',
-    //   buttons:[
-    //     { text:'아니요' },
-    //     {
-    //       text:'예',
-    //       handler: async() => {
-    //         const ress = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
-    //         if(ress.rsCode === 0) {
-    //           this._modal_.dismiss('Y');
-    //         } else {
-    //           this.toast.present({ color: 'warning', message: ress.rsMsg });
-    //         }
-    //       }
-    //     }
-    //   ]
-    // });
+  addSafeJobData() {
+    const { user_role, belong_data } = this.user.userData;
+    if(user_role === 'LH_HEAD') {
+      this.form.user_safe_job_data.push({
+        ...new addSafeJobData()
+      });
+    } 
+    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+      this.form.user_safe_job_data.push({
+        ...new addSafeJobData(),
+      });
+    }
+  }
 
+  addCertifyData() {
+    const { user_role, belong_data } = this.user.userData;
+    if(user_role === 'LH_HEAD') {
+      this.form.user_certify_data.push({
+        ...new addCertifyData()
+      });
+    } 
+    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+      this.form.user_certify_data.push({
+        ...new addCertifyData(),
+      });
+    }
   }
 }
 
