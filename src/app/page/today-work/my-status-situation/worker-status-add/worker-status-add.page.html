@@ -7,45 +7,48 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-select label="유형" name="select">
-        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
+      <app-select label="유형" name="select" [(ngModel)]="form.user_type">
+        <app-select-option value="COMPANY">관리자</app-select-option>
+        <app-select-option value="WORKER">작업자</app-select-option>
+        <app-select-option value="LH">LH</app-select-option>
+        <app-select-option value="SUPER">감리</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-        <app-img name="search"></app-img>
+        <app-img (click)="gateGet()" name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card [button]="true" (click)="checkName(item)" *ngFor="let item of dummyArr">
+  <app-card [button]="true" *ngFor="let item of res?.rsMap" (click)="selectItem(item)">
     <app-row>
       <app-col size="auto">
       </app-col>
       <app-col>
         <h5>{{ item.user_name}}</h5>
-        <p>{{ item.company }}/대리/안전관리자</p>
-      </app-col>
-      <app-col size="auto">
-        <ion-chip color="primary">건축</ion-chip>
+        <p>{{ item.company_name }}/{{ item.ctgo_job_position_name }}/{{ item.ctgo_safe_job_name }}</p>
       </app-col>
     </app-row>
   </app-card>
-  <app-card>
+  <app-card style="min-height: 50px;">
     <app-row>
-      <app-col (click)="deleteName()" size="auto">
-        <div>
-          <ion-chip style="margin-top: 3px; margin-left: 0; margin-right: 3px;" *ngFor="let name of selectData " color="primary">{{ name }}
-              <ion-icon  name="close-outline"></ion-icon>
-          </ion-chip>
-        </div>
+      <app-col>
+        <h6>현재 입장 처리가 되어있지 않은 근로자만 조회툅니다.</h6>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="auto" *ngFor="let name of selectData let index  = index" (click)="this.selectData.splice(index,1)">
+        <ion-chip style="margin-top: 3px; margin-left: 0; margin-right: 3px;" color="primary" >{{ name.user_name }}
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-chip>
       </app-col>
     </app-row>
   </app-card>
-  <app-input label="시간"></app-input>
+  <app-input label="입장 시간"></app-input>
 </ion-content>
 <app-button-footer>
   <app-button>취소</app-button>
-  <app-button (click)="submit()">적용</app-button>
+  <app-button>적용</app-button>
 </app-button-footer>
 
 

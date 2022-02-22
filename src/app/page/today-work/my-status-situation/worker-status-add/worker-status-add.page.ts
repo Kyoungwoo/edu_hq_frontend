@@ -1,5 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
+
+export class ctgoMemberItem {
+  user_id: number;
+  user_name: string;
+  company_name: string;
+  ctgo_job_position_name: string;
+  ctgo_safe_job_name: string
+  checked:boolean
+}
 
 @Component({
   selector: 'app-worker-status-add',
@@ -7,76 +18,53 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./worker-status-add.page.scss'],
 })
 export class WorkerStatusAddPage implements OnInit {
-  dummyArr = [
-    {
-      checked:false,
-      title:'앱 사용 공지',
-      company:'구일종합건설㈜',
-      user_name:'김준태',
-      write_date:'2021.10.18',
-      status:'입장',
-      status_hour:'12:30'
-    },
-    {
-      checked:false,
-      title:'dev 공지',
-      company:'구일종합건설㈜',
-      user_name:'홍길동',
-      write_date:'2021.10.18',
-      status:'입장',
-      status_hour:'12:31'
-    },
-    {
-      checked:false,
-      title:'gsil 공지',
-      company:'구일종합건설㈜',
-      user_name:'구루무',
-      write_date:'2021.10.18',
-      status:'퇴장',
-      status_hour:'12:33'
-    },
-    {
-      checked:false,
-      title:'LH 공지',
-      company:'구일종합건설㈜',
-      user_name:'구구야',
-      write_date:'2021.10.18',
-      status:'퇴장',
-      status_hour:'12:36'
-    },
-  ]
-  selectData = [];
+
+  @Input() project_id:number;
+  @Input() select_type:string;
+  @Input() area_risk_id:number;
+  
+  form = {
+    master_company_id: this.user.userData.belong_data.company_id,
+    project_id: 0,
+    search_text:'',
+    select_type:'',
+    user_type:'',
+    area_risk_id:0
+  }
+
+  res:ConnectResult<ctgoMemberItem>
+
+  selectData:ctgoMemberItem[] = [];
   constructor(
-    private _modal : ModalController
+    private _modal : ModalController,
+    private connect: ConnectService,
+    private user: UserService
   ) { }
 
   ngOnInit() {
-  }
-
-  checkName(item) {
-    // console.log(item);
-    item.checked = !item.checked;
-    if(item.checked){
-      this.selectData.push(item.user_name);
-      this.selectData = this.selectData.filter((data,index) => {
-        return this.selectData.indexOf(data) === index;
-      });
+    console.log(this.select_type);
+    if(this.area_risk_id) {
+      this.riskGet()
+    } else {
+      this.gateGet();
     }
   }
-
-  deleteName() { 
-    this.dummyArr.forEach((item,i) => {
-      if(!item.checked){
-       this.selectData.forEach((i) => {
-         this.selectData.splice(i,1);
-       }) 
-      }
-    })
+  async gateGet() {
+    this.form.project_id = this.project_id;
+    this.form.select_type = this.select_type;
+    this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_gate/list',this.form);
+    if(this.res.rsCode === 0) {}
+  }
+  async riskGet() {
+    this.form.project_id = this.project_id;
+    this.form.select_type = this.select_type;
+    this.form.area_risk_id = this.area_risk_id; 
+    this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_risk/list',this.form);
+    if(this.res.rsCode === 0) {}
   }
 
-  submit() {
-    this._modal.dismiss({
-      user_name:this.selectData
-    })  
+  selectItem(item) {
+    item.checked = !item.checked;
+    if(!this.selectData.includes(item)) this.selectData.push(item);
   }
 }

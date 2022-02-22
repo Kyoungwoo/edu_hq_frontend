@@ -19,6 +19,7 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   @Input() color:Color;
   @Input() multiple:boolean = false;
   @Input() label:string = "위험지역";
+  @Input() text:string;
 
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
@@ -35,7 +36,6 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
 
   ngOnInit() {}
   async dangerous(){
-    console.log("this.projcet_id",this.project_id);
     const modal = await this._modal.create({
       component:SearchDangerousAreaComponent,
       componentProps: {
@@ -43,6 +43,13 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    this.text = (data.area_top_name ? data.area_top_name: '')+ ' ' +
+                (data.area_middle_name ? data.area_middle_name : '') + ' ' +
+                (data.area_bottom_name ? data.area_bottom_name : '') + '/' +
+                (data.ctgo_area_risk_name ? data.ctgo_area_risk_name : '') +  '/'  +
+                (data.area_risk_name ? data.area_risk_name : '')
+    this.value = data.area_risk_id;
   }
 
   @Output() change = new EventEmitter();

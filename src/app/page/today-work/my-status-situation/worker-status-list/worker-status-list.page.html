@@ -5,12 +5,6 @@
     </ion-buttons>
     <ion-title>근로자 출입 관리</ion-title>
   </ion-toolbar>
-  <ion-toolbar color="white">
-    <app-input-group>
-      <app-input label="현장" [readonly]="true"></app-input>
-      <app-button (click)="detailSearch()">상세검색</app-button>
-    </app-input-group>
-  </ion-toolbar>
 </ion-header>
 <ion-toolbar slot="top" color="white">
   <app-row>
@@ -22,23 +16,33 @@
     </app-col>
   </app-row>
 </ion-toolbar>
-<app-row>
-  <app-col *ngIf="menuCount === 2">
-    <app-select-dangerous-area [project_id]="gateForm.project_id"></app-select-dangerous-area>
-  </app-col>
-</app-row>
-<app-row>
+<app-row *ngIf="menuCount === 1">
   <app-col>
-    <app-input label="" placeholder="검색어를 입력하세요"></app-input>
+    <app-input label="" placeholder="검색어를 입력하세요" [(ngModel)]="gateForm.search_text"></app-input>
   </app-col>
   <app-col size="auto">
-    <app-button>검색</app-button>
+    <app-button (click)="getGate()">검색</app-button>
   </app-col>
 </app-row>
+<ng-container *ngIf="menuCount === 2">
+  <app-row>
+    <app-col>
+      <app-select-dangerous-area [project_id]="gateForm.project_id" [(ngModel)]="riskAreaForm.area_risk_id"></app-select-dangerous-area>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input label="" placeholder="검색어를 입력하세요" [(ngModel)]="riskAreaForm.search_text"></app-input>
+    </app-col>
+    <app-col size="auto">
+      <app-button (click)="getRiskArea()">검색</app-button>
+    </app-col>
+  </app-row>
+</ng-container>
 <ion-content>
   <ng-container *ngIf="menuCount === 1">
-      <ng-container *ngFor="let gate of gateList?.rsMap" (click)="gateOpen = !gateOpen">
-        <app-card>
+      <ng-container *ngFor="let gate of gateList?.rsMap" >
+        <app-card (click)="gateOpen = !gateOpen">
           <app-row>
             <app-col size="auto">
             </app-col>
@@ -54,9 +58,9 @@
             </app-col>
           </app-row>
         </app-card>
-        <app-card>
-          <ng-container>
-            <app-row *ngFor="let item of gate.inner_data">
+        <ng-container *ngIf="gateOpen">
+          <app-card  *ngFor="let item of gate?.inner_data">
+            <app-row >
               <app-col size="auto">
               </app-col>
               <app-col>
@@ -68,13 +72,50 @@
                 <ion-chip color="primary">{{ item.inside_state ?  item.inside_time : item.outside_state ? item.outside_time :'' }}</ion-chip>
               </app-col>
             </app-row>
-          </ng-container>
+          </app-card>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+  <ng-container *ngIf="menuCount === 2">
+      <ng-container *ngFor="let risk of riskAreaList?.rsMap" >
+        <app-card (click)="gateOpen = !gateOpen">
+          <app-row>
+            <app-col size="auto">
+            </app-col>
+            <app-col>
+              <h5>{{ risk.user_name }}</h5>
+              <p>{{ risk.company_name }} | {{ risk.ctgo_job_position_name }} | {{ risk.inside_time }}</p>
+            </app-col>
+            <app-col size="auto">
+              <ion-chip [color]="risk.inside_state ? 'primary' : risk.outside_state ? 'medium':''">{{ risk.inside_state ?  '입장' : risk.outside_state ? '퇴장' :''  }}</ion-chip>
+            </app-col>
+            <app-col size="auto">
+              <ion-chip color="primary">{{ risk.inside_state ?  risk.inside_time : risk.outside_state ? risk.outside_time :'' }}</ion-chip>
+            </app-col>
+          </app-row>
         </app-card>
+        <ng-container *ngIf="gateOpen">
+          <app-card  *ngFor="let item of risk?.inner_data">
+            <app-row>
+              <app-col size="auto">
+              </app-col>
+              <app-col>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip [color]="item.inside_state ? 'primary' : item.outside_state ? 'medium':''">{{ item.inside_state ?  '입장' : item.outside_state ? '퇴장' :''  }}</ion-chip>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip color="primary">{{ item.inside_state ?  item.inside_time : item.outside_state ? item.outside_time :'' }}</ion-chip>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ng-container>
       </ng-container>
     </ng-container>
   </ion-content>
-  
-  <app-button-footer>
-  <app-button *ngIf="menuCount === 1" (click)="add_work()">근로자 입장 등록</app-button>
-  <app-button *ngIf="menuCount === 1">근로자 퇴장 등록</app-button>
+  <app-button *ngIf="nfcIn && menuCount === 2">장소 스캔(NFC/QR)</app-button>
+  <app-button-footer *ngIf="!nfcIn || menuCount === 1">
+  <app-button (click)="work_edit('IN')">근로자 입장 등록</app-button>
+  <app-button (click)="work_edit('OUT')" >근로자 퇴장 등록</app-button>
 </app-button-footer>
