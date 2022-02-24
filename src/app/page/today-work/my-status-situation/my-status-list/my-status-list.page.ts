@@ -20,7 +20,7 @@ export class MyStatusListPage implements OnInit {
   open:boolean = false;
 
   form = {
-    master_company_id: 1,
+    master_company_id: 0,
     project_id:0
   }
 
@@ -121,7 +121,7 @@ export class MyStatusListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      // this.form.master_company_id = data.master_company_id;
+      this.form.master_company_id = data.master_company_id;
       this.form.project_id = data.project_id;
       this.get();
     }
@@ -132,7 +132,12 @@ export class MyStatusListPage implements OnInit {
   }
 
   workerSatus() {
-    this.nav.navigateForward('/worker-status-list',{state:this.form});
+    if(!this.form.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
+    this.nav.navigateForward('/worker-status-list',{state:{      
+      project_id:this.form.project_id,
+      master_company_id:this.form.master_company_id
+      }
+    });
   }
 
   async inNfcQr() {

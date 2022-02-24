@@ -8,7 +8,7 @@
   <ion-toolbar color="white">
     <app-row>
       <app-col>
-        <app-input label="현장영" [readonly]="true"></app-input>
+        <app-select-scene [disabled]="true" [(ngModel)]="this.form.project_id"></app-select-scene>
       </app-col>
       <app-col size="auto">
         <app-button (click)="detailSearch()">상세검색</app-button>
@@ -23,7 +23,7 @@
         <h4>{{ resgate?.rsObj?.area_risk_name }}</h4>
       </app-col>
       <app-col size="auto">
-        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_state }}</ion-chip>
+        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'secondary' : 'medium'">{{ resgate?.rsObj?.last_state }}</ion-chip>
       </app-col>
       <app-col size="auto">
         <ion-chip color="primary">{{ resgate?.rsObj?.last_time}}</ion-chip>
