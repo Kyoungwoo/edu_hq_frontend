@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { AreaDate } from 'src/app/component/select/select-dangerous-area/select-dangerous-area.component';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
 
@@ -45,6 +46,8 @@ export class WorkerStatusListPage implements OnInit {
     ctgo_safe_job_name: CtgoNative,
     inside_time: string
   }>;
+
+  areadata = new AreaDate();
 
   gateOpen:boolean = false;
   gateForm = {
@@ -95,43 +98,51 @@ export class WorkerStatusListPage implements OnInit {
 
   ngOnInit() {
     console.log(history.state);
-    this.getGate();
   }
 
   async getGate() {
-    this.gateForm.project_id = history.state.navigationId;
-    // await this.promise.wait(() => this.gateForm.project_id = history.state.project_id);
+    await this.promise.wait(() => this.gateForm.project_id = history.state.navigationId);
     this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.gateForm,{
       parse:['inner_data', 'ctgo_job_position_name','ctgo_occupation_name','ctgo_safe_job_name']
     });
-    if(this.gateList.rsCode === 0) {
-      
-    } else {
-      this.toast.present({ color: 'warning', message: this.gateList.rsMsg });
+    if(this.gateList.rsCode !== 0) {
+      this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
     }
   }
-
+  
   async getRiskArea() {
-    this.riskAreaList = await this.connect.run('/work_project/nfc_beacon/risk/list',this.riskAreaForm);
-    if(this.riskAreaList.rsCode === 0) {
+    if(!this.riskAreaForm.area_risk_id) return await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
+    this.riskAreaForm.area_risk_id = this.areadata.area_risk_id;
+    const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.riskAreaForm);
+    if(res.rsCode === 0) {
+      this.riskAreaList = {
+        ...res,
+        ...this.riskAreaList
+      }
       this.nfcIn = false;
+      console.log("this.nfcIn",this.nfcIn);
     } else {
-      this.toast.present({ color: 'warning', message: this.gateList.rsMsg });
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
-
+  dataChange(ev)  {
+    this.areadata = ev.data;
+  }
 
   async work_edit(type) {
+    console.log(this.areadata);
     const modal = await this.modal.create({
       component:WorkerStatusAddPage,
       componentProps: {
         project_id: history.state.navigationId,
         select_type:type,
-        area_risk_id:this.riskAreaForm.area_risk_id
+        area_risk_id:this.riskAreaForm.area_risk_id,
+        areadata:this.areadata
       }
     });
-    modal.present();    
+    modal.present();
+    const { data } = await modal.onDidDismiss();
   }
 
   async detailSearch() {

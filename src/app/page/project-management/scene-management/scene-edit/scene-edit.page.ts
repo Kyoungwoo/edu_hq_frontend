@@ -45,8 +45,6 @@ export class ProjectDetail {
   company_data: CompanyData[] = [];
   gps_coordinate_data = new GpsCoordinateData();
 }
-// {"gps_latitude":[37.40428515657017,37.4042804438199,37.404136280751516,37.40413648328292],
-// "gps_longitude":[127.1072361945521,127.10746490257915,127.10746469669094,127.10724162994126]}
 
 @Component({
   selector: 'app-scene-edit',
@@ -119,6 +117,7 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      console.log("this.form",this.form);
       if((this.form.create_user_id === this.user.userData.user_id) || 
       (this.user.userData.user_role === 'LH_HEAD')) {
         this.roleCheck = false;

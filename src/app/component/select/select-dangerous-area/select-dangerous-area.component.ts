@@ -4,6 +4,14 @@ import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { SearchDangerousAreaComponent } from '../../modal/search-dangerous-area/search-dangerous-area.component';
 
+export class AreaDate {
+  area_top_name:string;
+  area_middle_name:string;
+  area_bottom_name:string;
+  ctgo_area_risk_name:string;
+  area_risk_name:string;
+  area_risk_id:number;
+}
 @Component({
   selector: 'app-select-dangerous-area',
   templateUrl: './select-dangerous-area.component.html',
@@ -30,11 +38,18 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   }
   get project_id() { return this._project_id }
 
+  data:AreaDate = new AreaDate();
+
   constructor(
     private _modal:ModalController
   ) { }
 
   ngOnInit() {}
+
+  get() {
+
+  }
+
   async dangerous(){
     const modal = await this._modal.create({
       component:SearchDangerousAreaComponent,
@@ -44,12 +59,17 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    this.text = (data.area_top_name ? data.area_top_name: '')+ ' ' +
-                (data.area_middle_name ? data.area_middle_name : '') + ' ' +
-                (data.area_bottom_name ? data.area_bottom_name : '') + '/' +
-                (data.ctgo_area_risk_name ? data.ctgo_area_risk_name : '') +  '/'  +
-                (data.area_risk_name ? data.area_risk_name : '')
-    this.value = data.area_risk_id;
+    if(data) {
+      this.data = data;
+      this.text = (data.area_top_name ? data.area_top_name: '')+ ' ' +
+                  (data.area_middle_name ? data.area_middle_name : '') + ' ' +
+                  (data.area_bottom_name ? data.area_bottom_name : '') + '/' +
+                  (data.ctgo_area_risk_name ? data.ctgo_area_risk_name : '') +  '/'  +
+                  (data.area_risk_name ? data.area_risk_name : '')
+      this.value = data.area_risk_id;
+      this.data = data;
+      
+    }
   }
 
   @Output() change = new EventEmitter();
@@ -58,9 +78,13 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   @Input() set value(v:number[] | number) {
     if(v !== this._value) {
       this._value = v ? v : this.multiple ? [] : 0;
-      // this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.get();
+      this.onChangeCallback({v});
+      console.log('========================Input',this.data);
+      this.change.emit({
+        v,
+        data:this.data
+      });
     }
   }
   get value() {
@@ -69,9 +93,13 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   writeValue(v:[]): void { 
     if(v !== this._value) {
       this._value = v ? v : this.multiple ? [] : 0;
-      // this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.get();
+      this.onChangeCallback({v});
+      console.log('========================writeValue',this.data);
+      this.change.emit({
+        v,
+        data:this.data
+      });
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -24,51 +25,54 @@ export class MyStatusListPage implements OnInit {
   }
 
   resgate:ConnectResult<{
-    area_bottom_name: string,
-    area_risk_id: number,
-    last_state: string,
-    user_id: number,
-    area_middle_name: string,
-    last_time: string,
-    area_top_name: string,
+    area_bottom_name:string,
+    area_risk_id:number,
+    last_state:string,
+    user_id:number,
+    area_middle_name:string,
+    last_time:string,
+    area_top_name:string,
     inner_data: [{
-      work_state: string,
-      inside_time: string,
-      serial_type: string,
-      area_risk_id: number,
-      outside_time: string,
-      area_top_name: string,
-      area_risk_name: string,
-      area_bottom_name: string,
-      area_middle_name: string,
+      work_state:string,
+      inside_time:string,
+      serial_type:string,
+      area_risk_id:number,
+      outside_time:string,
+      area_top_name:string,
+      area_risk_name:string,
+      area_bottom_name:string,
+      area_middle_name:string,
     }],
-    area_risk_name: string
+    area_risk_name:string
   }>
 
   resrisk:ConnectResult<{
-    area_bottom_name: string,
-    area_risk_id: number,
-    last_state: string,
-    user_id: number,
-    area_middle_name: string,
-    last_time: string,
-    area_top_name: string,
+    area_bottom_name:string,
+    area_risk_id:number,
+    last_state:string,
+    user_id:number,
+    area_middle_name:string,
+    last_time:string,
+    area_top_name:string,
     inner_data: [{
-      work_state: string,
-      inside_time: string,
-      serial_type: string,
-      area_risk_id: number,
-      outside_time: string,
-      area_top_name: string,
-      area_risk_name: string,
-      area_bottom_name: string,
-      area_middle_name: string,
+      work_state:string,
+      inside_time:string,
+      serial_type:string,
+      area_risk_id:number,
+      outside_time:string,
+      area_top_name:string,
+      area_risk_name:string,
+      area_bottom_name:string,
+      area_middle_name:string,
     }],
-    area_risk_name: string
+    area_risk_name:string
     checked:boolean;
   }>
 
   gateOpen:boolean = false;
+
+  notWorker:boolean = false;
+  worker:boolean = false;
   
 
   constructor(
@@ -78,25 +82,32 @@ export class MyStatusListPage implements OnInit {
     private qr: QrService,
     private nfc: NfcService,
     private alert: AlertService,
-    private toast: ToastService
+    private toast: ToastService,
+    public user: UserService
   ) { }
 
   ngOnInit() {
-    
+    this.roleCheck();
+  }
+
+  roleCheck() {
+    if(this.user.userData.user_role === 'LH_HEAD' ||
+      this.user.userData.user_role === 'MASTER_HEAD' ||
+      this.user.userData.user_role === 'COMPANY_HEAD') {
+        this.notWorker = true;
+      }
   }
 
   async get() {
     this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list',this.form,{parse:['inner_data']});
     if(this.resgate.rsCode === 0) {
-      console.log(this.resgate);
     } else {
-      
+      this.toast.present({message:this.resgate.rsMsg, color:'warning'});
     }
     this.resrisk = await this.connect.run('/work_project/nfc_beacon/my_risk/list',this.form,{parse:['inner_data']});
-    if(this.resgate.rsCode === 0) {
-      console.log(this.resgate);
+    if(this.resrisk.rsCode === 0) {
     } else {
-      
+      this.toast.present({message:this.resrisk.rsMsg, color:'warning'});
     }
   }
 

@@ -402,10 +402,14 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 협의체
   async getMeeting() {
-    await this.promise.wait(() => this.meetingForm);
-    
-    this.resMeeting = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
-    if(this.resMeeting.rsCode === 0) {};
+    await this.promise.wait(() => this.meetingForm.project_id);
+    const res = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
+    if(res.rsCode === 0) {
+      this.resMeeting = {
+        ...this.resMeeting,
+        ...res
+      }
+    };
   }
 
   async meetingUpdate() {

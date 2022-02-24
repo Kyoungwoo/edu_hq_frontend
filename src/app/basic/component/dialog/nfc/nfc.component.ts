@@ -30,32 +30,32 @@ export class NfcComponent implements OnInit {
     private navCtrl: NavService
   ) { }
   async ngOnInit() {
-      var varUa = navigator.userAgent.toLowerCase();
-      if(varUa.match('android') != null){
-        this.android = true;
-      } else { 
-        this.ios = true;
+    var varUa = navigator.userAgent.toLowerCase();
+    if(varUa.match('android') != null){
+      this.android = true;
+    } else { 
+      this.ios = true;
+    }
+    if(this.android){
+      const { permission } = await Nfc.permission();
+      if(permission === null) {
+        this.alert.present({
+          header: "NFC를 사용할 수 없습니다.",
+          message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
+        });
+        this.navCtrl.back();
       }
-      if(this.android){
-        const { permission } = await Nfc.permission();
-        if(permission === null) {
-          this.alert.present({
-            header: "NFC를 사용할 수 없습니다.",
-            message: "디바이스가 NFC를 지원하지 않습니다. QR로 입장을 해주세요."
-          });
-          this.navCtrl.back();
-        }
-        else if(permission === "disabled") {
-          this.alert.present({
-            header: "NFC 비활성화 됨",
-            message: "NFC를 활성화해주세요."
-          });
-          this.navCtrl.back();
-        }
-        else {
-          this.nfcScan();
-        }
+      else if(permission === "disabled") {
+        this.alert.present({
+          header: "NFC 비활성화 됨",
+          message: "NFC를 활성화해주세요."
+        });
+        this.navCtrl.back();
       }
+      else {
+        this.nfcScan();
+      }
+    }
   }
   ngOnDestroy() {
     this.pageAlive = false;
@@ -63,7 +63,6 @@ export class NfcComponent implements OnInit {
   }
   
   async nfcScan() {
-
     const { message } = await Nfc.getData();
     console.log("message",message);
     this.getNfcData(message);

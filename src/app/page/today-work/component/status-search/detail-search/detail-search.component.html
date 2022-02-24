@@ -14,20 +14,15 @@
 <ion-content>
   <app-row *ngIf="type==='my'">
     <app-col>
-      <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+      <app-select-scene [disabled]="disabled" [(ngModel)]="form.project_id"></app-select-scene>
     </app-col>
   </app-row>
   <app-row>
     <app-col>
-      <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      <app-select-contractor [disabled]="disabled" [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
     </app-col>
   </app-row>
   <app-row>
-  </app-row>
-  <app-row>
-    <app-col>
-      <app-input name="input scene" label="검색어"></app-input>
-    </app-col>
   </app-row>
 </ion-content>
 <app-button-footer>
