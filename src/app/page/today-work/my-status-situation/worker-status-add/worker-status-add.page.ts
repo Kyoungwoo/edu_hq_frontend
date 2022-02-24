@@ -32,7 +32,6 @@ export class WorkerStatusAddPage implements OnInit {
     master_company_id: 2,
     project_id: 1,
     search_text:'',
-    select_type:'',
     user_type:'',
     area_risk_id:0,
     area_bottom_id:0,
@@ -58,21 +57,23 @@ export class WorkerStatusAddPage implements OnInit {
   ngOnInit() {
     
     if(this.area_risk_id) {
-      this.riskGet()
+      this.riskGet();
+      this.form.project_id = this.project_id;
+      this.form.insert_state = this.select_type;
+      this.form.area_risk_id = this.areadata.area_risk_id;
+      this.form.serial_type = '위험지역';
     } else {
       this.gateGet();
+      this.form.project_id = this.project_id;
+      this.form.insert_state = this.select_type;
+      this.form.serial_type = '게이트';
     }
   }
   async gateGet() {
-    this.form.project_id = this.project_id;
-    this.form.select_type = this.select_type;
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_gate/list',this.form);
     if(this.res.rsCode === 0) {}
   }
   async riskGet() {
-    this.form.project_id = this.project_id;
-    this.form.select_type = this.select_type;
-    this.form.area_risk_id = this.area_risk_id; 
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_risk/list',this.form);
     if(this.res.rsCode === 0) {}
   }
@@ -83,13 +84,13 @@ export class WorkerStatusAddPage implements OnInit {
   }
   async workerIn() {
     this.selectData.map(item => this.form.user_ids.push(item.user_id));
-    this.form.area_risk_id ? this.form.user_type = '위험지역' : this.form.user_type = '게이트'
-    
     this.form = {
       ...this.areadata,
       ...this.form
     }
-    console.log("this.=form",this.form);
+    console.log("this.select_type",this.select_type);
+    console.log("this.form",this.form);
+    return;
     const alert = await this.alert.present({
       message:'선택한 인원을 입장 처리하시겠습니까?',
       buttons:[
@@ -105,6 +106,7 @@ export class WorkerStatusAddPage implements OnInit {
           }
         }
       ]
-    })
+    });
+    alert.present();
   }
 }

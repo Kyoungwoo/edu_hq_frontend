@@ -108,7 +108,6 @@ export class MyStatusListPage implements OnInit {
     if(this.resrisk.rsCode === 0) {
     } else {
       this.toast.present({message:this.resrisk.rsMsg, color:'warning'});
-      
     }
   }
 

@@ -98,7 +98,6 @@ export class WorkerStatusListPage implements OnInit {
 
   ngOnInit() {
     console.log(history.state);
-    this.getGate();
   }
 
   async getGate() {
@@ -110,8 +109,10 @@ export class WorkerStatusListPage implements OnInit {
       this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
     }
   }
-
+  
   async getRiskArea() {
+    if(!this.riskAreaForm.area_risk_id) return await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
+    this.riskAreaForm.area_risk_id = this.areadata.area_risk_id;
     const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.riskAreaForm);
     if(res.rsCode === 0) {
       this.riskAreaList = {

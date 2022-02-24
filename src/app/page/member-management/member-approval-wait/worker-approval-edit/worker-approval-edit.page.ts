@@ -1,12 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
+
+export interface SafeJobItem {
+  ctgo_safe_job_id: number,
+  safe_job_start_date: string,
+  create_user_id: number,
+  update_user_id: number
+}
 
 export class WorkerApprovalItem {
   company_id: number;
@@ -33,56 +40,57 @@ export class WorkerApprovalItem {
 
   //소속정보
   update_date: string;
-  ctgo_job_position_name_kr: string;
+  ctgo_job_position_name: string;
   ctgo_construction_id: number;
   ctgo_job_position_id: number;
   ctgo_construction_name: string;
-  ctgo_occupation_name_kr: string;
+  ctgo_occupation_name: string;
   project_name: string;
   ctgo_occupation_id: number;
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  user_safe_job_file_data: FutItem[] = [];
-  safe_job_data: [{
-    ctgo_safe_job_id: 0,
-    ctgo_safe_job_name_kr: '',
-    safe_job_start_date: '',
-    user_id: 0, 
-    user_safe_job_id: 0,
-    file_name: '';
-    full_url: '';
-  }];
+  safe_job_file_data: FutItem[] = [];
+  safe_job_data:SafeJobItem[] =[];
   certify_file_data: FutItem[] = [];
   certify_data: [{
-    file_name: '',
-    full_url: '',
-    user_certify_id: 0,
-    user_certify_no: '',
-    user_id: 0,
+    user_certify_no: string,
+    create_user_id: number,
+    update_user_id: number
   }];
   certify_file: (File|FileBlob)[] = [];
   certify_file_json: FileJson = new FileJson();
   safe_file: (File|FileBlob)[] = [];
   safe_file_json: FileJson = new FileJson();
+
+  //교육이력 
+  basic_safe_edu_date: string;
+  user_safe_edu_file_data: FutItem[] = [];
+  search_text: string;
+  ctgo_education_safe_types: [] = [];
+  ctgo_education_safe_name: string;
+  ctgo_education_safe_id: number;
+  ctgo_education_safe_title: string;
+  ctgo_education_safe_text: string;
+  ctgo_education_safe_type: string;
+  education_minute: string;
+  education_safe_id: number;
+  create_date: string;
+
   
 };
+
 export class addSafeJobData {
-  ctgo_safe_job_id: 0;
-  ctgo_safe_job_name_kr: '';
-  safe_job_start_date: '';
-  user_id: 0;
-  user_safe_job_id: 0;
-  file_name: '';
-  full_url: '';
+  ctgo_safe_job_id: number;
+  safe_job_start_date: string;
+  create_user_id: number;
+  update_user_id: number
 } 
 
 export class addCertifyData {
-  file_name: '';
-  full_url: '';
-  user_certify_id: 0;
-  user_certify_no: '';
-  user_id: 0;
+  user_certify_no: string;
+  create_user_id: number;
+  update_user_id: number
 } 
 
 @Component({
@@ -96,11 +104,35 @@ export class WorkerApprovalEditPage implements OnInit {
 
   form = new WorkerApprovalItem();
   validator = new Validator(new WorkerApprovalItem()).validator;
+  res:ConnectResult<WorkerApprovalItem>;
+
+  ctgo_Education:ConnectResult<{
+    ctgo_education_safe_type: string, 
+    ctgo_education_safe_name: string,
+    ctgo_education_safe_id: number,
+    ctgo_education_safe_title: string,
+    ctgo_education_safe_text: string
+  }>;
+
+  resedu:ConnectResult<{
+    ctgo_education_safe_name: string,
+    ctgo_education_safe_id: number,
+    ctgo_education_safe_title: string,
+    user_id: string,
+    project_id: number,
+    ctgo_education_safe_text: string,
+    education_safe_id: number,
+    education_safe_time: number,
+    ctgo_education_safe_type: string,
+    create_date: string,
+    project_name: string
+  }>;
 
   menu:number = 1;
   company_id: any;
   user_id: any;
   approval_user_ids: [];
+
   constructor(
     private _modal_ : ModalController,
     private connect: ConnectService,
@@ -111,6 +143,11 @@ export class WorkerApprovalEditPage implements OnInit {
 
   ngOnInit() {
     this.getItem();
+    this.getBelong();
+    this.getSafeEdu();
+    this.getSafeEduList();
+    this.CtgoEducation();
+    
   }
 
   public async overlapEmail() { //이메일
@@ -152,28 +189,54 @@ export class WorkerApprovalEditPage implements OnInit {
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+  }
 
-    //소속정보
-    const ress = await this.connect.run('/usermanage/approval/worker/belong/detail', {
+  async getBelong() {
+      //소속정보
+      const res = await this.connect.run('/usermanage/approval/worker/belong/detail', {
+        session_company_id : this.user.userData.belong_data.company_id,
+        user_id : this.item.user_id,
+        user_manage_session : this.user.memberAuthToken
+      }, {
+        parse: ['certify_data','certify_file_data','safe_job_data']
+      });
+      
+      if (res.rsCode === 0) {
+        this.form = {
+          ...this.form,
+          ...res.rsObj
+        }
+      } else if(res.rsCode === 3008) {
+         // 비밀번호 없거나 틀렸음
+         this.getPassword();
+      } else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+  }
+
+  async getSafeEdu() {
+     //교육이력 
+     const res = await this.connect.run('/usermanage/info/worker/safeedu/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
       user_manage_session : this.user.memberAuthToken
     }, {
-      parse: ['certify_data','certify_file_data','safe_job_data']
+      parse: ['safe_edu_file_data']
     });
     
     if (res.rsCode === 0) {
       this.form = {
         ...this.form,
-        ...ress.rsObj
+        ...res.rsObj
       }
     } else if(res.rsCode === 3008) {
        // 비밀번호 없거나 틀렸음
        this.getPassword();
     } else {
-      this.toast.present({ color: 'warning', message: ress.rsMsg });
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
+
   
 
   async getPassword() { //비밀번호
@@ -259,6 +322,41 @@ export class WorkerApprovalEditPage implements OnInit {
       this.form.certify_data.push({
         ...new addCertifyData(),
       });
+    }
+  }
+
+  async getSafeEduList() {
+   //교육이력 리스트불러오기
+   this.form.session_company_id = this.user.userData.belong_data.company_id;
+   this.form.user_manage_session = this.user.memberAuthToken;
+   console.log("33333333333", this.form.project_id)
+   this.form.project_id = this.user.userData.belong_data.project_id;
+   this.form.approval_user_id = 0;
+   console.log("this.form.ctgo_education_safe_types",this.form.ctgo_education_safe_types);
+    const res = await this.connect.run('/usermanage/approval/worker/edu/list', this.form, {
+      loading: true
+    });
+    if(res.rsCode === 0) {
+      this.resedu = {
+        ...res,
+        ...this.resedu
+      }
+      console.log("this.resedu",this.resedu)
+      // 정상
+    } else if(res.rsCode === 1008) {
+      // 데이터 없음
+    }
+  }
+
+  async CtgoEducation() {
+  //교육구분 카테고리   
+    this.ctgo_Education = await this.connect.run('/category/education/get', {search_text:this.form.search_text}, {
+      loading: true
+    });
+    if(this.ctgo_Education.rsCode === 0) {
+      // 정상
+    } else if(this.ctgo_Education.rsCode === 1008) {
+      // 데이터 없음
     }
   }
 }

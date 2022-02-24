@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -45,7 +45,7 @@ export class WorkerApprovalListPage implements OnInit {
     limit_no: 0,
     user_manage_session: ''
   };
-
+  validator = new Validator(new WorkerInfo()).validator;
   res:ConnectResult<WorkerInfo>;
 
   selectedList = [];
@@ -54,7 +54,7 @@ export class WorkerApprovalListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     private date: DateService,
-    private toast: ToastService
+    private toast: ToastService,
   ) { }
 
   ngOnInit() {
