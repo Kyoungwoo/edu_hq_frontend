@@ -51,7 +51,7 @@ export class WorkerApprovalItem {
   company_name: string;
   work_contract_type: string;
   safe_job_file_data: FutItem[] = [];
-  safe_job_data:SafeJobItem[] =[];
+  safe_job_data: SafeJobItem[] =[];
   certify_file_data: FutItem[] = [];
   certify_data: [{
     user_certify_no: string,
@@ -101,6 +101,8 @@ export class addCertifyData {
 export class WorkerApprovalEditPage implements OnInit {
 
   @Input() item;
+  @Input() company_id;
+  @Input() project_id;
 
   form = new WorkerApprovalItem();
   validator = new Validator(new WorkerApprovalItem()).validator;
@@ -129,9 +131,6 @@ export class WorkerApprovalEditPage implements OnInit {
   }>;
 
   menu:number = 1;
-  company_id: any;
-  user_id: any;
-  approval_user_ids: [];
 
   constructor(
     private _modal_ : ModalController,
@@ -142,6 +141,7 @@ export class WorkerApprovalEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+ console.log("zzzfddfdsdf",this.item)
     this.getItem();
     this.getBelong();
     this.getSafeEdu();
@@ -331,7 +331,7 @@ export class WorkerApprovalEditPage implements OnInit {
    this.form.user_manage_session = this.user.memberAuthToken;
    console.log("33333333333", this.form.project_id)
    this.form.project_id = this.user.userData.belong_data.project_id;
-   this.form.approval_user_id = 0;
+   this.form.approval_user_id = this.item.user_id;
    console.log("this.form.ctgo_education_safe_types",this.form.ctgo_education_safe_types);
     const res = await this.connect.run('/usermanage/approval/worker/edu/list', this.form, {
       loading: true
