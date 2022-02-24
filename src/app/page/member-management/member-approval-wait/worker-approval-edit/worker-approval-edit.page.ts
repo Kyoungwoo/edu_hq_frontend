@@ -79,6 +79,8 @@ export class WorkerApprovalItem {
   
 };
 
+
+
 export class addSafeJobData {
   ctgo_safe_job_id: number;
   safe_job_start_date: string;
@@ -143,10 +145,7 @@ export class WorkerApprovalEditPage implements OnInit {
     
     this.form.company_id = this.user.userData.belong_data.company_id;
     console.log("compnnnnnnnnnnnnnnn",this.form.company_id);
-    this.getItem();
-    this.getBelong();
-    this.getSafeEdu();
-    this.getSafeEduList();
+    this.getAll_Items();
     this.CtgoEducation();
     
   }
@@ -167,6 +166,13 @@ export class WorkerApprovalEditPage implements OnInit {
     const res = await this.connect.run('/usermanage/approval/worker/overlap/phone', { user_phone,user_id });
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
+  }
+
+  async getAll_Items(){
+    await this.getItem();
+    await this.getBelong();
+    await this.getSafeEdu();
+    await this.getSafeEduList();
   }
 
   async getItem() {
@@ -276,29 +282,29 @@ export class WorkerApprovalEditPage implements OnInit {
     } 
   }
   async submit() { 
-    // 기본정보 저장
+    // 저장
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.form.approval_user_id = this.form.user_id;
 
-    let obj = {
-      work_contract_type: this.form.work_contract_type,
-      user_manage_session : this.form.user_manage_session,
-      session_company_id: this.form.session_company_id ,
-      safe_job_data: this.form.safe_job_data,
-      safe_file_json : this.form.safe_file_json ,
-      safe_file: this.form.safe_file,
-      project_id : this.form.project_id ,
-      ctgo_occupation_id : this.form.ctgo_occupation_id ,
-      ctgo_job_position_id : this.form.ctgo_job_position_id ,
-      ctgo_construction_id : this.form.ctgo_construction_id ,
-      certify_file_json : this.form.certify_file_json ,
-      certify_file: this.form.certify_file,
-      certify_data: this.form.certify_data,
-      approval_user_id : this.form.approval_user_id 
-    }
+    // let obj = {
+    //   work_contract_type: this.form.work_contract_type,
+    //   user_manage_session : this.form.user_manage_session,
+    //   session_company_id: this.form.session_company_id ,
+    //   safe_job_data: this.form.safe_job_data,
+    //   safe_file_json : this.form.safe_file_json ,
+    //   safe_file: this.form.safe_file,
+    //   project_id : this.form.project_id ,
+    //   ctgo_occupation_id : this.form.ctgo_occupation_id ,
+    //   ctgo_job_position_id : this.form.ctgo_job_position_id ,
+    //   ctgo_construction_id : this.form.ctgo_construction_id ,
+    //   certify_file_json : this.form.certify_file_json ,
+    //   certify_file: this.form.certify_file,
+    //   certify_data: this.form.certify_data,
+    //   approval_user_id : this.form.approval_user_id 
+    // }
 
-    console.log("obj - ", obj);
+    // console.log("obj - ", obj);
     this.alert.present({
       message:'저장 하시겠습니까?',
       buttons:[
@@ -306,24 +312,34 @@ export class WorkerApprovalEditPage implements OnInit {
         {
           text:'예',
           handler: async() => {
-            const ress = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
-            if(ress.rsCode === 0) {
-            } else {
-              this.toast.present({ color: 'warning', message: ress.rsMsg });
-            }
-            const res = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
-            if(res.rsCode === 0) {
-              this._modal_.dismiss('Y');
-            } else {
-              this.toast.present({ color: 'warning', message: res.rsMsg });
-            }
+            await this.BasicUpdate();
+            await this.BelongUpdate();
           }
         }
       ]
     });
   }
+//기본정보
+  async BasicUpdate(){
+    const ress = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
+    if(ress.rsCode === 0) {
+    } else {
+      this.toast.present({ color: 'warning', message: ress.rsMsg });
+    }
+  }
+//소속정보
+  async BelongUpdate(){
+    const res = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
+    if(res.rsCode === 0) {
+      this._modal_.dismiss('Y');
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
 
+  //파일 행추가
   addSafeJobData() {
+    console.log("addSafeJobData");
     const { user_role, belong_data } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.form.safe_job_data.push({
@@ -336,7 +352,7 @@ export class WorkerApprovalEditPage implements OnInit {
       });
     }
   }
-
+//파일 행삭제
   addCertifyData() {
     const { user_role, belong_data } = this.user.userData;
     if(user_role === 'LH_HEAD') {

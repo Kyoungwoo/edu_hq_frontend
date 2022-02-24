@@ -125,19 +125,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of form.safe_job_file_data let i = index">
+            <tr *ngFor="let item of form.safe_job_data let i = index">
               <td style="text-align: left;">{{ i + 1 }}</td>
               <td><app-select-safetymanager name="안전직무" [company_id]="form.company_id" user_type="WORKER" [(ngModel)]="item.ctgo_safe_job_id" [required]="true"></app-select-safetymanager></td>
               <td><app-calendar [(ngModel)]="item.safe_job_start_date" name="안전직무선임일"></app-calendar></td>
               <td>
-                <a [href]="item.full_url" target="_blank" [download]="item.file_name">{{ item.file_name }}</a>
+                <!-- <a [href]="item.full_url" target="_blank" [download]="item.file_name">{{ item.file_name }}</a> -->
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
                   <app-file name="input" view_type="JOB"
                   [(ngModel)]="form.safe_job_file_data"
                   [file]="form.safe_file"
                   [file_json]="form.safe_file_json"
-                  (change)="test_image($event)"
                   ></app-file>
                 </app-button>
               </td>
