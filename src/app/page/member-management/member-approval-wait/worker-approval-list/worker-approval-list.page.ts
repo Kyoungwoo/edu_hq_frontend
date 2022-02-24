@@ -49,6 +49,11 @@ export class WorkerApprovalListPage implements OnInit {
   res:ConnectResult<WorkerInfo>;
 
   selectedList = [];
+
+  permission = {
+    approval: false
+  }
+
   constructor(
     private user: UserService,
     private modal : ModalController,
@@ -58,16 +63,26 @@ export class WorkerApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.get();
+    this.getPermission();
+    this.get();
+  }
+  
+  getPermission() {
+    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.form.company_id = this.user.userData.belong_data.company_id;
+      this.form.project_id = this.user.userData.belong_data.project_id;
+      this.permission.approval = true;
+    } else {
+      this.permission.approval = false;
+    }
+    this.get();
+
   }
 
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     const authToken = this.user.memberAuthToken;
     this.form.user_manage_session = authToken;
-
-    // let trans_form = JSON.parse(JSON.stringify(this.form));
-    // trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/usermanage/approval/worker/list', this.form, {
       loading: true
     });

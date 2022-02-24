@@ -10,9 +10,9 @@ import { SecurityPasswordComponent } from '../security-password/security-passwor
 
 export interface SafeJobItem {
   ctgo_safe_job_id: number,
-  safe_job_start_date: string,
-  create_user_id: number,
-  update_user_id: number
+  safe_job_start_date: string
+  // create_user_id: number,
+  // update_user_id: number
 }
 
 export class WorkerApprovalItem {
@@ -55,8 +55,8 @@ export class WorkerApprovalItem {
   certify_file_data: FutItem[] = [];
   certify_data: [{
     user_certify_no: string,
-    create_user_id: number,
-    update_user_id: number
+    // create_user_id: number,
+    // update_user_id: number
   }];
   certify_file: (File|FileBlob)[] = [];
   certify_file_json: FileJson = new FileJson();
@@ -67,12 +67,11 @@ export class WorkerApprovalItem {
   basic_safe_edu_date: string;
   user_safe_edu_file_data: FutItem[] = [];
   search_text: string;
-  ctgo_education_safe_types: [] = [];
   ctgo_education_safe_name: string;
   ctgo_education_safe_id: number;
   ctgo_education_safe_title: string;
   ctgo_education_safe_text: string;
-  ctgo_education_safe_type: string;
+  ctgo_education_safe_type: string = '전체';
   education_minute: string;
   education_safe_id: number;
   create_date: string;
@@ -83,14 +82,14 @@ export class WorkerApprovalItem {
 export class addSafeJobData {
   ctgo_safe_job_id: number;
   safe_job_start_date: string;
-  create_user_id: number;
-  update_user_id: number
+  // create_user_id: number;
+  // update_user_id: number
 } 
 
 export class addCertifyData {
   user_certify_no: string;
-  create_user_id: number;
-  update_user_id: number
+  // create_user_id: number;
+  // update_user_id: number
 } 
 
 @Component({
@@ -135,13 +134,15 @@ export class WorkerApprovalEditPage implements OnInit {
   constructor(
     private _modal_ : ModalController,
     private connect: ConnectService,
-    private user: UserService,
+    public user: UserService,
     private toast: ToastService,
     private alert: AlertService,
   ) { }
 
   ngOnInit() {
- console.log("zzzfddfdsdf",this.item)
+    
+    this.form.company_id = this.user.userData.belong_data.company_id;
+    console.log("compnnnnnnnnnnnnnnn",this.form.company_id);
     this.getItem();
     this.getBelong();
     this.getSafeEdu();
@@ -191,6 +192,10 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
+  test_image(e){
+    console.log("test_image - ", this.form.safe_job_file_data);
+  }
+
   async getBelong() {
       //소속정보
       const res = await this.connect.run('/usermanage/approval/worker/belong/detail', {
@@ -198,7 +203,7 @@ export class WorkerApprovalEditPage implements OnInit {
         user_id : this.item.user_id,
         user_manage_session : this.user.memberAuthToken
       }, {
-        parse: ['certify_data','certify_file_data','safe_job_data']
+        parse: ['certify_data','certify_file_data','safe_job_data','safe_job_file_data']
       });
       
       if (res.rsCode === 0) {
@@ -212,6 +217,8 @@ export class WorkerApprovalEditPage implements OnInit {
       } else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
       }
+
+      console.log("parse - ", this.form);
   }
 
   async getSafeEdu() {
@@ -273,6 +280,25 @@ export class WorkerApprovalEditPage implements OnInit {
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.form.approval_user_id = this.form.user_id;
+
+    let obj = {
+      work_contract_type: this.form.work_contract_type,
+      user_manage_session : this.form.user_manage_session,
+      session_company_id: this.form.session_company_id ,
+      safe_job_data: this.form.safe_job_data,
+      safe_file_json : this.form.safe_file_json ,
+      safe_file: this.form.safe_file,
+      project_id : this.form.project_id ,
+      ctgo_occupation_id : this.form.ctgo_occupation_id ,
+      ctgo_job_position_id : this.form.ctgo_job_position_id ,
+      ctgo_construction_id : this.form.ctgo_construction_id ,
+      certify_file_json : this.form.certify_file_json ,
+      certify_file: this.form.certify_file,
+      certify_data: this.form.certify_data,
+      approval_user_id : this.form.approval_user_id 
+    }
+
+    console.log("obj - ", obj);
     this.alert.present({
       message:'저장 하시겠습니까?',
       buttons:[
@@ -329,10 +355,8 @@ export class WorkerApprovalEditPage implements OnInit {
    //교육이력 리스트불러오기
    this.form.session_company_id = this.user.userData.belong_data.company_id;
    this.form.user_manage_session = this.user.memberAuthToken;
-   console.log("33333333333", this.form.project_id)
    this.form.project_id = this.user.userData.belong_data.project_id;
    this.form.approval_user_id = this.item.user_id;
-   console.log("this.form.ctgo_education_safe_types",this.form.ctgo_education_safe_types);
     const res = await this.connect.run('/usermanage/approval/worker/edu/list', this.form, {
       loading: true
     });

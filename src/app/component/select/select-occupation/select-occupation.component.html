@@ -1,3 +1,5 @@
-<app-select [color]="color" [label]="label" [placeholder]="placeholder" [(ngModel)]="value">
-  <app-select-option value="토목공">토목공</app-select-option>
+<app-select  name="select"
+[color]="color"
+[label]="label" [placeholder]="placeholder" [(ngModel)]="value">
+<app-select-option *ngFor="let item of res?.rsMap" [value]="item.ctgo_occupation_id">{{ item.ctgo_occupation_name_kr }}</app-select-option>
 </app-select>
