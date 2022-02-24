@@ -11,14 +11,14 @@
         <app-select-option value="COMPANY">관리자</app-select-option>
         <app-select-option value="WORKER">작업자</app-select-option>
       </app-select>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-input name="with img" label="검색어" [(ngModel)]="this.form.search_text" placeholder="검색어를 입력하세요">
         <app-img (click)="gateGet()" name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card [button]="true" *ngFor="let item of res?.rsMap" (click)="selectItem(item)">
+  <app-card [button]="true" *ngFor="let item of res?.rsMap let i = index" [color]="item.checked ? 'secondary':'white'" (click)="selectItem(item)">
     <app-row>
       <app-col size="auto">
       </app-col>
@@ -30,14 +30,14 @@
   </app-card>
 </ion-content>
 <app-card style="min-height: 50px;">
-  <div>
-    <app-row>
-      <app-col>
-        <h6>현재 입장 처리가 되어있지 않은 근로자만 조회툅니다.</h6>
-      </app-col>
-    </app-row>
+  <app-row>
+    <app-col>
+      <h6>현재 입장 처리가 되어있지 않은 근로자만 조회툅니다.</h6>
+    </app-col>
+  </app-row>
+  <div style="height: 100px; overflow: auto;">
     <app-row style="flex-wrap: wrap;">
-      <app-col size="auto" *ngFor="let name of selectData let index  = index" (click)="this.selectData.splice(index,1)">
+      <app-col size="auto" *ngFor="let name of selectData let index  = index" (click)="deleteData(index,name)">
         <ion-chip style="margin-top: 3px; margin-left: 0; margin-right: 3px;" color="primary" >{{ name.user_name }}
           <ion-icon name="close-outline"></ion-icon>
         </ion-chip>
@@ -45,9 +45,9 @@
     </app-row>
   </div>
 </app-card>
-<app-datetime label="입장시간"></app-datetime>
+<app-datetime label="입장시간" [(ngModel)]="this.form.inside_time"></app-datetime>
 <app-button-footer>
-  <app-button>취소</app-button>
+  <app-button (click)="dismiss()">취소</app-button>
   <app-button (click)="workerIn()">적용</app-button>
 </app-button-footer>
 

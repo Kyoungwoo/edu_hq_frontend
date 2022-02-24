@@ -44,23 +44,17 @@ export class WorkerStatusListPage implements OnInit {
       outside_state: number;
     }[],
     ctgo_safe_job_name: CtgoNative,
-    inside_time: string
+    inside_time: string,
+    checked:boolean
   }>;
 
   areadata = new AreaDate();
 
-  gateOpen:boolean = false;
-  gateForm = {
-    master_company_id:1,
-    project_id:0,
-    search_text:''
-  }
-  
-  riskAreaForm = {
+  form = {
+    master_company_id:0,
+    project_id:history.state.project_id,
+    search_text:'',
     area_risk_id:0,
-    master_company_id:1,
-    project_id:0,
-    search_text:''
   }
 
   riskAreaList:ConnectResult<{
@@ -84,7 +78,8 @@ export class WorkerStatusListPage implements OnInit {
       outside_state: number;
     }[],
     ctgo_safe_job_name: null,
-    inside_time: null
+    inside_time: null,
+    checked:boolean
   }>
 
   nfcIn:boolean = true;
@@ -97,12 +92,14 @@ export class WorkerStatusListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(history.state);
+    console.log("history.state.master_company_id",history.state.master_company_id);
+    this.form.project_id = history.state.project_id;
+    this.form.master_company_id = history.state.master_company_id;
   }
 
   async getGate() {
-    await this.promise.wait(() => this.gateForm.project_id = history.state.navigationId);
-    this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.gateForm,{
+
+    this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.form,{
       parse:['inner_data', 'ctgo_job_position_name','ctgo_occupation_name','ctgo_safe_job_name']
     });
     if(this.gateList.rsCode !== 0) {
@@ -111,16 +108,17 @@ export class WorkerStatusListPage implements OnInit {
   }
   
   async getRiskArea() {
-    if(!this.riskAreaForm.area_risk_id) return await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
-    this.riskAreaForm.area_risk_id = this.areadata.area_risk_id;
-    const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.riskAreaForm);
+    if(!this.form.area_risk_id) return await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
+    this.form.area_risk_id = this.areadata.area_risk_id;
+    const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.form,{
+      parse:['inner_data']
+    });
     if(res.rsCode === 0) {
       this.riskAreaList = {
         ...res,
         ...this.riskAreaList
       }
       this.nfcIn = false;
-      console.log("this.nfcIn",this.nfcIn);
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
@@ -131,18 +129,20 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async work_edit(type) {
-    console.log(this.areadata);
     const modal = await this.modal.create({
       component:WorkerStatusAddPage,
       componentProps: {
-        project_id: history.state.navigationId,
+        project_id: this.form.project_id,
         select_type:type,
-        area_risk_id:this.riskAreaForm.area_risk_id,
-        areadata:this.areadata
+        area_risk_id:this.form.area_risk_id,
+        areadata:this.areadata,
+        master_company_id: this.form.master_company_id
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    if(data) this.getRiskArea();
+    else this.getGate();
   }
 
   async detailSearch() {
