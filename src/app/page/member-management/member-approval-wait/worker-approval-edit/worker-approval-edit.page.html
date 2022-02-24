@@ -217,33 +217,28 @@
         <app-container size="small">
           <form>
             <h5>1. 현재 복용하고 있는 약물이 있습니까?</h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.use_drugs_state">
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요."></app-input>
+            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." [value]="resWorkerHealth.rsObj.use_drugs_state ? resWorkerHealth?.rsObj.use_drugs_content : ''"></app-input>
             <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.brain_cure_state"> 
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
             * 해당하는 항목에 체크해주세요
             <app-row>
-              <app-col>
                 <app-check size="small" name="뇌졸중">뇌졸중</app-check>
-              </app-col>
-              <app-col>
+            
                 <app-check size="small" name="뇌출혈">뇌출혈</app-check>
-              </app-col>
-              <app-col>
+            
                 <app-check size="small" name="협심증">협심증</app-check>
-              </app-col>
-              <app-col>
+            
                 <app-check size="small" name="심근경색">심근경색</app-check>
-              </app-col>
-              <app-col>
+            
                 <app-check size="small" name="간질발작">간질발작</app-check>
-              </app-col>
+            
             </app-row>
             <h5>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h5>
             <app-radio-input>

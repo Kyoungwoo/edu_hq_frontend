@@ -185,6 +185,7 @@ export class WorkerApprovalEditPage implements OnInit {
     await this.getBelong();
     await this.getSafeEdu();
     await this.getSafeEduList();
+    await this.getHealth();
   }
 
   async getItem() {
@@ -413,7 +414,16 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
   async getHealth() {
-    this.resWorkerHealth = await this.connect.run('/usermanage/info/worker/health/get',this.form)
+    const res = await this.connect.run('/usermanage/info/worker/health/get',this.form,{
+      parse:['brain_cure_content']
+    });
+    if(res.rsCode === 0) {
+      this.resWorkerHealth = {
+        ...res,
+        ...this.resWorkerHealth
+      }
+      console.log(this.resWorkerHealth);
+    }
   }
 }
 
