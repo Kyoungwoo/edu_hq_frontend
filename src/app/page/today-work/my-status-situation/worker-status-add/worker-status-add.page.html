@@ -10,8 +10,6 @@
       <app-select label="유형" name="select" [(ngModel)]="form.user_type">
         <app-select-option value="COMPANY">관리자</app-select-option>
         <app-select-option value="WORKER">작업자</app-select-option>
-        <app-select-option value="LH">LH</app-select-option>
-        <app-select-option value="SUPER">감리</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
         <app-img (click)="gateGet()" name="search"></app-img>
@@ -30,25 +28,27 @@
       </app-col>
     </app-row>
   </app-card>
-  <app-card style="min-height: 50px;">
+</ion-content>
+<app-card style="min-height: 50px;">
+  <div>
     <app-row>
       <app-col>
         <h6>현재 입장 처리가 되어있지 않은 근로자만 조회툅니다.</h6>
       </app-col>
     </app-row>
-    <app-row>
+    <app-row style="flex-wrap: wrap;">
       <app-col size="auto" *ngFor="let name of selectData let index  = index" (click)="this.selectData.splice(index,1)">
         <ion-chip style="margin-top: 3px; margin-left: 0; margin-right: 3px;" color="primary" >{{ name.user_name }}
           <ion-icon name="close-outline"></ion-icon>
         </ion-chip>
       </app-col>
     </app-row>
-  </app-card>
-  <app-input label="입장 시간"></app-input>
-</ion-content>
+  </div>
+</app-card>
+<app-datetime label="입장시간"></app-datetime>
 <app-button-footer>
   <app-button>취소</app-button>
-  <app-button>적용</app-button>
+  <app-button (click)="workerIn()">적용</app-button>
 </app-button-footer>
 
 

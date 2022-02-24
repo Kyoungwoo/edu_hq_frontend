@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card *ngIf="resgate" (click)="gateOpen = !gateOpen">
+  <app-card *ngIf="resgate?.rsCode === 0" (click)="gateOpen = !gateOpen">
     <app-row>
       <app-col>
         <h4>{{ resgate?.rsObj?.area_risk_name }}</h4>
@@ -79,6 +79,6 @@
 </ion-content>
 
 <app-button-footer>
-  <app-button (click)="workerSatus()">근로자 출입 관리</app-button>
+  <app-button *ngIf="notWorker" (click)="workerSatus()">근로자 출입 관리</app-button>
   <app-button (click)="inNfcQr()">출입(NFC / QR)</app-button>
 </app-button-footer>

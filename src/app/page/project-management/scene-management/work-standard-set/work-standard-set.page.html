@@ -346,7 +346,7 @@
             <app-button [disabled]="workRoleCheck" fill="translucent" (click)="meetingUpdate()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
-        <ng-container *ngIf="!workRoleCheck else roleEmpty">
+        <ng-container *ngIf="!workRoleCheck">
         <app-card>
           <ion-toolbar slot="top" color="white">
             <h5>안전 및 보건에 관한 협의체</h5>
@@ -382,15 +382,6 @@
             </app-row>
           </app-card>
         </ng-container>
-        <ng-template #roleEmpty>
-          <app-card>
-            <app-row>
-              <app-col>
-                <h5>권한이 없습니다.</h5>
-              </app-col>
-            </app-row>
-          </app-card>
-        </ng-template>
       </app-col>
     </app-row>
   </ng-container>

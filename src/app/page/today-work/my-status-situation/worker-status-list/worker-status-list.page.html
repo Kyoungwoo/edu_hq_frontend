@@ -27,7 +27,7 @@
 <ng-container *ngIf="menuCount === 2">
   <app-row>
     <app-col>
-      <app-select-dangerous-area [project_id]="gateForm.project_id" [(ngModel)]="riskAreaForm.area_risk_id"></app-select-dangerous-area>
+      <app-select-dangerous-area (change)="dataChange($event)" [project_id]="gateForm.project_id" [(ngModel)]="riskAreaForm.area_risk_id"></app-select-dangerous-area>
     </app-col>
   </app-row>
   <app-row>
@@ -114,8 +114,9 @@
       </ng-container>
     </ng-container>
   </ion-content>
-  <app-button *ngIf="nfcIn && menuCount === 2">장소 스캔(NFC/QR)</app-button>
-  <app-button-footer *ngIf="!nfcIn || menuCount === 1">
+  <app-button *ngIf="menuCount === 2 && nfcIn">장소 스캔(NFC/QR)</app-button>
+  <!-- *ngIf="menuCount === 1 || !nfcIn" -->
+  <app-button-footer>
   <app-button (click)="work_edit('IN')">근로자 입장 등록</app-button>
   <app-button (click)="work_edit('OUT')" >근로자 퇴장 등록</app-button>
 </app-button-footer>
