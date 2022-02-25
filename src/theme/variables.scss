@@ -44,9 +44,9 @@
     @include generateColor('success', #25A485, #ffffff);
     @include generateColor('warning', #ff9041, #ffffff);
     @include generateColor('danger', #FF6060, #ffffff);
-    @include generateColor('dark', #445760, #222120);
+    @include generateColor('dark', #F7F9FC, #222120);
     @include generateColor('medium', #9CB3BE, #222120);
-    @include generateColor('light', #f1f0ef, #222120);
+    @include generateColor('light', #445760, #222120);
 
     @include generateColor('white', #181818, white);
     @include generateColor('star', #ffba0d, #ffffff);

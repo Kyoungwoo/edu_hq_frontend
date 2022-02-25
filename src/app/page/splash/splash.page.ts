@@ -21,6 +21,7 @@ export class SplashPage implements OnInit, AfterViewInit {
   }
   goToInitPage() {
     const loadingRoof = setTimeout(() => {
+      console.log(this.device.platform_type);
       if(!this.device.platform_type) {
         clearTimeout(loadingRoof);
         this.goToInitPage();
