@@ -113,7 +113,7 @@ export class WorkStandardSetPage implements OnInit {
 
   menuCount6() {
     this.menuCount = 6;
-      // this.getTool();
+      this.getTool();
   }
   async menuCount8() {
     this.menuCount = 8;
@@ -311,6 +311,7 @@ export class WorkStandardSetPage implements OnInit {
 
   //특수 공도구
   async getTool() {
+    await this.promise.wait(() => this.toolForm);
     this.resTool = await this.connect.run('/project/tool/get',this.toolForm,{});
     if(this.resTool.rsCode === 0) {};
   }
@@ -318,6 +319,7 @@ export class WorkStandardSetPage implements OnInit {
   async toolAdd() {
     if (!this.toolForm.project_id) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
     if (!this.toolForm.company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
+
     if (this.resTool?.rsMap?.length) {
       this.resTool?.rsMap.unshift({
         ctgo_tool_id: 0,
