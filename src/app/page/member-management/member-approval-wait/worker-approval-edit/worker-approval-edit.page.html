@@ -62,7 +62,7 @@
       </form>
       <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
-          <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
+          <app-button fill="translucent" style="width: 120px;" (click)="approval()" *ngIf="permission.approval">가입승인</app-button>
           <app-button style="width: 120px;" (click)="submit()">저장</app-button>
         </ion-buttons>
       </ion-toolbar>
@@ -221,57 +221,65 @@
               <app-radio [value]="0">없다</app-radio>
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." [value]="resWorkerHealth.rsObj.use_drugs_state ? resWorkerHealth?.rsObj.use_drugs_content : ''"></app-input>
+            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." *ngIf="resWorkerHealth?.rsObj.use_drugs_state" [(ngModel)]="resWorkerHealth?.rsObj.use_drugs_content"></app-input>
+
             <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
             <app-radio-input [value]="resWorkerHealth?.rsObj.brain_cure_state"> 
               <app-radio [value]="0">없다</app-radio>
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            * 해당하는 항목에 체크해주세요
-            <app-row>
-                <app-check size="small" name="뇌졸중">뇌졸중</app-check>
-            
-                <app-check size="small" name="뇌출혈">뇌출혈</app-check>
-            
-                <app-check size="small" name="협심증">협심증</app-check>
-            
-                <app-check size="small" name="심근경색">심근경색</app-check>
-            
-                <app-check size="small" name="간질발작">간질발작</app-check>
-            
-            </app-row>
+
+            <div *ngIf="resWorkerHealth?.rsObj.brain_cure_state">
+              * 해당하는 항목에 체크해주세요
+              <app-input-template>
+                <app-check-group slot="input" name="brain_cure_content" 
+                [(ngModel)]="resWorkerHealth.rsObj.brain_cure_content">
+                  <app-check on="뇌졸중">뇌졸중</app-check>
+                  <app-check on="뇌출혈">뇌출혈</app-check>
+                  <app-check on="협심증">협심증</app-check>
+                  <app-check on="심근경색">심근경색</app-check>
+                  <app-check on="간질발작">간질발작</app-check>
+                </app-check-group>
+              </app-input-template>
+            </div>
+
             <h5>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.vomiting_state">
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.vomiting_state" [value]="resWorkerHealth?.rsObj.vomiting_content"></app-input>
+
             <h5>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.pain_head_state">
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.pain_head_content" [value]="resWorkerHealth?.rsObj.pain_head_content"></app-input>
+
             <h5>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.etc_disease_state">
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.etc_disease_state" [value]="resWorkerHealth?.rsObj.etc_disease_content"></app-input>
+
             <h5>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
               (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
             </h5>
-            <app-radio-input>
-              <app-radio value="없다">없다</app-radio>
-              <app-radio value="있다">있다</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.covid_nineteen_state">
+              <app-radio [value]="0">없다</app-radio>
+              <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.covid_nineteen_state" [value]="resWorkerHealth?.rsObj.covid_nineteen_state"></app-input>
+
             <h5>7. 코로나 백신 접종을 하셨습니까?</h5>
-            <app-radio-input>
-              <app-radio value="미접종">미접종</app-radio>
-              <app-radio value="접종">접종</app-radio>
+            <app-radio-input [value]="resWorkerHealth?.rsObj.covid_vaccine_state">
+              <app-radio [value]="0">미접종</app-radio>
+              <app-radio [value]="1">접종</app-radio>
             </app-radio-input>
           </form>
+
         </app-container>
       </ng-container>
       <ng-container *ngIf="menu === 3">
@@ -289,12 +297,11 @@
           </app-col>
           <app-col>
             <app-input label="기초 안전 보건 교육 이수증">
-              <app-img name="save"></app-img>
-              <app-file name="input" view_type="BASIC_SAFE_EDU"
+              <!-- <app-file name="input" view_type="BASIC_SAFE_EDU"
               [(ngModel)]="form.user_safe_edu_file_data"
               [file]="form.file"
               [file_json]="form.file_json"
-              ></app-file>
+              ></app-file> -->
             </app-input>
           </app-col>
         </app-row>

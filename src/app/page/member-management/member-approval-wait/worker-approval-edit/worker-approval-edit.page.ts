@@ -11,12 +11,10 @@ import { SecurityPasswordComponent } from '../security-password/security-passwor
 export interface SafeJobItem {
   ctgo_safe_job_id: number,
   safe_job_start_date: string
-  // create_user_id: number,
-  // update_user_id: number
 }
 
 export class WorkerApprovalItem {
-  //회원 정보
+//회원 정보
   company_id: number;
   approval_user_id: number;
   session_company_id: number;
@@ -39,7 +37,7 @@ export class WorkerApprovalItem {
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
 
-  //소속정보
+//소속정보
   update_date: string;
   ctgo_job_position_name: string;
   ctgo_construction_id: number;
@@ -56,15 +54,13 @@ export class WorkerApprovalItem {
   certify_file_data: FutItem[] = [];
   certify_data: [{
     user_certify_no: string,
-    // create_user_id: number,
-    // update_user_id: number
   }];
   certify_file: (File|FileBlob)[] = [];
   certify_file_json: FileJson = new FileJson();
   safe_file: (File|FileBlob)[] = [];
   safe_file_json: FileJson = new FileJson();
 
-  //교육이력 
+//교육이력 
   basic_safe_edu_date: string;
   user_safe_edu_file_data: FutItem[] = [];
   search_text: string;
@@ -78,19 +74,13 @@ export class WorkerApprovalItem {
   create_date: string;
 };
 
-
-
 export class addSafeJobData {
   ctgo_safe_job_id: number;
   safe_job_start_date: string;
-  // create_user_id: number;
-  // update_user_id: number
 } 
 
 export class addCertifyData {
   user_certify_no: string;
-  // create_user_id: number;
-  // update_user_id: number
 } 
 
 @Component({
@@ -130,14 +120,14 @@ export class WorkerApprovalEditPage implements OnInit {
     project_name: string
   }>;
 
-  //건강 문진
-  resWorkerHealth:ConnectResult <{
+//건강 문진
+  resWorkerHealth: ConnectResult <{
     brain_cure_content: string,
     use_drugs_state: number,
-    covid_vaccine_state:string,
+    covid_vaccine_state: number,
     vomiting_state: number,
     vomiting_content: string,
-    covid_nineteen_state: number,
+    covid_nineteen_state: string,
     pain_head_state: number,
     brain_cure_state: number,
     health_terms_state: number,
@@ -146,7 +136,11 @@ export class WorkerApprovalEditPage implements OnInit {
     use_drugs_content: string,
     pain_head_content: string
   }>
+
   menu:number = 1;
+  permission = {
+    approval: false
+  }
 
   constructor(
     private _modal_ : ModalController,
@@ -158,11 +152,27 @@ export class WorkerApprovalEditPage implements OnInit {
 
   ngOnInit() {
     this.form.company_id = this.user.userData.belong_data.company_id;
+    this.getPermission();
     this.getAll_Items();
     this.CtgoEducation();
+    this.getHealth();
   }
 
-  public async overlapEmail() { //이메일
+//권한
+  getPermission() { 
+    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.form.company_id = this.user.userData.belong_data.company_id;
+      this.form.project_id = this.user.userData.belong_data.project_id;
+      this.permission.approval = true;
+    } else {
+      this.permission.approval = false;
+    }
+     this.getAll_Items();
+     this.CtgoEducation();
+  }
+
+//이메일
+  public async overlapEmail() { 
     const { user_email,user_id } = this.form;
     if(!user_email) return this.validator.user_email = null;
     if(!user_id) return this.validator.user_id = null;
@@ -171,7 +181,8 @@ export class WorkerApprovalEditPage implements OnInit {
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
-  public async overlapPhone() { //휴대폰
+//휴대폰
+  public async overlapPhone() { 
     const { user_phone,user_id } = this.form;
     if(!user_phone) return this.validator.user_phone = null;
     if(!user_id) return this.validator.user_id = null;
@@ -181,15 +192,15 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
   async getAll_Items(){
-    await this.getItem();
-    await this.getBelong();
-    await this.getSafeEdu();
-    await this.getSafeEduList();
-    await this.getHealth();
+    await this.getItem(); //기본정보
+    await this.getBelong(); //소속정보
+    await this.getSafeEdu(); //교육이력
+    await this.getSafeEduList(); //교육이력목록
+    await this.getHealth(); //건강문진
   }
 
+//기본정보
   async getItem() {
-    //기본정보
     const res = await this.connect.run('/usermanage/approval/worker/basic/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
@@ -211,12 +222,8 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
-  test_image(e){
-    console.log("test_image - ", this.form.safe_job_file_data);
-  }
-
+//소속정보
   async getBelong() {
-      //소속정보
       const res = await this.connect.run('/usermanage/approval/worker/belong/detail', {
         session_company_id : this.user.userData.belong_data.company_id,
         user_id : this.item.user_id,
@@ -236,12 +243,10 @@ export class WorkerApprovalEditPage implements OnInit {
       } else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
       }
-
-      console.log("parse - ", this.form);
   }
 
+//교육이력 
   async getSafeEdu() {
-     //교육이력 
      const res = await this.connect.run('/usermanage/info/worker/safeedu/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
@@ -263,9 +268,8 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
-  
-
-  async getPassword() { //비밀번호
+//비밀번호
+  async getPassword() { 
     const modal = await this._modal_.create({
       component: SecurityPasswordComponent,
       backdropDismiss:false,
@@ -276,10 +280,10 @@ export class WorkerApprovalEditPage implements OnInit {
     if(data) {
       this.getItem();
     }
-  
   }
-  async approval() { //가입승인
-  
+
+//가입승인
+  async approval() { 
     const modal = await this._modal_.create({
       component:ApprovalPopupComponent,
       componentProps:{
@@ -294,30 +298,12 @@ export class WorkerApprovalEditPage implements OnInit {
       this._modal_.dismiss('Y');
     } 
   }
+
+// 저장(수정)
   async submit() { 
-    // 저장
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.form.approval_user_id = this.form.user_id;
-
-    // let obj = {
-    //   work_contract_type: this.form.work_contract_type,
-    //   user_manage_session : this.form.user_manage_session,
-    //   session_company_id: this.form.session_company_id ,
-    //   safe_job_data: this.form.safe_job_data,
-    //   safe_file_json : this.form.safe_file_json ,
-    //   safe_file: this.form.safe_file,
-    //   project_id : this.form.project_id ,
-    //   ctgo_occupation_id : this.form.ctgo_occupation_id ,
-    //   ctgo_job_position_id : this.form.ctgo_job_position_id ,
-    //   ctgo_construction_id : this.form.ctgo_construction_id ,
-    //   certify_file_json : this.form.certify_file_json ,
-    //   certify_file: this.form.certify_file,
-    //   certify_data: this.form.certify_data,
-    //   approval_user_id : this.form.approval_user_id 
-    // }
-
-    // console.log("obj - ", obj);
     this.alert.present({
       message:'저장 하시겠습니까?',
       buttons:[
@@ -325,23 +311,26 @@ export class WorkerApprovalEditPage implements OnInit {
         {
           text:'예',
           handler: async() => {
-            await this.BasicUpdate();
-            await this.BelongUpdate();
+            await this.BasicSubmit();
+            await this.BelongSubmit();
+            await this.SafeEduSubmit();
           }
         }
       ]
     });
   }
-//기본정보
-  async BasicUpdate(){
-    const ress = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
-    if(ress.rsCode === 0) {
+
+//기본정보 수정
+  async BasicSubmit(){
+    const res = await this.connect.run('/usermanage/approval/worker/basic/update', this.form, {});
+    if(res.rsCode === 0) {
     } else {
-      this.toast.present({ color: 'warning', message: ress.rsMsg });
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
-//소속정보
-  async BelongUpdate(){
+
+//소속정보 수정
+  async BelongSubmit(){
     const res = await this.connect.run('/usermanage/approval/worker/belong/update', this.form, {});
     if(res.rsCode === 0) {
       this._modal_.dismiss('Y');
@@ -350,9 +339,17 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
-  //파일 행추가
+//기초안전교육 수정
+  async SafeEduSubmit(){
+    const res = await this.connect.run('/usermanage/approval/worker/safeedu/update', this.form, {});
+    if(res.rsCode === 0) {
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+//파일 행추가
   addSafeJobData() {
-    console.log("addSafeJobData");
     const { user_role, belong_data } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.form.safe_job_data.push({
@@ -380,8 +377,8 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
+//교육이력 리스트불러오기
   async getSafeEduList() {
-   //교육이력 리스트불러오기
    this.form.session_company_id = this.user.userData.belong_data.company_id;
    this.form.user_manage_session = this.user.memberAuthToken;
    this.form.project_id = this.user.userData.belong_data.project_id;
@@ -401,8 +398,8 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
+//교육구분 카테고리   
   async CtgoEducation() {
-  //교육구분 카테고리   
     this.ctgo_Education = await this.connect.run('/category/education/get', {search_text:this.form.search_text}, {
       loading: true
     });
@@ -413,16 +410,14 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
+//건강문진
   async getHealth() {
     const res = await this.connect.run('/usermanage/info/worker/health/get',this.form,{
       parse:['brain_cure_content']
     });
     if(res.rsCode === 0) {
-      this.resWorkerHealth = {
-        ...res,
-        ...this.resWorkerHealth
-      }
-      console.log(this.resWorkerHealth);
+      this.resWorkerHealth = res;
+      console.log("this.resWorkerHealth",this.resWorkerHealth);
     }
   }
 }
