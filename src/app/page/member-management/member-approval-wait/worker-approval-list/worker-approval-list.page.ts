@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
@@ -37,15 +38,18 @@ export class WorkerApprovalListPage implements OnInit {
 
   form = {
     approval_state: '전체',
-    company_id: 0,
-    session_company_id: this.user.userData.belong_data.company_id,
-    ctgo_construction_ids: [],
-    end_date: this.date.today(),
     project_id: 0,
-    search_text: '',
+    company_id: 0,
+    ctgo_construction_ids: [],
+
     start_date: this.date.today({ month: -3 }),
+    end_date: this.date.today(),
+    search_text: '',
+    
     limit_no: 0,
-    user_manage_session: ''
+
+    session_company_id: this.user.userData.belong_data.company_id,
+    user_manage_session: '',
   };
 
   validator = new Validator(new WorkerInfo()).validator;
@@ -54,7 +58,8 @@ export class WorkerApprovalListPage implements OnInit {
   selectedList = [];
 
   permission = {
-    approval: false
+    companyChange: false, // 회사 변경 권한
+    approval: false // 가입승인 권한
   }
 
   constructor(
@@ -63,23 +68,47 @@ export class WorkerApprovalListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     private toast: ToastService,
+    private nav: NavService
   ) { }
 
   ngOnInit() {
-    this.getPermission();
-    this.get();
+    if(!this.getPermission()) {
+      this.toast.present({ color: 'warning', message: '잘못된 접근입니다.' }); 
+      this.nav.navigateRoot('/login'); 
+    } else {
+      this.get();
+    }
   }
   
   getPermission() {
-    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
-      this.form.company_id = this.user.userData.belong_data.company_id;
-      this.form.project_id = this.user.userData.belong_data.project_id;
-      this.permission.approval = true;
-    } else {
+    const { user_role, user_type, belong_data } = this.user.userData;
+    if(user_type === 'LH') {
+      this.form.project_id = 0;
+      this.form.company_id = 0;
+      
+      this.permission.companyChange = true;
       this.permission.approval = false;
+      return true;
     }
-    this.get();
+    else if(user_role === 'MASTER_HEAD') {
+      this.form.project_id = belong_data.project_id;
+      this.form.company_id = belong_data.company_id;
 
+      this.permission.companyChange = false;
+      this.permission.approval = true;
+      return true;
+    }
+    else if(user_role === 'PARTNER_HEAD') {
+      this.form.project_id = belong_data.project_id;
+      this.form.company_id = belong_data.company_id;
+
+      this.permission.companyChange = false;
+      this.permission.approval = true;
+      return true;
+    } 
+    else {
+      return false;
+    }
   }
 
   async get(limit_no = this.form.limit_no) {

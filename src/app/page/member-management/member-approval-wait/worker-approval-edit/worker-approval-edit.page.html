@@ -125,28 +125,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of form.safe_job_data let i = index">
-              <td style="text-align: left;">{{ i + 1 }}</td>
-              <td><app-select-safetymanager name="안전직무" [company_id]="form.company_id" user_type="WORKER" [(ngModel)]="item.ctgo_safe_job_id" [required]="true"></app-select-safetymanager></td>
-              <td><app-calendar [(ngModel)]="item.safe_job_start_date" name="안전직무선임일"></app-calendar></td>
+            <tr>
+              <td style="text-align: left;"></td>
+              <td><app-select-safetymanager name="안전직무" [required]="true"></app-select-safetymanager></td>
+              <td><app-calendar name="안전직무선임일"></app-calendar></td>
               <td>
-                <!-- <a [href]="item.full_url" target="_blank" [download]="item.file_name">{{ item.file_name }}</a> -->
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
-                  <app-file name="input" view_type="JOB"
-                  [(ngModel)]="form.safe_job_file_data"
-                  [file]="form.safe_file"
-                  [file_json]="form.safe_file_json"
-                  ></app-file>
                 </app-button>
               </td>
               <td>
               </td>
               <td style="text-align: right;">
-              <app-button shape="circle" size="small" fill="translucent" (click)="addSafeJobData()">
+              <app-button shape="circle" size="small" fill="translucent">
                 <app-img name="plus"></app-img>
               </app-button>
-                <app-button *ngIf="i !== 0" shape="circle" size="small" color="danger" fill="translucent" (click)="form.safe_job_data.splice(i,1)">
+                <app-button shape="circle" size="small" color="danger" fill="translucent">
                   <app-img name="minus"></app-img>
                 </app-button>
               </td>
@@ -174,30 +168,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of form.certify_data let i = index">
-              <td style="text-align: left;">{{ i + 1 }}</td>
-              <td style="text-align: left;"><app-input name="면허번호" [(ngModel)]="item.user_certify_no"></app-input></td>
+            <tr>
+              <td style="text-align: left;"></td>
+              <td style="text-align: left;"><app-input name="면허번호"></app-input></td>
               <td style="text-align: left;">
-                <!-- <a [href]="item.full_url" target="_blank" [download]="item.file_name">
-                  <ion-icon name="save-outline"></ion-icon>
-                  {{ item.file_name }}
-                </a> -->
                 <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="save"></app-img>
-                  <app-file name="input" view_type="CERTIFY"
-                  [(ngModel)]="form.certify_file_data"
-                  [file]="form.file"
-                  [file_json]="form.file_json" 
-                  ></app-file>
                 </app-button>
               </td>
               <td>
               </td>
               <td style="text-align: right;">
-                <app-button shape="circle" size="small" fill="translucent" (click)="addCertifyData()">
+                <app-button shape="circle" size="small" fill="translucent">
                   <app-img name="plus"></app-img>
                 </app-button>
-                <app-button *ngIf="i !== 0" shape="circle" size="small" color="danger" fill="translucent" (click)="form.certify_data.splice(i,1)">
+                <app-button shape="circle" size="small" color="danger" fill="translucent">
                   <app-img name="minus"></app-img>
                 </app-button>
               </td>
@@ -213,7 +198,17 @@
             <p>최종 수정일 : {{ form.update_date }}</p>
           </app-col>
         </app-row>
-        <h5>건강 문진 결과</h5>
+        <app-row>
+          <app-col>
+            <h5>건강 문진 결과</h5>
+          </app-col>
+          <app-col size="auto">
+            <p>작성일 : {{ resWorkerHealth.create_date }}</p>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col></app-col>
+        </app-row>
         <app-container size="small">
           <form>
             <h5>1. 현재 복용하고 있는 약물이 있습니까?</h5>
@@ -231,19 +226,16 @@
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
 
-            <div *ngIf="resWorkerHealth.brain_cure_state">
+            <div @fadeInAnimation *ngIf="resWorkerHealth.brain_cure_state">
               * 해당하는 항목에 체크해주세요
               <app-input-template>
                 <app-check-group slot="input" name="brain_cure_content" 
-                >
-                <ng-container *ngFor="let item of healthArr">
-                  <app-check [value]="">{{ item.healthname }}</app-check>
-                </ng-container>
-                  <!-- <app-check >뇌졸중</app-check>
-                  <app-check >뇌출혈</app-check>
-                  <app-check >협심증</app-check>
-                  <app-check >심근경색</app-check>
-                  <app-check >간질발작</app-check> -->
+                [(ngModel)]="resWorkerHealth.brain_cure_content">
+                  <app-check on="뇌졸중">뇌졸중</app-check>
+                  <app-check on="뇌출혈">뇌출혈</app-check>
+                  <app-check on="협심증">협심증</app-check>
+                  <app-check on="심근경색">심근경색</app-check>
+                  <app-check on="간질발작">간질발작</app-check>
                 </app-check-group>
               </app-input-template>
             </div>

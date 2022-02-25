@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ProjectItem, ProjectSearchType, SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
@@ -25,21 +25,34 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   @Input() all:boolean = false; // 전체 현장 노출 여부
   @Input() color:Color;
   @Input() label:string = "현장";
-  @Input() text:string;
 
   @Input() company_id:number = 0;
+
+  text:string = '';
 
   isModalData:boolean = false;
 
   constructor(
     private connect: ConnectService,
-    private _modal:ModalController
+    private _modal:ModalController,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {}
 
   public async get() {
-    if(this.isModalData || !this.value) return;
+    if(this.isModalData) return;
+    
+    if(!this.value && !this.all) return;
+    
+    if(this.value === 0 && this.all) {
+      this.text = '전체';
+      this.changeDetector.detectChanges();
+      return;
+    }
+
+    if(!this.value) return;
+    
     const res = await this.connect.run('/forSignUp/project/id/get', {
       project_id: this.value
     });
@@ -69,7 +82,6 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
         this.value = 0;
         this.text = '전체';
       } else {
-        console.log("selectedItem",selectedItem);
         this.value = selectedItem.project_id;
         this.text = selectedItem.project_name;
       }

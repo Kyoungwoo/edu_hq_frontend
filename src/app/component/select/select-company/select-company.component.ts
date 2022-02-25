@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -35,11 +35,12 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  @Input() all:boolean = false;
   @Input() color: Color;
   @Input() label: string = "업체";
   @Input() required: boolean = false;
   @Input() text: string;
-  @Input() multiple: boolean;
+  @Input() multiple: boolean = false;
   @Input() disabled: boolean;
 
   private _project_id:number = 0;
@@ -59,23 +60,31 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   constructor(
     private _modal: ModalController,
     private connect: ConnectService,
-    private user: UserService
+    private user: UserService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
   }
 
   public async get() {
-    console.log('select project_id', this.project_id);
+    if(this.isModalData) return;
     
-    if (this.isModalData || !this.value) return;
+    if(!this.value && !this.all) return;
+    
+    if(this.value === 0 && this.all) {
+      this.text = '전체';
+      this.changeDetector.detectChanges();
+      return;
+    }
+
+    if(!this.value) return;
+
     this.res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type:'원청사',
+      company_contract_type: '원청사',
       search_text: ''
     });
     if (this.res.rsCode === 0) {
-      console.log(this.multiple);
-      console.log(this.res);
       const { rsMap } = this.res;
         if (this.multiple) {
           this.text = rsMap
@@ -83,11 +92,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
           .map(constractor => constractor.company_name).join();
       } else {
         if(this.user.userData.belong_data.company_contract_type === 'LH') {
-          this.text = rsMap[0].company_name
+          this.text = rsMap[0].company_name;
         } else {
-          console.log("rsMap",rsMap);
           this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
-          console.log("this.text",this.text);
         }
       }
     }
@@ -111,7 +118,6 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     if (data) {
       this.data = data;
       if (this.multiple) {
-        console.log(data);
         this.value = data.map(company => company.company_id);
         this.text = data.map(company => company.company_name).join();
       } else {
@@ -138,7 +144,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:[]): void { 
+  writeValue(v:number[] | number): void { 
     if(v !== this._value) {
       this._value = v ? v : this.multiple ? [] : 0;
       this.get();

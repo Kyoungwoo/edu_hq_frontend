@@ -49,16 +49,6 @@ export class WorkerApprovalItem {
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  safe_job_file_data: FutItem[] = [];
-  safe_job_data: SafeJobItem[] =[];
-  certify_file_data: FutItem[] = [];
-  certify_data: [{
-    user_certify_no: string,
-  }];
-  certify_file: (File|FileBlob)[] = [];
-  certify_file_json: FileJson = new FileJson();
-  safe_file: (File|FileBlob)[] = [];
-  safe_file_json: FileJson = new FileJson();
 
 //교육이력 
   basic_safe_edu_date: string;
@@ -81,9 +71,10 @@ export class addSafeJobData {
 
 export class addCertifyData {
   user_certify_no: string;
-} 
+}
 
-class healthItem {
+// 건강문진
+export class healthItem {
   brain_cure_content: [] =[];
   use_drugs_state: number;
   covid_vaccine_state: number;
@@ -140,29 +131,6 @@ export class WorkerApprovalEditPage implements OnInit {
 
 //건강 문진
   resWorkerHealth = new healthItem();
-
-  healthArr = [
-    {
-      healthname: '뇌졸중',
-      checked:false
-    },
-    {
-      healthname: '뇌출혈',
-      checked:false
-    },
-    {
-      healthname: '협심증',
-      checked:false
-    },
-    {
-      healthname: '심근경색',
-      checked:false
-    },
-    {
-      healthname: '간질발작',
-      checked:false
-    }
-  ];
 
   menu:number = 1;
   permission = {
@@ -274,12 +242,12 @@ export class WorkerApprovalEditPage implements OnInit {
 
 //교육이력 
   async getSafeEdu() {
-     const res = await this.connect.run('/usermanage/info/worker/safeedu/detail', {
+     const res = await this.connect.run('/usermanage/approval/worker/safeedu/detail', {
       session_company_id : this.user.userData.belong_data.company_id,
       user_id : this.item.user_id,
       user_manage_session : this.user.memberAuthToken
     }, {
-      parse: ['safe_edu_file_data']
+      parse: ['user_safe_edu_file_data']
     });
     
     if (res.rsCode === 0) {
@@ -375,34 +343,7 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
-//파일 행추가
-  addSafeJobData() {
-    const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.form.safe_job_data.push({
-        ...new addSafeJobData()
-      });
-    } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
-      this.form.safe_job_data.push({
-        ...new addSafeJobData(),
-      });
-    }
-  }
-//파일 행삭제
-  addCertifyData() {
-    const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.form.certify_data.push({
-        ...new addCertifyData()
-      });
-    } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
-      this.form.certify_data.push({
-        ...new addCertifyData(),
-      });
-    }
-  }
+
 
 //교육이력 리스트불러오기
   async getSafeEduList() {
@@ -446,7 +387,6 @@ export class WorkerApprovalEditPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.resWorkerHealth = res.rsObj;
-      console.log("this.resWorkerHealth",this.resWorkerHealth);
     }
   }
 }
