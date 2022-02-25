@@ -98,7 +98,9 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
     const checkList = this.checkList.toArray();
     const checkAllList = checkList.filter(check => check.type === 'all');
     const checkNormalList = checkList.filter(check => check.type === 'default');
+    console.log("checkNormalList",checkNormalList);
     checkNormalList.forEach(check => {
+      console.log("this.value",this.value);
       if(this.value.some(v => v === check.on)) {
         check._value = true;
       } else {

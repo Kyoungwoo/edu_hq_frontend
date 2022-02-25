@@ -26,11 +26,13 @@ class WorkerInfo {
   user_health: string;
   row_count: number;
 }
+
 @Component({
   selector: 'app-worker-approval-list',
   templateUrl: './worker-approval-list.page.html',
   styleUrls: ['./worker-approval-list.page.scss'],
 })
+
 export class WorkerApprovalListPage implements OnInit {
 
   form = {
@@ -45,6 +47,7 @@ export class WorkerApprovalListPage implements OnInit {
     limit_no: 0,
     user_manage_session: ''
   };
+  
   validator = new Validator(new WorkerInfo()).validator;
   res:ConnectResult<WorkerInfo>;
 

@@ -122,7 +122,8 @@ export class WorkerApprovalEditPage implements OnInit {
 
 //건강 문진
   resWorkerHealth: ConnectResult <{
-    brain_cure_content: string,
+    brain_cure_content:[],
+    covid_nineteen_content: string,
     use_drugs_state: number,
     covid_vaccine_state: number,
     vomiting_state: number,
@@ -391,7 +392,6 @@ export class WorkerApprovalEditPage implements OnInit {
         ...res,
         ...this.resedu
       }
-      console.log("this.resedu",this.resedu)
       // 정상
     } else if(res.rsCode === 1008) {
       // 데이터 없음
@@ -412,6 +412,9 @@ export class WorkerApprovalEditPage implements OnInit {
 
 //건강문진
   async getHealth() {
+    this.form.session_company_id = this.user.userData.belong_data.company_id;
+    this.form.user_manage_session = this.user.memberAuthToken;
+    this.form.approval_user_id = this.item.user_id;
     const res = await this.connect.run('/usermanage/info/worker/health/get',this.form,{
       parse:['brain_cure_content']
     });

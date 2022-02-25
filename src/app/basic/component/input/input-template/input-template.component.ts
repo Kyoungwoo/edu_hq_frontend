@@ -15,6 +15,7 @@ export class InputTemplateComponent implements OnInit {
     this.label ? _class.push(`input-label`) : _class.push(`input-no-label`);
     return _class.join(' ');
   }
+  
 
   @Input() label:string;
   @Input() color:Color = 'white';

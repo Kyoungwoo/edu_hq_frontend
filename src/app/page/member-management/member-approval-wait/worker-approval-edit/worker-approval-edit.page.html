@@ -221,7 +221,7 @@
               <app-radio [value]="0">없다</app-radio>
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." *ngIf="resWorkerHealth?.rsObj.use_drugs_state" [(ngModel)]="resWorkerHealth?.rsObj.use_drugs_content"></app-input>
+            <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." [readonly]="true" *ngIf="resWorkerHealth?.rsObj.use_drugs_state" [(ngModel)]="resWorkerHealth?.rsObj.use_drugs_content"></app-input>
 
             <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
             <app-radio-input [value]="resWorkerHealth?.rsObj.brain_cure_state"> 
@@ -248,14 +248,14 @@
               <app-radio [value]="0">없다</app-radio>
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.vomiting_state" [value]="resWorkerHealth?.rsObj.vomiting_content"></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." [readonly]="true" *ngIf="resWorkerHealth?.rsObj.vomiting_state" [value]="resWorkerHealth?.rsObj.vomiting_content"></app-input>
 
             <h5>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h5>
             <app-radio-input [value]="resWorkerHealth?.rsObj.pain_head_state">
               <app-radio [value]="0">없다</app-radio>
               <app-radio [value]="1">있다</app-radio>
             </app-radio-input>
-            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.pain_head_content" [value]="resWorkerHealth?.rsObj.pain_head_content"></app-input>
+            <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." [readonly]="true" *ngIf="resWorkerHealth?.rsObj.pain_head_content" [value]="resWorkerHealth?.rsObj.pain_head_content"></app-input>
 
             <h5>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h5>
             <app-radio-input [value]="resWorkerHealth?.rsObj.etc_disease_state">
@@ -274,7 +274,7 @@
             <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." *ngIf="resWorkerHealth?.rsObj.covid_nineteen_state" [value]="resWorkerHealth?.rsObj.covid_nineteen_state"></app-input>
 
             <h5>7. 코로나 백신 접종을 하셨습니까?</h5>
-            <app-radio-input [value]="resWorkerHealth?.rsObj.covid_vaccine_state">
+            <app-radio-input [value]="resWorkerHealth?.rsObj.covid_nineteen_state">
               <app-radio [value]="0">미접종</app-radio>
               <app-radio [value]="1">접종</app-radio>
             </app-radio-input>
