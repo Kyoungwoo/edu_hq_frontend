@@ -43,16 +43,16 @@ export class LoginPage implements OnInit, ViewDidEnter {
   }
 
   private async test() {
-    // if(!environment.test.core.test) return;
-    // if(!await this.testSignUp()) return;
-    // if(!await this.testFindId()) return;
-    // if(!await this.testFindPassord()) return;
-    // if(!await this.testLogin()) return;
+    if(!environment.test.core.test) return;
+    if(!await this.testSignUp()) return;
+    if(!await this.testFindId()) return;
+    if(!await this.testFindPassord()) return;
+    if(!await this.testLogin()) return;
     
-    // this.alert.present({
-    //   header: '테스트 완료',
-    //   message: '테스트 완료'
-    // });
+    this.alert.present({
+      header: '테스트 완료',
+      message: '테스트 완료'
+    });
   }
   private async testSignUp():Promise<boolean> {
     if(!environment.test.SignUp.test) return true;
@@ -150,4 +150,4 @@ export class LoginPage implements OnInit, ViewDidEnter {
       });
     }
   }
-}
+} 

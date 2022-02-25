@@ -83,6 +83,24 @@ export class addCertifyData {
   user_certify_no: string;
 } 
 
+class healthItem {
+  brain_cure_content: [] =[];
+  use_drugs_state: number;
+  covid_vaccine_state: number;
+  vomiting_state: number;
+  vomiting_content: string;
+  covid_nineteen_state: number;
+  pain_head_state: number;
+  covid_nineteen_content: string;
+  brain_cure_state: number;
+  health_terms_state: number;
+  etc_disease_state: number;
+  etc_disease_content: string;
+  create_date: string;
+  use_drugs_content: string;
+  pain_head_content: string;
+}
+
 @Component({
   selector: 'app-worker-approval-edit',
   templateUrl: './worker-approval-edit.page.html',
@@ -121,22 +139,30 @@ export class WorkerApprovalEditPage implements OnInit {
   }>;
 
 //건강 문진
-  resWorkerHealth: ConnectResult <{
-    brain_cure_content:[],
-    covid_nineteen_content: string,
-    use_drugs_state: number,
-    covid_vaccine_state: number,
-    vomiting_state: number,
-    vomiting_content: string,
-    covid_nineteen_state: string,
-    pain_head_state: number,
-    brain_cure_state: number,
-    health_terms_state: number,
-    etc_disease_state: number,
-    etc_disease_content: string,
-    use_drugs_content: string,
-    pain_head_content: string
-  }>
+  resWorkerHealth = new healthItem();
+
+  healthArr = [
+    {
+      healthname: '뇌졸중',
+      checked:false
+    },
+    {
+      healthname: '뇌출혈',
+      checked:false
+    },
+    {
+      healthname: '협심증',
+      checked:false
+    },
+    {
+      healthname: '심근경색',
+      checked:false
+    },
+    {
+      healthname: '간질발작',
+      checked:false
+    }
+  ];
 
   menu:number = 1;
   permission = {
@@ -419,10 +445,8 @@ export class WorkerApprovalEditPage implements OnInit {
       parse:['brain_cure_content']
     });
     if(res.rsCode === 0) {
-      this.resWorkerHealth = {
-        ...res,
-        ...this.resWorkerHealth
-      }
+      this.resWorkerHealth = res.rsObj;
+      console.log("this.resWorkerHealth",this.resWorkerHealth);
     }
   }
 }

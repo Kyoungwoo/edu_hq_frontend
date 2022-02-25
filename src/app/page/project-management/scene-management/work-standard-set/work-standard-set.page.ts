@@ -56,8 +56,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 현의사항
   meetingForm = {
-    company_id:this.user.userData.belong_data.company_id,
-    project_id:this.user.userData.belong_data.project_id
+    company_id:0,
+    project_id:0
   }
 
   resMeeting:ConnectResult<{
@@ -113,11 +113,11 @@ export class WorkStandardSetPage implements OnInit {
 
   menuCount6() {
     this.menuCount = 6;
-      // this.getTool();
+      this.getTool();
   }
-  menuCount8() {
+  async menuCount8() {
     this.menuCount = 8;
-    this.getMeeting();
+    await this.getMeeting();
   }
   menuCount9() {
     this.menuCount = 9;
@@ -311,6 +311,7 @@ export class WorkStandardSetPage implements OnInit {
 
   //특수 공도구
   async getTool() {
+    await this.promise.wait(() => this.toolForm);
     this.resTool = await this.connect.run('/project/tool/get',this.toolForm,{});
     if(this.resTool.rsCode === 0) {};
   }
@@ -318,6 +319,7 @@ export class WorkStandardSetPage implements OnInit {
   async toolAdd() {
     if (!this.toolForm.project_id) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
     if (!this.toolForm.company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
+
     if (this.resTool?.rsMap?.length) {
       this.resTool?.rsMap.unshift({
         ctgo_tool_id: 0,
@@ -402,13 +404,11 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 협의체
   async getMeeting() {
-    await this.promise.wait(() => this.meetingForm.project_id);
+    await this.promise.wait(() => this.meetingForm.project_id = this.user.userData.belong_data.project_id);
+    await this.promise.wait(() => this.meetingForm.company_id = this.user.userData.belong_data.company_id);
     const res = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
     if(res.rsCode === 0) {
-      this.resMeeting = {
-        ...this.resMeeting,
-        ...res
-      }
+      this.resMeeting = res;
     };
   }
 
@@ -418,6 +418,7 @@ export class WorkStandardSetPage implements OnInit {
       return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
     }
   }
+
   //회의록 협의체 끝
 
   //재해형태

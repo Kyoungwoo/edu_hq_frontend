@@ -46,6 +46,8 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   public _value:boolean = false;
   @Input()
   set value(v:any) {
+    console.log("this.value",this.value);
+    console.log("v",v);
     if(v !== this.value) {
       this._value = v === this.on ? true : false;
       this.onChangeCallback(this.value);
@@ -56,6 +58,8 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   get value() { return this._value ? this.on : this.off; }
   
   writeValue(v:any): void {
+    console.log("this.value",this.value);
+    console.log("v",v);
     if(v !== this.value) {
       this._value = v === this.on ? true : false;
       this.onChangeCallback(this.value);
