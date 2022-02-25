@@ -142,12 +142,12 @@ export class PartnerEditPage implements OnInit {
   }
 
   getPermission() {
-    const { user_role, belong_data } = this.user.userData;
+    const { user_role } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.permission.edit = true;
       this.permission.agree = false;
     } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    else if(user_role === 'MASTER_HEAD') {
       this.permission.edit = true;
       this.permission.agree = true;
     } else {
@@ -178,7 +178,7 @@ export class PartnerEditPage implements OnInit {
         project_id: belong_data.project_id
       });
     } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    else if(user_role === 'MASTER_HEAD' && belong_data.company_contract_type === '원청사') {
       this.form.company_contract_data.push({
         ...new CompanyContractData(),
         project_id: belong_data.project_id,

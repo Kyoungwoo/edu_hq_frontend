@@ -14,7 +14,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.scss'],
 })
-export class QrScannerComponent implements OnInit,OnDestroy {
+export class QrScannerComponent implements OnInit, OnDestroy {
 
   qr_subs:Subscription;
   qr_timeout;
@@ -53,8 +53,10 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
-    if(this.qr_subs) this.qr_subs.unsubscribe();
+    this.qr_subs.unsubscribe();
     console.log("durlfh??")
+    const routerEl = document.querySelector('ion-router-outlet');
+    routerEl.style.display = 'flex';
     this.qrScanner.destroy();
   }
   prepareQR() {
@@ -79,6 +81,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       .catch((e: any) => console.log('Error is', e));
     });
   }
+  
   async scanQR() {
     await this.qrScanner.show();
     let divice = navigator.userAgent.toLowerCase();
@@ -86,10 +89,15 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       Qr.transparent();
     }
     const routerEl = document.querySelector('ion-router-outlet');
+    var newDiv = document.createElement("div");
+    var newContent = document.createTextNode("환영합니다!");
+    newDiv.appendChild(newContent);
+    console.log("routerEl",routerEl);
     routerEl.style.display = 'none';
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
+      console.log("data",data);
       let res = {
         qr_qrScanner: this.qrScanner,
         qr_modal: this._modal,
@@ -97,7 +105,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
         qr_data: data
       };
       this.getQrData(res);
-      if(data){
+      if(!data){
         setTimeout(() => {
           this.scanQR();
         }, 1000);

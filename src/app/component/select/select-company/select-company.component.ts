@@ -80,8 +80,8 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
     if(!this.value) return;
 
-    this.res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type: '원청사',
+    this.res = await this.connect.run('/category/certify/company/partner_master/get', {
+      project_id: this.project_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
@@ -122,9 +122,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         this.text = data.map(company => company.company_name).join();
       } else {
         this.text = data.company_name;
-        // console.log("---------------------data",data);
         this.value = data.company_id;
-        // console.log("this.value",this.value);
       }
     }
   }

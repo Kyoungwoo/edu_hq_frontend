@@ -92,13 +92,11 @@ export class WorkerStatusListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("history.state.master_company_id",history.state.master_company_id);
     this.form.project_id = history.state.project_id;
     this.form.master_company_id = history.state.master_company_id;
   }
 
   async getGate() {
-
     this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.form,{
       parse:['inner_data', 'ctgo_job_position_name','ctgo_occupation_name','ctgo_safe_job_name']
     });

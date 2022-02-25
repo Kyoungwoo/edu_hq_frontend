@@ -143,7 +143,7 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.user.userData.user_role === 'COMPANY_HEAD' ||
+    if (this.user.userData.user_role === 'PARTNER_HEAD' ||
         this.user.userData.user_role === 'MASTER_HEAD' ||
         this.user.userData.user_role === 'LH_HEAD') {this.memberRoleCheck = false;}
 
@@ -569,7 +569,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getSafeJob() {
-    if (this.user.userData.user_role === 'COMPANY_HEAD') {
+    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
       this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
       this.safeJobForm.user_type = 'COMPANY';
     }
@@ -671,7 +671,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async getOccupation() {
-    if (this.user.userData.user_role === 'COMPANY_HEAD') {
+    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD' ) {
       this.occupationForm = this.user.userData.belong_data.company_id;
     }
     this.resOccupation = await this.connect.run('/project/occupation/get', { company_id: this.occupationForm });

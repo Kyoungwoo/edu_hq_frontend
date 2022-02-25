@@ -353,7 +353,6 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
 
-
 //교육이력 리스트불러오기
   async getSafeEduList() {
    this.form.session_company_id = this.user.userData.belong_data.company_id;
