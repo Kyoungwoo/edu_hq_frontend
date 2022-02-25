@@ -73,7 +73,6 @@ export class SceneListPage implements OnInit {
   }
 
   async getList(limit_no = this.form.limit_no) {
-    console.log("limit_no",limit_no);
     this.form.limit_no = limit_no;  
     
     this.listLoading = true;
@@ -93,24 +92,23 @@ export class SceneListPage implements OnInit {
   }
 
   async use_submit() {
-    console.log(this.form.hq_regional_ids);
-    // let project_use_state_data = [];
-    // this.res.rsMap.forEach(item => {
-    //   if(item.state){
-    //     project_use_state_data.push({
-    //       project_id:item.project_id,
-    //       project_use_state:item.project_use_state
-    //     });
-    //   }
-    // })
-    // console.log(project_use_state_data);
-    // const res = await this.connect.run('/project/use/update',{project_use_state_data:project_use_state_data});
-    // if(res.rsCode === 0) {
-    //   this.toast.present({message:'사용여부가 변경되었습니다.',position:'bottom',color:'primary'});
-    //   this.getList();
-    // } else {
-    //   this.connect.error('변경실패',res);
-    // }
+    
+    let project_use_state_data = [];
+    this.res.rsMap.forEach(item => {
+      if(item.state){
+        project_use_state_data.push({
+          project_id:item.project_id,
+          project_use_state:item.project_use_state
+        });
+      }
+    })
+    const res = await this.connect.run('/project/use/update',{project_use_state_data:project_use_state_data});
+    if(res.rsCode === 0) {
+      this.toast.present({message:'사용여부가 변경되었습니다.',position:'bottom',color:'primary'});
+      this.getList();
+    } else {
+      this.connect.error('변경실패',res);
+    }
   }
   async edit(project_id?) {
     if(this.user.userData.user_role !== 'LH_HEAD') {
@@ -140,11 +138,11 @@ export class SceneListPage implements OnInit {
     } else { 
       item.state = true;
       if(item.project_use_state === 0) {
-          this.alert.present({
-            header:'안내',
-            message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
-            +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
-          })
+        this.alert.present({
+          header:'안내',
+          message:'미사용으로 변경시, 모든 현장 조회 화면, 현장 선택 화면에 노출되지 않습니다.'
+          +'근로자의 경우 소속 정보에는 노출되지 않으나, 근로 이력에는 현장 정보가 남아있습니다.'
+        })
       }
     }
   }
@@ -155,7 +153,6 @@ export class SceneListPage implements OnInit {
   }
   
   async getCtgoBusiness() {
-    console.log("this.form.hq_regional_ids",this.form.hq_regional_ids);
       if(this.form.hq_regional_ids.length){
         this.businessState = false;
         this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});

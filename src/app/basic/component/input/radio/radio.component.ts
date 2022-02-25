@@ -10,10 +10,12 @@ import { RadioInputComponent } from '../radio-input/radio-input.component';
 export class RadioComponent implements OnInit {
 
   @HostListener('click') onClick() {
+    if(this.disabled) return;
     if(this.radioInput) this.radioInput.value = this.value;
     if(this.radioGroup) this.radioGroup.value = this.value;
   }
 
+  @Input() disabled:boolean;
   @Input() value:any;
 
   constructor(

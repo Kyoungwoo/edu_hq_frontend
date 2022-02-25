@@ -94,16 +94,12 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   }
 
   private valueChange() {
-    console.log("this.checkList",this.checkList);
     if(!this.checkList) return;
     const checkList = this.checkList.toArray();
     const checkAllList = checkList.filter(check => check.type === 'all');
     const checkNormalList = checkList.filter(check => check.type === 'default');
-    console.log("checkList",checkList);
-    console.log("checkAllList",checkAllList);
-    console.log("checkNormalList",checkNormalList);
+
     checkNormalList.forEach(check => {
-      console.log("this.value",this.value);
       if(this.value.some(v => v === check.on)) {
         check._value = true;
       } else {
@@ -121,22 +117,22 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   public _value:any[] = [];
   @Input()
   set value(v:any[]) {
+    console.log(v);
     if(v !== this._value) {
       this._value = v;
-      console.log("----------------------",this.value);
       this.valueChange();
-      this.onChangeCallback(this.value);
+      this.onChangeCallback(v);
       this.change.emit(v);
     }
   }
   get value() { return this._value; }
   
-  writeValue(v:any[]): void { 
-    console.log("----------------------",this.value);
+  writeValue(v:any[]): void {
+    console.log(v);
     if(v !== this._value) {
       this._value = v;
       this.valueChange();
-      this.onChangeCallback(this.value);
+      this.onChangeCallback(v);
       this.change.emit(v);
     }
   }

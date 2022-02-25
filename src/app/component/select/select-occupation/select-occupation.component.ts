@@ -36,11 +36,8 @@ export class SelectOccupationComponent implements OnInit, ControlValueAccessor {
 
   private _company_id:number;
   @Input() set company_id(v:number) {
-    console.log("ccccccc",this._company_id);
     if(this._company_id !== v) {
       this._company_id = v;
-      console.log("vvvvvv",v);
-      console.log("ccccccc",this._company_id);
       this.get();
     }
   }

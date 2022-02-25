@@ -24,10 +24,10 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
     this.el.nativeElement.querySelector('[name=select]').dispatchEvent(new Event('click'));
   }
 
+  @Input() all:boolean = false;
   @Input() color:Color;
   @Input() label:string = "공종";
   @Input() placeholder:string = "선택";
-  @Input() allState:boolean = false;
   @Input() multiple:boolean = false;
   
   private _project_id:number = 0;

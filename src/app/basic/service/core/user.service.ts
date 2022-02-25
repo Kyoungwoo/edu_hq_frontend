@@ -18,9 +18,6 @@ export type UserRole =
 
 | 'MASTER_HEAD' //원청사 마스터 (준태가 추가)
 | 'MASTER_GENERAL' //원청사 일반 관리자 (준태가 추가)
-| 'COMPANY_HEAD' // 업체 마스터
-| 'COMPANY_GENERAL' // 업체 일반 관리자
-| 'COMPANY_WORKER' // 업체 작업자
 | 'PARTNER_HEAD' // 협력사 마스터
 | 'PARTNER_WORKER' // 협력사 작업자 (준태가 추가)
 | 'PARTNER_GENERAL' // 협력사 작업자 (준태가 추가)

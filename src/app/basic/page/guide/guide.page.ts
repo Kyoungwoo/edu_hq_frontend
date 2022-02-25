@@ -78,6 +78,8 @@ export class GuidePage implements OnInit, AfterViewInit, ViewDidEnter, ViewWillL
     ]}
   ]
 
+  checkGroup = ['korean'];
+
   
   @ViewChild('header') header:IonHeader;
   @ViewChild('content') content:IonContent;

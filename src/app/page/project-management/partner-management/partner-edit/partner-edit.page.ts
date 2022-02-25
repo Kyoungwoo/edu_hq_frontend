@@ -1,6 +1,6 @@
 import {  Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -8,6 +8,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
+
 export class CompanyContractData {
   ctgo_construction_id:number = 0; //계약공종
   ctgo_construction_name:string = '';
@@ -141,12 +142,12 @@ export class PartnerEditPage implements OnInit {
   }
 
   getPermission() {
-    const { user_role, belong_data } = this.user.userData;
+    const { user_role } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.permission.edit = true;
       this.permission.agree = false;
     } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    else if(user_role === 'MASTER_HEAD') {
       this.permission.edit = true;
       this.permission.agree = true;
     } else {
@@ -177,7 +178,7 @@ export class PartnerEditPage implements OnInit {
         project_id: belong_data.project_id
       });
     } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    else if(user_role === 'MASTER_HEAD' && belong_data.company_contract_type === '원청사') {
       this.form.company_contract_data.push({
         ...new CompanyContractData(),
         project_id: belong_data.project_id,

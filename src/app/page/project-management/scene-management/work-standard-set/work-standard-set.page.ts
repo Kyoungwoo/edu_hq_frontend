@@ -94,10 +94,10 @@ export class WorkStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.user.userData.user_role === 'COMPANY_HEAD' ||
+    if(this.user.userData.user_role === 'MASTER_HEAD' ||
      this.user.userData.user_role === 'LH_ADMIN' ||
       this.user.userData.user_role === 'LH_HEAD') {
-      this.workRoleCheck = false;;
+      this.workRoleCheck = false;
     }
     this.menuCount1();
   }

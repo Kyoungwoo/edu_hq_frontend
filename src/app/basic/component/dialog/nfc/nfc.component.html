@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/worker/main"></ion-back-button>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>QR 스캔</ion-title>
+    <ion-title>NFC 스캔</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +11,9 @@
   <div class="tagging-image" *ngIf="android">
     <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요</p>
   </div>
+</ion-content>
+<app-button-footer>
   <app-button *ngIf="ios" (click)="nfcScan()">
     ios 태깅 버튼
-  </app-button>
-</ion-content>
+  </app-button> 
+</app-button-footer>

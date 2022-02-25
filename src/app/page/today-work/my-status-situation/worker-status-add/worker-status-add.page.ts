@@ -57,7 +57,6 @@ export class WorkerStatusAddPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.master_company_id",this.master_company_id);
     this.form.select_type = this.select_type;
     this.form.project_id = this.project_id;
     this.form.master_company_id = this.master_company_id;
@@ -87,8 +86,8 @@ export class WorkerStatusAddPage implements OnInit {
 
   async workerIn() {
     this.selectData.map(item => this.form.user_ids.push(item.user_id));
-    // if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
-    // if(!this.form.inside_time) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
+    if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
+    if(!this.form.inside_time) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
     const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;
     this.form.area_top_id = area_top_id ? area_top_id : 0;
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
