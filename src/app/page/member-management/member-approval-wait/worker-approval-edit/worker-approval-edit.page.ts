@@ -446,13 +446,7 @@ export class WorkerApprovalEditPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.resWorkerHealth = res.rsObj;
-      let test = [];
-      test = this.resWorkerHealth.brain_cure_content;
-      let ttest = this.healthArr.filter(item => {
-        test.includes(item.healthname)
-      });
-      ttest.forEach(item => item.checked = true);
-      console.log(ttest);
+      console.log("this.resWorkerHealth",this.resWorkerHealth);
     }
   }
 }
