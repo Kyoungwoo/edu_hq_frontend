@@ -8,6 +8,7 @@ import { WorkerApprovalEditPageRoutingModule } from './worker-approval-edit-rout
 
 import { WorkerApprovalEditPage } from './worker-approval-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
+    BasicComponentModule,
     WorkerApprovalEditPageRoutingModule
   ],
   declarations: [WorkerApprovalEditPage]

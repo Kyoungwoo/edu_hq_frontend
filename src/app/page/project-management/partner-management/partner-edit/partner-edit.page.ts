@@ -1,6 +1,6 @@
 import {  Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -8,6 +8,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
+
 export class CompanyContractData {
   ctgo_construction_id:number = 0; //계약공종
   ctgo_construction_name:string = '';
