@@ -536,6 +536,10 @@ const routes: Routes = [
     path: 'today-departure-status-edit',
     loadChildren: () => import('./page/work-management/departure-status/today-departure-status-edit/today-departure-status-edit.module').then( m => m.TodayDepartureStatusEditPageModule)
   },
+  {
+    path: 'qr-scan',
+    loadChildren: () => import('./page/today-work/qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
+  },
   
 
 ];

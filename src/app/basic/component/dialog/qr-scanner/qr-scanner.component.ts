@@ -14,7 +14,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.scss'],
 })
-export class QrScannerComponent implements OnInit,OnDestroy {
+export class QrScannerComponent implements OnInit, OnDestroy {
 
   qr_subs:Subscription;
   qr_timeout;
@@ -89,6 +89,10 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       Qr.transparent();
     }
     const routerEl = document.querySelector('ion-router-outlet');
+    var newDiv = document.createElement("div");
+    var newContent = document.createTextNode("환영합니다!");
+    newDiv.appendChild(newContent);
+    console.log("routerEl",routerEl);
     routerEl.style.display = 'none';
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';

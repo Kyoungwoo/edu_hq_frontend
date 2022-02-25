@@ -17,7 +17,7 @@ export class QrService {
     qr_subs: null
   }
 
-  constructor(
+constructor(
     private _modal : ModalController,
     private qr_scanner : QRScanner
   ) { }
@@ -33,7 +33,6 @@ export class QrService {
       cssClass:'scan-modal',
       componentProps: {
         getQrData: (value) => {
-          console.log("---------------",value);
           this.getQrData(value);
         }
       }
@@ -46,7 +45,6 @@ export class QrService {
           routerEl.style.display = 'flex';
           const ionApp = document.getElementsByTagName('ion-app')[0];
           ionApp.style.backgroundColor = 'transparent';
-          // this.qr_response.qr_qrScanner.distroy();
           this.qr_response.qr_modal.dismiss();
           this.qr_response.qr_subs.unsubscribe();
           this.qrCallback = null;
