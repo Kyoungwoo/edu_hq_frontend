@@ -93,9 +93,7 @@ export class MyStatusListPage implements OnInit {
   roleCheck() {
     if(this.user.userData.user_role === 'LH_HEAD' ||
       this.user.userData.user_role === 'MASTER_HEAD' ||
-      this.user.userData.user_role === 'COMPANY_HEAD') {
-        this.notWorker = true;
-      }
+      this.user.userData.user_role === 'COMPANY_HEAD') this.notWorker = true;
   }
 
   async get() {

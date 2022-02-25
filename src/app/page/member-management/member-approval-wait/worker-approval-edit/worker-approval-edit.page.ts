@@ -446,7 +446,7 @@ export class WorkerApprovalEditPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.resWorkerHealth = res.rsObj;
-      console.log("this.resWorkerHealth",this.resWorkerHealth);
+      this.healthArr.filter((item,i) => {console.log(item)})
     }
   }
 }
