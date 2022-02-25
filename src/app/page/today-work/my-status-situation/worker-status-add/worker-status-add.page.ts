@@ -84,16 +84,15 @@ export class WorkerStatusAddPage implements OnInit {
       this.selectData.splice(index,1);
     }
   }
+
   async workerIn() {
     this.selectData.map(item => this.form.user_ids.push(item.user_id));
-    if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
+    // if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
     // if(!this.form.inside_time) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
-    this.form.inside_time = '12:30'
     const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;
     this.form.area_top_id = area_top_id ? area_top_id : 0;
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
     this.form.area_bottom_id = area_bottom_id ? area_bottom_id : 0;
-    
     const alert = await this.alert.present({
       message: `선택한 인원을 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리하시겠습니까?`,
       buttons:[

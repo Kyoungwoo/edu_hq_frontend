@@ -89,8 +89,6 @@ export class LoginMobilePage implements OnInit {
   private async testLogin():Promise<boolean> {
     if(!environment.test.Login.test) return true;
     if(environment.test.Login.done) return true;
-
-
   }
 
   public async login() {

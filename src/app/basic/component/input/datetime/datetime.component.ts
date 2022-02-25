@@ -118,7 +118,6 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
   set value(v:any) {
     if(v !== this.getTimeFormat()) {
       this.setTimeFormat(v);
-      this.getTimeFormat();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
