@@ -57,7 +57,7 @@ export class PartnerListPage implements OnInit {
     if(user_role === 'LH_HEAD') {
       this.permission.edit = true;
     } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    else if(user_role === 'MASTER_HEAD' && belong_data.company_contract_type === '원청사') {
       this.permission.edit = true;
     } else {
       this.permission.edit = false;

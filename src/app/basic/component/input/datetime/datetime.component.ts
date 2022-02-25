@@ -79,8 +79,7 @@ export class DatetimeComponent implements OnInit, ControlValueAccessor {
     const { data } = await popover.onWillDismiss();
     this.blur();
     if(data) {
-      this.form.hour = data.hour;
-      this.form.minute = data.minute;
+      this.value = data.hour + ':' + data.minute;
     }
   }
 

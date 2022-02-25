@@ -44,6 +44,7 @@ export class LoginMobilePage implements OnInit {
     if(!await this.testSignUp()) return;
     if(!await this.testFindId()) return;
     if(!await this.testFindPassord()) return;
+    
     this.alert.present({
       header: '테스트 완료',
       message: '테스트 완료'

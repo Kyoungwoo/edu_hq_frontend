@@ -53,8 +53,10 @@ export class QrScannerComponent implements OnInit,OnDestroy {
   
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
-    if(this.qr_subs) this.qr_subs.unsubscribe();
+    this.qr_subs.unsubscribe();
     console.log("durlfh??")
+    const routerEl = document.querySelector('ion-router-outlet');
+    routerEl.style.display = 'flex';
     this.qrScanner.destroy();
   }
   prepareQR() {
@@ -79,6 +81,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
       .catch((e: any) => console.log('Error is', e));
     });
   }
+  
   async scanQR() {
     await this.qrScanner.show();
     let divice = navigator.userAgent.toLowerCase();
@@ -90,6 +93,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
+      console.log("data",data);
       let res = {
         qr_qrScanner: this.qrScanner,
         qr_modal: this._modal,
@@ -97,7 +101,7 @@ export class QrScannerComponent implements OnInit,OnDestroy {
         qr_data: data
       };
       this.getQrData(res);
-      if(data){
+      if(!data){
         setTimeout(() => {
           this.scanQR();
         }, 1000);

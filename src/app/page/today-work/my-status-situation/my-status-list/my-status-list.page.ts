@@ -93,7 +93,7 @@ export class MyStatusListPage implements OnInit {
   roleCheck() {
     if(this.user.userData.user_role === 'LH_HEAD' ||
       this.user.userData.user_role === 'MASTER_HEAD' ||
-      this.user.userData.user_role === 'COMPANY_HEAD') this.notWorker = true;
+      this.user.userData.user_role === 'PARTNER_HEAD') this.notWorker = true;
   }
 
   async get() {
@@ -131,14 +131,49 @@ export class MyStatusListPage implements OnInit {
 
   workerSatus() {
     if(!this.form.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
-    this.nav.navigateForward('/worker-status-list',{state:{      
-      project_id:this.form.project_id,
-      master_company_id:this.form.master_company_id
-      }
+    this.nav.navigateForward('/worker-status-list',{
+      state:
+        {      
+          project_id:this.form.project_id,
+          master_company_id:this.form.master_company_id
+        }
     });
   }
 
   async inNfcQr() {
-    
+   const alert = await this.alert.present({
+      message:'출입 방법을 선택해주세요.',
+      buttons:[
+        {text:'QR',
+          handler: async() =>{
+            const $qr = await this.qr.subscribe(async (qrData) => {
+              console.log(qrData);
+              if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+              const res = await this.connect.run('/user/user_in/qr', { user_id: qrData.user_id });
+              if(res.rsCode !== 0) {
+                $qr.unsubscribe();
+                } else {
+                this.connect.error('qr스캔실패',res);
+              }
+            });
+          }
+        },
+        {text:'NFC',
+          handler: async() => {
+            const $nfc = await this.nfc.subscribe(async (nfcData) => {
+              console.log("nfc",nfcData);
+              if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
+              const res = await this.connect.run('/user/user_in/qr', { user_id: nfcData.user_id });
+              if(res.rsCode !== 0) {
+                $nfc.unsubscribe();
+                } else {
+                this.connect.error('nfc스캔실패',res);
+              }
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

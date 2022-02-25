@@ -116,9 +116,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         this.text = data.map(company => company.company_name).join();
       } else {
         this.text = data.company_name;
-        // console.log("---------------------data",data);
         this.value = data.company_id;
-        // console.log("this.value",this.value);
       }
     }
   }

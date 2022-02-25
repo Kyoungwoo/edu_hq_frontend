@@ -33,6 +33,7 @@ export class QrService {
       cssClass:'scan-modal',
       componentProps: {
         getQrData: (value) => {
+          console.log("---------------",value);
           this.getQrData(value);
         }
       }
@@ -41,16 +42,15 @@ export class QrService {
 
       return {
         unsubscribe: () => {
-          modal.dismiss();
           const routerEl = document.querySelector('ion-router-outlet');
-          console.log("test");
           routerEl.style.display = 'flex';
           const ionApp = document.getElementsByTagName('ion-app')[0];
           ionApp.style.backgroundColor = 'transparent';
           // this.qr_response.qr_qrScanner.distroy();
           this.qr_response.qr_modal.dismiss();
           this.qr_response.qr_subs.unsubscribe();
-          // this.qrCallback = null;
+          this.qrCallback = null;
+          modal.dismiss();
         }
       };
   };

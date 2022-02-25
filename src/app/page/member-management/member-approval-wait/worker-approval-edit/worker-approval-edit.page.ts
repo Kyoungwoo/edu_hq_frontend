@@ -378,12 +378,13 @@ export class WorkerApprovalEditPage implements OnInit {
 //파일 행추가
   addSafeJobData() {
     const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.form.safe_job_data.push({
-        ...new addSafeJobData()
-      });
-    } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    // if(user_role === 'LH_HEAD') {
+    //   this.form.safe_job_data.push({
+    //     ...new addSafeJobData()
+    //   });
+    // } 
+    // else 
+    if(user_role === 'MASTER_HEAD') {
       this.form.safe_job_data.push({
         ...new addSafeJobData(),
       });
@@ -392,12 +393,13 @@ export class WorkerApprovalEditPage implements OnInit {
 //파일 행삭제
   addCertifyData() {
     const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.form.certify_data.push({
-        ...new addCertifyData()
-      });
-    } 
-    else if(user_role === 'COMPANY_HEAD' && belong_data.company_contract_type === '원청사') {
+    // if(user_role === 'LH_HEAD') {
+    //   this.form.certify_data.push({
+    //     ...new addCertifyData()
+    //   });
+    // } 
+    // else
+     if(user_role === 'MASTER_HEAD') {
       this.form.certify_data.push({
         ...new addCertifyData(),
       });
