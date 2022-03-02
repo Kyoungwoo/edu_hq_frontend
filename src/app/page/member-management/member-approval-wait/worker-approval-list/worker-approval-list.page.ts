@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -68,7 +69,8 @@ export class WorkerApprovalListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     private toast: ToastService,
-    private nav: NavService
+    private nav: NavService,
+    private file: FileService
   ) { }
 
   ngOnInit() {
@@ -150,7 +152,7 @@ export class WorkerApprovalListPage implements OnInit {
     const modal = await this.modal.create({
       component:WorkerApprovalEditPage,
       componentProps:{
-        item
+        item: this.file.clone(item)
       }
     });
     modal.present();
