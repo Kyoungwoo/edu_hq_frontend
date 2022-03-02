@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
 import { Subscription } from 'rxjs';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { QrScanPage } from 'src/app/page/today-work/qr-scan/qr-scan.page';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ constructor(
     this.qrCallback = callback;
     
     const modal = await this._modal.create({
-      component:QrScannerComponent,
+      component:QrScanPage,
       cssClass:'scan-modal',
       componentProps: {
         getQrData: (value) => {

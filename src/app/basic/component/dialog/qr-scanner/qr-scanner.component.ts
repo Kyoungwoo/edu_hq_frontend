@@ -27,7 +27,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   @Input() qrModal:boolean;
   @Input() scandata;
   @Input() QrController;
-  @Output() scan = new EventEmitter();
+  @Output() scan = new EventEmitter(); 
 
   constructor(
     private qrScanner: QRScanner,
