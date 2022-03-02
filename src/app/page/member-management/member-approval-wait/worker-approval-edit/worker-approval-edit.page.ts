@@ -133,6 +133,7 @@ export class WorkerApprovalEditPage implements OnInit {
     session_company_id: 0,
     user_manage_session: ''
   }
+
   formBasic = new BasicItem();
   formApproval = new ApprovalItem();
   formHealth = new HealthItem();
@@ -213,10 +214,11 @@ export class WorkerApprovalEditPage implements OnInit {
     });
     
     if (res.rsCode === 0) {
-      this.form = {
-        ...this.form,
+      this.formBasic = {
+        ...this.formBasic,
         ...res.rsObj
       }
+      
     } else if(res.rsCode === 3008) {
        // 비밀번호 없거나 틀렸음
        this.getPassword();
@@ -232,8 +234,8 @@ export class WorkerApprovalEditPage implements OnInit {
       });
       
       if (res.rsCode === 0) {
-        this.form = {
-          ...this.form,
+        this.formApproval = {
+          ...this.formApproval,
           ...res.rsObj
         }
       } else if(res.rsCode === 3008) {
@@ -251,8 +253,8 @@ export class WorkerApprovalEditPage implements OnInit {
     });
     
     if (res.rsCode === 0) {
-      this.form = {
-        ...this.form,
+      this.formSafeEdu = {
+        ...this.formSafeEdu,
         ...res.rsObj
       }
     } else if(res.rsCode === 3008) {
@@ -359,15 +361,16 @@ export class WorkerApprovalEditPage implements OnInit {
    this.form.user_manage_session = this.user.memberAuthToken;
    this.formSafeList.project_id = this.user.userData.belong_data.project_id;
    this.form.approval_user_id = this.item.user_id;
-    const res = await this.connect.run('/usermanage/approval/worker/edu/list', {
-
+    const res = await this.connect.run('/usermanage/approval/worker/edu/list',{
+     ...this.form,
+     ...this.formSafeList 
     }, {
       loading: true
     });
     if(res.rsCode === 0) {
-      this.formSafeList = {
+      this.resSafeList = {
         ...res,
-        ...this.formSafeList
+        ...this.resSafeList
       }
       // 정상
     } else if(res.rsCode === 1008) {

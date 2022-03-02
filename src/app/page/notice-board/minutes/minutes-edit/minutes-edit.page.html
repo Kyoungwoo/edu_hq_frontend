@@ -23,7 +23,7 @@
           <app-button fill="translucent" (click)="whileSave(2)">결재요청</app-button>
           <app-button fill="translucent" *ngIf="user_Check">인쇄</app-button>
           <app-button fill="translucent" *ngIf="user_Check">결재 회수</app-button>
-          <app-button fill="translucent" *ngIf="(user.userData.user_role === 'COMPANY_HEAD' || 
+          <app-button fill="translucent" *ngIf="(user.userData.user_role === 'MASTER_HEAD' || 
             user.userData.user_role === 'LH_HEAD') && (item.safety_meeting_id && user_Check)" color="danger"
             (click)="approvalDelete()">삭제</app-button>
         </ion-buttons>
