@@ -76,101 +76,93 @@
           <ion-segment-button (click)="menu = 5">안전 마일리지</ion-segment-button>
         </ion-segment>
       </ion-toolbar>
+
       <ng-container *ngIf="menu === 1">
       <h5>소속정보</h5>
       <app-row>
         <app-col>
-          <app-input name="input disabled" label="업체명" value="(주)지에스아이엘" [disabled]="true"></app-input>
+          <app-input name="input disabled" label="업체명" [disabled]="true" [(ngModel)]="formApproval.company_name"></app-input>
         </app-col>
         <app-col>
-          <app-select label="직위" name="select">
-            <app-select-option>작업자</app-select-option>
-            <app-select-option>작업자</app-select-option>
-            <app-select-option>작업자</app-select-option>
-            <app-select-option>작업자</app-select-option>
-          </app-select>
+          <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input name="input disabled" label="현장명" value="세종시 단독주택공사" [disabled]="true"></app-input>
+          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
         </app-col>
         <app-col>
-          <app-select label="공종" name="select">
-            <app-select-option>건축</app-select-option>
-            <app-select-option>토목</app-select-option>
-            <app-select-option>건설</app-select-option>
-            <app-select-option>전기</app-select-option>
-          </app-select>
+          <app-select-construction [project_id]="formApproval.project_id" name="공종" label="공종"  [(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-radio-input name="계약유형" label="계약유형">
+          <app-radio-input name="계약유형" label="계약유형" [(ngModel)]="formApproval.work_contract_type">
             <app-radio value="상용직">상용직</app-radio>
             <app-radio value="일용직">일용직</app-radio>
           </app-radio-input>
         </app-col>
         <app-col>
-          <app-input name="with img" label="직종" placeholder="장비운전원">
-            <app-img name="search"></app-img>
-          </app-input>
+          <app-select-occupation name="직종" [company_id]="formApproval.company_id" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
         </app-col>
       </app-row>
       <app-table type="card">
         <thead>
           <tr>
-            <th style="text-align: left;">No</th>
-            <th style="text-align: left;">안전 직무</th>
-            <th style="text-align: left;">안전직무 선임일</th>
-            <th style="text-align: left;"></th>
-            <th style="text-align: left;"></th>
-            <th style="text-align: left;"></th>
+            <th style="text-align: left; width: 30px;">No</th>
+            <th style="text-align: left; width: 120px;">안전 직무</th>
+            <th style="text-align: left; width: 40px;">안전직무 선임일</th>
+            <th style="text-align: left; width: 150px;"></th>
+            <th style="text-align: left; width: 70px;"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-            <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-            <td><a>선임서.pdf<app-img name="search"></app-img></a>
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="save"></app-img>
+          <tr *ngFor="let item of safeAdd let i = index">
+            <td style="text-align: left;">{{ i + 1}}</td>
+            <td><app-select-safetymanager name="안전직무" [required]="true" [(ngModel)]="item.ctgo_safe_job_id"></app-select-safetymanager></td>
+            <td><app-calendar name="안전직무선임일" [(ngModel)]="item.safe_job_start_date"></app-calendar ></td>
+            <td>
+              <app-row>
+                <app-col *ngFor="let file of formApproval?.safe_job_file_data">
+                  <app-input [value]="file.file_name"></app-input>
+                </app-col>
+                <app-col style="text-align: right;">
+                  <app-button shape="circle" size="small" fill="translucent">
+                    <app-file view_type="JOB" [multiple]="false"
+                      [(ngModel)]="formApproval.safe_job_file_data"
+                      [file]="item.file"
+                      [file_json]="item.file_json"
+                    >  
+                    </app-file>
+                    <app-img name="save"></app-img>
+                  </app-button>
+                </app-col>
+              </app-row>
+            </td>
+            <td style="text-align: right;">
+            <app-button shape="circle" size="small" fill="translucent" (click)="safeEdit(1)">
+              <app-img name="plus"></app-img>
+            </app-button>
+              <app-button
+               shape="circle" size="small" color="danger" fill="translucent" (click)="safeEdit(0,item.user_safe_job_id,i)">
+                <app-img name="minus"></app-img>
               </app-button>
             </td>
-            <td>
-            </td>
-            <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-              <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-            <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-            <td><a>선임서.pdf<app-img name="search"></app-img></a>
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="save"></app-img>
-              </app-button>
-            </td>
-            <td>
-            </td>
-            <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-              <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
           </tr>
         </tbody>
       </app-table>
       <app-row>
         <app-col>
-          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" placeholder="text">
-            <app-radio value="IN">출역중</app-radio>
-            <app-radio value="OUT">출역종료</app-radio>
+          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.project_work_state" placeholder="text">
+            <app-radio [value]="1">출역중</app-radio>
+            <app-radio [value]="0">출역종료</app-radio>
           </app-radio-input>
         </app-col>
         <app-col>
           <app-input-group label="현장 출역 기간">
-            <app-calendar [disabled]="true"></app-calendar>
+            <app-calendar [disabled]="true" [(ngModel)]="formApproval.construction_start_date" [max]="formApproval.construction_end_date"></app-calendar>
             ~
-            <app-calendar [disabled]="true"></app-calendar>
+            <app-calendar [disabled]="true" [(ngModel)]="formApproval.construction_end_date" [min]="formApproval.construction_start_date"></app-calendar>
           </app-input-group>
         </app-col>
       </app-row>

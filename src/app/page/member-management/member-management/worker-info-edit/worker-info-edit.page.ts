@@ -29,6 +29,40 @@ export class BasicItem {
   file_json: FileJson = new FileJson();
 }
 
+//소속정보
+export class ApprovalItem {
+  ctgo_construction_id: number;
+  safe_job_data: {
+    user_id: number;
+    ctgo_safe_job_id: number;
+    user_safe_job_id: number;
+    safe_job_start_date: string;
+    ctgo_safe_job_name_kr: string;
+  }
+  safe_job_file_data: FutItem[] = [];
+  company_id: number;
+  ctgo_job_position_id: number;
+  ctgo_occupation_name: string;
+  ctgo_construction_name: string;
+  ctgo_job_position_name: string;
+  project_name: string;
+  certify_data: {
+    user_id: number;
+    user_certify_id: number;
+    user_certify_no: string;
+  }
+  certify_file_data: FutItem[] = [];
+  ctgo_occupation_id: number;
+  project_id: number;
+  company_name: string;
+  work_contract_type: string;
+  project_work_state:number;
+  construction_start_date:string;
+  construction_end_date:string;
+  ctgo_job_position_name_kr:string
+}
+
+
 @Component({
   selector: 'app-worker-info-edit',
   templateUrl: './worker-info-edit.page.html',
@@ -47,7 +81,18 @@ export class WorkerInfoEditPage implements OnInit {
     user_manage_session: ''
   }
   formBasic = new BasicItem();
-  // formApproval = new ApprovalItem();
+  formApproval = new ApprovalItem();
+  formSafeJob = {
+    ctgo_safe_job_id:0,
+    ctgo_safe_job_name_kr:'',
+    safe_job_start_date:'',
+    user_id:0,
+    user_safe_job_id:0,
+    approval_user_id:0,
+    session_company_id:0,
+    user_manage_session:'',
+    project_id:0
+  }
   // formHealth = new HealthItem();
   // formSafeEdu = new SafeEduItem();
   formSafeList = {
@@ -58,6 +103,19 @@ export class WorkerInfoEditPage implements OnInit {
   // resSafeList:ConnectResult<SafeEduList>;
   validator = new Validator(new BasicItem()).validator;
 
+  safeAdd = [{
+    ctgo_safe_job_id:0,
+    ctgo_safe_job_name_kr:'',
+    safe_job_start_date:'',
+    user_id:0,
+    user_safe_job_id:0,
+    approval_user_id:0,
+    session_company_id:0,
+    user_manage_session:'',
+    file: [],
+    file_json: new FileJson(),
+    project_id:0
+  }];
   permission = {
     approval: false
   }
@@ -72,7 +130,8 @@ export class WorkerInfoEditPage implements OnInit {
 
   ngOnInit() {
     this.getPermission();
-    this.getItem();
+    this.getItem(); //기본정보
+    this.getBelong(); //소속정보
   }
 
   //권한
@@ -112,7 +171,6 @@ export class WorkerInfoEditPage implements OnInit {
     const res = await this.connect.run('/usermanage/info/worker/basic/detail', this.form, {
       parse: ['user_profile_file_data']
     });
-    
     if (res.rsCode === 0) {
       this.formBasic = {
         ...this.formBasic,
@@ -153,6 +211,8 @@ export class WorkerInfoEditPage implements OnInit {
           text:'예',
           handler: async() => {
             this.BasicSubmit();
+            this.safeInsert();
+            this.SafeSubmit()
             // this.BelongSubmit();
             // this.SafeEduSubmit();
           }
@@ -168,8 +228,122 @@ export class WorkerInfoEditPage implements OnInit {
       ...this.formBasic
     }, {});
     if(res.rsCode === 0) {
+      this._modal_.dismiss();
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  //안전직무 수정
+  async SafeSubmit(){
+    for(let i = 0; i < this.safeAdd.length; i++) {
+      this.formSafeJob = this.safeAdd[i];
+      if(this.formSafeJob.user_id) {
+        const res = await this.connect.run('/usermanage/info/worker/safejob/update',{
+          ...this.form,
+          ...this.formSafeJob
+        });
+        if(res.rsCode === 0) {
+          this._modal_.dismiss();
+        } else {
+          this.toast.present({ color: 'warning', message: res.rsMsg });
+        }
+      }
+    }
+  }
+
+  //소속정보
+  async getBelong() {
+    const res = await this.connect.run('/usermanage/info/worker/belong/detail', this.form, {
+      parse: ['certify_data','certify_file_data','safe_job_data','safe_job_file_data']
+    });
+    
+    if (res.rsCode === 0) {
+      if(this.safeAdd.length > 1) {
+        this.safeAdd = [];
+      }
+      this.formApproval = {
+        ...this.formApproval,
+        ...res.rsObj
+      }
+      
+      res?.rsObj?.safe_job_data?.forEach(item => {
+          this.safeAdd.push(item);
+      });
+      this.formSafeJob.project_id = res.rsObj.project_id;
+    } else if(res.rsCode === 3008) {
+       // 비밀번호 없거나 틀렸음
+       this.getPassword();
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  async safeInsert() {
+    console.log("this.safeAdd.length",this.safeAdd.length);
+    for(let i = 0; i < this.safeAdd.length; i++) {
+      this.formSafeJob = this.safeAdd[i];
+      // if(!this.safeAdd[i].ctgo_safe_job_id) return this.toast.present({message:'안전 직무를 선택해주세요.',color:'warning'});
+      // if(!this.safeAdd[i].safe_job_start_date) return this.toast.present({message:'안전 직무 선임일를 선택해주세요.',color:'warning'});
+      this.formSafeJob.ctgo_safe_job_id = 1
+      
+      if(!this.safeAdd[i].user_id) {
+        console.log("input userid");
+        const res = await this.connect.run('/usermanage/info/worker/safejob/insert',{
+          ...this.form,
+          ...this.formSafeJob
+        });
+        if(res.rsCode === 0) {
+          this.getBelong();
+        } else {
+          this.toast.present({ color: 'warning', message: res.rsMsg });
+        }
+      }
+    }
+  }
+
+
+  async safeEdit(state,user_safe_job_id?,i?) {
+    console.log(state)
+    if(state) {
+      this.safeAdd.unshift({
+        ctgo_safe_job_id:0,
+        ctgo_safe_job_name_kr:'',
+        safe_job_start_date:'',
+        user_id:0,
+        user_safe_job_id:0,
+        approval_user_id:0,
+        session_company_id:0,
+        user_manage_session:'',
+        file: [] as FutItem[],
+        file_json: new FileJson(),
+        project_id:0
+      });
+    } else if(user_safe_job_id) {
+      this.alert.present({
+        message:'삭제하시겠습니까?',
+        buttons:[
+          {text:'아니요'},
+          {text:'에',
+            handler:async() => {
+              const res = await this.connect.run('/usermanage/info/worker/safejob/delete',{
+                session_company_id:this.user.userData.belong_data.company_id,
+                user_manage_session:this.user.memberAuthToken,
+                user_safe_job_id
+              });
+              if(res.rsCode === 0) {
+                this.toast.present({message:'삭제 되었습니다.',color:'primary'});
+                this.safeAdd.splice(i,1);
+              } else {
+                this.toast.present({ color: 'warning', message: res.rsMsg });
+              }
+            }
+          }
+        ]
+      });
+    } else {
+      if(this.safeAdd.length < 2) return this.toast.present({message:'마지막 1개는 삭제할수 없습니다.',color:'warning'})
+      this.safeAdd.splice(i,1);
     }
   }
 }

@@ -14,39 +14,39 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-occupation></app-select-occupation>
+                <app-select-construction [(ngModel)]="form.ctgo_construction_ids"></app-select-construction>
               </td>
             </tr>
             <tr>
               <tr>
                 <td>
-                  <app-select-company></app-select-company>
+                  <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
                 </td>
               </tr>
               <tr>
               <td>
                 <app-input-group label="신청일">
-                  <app-calendar></app-calendar>
+                  <app-calendar  [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-radio-input label="승인현황">
-                  <app-radio value="전체">전체</app-radio>
+                <app-radio-input label="승인현황" [(ngModel)]="form.approval_state">
+                  <app-radio type="all" value="전체">전체</app-radio>
                   <app-radio value="미승인">미승인</app-radio>
                   <app-radio value="반려">반려</app-radio>
                 </app-radio-input>
@@ -54,7 +54,7 @@
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -63,20 +63,21 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent">엑셀 업로드</app-button>
-            <app-button fill="translucent">양식 다운로드</app-button>
-            <app-button fill="translucent">가입승인</app-button>
+            <!-- <app-button fill="translucent">엑셀 업로드</app-button>
+            <app-button fill="translucent">양식 다운로드</app-button> -->
+            <app-button fill="translucent" (click)="approval()">가입승인</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>감리 가입 신청 목록(총00건)</h5>
+          <h5>감리 가입 신청 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
+        <app-check-group [(ngModel)]="selectedList">
         <app-table>
           <thead>
             <tr>
               <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
               <th style="width: 40px;">No.</th>
-              <th>구분</th>
+              <!-- <th>구분</th> -->
               <th>공종</th>
               <th>업체명</th>
               <th>성명</th>
@@ -86,12 +87,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" (click)="edit()">
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>
-                <app-check color="white" size="small" name="check"></app-check>
+                <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
               </td>
-              <td>50</td>
-              <td>신규가입</td>
+              <td>{{ i+1 }}</td>
+              <!-- <td>신규가입</td> -->
               <td>건축</td>
               <td>(주)희림</td>
               <td>구범수</td>
@@ -101,6 +102,8 @@
             </tr>
           </tbody>
         </app-table>
+      </app-check-group>
+      <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content>

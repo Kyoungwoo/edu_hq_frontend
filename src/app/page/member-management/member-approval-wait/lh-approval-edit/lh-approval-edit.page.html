@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>회원정보</ion-title>
+    <ion-title>LH 가입승인 상세</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,43 +16,62 @@
       <app-avatar class="avatar" [readonly]="false"></app-avatar>
       <app-row>
         <app-col>
-          <app-input name="input disabled" label="아이디" value="gsil1" [disabled]="true" [required]="true"></app-input>
+          <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true"></app-input>
         </app-col>
         <app-col>
-          <app-input name="input" label="성명" placeholder="김소령"></app-input>
+          <app-input name="input" label="성명" [(ngModel)]="formBasic.user_name" [required]="true"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-calendar name="calendar" label="생년월일"></app-calendar>
+          <app-calendar name="calendar" label="생년월일" [(ngModel)]="formBasic.user_birth" [required]="true"></app-calendar>
         </app-col>
         <app-col>
-          <app-radio-input name="user_gender" label="성별">
-            <app-radio value="MAL">남</app-radio>
-            <app-radio value="WOMAN">여</app-radio>
+          <app-radio-input name="user_gender" label="성별"  [(ngModel)]="formBasic.user_gender" [required]="true">
+            <app-radio value="남">남</app-radio>
+            <app-radio value="여">여</app-radio>
           </app-radio-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input type="tel" name="input" label="핸드폰" placeholder="010-4732-0808"></app-input>
+          <app-input type="tel" name="phone-number" label="핸드폰" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
+            중복확인
+          </app-input>
+          <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-input label="이메일" name="select" placeholder="email" type="email"></app-input>
-        </app-col>
-      </app-row>
-      <h5 style="margin-top: 30px;">소속정보</h5>
-      <app-row>
-        <app-col>
-          <app-input [disabled]="true" label="업체명" value="한국토지주택공사"></app-input>
-        </app-col>
-        <app-col>
-          <app-select-position></app-select-position>
+          <app-email name="user_email" label="이메일" [(ngModel)]="formBasic.user_email"
+        [color]="validator.user_email?.valid === false && 'warning'" (delayKeyup)="overlapEmail()"></app-email>
+        <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
         </app-col>
       </app-row>
+    </form>
+  </app-card>
+  <app-card color="light">
+      <ion-toolbar slot="top" color="white">
+        <h5>소속정보</h5>
+      </ion-toolbar>
+      <app-row>
+        <app-col></app-col>
+        <app-col size="auto">
+          <p>최종 수정일 : {{ formBasic.update_date }}</p>
+        </app-col>
+      </app-row>
       <app-row>
         <app-col>
-          <app-select label="시스템 권한">
+          <app-input [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
+        </app-col>
+        <app-col>
+          <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select label="시스템 권한" [(ngModel)]="formApproval.user_role">
+            <app-select-option value="마스터 어드민">마스터 어드민</app-select-option>
+            <app-select-option value="현장 어드민">현장 어드민</app-select-option>
+            <app-select-option value="일반 관리자">일반 관리자</app-select-option>
           </app-select>
         </app-col>
         <app-col>
@@ -61,18 +80,20 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene></app-select-scene>
+          <app-select-scene [(ngModel)]="formApproval.project_id"></app-select-scene>
         </app-col>
         <app-col>
-          <app-input [disabled]="true" value="2021-08-01 ~ 2021-08-31" label="현장 공사 기간"></app-input>
+          <app-input-group label="현장 공사 기간">
+          <app-input [(ngModel)]="formApproval.construction_start_date"></app-input>
+          ~
+          <app-input [(ngModel)]="formApproval.construction_end_date"></app-input>
+          </app-input-group>
         </app-col>
       </app-row>
-    </form>
-    <ion-toolbar slot="bottom" color="white">
-      <ion-buttons slot="end">
-        <app-button fill="translucent"style="width: 120px;">가입승인</app-button>
-        <app-button style="width: 120px;">저장</app-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </app-card>
+    </app-card>
+    <app-button-footer>
+      <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
+      <app-button style="width: 120px;" (click)="submit()">저장</app-button>
+  </app-button-footer>
+  
 </ion-content>
