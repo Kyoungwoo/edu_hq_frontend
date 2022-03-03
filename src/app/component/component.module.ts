@@ -53,6 +53,7 @@ import { SupervisionSearchComponent } from './modal/supervision-search/supervisi
 import { ProjectAreaSetComponent } from './modal/project-area-set/project-area-set.component';
 import { SelectSupervisionComponent } from './select/select-supervision/select-supervision.component';
 import { SelectManualComponent } from './select/select-manual/select-manual.component';
+import { SelectRegionalComponent } from './select/select-regional/select-regional.component';
 
 
 
@@ -62,6 +63,7 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
+    // search
     SearchPeopleComponent,
     SearchCompanyComponent,
     SearchDangerousAreaComponent,
@@ -73,6 +75,8 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     PeopleViewComponent,
     PeopleDeleteComponent,
     SearchAreaComponent,
+    // select
+    SelectCountryComponent,
     SelectToolComponent,
     SelectEducationComponent,
     SelectHeavyComponent,
@@ -85,8 +89,8 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     SelectConstructionComponent,
     SelectOccupationComponent,
     SelectPositionComponent,
+    SelectRegionalComponent,
     SelectOrganizationComponent,
-    SelectCountryComponent,
     SelectOccupationComponent,
     DetailSearchComponent,
     SelectContractorComponent,
@@ -119,6 +123,7 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
   exports: [
     BasicComponentModule,
     HeaderAdminComponent,
+    // search
     SearchPeopleComponent,
     SearchCompanyComponent,
     SearchDangerousAreaComponent,
@@ -127,6 +132,7 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     SearchToolComponent,
     SearchConstructionMachineryComponent,
     SearchEducationComponent,
+    // select
     PeopleViewComponent,
     PeopleDeleteComponent,
     SearchAreaComponent,
@@ -137,6 +143,7 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
     SelectCompanyComponent,
     SelectSceneComponent,
     SelectPeopleComponent,
+    SelectRegionalComponent,
     SelectBusinessComponent,
     SelectSafetymanagerComponent,
     SelectConstructionComponent,

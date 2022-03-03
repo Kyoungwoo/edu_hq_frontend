@@ -83,7 +83,6 @@ export class LhApprovalEditPage implements OnInit {
     this.form.approval_user_id = this.item.user_id;
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
-    console.log("-=-----=-=-------------",this.item);
     this.get();
   }
 

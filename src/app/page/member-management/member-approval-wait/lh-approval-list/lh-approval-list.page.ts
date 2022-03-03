@@ -29,7 +29,7 @@ export class LhApprovalListPage implements OnInit {
 
   form = {
     approval_state: '전체',
-    hq_regional_ids: [],
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
 
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
