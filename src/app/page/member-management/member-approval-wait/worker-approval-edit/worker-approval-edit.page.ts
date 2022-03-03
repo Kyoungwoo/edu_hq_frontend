@@ -207,7 +207,6 @@ export class WorkerApprovalEditPage implements OnInit {
   }
 
 //기본정보
-
   async getItem() {
     const res = await this.connect.run('/usermanage/approval/worker/basic/detail', this.form, {
       parse: ['user_profile_file_data']
