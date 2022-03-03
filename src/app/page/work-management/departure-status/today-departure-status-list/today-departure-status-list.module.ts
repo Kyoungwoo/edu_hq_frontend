@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { TodayDepartureStatusListPageRoutingModule } from './today-departure-status-list-routing.module';
 
 import { TodayDepartureStatusListPage } from './today-departure-status-list.page';
+import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentModule,
     TodayDepartureStatusListPageRoutingModule
   ],
-  declarations: [TodayDepartureStatusListPage]
+  declarations: [TodayDepartureStatusListPage],
+  exports: [TodayDepartureStatusListPage]
 })
 export class TodayDepartureStatusListPageModule {}

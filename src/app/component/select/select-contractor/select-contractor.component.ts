@@ -5,6 +5,7 @@ import { Color } from '@ionic/core';
 import { Constractor, SearchContractorComponent } from '../../modal/search-contractor/search-contractor.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 @Component({
   selector: 'app-select-contractor',
   templateUrl: './select-contractor.component.html',
@@ -42,7 +43,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this.value = this.multiple ? [] : 0;
+      this._value = this.multiple ? [] : 0;
+      this.valueChange(this._value);
     }
   }
   get project_id() { return this._project_id }
@@ -54,7 +56,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   constructor(
     private _modal:ModalController,
     private connect:ConnectService,
-    private user: UserService
+    private user: UserService,
+    private file: FileService
   ) { }
 
   ngOnInit() {
@@ -132,10 +135,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   private _value:number[] | number;
   @Input() set value(v:number[] | number) {
     if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
   }
   get value() {
@@ -143,11 +143,14 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
   writeValue(v:[]): void { 
     if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
+  }
+  valueChange(v) {
+    this._value = v ? v : this.multiple ? [] : 0;
+    this.get();
+    this.onChangeCallback(v);
+    this.change.emit(v);
   }
 
   private onChangeCallback = (v) => {};

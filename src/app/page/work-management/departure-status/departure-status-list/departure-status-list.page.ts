@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PartnerEditPage } from 'src/app/page/project-management/partner-management/partner-edit/partner-edit.page';
+import { DepartureStatusListForm, DepartureStatusListItem, TodayDepartureStatusListPage } from '../today-departure-status-list/today-departure-status-list.page';
 
 @Component({
   selector: 'app-departure-status-list',
@@ -14,7 +15,7 @@ import { PartnerEditPage } from 'src/app/page/project-management/partner-managem
 })
 export class DepartureStatusListPage implements OnInit {
 
-  form = {
+  form:DepartureStatusListForm = {
     project_id: this.user.userData.belong_data.project_id, // 현장 ID
     master_company_id: 0, // 원청사 ID
     ctgo_construction_ids: [], // 공종 ID
@@ -23,15 +24,7 @@ export class DepartureStatusListPage implements OnInit {
     limit_no: 0 // limit_no
   }
 
-  res:ConnectResult <{
-    company_admin:number,
-    company_worker:number,
-    master_admin:number,
-    master_worker:number,
-    total_cnt:number,
-    work_date:string,
-    row_count:number
-  }>
+  res:ConnectResult<DepartureStatusListItem>;
 
   permission = {
     contractor: false
@@ -80,12 +73,13 @@ export class DepartureStatusListPage implements OnInit {
     }
   }
 
-  async edit(item?) {
+  async detail(item) {
     const modal = await this.modal.create({
-      component: PartnerEditPage,
+      component: TodayDepartureStatusListPage,
+      cssClass: 'today-departure-status-list-modal',
       componentProps:{
-        company_id: item?.company_id,
-        project_id: item?.project_id
+        listForm: this.form,
+        item
       }
     });
     modal.present();

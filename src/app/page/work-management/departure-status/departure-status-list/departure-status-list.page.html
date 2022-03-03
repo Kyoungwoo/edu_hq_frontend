@@ -26,7 +26,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [multiple]="true"></app-select-construction>
+                <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
@@ -43,7 +43,7 @@
       </app-col>
       <app-col>        
         <ion-toolbar color="white">
-          <h5>협력사 관리 목록 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
+          <h5>출역 현황 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -60,7 +60,7 @@
               <th>작업자</th>
             </tr>
           </thead>
-            <tr class="button" *ngFor="let item of res?.rsMap; let i = index" (click)="edit(item)">
+            <tr class="button" *ngFor="let item of res?.rsMap; let i = index" (click)="detail(item)">
               <td>{{ item.work_date }}</td>
               <td>{{ item.master_admin }}</td>
               <td>{{ item.master_worker }}</td>
