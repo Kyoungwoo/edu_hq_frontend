@@ -26,6 +26,7 @@ export class SelectRegionalComponent implements OnInit, ControlValueAccessor {
   @Input() color:Color;
   @Input() label:string = "조직기구";
   @Input() placeholder:string = "선택";
+  @Input() all:boolean = false;
 
   res:ConnectResult<RegionalItem>;
 
