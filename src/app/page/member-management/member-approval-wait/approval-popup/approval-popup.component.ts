@@ -16,6 +16,7 @@ export class ApprovalPopupComponent implements OnInit {
   @Input() selectedList = [];
   @Input() approval_user_ids;
   @Input() user_name;
+  @Input() state;
 
   form = {
     user_id: this.user.userData.user_id,
@@ -38,8 +39,6 @@ export class ApprovalPopupComponent implements OnInit {
   ngOnInit() {
     if(this.selectedList.length){
       this.selectedList?.forEach(item => {
-        //selectedList에 무슨 데이터 담겨있는지 알 수 있는 콘솔
-        console.log(item);
         this.form.approval_user_ids.push(item.user_id)
         this.form.user_name.push(item.user_name);
       });
@@ -51,7 +50,23 @@ export class ApprovalPopupComponent implements OnInit {
   }
 
   async companion() {
-    const res = await this.connect.run('/usermanage/approval/worker/companion/update', this.form);
+    let method = '';
+
+    switch(this.state){
+      case 'worker':
+        method = '/usermanage/approval/worker/approval/update';
+        break;
+      case 'lh':
+        method = '/usermanage/approval/lh/approval/update';
+        break;
+      case 'supervision':
+        method = '/usermanage/approval/super/approval/update';
+        break;
+      case 'partner':
+        method = '/usermanage/approval/company/approval/update';
+        break;
+    }
+    const res = await this.connect.run(method, this.form);
     if (res.rsCode === 0) {
       this._modal.dismiss('Y');
     }
@@ -59,10 +74,32 @@ export class ApprovalPopupComponent implements OnInit {
 
 
   async approval() {
-    const res = await this.connect.run('/usermanage/approval/worker/approval/update', this.form);
+    let method = '';
+    let page_name = '';
+
+    switch(this.state){
+      case 'worker':
+        method = '/usermanage/approval/worker/approval/update';
+        page_name = '/worker-info-list';
+        break;
+      case 'lh':
+        method = '/usermanage/approval/lh/approval/update';
+        page_name = '/lh-info-list';
+        break;
+      case 'supervision':
+        method = '/usermanage/approval/super/approval/update';
+        page_name = '/supervision-info-list';
+        break;
+      case 'partner':
+        method = '/usermanage/approval/company/approval/update';
+        page_name = '/partner-info-list';
+        break;
+    }
+
+    const res = await this.connect.run(method, this.form);
     if (res.rsCode === 0) {
       this._modal.dismiss('Y');
-      this.nav.navigateForward('/worker-info-list', {
+      this.nav.navigateForward(page_name, {
         force: true
       });
     }

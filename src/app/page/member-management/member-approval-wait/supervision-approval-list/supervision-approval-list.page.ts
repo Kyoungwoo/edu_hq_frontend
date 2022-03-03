@@ -9,6 +9,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { SupervisionEditPage } from 'src/app/page/project-management/supervision-management/supervision-edit/supervision-edit.page';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
+import { SupervisionApprovalEditPage } from '../supervision-approval-edit/supervision-approval-edit.page';
 
 class SupervisionInfo {
   ctgo_construction_id: number;
@@ -51,6 +52,10 @@ export class SupervisionApprovalListPage implements OnInit {
   res:ConnectResult<SupervisionInfo>;
 
   selectedList = [];
+
+  permission = {
+    approval: false // 가입승인 권한
+  }
 
   constructor(
     private user: UserService,
@@ -103,9 +108,10 @@ export class SupervisionApprovalListPage implements OnInit {
 
   async edit(item) {
     const modal = await this.modal.create({
-      component:SupervisionEditPage,
+      component:SupervisionApprovalEditPage,
       componentProps:{
-        item
+        item,
+        state: 'supervision'
       }
     });
     modal.present();

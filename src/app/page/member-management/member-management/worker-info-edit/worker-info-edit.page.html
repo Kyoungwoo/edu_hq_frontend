@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>회원정보</ion-title>
+    <ion-title>작업자 회원정보</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
         <app-avatar class="avatar" [readonly]="false"></app-avatar>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" value="input disabled" [disabled]="true" [required]="true">
+            <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true">
             </app-input>
           </app-col>
           <app-col>
@@ -72,12 +72,18 @@
           <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
           <ion-segment-button (click)="menu = 2">건강 문진</ion-segment-button>
           <ion-segment-button (click)="menu = 3">교육 이력</ion-segment-button>
-          <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button>
+          <!-- <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button> -->
           <ion-segment-button (click)="menu = 5">안전 마일리지</ion-segment-button>
         </ion-segment>
       </ion-toolbar>
 
       <ng-container *ngIf="menu === 1">
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
+        </app-row>
       <h5>소속정보</h5>
       <app-row>
         <app-col>
@@ -140,13 +146,13 @@
               </app-row>
             </td>
             <td style="text-align: right;">
-            <app-button shape="circle" size="small" fill="translucent" (click)="safeEdit(1)">
+            <!-- <app-button shape="circle" size="small" fill="translucent" (click)="safeEdit(1)"> -->
               <app-img name="plus"></app-img>
-            </app-button>
+            <!-- </app-button>
               <app-button
                shape="circle" size="small" color="danger" fill="translucent" (click)="safeEdit(0,item.user_safe_job_id,i)">
                 <app-img name="minus"></app-img>
-              </app-button>
+              </app-button> -->
             </td>
           </tr>
         </tbody>
@@ -166,7 +172,7 @@
           </app-input-group>
         </app-col>
       </app-row>
-      <app-row>
+      <!-- <app-row>
         <app-col></app-col>
         <app-col size="auto">
           <app-button color="danger" fill="translucent" style="width: 120px;">현장 삭제</app-button>
@@ -174,7 +180,7 @@
         <app-col size="auto">
           <app-button fill="translucent" style="width: 120px;">현장 추가</app-button>
         </app-col>
-      </app-row>
+      </app-row> -->
       <h5>자격정보</h5>
       <app-table type="card">
         <thead>
@@ -219,123 +225,153 @@
       </ng-container>
       <ng-container *ngIf="menu === 2">
          <!-- 건강문진 -->
-         <h5>건강 문진 결과</h5>
-      <app-container size="small">
-        <form>
-        <h5>1. 현재 복용하고 있는 약물이 있습니까?</h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
-        </app-radio-input>
-        <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요."></app-input>
-        <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
-        </app-radio-input>
-        * 해당하는 항목에 체크해주세요
-        <app-row>
-          <app-col><app-check size="small" name="뇌졸중">뇌졸중</app-check></app-col>
-          <app-col><app-check size="small" name="뇌출혈">뇌출혈</app-check></app-col>
-          <app-col><app-check size="small" name="협심증">협심증</app-check></app-col>
-          <app-col><app-check size="small" name="심근경색">심근경색</app-check></app-col>
-          <app-col><app-check size="small" name="간질발작">간질발작</app-check></app-col>
+         <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
         </app-row>
+        <app-row>
+          <app-col>
+            <h5>건강 문진 결과</h5>
+          </app-col>
+          <app-col size="auto">
+            <p>작성일 : {{ formHealth.create_date }}</p>
+          </app-col>
+        </app-row>
+        <h5>1. 현재 복용하고 있는 약물이 있습니까?</h5>
+        <app-radio-input [value]="formHealth.use_drugs_state">
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
+        </app-radio-input>
+        <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." 
+        [readonly]="true" *ngIf="formHealth.use_drugs_state" 
+        [(ngModel)]="formHealth.use_drugs_content"></app-input>
+
+        <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
+        <app-radio-input name="brain_cure_state" [(ngModel)]="formHealth.brain_cure_state"> 
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
+        </app-radio-input>
+
+        <div @fadeInAnimation *ngIf="formHealth.brain_cure_state">
+          * 해당하는 항목에 체크해주세요
+          <app-input-template>
+            <app-check-group slot="input" name="brain_cure_content" 
+            [(ngModel)]="formHealth.brain_cure_content">
+              <app-check on="뇌졸중" [disabled]="true">뇌졸중</app-check>
+              <app-check on="뇌출혈" [disabled]="true">뇌출혈</app-check>
+              <app-check on="협심증" [disabled]="true">협심증</app-check>
+              <app-check on="심근경색" [disabled]="true">심근경색</app-check>
+              <app-check on="간질발작" [disabled]="true">간질발작</app-check>
+            </app-check-group>
+          </app-input-template>
+        </div>
         <h5>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
+        <app-radio-input [value]="formHealth.vomiting_state">
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
         </app-radio-input>
-        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+        [readonly]="true" *ngIf="formHealth.vomiting_state" 
+        [value]="formHealth.vomiting_content"></app-input>
+
         <h5>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
+        <app-radio-input [value]="formHealth.pain_head_state">
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
         </app-radio-input>
-        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+        [readonly]="true" *ngIf="formHealth.pain_head_content" 
+        [value]="formHealth.pain_head_content"></app-input>
+
         <h5>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
+        <app-radio-input [value]="formHealth.etc_disease_state">
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
         </app-radio-input>
-        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+        *ngIf="formHealth.etc_disease_state" 
+        [value]="formHealth.etc_disease_content"></app-input>
+
         <h5>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
           (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
         </h5>
-        <app-radio-input>
-          <app-radio value="없다">없다</app-radio>
-          <app-radio value="있다">있다</app-radio>
+        <app-radio-input [value]="formHealth.covid_nineteen_state">
+          <app-radio [value]="0" [disabled]="true">없다</app-radio>
+          <app-radio [value]="1" [disabled]="true">있다</app-radio>
         </app-radio-input>
-        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요."></app-input>
+        <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+        *ngIf="formHealth.covid_nineteen_state" 
+        [value]="formHealth.covid_nineteen_content"></app-input>
+
         <h5>7. 코로나 백신 접종을 하셨습니까?</h5>
-        <app-radio-input>
-          <app-radio value="미접종">미접종</app-radio>
-          <app-radio value="접종">접종</app-radio>
+        <app-radio-input [value]="formHealth.covid_nineteen_state">
+          <app-radio [value]="0" [disabled]="true">미접종</app-radio>
+          <app-radio [value]="1" [disabled]="true">접종</app-radio>
         </app-radio-input>
-      </form>
-      </app-container>
+      
     </ng-container>
       <!-- 교육이력 -->
       <ng-container *ngIf="menu === 3">
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
+        </app-row>
       <h5>교육 정보</h5>
       <app-row>
         <app-col>
-          <app-input-group label="기초 안전 보건 교육 이수일">
-            <app-calendar></app-calendar>
-            ~
-            <app-calendar></app-calendar>
-          </app-input-group>
-        </app-col>
-        <app-col>
-          <app-input label="기초 안전 보건 교육 이수증">
-            <app-img name="search"></app-img>
-          </app-input>
-        </app-col>
+          <app-calendar label="기초 안전 보건 교육 이수일" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
+      </app-col>
+      <app-col>
+        <app-input-template label="기초 안전 보건 교육 이수증">
+          <a slot="input" href="https://www.naver.com" target="_blank" download="naver.html">이수증.JPEG</a>
+        </app-input-template>
+          <!-- <app-file name="input" view_type="BASIC_SAFE_EDU"
+          [(ngModel)]="form.user_safe_edu_file_data"
+          [file]="form.file"
+          [file_json]="form.file_json"
+          ></app-file> -->
+        
+      </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene></app-select-scene>
+          <app-select-scene [(ngModel)]="formSafeList.project_id"></app-select-scene>
         </app-col>
-        <app-col>
-          <app-select-education></app-select-education>
-        </app-col>
+          <!-- <app-col>
+            <app-select label="교육구분" [(ngModel)]="form.ctgo_education_safe_type">
+              <app-select-option type="all" value="전체">전체</app-select-option>
+              <app-select-option value="특별">특별</app-select-option>
+              <app-select-option value="정기">정기</app-select-option>
+              <app-select-option value="작업 변경시">작업 변경시</app-select-option>
+            </app-select>
+          </app-col> -->
       </app-row>
       <app-row>
         <app-col>
-          <app-input label="검색어" placeholder="검색어를 입력해 주세요"></app-input>
+          <app-input label="검색어" [(ngModel)]="formSafeList.search_text" placeholder="교육명을 입력해 주세요.">
+          <app-img name="search" (click)="getSafeEduList()"></app-img>
+        </app-input>
         </app-col>
       </app-row>
       <app-table type="card">
         <thead>
           <tr>
             <th>No</th>
-            <th>교육구분</th>
             <th>교육명</th>
             <th>이수일</th>
             <th>이수시간</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-           <td>11</td>
-           <td>정기(작업자)</td>
-           <td>작업자 정기교육</td>
-           <td>2021.06.20</td>
-           <td>2H</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>정기(작업자)</td>
-            <td>작업자 정기교육</td>
-            <td>2021.06.20</td>
-            <td>2H</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>정기(작업자)</td>
-            <td>작업자 정기교육</td>
-            <td>2021.06.20</td>
-            <td>2H</td>
+          <tr *ngFor="let item of resSafeList?.rsMap let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.ctgo_education_safe_title }}</td>
+            <td>{{ item.create_date }}</td>
+            <td>{{ item.education_safe_time }}</td>
           </tr>
         </tbody>
       </app-table>
@@ -353,9 +389,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>12</td>
-            <td>10</td>
-            <td>2</td>
+            <td>{{ resTotalMileageList.rsObj.total_mileage }}</td>
+            <td>{{ resTotalMileageList.rsObj.minus_mileage }}</td>
+            <td>{{ resTotalMileageList.rsObj.plus_mileage }}</td>
           </tr>
         </tbody>
       </app-table>
@@ -363,7 +399,7 @@
       <app-table type="card">
         <thead>
           <tr>
-            <th style="width:40px">No</th>
+            <th style="width:40px">No.</th>
             <th>마일리지 분류</th>
             <th>상세 사유</th>
             <th>지급자</th>
@@ -372,43 +408,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>3</td>
-            <td>시행 규칙 준수</td>
-            <td>신호 규칙을 준수하여 지급</td>
-            <td>김상봉</td>
-            <td>2021-09-14</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>시행 규칙 준수</td>
-            <td>신호 규칙을 준수하여 지급</td>
-            <td>김상봉</td>
-            <td>2021-09-14</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>시행 규칙 준수</td>
-            <td>신호 규칙을 준수하여 지급</td>
-            <td>김상봉</td>
-            <td>2021-09-14</td>
-            <td>3</td>
+          <tr *ngFor="let item of resPlusMileageList?.rsMap let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.ctgo_safe_mileage }}</td>
+            <td>{{ item.pay_type }}</td>
+            <td>{{ item.payer_user_name }}</td>
+            <td>{{ item.create_date }}</td>
+            <td>{{ item.pay_mileage }}</td>
           </tr>
         </tbody>
       </app-table>
       <app-row>
         <app-col></app-col>
         <app-col size="auto">
-          <app-button fill="translucent" style="width: 120px;">마일리지 지급</app-button>
+          <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()">마일리지 지급</app-button>
         </app-col>
       </app-row>
       <h5>안전 마일리지 사용 내역</h5>
       <app-table type="card">
         <thead>
           <tr>
-            <th style="width:40px">No</th>
+            <th style="width:40px">No.</th>
             <th>사용내역</th>
             <th>사용이자</th>
             <th>사용일</th>
@@ -416,27 +436,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>스타벅스 아메리카노 기프티콘 교환</td>
-            <td>박상범</td>
-            <td>2021-08-10</td>
-            <td>1</td>
+          <tr *ngFor="let item of resMinusMileageList?.rsMap let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.pay_type }}</td>
+            <td>{{ item.payer_user_name }}</td>
+            <td>{{ item.create_date }}</td>
+            <td>{{ item.pay_mileage }}</td>
           </tr>
         </tbody>
       </app-table>
-      <app-row>
+      <!-- <app-row>
         <app-col></app-col>
         <app-col size="auto">
           <app-button fill="translucent" style="width: 120px;">마일리지 사용</app-button>
         </app-col>
-      </app-row>
+      </app-row> -->
     </ng-container>
-      <ion-toolbar slot="bottom" color="white">
+      <!-- <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
           <app-button style="width: 120px;">퇴사</app-button>
         </ion-buttons>
-      </ion-toolbar>
+      </ion-toolbar> -->
     </app-card>
   </app-container>
 </ion-content>

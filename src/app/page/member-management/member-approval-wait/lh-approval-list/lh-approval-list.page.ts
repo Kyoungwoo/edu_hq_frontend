@@ -54,6 +54,7 @@ export class LhApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('zzzzzzzzzzzzz',this.user);
     this.get();
   }
 
@@ -97,7 +98,8 @@ export class LhApprovalListPage implements OnInit {
     const modal = await this.modal.create({
       component:LhApprovalEditPage,
       componentProps:{
-        item
+        item,
+        state: 'lh'
       }
     });
     modal.present();

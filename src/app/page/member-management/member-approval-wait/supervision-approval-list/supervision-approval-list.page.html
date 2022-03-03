@@ -2,11 +2,11 @@
 
 <ng-container *mobileHidden>
   <app-header-admin></app-header-admin>
-    <ion-toolbar color="white">
+    <!-- <ion-toolbar color="white">
       <ion-title>
         <h4>감리 가입승인</h4>
       </ion-title>
-    </ion-toolbar>
+    </ion-toolbar> -->
   <ion-content>
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
@@ -25,19 +25,19 @@
             </tr>
             <tr>
               <td>
+                <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-select-construction [(ngModel)]="form.ctgo_construction_ids"></app-select-construction>
               </td>
             </tr>
             <tr>
               <tr>
-                <td>
-                  <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
-                </td>
-              </tr>
-              <tr>
               <td>
                 <app-input-group label="신청일">
-                  <app-calendar  [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
                   <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
                 </app-input-group>
@@ -61,7 +61,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar color="white" *ngIf="permission.approval">
           <ion-buttons slot="start">
             <!-- <app-button fill="translucent">엑셀 업로드</app-button>
             <app-button fill="translucent">양식 다운로드</app-button> -->

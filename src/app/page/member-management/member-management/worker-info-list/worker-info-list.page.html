@@ -1,10 +1,10 @@
 <ng-container *mobileHidden>
   <app-header-admin></app-header-admin>
-  <ion-toolbar color="white">
+  <!-- <ion-toolbar color="white">s
     <ion-title>
       <h4>작업자 정보</h4>
     </ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
   <ion-content>
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
@@ -12,7 +12,7 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
@@ -40,18 +40,18 @@
                 </app-input-group>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <app-radio-input label="재직 상태">
                   <app-radio value="전체">전체</app-radio>
-                  <app-radio value="재직 중 종료">재직 중 종료</app-radio>
-                  <app-radio value="출역">출역</app-radio>
+                  <app-radio value="재직 중">재직 중</app-radio>
+                  <app-radio value="출역 종료">출역 종료</app-radio>
                 </app-radio-input>
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -59,7 +59,7 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>작업자 목록(총{{res?.rsObj?.row_count }}건)</h5>
+          <h5>작업자 목록 (총{{res?.rsObj?.row_count }}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -73,7 +73,7 @@
               <th>국적</th>
               <th>건강문진</th>
               <th>가입일</th>
-              <th>재직상태</th>
+              <!-- <th>재직상태</th> -->
             </tr>
           </thead>
           <tbody>
@@ -84,10 +84,16 @@
               <td>{{ item.user_name }}</td>
               <td>{{ item.ctgo_job_position_name_kr }}</td>
               <td>{{ item.ctgo_occupation_name_kr }}</td>
-              <td>{{ item.ctgo_country_name_kr }}</td>
-              <td>{{ item.user_health }}</td>
+              <td>
+                <ion-text *ngIf="item.ctgo_country_id === 1" color="dark">{{ item.ctgo_country_name_kr }}</ion-text>
+                <ion-text *ngIf="item.ctgo_country_id !== 1" color="danger">{{ item.ctgo_country_name_kr }}</ion-text>
+              </td>
+              <td>
+                <ion-text *ngIf="item.user_health === '특별관리대상'" color="danger">{{ item.user_health }}</ion-text>
+                <ion-text *ngIf="item.user_health !== '특별관리대상'" color="dark">{{ item.user_health }}</ion-text>
+              </td>
               <td>{{ item.create_date }}</td>
-              <td>{{ item.delete_state ? '재직중':'퇴사' }}</td>
+              <!-- <td>{{ item.delete_state ? '재직중':'퇴사' }}</td> -->
             </tr>
           </tbody>
         </app-table>
