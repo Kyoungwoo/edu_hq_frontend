@@ -117,7 +117,6 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   public _value:any[] = [];
   @Input()
   set value(v:any[]) {
-    console.log(v);
     if(v !== this._value) {
       this._value = v;
       this.valueChange();
@@ -128,7 +127,6 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   get value() { return this._value; }
   
   writeValue(v:any[]): void {
-    console.log(v);
     if(v !== this._value) {
       this._value = v;
       this.valueChange();

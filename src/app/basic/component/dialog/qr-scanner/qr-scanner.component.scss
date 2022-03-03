@@ -8,7 +8,7 @@
     top: 50%;
     transform: translateY(-50%);
     color: white;
-    
+    overflow: unset;
 }
 
 .qr-layout-inner {
@@ -36,9 +36,9 @@
 }
 .rotate-button-dismiss {
     position: absolute;
-    bottom: 523px;
     width: 100%;
-    color: red;
+    bottom: 540px;
+    left: 325px;
 }
 .rotate-button {
     width: 48px;
@@ -46,4 +46,7 @@
     --padding-start: 0;
     --padding-end: 0;
     --background: rgba(255,255,255,0.4);
+}
+.dismiss {
+    color: var(--ion-color-light);
 }

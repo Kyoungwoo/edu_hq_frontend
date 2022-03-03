@@ -53,10 +53,12 @@ import { GraphValueComponent } from './ui/graph-value/graph-value.component';
 import { GraphLineComponent } from './ui/graph-line/graph-line.component';
 import { FilePreviewComponent } from './ui/file-preview/file-preview.component';
 import { FilePopoverComponent } from './input/file-popover/file-popover.component';
+import { QrScannerComponent } from './dialog/qr-scanner/qr-scanner.component';
 @NgModule({
   declarations: [
     // dialog components
     DaumComponent,
+    QrScannerComponent,
     // input components
     CalendarComponent,
     CalendarPopoverComponent,
@@ -115,6 +117,7 @@ import { FilePopoverComponent } from './input/file-popover/file-popover.componen
   exports: [
     //dialog
     DaumComponent,
+    QrScannerComponent,
     // input components
     DirectiveModule,
     CalendarComponent,

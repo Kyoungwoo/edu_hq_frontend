@@ -27,7 +27,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   @Input() qrModal:boolean;
   @Input() scandata;
   @Input() QrController;
-  @Output() scan = new EventEmitter();
+  @Output() scan = new EventEmitter(); 
 
   constructor(
     private qrScanner: QRScanner,
@@ -97,12 +97,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
-      console.log("data",data);
+     
       let res = {
         qr_qrScanner: this.qrScanner,
         qr_modal: this._modal,
         qr_subs : this.qr_subs,
-        qr_data: data
+        qr_data: data,
+
       };
       this.getQrData(res);
       if(!data){
@@ -116,6 +117,10 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     this.camera_rotate = this.camera_rotate ? 0 : 1;
     this.qrScanner.useCamera(this.camera_rotate).then(status => {
     });
+  }
+
+  dismiss() {
+    this._modal.dismiss();
   }
 
   // showCamera() {    

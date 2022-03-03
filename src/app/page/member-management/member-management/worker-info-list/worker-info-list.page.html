@@ -18,25 +18,25 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-occupation></app-select-occupation>
+                <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company></app-select-company>
+                <app-select-construction name="ctgo_construction_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
               <td>
                 <app-input-group label="가입일">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
@@ -59,7 +59,7 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>작업자 목록(총00건)</h5>
+          <h5>작업자 목록(총{{res?.rsObj?.row_count }}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -77,20 +77,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" (click)="edit()">
-              <td>50</td>
-              <td>건축</td>
-              <td>(주)지에스아이엘</td>
-              <td>구범수</td>
-              <td>작업자</td>
-              <td>알폼</td>
-              <td>대한민국</td>
-              <td>정상</td>
-              <td>2021-05-20</td>
-              <td>재직중</td>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td>{{ i + 1}}</td>
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name_kr }}</td>
+              <td>{{ item.ctgo_occupation_name_kr }}</td>
+              <td>{{ item.ctgo_country_name_kr }}</td>
+              <td>{{ item.user_health }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.delete_state ? '재직중':'퇴사' }}</td>
             </tr>
           </tbody>
         </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content>

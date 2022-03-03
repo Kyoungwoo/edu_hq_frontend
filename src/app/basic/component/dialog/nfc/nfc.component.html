@@ -8,9 +8,19 @@
 </ion-header>
 
 <ion-content>
-  <div class="tagging-image" *ngIf="android">
-    <p class="tagging-font">NFC카드를 가까이에서 태깅해주세요</p>
-  </div>
+  <app-card style="background-color: var(--ion-color-medium-translucent);">
+    <app-row>
+      <app-col>
+        <app-img name="tag"></app-img>
+      </app-col>
+    </app-row>
+    <app-line></app-line>
+    <app-row>
+      <app-col>
+        <h5>NFC를 근로자에게 인식 시켜주세요</h5>
+      </app-col>
+    </app-row>
+  </app-card>
 </ion-content>
 <app-button-footer>
   <app-button *ngIf="ios" (click)="nfcScan()">
