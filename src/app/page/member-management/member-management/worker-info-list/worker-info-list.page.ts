@@ -35,15 +35,15 @@ export class WorkerInfo {
 export class WorkerInfoListPage implements OnInit {
 
   form = {
-    company_id:0,
-    ctgo_construction_ids:[],
+    company_id: 0,
+    ctgo_construction_ids: [],
     start_date: this.date.today({ month: -3 }),
     end_date: this.date.today(),
-    project_id:0,
-    search_text:'',
+    project_id: 0,
+    search_text: '',
     session_company_id: this.user.userData.belong_data.company_id,
-    user_manage_session:'',
-    limit_no:0
+    user_manage_session: '',
+    limit_no: 0
   }
 
   res:ConnectResult<WorkerInfo>

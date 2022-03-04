@@ -127,7 +127,7 @@ export class MinusMileageList {
 //마일리지 적립 리스트
 export class PlusMileageList {
   user_id: number;
-  ctgo_safe_mileage: string;
+  ctgo_safe_mileage_type: string;
   pay_type: string;
   payer_user_name: string;
   pay_mileage: number;
@@ -493,7 +493,10 @@ export class WorkerInfoEditPage implements OnInit {
   async MileageInsert() {
     const modal = await this._modal_.create({
       component:MileagePopupComponent,
-
+      componentProps: {
+        company_id: this.formApproval.company_id,
+        user_id: this.form.user_id
+      },
       cssClass:"mileage-modal"
     });
     modal.present();
