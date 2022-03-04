@@ -128,10 +128,10 @@ export class WorkerApprovalEditPage implements OnInit {
   @Input() item;
 
   form = {
-    user_id: 0,
+    user_id: this.user.userData.user_id,
     approval_user_id: 0,
-    session_company_id: 0,
-    user_manage_session: ''
+    session_company_id: this.user.userData.belong_data.company_id,
+    user_manage_session: this.user.memberAuthToken
   }
 
   formBasic = new BasicItem();

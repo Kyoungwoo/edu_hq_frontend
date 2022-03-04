@@ -7,7 +7,7 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요" [(ngModel)]="form.search_text">
         <app-img name="search"></app-img>
       </app-input>
     </app-input-group>
@@ -24,22 +24,21 @@
     </thead>
     <tbody>
       <tr>
-        <td>5</td>
-        <td colspan="2">직접입력
-          <app-button shape="circle" size="small" fill="translucent">
+        <td colspan="3" style="text-align: center;">
+          직접입력
+          <app-button (click)="add()" fill="translucent" size="small" shape="circle">
             <app-img name="plus"></app-img>
           </app-button>
-          
         </td>
       </tr>
-      <tr class="button">
-        <td>4</td>
-        <td>사고신고</td>
-        <td>30</td>
+      <tr class="button" [class.selected]="selectItem == item" *ngFor="let item of res?.rsMap let i = index" (click)="selectItem = item">
+        <td>{{ i+1 }}</td>
+        <td>{{item.ctgo_safe_mileage_id}}</td>
+        <td>{{item.ctgo_safe_mileage_point}}</td>
       </tr>
     </tbody>
   </app-table>
-  <app-table>
+  <app-table *ngIf="selectItem?.ctgo_safe_mileage_id === 0">
     <thead>
       <tr>
         <th colspan="3">추가 리스트</th>
@@ -52,13 +51,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><app-input placeholder="직접입력"></app-input></td>
-        <td><app-input placeholder="직접입력"></app-input></td>
-        <td><app-img name="delete"></app-img></td>
+        <td><app-input placeholder="직접입력" [(ngModel)]="selectItem.ctgo_safe_mileage_kr"></app-input></td>
+        <td><app-input placeholder="직접입력" [(ngModel)]="selectItem.ctgo_safe_mileage_point"></app-input></td>
+        <td><app-button  color="danger" fill="translucent" size="small" (click)="selectItem = null">
+          <app-img name="delete"></app-img>
+        </app-button>
+      </td>
       </tr>
     </tbody>
   </app-table>
 </ion-content>
 <app-button-footer>
-  <app-button>적용</app-button>
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>
