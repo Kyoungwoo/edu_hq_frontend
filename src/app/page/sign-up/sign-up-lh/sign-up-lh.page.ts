@@ -140,6 +140,11 @@ export class SignUpLhPage implements OnInit {
     if(this.validator.user_phone?.valid === false) return;
     const res = await this.connect.run('/aligo/send', { user_phone });
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
+
+    // 문자 인증번호 가져와서 넣기
+    const res2 = await this.connect.run('/test/sms/get', { user_phone });
+    this.form.sms_token = res2.rsObj.sms_token;
+    await this.promise.wait();
   }
   
   public async aligoCheck() {
