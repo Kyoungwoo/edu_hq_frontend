@@ -62,6 +62,7 @@ export class SupervisionSearchComponent implements OnInit {
   }
 
   async addCompany() {
+    this.business_register_no_check = true;
     this.filteritem = this.res.rsMap.filter((data, i) => {
       return data.checked === true;
     })
@@ -122,6 +123,7 @@ export class SupervisionSearchComponent implements OnInit {
   }
 
   async submit() {
+    console.log(this.business_register_no_check);
     if (this.business_register_no_check) {
       // let conArr = this.filteritem.concat(this.submitArr);
       for (let i = 0; i < this.submitArr.length; i++) {
@@ -138,6 +140,7 @@ export class SupervisionSearchComponent implements OnInit {
         if (res.rsCode === 0) {
           this.getCtgoSupervision();
           this.submitArr = [];
+          this.business_register_no_check = false;
           return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
           // this._modal_.dismiss(conArr);
         }

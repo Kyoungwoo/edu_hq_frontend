@@ -56,10 +56,19 @@ export class SearchProjectContractorComponent implements OnInit {
   async getCtgoSupervision() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
+      for (let i = 0; i < this.res.rsMap.length; i++) {
+        for (let x = 0; x < this.value.length; x++) {
+          if (this.res.rsMap[i].company_id === this.value[x]) {
+            this.res.rsMap[i].checked = true;
+            this.filteritem.push(this.res.rsMap[i]);
+          }
+        }
+      }
     }
   }
 
   async addCompany() {
+    this.business_register_no_check = true;
     this.filteritem = this.res.rsMap.filter((data, i) => {
       return data.checked === true;
     })
@@ -119,8 +128,10 @@ export class SearchProjectContractorComponent implements OnInit {
 
 
   async submit() {
+    console.log(this.business_register_no_check);
     if (this.business_register_no_check) {
       // let conArr = this.filteritem.concat(this.submitArr);
+      console.log(this.submitArr);
       for (let i = 0; i < this.submitArr.length; i++) {
         if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning"  });
         if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning"  });
@@ -130,11 +141,12 @@ export class SearchProjectContractorComponent implements OnInit {
           business_register_no: this.submitArr[i].business_register_no,
           company_ceo: this.submitArr[i].company_ceo,
           company_name: this.submitArr[i].company_name,
-          company_contract_type: '감리사'
+          company_contract_type: '원청사'
         });
         if (res.rsCode === 0) {
           this.getCtgoSupervision();
           this.submitArr = [];
+          this.business_register_no_check = false;
           return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
           // this._modal_.dismiss(conArr);
         }

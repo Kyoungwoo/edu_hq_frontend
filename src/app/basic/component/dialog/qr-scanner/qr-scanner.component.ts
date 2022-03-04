@@ -138,27 +138,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   async nfcChange() {
-    this.nfcChangeed = true;
-    if(this.nfcChangeed) {
-      this.qr_subs.unsubscribe();
-      this.qrScanner.destroy();
-      const $nfc = await this.nfc.subscribe(async (nfcData) => {
-        // this.nfcqrForm.project_id = this.form.project_id;
-        this.nfcqrForm.serial_key = nfcData;
-        this.nfcqrForm.nb_log_state = 'QR'
-        console.log("nfc",nfcData);
-        console.log("this.nfcqrForm",this.nfcqrForm);
-        if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
-        const res = await this.connect.run('/work_project/nfc_beacon/check_insup', { user_id: nfcData.user_id });
-        if(res.rsCode !== 0) {
-          // this.get();
-          $nfc.unsubscribe();
-          } else {
-          this.connect.error('nfc스캔실패',res);
-        }
-      });
-    }
-    console.log(this.nfcChangeed);
+    
   }
   
 
