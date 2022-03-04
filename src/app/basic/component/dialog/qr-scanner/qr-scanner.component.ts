@@ -9,7 +9,6 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { detailSearch } from 'src/app/page/today-work/component/status-search/detail-search/detail-search.component';
 
 
 @Component({
@@ -44,7 +43,6 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
   constructor(
     private qrScanner: QRScanner,
-    private detail: detailSearch,
     private file: File,
     private media: Media,
     private nav:NavService,
@@ -55,7 +53,6 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    console.log(this.detail.project_id);
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
@@ -139,6 +136,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   async nfcChange() {
+    this._modal.dismiss();
     this.getQrData({ type: 'NFC_CHANGE' });
   }
   

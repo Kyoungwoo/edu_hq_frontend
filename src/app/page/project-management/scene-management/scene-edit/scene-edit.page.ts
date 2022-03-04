@@ -242,19 +242,21 @@ export class SceneEditPage implements OnInit {
   }
 
   async project_area_set() {
-    const modal = await this._modal.create({
-      component: ProjectAreaSetComponent,
-      componentProps:{ 
-        gps_coordinate_data: this.form.gps_coordinate_data
+    if(!this.roleCheck) {
+      const modal = await this._modal.create({
+        component: ProjectAreaSetComponent,
+        componentProps:{ 
+          gps_coordinate_data: this.form.gps_coordinate_data
+        }
+      });
+      modal.present();
+      const { data } = await modal.onDidDismiss();
+      if(data) {
+        if(this.project_id) {
+          this.form.gps_state = 1;
+        }
+        this.form.gps_coordinate_data = data;
       }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    if(data) {
-      if(this.project_id) {
-        this.form.gps_state = 1;
-      }
-      this.form.gps_coordinate_data = data;
     }
   }
 

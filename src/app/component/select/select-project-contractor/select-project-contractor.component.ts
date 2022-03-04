@@ -6,6 +6,10 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { Constractor } from '../../modal/search-contractor/search-contractor.component';
 import { SearchProjectContractorComponent } from '../../modal/search-project-contractor/search-project-contractor.component';
 
+export interface ValueData{
+  company_id:[]
+}
+
 @Component({
   selector: 'app-select-project-contractor',
   templateUrl: './select-project-contractor.component.html',
@@ -35,6 +39,9 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
   
   res:ConnectResult<Constractor>;
 
+
+  isModalData:boolean = false;
+
   constructor(
     private _modal:ModalController,
     private connect:ConnectService
@@ -43,58 +50,66 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
   ngOnInit() {}
 
   public async get() {
-
-    this.res = await this.connect.run('/category/certify/company/get', {
+    console.log("this.value",this.value);
+    if(this.isModalData || !this.value) return;
+    const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: '원청사',
       search_text: ''
     });
-    if(this.res.rsCode === 0) {
-      const { rsMap } = this.res;
-      if(this.multiple) {
-        this.text = rsMap
-        .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
-        .map(constractor => constractor.company_name).join();
+      let textArr = [];
+      if(res.rsCode === 0) {
+        for (let i = 0; i < res.rsMap.length; i++) {
+          for (let x = 0; x < this.value.length; x++) {
+            if (res.rsMap[i].company_id === this.value[x]) {
+              textArr.push(res.rsMap[i].company_name);
+            }
+          }
+        }
+        this.text = textArr.toString();
       }
     }
-  }
 
   public async openModal() {
     const modal = await this._modal.create({
       component: SearchProjectContractorComponent,
-      componentProps: {
-        allState: this.allState,
-        multiple: this.multiple,
-        editable: this.editable
+      componentProps:{
+        value:this.value,
+        form : {
+          company_contract_type: this.label,
+          search_text: ''
+        }
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      let compnay_name_string = [];
       console.log("data",data);
-        const values:Constractor[] = data;
-        this.value = values?.map(constractor => constractor.company_id);
-        this.text = values?.map(constractor => constractor.company_name).join();
+      for(let i = 0; i < data.length; i++) {
+        this.value.push(data[i].company_id);
+        compnay_name_string.push(data[i].company_name);
+      }
+      console.log("this.value",this.value);
+      this.text = compnay_name_string.toString();
     }
   }
   
   @Output() change = new EventEmitter();
 
-  private _value:number[] | number;
-  @Input() set value(v:number[] | number) {
+  private _value:ValueData[] = [];
+  @Input() set value(v:ValueData[]) {
     if(v !== this._value) {
-      this.valueChange(v);
+      this._value = v || [];
+      this.onChangeCallback(v);
+      this.change.emit(v);
     }
   }
   get value() {
     return this._value;
   }
   writeValue(v:[]): void { 
-    if(v !== this._value) {
-      this.valueChange(v);
-    }
-  }
-  valueChange(v) {
-    this._value = v ? v : this.multiple ? [] : 0;
+    if(v !== this._value) 
+    this._value = v || [];
     this.get();
     this.onChangeCallback(v);
     this.change.emit(v);
