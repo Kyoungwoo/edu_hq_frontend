@@ -115,22 +115,22 @@ export class TotalMileageList {
 }
 // 마일리지 사용 리스트
 export class MinusMileageList {
+  ctgo_safe_mileage_point: number;
   user_id: number;
+  ctgo_safe_mileage_state: string;
   ctgo_safe_mileage: string;
-  pay_type: string;
   payer_user_name: string;
-  pay_mileage: number;
   create_date: string;
   payer_user_id: number;
   ctgo_safe_mileage_id: string;
 }
 //마일리지 적립 리스트
 export class PlusMileageList {
+  ctgo_safe_mileage_point: number;
   user_id: number;
-  ctgo_safe_mileage_type: string;
-  pay_type: string;
+  ctgo_safe_mileage_state: string;
+  ctgo_safe_mileage: string;
   payer_user_name: string;
-  pay_mileage: number;
   create_date: string;
   payer_user_id: number;
   ctgo_safe_mileage_id: string;
@@ -198,7 +198,7 @@ export class WorkerInfoEditPage implements OnInit {
 
 
   permission = {
-    approval: false
+    mileage: false //마일리지 적립 권한
   }
 
   constructor(
@@ -216,10 +216,10 @@ export class WorkerInfoEditPage implements OnInit {
 
   //권한
   getPermission() {
-    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
-      this.permission.approval = true;
+    if (this.user.userData.user_type === 'LH' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.permission.mileage = false;
     } else {
-      this.permission.approval = false;
+      this.permission.mileage = true;
     }
     this.form.user_id = this.item.user_id;
     this.form.approval_user_id = this.item.user_id;

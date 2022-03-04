@@ -395,9 +395,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ resTotalMileageList.rsObj.total_mileage }}</td>
-            <td>{{ resTotalMileageList.rsObj.minus_mileage }}</td>
-            <td>{{ resTotalMileageList.rsObj.plus_mileage }}</td>
+            <td>{{ resTotalMileageList?.rsObj?.total_mileage }}</td>
+            <td>{{ resTotalMileageList?.rsObj?.minus_mileage }}</td>
+            <td>{{ resTotalMileageList?.rsObj?.plus_mileage }}</td>
           </tr>
         </tbody>
       </app-table>
@@ -415,17 +415,17 @@
         <tbody>
           <tr *ngFor="let item of resPlusMileageList?.rsMap let i = index">
             <td>{{ i+1 }}</td>
-            <td>{{ item.pay_type }}</td>
+            <td>{{ item.ctgo_safe_mileage }}</td>
             <td>{{ item.payer_user_name }}</td>
             <td>{{ item.create_date }}</td>
-            <td>{{ item.pay_mileage }}</td>
+            <td>{{ item.ctgo_safe_mileage_point }}</td>
           </tr>
         </tbody>
       </app-table>
       <app-row>
         <app-col></app-col>
         <app-col size="auto">
-          <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()">마일리지 지급</app-button>
+          <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()" *ngIf="permission.mileage">마일리지 지급</app-button>
         </app-col>
       </app-row>
       <h5>안전 마일리지 사용 내역</h5>
@@ -442,10 +442,10 @@
         <tbody>
           <tr *ngFor="let item of resMinusMileageList?.rsMap let i = index">
             <td>{{ i+1 }}</td>
-            <td>{{ item.pay_type }}</td>
+            <td>{{ item.ctgo_safe_mileage }}</td>
             <td>{{ item.payer_user_name }}</td>
             <td>{{ item.create_date }}</td>
-            <td>{{ item.pay_mileage }}</td>
+            <td>{{ item.ctgo_safe_mileage_point }}</td>
           </tr>
         </tbody>
       </app-table>

@@ -6,11 +6,12 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 export class MileageItem {
-  ctgo_safe_mileage_en: string = '';
-  ctgo_safe_mileage_type: string = '';
+  ctgo_safe_mileage_en: string = null;
+  ctgo_safe_mileage_state: string = null;
   ctgo_safe_mileage_point: number = 0;
-  ctgo_safe_mileage_kr: string = '';
-  ctgo_safe_mileage_ch: string = '';
+  ctgo_safe_mileage_kr: string = null;
+  ctgo_safe_mileage_vi: string = null;
+  ctgo_safe_mileage_ch: string = null;
   ctgo_safe_mileage_id: number = 0;
 
 }
@@ -64,10 +65,10 @@ export class MileagePopupComponent implements OnInit {
           handler: async () => {
             const form = {
               ...this.selectItem,
-              ctgo_safe_mileage_type: 'RECEIVE',
+              ctgo_safe_mileage_state: 'RECEIVE',
               session_company_id: this.user.userData.belong_data.company_id,
               user_manage_session: this.user.memberAuthToken,
-              user_id: this.user.userData.user_id,
+              user_id: this.user_id
             }
 
             
