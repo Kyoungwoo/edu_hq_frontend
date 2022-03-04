@@ -214,6 +214,7 @@ export class MemberStandardSetPage implements OnInit {
   }
   //
   async level3() {
+    console.log("sdfasdfasdf");
     this.resLevel3 = await this.connect.run('/project/organization/department/get', {
       hq_business_id: this.hq_business_id,
       hq_regional_id: this.hq_regional_id
@@ -225,13 +226,13 @@ export class MemberStandardSetPage implements OnInit {
     ev.stopPropagation();
     // this.area2SelectList = [];
     // this.area3SelectList = [];
-
     this.hq_regional_id = item.hq_regional_id;
     if (item.hq_regional_id) {
       this.resLevel2 = await this.connect.run('/project/organization/business/get', {
         hq_regional_id: item.hq_regional_id
       }, {});
       if (this.resLevel2.rsCode === 0) {
+        this.resLevel3 = null;
       }
     }
   }

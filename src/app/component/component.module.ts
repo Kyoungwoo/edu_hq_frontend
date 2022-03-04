@@ -54,6 +54,8 @@ import { ProjectAreaSetComponent } from './modal/project-area-set/project-area-s
 import { SelectSupervisionComponent } from './select/select-supervision/select-supervision.component';
 import { SelectManualComponent } from './select/select-manual/select-manual.component';
 import { SelectRegionalComponent } from './select/select-regional/select-regional.component';
+import { SelectProjectContractorComponent } from './select/select-project-contractor/select-project-contractor.component';
+import { SearchProjectContractorComponent } from './modal/search-project-contractor/search-project-contractor.component';
 
 
 
@@ -75,6 +77,7 @@ import { SelectRegionalComponent } from './select/select-regional/select-regiona
     PeopleViewComponent,
     PeopleDeleteComponent,
     SearchAreaComponent,
+    SearchProjectContractorComponent,
     // select
     SelectCountryComponent,
     SelectToolComponent,
@@ -110,7 +113,8 @@ import { SelectRegionalComponent } from './select/select-regional/select-regiona
     MileagePopupComponent,
     SupervisionSearchComponent,
     ProjectAreaSetComponent,
-    SelectSupervisionComponent
+    SelectSupervisionComponent,
+    SelectProjectContractorComponent
   ],
   imports: [
     CommonModule,
@@ -171,7 +175,9 @@ import { SelectRegionalComponent } from './select/select-regional/select-regiona
     MileagePopupComponent,
     SupervisionSearchComponent,
     ProjectAreaSetComponent,
-    SelectSupervisionComponent
+    SelectSupervisionComponent,
+    SelectProjectContractorComponent,
+    SearchProjectContractorComponent
   ],
   providers:[
     SelectCompanyComponent

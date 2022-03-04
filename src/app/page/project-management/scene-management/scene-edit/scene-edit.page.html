@@ -23,8 +23,8 @@
     <app-col>
       <app-row>
         <app-col>
-          <app-select-contractor [disabled]="roleCheck" [multiple]="true" [(ngModel)]="contractor_id">
-          </app-select-contractor>
+          <app-select-project-contractor [disabled]="roleCheck" [(ngModel)]="contractor_id">
+          </app-select-project-contractor>
         </app-col>
       </app-row>
     </app-col>
@@ -75,7 +75,7 @@
     </app-col>
     <app-col>
       <app-input [disabled]="roleCheck"
-      [value]="form.gps_coordinate_data.gps_latitude.length ? '설정됨' : ''" [readonly]="true" (click)="project_area_set()"
+      [value]="form.gps_coordinate_data?.gps_latitude?.length ? '설정됨' : ''" [readonly]="true" (click)="project_area_set()"
         label="현장 영역">
       </app-input>
     </app-col>

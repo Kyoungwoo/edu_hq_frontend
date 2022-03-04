@@ -5,7 +5,6 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
-import { PartnerEditPage } from 'src/app/page/project-management/partner-management/partner-edit/partner-edit.page';
 import { DepartureStatusListForm, DepartureStatusListItem, TodayDepartureStatusListPage } from '../today-departure-status-list/today-departure-status-list.page';
 
 @Component({

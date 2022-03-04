@@ -56,7 +56,7 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
         }
         this.text = textArr.toString();
       }
-  }
+    }
 
   public async openModal() {
     this.isModalData = true;
