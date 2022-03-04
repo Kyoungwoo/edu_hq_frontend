@@ -67,12 +67,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index">
+                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index" >
                       <td>
                         <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
-                          (click)="radioChange($event,'level1'); level2In(item,$event)"></app-radio>
+                          (click)="radioChange($event,'level1'); level2In(item,$event);"></app-radio>
                         <ng-template #deletebutton>
-                          <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation()" size="small"
+                          <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation();" size="small"
                             color="danger">
                             <ion-icon name="close-outline"></ion-icon>
                           </app-button>
@@ -82,14 +82,14 @@
                         <app-input [(ngModel)]="item.hq_regional_code"></app-input>
                       </td>
                       <td *ngIf="!item.checked && item.hq_regional_id">
-                        {{item.hq_regional_code}}
+                        <app-input [disabled]="true" [(ngModel)]="item.hq_regional_code"></app-input>
                       </td>
                       <td *ngIf="!item.checked && !item.hq_regional_id">
                         <app-input [(ngModel)]="item.hq_regional_code"></app-input>
                       </td>
 
                       <td *ngIf="!item.checked && item.hq_regional_id">
-                        {{item.hq_regional_name}}
+                        <app-input [disabled]="true" [(ngModel)]="item.hq_regional_name"></app-input>
                       </td>
                       <td *ngIf="item.checked">
                         <app-input [(ngModel)]="item.hq_regional_name"></app-input>
@@ -165,7 +165,7 @@
                         <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level2" [value]="item"
                           (click)="radioChange($event,'level2'); level3In(item,$event)"></app-radio>
                         <ng-template #deletebutton>
-                          <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation()" size="small"
+                          <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation();" size="small"
                             color="danger">
                             <ion-icon name="close-outline"></ion-icon>
                           </app-button>

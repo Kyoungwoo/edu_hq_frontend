@@ -3,6 +3,10 @@ import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
+export class detailSearch {
+  project_id:number;
+  master_company_id:number;
+}
 @Component({
   selector: 'app-detail-search',
   templateUrl: './detail-search.component.html',
@@ -12,10 +16,7 @@ export class DetailSearchComponent implements OnInit {
 
   @Input() type:string;
 
-  form = {
-    project_id:0,
-    master_company_id:0
-  }
+  form:detailSearch = new detailSearch();
 
   disabled:boolean = false;
 

@@ -7,6 +7,9 @@ import Qr from "src/app/basic/plugin/qr-plugin";
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
+import { NfcService } from 'src/app/basic/service/util/nfc.service';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { detailSearch } from 'src/app/page/today-work/component/status-search/detail-search/detail-search.component';
 
 
 @Component({
@@ -20,8 +23,18 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   qr_timeout;
   camera_rotate = 0;
   qr_sound:MediaObject = null;
+
+  nfcChangeed:boolean = false;
   
   
+  nfcqrForm = {
+    and_uq_id:0,
+    ios_uq_id:0,
+    nb_log_state:'',
+    project_id:0,
+    serial_key:0
+}
+
   @Input() getQrData;
   @Input() unsubscribe;
   @Input() qrModal:boolean;
@@ -31,14 +44,18 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
   constructor(
     private qrScanner: QRScanner,
+    private detail: detailSearch,
     private file: File,
     private media: Media,
     private nav:NavService,
+    private nfc: NfcService,
     private toast:ToastService,
-    private _modal:ModalController
+    private _modal:ModalController,
+    private connect: ConnectService,
   ) { }
 
   async ngOnInit() {
+    console.log(this.detail.project_id);
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
@@ -89,16 +106,12 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       Qr.transparent();
     }
     const routerEl = document.querySelector('ion-router-outlet');
-    var newDiv = document.createElement("div");
-    var newContent = document.createTextNode("환영합니다!");
-    newDiv.appendChild(newContent);
-    console.log("routerEl",routerEl);
     routerEl.style.display = 'none';
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
-     
       let res = {
+        nfcChangeed : this.nfcChangeed,
         qr_qrScanner: this.qrScanner,
         qr_modal: this._modal,
         qr_subs : this.qr_subs,
@@ -113,6 +126,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   rotateCamera() {
     this.camera_rotate = this.camera_rotate ? 0 : 1;
     this.qrScanner.useCamera(this.camera_rotate).then(status => {
@@ -122,6 +136,31 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   dismiss() {
     this._modal.dismiss();
   }
+
+  async nfcChange() {
+    this.nfcChangeed = true;
+    if(this.nfcChangeed) {
+      this.qr_subs.unsubscribe();
+      this.qrScanner.destroy();
+      const $nfc = await this.nfc.subscribe(async (nfcData) => {
+        // this.nfcqrForm.project_id = this.form.project_id;
+        this.nfcqrForm.serial_key = nfcData;
+        this.nfcqrForm.nb_log_state = 'QR'
+        console.log("nfc",nfcData);
+        console.log("this.nfcqrForm",this.nfcqrForm);
+        if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
+        const res = await this.connect.run('/work_project/nfc_beacon/check_insup', { user_id: nfcData.user_id });
+        if(res.rsCode !== 0) {
+          // this.get();
+          $nfc.unsubscribe();
+          } else {
+          this.connect.error('nfc스캔실패',res);
+        }
+      });
+    }
+    console.log(this.nfcChangeed);
+  }
+  
 
   // showCamera() {    
   //   console.log("showCamera -----");  
