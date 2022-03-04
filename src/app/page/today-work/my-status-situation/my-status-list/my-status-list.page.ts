@@ -146,21 +146,49 @@ export class MyStatusListPage implements OnInit {
     });
   }
 
+  async nfcScan() {
+    const $nfc = await this.nfc.subscribe(async (nfcData) => {
+      // this.nfcqrForm.project_id = this.form.project_id;
+      this.nfcqrForm.serial_key = nfcData;
+      this.nfcqrForm.nb_log_state = 'QR'
+      if(nfcData.type === 'QR_CHANGE') {
+        this.inNfcQr();
+      } else { 
+        if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
+        const res = await this.connect.run('/work_project/nfc_beacon/check_insup', { user_id: nfcData.user_id });
+        if(res.rsCode !== 0) {
+          this.get();
+          $nfc.unsubscribe();
+          } else {
+          this.connect.error('nfc스캔실패',res);
+        }     
+      }
+    });
+  }
+
+
+
   async inNfcQr() {
+    this.nfcqrForm.project_id = this.form.project_id;
+    if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     const $qr = await this.qr.subscribe(async (qrData) => {
-      this.nfcqrForm.project_id = this.form.project_id;
       this.nfcqrForm.serial_key = qrData.qr_data;
       this.nfcqrForm.nb_log_state = 'QR'
-      console.log("qrData",qrData);
-      if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
-      if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
-      const res = await this.connect.run('/work_project/nfc_beacon/check_insup', { user_id: qrData.user_id });
-      if(res.rsCode !== 0) {
-        $qr.unsubscribe();
-        this.get();
-        } else {
-        this.connect.error('qr스캔실패',res);
+      if(qrData.type === 'NFC_CHANGE'){
+        this.nfcScan();
+      }
+      else {
+        if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+        const res = await this.connect.run('/work_project/nfc_beacon/check_insup', { user_id: qrData.user_id });
+        if(res.rsCode !== 0) {
+          $qr.unsubscribe();
+          this.get();
+          } else {
+          this.connect.error('qr스캔실패',res);
+        }
       }
     });
   }
 }
+
+

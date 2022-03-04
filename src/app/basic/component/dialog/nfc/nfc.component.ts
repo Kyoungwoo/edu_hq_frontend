@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MediaObject } from '@ionic-native/media/ngx';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import Nfc from 'src/app/basic/plugin/nfc.plugin';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -27,7 +28,8 @@ export class NfcComponent implements OnInit {
 
   constructor(
     private alert:AlertService,
-    private navCtrl: NavService
+    private navCtrl: NavService,
+    private _modal: ModalController
   ) { }
   async ngOnInit() {
     var varUa = navigator.userAgent.toLowerCase();
@@ -72,5 +74,10 @@ export class NfcComponent implements OnInit {
       }, 1000);
       // window.dispatchEvent(new CustomEvent("main:afterNFCScan", { detail: message }));
     }
+  }
+
+  async qrChange() {
+    this._modal.dismiss();
+    this.getNfcData({type:'QR_CHANGE'});
   }
 }
