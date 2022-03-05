@@ -51,11 +51,11 @@
               <p>{{ gate.company_name }} | {{ gate.ctgo_job_position_name }} | {{ gate.inside_time }}</p>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary'">{{ gate.outside_state ? '퇴장' : '입장'  }}
+              <ion-chip [color]="gate.outside_state ?  'primary' : 'medium'">{{ gate.outside_state ?  '입장' :'퇴장' }}
               </ion-chip>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary'">{{ gate.outside_state ? gate.outside_time :gate.inside_time }}<br>{{ gate.inside_state ? '(수동)':''}}</ion-chip>
+              <ion-chip [color]="gate.outside_state ?  'primary' : 'medium'">{{ gate.outside_state ? gate.outside_time :gate.inside_time }}<br>{{ gate.inside_state ? '(수동)':''}}</ion-chip>
             </app-col>
           </app-row>
         </app-card>
@@ -67,11 +67,11 @@
               <app-col>
               </app-col>
               <app-col size="auto">
-                <ion-chip [color]="item.outside_state ? 'medium' : 'primary' ">{{ item.outside_state ? '퇴장' : '입장'  }}
+                <ion-chip [color]="gate.outside_state ?  'primary' : 'medium'">{{ gate.outside_state ?  '입장' :'퇴장' }}
                 </ion-chip>
               </app-col>
               <app-col size="auto">
-                <ion-chip [color]="gate.outside_state ? 'medium' : 'primary'">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
+                <ion-chip [color]="gate.outside_state ?  'primary' : 'medium'">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
               </app-col>
             </app-row>
           </app-card>
@@ -90,10 +90,10 @@
               <p>{{ risk.company_name }} | {{ risk.ctgo_job_position_name }} | {{ risk.inside_time }}</p>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ risk.outside_state ? '퇴장' : '입장'  }}</ion-chip>
+              <ion-chip [color]="risk.outside_state ? 'primary' : 'medium'">{{ risk.outside_state ? '입장' :'퇴장'  }}</ion-chip>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ risk.outside_state ? risk.outside_time :risk.inside_time }}<br>{{ risk.inside_state ? '(수동)':''}}</ion-chip>
+              <ion-chip [color]="risk.outside_state ? 'primary' : 'medium'">{{ risk.outside_state ? risk.outside_time :risk.inside_time }}<br>{{ risk.inside_state ? '(수동)':''}}</ion-chip>
             </app-col>
           </app-row>
         </app-card>
@@ -105,10 +105,10 @@
               <app-col>
               </app-col>
               <app-col size="auto">
-                <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ item.outside_state ? '입장' :'퇴장'  }}</ion-chip>
+                <ion-chip [color]="item.outside_state ? 'primary' : 'medium'">{{ item.outside_state ? '입장' :'퇴장'  }}</ion-chip>
               </app-col>
               <app-col size="auto">
-                <ion-chip color="primary">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
+                <ion-chip [color]="item.outside_state ? 'primary' : 'medium'">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
               </app-col>
             </app-row>
           </app-card>
@@ -116,7 +116,7 @@
       </ng-container>
     </ng-container>
   </ion-content>
-  <app-button *ngIf="menuCount === 2 && nfcIn">장소 스캔(NFC/QR)</app-button>
+  <app-button *ngIf="menuCount === 2 && nfcIn" (click)="inNfcQr()">장소 스캔(NFC/QR)</app-button>
   <!-- *ngIf="menuCount === 1 || !nfcIn" -->
   <app-button-footer *ngIf="menuCount === 1 || (menuCount === 2 && !nfcIn)">
   <app-button (click)="work_edit('IN')">근로자 입장 등록</app-button>

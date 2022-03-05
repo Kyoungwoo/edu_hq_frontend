@@ -57,6 +57,8 @@ export class WorkerStatusAddPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("this.selectData",this.selectData);
+    console.log("this.areadata",this.areadata);
     this.form.select_type = this.select_type;
     this.form.project_id = this.project_id;
     this.form.master_company_id = this.master_company_id;
@@ -64,14 +66,23 @@ export class WorkerStatusAddPage implements OnInit {
     this.form.area_risk_id = this.areadata.area_risk_id ? this.areadata.area_risk_id : 0;
   }
   async gateGet() {
+    this.selectData = [];
     this.form.serial_type = '게이트';
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_gate/list',this.form);
-    if(this.res.rsCode === 0) {}
+    if(this.res.rsCode === 0) {
+    } else {
+      this.toast.present({message:this.res.rsMsg, color:'warning'});
+    }
   }
   async riskGet() {
+    this.selectData = [];
     this.form.serial_type = '위험지역';
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_risk/list',this.form);
-    if(this.res.rsCode === 0) {}
+    if(this.res.rsCode === 0) {
+    } else {
+      this.toast.present({message:this.res.rsMsg, color:'warning'});
+    }
+
   }
 
   selectItem(item) {
@@ -86,12 +97,15 @@ export class WorkerStatusAddPage implements OnInit {
 
   async workerIn() {
     this.selectData.map(item => this.form.user_ids.push(item.user_id));
+    console.log("this.selectData",this.selectData);
+    console.log("this.areadata",this.areadata);
     if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
     if(!this.form.inside_time) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
     const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;
     this.form.area_top_id = area_top_id ? area_top_id : 0;
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
     this.form.area_bottom_id = area_bottom_id ? area_bottom_id : 0;
+    console.log("this.form.insert_state",this.form.insert_state);
     const alert = await this.alert.present({
       message: `선택한 인원을 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리하시겠습니까?`,
       buttons:[

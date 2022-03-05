@@ -12,7 +12,7 @@
         <app-select-option value="WORKER">작업자</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" [(ngModel)]="this.form.search_text" placeholder="검색어를 입력하세요">
-        <app-img (click)="gateGet()" name="search"></app-img>
+        <app-img (click)="area_risk_id ? riskGet() : gateGet()" name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
@@ -45,7 +45,9 @@
     </app-row>
   </div>
 </app-card>
-<app-datetime label="입장시간" [(ngModel)]="form.inside_time"></app-datetime>
+<app-datetime [label]="select_type === 'IN' ? '입장시간':'퇴장시간'" 
+[(ngModel)]="form.inside_time">
+</app-datetime>
 <app-button-footer>
   <app-button (click)="dismiss()">취소</app-button>
   <app-button (click)="workerIn()">적용</app-button>

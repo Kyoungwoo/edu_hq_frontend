@@ -51,7 +51,6 @@ export class SearchDangerousAreaComponent implements OnInit {
   async CtgoriskAreaGet() {
     this.ctgoAreaType = await this.connect.run('/category/risk/type/get');
     if(this.ctgoAreaType.rsCode === 0) {
-
     } else {
       this.toast.present({message:this.ctgoAreaType.rsMsg});
     }
@@ -61,7 +60,6 @@ export class SearchDangerousAreaComponent implements OnInit {
     if(!this.form.ctgo_area_risk_id) return await this.toast.present({message:'위험지역유형을 선택해주세요', color:'warning'});
     this.resRiskArea = await this.connect.run('/work_project/nfc_beacon/search_risk_area/list',this.form);
     if(this.resRiskArea.rsCode === 0) {
-
     } else {
       this.toast.present({message:this.resRiskArea.rsMsg,color:'warning'});
     }
