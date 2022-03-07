@@ -149,6 +149,7 @@ export class MemberStandardSetPage implements OnInit {
 
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
+      console.log("this.lhHeadCheck",this.lhHeadCheck);
     } else if(this.lhHeadCheck) {
       this.menuCount = 2;
       this.menuCount2();
@@ -169,6 +170,7 @@ export class MemberStandardSetPage implements OnInit {
   }
   async menuCount2() {
     this.menuCount = 2;
+    
   }
   async menuCount5() {
     this.menuCount = 5;
@@ -473,11 +475,12 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
-    if (this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' });
+    console.log("this.lhHeadCheck",this.lhHeadCheck);
+    if (!this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' , color:'warning'});
     if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
     const res = await this.connect.run('/project/company/pass/update', this.form, {});
     if (res.rsCode === 0) {
-      const toast = await this.toast.present({ message: '비밀번호가 변경 되었습니다.' });
+      const toast = await this.toast.present({ message: '비밀번호가 변경 되었습니다.',color:'primary' });
     }
   }
   //-->  회원관리 비밀번호 끝

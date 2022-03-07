@@ -17,7 +17,6 @@ import { SelectAttendanceComponent } from 'src/app/component/select/select-atten
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     SafetyEducationDetailEditPageRoutingModule,
   ],
   declarations: [SafetyEducationDetailEditPage]

@@ -23,10 +23,10 @@
   <form>
     <app-row>
       <app-col>
-        <app-input [readonly]="true" label="현장명" value="세종시 단독 주택 공사"></app-input>
+        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
       </app-col>
       <app-col>
-        <app-input [readonly]="true" label="교육상태" value="교육중"></app-input>
+        <app-input [readonly]="true" label="교육상태" [value]="eduState"></app-input>
       </app-col>
     </app-row>
     <app-row>

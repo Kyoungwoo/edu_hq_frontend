@@ -76,7 +76,6 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         return;
       }
     }
-
     this.res = await this.connect.run('/category/certify/company/master/get', {
       project_id: this.project_id,
       company_contract_type: '원청사',

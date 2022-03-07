@@ -25,47 +25,54 @@
     <form>
       <app-row>
         <app-col>
-          <app-input [readonly]="true" label="현장명" value="세종시 단독 주택 공사"></app-input>
+          <app-select-scene [disabled]="true" name="eduproject" [(ngModel)]="form.project_id"></app-select-scene>
         </app-col>
         <app-col>
-          <app-input [readonly]="true" label="교육상태" value="교육중"></app-input>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
-        </app-col>
-        <app-col>
-          <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
+          <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input [readonly]="true" label="교육명" value="채용 시 교육"></app-input>
+          <app-input name="create" [disabled]="true" label="개설자" [(ngModel)]="form.company_name"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input [readonly]="true" label="교육대상" value="신규 채용 근로자"></app-input>
+          <app-input label="교육명" name="ctgo_education_safe_title" placeholder="교육명을 입력해주세요." [(ngModel)]="form.ctgo_education_safe_title"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="교육대상" placeholder="교육명을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
         </app-col>
           <app-col>
-            <app-input [readonly]="true" label="교육장소" value="A 교육장"></app-input>
+            <app-input [readonly]="true" name="education_safe_place" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col size="6">
+          <app-calendar name="create_date" [(ngModel)]="form.create_date"></app-calendar>
+        </app-col>
+        <app-col size="3">
+          <app-datetime name="education_safe_start_time" label="교육시작시간" 
+          [(ngModel)]="form.education_safe_start_time">
+          </app-datetime>
+        </app-col>
+        <app-col size="3">
+          <app-datetime name="education_safe_end_time" label="교육종료시간" 
+          [(ngModel)]="form.education_safe_end_time">
+          </app-datetime>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input [readonly]="true" label="교육일" value="2021.05.06(화)"></app-input>
+          <app-input [readonly]="true" label="출석진행자" ></app-input>
         </app-col>
         <app-col>
-          <app-input [readonly]="true" label="교육시간" value="07:00~17:00(8H)"></app-input>
-        </app-col>
-      </app-row>
-      <app-row>
-        <app-col>
-          <app-input [readonly]="true" label="출석진행자" value="이상범,박소현"></app-input>
-        </app-col>
-        <app-col>
-          <app-input [readonly]="true" label="강사" value="이상범,박소현,이신범"></app-input>
+          <app-input [readonly]="true" label="강사" ></app-input>
         </app-col>
       </app-row>
       <app-row>

@@ -109,10 +109,16 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async getGate() {
-    this.gateList = await this.connect.run('/work_project/nfc_beacon/gate/list',this.form,{
+   const res = await this.connect.run('/work_project/nfc_beacon/gate/list',this.form,{
       parse:['inner_data', 'ctgo_job_position_name','ctgo_occupation_name','ctgo_safe_job_name']
     });
-    if(this.gateList.rsCode !== 0) {
+    if(res.rsCode === 0) {
+      this.gateList = {
+        ...res,
+        ...this.gateList
+      }
+      console.log("this.gateList",this.gateList);
+    } else {
       this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
     }
   }
@@ -205,6 +211,8 @@ export class WorkerStatusListPage implements OnInit {
           $qr.unsubscribe();
           this.getGate();
           } else {
+            $qr.unsubscribe();
+            this.inNfcQr();
           this.connect.error('qr스캔실패',res);
         }
       }

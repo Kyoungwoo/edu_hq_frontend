@@ -8,37 +8,42 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-education></app-select-education>
+                <app-select-education [all]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
               </td>
             </tr>
             <tr>
               <td>
                 <app-input-group label="교육일">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="교육 상태"></app-select>
+                <app-select label="교육 상태" [(ngModel)]="form.education_safe_state">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="교육 전">교육 전</app-select-option>
+                  <app-select-option value="교육 중">교육 후</app-select-option>
+                  <app-select-option value="교육 종료">교육 종료</app-select-option>
+                </app-select>
               </td>
             </tr>
             <tr>
@@ -56,33 +61,33 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>교육 개설 목록(총50건)</h5>
+          <h5>교육 개설 목록(총{{ res?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
               <th style="width: 40px;">No.</th>
-              <th>업체명</th>
+              <th style="width: 120px;">업체명</th>
               <th>교육명</th>
-              <th>교육대상</th>
-              <th>교육장소</th>
-              <th>교육일</th>
-              <th>교육시간</th>
-              <th>출석진행자</th>
-              <th>교육상태</th>
+              <th style="width: 120px;">교육대상</th>
+              <th style="width: 80px;">교육장소</th>
+              <th style="width: 100px;">교육일</th>
+              <th style="width: 150px;">교육시간</th>
+              <th style="width: 80px;">출석진행자</th>
+              <th style="width: 70px;">교육상태</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="button" (click)="edit()">
-              <td>9</td>
-              <td>(주)제일</td>
-              <td>작업 변겅시 교육</td>
-              <td>(주)건창</td>
-              <td>A교육장</td>
-              <td>2021.05.21(화)</td>
-              <td>06:00~08:00</td>
-              <td>김근호</td>
-              <td>교육중</td>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td>{{ i +1 }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.ctgo_education_safe_name }}</td>
+              <td>{{ item.education_safe_target }}</td>
+              <td>{{ item.education_safe_place }}</td>
+              <td>{{ item.education_safe_date }}</td>
+              <td>{{ item.education_safe_start_time }} ~ {{ item.education_safe_end_time }}</td>
+              <td>{{ item.education_safe_instructor }}</td>
+              <td>{{ item.ctgo_education_safe_type }}</td>
             </tr>
           </tbody>
         </app-table>

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
-import { SearchEducationComponent } from '../../modal/search-education/search-education.component';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { Education, SearchEducationComponent } from '../../modal/search-education/search-education.component';
 import { SearchToolComponent } from '../../modal/search-tool/search-tool.component';
 
 @Component({
@@ -17,36 +18,96 @@ import { SearchToolComponent } from '../../modal/search-tool/search-tool.compone
 })
 export class SelectEducationComponent implements OnInit, ControlValueAccessor {
 
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.education();
+  }
+  
+  @Input() all:boolean = false; // 전체 현장 노출 여부
   @Input() color:Color;
   @Input() label:string = "교육명";
 
+  @Input() company_id:number = 0;
+
+  text:string = '';
+
+  isModalData:boolean = false;
+  
+  res:ConnectResult<Education>;
+
   constructor(
-    private _modal:ModalController
+    private connect: ConnectService,
+    private _modal:ModalController,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {}
-  async education(){
-    const modal = await this._modal.create({
-      component:SearchEducationComponent
-    });
-    modal.present();
+
+
+  public async get() {
+    if(this.isModalData) return;
+    
+    if(!this.value && !this.all) return;
+    
+    if(this.value === 0 && this.all) {
+      this.text = '전체';
+      this.changeDetector.detectChanges();
+      return;
+    }
+
+    if(!this.value) return;
+    
+    const res = await this.connect.run('/forSignUp/project/id/get', {});
+    if(res.rsCode === 0) {
+      const { rsMap } = this.res;
+      this.text = rsMap
+      .filter(education => (this.value as number[]).indexOf(education.ctgo_education_safe_id))
+      .map(education => education.ctgo_education_safe_name).join();
+    }
   }
 
+  async education(){
+    const modal = await this._modal.create({
+      component:SearchEducationComponent,
+      componentProps:{
+        all: this.all
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      if(data.allState) {
+        this.text = '전체';
+        this.value = 0;
+      } else {
+        this.value = data.ctgo_education_safe_id;
+        this.text = data.data.ctgo_education_safe_name;
+        console.log("this.text",this.text);
+      }
+    }
+  }
+
+  @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+
+  private _value:number[] | number;
+  @Input() set value(v:number[] | number) {
     if(v !== this._value) {
-      this._value = v;
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
   }
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
+  writeValue(v:[]): void { 
+    if(v !== this._value) {
+      this.valueChange(v);
+    }
+  }
+  valueChange(v) {
+    this._value = v;
+    this.get();
     this.onChangeCallback(v);
     this.change.emit(v);
   }
