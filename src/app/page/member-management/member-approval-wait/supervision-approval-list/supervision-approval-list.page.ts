@@ -11,9 +11,9 @@ import { ApprovalPopupComponent } from '../approval-popup/approval-popup.compone
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 import { SupervisionApprovalEditPage } from '../supervision-approval-edit/supervision-approval-edit.page';
 
-class SupervisionInfo {
+class SupervisionApprovalInfo {
   ctgo_construction_id: number;
-  ctgo_job_position_name_kr: string;
+  ctgo_job_position_name: string;
   company_id: number;
   user_id: number;
   ctgo_job_position_id: number;
@@ -48,8 +48,8 @@ export class SupervisionApprovalListPage implements OnInit {
     user_manage_session: '',
   };
 
-  validator = new Validator(new SupervisionInfo()).validator;
-  res:ConnectResult<SupervisionInfo>;
+  validator = new Validator(new SupervisionApprovalInfo()).validator;
+  res:ConnectResult<SupervisionApprovalInfo>;
 
   selectedList = [];
 
