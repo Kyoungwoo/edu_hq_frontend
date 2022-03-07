@@ -10,7 +10,7 @@ import { ApprovalPopupComponent } from '../approval-popup/approval-popup.compone
 import { PartnerApprovalEditPage } from '../partner-approval-edit/partner-approval-edit.page';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
-class PartnerInfo {
+class PartnerApprovalInfo {
   ctgo_construction_id: number;
   ctgo_job_position_name_kr: string;
   company_id: number;
@@ -50,8 +50,8 @@ export class PartnerApprovalListPage implements OnInit {
     user_manage_session: '',
   };
 
-  validator = new Validator(new PartnerInfo()).validator;
-  res:ConnectResult<PartnerInfo>;
+  validator = new Validator(new PartnerApprovalInfo()).validator;
+  res:ConnectResult<PartnerApprovalInfo>;
 
   selectedList = [];
 

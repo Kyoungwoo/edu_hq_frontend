@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>회원정보</ion-title>
+    <ion-title>LH 회원정보</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -64,7 +64,7 @@
       <ion-toolbar slot="top" color="white">
         <ion-segment color="primary">
           <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
-          <ion-segment-button (click)="menu = 2">근로 이력</ion-segment-button>
+          <!-- <ion-segment-button (click)="menu = 2">근로 이력</ion-segment-button> -->
         </ion-segment>
       </ion-toolbar>
       <ng-container *ngIf="menu === 1">

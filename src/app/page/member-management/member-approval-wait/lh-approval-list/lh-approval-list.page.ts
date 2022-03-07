@@ -8,8 +8,8 @@ import { ApprovalPopupComponent } from '../approval-popup/approval-popup.compone
 import { LhApprovalEditPage } from '../lh-approval-edit/lh-approval-edit.page';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
-class LhInfo {
-  ctgo_job_position_name_kr: string;
+class LhApprovalInfo {
+  ctgo_job_position_name: string;
   user_id: number;
   ctgo_job_position_id: number;
   hq_regional_id: number;
@@ -41,7 +41,7 @@ export class LhApprovalListPage implements OnInit {
     user_manage_session: '',
   };
 
-  res:ConnectResult<LhInfo>;
+  res:ConnectResult<LhApprovalInfo>;
 
   selectedList = [];
 
@@ -54,7 +54,7 @@ export class LhApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('zzzzzzzzzzzzz',this.user);
+   
     this.get();
   }
 

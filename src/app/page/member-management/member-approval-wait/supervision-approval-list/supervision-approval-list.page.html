@@ -93,12 +93,12 @@
               </td>
               <td>{{ i+1 }}</td>
               <!-- <td>신규가입</td> -->
-              <td>건축</td>
-              <td>(주)희림</td>
-              <td>구범수</td>
-              <td>직위</td>
-              <td>2021-05-20</td>
-              <td>미승인</td>
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.approval_state }}</td>
             </tr>
           </tbody>
         </app-table>

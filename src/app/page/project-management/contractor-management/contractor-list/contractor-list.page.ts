@@ -14,8 +14,8 @@ export class ContractorListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_business_ids: [],
-    hq_regional_ids: [],
+    hq_business_id: 0,
+    hq_regional_id: 0,
     limit_no: 0,
     master_company_ids: [],
     search_text: ''
@@ -107,7 +107,7 @@ export class ContractorListPage implements OnInit {
   }
  async getCtgoBusiness() {
     this.ctgoBusiness.rsMap = [];
-    if(this.form.hq_regional_ids.length) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
+    if(this.form.hq_regional_id) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_id},{});
 
     
     // console.log(this,this.ctgoRegional);
