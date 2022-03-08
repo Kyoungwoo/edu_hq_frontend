@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
+import { UserService, UserType } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -38,7 +38,7 @@ export class TodayDepartureStatusListItem {
   ctgo_job_position_name:string = '';
   inside_type:string = '';
   outside_type:string = '';
-  user_type:string = '';
+  user_type:UserType = null;
   ctgo_occupation_id:number = 0;
   user_id:number = 0;
   company_name:string = '';
@@ -46,6 +46,9 @@ export class TodayDepartureStatusListItem {
   inside_time:string = '';
   ctgo_safe_job_name:string = '';
   row_count:number = 0;
+}
+export class TodayDepartureStatusDetailItem {
+  
 }
 @Component({
   selector: 'app-today-departure-status-list',
@@ -126,7 +129,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     }
   }
 
-  async detail(item:TodayDepartureStatusListItem) {
+  async detail(item:TodayDepartureStatusListItem, index) {
     const form = {
       cnt_date: this.form.cnt_date,
       project_id: this.form.project_id,
@@ -136,7 +139,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     }
     const res = await this.connect.run('/work_state/detail/sub_list', form, { loading: true });
     if(res.rsCode === 0) {
-      this.detailList = [];
+      this.detailList[index] = res.rsMap;
     }
   }
 

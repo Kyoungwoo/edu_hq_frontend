@@ -54,7 +54,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:string) {
     if(v !== this._value) {
       this._value = v;
-      console.log(v);
 
       this.onChangeCallback(v);
       this.change.emit(v);
@@ -66,7 +65,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   writeValue(v:string): void {
     if(v !== this._value) {
       this._value = v;
-      console.log(v);
       this.delayKeyup.emit();
       this.onChangeCallback(v);
       this.change.emit(v);

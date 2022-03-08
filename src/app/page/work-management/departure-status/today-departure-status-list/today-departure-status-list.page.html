@@ -86,11 +86,11 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let item of res2?.rsMap; let i = index; let c = count;" >
-              <tr class="button" (click)="detail(item)">
+              <tr class="button" (click)="detail(item, i)">
                 <td>{{ c - i }}</td>
                 <td>{{ item.company_name }}</td>
                 <td>{{ item.ctgo_construction_name }}</td>
-                <td>{{ item.user_type }}</td>
+                <td>{{ item.user_type === 'WORKER' ? '작업자' : '관리자' }}</td>
                 <td>{{ item.user_name }}</td>
                 <td>{{ item.ctgo_job_position_name }}</td>
                 <td>{{ item.ctgo_safe_job_name }}</td>
@@ -98,7 +98,7 @@
                 <td>{{ item.inside_time }}</td>
                 <td>{{ item.outside_time }}</td>
               </tr>
-              <ng-container>
+              <ng-container *ngFor="let detail of detailList[i]">
                 <tr>
                   <td></td>
                   <td></td>
@@ -108,8 +108,8 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
-                  <td></td>
+                  <!-- <td>{{ detail. }}</td>
+                  <td>{{  }}</td> -->
                 </tr>
               </ng-container>
             </ng-container>
