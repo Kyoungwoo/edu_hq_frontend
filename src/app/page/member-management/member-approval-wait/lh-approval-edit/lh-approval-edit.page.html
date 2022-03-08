@@ -81,7 +81,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="formApproval.project_id"></app-select-scene>
+          <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
         </app-col>
         <app-col>
           <app-input-group label="현장 공사 기간">
