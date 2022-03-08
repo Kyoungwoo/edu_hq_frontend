@@ -78,7 +78,7 @@ export class SceneListPage implements OnInit {
     this.listLoading = true;
     
     const res = await this.connect.run('/project/list',this.form,{
-      loading:'현장 불러온느중'
+      loading:'현장 불러오는중'
     });
     if(res.rsCode === 0) {
       this.res = res;

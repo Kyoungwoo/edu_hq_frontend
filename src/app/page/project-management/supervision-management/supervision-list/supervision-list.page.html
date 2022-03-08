@@ -16,7 +16,7 @@
             <tr>
               <td>
                 <app-select label="지역본부" [(ngModel)]="form.hq_regional_id" (change)="getCtgoBusiness()">
-                  <app-select-option value="">전체</app-select-option>
+                  <app-select-option [value]="[]">전체</app-select-option>
                   <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
                 </app-select>
               </td>
@@ -38,7 +38,7 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>감리사 목록(총{{res?.rsObj?.row_count || 0}}건)</h5>
+          <h5>감리사 목록 (총{{res?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-check-group>
           <app-table>
