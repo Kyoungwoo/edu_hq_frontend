@@ -62,7 +62,8 @@ export class LhApprovalEditPage implements OnInit {
     user_id: 0,
     approval_user_id: 0,
     session_company_id: 0,
-    user_manage_session: ''
+    user_manage_session: '',
+    project_id: 0,
   }
 
   formBasic = new BasicItem();

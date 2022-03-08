@@ -86,7 +86,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="formApproval.project_id"></app-select-scene>
+          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_id"></app-input>
         </app-col>
         <app-col>
           <app-select-construction name="ctgo_construction_id" [project_id]="formApproval.project_id" [(ngModel)]="formApproval.ctgo_construction_id" [all]="true"></app-select-construction>
