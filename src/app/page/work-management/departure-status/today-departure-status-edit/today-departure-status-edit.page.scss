@@ -1,0 +1,15 @@
+tr.selected,
+tr.selected:hover {
+    td {
+        background: var(--ion-color-secondary);
+        color: var(--ion-color-secondary-contrast);
+    }
+}
+
+.selected-layout {
+    text-align: left;
+    .seleted-list {
+        padding-top: var(--app-padding);
+        padding-bottom: var(--app-padding);
+    }
+}

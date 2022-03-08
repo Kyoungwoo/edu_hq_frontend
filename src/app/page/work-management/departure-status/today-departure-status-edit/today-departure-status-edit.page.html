@@ -11,12 +11,45 @@
         <app-select-option value="COMPANY">관리자</app-select-option>
         <app-select-option value="WORKER">근로자</app-select-option>
       </app-select>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요" [(ngModel)]="form.search_text" (buttonClick)="get()">
         <app-img name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  
+  <app-table>
+    <thead>
+      <tr>
+        <th>회사명</th>
+        <th>성명</th>
+        <th>직위</th>
+        <th>안전직무</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr button *ngFor="let item of res?.rsMap" [class.selected]="selectedList.indexOf(item) > -1" (click)="select(item)">
+        <td>{{ item.company_name }}</td>
+        <td>{{ item.user_name }}</td>
+        <td>{{ item.ctgo_job_position_name_kr }}</td>
+        <td>{{ item.ctgo_safe_job_name_kr }}</td>
+      </tr>
+    </tbody>
+  </app-table>
 </ion-content>
+<app-button-footer>
+  <div class="selected-layout">
+    <h6 *ngIf="type === '입장'; else tempOut">현재 입장 처리가 되어있지 않은 근로자만 조회됩니다.</h6>
+    <ng-template #tempOut>
+      <h6>현재 입장 처리가 되어있는 근로자만 조회됩니다.</h6>
+    </ng-template>
+    <div class="seleted-list">
+      <ion-chip button color="secondary" fill="solid" *ngFor="let item of selectedList; let i = index;" (click)="selectedList.splice(i, 1)">
+        <ion-label>{{ item.user_name }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </div>
+    <app-datetime [label]="type + '시간'" [(ngModel)]="submitForm.inout_time"></app-datetime>
+  </div>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>

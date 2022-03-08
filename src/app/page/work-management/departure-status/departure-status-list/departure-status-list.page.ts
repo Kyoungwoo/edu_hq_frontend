@@ -45,7 +45,7 @@ export class DepartureStatusListPage implements OnInit {
   }
 
   getPromission() {
-    const { user_type, user_role, belong_data } = this.user.userData;
+    const { user_type } = this.user.userData;
     if(user_type === 'LH') {
       this.permission.contractor = true;
     }

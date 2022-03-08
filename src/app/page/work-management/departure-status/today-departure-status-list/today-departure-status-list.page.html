@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>일일 출역 현황</ion-title>
+    <ion-title>{{ form.cnt_date }} 출역 현황</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -52,11 +52,11 @@
               <th>작업자</th>
             </tr>
             <tr>
-              <td>{{ res?.rsObj.master_admin }}</td>
-              <td>{{ res?.rsObj.master_worker }}</td>
-              <td>{{ res?.rsObj.company_admin }}</td>
-              <td>{{ res?.rsObj.company_worker }}</td>
-              <td>{{ res?.rsObj.total_cnt }}</td>
+              <td>{{ res?.rsObj?.master_admin || 0 }}</td>
+              <td>{{ res?.rsObj?.master_worker || 0 }}</td>
+              <td>{{ res?.rsObj?.company_admin || 0 }}</td>
+              <td>{{ res?.rsObj?.company_worker || 0 }}</td>
+              <td>{{ res?.rsObj?.total_cnt || 0 }}</td>
             </tr>
           </thead>
         </app-table>
@@ -99,7 +99,7 @@
                 <td>{{ item.outside_time }}</td>
               </tr>
               <ng-container *ngFor="let detail of detailList[i]">
-                <tr>
+                <tr class="detail">
                   <td></td>
                   <td></td>
                   <td></td>
@@ -108,8 +108,8 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <!-- <td>{{ detail. }}</td>
-                  <td>{{  }}</td> -->
+                  <td>{{ detail.inside_time }}</td>
+                  <td>{{ detail.outside_time }}</td>
                 </tr>
               </ng-container>
             </ng-container>
