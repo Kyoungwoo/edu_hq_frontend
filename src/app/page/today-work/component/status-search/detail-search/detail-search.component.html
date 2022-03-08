@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <app-row *ngIf="type==='my'">
+  <app-row *ngIf="type === 'my'">
     <app-col>
       <app-select-scene [disabled]="disabled" [(ngModel)]="form.project_id"></app-select-scene>
     </app-col>

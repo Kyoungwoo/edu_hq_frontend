@@ -149,7 +149,6 @@ export class SceneEditPage implements OnInit {
   }
 
   async sceneInsert() {
-    this.form.company_data = [];
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [

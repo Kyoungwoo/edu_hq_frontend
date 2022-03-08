@@ -54,7 +54,6 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() set value(v:string) {
     if(v !== this._value) {
       this._value = v;
-
       this.onChangeCallback(v);
       this.change.emit(v);
     }
