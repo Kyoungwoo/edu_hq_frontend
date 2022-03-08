@@ -35,6 +35,11 @@
         </app-table>
       </app-col>
       <app-col>
+        <ion-toolbar color="white" *ngIf="permisson.edit">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">인쇄(협의중)</app-button>
+          </ion-buttons>
+        </ion-toolbar>
         <ion-toolbar color="white">
           <h5>현재 출역</h5>
         </ion-toolbar>
@@ -62,8 +67,8 @@
         </app-table>
         <ion-toolbar color="white" *ngIf="permisson.edit">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="edit()">근로자 입장 등록</app-button>
-            <app-button fill="translucent" (click)="edit()">근로자 퇴장 등록</app-button>
+            <app-button fill="translucent" (click)="edit('입장')">근로자 입장 등록</app-button>
+            <app-button fill="translucent" (click)="edit('퇴장')">근로자 퇴장 등록</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -95,8 +100,8 @@
                 <td>{{ item.ctgo_job_position_name }}</td>
                 <td>{{ item.ctgo_safe_job_name }}</td>
                 <td>{{ item.ctgo_occupation_name }}</td>
-                <td>{{ item.inside_time }}</td>
-                <td>{{ item.outside_time }}</td>
+                <td>{{ item.inside_time || '-' }}</td>
+                <td>{{ item.outside_time || '-' }}</td>
               </tr>
               <ng-container *ngFor="let detail of detailList[i]">
                 <tr class="detail">
@@ -108,8 +113,8 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>{{ detail.inside_time }}</td>
-                  <td>{{ detail.outside_time }}</td>
+                  <td>{{ detail.inside_time || '-' }}</td>
+                  <td>{{ detail.outside_time || '-' }}</td>
                 </tr>
               </ng-container>
             </ng-container>

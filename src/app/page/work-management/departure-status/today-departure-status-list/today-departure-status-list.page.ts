@@ -146,25 +146,30 @@ export class TodayDepartureStatusListPage implements OnInit {
   }
 
   async detail(item:TodayDepartureStatusListItem, index) {
-    const form = {
-      cnt_date: this.form.cnt_date,
-      project_id: this.form.project_id,
-      master_company_id: item.company_id,
-      ctgo_construction_id: item.ctgo_construction_id,
-      view_user_id: item.user_id
-    }
-    const res = await this.connect.run('/work_state/detail/sub_list', form, { loading: true });
-    if(res.rsCode === 0) {
-      this.detailList[index] = res.rsMap;
+    if(this.detailList[index]) {
+      this.detailList[index] = null;
+    } 
+    else {
+      const form = {
+        cnt_date: this.form.cnt_date,
+        project_id: this.form.project_id,
+        master_company_id: item.company_id,
+        ctgo_construction_id: item.ctgo_construction_id,
+        view_user_id: item.user_id
+      }
+      const res = await this.connect.run('/work_state/detail/sub_list', form, { loading: true });
+      if(res.rsCode === 0) {
+        this.detailList[index] = res.rsMap;
+      }
     }
   }
 
-  async edit() {
+  async edit(type) {
     const modal = await this._modal.create({
       component: TodayDepartureStatusEditPage,
       cssClass: 'today-departure-status-edit-modal',
       componentProps: {
-        type: '입장',
+        type,
         project_id: this.form.project_id,
         company_id: this.form.master_company_id,
         inout_date: this.form.cnt_date

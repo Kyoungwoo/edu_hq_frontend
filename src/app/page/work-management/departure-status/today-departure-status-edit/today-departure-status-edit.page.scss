@@ -1,8 +1,12 @@
-tr.selected,
-tr.selected:hover {
+tr.selected {
     td {
         background: var(--ion-color-secondary);
         color: var(--ion-color-secondary-contrast);
+    }
+}
+tr.selected:hover {
+    td {
+        background: var(--ion-color-secondary-shade);
     }
 }
 

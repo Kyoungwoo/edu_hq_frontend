@@ -44,6 +44,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
   form = {
     project_id: 0,
     company_id: 0,
+    inside_date: '',
     user_type: 'WORKER',
     search_text: ''
   }
@@ -66,6 +67,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
      */
     this.form.project_id = this.project_id;
     this.form.company_id = this.company_id;
+    this.form.inside_date = this.inout_date;
 
     this.submitForm.project_id = this.project_id;
     this.submitForm.master_company_id = this.company_id;
@@ -130,7 +132,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
       message = '선택한 인원을 입장 등록 처리하시겠습니까?';
     }
     else {
-      message = '선택한 인원을 입장 등록 처리하시겠습니까?';
+      message = '선택한 인원이 아직 현장에 남아 있을 수 있습니다. 퇴장 등록 처리 하시겠습니까?';
     }
 
     this.alert.present({
