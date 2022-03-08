@@ -87,7 +87,7 @@ export class SupervisionInfoEditPage implements OnInit {
     const { user_id, user_email } = this.formBasic;
     if (!user_email) return this.validator.user_email = null;
     if (!user_id) return this.validator.user_id = null;
-    const res = await this.connect.run('/usermanage/approval/super/overlap/email', { user_email, user_id });
+    const res = await this.connect.run('/usermanage/info/super/overlap/email', { user_email, user_id });
     this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
@@ -97,7 +97,7 @@ export class SupervisionInfoEditPage implements OnInit {
     const { user_phone, user_id } = this.formBasic;
     if (!user_phone) return this.validator.user_phone = null;
     if (!user_id) return this.validator.user_id = null;
-    const res = await this.connect.run('/usermanage/approval/super/overlap/phone', { user_phone, user_id });
+    const res = await this.connect.run('/usermanage/info/super/overlap/phone', { user_phone, user_id });
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }

@@ -65,7 +65,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-input  [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
+          <app-input [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
         </app-col>
         <app-col>
           <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>

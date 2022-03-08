@@ -30,7 +30,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-construction [(ngModel)]="form.ctgo_construction_ids"></app-select-construction>
+                <app-select-construction name="ctgo_construction_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white" *ngIf="permission.approval">
+        <ion-toolbar color="white">
           <ion-buttons slot="start">
             <!-- <app-button fill="translucent">엑셀 업로드</app-button>
             <app-button fill="translucent">양식 다운로드</app-button> -->

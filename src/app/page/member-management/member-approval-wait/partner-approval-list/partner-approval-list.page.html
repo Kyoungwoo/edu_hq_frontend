@@ -61,7 +61,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white" *ngIf="permission.approval">
+        <ion-toolbar color="white" >
           <ion-buttons slot="start">
             <!-- <app-button fill="translucent">엑셀 업로드</app-button>
             <app-button fill="translucent">양식 다운로드</app-button> -->
@@ -94,13 +94,13 @@
               </td>
               <td>{{ i+1 }}</td>
               <!-- <td>신규가입</td> -->
-              <td>건축</td>
-              <td>(주)지에스아이엘</td>
-              <td>구범수</td>
-              <td>부장</td>
-              <td>관리 책임자</td>
-              <td>2021-05-20</td>
-              <td>미승인</td>
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.ctgo_safe_job_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.approval_state }}</td>
             </tr>
           </tbody>
         </app-table>

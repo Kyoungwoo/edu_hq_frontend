@@ -30,7 +30,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-construction [(ngModel)]="form.ctgo_construction_ids"></app-select-construction>
+                <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
@@ -54,7 +54,7 @@
             </tr> -->
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."  [(ngModel)]="form.search_text"></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>

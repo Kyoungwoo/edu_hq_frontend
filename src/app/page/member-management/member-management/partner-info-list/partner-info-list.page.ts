@@ -6,6 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { PartnerApprovalEditPage } from '../../member-approval-wait/partner-approval-edit/partner-approval-edit.page';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 import { PartnerIntoEditPageModule } from '../partner-into-edit/partner-into-edit.module';
 import { PartnerIntoEditPage } from '../partner-into-edit/partner-into-edit.page';
@@ -13,13 +14,12 @@ import { PartnerIntoEditPage } from '../partner-into-edit/partner-into-edit.page
 
 class PartnerInfo {
   ctgo_construction_id: number;
-  ctgo_job_position_name_kr: string;
   delete_state: number;
   company_id: number;
-  ctgo_safe_job_name_kr: string;
   ctgo_job_position_id: number;
   user_name: string;
   ctgo_construction_name: string;
+  ctgo_job_position_name: string;
   update_date: string;
   company_contract_type: string;
   user_id: number;
@@ -28,6 +28,8 @@ class PartnerInfo {
   user_safe_job_id: number;
   approval_state: string;
   ctgo_safe_job_id: number;
+  ctgo_safe_job_name: string;
+  row_count: number;
 }
 
 @Component({
@@ -35,6 +37,7 @@ class PartnerInfo {
   templateUrl: './partner-info-list.page.html',
   styleUrls: ['./partner-info-list.page.scss'],
 })
+
 export class PartnerInfoListPage implements OnInit {
 
   form = {
@@ -109,9 +112,12 @@ export class PartnerInfoListPage implements OnInit {
   }
 
 
-  async edit() {
+  async edit(item) {
     const modal = await this.modal.create({
       component:PartnerIntoEditPage,
+      componentProps:{
+        item
+      }
     });
     modal.present();
   }
