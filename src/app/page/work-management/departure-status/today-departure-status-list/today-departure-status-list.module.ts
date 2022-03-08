@@ -8,6 +8,7 @@ import { TodayDepartureStatusListPageRoutingModule } from './today-departure-sta
 
 import { TodayDepartureStatusListPage } from './today-departure-status-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { TodayDepartureStatusEditPageModule } from '../today-departure-status-edit/today-departure-status-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    TodayDepartureStatusListPageRoutingModule
+    TodayDepartureStatusListPageRoutingModule,
+    TodayDepartureStatusEditPageModule
   ],
   declarations: [TodayDepartureStatusListPage],
   exports: [TodayDepartureStatusListPage]

@@ -27,7 +27,9 @@
               </td>
             </tr>
             <tr>
-              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
             </tr>
           </tbody>
         </app-table>
@@ -36,33 +38,81 @@
         <ion-toolbar color="white">
           <h5>현재 출역</h5>
         </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th colspan="2">원청사</th>
+              <th colspan="2">협력사</th>
+              <th rowspan="2">총 출역 인원</th>
+            </tr>
+            <tr>
+              <th>관리자</th>
+              <th>작업자</th>
+              <th>관리자</th>
+              <th>작업자</th>
+            </tr>
+            <tr>
+              <td>{{ res?.rsObj.master_admin }}</td>
+              <td>{{ res?.rsObj.master_worker }}</td>
+              <td>{{ res?.rsObj.company_admin }}</td>
+              <td>{{ res?.rsObj.company_worker }}</td>
+              <td>{{ res?.rsObj.total_cnt }}</td>
+            </tr>
+          </thead>
+        </app-table>
+        <ion-toolbar color="white" *ngIf="permisson.edit">
+          <ion-buttons slot="start">
+            <app-button fill="translucent" (click)="edit()">근로자 입장 등록</app-button>
+            <app-button fill="translucent" (click)="edit()">근로자 퇴장 등록</app-button>
+          </ion-buttons>
+        </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>출역 현황 (총{{ res?.rsObj?.row_count || 0}}건)</h5>
+          <h5>상세 내역 (총{{ res2?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
-              <th rowspan="2" style="width: 100px">출역일</th>
-              <th colspan="2">원청사</th>
-              <th colspan="2">협력사</th>
-              <th rowspan="2">합계</th>
-            </tr>
-            <tr>
-              <th>관리자</th>
-              <th>작업자</th>
-              <th>관리자</th>
-              <th>작업자</th>
+              <th>No</th>
+              <th>회사명</th>
+              <th>공종</th>
+              <th>구분</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>안전직무</th>
+              <th>직종</th>
+              <th>입장시간</th>
+              <th>퇴장시간</th>
             </tr>
           </thead>
-            <tr class="button" *ngFor="let item of res?.rsMap; let i = index" (click)="edit(item)">
-              <td>{{ item.work_date }}</td>
-              <td>{{ item.master_admin }}</td>
-              <td>{{ item.master_worker }}</td>
-              <td>{{ item.company_admin }}</td>
-              <td>{{ item.company_worker }}</td>
-              <td>{{ item.total_cnt }}</td>
-            </tr>
           <tbody>
+            <ng-container *ngFor="let item of res2?.rsMap; let i = index; let c = count;" >
+              <tr class="button" (click)="detail(item)">
+                <td>{{ c - i }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.ctgo_construction_name }}</td>
+                <td>{{ item.user_type }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.ctgo_job_position_name }}</td>
+                <td>{{ item.ctgo_safe_job_name }}</td>
+                <td>{{ item.ctgo_occupation_name }}</td>
+                <td>{{ item.inside_time }}</td>
+                <td>{{ item.outside_time }}</td>
+              </tr>
+              <ng-container>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </ng-container>
+            </ng-container>
           </tbody>
         </app-table>
       </app-col>
