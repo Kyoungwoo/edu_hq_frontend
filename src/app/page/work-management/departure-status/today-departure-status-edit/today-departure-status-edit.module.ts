@@ -17,6 +17,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     ComponentModule,
     TodayDepartureStatusEditPageRoutingModule
   ],
-  declarations: [TodayDepartureStatusEditPage]
+  declarations: [TodayDepartureStatusEditPage],
+  exports: [TodayDepartureStatusEditPage]
 })
 export class TodayDepartureStatusEditPageModule {}

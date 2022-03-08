@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <app-container size="small">
   <app-card color="light" [button]="false">
     <ion-toolbar slot="top" color="white">
       <h5>회원정보</h5>
@@ -79,5 +80,6 @@
       <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
       <app-button style="width: 120px;" (click)="submit()">저장</app-button>
   </app-button-footer>
+</app-container>
 </ion-content>
 

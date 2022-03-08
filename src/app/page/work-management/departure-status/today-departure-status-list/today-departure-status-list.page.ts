@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PartnerEditPage } from 'src/app/page/project-management/partner-management/partner-edit/partner-edit.page';
+import { TodayDepartureStatusEditPage } from '../today-departure-status-edit/today-departure-status-edit.page';
 
 export class DepartureStatusListForm {
   project_id:number = 0; // 현장 ID
@@ -22,6 +23,28 @@ export class DepartureStatusListItem {
   master_worker:number = 0;
   total_cnt:number = 0;
   work_date:string = '';
+  row_count:number = 0;
+}
+
+export class TodayDepartureStatusListItem {
+  ctgo_construction_id:number = 0;
+  outside_time:string = '';
+  nb_log_id:number = 0;
+  company_id:number = 0;
+  ctgo_job_position_id:number = 0;
+  user_name:string = '';
+  ctgo_occupation_name:string = '';
+  ctgo_construction_name:string = '';
+  ctgo_job_position_name:string = '';
+  inside_type:string = '';
+  outside_type:string = '';
+  user_type:string = '';
+  ctgo_occupation_id:number = 0;
+  user_id:number = 0;
+  company_name:string = '';
+  ctgo_safe_job_id:number = 0;
+  inside_time:string = '';
+  ctgo_safe_job_name:string = '';
   row_count:number = 0;
 }
 @Component({
@@ -48,12 +71,14 @@ export class TodayDepartureStatusListPage implements OnInit {
     master_admin:number,
     master_worker:number,
     total_cnt:number,
-    work_date:string,
-    row_count:number
-  }>
+    work_date:string
+  }>;
 
-  permission = {
-    contractor: false
+  res2:ConnectResult<TodayDepartureStatusListItem>;
+  detailList:any[][] = [];
+
+  permisson = {
+    edit: false
   }
 
   constructor(
@@ -68,10 +93,19 @@ export class TodayDepartureStatusListPage implements OnInit {
   ngOnInit() {
     this.getPromission();
     this.getForm();
+    this.getSummary();
     this.getList();
   }
 
-  getPromission() {}
+  getPromission() {
+    const { user_type } = this.user.userData;
+    if(user_type === 'LH' || user_type === 'SUPER') {
+      this.permisson.edit = false;
+    }
+    else if(user_type === 'COMPANY') {
+      this.permisson.edit = true;
+    }
+  }
   getForm() {
     this.form.project_id = this.listForm.project_id;
     this.form.master_company_id = this.listForm.master_company_id;
@@ -79,23 +113,37 @@ export class TodayDepartureStatusListPage implements OnInit {
     this.form.cnt_date = this.item.work_date;
   }
 
-  async getList() {
-    await this.promise.wait(() => this.form.master_company_id);
-  
+  async getSummary() {
     this.res = await this.connect.run('/work_state/current', this.form, { loading: true });
     if(this.res.rsCode !== 0) {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
+  async getList() {
+    this.res2 = await this.connect.run('/work_state/detail/list', this.form, { loading: true });
+    if(this.res2.rsCode !== 0) {
+      this.toast.present({ color: 'warning', message: this.res2.rsMsg });
+    }
+  }
 
-  async edit(item) {
+  async detail(item:TodayDepartureStatusListItem) {
+    const form = {
+      cnt_date: this.form.cnt_date,
+      project_id: this.form.project_id,
+      master_company_id: item.company_id,
+      ctgo_construction_id: item.ctgo_construction_id,
+      view_user_id: item.user_id
+    }
+    const res = await this.connect.run('/work_state/detail/sub_list', form, { loading: true });
+    if(res.rsCode === 0) {
+      this.detailList = [];
+    }
+  }
+
+  async edit() {
     const modal = await this.modal.create({
-      component: PartnerEditPage,
-      cssClass: 'today-departure-status-list',
-      componentProps:{
-        listForm: this.form,
-        item
-      }
+      component: TodayDepartureStatusEditPage,
+      cssClass: 'today-departure-status-edit-modal'
     });
     modal.present();
     const { data } = await modal.onDidDismiss();

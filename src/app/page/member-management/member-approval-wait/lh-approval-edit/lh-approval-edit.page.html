@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <app-container size="small">
   <app-card color="light" [button]="false">
     <ion-toolbar slot="top" color="white">
       <h5>회원정보</h5>
@@ -80,7 +81,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="formApproval.project_id"></app-select-scene>
+          <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
         </app-col>
         <app-col>
           <app-input-group label="현장 공사 기간">
@@ -95,5 +96,5 @@
       <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
       <app-button style="width: 120px;" (click)="submit()">저장</app-button>
   </app-button-footer>
-  
+</app-container>
 </ion-content>

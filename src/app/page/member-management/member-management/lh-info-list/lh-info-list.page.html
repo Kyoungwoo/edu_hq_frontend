@@ -18,7 +18,7 @@
           <tbody>
             <tr>
               <td>
-                <app-select-organization></app-select-organization>
+                <app-select-regional [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional>
               </td>
             </tr>
             <tr>
@@ -30,7 +30,7 @@
                 </app-input-group>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <app-radio-input label="재직상태">
                   <app-radio value="전체">전체</app-radio>
@@ -38,7 +38,7 @@
                   <app-radio value="퇴사">퇴사</app-radio>
                 </app-radio-input>
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>
                 <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
@@ -49,16 +49,9 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <ion-buttons slot="start">
-            <!-- <app-button fill="translucent">엑셀 업로드</app-button>
-            <app-button fill="translucent">양식 다운로드</app-button> -->
-            <app-button fill="translucent">가입승인</app-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <ion-toolbar color="white">
           <h5>관리자 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
-        <app-check-group [(ngModel)]="selectedList">
+       
         <app-table>
           <thead>
             <tr>
@@ -67,21 +60,20 @@
               <th>성명</th>
               <th>직위</th>
               <th>가입일</th>
-              <th>재직상태</th>
+              <!-- <th>재직상태</th> -->
             </tr>
           </thead>
           <tbody>
             <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ i+1 }}</td>
-              <td>서울지역본부</td>
-              <td>구범수</td>
-              <td>차장</td>
-              <td>2021-05-26</td>
-              <td>재직중</td>
+              <td>{{ item.hq_regional_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.update_date }}</td>
+              <!-- <td>재직중</td> -->
             </tr>
           </tbody>
         </app-table>
-      </app-check-group>
         <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>

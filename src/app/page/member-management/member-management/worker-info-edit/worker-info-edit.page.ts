@@ -492,7 +492,7 @@ export class WorkerInfoEditPage implements OnInit {
   //마일리지 지급
   async MileageInsert() {
     const modal = await this._modal_.create({
-      component:MileagePopupComponent,
+      component: MileagePopupComponent,
       componentProps: {
         company_id: this.formApproval.company_id,
         user_id: this.form.user_id
@@ -506,91 +506,4 @@ export class WorkerInfoEditPage implements OnInit {
       this.get();
     }
   }
-
-  //안전직무 수정
-  // async SafeSubmit(){
-  //   for(let i = 0; i < this.safeAdd.length; i++) {
-  //     this.formSafeJob = this.safeAdd[i];
-  //     if(this.formSafeJob.user_id) {
-  //       const res = await this.connect.run('/usermanage/info/worker/safejob/update',{
-  //         ...this.form,
-  //         ...this.formSafeJob
-  //       });
-  //       if(res.rsCode === 0) {
-  //         this._modal_.dismiss();
-  //       } else {
-  //         this.toast.present({ color: 'warning', message: res.rsMsg });
-  //       }
-  //     }
-  //   }
-  // }
-
-
-  // async safeInsert() {
-  //   console.log("this.safeAdd.length",this.safeAdd.length);
-  //   for(let i = 0; i < this.safeAdd.length; i++) {
-  //     this.formSafeJob = this.safeAdd[i];
-  //     // if(!this.safeAdd[i].ctgo_safe_job_id) return this.toast.present({message:'안전 직무를 선택해주세요.',color:'warning'});
-  //     // if(!this.safeAdd[i].safe_job_start_date) return this.toast.present({message:'안전 직무 선임일를 선택해주세요.',color:'warning'});
-  //     this.formSafeJob.ctgo_safe_job_id = 1
-
-  //     if(!this.safeAdd[i].user_id) {
-  //       console.log("input userid");
-  //       const res = await this.connect.run('/usermanage/info/worker/safejob/insert',{
-  //         ...this.form,
-  //         ...this.formSafeJob
-  //       });
-  //       if(res.rsCode === 0) {
-  //         this.getBelong();
-  //       } else {
-  //         this.toast.present({ color: 'warning', message: res.rsMsg });
-  //       }
-  //     }
-  //   }
-  // }
-
-
-  // async safeEdit(state,user_safe_job_id?,i?) {
-  //   console.log(state)
-  //   if(state) {
-  //     this.safeAdd.unshift({
-  //       ctgo_safe_job_id:0,
-  //       ctgo_safe_job_name_kr:'',
-  //       safe_job_start_date:'',
-  //       user_id:0,
-  //       user_safe_job_id:0,
-  //       approval_user_id:0,
-  //       session_company_id:0,
-  //       user_manage_session:'',
-  //       file: [] as FutItem[],
-  //       file_json: new FileJson(),
-  //       project_id:0
-  //     });
-  //   } else if(user_safe_job_id) {
-  //     this.alert.present({
-  //       message:'삭제하시겠습니까?',
-  //       buttons:[
-  //         {text:'아니요'},
-  //         {text:'에',
-  //           handler:async() => {
-  //             const res = await this.connect.run('/usermanage/info/worker/safejob/delete',{
-  //               session_company_id:this.user.userData.belong_data.company_id,
-  //               user_manage_session:this.user.memberAuthToken,
-  //               user_safe_job_id
-  //             });
-  //             if(res.rsCode === 0) {
-  //               this.toast.present({message:'삭제 되었습니다.',color:'primary'});
-  //               this.safeAdd.splice(i,1);
-  //             } else {
-  //               this.toast.present({ color: 'warning', message: res.rsMsg });
-  //             }
-  //           }
-  //         }
-  //       ]
-  //     });
-  //   } else {
-  //     if(this.safeAdd.length < 2) return this.toast.present({message:'마지막 1개는 삭제할수 없습니다.',color:'warning'})
-  //     this.safeAdd.splice(i,1);
-  //   }
-  // }
 }

@@ -9,14 +9,14 @@ import { LhInfoEditPage } from '../lh-info-edit/lh-info-edit.page';
 
 
 class LhInfo {
-  ctgo_job_position_name_kr: string;
+  delete_state: number;
   user_id: number;
   ctgo_job_position_id: number;
   hq_regional_id: number;
   user_name: string;
   hq_regional_name: string;
-  create_date: string;
-  approval_state: string;
+  ctgo_job_position_name: string;
+  update_date: string;
   row_count: number;
 }
 
