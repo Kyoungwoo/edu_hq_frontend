@@ -57,7 +57,7 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="add()">신규 개설</app-button>
+            <app-button fill="translucent" (click)="edit()">신규 개설</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -71,7 +71,7 @@
               <th>교육명</th>
               <th style="width: 120px;">교육대상</th>
               <th style="width: 80px;">교육장소</th>
-              <th style="width: 100px;">교육일</th>
+              <th style="width: 120px;">교육일</th>
               <th style="width: 150px;">교육시간</th>
               <th style="width: 80px;">출석진행자</th>
               <th style="width: 70px;">교육상태</th>
@@ -84,13 +84,14 @@
               <td>{{ item.ctgo_education_safe_name }}</td>
               <td>{{ item.education_safe_target }}</td>
               <td>{{ item.education_safe_place }}</td>
-              <td>{{ item.education_safe_date }}</td>
+              <td>{{ item.education_safe_date }} ({{ item.date_day}})</td>
               <td>{{ item.education_safe_start_time }} ~ {{ item.education_safe_end_time }}</td>
               <td>{{ item.education_safe_instructor }}</td>
-              <td>{{ item.ctgo_education_safe_type }}</td>
+              <td>{{ item.education_safe_state }}</td>
             </tr>
           </tbody>
         </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content>
@@ -118,75 +119,27 @@
     <app-row>
       <app-col></app-col>
       <app-col size="auto">
-        <app-button fill="translucent" (click)="add()">신규개설</app-button>
+        <app-button fill="translucent" (click)="edit()">신규개설</app-button>
       </app-col>
     </app-row>
     <ng-container>
-      <app-card>
+      <app-card *ngFor="let item of res?.rsMap">
         <app-row style="align-items: flex-start;">
           <app-col>
-            <p>(주)남광토건</p>
-            <p>(주)건영작업자/A교육장/이상범,구범수</p>
-            <p>21.05.21(금)/06:00~08:00</p>
+            <p>{{ item.company_name }}</p>
+            <p>{{ item.education_safe_target }}
+              /{{ item.education_safe_place }}
+              /{{ item.education_safe_instructor }}</p>
+            <p>{{ item.education_safe_date }} ({{ item.date_day }})
+              /{{ item.education_safe_start_time }}~{{ item.education_safe_end_time }}</p>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="success">교육중</ion-chip>
+            <ion-chip color="success">{{ item.education_safe_state }} </ion-chip>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <ion-badge color="success">특별04</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>(주)남광토건</p>
-            <p>(주)건영작업자/A교육장/이상범,구범수</p>
-            <p>21.05.21(금)/06:00~08:00</p>
-        </app-col>
-          <app-col size="auto">
-            <ion-chip color="medium">교육종료</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">특별20</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>(주)남광토건</p>
-            <p>(주)건영작업자/A교육장/이상범,구범수</p>
-            <p>21.05.21(금)/06:00~08:00</p>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">교육중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">채용시</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>(주)남광토건</p>
-            <p>(주)건영작업자/A교육장/이상범,구범수</p>
-            <p>21.05.21(금)/06:00~08:00</p>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">교육중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">특별04</ion-badge>
+            <ion-badge color="success">{{ item.ctgo_education_safe_title }}</ion-badge>
           </app-col>
         </app-row>
       </app-card>

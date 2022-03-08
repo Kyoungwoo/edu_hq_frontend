@@ -455,9 +455,11 @@ export class MemberStandardSetPage implements OnInit {
 
   //-->  회원관리 비밀번호 시작
   passwordCheck() {
-    const rex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/
+    const rex =  /^[0-9]{4,}$/;
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
 
+    console.log(this.form.company_password);
+    console.log(rex.test(this.form.company_password));
     if (!rex.test(this.form.company_password)) {
       this.passchkck = false;
       this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';

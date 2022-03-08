@@ -28,6 +28,7 @@ export class EduItem {
   education_safe_id: number;
   education_safe_instructor: string
   row_count:number;
+  date_day:string;
 }
 @Component({
   selector: 'app-safety-education-list',
@@ -90,33 +91,43 @@ export class SafetyEducationListPage implements OnInit {
   }
   
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
     this.form.project_id = 0;
     this.form.company_id = 0;
     this.res = await this.connect.run('/education/list',this.form);
-    if(this.res.rsCode !== 0) {
+    if(this.res.rsCode === 0) {
+      this.res.rsMap.forEach(item => {
+        item.date_day = this.date.day(item.education_safe_date)[0];
+      })
+    } else {      
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
-  public async edit(item) {
+  public async edit(item?) {
     const modal = await this._modal.create({
-      component: SafetyEducationDetailListPage,
-
+      component: SafetyEducationDetailEditPage,
+      componentProps:{
+        item
+      }
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.get();
+    }
   }
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: SafetyEducationDetailSearchPage,
-
-    })
+    });
     modal.present();
-}
-    public async add() {
-      const modal = await this._modal.create({
-        component: SafetyEducationDetailEditPage,
-
-    })
-    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log("data",data);
+      this.form = data;
+      console.log("this.form",this.form);
+      this.get();
+    }
   }
 }

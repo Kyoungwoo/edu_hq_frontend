@@ -20,7 +20,7 @@
     </app-row>
   </app-card>
   <div style="height: 250px; overflow: scroll;">
-    <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [color]="item.checked ? 'secondary':'white'" >
+    <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [color]="item.checked ? 'secondary':'white'">
       <app-row>
         <app-col size="4">
           <h5>감리사명</h5>

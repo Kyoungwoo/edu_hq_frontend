@@ -154,7 +154,7 @@ export class MyStatusListPage implements OnInit {
       // this.nfcqrForm.serial_key = nfcData;
       // if(nfcData === 'N22') this.gateState = true;
       this.nfcqrForm.serial_key = 'N22';
-      this.nfcqrForm.nb_log_state = 'NFC'
+      this.nfcqrForm.nb_log_state = 'NFC';
       if(nfcData.type === 'QR_CHANGE') {
         this.inNfcQr();
       } else { 

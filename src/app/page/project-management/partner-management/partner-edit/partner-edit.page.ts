@@ -297,7 +297,7 @@ export class PartnerEditPage implements OnInit {
       if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
       else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
 
-      if(!company_contract_data.manager_user_id) { this.toast.present({ message: '협력사 소장을 입력해주세요.',color:'warning'}); return false; };
+      // if(!company_contract_data.manager_user_id) { this.toast.present({ message: '협력사 소장을 입력해주세요.',color:'warning'}); return false; };
     }
 
     return true;

@@ -30,9 +30,9 @@ export class DetailSearchComponent implements OnInit {
   }
 
   roleCheck() {
-   const { user_role,belong_data } = this.user.userData;
+   const { user_role, belong_data } = this.user.userData;
    
-    if(user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL'){
+    if(user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL') {
       this.form.project_id = belong_data.project_id;
       this.form.master_company_id = belong_data.company_id;
       this.disabled = true;

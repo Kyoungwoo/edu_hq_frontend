@@ -45,11 +45,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private qrScanner: QRScanner,
     private file: File,
     private media: Media,
-    private nav:NavService,
-    private nfc: NfcService,
-    private toast:ToastService,
     private _modal:ModalController,
-    private connect: ConnectService,
   ) { }
 
   async ngOnInit() {

@@ -58,10 +58,10 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
     
     const res = await this.connect.run('/forSignUp/project/id/get', {});
     if(res.rsCode === 0) {
-      const { rsMap } = this.res;
-      this.text = rsMap
-      .filter(education => (this.value as number[]).indexOf(education.ctgo_education_safe_id))
-      .map(education => education.ctgo_education_safe_name).join();
+      // const { rsMap } = this.res;
+      // this.text = rsMap
+      // .filter(education => (this.value as number[]).indexOf(education.ctgo_education_safe_id))
+      // .map(education => education.ctgo_education_safe_name).join();
     }
   }
 
@@ -79,8 +79,10 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
         this.text = '전체';
         this.value = 0;
       } else {
-        this.value = data.ctgo_education_safe_id;
+        console.log(data);
+        this.value = data.data.ctgo_education_safe_id;
         this.text = data.data.ctgo_education_safe_name;
+        console.log(this.value);
         console.log("this.text",this.text);
       }
     }
@@ -91,8 +93,8 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   @Output() change = new EventEmitter();
 
 
-  private _value:number[] | number;
-  @Input() set value(v:number[] | number) {
+  private _value: number;
+  @Input() set value(v: number) {
     if(v !== this._value) {
       this.valueChange(v);
     }
@@ -100,7 +102,7 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:[]): void { 
+  writeValue(v:number): void { 
     if(v !== this._value) {
       this.valueChange(v);
     }

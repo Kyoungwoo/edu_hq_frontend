@@ -18,8 +18,7 @@ export class QrService {
   }
 
 constructor(
-    private _modal : ModalController,
-    private qr_scanner : QRScanner
+    private _modal : ModalController
   ) { }
 
   qrCallback;

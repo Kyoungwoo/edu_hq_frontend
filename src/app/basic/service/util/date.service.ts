@@ -52,7 +52,7 @@ export class DateService {
     return date.getFullYear() + formatList[0] + this.regex.replace.fix(date.getMonth() + 1, 2) + formatList[1] + this.regex.replace.fix(date.getDate(), 2) + formatList[2] + dayString;
   }
   /** 요일만 구한다. */
-  day(date:Date | string, dayFormat:DayFormat) {
+  day(date:Date | string, dayFormat:DayFormat = null) {
     date = typeof date === 'string' ? new Date(date) : date;
     var week = dayFormat || ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
     var dayOfWeek = week[new Date(date).getDay()];
