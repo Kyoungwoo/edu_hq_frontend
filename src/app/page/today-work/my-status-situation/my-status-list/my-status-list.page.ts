@@ -98,9 +98,15 @@ export class MyStatusListPage implements OnInit {
   }
 
   roleCheck() {
-    if(this.user.userData.user_role === 'LH_HEAD' ||
-      this.user.userData.user_role === 'MASTER_HEAD' ||
-      this.user.userData.user_role === 'PARTNER_HEAD') this.notWorker = true;
+    const { user_role, user_type } = this.user.userData
+    if(user_role === 'MASTER_HEAD' ||
+       user_role === 'LH_HEAD'||
+       user_role === 'PARTNER_HEAD' ||
+       user_role === 'MASTER_GENERAL' ||
+       user_role === 'PARTNER_GENERAL') this.notWorker = true;
+
+    if(user_role === 'PARTNER_WORKER' ||
+       user_type === 'WORKER') this.notWorker = false;
   }
 
   async get() {
@@ -179,7 +185,7 @@ export class MyStatusListPage implements OnInit {
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     const $qr = await this.qr.subscribe(async (qrData) => {
       // this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.serial_key = 'E002';
+      this.nfcqrForm.serial_key = 'N22';
       this.nfcqrForm.nb_log_state = 'QR'
       console.log("qrData",qrData);
       if(qrData.type === 'NFC_CHANGE'){
@@ -194,7 +200,6 @@ export class MyStatusListPage implements OnInit {
           this.get();
           } else {
             $qr.unsubscribe();
-            this.inNfcQr();
             this.toast.present({message:res.rsMsg, color:'warning'});
         }
       }

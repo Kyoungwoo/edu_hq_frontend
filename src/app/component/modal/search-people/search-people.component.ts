@@ -23,7 +23,7 @@ export class SearchPeopleComponent implements OnInit {
 
 
   @Input() form = {
-    project_id: 0,
+    company_id: 0,
     search_text: '',
     user_type: ''
   }

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
 import { Subscription } from 'rxjs';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import { Injectable, Input } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class QrService {
   qr_subs:Subscription;
   qr_value = null;
@@ -16,17 +16,16 @@ export class QrService {
     qr_modal: null,
     qr_subs: null
   }
-
+  @Input() item;
+ 
 constructor(
-    private _modal : ModalController
-  ) { }
-
-  qrCallback;
-
-  async subscribe(callback, type) {
-    console.log("callback",callback)
-    this.qrCallback = callback;
+    private _modal : ModalController,
     
+    ) { }
+    qrCallback;
+    
+  async subscribe(callback) {
+    this.qrCallback = callback;
     const modal = await this._modal.create({
       component:QrScannerComponent,
       cssClass:'scan-modal',
@@ -53,7 +52,6 @@ constructor(
   };
   
   async getQrData(value) {
-    console.log("value",value);
     this.qr_response = {...value};
     return this.qrCallback(value);
   }

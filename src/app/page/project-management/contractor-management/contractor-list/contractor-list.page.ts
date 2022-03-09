@@ -87,7 +87,6 @@ export class ContractorListPage implements OnInit {
   }
 
   async edit(item) {
-    console.log("item",item);
     const modal = await this.modal.create({
       component:ContractorEditPage,
       componentProps:{
@@ -107,10 +106,11 @@ export class ContractorListPage implements OnInit {
   }
  async getCtgoBusiness() {
     this.ctgoBusiness.rsMap = [];
-    if(this.form.hq_regional_id) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_id},{});
+    if(this.form.hq_regional_id) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',
+    {
+      hq_regional_id:this.form.hq_regional_id
+    },{});
 
-    
-    // console.log(this,this.ctgoRegional);
     // if(this.ctgoRegional.rsCode === 0) {
     // }
   }

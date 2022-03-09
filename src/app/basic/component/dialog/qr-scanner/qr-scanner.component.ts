@@ -1,14 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Subscription } from 'rxjs';
 import { File } from "@ionic-native/file/ngx";
 import Qr from "src/app/basic/plugin/qr-plugin";
-import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
-import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+
 
 
 @Component({
@@ -54,17 +51,14 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
     this.qr_sound = this.media.create(url);
     this.qr_sound.onSuccess.subscribe(e => {
-      console.log('success', e);
     });
     this.qr_sound.onError.subscribe(e => {
-      console.log('error', e);
     })
   }
   
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
     this.qr_subs.unsubscribe();
-    console.log("durlfh??")
     const routerEl = document.querySelector('ion-router-outlet');
     routerEl.style.display = 'flex';
     this.qrScanner.destroy();

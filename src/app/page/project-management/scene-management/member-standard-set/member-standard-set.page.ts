@@ -149,7 +149,6 @@ export class MemberStandardSetPage implements OnInit {
 
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
-      console.log("this.lhHeadCheck",this.lhHeadCheck);
     } else if(this.lhHeadCheck) {
       this.menuCount = 2;
       this.menuCount2();
@@ -174,7 +173,6 @@ export class MemberStandardSetPage implements OnInit {
   }
   async menuCount5() {
     this.menuCount = 5;
-    console.log(this.user.userData)
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.getJobPosition();
       this.rolepass = false;
@@ -216,7 +214,6 @@ export class MemberStandardSetPage implements OnInit {
   }
   //
   async level3() {
-    console.log("sdfasdfasdf");
     this.resLevel3 = await this.connect.run('/project/organization/department/get', {
       hq_business_id: this.hq_business_id,
       hq_regional_id: this.hq_regional_id
@@ -226,8 +223,6 @@ export class MemberStandardSetPage implements OnInit {
 
   async level2In(item, ev) {
     ev.stopPropagation();
-    // this.area2SelectList = [];
-    // this.area3SelectList = [];
     this.hq_regional_id = item.hq_regional_id;
     if (item.hq_regional_id) {
       this.resLevel2 = await this.connect.run('/project/organization/business/get', {
@@ -256,7 +251,6 @@ export class MemberStandardSetPage implements OnInit {
       case 'level1':
         this.resLevel1?.rsMap.forEach((item, i) => {
           if (this.area1SelectList !== item) {
-            // this.resLevel3.rsMap = [];
             item.checked = false;
           }
         });
@@ -457,9 +451,6 @@ export class MemberStandardSetPage implements OnInit {
   passwordCheck() {
     const rex =  /^[0-9]{4,}$/;
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-
-    console.log(this.form.company_password);
-    console.log(rex.test(this.form.company_password));
     if (!rex.test(this.form.company_password)) {
       this.passchkck = false;
       this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';
@@ -477,7 +468,6 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
-    console.log("this.lhHeadCheck",this.lhHeadCheck);
     if (!this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' , color:'warning'});
     if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
     const res = await this.connect.run('/project/company/pass/update', this.form, {});

@@ -119,13 +119,8 @@ export class WorkerStatusAddPage implements OnInit {
     alert.present();
   }
 
-  deleteData(i,name) {
-    console.log(i);
-   this.res.rsMap.forEach((item) =>{
-     if(item.user_id === name.user_id) {
-       item.checked = false;
-     }
-   });
+  deleteData(i,item) {
+    this.res.rsMap.filter(data => {if(data === item) return data.checked = false});
     this.selectData.splice(i,1);
   }
 

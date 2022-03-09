@@ -117,7 +117,6 @@ export class SceneEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
-      console.log("this.form",this.form);
       if((this.form.create_user_id === this.user.userData.user_id) || 
       (this.user.userData.user_role === 'LH_HEAD')) {
         this.roleCheck = false;
@@ -231,7 +230,6 @@ export class SceneEditPage implements OnInit {
   }
 
   address() {
-    // this.daum.open().then((item) => { if (item) this.form.project_address = '[' + item.zoneCode + '] ' + item.address; });
     this.daum.open().then((item) => {
       if (item) {
         this.form.project_address = item.address;

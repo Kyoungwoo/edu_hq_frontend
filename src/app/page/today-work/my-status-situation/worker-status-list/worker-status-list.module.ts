@@ -11,6 +11,7 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { WorkerStatusAddPageModule } from '../worker-status-add/worker-status-add.module';
 import { StatusSearchModule } from '../../component/status-search.module';
+import { QrService } from 'src/app/basic/service/util/qr.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,9 @@ import { StatusSearchModule } from '../../component/status-search.module';
     WorkerStatusAddPageModule,
     StatusSearchModule
   ],
-  declarations: [WorkerStatusListPage]
+  declarations: [WorkerStatusListPage],
+  providers:[
+    QrService
+  ]
 })
 export class WorkerStatusListPageModule {}

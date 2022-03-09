@@ -15,8 +15,8 @@ import { SceneEditPage } from '../scene-edit/scene-edit.page';
 export class SceneListPage implements OnInit {
 
   form = {
-    hq_business_ids:[],
-    hq_regional_ids:[],
+    hq_business_id:0,
+    hq_regional_id:0,
     search_text:'',
     limit_no:0,
   }
@@ -67,8 +67,6 @@ export class SceneListPage implements OnInit {
 
   ngOnInit() {
     this.getList();
-
-    console.log("this.user.userData",this.user.userData);
     this.getCtgoRegional();
   }
 
@@ -82,7 +80,7 @@ export class SceneListPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.res = res;
-    } else if(this.res.rsCode === 1008) {
+    } else if(res.rsCode === 1008) {
       if(!this.form.limit_no) this.toast.present({ color: 'warning', message: res.rsMsg });
       // else 더 로딩할 데이터가 없음
     }
@@ -153,14 +151,11 @@ export class SceneListPage implements OnInit {
   }
   
   async getCtgoBusiness() {
-      if(this.form.hq_regional_ids.length){
         this.businessState = false;
-        this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_ids[0]},{});
-        console.log(this,this.ctgoRegional);
+        this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
+        {
+          hq_regional_id:this.form.hq_regional_id
+        },{});
         if(this.ctgoRegional.rsCode === 0) {}
-      } else {
-        this.businessState = true;
-        this.form.hq_business_ids = [];
-      }
   }
 }

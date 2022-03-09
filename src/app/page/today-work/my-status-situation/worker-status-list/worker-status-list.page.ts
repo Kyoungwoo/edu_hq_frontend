@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -9,14 +9,8 @@ import { AreaDate } from 'src/app/component/select/select-dangerous-area/select-
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
 
+
 export type CtgoNative = 'ch' | 'en' | 'kr' | 'vi';
-export class InnerDate {
-  nb_log_id: number;
-  inside_time: string;
-  inside_state: number;
-  outside_time: string;
-  outside_state: number;
-}
 
 @Component({
   selector: 'app-worker-status-list',
@@ -51,7 +45,6 @@ export class WorkerStatusListPage implements OnInit {
   }>;
 
   areadata = new AreaDate();
-
   form = {
     master_company_id:0,
     project_id:history.state.project_id,
@@ -117,7 +110,6 @@ export class WorkerStatusListPage implements OnInit {
         ...res,
         ...this.gateList
       }
-      console.log("this.gateList",this.gateList);
     } else {
       this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
     }
@@ -191,20 +183,16 @@ export class WorkerStatusListPage implements OnInit {
     });
   }
 
-
-
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     // if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     const $qr = await this.qr.subscribe(async (qrData) => {
       this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.nb_log_state = 'QR'
-      console.log("qrData",qrData);
-      if(qrData.type === 'NFC_CHANGE'){
+      this.nfcqrForm.nb_log_state = 'QR';
+      if(qrData.type === 'NFC_CHANGE') {
         this.nfcScan();
       }
       else {
-      console.log("qrIn");
         if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode !== 0) {

@@ -232,14 +232,26 @@
     color: var(--ion-color-step-250);
   }
   ion-chip {
-    pointer-events: none;
+    cursor: default;
     border-radius: var(--app-border-radius);
     background: var(--ion-color-translucent);
+    color: var(--ion-colo-base);
     margin: 0;
+  }
+  ion-chip[fill=solid] {
+    background: var(--ion-color-base);
+    color: var(--ion-color-contrast);
+  }
+  ion-chip[button] {
+    cursor: pointer;
+  }
+  ion-chip[button]:hover {
+    background: var(--ion-color-shade);
   }
   ion-chip + ion-chip {
     margin-left: 4px;
   }
+
   ion-badge {
     vertical-align: middle;
     font-weight: 500;
@@ -482,13 +494,14 @@
       --max-width: 500px;
       --max-height: 450px;
     }
+
     .today-departure-status-list-modal {
       --max-width: 1480px;
       --max-height: 960px;
     }
     .today-departure-status-edit-modal {
       --max-width: 760px;
-      --max-height: 520px;
+      --max-height: 720px;
     }
 
     .side-menu-admin-modal {

@@ -354,7 +354,6 @@ export class WorkStandardSetPage implements OnInit {
               if (checkedItem.ctgo_tool_id === 0) {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
-                console.log("checkedItem",checkedItem);
                 const res = await this.connect.run('/project/tool/delete', {
                   company_id: checkedItem.company_id,
                   ctgo_tool_id: checkedItem.ctgo_tool_id,
@@ -474,7 +473,6 @@ export class WorkStandardSetPage implements OnInit {
               if (checkedItem.ctgo_disaster_id === 0) {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
-                console.log("checkedItem",checkedItem);
                 const res = await this.connect.run('/project/disaster/delete', {
                   company_id: checkedItem.company_id,
                   ctgo_disaster_id: checkedItem.ctgo_disaster_id
