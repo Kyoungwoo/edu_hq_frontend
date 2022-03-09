@@ -23,7 +23,7 @@ constructor(
 
   qrCallback;
 
-  async subscribe(callback) {
+  async subscribe(callback, type) {
     console.log("callback",callback)
     this.qrCallback = callback;
     
