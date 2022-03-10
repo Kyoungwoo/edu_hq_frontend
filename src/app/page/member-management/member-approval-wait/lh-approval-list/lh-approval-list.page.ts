@@ -110,7 +110,9 @@ export class LhApprovalListPage implements OnInit {
     const modal = await this.modal.create({
       component:ApprovalPopupComponent,
       componentProps:{
-        selectedList:this.selectedList
+        selectedList:this.selectedList,
+        
+
       },
       cssClass:"approval-modal"
     });

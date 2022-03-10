@@ -142,6 +142,7 @@ export class LhInfoEditPage implements OnInit {
         ...this.formApproval,
         ...res.rsObj
       }
+      console.log("--------- test : ", this.formApproval);
     } else if (res.rsCode === 3008) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();

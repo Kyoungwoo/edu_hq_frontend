@@ -36,9 +36,7 @@ export class ApprovalItem {
   company_id: number;
   ctgo_job_position_id: number;
   hq_department_id: number;
-  hq_regional_id: number;
   hq_business_id: number;
-  hq_regional_name: string;
   project_name: string;
   user_role: string;
   construction_start_date: string;
@@ -47,6 +45,20 @@ export class ApprovalItem {
   construction_end_date: string;
   company_name: string;
   hq_department_name: string;
+
+  hq_regional_entire_state: 0|1; // 본사권한 = 1
+  hq_regional_id: number; // id
+  hq_regional_code: string; // 코드
+  hq_regional_name: string; // 지역본부명
+  hq_regional_use_state: 0|1; // 사용 = 1
+}
+
+export class RegionalItem {
+  hq_regional_entire_state: 0|1; // 본사권한 = 1
+  hq_regional_id: number; // id
+  hq_regional_code: string; // 코드
+  hq_regional_name: string; // 지역본부명
+  hq_regional_use_state: 0|1; // 사용 = 1
 }
 
 @Component({
@@ -142,6 +154,10 @@ export class LhApprovalEditPage implements OnInit {
         ...this.formApproval,
         ...res.rsObj
       }
+      console.log("----- res.rsObj.hq_business_id : ", res.rsObj.hq_business_id);
+      console.log("----- this.formApproval : ", this.formApproval.hq_business_id);
+      this.formApproval.hq_business_id = res.rsObj.hq_business_id;
+      console.log("--------- test : ", this.formApproval);
     } else if(res.rsCode === 3008) {
        // 비밀번호 없거나 틀렸음
        this.getPassword();

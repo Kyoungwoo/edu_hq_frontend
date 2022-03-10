@@ -147,9 +147,6 @@
             <app-button fill="translucent" style="width: 120px;">정보 불러오기</app-button>
           </app-col>
         </app-row> -->
-
-
-      
         <h5>자격정보</h5>
         <app-table type="card">
           <thead>
@@ -290,15 +287,14 @@
               <app-calendar label="기초 안전 보건 교육 이수일" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
           </app-col>
           <app-col>
-            <app-input-template label="기초 안전 보건 교육 이수증">
-              <a slot="input" href="https://www.naver.com" target="_blank" download="naver.html">이수증.JPEG</a>
+            <app-input-template label="기초안전보건교육 이수증">
+              <p *ngIf="!findFile('BASIC_SAFE_EDU') else tempBasicSafeEduValue" slot="input">기초안전보건교육 이수증</p>
+              <ng-template #tempBasicSafeEduValue>
+                <ion-text color="dark" slot="input">{{ findFile('BASIC_SAFE_EDU').file_name }}</ion-text>
+              </ng-template>
+              파일찾기
+              <app-file name="input-basic_safe_edu" [(ngModel)]="formSafeEdu.file_preview" view_type="BASIC_SAFE_EDU" [file]="formSafeEdu.file" [file_json]="formSafeEdu.file_json"></app-file>
             </app-input-template>
-              <!-- <app-file name="input" view_type="BASIC_SAFE_EDU"
-              [(ngModel)]="form.user_safe_edu_file_data"
-              [file]="form.file"
-              [file_json]="form.file_json"
-              ></app-file> -->
-            
           </app-col>
         </app-row>
         <app-row>

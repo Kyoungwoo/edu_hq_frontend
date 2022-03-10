@@ -6,6 +6,7 @@ import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.ser
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 import { MileagePopupComponent } from '../mileage-popup/mileage-popup.component';
 
@@ -91,6 +92,10 @@ export class SafeEduItem {
   approval_user_id: number;
   session_company_id: number;
   user_manage_session: string;
+  file_preview:FutItem<SignUpViewType>[] = []; // 파일 미리보기
+  file:(File | FileBlob)[] = []; // 파일
+  file_json:FileJson<SignUpViewType> = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
+
 
 }
 //교육이력 리스트
@@ -107,12 +112,14 @@ export class SafeEduList {
   create_date: string;
   project_name: string;
 }
+
 //총 마일리지 리스트
 export class TotalMileageList {
   minus_mileage: number;
   total_mileage: number;
   plus_mileage: number;
 }
+
 // 마일리지 사용 리스트
 export class MinusMileageList {
   ctgo_safe_mileage_point: number;
@@ -124,6 +131,7 @@ export class MinusMileageList {
   payer_user_id: number;
   ctgo_safe_mileage_id: string;
 }
+
 //마일리지 적립 리스트
 export class PlusMileageList {
   ctgo_safe_mileage_point: number;
@@ -246,6 +254,11 @@ export class WorkerInfoEditPage implements OnInit {
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
+
+    //교육이수증
+    public findFile(view_type:SignUpViewType) {
+      return this.formSafeEdu.file_preview.find(futItem => futItem.view_type === view_type);
+    }
 
   async get() {
     await this.getItem(); //기본정보
