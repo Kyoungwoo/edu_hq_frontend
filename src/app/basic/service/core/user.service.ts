@@ -158,27 +158,27 @@ export class UserService {
   /** utils */
   parseUserRole(userRole:number) {
     switch(userRole) {
-      case 0:
-        return 'LH 본사 마스터';
       case 1:
-        return 'LH 본사 관리자';
+        return 'LH 본사 마스터';
       case 2:
-        return 'LH 지역본부 관리자';
+        return 'LH 본사 관리자';
       case 3:
-        return 'LH 사업본부 관리자';
+        return 'LH 지역본부 관리자';
       case 4:
-        return 'LH 현장 관리자';
+        return 'LH 사업본부 관리자';
       case 5:
-        return '원청사 마스터';
+        return 'LH 현장 관리자';
       case 6:
-        return '원청사 일반 관리자';
+        return '원청사 마스터';
       case 7:
-        return '원청사 작업자';
+        return '원청사 일반 관리자';
       case 8:
-        return '협력사 마스터';
+        return '원청사 작업자';
       case 9:
-        return '협력사 일반 관리자';
+        return '협력사 마스터';
       case 10:
+        return '협력사 일반 관리자';
+      case 11:
         return '협력사 작업자';
     }
   }

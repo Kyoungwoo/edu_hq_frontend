@@ -35,7 +35,6 @@ export class SelectSafetymanagerComponent implements OnInit, ControlValueAccesso
 
   private _company_id:number;
   @Input() set company_id(v:number) {
-    console.log(v);
     if(this._company_id !== v) {
       this._company_id = v;
       this.get();
@@ -43,7 +42,14 @@ export class SelectSafetymanagerComponent implements OnInit, ControlValueAccesso
   }
   get company_id() { return this._company_id }
 
-  @Input() user_type:string;
+  private _user_type:string;
+  @Input() set user_type(v:string) {
+    if(this._user_type !== v) {
+      this._user_type = v;
+      this.get();
+    }
+  }
+  get user_type() { return this._user_type }
 
   res:ConnectResult<SafeJob>;
 
@@ -53,7 +59,9 @@ export class SelectSafetymanagerComponent implements OnInit, ControlValueAccesso
     private promise: PromiseService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   private async get() {
     if(!this.company_id || !this.user_type) return;

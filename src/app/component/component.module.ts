@@ -56,6 +56,7 @@ import { SelectManualComponent } from './select/select-manual/select-manual.comp
 import { SelectRegionalComponent } from './select/select-regional/select-regional.component';
 import { SelectProjectContractorComponent } from './select/select-project-contractor/select-project-contractor.component';
 import { SearchProjectContractorComponent } from './modal/search-project-contractor/search-project-contractor.component';
+import { InputSafejobComponent } from './input/input-safejob/input-safejob.component';
 
 
 
@@ -65,6 +66,8 @@ import { SearchProjectContractorComponent } from './modal/search-project-contrac
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
+    //input
+    InputSafejobComponent,
     // search
     SearchPeopleComponent,
     SearchCompanyComponent,
@@ -127,6 +130,8 @@ import { SearchProjectContractorComponent } from './modal/search-project-contrac
   exports: [
     BasicComponentModule,
     HeaderAdminComponent,
+    //input
+    InputSafejobComponent,
     // search
     SearchPeopleComponent,
     SearchCompanyComponent,

@@ -29,7 +29,7 @@ export class SearchEducationComponent implements OnInit {
   allState:boolean = false;
 
   res:ConnectResult<Education>;
-  values:Education;
+  values:Education | Education[];
   selectAll:boolean;
   constructor(
     private connect: ConnectService,
@@ -46,6 +46,38 @@ export class SearchEducationComponent implements OnInit {
     this.res = await this.connect.run('/category/education/get',this.form);
     if(this.res.rsCode !==0 ) {
       this.toast.present({message:this.res.rsMsg, color:'wanring'});
+    }
+  }
+  selected(item:Education) {
+    if(!this.multiple) {
+      return this.values === item;
+    }
+    else {
+      if(!this.values) this.values = [];
+      const values = <Education[]>this.values;
+      return values.includes(item);
+    }
+  }
+  itemClick(item:Education) {
+    this.allState = false;
+    if(!this.multiple) {
+      if(this.values === item) {
+        this.values = null;
+      }
+      else {
+        this.values = item;
+      }
+    }
+    else {
+      if(!this.values) this.values = [];
+      const values = <Education[]>this.values;
+      const index = values.indexOf(item);
+      if(index > -1) {
+        values.splice(index, 1);
+      }
+      else {
+        values.push(item);
+      }
     }
   }
 

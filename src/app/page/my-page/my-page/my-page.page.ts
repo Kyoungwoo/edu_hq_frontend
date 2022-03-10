@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Validator, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { Validator, ConnectService, ConnectResult } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserRole, UserService, UserType } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -9,6 +9,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { environment } from 'src/environments/environment';
 import { ChangePasswordPage } from '../change-password/change-password.page';
 import { ChangePhonePage } from '../change-phone/change-phone.page';
@@ -64,15 +65,18 @@ export class BelongForm {
   ctgo_construction_name:string = null;
 
   /** 원청사, 협력사 form */
+  safe_job_data:SafeJobItem[] = [];
 }
 
 /** 교육이력 class */
-export class EducationForm {
-
+export class EducationGetForm {
+  ctgo_education_safe_types:string[] = [];
+  project_id:number = null;
+  search_text:string = null;
 }
 
 /** 안전마일리지 class */
-export class MileageForm {
+export class MileageGetForm {
 
 }
 @Component({
@@ -81,6 +85,8 @@ export class MileageForm {
   styleUrls: ['./my-page.page.scss'],
 })
 export class MyPagePage implements OnInit {
+
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
 
   editable:boolean = false;
   segment:'belong'|'education'|'mileage' = 'belong';
@@ -95,12 +101,14 @@ export class MyPagePage implements OnInit {
   belongValidator = new Validator(new BelongForm()).validator;
 
   /** 교육이력 form */
-  educationForm = new BelongForm();
-  educationValidator = new Validator(new BelongForm()).validator;
+  educationGetForm = new EducationGetForm();
+  educationRes:ConnectResult<any>;
 
   /** 안전마일리지 form */
-  mileageForm = new BelongForm();
-  mileageValidator = new Validator(new BelongForm()).validator;
+  mileageTotalRes:ConnectResult<any>;
+  mileagePlusRes:ConnectResult<any>;
+  mileageMinusRes:ConnectResult<any>;
+
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -117,14 +125,14 @@ export class MyPagePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUserType();
+    this.getForm();
     this.get();
   }
 
   /**
    * 데이터 구성 파트
    */
-  getUserType() {
+  getForm() {
     const { user_type, user_role } = this.user.userData;
     if(user_type === 'COMPANY') {
       if(user_role.startsWith('MASTER')) {
@@ -137,6 +145,8 @@ export class MyPagePage implements OnInit {
     else {
       this.userType = user_type;
     }
+
+    this.educationGetForm.project_id = this.user.userData.belong_data.project_id;
   }
 
   /** 모두 가져오기 */
@@ -148,7 +158,11 @@ export class MyPagePage implements OnInit {
      */
     await Promise.all([
       this.getBasic(),
-      this.getBelong()
+      this.getBelong(),
+      this.getEducation(),
+      this.getMileageTotal(),
+      this.getMileagePlus(),
+      this.getMileageMinus()
     ]);
 
     loading.dismiss();
@@ -256,15 +270,72 @@ export class MyPagePage implements OnInit {
     else if(this.userType === 'SUPER') {
       api = '/mypage/super/belong/detail';
     }
-    const res = await this.connect.run(api);
+    else if(this.userType === 'MASTER' || this.userType === 'PARTNER') {
+      api = '/mypage/company/belong/detail';
+    }
+
+    const res = await this.connect.run(api, {}, { parse: ['safe_job_data'] });
     if(res.rsCode === 0) {
       this.belongForm = {
-        ...this.basicForm,
+        ...this.belongForm,
         ...res.rsObj
       }
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  /** 교육정보 가져오기 */
+  async getEducationSearch() {
+    const loading = await this.loading.present();
+    await this.getEducation();
+    loading.dismiss();
+  }
+  private async getEducation() {
+    if(this.userType === 'MASTER' || this.userType === 'PARTNER') {
+      this.educationRes = await this.connect.run('/mypage/education/list', this.educationGetForm);
+      if(this.educationRes.rsCode === 1008) {
+        // 암것도 안함
+      }
+      else if(this.educationRes.rsCode) {
+        this.toast.present({ color: 'warning', message: this.educationRes.rsMsg });
+      }
+    }
+  }
+
+  /** 마일리지 정보 가져오기 */
+  private async getMileageTotal() {
+    if(this.userType === 'PARTNER') {
+      this.mileageTotalRes = await this.connect.run('/mypage/mileagetotal/list', this.educationGetForm);
+      if(this.mileageTotalRes.rsCode === 1008) {
+        // 암것도 안함
+      }
+      else if(this.mileageTotalRes.rsCode) {
+        this.toast.present({ color: 'warning', message: this.mileageTotalRes.rsMsg });
+      }
+    }
+  }
+  private async getMileagePlus() {
+    if(this.userType === 'PARTNER') {
+      this.mileagePlusRes = await this.connect.run('/mypage/mileageplus/list', this.educationGetForm);
+      if(this.mileagePlusRes.rsCode === 1008) {
+        // 암것도 안함
+      }
+      else if(this.mileagePlusRes.rsCode) {
+        this.toast.present({ color: 'warning', message: this.mileagePlusRes.rsMsg });
+      }
+    }
+  }
+  private async getMileageMinus() {
+    if(this.userType === 'PARTNER') {
+      this.mileageMinusRes = await this.connect.run('/mypage/mileageminus/list', this.educationGetForm);
+      if(this.mileageMinusRes.rsCode === 1008) {
+        // 암것도 안함
+      }
+      else if(this.mileageMinusRes.rsCode) {
+        this.toast.present({ color: 'warning', message: this.mileageMinusRes.rsMsg });
+      }
     }
   }
 
@@ -276,12 +347,17 @@ export class MyPagePage implements OnInit {
   /** 전체 입력 */
   public async submit() {
     if(!this.basicValid()) return;
-    if(!this.belongValid()) return;
+    if(!this.belongValid()) {
+      this.segment = 'belong';
+      return;
+    }
 
     const loading = await this.loading.present();
 
     const resAll = await Promise.all([
       this.basicSubmit(),
+      // 안전직무 정보 submit
+      this.inputSafeJob.submit(),
       this.belongSubmit()
     ]);
 
@@ -315,6 +391,10 @@ export class MyPagePage implements OnInit {
     else if(this.userType === 'SUPER') {
       api = '/mypage/super/belong/update';
     }
+    else if(this.userType === 'MASTER' || this.userType === 'PARTNER') {
+      api = '/mypage/company/belong/update';
+    }
+
     const res = await this.connect.run(api, this.belongForm);
     if(res.rsCode === 0) {
       return true;
