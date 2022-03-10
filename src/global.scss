@@ -368,8 +368,15 @@
           margin-bottom: 20px;
         }
       }
-      .alert-button-group {
+      .alert-input-group {
         order: 3;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+      .alert-button-group {
+        order: 4;
         justify-content: stretch;
         border-top: 1px solid var(--ion-color-step-50);
         margin: 0;
@@ -495,13 +502,24 @@
       --max-height: 450px;
     }
 
-    .today-departure-status-list-modal {
-      --max-width: 1480px;
-      --max-height: 960px;
+    // my-page
+    .change-password-modal {
+      --max-width: 640px;
+      --max-height: 640px;
     }
+    .change-phone-modal {
+      --max-width: 640px;
+      --max-height: 640px;
+    }
+
+    // work-management
     .today-departure-status-edit-modal {
       --max-width: 760px;
       --max-height: 720px;
+    }
+    .today-departure-status-list-modal {
+      --max-width: 1480px;
+      --max-height: 960px;
     }
 
     .side-menu-admin-modal {

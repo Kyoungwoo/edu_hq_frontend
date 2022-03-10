@@ -540,6 +540,14 @@ const routes: Routes = [
     path: 'qr-scan',
     loadChildren: () => import('./page/today-work/qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
   },
+  {
+    path: 'change-password',
+    loadChildren: () => import('./page/my-page/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'change-phone',
+    loadChildren: () => import('./page/my-page/change-phone/change-phone.module').then( m => m.ChangePhonePageModule)
+  },
   
 
 ];

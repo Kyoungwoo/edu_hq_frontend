@@ -51,7 +51,9 @@
         opacity: var(--app-readonly-opacity);
     }
 }
-:host.disabled {
+:host.disabled,
+.disabled :host {
+    pointer-events: none;
     background: none;
     box-shadow: none;
     border: 1px solid var(--ion-color-step-200);

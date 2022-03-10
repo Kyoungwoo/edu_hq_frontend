@@ -83,8 +83,9 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
       hq_business_id: this.value.hq_business_id
     });
   }
-  public change1() {
+  public async change1() {
     if(!this.value.hq_regional_id) return;
+    await this.promise.wait(() => this.res1);
     // 2,3 초기화
     this.res2 = null;
     this.res3 = null;
@@ -101,16 +102,21 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
       this.value = new OrganizationValue();
     }
   }
-  public change2() {
+  public async change2() {
     if(!this.value.hq_regional_id || !this.value.hq_business_id) return;
+    await this.promise.wait(() => this.res2);
     // 3 초기화
     this.res3 = null;
     this.value.hq_department_id = null;
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res2.rsMap.find(item => item.hq_business_id === this.value.hq_business_id);
-    this.value.hq_business_entire_state = selectedItem.hq_business_entire_state;
-    if(this.value.hq_business_entire_state === 0)  this.get3();
+    if(selectedItem) {
+      this.value.hq_business_entire_state = selectedItem.hq_business_entire_state;
+      if(this.value.hq_business_entire_state === 0)  this.get3();
+    } else {
+      this.value = new OrganizationValue();
+    }
   }
 
   getColor() {

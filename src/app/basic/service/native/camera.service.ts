@@ -33,7 +33,6 @@ export class CameraService {
       resultType: CameraResultType.DataUrl,
       ...opts
     });
-    console.log(photo);
     let dataUrl:string;
     if(opts?.width && opts?.height) {
       dataUrl = await this.file.cutImage(photo.dataUrl, {

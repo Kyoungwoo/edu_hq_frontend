@@ -1,4 +1,4 @@
-<app-input-group [color]="getColor()" [label]="label" [required]="required">
+<app-input-group [color]="getColor()" [label]="label" [disabled]="disabled" [required]="required">
   <app-select name="hq_regional_id" [placeholder]="placeholder" [(ngModel)]="value.hq_regional_id" (change)="change1()">
     <app-select-option *ngFor="let item of res1?.rsMap" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
   </app-select>

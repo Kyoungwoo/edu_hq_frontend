@@ -94,8 +94,6 @@ export class SignUpLhPage implements OnInit {
     this.nav.navigateBack('/sign-up-type');
   }
   public async next() {
-    console.log(this.form);
-    console.log(this.validator);
     if(!this.valid()) return;
 
     this.nav.navigateForward('/sign-up-terms', {
