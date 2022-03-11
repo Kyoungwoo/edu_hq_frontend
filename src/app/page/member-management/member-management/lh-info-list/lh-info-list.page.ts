@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
+import { UserData, UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
@@ -53,6 +53,7 @@ export class LhInfoListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("-----------",this.user.userData);
     this.get();
   }
 
@@ -73,8 +74,7 @@ export class LhInfoListPage implements OnInit {
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.getPassword();
-      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
 

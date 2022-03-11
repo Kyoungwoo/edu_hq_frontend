@@ -14,7 +14,10 @@
       <h5>회원정보</h5>
     </ion-toolbar>
     <form>
-      <app-avatar class="avatar" view_type="PROFILE" [readonly]="false"></app-avatar>
+      <app-avatar 
+      name="input-profile"
+      view_type="PROFILE" 
+      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="editable"></app-avatar>
       <app-row>
         <app-col>
           <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true"></app-input>

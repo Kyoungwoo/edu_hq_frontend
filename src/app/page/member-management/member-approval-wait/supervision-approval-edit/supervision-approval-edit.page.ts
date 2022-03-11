@@ -49,6 +49,8 @@ export class ApprovalItem {
 })
 export class SupervisionApprovalEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
 
   form = {

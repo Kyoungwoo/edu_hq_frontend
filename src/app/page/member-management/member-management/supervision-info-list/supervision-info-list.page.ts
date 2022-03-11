@@ -82,8 +82,8 @@ export class SupervisionInfoListPage implements OnInit {
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.getPassword();
-      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
 

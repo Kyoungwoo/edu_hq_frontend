@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { SupervisionEditPage } from '../supervision-edit/supervision-edit.page';
 
 @Component({
@@ -12,8 +13,8 @@ export class SupervisionListPage implements OnInit {
 
   form = {
     company_contract_type: '감리사',
-    hq_business_id: 0,
-    hq_regional_id: 0,
+    hq_business_id: this.user.userData.belong_data.hq_business_id,
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
     limit_no: 0,
     master_company_ids: [],
     search_text: '',
@@ -57,7 +58,8 @@ export class SupervisionListPage implements OnInit {
 
   constructor(
     private modal: ModalController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    public user: UserService
   ) { }
 
   ngOnInit() {

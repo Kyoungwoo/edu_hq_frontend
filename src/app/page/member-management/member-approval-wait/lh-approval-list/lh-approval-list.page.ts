@@ -18,6 +18,7 @@ class LhApprovalInfo {
   create_date: string;
   approval_state: string;
   row_count: number;
+  state:string;
 }
 
 @Component({
@@ -29,7 +30,8 @@ export class LhApprovalListPage implements OnInit {
 
   form = {
     approval_state: '전체',
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_regional_id: 1,
+    // hq_regional_id: this.user.userData.belong_data.hq_regional_id,
 
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
@@ -68,6 +70,7 @@ export class LhApprovalListPage implements OnInit {
     });
     if(this.res.rsCode === 0) {
       // 정상
+      this.res.rsMap.map((item) => {item.state = 'lh'});
     } else if(this.res.rsCode === 1008) {
       // 데이터 없음
     }
@@ -111,8 +114,7 @@ export class LhApprovalListPage implements OnInit {
       component:ApprovalPopupComponent,
       componentProps:{
         selectedList:this.selectedList,
-        
-
+        state: 'lh'
       },
       cssClass:"approval-modal"
     });

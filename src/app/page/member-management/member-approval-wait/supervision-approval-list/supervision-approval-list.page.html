@@ -61,7 +61,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar color="white" *ngIf="permission.approval">
           <ion-buttons slot="start">
             <!-- <app-button fill="translucent">엑셀 업로드</app-button>
             <app-button fill="translucent">양식 다운로드</app-button> -->

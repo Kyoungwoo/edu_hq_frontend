@@ -108,6 +108,8 @@ export class MinusMileageList {
 })
 export class PartnerIntoEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
 
   form = {

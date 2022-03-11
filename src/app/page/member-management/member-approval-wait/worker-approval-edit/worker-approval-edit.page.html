@@ -14,7 +14,10 @@
         <h5>회원정보</h5>
       </ion-toolbar>
       <form>
-        <app-avatar class="avatar" [readonly]="false"></app-avatar>
+        <app-avatar 
+      name="input-profile"
+      view_type="PROFILE" 
+      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="editable"></app-avatar>
         <app-row>
           <app-col>
             <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true">
@@ -107,40 +110,13 @@
             <app-select-occupation name="직종" [company_id]="formApproval.company_id" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
           </app-col>
         </app-row>
-        <app-table type="card">
-          <thead>
-            <tr>
-              <th style="text-align: left;">No.</th>
-              <th style="text-align: left;">안전 직무</th>
-              <th style="text-align: left;">안전직무 선임일</th>
-              <th style="text-align: left;"></th>
-              <th style="text-align: left;"></th>
-              <th style="text-align: left;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="text-align: left;"></td>
-              <td><app-select-safetymanager name="안전직무" [required]="true"></app-select-safetymanager></td>
-              <td><app-calendar name="안전직무선임일"></app-calendar></td>
-              <td>
-                <app-button shape="circle" size="small" fill="translucent">
-                  <app-img name="save"></app-img>
-                </app-button>
-              </td>
-              <td>
-              </td>
-              <td style="text-align: right;">
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="plus"></app-img>
-              </app-button>
-                <app-button shape="circle" size="small" color="danger" fill="translucent">
-                  <app-img name="minus"></app-img>
-                </app-button>
-              </td>
-            </tr>
-          </tbody>
-        </app-table>
+        <app-input-safejob #inputSafeJob
+        [project_id]="formApproval.project_id"
+        [company_id]="formApproval.company_id"
+        insert_url="/usermanage/approval/worker/safejob/insert"
+        update_url="/usermanage/approval/worker/safejob/update"
+        delete_url="/usermanage/approval/worker/safejob/delete"
+        [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
         <!-- <app-row>
           <app-col></app-col>
           <app-col size="auto">

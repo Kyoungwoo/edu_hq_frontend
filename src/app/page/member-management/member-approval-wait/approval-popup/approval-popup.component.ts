@@ -54,16 +54,16 @@ export class ApprovalPopupComponent implements OnInit {
 
     switch(this.state){
       case 'worker':
-        method = '/usermanage/approval/worker/approval/update';
+        method = '/usermanage/approval/worker/companion/update';
         break;
       case 'lh':
-        method = '/usermanage/approval/lh/approval/update';
+        method = '/usermanage/approval/lh/companion/update';
         break;
       case 'supervision':
-        method = '/usermanage/approval/super/approval/update';
+        method = '/usermanage/approval/super/companion/update';
         break;
       case 'partner':
-        method = '/usermanage/approval/company/approval/update';
+        method = '/usermanage/approval/company/companion/update';
         break;
     }
     const res = await this.connect.run(method, this.form);
@@ -74,6 +74,7 @@ export class ApprovalPopupComponent implements OnInit {
 
 
   async approval() {
+    console.log("---------- state : ", this.state)
     let method = '';
     let page_name = '';
 
