@@ -122,9 +122,7 @@ export class SafetyEducationListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.form = data;
-      console.log("this.form",this.form);
       this.get();
     }
   }

@@ -552,6 +552,10 @@ const routes: Routes = [
     path: 'change-phone',
     loadChildren: () => import('./page/my-page/change-phone/change-phone.module').then( m => m.ChangePhonePageModule)
   },
+  {
+    path: 'my-detail-search',
+    loadChildren: () => import('./page/safety-education/my-education/my-detail-search/my-detail-search.module').then( m => m.MyDetailSearchPageModule)
+  },
   
 
 ];

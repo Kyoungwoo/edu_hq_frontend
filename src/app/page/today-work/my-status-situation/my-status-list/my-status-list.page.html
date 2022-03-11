@@ -41,7 +41,7 @@
           <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="primary">{{ item.inside_time }}</ion-chip>
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state === '입장' ? item.inside_time : item.outside_time }}</ion-chip>
         </app-col>
       </app-row>
     </ng-container>
@@ -57,7 +57,7 @@
           <ion-chip [color]="risk.last_state === '입장' ? 'primary' : 'medium'">{{ risk.last_state }}</ion-chip>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="primary">{{ risk.last_time}}</ion-chip>
+          <ion-chip [color]="risk.last_state === '입장' ? 'primary' : 'medium'">{{ risk.last_time}}</ion-chip>
         </app-col>
       </app-row>
     </app-card>
@@ -71,7 +71,7 @@
           <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="primary">{{ item.work_state ==='입장' ? item.inside_time : item.outside_time }}</ion-chip>
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state ==='입장' ? item.inside_time : item.outside_time }}</ion-chip>
         </app-col>
       </app-row>
     </app-card>
@@ -80,5 +80,5 @@
 
 <app-button-footer>
   <app-button *ngIf="notWorker" (click)="workerSatus()">근로자 출입 관리</app-button>
-  <app-button *ngIf="!notWorker" (click)="inNfcQr()">출입(NFC / QR)</app-button>
+  <app-button (click)="inNfcQr()">출입(NFC / QR)</app-button>
 </app-button-footer>

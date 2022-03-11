@@ -1,11 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>qr-education-in</ion-title>
+    <ion-title>출석등록 QR</ion-title>
+    <app-dismiss-button slot="end"></app-dismiss-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div  (click)="downloadQR()" style="width:100%;height: calc(100% - 58px);display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
-    <img id="qrious" />
+  <div  style="display: flex; justify-content: center; height:calc(100% - 400px); align-items: center;">
+    <img (click)="downloadQR()" id="qrious"/>
   </div>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="date" label="교육일" [value]="item.education_safe_date"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="name" label="교육명" [value]="item.ctgo_education_safe_name"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="time" label="교육시간" [value]="eduTime"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="time" label="출석 담당자" [value]="item.education_safe_manager_names"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
 </ion-content>

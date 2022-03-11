@@ -32,6 +32,7 @@ export class EditItem {
   company_name: string;
   education_safe_id: number;
   create_date: string;
+  education_safe_manager_names:string;
 }
 
 class attendantRes {
@@ -103,10 +104,10 @@ export class SafetyEducationDetailEditPage implements OnInit {
       this.eduGetList();
       this.getItem();
     } else {
+      this.form.education_safe_date = this.date.today();
       this.form.project_name = this.user.userData.belong_data.project_name;
       this.form.project_id = this.user.userData.belong_data.project_id;
       this.form.education_safe_state = '교육 전'
-      this.form.company_name = `${this.user.userData.user_name} / ${this.user.userData.belong_data.company_name}`
       this.form.create_date = this.date.today();
     }
   }
@@ -143,7 +144,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   async getItem() {
     const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
-      parse:['education_safe_manager_ids']
+      parse:['education_safe_manager_ids','education_safe_manager_names']
     });
     if(res.rsCode === 0) {
       this.form = {
@@ -177,6 +178,12 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async submit() {
+    if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.'});
+    if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.'});
+    if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.'});
+    if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.'});
+    if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
+    if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
     const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[
@@ -242,9 +249,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
     const modal = await this._modal.create({
       component:QrEducationInPage,
       componentProps: {
-
+        item:this.form
       }
-
     });
     modal.present();
   }

@@ -82,17 +82,13 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
     });
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
-      if(this.multiple) {
         console.log("this.value",rsMap);
         console.log("this.value",this.value);
         this.text = rsMap
         .filter(education => (this.value as number[]).indexOf(education.user_id) !== -1)
         .map(education => education.user_name).join();
         // for(let i = 0; i < rsMap.length; i++) if((this.value as number[]).indexOf(rsMap[i].user_id) != -1) aaaaaa.push(rsMap[i].user_id);
-      } else {
-        this.text = rsMap.find(education => education.user_id === this.value)?.user_name || '';
       }
-    }
     this.loading = false;
   }
 

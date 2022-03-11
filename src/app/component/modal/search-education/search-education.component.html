@@ -14,23 +14,14 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<<<<<<< HEAD
   <!-- <app-card *ngIf="all"  [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.values = null">
-=======
-  <app-card *ngIf="all" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.values = null">
->>>>>>> db5dceca53cab31983b5d5e7fec29e94b4462c7c
     <app-row>
       <app-col>
         <h5>전체</h5>
       </app-col>
     </app-row>
-<<<<<<< HEAD
   </app-card> -->
-  <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="values === item" [button]="true" (click)="values = item; allState = false;">
-=======
-  </app-card>
   <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="selected(item)" [button]="true" (click)="itemClick(item)">
->>>>>>> db5dceca53cab31983b5d5e7fec29e94b4462c7c
     <app-row>
       <app-col size="auto">
         <h5>{{  item.ctgo_education_safe_name }}</h5>

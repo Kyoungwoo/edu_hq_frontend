@@ -92,8 +92,7 @@ export class WorkerStatusListPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private qr: QrService,
-    private nfc: NfcService,
-    private promise: PromiseService
+    private nfc: NfcService
   ) { }
 
   ngOnInit() {
@@ -164,7 +163,7 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async nfcScan() {
-    const $nfc = await this.nfc.subscribe('todyWork',async (nfcData) => {
+    const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
       // this.nfcqrForm.project_id = this.form.project_id;
       this.nfcqrForm.serial_key = nfcData;
       this.nfcqrForm.nb_log_state = 'NFC'
@@ -186,7 +185,7 @@ export class WorkerStatusListPage implements OnInit {
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     // if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
-    const $qr = await this.qr.subscribe(async (qrData) => {
+    const $qr = await this.qr.subscribe('worker',async (qrData) => {
       this.nfcqrForm.serial_key = qrData.qr_data;
       this.nfcqrForm.nb_log_state = 'QR';
       if(qrData.type === 'NFC_CHANGE') {

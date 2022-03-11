@@ -84,21 +84,28 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   }
 
   async education(){
+    console.log("this.value",this.value);
     const modal = await this._modal.create({
       component:SearchEducationComponent,
       componentProps:{
         all: this.all,
-        multiple: this.multiple
+        multiple: this.multiple,
+        value:this.value
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log('-0000000000');
     if(data) {
+      if(!data.data) {
+        this.value = null;
+        this.text = '';
+      }
       if(!this.multiple) {
         if(data.allState) {
           this.value = 0;
         } else {
-          this.value = data.data.ctgo_education_safe_id;
+          this.value = data?.data?.ctgo_education_safe_id;
         }
       }
       else {

@@ -14,13 +14,13 @@ export class NfcService {
 
   nfcallback;
 
-  async subscribe(callback,type?) {
-    console.log("type--------------",type);
+  async subscribe(type?,callback?) {
     this.nfcallback = callback;
     const modal = await this.modal.create({
       component:NfcComponent,
       cssClass:'scan-modal',
       componentProps:{
+        type,
         getNfcData:(_value) => {
           this.getNfcData(_value);
         }
@@ -34,7 +34,7 @@ export class NfcService {
         const toast = await this.toast.create({
           message:'NFC 태그가 완료 되었습니다.',
           duration:1500,
-          color:'primary'
+          color:'primary' 
         });
         toast.present();
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 import QRious from 'qrious';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -10,15 +10,21 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
   styleUrls: ['./qr-education-in.page.scss'],
 })
 export class QrEducationInPage implements OnInit {
+
+  @Input() item;
+
   qr = null;
 
+  eduTime:string;
   constructor(private navParams: NavParams,private connect:ConnectService) { }
 
   ngOnInit() {
+    this.item.education_safe_manager_names.join();
+    this.eduTime = `${this.item.education_safe_start_time} ~ ${this.item.education_safe_end_time}`;
     this.generatorQrcode();
   }
 
-  generatorQrcode(){
+  generatorQrcode() {
     this.qr = new QRious({
       element: document.getElementById('qrious'),
       size: 250,
