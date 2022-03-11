@@ -4,6 +4,7 @@ import { ConnectService, Validator } from 'src/app/basic/service/core/connect.se
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 
@@ -52,7 +53,7 @@ export class ApprovalItem {
 export class SupervisionInfoEditPage implements OnInit {
 
   editable:boolean = false;
-  
+
   @Input() item;
 
   form = {
@@ -74,6 +75,7 @@ export class SupervisionInfoEditPage implements OnInit {
     public user: UserService,
     private toast: ToastService,
     private alert: AlertService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
@@ -82,6 +84,7 @@ export class SupervisionInfoEditPage implements OnInit {
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.get();
+    
   }
 
   //이메일
@@ -105,8 +108,18 @@ export class SupervisionInfoEditPage implements OnInit {
   }
 
   async get() {
+    const loading = await this.loading.present();
     await this.getItem(); //기본정보
     await this.getBelong(); //소속정보
+
+    await Promise.all([
+      this.getItem(),
+      this.getBelong(),
+
+    ]);
+
+    loading.dismiss();
+    
   }
 
   //기본정보

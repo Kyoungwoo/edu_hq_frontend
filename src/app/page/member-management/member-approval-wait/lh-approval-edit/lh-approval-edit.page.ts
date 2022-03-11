@@ -4,6 +4,7 @@ import { ConnectService, Validator } from 'src/app/basic/service/core/connect.se
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { OrganizationValue } from 'src/app/component/select/select-organization/select-organization.component';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
@@ -84,6 +85,7 @@ export class LhApprovalEditPage implements OnInit {
     public user: UserService,
     private toast: ToastService,
     private alert: AlertService,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
@@ -115,8 +117,15 @@ export class LhApprovalEditPage implements OnInit {
   }
 
   async get(){
-    await this.getItem(); //기본정보
-    await this.getBelong(); //소속정보
+    const loading = await this.loading.present();
+
+    await Promise.all([
+      this.getItem(),
+      this.getBelong(),
+   
+    ]);
+
+    loading.dismiss();
   }
 
   //기본정보

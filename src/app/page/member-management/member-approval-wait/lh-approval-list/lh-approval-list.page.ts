@@ -30,8 +30,7 @@ export class LhApprovalListPage implements OnInit {
 
   form = {
     approval_state: '전체',
-    hq_regional_id: 1,
-    // hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
 
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
@@ -56,7 +55,6 @@ export class LhApprovalListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-   
     this.get();
   }
 
@@ -79,8 +77,7 @@ export class LhApprovalListPage implements OnInit {
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.getPassword();
-      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
   

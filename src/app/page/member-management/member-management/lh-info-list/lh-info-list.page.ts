@@ -53,7 +53,6 @@ export class LhInfoListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("-----------",this.user.userData);
     this.get();
   }
 

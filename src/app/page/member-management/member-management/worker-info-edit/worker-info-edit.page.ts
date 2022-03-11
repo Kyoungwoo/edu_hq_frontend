@@ -5,6 +5,7 @@ import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
@@ -216,7 +217,8 @@ export class WorkerInfoEditPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private user: UserService,
-    private alert: AlertService
+    private alert: AlertService,
+    private loading: LoadingService,
   ) { }
 
   ngOnInit() {
@@ -263,14 +265,20 @@ export class WorkerInfoEditPage implements OnInit {
     }
 
   async get() {
-    await this.getItem(); //기본정보
-    await this.getBelong(); //소속정보
-    await this.getSafeEdu(); //교육이력
-    await this.getSafeEduList(); //교육이력목록
-    await this.getHealth(); //건강문진
-    await this.getTotalMileageList(); // 총 안전마일리지 목록
-    await this.getPlusMileageList(); // 마일리지 적립목록
-    await this.getMinusMileageList(); // 마일리지 사용목록
+    const loading = await this.loading.present();
+
+    await Promise.all([
+      this.getItem(),
+      this.getBelong(),
+      this.getSafeEdu(),
+      this.getSafeEduList(),
+      this.getHealth(),
+      this.getTotalMileageList(),
+      this.getPlusMileageList(),
+      this.getMinusMileageList()
+    ]);
+
+    loading.dismiss();
   }
 
   //기본정보
