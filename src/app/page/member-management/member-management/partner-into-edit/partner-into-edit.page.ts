@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -6,6 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 import { SafeEduItem } from '../../member-approval-wait/worker-approval-edit/worker-approval-edit.page';
 import { MileagePopupComponent } from '../mileage-popup/mileage-popup.component';
@@ -35,13 +36,13 @@ export class ApprovalItem {
   ctgo_job_position_name_kr: string;
   ctgo_construction_id: number;
   safe_job_file_data: FutItem[] = [];
-  user_safe_job_data: {
-    user_id: number;
-    ctgo_safe_job_id: number;
-    user_safe_job_id: number;
-    safe_job_start_date: string;
-    ctgo_safe_job_name_kr: string;
-  }
+  // user_safe_job_data: {
+  //   user_id: number;
+  //   ctgo_safe_job_id: number;
+  //   user_safe_job_id: number;
+  //   safe_job_start_date: string;
+  //   ctgo_safe_job_name_kr: string;
+  // }
   company_id: number;
   ctgo_job_position_id: number;
   project_state: string;
@@ -53,6 +54,8 @@ export class ApprovalItem {
   project_id: number;
   construction_end_date: string;
   company_name: string;
+
+  safe_job_data:SafeJobItem[] = [];
 }
 
 //교육이력 리스트
@@ -108,6 +111,8 @@ export class MinusMileageList {
   styleUrls: ['./partner-into-edit.page.scss'],
 })
 export class PartnerIntoEditPage implements OnInit {
+
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
 
   editable:boolean = false;
 

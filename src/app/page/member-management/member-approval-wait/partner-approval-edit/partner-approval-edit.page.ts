@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -6,6 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
@@ -35,13 +36,13 @@ export class ApprovalItem {
   ctgo_construction_id: number;
   user_safe_job_file_data: FutItem[] = [];
   user_role: string;
-  user_safe_job_data: {
-    user_id: number;
-    ctgo_safe_job_id: number;
-    user_safe_job_id: number;
-    safe_job_start_date: string;
-    ctgo_safe_job_name_kr: string;
-  }
+  // user_safe_job_data: {
+  //   user_id: number;
+  //   ctgo_safe_job_id: number;
+  //   user_safe_job_id: number;
+  //   safe_job_start_date: string;
+  //   ctgo_safe_job_name_kr: string;
+  // }
   company_id: number;
   user_id: number;
   ctgo_job_position_id: number;
@@ -49,6 +50,8 @@ export class ApprovalItem {
   company_name: string;
   ctgo_construction_name: string;
   project_name: string;
+
+  safe_job_data:SafeJobItem[] = [];
 }
 
 @Component({
@@ -59,6 +62,8 @@ export class ApprovalItem {
 export class PartnerApprovalEditPage implements OnInit {
 
   editable:boolean = false;
+
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
 
   @Input() item;
 
@@ -160,7 +165,7 @@ export class PartnerApprovalEditPage implements OnInit {
 //소속정보
   async getBelong() {
       const res = await this.connect.run('/usermanage/approval/company/belong/detail', this.form, {
-        parse: ['user_safe_job_data','user_safe_job_file_data']
+        parse: ['safe_job_data','safe_job_file_data']
       });
       
       if (res.rsCode === 0) {

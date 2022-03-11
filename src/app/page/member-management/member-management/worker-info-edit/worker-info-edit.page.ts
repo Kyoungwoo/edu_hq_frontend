@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
@@ -7,6 +7,8 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { InputCertifyComponent } from 'src/app/component/input/input-certify/input-certify.component';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 import { MileagePopupComponent } from '../mileage-popup/mileage-popup.component';
@@ -31,18 +33,20 @@ export class BasicItem {
   sensitive_terms: number;
   file: (File | FileBlob)[] = [];
   file_json: FileJson = new FileJson();
+
+  
 }
 
 //소속정보
 export class ApprovalItem {
   ctgo_construction_id: number;
-  safe_job_data: {
-    user_id: number;
-    ctgo_safe_job_id: number;
-    user_safe_job_id: number;
-    safe_job_start_date: string;
-    ctgo_safe_job_name_kr: string;
-  }
+  // safe_job_data: {
+  //   user_id: number;
+  //   ctgo_safe_job_id: number;
+  //   user_safe_job_id: number;
+  //   safe_job_start_date: string;
+  //   ctgo_safe_job_name_kr: string;
+  // }
   safe_job_file_data: FutItem[] = [];
   company_id: number;
   ctgo_job_position_id: number;
@@ -55,7 +59,6 @@ export class ApprovalItem {
     user_certify_id: number;
     user_certify_no: string;
   }
-  certify_file_data: FutItem[] = [];
   ctgo_occupation_id: number;
   project_id: number;
   company_name: string;
@@ -63,7 +66,10 @@ export class ApprovalItem {
   project_work_state: number;
   construction_start_date: string;
   construction_end_date: string;
-  ctgo_job_position_name_kr: string
+  ctgo_job_position_name_kr: string;
+
+  certify_file_data:FutItem[] = [];
+  safe_job_data:SafeJobItem[] = [];
 }
 
 // 건강문진
@@ -153,6 +159,9 @@ export class PlusMileageList {
 })
 
 export class WorkerInfoEditPage implements OnInit {
+  
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
+  @ViewChild('inputCertify') inputCertify:InputCertifyComponent;
 
   editable:boolean = false;
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SupervisionEditPage } from '../supervision-edit/supervision-edit.page';
 
 @Component({
@@ -13,8 +14,8 @@ export class SupervisionListPage implements OnInit {
 
   form = {
     company_contract_type: '감리사',
-    hq_business_id: this.user.userData.belong_data.hq_business_id,
     hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
     limit_no: 0,
     master_company_ids: [],
     search_text: '',
@@ -59,10 +60,20 @@ export class SupervisionListPage implements OnInit {
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    public user: UserService
+    public user: UserService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
+    /* const condition = null; // null false 0 '' undefined
+    const x = condition || 'no';
+    console.log('answer', condition); */
+
+    /* const condition = 'hello';
+    const x = condition ? 'yes' : 'no';
+    console.log('answer', x); */
+    
+
     this.ctgoBusiness = {
       errorStatus: null,
       rsCode: null,
@@ -71,17 +82,26 @@ export class SupervisionListPage implements OnInit {
       rsMap: [],
       rqMethod: ''
     }
-    this.getList();
+    this.getList(0);
     this.getCtgoBusiness();
     this.getCtgoRegional();
   }
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    
-    const res = await this.connect.run('/project/company/masters/list',this.form);
-    if(res.rsCode === 0 ) this.res = res;
+    const res = await this.connect.run('/project/company/masters/list', this.form, {
+    });
+    if (res.rsCode === 0) {
+      this.res = res;
+    }
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
   }
+
 
   async edit(item) {
     const modal = await this.modal.create({

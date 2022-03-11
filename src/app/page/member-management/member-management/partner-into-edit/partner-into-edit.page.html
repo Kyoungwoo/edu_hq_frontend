@@ -62,7 +62,7 @@
           <ion-segment-button (click)="menu = 4">안전 마일리지</ion-segment-button>
         </ion-segment>
       </ion-toolbar>
-      <ng-container *ngIf="menu === 1">
+      <div [style.display]="menu === 1 ? 'block' : 'none'">
         <app-row>
           <app-col><h5>소속정보</h5></app-col>
           <app-col size="auto">
@@ -109,37 +109,16 @@
           </app-input-group>
         </app-col>
       </app-row>
-      <app-table type="card">
-        <thead>
-          <tr>
-            <th style="text-align: left;">No</th>
-            <th style="text-align: left;">안전 직무</th>
-            <th style="text-align: left;">안전직무 선임일</th>
-            <th style="text-align: left;"></th>
-            <th style="text-align: left;"></th>
-            <th style="text-align: left;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><app-select name="안전직무" placedholder="안전직무"></app-select></td>
-            <td><app-calendar name="안전직무선임일" placedholder="안전직무선임일"></app-calendar></td>
-            <td><a>선임서.pdf<app-img name="search"></app-img></a>
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="save"></app-img>
-              </app-button>
-            </td>
-            <td>
-            </td>
-            <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-              <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
-          </tr>
-        </tbody>
-      </app-table>
-    
-    </ng-container>
-    <ng-container *ngIf="menu === 2">
+      <app-input-safejob #inputSafeJob
+      [project_id]="formApproval.project_id"
+      [company_id]="formApproval.company_id"
+      insert_url="/usermanage/info/company/safejob/insert"
+      update_url="/usermanage/info/company/safejob/update"
+      delete_url="/usermanage/info/company/safejob/delete"
+      [params]="this.form"
+      [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
+    </div>
+    <div [style.display]="menu === 2 ? 'block' : 'none'">
       <!-- 교육이력 -->
       <app-row>
         <app-col></app-col>
@@ -176,8 +155,8 @@
           </tr>
         </tbody>
       </app-table>
-    </ng-container>
-    <ng-container *ngIf="menu === 4">
+    </div>
+    <div [style.display]="menu === 4 ? 'block' : 'none'">
       <!-- 안전마일리지 -->
       <app-row>
         <app-col></app-col>
@@ -256,7 +235,7 @@
           <app-button fill="translucent" style="width: 120px;">마일리지 사용</app-button>
         </app-col>
       </app-row> -->
-    </ng-container>
+    </div>
     <ion-toolbar slot="bottom" color="white">
       <ion-buttons slot="end">
         <app-button style="width: 120px;" (click)="submit()">저장</app-button>

@@ -80,7 +80,7 @@
         </ion-segment>
       </ion-toolbar>
 
-      <ng-container *ngIf="menu === 1">
+      <div [style.display]="menu === 1 ? 'block' : 'none'">
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
@@ -114,52 +114,8 @@
         <app-col>
           <app-select-occupation name="직종" [company_id]="formApproval.company_id" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
         </app-col>
+        
       </app-row>
-      <app-table type="card">
-        <thead>
-          <tr>
-            <th style="text-align: left; width: 30px;">No</th>
-            <th style="text-align: left; width: 120px;">안전 직무</th>
-            <th style="text-align: left; width: 40px;">안전직무 선임일</th>
-            <th style="text-align: left; width: 150px;"></th>
-            <th style="text-align: left; width: 70px;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of safeAdd let i = index">
-            <td style="text-align: left;">{{ i + 1}}</td>
-            <td><app-select-safetymanager name="안전직무" [required]="true" [(ngModel)]="item.ctgo_safe_job_id"></app-select-safetymanager></td>
-            <td><app-calendar name="안전직무선임일" [(ngModel)]="item.safe_job_start_date"></app-calendar ></td>
-            <td>
-              <app-row>
-                <app-col *ngFor="let file of formApproval?.safe_job_file_data">
-                  <app-input [value]="file.file_name"></app-input>
-                </app-col>
-                <app-col style="text-align: right;">
-                  <app-button shape="circle" size="small" fill="translucent">
-                    <app-file view_type="JOB" [multiple]="false"
-                      [(ngModel)]="formApproval.safe_job_file_data"
-                      [file]="item.file"
-                      [file_json]="item.file_json"
-                    >  
-                    </app-file>
-                    <app-img name="save"></app-img>
-                  </app-button>
-                </app-col>
-              </app-row>
-            </td>
-            <!-- <td style="text-align: right;">
-            <app-button shape="circle" size="small" fill="translucent" (click)="safeEdit(1)"> -->
-              <!-- <app-img name="plus"></app-img>
-             </app-button>
-              <app-button
-               shape="circle" size="small" color="danger" fill="translucent" (click)="safeEdit(0,item.user_safe_job_id,i)">
-                <app-img name="minus"></app-img>
-              </app-button>
-            </td> --> 
-          </tr>
-        </tbody>
-      </app-table>
       <app-row>
         <app-col>
           <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.project_work_state" placeholder="text">
@@ -175,6 +131,15 @@
           </app-input-group>
         </app-col>
       </app-row>
+      <app-input-safejob #inputSafeJob
+      [project_id]="formApproval.project_id"
+      [company_id]="formApproval.company_id"
+      insert_url="/usermanage/info/worker/safejob/insert"
+      update_url="/usermanage/info/worker/safejob/update"
+      delete_url="/usermanage/info/worker/safejob/delete"
+      [params]="this.form"
+      [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
+
       <!-- <app-row>
         <app-col></app-col>
         <app-col size="auto">
@@ -185,35 +150,14 @@
         </app-col>
       </app-row> -->
       <h5>자격정보</h5>
-      <app-table type="card">
-        <thead>
-          <tr>
-            <th style="text-align: left;">No</th>
-            <th style="text-align: left;">면허번호</th>
-            <th style="text-align: left;">면허증</th>
-            <th style="text-align: left;"></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="text-align: left;">1</td>
-            <td style="text-align: left;"><app-input name="면허번호" value="경기11-01214521"></app-input></td>
-            <td style="text-align: left;"><a>1종보통면허증.pdf</a>
-              <app-button shape="circle" size="small" fill="translucent">
-              <app-img name="save"></app-img>
-              </app-button>
-            </td>
-            <td></td>
-            <td></td>
-            <td style="text-align: right;"><app-button shape="circle" size="small" fill="translucent"><app-img name="plus"></app-img></app-button>
-            <app-button shape="circle" size="small" color="danger" fill="translucent"><app-img name="minus"></app-img></app-button></td>
-          </tr>
-        </tbody>
-      </app-table>
-      </ng-container>
-      <ng-container *ngIf="menu === 2">
+      <app-input-certify #inputCertify
+      insert_url="/usermanage/approval/worker/certify/insert"
+      update_url="/usermanage/approval/worker/certify/update"
+      delete_url="/usermanage/approval/worker/certify/delete"
+      [params]="this.form"
+      [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-certify>
+    </div>
+    <div [style.display]="menu === 2 ? 'block' : 'none'">
          <!-- 건강문진 -->
          <app-row>
           <app-col></app-col>
@@ -301,9 +245,9 @@
           <app-radio [value]="1" [disabled]="true">접종</app-radio>
         </app-radio-input>
       
-    </ng-container>
+      </div>
       <!-- 교육이력 -->
-      <ng-container *ngIf="menu === 3">
+      <div [style.display]="menu === 3 ? 'block' : 'none'">
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
@@ -364,9 +308,9 @@
           </tr>
         </tbody>
       </app-table>
-    </ng-container>
+    </div>
       <!-- 안전마일리지 -->
-      <ng-container *ngIf="menu === 5">
+      <div [style.display]="menu === 5 ? 'block' : 'none'">
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
@@ -444,7 +388,7 @@
           <app-button fill="translucent" style="width: 120px;">마일리지 사용</app-button>
         </app-col>
       </app-row> -->
-    </ng-container>
+    </div>
       <!-- <ion-toolbar slot="bottom" color="white">
         <ion-buttons slot="end">
           <app-button style="width: 120px;">퇴사</app-button>

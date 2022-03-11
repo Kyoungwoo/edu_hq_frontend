@@ -87,40 +87,14 @@
         </app-col>
         <app-col></app-col>
       </app-row>
-      <app-table type="card">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>안전 직무</th>
-            <th>안전직무 선임일</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><app-select-safetymanager name="안전직무" [required]="true"></app-select-safetymanager></td>
-            <td><app-calendar name="안전직무선임일"></app-calendar></td>
-            <td>
-              <app-button shape="circle" size="small" fill="translucent">
-                <app-img name="save"></app-img>
-              </app-button>
-            </td>
-            <td>
-            </td>
-            <td>
-            <app-button shape="circle" size="small" fill="translucent">
-              <app-img name="plus"></app-img>
-            </app-button>
-              <app-button shape="circle" size="small" color="danger" fill="translucent">
-                <app-img name="minus"></app-img>
-              </app-button>
-            </td>
-          </tr>
-        </tbody>
-      </app-table>
+      <app-input-safejob #inputSafeJob
+        [project_id]="formApproval.project_id"
+        [company_id]="formApproval.company_id"
+        insert_url="/usermanage/approval/company/safejob/insert"
+        update_url="/usermanage/approval/company/safejob/update"
+        delete_url="/usermanage/approval/company/safejob/delete"
+        [params]="this.form"
+        [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
     </app-card>
    
       <app-button-footer>

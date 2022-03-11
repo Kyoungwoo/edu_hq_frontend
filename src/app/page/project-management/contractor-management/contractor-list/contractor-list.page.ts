@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ContractorEditPage } from '../contractor-edit/contractor-edit.page';
 
 @Component({
@@ -14,8 +15,8 @@ export class ContractorListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_business_id: 0,
-    hq_regional_id: 0,
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
     limit_no: 0,
     master_company_ids: [],
     search_text: ''
@@ -61,6 +62,7 @@ export class ContractorListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     public user: UserService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -83,6 +85,13 @@ export class ContractorListPage implements OnInit {
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
+    }
+    
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
