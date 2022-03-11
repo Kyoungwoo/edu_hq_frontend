@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Validator, ConnectService, ConnectResult } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -15,7 +16,7 @@ import { ChangePasswordPage } from '../change-password/change-password.page';
 import { ChangePhonePage } from '../change-phone/change-phone.page';
 
 /** 기본 정보 class */
-export class BasicForm {
+class BasicForm {
   account_id:string = null; // 아이디
   user_name:string = null; // 유저 이름
   user_gender:string = null; // 유저 성별
@@ -33,7 +34,7 @@ export class BasicForm {
 }
 
 /** 소속 정보 class */
-export class BelongForm {
+class BelongForm {
   /** 공통 form */
   user_id:number = null;
   user_role:number = null;
@@ -69,7 +70,7 @@ export class BelongForm {
 }
 
 /** 교육이력 class */
-export class EducationGetForm {
+class EducationGetForm {
   ctgo_education_safe_types:string[] = [];
   project_id:number = null;
   search_text:string = null;

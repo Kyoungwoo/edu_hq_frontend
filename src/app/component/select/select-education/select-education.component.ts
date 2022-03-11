@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { Education, SearchEducationComponent } from '../../modal/search-education/search-education.component';
 import { SearchToolComponent } from '../../modal/search-tool/search-tool.component';
 
@@ -35,10 +36,16 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   
   res:ConnectResult<Education>;
 
+
+  form = {
+    search_text:''
+  }
+
   constructor(
     private connect: ConnectService,
     private _modal:ModalController,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private toast:ToastService
   ) { }
 
   ngOnInit() {}
@@ -67,36 +74,38 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
 
     if(!this.value) return;
     
-    const res = await this.connect.run('/category/education/get');
-    if(res.rsCode === 0) {
-      if(!this.multiple) {
-
+    const res = await this.connect.run('/category/education/get', this.form);
+      if(res.rsCode === 0) {
+        this.text = res.rsMap.filter(item => item.ctgo_education_safe_id === this.value).map(item => 
+          item.ctgo_education_safe_name).join();
+      } else {
+        this.toast.present({message:res.rsMsg, color:'wanring'});
       }
-      else {
-        const { rsMap } = res;
-        this.text = rsMap
-        .filter(education => (this.value as number[]).includes(education.ctgo_education_safe_id))
-        .map(education => education.ctgo_education_safe_name).join();
-      }
-    }
   }
 
   async education(){
+    console.log("this.value",this.value);
     const modal = await this._modal.create({
       component:SearchEducationComponent,
       componentProps:{
         all: this.all,
-        multiple: this.multiple
+        multiple: this.multiple,
+        value:this.value
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log('-0000000000');
     if(data) {
+      if(!data.data) {
+        this.value = null;
+        this.text = '';
+      }
       if(!this.multiple) {
         if(data.allState) {
           this.value = 0;
         } else {
-          this.value = data.data.ctgo_education_safe_id;
+          this.value = data?.data?.ctgo_education_safe_id;
         }
       }
       else {

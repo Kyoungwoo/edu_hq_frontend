@@ -17,8 +17,10 @@ export class NfcComponent implements OnInit {
   camera_rotate = 0;
   qr_sound:MediaObject = null;
 
+
   @Input() getNfcData;
   @Output() scan = new EventEmitter();
+  @Input() type:string;
 
   pageAlive:boolean = true;
   nfcTimeout; 
@@ -31,7 +33,9 @@ export class NfcComponent implements OnInit {
     private navCtrl: NavService,
     private _modal: ModalController
   ) { }
+
   async ngOnInit() {
+    console.log(this.type);
     var varUa = navigator.userAgent.toLowerCase();
     if(varUa.match('android') != null){
       this.android = true;
@@ -59,6 +63,7 @@ export class NfcComponent implements OnInit {
       }
     }
   }
+
   ngOnDestroy() {
     this.pageAlive = false;
     clearTimeout(this.nfcTimeout);

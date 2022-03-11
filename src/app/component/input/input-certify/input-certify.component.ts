@@ -15,7 +15,6 @@ export class CertifyItem {
   file_json:FileJson = new FileJson();
 }
 
-
 @Component({
   selector: 'app-input-certify',
   templateUrl: './input-certify.component.html',
@@ -56,7 +55,6 @@ export class InputCertifyComponent implements OnInit, ControlValueAccessor {
   }
   addCertifyItem() {
     this.value.push(new CertifyItem());
-    console.log(this.value);
   }
   getFileName(url:string) {
     const slash = url.lastIndexOf('/');
@@ -69,22 +67,28 @@ export class InputCertifyComponent implements OnInit, ControlValueAccessor {
 
   setValue(v:CertifyItem[]) {
     v?.forEach(item => {
-      const file_name = this.getFileName(item.certify_file);
-      const file_type = this.getMimeType(item.certify_file);
-      const content_type = this.file.getContentType(item.certify_file);
       if(!item.fut_item) {
-        item.fut_item = [{
-          content_type,
-          file_name,
-          file_size: null,
-          file_type,
-          full_url: item.certify_file,
-          order_no: 1,
-          seq_no: 1,
-          view_type: "CERTIFY"
-        }];
         item.file = [];
         item.file_json = new FileJson();
+
+        if(item.certify_file) {
+          const file_name = this.getFileName(item.certify_file);
+          const file_type = this.getMimeType(item.certify_file);
+          const content_type = this.file.getContentType(item.certify_file);
+          item.fut_item = [{
+            content_type,
+            file_name,
+            file_size: null,
+            file_type,
+            full_url: item.certify_file,
+            order_no: 1,
+            seq_no: 1,
+            view_type: "CERTIFY"
+          }];
+        }
+        else {
+          item.fut_item = [];
+        }
       }
     });
     this._value = v;

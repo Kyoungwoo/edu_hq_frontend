@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
 
 @Component({
@@ -10,10 +11,14 @@ import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-use
 export class MainUserPage implements OnInit {
 
   constructor(
-    private modal: ModalController
+    private modal: ModalController,
+    private nav: NavService
   ) { }
 
   ngOnInit() {
+  }
+  async navMypage() {
+    this.nav.navigateForward('/my-page-type');
   }
 
   async openMenu() {

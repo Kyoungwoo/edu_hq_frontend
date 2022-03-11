@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MyPageTypePageRoutingModule } from './my-page-type-routing.module';
+import { QrEducationInPageRoutingModule } from './qr-education-in-routing.module';
 
-import { MyPageTypePage } from './my-page-type.page';
+import { QrEducationInPage } from './qr-education-in.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    MyPageTypePageRoutingModule
+    QrEducationInPageRoutingModule
   ],
-  declarations: [MyPageTypePage]
+  declarations: [QrEducationInPage]
 })
-export class MyPageTypePageModule {}
+export class QrEducationInPageModule {}

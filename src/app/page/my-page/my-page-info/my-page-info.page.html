@@ -1,9 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>my-page-info</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main-user"></ion-back-button>
+    </ion-buttons>
+    <ion-title>마이페이지</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-avatar src=""></app-avatar>
 
+  <ion-list>
+    <ion-item routerLink="/my-page-info">나의 정보</ion-item>
+    <ion-item routerLink="/my-page-education">근로 이력</ion-item>
+    <ion-item routerLink="/my-page-education">회원 탈퇴</ion-item>
+  </ion-list> 
 </ion-content>

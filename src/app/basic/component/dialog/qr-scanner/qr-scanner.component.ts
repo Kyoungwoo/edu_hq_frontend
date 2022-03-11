@@ -15,6 +15,8 @@ import { ModalController } from '@ionic/angular';
 })
 export class QrScannerComponent implements OnInit, OnDestroy {
 
+  @Input() type;
+  
   qr_subs:Subscription;
   qr_timeout;
   camera_rotate = 0;

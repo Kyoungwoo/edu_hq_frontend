@@ -11,7 +11,7 @@
   <app-card>
     <app-row>
       <app-col>
-        <h3>구범수</h3>
+        <h3>{{ form.user_name }}</h3>
       </app-col>
     </app-row>
     <app-row>
@@ -19,7 +19,7 @@
         <h5>아이디</h5>
       </app-col>
       <app-col>
-        <p>Gsil1</p>
+        <p>{{ form.account_id }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -27,7 +27,7 @@
         <h5>국적</h5>
       </app-col>
       <app-col >
-        <p>대한민국</p>
+        <p>{{ form.ctgo_country_name }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -35,7 +35,7 @@
         <h5>업체명</h5>
       </app-col>
       <app-col >
-        <p>(주)지에스아이엘</p>
+        <p>{{ form.company_name }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -43,7 +43,7 @@
         <h5>직위</h5>
       </app-col>
       <app-col>
-        <p>작업자</p>
+        <p>{{ form.ctgo_job_position_name }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -51,7 +51,7 @@
         <h5>현장명</h5>
       </app-col>
       <app-col >
-        <p>세종시 단독주택공사</p>
+        <p>{{ form.project_name }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -59,7 +59,7 @@
         <h5>공종</h5>
       </app-col>
       <app-col>
-        <p>건축</p>
+        <p>{{ form.ctgo_construction_name }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -67,7 +67,7 @@
         <h5>계약유형</h5>
       </app-col>
       <app-col >
-        <p>일용직</p>
+        <p>{{ form.work_contract_type }}</p>
       </app-col>
     </app-row>
     <app-row>
@@ -75,7 +75,7 @@
         <h5>직종</h5>
       </app-col>
       <app-col>
-        <p>장비운전원(지게차)</p>
+        <p>{{ form.ctgo_occupation_name }}</p>
       </app-col>
     </app-row>
     <app-row style="border-bottom: none;">
@@ -83,12 +83,12 @@
         <h5>안전직무</h5>
       </app-col>
       <app-col>
-        <p>신호수/관리감독자</p>
+        <p>{{ form.safe_job_name }}</p>
       </app-col>
     </app-row>
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button>출석제외</app-button>
-  <app-button>확인</app-button>
+  <app-button (click)="attendantDelete()">출석제외</app-button>
+  <app-button (click)="dismiss()">확인</app-button>
 </app-button-footer>

@@ -340,7 +340,7 @@ export class WorkerApprovalEditPage implements OnInit {
     });
   }
 
-//기본정보 수정
+  // 기본정보 수정
   async BasicSubmit(){
     const res = await this.connect.run('/usermanage/approval/worker/basic/update', {
       ...this.form,
@@ -352,7 +352,7 @@ export class WorkerApprovalEditPage implements OnInit {
     }
   }
 
-//소속정보 수정
+  // 소속정보 수정
   async BelongSubmit(){
     const res = await this.connect.run('/usermanage/approval/worker/belong/update', {
       ...this.form,
