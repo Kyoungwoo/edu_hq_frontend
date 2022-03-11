@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
-import { ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular'
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { QrService } from 'src/app/basic/service/util/qr.service';
+import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
 import { SearchAttendanceComponent } from 'src/app/component/modal/search-attendance/search-attendance.component';
+import { QrEducationInPage } from '../qr-education-in/qr-education-in.page';
 
 export class EditItem {
   ctgo_education_safe_id:number;
@@ -30,6 +32,18 @@ export class EditItem {
   company_name: string;
   education_safe_id: number;
   create_date: string;
+  education_safe_manager_names:string;
+}
+
+class attendantRes {
+  create_user_id: number;
+  account_id: string;
+  company_id: number;
+  user_id: string;
+  user_name: string;
+  company_name: string;
+  education_safe_id: number;
+  create_date: string;
 }
 
 
@@ -43,7 +57,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   @Input() item;
 
-  form:EditItem = new EditItem();
+  form = new EditItem();
   res:ConnectResult<{
     create_user_id: number;
     company_id: number;
@@ -54,29 +68,56 @@ export class SafetyEducationDetailEditPage implements OnInit {
     create_date: string;
     account_id:string;
     row_count:number;
+    ctgo_occupation_name:string;
+
   }>
 
+  attendantRes:ConnectResult<attendantRes>
+
+  
+  attentForm = {
+    education_safe_id:0,
+    search_text:''
+  }
   eduState = '';
+
+  user_id = [];
+
+  editable:boolean = false;
+
+
+  educationMenu:boolean = true;
 
   constructor(
     private connect: ConnectService,
     private date: DateService,
     private _modal: ModalController,
     private toast: ToastService,
-    private user: UserService,
-    private alert: AlertService
+    public user: UserService,
+    private alert: AlertService,
+    private qr: QrService
   ) { }
 
 
   ngOnInit() {
     if(this.item) {
       this.eduGetList();
+      this.getItem();
     } else {
+      this.form.education_safe_date = this.date.today();
+      this.form.project_name = this.user.userData.belong_data.project_name;
       this.form.project_id = this.user.userData.belong_data.project_id;
       this.form.education_safe_state = '교육 전'
-      this.form.company_name = `${this.user.userData.user_name} / ${this.user.userData.belong_data.company_name}`
       this.form.create_date = this.date.today();
     }
+  }
+
+  roleCheck() {
+    const { user_role } = this.user.userData;
+    if(user_role === 'LH_HEAD' ||
+    user_role === 'MASTER_GENERAL' || user_role === 'PARTNER_GENERAL' ||
+    user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD') this.editable = true;
+
   }
 
   public async openDetailSearch() {
@@ -90,7 +131,10 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async eduGetList() {
-    this.res = await this.connect.run('/education/attendant/list',{education_safe_id:this.item.education_safe_id});
+    this.res = await this.connect.run('/education/attendant/list',{
+      education_safe_id:this.item.education_safe_id,
+      search_text:this.attentForm.search_text
+    });
     if(this.res.rsCode === 0) {}
     else this.toast.present({message:this.res.rsMsg, color:'warning'});
   }
@@ -98,8 +142,49 @@ export class SafetyEducationDetailEditPage implements OnInit {
     this.toast.present({message:'준비중....',color:'warning'});
   }
 
+  async getItem() {
+    const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
+      parse:['education_safe_manager_ids','education_safe_manager_names']
+    });
+    if(res.rsCode === 0) {
+      this.form = {
+        ...this.form,
+        ...res.rsObj
+      }
+    }
+  }
+  async updateItem() {
+
+    const alert = await this.alert.present({
+      message:'수정하시겠습니까?',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/education/update', this.form);
+            if(res.rsCode === 0) {
+              this._modal.dismiss(true);
+              this.toast.present({message:'수정되었습니다.',color:'primary'});
+            } else {
+              this.toast.present({message:res.rsMsg,color:'warning'})
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+
+
+  }
+
   async submit() {
-    this.alert.present({
+    if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.'});
+    if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.'});
+    if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.'});
+    if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.'});
+    if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
+    if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
+    const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[
         {text:'아니요'},
@@ -107,7 +192,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
           handler: async() => {
             const res = await this.connect.run('/education/insert',this.form);
             if(res.rsCode === 0) {
-              this._modal.dismiss();
+              this._modal.dismiss(true);
               this.toast.present({message:'저장되었습니다.',color:'primary'});
             } else {
               this.toast.present({message:res.rsMsg,color:'warning'});
@@ -115,6 +200,58 @@ export class SafetyEducationDetailEditPage implements OnInit {
           }
         }
       ]
-    })
+    });
+    alert.present();
+  }
+
+  async userInfo(item) {
+    const modal = await this._modal.create({
+       component:PeopleDeleteComponent,
+       componentProps:{
+        item
+       }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.eduGetList();
+    }
+  }
+
+  async eduAdd() {
+    const modal = await this._modal.create({
+      component:SearchAttendanceComponent,
+      componentProps:{
+        project_id:this.user.userData.belong_data.project_id,
+        educationType:false
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      data.forEach(item => {
+        if(!this.user_id.includes(item.user_id)) this.user_id.push(item.user_id)
+      });
+      const res = await this.connect.run('/education/attendant/insert',{
+        attendant_user_ids:this.user_id,
+        education_safe_id:this.item.education_safe_id
+      });
+      if(res.rsCode === 0) {
+        this.toast.present({message:'선택하신 인원이 출석되었습니다.',color:'primary'});
+        this.eduGetList();
+      } else {
+        this.toast.present({message:res.rsMsg,color:'warning'});
+      }
+    }
+  }
+
+  async qrAdd() {
+    const modal = await this._modal.create({
+      component:QrEducationInPage,
+      componentProps: {
+        item:this.form
+      }
+    });
+    modal.present();
   }
 }

@@ -11,6 +11,7 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { MyEducationDetailListPage } from '../my-education-detail-list/my-education-detail-list.page';
 import { MyEducationDetailListPageModule } from '../my-education-detail-list/my-education-detail-list.module';
+import { MyDetailSearchPageModule } from '../my-detail-search/my-detail-search.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { MyEducationDetailListPageModule } from '../my-education-detail-list/my-
     ComponentModule,
     BasicComponentModule,
     MyEducationListPageRoutingModule,
-    MyEducationDetailListPageModule
+    MyEducationDetailListPageModule,
+    MyDetailSearchPageModule
   ],
   declarations: [MyEducationListPage]
 })

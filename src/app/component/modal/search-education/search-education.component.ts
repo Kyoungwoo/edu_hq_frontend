@@ -21,6 +21,7 @@ export class SearchEducationComponent implements OnInit {
   @Input() all:boolean = false;
   @Input() editable:boolean = false;
   @Input() multiple:boolean = false;
+  @Input() value:number | number[];
 
   form = {
     search_text:''
@@ -38,13 +39,22 @@ export class SearchEducationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("value----------",this.value);
     this.get();
   }
 
 
   async get() {
     this.res = await this.connect.run('/category/education/get',this.form);
-    if(this.res.rsCode !==0 ) {
+    if(this.res.rsCode === 0 ) {
+      if(this.multiple) {
+        this.values = this.res.rsMap.filter(item => (this.value as number[]).indexOf(item.ctgo_education_safe_id))
+      } else {
+        this.res.rsMap.filter(item => {
+          if(item.ctgo_education_safe_id === this.value) this.values = item;
+        });
+      }
+    } else {
       this.toast.present({message:this.res.rsMsg, color:'wanring'});
     }
   }
@@ -61,8 +71,10 @@ export class SearchEducationComponent implements OnInit {
   itemClick(item:Education) {
     this.allState = false;
     if(!this.multiple) {
+      
       if(this.values === item) {
         this.values = null;
+        console.log("---------delete",this.values);
       }
       else {
         this.values = item;
@@ -85,6 +97,7 @@ export class SearchEducationComponent implements OnInit {
     this._modal.dismiss();
   }
   submit() {
+    console.log(this.values);
     this._modal.dismiss({
       data:this.values,
       allState:this.allState

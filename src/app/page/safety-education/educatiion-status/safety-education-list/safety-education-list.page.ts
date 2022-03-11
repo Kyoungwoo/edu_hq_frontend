@@ -5,8 +5,6 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { SafetyEducationDetailEditPage } from '../safety-education-detail-edit/safety-education-detail-edit.page';
-import { SafetyEducationDetailListPage } from '../safety-education-detail-list/safety-education-detail-list.page';
-import { SafetyEducationDetailSearchPageModule } from '../safety-education-detail-search/safety-education-detail-search.module';
 import { SafetyEducationDetailSearchPage } from '../safety-education-detail-search/safety-education-detail-search.page';
 
 
@@ -124,9 +122,7 @@ export class SafetyEducationListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.form = data;
-      console.log("this.form",this.form);
       this.get();
     }
   }

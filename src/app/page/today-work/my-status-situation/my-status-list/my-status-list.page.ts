@@ -147,7 +147,7 @@ export class MyStatusListPage implements OnInit {
     if(!this.form.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     this.nav.navigateForward('/worker-status-list',{
       state:
-        {      
+        {
           project_id:this.form.project_id,
           master_company_id:this.form.master_company_id
         }
@@ -155,11 +155,11 @@ export class MyStatusListPage implements OnInit {
   }
 
   async nfcScan() {
-    const $nfc = await this.nfc.subscribe(async (nfcData) => {
+    const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
       // this.nfcqrForm.project_id = this.form.project_id;
       // this.nfcqrForm.serial_key = nfcData;
       // if(nfcData === 'N22') this.gateState = true;
-      this.nfcqrForm.serial_key = 'N22';
+      this.nfcqrForm.serial_key = 'N33';
       this.nfcqrForm.nb_log_state = 'NFC';
       if(nfcData.type === 'QR_CHANGE') {
         this.inNfcQr();
@@ -183,16 +183,14 @@ export class MyStatusListPage implements OnInit {
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
-    const $qr = await this.qr.subscribe(async (qrData) => {
+    const $qr = await this.qr.subscribe('worker',async (qrData) => {
       // this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.serial_key = 'N22';
+      this.nfcqrForm.serial_key = 'E002';
       this.nfcqrForm.nb_log_state = 'QR'
-      console.log("qrData",qrData);
       if(qrData.type === 'NFC_CHANGE'){
         this.nfcScan();
       }
       else {
-      console.log("qrIn");
         if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode === 0) {

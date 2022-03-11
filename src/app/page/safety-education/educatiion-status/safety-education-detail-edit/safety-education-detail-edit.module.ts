@@ -8,8 +8,7 @@ import { SafetyEducationDetailEditPageRoutingModule } from './safety-education-d
 
 import { SafetyEducationDetailEditPage } from './safety-education-detail-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
-import { SelectAttendanceComponent } from 'src/app/component/select/select-attendance/select-attendance.component';
+import { QrEducationInPageModule } from '../qr-education-in/qr-education-in.module';
 
 @NgModule({
   imports: [
@@ -17,6 +16,7 @@ import { SelectAttendanceComponent } from 'src/app/component/select/select-atten
     FormsModule,
     IonicModule,
     ComponentModule,
+    QrEducationInPageModule,
     SafetyEducationDetailEditPageRoutingModule,
   ],
   declarations: [SafetyEducationDetailEditPage]

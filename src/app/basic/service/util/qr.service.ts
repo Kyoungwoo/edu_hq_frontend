@@ -24,12 +24,13 @@ constructor(
     ) { }
     qrCallback;
     
-  async subscribe(callback) {
+  async subscribe(type?,callback?) {
     this.qrCallback = callback;
     const modal = await this._modal.create({
       component:QrScannerComponent,
       cssClass:'scan-modal',
       componentProps: {
+        type,
         getQrData: (value) => {
           this.getQrData(value);
         }

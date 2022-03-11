@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+                <app-select-contractor [multiple]="true" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -116,14 +116,8 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-row>
-      <app-col></app-col>
-      <app-col size="auto">
-        <app-button fill="translucent" (click)="edit()">신규개설</app-button>
-      </app-col>
-    </app-row>
     <ng-container>
-      <app-card *ngFor="let item of res?.rsMap">
+      <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
         <app-row style="align-items: flex-start;">
           <app-col>
             <p>{{ item.company_name }}</p>
@@ -146,6 +140,6 @@
     </ng-container>
   </ion-content>
   <app-button-footer>
-    <app-button>신규배정</app-button>
+    <app-button (click)="edit()">신규개설</app-button>
   </app-button-footer>
 </ng-container>
