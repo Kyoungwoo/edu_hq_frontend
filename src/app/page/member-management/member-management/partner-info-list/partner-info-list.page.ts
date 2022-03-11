@@ -134,7 +134,7 @@ export class PartnerInfoListPage implements OnInit {
     } else if(this.res.rsCode === 1008) {
       // 데이터 없음
     }
-    else if(this.res.rsCode === 3008) {
+    else if(this.res.rsCode === 3008 || this.res.rsCode === 3009) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
     } else {
