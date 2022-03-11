@@ -14,7 +14,8 @@ export class NfcService {
 
   nfcallback;
 
-  async subscribe(callback) {
+  async subscribe(callback,type?) {
+    console.log("type--------------",type);
     this.nfcallback = callback;
     const modal = await this.modal.create({
       component:NfcComponent,

@@ -24,8 +24,8 @@ export class NavService {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
-  back(options?): void {
-    this.navCtrl.back(options);
+  back(options?:NavOptions): Promise<boolean> {
+    return this.navigate('back', null, options);
   }
   navigateBack(url: string | any[] | UrlTree, options?:NavOptions): Promise<boolean> {
     return this.navigate('navigateBack', url, options);
@@ -48,7 +48,13 @@ export class NavService {
     if(options?.queryParams) navOptions.queryParams = options.queryParams;
     if(options?.state) navOptions.state = options.state;
     
-    return this.navCtrl[direction](url, navOptions);
+    if(direction === 'back') {
+      this.navCtrl.back(navOptions);
+      return new Promise(res => res(true));
+    }
+    else {
+      return this.navCtrl[direction](url, navOptions);
+    }
   }
 
   /** scroll */

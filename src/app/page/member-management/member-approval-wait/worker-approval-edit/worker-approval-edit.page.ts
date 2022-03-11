@@ -6,6 +6,7 @@ import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.ser
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
@@ -91,6 +92,9 @@ export class SafeEduItem {
   approval_user_id: number;
   session_company_id: number;
   user_manage_session: string;
+  file_preview:FutItem<SignUpViewType>[] = []; // 파일 미리보기
+  file:(File | FileBlob)[] = []; // 파일
+  file_json:FileJson<SignUpViewType> = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 
 }
 //교육이력 리스트
@@ -197,6 +201,12 @@ export class WorkerApprovalEditPage implements OnInit {
     this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
+
+  //교육이수증
+  public findFile(view_type:SignUpViewType) {
+    return this.formSafeEdu.file_preview.find(futItem => futItem.view_type === view_type);
+  }
+  
 
   async get(){
     await this.getItem(); //기본정보

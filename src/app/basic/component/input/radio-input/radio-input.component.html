@@ -1,5 +1,5 @@
 <ion-radio-group [(ngModel)]="value">
-  <app-input-template [color]="color" [label]="label" [required]="required" [readonly]="readonly">
+  <app-input-template [color]="color" [label]="label" [required]="required" [readonly]="readonly" [disabled]="disabled">
     <ng-content slot="input" select="app-row"></ng-content>
     <ng-content slot="input" select="app-radio"></ng-content>
     <ng-content slot="button"></ng-content>

@@ -1,0 +1,48 @@
+<app-table type="card">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>안전 직무</th>
+      <th>안전직무 선임일</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of value; let i = index;">
+      <td>{{ i + 1 }}</td>
+      <td>
+        <app-select-safetymanager name="안전직무"
+        [company_id]="company_id" [user_type]="'COMPANY'"
+        [(ngModel)]="item.ctgo_safe_job_id" placedholder="안전직무" [disabled]="disabled"></app-select-safetymanager>
+      </td>
+      <td>
+        <app-calendar name="안전직무선임일"
+        [(ngModel)]="item.safe_job_start_date" placedholder="안전직무선임일" [disabled]="disabled"></app-calendar>
+      </td>
+      <td style="position: relative;">
+        {{ item.fut_item?.[0]?.file_name }}
+        <ng-container *ngIf="!disabled">
+          <app-button shape="circle" size="small" fill="translucent">
+            <app-img name="search"></app-img>
+          </app-button>
+          <app-file view_type="JOB" [(ngModel)]="item.fut_item" [file]="item.file" [file_json]="item.file_json"></app-file>
+        </ng-container>
+      </td>
+      <td class="button-col">
+        <ng-container *ngIf="!disabled">
+          <app-button shape="circle" size="small" color="danger" fill="translucent" (click)="removeSafeJobItem(item, i)">
+            <ion-icon name="remove"></ion-icon>
+          </app-button>
+        </ng-container>
+      </td>
+    </tr>
+    <tr *ngIf="!disabled">
+      <td colspan="5" class="button-col">
+        <app-button shape="circle" size="small" fill="translucent" (click)="addSafeJobItem()">
+          <ion-icon name="add"></ion-icon>
+        </app-button>
+      </td>
+    </tr>
+  </tbody>
+</app-table>

@@ -5,6 +5,7 @@ import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.ser
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { OrganizationValue } from 'src/app/component/select/select-organization/select-organization.component';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
@@ -30,15 +31,10 @@ export class BasicItem {
 }
 
 //소속정보
-export class ApprovalItem {
+export class ApprovalItem implements OrganizationValue {
   ctgo_job_position_name_kr: string;
-  hq_business_name: string;
   company_id: number;
   ctgo_job_position_id: number;
-  hq_department_id: number;
-  hq_regional_id: number;
-  hq_business_id: number;
-  hq_regional_name: string;
   project_name: string;
   user_role: string;
   construction_start_date: string;
@@ -46,6 +42,15 @@ export class ApprovalItem {
   project_id: number;
   construction_end_date: string;
   company_name: string;
+
+  hq_regional_entire_state: 0|1 = 0; // 본사권한 = 1
+  hq_regional_id: number = 0; // id
+  hq_regional_code: string; // 코드
+  hq_regional_name: string; // 지역본부명
+  hq_business_entire_state: 0|1;
+  hq_business_id: number;
+  hq_business_name: string;
+  hq_department_id: number;
   hq_department_name: string;
 }
 

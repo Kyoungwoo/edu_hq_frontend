@@ -95,6 +95,36 @@ export class FileService {
         return null;
     }
   }
+  getContentType(url:string) {
+    const dot = url.lastIndexOf('.');
+    const mineType = url.substring(dot, url.length);
+    switch(mineType) {
+      case ".mp3":
+        return "audio/mpeg";
+      case ".wav":
+        return "audio/wav";
+      case ".jpeg":
+        return "image/jpeg";
+      case ".png":
+        return "image/png";
+      case ".gif":
+        return "image/gif";
+      case ".svg":
+        return "image/svg+xml";
+      case ".webp":
+        return "image/webp";
+      case ".pdf":
+        return "application/pdf";
+      case ".mp4":
+        return "video/mp4";
+      case ".ics":
+        return "text/calendar";
+      case ".hwp":
+        return "application/octet-stream";
+      default:
+        return null;
+    }
+  }
   scriptObj:{[name:string]:{
     url:string,
     loaded:boolean,

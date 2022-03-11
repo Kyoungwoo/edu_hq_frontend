@@ -26,7 +26,7 @@ export class DepartmentItem {
   hq_department_name: string;
   hq_regional_id: number;
 }
-class Values {
+export class OrganizationValue {
   hq_regional_id:number = null; //지역본부 ID
   hq_regional_entire_state: 0|1 = null;
   hq_business_id:number = null; //사업본부 ID
@@ -83,8 +83,9 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
       hq_business_id: this.value.hq_business_id
     });
   }
-  public change1() {
+  public async change1() {
     if(!this.value.hq_regional_id) return;
+    await this.promise.wait(() => this.res1);
     // 2,3 초기화
     this.res2 = null;
     this.res3 = null;
@@ -94,19 +95,28 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res1.rsMap.find(item => item.hq_regional_id === this.value.hq_regional_id);
-    this.value.hq_regional_entire_state = selectedItem.hq_regional_entire_state;
-    if(this.value.hq_regional_entire_state === 0) this.get2();
+    if(selectedItem) {
+      this.value.hq_regional_entire_state = selectedItem.hq_regional_entire_state;
+      if(this.value.hq_regional_entire_state === 0) this.get2();
+    } else {
+      this.value = new OrganizationValue();
+    }
   }
-  public change2() {
+  public async change2() {
     if(!this.value.hq_regional_id || !this.value.hq_business_id) return;
+    await this.promise.wait(() => this.res2);
     // 3 초기화
     this.res3 = null;
     this.value.hq_department_id = null;
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res2.rsMap.find(item => item.hq_business_id === this.value.hq_business_id);
-    this.value.hq_business_entire_state = selectedItem.hq_business_entire_state;
-    if(this.value.hq_business_entire_state === 0)  this.get3();
+    if(selectedItem) {
+      this.value.hq_business_entire_state = selectedItem.hq_business_entire_state;
+      if(this.value.hq_business_entire_state === 0)  this.get3();
+    } else {
+      this.value = new OrganizationValue();
+    }
   }
 
   getColor() {
@@ -121,19 +131,23 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
   @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:Values = new Values();
-  @Input() set value(v:Values) {
-    this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  private _value:OrganizationValue = new OrganizationValue();
+  @Input() set value(v:OrganizationValue) {
+    if(v) {
+      this._value = v;
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
   get value() {
     return this._value;
   }
-  writeValue(v:Values): void { 
-    this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+  writeValue(v:OrganizationValue): void { 
+    if(v) {
+      this._value = v;
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

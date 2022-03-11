@@ -51,9 +51,8 @@ export class FindPasswordResultComponent implements OnInit {
     await this.promise.wait();
 
     el.querySelector('[name=button_submit]').dispatchEvent(new Event('click'));
-    console.log(this.form);
-    console.log(this.validator);
     await this.promise.wait(800);
+    
     document.querySelector('.alert-button').dispatchEvent(new Event('click'));
   }
 

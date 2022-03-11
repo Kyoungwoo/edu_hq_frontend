@@ -1,0 +1,15 @@
+.update-date {
+    text-align: right;
+}
+app-avatar {
+    margin-top: 30px !important;
+    margin-bottom: 20px !important;
+    width: 100px !important;
+    height: 100px !important;
+}
+app-row {
+    align-items: flex-start;
+}
+app-input-caption + app-input-caption {
+    margin-top: 0;
+}

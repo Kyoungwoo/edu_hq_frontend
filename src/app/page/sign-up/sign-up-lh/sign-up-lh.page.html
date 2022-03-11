@@ -97,6 +97,7 @@
         </app-col>
         <app-col>
           <app-select-position [company_id]="1" name="ctgo_job_position_id" [(ngModel)]="form.ctgo_job_position_id" [required]="true"></app-select-position>
+          <app-input-caption *ngIf="validator.ctgo_job_position_id?.valid === false" color="warning">{{ validator.ctgo_job_position_id?.message }}</app-input-caption>
         </app-col>
       </app-row>
       <app-select-scene name="project_id" type="SIGNUPLH" [all]="true"

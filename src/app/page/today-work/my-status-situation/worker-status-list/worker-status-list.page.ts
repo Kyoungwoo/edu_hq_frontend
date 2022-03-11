@@ -164,7 +164,7 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async nfcScan() {
-    const $nfc = await this.nfc.subscribe(async (nfcData) => {
+    const $nfc = await this.nfc.subscribe('todyWork',async (nfcData) => {
       // this.nfcqrForm.project_id = this.form.project_id;
       this.nfcqrForm.serial_key = nfcData;
       this.nfcqrForm.nb_log_state = 'NFC'

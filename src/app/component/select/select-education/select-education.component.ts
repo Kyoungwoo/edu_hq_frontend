@@ -26,6 +26,7 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   @Input() all:boolean = false; // 전체 현장 노출 여부
   @Input() color:Color;
   @Input() label:string = "교육명";
+  @Input() multiple:boolean = false;
 
   @Input() company_id:number = 0;
 
@@ -52,13 +53,23 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     if(this.isModalData) return;
-    
-    if(!this.value && !this.all) return;
-    
-    if(this.value === 0 && this.all) {
-      this.text = '전체';
-      this.changeDetector.detectChanges();
-      return;
+  
+    if(!this.multiple) {
+      if(!this.value && !this.all) return;
+      if(this.value === 0 && this.all) {
+        this.text = '전체';
+        this.changeDetector.detectChanges();
+        return;
+      }
+    }
+    else {
+      const value = <number[]>this.value;
+      if(!value?.length && !this.all) return;
+      if(value?.length === 0 && this.all) {
+        this.text = '전체';
+        this.changeDetector.detectChanges();
+        return;
+      }
     }
 
     if(!this.value) return;
@@ -76,21 +87,27 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
     const modal = await this._modal.create({
       component:SearchEducationComponent,
       componentProps:{
-        all: this.all
+        all: this.all,
+        multiple: this.multiple
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      if(data.allState) {
-        this.text = '전체';
-        this.value = 0;
-      } else {
-        console.log(data);
-        this.value = data.data.ctgo_education_safe_id;
-        this.text = data.data.ctgo_education_safe_name;
-        console.log(this.value);
-        console.log("this.text",this.text);
+      if(!this.multiple) {
+        if(data.allState) {
+          this.value = 0;
+        } else {
+          this.value = data.data.ctgo_education_safe_id;
+        }
+      }
+      else {
+        if(data.allState) {
+          this.value = [];
+        }
+        else {
+          this.value = data.data.map(item => item.ctgo_education_safe_id);
+        }
       }
     }
   }
@@ -100,8 +117,8 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   @Output() change = new EventEmitter();
 
 
-  private _value: number;
-  @Input() set value(v: number) {
+  private _value:number | number[];
+  @Input() set value(v:number | number[]) {
     if(v !== this._value) {
       this.valueChange(v);
     }
@@ -109,7 +126,7 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:number): void { 
+  writeValue(v:number | number[]): void { 
     if(v !== this._value) {
       this.valueChange(v);
     }

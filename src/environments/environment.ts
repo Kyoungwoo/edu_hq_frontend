@@ -9,7 +9,7 @@ export const environment = {
   production: false,
   test: {
     core: { test: false, done: false },
-    SignUp: { test: true, done: false, type: [
+    SignUp: { test: false, done: false, type: [
       "WORKER",
       //"LH",
       //"SUPER",
@@ -23,7 +23,7 @@ export const environment = {
       'EDIT',
       'REMOVE'
     ]},
-    Project: { test: true, done: false, type: [
+    Project: { test: false, done: false, type: [
       'PARTNER'
     ]}
   }

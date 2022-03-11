@@ -64,7 +64,7 @@ export class AvatarComponent implements OnInit, DoCheck, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:FutItem[]): void { 
+  writeValue(v:FutItem[]): void {
     if(v !== this._value) this._value = v;
     this.onChangeCallback(v);
     this.change.emit(v);

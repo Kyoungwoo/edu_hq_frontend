@@ -543,6 +543,14 @@ const routes: Routes = [
   {
     path: 'qr-education-in',
     loadChildren: () => import('./page/safety-education/educatiion-status/qr-education-in/qr-education-in.module').then( m => m.QrEducationInPageModule)
+},
+  {
+    path: 'change-password',
+    loadChildren: () => import('./page/my-page/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
+  {
+    path: 'change-phone',
+    loadChildren: () => import('./page/my-page/change-phone/change-phone.module').then( m => m.ChangePhonePageModule)
   },
   
 

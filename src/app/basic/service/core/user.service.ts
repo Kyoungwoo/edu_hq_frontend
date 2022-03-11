@@ -8,7 +8,7 @@ enum TAG {
   memberAuthToken = 'Devmonster@MemberAuthToken'
 }
 
-export type UserType = 'WORKER' | 'LH' | 'LH' | 'SUPER' | 'COMPANY';
+export type UserType = 'WORKER' | 'LH' | 'SUPER' | 'COMPANY';
 export type UserRole = 
 'LH_HEAD'  // LH 본사 마스터
 | 'LH_ADMIN' // LH 본사 관리자
@@ -16,11 +16,14 @@ export type UserRole =
 | 'LH_BUSINESS' // LH 사업본부 관리자
 | 'LH_PROJECT' // LH 현장 관리자
 
-| 'MASTER_HEAD' //원청사 마스터 (준태가 추가)
-| 'MASTER_GENERAL' //원청사 일반 관리자 (준태가 추가)
+| 'MASTER_HEAD' // 원청사 마스터
+| 'MASTER_GENERAL' // 원청사 일반 관리자
+| 'MASTER_WORKER' // 원청사 작업자
+
 | 'PARTNER_HEAD' // 협력사 마스터
-| 'PARTNER_GENERAL' // 협력사 일반 관리자 (준태가 추가)
-| 'PARTNER_WORKER' // 협력사 작업자 (준태가 추가)
+| 'PARTNER_GENERAL' // 협력사 일반 관리자
+| 'PARTNER_WORKER'; // 협력사 작업자
+
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
 export interface AuthToken {
@@ -150,5 +153,33 @@ export class UserService {
     window.localStorage.removeItem(TAG.UserData);
 
     //this.get();
+  }
+
+  /** utils */
+  parseUserRole(userRole:number) {
+    switch(userRole) {
+      case 1:
+        return 'LH 본사 마스터';
+      case 2:
+        return 'LH 본사 관리자';
+      case 3:
+        return 'LH 지역본부 관리자';
+      case 4:
+        return 'LH 사업본부 관리자';
+      case 5:
+        return 'LH 현장 관리자';
+      case 6:
+        return '원청사 마스터';
+      case 7:
+        return '원청사 일반 관리자';
+      case 8:
+        return '원청사 작업자';
+      case 9:
+        return '협력사 마스터';
+      case 10:
+        return '협력사 일반 관리자';
+      case 11:
+        return '협력사 작업자';
+    }
   }
 }

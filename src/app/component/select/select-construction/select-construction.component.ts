@@ -52,7 +52,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
 
   private async get() {
-    if(!this.project_id) this.res = null;
+    if(!this.project_id) { this.res = null; return; }
     this.res = await this.connect.run('/category/construction/get', {
       project_id: this.project_id
     });
