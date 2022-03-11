@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
@@ -7,7 +7,8 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
+import { CertifyItem, InputCertifyComponent } from 'src/app/component/input/input-certify/input-certify.component';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
@@ -37,7 +38,7 @@ export class BasicItem {
 
 //소속정보
 export class ApprovalItem {
-  ctgo_construction_id: number;
+  ctgo_construction_id:number;
   // safe_job_data: {
   //   user_id: number;
   //   ctgo_safe_job_id: number;
@@ -48,24 +49,19 @@ export class ApprovalItem {
   //   ctgo_safe_job_name_kr: string;
   //   ctgo_safe_job_name_vi: string;
   // }
-  safe_job_file_data: FutItem[] = [];
-  company_id: number;
-  ctgo_job_position_id: number;
-  ctgo_occupation_name: string;
-  ctgo_construction_name: string;
-  ctgo_job_position_name: string;
-  project_name: string;
-  certify_data: {
-    user_id: number;
-    user_certify_id: number;
-    user_certify_no: string;
-  }
-  certify_file_data: FutItem[] = [];
+  company_id:number;
+  ctgo_job_position_id:number;
+  ctgo_occupation_name:string;
+  ctgo_construction_name:string;
+  ctgo_job_position_name:string;
+  project_name:string;
+  certify_data:CertifyItem[];
   ctgo_occupation_id: number;
   project_id: number;
   company_name: string;
   work_contract_type: string;
-
+  
+  certify_file_data:FutItem[] = [];
   safe_job_data:SafeJobItem[] = [];
 }
 
@@ -132,6 +128,9 @@ export class SafeEduList {
   animations: [fadeInAnimation]
 })
 export class WorkerApprovalEditPage implements OnInit {
+
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
+  @ViewChild('inputCertify') inputCertify:InputCertifyComponent;
 
   editable:boolean = false;
 
@@ -331,6 +330,8 @@ export class WorkerApprovalEditPage implements OnInit {
           text:'예',
           handler: async() => {
             await this.BasicSubmit();
+            await this.inputSafeJob.submit();
+            await this.inputCertify.submit();
             await this.BelongSubmit();
             await this.SafeEduSubmit();
           }
