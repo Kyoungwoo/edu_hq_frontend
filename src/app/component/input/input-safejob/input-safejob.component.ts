@@ -35,6 +35,7 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
   @Input() insert_url:string = null;
   @Input() update_url:string = null;
   @Input() delete_url:string = null;
+  @Input() params:any = {};
   @Output() load = new EventEmitter();
 
   removeSafeJobList:SafeJobItem[] = [];
@@ -105,7 +106,8 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
       const item = insertList[i];
       const res = await this.connect.run(this.insert_url, {
         ...item,
-        project_id: this.project_id
+        project_id: this.project_id,
+        ...this.params
       });
       if(res.rsCode) {
         this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -118,7 +120,10 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
     const updateList = this.value.filter(item => item.user_safe_job_id);
     for(let i = 0; i < updateList.length; i++) {
       const item = updateList[i];
-      const res = await this.connect.run(this.update_url, item);
+      const res = await this.connect.run(this.update_url, {
+        ...item,
+        ...this.params
+      });
       if(res.rsCode) {
         this.toast.present({ color: 'warning', message: res.rsMsg });
         return false;
@@ -130,7 +135,8 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
     for(let i = 0; i < this.removeSafeJobList.length; i++) {
       const item = this.removeSafeJobList[i];
       const res = await this.connect.run(this.delete_url, {
-        user_safe_job_id: item.user_safe_job_id
+        user_safe_job_id: item.user_safe_job_id,
+        ...this.params
       });
       if(res.rsCode) {
         this.toast.present({ color: 'warning', message: res.rsMsg });
