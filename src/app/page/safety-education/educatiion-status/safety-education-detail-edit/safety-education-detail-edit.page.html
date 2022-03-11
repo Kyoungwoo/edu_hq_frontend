@@ -12,17 +12,17 @@
       <app-col>
         <h4>교육 정보</h4>
       </app-col>
-      <app-col size="auto">
-        <app-button fill="translucent">수정</app-button>
+      <app-col *ngIf="item" size="auto">
+        <app-button (click)="updateItem()" fill="translucent">수정</app-button>
       </app-col>
       <app-col size="auto">
-        <app-button fill="translucent" (click)="submit()">저장</app-button>
+        <app-button *ngIf="!item" fill="translucent" (click)="submit()">저장</app-button>
       </app-col>
     </app-row>
     <form>
       <app-row>
         <app-col>
-          <app-select-scene [disabled]="true" name="eduproject" [(ngModel)]="form.project_id"></app-select-scene>
+          <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.project_name"></app-input>
         </app-col>
         <app-col>
           <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
@@ -66,7 +66,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-attendance name="attendance" [project_id]="form.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+          <app-select-attendance [educationType]="true" name="attendance" [project_id]="form.project_id || user.userData.belong_data.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
         </app-col>
         <app-col>
           <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
@@ -93,6 +93,14 @@
             <app-button fill="translucent" (click)="notReady()">출석등록(QR)</app-button>
           </app-col> -->
         </app-row>
+        <app-row>
+          <app-col></app-col>
+          <app-col size="3">
+            <app-input (keyup.enter)="eduGetList()" [(ngModel)]="attentForm.search_text" placeholder="춣석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="eduGetList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+        </app-row>
       <app-table>
         <thead>
           <tr>
@@ -103,7 +111,7 @@
           </tr>
         </thead>
         <tbody *ngFor="let item of res?.rsMap let i = index">
-          <tr class="button">
+          <tr>
             <td>{{ i+1 }}</td>
             <td>{{ item.company_name }}</td>
             <td>{{ item.user_name }}({{ item.account_id }})</td>
@@ -217,97 +225,114 @@
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
-      <ion-segment color="primary">
-        <ion-segment-button>교육정보</ion-segment-button>
-        <ion-segment-button>출석현황</ion-segment-button>
+      <ion-segment color="primary" [value]="true">
+        <ion-segment-button (click)="educationMenu = true">교육정보</ion-segment-button>
+        <ion-segment-button (click)="educationMenu = false">출석현황</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card>
+    <ng-container *ngIf="educationMenu">
       <app-row>
         <app-col>
           <h4>기본정보</h4>
         </app-col>
       </app-row>
 
-      <app-row>
-        <app-col>
-          <app-select-scene [disabled]="true" name="eduproject" [(ngModel)]="form.project_id"></app-select-scene>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-select-scene [disabled]="true" name="eduproject" [(ngModel)]="form.project_id"></app-select-scene>
+          </app-col>
+        </app-row>
+      </app-card>
       
-      <app-row>
-        <app-col >
-          <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-input name="create" [disabled]="true" label="개설자" [(ngModel)]="form.company_name"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="create" [disabled]="true" label="개설자" [(ngModel)]="form.company_name"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-            <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+              <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
       
-      <app-row>
-        <app-col>
-          <app-input label="교육명" name="ctgo_education_safe_title" placeholder="교육명을 입력해주세요." [(ngModel)]="form.ctgo_education_safe_title"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input label="교육명" name="ctgo_education_safe_title" placeholder="교육명을 입력해주세요." [(ngModel)]="form.ctgo_education_safe_title"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-input label="교육대상" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input label="교육대상" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-input name="education_safe_place" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="education_safe_place" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-calendar name="create_date" [(ngModel)]="form.create_date"></app-calendar>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-calendar name="create_date" [(ngModel)]="form.create_date"></app-calendar>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-datetime name="education_safe_start_time" label="교육시작시간" 
-          [(ngModel)]="form.education_safe_start_time">
-          </app-datetime>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-datetime name="education_safe_start_time" label="교육시작시간" 
+            [(ngModel)]="form.education_safe_start_time">
+            </app-datetime>
+          </app-col>
+          <app-col>
+            <app-datetime name="education_safe_end_time" label="교육종료시간" 
+            [(ngModel)]="form.education_safe_end_time">
+            </app-datetime>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-datetime name="education_safe_end_time" label="교육종료시간" 
-          [(ngModel)]="form.education_safe_end_time">
-          </app-datetime>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-select-attendance name="attendance" [educationType]="true" [project_id]="form.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+          </app-col>
+        </app-row>
+      </app-card>
 
-      <app-row>
-        <app-col>
-          <app-select-attendance name="attendance" [project_id]="form.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
-        </app-col>
-      </app-row>
-
-      <app-row>
-        <app-col>
-          <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
-        </app-col>
-      </app-row>
-
-    </app-card>
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
 
     <app-card>
       <app-row>
@@ -316,8 +341,9 @@
         </app-col>
       </app-row>
     </app-card>
+    </ng-container>
 
-    <ng-container *ngIf="form.education_safe_state !== '교육 전'">
+    <ng-container *ngIf="form.education_safe_state !== '교육 전' && !educationMenu">
       <app-card>
         <app-row>
           <app-col>
@@ -326,34 +352,32 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input placeholder="춣석한 근로자를 검색할 수 있습니다">
-              <app-img name="search"></app-img>
+            <app-input [(ngModel)]="attentForm.search_text" placeholder="춣석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="eduGetList()" name="search"></app-img>
             </app-input>
           </app-col>
         </app-row>
       </app-card>
-      <app-row>
-        <app-col>
-          <app-card>
+      <ion-row>
+        <ion-col *ngFor="let item of res?.rsMap" size="6">
+          <app-card [button]="true" (click)="userInfo(item)">
             <app-row>
               <app-col>
-                <h5>이상범(ksb1234)</h5>
+                <h5>{{ item.user_name }}({{ item.account_id }})</h5>
               </app-col>
             </app-row>
             <app-line></app-line>
             <app-row>
               <app-col>
                 <h6>업체명</h6>
-                <h5>(주)한백</h5>
-              </app-col>
-              <app-col>
+                <h5>{{ item.company_name }}</h5>
                 <h6>직종</h6>
-                <h5>비계공</h5>
+                <h5>{{ item.ctgo_occupation_name }}</h5>
               </app-col>
             </app-row>
           </app-card>
-        </app-col>
-        <app-col>
+        </ion-col>
+        <ion-col size="6">
           <app-card style="background-color: var(--ion-color-medium-translucent);">
             <app-row>
               <app-col size="auto">
@@ -369,15 +393,16 @@
               </app-col>
             </app-row>
           </app-card>
-        </app-col>
-      </app-row>
+        </ion-col>
+      </ion-row>
     </ng-container>
   </ion-content>
   <app-button-footer>
-    <app-button fill="translucent">수정</app-button>
+    <app-button *ngIf="item && educationMenu" fill="translucent">수정</app-button>
+    <app-button *ngIf="!item" (click)="submit()" fill="translucent">저장</app-button>
   </app-button-footer>
   <app-button-footer>
-    <app-button fill="translucent" (click)="openDetailSearch()">출석등록(검색)</app-button>
-    <app-button>출석등록(QR)</app-button>
+    <app-button *ngIf="!educationMenu" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+    <app-button *ngIf="!educationMenu" (click)="qrAdd()">출석등록QR)</app-button>
   </app-button-footer>
 </ng-container>

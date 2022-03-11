@@ -187,12 +187,10 @@ export class MyStatusListPage implements OnInit {
       // this.nfcqrForm.serial_key = qrData.qr_data;
       this.nfcqrForm.serial_key = 'N22';
       this.nfcqrForm.nb_log_state = 'QR'
-      console.log("qrData",qrData);
       if(qrData.type === 'NFC_CHANGE'){
         this.nfcScan();
       }
       else {
-      console.log("qrIn");
         if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode === 0) {

@@ -540,6 +540,10 @@ const routes: Routes = [
     path: 'qr-scan',
     loadChildren: () => import('./page/today-work/qr-scan/qr-scan.module').then( m => m.QrScanPageModule)
   },
+  {
+    path: 'qr-education-in',
+    loadChildren: () => import('./page/safety-education/educatiion-status/qr-education-in/qr-education-in.module').then( m => m.QrEducationInPageModule)
+  },
   
 
 ];

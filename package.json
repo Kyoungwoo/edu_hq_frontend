@@ -39,6 +39,7 @@
     "cordova-plugin-qrscanner": "^3.0.1",
     "install": "^0.13.0",
     "npm": "^8.1.2",
+    "qrious": "^4.0.2",
     "rxjs": "~6.6.0",
     "smarteditor2": "^2.10.0-alpha.8",
     "tslib": "^2.2.0",

@@ -28,6 +28,7 @@ export class SearchAttendanceComponent implements OnInit {
   @Input() allState:boolean = false;
   @Input() editable:boolean = false;
   @Input() multiple:boolean = false;
+  @Input() educationType:boolean = false;
 
   form = {
     user_type: '',
@@ -50,12 +51,16 @@ export class SearchAttendanceComponent implements OnInit {
     private _modal_: ModalController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.educationType) {
+      this.form.user_type = '관리자';
+    }
+    else this.form.user_type = '작업자';
+    this.get();
+  }
 
 
   async get() {
-    if(!this.form.project_id) return this.toast.present({message:"현장을 선택해주세요.", color:'warning'});
-    if(!this.form.user_type) return this.toast.present({message:"유형을 선택해주세요.", color:'warning'});
     this.res = await this.connect.run('/category/education/manager/get', this.form);
     if(this.res.rsCode === 0) {
       

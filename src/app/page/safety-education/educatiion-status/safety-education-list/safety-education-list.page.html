@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+                <app-select-contractor [multiple]="true" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -123,7 +123,7 @@
       </app-col>
     </app-row>
     <ng-container>
-      <app-card *ngFor="let item of res?.rsMap">
+      <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
         <app-row style="align-items: flex-start;">
           <app-col>
             <p>{{ item.company_name }}</p>

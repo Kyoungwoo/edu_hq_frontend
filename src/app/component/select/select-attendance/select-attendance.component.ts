@@ -40,7 +40,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
   @Input() required:boolean = false;
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
-
+  @Input() educationType:boolean = false;
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
@@ -83,9 +83,12 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
       if(this.multiple) {
+        console.log("this.value",rsMap);
+        console.log("this.value",this.value);
         this.text = rsMap
-        .filter(education => (this.value as number[]).indexOf(education.user_id))
+        .filter(education => (this.value as number[]).indexOf(education.user_id) !== -1)
         .map(education => education.user_name).join();
+        // for(let i = 0; i < rsMap.length; i++) if((this.value as number[]).indexOf(rsMap[i].user_id) != -1) aaaaaa.push(rsMap[i].user_id);
       } else {
         this.text = rsMap.find(education => education.user_id === this.value)?.user_name || '';
       }
@@ -101,7 +104,9 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
         allState: this.allState,
         project_id: this.project_id,
         multiple: this.multiple,
-        editable: this.editable
+        editable: this.editable,
+        educationType: this.educationType,
+        value:this.value
       }
     });
     modal.present();
@@ -141,6 +146,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
   valueChange(v) {
     this._value = v ? v : this.multiple ? [] : 0;
     this.onChangeCallback(v);
+    this.get();
     this.change.emit(v);
   }
 
