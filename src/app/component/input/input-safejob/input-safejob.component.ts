@@ -61,32 +61,38 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
     console.log(this.value);
   }
   getFileName(url:string) {
-    const slash = url.lastIndexOf('/');
-    return url.substring(slash+1, url.length);
+    const slash = url?.lastIndexOf('/');
+    return url ? url.substring(slash+1, url.length) : '';
   }
   getMimeType(url:string) {
-    const dot = url.lastIndexOf('.');
-    return url.substring(dot, url.length);
+    const dot = url?.lastIndexOf('.');
+    return url ? url.substring(dot, url.length) : '';
   }
 
   setValue(v:SafeJobItem[]) {
     v?.forEach(item => {
-      const file_name = this.getFileName(item.safe_job_file);
-      const file_type = this.getMimeType(item.safe_job_file);
-      const content_type = this.file.getContentType(item.safe_job_file);
       if(!item.fut_item) {
-        item.fut_item = [{
-          content_type,
-          file_name,
-          file_size: null,
-          file_type,
-          full_url: item.safe_job_file,
-          order_no: 1,
-          seq_no: 1,
-          view_type: "JOB"
-        }];
         item.file = [];
         item.file_json = new FileJson();
+
+        if(item.safe_job_file) {
+          const file_name = this.getFileName(item.safe_job_file);
+          const file_type = this.getMimeType(item.safe_job_file);
+          const content_type = this.file.getContentType(item.safe_job_file);
+          item.fut_item = [{
+            content_type,
+            file_name,
+            file_size: null,
+            file_type,
+            full_url: item.safe_job_file,
+            order_no: 1,
+            seq_no: 1,
+            view_type: "JOB"
+          }];
+        }
+        else {
+          item.fut_item = [];
+        }
       }
     });
     this._value = v;
