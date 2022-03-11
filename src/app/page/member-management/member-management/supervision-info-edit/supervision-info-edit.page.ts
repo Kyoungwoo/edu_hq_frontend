@@ -51,6 +51,8 @@ export class ApprovalItem {
 })
 export class SupervisionInfoEditPage implements OnInit {
 
+  editable:boolean = false;
+  
   @Input() item;
 
   form = {

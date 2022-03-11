@@ -125,13 +125,13 @@ export class WorkerApprovalListPage implements OnInit {
     } else if(this.res.rsCode === 1008) {
       // 데이터 없음
     }
-    else if(this.res.rsCode === 3008) {
+    else if(this.res.rsCode === 3008 || this.res.rsCode === 3009) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.getPassword();
-      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
 
@@ -152,7 +152,8 @@ export class WorkerApprovalListPage implements OnInit {
     const modal = await this.modal.create({
       component:WorkerApprovalEditPage,
       componentProps:{
-        item: this.file.clone(item)
+        item: this.file.clone(item),
+        state: 'worker'
       }
     });
     modal.present();

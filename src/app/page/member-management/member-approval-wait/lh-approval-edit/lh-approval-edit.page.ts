@@ -61,6 +61,8 @@ export class ApprovalItem implements OrganizationValue {
 })
 export class LhApprovalEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
 
   form = {

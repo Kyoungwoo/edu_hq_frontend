@@ -161,7 +161,8 @@ export class PartnerApprovalListPage implements OnInit {
     const modal = await this.modal.create({
       component:ApprovalPopupComponent,
       componentProps:{
-        selectedList:this.selectedList
+        selectedList:this.selectedList,
+        state: 'partner'
       },
       cssClass:"approval-modal"
     });

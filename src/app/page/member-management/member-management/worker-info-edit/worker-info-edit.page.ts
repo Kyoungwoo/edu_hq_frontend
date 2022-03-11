@@ -153,6 +153,8 @@ export class PlusMileageList {
 
 export class WorkerInfoEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
   menu: number = 1;
 

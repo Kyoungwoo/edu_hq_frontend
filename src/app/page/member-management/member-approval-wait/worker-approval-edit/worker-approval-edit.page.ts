@@ -1,11 +1,14 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { CertifyItem, InputCertifyComponent } from 'src/app/component/input/input-certify/input-certify.component';
+import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
 import { SignUpViewType } from 'src/app/page/sign-up/sign-up.interface';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
@@ -35,34 +38,31 @@ export class BasicItem {
 
 //소속정보
 export class ApprovalItem {
-  ctgo_construction_id: number;
-  safe_job_data: {
-    user_id: number;
-    ctgo_safe_job_id: number;
-    user_safe_job_id: number;
-    safe_job_start_date: string;
-    ctgo_safe_job_name_ch: string;
-    ctgo_safe_job_name_en: string;
-    ctgo_safe_job_name_kr: string;
-    ctgo_safe_job_name_vi: string;
-  }
-  safe_job_file_data: FutItem[] = [];
-  company_id: number;
-  ctgo_job_position_id: number;
-  ctgo_occupation_name: string;
-  ctgo_construction_name: string;
-  ctgo_job_position_name: string;
-  project_name: string;
-  certify_data: {
-    user_id: number;
-    user_certify_id: number;
-    user_certify_no: string;
-  }
-  certify_file_data: FutItem[] = [];
+  ctgo_construction_id:number;
+  // safe_job_data: {
+  //   user_id: number;
+  //   ctgo_safe_job_id: number;
+  //   user_safe_job_id: number;
+  //   safe_job_start_date: string;
+  //   ctgo_safe_job_name_ch: string;
+  //   ctgo_safe_job_name_en: string;
+  //   ctgo_safe_job_name_kr: string;
+  //   ctgo_safe_job_name_vi: string;
+  // }
+  company_id:number;
+  ctgo_job_position_id:number;
+  ctgo_occupation_name:string;
+  ctgo_construction_name:string;
+  ctgo_job_position_name:string;
+  project_name:string;
+  certify_data:CertifyItem[];
   ctgo_occupation_id: number;
   project_id: number;
   company_name: string;
   work_contract_type: string;
+  
+  certify_file_data:FutItem[] = [];
+  safe_job_data:SafeJobItem[] = [];
 }
 
 // 건강문진
@@ -129,6 +129,11 @@ export class SafeEduList {
 })
 export class WorkerApprovalEditPage implements OnInit {
 
+  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
+  @ViewChild('inputCertify') inputCertify:InputCertifyComponent;
+
+  editable:boolean = false;
+
   @Input() item;
 
   form = {
@@ -161,7 +166,8 @@ export class WorkerApprovalEditPage implements OnInit {
     public user: UserService,
     private toast: ToastService,
     private alert: AlertService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private loading: LoadingService
   ) { }
 
   ngOnInit() {
@@ -209,11 +215,17 @@ export class WorkerApprovalEditPage implements OnInit {
   
 
   async get(){
-    await this.getItem(); //기본정보
-    await this.getBelong(); //소속정보
-    await this.getSafeEdu(); //교육이력
-    await this.getSafeEduList(); //교육이력목록
-    await this.getHealth(); //건강문진
+    const loading = await this.loading.present();
+
+    await Promise.all([
+      this.getItem(), 
+      this.getBelong(),
+      this.getSafeEdu(),
+      this.getSafeEduList(),
+      this.getHealth()
+    ]);
+
+    loading.dismiss();
   }
 
 //기본정보
@@ -318,6 +330,8 @@ export class WorkerApprovalEditPage implements OnInit {
           text:'예',
           handler: async() => {
             await this.BasicSubmit();
+            await this.inputSafeJob.submit();
+            await this.inputCertify.submit();
             await this.BelongSubmit();
             await this.SafeEduSubmit();
           }
@@ -345,6 +359,12 @@ export class WorkerApprovalEditPage implements OnInit {
       ...this.formApproval
     }, {});
     if(res.rsCode === 0) {
+      console.log("---------- basic:",this.form );
+      console.log("---------- formApproval:", this.formApproval);
+      console.log("---------- update:", {
+        ...this.form,
+        ...this.formApproval
+      });
       this._modal_.dismiss('Y');
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });

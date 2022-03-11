@@ -57,6 +57,8 @@ export class ApprovalItem {
 })
 export class PartnerApprovalEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
 
   form = {

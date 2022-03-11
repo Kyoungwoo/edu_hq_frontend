@@ -54,6 +54,8 @@ export class ApprovalItem {
 })
 export class LhInfoEditPage implements OnInit {
 
+  editable:boolean = false;
+
   @Input() item;
 
   form = {
