@@ -116,6 +116,7 @@
         insert_url="/usermanage/approval/worker/safejob/insert"
         update_url="/usermanage/approval/worker/safejob/update"
         delete_url="/usermanage/approval/worker/safejob/delete"
+        [params]="this.form"
         [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
         <!-- <app-row>
           <app-col></app-col>

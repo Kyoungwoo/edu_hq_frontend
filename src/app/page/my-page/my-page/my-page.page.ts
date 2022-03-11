@@ -74,11 +74,6 @@ export class EducationGetForm {
   project_id:number = null;
   search_text:string = null;
 }
-
-/** 안전마일리지 class */
-export class MileageGetForm {
-
-}
 @Component({
   selector: 'app-my-page',
   templateUrl: './my-page.page.html',
@@ -105,9 +100,29 @@ export class MyPagePage implements OnInit {
   educationRes:ConnectResult<any>;
 
   /** 안전마일리지 form */
-  mileageTotalRes:ConnectResult<any>;
-  mileagePlusRes:ConnectResult<any>;
-  mileageMinusRes:ConnectResult<any>;
+  mileageTotalRes:ConnectResult<{
+    minus_mileage:number,
+    plus_mileage:number,
+    total_mileage:number
+  }>;
+  mileagePlusRes:ConnectResult<{
+    create_date:string,
+    ctgo_safe_mileage:string,
+    ctgo_safe_mileage_id:number,
+    ctgo_safe_mileage_point:number,
+    payer_user_id:number,
+    payer_user_name:string,
+    user_id:number
+  }>;
+  mileageMinusRes:ConnectResult<{
+    create_date:string,
+    ctgo_safe_mileage:string,
+    ctgo_safe_mileage_id:number,
+    ctgo_safe_mileage_point:number,
+    payer_user_id:number,
+    payer_user_name:string,
+    user_id:number
+  }>;
 
 
   constructor(
