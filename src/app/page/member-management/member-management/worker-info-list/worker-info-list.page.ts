@@ -113,6 +113,7 @@ export class WorkerInfoListPage implements OnInit {
     if(this.res.rsCode === 0) {
       // 정상
     } else if(this.res.rsCode === 1008) {
+      this.res = null;
       // 데이터 없음
     }
     else if(this.res.rsCode === 3008 || this.res.rsCode === 3009) {

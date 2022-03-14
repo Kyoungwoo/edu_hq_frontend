@@ -58,8 +58,7 @@ export class SupervisionEditPage implements OnInit {
 
   getPermission() {
     const company_contract_type = this.user.userData.belong_data.company_contract_type;
-    if(company_contract_type === 'LH'
-    || company_contract_type === '감리사') {
+    if(company_contract_type === 'LH' || company_contract_type === '감리사') {
       this.permission.edit = true;
     } else {
       this.permission.edit = false;

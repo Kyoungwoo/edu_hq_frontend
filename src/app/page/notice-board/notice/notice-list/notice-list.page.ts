@@ -66,6 +66,7 @@ export class NoticeListPage implements OnInit {
         this.res.rsMap.push(item);
       });
     } else if(res.rsCode === 1008) {
+      this.res = null;
       // 더 로딩할 데이터가 없음
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });

@@ -156,7 +156,8 @@
         </tbody>
       </app-table>
     </div>
-    <div [style.display]="menu === 4 ? 'block' : 'none'">
+    <div [style.display]="menu === 4 ? 'block' : 'none'" *ngIf="user.userData.belong_data.company_contract_type === '원청사' 
+    || user.userData.belong_data.company_contract_type === '협력사'" >
       <!-- 안전마일리지 -->
       <app-row>
         <app-col></app-col>
@@ -205,7 +206,7 @@
       <app-row>
         <app-col></app-col>
         <app-col size="auto">
-          <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()">마일리지 지급</app-button>
+          <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()" *ngIf="permission.mileageinsert">마일리지 지급</app-button>
         </app-col>
       </app-row>
       <h5>안전 마일리지 사용 내역</h5>

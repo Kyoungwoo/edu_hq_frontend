@@ -17,7 +17,8 @@ export class NotifyListPage implements OnInit {
     end_date:this.date.today(),
     notify_menu:'',
     project_id:null,
-    search_text:''
+    search_text:'',
+    limit_no:0
   }
 
   res:ConnectResult<{
@@ -48,7 +49,8 @@ export class NotifyListPage implements OnInit {
     this.get();
   }
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
     this.res = await this.connect.run('/notify/get',this.form);
     if(this.res.rsCode === 0) {}
     else {

@@ -141,6 +141,10 @@ export class PartnerIntoEditPage implements OnInit {
 
   validator = new Validator(new BasicItem()).validator;
 
+  permission = {
+    mileageinsert: false //마일리지 지급
+  }
+
   menu: number = 1;
   constructor(
     private _modal_: ModalController,
@@ -153,11 +157,21 @@ export class PartnerIntoEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getPermission();
+    this.get();
+  }
+
+   //권한
+   getPermission() { 
+    if(this.user.userData.user_role === 'LH_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.permission.mileageinsert = false;
+    } else {
+      this.permission.mileageinsert = true;
+    }
     this.form.user_id = this.item.user_id;
     this.form.approval_user_id = this.item.user_id;
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
-    this.get();
   }
 
   //이메일

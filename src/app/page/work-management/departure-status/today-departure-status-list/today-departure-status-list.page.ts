@@ -138,7 +138,8 @@ export class TodayDepartureStatusListPage implements OnInit {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
-  async getList() {
+  async getList(limit_no = this.listForm.limit_no) {
+    this.listForm.limit_no = limit_no;
     this.res2 = await this.connect.run('/work_state/detail/list', this.form, { loading: true });
     if(this.res2.rsCode !== 0 && this.res2.rsCode !== 1008) {
       this.toast.present({ color: 'warning', message: this.res2.rsMsg });

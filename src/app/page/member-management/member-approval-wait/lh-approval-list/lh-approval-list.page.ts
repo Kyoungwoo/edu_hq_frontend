@@ -70,6 +70,7 @@ export class LhApprovalListPage implements OnInit {
       // 정상
       this.res.rsMap.map((item) => {item.state = 'lh'});
     } else if(this.res.rsCode === 1008) {
+      this.res = null;
       // 데이터 없음
     }
     else if(this.res.rsCode === 3008 || this.res.rsCode === 3009) {

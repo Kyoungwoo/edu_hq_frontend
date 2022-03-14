@@ -47,6 +47,7 @@ export class PartnerListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.getPromission();
     this.getForm();
     this.getList();
@@ -74,9 +75,12 @@ export class PartnerListPage implements OnInit {
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    this.res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
-    if(this.res.rsCode !== 0) {
-      this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    const res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
+    if (res.rsCode === 0) {
+      this.res = res;
+    }
+    else if (res.rsCode === 1008) {
+      this.res = null;
     }
   }
 
