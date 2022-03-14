@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectedItem[i] === item ? 'secondary' : 'white'" (click)="selectedItem[i] = item">
+  <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectedItem === item ? 'secondary':'white'" (click)="selectedItem = item">
     <app-row>
       <app-col size="auto">
       </app-col>

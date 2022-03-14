@@ -377,7 +377,7 @@
         </ion-toolbar>
         <tbody>
           <tr>
-            <app-select-company [disabled]="rolepass" [multiple]="false" [project_id]="jobForm.project_id" [(ngModel)]="jobForm.company_id"></app-select-company>
+            <app-select-company [project_id]="jobForm.project_id" [disabled]="rolepass" [multiple]="false" [project_id]="jobForm.project_id" [(ngModel)]="jobForm.company_id"></app-select-company>
           </tr>
         </tbody>
       </app-table>
@@ -401,7 +401,7 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <ng-container *ngIf="!rolepass; else positionEmpty">
+      <ng-container *ngIf="!rolepass">
         <app-check-group [(ngModel)]="selectList">
           <app-table>
             <thead>
@@ -454,15 +454,6 @@
         </app-row>
         <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
       </ng-container>
-      <ng-template #positionEmpty>
-        <app-row>
-          <app-col>
-            <app-card>
-              <h5>권한이 없습니다.</h5>
-            </app-card>
-          </app-col>
-        </app-row>
-      </ng-template>
     </app-col>
   </app-row>
 
@@ -483,7 +474,11 @@
         <tbody>
           <tr>
             <app-select-company [disabled]="rolepass || 
-             user.userData.user_role === 'MASTER_HEAD' || user.userData.user_role === 'PARTNER_HEAD'" [multiple]="false" [(ngModel)]="safeJobForm.company_id">
+             user.userData.user_role === 'MASTER_HEAD' ||
+              user.userData.user_role === 'PARTNER_HEAD'" 
+              [multiple]="false" 
+              [project_id]="user.userData.belong_data.project_id"
+              [(ngModel)]="safeJobForm.company_id">
             </app-select-company>
           </tr>
           <tr>
@@ -516,7 +511,7 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <ng-container *ngIf="!rolepass; else resSafeJobEmpty">
+      <ng-container *ngIf="!rolepass">
         <app-check-group [(ngModel)]="safeJobSelected">
           <app-table>
             <thead>
@@ -568,15 +563,6 @@
           </app-col>
         </app-row>
       </ng-container>
-      <ng-template #resSafeJobEmpty>
-        <app-row>
-          <app-col>
-            <app-card>
-              <h5>권한이 없습니다.</h5>
-            </app-card>
-          </app-col>
-        </app-row>
-      </ng-template>
     </app-col>
   </app-row>
 
@@ -597,7 +583,10 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [disabled]="rolepass" [multiple]="false" [(ngModel)]="occupationForm"></app-select-company>
+              <app-select-company [disabled]="rolepass" 
+              [multiple]="false" 
+              [project_id]="user.userData.belong_data.project_id"
+              [(ngModel)]="occupationForm"></app-select-company>
             </td>
           </tr>
           <tr>
@@ -627,7 +616,7 @@
           </app-col>
         </app-row>
       </ion-toolbar>
-      <ng-container *ngIf="!rolepass; else resOccupationEmpty">
+      <ng-container *ngIf="!rolepass">
         <app-check-group [(ngModel)]="occupationSelected">
           <app-table>
             <thead>
@@ -679,15 +668,6 @@
           </app-col>
         </app-row>
       </ng-container>
-      <ng-template #resOccupationEmpty>
-        <app-row>
-          <app-col>
-            <app-card>
-              <h5>권한이 없습니다.</h5>
-            </app-card>
-          </app-col>
-        </app-row>
-      </ng-template>
     </app-col>
   </app-row>
 </ion-content>

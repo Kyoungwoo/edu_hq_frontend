@@ -72,7 +72,6 @@ export class AreaStandardSetPage implements OnInit {
   }
   riskProjectForm = {
     limit_no: 0,
-    // project_id: this.user.userData.belong_data.project_id
     project_id: this.user.userData.belong_data.project_id
   }
   selectDataArea1 = [];
@@ -354,12 +353,13 @@ export class AreaStandardSetPage implements OnInit {
 
 
   async getRiskArea(limit_no = this.riskProjectForm.limit_no) {
+    this.addRiskAreaArr = [];
     this.riskProjectForm.limit_no = limit_no;
     this.menuCount = 2;
     this.resRiskArea = await this.connect.run('/project/area/risk/get', this.riskProjectForm);
     if (this.resRiskArea.rsCode === 0) {
-    } else if(this.resRiskArea.rsCode === 1008) {
-      if(!this.riskProjectForm.limit_no) this.toast.present({color:'dnager',message:this.resRiskArea.rsMsg});
+    } else  {
+      if(!this.riskProjectForm.limit_no) this.toast.present({message:this.resRiskArea.rsMsg,color:'warning'});
     }
   }
 

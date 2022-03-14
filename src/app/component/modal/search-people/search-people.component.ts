@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 export class ctgoMemberItem {
   ctgo_job_position_name_kr: string;
@@ -33,6 +34,7 @@ export class SearchPeopleComponent implements OnInit {
   constructor(
     private connect: ConnectService,
     private user: UserService,
+    private toast: ToastService,
     private _modal: ModalController
   ) { }
 
@@ -41,7 +43,11 @@ export class SearchPeopleComponent implements OnInit {
   }
 
   async get() {
+    console.log(this.form)
     this.res = await this.connect.run('/category/certify/company/user/get',this.form);
+    if(this.res.rsCode !== 0) {
+      this.toast.present({message:this.res.rsMsg,color:'warning'});
+    }
   }
   select() {
     this._modal.dismiss({

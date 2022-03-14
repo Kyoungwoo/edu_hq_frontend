@@ -53,17 +53,17 @@
             <app-button fill="translucent" [disabled]="workRoleCheck" (click)='constructionState(0)'>전체 미사용</app-button>
           </ion-buttons>
         </ion-toolbar>
-        <ng-container *ngIf="!workRoleCheck else constructionEmpty">
-        <ion-toolbar color="white">
-          <app-row>
-            <app-col>
-              <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
-            </app-col>
-            <app-col size="auto">
-              <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
-            </app-col>
-          </app-row>
-        </ion-toolbar>
+        <ng-container *ngIf="!workRoleCheck">
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
           <app-check-group [(ngModel)]="constructionSelected">
             <app-table>
               <thead>
@@ -101,15 +101,6 @@
             </app-col>
           </app-row>
         </ng-container>
-        <ng-template #constructionEmpty>
-          <app-row>
-            <app-col>
-              <app-card>
-                <h5>권한이 없습니다.</h5>
-              </app-card>
-            </app-col>
-          </app-row>
-        </ng-template>
       </app-col>
     </app-row>
   </ng-container>
@@ -131,8 +122,9 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [multiple]="false" [disabled]="workRoleCheck" [(ngModel)]="machineryFrom"></app-select-company>
-            </td>
+              <app-select-company [project_id]="user.userData.belong_data.project_id" [multiple]="false"
+                [disabled]="workRoleCheck" [(ngModel)]="machineryFrom"></app-select-company>
+            </td>`
           </tr>
         </tbody>
       </app-table>
@@ -147,17 +139,17 @@
           <app-button fill="translucent" [disabled]="workRoleCheck" (click)="machineryState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
-      <ng-container *ngIf="!workRoleCheck; else roleEmpty">
-      <ion-toolbar color="white">
-        <app-row>
-          <app-col>
-            <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length ? resMachinery?.rsMap?.length: 0}}건)</h5>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent" (click)="machinerySave()">저장</app-button>
-          </app-col>
-        </app-row>
-      </ion-toolbar>
+      <ng-container *ngIf="!workRoleCheck">
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length ? resMachinery?.rsMap?.length: 0}}건)</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" (click)="machinerySave()">저장</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <app-check-group [(ngModel)]="selectedMachinery">
           <app-table>
             <thead>
@@ -199,15 +191,6 @@
           </app-row>
         </app-card>
       </ng-container>
-      <ng-template #roleEmpty>
-        <app-card>
-          <app-row>
-            <app-col>
-              <h5>권한이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
-      </ng-template>
     </app-col>
   </app-row>
 
@@ -233,7 +216,8 @@
           </tr>
           <tr>
             <td>
-              <app-select-construction [disabled]="workRoleCheck" [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-construction>
+              <app-select-construction [project_id]="toolForm.project_id" [disabled]="workRoleCheck"
+                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-construction>
             </td>
           </tr>
         </tbody>
@@ -249,17 +233,17 @@
           <app-button fill="translucent" [disabled]="workRoleCheck" (click)="toolState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
-      <ng-container *ngIf="!workRoleCheck else roleEmpty">
-      <ion-toolbar color="white">
-        <app-row>
-          <app-col>
-            <h5>특수공도구 목록 (총{{resTool?.rsMap?.length ? resTool?.rsMap?.length :0}}건)</h5>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent" (click)="toolSave()">저장</app-button>
-          </app-col>
-        </app-row>
-      </ion-toolbar>
+      <ng-container *ngIf="!workRoleCheck">
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>특수공도구 목록 (총{{resTool?.rsMap?.length ? resTool?.rsMap?.length :0}}건)</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" (click)="toolSave()">저장</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <app-check-group [(ngModel)]="slectedTool">
           <app-table>
             <thead>
@@ -297,15 +281,6 @@
           </app-row>
         </app-card>
       </ng-container>
-      <ng-template #roleEmpty>
-        <app-card>
-          <app-row>
-            <app-col>
-              <h5>권한이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
-      </ng-template>
     </app-col>
   </app-row>
 
@@ -327,12 +302,14 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [disabled]="workRoleCheck" [company_id]="meetingForm.company_id" [(ngModel)]="meetingForm.project_id"></app-select-scene>
+                <app-select-scene [disabled]="workRoleCheck" [company_id]="meetingForm.company_id"
+                  [(ngModel)]="meetingForm.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-company [disabled]="workRoleCheck" [project_id]="meetingForm.project_id" [multiple]="false" [(ngModel)]="meetingForm.company_id"></app-select-company>
+                <app-select-company [disabled]="workRoleCheck" [project_id]="meetingForm.project_id" [multiple]="false"
+                  [(ngModel)]="meetingForm.company_id"></app-select-company>
               </td>
             </tr>
           </tbody>
@@ -347,17 +324,17 @@
           </ion-buttons>
         </ion-toolbar>
         <ng-container *ngIf="!workRoleCheck">
-        <app-card>
-          <ion-toolbar slot="top" color="white">
-            <h5>안전 및 보건에 관한 협의체</h5>
-          </ion-toolbar>
-          <app-row>
-            <app-col>
-              <app-textarea [rows]="7"  [(ngModel)]="resMeeting?.rsObj.safety_default" ></app-textarea>
-            </app-col>
-          </app-row>
-        </app-card>
-  
+          <app-card>
+            <ion-toolbar slot="top" color="white">
+              <h5>안전 및 보건에 관한 협의체</h5>
+            </ion-toolbar>
+            <app-row>
+              <app-col>
+                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
+              </app-col>
+            </app-row>
+          </app-card>
+
           <app-card>
             <ion-toolbar slot="top" color="white">
               <h5>노사 협의체</h5>
@@ -369,7 +346,7 @@
               </app-col>
             </app-row>
           </app-card>
-  
+
           <app-card>
             <ion-toolbar color="white">
               <h5>산업안전 보건 위원회</h5>
@@ -395,14 +372,15 @@
               <h5>필터</h5>
             </app-col>
             <app-col size="auto">
-              <app-button fill="translucent" [disabled]="workRoleCheck" style="width: 100px;" (click)="getDisaster()">검색</app-button>
+              <app-button fill="translucent" [disabled]="workRoleCheck" style="width: 100px;" (click)="getDisaster()">검색
+              </app-button>
             </app-col>
           </app-row>
         </ion-toolbar>
         <tbody>
           <tr>
             <td>
-              <app-select-company [disabled]="workRoleCheck" [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="workRoleCheck" [(ngModel)]="disasterForm"></app-select-company>
             </td>
           </tr>
         </tbody>
@@ -412,22 +390,23 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterAdd()">추가</app-button>
-          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterDelete()" color="danger">삭제</app-button>
+          <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterDelete()" color="danger">삭제
+          </app-button>
           <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(1)">전체 사용</app-button>
           <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
       <ng-container *ngIf="!workRoleCheck else roleEmpty">
-      <ion-toolbar color="white">
-        <app-row>
-          <app-col>
-            <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length ? resDisaster?.rsMap?.length:0}}건)</h5>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent" (click)="disasterSave()">저장</app-button>
-          </app-col>
-        </app-row>
-      </ion-toolbar>
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length ? resDisaster?.rsMap?.length:0}}건)</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" (click)="disasterSave()">저장</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
         <app-check-group [(ngModel)]="disasterSelected">
           <app-table>
             <thead>
@@ -474,7 +453,6 @@
           </app-row>
         </app-card>
       </ng-template>
-
     </app-col>
   </app-row>
 </ion-content>

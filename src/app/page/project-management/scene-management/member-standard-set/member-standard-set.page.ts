@@ -97,7 +97,7 @@ export class MemberStandardSetPage implements OnInit {
   //안전직무
   safeJobForm = {
     company_id: this.user.userData.belong_data.company_id,
-    user_type: ''
+    user_type: 'COMPANY'
   }
 
   resSafeJob: ConnectResult<{
@@ -480,14 +480,15 @@ export class MemberStandardSetPage implements OnInit {
   //--> 직위 관리 시작
 
   async getJobPosition() {
-    this.resJobPosition = await this.connect.run('/project/job_position/get', { company_id: this.jobForm });
+    this.resJobPosition = await this.connect.run('/project/job_position/get', { company_id: this.jobForm.company_id });
     if (this.resJobPosition.rsCode === 0) {
-
+    } else {
+      this.toast.present({message:this.resJobPosition.rsMsg});
     }
-  }
+  } 
 
   async addJobPosstion() {
-    if (!this.jobForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
+    if (!this.jobForm.company_id) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
     if (this.resJobPosition?.rsMap?.length) {
       this.resJobPosition?.rsMap?.unshift({
         ctgo_job_position_name_kr: '',
@@ -516,7 +517,10 @@ export class MemberStandardSetPage implements OnInit {
     this.resJobPosition.rsMap.forEach(async (item) => {
       if (item.ctgo_job_position_id === 0) {
         const res = await this.connect.run('/project/job_position/insert', item, {});
-        if (res.rsCode === 0) { };
+        if (res.rsCode === 0) {
+          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+
+         };
       } else {
         const res = await this.connect.run('/project/job_position/update', item, {});
         if (res.rsCode === 0) { };
@@ -708,12 +712,12 @@ export class MemberStandardSetPage implements OnInit {
       if (item.ctgo_occupation_id === 0) {
         const res = await this.connect.run('/project/occupation/insert', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
         };
       } else {
         const res = await this.connect.run('/project/occupation/update', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
+          this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
         };
       }
     });

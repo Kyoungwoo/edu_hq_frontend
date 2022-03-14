@@ -232,8 +232,8 @@
                 <th rowspan="2">사용여부</th>
               </tr>
               <tr>
-                <th style="width: 70px;">정</th>
-                <th style="width: 70px;">부</th>
+                <th style="width: 80px;">정</th>
+                <th style="width: 80px;">부</th>
               </tr>
             </thead>
             <tbody>
@@ -268,11 +268,11 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <app-select-people label="" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select-people label="" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
@@ -313,11 +313,11 @@
                   {{ item.nfc_state ? item.nfc_state +'개':'-'}}
                 </td>
                 <td>
-                  <app-select-people label="" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select-people label="" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>

@@ -43,7 +43,7 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   public async get() {
-    console.log(this.company_id, this.value);
+    console.log('this.company_id',this.company_id, this.value);
     if(!this.company_id || !this.value) return;
     const res = await this.connect.run('/category/certify/company/user/get', {
       company_id: this.company_id,
