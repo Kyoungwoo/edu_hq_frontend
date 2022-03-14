@@ -48,7 +48,7 @@ export class ApprovalItem {
   project_state: string;
   ctgo_construction_name: string;
   project_name: string;
-  user_role: string;
+  user_role: number;
   construction_start_date: string;
   user_id: number;
   project_id: number;
@@ -163,10 +163,10 @@ export class PartnerIntoEditPage implements OnInit {
 
    //권한
    getPermission() { 
-    if(this.user.userData.user_role === 'LH_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
-      this.permission.mileageinsert = false;
-    } else {
+    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'MASTER_GENERAL') {
       this.permission.mileageinsert = true;
+    } else {
+      this.permission.mileageinsert = false;
     }
     this.form.user_id = this.item.user_id;
     this.form.approval_user_id = this.item.user_id;
