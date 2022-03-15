@@ -24,15 +24,15 @@
             </app-input>
           </app-col>
           <app-col>
-            <app-input name="input" label="성명" [(ngModel)]="formBasic.user_name" [required]="true"></app-input>
+            <app-input name="input" label="성명" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_name" [required]="true"></app-input>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-calendar name="calendar" label="생년월일" [(ngModel)]="formBasic.user_birth" [required]="true"></app-calendar>
+            <app-calendar name="calendar" label="생년월일" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_birth" [required]="true"></app-calendar>
           </app-col>
           <app-col>
-            <app-radio-input name="user_gender" label="성별" [(ngModel)]="formBasic.user_gender" [required]="true">
+            <app-radio-input name="user_gender" label="성별" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_gender" [required]="true">
               <app-radio value="남">남</app-radio>
               <app-radio value="여">여</app-radio>
             </app-radio-input>
@@ -40,7 +40,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input name="phone-number" label="휴대폰" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
+            <app-input name="phone-number" label="휴대폰" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
               중복확인
               </app-input>
               <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
@@ -48,6 +48,7 @@
           <app-col>
             <app-select-country name="국가"
             name="ctgo_country_id"
+            [disabled]="!permission.approval"
             [color]="validator.ctgo_country_id?.valid === false && 'warning'"
             [(ngModel)]="formBasic.ctgo_country_id" [required]="true"></app-select-country>
             <app-input-caption *ngIf="validator.ctgo_country_id?.valid === false" color="warning">{{ validator.ctgo_country_id?.message }}</app-input-caption>
@@ -55,7 +56,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-email name="user_email" label="이메일" [(ngModel)]="formBasic.user_email"
+            <app-email name="user_email" label="이메일" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_email"
           [color]="validator.user_email?.valid === false && 'warning'" (delayKeyup)="overlapEmail()"
           [(ngModel)]="formBasic.user_email"></app-email>
           <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
@@ -63,11 +64,7 @@
           <app-col></app-col>
         </app-row>
       </form>
-      <ion-toolbar slot="bottom" color="white">
-        <ion-buttons slot="end">
-          <app-button style="width: 120px;" (click)="submit()">저장</app-button>
-        </ion-buttons>
-      </ion-toolbar>
+    
     </app-card>
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
@@ -93,7 +90,7 @@
           <app-input name="input disabled" label="업체명" [disabled]="true" [(ngModel)]="formApproval.company_name"></app-input>
         </app-col>
         <app-col>
-          <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
+          <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
         </app-col>
       </app-row>
       <app-row>
@@ -101,33 +98,33 @@
           <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
         </app-col>
         <app-col>
-          <app-select-construction [project_id]="formApproval.project_id" name="공종" label="공종"  [(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>
+          <app-select-construction [project_id]="formApproval.project_id" name="공종" label="공종"  [disabled]="!permission.approval"[(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-radio-input name="계약유형" label="계약유형" [(ngModel)]="formApproval.work_contract_type">
+          <app-radio-input name="계약유형" label="계약유형" [disabled]="!permission.approval" [(ngModel)]="formApproval.work_contract_type">
             <app-radio value="상용직">상용직</app-radio>
             <app-radio value="일용직">일용직</app-radio>
           </app-radio-input>
         </app-col>
         <app-col>
-          <app-select-occupation name="직종" [company_id]="formApproval.company_id" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
+          <app-select-occupation name="직종" [company_id]="formApproval.company_id" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
         </app-col>
         
       </app-row>
       <app-row>
         <app-col>
-          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.project_work_state" placeholder="text">
+          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [disabled]="!permission.approval" [(ngModel)]="formApproval.project_work_state" placeholder="text">
             <app-radio [value]="1">출역중</app-radio>
             <app-radio [value]="0">출역종료</app-radio>
           </app-radio-input>
         </app-col>
         <app-col>
-          <app-input-group label="현장 출역 기간">
-            <app-calendar [disabled]="true" [(ngModel)]="formApproval.construction_start_date" [max]="formApproval.construction_end_date"></app-calendar>
+          <app-input-group label="현장 출역 기간" [disabled]="!permission.approval">
+            <app-calendar [(ngModel)]="formApproval.construction_start_date" [max]="formApproval.construction_end_date"></app-calendar>
             ~
-            <app-calendar [disabled]="true" [(ngModel)]="formApproval.construction_end_date" [min]="formApproval.construction_start_date"></app-calendar>
+            <app-calendar [(ngModel)]="formApproval.construction_end_date" [min]="formApproval.construction_start_date"></app-calendar>
           </app-input-group>
         </app-col>
       </app-row>
@@ -138,7 +135,7 @@
       update_url="/usermanage/info/worker/safejob/update"
       delete_url="/usermanage/info/worker/safejob/delete"
       [params]="this.form"
-      [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-safejob>
+      [(ngModel)]="formApproval.safe_job_data" [disabled]="!permission.approval"></app-input-safejob>
 
       <!-- <app-row>
         <app-col></app-col>
@@ -155,7 +152,7 @@
       update_url="/usermanage/approval/worker/certify/update"
       delete_url="/usermanage/approval/worker/certify/delete"
       [params]="this.form"
-      [(ngModel)]="formApproval.safe_job_data" [disabled]="editable"></app-input-certify>
+      [(ngModel)]="formApproval.safe_job_data" [disabled]="!permission.approval"></app-input-certify>
     </div>
     <div [style.display]="menu === 2 ? 'block' : 'none'">
          <!-- 건강문진 -->
@@ -257,10 +254,10 @@
       <h5>교육 정보</h5>
       <app-row>
         <app-col>
-          <app-calendar label="기초 안전 보건 교육 이수일" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
+          <app-calendar label="기초 안전 보건 교육 이수일" [disabled]="!permission.approval" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
       </app-col>
       <app-col>
-        <app-input-template label="기초안전보건교육 이수증">
+        <app-input-template label="기초안전보건교육 이수증" [disabled]="!permission.approval">
           <p *ngIf="!findFile('BASIC_SAFE_EDU') else tempBasicSafeEduValue" slot="input">기초안전보건교육 이수증</p>
           <ng-template #tempBasicSafeEduValue>
             <ion-text color="dark" slot="input">{{ findFile('BASIC_SAFE_EDU').file_name }}</ion-text>
@@ -272,7 +269,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="formSafeList.project_id"></app-select-scene>
+          <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene>
         </app-col>
           <!-- <app-col>
             <app-select label="교육구분" [(ngModel)]="form.ctgo_education_safe_type">
@@ -285,7 +282,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-input label="검색어" [(ngModel)]="formSafeList.search_text" placeholder="교육명을 입력해 주세요.">
+          <app-input label="검색어" [disabled]="!permission.approval" [(ngModel)]="formSafeList.search_text" placeholder="교육명을 입력해 주세요.">
           <app-img name="search" (click)="getSafeEduList()"></app-img>
         </app-input>
         </app-col>
@@ -395,5 +392,8 @@
         </ion-buttons>
       </ion-toolbar> -->
     </app-card>
+    <app-button-footer *ngIf="permission.approval">
+      <app-button style="width: 120px;" (click)="submit()">저장</app-button>
+  </app-button-footer>
   </app-container>
 </ion-content>

@@ -142,7 +142,8 @@ export class PartnerIntoEditPage implements OnInit {
   validator = new Validator(new BasicItem()).validator;
 
   permission = {
-    mileageinsert: false //마일리지 지급
+    mileageinsert: false, //마일리지 지급
+    approval: false //저장
   }
 
   menu: number = 1;
@@ -167,6 +168,11 @@ export class PartnerIntoEditPage implements OnInit {
       this.permission.mileageinsert = true;
     } else {
       this.permission.mileageinsert = false;
+    }
+    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.permission.approval = true;
+    } else {
+      this.permission.approval = false;
     }
     this.form.user_id = this.item.user_id;
     this.form.approval_user_id = this.item.user_id;

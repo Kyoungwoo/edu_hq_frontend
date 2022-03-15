@@ -32,7 +32,8 @@ export class PartnerListPage implements OnInit {
     project_name: string,
     master_company_name: string,
     update_date: string,
-    row_count: number
+    row_count: number,
+    index: number
   }>
 
   permission = {
@@ -76,11 +77,17 @@ export class PartnerListPage implements OnInit {
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     const res = await this.connect.run('/project/company/partner/list', this.form, { loading: true });
-    if (res.rsCode === 0) {
+    if(res.rsCode === 0 ) {
       this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
     }
     else if (res.rsCode === 1008) {
       this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 

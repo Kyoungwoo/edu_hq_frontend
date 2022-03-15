@@ -78,7 +78,7 @@
               <td>
                 <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
               </td>
-              <td>{{ i+1 }}</td>
+              <td>{{ item.index }}</td>
               <td>{{ item.hq_regional_name }}</td>
               <td>{{ item.user_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>

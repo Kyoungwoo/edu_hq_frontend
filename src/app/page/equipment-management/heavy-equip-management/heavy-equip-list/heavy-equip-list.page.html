@@ -6,42 +6,42 @@
       <ion-toolbar slot="top" color="white">
         <app-row style="justify-content: space-between;">
           <app-col size="auto"><h5>필터</h5></app-col>
-          <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+          <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
         </app-row>
       </ion-toolbar>
       <tbody>
         <tr>
           <td>
-           <app-select-scene></app-select-scene>
+           <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
           </td>
         </tr>
         <tr>
           <td>
-           <app-select-heavy></app-select-heavy>
+            <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
           </td>
         </tr>
         <tr>
           <td>
-           <app-select-contractor></app-select-contractor>
+           <app-select-heavy [(ngModel)]="form.ctgo_machinery_id"></app-select-heavy>
           </td>
         </tr>
         <tr>
           <td>
-           <app-select-company></app-select-company>
+           <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.partner_company_id" [all]="true"></app-select-company>
           </td>
         </tr>
         <tr>
           <td>
             <app-input-group label="등록일">
-              <app-calendar></app-calendar>
+              <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
               ~
-              <app-calendar></app-calendar>
+              <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
             </app-input-group>
           </td>
         </tr>
         <tr>
           <td>
-            <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+            <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
           </td>
         </tr>
       </tbody>
@@ -54,7 +54,7 @@
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
-      <h5>건설기계 목록 (총60건)</h5>
+      <h5>건설기계 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
     </ion-toolbar>
     <app-table>
       <thead>
@@ -69,17 +69,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="button">
-          <td style="width: 40px;" ><app-check color="white" size="small" name="check"></app-check></td>
-          <td>크레인</td>
-          <td>경기08고4464</td>
-          <td>구일종합건설㈜</td>
-          <td>구일종합건설㈜</td>
-          <td>기계</td>
-          <td>2021.05.28</td>
+        <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+          <td style="width: 40px;">
+            <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
+          </td>
+          <td>{{ item.ctgo_machinery_name }}</td>
+          <td>{{ item.machinery_regist_no }}</td>
+          <td>{{ item.master_company_name }}</td>
+          <td>{{ item.partner_company_name}}</td>
+          <td>{{ item.ctgo_construction_name }}</td>
+          <td>{{ item.create_date }}</td>
         </tr>
       </tbody>
     </app-table>
+    <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
   </app-col>
 </app-row>
 </ion-content>

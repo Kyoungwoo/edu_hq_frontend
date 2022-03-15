@@ -91,7 +91,7 @@
                 <td>
                   <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
                 </td>
-                <td>{{ i+1 }}</td>
+                <td>{{ item.index }}</td>
                 <!-- <td>신규가입</td> -->
                 <td>{{ item.ctgo_construction_name }}</td>
                 <td>{{ item.company_name }}</td>

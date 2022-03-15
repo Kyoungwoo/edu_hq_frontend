@@ -39,7 +39,8 @@ export class SupervisionListPage implements OnInit {
     company_name: string,
     create_user_id: number,
     create_user_name: string,
-    row_count: number
+    row_count: number,
+    index: number
   }>
 
   ctgoRegional:ConnectResult<{
@@ -65,9 +66,9 @@ export class SupervisionListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    /* const condition = null; // null false 0 '' undefined
-    const x = condition || 'no';
-    console.log('answer', condition); */
+    // const condition = null; // null false 0 '' undefined
+    // const x = condition || 'no';
+    // console.log('answer', condition);
 
     /* const condition = 'hello';
     const x = condition ? 'yes' : 'no';
@@ -91,8 +92,11 @@ export class SupervisionListPage implements OnInit {
     this.form.limit_no = limit_no;
     const res = await this.connect.run('/project/company/masters/list', this.form, {
     });
-    if (res.rsCode === 0) {
+    if(res.rsCode === 0 ) {
       this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
     }
     else if (res.rsCode === 1008) {
       this.res = null;

@@ -24,6 +24,7 @@ class NoticeInfo {
   project_name: string;
   user_name: string;
   row_count: number;
+  index:number
 }
 @Component({
   selector: 'app-notice-list',
@@ -61,9 +62,10 @@ export class NoticeListPage implements OnInit {
 
     const res = await this.connect.run('/board/notice/list', this.form, {
     });
-    if(res.rsCode === 0) {
-      res.rsMap.forEach(item => {
-        this.res.rsMap.push(item);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
       });
     } else if(res.rsCode === 1008) {
       this.res = null;
@@ -82,9 +84,19 @@ export class NoticeListPage implements OnInit {
 
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    this.res = await this.connect.run('/board/notice/list', this.form, {
-      loading: '공지사항 불러오기'
-    });
+    const res = await this.connect.run('/board/notice/list',this.form);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
+    }
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
   }
 
   async detailSearch() {

@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>중장비 정보 등록</ion-title>
+    <ion-title>중장비 정보</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -11,43 +11,45 @@
     <h4>기본정보</h4>
    <app-row mobileBreak>
      <app-col>
-      <app-input label="현장"></app-input>
+      <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
      </app-col>
      <app-col>
-     <app-input [disabled]="true" label="원청사"></app-input>
+      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [(ngModel)]="form.master_company_name" [disabled]="true" ></app-select-contractor>
      </app-col>
    </app-row>
    <app-row mobileBreak>
     <app-col>
-      <app-input [disabled]="true" label="업체"></app-input>
+      <app-input [required]="true" label="업체명" name="input"
+      [(ngModel)]="form.partner_company_name" placeholder=""></app-input>
     </app-col>
     <app-col>
-    <app-select-construction-machinery></app-select-construction-machinery>
-    </app-col>
-  </app-row>
-  <app-row mobileBreak>
-    <app-col>
-      <app-input label="등록번호"></app-input>
-    </app-col>
-    <app-col>
-      <app-select-occupation></app-select-occupation>
+      <app-select-heavy [(ngModel)]="form.ctgo_machinery_name"></app-select-heavy>
     </app-col>
   </app-row>
   <app-row mobileBreak>
     <app-col>
-      <app-input label="대여업체"></app-input>
+      <app-input name="machinery_regist_no" [required]="true" label="등록번호"
+        [(ngModel)]="form.machinery_regist_no" placeholder=""></app-input>
+    </app-col>
+    <app-col>
+      <app-select-construction name="ctgo_construction_name" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_name"></app-select-construction>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak>
+    <app-col>
+      <app-input label="대여업체" [(ngModel)]="form.rental_company_name"></app-input>
     </app-col>
     <app-col>
       <app-input-group label="보증기간">
-        <app-calendar></app-calendar>
+        <app-calendar name="contract_start_date" [(ngModel)]="form.rental_start_date" [max]="form.rental_end_date"></app-calendar>
         ~
-        <app-calendar></app-calendar>
+        <app-calendar name="contract_end_date" [(ngModel)]="form.rental_end_date" [min]="form.rental_start_date"></app-calendar>
       </app-input-group>
     </app-col>
   </app-row>
   <app-row mobileBreak>
     <app-col>
-      <app-input label="보증금액"></app-input>
+      <app-input label="보증금액" [(ngModel)]="form.rental_price"></app-input>
     </app-col>
     <app-col>
     </app-col>
