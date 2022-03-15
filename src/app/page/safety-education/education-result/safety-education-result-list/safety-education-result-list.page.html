@@ -14,36 +14,42 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_ids"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor></app-select-contractor>
+                <app-select-contractor [multiple]="true" [(ngModel)]="form.company_ids"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-education></app-select-education>
+                <app-select-education [(ngModel)]="form.ctgo_education_safe_ids"></app-select-education>
               </td>
             </tr>
             <tr>
               <td>
                 <app-input-group label="교육일">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="결재 현황"></app-select>
+                <app-select label="결재 현황" [(ngModel)]="form.approval_cnt_answer">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="진행중">진행중</app-select-option>
+                  <app-select-option value="반려">반려</app-select-option>
+                  <app-select-option value="승인">승인</app-select-option>
+                  <app-select-option value="제출">제출</app-select-option>
+                </app-select>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>
@@ -57,7 +63,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>결과 보고 목록(총00건)</h5>
+          <h5>결과 보고 목록(총{{ res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -73,18 +79,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" (click)="edit()">
-              <td>9</td>
-              <td>(주)제일</td>
-              <td>작업 변겅시 교육</td>
-              <td>일용근로자</td>
-              <td>2021.05.21(금)</td>
-              <td>이상범</td>
-              <td>2021.09.15</td>
-              <td>승인</td>
+            <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit()">
+              <td>{{ item.index}}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.ctgo_education_safe_name }}</td>
+              <td>{{ item.education_safe_target }}</td>
+              <td>{{ item.education_safe_date }}</td>
+              <td>{{ item.create_user_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.approval_cnt_answer }}</td>
             </tr>
           </tbody>
         </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content>

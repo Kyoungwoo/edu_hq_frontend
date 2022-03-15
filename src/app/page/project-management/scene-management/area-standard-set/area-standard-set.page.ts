@@ -118,7 +118,7 @@ export class AreaStandardSetPage implements OnInit {
   }
   riskAreaData = [];
 
-
+  area_risk_use_state_data = [];
   gps_coordinate_data = new GPS_COORDINATE_DATA();
   
   resGPS: ConnectResult<{
@@ -145,20 +145,6 @@ export class AreaStandardSetPage implements OnInit {
   gpsselected: SelectItem = new SelectItem();
 
   naverMapSetting:boolean = true;
-  // area = [
-  //   {
-  //     x: 126.7552019,
-  //     y: 37.6090918
-  //   },
-  //   {
-  //     x: 126.6865373,
-  //     y: 37.5568537
-  //   },
-  //   {
-  //     x: 126.9090105,
-  //     y: 37.5579424
-  //   }
-  // ]
   areaRoleCheck: boolean = true;
 
   constructor(
@@ -387,12 +373,35 @@ export class AreaStandardSetPage implements OnInit {
   }
 
   async riskSave() {
-    for (let i = 0; i < this.addRiskAreaArr.length; i++) {
-      this.addRiskAreaArr[i].project_id = this.riskProjectForm.project_id;
-      const res = await this.connect.run('/project/risk_area/insert', this.addRiskAreaArr[i]);
-      if (res.rsCode === 0) {
+    this.addRiskAreaArr.forEach(async (item) => {
+      if(!item.area_risk_id) {
+        item.project_id = this.riskProjectForm.project_id;
+        const resInsert = await this.connect.run('/project/risk_area/insert', item);
+        if (resInsert.rsCode === 0) {
+          this.getRiskArea();
+          this.toast.present({message:'저장되었습니다.',color:'primary'});
+        } else {
+        this.toast.present({message:resInsert.rsMsg, color:'warning'});
+        }
       }
-    }
+    });
+
+    this.resRiskArea.rsMap.forEach(async (riskItem) => {
+      let area_risk_use_state_data = [];
+      area_risk_use_state_data.push({
+        area_risk_id:riskItem.area_risk_id,
+        area_risk_use_state:riskItem.area_risk_use_state
+      });
+      const resUpdate = await this.connect.run('/project/area/risk/use/update',{area_risk_use_state_data:area_risk_use_state_data});
+      if (resUpdate.rsCode === 0) {
+        this.getRiskArea();
+        this.toast.present({message:'저장되었습니다.',color:'primary'});
+      } else {
+        this.toast.present({message:resUpdate.rsMsg, color:'warning'});
+      }
+    })
+
+
   }
 
   async nfcView(area_risk_id) {
@@ -442,6 +451,15 @@ export class AreaStandardSetPage implements OnInit {
     this.addRiskAreaArr.forEach(item => {
       item.area_risk_use_state = status ? 1 : 0;
     })
+  }
+
+  async editState(item) {
+    this.area_risk_use_state_data.push({
+      area_risk_id:item.area_risk_id,
+      area_risk_use_state:item.area_risk_use_state
+    })
+    console.log('----------------',this.area_risk_use_state_data)
+    // const res = await this.connect.run('/project/area/risk/use/update',);
   }
 
   async areaGPS() {

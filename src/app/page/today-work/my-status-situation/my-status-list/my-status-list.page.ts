@@ -204,5 +204,3 @@ export class MyStatusListPage implements OnInit {
     });
   }
 }
-
-

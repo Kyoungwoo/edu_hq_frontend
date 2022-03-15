@@ -294,16 +294,16 @@
                   + (item.area_bottom_name ? item.area_bottom_name : '')}}
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.area_risk_id">
+                  <app-select  [disabled]="true"[(ngModel)]="item.area_risk_id">
                     <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
                       opt.ctgo_area_risk_name }}</app-select-option>
                   </app-select>
                 </td>
                 <td>
-                  <app-input [(ngModel)]="item.area_risk_name"></app-input>
+                  <app-input [disabled]="true" [(ngModel)]="item.area_risk_name"></app-input>
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.area_risk_type">
+                  <app-select [disabled]="true" [(ngModel)]="item.area_risk_type">
                     <app-select-option value="실내">실내</app-select-option>
                     <app-select-option value="실외">실외</app-select-option>
                   </app-select>
@@ -313,11 +313,11 @@
                   {{ item.nfc_state ? item.nfc_state +'개':'-'}}
                 </td>
                 <td>
-                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [disabled]="true" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.project_id" [user_type]="'COMPANY'">
+                  <app-select-people label="" [disabled]="true" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>

@@ -19,16 +19,16 @@ export class QrEducationInPage implements OnInit {
   constructor(private navParams: NavParams,private connect:ConnectService) { }
 
   ngOnInit() {
-    this.item.education_safe_manager_names.join();
     this.eduTime = `${this.item.education_safe_start_time} ~ ${this.item.education_safe_end_time}`;
     this.generatorQrcode();
   }
-
+  
   generatorQrcode() {
+    console.log("this.navParams",`${this.navParams.data.item.education_safe_id}`)
     this.qr = new QRious({
       element: document.getElementById('qrious'),
       size: 250,
-      value: '{company_id:'+this.navParams.data.company_id+'}'
+      value: `${this.navParams.data.item.education_safe_id}`
     });
   }
 

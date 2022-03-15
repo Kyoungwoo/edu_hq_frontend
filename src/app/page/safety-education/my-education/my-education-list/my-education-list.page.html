@@ -19,7 +19,7 @@
   <ion-content>
     <ng-container>
       <app-card *ngFor="let item of res?.rsMap">
-        <app-row style="align-items: flex-start;" (click)="edit()">
+        <app-row style="align-items: flex-start;" (click)="edit(item.education_safe_id)">
           <app-col>
             <p>{{ item.company_name }}</p>
             <p>{{ item.create_user_name }}/{{ item.education_safe_place }}/{{ item.education_safe_manager_names }}</p>

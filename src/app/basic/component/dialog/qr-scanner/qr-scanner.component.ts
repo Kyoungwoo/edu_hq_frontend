@@ -48,6 +48,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
+    console.log("asdfasdfasdf")
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
@@ -99,6 +100,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
+      console.log("data",data);
       let res = {
         type: 'QR_SCAN',
         nfcChangeed : this.nfcChangeed,

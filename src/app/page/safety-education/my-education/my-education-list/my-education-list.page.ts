@@ -78,9 +78,13 @@ export class MyEducationListPage implements OnInit {
     }
   }
 
-  async edit() {
+  async edit(education_safe_id) {
     const modal = await this.modal.create({
       component:MyEducationDetailListPage,
+      componentProps: {
+        education_safe_id
+      }
+
     });
     modal.present();
   }
@@ -98,10 +102,16 @@ export class MyEducationListPage implements OnInit {
   }
 
  async QRedcaution() {
-  const ar = await this.qr.subscribe(qrdata => {
-
+  const $qr = await this.qr.subscribe('dd',async (qrdata) => {
+      const res = await this.connect.run('/education/my/attendant/insert',{education_safe_id:qrdata.qr_data});
+      if(res.rsCode === 0) {
+        $qr.unsubscribe();
+        this.getList();
+        this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
+      } else {
+        $qr.unsubscribe();
+        this.toast.present({message:res.rsMsg, color:'warning'});
+      }
   });
   }
-
-
 }
