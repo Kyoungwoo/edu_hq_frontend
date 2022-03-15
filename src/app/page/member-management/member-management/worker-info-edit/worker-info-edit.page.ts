@@ -218,7 +218,8 @@ export class WorkerInfoEditPage implements OnInit {
 
 
   permission = {
-    mileage: false //마일리지 적립 권한
+    mileage: false, //마일리지 적립 권한
+    approval: false //저장
   }
 
   constructor(
@@ -241,6 +242,11 @@ export class WorkerInfoEditPage implements OnInit {
       this.permission.mileage = false;
     } else {
       this.permission.mileage = true;
+    } 
+    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+      this.permission.approval = true;
+    } else {
+      this.permission.approval = false;
     }
     this.form.user_id = this.item.user_id;
     this.form.approval_user_id = this.item.user_id;

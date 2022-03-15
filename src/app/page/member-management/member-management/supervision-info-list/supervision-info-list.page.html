@@ -79,7 +79,7 @@
           </thead>
           <tbody>
             <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
-              <td>{{ i+1 }}</td>
+              <td>{{ item.index }}</td>
               <td>{{ item.ctgo_construction_name }}</td>
               <td>{{ item.company_name }}</td>
               <td>{{ item.user_name }}</td>

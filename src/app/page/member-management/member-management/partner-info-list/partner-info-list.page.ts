@@ -30,6 +30,7 @@ class PartnerInfo {
   ctgo_safe_job_id: number;
   ctgo_safe_job_name: string;
   row_count: number;
+  index: number;
 }
 
 @Component({
@@ -126,21 +127,22 @@ export class PartnerInfoListPage implements OnInit {
     this.form.limit_no = limit_no;
     const authToken = this.user.memberAuthToken;
     this.form.user_manage_session = authToken;
-    this.res = await this.connect.run('/usermanage/info/company/list', this.form, {
-      loading: true
-    });
-    if(this.res.rsCode === 0) {
-      // 정상
-    } else if(this.res.rsCode === 1008) {
+    const res = await this.connect.run('/usermanage/info/company/list', this.form);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
+    } else if(res.rsCode === 1008) {
       this.res = null;
       // 데이터 없음
     }
-    else if(this.res.rsCode === 3008 || this.res.rsCode === 3009) {
+    else if(res.rsCode === 3008 || res.rsCode === 3009) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
     } else {
       // 그외. 인터넷안됨, 서버연결안됨 등등
-      this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 

@@ -21,6 +21,7 @@ class SafetyMeetingInfo {
   user_name: string;
   row_count: number;
   safety_meeting_date: string;
+  index: number
 }
 
 @Component({
@@ -62,9 +63,10 @@ export class MinutesListPage implements OnInit {
 
     const res = await this.connect.run('/board/safety_meeting/list', this.form, {
     });
-    if(res.rsCode === 0) {
-      res.rsMap.forEach(item => {
-        this.res.rsMap.push(item);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
       });
     } else if(res.rsCode === 1008) {
       this.res = null;
@@ -82,9 +84,20 @@ export class MinutesListPage implements OnInit {
     
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    this.res = await this.connect.run('/board/safety_meeting/list', trans_form, {
-      loading: '회의록 불러오기'
-    });
+    const res = await this.connect.run('/board/safety_meeting/list',this.form);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
+    }
+    
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
   }
   minutesEditl(){
 

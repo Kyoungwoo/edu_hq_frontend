@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+                <app-select-company [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-company>
               </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
               <app-table>
                 <thead>
                   <tr>
-                    <th style="width: 60px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                    <th style="width: 100px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                     || user.userData.belong_data.company_contract_type === '원청사'">상단노출</th>
                     <th style="width: 80px;">MSDS 구분</th>
                     <th style="width: 500px;">제목</th>
