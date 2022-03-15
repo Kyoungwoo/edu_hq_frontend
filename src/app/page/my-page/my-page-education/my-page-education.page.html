@@ -37,7 +37,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of educationRoutineRes?.rsMap">
             <td>교육명</td>
             <td>이수기간</td>
             <td>잔여일</td>
@@ -58,11 +58,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of educationRoutineRes?.rsMap">
             <td>교육명</td>
             <td>이수기간</td>
             <td>잔여일</td>
-            <td>교육 상태</td>
+            <td>양호</td>
           </tr>
         </tbody>
       </app-table>
