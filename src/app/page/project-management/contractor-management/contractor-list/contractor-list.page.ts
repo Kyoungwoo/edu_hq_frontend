@@ -87,14 +87,9 @@ export class ContractorListPage implements OnInit {
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
-      this.form.list_count = res.rsObj.row_count;
       this.res.rsMap.map((item, i) => {
-        item.index = this.form.list_count - this.form.limit_no - i;
+        item.index = this.res.rsObj.row_count - this.form.limit_no - i;
       });
-        if(this.form.limit_no === 0) {
-          this.form.list_count = res.rsMap.length;
-        }
-
     }
     
     else if (res.rsCode === 1008) {

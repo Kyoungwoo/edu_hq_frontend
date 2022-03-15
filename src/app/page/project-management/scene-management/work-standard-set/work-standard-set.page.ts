@@ -84,6 +84,7 @@ export class WorkStandardSetPage implements OnInit {
   disasterSelected = [];
 
   workRoleCheck:boolean = true;
+  editable = false;
   //재해 형태 끝
   constructor(
     private connect: ConnectService,
@@ -98,6 +99,7 @@ export class WorkStandardSetPage implements OnInit {
      this.user.userData.user_role === 'LH_ADMIN' ||
       this.user.userData.user_role === 'LH_HEAD') {
       this.workRoleCheck = false;
+      this.editable = true;
     }
     this.menuCount1();
   }
@@ -117,7 +119,7 @@ export class WorkStandardSetPage implements OnInit {
   }
   async menuCount8() {
     this.menuCount = 8;
-    await this.getMeeting();
+    this.getMeeting();
   }
   menuCount9() {
     this.menuCount = 9;
@@ -407,14 +409,17 @@ export class WorkStandardSetPage implements OnInit {
     await this.promise.wait(() => this.meetingForm.company_id = this.user.userData.belong_data.company_id);
     const res = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
     if(res.rsCode === 0) {
-      this.resMeeting = res;
+      this.resMeeting = {
+        ...res,
+        ...this.resMeeting
+      }
     };
   }
 
   async meetingUpdate() {
     const res = await this.connect.run('/project/safety_meeting/update',this.resMeeting.rsObj,{});
     if(res.rsCode === 0) {
-      return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+      this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
     }
   }
 

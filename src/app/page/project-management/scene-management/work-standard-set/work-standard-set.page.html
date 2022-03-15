@@ -123,7 +123,7 @@
           <tr>
             <td>
               <app-select-company [project_id]="user.userData.belong_data.project_id" [multiple]="false"
-                [disabled]="workRoleCheck" [(ngModel)]="machineryFrom"></app-select-company>
+                [disabled]="editable" [(ngModel)]="machineryFrom"></app-select-company>
             </td>`
           </tr>
         </tbody>
@@ -216,7 +216,7 @@
           </tr>
           <tr>
             <td>
-              <app-select-construction [project_id]="toolForm.project_id" [disabled]="workRoleCheck"
+              <app-select-construction [project_id]="toolForm.project_id" [disabled]="editable"
                 [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-construction>
             </td>
           </tr>
@@ -237,7 +237,7 @@
         <ion-toolbar color="white">
           <app-row>
             <app-col>
-              <h5>특수공도구 목록 (총{{resTool?.rsMap?.length ? resTool?.rsMap?.length :0}}건)</h5>
+              <h5>특수공도구 목록 (총{{resTool?.rsMap?.length || 0}}건)</h5>
             </app-col>
             <app-col size="auto">
               <app-button fill="translucent" (click)="toolSave()">저장</app-button>
@@ -308,7 +308,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-company [disabled]="workRoleCheck" [project_id]="meetingForm.project_id" [multiple]="false"
+                <app-select-company [disabled]="editable" [project_id]="meetingForm.project_id" [multiple]="false"
                   [(ngModel)]="meetingForm.company_id"></app-select-company>
               </td>
             </tr>
@@ -330,7 +330,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
+                <app-textarea *ngIf="resMeeting?.rsObj.safety_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
               </app-col>
             </app-row>
           </app-card>
@@ -341,7 +341,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
+                <app-textarea *ngIf="resMeeting?.rsObj.union_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
                 </app-textarea>
               </app-col>
             </app-row>
@@ -353,7 +353,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
+                <app-textarea *ngIf="resMeeting?.rsObj.health_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
                 </app-textarea>
               </app-col>
             </app-row>
@@ -380,7 +380,7 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="workRoleCheck" [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="editable" [(ngModel)]="disasterForm"></app-select-company>
             </td>
           </tr>
         </tbody>

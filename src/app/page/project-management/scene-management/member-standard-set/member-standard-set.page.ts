@@ -134,6 +134,8 @@ export class MemberStandardSetPage implements OnInit {
 
 
   memberRoleCheck: boolean = true;
+  editable:boolean = false;
+
   constructor(
     private connect: ConnectService,
     private modal: ModalController,
@@ -145,7 +147,11 @@ export class MemberStandardSetPage implements OnInit {
   ngOnInit() {
     if (this.user.userData.user_role === 'PARTNER_HEAD' ||
         this.user.userData.user_role === 'MASTER_HEAD' ||
-        this.user.userData.user_role === 'LH_HEAD') {this.memberRoleCheck = false;}
+        this.user.userData.user_role === 'LH_ADMIN' ||
+        this.user.userData.user_role === 'LH_HEAD') {
+          this.editable = true;
+          this.memberRoleCheck = false;
+        }
 
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
@@ -167,10 +173,11 @@ export class MemberStandardSetPage implements OnInit {
       this.level1();
     }
   }
+
   async menuCount2() {
     this.menuCount = 2;
-    
   }
+
   async menuCount5() {
     this.menuCount = 5;
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
@@ -523,7 +530,9 @@ export class MemberStandardSetPage implements OnInit {
          };
       } else {
         const res = await this.connect.run('/project/job_position/update', item, {});
-        if (res.rsCode === 0) { };
+        if (res.rsCode === 0) { 
+          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+        };
       }
     });
   }

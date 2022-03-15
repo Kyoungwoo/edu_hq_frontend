@@ -65,6 +65,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
+    console.log(this.disabled)
   }
 
   public async get() {

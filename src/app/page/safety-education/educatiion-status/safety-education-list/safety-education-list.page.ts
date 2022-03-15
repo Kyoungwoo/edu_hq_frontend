@@ -9,6 +9,7 @@ import { SafetyEducationDetailSearchPage } from '../safety-education-detail-sear
 
 
 export class EduItem {
+  index:number;
   create_user_id: number;
   ctgo_education_safe_name: string;
   ctgo_education_safe_id: number;
@@ -95,7 +96,8 @@ export class SafetyEducationListPage implements OnInit {
     this.form.company_id = 0;
     this.res = await this.connect.run('/education/list',this.form);
     if(this.res.rsCode === 0) {
-      this.res.rsMap.forEach(item => {
+      this.res.rsMap.map((item, i) => {
+        item.index =  this.res.rsObj.row_count - this.form.limit_no - i;
         item.date_day = this.date.day(item.education_safe_date)[0];
       })
     } else {      
