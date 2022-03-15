@@ -105,7 +105,7 @@ export class MsdsEditPage implements OnInit {
 
 
   async MsdsInsert() { //등록
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
     if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     //메소드 호출
@@ -129,7 +129,7 @@ export class MsdsEditPage implements OnInit {
   }
   
   async update() { //수정
-    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
     if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
     const alert = await this.alert.present({

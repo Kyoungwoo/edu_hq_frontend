@@ -47,7 +47,7 @@ export class PagerComponent implements OnInit {
     if(this.listLoading) return;
     let limitNo = this.limitNo + this.adminLimitNo;
     if(limitNo >= this.totalCount) {
-      this.limitNo = Math.floor(this.adminLimitNo * (page -1));
+      this.limitNo = Math.floor(this.adminLimitNo * (page - 1));
     } else {
       this.limitNo = (page - 1) * this.adminLimitNo;
     }

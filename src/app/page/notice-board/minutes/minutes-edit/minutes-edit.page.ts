@@ -79,8 +79,7 @@ export class MinutesEditPage implements OnInit {
         refer_user_id:this.user.userData.user_id
       }]
     });
-    console.log("this.user.userData.user_id", this.user.userData.user_id);
-    console.log("this.item",this.item);
+    
     if (this.item.safety_meeting_id) {
       this.form.safety_meeting_id = this.item.safety_meeting_id
       this.get();
@@ -101,14 +100,13 @@ export class MinutesEditPage implements OnInit {
   async get() {
     const res = await this.connect.run('/board/safety_meeting/detail', { safety_meeting_id: this.item.safety_meeting_id });
     if (res.rsCode === 0) {
-      console.log("-----------", res.rsObj);
       this.form = {
         ...this.form,
         ...res.rsObj
       };
-      console.log(this.form.user_id === this.user.userData.user_id)
+      
       if(this.form.user_id === this.user.userData.user_id) this.user_Check = true;
-      console.log("this.form", this.form);
+      
     }
   }
 
@@ -137,7 +135,7 @@ export class MinutesEditPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log(data);
+   
   }
 
   async whileSave(save) {
@@ -163,17 +161,16 @@ export class MinutesEditPage implements OnInit {
           text: '예',
           handler: async () => {
             if (this.item.safety_meeting_id) {
-              console.log("this.form---------------", this.form);
               // this.form.file_json = {"insert":[],"update":[],"delete":[]};
               const res = await this.connect.run('/board/safety_meeting/update', this.form, {});
               if (res.rsCode === 0) {
                 // this._modal.dismiss('Y');
               }
             } else {
-              console.log(save);
+             
               if (save === 1) this.form.approval_cnt_answer = '임시저장';
               if (save === 2) this.form.approval_cnt_answer = '결재요청';
-              console.log("this.form", this.form);
+              
               const res = await this.connect.run('/board/safety_meeting/insert ', this.form, {});
               if (res.rsCode === 0) {
               }

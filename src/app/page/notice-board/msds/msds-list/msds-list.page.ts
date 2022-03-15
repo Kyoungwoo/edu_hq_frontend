@@ -57,7 +57,7 @@ export class MsdsListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     private toast: ToastService,
-    private user: UserService
+    public user: UserService
 
   ) { }
 

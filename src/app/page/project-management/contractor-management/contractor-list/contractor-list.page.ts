@@ -19,10 +19,12 @@ export class ContractorListPage implements OnInit {
     hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
     limit_no: 0,
     master_company_ids: [],
-    search_text: ''
+    search_text: '',
+    list_count:20
   }
 
   res:ConnectResult <{
+    index:number,
     contract_end_date: string, // ~ 공사기간
     hq_business_name: string, // 사업본부
     project_id: number, // 현장 ID
@@ -85,6 +87,14 @@ export class ContractorListPage implements OnInit {
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
+      this.form.list_count = res.rsObj.row_count;
+      this.res.rsMap.map((item, i) => {
+        item.index = this.form.list_count - this.form.limit_no - i;
+      });
+        if(this.form.limit_no === 0) {
+          this.form.list_count = res.rsMap.length;
+        }
+
     }
     
     else if (res.rsCode === 1008) {

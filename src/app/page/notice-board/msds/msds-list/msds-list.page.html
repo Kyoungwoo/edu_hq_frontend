@@ -74,7 +74,8 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar color="white" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+        || user.userData.belong_data.company_contract_type === '원청사'">
           <ion-buttons slot="start">
             <app-button fill="translucent" (click)="edit()">등록</app-button>
           </ion-buttons>
@@ -89,7 +90,8 @@
               <app-table>
                 <thead>
                   <tr>
-                    <th style="width: 60px;">상단노출</th>
+                    <th style="width: 60px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                    || user.userData.belong_data.company_contract_type === '원청사'">상단노출</th>
                     <th style="width: 80px;">MSDS 구분</th>
                     <th style="width: 500px;">제목</th>
                     <th style="width: 100px;">업체명</th>
@@ -100,7 +102,8 @@
                 </thead>
                 <tbody>
                   <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
-                    <td (click)="favoritesCheck($event, item)">
+                    <td (click)="favoritesCheck($event, item)"  *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                    || user.userData.belong_data.company_contract_type === '원청사'">
                       <app-button size="small" shape="square" fill="translucent"
                         [color]="item.favorites_state ? 'star' : 'medium'">
                         <ion-icon name="star"></ion-icon>
