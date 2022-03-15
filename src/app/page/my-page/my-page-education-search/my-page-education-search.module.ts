@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MyPageMileagePageRoutingModule } from './my-page-mileage-routing.module';
+import { MyPageEducationSearchPageRoutingModule } from './my-page-education-search-routing.module';
 
-import { MyPageMileagePage } from './my-page-mileage.page';
+import { MyPageEducationSearchPage } from './my-page-education-search.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    MyPageMileagePageRoutingModule
+    MyPageEducationSearchPageRoutingModule
   ],
-  declarations: [MyPageMileagePage]
+  declarations: [MyPageEducationSearchPage]
 })
-export class MyPageMileagePageModule {}
+export class MyPageEducationSearchPageModule {}

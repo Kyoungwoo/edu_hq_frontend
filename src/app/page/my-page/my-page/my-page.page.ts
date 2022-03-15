@@ -16,7 +16,7 @@ import { ChangePasswordPage } from '../change-password/change-password.page';
 import { ChangePhonePage } from '../change-phone/change-phone.page';
 
 /** 기본 정보 class */
-class BasicForm {
+export class BasicForm {
   account_id:string = null; // 아이디
   user_name:string = null; // 유저 이름
   user_gender:string = null; // 유저 성별
@@ -34,7 +34,7 @@ class BasicForm {
 }
 
 /** 소속 정보 class */
-class BelongForm {
+export class BelongForm {
   /** 공통 form */
   user_id:number = null;
   user_role:number = null;
@@ -61,18 +61,25 @@ class BelongForm {
   contract_start_date:string = null;
   contract_end_date:string = null;
   
-  /** 감리, 원청사, 협력사 form */
+  /** 감리, 원청사, 협력사, 작업자 form */
   ctgo_construction_id:number = null;
   ctgo_construction_name:string = null;
 
-  /** 원청사, 협력사 form */
+  /** 원청사, 협력사, 작업자 form */
   safe_job_data:SafeJobItem[] = [];
+
+  /** 작업자 form */
+  ctgo_occupation_id:number = null;
+  ctgo_occupation_name:string = null;
+  ctgo_occupation_role:'BASIC'|'DRIVER' = null;
+  user_certify_no:string = null; // 면허번호
 }
 
 /** 교육이력 class */
-class EducationGetForm {
+export class EducationGetForm {
   ctgo_education_safe_types:string[] = [];
   project_id:number = null;
+  project_name:string = null;
   search_text:string = null;
 }
 @Component({
@@ -149,6 +156,7 @@ export class MyPagePage implements OnInit {
    * 데이터 구성 파트
    */
   getForm() {
+    /** 유저 타입 */
     const { user_type, user_role } = this.user.userData;
     if(user_type === 'COMPANY') {
       if(user_role.startsWith('MASTER')) {
@@ -162,6 +170,7 @@ export class MyPagePage implements OnInit {
       this.userType = user_type;
     }
 
+    /** 교육 데이터 */
     this.educationGetForm.project_id = this.user.userData.belong_data.project_id;
   }
 
@@ -323,7 +332,7 @@ export class MyPagePage implements OnInit {
   /** 마일리지 정보 가져오기 */
   private async getMileageTotal() {
     if(this.userType === 'PARTNER') {
-      this.mileageTotalRes = await this.connect.run('/mypage/mileagetotal/list', this.educationGetForm);
+      this.mileageTotalRes = await this.connect.run('/mypage/mileagetotal/list');
       if(this.mileageTotalRes.rsCode === 1008) {
         // 암것도 안함
       }
@@ -334,7 +343,7 @@ export class MyPagePage implements OnInit {
   }
   private async getMileagePlus() {
     if(this.userType === 'PARTNER') {
-      this.mileagePlusRes = await this.connect.run('/mypage/mileageplus/list', this.educationGetForm);
+      this.mileagePlusRes = await this.connect.run('/mypage/mileageplus/list');
       if(this.mileagePlusRes.rsCode === 1008) {
         // 암것도 안함
       }
@@ -345,7 +354,7 @@ export class MyPagePage implements OnInit {
   }
   private async getMileageMinus() {
     if(this.userType === 'PARTNER') {
-      this.mileageMinusRes = await this.connect.run('/mypage/mileageminus/list', this.educationGetForm);
+      this.mileageMinusRes = await this.connect.run('/mypage/mileageminus/list');
       if(this.mileageMinusRes.rsCode === 1008) {
         // 암것도 안함
       }
@@ -373,7 +382,7 @@ export class MyPagePage implements OnInit {
     const resAll = await Promise.all([
       this.basicSubmit(),
       // 안전직무 정보 submit
-      this.inputSafeJob.submit(),
+      this.inputSafeJob?.submit(),
       this.belongSubmit()
     ]);
 
@@ -402,7 +411,7 @@ export class MyPagePage implements OnInit {
   private async belongSubmit() {
     let api = '';
     if(this.userType === 'LH') {
-      api = '/mypage/basic/update';
+      api = '/mypage/lh/belong/update';
     }
     else if(this.userType === 'SUPER') {
       api = '/mypage/super/belong/update';

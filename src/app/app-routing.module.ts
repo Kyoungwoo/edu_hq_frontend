@@ -556,6 +556,10 @@ const routes: Routes = [
     path: 'my-detail-search',
     loadChildren: () => import('./page/safety-education/my-education/my-detail-search/my-detail-search.module').then( m => m.MyDetailSearchPageModule)
   },
+  {
+    path: 'my-page-education-search',
+    loadChildren: () => import('./page/my-page/my-page-education-search/my-page-education-search.module').then( m => m.MyPageEducationSearchPageModule)
+  },
   
 
 ];

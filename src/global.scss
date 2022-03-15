@@ -182,6 +182,7 @@
     border-top: 1px solid var(--ion-color-step-300);
   }
   ion-toolbar {
+    >app-input-template,
     >*>app-input-template {
       box-shadow: none;
       margin-top: 0;

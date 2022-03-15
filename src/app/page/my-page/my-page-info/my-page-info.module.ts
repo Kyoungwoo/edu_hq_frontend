@@ -8,6 +8,8 @@ import { MyPageInfoPageRoutingModule } from './my-page-info-routing.module';
 
 import { MyPageInfoPage } from './my-page-info.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { ChangePasswordPageModule } from '../change-password/change-password.module';
+import { ChangePhonePageModule } from '../change-phone/change-phone.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    MyPageInfoPageRoutingModule
+    MyPageInfoPageRoutingModule,
+    ChangePasswordPageModule,
+    ChangePhonePageModule
   ],
   declarations: [MyPageInfoPage]
 })

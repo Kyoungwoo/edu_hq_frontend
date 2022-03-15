@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -53,6 +53,8 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
   res2:ConnectResult<BusinessItem>;
   res3:ConnectResult<DepartmentItem>;
 
+  afterInit:boolean = false;
+
   constructor(
     private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
@@ -60,8 +62,12 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {
-    this.get1();
+  async ngOnInit() {
+    await this.get1();
+    setTimeout(() => {
+      this.afterInit = true;
+    }, 1000);
+
     this.test();
   }
 
@@ -87,11 +93,13 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
     if(!this.value.hq_regional_id) return;
     await this.promise.wait(() => this.res1);
     // 2,3 초기화
-    this.res2 = null;
-    this.res3 = null;
-    this.value.hq_business_id = null;
-    this.value.hq_business_entire_state = null;
-    this.value.hq_department_id = null;
+    if(this.afterInit) {
+      this.res2 = null;
+      this.res3 = null;
+      this.value.hq_business_id = null;
+      this.value.hq_business_entire_state = null;
+      this.value.hq_department_id = null;
+    }
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res1.rsMap.find(item => item.hq_regional_id === this.value.hq_regional_id);
@@ -106,8 +114,10 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
     if(!this.value.hq_regional_id || !this.value.hq_business_id) return;
     await this.promise.wait(() => this.res2);
     // 3 초기화
-    this.res3 = null;
-    this.value.hq_department_id = null;
+    if(this.afterInit) {
+      this.res3 = null;
+      this.value.hq_department_id = null;
+    }
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res2.rsMap.find(item => item.hq_business_id === this.value.hq_business_id);

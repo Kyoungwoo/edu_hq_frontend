@@ -14,13 +14,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- <app-card *ngIf="all"  [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.values = null">
+  <app-card *ngIf="all"  [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.values = null">
     <app-row>
       <app-col>
         <h5>전체</h5>
       </app-col>
     </app-row>
-  </app-card> -->
+  </app-card>
   <app-card *ngFor="let item of res?.rsMap let i = index" [class.active]="selected(item)" [button]="true" (click)="itemClick(item)">
     <app-row>
       <app-col size="auto">
