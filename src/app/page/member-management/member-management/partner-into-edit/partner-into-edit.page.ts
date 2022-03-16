@@ -204,6 +204,7 @@ export class PartnerIntoEditPage implements OnInit {
     const loading = await this.loading.present();
 
     await Promise.all([
+      this.inputSafeJob?.submit(),
       this.getItem(),
       this.getBelong(),
       this.getSafeEduList(),
@@ -238,7 +239,7 @@ export class PartnerIntoEditPage implements OnInit {
   //소속정보
   async getBelong() {
     const res = await this.connect.run('/usermanage/info/company/belong/detail', this.form, {
-      parse: ['user_safe_job_data', 'user_safe_job_file_data']
+      parse: ['safe_job_data', 'safe_job_file_data']
     });
 
     if (res.rsCode === 0) {
@@ -387,6 +388,7 @@ export class PartnerIntoEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
+             this.inputSafeJob?.submit(),
             await this.BasicSubmit();
             await this.BelongSubmit();
           }

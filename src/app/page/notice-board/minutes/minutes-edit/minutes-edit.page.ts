@@ -68,6 +68,7 @@ export class MinutesEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("zzzzzzzzzzz",this.item);
     this.form.approval_default_data.push({
       default_type:'ANSWER',
       answer_datas:[{

@@ -117,11 +117,11 @@ export class MinutesListPage implements OnInit {
       this.get();
     }
   }
-  async edit(safety_meeting_id) {
+  async edit(item) {
     const modal = await this.modal.create({
       component:MinutesEditPage,
       componentProps:{
-        safety_meeting_id:safety_meeting_id
+        item:item
       }
     });
     modal.present();

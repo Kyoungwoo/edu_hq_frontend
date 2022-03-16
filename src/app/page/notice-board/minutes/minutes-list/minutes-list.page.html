@@ -63,7 +63,7 @@
                 <th>작성일</th>
               </tr>
             </thead>
-              <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item.safety_meeting_id)">
+              <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
                 <td>{{ i+1 }}</td>
                 <td>{{ item.safety_meeting_type }}</td>
                 <td>{{ item.safety_meeting_date }}</td>
@@ -99,7 +99,7 @@
     </ion-toolbar>
   </ion-header>
 <ion-content>
-  <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.safety_meeting_id)">
+  <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
     <app-row style="align-items: flex-start;">
       <app-col>
         <h5>안전 및 보건에 관한 협의체 회의록</h5>

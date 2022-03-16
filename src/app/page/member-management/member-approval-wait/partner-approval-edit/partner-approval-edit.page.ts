@@ -201,7 +201,8 @@ export class PartnerApprovalEditPage implements OnInit {
       component:ApprovalPopupComponent,
       componentProps:{
         approval_user_ids:this.formBasic.user_id,
-        user_name:this.formBasic.user_name
+        user_name:this.formBasic.user_name,
+        state: 'partner'
       },
       cssClass:"approval-modal"
     });
