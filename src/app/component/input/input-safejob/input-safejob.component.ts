@@ -47,7 +47,9 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
     private toast: ToastService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("this.params",this.params);
+  }
 
   removeSafeJobItem(item:SafeJobItem, index:number) {
     if(item.user_safe_job_id) {
@@ -99,6 +101,7 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
   }
 
   async submit() {
+    console.log("asdfasfdsadfsadsaf");
     const resAll = await Promise.all([
       this.add(),
       this.update(),

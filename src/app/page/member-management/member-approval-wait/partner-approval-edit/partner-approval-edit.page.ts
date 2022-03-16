@@ -94,7 +94,6 @@ export class PartnerApprovalEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getPermission();
     this.get();
   }
 
@@ -135,6 +134,7 @@ export class PartnerApprovalEditPage implements OnInit {
     const loading = await this.loading.present();
 
     await Promise.all([
+      this.getPermission(),
       this.getItem(),
       this.getBelong()
     ]);
@@ -153,6 +153,7 @@ export class PartnerApprovalEditPage implements OnInit {
         ...this.formBasic,
         ...res.rsObj
       }
+      this.formBasic.user_name = res.rsObj.user_name;
       
     } else if(res.rsCode === 3008) {
        // 비밀번호 없거나 틀렸음
@@ -167,7 +168,6 @@ export class PartnerApprovalEditPage implements OnInit {
       const res = await this.connect.run('/usermanage/approval/company/belong/detail', this.form, {
         parse: ['safe_job_data','safe_job_file_data']
       });
-      
       if (res.rsCode === 0) {
         this.formApproval = {
           ...this.formApproval,
@@ -201,7 +201,8 @@ export class PartnerApprovalEditPage implements OnInit {
       component:ApprovalPopupComponent,
       componentProps:{
         approval_user_ids:this.formBasic.user_id,
-        user_name:this.formBasic.user_name
+        user_name:this.formBasic.user_name,
+        state: 'partner'
       },
       cssClass:"approval-modal"
     });
@@ -224,8 +225,13 @@ export class PartnerApprovalEditPage implements OnInit {
         {
           text:'예',
           handler: async() => {
-            await this.BasicSubmit();
-            await this.BelongSubmit();
+            await Promise.all([
+              this.BasicSubmit(),
+              this.inputSafeJob?.submit(),
+              this.BelongSubmit()
+            ]);
+            
+
           }
         }
       ]

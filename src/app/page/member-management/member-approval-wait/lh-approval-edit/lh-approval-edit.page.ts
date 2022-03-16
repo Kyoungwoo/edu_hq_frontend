@@ -205,7 +205,8 @@ async approval() {
     component:ApprovalPopupComponent,
     componentProps:{
       approval_user_ids:this.formBasic.user_id,
-      user_name:this.formBasic.user_name
+      user_name:this.formBasic.user_name,
+      state: 'lh'
     },
     cssClass:"approval-modal"
   });
