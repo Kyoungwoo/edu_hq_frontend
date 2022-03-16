@@ -388,12 +388,14 @@ export class PartnerIntoEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-             this.inputSafeJob?.submit(),
-            await this.BasicSubmit();
-            await this.BelongSubmit();
+            await Promise.all([
+              this.BasicSubmit(),
+              this.inputSafeJob?.submit(),
+              this.BelongSubmit()
+          ]);
           }
         }
-      ]
+      ] 
     });
   }
 

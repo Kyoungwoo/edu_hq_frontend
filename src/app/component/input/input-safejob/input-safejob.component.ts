@@ -110,8 +110,6 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
     return resAll.includes(false) ? false : true;
   }
   async add() {
-    console.log("여기로 들어오나?");
-
     const insertList = this.value.filter(item => !item.user_safe_job_id);
     for(let i = 0; i < insertList.length; i++) {
       const item = insertList[i];
