@@ -82,6 +82,18 @@ export class EducationGetForm {
   project_name:string = null;
   search_text:string = null;
 }
+export class EducationRes {
+  create_date:string = null;
+  ctgo_education_safe_id:number = null;
+  ctgo_education_safe_name:string = null;
+  ctgo_education_safe_text:string = null;
+  ctgo_education_safe_title:string = null;
+  ctgo_education_safe_type:string = null;
+  education_safe_id:number = null;
+  education_safe_time:number = null;
+  project_id:number = null;
+  project_name:string = null;
+}
 @Component({
   selector: 'app-my-page',
   templateUrl: './my-page.page.html',
@@ -105,7 +117,7 @@ export class MyPagePage implements OnInit {
 
   /** 교육이력 form */
   educationGetForm = new EducationGetForm();
-  educationRes:ConnectResult<any>;
+  educationRes:ConnectResult<EducationRes>;
 
   /** 안전마일리지 form */
   mileageTotalRes:ConnectResult<{

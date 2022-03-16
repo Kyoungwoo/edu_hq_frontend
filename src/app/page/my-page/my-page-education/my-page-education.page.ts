@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { MyPageEducationSearchPage } from '../my-page-education-search/my-page-education-search.page';
-import { EducationGetForm } from '../my-page/my-page.page';
+import { EducationGetForm, EducationRes } from '../my-page/my-page.page';
 
 @Component({
   selector: 'app-my-page-education',
@@ -24,9 +24,29 @@ export class MyPageEducationPage implements OnInit {
   educationGetForm = new EducationGetForm();
 
   /** 교육이력 res */
-  educationRes:ConnectResult<any>;
+  educationRes:ConnectResult<EducationRes>;
   /** 정기교육 res */
-  educationRoutineRes:ConnectResult<any>;
+  educationRoutineRes:ConnectResult<{
+    ctgo_education_safe_name:string
+    education_complete_time:number
+    education_end_term:string
+    education_remaining_date:number
+    education_remaining_time:number
+    education_start_term:string
+    routine_edu_state:string
+    user_id:number
+  }>;
+
+  educationSpecialRes:ConnectResult<{
+    ctgo_education_safe_name:string
+    education_complete_time:number
+    education_end_term:string
+    education_remaining_date:number
+    education_remaining_time:number
+    education_start_term:string
+    routine_edu_state:string
+    user_id:number
+  }>;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -65,6 +85,7 @@ export class MyPageEducationPage implements OnInit {
      */
     await Promise.all([
       this.getEducationRoutine(),
+      this.getEducationSpecial(),
       this.getEducation()
     ]);
 
@@ -86,15 +107,27 @@ export class MyPageEducationPage implements OnInit {
       this.get();
     }
   }
+  /** 정기교육 가져오기 */
   private async getEducationRoutine() {
-    this.educationRes = await this.connect.run('/mypage/safeeducation/routine/list', this.educationGetForm);
-    if(this.educationRes.rsCode === 1008) {
+    this.educationRoutineRes = await this.connect.run('/mypage/safeeducation/routine/list', this.educationGetForm);
+    if(this.educationRoutineRes.rsCode === 1008) {
       // 암것도 안함
     }
-    else if(this.educationRes.rsCode) {
-      this.toast.present({ color: 'warning', message: this.educationRes.rsMsg });
+    else if(this.educationRoutineRes.rsCode) {
+      this.toast.present({ color: 'warning', message: this.educationRoutineRes.rsMsg });
     }
   }
+  /** 특별교육 가져오기 */
+  private async getEducationSpecial() {
+    this.educationSpecialRes = await this.connect.run('/mypage/safeeducation/special/list', this.educationGetForm);
+    if(this.educationSpecialRes.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else if(this.educationSpecialRes.rsCode) {
+      this.toast.present({ color: 'warning', message: this.educationSpecialRes.rsMsg });
+    }
+  }
+  /** 전체 교육 이력 가져오기 */
   private async getEducation() {
     this.educationRes = await this.connect.run('/mypage/education/list', this.educationGetForm);
     if(this.educationRes.rsCode === 1008) {

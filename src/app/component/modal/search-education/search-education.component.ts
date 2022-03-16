@@ -42,7 +42,6 @@ export class SearchEducationComponent implements OnInit {
     this.get();
   }
 
-
   async get() {
     this.res = await this.connect.run('/category/education/get',this.form);
     if(this.res.rsCode === 0 ) {
@@ -73,7 +72,6 @@ export class SearchEducationComponent implements OnInit {
       
       if(this.values === item) {
         this.values = null;
-        console.log("---------delete",this.values);
       }
       else {
         this.values = item;
