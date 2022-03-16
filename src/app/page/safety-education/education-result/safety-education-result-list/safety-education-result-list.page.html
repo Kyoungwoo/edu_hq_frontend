@@ -8,23 +8,23 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene [(ngModel)]="form.project_ids"></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [multiple]="true" [(ngModel)]="form.company_ids"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-education [(ngModel)]="form.ctgo_education_safe_ids"></app-select-education>
+                <app-select-education [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
               </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit()">
+            <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
               <td>{{ item.index}}</td>
               <td>{{ item.company_name }}</td>
               <td>{{ item.ctgo_education_safe_name }}</td>

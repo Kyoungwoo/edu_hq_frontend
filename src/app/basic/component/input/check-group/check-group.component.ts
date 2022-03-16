@@ -100,7 +100,7 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
     const checkNormalList = checkList.filter(check => check.type === 'default');
 
     checkNormalList.forEach(check => {
-      if(this.value.some(v => v === check.on)) {
+      if(this.value?.some(v => v === check.on)) {
         check._value = true;
       } else {
         check._value = false;
@@ -118,20 +118,20 @@ export class CheckGroupComponent implements OnInit, AfterViewInit, OnDestroy, Co
   @Input()
   set value(v:any[]) {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v || [];
       this.valueChange();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.onChangeCallback(this._value);
+      this.change.emit(this._value);
     }
   }
   get value() { return this._value; }
   
   writeValue(v:any[]): void {
     if(v !== this._value) {
-      this._value = v;
+      this._value = v || [];
       this.valueChange();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.onChangeCallback(this._value);
+      this.change.emit(this._value);
     }
   }
   private onChangeCallback = (v) => {};

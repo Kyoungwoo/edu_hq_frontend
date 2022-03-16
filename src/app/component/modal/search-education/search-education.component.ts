@@ -39,7 +39,6 @@ export class SearchEducationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("value----------",this.value);
     this.get();
   }
 
@@ -48,14 +47,14 @@ export class SearchEducationComponent implements OnInit {
     this.res = await this.connect.run('/category/education/get',this.form);
     if(this.res.rsCode === 0 ) {
       if(this.multiple) {
-        this.values = this.res.rsMap.filter(item => (this.value as number[]).indexOf(item.ctgo_education_safe_id))
+        this.values = this.res.rsMap.filter(item => (this.value as number[]).indexOf(item.ctgo_education_safe_id) > -1)
       } else {
         this.res.rsMap.filter(item => {
           if(item.ctgo_education_safe_id === this.value) this.values = item;
         });
       }
     } else {
-      this.toast.present({message:this.res.rsMsg, color:'wanring'});
+      this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
   selected(item:Education) {
@@ -97,7 +96,6 @@ export class SearchEducationComponent implements OnInit {
     this._modal.dismiss();
   }
   submit() {
-    console.log(this.values);
     this._modal.dismiss({
       data:this.values,
       allState:this.allState

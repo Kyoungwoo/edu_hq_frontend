@@ -1,9 +1,92 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>my-page-mileage</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/my-page-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>안전 마일리지</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-container size="small">
 
+    <!-- 안전 마일리지 -->
+    <div>
+
+      <h4>마일리지 현황</h4>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>총 적립 마일리지</th>
+            <th>총 사용 마일리지</th>
+            <th>잔여 마일리지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.total_mileage) || 0 }}</td>
+            <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.plus_mileage) || 0 }}</td>
+            <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.minus_mileage) || 0 }}</td>
+          </tr>
+        </tbody>
+      </app-table>
+      
+      <h4>안전 마일리지 적립 내역</h4>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>마일리지 분류</th>
+            <th>지급자</th>
+            <th>작립일</th>
+            <th>적립 마일리지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mileagePlusRes?.rsMap; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.ctgo_safe_mileage }}</td>
+            <td>{{ item.payer_user_name }}</td>
+            <td>{{ item.create_date }}</td>
+            <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
+          </tr>
+          <tr *ngIf="mileagePlusRes && mileagePlusRes.rsCode === 1008">
+            <td colspan="5">안전마일리지 적립 내역이 없습니다.</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+      <h4>안전 마일리지 사용 내역</h4>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>사용 내역</th>
+            <th>사용자</th>
+            <th>사용일</th>
+            <th>사용 마일리지</th>
+            <th>지급 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mileageMinusRes?.rsMap; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.ctgo_safe_mileage }}</td>
+            <td>{{ item.payer_user_name }}</td>
+            <td>{{ item.create_date }}</td>
+            <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
+            <td>지급완료</td>
+          </tr>
+          <tr *ngIf="mileageMinusRes && mileageMinusRes.rsCode === 1008">
+            <td colspan="6">안전마일리지 사용 내역이 없습니다.</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+    </div>
+
+  </app-container>
 </ion-content>

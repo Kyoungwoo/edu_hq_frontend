@@ -19,16 +19,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="button">
-        <td>9</td>
-        <td>정기 교육 결과 보고서</td>
-        <td>(주)지에스아이엘</td>
-        <td>이상범</td>
-        <td>21.05.05</td>
-        <td>진행중</td>
+      <tr class="button" *ngFor="let item of res?.rsMap">
+        <td>{{ item.index }}</td>
+        <td>{{ item.ctgo_approval_module_name }}</td>
+        <td>{{ item.master_company_name }}</td>
+        <td>{{ item.user_name }}</td>
+        <td>{{ item.create_date }}</td>
+        <td>{{ item.approval_cnt_answer }}</td>
       </tr>
     </tbody>
   </app-table>
+  <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>
   <app-button>적용</app-button>

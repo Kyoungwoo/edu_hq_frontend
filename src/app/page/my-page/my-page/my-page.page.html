@@ -173,7 +173,7 @@
           </app-col>
         </app-row>
 
-        <app-row mobileBreak *ngIf="userType === 'SUPER' || 'MASTER' || 'PARTNER'">
+        <app-row mobileBreak *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER'">
           <app-col>
   
             <app-radio-input label="현장 출역 상태" value="출역중" [disabled]="true">
@@ -191,7 +191,7 @@
           </app-col>
         </app-row>
 
-        <app-input-safejob #inputSafeJob
+        <app-input-safejob #inputSafeJob *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
         [project_id]="belongForm.project_id"
         [company_id]="belongForm.company_id"
         insert_url="/mypage/company/safejob/insert"
@@ -261,9 +261,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.total_mileage) }}</td>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.plus_mileage) }}</td>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.minus_mileage) }}</td>
+              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.total_mileage) || 0 }}</td>
+              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.plus_mileage) || 0 }}</td>
+              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.minus_mileage) || 0 }}</td>
             </tr>
           </tbody>
         </app-table>
@@ -287,6 +287,9 @@
               <td>{{ item.payer_user_name }}</td>
               <td>{{ item.create_date }}</td>
               <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
+            </tr>
+            <tr *ngIf="mileagePlusRes && mileagePlusRes.rsCode === 1008">
+              <td colspan="5">안전마일리지 적립 내역이 없습니다.</td>
             </tr>
           </tbody>
         </app-table>
@@ -312,6 +315,9 @@
               <td>{{ item.create_date }}</td>
               <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
               <td>지급완료</td>
+            </tr>
+            <tr *ngIf="mileageMinusRes && mileageMinusRes.rsCode === 1008">
+              <td colspan="6">안전마일리지 사용 내역이 없습니다.</td>
             </tr>
           </tbody>
         </app-table>

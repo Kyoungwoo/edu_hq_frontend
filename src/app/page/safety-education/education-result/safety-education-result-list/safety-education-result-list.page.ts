@@ -15,14 +15,16 @@ import { SafetyEducationResultEditPage } from '../safety-education-result-edit/s
 export class SafetyEducationResultListPage implements OnInit {
 
   form = {
-    approval_cnt_answer:'', // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
-    company_ids: [], // 원청사명 ID
-    ctgo_education_safe_ids: [], // 교육명 ID
-    end_date: this.date.today(), // 검색 신청 종료일
+    approval_cnt_answer:'전체', // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
+    company_id:0, // 원청사명 ID
+    ctgo_education_safe_id: 0, // 교육명 ID
+    // end_date: this.date.today(), // 검색 신청 종료일
+    end_date: '2022-12-01', // 검색 신청 종료일
     limit_no: 0, // 20까지
-    project_ids: [], // 현장명 ID
+    project_id: 0, // 현장명 ID
     search_text:'',// 검색어
-    start_date: this.date.today({date:-7}) // 검색 신청 시작일
+    // start_date: this.date.today({date:-7}) // 검색 신청 시작일
+    start_date: '2020-01-01' // 검색 신청 시작일
   }
 
   res:ConnectResult<{
@@ -76,9 +78,12 @@ export class SafetyEducationResultListPage implements OnInit {
     modal.present();
   }
 
-  async edit() {
+  async edit(editItem) {
     const modal = await this._modal.create({
-      component:NewWriteTargetPage,
+      component:SafetyEducationResultEditPage,
+      componentProps:{
+        editItem
+      }
     });
     modal.present();
   }

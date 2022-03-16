@@ -1,9 +1,97 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>my-page-education</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/my-page-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>교육 이력</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input-template label="현장명" (buttonClick)="getEducationSearch()">
+      <p slot="input">{{ educationGetForm.project_name }}</p>
+      상세검색
+    </app-input-template>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <ion-segment color="primary" [(ngModel)]="segment">
+      <ion-segment-button value="ONE">주요 교육 현황</ion-segment-button>
+      <ion-segment-button value="TWO">전체 교육 이력</ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content>
+  <app-container size="small">
+
+    <div *ngIf="segment === 'ONE'">
+
+      <h4>정기 교육</h4>
+      
+      <app-table>
+        <thead>
+          <tr>
+            <th>교육명</th>
+            <th>이수기간</th>
+            <th>잔여일</th>
+            <th>교육 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of educationRoutineRes?.rsMap">
+            <td>교육명</td>
+            <td>이수기간</td>
+            <td>잔여일</td>
+            <td>양호</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+      <h4>특별 교육</h4>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>교육명</th>
+            <th>이수기간</th>
+            <th>잔여일</th>
+            <th>교육 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of educationRoutineRes?.rsMap">
+            <td>교육명</td>
+            <td>이수기간</td>
+            <td>잔여일</td>
+            <td>양호</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+    </div>
+
+    <!-- 교육 이력 -->
+    <div *ngIf="segment === 'TWO'">
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>교육 구분</th>
+            <th>교육명</th>
+            <th>이수일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of educationRes?.rsMap; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.ctgo_education_safe_type }}</td>
+            <td>{{ item.ctgo_education_safe_title }}</td>
+            <td>{{ item.education_safe_time }}h</td>
+          </tr>
+        </tbody>
+      </app-table>
+
+    </div>
+
+  </app-container>
 </ion-content>

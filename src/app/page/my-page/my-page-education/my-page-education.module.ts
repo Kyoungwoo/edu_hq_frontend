@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { MyPageEducationPageRoutingModule } from './my-page-education-routing.module';
 
 import { MyPageEducationPage } from './my-page-education.page';
+import { ComponentModule } from 'src/app/component/component.module';
+import { MyPageEducationSearchPageModule } from '../my-page-education-search/my-page-education-search.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MyPageEducationPageRoutingModule
+    ComponentModule,
+    MyPageEducationPageRoutingModule,
+    MyPageEducationSearchPageModule
   ],
   declarations: [MyPageEducationPage]
 })

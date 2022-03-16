@@ -20,17 +20,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="button" (click)="edit()">
-        <td>9</td>
-        <td>작업자 정기 교육</td>
-        <td>일용근로자</td>
-        <td>A교육장</td>
-        <td>2021.05.21(금)</td>
-        <td>이상범/구범수</td>
-        <td>20명</td>
+      <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+        <td>{{ item.index }}</td>
+        <td>{{ item.ctgo_education_safe_name }}</td>
+        <td>{{ item.education_safe_target }}</td>
+        <td>{{ item.education_safe_place }}</td>
+        <td>{{ item.education_safe_date}}</td>
+        <td>{{ item.education_safe_instructor}}</td>
+        <td>{{ item.attendant_count}}명</td>
       </tr>
     </tbody>
   </app-table>
+  <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>
   <app-button>적용</app-button>

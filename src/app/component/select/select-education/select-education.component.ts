@@ -31,8 +31,6 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
   @Input() company_id:number = 0;
 
   text:string = '';
-
-  isModalData:boolean = false;
   
   res:ConnectResult<Education>;
 
@@ -52,8 +50,6 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
 
 
   public async get() {
-    if(this.isModalData) return;
-  
     if(!this.multiple) {
       if(!this.value && !this.all) return;
       if(this.value === 0 && this.all) {
@@ -76,15 +72,20 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
     
     const res = await this.connect.run('/category/education/get', this.form);
       if(res.rsCode === 0) {
-        this.text = res.rsMap.filter(item => item.ctgo_education_safe_id === this.value).map(item => 
-          item.ctgo_education_safe_name).join();
+        if(!this.multiple) {
+          this.text = res.rsMap.find(item => item.ctgo_education_safe_id === this.value)?.ctgo_education_safe_name;
+        }
+        else {
+          this.text = res.rsMap
+          .filter(item => (this.value as number[]).indexOf(item.ctgo_education_safe_id) > -1)
+          .map(item => item.ctgo_education_safe_name).join();
+        }
       } else {
         this.toast.present({message:res.rsMsg, color:'wanring'});
       }
   }
 
   async education(){
-    console.log("this.value",this.value);
     const modal = await this._modal.create({
       component:SearchEducationComponent,
       componentProps:{
@@ -95,7 +96,6 @@ export class SelectEducationComponent implements OnInit, ControlValueAccessor {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log('-0000000000');
     if(data) {
       if(!data.data) {
         this.value = null;

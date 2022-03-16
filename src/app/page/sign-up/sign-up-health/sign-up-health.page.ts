@@ -73,49 +73,49 @@ export class SignUpHealthPage implements OnInit {
     if(this.form.use_drugs_state == null) this.validator.use_drugs_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.use_drugs_state = { valid: true };
 
-    if(this.form.use_drugs_state === true
+    if(this.form.use_drugs_state === 1
     && !this.form.use_drugs_content) this.validator.use_drugs_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.use_drugs_content = { valid: true };
 
     if(this.form.brain_cure_state == null) this.validator.brain_cure_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.brain_cure_state = { valid: true };
 
-    if(this.form.brain_cure_state === true
+    if(this.form.brain_cure_state === 1
     && !this.form.brain_cure_content.length) this.validator.brain_cure_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.brain_cure_content = { valid: true };
 
     if(this.form.vomiting_state == null) this.validator.vomiting_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.vomiting_state = { valid: true };
 
-    if(this.form.vomiting_state === true
+    if(this.form.vomiting_state === 1
     && !this.form.vomiting_content) this.validator.vomiting_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.vomiting_content = { valid: true };
 
     if(this.form.pain_head_state == null) this.validator.pain_head_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.pain_head_state = { valid: true };
 
-    if(this.form.pain_head_state === true
+    if(this.form.pain_head_state === 1
     && !this.form.pain_head_content) this.validator.pain_head_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.pain_head_content = { valid: true };
 
     if(this.form.etc_disease_state == null) this.validator.etc_disease_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.etc_disease_state = { valid: true };
 
-    if(this.form.etc_disease_state === true
+    if(this.form.etc_disease_state === 1
     && !this.form.etc_disease_content) this.validator.etc_disease_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.etc_disease_content = { valid: true };
 
     if(this.form.covid_nineteen_state == null) this.validator.covid_nineteen_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_nineteen_state = { valid: true };
 
-    if(this.form.covid_nineteen_state === true
+    if(this.form.covid_nineteen_state === 1
     && !this.form.covid_nineteen_content) this.validator.covid_nineteen_content = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_nineteen_content = { valid: true };
 
     if(this.form.covid_vaccine_state == null) this.validator.covid_vaccine_state = { valid: false, message: '해당 항목에 답해주세요.' };
     else this.validator.covid_vaccine_state = { valid: true };
 
-    if(this.form.health_terms_state !== true) this.validator.health_terms_state = { valid: false, message: '항목에 동의해주세요.' };
+    if(this.form.health_terms_state !== 1) this.validator.health_terms_state = { valid: false, message: '항목에 동의해주세요.' };
     else this.validator.health_terms_state = { valid: true };
 
     for(let key in this.validator) {
