@@ -71,7 +71,7 @@
         </app-col>
       </app-row>
       <app-row>
-        <app-col>
+    <app-col>
           <app-select label="시스템 권한" *ngIf="user.userData.user_role === 'LH_HEAD'" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="1">마스터 어드민</app-select-option>
             <app-select-option [value]="2">일반 관리자</app-select-option>
