@@ -296,8 +296,10 @@ export class WorkerApprovalEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.getItem();
-    }
+      setTimeout(() => {
+        this._modal_.dismiss('Y');
+      }, 0);
+    } 
   }
 
 //가입승인

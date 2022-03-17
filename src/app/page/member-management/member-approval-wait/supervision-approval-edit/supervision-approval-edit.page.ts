@@ -198,9 +198,11 @@ export class SupervisionApprovalEditPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if (data) {
-      this._modal_.dismiss('Y');
-    }
+    if(data) {
+      setTimeout(() => {
+        this._modal_.dismiss('Y');
+      }, 0);
+    } 
   }
 
   //기본정보 수정

@@ -74,7 +74,6 @@ export class ApprovalPopupComponent implements OnInit {
 
 
   async approval() {
-    console.log("---------- state : ", this.state)
     let method = '';
     let page_name = '';
 
