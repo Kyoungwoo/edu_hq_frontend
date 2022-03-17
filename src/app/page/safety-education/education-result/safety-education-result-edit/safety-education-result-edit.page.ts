@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -81,7 +82,8 @@ export class SafetyEducationResultEditPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private date: DateService,
-    private user: UserService
+    private user: UserService,
+    private resultmodal: ModalController
   ) { }
 
   ngOnInit() {
@@ -135,13 +137,24 @@ export class SafetyEducationResultEditPage implements OnInit {
       parse:['education_safe_report_file_data']
     })
     if(res.rsCode === 0) {
-      this.getDetilItem = res.rsObj;
+      this.getDetilItem = {
+        ...this.getDetilItem,
+        ...res.rsObj
+      }
     }
   }
 
   //신규 교육 등록
   async insert(approval_cnt_answer) {
     this.getDetilItem.approval_cnt_answer = approval_cnt_answer;
+    let method = '';
+    if(this.item) {
+      method = '/education/report/insert'
+    } else {
+      method = '/education/report/update'
+    }
+
+      //결제부분
     // this.form.approval_default_data.push({
     //   default_type:'REFER',
     //   answer_datas:[{
@@ -153,14 +166,15 @@ export class SafetyEducationResultEditPage implements OnInit {
     //     refer_user_id:this.user.userData.user_id
     //   }]
     // });
-    // [{"default_type":"ANSWER","answer_datas":[{"approval_order_no":1,"approval_last_state":0,"answer_user_id":3366458717}]},{"default_type":"REFER","refer_datas":[{"refer_user_id":3366458717}]}]
+
     console.log(this.getDetilItem);
     if(!this.getDetilItem.education_safe_report_instructor) return this.toast.present({message:'강사명이 없습니다.', color:'warning'});
     if(!this.getDetilItem.education_safe_report_text) return this.toast.present({message:'결과 보고를 작성해 주세요.', color:'waring'});
     if(!this.getDetilItem.education_safe_report_instructor) return this.toast.present({message:'',color:'waring'});
-    const res = await this.connect.run('/education/report/insert',this.getDetilItem);
+    const res = await this.connect.run(method,this.getDetilItem);
     if(res.rsCode === 0) {
       this.toast.present({message:'저장되었습니다.', color:'primary'});
+      this.resultmodal.dismiss(true);
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
