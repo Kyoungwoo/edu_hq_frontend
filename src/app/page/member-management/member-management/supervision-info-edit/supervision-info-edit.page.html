@@ -84,7 +84,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.project_state">
+          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [disabled]="true" [(ngModel)]="formApproval.project_state">
             <app-radio value="출역중">출역중</app-radio>
             <app-radio value="출역종료">출역종료</app-radio>
           </app-radio-input>

@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
+import { ChangePhonePage } from 'src/app/page/my-page/change-phone/change-phone.page';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 
@@ -77,14 +78,14 @@ export class PartnerApprovalEditPage implements OnInit {
   formBasic = new BasicItem();
   formApproval = new ApprovalItem();
 
-  validator = new Validator(new BasicItem()).validator;
+  basicValidator = new Validator(new BasicItem()).validator;
 
   permission = {
     approval: false
   }
 
   constructor(
-    private _modal_ : ModalController,
+    private _modal : ModalController,
     private connect: ConnectService,
     public user: UserService,
     private toast: ToastService,
@@ -110,25 +111,33 @@ export class PartnerApprovalEditPage implements OnInit {
     this.form.user_manage_session = this.user.memberAuthToken;
   }
 
-  //이메일
-  public async overlapEmail() { 
-    const { user_id, user_email } = this.formBasic;
-    if(!user_email) return this.validator.user_email = null;
-    if(!user_id) return this.validator.user_id = null;
-    const res = await this.connect.run('/usermanage/approval/company/overlap/email', { user_email,user_id });
-    this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
-    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
-  }
+    // 이메일
+    async overlapEmail() {
+      const { user_email } = this.formBasic;
+      const res = await this.connect.run('/usermanage/approval/company/overlap/email', { user_email });
+      this.basicValidator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
+    }
 
-//휴대폰
-  public async overlapPhone() { 
-    const { user_phone, user_id } = this.formBasic;
-    if(!user_phone) return this.validator.user_phone = null;
-    if(!user_id) return this.validator.user_id = null;
-    const res = await this.connect.run('/usermanage/approval/company/overlap/phone', { user_phone,user_id });
-    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
-    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
-  }
+    // 휴대폰번호
+    async overlapPhone() {
+      const { user_phone } = this.formBasic;
+      if(!user_phone) return this.basicValidator.user_phone = null;
+      if(user_phone?.length < 3) return this.basicValidator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
+      const res = await this.connect.run('/usermanage/approval/company/overlap/phone', { user_phone });
+      this.basicValidator.user_phone = res.rsCode === 0 ? null : { valid: res.rsCode === 0, message: res.rsMsg };
+    }
+    async changePhone() {
+      const modal = await this._modal.create({
+        component: ChangePhonePage,
+        cssClass: 'change-phone-modal'
+      });
+      modal.present();
+      const { data } = await modal.onDidDismiss();
+  
+      if(data?.update) {
+        this.get();
+      }
+    }
 
   async get(){
     const loading = await this.loading.present();
@@ -183,7 +192,7 @@ export class PartnerApprovalEditPage implements OnInit {
 
   //비밀번호
   async getPassword() { 
-    const modal = await this._modal_.create({
+    const modal = await this._modal.create({
       component: SecurityPasswordComponent,
       backdropDismiss:false,
       cssClass:"security-password-modal"
@@ -197,7 +206,7 @@ export class PartnerApprovalEditPage implements OnInit {
 
   //가입승인
   async approval() { 
-    const modal = await this._modal_.create({
+    const modal = await this._modal.create({
       component:ApprovalPopupComponent,
       componentProps:{
         approval_user_ids:this.formBasic.user_id,
@@ -208,8 +217,9 @@ export class PartnerApprovalEditPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log("data",data);
     if(data) {
-      this._modal_.dismiss('Y');
+      this._modal.dismiss('Y');
     } 
   }
 
@@ -257,7 +267,7 @@ export class PartnerApprovalEditPage implements OnInit {
       ...this.formApproval
     }, {});
     if(res.rsCode === 0) {
-      this._modal_.dismiss('Y');
+      this._modal.dismiss('Y');
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
