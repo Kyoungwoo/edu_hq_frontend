@@ -21,7 +21,7 @@ class SupervisionInfo {
   company_name: string;
   ctgo_construction_name: string;
   approval_state: string;
-  update_date: string;
+  create_date: string;
   row_count: number;
   index: number;
 }
