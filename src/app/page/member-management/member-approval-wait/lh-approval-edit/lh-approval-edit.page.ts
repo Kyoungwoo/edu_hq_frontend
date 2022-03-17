@@ -213,7 +213,10 @@ async approval() {
   modal.present();
   const { data } = await modal.onDidDismiss();
   if(data) {
-    this._modal_.dismiss('Y');
+    setTimeout(() => {
+      console.log("data",this._modal_.getTop());
+      this._modal_.dismiss('Y');
+    }, 300);
   } 
 }
 

@@ -15,7 +15,13 @@
     </app-row>
  <app-row>
    <app-col size="auto">
-     <app-avatar></app-avatar>
+     <app-avatar
+      *ngIf="res.user_profile_file_data"
+      name="worker-profile"
+      view_type="PROFILE"
+      [(ngModel)]="res.user_profile_file_data"
+      [file]="null" [file_json]="null"
+     ></app-avatar>
    </app-col>
    <app-col>
      <app-table>
@@ -34,15 +40,15 @@
       </thead>
       <tbody>
         <tr>
-          <td>세종시 주택공사</td>
-          <td>(주)제일</td>
-          <td>이상범</td>
-          <td>대한민국</td>
-          <td>형틀공</td>
-          <td>작업자</td>
-          <td>신호수</td>
-          <td>일용직</td>
-          <td>출역중</td>
+          <td>{{ res?.project_name }}</td>
+          <td>{{ res?.company_name }}</td>
+          <td>{{ res?.user_name }}</td>
+          <td>{{ res?.ctgo_country_name }}</td>
+          <td>{{ res?.ctgo_occupation_name }}</td>
+          <td>{{ res?.ctgo_job_position_name }}</td>
+          <td>{{ res?.safe_job_name }}</td>
+          <td>{{ res?.work_contract_type }}</td>
+          <td>{{ res?.project_work_state ? '출역중' : '출역 종료'}}}</td>
         </tr>
       </tbody>
      </app-table>
@@ -50,8 +56,8 @@
  </app-row>
  <ion-toolbar color="white">
   <ion-buttons slot="start">
-    <ion-segment color="primary">
-      <ion-segment-button>주요 교육 현황</ion-segment-button>
+    <ion-segment color="primary" value="1">
+      <ion-segment-button [value]="1">주요 교육 현황</ion-segment-button>
       <ion-segment-button>전체 교육 이력</ion-segment-button>
     </ion-segment>
   </ion-buttons>
@@ -77,10 +83,14 @@
       <tbody>
         <tr>
           <td>채용 시 교육</td>
-          <td>21.03.06</td>
-          <td>90</td>
-          <td>2H</td>
-          <td><ion-chip color="primary">양호</ion-chip></td>
+          <td>{{ hireRes?.create_date }}</td>
+          <td>{{ hireRes?.education_credit_date }}</td>
+          <td>{{ hireRes?.education_credit_time}}H</td>
+          <td>
+            <ion-chip *ngIf="hireRes?.hire_edu_state === '양호'" outline color="primary">양호</ion-chip>
+            <ion-chip *ngIf="hireRes?.hire_edu_state === '필요'" outline color="warning">필요</ion-chip>
+            <ion-chip *ngIf="hireRes?.hire_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+          </td>
         </tr>
       </tbody>
      </app-table>
@@ -108,11 +118,15 @@
       <tbody>
         <tr>
           <td>작업자 정기교육</td>
-          <td>21.05.06~22.08.05</td>
-          <td>30</td>
-          <td>2H</td>
-          <td>4H</td>
-          <td><ion-chip color="primary">양호</ion-chip></td>
+          <td>{{ routineRes?.education_start_term }}~{{ routineRes?.education_end_term }}</td>
+          <td>{{ routineRes?.education_remaining_date }}</td>
+          <td>{{ routineRes?.education_complete_time }}H</td>
+          <td>{{ routineRes?.education_remaining_time }}H</td>
+          <td>
+            <ion-chip *ngIf="routineRes?.routine_edu_state === '양호'" outline color="primary">양호</ion-chip>
+            <ion-chip *ngIf="routineRes?.routine_edu_state === '필요'" outline color="warning">필요</ion-chip>
+            <ion-chip *ngIf="routineRes?.routine_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+          </td>
         </tr>
       </tbody>
      </app-table>
@@ -130,7 +144,7 @@
         </div>
       </div>
       <div class="grp-box">
-        <div class="grp-item-one"></div>
+        <div class="grp-item-one" [style]=""></div>
         <div class="grp-item-two"></div>
         <div class="grp-bottom-border"></div>
         <div class="grp-time">
