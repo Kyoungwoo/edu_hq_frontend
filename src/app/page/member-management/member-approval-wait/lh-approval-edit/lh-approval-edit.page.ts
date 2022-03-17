@@ -6,6 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { OrganizationValue } from 'src/app/component/select/select-organization/select-organization.component';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
@@ -85,7 +86,8 @@ export class LhApprovalEditPage implements OnInit {
     public user: UserService,
     private toast: ToastService,
     private alert: AlertService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private promiss: PromiseService
   ) { }
 
   ngOnInit() {
@@ -214,9 +216,8 @@ async approval() {
   const { data } = await modal.onDidDismiss();
   if(data) {
     setTimeout(() => {
-      console.log("data",this._modal_.getTop());
       this._modal_.dismiss('Y');
-    }, 300);
+    }, 0);
   } 
 }
 

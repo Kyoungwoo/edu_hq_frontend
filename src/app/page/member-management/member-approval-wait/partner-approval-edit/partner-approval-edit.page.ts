@@ -52,7 +52,7 @@ export class ApprovalItem {
   ctgo_construction_name: string;
   project_name: string;
 
-  safe_job_data:SafeJobItem[] = [];
+  safe_job_data: SafeJobItem[] = [];
 }
 
 @Component({
@@ -62,9 +62,9 @@ export class ApprovalItem {
 })
 export class PartnerApprovalEditPage implements OnInit {
 
-  editable:boolean = false;
+  editable: boolean = false;
 
-  @ViewChild('inputSafeJob') inputSafeJob:InputSafejobComponent;
+  @ViewChild('inputSafeJob') inputSafeJob: InputSafejobComponent;
 
   @Input() item;
 
@@ -78,14 +78,14 @@ export class PartnerApprovalEditPage implements OnInit {
   formBasic = new BasicItem();
   formApproval = new ApprovalItem();
 
-  basicValidator = new Validator(new BasicItem()).validator;
+  validator = new Validator(new BasicItem()).validator;
 
   permission = {
     approval: false
   }
 
   constructor(
-    private _modal : ModalController,
+    private _modal: ModalController,
     private connect: ConnectService,
     public user: UserService,
     private toast: ToastService,
@@ -99,8 +99,8 @@ export class PartnerApprovalEditPage implements OnInit {
   }
 
   //권한
-  getPermission() { 
-    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+  getPermission() {
+    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
       this.permission.approval = true;
     } else {
       this.permission.approval = false;
@@ -111,35 +111,27 @@ export class PartnerApprovalEditPage implements OnInit {
     this.form.user_manage_session = this.user.memberAuthToken;
   }
 
-    // 이메일
-    async overlapEmail() {
-      const { user_email } = this.formBasic;
-      const res = await this.connect.run('/usermanage/approval/company/overlap/email', { user_email });
-      this.basicValidator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
-    }
 
-    // 휴대폰번호
-    async overlapPhone() {
-      const { user_phone } = this.formBasic;
-      if(!user_phone) return this.basicValidator.user_phone = null;
-      if(user_phone?.length < 3) return this.basicValidator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
-      const res = await this.connect.run('/usermanage/approval/company/overlap/phone', { user_phone });
-      this.basicValidator.user_phone = res.rsCode === 0 ? null : { valid: res.rsCode === 0, message: res.rsMsg };
-    }
-    async changePhone() {
-      const modal = await this._modal.create({
-        component: ChangePhonePage,
-        cssClass: 'change-phone-modal'
-      });
-      modal.present();
-      const { data } = await modal.onDidDismiss();
-  
-      if(data?.update) {
-        this.get();
-      }
-    }
+  //이메일
+  public async overlapEmail() {
+    const { user_id, user_email } = this.formBasic;
+    if (!user_email) return this.validator.user_email = null;
+    if (!user_id) return this.validator.user_id = null;
+    const res = await this.connect.run('/usermanage/approval/company/overlap/email', { user_email, user_id });
+    this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
+    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
+  }
 
-  async get(){
+  //휴대폰
+  public async overlapPhone() {
+    const { user_phone, user_id } = this.formBasic;
+    if (!user_phone) return this.validator.user_phone = null;
+    if (!user_id) return this.validator.user_id = null;
+    const res = await this.connect.run('/usermanage/approval/company/overlap/phone', { user_phone, user_id });
+    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
+    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
+  }
+  async get() {
     const loading = await this.loading.present();
 
     await Promise.all([
@@ -156,91 +148,92 @@ export class PartnerApprovalEditPage implements OnInit {
     const res = await this.connect.run('/usermanage/approval/company/basic/detail', this.form, {
       parse: ['user_profile_file_data']
     });
-    
+
     if (res.rsCode === 0) {
       this.formBasic = {
         ...this.formBasic,
         ...res.rsObj
       }
       this.formBasic.user_name = res.rsObj.user_name;
-      
-    } else if(res.rsCode === 3008) {
-       // 비밀번호 없거나 틀렸음
-       this.getPassword();
+
+    } else if (res.rsCode === 3008) {
+      // 비밀번호 없거나 틀렸음
+      this.getPassword();
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
-//소속정보
+  //소속정보
   async getBelong() {
-      const res = await this.connect.run('/usermanage/approval/company/belong/detail', this.form, {
-        parse: ['safe_job_data','safe_job_file_data']
-      });
-      if (res.rsCode === 0) {
-        this.formApproval = {
-          ...this.formApproval,
-          ...res.rsObj
-        }
-      } else if(res.rsCode === 3008) {
-         // 비밀번호 없거나 틀렸음
-         this.getPassword();
-      } else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+    const res = await this.connect.run('/usermanage/approval/company/belong/detail', this.form, {
+      parse: ['safe_job_data', 'safe_job_file_data']
+    });
+    if (res.rsCode === 0) {
+      this.formApproval = {
+        ...this.formApproval,
+        ...res.rsObj
       }
+    } else if (res.rsCode === 3008) {
+      // 비밀번호 없거나 틀렸음
+      this.getPassword();
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
   }
 
   //비밀번호
-  async getPassword() { 
+  async getPassword() {
     const modal = await this._modal.create({
       component: SecurityPasswordComponent,
-      backdropDismiss:false,
-      cssClass:"security-password-modal"
+      backdropDismiss: false,
+      cssClass: "security-password-modal"
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) {
+    if (data) {
       this.getItem();
     }
   }
 
   //가입승인
-  async approval() { 
+  async approval() {
     const modal = await this._modal.create({
-      component:ApprovalPopupComponent,
-      componentProps:{
-        approval_user_ids:this.formBasic.user_id,
-        user_name:this.formBasic.user_name,
+      component: ApprovalPopupComponent,
+      componentProps: {
+        approval_user_ids: this.formBasic.user_id,
+        user_name: this.formBasic.user_name,
         state: 'partner'
       },
-      cssClass:"approval-modal"
+      cssClass: "approval-modal"
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log("data",data);
-    if(data) {
-      this._modal.dismiss('Y');
-    } 
+    if (data) {
+      setTimeout(() => {
+        this._modal.dismiss('Y');
+      }, 0);
+    }
   }
 
   // 저장(수정)
-  async submit() { 
+  async submit() {
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.form.approval_user_id = this.form.user_id;
     this.alert.present({
-      message:'저장 하시겠습니까?',
-      buttons:[
-        { text:'아니요' },
+      message: '저장 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
         {
-          text:'예',
-          handler: async() => {
+          text: '예',
+          handler: async () => {
             await Promise.all([
               this.BasicSubmit(),
               this.inputSafeJob?.submit(),
               this.BelongSubmit()
             ]);
-            
+
 
           }
         }
@@ -248,25 +241,25 @@ export class PartnerApprovalEditPage implements OnInit {
     });
   }
 
-//기본정보 수정
-  async BasicSubmit(){
+  //기본정보 수정
+  async BasicSubmit() {
     const res = await this.connect.run('/usermanage/approval/company/basic/update', {
       ...this.form,
       ...this.formBasic
     }, {});
-    if(res.rsCode === 0) {
+    if (res.rsCode === 0) {
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
-//소속정보 수정
-  async BelongSubmit(){
+  //소속정보 수정
+  async BelongSubmit() {
     const res = await this.connect.run('/usermanage/approval/company/belong/update', {
       ...this.form,
       ...this.formApproval
     }, {});
-    if(res.rsCode === 0) {
+    if (res.rsCode === 0) {
       this._modal.dismiss('Y');
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });

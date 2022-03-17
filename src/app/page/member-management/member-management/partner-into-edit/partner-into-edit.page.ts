@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { InputSafejobComponent, SafeJobItem } from 'src/app/component/input/input-safejob/input-safejob.component';
+import { ChangePhonePage } from 'src/app/page/my-page/change-phone/change-phone.page';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
 import { SafeEduItem } from '../../member-approval-wait/worker-approval-edit/worker-approval-edit.page';
 import { MileagePopupComponent } from '../mileage-popup/mileage-popup.component';
@@ -190,15 +191,37 @@ export class PartnerIntoEditPage implements OnInit {
     this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
   }
 
-  //휴대폰
-  public async overlapPhone() {
-    const { user_phone, user_id } = this.formBasic;
-    if (!user_phone) return this.validator.user_phone = null;
-    if (!user_id) return this.validator.user_id = null;
-    const res = await this.connect.run('/usermanage/info/company/overlap/phone', { user_phone, user_id });
-    this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
-    this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
-  }
+  // //휴대폰
+  // public async overlapPhone() {
+  //   const { user_phone, user_id } = this.formBasic;
+  //   if (!user_phone) return this.validator.user_phone = null;
+  //   if (!user_id) return this.validator.user_id = null;
+  //   const res = await this.connect.run('/usermanage/info/company/overlap/phone', { user_phone, user_id });
+  //   this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
+  //   this.validator.user_id = { valid: res.rsCode === 0, message: res.rsMsg };
+  // }
+
+    // 휴대폰번호
+    async overlapPhone() {
+      const { user_id, user_phone } = this.formBasic;
+      if (!user_id) return this.validator.user_id = null;
+      if(!user_phone) return this.validator.user_phone = null;
+      if(user_phone?.length < 3) return this.validator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
+      const res = await this.connect.run('/usermanage/info/company/overlap/phone', { user_phone, user_id });
+      this.validator.user_phone = res.rsCode === 0 ? null : { valid: res.rsCode === 0, message: res.rsMsg };
+    }
+    async changePhone() {
+      const modal = await this._modal_.create({
+        component: ChangePhonePage,
+        cssClass: 'change-phone-modal'
+      });
+      modal.present();
+      const { data } = await modal.onDidDismiss();
+  
+      if(data?.update) {
+        this.get();
+      }
+    }
 
   async get() {
     const loading = await this.loading.present();

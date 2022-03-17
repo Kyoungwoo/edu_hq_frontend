@@ -53,8 +53,12 @@ h4{
 }
 .grp-item-one {
     background: var(--ion-color-primary);
-    width: 65%;
+    width: 0%;
     height: 16px;
+
+	&.one{width:25%}
+	&.two{width:50%}
+	&.three{width:100%}
 }
 .grp-item-two {
     background: var(--ion-color-tertiary);

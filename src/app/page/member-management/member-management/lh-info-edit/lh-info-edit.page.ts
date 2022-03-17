@@ -39,7 +39,7 @@ export class ApprovalItem {
   hq_business_id: number;
   hq_regional_name: string;
   project_name: string;
-  user_role: string;
+  user_role: number;
   construction_start_date: string;
   user_id: number;
   project_id: number;

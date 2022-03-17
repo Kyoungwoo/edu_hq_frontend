@@ -120,7 +120,7 @@
         delete_url="/usermanage/approval/worker/safejob/delete"
         [params]="this.form"
         [(ngModel)]="formApproval.safe_job_data" [disabled]="!permission.approval"></app-input-safejob>
-
+        <h5>자격정보</h5>
         <app-input-certify #inputCertify
         insert_url="/usermanage/approval/worker/certify/insert"
         update_url="/usermanage/approval/worker/certify/update"
