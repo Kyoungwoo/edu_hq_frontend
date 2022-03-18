@@ -41,6 +41,7 @@ export class RoutineItem {
   education_remaining_time: number;
   education_start_term: string;
   education_end_term: string;
+  education_recommended_time:number;
 }
 
 @Component({
@@ -54,7 +55,28 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   res:HistoryItem = new HistoryItem();
   hireRes:HireItem = new HireItem();
-  routineRes:RoutineItem = new RoutineItem();
+  routineRes:ConnectResult<{
+    education_complete_time: number;
+    ctgo_education_safe_name: string;
+    education_remaining_date: number;
+    routine_edu_state: string;
+    user_id: number;
+    education_remaining_time: number;
+    education_start_term: string;
+    education_end_term: string;
+    education_recommended_time:number;
+  }>
+
+  specialRes:ConnectResult<{
+    education_complete_time: number,
+    ctgo_education_safe_name: string,
+    education_remaining_date: number,
+    user_id: number,
+    special_edu_state: string,
+    education_remaining_time: number,
+    create_date: string,
+    education_recommended_time: number
+  }>
 
   constructor(
     private connect: ConnectService,
@@ -65,6 +87,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     this.getItem();
     this.hireItem();
     this.routineItem();
+    this.specialItem();
   }
 
   async getItem() {
@@ -92,9 +115,36 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   async routineItem() {
     const res = await this.connect.run('/education/report/routine/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
-      this.routineRes = res.rsObj;
+      this.routineRes = res;
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
+    }
+  }
+
+  async specialItem() {
+    const res = await this.connect.run('/education/report/special/get',{approval_user_id:this.user_id});
+    if(res.rsCode === 0) {
+      this.specialRes = res;
+    } else {
+      this.toast.present({message:res.rsMsg, color:'warning'});
+    }
+  }
+
+  routine(state){
+    if(state) {
+      let recommendedeWidth = 0;
+      this.routineRes?.rsMap?.forEach(item => {
+        console.log(item.education_recommended_time);
+        return recommendedeWidth = (100/6)*item.education_recommended_time;
+      });
+      return `width:${recommendedeWidth}%`;
+    } else {
+      let completeWidth = 0;
+      this.routineRes?.rsMap?.forEach(item => {
+        console.log(item.education_complete_time);
+        return completeWidth = (100/6)*item.education_complete_time;
+      });
+      return `width:${completeWidth}%`;
     }
   }
 }
