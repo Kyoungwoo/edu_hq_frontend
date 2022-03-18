@@ -159,13 +159,16 @@ export class PartnerIntoEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("item",this.item);
+
+
     this.getPermission();
     this.get();
   }
 
    //권한
    getPermission() { 
-    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'MASTER_GENERAL') {
+    if(this.user.userData.user_role === 'MASTER_HEAD') {
       this.permission.mileageinsert = true;
     } else {
       this.permission.mileageinsert = false;
