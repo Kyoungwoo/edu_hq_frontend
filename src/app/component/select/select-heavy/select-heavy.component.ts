@@ -18,6 +18,8 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
 
   @Input() color:Color;
   @Input() label:string = "중장비";
+  @Input() disabled:boolean = false;
+
 
   constructor(
     private _modal:ModalController

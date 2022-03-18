@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { HeavyEquipEditPage } from '../heavy-equip-edit/heavy-equip-edit.page';
@@ -49,7 +50,8 @@ export class HeavyEquipListPage implements OnInit {
     private toast: ToastService,
     private connect: ConnectService,
     private date: DateService,
-    private user: UserService
+    private user: UserService,
+    private alert: AlertService
   ) { }
 
 
@@ -87,5 +89,27 @@ export class HeavyEquipListPage implements OnInit {
     if(data) {
       this.getList();
     }
+  }
+
+  async Heavydelete() {
+    const alert = await this.alert.present({
+      message: '삭제 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/machinery/delete', {
+              machinery_ids : this.selectedList
+            });
+            if (res.rsCode === 0) {
+              this.getList();
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    });
   }
 }
