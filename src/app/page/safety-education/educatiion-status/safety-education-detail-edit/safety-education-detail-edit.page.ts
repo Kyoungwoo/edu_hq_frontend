@@ -154,7 +154,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     }
   }
   async updateItem() {
-
+    console.log("this.form : ",this.form);
     const alert = await this.alert.present({
       message:'수정하시겠습니까?',
       buttons:[

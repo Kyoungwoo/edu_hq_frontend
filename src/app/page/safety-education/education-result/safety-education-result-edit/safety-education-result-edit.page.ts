@@ -187,4 +187,8 @@ export class SafetyEducationResultEditPage implements OnInit {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
+
+  async approvalGet() {
+    
+  }
 }

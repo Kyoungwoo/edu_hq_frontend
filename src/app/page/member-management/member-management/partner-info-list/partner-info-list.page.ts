@@ -20,7 +20,7 @@ class PartnerInfo {
   user_name: string;
   ctgo_construction_name: string;
   ctgo_job_position_name: string;
-  update_date: string;
+  create_date: string;
   company_contract_type: string;
   user_id: number;
   user_birth: string;
