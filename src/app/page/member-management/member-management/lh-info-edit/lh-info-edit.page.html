@@ -81,14 +81,6 @@
             <app-select-option [value]="1">마스터 어드민</app-select-option>
             <app-select-option [value]="2">일반 관리자</app-select-option>
           </app-select>
-          <app-select label="시스템 권한" *ngIf="user.userData.user_role === 'MASTER_HEAD'" [(ngModel)]="formApproval.user_role">
-            <app-select-option [value]="6">마스터 어드민</app-select-option>
-            <app-select-option [value]="7">일반 관리자</app-select-option>
-          </app-select>
-          <app-select label="시스템 권한" *ngIf="user.userData.user_role === 'PARTNER_HEAD'" [(ngModel)]="formApproval.user_role">
-            <app-select-option [value]="9">마스터 어드민</app-select-option>
-            <app-select-option [value]="10">일반 관리자</app-select-option>
-          </app-select>
         </app-col>
         <app-col>
           <app-select-organization [(ngModel)]="form"></app-select-organization>

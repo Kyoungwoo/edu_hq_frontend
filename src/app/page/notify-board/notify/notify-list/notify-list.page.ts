@@ -16,7 +16,7 @@ export class NotifyListPage implements OnInit {
     create_date:this.date.today({year:-2,month:-1}),
     end_date:this.date.today(),
     notify_menu:'',
-    project_id:null,
+    project_id:0,
     search_text:'',
     limit_no:0
   }

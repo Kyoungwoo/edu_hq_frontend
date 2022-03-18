@@ -53,6 +53,14 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   @Input() user_id;
 
+  menuCount = 1;
+
+  useForm = {
+    attendant_user_id:0,
+    limit_no:0,
+    search_text:''
+  }
+
   res:HistoryItem = new HistoryItem();
   hireRes:HireItem = new HireItem();
   routineRes:ConnectResult<{
@@ -65,7 +73,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     education_start_term: string;
     education_end_term: string;
     education_recommended_time:number;
-  }>
+  }>;
 
   specialRes:ConnectResult<{
     education_complete_time: number,
@@ -75,8 +83,23 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     special_edu_state: string,
     education_remaining_time: number,
     create_date: string,
-    education_recommended_time: number
+    education_recommended_time: number,
+    education_towercrane_state: number
+  }>;
+
+  useRes:ConnectResult<{
+    index:number,
+    ctgo_education_safe_name: string,
+    ctgo_education_safe_id: number,
+    ctgo_education_safe_title: string,
+    education_safe_id: number,
+    ctgo_education_safe_type: string,
+    education_safe_time: number,
+    create_date: string,
+    row_count: number
   }>
+
+
 
   constructor(
     private connect: ConnectService,
@@ -88,6 +111,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     this.hireItem();
     this.routineItem();
     this.specialItem();
+    this.useItem();
   }
 
   async getItem() {
@@ -134,17 +158,48 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     if(state) {
       let recommendedeWidth = 0;
       this.routineRes?.rsMap?.forEach(item => {
-        console.log(item.education_recommended_time);
-        return recommendedeWidth = (100/6)*item.education_recommended_time;
+        return recommendedeWidth = item.education_recommended_time/6*100;
       });
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
       this.routineRes?.rsMap?.forEach(item => {
-        console.log(item.education_complete_time);
-        return completeWidth = (100/6)*item.education_complete_time;
+        console.log(100/6*item.education_complete_time)
+
+        return completeWidth = item.education_complete_time/6*100;
+
       });
       return `width:${completeWidth}%`;
+    }
+  }
+
+  special(state,item){
+    console.log("item : ",item)
+    if(state) {
+      let recommendedeWidth = 0;
+      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16*100;
+      return `width:${recommendedeWidth}%`;
+    } else {
+      console.log('asdfasdfasdfsdf');
+      let completeWidth = 0;
+      console.log(item.education_complete_time )
+        if(item.education_complete_time === 0) completeWidth = 0;
+        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16*100;
+        return `width:${completeWidth}%`;
+    }
+  }
+
+  async useItem(limit_no = this.useForm.limit_no) {
+    this.useForm.limit_no = limit_no;
+    this.useForm.attendant_user_id = this.user_id
+    const res = await this.connect.run('/education/state/user/list',this.useForm);
+    if(res.rsCode === 0) {
+      this.useRes = res;
+      this.useRes.rsMap.forEach((item,i) => {
+        item.index = res.rsObj.row_count - this.useForm.limit_no - i
+      });
+    } else {
+      this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 }
