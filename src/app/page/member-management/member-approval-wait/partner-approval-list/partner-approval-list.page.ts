@@ -13,6 +13,7 @@ import { SecurityPasswordComponent } from '../security-password/security-passwor
 class PartnerApprovalInfo {
   ctgo_construction_id: number;
   ctgo_job_position_name: string;
+  company_contract_type: string;
   company_id: number;
   ctgo_safe_job_name: string;
   ctgo_job_position_id: number;
