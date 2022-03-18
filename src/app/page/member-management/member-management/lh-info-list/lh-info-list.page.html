@@ -1,0 +1,82 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <!-- <ion-toolbar color="white">
+    <ion-title>
+      <h4>LH 관리자 정보</h4>
+    </ion-title>
+  </ion-toolbar> -->
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-regional [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="가입일">
+                  <app-calendar  [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td>
+                <app-radio-input label="재직상태">
+                  <app-radio value="전체">전체</app-radio>
+                  <app-radio value="재직중">재직중</app-radio>
+                  <app-radio value="퇴사">퇴사</app-radio>
+                </app-radio-input>
+              </td>
+            </tr> -->
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <h5>관리자 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+       
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>조직기구</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>가입일</th>
+              <!-- <th>재직상태</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.hq_regional_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <!-- <td>재직중</td> -->
+            </tr>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+

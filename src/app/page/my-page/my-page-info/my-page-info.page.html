@@ -1,0 +1,223 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/my-page-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>나의 정보</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+
+    <!-- 상단 정보 -->
+
+    <h4>개인 정보</h4>
+
+    <h6 class="update-date">최종 수정일: {{ basicForm.update_date }}</h6>
+    <app-avatar 
+    name="input-profile"
+    view_type="PROFILE" 
+    [(ngModel)]="basicForm.user_profile_file_data" [file]="basicForm.file" [file_json]="basicForm.file_json" [readonly]="!editable"></app-avatar>
+    <app-row mobileBreak>
+      <app-col>
+        
+        <app-input-template
+        name="account_id" label="아이디" [disabled]="true">
+          <p slot="input">{{ basicForm.account_id }}</p>
+        </app-input-template>
+
+      </app-col>
+      <app-col>
+        
+        <app-input-template
+        name="account_token" label="비밀번호" [disabled]="!editable" (buttonClick)="changePassword()">
+          <p slot="input">안전한 계정 사용을 위해</p>
+          변경
+        </app-input-template>
+
+      </app-col>
+      <app-col>
+
+        <app-input
+        name="user_name" label="성명"
+        placeholder="이름을 입력해주세요."
+        [color]="basicValidator.user_name?.valid === false && 'warning'"
+        [(ngModel)]="basicForm.user_name" [disabled]="!editable" [required]="true"></app-input>
+        <app-input-caption *ngIf="basicValidator.user_name?.valid === false" color="warning">{{ basicValidator.user_name?.message }}</app-input-caption>
+
+      </app-col>
+    </app-row>
+
+    <app-row mobileBreak>
+      <app-col>
+
+        <app-calendar name="user_birth" label="생년월일" 
+        [color]="basicValidator.user_birth?.valid === false && 'warning'"
+        [(ngModel)]="basicForm.user_birth" [disabled]="!editable" [required]="true"></app-calendar>
+        <app-input-caption *ngIf="basicValidator.user_birth?.valid === false" color="warning">{{ basicValidator.user_birth?.message }}</app-input-caption>
+
+      </app-col>
+      <app-col>
+
+        <app-radio-input name="user_gender" label="성별" 
+        [color]="basicValidator.user_gender?.valid === false && 'warning'"
+        [(ngModel)]="basicForm.user_gender" [disabled]="!editable" [required]="true">
+          <app-radio value="남">남</app-radio>
+          <app-radio value="여">여</app-radio>
+        </app-radio-input>
+        <app-input-caption *ngIf="basicValidator.user_gender?.valid === false" color="warning">{{ basicValidator.user_gender?.message }}</app-input-caption>
+
+      </app-col>
+    </app-row>
+
+    <app-row mobileBreak>
+      <app-col>
+
+        <app-input-template name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+        [color]="basicValidator.user_phone?.valid === false && 'warning'"
+        [disabled]="!editable" [required]="true" (buttonClick)="changePhone()">
+          <p slot="input">{{ basicForm.user_phone }}</p>
+          변경
+        </app-input-template>
+
+      </app-col>
+      <app-col>
+
+        <app-email name="user_email" label="이메일" 
+        [color]="basicValidator.user_email?.valid === false && 'warning'"
+        (delayKeyup)="overlapEmail()"
+        [(ngModel)]="basicForm.user_email" [disabled]="!editable" [required]="true"></app-email>
+        <app-input-caption *ngIf="basicValidator.user_email?.valid === false" color="warning">{{ basicValidator.user_email?.message }}</app-input-caption>
+
+      </app-col>
+    </app-row>
+
+    <!-- 소속 정보 -->
+    <div>
+
+      <h4>소속 정보</h4>
+
+      <app-row mobileBreak>
+        <app-col>
+
+          <app-input-template label="회사명" [disabled]="true">
+            <p slot="input">{{ belongForm.company_name }}</p>
+          </app-input-template>
+
+        </app-col>
+        <app-col>
+
+          <ng-container *ngIf="userType !== 'WORKER'">
+
+            <app-select-position name="ctgo_job_position_id" 
+            [company_id]="1"
+            [(ngModel)]="belongForm.ctgo_job_position_id" [disabled]="!belongEditable" [required]="true"></app-select-position>
+            <app-input-caption *ngIf="belongValidator.ctgo_job_position_id?.valid === false" color="warning">{{ belongValidator.ctgo_job_position_id?.message }}</app-input-caption>
+
+          </ng-container>
+          <ng-container *ngIf="userType === 'WORKER'">
+
+            <app-input-template label="직위" [disabled]="true">
+              <p slot="input">작업자</p>
+            </app-input-template>
+
+          </ng-container>
+
+        </app-col>
+
+        <app-col *ngIf="userType === 'LH' || userType === 'MASTER' || userType === 'PARTNER'">
+
+          <app-input-template label="시스템 권한" [disabled]="true">
+            <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
+          </app-input-template>
+
+        </app-col>
+      </app-row>
+
+      <app-row mobileBreak *ngIf="userType === 'LH'">
+        <app-col>
+
+          <app-select-organization [(ngModel)]="belongForm" [disabled]="!belongEditable"></app-select-organization>
+          <app-input-caption *ngIf="belongValidator.hq_regional_id?.valid === false" color="warning">{{ belongValidator.hq_regional_id?.message }}</app-input-caption>
+          <app-input-caption *ngIf="belongValidator.hq_business_id?.valid === false" color="warning">{{ belongValidator.hq_business_id?.message }}</app-input-caption>
+          <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption>
+
+        </app-col>
+      </app-row>
+
+      <app-row mobileBreak>
+        <app-col>
+
+          <app-select-scene [(ngModel)]="belongForm.project_id" [disabled]="true"></app-select-scene>
+
+        </app-col>
+        <app-col *ngIf="userType === 'LH'">
+          
+          <app-input-template label="현장 공사 기간" [disabled]="true">
+            <p slot="input">{{ belongForm.contract_start_date }} ~ {{ belongForm.contract_end_date }}</p>
+          </app-input-template>
+
+        </app-col>
+        
+      </app-row>
+
+      <app-row mobileBreak>
+        <app-col *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'">
+          
+          <app-select-construction [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!belongEditable"></app-select-construction>
+          <app-input-caption *ngIf="belongValidator.ctgo_construction_id?.valid === false" color="warning">{{ belongValidator.ctgo_construction_id?.message }}</app-input-caption>
+
+        </app-col>
+        <app-col *ngIf="userType === 'WORKER'">
+
+          <app-select-occupation [company_id]="belongForm.company_id" [(ngModel)]="belongForm.ctgo_occupation_id" [disabled]="!belongEditable"></app-select-occupation>
+
+        </app-col>
+      </app-row>
+
+      <app-row mobileBreak *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'">
+        <app-col>
+
+          <app-radio-input label="현장 출역 상태" value="출역중" [disabled]="true">
+            <app-radio value="출역중">출역 중</app-radio>
+            <app-radio value="출역종료">출역 종료</app-radio>
+          </app-radio-input>
+
+        </app-col>
+        <app-col>
+          
+          <app-input-template label="현장 출역 기간" [disabled]="true">
+            <p slot="input">{{ belongForm.construction_start_date || '없음' }} ~ {{ belongForm.construction_end_date || '없음' }}</p>
+          </app-input-template>
+
+        </app-col>
+      </app-row>
+
+      <app-input-safejob #inputSafeJob *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
+      [project_id]="belongForm.project_id"
+      [company_id]="belongForm.company_id"
+      insert_url="/mypage/company/safejob/insert"
+      update_url="/mypage/company/safejob/update"
+      delete_url="/mypage/company/safejob/delete"
+      [(ngModel)]="belongForm.safe_job_data" [disabled]="!belongEditable"></app-input-safejob>
+
+      <app-input-template *ngIf="belongForm.ctgo_occupation_role === 'DRIVER'" label="면허번호" [disabled]="true">
+        <p slot="input">{{ belongForm.user_certify_no }}</p>
+      </app-input-template>
+
+    </div>
+    
+  </app-container>
+</ion-content>
+
+<!-- 상세보기 footer -->
+<app-button-footer *ngIf="!editable; else tempEditFooter">
+  <app-button name="button_edit" fill="translucent" (click)="edit()">수정</app-button>
+</app-button-footer>
+<!-- 수정 footer -->
+<ng-template #tempEditFooter>
+  <app-button-footer>
+    <app-button name="submit" (click)="submit()">저장</app-button>
+  </app-button-footer>
+</ng-template>

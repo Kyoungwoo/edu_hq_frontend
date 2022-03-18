@@ -1,0 +1,12 @@
+<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required" (buttonClick)="buttonClick.emit()">
+  <ion-textarea slot="input"
+  [placeholder]="placeholder"
+  [(ngModel)]="value"
+  [autofocus]="autofocus"
+  [readonly]="readonly"
+  [disabled]="disabled"
+  [maxlength]="maxlength"
+  [autoGrow]="autoGrow"
+  [rows]="rows"></ion-textarea>
+  <ng-content slot="button"></ng-content>
+</app-input-template>

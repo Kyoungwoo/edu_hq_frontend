@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>작업자 정보</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-avatar></app-avatar>
+  <app-card>
+    <app-row>
+      <app-col>
+        <h3>{{ form.user_name }}</h3>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>아이디</h5>
+      </app-col>
+      <app-col>
+        <p>{{ form.account_id }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>국적</h5>
+      </app-col>
+      <app-col >
+        <p>{{ form.ctgo_country_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>업체명</h5>
+      </app-col>
+      <app-col >
+        <p>{{ form.company_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>직위</h5>
+      </app-col>
+      <app-col>
+        <p>{{ form.ctgo_job_position_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>현장명</h5>
+      </app-col>
+      <app-col >
+        <p>{{ form.project_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>공종</h5>
+      </app-col>
+      <app-col>
+        <p>{{ form.ctgo_construction_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>계약유형</h5>
+      </app-col>
+      <app-col >
+        <p>{{ form.work_contract_type }}</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>직종</h5>
+      </app-col>
+      <app-col>
+        <p>{{ form.ctgo_occupation_name }}</p>
+      </app-col>
+    </app-row>
+    <app-row style="border-bottom: none;">
+      <app-col>
+        <h5>안전직무</h5>
+      </app-col>
+      <app-col>
+        <p>{{ form.safe_job_name }}</p>
+      </app-col>
+    </app-row>
+  </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="attendantDelete()">출석제외</app-button>
+  <app-button (click)="dismiss()">확인</app-button>
+</app-button-footer>

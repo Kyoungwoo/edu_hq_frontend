@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>평가표 작성</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<app-row>
+  <app-col slot="start">
+    <app-select-business></app-select-business>
+  </app-col>
+  <app-col></app-col>
+  <app-col></app-col>
+</app-row>
+<div class="flex-box">
+  <div class="flex-revers">
+    <!-- header -->
+    <div class="flex-header">
+      <div>공사명</div>
+      <app-img name="next"></app-img>
+    </div>
+    <div class="flex-list" >
+      <!-- item -->
+      <div *ngFor="let item of list" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+    </div>
+  </div>
+  <div class="flex-revers">
+    <!-- header -->
+    <div class="flex-header">
+      <div>단위작업</div>
+      <app-img name="next"></app-img>
+    </div>
+    <div class="flex-list">
+      <!-- item -->
+      <div *ngFor="let item of list1" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+    </div>
+  </div>
+  <div class="flex-revers">
+    <!-- header -->
+    <div class="flex-header">
+      <div>위험요인</div>
+      <app-img name="next-dark"></app-img>
+    </div>
+    <div class="flex-list">
+      <!-- item -->
+      <div *ngFor="let item of list2" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}
+        <app-img [src]="item.src"></app-img>
+      </div>
+    </div>
+  </div>
+  <div class="flex-revers">
+    <!-- header -->
+    <div class="flex-header">
+      <div>감소대책</div>
+    </div>
+    <div class="flex-list">
+      <!-- item -->
+      <div *ngFor="let item of list3" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+    </div>
+  </div>
+</div>
+<app-row>
+  <app-col></app-col>
+  <app-col size="auto">
+    <app-button fill="translucent">되돌리기</app-button>
+  </app-col>
+</app-row>
+<h4>추가 리스트</h4>
+<app-table>
+  <thead>
+    <tr>
+      <th style="width: 40px;">No</th>
+      <th>공사명</th>
+      <th>단위작업</th>
+      <th>위험요인</th>
+      <th>감소대책</th>
+      <th style="width: 40px;">삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width: 40px;">4</td>
+      <td>매립 공사</td>
+      <td>장비 반입/작업 준비</td>
+      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+      <td>차량 운행경로에 유도원 2명이상 배치</td>
+      <td style="width: 40px;"><app-img name="delete"></app-img></td>
+    </tr>
+    <tr>
+      <td style="width: 40px;">3</td>
+      <td>매립 공사</td>
+      <td>장비 반입/작업 준비</td>
+      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+      <td>차량 운행경로에 유도원 2명이상 배치</td>
+      <td style="width: 40px;"><app-img name="delete"></app-img></td>
+    </tr>
+    <tr>
+      <td style="width: 40px;">2</td>
+      <td>매립 공사</td>
+      <td>장비 반입/작업 준비</td>
+      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+      <td>차량 운행경로에 유도원 2명이상 배치</td>
+      <td style="width: 40px;"><app-img name="delete"></app-img></td>
+    </tr>
+  </tbody>
+</app-table>
+</ion-content>
+<app-button-footer>
+  <app-button>동의합니다</app-button>
+</app-button-footer>
+

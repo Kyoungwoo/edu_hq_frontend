@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>아이디/비밀번호 찾기</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+    <ng-container *ngIf="type === 'find-id'; else tempFindPassword">
+      <app-find-id *ngIf="!resFindId || resFindId.rsCode; else tempIdResult" (changeType)="type = $event" (changeRes)="resFindId = $event"></app-find-id>
+      <ng-template #tempIdResult>
+        <app-find-id-result [res]="resFindId"></app-find-id-result>
+      </ng-template>
+    </ng-container>
+    <ng-template #tempFindPassword>
+      <app-find-password *ngIf="!resFindPassord || resFindPassord.rsCode; else tempPasswordResult" (changeForm)="formUpdatePassword = $event" (changeType)="type = $event" (changeRes)="resFindPassord = $event"></app-find-password>
+    </ng-template>
+    <ng-template #tempPasswordResult>
+      <app-find-password-result [form]="formUpdatePassword"></app-find-password-result>
+    </ng-template>
+  </app-container>
+</ion-content>

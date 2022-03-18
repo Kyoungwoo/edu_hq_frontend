@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>{{ form.cnt_date }} 출역 현황</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollX]="true" style="--padding-top:15px">
+  <app-container>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white" *ngIf="permisson.edit">
+          <ion-buttons slot="start">
+            <app-button fill="translucent">인쇄(협의중)</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>현재 출역</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th colspan="2">원청사</th>
+              <th colspan="2">협력사</th>
+              <th rowspan="2">총 출역 인원</th>
+            </tr>
+            <tr>
+              <th>관리자</th>
+              <th>작업자</th>
+              <th>관리자</th>
+              <th>작업자</th>
+            </tr>
+            <tr>
+              <td>{{ res?.rsObj?.master_admin || 0 }}</td>
+              <td>{{ res?.rsObj?.master_worker || 0 }}</td>
+              <td>{{ res?.rsObj?.company_admin || 0 }}</td>
+              <td>{{ res?.rsObj?.company_worker || 0 }}</td>
+              <td>{{ res?.rsObj?.total_cnt || 0 }}</td>
+            </tr>
+          </thead>
+        </app-table>
+        <ion-toolbar color="white" *ngIf="permisson.edit">
+          <ion-buttons slot="start">
+            <app-button fill="translucent" (click)="edit('입장')">근로자 입장 등록</app-button>
+            <app-button fill="translucent" (click)="edit('퇴장')">근로자 퇴장 등록</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>상세 내역 (총{{ res2?.rsObj?.row_count || 0}}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>회사명</th>
+              <th>공종</th>
+              <th>구분</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>안전직무</th>
+              <th>직종</th>
+              <th>입장시간</th>
+              <th>퇴장시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of res2?.rsMap; let i = index; let c = count;" >
+              <tr class="button" (click)="detail(item, i)">
+                <td>{{ c - i }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.ctgo_construction_name }}</td>
+                <td>{{ item.user_type === 'WORKER' ? '작업자' : '관리자' }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.ctgo_job_position_name }}</td>
+                <td>{{ item.ctgo_safe_job_name }}</td>
+                <td>{{ item.ctgo_occupation_name }}</td>
+                <td>{{ item.inside_time || '-' }}</td>
+                <td>{{ item.outside_time || '-' }}</td>
+              </tr>
+              <ng-container *ngFor="let detail of detailList[i]">
+                <tr class="detail">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{ detail.inside_time || '-' }}</td>
+                  <td>{{ detail.outside_time || '-' }}</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </app-container>
+</ion-content>

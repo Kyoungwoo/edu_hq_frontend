@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>감리사 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input name="with img" placeholder="검색어를 입력해주세요.">
+      <app-img name="search"></app-img>
+    </app-input>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card>
+    <app-row>
+      <app-col style="cursor: pointer;" (click)="addCompany()">
+        <h5 style="text-align: center;"><ion-icon name="add-outline"></ion-icon> 직접입력</h5>
+      </app-col>
+    </app-row>
+  </app-card>
+  <div style="height: 250px; overflow: scroll;">
+    <app-card *ngFor="let item of res?.rsMap let i = index" (click)="choicCompany(item)" [color]="item.checked ? 'secondary':'white'">
+      <app-row>
+        <app-col size="4">
+          <h5>감리사명</h5>
+          <p>{{ item.company_name }}</p>
+        </app-col>
+        <app-col size="4">
+          <h5>사업자번호</h5>
+          <p>{{ item.business_register_no }}</p>
+        </app-col>
+        <app-col size="4">
+          <h5>대표명</h5>
+          <p>{{ item.company_ceo }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+  </div>
+  <div>
+    <ion-toolbar>
+      <app-row>
+        <app-col>
+          <h5>추가 리스트</h5>
+        </app-col>
+      </app-row>
+    </ion-toolbar>
+    <app-table class="button" >
+      <thead>
+        <tr>
+          <th>회사명</th>
+          <th>사업자등록번호</th>
+          <th>대표자</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let addArr of submitArr let i = index">
+          <td><app-input [(ngModel)]="addArr.company_name" placeholder="입력해주세요."></app-input></td>
+          <td>
+            <app-input (keyup)="overlap(addArr.business_register_no)" type="number"  [(ngModel)]="addArr.business_register_no" placeholder="입력해주세요." [maxlength]="10"></app-input>
+          </td>
+          <td><app-input [(ngModel)]="addArr.company_ceo" placeholder="입력해주세요."></app-input></td>
+          <td style="width: 40px;"><app-button (click)="submitArr.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
+        </tr>
+        <ng-container *ngFor="let data of res?.rsMap let i = index">
+          <tr *ngIf="data.checked">
+            <td>{{ data.company_name }}</td>
+            <td>{{ data.business_register_no }}</td>
+            <td>{{ data.company_ceo}}</td>
+            <td style="width: 40px;"><app-button (click)="data.checked = false; this.filteritem.splice(i,1)" size="small" color="danger"><ion-icon name="close-outline"></ion-icon></app-button></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </app-table>
+  </div>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>
+

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-row>
+    <app-col size="auto">
+      <h4>{{ form.user_name }}님 가입을 승인하시겠습니까?</h4>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-textarea label="반려사유" [(ngModel)]="form.approval_text"></app-textarea>
+    </app-col>
+  </app-row>
+</ion-content>
+<app-line></app-line>
+  <app-row style="padding: 0 5px 5px 5px;">
+   <app-col style="padding-right: 0;">
+  <app-button fill="clear" style="width: 100%;" (click)="companion()">반려</app-button>
+   </app-col>
+   <app-col style="padding-right: 0;">
+    <app-button style="width: 100%;" (click)="approval()">승인</app-button>
+     </app-col>
+  </app-row>
+

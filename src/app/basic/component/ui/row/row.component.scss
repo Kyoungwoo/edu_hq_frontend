@@ -1,0 +1,36 @@
+:host {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+:host.row-top {
+    align-items: flex-start;
+}
+:host.row-bottom {
+    align-items: flex-end;
+}
+:host.row-center {
+    align-items: center;
+}
+:host.row-stretch {
+    align-items: stretch;
+    ::ng-deep>app-col {
+        display: flex;
+        align-items: stretch;
+    }
+}
+:host:first-child ::ng-deep>app-col {
+    padding-top: 0;
+}
+:host:last-child ::ng-deep>app-col {
+    padding-bottom: 0;
+}
+:host[mobileBreak] {
+    @media screen and (max-width: 768px) {
+        display: block;
+        ::ng-deep>app-col {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}

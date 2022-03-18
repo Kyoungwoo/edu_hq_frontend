@@ -1,0 +1,539 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "theme/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+/* @import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css"; */
+
+:root {
+
+  /** html default tags */
+  body {
+    background: transparent !important;
+  }
+  a {
+    text-decoration: none;
+  }
+  h1, h2, h3, h4, h5, h6, p {
+    color: var(--ion-text-color);
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+    line-height: 1.48em;
+    white-space: pre-line;
+    ion-badge {
+      margin-left: 4px;
+      font-weight: 400;
+    }
+  }
+  h1 {
+    margin-top: 32px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h1);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h2);
+    }
+  }
+  h2 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h2);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h3);
+    }
+  }
+  h3 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h3);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h4);
+    }
+  }
+  h4 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h4);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h5);
+    }
+  }
+  h5 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h5);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h6);
+    }
+  }
+  h6 {
+    margin-top: 30px;
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h6);
+    font-weight: 500;
+    small {
+      font-size: var(--font-size-h6-small);
+    }
+  }
+  p {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h5);
+    font-weight: 300;
+    color: var(--ion-color-step-800);
+    small {
+      font-size: var(--font-size-h6);
+    }
+  }
+  pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: var(--ion-font-family);
+    width: 100%; 
+    height: 100%; 
+    max-height: 400px;
+  }
+  code {
+    font-family: var(--ion-font-family);
+    display: inline-block;
+    text-align: left;
+    border-radius: var(--app-border-radius);
+    background: var(--ion-color-step-50);
+    padding: 8px;
+    margin: 1px;
+  }
+  pre code {
+    overflow: auto;
+    padding: 28px;
+    width: 100%;
+    height: 100%;
+  }
+  video {
+    width: 100%;
+  }
+
+  /** ionic tags / classes */
+  ion-content {
+    --padding-start: var(--app-page-padding);
+    --padding-end: var(--app-page-padding);
+    --padding-top: 30px;
+    --padding-bottom: 40px;
+  }
+  @media screen and (max-width: 768px) {
+    ion-content {
+      --padding-top: 10px;
+      --padding-bottom: 20px;
+    }
+  }
+  ion-header {
+    box-shadow: 0px 0 3px 0 rgba(0, 0, 0, 0.08);
+  }
+  ion-header::after {
+    content: none;
+  }
+  ion-footer::before {
+    content: none;
+  }
+  ion-toolbar {
+    --border-width: 0;
+    --border-color: transparent;
+    --background: var(--ion-background-color);
+    --padding-start: var(--app-margin);
+    --padding-end: var(--app-margin);
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --min-height: 52px;
+    overflow: hidden;
+  }
+  ion-toolbar:first-child {
+    border-top-left-radius: var(--app-border-radius);
+    border-top-right-radius: var(--app-border-radius);
+  }
+  ion-toolbar:last-child {
+    border-bottom-left-radius: var(--app-border-radius);
+    border-bottom-right-radius: var(--app-border-radius);
+    box-shadow: var(--app-box-shadow);
+  }
+  ion-toolbar + ion-toolbar {
+    border-top: 1px solid var(--ion-color-step-300);
+  }
+  ion-toolbar {
+    >app-input-template,
+    >*>app-input-template {
+      box-shadow: none;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 8px;
+      margin-right: 8px;
+      border-radius: 0;
+    }
+    .buttons-first-slot {
+      margin-left: 0;
+    }
+    .buttons-last-slot {
+      margin-right: 0;
+    }
+    ion-title {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+    app-button {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  ion-header ion-toolbar,
+  ion-footer ion-toolbar {
+    --padding-start: 0;
+    --padding-end: 0;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  ion-header ion-toolbar + ion-toolbar {
+    border-top: 1px solid var(--ion-color-step-50);
+  }
+  ion-toolbar app-row:first-child>app-col {
+    padding-top: 0;
+  }
+  ion-toolbar app-row:last-child>app-col {
+    padding-bottom: 0;
+  }
+
+  ion-note {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    font-size: var(--font-size-h6);
+    color: var(--ion-color-step-250);
+  }
+  ion-chip {
+    cursor: default;
+    border-radius: var(--app-border-radius);
+    background: var(--ion-color-translucent);
+    color: var(--ion-colo-base);
+    margin: 0;
+  }
+  ion-chip[fill=solid] {
+    background: var(--ion-color-base);
+    color: var(--ion-color-contrast);
+  }
+  ion-chip[button] {
+    cursor: pointer;
+  }
+  ion-chip[button]:hover {
+    background: var(--ion-color-shade);
+  }
+  ion-chip + ion-chip {
+    margin-left: 4px;
+  }
+
+  ion-badge {
+    vertical-align: middle;
+    font-weight: 500;
+    border-radius: 15px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    margin: 0;
+  }
+  ion-badge + ion-badge {
+    margin-left: 4px;
+  }
+  ion-icon {
+    vertical-align: middle;
+    font-size: 1.2em;
+  }
+  ion-split-pane.split-pane-visible {
+    .menu-toggle-hidden {
+      display: inline;
+    }
+  }
+  ion-segment {
+	  font-weight: bold;
+    min-height: 52px;
+    border-radius: 0;
+  }
+  ion-segment-button {
+    background: var(--ion-color-white);
+    border-radius: 0;
+    color: var(--ion-color-dark);
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: auto;
+    --indicator-box-shadow: none;
+    --indicator-color: var(--ion-color-base);
+    /* --padding-start: 8px;
+    --padding-end: 8px; */
+  }
+  ion-segment-button::before {
+    content: none;
+  }
+  ion-segment-button::part(indicator) {
+    z-index: 99;
+    top: auto;
+    bottom: 0;
+  }
+  ion-segment-button::part(indicator-background) {
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+    background: var(--ion-color-base);
+  }
+
+  ripple-parent {
+    overflow: hidden;
+  }
+
+  .custom-alert {
+    --width: 280px;
+  }
+  .scan-modal {
+    .modal-wrapper{
+      background-color: transparent !important;
+    }
+  }
+  .area-add-modal {
+    .modal-wrapper.sc-ion-modal-md{
+      --width:300px;
+      --height:200px;
+    }
+  }
+  ion-alert {
+    --backdrop-opacity: 0.1;
+    --background: var(--ion-color-white);
+    --width: 90%;
+    --max-width: 280px;
+    padding: 0;
+    .alert-message {
+      h4 {
+        color:var(--ion-color-dark);
+        margin: 0;
+      }
+    }
+    .alert-wrapper{
+      box-shadow: none;
+      padding: 10px;
+
+      .alert-head { order: 2; }
+      .alert-message { margin-top: 10px; order: 1; }
+
+      .alert-message { 
+        order: 1;
+        margin-top: 10px;
+        padding: 4px;
+        app-img,
+        img {
+          width: 100px;
+        }
+      }
+      .alert-head { 
+        order: 2;
+        padding: 4px;
+        .alert-title {
+          font-size: var(--font-size-h4);
+          white-space: pre-line;
+        }
+        .alert-sub-title {
+          color: var(--ion-color-step-500);
+          font-size: var(--font-size-h5);
+          white-space: pre-line;
+          margin-bottom: 20px;
+          margin: 0;
+          padding: 0;
+          margin-bottom: 20px;
+        }
+      }
+      .alert-input-group {
+        order: 3;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+      .alert-button-group {
+        order: 4;
+        justify-content: stretch;
+        border-top: 1px solid var(--ion-color-step-50);
+        margin: 0;
+        padding: 0;
+        padding-top: 10px;
+        .alert-button {
+          margin: 0;
+          flex: 1 1 0%;
+          width: 100%;
+      
+          .alert-button-inner {
+            justify-content: center;
+          }
+        }
+        .alert-button:not(:last-child) {
+          margin-right: 4px;
+          background: var(--ion-color-white);
+          color: var(--ion-color-step-500);
+          border-radius: var(--app-border-radius);
+        }
+        .alert-button:last-child {
+          margin-left: 4px;
+          background: var(--ion-color-primary);
+          box-shadow: inset 0px -4px 0px -0px rgba(0,0,0,0.1);
+          color: var(--ion-color-primary-contrast);
+          border-radius: var(--app-border-radius);
+          .alert-button-inner {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  ion-popover {
+    .popover-content {
+      --background: var(--ion-color-white);
+    }
+  }
+
+  ion-modal {
+    ion-content {
+      --padding-top: 8px;
+      --padding-bottom: 8px;
+    }
+  }
+
+  /** devmonster basic tags / classes */
+  .basic-toast-bottom {
+    --min-width: 100%;
+    --border-radius: 0;
+    --start: 0;
+    --end: 0;
+  }
+
+  ion-popover.calendar-popover {
+    --max-width: 280px;
+    --width: 100%;
+  }
+  ion-popover.select-popover {
+    --max-width: 280px;
+    --width: 100%;
+    --max-height: 300px;
+  }
+
+  ion-loading {
+    --backdrop-opacity: 0.1;
+    .loading-wrapper {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  /** custom tags / classes */
+  ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
+    background: transparent none !important; 
+  }
+  
+  @media only screen and (min-height: 600px) and (min-width: 768px) {
+    .sc-ion-modal-md-h {
+      --width: 100%;
+      --height: 100%;
+      --max-width: 1200px;
+      --max-height: 720px;
+        .modal-wrapper {
+            box-shadow: 0 0 7px 0px rgba(0,0,0,0.15);
+        }
+    }
+    .worker-minutes-modal {
+      --max-width: 300px;
+      --max-height: 230px;
+    }
+    .lhOrganization {
+      --max-width: 300px;
+      --max-height: 280px;
+    }
+    .security-password-modal {
+      --max-width: 400px;
+      --max-height: 340px;
+    }
+    .approval-modal {
+      --max-width: 400px;
+      --max-height: 340px;
+    }
+    .mileage-modal {
+      --max-width: 500px;
+      --max-height: 600px;
+    }
+    .risk-evaluation-modal {
+      --max-width: 800px;
+      --max-height: 475px;
+    }
+    .confirm-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+    .confirm-process-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+    .confirm-setting-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+
+    // my-page
+    .change-password-modal {
+      --max-width: 640px;
+      --max-height: 640px;
+    }
+    .change-phone-modal {
+      --max-width: 640px;
+      --max-height: 640px;
+    }
+
+    // work-management
+    .today-departure-status-edit-modal {
+      --max-width: 760px;
+      --max-height: 720px;
+    }
+    .today-departure-status-list-modal {
+      --max-width: 1480px;
+      --max-height: 960px;
+    }
+
+    .side-menu-admin-modal {
+      --width: 100%;
+      --box-shadow: var(--app-box-shadow);
+      --max-height: 100%;
+      --max-width: 100%;
+      --height: 750px;
+      align-items: flex-start;
+      .modal-wrapper {
+        margin-top: calc(64px + var(--ion-safe-area-top));
+      }
+    }
+  }
+
+}

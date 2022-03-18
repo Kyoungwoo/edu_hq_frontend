@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sign-up-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>회원가입</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+    <app-sign-up-segment step="step2" type="LH"></app-sign-up-segment>
+    <form style="margin-top: 16px;">
+      <app-card color="medium">{{ regex.replace.businessRegisterNo(companyInfo?.business_register_no) }} / {{ companyInfo?.company_name }}</app-card>
+      <app-avatar name="profile"
+      view_type="PROFILE" [(ngModel)]="form.file_preview" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
+      <app-row mobileBreak>
+        <app-col>
+          <app-input
+          name="user_name" label="성명"
+          placeholder="이름을 입력해주세요."
+          [color]="validator.user_name?.valid === false && 'warning'"
+          [(ngModel)]="form.user_name" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.user_name?.valid === false" color="warning">{{ validator.user_name?.message }}</app-input-caption>
+        </app-col>
+        <app-col>
+          <app-input
+          name="account_id" label="아이디"
+          placeholder="영문과 숫자만 입력해주세요."
+          [color]="validator.account_id?.valid === false && 'warning'"
+          [(ngModel)]="form.account_id" (delayKeyup)="overlapId()" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.account_id?.valid === false" color="warning">{{ validator.account_id?.message }}</app-input-caption>
+        </app-col>
+      </app-row>
+      <app-row mobileBreak>
+        <app-col>
+          <app-input name="account_token" label="비밀번호" type="password"
+          placeholder="영문, 숫자, 조합(6~20자)"
+          [color]="validator.account_token?.valid === false && 'warning'"
+          [(ngModel)]="form.account_token" (delayKeyup)="checkPass()" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.account_token?.valid === false" color="warning">{{ validator.account_token?.message }}</app-input-caption>
+        </app-col>
+        <app-col>
+          <app-input name="account_token_conform" label="비밀번호 확인" placeholder="비밀번호를 재입력 해주세요." type="password"
+          [color]="validator.account_token_conform?.valid === false && 'warning'"
+          [(ngModel)]="form.account_token_conform" (delayKeyup)="checkPassConfirm()" [required]="true"></app-input>
+          <app-input-caption *ngIf="validator.account_token_conform?.valid === false" color="warning">{{ validator.account_token_conform?.message }}</app-input-caption>
+        </app-col>
+      </app-row>
+      <app-row mobileBreak>
+        <app-col>
+          <app-calendar name="user_birth" label="생년월일" 
+          [color]="validator.user_birth?.valid === false && 'warning'"
+          [(ngModel)]="form.user_birth" [required]="true"></app-calendar>
+          <app-input-caption *ngIf="validator.user_birth?.valid === false" color="warning">{{ validator.user_birth?.message }}</app-input-caption>
+        </app-col>
+        <app-col>
+          <app-radio-input name="user_gender" label="성별" 
+          [color]="validator.user_gender?.valid === false && 'warning'"
+          [(ngModel)]="form.user_gender" [required]="true">
+            <app-radio value="남">남</app-radio>
+            <app-radio value="여">여</app-radio>
+          </app-radio-input>
+          <app-input-caption *ngIf="validator.user_gender?.valid === false" color="warning">{{ validator.user_gender?.message }}</app-input-caption>
+        </app-col>
+      </app-row>
+      <app-row mobileBreak>
+        <app-col>
+          <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+          [color]="validator.user_phone?.valid === false ? 'warning' 
+          : validator.sms_token?.valid === true && 'success'"
+          [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
+            인증번호<br>받기
+          </app-input>
+          <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+          <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
+        </app-col>
+        <app-col>
+          <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
+            <app-input
+            name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
+            [color]="validator.sms_token?.valid === false && 'warning'"
+            [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
+              확인
+            </app-input>
+          </div>
+          <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
+        </app-col>
+      </app-row>
+      <app-row mobileBreak>
+        <app-col>
+          <app-email name="user_email" label="이메일" 
+          [color]="validator.user_email?.valid === false && 'warning'"
+          (delayKeyup)="overlapEmail()"
+          [(ngModel)]="form.user_email" [required]="true"></app-email>
+          <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
+        </app-col>
+        <app-col>
+          <app-select-position [company_id]="form.company_id" name="ctgo_job_position_id" [(ngModel)]="form.ctgo_job_position_id" [required]="true"></app-select-position>
+        </app-col>
+      </app-row>
+
+      <app-select-scene name="project_id" type="SIGNUP"
+      [color]="validator.project_id?.valid === false && 'warning'"
+      [company_id]="form.company_id"
+      [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+      <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
+
+      <app-select-construction name="ctgo_construction_id" 
+      [color]="validator.ctgo_construction_id?.valid === false && 'warning'"
+      [project_id]="form.project_id"
+      [(ngModel)]="form.ctgo_construction_id" [disabled]="!form.project_id" [required]="true"></app-select-construction>
+      <app-input-caption *ngIf="validator.ctgo_construction_id?.valid === false" color="warning">{{ validator.ctgo_construction_id?.message }}</app-input-caption>
+    </form>
+  </app-container>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="prev()">이전</app-button>
+  <app-button name="button_next" (click)="next()">다음</app-button>
+</app-button-footer>

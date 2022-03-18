@@ -1,0 +1,40 @@
+:host {
+    --padding: var(--app-padding);
+}
+:host {
+    display: block;
+    padding-top: var(--padding);
+    padding-bottom: var(--padding);
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    flex: 1 1 0%;
+    width: 100%;
+}
+:host:first-child {
+    padding-left: 0;
+}
+:host:last-child {
+    padding-right: 0;
+}
+app-col>app-row:first-child>:host {
+    padding-top: 0;
+}
+app-col>app-row:last-child>:host {
+    padding-bottom: 0;
+}
+:host::ng-deep {
+    >:first-child {
+        margin-top: 0;
+        >app-input-template,
+        >*>app-input-template {
+            margin-top: 0;
+        }
+    }
+    >:last-child {
+        margin-bottom: 0;
+        >app-input-template,
+        >*>app-input-template {
+            margin-bottom: 0;
+        }
+    }
+}

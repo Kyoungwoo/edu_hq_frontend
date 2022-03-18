@@ -1,0 +1,12 @@
+.icon {
+    background-color: var(--ion-color-primary-translucent);
+    width: 52px;
+    height: 52px;
+    border-radius: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ion-icon {
+        font-size: 28px;
+    }
+}

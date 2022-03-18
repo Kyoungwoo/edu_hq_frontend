@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>신규 작성 대상</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-table>
+    <thead>
+      <tr>
+        <th style="width: 40px;">No.</th>
+        <th>교육명</th>
+        <th>교육대상</th>
+        <th>교육장소</th>
+        <th>교육일</th>
+        <th>강사</th>
+        <th>이수인원</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+        <td>{{ item.index }}</td>
+        <td>{{ item.ctgo_education_safe_name }}</td>
+        <td>{{ item.education_safe_target }}</td>
+        <td>{{ item.education_safe_place }}</td>
+        <td>{{ item.education_safe_date}}</td>
+        <td>{{ item.education_safe_instructor}}</td>
+        <td>{{ item.attendant_count}}명</td>
+      </tr>
+    </tbody>
+  </app-table>
+  <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+</ion-content>
+<app-button-footer>
+  <app-button>적용</app-button>
+</app-button-footer>

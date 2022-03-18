@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>미결 문서 목록</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-table>
+    <thead>
+      <tr>
+        <th style="width: 40px;">No.</th>
+        <th>서식명</th>
+        <th>업체명</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>결재현황</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="button" *ngFor="let item of res?.rsMap">
+        <td>{{ item.index }}</td>
+        <td>{{ item.ctgo_approval_module_name }}</td>
+        <td>{{ item.master_company_name }}</td>
+        <td>{{ item.user_name }}</td>
+        <td>{{ item.create_date }}</td>
+        <td>{{ item.approval_cnt_answer }}</td>
+      </tr>
+    </tbody>
+  </app-table>
+  <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+</ion-content>
+<app-button-footer>
+  <app-button>적용</app-button>
+</app-button-footer>
+

@@ -1,0 +1,62 @@
+<ion-toolbar color="white">
+  <ion-segment mode="md" color="primary" [(ngModel)]="step">
+    <ion-segment-button mode="md" value="step1">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">1</div>
+        </div>
+        <div class="segment-text">
+          회원유형<br>
+          선택
+        </div>
+      </div>
+    </ion-segment-button>
+    <ion-segment-button mode="md" value="step2">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">2</div>
+        </div>
+        <div class="segment-text">
+          기본정보<br>
+          입력
+        </div>
+      </div>
+    </ion-segment-button>
+    <ion-segment-button *ngIf="type === 'WORKER'" mode="md" value="step3">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">3</div>
+        </div>
+        <div class="segment-text">
+          건강문진<br>
+          작성
+        </div>
+      </div>
+    </ion-segment-button>
+    <ion-segment-button mode="md" value="step4">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">4</div>
+        </div>
+        <div class="segment-text">
+          약관동의
+        </div>
+      </div>
+      </ion-segment-button>
+    <ion-segment-button mode="md" value="step5">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">5</div>
+        </div>
+        <div class="segment-text">
+          가입완료
+        </div>
+      </div>
+      </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>

@@ -1,0 +1,15 @@
+<button class="button" *ngIf="!href; else tempLink">
+  <ng-container *ngTemplateOutlet="tempButton"></ng-container>
+</button>
+<ng-template #tempLink>
+  <a class="button" [href]="href" [target]="target" [download]="download">
+    <ng-container *ngTemplateOutlet="tempButton"></ng-container>
+  </a>
+</ng-template>
+<ion-ripple-effect></ion-ripple-effect>
+
+<ng-template #tempButton>
+  <div class="button-inner">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

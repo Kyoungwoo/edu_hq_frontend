@@ -1,0 +1,37 @@
+:host {
+    display: block;
+    font-size: var(--font-size-h6);
+    z-index: 0;
+    margin-top: calc(var(--app-padding)*-2 - 2px);
+    margin-bottom: 0;
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+        vertical-align: middle;
+        position: relative;
+    }
+    ion-text {
+        background: var(--ion-color-translucent);
+        display: block;
+        font-size: var(--font-size-h6-small);
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 8px;
+        padding-right: 8px;
+        line-height: 1.2em;
+        border-radius: 0 0 var(--app-border-radius) var(--app-border-radius);
+        color: var(--ion-color-base);
+        min-height: 28px;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+    img {
+        width: 1em;
+        vertical-align: middle;
+        position: relative;
+        margin-left: 4px;
+        margin-right: 3px;
+        top: -1px;
+    }
+}

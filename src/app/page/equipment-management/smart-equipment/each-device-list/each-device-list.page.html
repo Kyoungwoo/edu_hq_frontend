@@ -1,0 +1,196 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <app-select-contractor></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+            <app-select label="디바이스 구분"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+            <app-select label="반납 여부"></app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="배정일">
+                  <app-calendar></app-calendar>
+                  ~
+                  <app-calendar></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button fill="translucent" (click)="edit()">신규배정</app-button>
+            <app-button fill="translucent">수정</app-button>
+            <app-button fill="translucent" color="danger">삭제</app-button>
+            <app-button fill="translucent">저장</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>회원 목록(총50건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
+              <th>장비구분</th>
+              <th>시리얼 No.</th>
+              <th>원청사명</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>배정일시</th>
+              <th>반납</th>
+              <th>반납일시</th>
+              <th>사용여부</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
+              <td>
+                <app-select value="출석용 NFC">
+                  <app-select-option value="헬스케어밴드">헬스케어밴드</app-select-option>
+                  <app-select-option value="안전고리">안전고리</app-select-option>
+                  <app-select-option value="출석용 NFC">출석용 NFC</app-select-option>
+                </app-select>
+              </td>
+              <td>
+                <app-button fill="translucent" size="small">
+                  <app-img name="search"></app-img>
+                </app-button>
+              </td>
+              <td>남광토건(주)</td>
+              <td>협력사1</td>
+              <td>
+                <app-button fill="translucent" size="small">
+                  <app-img name="search"></app-img>
+                </app-button>
+              </td>
+              <td>2021.09.16 10:22:13</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <app-select value="Y">
+                  <app-select-option value="Y">Y</app-select-option>
+                  <app-select-option value="N">N</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr class="button">
+              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+              <td>출석용 NFC</td>
+              <td>C0005</td>
+              <td>극동건설(주)</td>
+              <td>협력사4</td>
+              <td>김소현</td>
+              <td>2021.09.16 10:22:13</td>
+              <td>Y</td>
+              <td>2021.10.16 10:22:13</td>
+              <td>Y</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+  
+  <!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>개인 디바이스</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <ion-segment color="primary">
+        <ion-segment-button>전체</ion-segment-button>
+        <ion-segment-button>내 장비</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-card *ngFor="let item of [1,2,3,4]">
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <p>구일종합건설(주)/박소현/A001</p>
+            <p>배정일: 2021.10.18</p>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="primary">반납</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">안전관리</ion-badge>
+            <ion-badge color="medium">작업자</ion-badge>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card *ngFor="let item of [1,2,3,4]">
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <p>구일종합건설(주)/박소현/A001</p>
+            <p>배정일: 2021.10.18</p>
+          </app-col>
+          <ion-chip color="danger">사용중</ion-chip>
+        </app-row>
+        <app-row>
+          <app-col>
+            <ion-badge color="success">스마트 워치</ion-badge>
+            <ion-badge color="warning">관리자</ion-badge>
+          </app-col>
+          <app-col size="auto">
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button (click)="edit()">신규배정</app-button>
+  </app-button-footer>
+</ng-container>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>휴대폰 번호 변경</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h4>휴대폰 번호를 변경합니다.</h4>
+  
+  <app-input name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+  [color]="validator.user_phone?.valid === false ? 'warning' 
+  : validator.sms_token?.valid === true && 'success'"
+  [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
+    인증번호<br>받기
+  </app-input>
+  <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+  <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
+  
+  <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
+    <app-input
+    name="sms_token" label="인증번호" placeholder="인증번호를 입력해주세요." type="tel"
+    [color]="validator.sms_token?.valid === false && 'warning'"
+    [(ngModel)]="form.sms_token" (buttonClick)="aligoCheck()" [required]="true">
+      확인
+    </app-input>
+  </div>
+  <app-input-caption *ngIf="validator.sms_token?.valid === false" color="warning">{{ validator.sms_token?.message }}</app-input-caption>
+
+</ion-content>
+
+<app-button-footer>
+  <app-button (click)="dismiss()">취소</app-button>
+  <app-button name="button_submit" (click)="submit()">변경하기</app-button>
+</app-button-footer>

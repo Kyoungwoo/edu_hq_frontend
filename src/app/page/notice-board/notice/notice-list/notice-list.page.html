@@ -1,0 +1,147 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene 
+                [company_id]="user.userData.belong_data.company_id" 
+                [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-company [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="공지 구분" [(ngModel)]="form.notice_types" [multiple]="true">
+                  <app-select-option type="all" [value]="[]">전체</app-select-option>
+                  <app-select-option value="일반">일반</app-select-option>
+                  <app-select-option value="안전관리">안전관리</app-select-option>
+                  <app-select-option value="환경관리">환경관리</app-select-option>
+                  <app-select-option value="공사관리">공사관리</app-select-option>
+                  <app-select-option value="품질관리">품질관리</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="등록일">
+                  <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+        || user.userData.belong_data.company_contract_type === '원청사'">   
+          <ion-buttons slot="start">
+    <app-button fill="translucent" (click)="edit()">등록</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>공지사항 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-card *ngIf="resFavorite?.rsCode" color="warning">{{ resFavorite.rsMsg }}</app-card>
+        <ng-container *ngIf="res">
+          <ng-container *ngIf="res.rsCode === 0 else tempFail">
+            <app-table>
+              <thead>
+                <tr>
+                  <th style="width: 100px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                  || user.userData.belong_data.company_contract_type === '원청사'">
+                    상단노출
+                  </th>
+                  <th style="width: 80px;">구분</th>
+                  <th>제목</th>
+                  <th style="width: 100px;">업체명</th>
+                  <th style="width: 80px;">작성자</th>
+                  <th style="width: 80px;">작성일</th>
+                  <th style="width: 50px;">조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+                  <td (click)="favoritesCheck($event, item)" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                  || user.userData.belong_data.company_contract_type === '원청사'">
+                    <app-button size="small" shape="square" fill="translucent"
+                    [color]="item.favorites_state ? 'star' : 'medium'">
+                      <ion-icon name="star"></ion-icon>
+                    </app-button>
+                  </td>
+                  <td>{{ item.notice_type }}</td>
+                  <td>{{ item.notice_title }}</td>
+                  <td>{{ item.company_name }}</td>
+                  <td>{{ item.user_name }}</td>
+                  <td>{{ item.create_date }}</td>
+                  <td>{{ item.hit_count }}</td>
+                </tr>
+              </tbody>
+            </app-table>
+            <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+          </ng-container>
+          <ng-template #tempFail>
+            <app-card>{{ res.rsMsg }}</app-card>
+          </ng-template>
+        </ng-container>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>공지사항</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-button (click)="detailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
+      <app-row style="align-items: flex-start;" >
+        <app-col>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+          <ion-badge color="success">{{ item.notice_type }}</ion-badge>
+        </app-col>
+      </app-row>
+    </app-card>
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ng-container>

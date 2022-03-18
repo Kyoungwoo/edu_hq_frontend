@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>사용자 메뉴얼 {{ form.manual_id ? '수정' : '등록' }}</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>사용자 메뉴얼</h4>
+  <app-row mobileBreak>
+    <app-col>
+      <app-input label="업체" [value]="form.company_name" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input *ngIf="form.create_date === form.update_date; else tempUpdateUserName" [disabled]="true" label="작성자" [value]="form.create_user_name"></app-input>
+      <ng-template #tempUpdateUserName>
+        <app-input [disabled]="true" label="작성자/수정자" [value]="form.create_user_name + ' / ' + form.update_user_name"></app-input>
+      </ng-template>
+    </app-col>
+   </app-row>
+   <app-row mobileBreak>
+    <app-col>
+      <app-input *ngIf="form.create_date === form.update_date; else tempUpdateDate" [disabled]="true" label="작성일" [value]="form.create_date"></app-input>
+      <ng-template #tempUpdateDate>
+        <app-input [disabled]="true" label="작성일/수정일" [value]="form.create_date + ' / ' + form.update_date"></app-input>
+      </ng-template>
+    </app-col>
+    <app-col>
+      <app-select-manual name="ctgo_manual_ids" [(ngModel)]="form.ctgo_manual_ids" [multiple]="true"></app-select-manual>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-input name="manual_title" label="제목" 
+      [color]="validator.manual_title?.valid === false && 'warning'"
+      [(ngModel)]="form.manual_title" [required]="true">
+        <app-check name="pin_state" [(ngModel)]="form.pin_state" [on]="1" [off]="0">상단고정</app-check>
+      </app-input>
+      <app-input-caption *ngIf="validator.manual_title?.valid === false">{{ validator.manual_title.message }}</app-input-caption>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <app-smartedit #menualText name="manual_text" placeholder="내용을 입력하세요." 
+      [color]="validator.manual_title?.valid === false && 'warning'"
+      [(ngModel)]="form.manual_text"></app-smartedit>
+      <app-input-caption *ngIf="validator.manual_title?.valid === false">{{ validator.manual_title.message }}</app-input-caption>
+    </app-col>
+  </app-row>
+  <h4>
+    <app-row>
+      <app-col>
+        첨부자료
+      </app-col>
+      <app-col size="auto">
+        <app-button>
+          <app-file
+          [(ngModel)]="form.manual_file_data"
+          view_type="MANUAL"
+          [file]="form.manual_file"
+          [file_json]="form.manual_json" [multiple]="true"></app-file>
+          추가
+        </app-button>
+      </app-col>
+    </app-row>
+  </h4>
+  <app-file-preview *ngFor="let futItem of form.manual_file_data; let i = index;" [futItem]="futItem" (buttonClick)="form.manual_file_data.splice(i, 1)"></app-file-preview>
+</ion-content>
+<app-button-footer *ngIf="form.manual_id; else tempAdd">
+  <app-card *ngIf="res && res.rsCode" color="warning" slot="top">{{ res.rsMsg }}</app-card>
+  <app-button name="remove" (click)="remove()">삭제</app-button>
+  <app-button name="submit" (click)="update()">수정</app-button>
+  <ng-container >
+  </ng-container>
+</app-button-footer>
+<ng-template #tempAdd>
+  <app-button-footer>
+    <app-card *ngIf="res && res.rsCode" color="warning" slot="top">{{ res.rsMsg }}</app-card>
+    <app-button name="submit" (click)="insert()">저장</app-button>
+  </app-button-footer>
+</ng-template>

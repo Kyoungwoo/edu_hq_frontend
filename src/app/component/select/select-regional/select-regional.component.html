@@ -1,0 +1,5 @@
+<app-select name="hq_regional_id" [label]="label" [placeholder]="placeholder" [(ngModel)]="value" [required]="required">
+  <app-select-option *ngIf="all" type="all" [value]="0">전체</app-select-option>
+  <app-select-option *ngFor="let item of res?.rsMap" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
+</app-select>
+<app-input-caption *ngIf="res && res.rsCode" color="warning" [style.margin-top.px]="0">{{ res.rsMsg }}</app-input-caption>

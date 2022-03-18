@@ -1,0 +1,4 @@
+<input *ngIf="accept !== 'camera'; else tempCamera" type="file" (change)="changeInputFile($event)" [accept]="accept" [multiple]="multiple" [disabled]="disabled">
+<ng-template #tempCamera>
+    <div class="camera" (click)="getPhoto($event)"></div>
+</ng-template>

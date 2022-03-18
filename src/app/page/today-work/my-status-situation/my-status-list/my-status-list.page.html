@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>나의 출입 현황</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-row>
+      <app-col>
+        <app-select-scene [disabled]="true" [(ngModel)]="this.form.project_id"></app-select-scene>
+      </app-col>
+      <app-col size="auto">
+        <app-button (click)="detailSearch()">상세검색</app-button>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card *ngIf="resgate?.rsCode === 0" (click)="gateOpen = !gateOpen">
+    <app-row>
+      <app-col>
+        <h4>{{ resgate?.rsObj?.area_risk_name }}</h4>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_state }}</ion-chip>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="primary">{{ resgate?.rsObj?.last_time}}</ion-chip>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card *ngIf="gateOpen">
+    <ng-container *ngFor="let item of resgate?.rsObj?.inner_data">
+      <app-row>
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state === '입장' ? item.inside_time : item.outside_time }}</ion-chip>
+        </app-col>
+      </app-row>
+    </ng-container>
+  </app-card>
+
+  <ng-container *ngFor="let risk of resrisk?.rsMap">
+    <app-card *ngIf="resrisk.rsCode === 0" (click)="risk.checked = !risk.checked">
+      <app-row>
+        <app-col>
+          <h4>{{ risk.area_top_name }}/{{ risk.area_middle_name }}/{{ risk.area_bottom_name }}</h4>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="risk.last_state === '입장' ? 'primary' : 'medium'">{{ risk.last_state }}</ion-chip>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="risk.last_state === '입장' ? 'primary' : 'medium'">{{ risk.last_time}}</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card *ngIf="risk.checked">
+      <app-row *ngFor="let item of risk.inner_data" >
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state ==='입장' ? item.inside_time : item.outside_time }}</ion-chip>
+        </app-col>
+      </app-row>
+    </app-card>
+  </ng-container>
+</ion-content>
+
+<app-button-footer>
+  <app-button *ngIf="notWorker" (click)="workerSatus()">근로자 출입 관리</app-button>
+  <app-button (click)="inNfcQr()">출입(NFC / QR)</app-button>
+</app-button-footer>

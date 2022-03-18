@@ -1,0 +1,6 @@
+<app-select name="select" 
+[color]="res && res.rsCode ? 'warning' : color" 
+[label]="label" [placeholder]="placeholder" [(ngModel)]="value" [disabled]="disabled">
+  <app-select-option *ngFor="let item of res?.rsMap" [value]="item.ctgo_job_position_id">{{ item.ctgo_job_position_name_kr }}</app-select-option>
+</app-select>
+<app-input-caption *ngIf="res && res.rsCode" color="warning" [style.margin-top.px]="0">{{ res.rsMsg }}</app-input-caption>

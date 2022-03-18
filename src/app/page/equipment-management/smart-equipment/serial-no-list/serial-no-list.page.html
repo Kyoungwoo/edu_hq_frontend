@@ -1,0 +1,103 @@
+<app-header-admin></app-header-admin>
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+             <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+           <app-select label="장비구분"></app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent">추가</app-button>
+          <app-button fill="translucent">수정</app-button>
+          <app-button fill="translucent" color="danger">삭제</app-button>
+          <app-button fill="translucent">저장</app-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-segment color="primary">
+            <ion-segment-button>개인</ion-segment-button>
+            <ion-segment-button>중장비</ion-segment-button>
+            <ion-segment-button>위험지역</ion-segment-button>
+          </ion-segment>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>장비 목록 (총60건)</h5>
+      </ion-toolbar>
+      <app-table>
+        <thead>
+          <tr>
+            <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+            <th>원청사명</th>
+            <th>장비구분</th>
+            <th>시리얼 No.</th>
+            <th>바콘 No.</th>
+            <th>NFC No.</th>
+            <th>기준값</th>
+            <th>사용여부</th>
+            <th>배정현황</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
+            <td>구일종합건설(주)</td>
+            <td>
+              <app-select value="장비구분"></app-select>
+            </td>
+            <td>B0003</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <app-select value="Y">
+                <app-select-option value="Y">Y</app-select-option>
+                <app-select-option value="N">N</app-select-option>
+              </app-select>
+            </td>
+            <td>-</td>
+          </tr>
+          <tr class="button">
+            <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
+            <td>극동건설(주)</td>
+            <td>크레인 상하차 알림장치</td>
+            <td>D0002</td>
+            <td>la131752</td>
+            <td></td>
+            <td>-75</td>
+            <td>Y</td>
+            <td>계룡건설산업(주)52두3338</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
+  </ion-content>

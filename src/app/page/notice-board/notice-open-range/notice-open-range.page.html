@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>게시물 공개 범위 설정</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-row mobileBreak>
+    <app-card *ngIf="res && res?.rsCode !== 0">{{ res.rsMsg }}</app-card>
+    <app-col>
+      <!-- header -->
+      <div class="flex-header">
+        <div>전파 범위</div>
+        <app-img name="next"></app-img>
+      </div>
+      <div class="flex-list" [class.invalid]="validator.public_scope_one?.valid === false">
+        <!-- item -->
+        <div *ngFor="let item of list1" 
+        class="flex-item" [class.active]="form.public_scope_one === item.value" (click)="select1(item)">{{ item.text }}</div>
+      </div>
+      <app-input-caption color="warning" *ngIf="validator.public_scope_one?.valid === false">{{ validator.public_scope_one.message }}</app-input-caption>
+    </app-col>
+    <app-col>
+      <!-- header -->
+      <div class="flex-header">
+        <div>조회자 유형</div>
+        <app-img name="next"></app-img>
+      </div>
+      <div class="flex-list" [class.invalid]="validator.public_scope_two?.valid === false">
+        <!-- item -->
+        <div *ngFor="let item of list2" 
+        class="flex-item" [class.active]="form.public_scope_two === item.value" (click)="select2(item)">{{ item.text }}</div>
+      </div>
+      <app-input-caption color="warning" *ngIf="validator.public_scope_two?.valid === false">{{ validator.public_scope_two.message }}</app-input-caption>
+    </app-col>
+    <app-col *ngIf="form.public_scope_one === '협력사별'">
+      <!-- header -->
+      <div class="flex-header">
+        <div>회사명</div>
+      </div>
+      <div class="flex-list" [class.invalid]="validator.scope_company_id?.valid === false">
+        <!-- item -->
+        <ng-container>
+          <div class="flex-item" [class.active]="form.public_scope_allstate" (click)="select3All()">전체 협력사</div>
+          <div *ngFor="let item of res?.rsMap" 
+          class="flex-item" [class.active]="form.scope_company_id === item.company_id" (click)="select3(item)">{{ item.company_name }}</div>
+        </ng-container>
+      </div>
+      <app-input-caption color="warning" *ngIf="validator.scope_company_id?.valid === false">{{ validator.scope_company_id.message }}</app-input-caption>
+    </app-col>
+  </app-row>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>

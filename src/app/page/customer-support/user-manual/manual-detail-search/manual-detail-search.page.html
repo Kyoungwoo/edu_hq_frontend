@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>상세 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-select-manual [(ngModel)]="temptForm.ctgo_manual_ids" [multiple]="true"></app-select-manual>
+  <app-input-group label="등록일" [required]="true">
+    <app-calendar name="start_date" [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
+    ~
+    <app-calendar name="end_date" [(ngModel)]="temptForm.end_date" [min]="temptForm.start_date"></app-calendar>
+  </app-input-group>
+  <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="temptForm.search_text"></app-input>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="reset()">초기화</app-button>
+  <app-button (click)="search()">검색</app-button>
+</app-button-footer>

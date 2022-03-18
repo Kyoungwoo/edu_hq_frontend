@@ -1,0 +1,299 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+    <ion-title>작업자 가입승인 상세</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+    <app-card color="light" [button]="false">
+      <ion-toolbar slot="top" color="white">
+        <h5>회원정보</h5>
+      </ion-toolbar>
+      <form>
+        <app-avatar 
+      name="input-profile"
+      view_type="PROFILE" 
+      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="editable"></app-avatar>
+        <app-row>
+          <app-col>
+            <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true">
+            </app-input>
+          </app-col>
+          <app-col>
+            <app-input name="input" label="성명" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_name" [required]="true"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-calendar name="calendar" label="생년월일" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_birth" [required]="true"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-radio-input name="user_gender" label="성별" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_gender" [required]="true">
+              <app-radio value="남">남</app-radio>
+              <app-radio value="여">여</app-radio>
+            </app-radio-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input name="phone-number" label="휴대폰" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
+              중복확인
+              </app-input>
+              <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+          </app-col>
+          <app-col>
+            <app-select-country name="국가"
+            name="ctgo_country_id"
+            [color]="validator.ctgo_country_id?.valid === false && 'warning'"
+            [disabled]="!permission.approval"
+            [(ngModel)]="formBasic.ctgo_country_id" [required]="true"></app-select-country>
+            <app-input-caption *ngIf="validator.ctgo_country_id?.valid === false" color="warning">{{ validator.ctgo_country_id?.message }}</app-input-caption>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-email name="user_email" label="이메일" [disabled]="!permission.approval" [(ngModel)]="formBasic.user_email"
+          [color]="validator.user_email?.valid === false && 'warning'" (delayKeyup)="overlapEmail()"></app-email>
+          <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
+          </app-col>
+          <app-col></app-col>
+        </app-row>
+      </form>
+    
+    </app-card>
+    <app-card color="light">
+      <ion-toolbar slot="top" color="white">
+        <ion-segment color="primary" style="max-width: 400px">
+          <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
+          <ion-segment-button (click)="menu = 2">건강 문진</ion-segment-button>
+          <ion-segment-button (click)="menu = 3">교육 이력</ion-segment-button>
+          <!-- <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button> -->
+        </ion-segment>
+
+      </ion-toolbar>
+
+      <div [style.display]="menu === 1 ? 'block' : 'none'">
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
+        </app-row>
+        <h5>소속정보</h5>
+        <app-row>
+          <app-col>
+            <app-input name="input disabled" label="업체명" [disabled]="true" [(ngModel)]="formApproval.company_name"></app-input>
+          </app-col>
+          <app-col>
+            <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_id"></app-input>
+          </app-col>
+          <app-col>
+            <app-select-construction [project_id]="formApproval.project_id" name="공종" label="공종" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-radio-input name="계약유형" label="계약유형" [disabled]="!permission.approval" [(ngModel)]="formApproval.work_contract_type">
+              <app-radio value="상용직">상용직</app-radio>
+              <app-radio value="일용직">일용직</app-radio>
+            </app-radio-input>
+          </app-col>
+          <app-col>
+            <app-select-occupation name="직종" [company_id]="formApproval.company_id" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_occupation_id"></app-select-occupation>
+          </app-col>
+        </app-row>
+
+        <app-input-safejob #inputSafeJob
+        [project_id]="formApproval.project_id"
+        [company_id]="formApproval.company_id"
+        insert_url="/usermanage/approval/worker/safejob/insert"
+        update_url="/usermanage/approval/worker/safejob/update"
+        delete_url="/usermanage/approval/worker/safejob/delete"
+        [params]="this.form"
+        [(ngModel)]="formApproval.safe_job_data" [disabled]="!permission.approval"></app-input-safejob>
+        <h5>자격정보</h5>
+        <app-input-certify #inputCertify
+        insert_url="/usermanage/approval/worker/certify/insert"
+        update_url="/usermanage/approval/worker/certify/update"
+        delete_url="/usermanage/approval/worker/certify/delete"
+        [params]="this.form"
+        [(ngModel)]="formApproval.certify_data" [disabled]="!permission.approval"></app-input-certify>
+
+        <!-- <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" style="width: 120px;">정보 불러오기</app-button>
+          </app-col>
+        </app-row> -->
+      </div>
+      <div [style.display]="menu === 2 ? 'block' : 'none'">
+        <!-- 건강문진 -->
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <h5>건강 문진 결과</h5>
+          </app-col>
+          <app-col size="auto">
+            <p>작성일 : {{ formHealth.create_date }}</p>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col></app-col>
+        </app-row>
+          <h5>1. 현재 복용하고 있는 약물이 있습니까?</h5>
+          <app-radio-input [value]="formHealth.use_drugs_state">
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+          <app-input name="약물명을 입력해주세요." placeholder="약물명을 입력해주세요." 
+          [readonly]="true" *ngIf="formHealth.use_drugs_state" 
+          [(ngModel)]="formHealth.use_drugs_content"></app-input>
+
+          <h5>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h5>
+          <app-radio-input name="brain_cure_state" [(ngModel)]="formHealth.brain_cure_state"> 
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+
+          <div @fadeInAnimation *ngIf="formHealth.brain_cure_state">
+            * 해당하는 항목에 체크해주세요
+            <app-input-template>
+              <app-check-group slot="input" name="brain_cure_content" 
+              [(ngModel)]="formHealth.brain_cure_content">
+                <app-check on="뇌졸중" [disabled]="true">뇌졸중</app-check>
+                <app-check on="뇌출혈" [disabled]="true">뇌출혈</app-check>
+                <app-check on="협심증" [disabled]="true">협심증</app-check>
+                <app-check on="심근경색" [disabled]="true">심근경색</app-check>
+                <app-check on="간질발작" [disabled]="true">간질발작</app-check>
+              </app-check-group>
+            </app-input-template>
+          </div>
+
+          <h5>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h5>
+          <app-radio-input [value]="formHealth.vomiting_state">
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+          <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+          [readonly]="true" *ngIf="formHealth.vomiting_state" 
+          [value]="formHealth.vomiting_content"></app-input>
+
+          <h5>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h5>
+          <app-radio-input [value]="formHealth.pain_head_state">
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+          <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+          [readonly]="true" *ngIf="formHealth.pain_head_content" 
+          [value]="formHealth.pain_head_content"></app-input>
+
+          <h5>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h5>
+          <app-radio-input [value]="formHealth.etc_disease_state">
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+          <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+          *ngIf="formHealth.etc_disease_state" 
+          [value]="formHealth.etc_disease_content"></app-input>
+
+          <h5>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
+            (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
+          </h5>
+          <app-radio-input [value]="formHealth.covid_nineteen_state">
+            <app-radio [value]="0" [disabled]="true">없다</app-radio>
+            <app-radio [value]="1" [disabled]="true">있다</app-radio>
+          </app-radio-input>
+          <app-input name="증상을 적어주세요." placeholder="증상을 적어주세요." 
+          *ngIf="formHealth.covid_nineteen_state" 
+          [value]="formHealth.covid_nineteen_content"></app-input>
+
+          <h5>7. 코로나 백신 접종을 하셨습니까?</h5>
+          <app-radio-input [value]="formHealth.covid_nineteen_state">
+            <app-radio [value]="0" [disabled]="true">미접종</app-radio>
+            <app-radio [value]="1" [disabled]="true">접종</app-radio>
+          </app-radio-input>
+      </div>
+      <div [style.display]="menu === 3 ? 'block' : 'none'">
+        <!-- 교육이력 -->
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          </app-col>
+        </app-row>
+        <h5>교육 정보</h5>
+        <app-row>
+          <app-col>
+              <app-calendar label="기초 안전 보건 교육 이수일" [disabled]="!permission.approval" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-input-template label="기초안전보건교육 이수증" [disabled]="!permission.approval">
+              <p *ngIf="!findFile('BASIC_SAFE_EDU') else tempBasicSafeEduValue" slot="input">기초안전보건교육 이수증</p>
+              <ng-template #tempBasicSafeEduValue>
+                <ion-text color="dark" slot="input">{{ findFile('BASIC_SAFE_EDU').file_name }}</ion-text>
+              </ng-template>
+              파일찾기
+              <app-file name="input-basic_safe_edu" [(ngModel)]="formSafeEdu.file_preview" view_type="BASIC_SAFE_EDU" [file]="formSafeEdu.file" [file_json]="formSafeEdu.file_json"></app-file>
+            </app-input-template>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene>
+          </app-col>
+          <!-- <app-col>
+            <app-select label="교육구분" [(ngModel)]="form.ctgo_education_safe_type">
+              <app-select-option type="all" value="전체">전체</app-select-option>
+              <app-select-option value="특별">특별</app-select-option>
+              <app-select-option value="정기">정기</app-select-option>
+              <app-select-option value="작업 변경시">작업 변경시</app-select-option>
+            </app-select>
+          </app-col> -->
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input label="검색어" [disabled]="!permission.approval" [(ngModel)]="formSafeList.search_text" placeholder="교육명을 입력해 주세요.">
+            <app-img name="search" (click)="getSafeEduList()"></app-img>
+          </app-input>
+          </app-col>
+        </app-row>
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>교육명</th>
+              <th>이수일</th>
+              <th>이수시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of resSafeList?.rsMap let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.ctgo_education_safe_title }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.education_safe_time }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </div>
+    </app-card>
+    <app-button-footer *ngIf="permission.approval">
+        <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
+        <app-button style="width: 120px;" (click)="submit()">저장</app-button>
+    </app-button-footer>
+  </app-container>
+</ion-content>

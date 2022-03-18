@@ -1,0 +1,141 @@
+:host {
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    box-shadow: var(--app-box-shadow);
+    border-radius: var(--app-border-radius);
+    background: var(--ion-color-white);
+    color: var(--ion-text-color);
+    display: block;
+    text-align:left;
+    overflow: hidden;
+    .table-wrapper {
+        display: block;
+        overflow: hidden;
+    }
+    table {
+        margin-left: -1px;
+        margin-top: -1px;
+        margin-bottom: -1px;
+        width: calc(100% + 2px);
+    }
+}
+:host ::ng-deep {
+    th {
+        background: var(--ion-color-light);
+        font-size: var(--font-size-h6);
+        border: 1px solid var(--ion-color-step-100);
+        padding: 6px;
+        vertical-align: bottom;
+        small {
+            font-size: var(--font-size-h6-small);
+        }
+    }
+    td {
+        background: var(--ion-color-white);
+        font-size: var(--font-size-h6);
+        border: 1px solid var(--ion-color-step-100);
+        padding: 8px 6px;
+        vertical-align: top;
+        small {
+            font-size: var(--font-size-h6-small);
+        }
+    }
+    pre > code {
+        padding: 8px;
+    }
+
+    app-col {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    app-button,
+    app-check,
+    app-radio,
+    app-input-template {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    app-input-template {
+        box-shadow: none;
+        padding: 0;
+        app-button {
+           bottom: 0 !important;
+           right: 0 !important;
+        }
+    }
+    .disabled app-input-template {
+        border: 0 !important;
+    }
+    app-input-caption {
+        margin-top: -2px;
+    }
+}
+:host.table-card {
+    .table-wrapper {
+        padding: 5px 10px;
+    }
+}
+:host.table-card ::ng-deep {
+    th {
+        background: var(--ion-color-white);
+        border: none;
+        border-bottom: 1px solid var(--ion-color-step-100);
+        text-align: center;
+        padding-left: 2px;
+        padding-right: 0px;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid var(--ion-color-step-100);
+        vertical-align: middle;
+        text-align: center;
+        padding-left: 2px;
+        padding-right: 0px;
+        >app-img,
+        >a>app-img {
+            width: 1.2em;
+        }
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+    ion-toolbar {
+        box-shadow: none;
+        border-bottom: 1px solid var(--ion-color-step-300);
+        --padding-start: 0;
+        --padding-end: 0;
+        >app-row {
+            padding-left: 12px;
+            padding-right: 10px;
+        }
+    }
+    app-input-template {
+        border: 0 !important;
+    }
+}
+
+:host ::ng-deep {
+    tr.button,
+    th.button,
+    td.button,
+    tr[button],
+    th[button],
+    td[button] {
+        cursor: pointer;
+        &:hover {
+            background: var(--ion-color-step-50);
+            th,
+            td {
+                background: var(--ion-color-step-50);
+            }
+        }
+    }
+}
+:host.text-align-left,
+:host ::ng-deep .text-align-left {
+    text-align: left;
+}
+:host.text-align-right,
+:host ::ng-deep .text-align-right {
+    text-align: right;
+}

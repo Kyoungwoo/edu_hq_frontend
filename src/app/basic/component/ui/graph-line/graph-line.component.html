@@ -1,0 +1,46 @@
+<div class="y-label-list">
+  <div class="y-label"></div>
+  <div class="y-label"></div>
+  <div class="y-label"></div>
+  <div class="y-label"></div>
+  <div class="y-label"></div>
+</div>
+<svg #graph [attr.viewBox]="viewBox" preserveAspectRatio="none" 
+(mousemove)="mouseMove($event)" 
+(mouseout)="mouseOut()"
+(mouseleave)="mouseOut()">
+  <g *ngFor="let graphGroup of graphGroupList; let i = index;">
+    <path 
+    [attr.stroke]="graphGroup.color"
+    fill="none"
+    stroke-width="0.5"
+    [attr.d]="lineList[i] || 'M0 0'"></path>
+    <path 
+    [attr.fill]="graphGroup.color"
+    fill-opacity="0.5"
+    [attr.d]="(lineList[i] || 'M0 0') + ' L100 100 L 0 100 Z'"></path>
+  </g>
+</svg>
+<div #xLabel class="x-label-list">
+  <div class="x-label" *ngFor="let xLabel of xLabelList; let i = index;">
+    <span class="x-label-inner">
+      {{ xLabel }}
+    </span>
+  </div>
+</div>
+
+<div class="detail" *ngIf="detailCardTransform">
+  <div class="detail-line" [style.transform]="detailBarTransform"></div>
+  <div class="detail-card" [style.transform]="detailCardTransform">
+    <h5 class="detail-title">1시</h5>
+    <div class="detail-content">
+      <app-row *ngFor="let graphGroup of graphGroupList">
+        <app-col size="auto">
+          <div class="detail-circle" [style.background]="graphGroup.color"></div>
+        </app-col>
+        <app-col>{{ graphGroup.name }}</app-col>
+        <app-col size="auto">2</app-col>
+      </app-row>
+    </div>
+  </div>
+</div>

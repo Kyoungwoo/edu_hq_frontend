@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <app-row class="profile-row">
+      <app-col size="auto">
+        <app-logo></app-logo>
+      </app-col>
+      <app-col size="auto">
+        <app-avatar class="profile"></app-avatar>
+      </app-col>
+      <app-col size="auto" (click)="navMypage()">
+        <h4>홍길동님</h4>
+        <app-row>
+          <app-col size="auto">
+            <p style="margin-right: 5px;">08월 27일</p>
+          </app-col>
+          <app-col size="auto">
+            <p>금요일</p>
+          </app-col>
+        </app-row>
+      </app-col>
+      <app-col style="text-align: right;">
+        <app-img class="alarm" src="assets/img/main/bell.svg"></app-img>
+      </app-col>
+      <app-col size="auto">
+        <app-menu-button></app-menu-button>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-select-scene></app-select-scene>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-button">
+    <app-row>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/risk-evaluation-report-dark.svg"></app-img>
+          <p>위험성 평가</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/ptw-dark.svg"></app-img>
+          <p>위험작업 허가</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/board-dark.svg"></app-img>
+          <p>회의록</p>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/check-dark.svg"></app-img>
+          <p>점검</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/incongruity-dark.svg"></app-img>
+          <p>부적합 조치</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/control-center-dark.svg"></app-img>
+          <p>통합관제</p>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/undetermined-dark.svg"></app-img>
+          <p>미결함</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/output-dark.svg"></app-img>
+          <p>나의 출입<br>현황</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/tbm-dark.svg"></app-img>
+          <p>TBM</p>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/smart-equipment-dark.svg"></app-img>
+          <p>스마트<br>안전장비 관리</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/accident-dark.svg"></app-img>
+          <p>아차사고<br>신고</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/my-education-dark.svg"></app-img>
+          <p>나의 교육</p>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/mypage-dark.svg"></app-img>
+          <p>마이페이지</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button class="square" shape="square">
+          <app-img src="assets/img/menu/qr.svg"></app-img>
+          <p>NFC/QR</p>
+        </app-button>
+      </app-col>
+      <app-col size="4">
+        <app-button color="danger" class="square" shape="square">
+          <app-img src="assets/img/menu/emergency-alarm-management-dark.svg"></app-img>
+          <p>SOS 요청</p>
+        </app-button>
+      </app-col>
+    </app-row>
+  </div>
+  <ion-toolbar color="white">
+    <ion-segment color="primary">
+      <ion-segment-button>공지사항</ion-segment-button>
+      <ion-segment-button>MSDS</ion-segment-button>
+      <ion-segment-button>회의록</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-content>
+<app-button-footer>
+  <app-button color="secondary">더보기
+  </app-button>
+</app-button-footer>

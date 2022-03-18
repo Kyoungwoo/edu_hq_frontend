@@ -1,0 +1,12 @@
+:host {
+    .input {
+        width: 100%;
+        outline: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .placeholder {
+        color: var(--app-placeholder-color);
+    }
+}

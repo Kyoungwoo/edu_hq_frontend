@@ -1,0 +1,14 @@
+<app-input-group [color]="getColor()" [label]="label" [disabled]="disabled" [required]="required">
+  <app-select name="hq_regional_id" [placeholder]="placeholder" [(ngModel)]="value.hq_regional_id" (change)="change1()">
+    <app-select-option *ngFor="let item of res1?.rsMap" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
+  </app-select>
+  <app-select name="hq_business_id" *ngIf="value.hq_regional_entire_state === 0" [placeholder]="placeholder" [(ngModel)]="value.hq_business_id" (change)="change2()">
+    <app-select-option *ngFor="let item of res2?.rsMap" [value]="item.hq_business_id">{{ item.hq_business_name }}</app-select-option>
+  </app-select>
+  <app-select name="hq_department_id" *ngIf="value.hq_business_entire_state === 0" [placeholder]="placeholder" [(ngModel)]="value.hq_department_id">
+    <app-select-option *ngFor="let item of res3?.rsMap" [value]="item.hq_department_id">{{ item.hq_department_name }}</app-select-option>
+  </app-select>
+</app-input-group>
+<app-input-caption *ngIf="res1 && res1.rsCode" color="warning" [style.margin-top.px]="0">{{ res1.rsMsg }}</app-input-caption>
+<app-input-caption *ngIf="res2 && res2.rsCode" color="warning" [style.margin-top.px]="0">{{ res2.rsMsg }}</app-input-caption>
+<app-input-caption *ngIf="res3 && res3.rsCode" color="warning" [style.margin-top.px]="0">{{ res3.rsMsg }}</app-input-caption>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>작업 장소 {{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-table>
+    <thead>
+      <tr *ngIf="area === 'area1'">
+        <th style="vertical-align: middle;">{{ area }}</th>
+        <td><app-textarea [(ngModel)]="area_top_name" placeholder="추가 할 내용을 입력해주세요." [rows]="5"></app-textarea></td>
+      </tr>
+      <tr *ngIf="area === 'area2'">
+        <th style="vertical-align: middle;">{{ area }}</th>
+        <td><app-textarea [(ngModel)]="area_middle_name" placeholder="추가 할 내용을 입력해주세요." [rows]="5"></app-textarea></td>
+      </tr>
+      <tr *ngIf="area === 'area3'">
+        <th style="vertical-align: middle;">{{ area }}</th>
+        <td><app-textarea [(ngModel)]="area_bottom_name" placeholder="추가 할 내용을 입력해주세요." [rows]="5"></app-textarea></td>
+      </tr>
+    </thead>
+  </app-table>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="submit()">{{ this.title }}</app-button>
+</app-button-footer>

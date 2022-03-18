@@ -1,0 +1,107 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input name="user_gender" label="교육상태" value="양호" [(ngModel)]="form.education_safe_state">
+                  <app-radio value="양호">양호</app-radio>
+                  <app-radio value="필요">필요</app-radio>
+                  <app-radio value="기한초과">기한초과</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <ion-segment color="primary" value="1">
+              <ion-segment-button [value]="1">작업자</ion-segment-button>
+            </ion-segment>
+          </ion-buttons>
+          <ion-item-group slot="end">
+            <ion-chip outline color="primary">양호</ion-chip>
+            <ion-chip outline color="warning">필요</ion-chip>
+            <ion-chip outline color="danger">기한초과</ion-chip>
+          </ion-item-group>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>근로자 교육 이력(총{{ res?.rsObj?.row_count || 0}}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>직종</th>
+              <th>안전직무</th>
+              <th>계약유형</th>
+              <th>채용시</th>
+              <th>정기</th>
+              <th>특별</th>
+              <th>출역상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.user_id)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name}}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.ctgo_occupation_name }}</td>
+              <td>{{ item.safe_job_name}}</td>
+              <td>{{ item.work_contract_type }}</td>
+              <td>
+                <ion-chip *ngIf="item.hire_edu_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.hire_edu_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.hire_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+              </td>
+              <td>
+                <ion-chip *ngIf="item.routine_edu_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.routine_edu_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.routine_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+              </td>
+              <td>
+                <ion-chip *ngIf="item.special_edu_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.special_edu_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.special_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+              </td>
+              <td>출역중</td>
+            </tr>
+            <tr>
+            </tr>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>

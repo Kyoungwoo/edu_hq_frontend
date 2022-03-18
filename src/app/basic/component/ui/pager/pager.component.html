@@ -1,0 +1,14 @@
+<app-row>
+  <app-col size="auto">
+   <button (click)="adminNavPrev()"><ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon></button>
+   <b>{{init()}}</b>/{{ present() }}
+   <button (click)="adminNavNext()"><ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon></button>
+   <!-- <span></span> -->
+   <!-- <button><ion-icon  name="ellipsis-vertical" slot="icon-only"></ion-icon></button> -->
+  </app-col>
+  <app-col size="auto">
+    <app-select (change)="pageChange($event)" [value]="1">
+      <app-select-option *ngFor="let item of pageTotalCount" [value]="item"> {{ item }}</app-select-option>
+    </app-select>
+  </app-col>
+</app-row>

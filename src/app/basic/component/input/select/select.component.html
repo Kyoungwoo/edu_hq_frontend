@@ -1,0 +1,14 @@
+<app-input-template class="input-no-label" [color]="color" [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required">
+    <div slot="input" class="input">
+        <ng-container *ngIf="type === 'edit'; else tempSelect">
+            <input [(ngModel)]="value" placeholder="직접입력" (click)="$event.stopPropagation()">
+        </ng-container>
+        <ng-template #tempSelect>
+            <span *ngIf="text; else tempPlaceholder" class="value" [innerHtml]="text | safe: 'html'"></span>
+            <ng-template #tempPlaceholder>
+                <span class="placeholder">{{ placeholder }}</span>
+            </ng-template>
+        </ng-template>
+    </div>
+    <app-img *ngIf="button" slot="button" src="assets/basic/img/caret-down.svg"></app-img>
+</app-input-template>

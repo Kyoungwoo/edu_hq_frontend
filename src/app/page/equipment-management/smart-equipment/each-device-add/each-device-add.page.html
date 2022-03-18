@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>개인 디바이스 등록</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <ion-buttons>
+      <ion-segment color="primary">
+        <ion-segment-button>헬스케어밴드</ion-segment-button>
+        <ion-segment-button>안전고리</ion-segment-button>
+      </ion-segment>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-select-people label="성명"></app-select-people>
+ <app-select-serial-number label="시리얼No."></app-select-serial-number>
+  <ng-container>
+    <h5>디바이스 등록 현황</h5>
+    <app-card>
+      <app-row>
+        <app-col>
+          <p>디바이스 구분 : 헬스케어밴드</p>
+          <p>시리얼 No. : A0001</p>
+          <p>사용여부 : Y</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <p>디바이스 구분 : 헬스케어밴드</p>
+          <p>시리얼 No. : A0001</p>
+          <p>사용여부 : Y</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <p>디바이스 구분 : 헬스케어밴드</p>
+          <p>시리얼 No. : A0001</p>
+          <p>사용여부 : Y</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <p>디바이스 구분 : 헬스케어밴드</p>
+          <p>시리얼 No. : A0001</p>
+          <p>사용여부 : Y</p>
+        </app-col>
+      </app-row>
+    </app-card>
+  </ng-container>
+</ion-content>
+<app-button-footer>
+  <app-button>저장</app-button>
+</app-button-footer>
+

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>정보 불러오기</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<h4 style="text-align: center;">[재입사] 근로자의 이전 소속 정보를 불러옵니다.<br>
+소속 정보를 선택해 주세요.</h4>
+<!-- <h4 style="text-align: center;">[재입사] 근로자의 소속 정보를 불러옵니다.<br>
+  소속 정보를 선택해 주세요.</h4> -->
+<app-table>
+  <thead>
+    <tr>
+      <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+      <th style="width: 40px;">No.</th>
+      <th>업체명</th>
+      <th>현장명</th>
+      <th>공종</th>
+      <th>안전직무</th>
+      <th>직종</th>
+      <th>최초 출역일</th>
+      <th>최종 출역일</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="button">
+      <td>
+        <app-check color="white" size="small" name="check"></app-check>
+      </td>
+      <td>2</td>
+      <td>(주)지에스아이엘</td>
+      <td>세종시 주택 공사 현장</td>
+      <td>건축</td>
+      <td>해당없음</td>
+      <td>보통인부</td>
+      <td>2021-03-30</td>
+      <td>2021-03-31</td>
+    </tr>
+  </tbody>
+</app-table>
+</ion-content>
+<app-button-footer>
+  <app-button>적용</app-button>
+</app-button-footer>

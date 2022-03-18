@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main-user"></ion-back-button>
+    </ion-buttons>
+    <ion-title>마이페이지</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-row class="profile-row">
+    <app-col size="auto">
+      <app-avatar [src]="user.userData.user_profile"></app-avatar>
+    </app-col>
+    <app-col>
+      <h3>{{ user.userData.user_name }}</h3>
+      <p>{{ user.userData.belong_data.company_name }}</p>
+    </app-col>
+  </app-row>
+
+  <ion-list lines="full">
+    <ion-item routerLink="/my-page-info" detail="true">나의 정보</ion-item>
+
+    <ion-item *ngIf="userType === 'WORKER'" 
+    routerLink="/my-page-health" detail="true">건강 문진</ion-item>
+    
+    <ion-item *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
+    routerLink="/my-page-education" detail="true">교육 이력</ion-item>
+    
+    <ion-item *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
+    routerLink="/my-page-mileage" detail="true">안전 마일리지</ion-item>
+
+    <ion-item button (click)="withdrawal()">회원 탈퇴</ion-item>
+  </ion-list> 
+</ion-content>
+

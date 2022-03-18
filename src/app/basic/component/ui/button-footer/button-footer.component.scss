@@ -1,0 +1,54 @@
+:host {
+  ion-toolbar {
+    --min-height: 0;
+  }
+  .content {
+    padding-top: 8px;
+    padding-left: var(--app-page-padding);
+    padding-right: var(--app-page-padding);
+    text-align: center;
+  }
+  .content:empty {
+    display: none;
+  }
+  .button-list {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: var(--app-page-padding);
+    padding-right: var(--app-page-padding);
+    width: 100%;
+  }
+}
+:host ::ng-deep {
+  h1, h2, h3, h4, h5, h6, p, app-card {
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  app-input-template {
+    margin-top: var(--app-padding);
+    margin-bottom: var(--app-padding);
+    background: var(--ion-color-light);
+  }
+  .button-list {
+    app-button {
+      flex: 1 1 0%;
+      width: 100%;
+      max-width: 158px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    app-button:not(:last-child) {
+      box-shadow: none;
+      background: var(--ion-color-translucent);
+      color: var(--ion-color-shade);
+    }
+    @media screen and (max-width: 768px) {
+      app-button {
+        max-width: initial;
+      }
+    }
+  }
+}

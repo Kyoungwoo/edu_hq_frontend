@@ -1,0 +1,12 @@
+<div class="input-group" >
+  <label>{{ label }} <ion-text *ngIf="required" color="danger">*</ion-text></label>
+  <div class="input">
+    <ng-content select="[slot=input]"></ng-content>
+  </div>
+</div>
+<app-button class="button ion-activatable ripple-parent" 
+[class.empty]="!slot.childNodes.length" 
+[fill]="buttonFill"
+[disabled]="disabled || readonly" (click)="onButtonClick()">
+  <slot #slot><ng-content></ng-content></slot>
+</app-button>

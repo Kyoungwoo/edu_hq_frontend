@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+    <ion-title>LH 가입승인 상세</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-container size="small">
+  <app-card color="light" [button]="false">
+    <ion-toolbar slot="top" color="white">
+      <h5>회원정보</h5>
+    </ion-toolbar>
+    <form>
+      <app-avatar 
+      name="input-profile"
+      view_type="PROFILE" 
+      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="editable"></app-avatar>
+      <app-row>
+        <app-col>
+          <app-input name="input disabled" label="아이디" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-input name="input" label="성명" [(ngModel)]="formBasic.user_name" [required]="true"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-calendar name="calendar" label="생년월일" [(ngModel)]="formBasic.user_birth" [required]="true"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-radio-input name="user_gender" label="성별"  [(ngModel)]="formBasic.user_gender" [required]="true">
+            <app-radio value="남">남</app-radio>
+            <app-radio value="여">여</app-radio>
+          </app-radio-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input type="tel" name="phone-number" label="핸드폰" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
+            중복확인
+          </app-input>
+          <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+        </app-col>
+        <app-col>
+          <app-email name="user_email" label="이메일" [(ngModel)]="formBasic.user_email"
+        [color]="validator.user_email?.valid === false && 'warning'" (delayKeyup)="overlapEmail()"></app-email>
+        <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
+        </app-col>
+      </app-row>
+    </form>
+  </app-card>
+  <app-card color="light">
+      <ion-toolbar slot="top" color="white">
+        <h5>소속정보</h5>
+      </ion-toolbar>
+      <app-row>
+        <app-col></app-col>
+        <app-col size="auto">
+          <p>최종 수정일 : {{ formBasic.update_date }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
+        </app-col>
+        <app-col>
+          <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
+        </app-col>
+      </app-row>
+      <app-row>
+    <app-col>
+          <app-select label="시스템 권한" [(ngModel)]="formApproval.user_role">
+            <app-select-option [value]="1">마스터 어드민</app-select-option>
+            <app-select-option [value]="2">일반 관리자</app-select-option>
+          </app-select>
+        </app-col>
+        <app-col>
+          <app-select-organization [(ngModel)]="formApproval"></app-select-organization>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
+        </app-col>
+        <app-col>
+          <app-input-group label="현장 공사 기간">
+          <app-input [(ngModel)]="formApproval.construction_start_date"></app-input>
+          ~
+          <app-input [(ngModel)]="formApproval.construction_end_date"></app-input>
+          </app-input-group>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-button-footer>
+      <app-button fill="translucent" style="width: 120px;" (click)="approval()">가입승인</app-button>
+      <app-button style="width: 120px;" (click)="submit()">저장</app-button>
+  </app-button-footer>
+</app-container>
+</ion-content>

@@ -1,0 +1,71 @@
+:host {
+    --app-size: 30px;
+    font-size: var(--font-size-h5);
+    
+    margin-top: var(--app-margin);
+    margin-bottom: var(--app-margin);
+    display: flex;
+    vertical-align: middle;
+    align-items: flex-start;
+    cursor: pointer;
+    ion-checkbox {
+        --background: none;
+        --background-checked: none;
+        --border-width: 0;
+        --checkmark-width: 2px;
+
+        pointer-events: none;
+        border-radius: var(--app-border-radius);
+        border: 1px solid var(--ion-color-step-200);
+        background: var(--ion-color-white);
+        cursor: default;
+        width: var(--app-size);
+        flex: 0 0 var(--app-size);
+        height: var(--app-size);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ion-checkbox.checkbox-checked {
+        background: var(--ion-color-base);
+        border: 1px solid var(--ion-color-shade);
+    }
+    ion-checkbox::part(container) {
+        width: 80%;
+    }
+    label {
+        user-select: none; /* standard syntax */
+        -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+        -moz-user-select: none; /* mozilla browsers */
+        -khtml-user-select: none; /* webkit (konqueror) browsers */
+        -ms-user-select: none; /* IE10+ */
+        margin-left: 8px;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0.2em;
+        cursor: inherit;
+    }
+    label:empty {
+        display: none;
+    }
+}
+:host.check-small {
+    ion-checkbox {
+        --app-size: 24px;
+    }
+}
+:host.readonly {
+    cursor: default;
+    ion-checkbox {
+        opacity: 1;
+    }
+    label {
+        opacity: 0.5;
+    }
+}
+:host.disabled {
+    cursor: default;
+    label {
+        opacity: 0.5;
+    }
+}

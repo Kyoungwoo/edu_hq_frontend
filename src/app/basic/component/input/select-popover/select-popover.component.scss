@@ -1,0 +1,20 @@
+:host {
+    cdk-virtual-scroll-viewport {
+        --background: var(--app-background-dialog);
+        display: block;
+        min-height: 200px;
+        width: 100%;
+        scrollbar-width: none;
+    }
+    cdk-virtual-scroll-viewport::-webkit-scrollbar {
+        width: 0;
+    }
+    ion-list {
+        background: var(--ion-color-white);
+    }
+    ion-item {
+        font-size: var(--font-size-n);
+        --background: var(--ion-color-white);
+        --min-height: 38px;
+    }
+}

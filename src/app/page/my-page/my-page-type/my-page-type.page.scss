@@ -1,0 +1,17 @@
+ion-content {
+    --padding-start: 0;
+    --padding-end: 0;
+}
+.profile-row {
+    padding-left: var(--app-page-padding);
+    padding-right: var(--app-page-padding);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    app-avatar {
+        width: 80px;
+        height: 80px;
+    }
+}
+ion-item {
+    --background: var(--ion-color-white);
+}

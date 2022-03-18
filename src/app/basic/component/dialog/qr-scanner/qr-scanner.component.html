@@ -1,0 +1,15 @@
+
+<div class="rotate-button-dismiss">
+  <ion-icon name="close-outline" (click)="dismiss()" class="dismiss"></ion-icon>
+</div>
+<div class="qr-layout-inner">
+  <div class="qr-label">QR코드를 스캔해주세요.</div>
+</div>
+<div class="rotate-button-position">
+  <ion-button class="rotate-button" (click)="rotateCamera()">
+    <ion-icon slot="icon-only" name="sync-outline"></ion-icon>
+  </ion-button>
+</div>
+<div class="nfcchange" *ngIf="type === 'worker'">
+  <app-button style="width: 100%;" (click)="nfcChange();">NFC전환</app-button>
+</div>

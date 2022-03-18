@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>NFC 등록 여부</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+ <app-table type="card">
+   <thead>
+     <tr>
+      <th>NO</th>
+      <th>시리얼 No</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let item of nfcData?.rsMap let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ item.serial_no }}</td>
+     </tr>
+   </tbody>
+ </app-table>
+</ion-content>

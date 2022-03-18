@@ -1,0 +1,15 @@
+:host{
+    app-button{
+        margin-bottom: 0;
+    }
+    .sub-segment {
+        --background: transparent;
+        ion-segment-button {
+            background: transparent;
+        }
+    }
+    .edit{
+        height: 500px;
+        overflow: scroll;
+    }
+}

@@ -1,0 +1,437 @@
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <ion-toolbar color="white" *ngIf="!areaRoleCheck">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment color="primary" [value]="1">
+          <ion-segment-button (click)="this.menuCount = 1;" [value]="1">장소</ion-segment-button>
+          <ion-segment-button (click)="getRiskArea()">위험지역</ion-segment-button>
+          <ion-segment-button (click)="areaGPS()">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+  <ng-container *ngIf="!areaRoleCheck">
+    <app-row *ngIf="menuCount === 1" style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button [disabled]="areaRoleCheck" fill="translucent" style="width: 100px;" (click)="AreaOne()">검색
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene [disabled]="areaRoleCheck" [(ngModel)]="AreaOneForm.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select [disabled]="true" label="사업분야" [(ngModel)]="form.ctgo_business_field_id">
+                  <app-select-option [value]="1">단지개발</app-select-option>
+                  <app-select-option [value]="2">아파트</app-select-option>
+                  <app-select-option [value]="3">교량 및 도록</app-select-option>
+                  <app-select-option [value]="4">터널</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+
+      <app-col>
+        <div>
+          <ion-toolbar color="white">
+            <h4>장소</h4>
+            <ion-buttons slot="end">
+              <app-button [disabled]="areaRoleCheck" (click)="updateGuidemap()" fill="translucent">저장</app-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </div>
+        <h4>
+          <app-row>
+            <app-col>
+              현장안내도
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="areaRoleCheck">
+                <app-file view_type="GUIDE_MAP" [(ngModel)]="form.file_data" [file]="form.file"
+                  [file_json]="form.file_json"></app-file>
+                추가
+              </app-button>
+            </app-col>
+          </app-row>
+        </h4>
+        <app-file-preview *ngFor="let futItem of form.file_data" [futItem]="futItem"></app-file-preview>
+        <app-card>
+          <ion-toolbar color="white" slot="top">
+            <h5>장소등록</h5>
+          </ion-toolbar>
+          <app-row style="height: 300px;">
+            <app-col>
+              <div style="text-align: right;">
+                <app-button [disabled]="areaRoleCheck" (click)="areaOneEdit('area1')" fill="translucent">추가</app-button>
+                <app-button [disabled]="areaRoleCheck" (click)="deleteArea(1)" color="danger" fill="translucent">삭제
+                </app-button>
+                <app-button [disabled]="areaRoleCheck" (click)="areaOneEdit('area1',1)" fill="translucent">수정
+                </app-button>
+              </div>
+
+              <app-check-group [(ngModel)]="selectDataArea1">
+                <app-table class="edit">
+                  <thead>
+                    <tr>
+                      <th style="width: 20px;">
+                        <app-check type="all"></app-check>
+                      </th>
+                      <th>Area1</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="button" *ngFor="let item of resAreaOne?.rsMap" (click)="areaTow(item.area_top_id)">
+                      <td>
+                        <app-check (click)="$event.stopPropagation()" [on]="item"></app-check>
+                      </td>
+                      <td>{{ item.area_top_name }}</td>
+                    </tr>
+                  </tbody>
+                </app-table>
+              </app-check-group>
+            </app-col>
+            <app-col>
+              <div style="text-align: right;">
+                <app-button [disabled]="areaRoleCheck" (click)="areaTwoEdit('area2')" fill="translucent">추가</app-button>
+                <app-button [disabled]="areaRoleCheck" (click)="deleteArea(2)" color="danger" fill="translucent">삭제
+                </app-button>
+                <app-button [disabled]="areaRoleCheck" (click)="areaTwoEdit('area2',1)" fill="translucent">수정
+                </app-button>
+              </div>
+
+              <app-check-group [(ngModel)]="selectDataArea2">
+                <app-table class="edit">
+                  <tbody>
+                    <th style="width: 20px;">
+                      <app-check type="all"></app-check>
+                    </th>
+                    <th>Area2</th>
+                  </tbody>
+                  <tbody>
+                    <tr class="button" *ngFor="let areaTwo of resAreaTwo?.rsMap"
+                      (click)="areaThree(areaTwo.area_middle_id)">
+                      <td>
+                        <app-check [on]="areaTwo" (click)="$event.stopPropagation()"></app-check>
+                      </td>
+                      <td>{{ areaTwo.area_middle_name}}</td>
+                    </tr>
+                  </tbody>
+                </app-table>
+              </app-check-group>
+            </app-col>
+            <app-col>
+              <app-row>
+                <app-col>
+                  <div style="text-align: right;">
+                    <app-button [disabled]="areaRoleCheck" (click)="areaThreeEdit('area3')" fill="translucent">추가
+                    </app-button>
+                    <app-button [disabled]="areaRoleCheck" (click)="deleteArea(3)" color="danger" fill="translucent">삭제
+                    </app-button>
+                    <app-button [disabled]="areaRoleCheck" (click)="areaThreeEdit('area3',1)" fill="translucent">수정
+                    </app-button>
+                  </div>
+
+                  <app-check-group [(ngModel)]="selectDataArea3">
+                    <app-table class="edit">
+                      <thead>
+                        <th style="width: 20px;">
+                          <app-check type="all"></app-check>
+                        </th>
+                        <th>Area3</th>
+                      </thead>
+                      <tbody>
+                        <tr class="button" *ngFor="let areathree of resAreaThree?.rsMap">
+                          <td>
+                            <app-check [on]="areathree"></app-check>
+                          </td>
+                          <td>{{ areathree.area_bottom_name }}</td>
+                        </tr>
+                      </tbody>
+                    </app-table>
+                  </app-check-group>
+                </app-col>
+              </app-row>
+            </app-col>
+          </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
+
+  <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="areaRoleCheck" fill="translucent" style="width: 100px;" (click)="getRiskArea()">검색
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene [disabled]="areaRoleCheck" [(ngModel)]="riskProjectForm.project_id"></app-select-scene>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="addRiskArea()">추가</app-button>
+          <app-button [disabled]="areaRoleCheck" color="danger" fill="translucent" (click)="deleteRisk()">삭제
+          </app-button>
+          <app-button [disabled]="areaRoleCheck" fill="translucent">엑셀 다운로드</app-button>
+          <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="allStatus(true)">전체 사용</app-button>
+          <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="allStatus(false)">전체 미사용</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar *ngIf="!areaRoleCheck" color="white">
+        <h5>위험지역 목록 (총{{resRiskArea?.rsObj.row_count || 0}}건)</h5>
+        <ion-buttons slot="end">
+          <app-button (click)="riskSave()" fill="translucent">저장</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ng-container *ngIf="!areaRoleCheck else riskareaEmpty">
+        <app-check-group [(ngModel)]="riskAreaData">
+          <app-table>
+            <thead>
+              <tr>
+                <th rowspan="2" style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th rowspan="2" style="width: 70px;">장소</th>
+                <th rowspan="2">위험지역 유형</th>
+                <th rowspan="2">위험지역명</th>
+                <th rowspan="2">실내/실외</th>
+                <th rowspan="2" style="width: 100px;">GPS 등록 여부</th>
+                <th rowspan="2" style="width: 100px;">NFC 등록 여부</th>
+                <th colspan="2">관리 책임자(인가자)</th>
+                <th rowspan="2">사용여부</th>
+              </tr>
+              <tr>
+                <th style="width: 80px;">정</th>
+                <th style="width: 80px;">부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 추가 -->
+              <tr *ngFor="let item of addRiskAreaArr">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td *ngIf="!item.area_top_name">
+                  <app-img style="width: 45%;" name="search" (click)="memberSearch()"></app-img>
+                </td>
+                <td *ngIf="item.area_top_name" (click)="memberSearch()">
+                  {{ (item.area_top_name ? item.area_top_name : '') + ' '
+                  + (item.area_middle_name ? item.area_middle_name : '') + ' '
+                  + (item.area_bottom_name ? item.area_bottom_name : '')}}
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_area_risk_id">
+                    <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
+                      opt.ctgo_area_risk_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.area_risk_name"></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.area_risk_type">
+                    <app-select-option value="실내">실내</app-select-option>
+                    <app-select-option value="실외">실외</app-select-option>
+                  </app-select>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
+                  </app-select-people>
+                </td>
+                <td>
+                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
+                  </app-select-people>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.area_risk_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+              <!-- 추가 끝 -->
+
+              <tr *ngFor="let item of resRiskArea?.rsMap">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>
+                  {{ (item.area_top_name ? item.area_top_name : '') + ' '
+                  + (item.area_middle_name ? item.area_middle_name : '') + ' '
+                  + (item.area_bottom_name ? item.area_bottom_name : '')}}
+                </td>
+                <td>
+                  <app-select  [disabled]="true"[(ngModel)]="item.area_risk_id">
+                    <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
+                      opt.ctgo_area_risk_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td>
+                  <app-input [disabled]="true" [(ngModel)]="item.area_risk_name"></app-input>
+                </td>
+                <td>
+                  <app-select [disabled]="true" [(ngModel)]="item.area_risk_type">
+                    <app-select-option value="실내">실내</app-select-option>
+                    <app-select-option value="실외">실외</app-select-option>
+                  </app-select>
+                </td>
+                <td>{{ item.gps_state === 1 ? '등록' : '미등록'}}</td>
+                <td (click)="nfcView(item.area_risk_id)">
+                  {{ item.nfc_state ? item.nfc_state +'개':'-'}}
+                </td>
+                <td>
+                  <app-select-people label="" [disabled]="true" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
+                  </app-select-people>
+                </td>
+                <td>
+                  <app-select-people label="" [disabled]="true" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
+                  </app-select-people>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.area_risk_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-row *ngIf="!resRiskArea?.rsMap?.length">
+          <app-col>
+            <app-card>
+              <h5>항목이 없습니다.</h5>
+            </app-card>
+          </app-col>
+        </app-row>
+        <app-pager [totalCount]="resRiskArea?.rsObj.row_count" [limitNo]="riskProjectForm.limit_no" (pagerChange)="getRiskArea($event)"></app-pager>
+      </ng-container>
+      <ng-template #riskareaEmpty>
+        <app-row>
+          <app-col>
+            <app-card>
+              <h5>권한이 없습니다.</h5>
+            </app-card>
+          </app-col>
+        </app-row>
+      </ng-template>
+    </app-col>
+  </app-row>
+
+
+
+
+  <app-row *ngIf="menuCount === 3" style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="areaRoleCheck" fill="translucent" style="width: 100px;" (click)="areaGPS()">검색
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene [disabled]="areaRoleCheck" [(ngModel)]="riskProjectForm.project_id"></app-select-scene>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <div>
+        <ion-toolbar color="white">
+          <h5>실외 위험지역</h5>
+          <ion-buttons slot="end">
+            <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="gpsSave()">저장</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </div>
+      <ng-container *ngIf="!areaRoleCheck else riskareaEmpty">
+        <app-card>
+          <h5 style="text-align: center;">GPS를 통해 근로자 위치 정보를 수집할 실외 위험지역 영역을 설정하여 주세요</h5>
+          <br>
+          <h5 style="color: black;">&#8251; 영역 설정 방법</h5>
+          <h5 style="color: black;">지도에서 현장 외각을 마우스 클릭을 통해 N개의 점을 선택하여 설정합니다.(점 3개 이상 클릭 필요)</h5>
+          <app-naver-map [disabled]="naverMapSetting" [(ngModel)]="gps_coordinate_data" style="height: 400px;"></app-naver-map>
+        </app-card>
+        <app-card>
+          <ion-toolbar slot="top" color="white">
+            <h5>실외 위험지역</h5>
+          </ion-toolbar>
+          <app-table>
+            <thead>
+              <tr>
+                <th>장소</th>
+                <th>위험지역 유형</th>
+                <th>위험지역명</th>
+                <th>GPS 좌표값</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" *ngFor="let item of resGPS?.rsMap" (click)="getGpsCoodrinate(item)">
+                <td>
+                  {{
+                  (item.area_top_name ? item.area_top_name : '') + ' '
+                  + (item.area_middle_name ? item.area_middle_name : '') + ' '
+                  + (item.area_bottom_name ? item.area_bottom_name: '')}}
+                </td>
+                <td>{{item.ctgo_area_risk_name}}</td>
+                <td>{{item.area_risk_name}}</td>
+                <td>{{item.gps_state + '개'}}</td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-card>
+      </ng-container>
+      <ng-template #riskareaEmpty>
+        <app-card>
+          <app-row>
+            <app-col>
+              <h5>권한이 없습니다.</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ng-template>
+    </app-col>
+  </app-row>
+</ion-content>

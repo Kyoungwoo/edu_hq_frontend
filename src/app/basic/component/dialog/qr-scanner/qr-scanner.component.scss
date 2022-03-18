@@ -1,0 +1,59 @@
+:host {
+    position: fixed;
+    border: 1px dashed white;
+    width: 80%;
+    height: 0;
+    padding-bottom: 80%;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    overflow: unset;
+}
+
+.qr-layout-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.qr-label {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 18px;
+    font-size: 14px;
+}
+.rotate-button-position {
+    position: absolute;
+    bottom: -64px;
+    text-align: center;
+    width: 100%;
+}
+.rotate-button-dismiss {
+    position: absolute;
+    width: 100%;
+    bottom: 540px;
+    left: 325px;
+}
+.rotate-button {
+    width: 48px;
+    height: 48px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --background: rgba(255,255,255,0.4);
+}
+.dismiss {
+    color: var(--ion-color-light);
+}
+
+.nfcchange {
+    position: absolute;
+    bottom: -120px;
+    text-align: center;
+    width: 100%;
+}

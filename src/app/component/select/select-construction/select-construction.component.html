@@ -1,0 +1,12 @@
+<app-select name="select"
+[color]="res && res.rsCode ? 'warning' : color"
+[label]="label" [placeholder]="placeholder" [(ngModel)]="value" 
+(click)="checkProject()"
+[readonly]="readonly || !project_id" 
+[disabled]="disabled"
+[required]="required"
+[multiple]="multiple">
+  <app-select-option *ngIf="all" type="all" [value]="multiple ? [] : 0">전체</app-select-option>
+  <app-select-option *ngFor="let construction of res?.rsMap" [value]="construction.ctgo_construction_id">{{ construction.ctgo_construction_name }}</app-select-option>
+</app-select>
+<app-input-caption *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-input-caption>

@@ -1,0 +1,11 @@
+<app-card [href]="futItem.full_url" [download]="futItem.file_name" target="_blank">
+  <app-row>
+    <app-col>
+      <p style="margin-bottom: 8px;"><ion-text color="primary">{{ futItem.file_name }}</ion-text></p>
+      <app-img [src]="futItem.full_url" style="width: 80px; max-height: 80px;"></app-img>
+    </app-col>
+    <app-col size="auto" *ngIf="!readonly">
+      <app-button color="danger" fill="translucent" (click)="$event.preventDefault(); $event.stopPropagation(); buttonClick.emit()">삭제</app-button>
+    </app-col>
+  </app-row>
+</app-card>

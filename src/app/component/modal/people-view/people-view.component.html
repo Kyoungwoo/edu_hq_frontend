@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>작업자 정보</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-avatar></app-avatar>
+  <app-card>
+    <app-row>
+      <app-col>
+        <h3>구범수</h3>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>아이디</h5>
+      </app-col>
+      <app-col>
+        <p>Gsil1</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>국적</h5>
+      </app-col>
+      <app-col >
+        <p>대한민국</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>업체명</h5>
+      </app-col>
+      <app-col>
+        <p>(주)지에스아이엘</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>직위</h5>
+      </app-col>
+      <app-col >
+        <p>작업자</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>현장명</h5>
+      </app-col>
+      <app-col>
+        <p>세종시 단독주택공사</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>공종</h5>
+      </app-col>
+      <app-col >
+        <p>건축</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>계약유형</h5>
+      </app-col>
+      <app-col >
+        <p>일용직</p>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>직종</h5>
+      </app-col>
+      <app-col>
+        <p>장비운전원(지게차)</p>
+      </app-col>
+    </app-row>
+    <app-row style="border-bottom: none;">
+      <app-col>
+        <h5>안전직무</h5>
+      </app-col>
+      <app-col>
+        <p>신호수/관리감독자</p>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-row>
+    <app-col>
+      <ion-toolbar color="white">
+       <h4>안전 마일리지 지급 내역</h4>
+        <ion-buttons slot="end">
+          <app-button fill="clear" color="dark" (click)="menu = !menu">
+            <app-img [src]="menu ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
+          </app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <app-table @fadeInAnimation *ngIf="menu">
+        <thead>
+          <tr>
+            <th>지급 하는자</th>
+            <th>지급일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>나성진</td>
+            <td>2021-08-07</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>마일리지 지급 유형</th>
+            <th>지급 마일리지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>안전 활동 우수</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="2">상세 사유</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">안전 활동이 우수하여 지급함</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+  </app-row>
+</ion-content>
+<app-button-footer>
+  <app-button>확인</app-button>
+</app-button-footer>

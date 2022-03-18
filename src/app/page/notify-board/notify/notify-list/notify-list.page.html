@@ -1,0 +1,120 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="메뉴 그룹" [(ngModel)]="form.notify_menu">
+                  <app-select-option value="회원관리">회원관리</app-select-option>
+                  <app-select-option value="현장 관리">현장 관리</app-select-option>
+                  <app-select-option value="오늘의 작업">오늘의 작업</app-select-option>
+                  <app-select-option value="장비관리">장비 관리</app-select-option>
+                  <app-select-option value="비상상활관리">비상상황 관리</app-select-option>
+                  <app-select-option value="결제">결재</app-select-option>
+                  <app-select-option value="게시판">게시판</app-select-option>
+                  <app-select-option value="고객 지원">고객 지원</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="알림일">
+                  <app-calendar [(ngModel)]="form.create_date"></app-calendar>
+                  ~
+                  <app-calendar [(ngModel)]="form.end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <h5>알림함 목록(총{{ res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th>메뉴 그룹</th>
+              <th>메시지</th>
+              <th>알람일시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" [class.color]="!item.read_state" *ngFor="let item of res?.rsMap">
+              <td>{{ item.notify_menu }}</td>
+              <td>{{ item.notify_text_kr }}</td>
+              <td>{{ item.create_date }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>알림함</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+        <app-button (click)="openDetail()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <app-card  *ngFor="let item of res?.rsMap">
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5 [class.color]="!item.read_state">{{ item.notify_menu }}</h5>
+          </app-col>
+          <!-- <app-col size="auto">
+            <ion-chip color="success">진행중</ion-chip>
+          </app-col> -->
+        </app-row>
+        <app-row>
+          <app-col>
+            <p>{{ item.notify_text_kr }}</p>
+            <p>작성일: {{ item.create_date }}</p>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ng-container>
+  </ion-content>
+
+  <!-- <div>
+    <app-card>
+      <app-row>
+        <app-col style="text-align: center;">
+          <app-img src="assets/img/main/plus.svg"></app-img>
+        </app-col>
+      </app-row>
+    </app-card>
+  </div> -->

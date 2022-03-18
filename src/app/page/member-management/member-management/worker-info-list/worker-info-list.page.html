@@ -1,0 +1,105 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <!-- <ion-toolbar color="white">s
+    <ion-title>
+      <h4>작업자 정보</h4>
+    </ion-title>
+  </ion-toolbar> -->
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-construction name="ctgo_construction_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="가입일">
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td>
+                <app-radio-input label="재직 상태">
+                  <app-radio value="전체">전체</app-radio>
+                  <app-radio value="재직 중">재직 중</app-radio>
+                  <app-radio value="출역 종료">출역 종료</app-radio>
+                </app-radio-input>
+              </td>
+            </tr> -->
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <h5>작업자 목록 (총{{res?.rsObj?.row_count }}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">No.</th>
+              <th>공종</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>직종</th>
+              <th>국적</th>
+              <th>건강문진</th>
+              <th>가입일</th>
+              <!-- <th>재직상태</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name_kr }}</td>
+              <td>{{ item.ctgo_occupation_name_kr }}</td>
+              <td>
+                <ion-text *ngIf="item.ctgo_country_id === 1" color="dark">{{ item.ctgo_country_name_kr }}</ion-text>
+                <ion-text *ngIf="item.ctgo_country_id !== 1" color="danger">{{ item.ctgo_country_name_kr }}</ion-text>
+              </td>
+              <td>
+                <ion-text *ngIf="item.user_health === '특별관리대상'" color="danger">{{ item.user_health }}</ion-text>
+                <ion-text *ngIf="item.user_health !== '특별관리대상'" color="dark">{{ item.user_health }}</ion-text>
+              </td>
+              <td>{{ item.create_date }}</td>
+              <!-- <td>{{ item.delete_state ? '재직중':'퇴사' }}</td> -->
+            </tr>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>상세검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-select-scene></app-select-scene>
+  <app-select-contractor></app-select-contractor>
+  <app-input-group label="작성일">
+  <app-calendar></app-calendar>
+  ~
+  <app-calendar></app-calendar>
+  </app-input-group>
+  <app-input label="검색어" placeholder="검색어를 입력하세요"></app-input>
+</ion-content>
+<app-button-footer>
+  <app-button>초기화</app-button>
+  <app-button>검색</app-button>
+</app-button-footer>

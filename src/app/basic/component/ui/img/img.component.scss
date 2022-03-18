@@ -1,0 +1,15 @@
+:host {
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    picture {
+        display: block;
+        width: 100%;
+    }
+    img {
+        display: block;
+        width: 100%;
+    }
+}

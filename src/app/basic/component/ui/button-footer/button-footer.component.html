@@ -1,0 +1,13 @@
+<ion-footer>
+  <ion-toolbar color="white">
+    <div>
+      <ng-content select="[slot=top]"></ng-content>
+    </div>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+    <div class="button-list">
+      <ng-content select="app-button"></ng-content>
+    </div>
+  </ion-toolbar>
+</ion-footer>

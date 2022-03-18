@@ -1,0 +1,675 @@
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <ion-toolbar color="white" style="margin-bottom: 20px;">
+    <app-row>
+      <app-col size="auto">
+        <ion-segment class="sub-segment" color="primary" [value]="this.lhHeadCheck ? 2 : 1">
+          <ion-segment-button *ngIf="!lhHeadCheck" (click)="menuCount1()" [value]="1">LH 조직관리</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount2()" [value]="2">정보 접근<br>비밀번호</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount5()">직위</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount6()">안전직무</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount7()">직종</ion-segment-button>
+        </ion-segment>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+  <ng-container *ngIf="!lhHeadCheck">
+    <app-row  *ngIf="menuCount === 1" style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th>
+                <app-row style="justify-content: space-between;">
+                  <app-col size="auto">
+                    <app-input label="업체명" value="한국토지주택공사" [readonly]="true"></app-input>
+                  </app-col>
+                </app-row>
+              </th>
+            </tr>
+          </thead>
+        </app-table>
+      </app-col>
+      <app-col>
+        <div>
+          <ion-toolbar style="height: 67px; display: flex;" color="white">
+            <h4>LH 조직관리</h4>
+
+            <!-- <ion-buttons slot="end">
+          <app-button fill="translucent">저장</app-button>
+        </ion-buttons> -->
+          </ion-toolbar>
+        </div>
+        <app-card>
+          <app-row style="align-items: stretch; ">
+            <app-col>
+              <div style="text-align: right;">
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelAdd('level1')">추가</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelUpdate('level1')">수정</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="organizationSave('level1')">저장
+                </app-button>
+              </div>
+              <app-radio-group [(ngModel)]="area1SelectList">
+                <app-table style="height: 600px; overflow: auto;">
+                  <thead>
+                    <tr>
+                      <th style="width: 20px;">
+                      </th>
+                      <th>코드</th>
+                      <th>level 1</th>
+                      <th>권한</th>
+                      <th>사용여부</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index" >
+                      <td>
+                        <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
+                          (click)="radioChange($event,'level1'); level2In(item,$event);"></app-radio>
+                        <ng-template #deletebutton>
+                          <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation();" size="small"
+                            color="danger">
+                            <ion-icon name="close-outline"></ion-icon>
+                          </app-button>
+                        </ng-template>
+                      </td>
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_regional_code"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_regional_id">
+                        <app-input [disabled]="true" [(ngModel)]="item.hq_regional_code"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_regional_id">
+                        <app-input [(ngModel)]="item.hq_regional_code"></app-input>
+                      </td>
+
+                      <td *ngIf="!item.checked && item.hq_regional_id">
+                        <app-input [disabled]="true" [(ngModel)]="item.hq_regional_name"></app-input>
+                      </td>
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_regional_name"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_regional_id">
+                        <app-input [(ngModel)]="item.hq_regional_name"></app-input>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_regional_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_regional_id">
+                        <app-select [disabled]="true" [(ngModel)]="item.hq_regional_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_regional_id">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_regional_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_regional_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_regional_id">
+                        <app-select [disabled]="true" [(ngModel)]="item.hq_regional_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_regional_id">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_regional_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </app-table>
+              </app-radio-group>
+            </app-col>
+
+            <app-col>
+              <div style="text-align: right;">
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelAdd('level2')">추가</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelUpdate('level2')">수정</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="organizationSave('level2')">저장
+                </app-button>
+              </div>
+              <app-radio-group [(ngModel)]="area2SelectList">
+                <app-table style="height: 600px; overflow: auto;">
+                  <thead>
+                    <tr>
+                      <th style="width: 20px;"></th>
+                      <th>코드</th>
+                      <th>level 2</th>
+                      <th>권한</th>
+                      <th>사용여부</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index">
+                      <td>
+                        <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level2" [value]="item"
+                          (click)="radioChange($event,'level2'); level3In(item,$event)"></app-radio>
+                        <ng-template #deletebutton>
+                          <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation();" size="small"
+                            color="danger">
+                            <ion-icon name="close-outline"></ion-icon>
+                          </app-button>
+                        </ng-template>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_business_code"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_business_id">
+                        {{item.hq_business_code}}
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_business_id">
+                        <app-input [(ngModel)]="item.hq_business_code"></app-input>
+                      </td>
+
+                      <td *ngIf="!item.checked && item.hq_business_id">
+                        {{item.hq_business_name}}
+                      </td>
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_business_name"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_business_id">
+                        <app-input [(ngModel)]="item.hq_business_name"></app-input>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_business_id">
+                        <app-select [disabled]="true" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_business_id">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">본사</app-select-option>
+                          <app-select-option [value]="0">사업본부</app-select-option>
+                        </app-select>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_business_id">
+                        <app-select [disabled]="true" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_business_id">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </app-table>
+              </app-radio-group>
+            </app-col>
+
+            <app-col>
+              <div style="text-align: right;">
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelAdd('level3')">추가</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="levelUpdate('level3')">수정</app-button>
+                <app-button fill="translucent" [disabled]="lhHeadCheck" (click)="organizationSave('level3')">저장
+                </app-button>
+              </div>
+              <app-radio-group [(ngModel)]="area3SelectList">
+                <app-table style="height: 600px; overflow: auto;">
+                  <thead>
+                    <tr>
+                      <th style="width: 20px;">
+                      </th>
+                      <th>코드</th>
+                      <th>level 3</th>
+                      <th>사용여부</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of resLevel3?.rsMap let i = index">
+                    <tr>
+                      <td>
+                        <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level3" [value]="item"
+                          (click)="$event.stopPropagation()"></app-radio>
+                        <ng-template #deletebutton>
+                          <app-button (click)="resLevel3.rsMap.splice(i,1); $event.stopPropagation()" size="small"
+                            color="danger">
+                            <ion-icon name="close-outline"></ion-icon>
+                          </app-button>
+                        </ng-template>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_department_code"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_department_id">
+                        {{item.hq_department_code}}
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_department_id">
+                        <app-input [(ngModel)]="item.hq_department_code"></app-input>
+                      </td>
+
+
+                      <td *ngIf="!item.checked && item.hq_department_id">
+                        {{item.hq_department_name}}
+                      </td>
+                      <td *ngIf="item.checked">
+                        <app-input [(ngModel)]="item.hq_department_name"></app-input>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_department_id">
+                        <app-input [(ngModel)]="item.hq_department_name"></app-input>
+                      </td>
+
+                      <td *ngIf="item.checked">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_department_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && item.hq_department_id">
+                        <app-select [disabled]="true" [(ngModel)]="item.hq_department_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                      <td *ngIf="!item.checked && !item.hq_department_id">
+                        <app-select [disabled]="false" [(ngModel)]="item.hq_department_use_state">
+                          <app-select-option [value]="1">사용</app-select-option>
+                          <app-select-option [value]="0">미사용</app-select-option>
+                        </app-select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </app-table>
+              </app-radio-group>
+            </app-col>
+          </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
+
+  <ng-container *ngIf="!memberRoleCheck">
+    <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <app-select-company [multiple]="false" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="form.company_id"></app-select-company>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <div>
+          <ion-toolbar style="height: 66px; display: flex;" color="white">
+            <h4>비밀번호 설정</h4>
+            <ion-buttons slot="end">
+              <app-button fill="translucent" (click)="memberPasswordUdpate()">저장</app-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </div>
+        <app-card >
+          <h4 style="text-align: center;">회원관리 메뉴에 접근 할 때 사용할 비밀번호를 지정해주세요.</h4>
+          <app-row>
+            <app-col></app-col>
+            <app-col style="text-align: right;">
+              <app-input [(ngModel)]="form.company_password" type="password" (delayKeyup)="passwordCheck()"
+                placeholder="숫자 4자 이상 입력해주세요."></app-input>
+              <app-input-caption *ngIf="!passchkck" color="danger">{{ passwordMeassge }}</app-input-caption>
+              <app-input [(ngModel)]="subpassword" type="password" (delayKeyup)="subPasswordCheck()" placeholder="비밀번호 확인"></app-input>
+              <app-input-caption *ngIf="!subpasscheck" color="danger">{{ subpasswordMeassge }}</app-input-caption>
+            </app-col>
+            <app-col></app-col>
+          </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
+
+  <app-row *ngIf="menuCount === 5" style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="rolepass" fill="translucent" style="width: 100px;" (click)="getJobPosition()">검색
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <app-select-company [project_id]="jobForm.project_id" 
+            [disabled]="editable" 
+            [multiple]="false" 
+            [project_id]="jobForm.project_id" 
+            [(ngModel)]="jobForm.company_id"></app-select-company>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" [disabled]="rolepass" (click)="addJobPosstion()">추가</app-button>
+          <app-button fill="translucent" [disabled]="rolepass" (click)="postionDelete()" color="danger">삭제</app-button>
+          <app-button fill="translucent" [disabled]="rolepass" (click)="state(1)">전체 사용</app-button>
+          <app-button fill="translucent" [disabled]="rolepass" (click)="state(0)">전체 미사용</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar *ngIf="!rolepass;" color="white">
+        <app-row>
+          <app-col>
+            <h5>직위 목록 (총{{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" (click)="jobAddSave()">저장</app-button>
+          </app-col>
+        </app-row>
+      </ion-toolbar>
+      <ng-container *ngIf="!rolepass">
+        <app-check-group [(ngModel)]="selectList">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th style="width:40px">No</th>
+                <th>직위명</th>
+                <th>영어</th>
+                <th>중국어</th>
+                <th>배트남어</th>
+                <th>사용여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let res of resJobPosition?.rsMap let i = index">
+                <td>
+                  <app-check [on]="res"></app-check>
+                </td>
+                <td>{{ i+1 }}</td>
+                <td>
+                  <app-input [(ngModel)]="res.ctgo_job_position_name_kr"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="res.ctgo_job_position_name_en"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="res.ctgo_job_position_name_ch"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="res.ctgo_job_position_name_vi"></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="res.ctgo_job_position_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-row *ngIf="!resJobPosition?.rsMap?.length">
+          <app-col>
+            <app-card>
+              <h5>항목이 없습니다.</h5>
+            </app-card>
+          </app-col>
+        </app-row>
+        <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
+      </ng-container>
+    </app-col>
+  </app-row>
+
+  <app-row *ngIf="menuCount === 6" style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="rolepass" fill="translucent" style="width: 100px;" (click)="getSafeJob()">검색
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <app-select-company [disabled]="editable"
+              [multiple]="false" 
+              [project_id]="user.userData.belong_data.project_id"
+              [(ngModel)]="safeJobForm.company_id">
+            </app-select-company>
+          </tr>
+          <tr>
+            <td>
+              <app-select [disabled]="rolepass" label="구분" [(ngModel)]="safeJobForm.user_type">
+                <app-select-option value="COMPANY">관리자</app-select-option>
+                <app-select-option value="WORKER">작업자</app-select-option>
+              </app-select>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button [disabled]="rolepass" fill="translucent" (click)="addSafeJob()">추가</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="safeDelete()" color="danger">삭제</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="safeState(1)">전체 사용</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="safeState(0)">전체 미사용</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar *ngIf="!rolepass" color="white">
+        <app-row>
+          <app-col>
+            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
+          </app-col>
+        </app-row>
+      </ion-toolbar>
+      <ng-container *ngIf="!rolepass">
+        <app-check-group [(ngModel)]="safeJobSelected">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th>No</th>
+                <th>안전 직무명</th>
+                <th>영어</th>
+                <th>중국어</th>
+                <th>배트남어</th>
+                <th>사용여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resSafeJob?.rsMap let i = index">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>{{ i+1 }}</td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_safe_job_name_kr"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_safe_job_name_en"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_safe_job_name_ch"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_safe_job_name_vi"></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_safe_job_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-row *ngIf="!resSafeJob?.rsMap?.length">
+          <app-col>
+            <app-card>
+              <h5>항목이 없습니다.</h5>
+            </app-card>
+          </app-col>
+        </app-row>
+      </ng-container>
+    </app-col>
+  </app-row>
+
+  <app-row *ngIf="menuCount === 7" style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button [disabled]="rolepass" fill="translucent" style="width: 100px;" (click)="getOccupation()">검색
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-company [disabled]="editable"
+              [multiple]="false"
+              [project_id]="user.userData.belong_data.project_id"
+              [(ngModel)]="occupationForm"></app-select-company>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button [disabled]="rolepass" fill="translucent" (click)="addOccupation()">추가</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="deleteOccupation()" color="danger">삭제
+          </app-button>
+          <app-button [disabled]="rolepass" fill="translucent">엑셀 다운로드</app-button>
+          <app-button [disabled]="rolepass" fill="translucent">엑셀 업로드</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="occupationState(1)">천세 사용</app-button>
+          <app-button [disabled]="rolepass" fill="translucent" (click)="occupationState(0)">전체 미사용</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar *ngIf="!rolepass" color="white">
+        <app-row>
+          <app-col>
+            <h5>직종 목록 (총{{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" (click)="occupationSave()">저장</app-button>
+          </app-col>
+        </app-row>
+      </ion-toolbar>
+      <ng-container *ngIf="!rolepass">
+        <app-check-group [(ngModel)]="occupationSelected">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <app-check type="all"></app-check>
+                </th>
+                <th>No</th>
+                <th>직종 명</th>
+                <th>영어</th>
+                <th>중국어</th>
+                <th>배트남어</th>
+                <th>사용여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resOccupation?.rsMap let i = index">
+                <td>
+                  <app-check [on]="item"></app-check>
+                </td>
+                <td>{{i + 1}}</td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_occupation_name_kr"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_occupation_name_en"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_occupation_name_ch"></app-input>
+                </td>
+                <td>
+                  <app-input [(ngModel)]="item.ctgo_occupation_name_vi"></app-input>
+                </td>
+                <td>
+                  <app-select [(ngModel)]="item.ctgo_occupation_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+        <app-row *ngIf="!resOccupation?.rsMap?.length">
+          <app-col>
+            <app-card>
+              <h5>항목이 없습니다.</h5>
+            </app-card>
+          </app-col>
+        </app-row>
+      </ng-container>
+    </app-col>
+  </app-row>
+</ion-content>

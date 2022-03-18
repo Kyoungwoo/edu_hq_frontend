@@ -1,0 +1,416 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row>
+      <app-col>
+        <h4>교육 정보</h4>
+      </app-col>
+      <app-col *ngIf="item" size="auto">
+        <app-button (click)="updateItem()" fill="translucent">수정</app-button>
+      </app-col>
+      <app-col size="auto">
+        <app-button *ngIf="!item" fill="translucent" (click)="submit()">저장</app-button>
+      </app-col>
+    </app-row>
+    <form>
+      <app-row>
+        <app-col>
+          <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input name="create" [disabled]="true" label="개설자" [value]="user.userData.user_name + ' / ' + user.userData.belong_data.company_name"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-education name="safe" [required]="true" [all]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="교육대상" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
+        </app-col>
+          <app-col>
+            <app-input name="education_safe_place" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col size="6">
+          <app-calendar name="create_date" label="교육일" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
+        </app-col>
+        <app-col size="3">
+          <app-datetime [required]="true" name="education_safe_start_time" label="교육시작시간" 
+          [(ngModel)]="form.education_safe_start_time">
+          </app-datetime>
+        </app-col>
+        <app-col size="3">
+          <app-datetime [required]="true" name="education_safe_end_time" label="교육종료시간" 
+          [(ngModel)]="form.education_safe_end_time">
+          </app-datetime>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-attendance [educationType]="true" name="attendance" [project_id]="form.project_id || user.userData.belong_data.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+        </app-col>
+        <app-col>
+          <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-textarea label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+        </app-col>
+      </app-row>
+    </form>
+      <ng-container *ngIf="form.education_safe_state !== '교육 전'">
+        <app-row>
+          <app-col>
+            <h4>출석 현황 : {{ res?.rsObj?.row_count || 0 }}명</h4>
+          </app-col>
+          <!-- <app-col size="auto">
+            <app-button color="danger" fill="translucent" (click)="notReady()">출석삭제</app-button>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" (click)="notReady()">출석등록(검색)</app-button>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" (click)="notReady()">출석등록(QR)</app-button>
+          </app-col> -->
+        </app-row>
+        <app-row>
+          <app-col></app-col>
+          <app-col size="3">
+            <app-input (keyup.enter)="eduGetList()" [(ngModel)]="attentForm.search_text" placeholder="춣석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="eduGetList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+        </app-row>
+      <app-table>
+        <thead>
+          <tr>
+            <th style="width: 40px;">No</th>
+            <th>업체명</th>
+            <th>성명</th>
+            <th>서명일시</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of res?.rsMap let i = index">
+          <tr>
+            <td>{{ i+1 }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.user_name }}({{ item.account_id }})</td>
+            <td>{{ item.create_date }}</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </ng-container>
+  </ion-content>
+  </ng-container>
+
+  <!-- 모바일 -->
+<!-- <ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container>
+      <form>
+        <app-row>
+          <app-col>
+            <app-input [readonly]="true" label="현장명" value="세종시 단독 주택 공사"></app-input>
+          </app-col>
+          <app-col>
+            <app-input [readonly]="true" label="교육상태" value="교육중"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
+          </app-col>
+          <app-col>
+            <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select-education></app-select-education>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input label="교육대상" placeholder="교육 대상을 입력하세요"></app-input>
+          </app-col>
+            <app-col>
+            <app-input label="교육장소" placeholder="교육 장소를 입력하세요"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-calendar label="교육일"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-input-group label="교육 시간">
+            <app-datetime></app-datetime>
+            ~
+            <app-datetime></app-datetime>
+          </app-input-group>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-select-attendance></app-select-attendance>
+          </app-col>
+          <app-col>
+            <app-input label="강사" placeholder="강사를 입력하세요"></app-input>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-textarea label="교육내용" [rows]="10" value="
+            1. 기계· 기구의 위험성 동선에 관한 사항  
+            2. 작업 개시 전 점검에 관한 사항
+            3. 정리정돈 및 청소에 관한 사항
+            4. 사고 발생시 긴급조치에 관한 사항
+            5. 산업보건 및 직업병 예방에 관한 사항
+            6. 산업안전보건법 및 일반관리에 관한 사항
+            7. 직무스트레스 예방 및 관리에 관한 사항
+            8. 물질안전보건자료에 관한 사항
+            *상세 교육 내용은 신규자 교육 교안 및 물질안전보건자료집 참조 
+            "></app-textarea>
+          </app-col>
+        </app-row>
+      </form>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button>삭제</app-button>
+    <app-button>저장</app-button>
+  </app-button-footer>
+</ng-container> -->
+
+<!-- 모바일 교육정보/출석현황 탭 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white" *ngIf="item">
+      <ion-segment color="primary" [value]="true" >
+        <ion-segment-button (click)="educationMenu = true" [value]="true">교육정보</ion-segment-button>
+        <ion-segment-button (click)="educationMenu = false">출석현황</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container *ngIf="educationMenu">
+      <app-row>
+        <app-col>
+          <h4>기본정보</h4>
+        </app-col>
+      </app-row>
+
+      <app-card>
+        <app-row>
+          <app-col>
+          <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input [disabled]="true" name="edustate" label="교육상태" [(ngModel)]="form.education_safe_state"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="create" [disabled]="true" label="개설자" [value]="user.userData.user_name + ' / ' + user.userData.belong_data.company_name"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-select-education name="safe" [all]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+              <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input label="교육명" name="ctgo_education_safe_title" placeholder="교육명을 입력해주세요." [(ngModel)]="form.ctgo_education_safe_title"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input label="교육대상" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="education_safe_place" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-calendar label="개설일" name="create_date" [(ngModel)]="form.education_safe_date"></app-calendar>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-datetime name="education_safe_start_time" label="교육시작시간" 
+            [(ngModel)]="form.education_safe_start_time">
+            </app-datetime>
+          </app-col>
+          <app-col>
+            <app-datetime name="education_safe_end_time" label="교육종료시간" 
+            [(ngModel)]="form.education_safe_end_time">
+            </app-datetime>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+          <app-select-attendance [educationType]="true" name="attendance" [project_id]="form.project_id || user.userData.belong_data.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-textarea label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+        </app-col>
+      </app-row>
+    </app-card>
+    </ng-container>
+
+    <ng-container *ngIf="form.education_safe_state !== '교육 전' && !educationMenu">
+      <app-card>
+        <app-row>
+          <app-col>
+            <h4>현황 : 총 {{ res?.rsObj?.row_count || 0 }}명</h4>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input [(ngModel)]="attentForm.search_text" placeholder="춣석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="eduGetList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      <ion-row>
+        <ion-col *ngFor="let item of res?.rsMap" size="6">
+          <app-card [button]="true" (click)="userInfo(item)">
+            <app-row>
+              <app-col>
+                <h5>{{ item.user_name }}({{ item.account_id }})</h5>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col>
+                <h6>업체명</h6>
+                <h5>{{ item.company_name }}</h5>
+                <h6>직종</h6>
+                <h5>{{ item.ctgo_occupation_name }}</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+        <ion-col size="6">
+          <app-card style="background-color: var(--ion-color-medium-translucent);" (click)="qrAdd()">
+            <app-row>
+              <app-col size="auto">
+                <app-img name="tag"></app-img>
+              </app-col>
+              <app-col>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col>
+                <h5>QR를 근로자에게 인식 시켜주세요</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-content>
+  <app-button-footer>
+    <app-button *ngIf="item && educationMenu" fill="translucent">수정</app-button>
+    <app-button *ngIf="!item" (click)="submit()">저장</app-button>
+  </app-button-footer>
+  <app-button-footer>
+    <app-button *ngIf="!educationMenu" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+    <app-button *ngIf="!educationMenu" (click)="qrAdd()">출석등록QR)</app-button>
+  </app-button-footer>
+</ng-container>

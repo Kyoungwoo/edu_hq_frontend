@@ -1,0 +1,119 @@
+.tab-list {
+    overflow: hidden;
+    padding-left: 28px;
+    background: var(--ion-color-tertiary);
+    padding-bottom: 8px;
+}
+.tab-item {
+    position: relative;
+    z-index: 3;
+    color: var(--ion-color-white);
+    user-select: none;
+    cursor: pointer;
+
+    span,
+    &::before,
+    &::after {
+        background: var(--ion-color-primary);
+    }
+    span {
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        position: relative;
+        z-index: 3;
+    }
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        border-radius: 15px;
+        height: 80px;
+        width: 40px;
+        z-index: 1;
+        box-shadow: 0 1px 1px 1px var(--ion-color-tertiary);
+    }
+    &::before {
+        left: -20px;
+        transform: rotate(-20deg);
+    }
+    &::after {
+        right: -20px;
+        transform: rotate(20deg);
+    }
+}
+.tab-item.active {
+    z-index: 20 !important;
+    color: var(--ion-color-tertiary);
+    font-weight: 700;
+    span,
+    &::before,
+    &::after {
+        background: var(--ion-color-white);
+        box-shadow: none;
+    }
+    &::before,
+    &::after {
+        content: '';
+    }
+}
+
+ion-split-pane {
+    --side-min-width: 200px;
+    --side-max-width: 240px;
+    --border: 1px solid var(--ion-background-color);
+}
+ion-header {
+    transition: transform 100ms ease-in;
+}
+ion-menu {
+    ion-content {
+        --background: var(--ion-color-white);
+        --padding-start: 0;
+        --padding-end: 0;
+    }
+    ion-list {
+        --ion-item-background: var(--ion-color-white);
+    }
+    ion-list-header {
+        font-size: var(--font-size-n);
+        font-weight: 500;
+        &:hover {
+            --background: var(--ion-background-color);
+        }
+    }
+    ion-item-group {
+        margin-top: 8px;
+        margin-bottom: 16px;
+    }
+    ion-item-divider {
+        cursor: pointer;
+        border-bottom: 0;
+        margin-bottom: 8px;
+        font-size: var(--font-size-h6);
+        --background: var(--ion-background-color);
+        --color: var(--ion-color-step-500);
+        &:hover {
+            --background: var(--ion-color-step-50);
+        }
+        ion-label {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    ion-item {
+        font-size: var(--font-size-h6);
+        --color: var(--ion-color-step-650);
+        --min-height: 30px;
+        ion-label {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        ion-icon {
+            vertical-align: middle;
+        }
+    }
+}

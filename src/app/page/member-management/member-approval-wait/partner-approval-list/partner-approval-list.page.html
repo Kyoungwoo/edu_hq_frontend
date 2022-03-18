@@ -1,0 +1,115 @@
+
+
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+    <!-- <ion-toolbar color="white">
+      <ion-title>
+        <h4>원청사/협력사 관리자 가입승인</h4>
+      </ion-title>
+    </ion-toolbar> -->
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-company name="company_id" [project_id]="form.project_id" [(ngModel)]="form.company_id" [all]="true"></app-select-company>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-construction name="ctgo_construction_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
+              </td>
+            </tr>
+            <tr>
+              <tr>
+              <td>
+                <app-input-group label="신청일">
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input label="승인현황" [(ngModel)]="form.approval_state">
+                  <app-radio type="all" value="전체">전체</app-radio>
+                  <app-radio value="미승인">미승인</app-radio>
+                  <app-radio value="반려">반려</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white" *ngIf="permission.approval">
+          <ion-buttons slot="start">
+            <!-- <app-button fill="translucent">엑셀 업로드</app-button>
+            <app-button fill="translucent">양식 다운로드</app-button> -->
+            <app-button fill="translucent" (click)="approval()">가입승인</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>원청사/협력사 관리자 가입 신청 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-check-group [(ngModel)]="selectedList">
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+              <th style="width: 40px;">No.</th>
+              <!-- <th>구분</th> -->
+              <th>공종</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>직위</th>
+              <th>안전직무</th>
+              <th>신청일</th>
+              <th>승인현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button"  *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td>
+                <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
+              </td>
+              <td>{{ item.index }}</td>
+              <!-- <td>신규가입</td> -->
+              <td>{{ item.ctgo_construction_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.ctgo_safe_job_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.approval_state }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-check-group>
+      <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+
+

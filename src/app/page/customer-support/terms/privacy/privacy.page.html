@@ -1,0 +1,42 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <form>
+      <app-row style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
+        <app-col>
+          <h5>S-Keeper 플랫폼은 이용자 개인정보 보호를 최우선의 가치로 두고 있습니다.</h5>
+        </app-col>
+        <app-col size="auto">
+          <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
+        </app-col>
+      </app-row>
+          <app-textarea [rows]="20" name="개인정보 처리방침" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea>
+    </form>
+  </ion-content>
+</ng-container>
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ res?.rsObj?.terms_title}}</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
+      <app-col>
+        <h5>S-Keeper 플랫폼은 이용자 개인정보 보호를 최우선의 가치로 두고 있습니다.</h5>
+      </app-col>
+      <app-col size="auto">
+        <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
+      </app-col>
+    </app-row>
+        <app-textarea [rows]="20" name="플랫폼 이용약관" [readonly]="true" [value]="res?.rsObj.terms_text"></app-textarea>
+  </ion-content>
+</ng-container>
+
