@@ -478,7 +478,6 @@ export class WorkerInfoEditPage implements OnInit {
         ...res,
         ...this.resTotalMileageList
       }
-      console.log("asd - ", this.resTotalMileageList);
       // 정상
     } else if (res.rsCode === 1008) {
       // 데이터 없음

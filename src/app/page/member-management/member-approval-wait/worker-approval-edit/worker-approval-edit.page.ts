@@ -316,7 +316,9 @@ export class WorkerApprovalEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this._modal_.dismiss('Y');
+      setTimeout(() => {
+        this._modal_.dismiss('Y');
+      }, 0);
     } 
   }
 
@@ -362,8 +364,7 @@ export class WorkerApprovalEditPage implements OnInit {
       ...this.formApproval
     }, {});
     if(res.rsCode === 0) {
-      console.log("---------- basic:",this.form );
-      console.log("---------- formApproval:", this.formApproval);
+     
       console.log("---------- update:", {
         ...this.form,
         ...this.formApproval

@@ -42,7 +42,7 @@ export class HeavyEquipEditPage implements OnInit {
 
   @Input() machinery_id;
 
-  updateStatus: boolean = true;
+  updateStatus: boolean = false;
 
 
   form:HeavyEquipDetail = new HeavyEquipDetail();
@@ -59,6 +59,12 @@ export class HeavyEquipEditPage implements OnInit {
 
   ngOnInit() {
     this.get();
+    if(this.machinery_id) {
+      this.updateStatus = true;
+      this.get();
+    } else {
+      this.updateStatus = false;
+    }
   }
 
   async get() { //상세보기
@@ -73,13 +79,13 @@ export class HeavyEquipEditPage implements OnInit {
     }
   }
 
-  Heavyupdate() {
+  Heavyedit() {
     this.updateStatus = false;
   }
 
   async Heavydelete() {
     const alert = await this.alert.present({
-      message: '삭제 하시겠습니까?',
+      message: '선택된 장비 정보가 모두 삭제됩니다. 정말 삭제 하시겠습니까?',
       buttons: [
         { text: '아니요' },
         {
@@ -109,7 +115,7 @@ export class HeavyEquipEditPage implements OnInit {
           handler: async () => {
             const res = await this.connect.run('/machinery/update', this.form, {});
             if (res.rsCode === 0) {
-              this._modal.dismiss();
+              this._modal.dismiss('Y');
             } else {
               this.toast.present({ color: 'warning', message: res.rsMsg });
             }
@@ -117,5 +123,25 @@ export class HeavyEquipEditPage implements OnInit {
         }
       ]
     })
+  }
+
+  async Heavyupdate() { 
+    this.alert.present({
+      message:'수정 하시겠습니까?',
+      buttons:[
+        { text:'아니요' },
+        {
+          text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/machinery/update', this.form);
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    });
   }
 }

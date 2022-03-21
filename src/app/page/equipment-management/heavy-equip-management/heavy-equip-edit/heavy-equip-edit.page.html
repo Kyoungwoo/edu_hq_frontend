@@ -14,7 +14,7 @@
       <app-select-scene name="project_id" [disabled]="this.updateStatus" [(ngModel)]="form.project_id"></app-select-scene>
      </app-col>
      <app-col>
-      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [disabled]="this.updateStatus" [(ngModel)]="form.master_company_name" [disabled]="true" ></app-select-contractor>
+      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [disabled]="this.updateStatus" [(ngModel)]="form.master_company_id" [disabled]="true" ></app-select-contractor>
      </app-col>
    </app-row>
    <app-row mobileBreak>
@@ -32,7 +32,7 @@
         [(ngModel)]="form.machinery_regist_no" placeholder=""></app-input>
     </app-col>
     <app-col>
-      <app-select-construction name="ctgo_construction_name" [project_id]="form.project_id" [disabled]="this.updateStatus" [(ngModel)]="form.ctgo_construction_name"></app-select-construction>
+      <app-select-construction name="ctgo_construction_name" [project_id]="form.project_id" [disabled]="this.updateStatus" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
   </app-row>
   <app-row mobileBreak>
@@ -89,8 +89,11 @@
 <app-file-preview *ngFor="let futItem of form.etc_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
 
 </ion-content>
-<app-button-footer>
-  <app-button fill="translucent" *ngIf="updateStatus" (click)="Heavyupdate()">수정</app-button>
+<app-button-footer *ngIf="machinery_id">
+  <app-button fill="translucent" *ngIf="updateStatus" (click)="Heavyedit()">수정</app-button>
   <app-button fill="translucent" *ngIf="!updateStatus" (click)="Heavydelete()" color="danger">삭제</app-button>
-  <app-button fill="translucent" *ngIf="!updateStatus" (click)="Heavysave()">저장</app-button>
+  <app-button fill="translucent" *ngIf="!updateStatus" (click)="Heavyupdate()">저장</app-button>
+</app-button-footer>
+<app-button-footer *ngIf="!machinery_id">
+  <app-button name="submit" *ngIf="!updateStatus" (click)="Heavysave()">저장</app-button>
 </app-button-footer>

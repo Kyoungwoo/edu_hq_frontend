@@ -57,7 +57,6 @@ export class ContractorEditPage implements OnInit {
 
   ngOnInit() {
     this.getPermission();
-    console.log(this.company_id, this.project_id);
     this.form.project_id = this.project_id;
     this.getItem();
   }
