@@ -74,11 +74,6 @@ export class LhInfoEditPage implements OnInit {
 
   menu: number = 1;
 
-  organization = {
-    id: 0,
-    name: '',
-    type: '지역' || '사업'
-  }
 
   constructor(
     private _modal_: ModalController,

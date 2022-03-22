@@ -64,45 +64,45 @@
     </app-row>
     <h4>첨부자료</h4>
     <app-card>
-        <app-row>
-          <app-col></app-col>
-          <app-col size="auto">
-            <app-button>추가
-              <app-file name="input" view_type="NOTICE"
-              [(ngModel)]="form.notice_file_data"
-              [file]="form.file"
-              [file_json]="form.file_json"
-              ></app-file>
-            </app-button>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-table>
-        <tr *ngFor="let item of form.notice_file_data let i = index">
-          <td *ngIf="item.view_type==='NOTICE'">
-            <app-row>
-              <app-col>
-                <a [href]="item.full_url" target="_blank" [download]="item.file_name">
-                  <ion-icon name="save-outline"></ion-icon>
-                  {{ item.file_name }}
-                </a>
-              </app-col>
-              <app-col size="auto">
-                <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.notice_file_data.splice(i,1)">
-                  <app-img name="minus"></app-img>
-                </app-button>
-              </app-col> 
-            </app-row>
-            <ion-row
-            *ngIf="item.content_type.startsWith('image')">
-              <ion-col>
-                <div class="image-detail">이미지 미리보기</div>
-                <app-img class="image-class" [src]="item.full_url"></app-img>
-              </ion-col>
-            </ion-row>
-          </td>
-        </tr>
-      </app-table>
+      <app-row>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button>추가
+            <app-file name="input" view_type="NOTICE"
+            [(ngModel)]="form.notice_file_data"
+            [file]="form.file"
+            [file_json]="form.file_json"
+            ></app-file>
+          </app-button>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-table>
+      <tr *ngFor="let item of form.notice_file_data let i = index">
+        <td *ngIf="item.view_type==='NOTICE'">
+          <app-row>
+            <app-col>
+              <a [href]="item.full_url" target="_blank" [download]="item.file_name">
+                <ion-icon name="save-outline"></ion-icon>
+                {{ item.file_name }}
+              </a>
+            </app-col>
+            <app-col size="auto">
+              <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.notice_file_data.splice(i,1)">
+                <app-img name="minus"></app-img>
+              </app-button>
+            </app-col> 
+          </app-row>
+          <ion-row
+          *ngIf="item.content_type.startsWith('image')">
+            <ion-col>
+              <div class="image-detail">이미지 미리보기</div>
+              <app-img class="image-class" [src]="item.full_url"></app-img>
+            </ion-col>
+          </ion-row>
+        </td>
+      </tr>
+    </app-table>
 </ion-content>
 <app-button-footer *ngIf="permission.edit">
   <app-button *ngIf="item" fill="translucent" (click)="submit()">수정</app-button>

@@ -278,6 +278,9 @@ export class WorkerApprovalEditPage implements OnInit {
         ...this.formSafeEdu,
         ...res.rsObj
       }
+
+      console.log("------- asd : ",this.formSafeEdu.file_preview);
+      console.log("------- asd 2: ",this.formSafeEdu);
     } else if(res.rsCode === 3008) {
        // 비밀번호 없거나 틀렸음
        this.getPassword();

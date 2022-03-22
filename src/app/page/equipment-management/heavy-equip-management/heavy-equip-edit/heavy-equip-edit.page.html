@@ -56,37 +56,37 @@
   </app-row>
     <h4>첨부서류</h4>
 <app-input label="건설기계 등록증" [disabled]="this.updateStatus">
-    <app-file
+    <app-file view_type='REGIST'
     [(ngModel)]="form.regist_file_data"
-    [file]="form.file"
-    [file_json]="form.file_json"></app-file>
+    [file]="form.machinery_file"
+    [file_json]="form.machinery_json "></app-file>
     추가
 </app-input>
-<app-file-preview *ngFor="let futItem of form.regist_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
+<app-file-preview *ngFor="let futItem of form.regist_file_data let i = index" [futItem]="futItem" [readonly]="this.updateStatus" (buttonClick)="form.regist_file_data.splice(i,1)"></app-file-preview>
 <app-input label="대여대금 지급보증서" [disabled]="this.updateStatus">
-  <app-file
+  <app-file view_type="RENTAL"
   [(ngModel)]="form.rental_file_data"
-  [file]="form.file"
-  [file_json]="form.file_json"></app-file>
+  [file]="form.machinery_file"
+  [file_json]="form.machinery_json "></app-file>
   추가
 </app-input>
-<app-file-preview *ngFor="let futItem of form.rental_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
+<app-file-preview *ngFor="let futItem of form.rental_file_data let i = index" [futItem]="futItem" [readonly]="this.updateStatus" (buttonClick)="form.rental_file_data.splice(i,1)"></app-file-preview>
 <app-input label="장비 작업계획서" [disabled]="this.updateStatus">
-  <app-file
+  <app-file view_type="PLAN"
   [(ngModel)]="form.plan_file_data"
-  [file]="form.file"
-  [file_json]="form.file_json"></app-file>
+  [file]="form.machinery_file"
+  [file_json]="form.machinery_json "></app-file>
   추가
 </app-input>
-<app-file-preview *ngFor="let futItem of form.plan_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
+<app-file-preview *ngFor="let futItem of form.plan_file_data let i = index" [futItem]="futItem" [readonly]="this.updateStatus" (buttonClick)="form.plan_file_data.splice(i,1)"></app-file-preview>
 <app-input label="기타" [disabled]="this.updateStatus">
-  <app-file
+  <app-file view_type="ETC"
   [(ngModel)]="form.etc_file_data"
-  [file]="form.file"
-  [file_json]="form.file_json"></app-file>
+  [file]="form.machinery_file"
+  [file_json]="form.machinery_json "></app-file>
   추가
 </app-input>
-<app-file-preview *ngFor="let futItem of form.etc_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
+<app-file-preview *ngFor="let futItem of form.etc_file_data let i = index" [futItem]="futItem" [readonly]="this.updateStatus" (buttonClick)="form.etc_file_data.splice(i,1)"></app-file-preview>
 
 </ion-content>
 <app-button-footer *ngIf="machinery_id">

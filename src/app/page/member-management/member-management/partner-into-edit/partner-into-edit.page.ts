@@ -147,6 +147,8 @@ export class PartnerIntoEditPage implements OnInit {
     approval: false //저장
   }
 
+  system: boolean = false; //시스템권한선택
+
   menu: number = 1;
   constructor(
     private _modal_: ModalController,
@@ -159,8 +161,11 @@ export class PartnerIntoEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
+    if(this.item.company_contract_type === '협력사' && 
+      this.user.userData.user_role === 'MASTER_HEAD') this.system = true
+      else {
+        this.system = false;
+      }
     this.getPermission();
     this.get();
   }

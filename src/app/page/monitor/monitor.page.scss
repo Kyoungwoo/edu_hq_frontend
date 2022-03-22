@@ -262,6 +262,103 @@ app-card:last-child{
     }
 }
 
+.toolbar-padding{
+    --padding-start: 12px!important;
+    --padding-end: 12px!important;
+}
+
+.graph-row-today-work{
+    height: 100%; 
+
+    .col-today-work{
+        height: calc(100% - 120px);
+        max-height: 500px;
+        bottom: -16px;
+    }
+}
+.graph-area{
+    height: 100%;
+    width: 100%;
+    .graph-wrap{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    
+        .graph-line-wrap{
+            height: 100%;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    
+        .bar-wrap{
+            width: 100%;
+            display: flex;
+            position: absolute;
+            top: 0;
+            height: calc(100% + 30px);
+            justify-content: space-evenly;
+
+            .bar-item{
+                display: flex;
+                flex-direction: column;
+                justify-content: end;
+
+                .bar{
+                    // height: 40px;
+                    background: var(--ion-color-primary);
+                }
+                .text{
+                    height: 31px;
+                    padding-top: 8px;
+
+                    // transform: rotate(-45deg);
+                }
+
+                &.theme{width:26px;}
+            }
+        }
+    }
+}
+
+.graph-line-box{
+    flex: 1;
+    display: flex;
+    height: 100%;
+
+    .graph-line{
+        position: relative;
+        height: 50px;
+        width: 100%; 
+        border-top: 1px solid var(--ion-color-medium);
+        height: 100%;
+    }
+    .graph-text{
+        // position: absolute;
+        // top: 40px;
+        // left: 3px;
+        // text-align: left;
+        // width: 25px;
+        // text-align: end;
+        flex: 0 24px;
+        text-align: right;
+        margin-right: 4px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: right;
+        position: relative;
+
+        .div-text-g{
+            position: absolute;
+            position: absolute;
+            top: -10px;
+        }
+    }
+}
+
+
 @media screen and (max-width:1350px) {
     app-row{
         flex-direction: column !important;
@@ -279,5 +376,12 @@ app-card:last-child{
             margin-top: 10px;
         }
     }
-
+    .graph-row-today-work{
+        height: 350px; 
+    
+        .col-today-work{
+            height: 300px;
+            max-height: 500px;
+        }
+    }
 }

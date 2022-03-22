@@ -14,14 +14,14 @@ export class SupervisionListPage implements OnInit {
 
   form = {
     company_contract_type: '감리사',
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
-    hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id | 0,
+    hq_business_id: this.user.userData.belong_data.hq_business_id | 0,
     limit_no: 0,
     master_company_ids: [],
     search_text: '',
   }
 
-  res:ConnectResult <{
+  res: ConnectResult <{
     contract_end_date: string, // ~ 공사기간
     hq_business_name: string, // 사업본부
     project_id: number, // 현장 ID
@@ -43,20 +43,21 @@ export class SupervisionListPage implements OnInit {
     index: number
   }>
 
-  ctgoRegional:ConnectResult<{
+  ctgoRegional: ConnectResult<{
     hq_regional_name: string,
     hq_regional_entire_state: number,
     hq_regional_code: string,
     hq_regional_id: number
   }>
 
-  ctgoBusiness:ConnectResult<{
+  ctgoBusiness: ConnectResult<{
     hq_business_name: string,
     hq_business_entire_state: number,
     hq_regional_id: number,
     hq_business_code: string,
     hq_business_id: number
   }>
+  businessState: boolean = true;
 
   constructor(
     private modal: ModalController,
@@ -124,14 +125,13 @@ export class SupervisionListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
-  async getCtgoBusiness() {
-    this.ctgoBusiness.rsMap = [];
-    if(this.form.hq_regional_id) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',{hq_regional_id:this.form.hq_regional_id},{});
-
-    
-    // console.log(this,this.ctgoRegional);
-    // if(this.ctgoRegional.rsCode === 0) {
-    // }
+    async getCtgoBusiness() {
+    this.businessState = false;
+    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
+    {
+      hq_regional_id:this.form.hq_regional_id
+    },{});
+    if(this.ctgoBusiness.rsCode === 0) {}
   }
 
 }
