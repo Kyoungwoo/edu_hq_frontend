@@ -204,6 +204,7 @@ export class AreaStandardSetPage implements OnInit {
 
   async areaTow(area_top_id) {
     this.area_top_id = area_top_id;
+    this.resAreaThree = null;
     this.resAreaTwo = await this.connect.run('/project/area/middle/get', { area_top_id: area_top_id }, {});
     if (this.resAreaTwo.rsCode === 0) {
 
@@ -245,11 +246,12 @@ export class AreaStandardSetPage implements OnInit {
 
 
   async areaTwoEdit(area, update?) {
-    if (update) {
-      if (!this.selectDataArea2.length) return await this.toast.present({ message: '장소를 선택해 주세요', color: 'danger' });
+    if(update) {
+      if(!this.selectDataArea2.length) return await this.toast.present({ message: '장소를 선택해 주세요', color: 'danger' });
     }
-    if (this.selectDataArea2.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.', color: 'danger' });
-    if (!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.', color: 'danger' });
+    if(!this.area_top_id) return this.toast.present({message:'area1을 선택해주세요.',color:'warning'});
+    if(this.selectDataArea2.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.', color: 'danger' });
+    if(!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.', color: 'danger' });
     const modal = await this.modal.create({
       component: AreaAddPage,
       componentProps: {
@@ -270,11 +272,13 @@ export class AreaStandardSetPage implements OnInit {
 
 
   async areaThreeEdit(area, update?) {
-    if (update) {
-      if (!this.selectDataArea3.length) return await this.toast.present({ message: '장소를 선택해 주세요' });
+    if(update) {
+      if(!this.selectDataArea3.length) return await this.toast.present({ message: '장소를 선택해 주세요' });
     }
-    if (this.selectDataArea3.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.' });
-    if (!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.' });
+    if(this.selectDataArea3.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.' });
+    if(!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.' });
+    if(!this.area_top_id) return this.toast.present({message:'area1을 선택해주세요.', color:'warning'});
+    if(!this.area_middle_id) return this.toast.present({message:'area2를 선택해주세요', color:'warning'});
     const modal = await this.modal.create({
       component: AreaAddPage,
       componentProps: {

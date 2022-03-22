@@ -254,30 +254,25 @@ export class MemberStandardSetPage implements OnInit {
   }
 
 
-  radioChange(ev, level) {
+  radioChange(ev, level, item) {
+    console.log("asdfasdfa");
     ev.stopPropagation();
     switch (level) {
       case 'level1':
-        this.resLevel1?.rsMap.forEach((item, i) => {
           if (this.area1SelectList !== item) {
             item.checked = false;
           }
-        });
         break;
       case 'level2':
-        this.resLevel2?.rsMap.forEach((item, i) => {
           if (this.area2SelectList !== item) {
             this.area3SelectList = [];
             item.checked = false;
           }
-        });
         break;
       case 'level3':
-        this.resLevel3?.rsMap.forEach((item, i) => {
           if (this.area2SelectList !== item) {
             item.checked = false;
           }
-        });
         break;
     }
   }
@@ -525,17 +520,24 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async jobAddSave() {
-    this.resJobPosition.rsMap.forEach(async (item) => {
+    this.resJobPosition.rsMap.forEach(async(item,i) => {
       if (item.ctgo_job_position_id === 0) {
         const res = await this.connect.run('/project/job_position/insert', item, {});
         if (res.rsCode === 0) {
-          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
-
+          if(this.resJobPosition.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
          };
-      } else {
+      } 
+      else {
         const res = await this.connect.run('/project/job_position/update', item, {});
         if (res.rsCode === 0) { 
-          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          console.log("this.resJobPosition.rsMap.length",this.resJobPosition.rsMap.length);
+          console.log("i",i +1);
+          if(this.resJobPosition.rsMap.length === (i + 1)) {
+            console.log("sdfasdfasdf???");
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });
@@ -624,16 +626,20 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async safeJobSave() {
-    this.resSafeJob.rsMap.forEach(async (item) => {
+    this.resSafeJob.rsMap.forEach(async (item, i) => {
       if (item.ctgo_safe_job_id === 0) {
         const res = await this.connect.run('/project/safe_job/insert', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resSafeJob.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/safe_job/update', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resSafeJob.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });
@@ -721,16 +727,20 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async occupationSave() {
-    this.resOccupation.rsMap.forEach(async (item) => {
+    this.resOccupation.rsMap.forEach(async (item, i) => {
       if (item.ctgo_occupation_id === 0) {
         const res = await this.connect.run('/project/occupation/insert', item, {});
         if (res.rsCode === 0) {
-          this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resOccupation.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/occupation/update', item, {});
         if (res.rsCode === 0) {
-          this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
+          if(this.resOccupation.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '수정 되었습니다.', color: 'primary' });
+          }
         };
       }
     });

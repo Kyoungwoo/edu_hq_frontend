@@ -152,16 +152,20 @@ export class WorkStandardSetPage implements OnInit {
     }
   }
   async constructionSave() {
-    this.resConstruction.rsMap.forEach(async (item) => {
+    this.resConstruction.rsMap.forEach(async (item, i) => {
       if (item.ctgo_construction_id === 0) {
         const res = await this.connect.run('/project/construction/insert', item, {})
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resConstruction.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/construction/update', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resConstruction.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });
@@ -189,20 +193,20 @@ export class WorkStandardSetPage implements OnInit {
           text: '예',
           handler: async () => {
             const list = this.resConstruction.rsMap;
-            this.constructionSelected.forEach(async (checkedItem) => {
-              if (checkedItem.ctgo_occupation_id === 0) {
-                list.splice(list.findIndex(item => item === checkedItem), 1);
-              } else {
-                // const res = await this.connect.run('/project/occupation/delete', {
-                //   company_id: checkedItem.company_id,
-                //   ctgo_occupation_id: checkedItem.ctgo_occupation_id
-                // });
-                // if (res.rsCode === 0) {
-                //   this.getOccupation();
-                // };
-              }
-              // this.occupationSelected = [];
-            });
+            // this.constructionSelected.forEach(async (checkedItem) => {
+            //   if (checkedItem.ctgo_occupation_id === 0) {
+            //     list.splice(list.findIndex(item => item === checkedItem), 1);
+            //   } else {
+            //     const res = await this.connect.run('/project/occupation/delete', {
+            //       company_id: checkedItem.company_id,
+            //       ctgo_occupation_id: checkedItem.ctgo_occupation_id
+            //     });
+            //     if (res.rsCode === 0) {
+            //       this.getConstruction();
+            //     };
+            //   }
+            //   this.constructionSelected = [];
+            // });
           }
         }
       ]
@@ -293,18 +297,22 @@ export class WorkStandardSetPage implements OnInit {
       item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
 
     })
-    this.resMachinery.rsMap.forEach(async (item) => {
+    this.resMachinery.rsMap.forEach(async (item, i) => {
       if (item.ctgo_machinery_id === 0) {
         const res = await this.connect.run('/project/machinery/insert', item, {})
         if (res.rsCode === 0) {
           item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resMachinery.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/machinery/update', item, {});
         if (res.rsCode === 0) {
           item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resMachinery.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });
@@ -375,16 +383,20 @@ export class WorkStandardSetPage implements OnInit {
   }
 
   toolSave() {
-    this.resTool.rsMap.forEach(async (item) => {
+    this.resTool.rsMap.forEach(async (item, i) => {
       if (item.ctgo_tool_id === 0) {
         const res = await this.connect.run('/project/tool/insert', item, {})
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resTool.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/tool/update', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resTool.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });
@@ -496,16 +508,20 @@ export class WorkStandardSetPage implements OnInit {
   }
 
   disasterSave() {
-    this.resDisaster.rsMap.forEach(async (item) => {
+    this.resDisaster.rsMap.forEach(async (item, i) => {
       if (item.ctgo_disaster_id === 0) {
         const res = await this.connect.run('/project/disaster/insert', item, {})
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resDisaster.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       } else {
         const res = await this.connect.run('/project/disaster/update', item, {});
         if (res.rsCode === 0) {
-          return await this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          if(this.resDisaster.rsMap.length === (i + 1)) {
+            this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
+          }
         };
       }
     });

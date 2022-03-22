@@ -53,16 +53,25 @@ export class SearchProjectContractorComponent implements OnInit {
     this.getCtgoContractor();
   }
 
-  async getCtgoContractor() {
+  async getCtgoContractor(submitArr?) {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
-      for (let i = 0; i < this.res.rsMap.length; i++) {
-        for (let x = 0; x < this.value.length; x++) {
-          if (this.res.rsMap[i].company_id === this.value[x]) {
-            this.res.rsMap[i].checked = true;
-            this.filteritem.push(this.res.rsMap[i]);
+      if(this.value.length) {
+        this.res.rsMap.filter((item ,i) => {
+          if(this.value.indexOf(item.company_id) === i) {
+            item.checked = true;
           }
-        }
+        });
+      }
+      if(submitArr?.length){
+        this.res.rsMap.forEach((item, i) => {
+          submitArr.forEach(data => {
+            if(item.business_register_no === data.business_register_no) {
+              this.filteritem.push(item);
+              item.checked = true;
+            }
+          });
+        });
       }
     }
   }
@@ -128,10 +137,8 @@ export class SearchProjectContractorComponent implements OnInit {
 
 
   async submit() {
-    console.log(this.business_register_no_check);
     if (this.business_register_no_check) {
       // let conArr = this.filteritem.concat(this.submitArr);
-      console.log(this.submitArr);
       for (let i = 0; i < this.submitArr.length; i++) {
         if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning"  });
         if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning"  });
@@ -144,23 +151,13 @@ export class SearchProjectContractorComponent implements OnInit {
           company_contract_type: '원청사'
         });
         if (res.rsCode === 0) {
-          this.getCtgoContractor();
-          this.submitArr = [];
+          this.getCtgoContractor(this.submitArr);
           this.business_register_no_check = false;
-          return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
-          // this._modal_.dismiss(conArr);
+          this._modal_.dismiss(this.filteritem);
         }
       }
-    } else {
-      // let conArr = this.filteritem.concat(this.submitArr);
-      this.filteritem.forEach(item => {
-        if (!item.company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning" });
-        if (!item.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning" });
-        if (item.business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
-        if (item.business_register_no.length > 10) this.overlap(item.business_register_no);
-        if (!item.company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning" });
-      });
-      this._modal_.dismiss(this.filteritem);
+      this.submitArr = [];
+      this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
     }
   }
 }
