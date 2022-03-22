@@ -63,14 +63,15 @@
 <ion-toolbar color="white">
   <app-row>
     <app-col>
-      <app-select-scene></app-select-scene>
+      <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
     </app-col>
   </app-row>
   <app-row>
     <app-col>
-      <app-select>
+      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      <!-- <app-select>
         <app-select-option>전체</app-select-option>
-      </app-select>
+      </app-select> -->
     </app-col>
   </app-row>
 </ion-toolbar>
@@ -99,12 +100,41 @@
                   <h4>금일 출역 근로자</h4>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip class="chip-back">총 113명</ion-chip>
+                  <ion-chip class="chip-back">총 {{ todayWork_totalCount }}명</ion-chip>
                 </app-col>
               </ion-row>
             </ion-toolbar>
-            <ion-row>
-              <ion-col style="height: 300px;">
+            <ion-row class="graph-row-today-work"> 
+              <ion-col class="col-today-work">
+                <div class="graph-area">
+                  <div class="graph-wrap">
+                    <div class="graph-line-wrap">
+                      <div *ngFor="let item of graphLine" class="graph-line-box">
+                        <div class="graph-text">
+                          <div class="div-text-g">{{ item }}</div>
+                        </div>
+                        <div class="graph-line"></div>
+                      </div>
+                    </div>
+                    <div class="graph-line-box">
+                      <div class="graph-text">
+                        <div class="div-text-g">0</div>
+                      </div>
+                      <div class="graph-line"></div>
+                    </div>
+  
+                    <div class="bar-wrap">
+                      <div class="bar-item theme"></div>
+                      <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
+                        <div class="bar" [style.height]="(((item.master_worker+item.company_worker) / ceil_Total) * 89.3)+'%'"></div>
+                        <div class="text">{{ item.work_date }}</div>
+                      </div>
+                      <!-- <div *ngFor="let item of todayWork?.rsMap" class="bar-item"></div> -->
+                    </div>
+                  </div>
+                </div>
+
+<!-- 
                 <div style="position: relative;">
                   <ng-container *ngFor="let item of graphArrCount let i = index">
                     <div class="graph-box">
@@ -117,14 +147,14 @@
                   <ng-container *ngFor="let item of graphArr let i = index">
                     <div class="graph-rod-main">
                       <div class="graph-rod-tow"></div>
-                      <!-- <div class="graph-rod-one"></div> -->
                       <div class="rod-name"
                         style="position: absolute; bottom: -55px; width: 100%; left: -30px; text-align: center; transform: rotate(-45deg);">
                         {{ item.date }}
                       </div>
                     </div>
                   </ng-container>
-                </div>
+                </div> -->
+                
               </ion-col>
             </ion-row>
           </app-col>
@@ -458,7 +488,7 @@
     </app-col>
     <app-col style="flex: 0 0 250px;" *mobileHidden>
       <app-table type="card">
-        <ion-toolbar slot="top" color="white">
+        <ion-toolbar class="toolbar-padding" slot="top" color="white">
           <ion-row style="justify-content: space-between;">
             <ion-col style="text-align: center;">
               <h4>스마트 안전 장비</h4>
