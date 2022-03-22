@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { FutItem } from 'src/app/basic/service/core/file.service';
+import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -12,23 +12,25 @@ export class HeavyEquipDetail {
     ctgo_construction_id: number;
     partner_company_name: string;
     rental_start_date: string;
-    etc_file_data: FutItem[] = [];
     ctgo_construction_name: string;
     ctgo_machinery_id: number;
     machinery_id: number;
     project_name: string;
     master_company_name: string;
     rental_end_date: string;
-    rental_file_data: FutItem[] = [];
     project_id: number;
     partner_company_id: number;
-    regist_file_data: FutItem[] = [];
     master_company_id: number;
     rental_price: number;
     machinery_regist_no: string;
     rental_company_name: string;
     ctgo_machinery_name: string;
+    file: (File | Blob)[] = [];
+    file_json: FileJson = new FileJson();
     plan_file_data: FutItem[] = [];
+    regist_file_data: FutItem[] = [];
+    rental_file_data: FutItem[] = [];
+    etc_file_data: FutItem[] = [];
 }
 
 @Component({
@@ -39,6 +41,8 @@ export class HeavyEquipDetail {
 export class HeavyEquipEditPage implements OnInit {
 
   @Input() machinery_id;
+
+  updateStatus: boolean = false;
 
 
   form:HeavyEquipDetail = new HeavyEquipDetail();
@@ -55,6 +59,12 @@ export class HeavyEquipEditPage implements OnInit {
 
   ngOnInit() {
     this.get();
+    if(this.machinery_id) {
+      this.updateStatus = true;
+      this.get();
+    } else {
+      this.updateStatus = false;
+    }
   }
 
   async get() { //상세보기
@@ -67,5 +77,71 @@ export class HeavyEquipEditPage implements OnInit {
         ...res.rsObj
       }
     }
+  }
+
+  Heavyedit() {
+    this.updateStatus = false;
+  }
+
+  async Heavydelete() {
+    const alert = await this.alert.present({
+      message: '선택된 장비 정보가 모두 삭제됩니다. 정말 삭제 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/machinery/delete', {
+              machinery_ids : [this.machinery_id]
+            });
+            if (res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    })
+  }
+
+  async Heavysave() {
+    this.alert.present({
+      message: '저장하시겠습니까?',
+      buttons: [
+        { text: '아니오' },
+        {
+          text: '예',
+          handler: async () => {
+            const res = await this.connect.run('/machinery/update', this.form, {});
+            if (res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    })
+  }
+
+  async Heavyupdate() { 
+    this.alert.present({
+      message:'수정 하시겠습니까?',
+      buttons:[
+        { text:'아니요' },
+        {
+          text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/machinery/update', this.form);
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    });
   }
 }

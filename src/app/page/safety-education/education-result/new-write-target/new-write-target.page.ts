@@ -61,8 +61,12 @@ export class NewWriteTargetPage implements OnInit {
       componentProps:{
         item:item
       }
-      
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+    if(data) {
+      this.get();
+    }
   }
 }

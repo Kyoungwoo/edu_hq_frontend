@@ -29,7 +29,7 @@ export class ApprovalPopupComponent implements OnInit {
   }
 
   constructor(
-    private _modal: ModalController,
+    private _modal_2: ModalController,
     private connect: ConnectService,
     private nav: NavService,
     private user: UserService,
@@ -68,13 +68,12 @@ export class ApprovalPopupComponent implements OnInit {
     }
     const res = await this.connect.run(method, this.form);
     if (res.rsCode === 0) {
-      this._modal.dismiss('Y');
+      this._modal_2.dismiss('Y');
     }
   }
 
 
   async approval() {
-    console.log("---------- state : ", this.state)
     let method = '';
     let page_name = '';
 
@@ -96,10 +95,10 @@ export class ApprovalPopupComponent implements OnInit {
         page_name = '/partner-info-list';
         break;
     }
+    this._modal_2.dismiss(true);
 
     const res = await this.connect.run(method, this.form);
     if (res.rsCode === 0) {
-      this._modal.dismiss('Y');
       this.nav.navigateForward(page_name, {
         force: true
       });

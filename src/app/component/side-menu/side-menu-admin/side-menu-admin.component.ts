@@ -94,7 +94,7 @@ export class  SideMenuAdminComponent implements OnInit {
     ]},
     { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
       { title: '작업자 가입승인', link: '/worker-approval-list'},
-      { title: '관리자 관리', thirdMenuList:[
+      { title: '관리자 가입승인', thirdMenuList:[
         {title:'LH 관리자 가입 승인',link:'/lh-approval-list'},
         {title:'감리 가입승인',link:'/supervision-approval-list'},
         {title:'원청사/협력사 관리자 가입승인',link:'/partner-approval-list'}

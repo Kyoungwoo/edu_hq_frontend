@@ -86,6 +86,10 @@ export class SafetyEducationResultListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getList();
+    }
   }
 
   async pending() {
@@ -98,8 +102,7 @@ export class SafetyEducationResultListPage implements OnInit {
   public async add() {
     const modal = await this._modal.create({
       component: NewWriteTargetPage,
-
-  })
-  modal.present();
-}
+    });
+    modal.present();
+  }
 }

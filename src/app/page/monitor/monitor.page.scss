@@ -1,6 +1,10 @@
 app-img{
     width: 30px;
 }
+ion-toolbar{
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+}
 .weather-temp {
     font-size: 25px;
     font-weight: bold;
@@ -246,9 +250,25 @@ app-img{
     color: var(--ion-color-secondary-contrast);
 }
 
+app-card:last-child{
+    margin-bottom: var(--app-margin);
+}
+
+.smart-equip{
+    // padding: 12px 12px;
+
+    app-button{
+        min-height: 32px;
+    }
+}
+
 @media screen and (max-width:1350px) {
     app-row{
         flex-direction: column !important;
+        app-col{
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
     .border-box{
         border-right: none;

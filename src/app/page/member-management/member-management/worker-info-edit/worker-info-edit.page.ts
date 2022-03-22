@@ -378,11 +378,13 @@ export class WorkerInfoEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            this.BasicSubmit();
-            // this.safeInsert();
-            // this.SafeSubmit()
-            this.BelongSubmit();
-            this.SafeEduSubmit();
+            await Promise.all([
+              this.BasicSubmit(),
+              this.inputSafeJob?.submit(),
+              this.inputCertify.submit(),
+              this.BelongSubmit(),
+              this.SafeEduSubmit()
+            ]);
           }
         }
       ]
@@ -476,7 +478,6 @@ export class WorkerInfoEditPage implements OnInit {
         ...res,
         ...this.resTotalMileageList
       }
-      console.log("asd - ", this.resTotalMileageList);
       // 정상
     } else if (res.rsCode === 1008) {
       // 데이터 없음

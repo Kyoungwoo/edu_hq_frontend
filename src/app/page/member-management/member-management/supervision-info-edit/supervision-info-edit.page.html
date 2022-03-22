@@ -39,11 +39,14 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input type="tel" name="input" label="핸드폰" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
-              중복확인
-            </app-input>
-            <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
-          </app-col>
+          <app-input-template name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+          [color]="validator.user_phone?.valid === false && 'warning'"
+          [disabled]="editable" [required]="true" (buttonClick)="overlapPhone()">
+            <!-- <p slot="input">{{ formBasic.user_phone }}</p> -->
+            <input name="tel" slot="input" [(ngModel)]="formBasic.user_phone" />
+            중복확인
+          </app-input-template>
+        </app-col>
           <app-col>
             <app-email name="user_email" label="이메일" [(ngModel)]="formBasic.user_email"
           [color]="validator.user_email?.valid === false && 'warning'" (delayKeyup)="overlapEmail()"></app-email>
@@ -84,7 +87,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.project_state">
+          <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [disabled]="true" [(ngModel)]="formApproval.project_state">
             <app-radio value="출역중">출역중</app-radio>
             <app-radio value="출역종료">출역종료</app-radio>
           </app-radio-input>

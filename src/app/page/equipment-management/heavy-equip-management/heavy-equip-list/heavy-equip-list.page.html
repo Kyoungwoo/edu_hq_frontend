@@ -12,7 +12,7 @@
       <tbody>
         <tr>
           <td>
-           <app-select-scene name="project_id" [(ngModel)]="form.project_id" [all]="true"></app-select-scene>
+           <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
           </td>
         </tr>
         <tr>
@@ -51,11 +51,13 @@
     <ion-toolbar color="white">
       <ion-buttons slot="start">
         <app-button fill="translucent" (click)="edit()">등록</app-button>
+        <app-button fill="translucent" (click)="Heavydelete()" color="danger">삭제</app-button>
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
       <h5>건설기계 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
     </ion-toolbar>
+    <app-check-group [(ngModel)]="selectedList">
     <app-table>
       <thead>
         <tr>
@@ -71,7 +73,7 @@
       <tbody>
         <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
           <td style="width: 40px;">
-            <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
+            <app-check (click)="$event.stopPropagation()" [on]="item.machinery_id" color="white" size="small" name="check"></app-check>
           </td>
           <td>{{ item.ctgo_machinery_name }}</td>
           <td>{{ item.machinery_regist_no }}</td>
@@ -82,6 +84,7 @@
         </tr>
       </tbody>
     </app-table>
+  </app-check-group>
     <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
   </app-col>
 </app-row>

@@ -137,6 +137,7 @@ export class WorkerApprovalListPage implements OnInit {
       
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+    
   }
 
   async getPassword() {
@@ -161,6 +162,10 @@ export class WorkerApprovalListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.get();
+    }
   }
 
   async approval() {

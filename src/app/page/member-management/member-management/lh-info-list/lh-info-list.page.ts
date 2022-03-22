@@ -16,7 +16,7 @@ class LhInfo {
   user_name: string;
   hq_regional_name: string;
   ctgo_job_position_name: string;
-  update_date: string;
+  create_date: string;
   row_count: number;
   index: number;
 }
