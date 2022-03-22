@@ -15,14 +15,14 @@ import { SceneEditPage } from '../scene-edit/scene-edit.page';
 export class SceneListPage implements OnInit {
 
   form = {
-    hq_business_id:0,
-    hq_regional_id:0,
-    search_text:'',
-    limit_no:0,
+    hq_business_id: 0,
+    hq_regional_id: 0,
+    search_text: '',
+    limit_no: 0,
   }
-  res:ConnectResult<{
-    index:number;
-    contract_end_date:string, // ~ 공사기간
+  res: ConnectResult<{
+    index: number;
+    contract_end_date: string, // ~ 공사기간
     hq_business_name: string, // 사업본부
     project_id: Number, // 현장 ID
     hq_regional_id: Number, // 지역본부 ID
@@ -34,19 +34,19 @@ export class SceneListPage implements OnInit {
     super_company_list: string, // 감리사목록
     contract_start_date: string, // 공사기간 ~
     project_use_state: Number, // 1 사용, 0 미사용
-    update_date:string, // 최근 업데이트
-    state:boolean,
+    update_date: string, // 최근 업데이트
+    state: boolean,
     row_count: number
   }>;
   
   ctgoRegional:ConnectResult<{
-    hq_regional_name:string,
+    hq_regional_name: string,
     hq_regional_entire_state: number,
     hq_regional_code: string,
     hq_regional_id: number
   }>
 
-  ctgoBusiness:ConnectResult<{
+  ctgoBusiness: ConnectResult<{
     hq_business_name: string,
     hq_business_entire_state: number,
     hq_regional_id: number,
@@ -54,15 +54,15 @@ export class SceneListPage implements OnInit {
     hq_business_id: number
   }>
 
-  businessState:boolean = true;
+  businessState: boolean = true;
 
-  listLoading:boolean = false;
+  listLoading: boolean = false;
   constructor(
-    private modal:ModalController,
-    private connect:ConnectService,
-    private toast:ToastService,
-    private date:DateService,
-    private alert:AlertService,
+    private modal: ModalController,
+    private connect: ConnectService,
+    private toast: ToastService,
+    private date: DateService,
+    private alert: AlertService,
     public user: UserService
   ) { }
 
@@ -159,6 +159,6 @@ export class SceneListPage implements OnInit {
     {
       hq_regional_id:this.form.hq_regional_id
     },{});
-    if(this.ctgoRegional.rsCode === 0) {}
+    if(this.ctgoBusiness.rsCode === 0) {}
   }
 }

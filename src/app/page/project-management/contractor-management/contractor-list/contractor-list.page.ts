@@ -59,6 +59,8 @@ export class ContractorListPage implements OnInit {
     hq_business_id: number
   }>
   
+  businessState:boolean = true;
+
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
@@ -117,14 +119,12 @@ export class ContractorListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
- async getCtgoBusiness() {
-    this.ctgoBusiness.rsMap = [];
-    if(this.form.hq_regional_id) this.ctgoBusiness = await this.connect.run('/category/organization/business/get',
+  async getCtgoBusiness() {
+    this.businessState = false;
+    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
     {
       hq_regional_id:this.form.hq_regional_id
     },{});
-
-    // if(this.ctgoRegional.rsCode === 0) {
-    // }
+    if(this.ctgoBusiness.rsCode === 0) {}
   }
 }
