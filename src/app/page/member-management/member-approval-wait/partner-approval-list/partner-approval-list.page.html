@@ -39,7 +39,7 @@
                 <app-input-group label="신청일">
                   <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
