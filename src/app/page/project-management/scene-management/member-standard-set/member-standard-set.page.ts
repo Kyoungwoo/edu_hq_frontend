@@ -149,9 +149,11 @@ export class MemberStandardSetPage implements OnInit {
         this.user.userData.user_role === 'MASTER_HEAD' ||
         this.user.userData.user_role === 'LH_ADMIN' ||
         this.user.userData.user_role === 'LH_HEAD') {
-          this.editable = true;
+          
           this.memberRoleCheck = false;
         }
+    if(this.user.userData.user_role === 'PARTNER_HEAD' ||
+    this.user.userData.user_role === 'MASTER_HEAD') this.editable = true;
 
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
@@ -458,16 +460,16 @@ export class MemberStandardSetPage implements OnInit {
   passwordCheck() {
     const rex =  /^[0-9]{4,}$/;
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-    if (!rex.test(this.form.company_password)) {
+    if (!rex.test(this.form.company_password) && this.form.company_password.length > 1) {
       this.passchkck = false;
       this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';
     } else {
       this.passchkck = true;
     }
-
   }
+
   subPasswordCheck() {
-    if (this.form.company_password !== this.subpassword) {
+    if (this.form.company_password !== this.subpassword && this.form.company_password.length) {
       this.subpasscheck = false;
       this.subpasswordMeassge = '비밀번호가 일치 하지 않습니다.';
     } else {
@@ -479,7 +481,9 @@ export class MemberStandardSetPage implements OnInit {
     if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
     const res = await this.connect.run('/project/company/pass/update', this.form, {});
     if (res.rsCode === 0) {
-      const toast = await this.toast.present({ message: '비밀번호가 변경 되었습니다.',color:'primary' });
+      this.toast.present({ message: '비밀번호가 변경 되었습니다.',color:'primary' });
+      this.form.company_password = null;
+      this.subpassword = null;
     }
   }
   //-->  회원관리 비밀번호 끝
@@ -695,7 +699,7 @@ export class MemberStandardSetPage implements OnInit {
         ctgo_occupation_use_state: 0,
         ctgo_occupation_id: 0,
         company_id: this.occupationForm,
-        ctgo_occupation_role: '',
+        ctgo_occupation_role: 'BASIC',
         ctgo_occupation_name_en: '',
         ctgo_occupation_name_kr: '',
         ctgo_occupation_name_ch: '',

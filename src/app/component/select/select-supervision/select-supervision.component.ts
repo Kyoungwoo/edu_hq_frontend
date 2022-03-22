@@ -27,6 +27,7 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
   @Input() label:string = "감리사";
   @Input() text:string;
   @Input() disabled:boolean = false;
+  @Input() required:boolean = false;
 
   isModalData:boolean = false;
   constructor(
@@ -35,11 +36,9 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
   ) { }
 
   ngOnInit() {
-    console.log("this.value",this.value);
   }
 
   public async get() {
-    console.log("this.value",this.value);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: '감리사',

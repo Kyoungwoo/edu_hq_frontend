@@ -97,7 +97,7 @@ export class SafetyEducationListPage implements OnInit {
       this.res.rsMap.map((item, i) => {
         item.index =  this.res.rsObj.row_count - this.form.limit_no - i;
         item.date_day = this.date.day(item.education_safe_date)[0];
-      })
+      });
     } else {      
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }

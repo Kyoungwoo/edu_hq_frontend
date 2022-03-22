@@ -5,6 +5,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DaumService } from 'src/app/basic/service/util/daum.service';
 import { ProjectAreaSetComponent } from 'src/app/component/modal/project-area-set/project-area-set.component';
@@ -91,7 +92,8 @@ export class SceneEditPage implements OnInit {
     private Date: DateService,
     public user: UserService,
     private alert: AlertService,
-    private changeRef: ChangeDetectorRef
+    private changeRef: ChangeDetectorRef,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -148,6 +150,17 @@ export class SceneEditPage implements OnInit {
   }
 
   async sceneInsert() {
+    if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.', color:'warning'});
+    if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.', color:'warning'});
+    if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.', color:'warning'});
+    if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.', color:'warning'});
+    if(!this.supervision_id.length) return this.toast.present({message:'원청사를 선택해 주세요.', color:'warning'});
+    if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.', color:'warning'});
+    if(!this.form.contract_end_date) return this.toast.present({message:'공사종료를 설정해 주세요.', color:'warning'});
+    if(!this.form.construction_amount) return this.toast.present({message:'공사금액를 설정해 주세요.', color:'warning'});
+    if(!this.form.ctgo_business_field_id) return this.toast.present({message:'공사분야를 설정해 주세요.', color:'warning'});
+    if(!this.form.project_address) return this.toast.present({message:'주소를 설정해 주세요.', color:'warning'});
+    if(!this.form.gps_coordinate_data) return this.toast.present({message:'현장영역를 설정해 주세요.', color:'warning'});
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [
@@ -175,11 +188,22 @@ export class SceneEditPage implements OnInit {
           }
         }
       ]
-    })
+    });
+    alert.present();
   }
   async sceneUpdate() {
     this.form.company_data = []
-    console.log("this.supervision_id",this.supervision_id);
+    if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.',color:'warning'});
+    if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.',color:'warning'});
+    if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.',color:'warning'});
+    if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.',color:'warning'});
+    if(!this.supervision_id.length) return this.toast.present({message:'원청사를 선택해 주세요.',color:'warning'});
+    if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.',color:'warning'});
+    if(!this.form.contract_end_date) return this.toast.present({message:'공사종료를 설정해 주세요.',color:'warning'});
+    if(!this.form.construction_amount) return this.toast.present({message:'공사금액를 설정해 주세요.',color:'warning'});
+    if(!this.form.ctgo_business_field_id) return this.toast.present({message:'공사분야를 설정해 주세요.',color:'warning'});
+    if(!this.form.project_address) return this.toast.present({message:'주소를 설정해 주세요.',color:'warning'});
+    if(!this.form.gps_coordinate_data) return this.toast.present({message:'현장영역를 설정해 주세요.',color:'warning'});
     const alert = await this.alert.present({
       message: '수정 하시겠습니까?',
       buttons: [
@@ -187,12 +211,10 @@ export class SceneEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            console.log(this.form.company_data);
             this.form.company_data.push({
               company_type: '원청사',
               company_id: this.contractor_id
             });
-            console.log("this.contractor_id",this.contractor_id);
             this.form.company_data.push({
               company_type: '감리사',
               company_id: this.supervision_id
@@ -219,9 +241,7 @@ export class SceneEditPage implements OnInit {
       });
       modal.present();
       const { data } = await modal.onDidDismiss();
-      console.log("data", data);
       if (data) {
-        console.log("조직기구 모달 데이터", data);
         this.organization.name = data.regName + ', ' + data.busName;
         this.form.hq_regional_id = data.regId;
         this.form.hq_business_id = data.busId;
