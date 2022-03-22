@@ -25,8 +25,8 @@ export class HeavyEquipDetail {
     machinery_regist_no: string;
     rental_company_name: string;
     ctgo_machinery_name: string;
-    file: (File | Blob)[] = [];
-    file_json: FileJson = new FileJson();
+    machinery_file: (File | Blob)[] = [];
+    machinery_json : FileJson = new FileJson();
     plan_file_data: FutItem[] = [];
     regist_file_data: FutItem[] = [];
     rental_file_data: FutItem[] = [];
@@ -58,7 +58,6 @@ export class HeavyEquipEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.get();
     if(this.machinery_id) {
       this.updateStatus = true;
       this.get();
@@ -106,6 +105,15 @@ export class HeavyEquipEditPage implements OnInit {
   }
 
   async Heavysave() {
+    if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    if(!this.form.partner_company_id) return this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
+    if(!this.form.ctgo_machinery_id) return this.toast.present({message:'중장비를 입력해주세요.',color:'warning'});
+    if(!this.form.machinery_regist_no) return this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
+    if(!this.form.ctgo_construction_id) return this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
+    if(!this.form.rental_company_name) return this.toast.present({message:'대여업체를 입력해주세요.',color:'warning'});
+    if(!this.form.rental_start_date) return this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+    if(!this.form.rental_end_date) return this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+    if(!this.form.rental_price) return this.toast.present({message:'보증금액을 입력해주세요.',color:'warning'});
     this.alert.present({
       message: '저장하시겠습니까?',
       buttons: [
@@ -113,7 +121,7 @@ export class HeavyEquipEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            const res = await this.connect.run('/machinery/update', this.form, {});
+            const res = await this.connect.run('/machinery/insert', this.form, {});
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {

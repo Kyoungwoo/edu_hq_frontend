@@ -35,7 +35,7 @@
             <app-input-group label="등록일">
               <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
               ~
-              <app-calendar [(ngModel)]="form.end_date" [min]="form.end_date"></app-calendar>
+              <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
             </app-input-group>
           </td>
         </tr>
@@ -50,7 +50,7 @@
   <app-col>
     <ion-toolbar color="white">
       <ion-buttons slot="start">
-        <app-button fill="translucent" (click)="edit()">등록</app-button>
+        <app-button fill="translucent" (click)="Heavyedit()">등록</app-button>
         <app-button fill="translucent" (click)="Heavydelete()" color="danger">삭제</app-button>
       </ion-buttons>
     </ion-toolbar>
@@ -71,7 +71,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+        <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="Heavyedit(item)">
           <td style="width: 40px;">
             <app-check (click)="$event.stopPropagation()" [on]="item.machinery_id" color="white" size="small" name="check"></app-check>
           </td>

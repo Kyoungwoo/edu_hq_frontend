@@ -242,11 +242,10 @@
           </app-col>
           <app-col>
             <app-input-template label="기초안전보건교육 이수증" [disabled]="!permission.approval">
-              <p *ngIf="!findFile('BASIC_SAFE_EDU') else tempBasicSafeEduValue" slot="input">기초안전보건교육 이수증</p>
+              <p *ngIf="!findFile('BASIC_SAFE_EDU') else tempBasicSafeEduValue" slot="input"></p>
               <ng-template #tempBasicSafeEduValue>
                 <ion-text color="dark" slot="input">{{ findFile('BASIC_SAFE_EDU').file_name }}</ion-text>
               </ng-template>
-              파일찾기
               <app-file name="input-basic_safe_edu" [(ngModel)]="formSafeEdu.file_preview" view_type="BASIC_SAFE_EDU" [file]="formSafeEdu.file" [file_json]="formSafeEdu.file_json"></app-file>
             </app-input-template>
           </app-col>

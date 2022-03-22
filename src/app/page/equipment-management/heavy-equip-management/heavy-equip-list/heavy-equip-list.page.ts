@@ -77,7 +77,7 @@ export class HeavyEquipListPage implements OnInit {
     }
   }
 
-  async edit(item?) {
+  async Heavyedit(item?) {
     const modal = await this.modal.create({
       component:HeavyEquipEditPage,
       componentProps:{
