@@ -84,7 +84,6 @@ export class PagerComponent implements OnInit {
     } else {
       this.limitNo += this.adminLimitNo;
     }
-
     this.pagerChange.emit(this.limitNo);
   }
 }

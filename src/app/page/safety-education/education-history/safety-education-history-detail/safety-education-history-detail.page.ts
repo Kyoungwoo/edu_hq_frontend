@@ -62,6 +62,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   }
 
   res:HistoryItem = new HistoryItem();
+
   hireRes:HireItem = new HireItem();
   routineRes:ConnectResult<{
     education_complete_time: number;
@@ -174,15 +175,13 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   }
 
   special(state,item){
-    console.log("item : ",item)
     if(state) {
       let recommendedeWidth = 0;
       recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16*100;
       return `width:${recommendedeWidth}%`;
     } else {
-      console.log('asdfasdfasdfsdf');
       let completeWidth = 0;
-      console.log(item.education_complete_time )
+      console.log("item.education_complete_time : ",item.education_complete_time);
         if(item.education_complete_time === 0) completeWidth = 0;
         else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16*100;
         return `width:${completeWidth}%`;

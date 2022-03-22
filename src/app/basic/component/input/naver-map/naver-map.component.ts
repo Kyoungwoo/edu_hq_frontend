@@ -153,7 +153,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
   private async parseData(v) {
     await this.afterInit();
-    this.resetMarker();
+    // this.resetMarker();
     if(v) {
       const length =  v.gps_latitude.length;
       for(let i = 0; i < length; i++) {

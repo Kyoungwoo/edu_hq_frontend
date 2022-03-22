@@ -50,7 +50,6 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
   ngOnInit() {}
 
   public async get() {
-    console.log("this.value",this.value);
     if(this.isModalData || !this.value) return;
     const res = await this.connect.run('/category/certify/company/get', {
       company_contract_type: '원청사',

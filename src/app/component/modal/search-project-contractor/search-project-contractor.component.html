@@ -6,8 +6,8 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input name="with img" placeholder="검색어를 입력해주세요.">
-      <app-img name="search"></app-img>
+    <app-input name="with img" [(ngModel)]="form.search_text" (keyup.enter)="getCtgoContractor()" placeholder="검색어를 입력해주세요.">
+      <app-img name="search" ></app-img>
     </app-input>
   </ion-toolbar>
 </ion-header>
@@ -45,7 +45,7 @@
         </app-col>
       </app-row>
     </ion-toolbar>
-    <app-table class="button" >
+    <app-table class="button">
       <thead>
         <tr>
           <th>회사명</th>

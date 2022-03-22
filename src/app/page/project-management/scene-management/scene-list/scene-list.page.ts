@@ -21,6 +21,7 @@ export class SceneListPage implements OnInit {
     limit_no:0,
   }
   res:ConnectResult<{
+    index:number;
     contract_end_date:string, // ~ 공사기간
     hq_business_name: string, // 사업본부
     project_id: Number, // 현장 ID
@@ -80,6 +81,9 @@ export class SceneListPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index =  res.rsObj.row_count - this.form.limit_no - i;
+      });
     } else if(res.rsCode === 1008) {
       if(!this.form.limit_no) this.toast.present({ color: 'warning', message: res.rsMsg });
       // else 더 로딩할 데이터가 없음
@@ -90,7 +94,6 @@ export class SceneListPage implements OnInit {
   }
 
   async use_submit() {
-    
     let project_use_state_data = [];
     this.res.rsMap.forEach(item => {
       if(item.state){
@@ -151,11 +154,11 @@ export class SceneListPage implements OnInit {
   }
   
   async getCtgoBusiness() {
-        this.businessState = false;
-        this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
-        {
-          hq_regional_id:this.form.hq_regional_id
-        },{});
-        if(this.ctgoRegional.rsCode === 0) {}
+    this.businessState = false;
+    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
+    {
+      hq_regional_id:this.form.hq_regional_id
+    },{});
+    if(this.ctgoRegional.rsCode === 0) {}
   }
 }

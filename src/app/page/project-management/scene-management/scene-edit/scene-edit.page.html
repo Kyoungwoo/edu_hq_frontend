@@ -10,20 +10,20 @@
   <h4>현장 개요</h4>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-input (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
+      <app-input [required]="true" (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
         label="조직기구">
         <app-img name="search"></app-img>
       </app-input>
     </app-col>
     <app-col>
-      <app-input [(ngModel)]="form.project_name" [disabled]="roleCheck" label="현장명"></app-input>
+      <app-input [required]="true" [(ngModel)]="form.project_name" [disabled]="roleCheck" label="현장명"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak>
     <app-col>
       <app-row>
         <app-col>
-          <app-select-project-contractor [disabled]="roleCheck" [(ngModel)]="contractor_id">
+          <app-select-project-contractor [required]="true" [disabled]="roleCheck" [(ngModel)]="contractor_id">
           </app-select-project-contractor>
         </app-col>
       </app-row>
@@ -31,28 +31,28 @@
     <app-col>
       <app-row>
         <app-col>
-          <app-select-supervision [disabled]="roleCheck" [(ngModel)]="supervision_id"></app-select-supervision>
+          <app-select-supervision [required]="true" [disabled]="roleCheck" [(ngModel)]="supervision_id"></app-select-supervision>
         </app-col>
       </app-row>
     </app-col>
   </app-row>
   <app-row mobileBreak>
     <app-col style="display: flex;align-items: baseline;">
-      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_start_date" style="width: 100%;"
+      <app-calendar [disabled]="roleCheck" label="공사시작날짜" [required]="true" [(ngModel)]="form.contract_start_date" style="width: 100%;"
         [max]="form.contract_end_date">
       </app-calendar>
       <span>&nbsp;~&nbsp;</span>
-      <app-calendar [disabled]="roleCheck" [(ngModel)]="form.contract_end_date" style="width: 100%;"
+      <app-calendar [disabled]="roleCheck" label="공사종료날짜" [required]="true" [(ngModel)]="form.contract_end_date" style="width: 100%;"
         [min]="form.contract_start_date">
       </app-calendar>
     </app-col>
     <app-col>
-      <app-input [disabled]="roleCheck" [(ngModel)]="form.construction_amount" label="공사금액"></app-input>
+      <app-input [disabled]="roleCheck" [required]="true" [(ngModel)]="form.construction_amount" label="공사금액"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak>
     <app-col>
-      <app-select [disabled]="roleCheck" [(ngModel)]="form.ctgo_business_field_id" label="사업분야">
+      <app-select [disabled]="roleCheck" [required]="true" [(ngModel)]="form.ctgo_business_field_id" label="사업분야">
         <app-select-option *ngFor="let opt of ctgo_Business" [value]="opt.ctgo_business_field_id"> {{
           opt.ctgo_business_field_name }}</app-select-option>
       </app-select>
@@ -63,18 +63,18 @@
   </app-row>
   <app-row mobileBreak>
     <app-col size="1">
-      <app-input [readonly]="true" [(ngModel)]="form.project_postal_code" label="우편번호">
+      <app-input [readonly]="true" [required]="true" [(ngModel)]="form.project_postal_code" label="우편번호" (click)="address()">
       </app-input>
     </app-col>
     <app-col size="3">
-      <app-input [disabled]="roleCheck" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()"
+      <app-input [disabled]="roleCheck" [required]="true" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()"
         label="주소"></app-input>
     </app-col>
     <app-col size="2">
-      <app-input [disabled]="roleCheck" [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
+      <app-input [disabled]="roleCheck" [required]="true" [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
     </app-col>
     <app-col>
-      <app-input [disabled]="roleCheck"
+      <app-input [disabled]="roleCheck" [required]="true"
       [value]="form.gps_coordinate_data?.gps_latitude?.length ? '설정됨' : ''" [readonly]="true" (click)="project_area_set()"
         label="현장 영역">
       </app-input>

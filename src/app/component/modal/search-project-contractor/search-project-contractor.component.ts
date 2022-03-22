@@ -50,10 +50,10 @@ export class SearchProjectContractorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getCtgoSupervision();
+    this.getCtgoContractor();
   }
 
-  async getCtgoSupervision() {
+  async getCtgoContractor() {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
       for (let i = 0; i < this.res.rsMap.length; i++) {
@@ -144,7 +144,7 @@ export class SearchProjectContractorComponent implements OnInit {
           company_contract_type: '원청사'
         });
         if (res.rsCode === 0) {
-          this.getCtgoSupervision();
+          this.getCtgoContractor();
           this.submitArr = [];
           this.business_register_no_check = false;
           return this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
