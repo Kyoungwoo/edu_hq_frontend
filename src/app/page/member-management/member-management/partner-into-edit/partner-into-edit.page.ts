@@ -215,7 +215,7 @@ export class PartnerIntoEditPage implements OnInit {
       if(!user_phone) return this.validator.user_phone = null;
       if(user_phone?.length < 3) return this.validator.user_phone = { valid: false, message: '휴대폰 번호를 정확히 입력해주세요.' };
       const res = await this.connect.run('/usermanage/info/company/overlap/phone', { user_phone, user_id });
-      this.validator.user_phone = res.rsCode === 0 ? null : { valid: res.rsCode === 0, message: res.rsMsg };
+      this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
     }
     async changePhone() {
       const modal = await this._modal_.create({

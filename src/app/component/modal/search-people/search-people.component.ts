@@ -43,7 +43,6 @@ export class SearchPeopleComponent implements OnInit {
   }
 
   async get() {
-    console.log(this.form)
     this.res = await this.connect.run('/category/certify/company/user/get',this.form);
     if(this.res.rsCode !== 0) {
       this.toast.present({message:this.res.rsMsg,color:'warning'});

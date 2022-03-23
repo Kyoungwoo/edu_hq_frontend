@@ -63,7 +63,7 @@ export class ApprovalItem {
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  project_work_state: number;
+  project_state: number;
   construction_start_date: string;
   construction_end_date: string;
   ctgo_job_position_name_kr: string;

@@ -22,7 +22,7 @@ export class SearchCompanyComponent implements OnInit {
   @Input() type?: boolean = false;
   @Input() multiple:boolean;
   @Input() form = {
-    project_id:0,
+    project_id: 0,
     search_text: ''
   }
 

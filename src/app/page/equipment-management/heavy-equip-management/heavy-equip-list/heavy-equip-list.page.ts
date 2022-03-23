@@ -50,7 +50,7 @@ export class HeavyEquipListPage implements OnInit {
     private toast: ToastService,
     private connect: ConnectService,
     private date: DateService,
-    private user: UserService,
+    public user: UserService,
     private alert: AlertService
   ) { }
 

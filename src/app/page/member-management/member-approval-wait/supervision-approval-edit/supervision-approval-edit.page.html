@@ -42,7 +42,7 @@
           <app-input type="tel" name="phone-number" label="핸드폰" [(ngModel)]="formBasic.user_phone" [required]="true" (click)="overlapPhone()">
             중복확인
           </app-input>
-          <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
+          <app-input-caption *ngIf="validator.user_phone?.valid === false || validator.user_phone?.message == '성공'" [color]="validator.user_phone?.message == '성공' ? 'primary' : 'warning'">{{ validator.user_phone?.message == "성공" ? "사용가능한 전화번호 입니다." : validator.user_phone?.message }}</app-input-caption>
         </app-col>
         <app-col>
           <app-email name="user_email" label="이메일" [(ngModel)]="formBasic.user_email"

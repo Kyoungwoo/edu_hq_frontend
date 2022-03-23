@@ -24,7 +24,7 @@
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
     </app-col>
     <app-col>
-      <app-input label="현장 전화번호" [disabled]="this.updateStatus" [(ngModel)]="form.company_phone"></app-input>
+      <app-input label="현장 전화번호" [disabled]="updateStatus" [(ngModel)]="form.company_phone"></app-input>
     </app-col>
   </app-row>
   <h4>회사 로고</h4>
@@ -45,33 +45,33 @@
         </app-col>
       </app-row>
     </h4>
-    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="this.updateStatus"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="updateStatus"></app-file-preview>
   </app-card>
 
   <h4>담당자 정보</h4>
     <app-row>
       <app-col>
-        <app-input name="name" [disabled]="this.updateStatus" [(ngModel)]="form.manager_name" label="성명">
+        <app-input name="name" [disabled]="updateStatus" [(ngModel)]="form.manager_name" label="성명">
         </app-input>
       </app-col>
       <app-col>
-        <app-input  name="phoneNumber" [disabled]="this.updateStatus" [(ngModel)]="form.manager_phone"
+        <app-input  name="phoneNumber" [disabled]="updateStatus" [(ngModel)]="form.manager_phone"
           [type]="'tel'" label="연락처"></app-input>
       </app-col>
       <app-col>
-        <app-email label="이메일" [disabled]="this.updateStatus" [(ngModel)]="form.manager_email"></app-email>
+        <app-email label="이메일" [disabled]="updateStatus" [(ngModel)]="form.manager_email"></app-email>
       </app-col>
     </app-row>
   <h4>개인정보 처리 위탁 동의</h4>
     <app-row>
       <app-col>
-        <app-input name="consigner" [disabled]="this.updateStatus" [(ngModel)]="form.company_name" label="위탁자"></app-input>
+        <app-input name="consigner" [disabled]="updateStatus" [(ngModel)]="form.company_name" label="위탁자"></app-input>
       </app-col>
       <app-col>
-        <app-input name="fiduciary" [disabled]="this.updateStatus" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
+        <app-input name="fiduciary" [disabled]="updateStatus" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
       </app-col>
       <app-col>
-        <app-input name="consent" [disabled]="this.updateStatus" [(ngModel)]="form.consignee_consent_date" label="동의현황" [type]="'email'"></app-input>
+        <app-input name="consent" [disabled]="updateStatus" [(ngModel)]="form.consignee_consent_date" label="동의현황" [type]="'email'"></app-input>
       </app-col>
     </app-row>
     <app-card>
