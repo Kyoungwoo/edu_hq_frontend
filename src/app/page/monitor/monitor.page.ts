@@ -1,3 +1,4 @@
+import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -15,7 +16,10 @@ import { ConfirmSettingPopupComponent } from 'src/app/component/confirm/confirm-
 import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
 import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
 
-// 금일 출역 근로자
+/**
+ * @class TodayConstructionItem
+ *  - 금일 출역 근로자 변수 class
+ */
 export class TodayWorkItem {
   company_admin:number // 협력사 관리자 수
   company_worker:number // 협력사 작업자 수
@@ -23,6 +27,29 @@ export class TodayWorkItem {
   master_worker:number // 원청사 작업자 수
   total_cnt:number // 총 인원슈
   work_date:string // 날짜
+}
+
+/**
+ * @class TodayConstructionItem
+ *  - 공종별 출역인원 변수 class
+ */
+export class TodayConstructionItem {
+  ctgo_construction_name:string // 공종 이름
+  cnt:number // 총 인원수
+  ctgo_construction_id:number // id
+  dump_date:string // 날짜
+}
+
+/**
+ * @class SmartEquip
+ *  - 스마트 안전장비 변수 class
+ */
+ export class SmartEquip {
+  not_using_count:number // 미사용 스마트장비 수
+  ctgo_machine_serial_name:string // 스마트장비 이름
+  ctgo_machine_serial_id:number // 스마트장비 id
+  machine_count:number // 스마트장비 수
+  mmachine_using_count:number // 사용중 스마트장비 수
 }
 
 @Component({
@@ -43,10 +70,42 @@ export class MonitorPage implements OnInit, OnDestroy {
   }
 
   todayWork:ConnectResult<TodayWorkItem>;
-
   todayWork_totalCount = 0; // 금일 출역 근로자 총 수
-  graphLine = []; // 금일 출역 근로자 그래프 단위라인
-  ceil_Total = 0; // 금일 출역 근로자 총 수를 올림한 값
+  todayWork_graphLine = []; // 금일 출역 근로자 그래프 단위라인
+  todayWork_ceil_Total = 0; // 금일 출역 근로자 총 수를 올림한 값
+
+  todayConstruction:ConnectResult<TodayConstructionItem>;
+  todayConstruction_totalCount = 0; // 금일 출역 근로자 총 수
+  todayConstruction_graphLine = []; // 금일 출역 근로자 그래프 단위라인
+  todayConstruction_ceil_Total = 0; // 금일 출역 근로자 총 수를 올림한 값
+
+  smartEquip:ConnectResult<SmartEquip>;
+
+  //  구조물 변위 감지
+  smartEquip_structure = {
+    not_using_count: 0, // 미사용 스마트장비 수
+    ctgo_machine_serial_name: '구조물 변위 감지', // 스마트장비 이름
+    ctgo_machine_serial_id: 0, // 스마트장비 id
+    machine_count: 0, // 스마트장비 수
+    mmachine_using_count: 0 // 사용중 스마트장비 수
+  } 
+
+  //  크레인 상하차 감지
+  smartEquip_crane = {
+    not_using_count: 0, // 미사용 스마트장비 수
+    ctgo_machine_serial_name: '크레인 상하차 감지', // 스마트장비 이름
+    ctgo_machine_serial_id: 0, // 스마트장비 id
+    machine_count: 0, // 스마트장비 수
+    mmachine_using_count: 0 // 사용중 스마트장비 수
+  } 
+  //  밀폐공간 유해물질 감지
+  smartEquip_closeness = {
+    not_using_count: 0, // 미사용 스마트장비 수
+    ctgo_machine_serial_name: '밀폐공간 유해물질 감지', // 스마트장비 이름
+    ctgo_machine_serial_id: 0, // 스마트장비 id
+    machine_count: 0, // 스마트장비 수
+    mmachine_using_count: 0 // 사용중 스마트장비 수
+  } 
 
 
   menuCount:Number = 1;
@@ -80,52 +139,6 @@ export class MonitorPage implements OnInit, OnDestroy {
 
 
   maxIndex = 300;
-  graphArrCount =[];
-  graphArr = [
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    },
-    {
-      date:'21-01-115471'
-    }
-]
-graphArr2 = [
-  {
-    name:'전기',
-    count:10
-  },
-  {
-    name:'토목',
-    count:2
-  },
-  {
-    name:'조경',
-    count:3
-  },
-  {
-    name:'건축',
-    count:4
-  },
-  {
-    name:'기계',
-    count:5
-  },
-]
 
 
 graphArr3 = [
@@ -205,26 +218,33 @@ graphArr4 = [
     // });
     // modal.present();
       
+    this.intervalMethodController();
     this.methodContrroller();
   }
 
   /**
-   * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드
+   * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
+    this.monitorQuery();
+
+    this.getTodayWorker(); // 금일 출역 작업자
+    this.getTodayConstruction(); // 공종별 출역 작업자
+    this.getSmartEquip() // 스마트 안전장비 
+  }
+
+  /**
+   * @function intervalMethodController(): 인터벌이 포함되어있는 메서드를
+   */
+  intervalMethodController(){
+    this.IntervalWeather_Dust(); // 날씨 및 미세먼지
     /**
      * 날씨와 미세먼지는 인터벌이있기때문에 처음에 한번은 불러와줘야합니다.
      * @function this.getDust()
      * @function this.getWeather()
      */
-     this.getDust(); // 미세먼지
-     this.getWeather(); // 날씨
-
-    this.graphData();
-    this.monitorQuery();
-
-    this.IntervalWeather_Dust(); // 날씨 및 미세먼지
-    this.getTodayWorker(); // 금일 출역 작업자
+    this.getDust(); // 미세먼지
+    this.getWeather(); // 날씨
   }
 
   /**
@@ -262,28 +282,28 @@ graphArr4 = [
         let total = 0;
         this.todayWork = res;
 
-        this.todayWork.rsMap[0].company_worker = Number(300);
-        this.todayWork.rsMap[0].master_worker = Number(200);
+        // theme
+        // this.todayWork.rsMap[0].company_worker = Number(300);
+        // this.todayWork.rsMap[0].master_worker = Number(200);
 
 
-        this.todayWork.rsMap[1].company_worker = Number(43);
-        this.todayWork.rsMap[1].master_worker = Number(90);
+        // this.todayWork.rsMap[1].company_worker = Number(43);
+        // this.todayWork.rsMap[1].master_worker = Number(90);
 
-        this.todayWork.rsMap[2].company_worker = Number(111);
-        this.todayWork.rsMap[2].master_worker = Number(76);
+        // this.todayWork.rsMap[2].company_worker = Number(111);
+        // this.todayWork.rsMap[2].master_worker = Number(76);
 
-        this.todayWork.rsMap[3].company_worker = Number(172);
-        this.todayWork.rsMap[3].master_worker = Number(222);
+        // this.todayWork.rsMap[3].company_worker = Number(172);
+        // this.todayWork.rsMap[3].master_worker = Number(222);
 
-        this.todayWork.rsMap[4].company_worker = Number(95);
-        this.todayWork.rsMap[4].master_worker = Number(66);
+        // this.todayWork.rsMap[4].company_worker = Number(95);
+        // this.todayWork.rsMap[4].master_worker = Number(66);
 
-        this.todayWork.rsMap[5].company_worker = Number(1);
-        this.todayWork.rsMap[5].master_worker = Number(2);
+        // this.todayWork.rsMap[5].company_worker = Number(1);
+        // this.todayWork.rsMap[5].master_worker = Number(2);
         
-        this.todayWork.rsMap[6].company_worker = Number(7);
-        this.todayWork.rsMap[6].master_worker = Number(3);
-
+        // this.todayWork.rsMap[6].company_worker = Number(7);
+        // this.todayWork.rsMap[6].master_worker = Number(3);
 
         
         this.todayWork.rsMap.map((item) => {total = total+item.master_worker+item.company_worker;});
@@ -294,7 +314,7 @@ graphArr4 = [
         let max_today = Math.max.apply(null,total_arr);
 
         let lineCount = (Math.ceil(max_today / 100) * 100) * 0.01;
-        this.ceil_Total = Math.ceil(max_today / 100) * 100;
+        this.todayWork_ceil_Total = Math.ceil(max_today / 100) * 100;
 
 
 
@@ -303,13 +323,84 @@ graphArr4 = [
           graph_item.push((i+1)*100);
         }
 
-        this.graphLine = graph_item;
-
-        console.log("--------- math 1: ", max_today);
-        console.log("--------- math 2: ", this.graphLine);
-        console.log("test",this.todayWork);
+        this.todayWork_graphLine = graph_item;
         break;
     }
+  }
+
+  /**
+   * @function getTodayConstruction(): 공종별 출역 작업자 데이터를 가져오는 메서드
+   */
+   async getTodayConstruction() {
+    const res = await this.connect.run('/integrated/construction_worker',this.form,{});
+    switch(res.rsCode) {
+      case 0 :
+        console.log(res);
+        let total = 0;
+        this.todayConstruction = res;
+
+        // theme
+        // this.todayConstruction.rsMap[0].cnt = Number(66);
+        // this.todayConstruction.rsMap[1].cnt = Number(55);
+        // this.todayConstruction.rsMap[2].cnt = Number(43);
+        // this.todayConstruction.rsMap[3].cnt = Number(88);
+        // this.todayConstruction.rsMap[4].cnt = Number(44);
+        // this.todayConstruction.rsMap[5].cnt = Number(11);
+        // this.todayConstruction.rsMap[6].cnt = Number(33);
+        // this.todayConstruction.rsMap[7].cnt = Number(22);
+        // this.todayConstruction.rsMap[8].cnt = Number(77);
+
+        
+        this.todayConstruction.rsMap.map((item) => {total = total+item.cnt;});
+        this.todayConstruction_totalCount = total;
+
+        let total_arr = [];
+        this.todayConstruction.rsMap.map((item) => {total_arr.push(item.cnt);});
+        let max_today = Math.max.apply(null,total_arr);
+
+        this.todayConstruction_ceil_Total = Math.ceil(max_today / 10) * 10;
+        break;
+    }
+  }
+
+  /**
+   * @function getSmartEquip(): 스마트장비 데이터를 가져오는 메서드
+   */
+   async getSmartEquip() {
+     // this.form
+    const res = await this.connect.run('/integrated/smart_equip',{project_id:1, master_company_id:1},{});
+    switch(res.rsCode) {
+      case 0 :
+        this.smartEquip = res;
+
+        this.smartEquip.rsMap.map((item) => {
+          if(item.ctgo_machine_serial_id == 8){
+            this.smartEquip_structure = item;
+            this.smartEquip_structure.ctgo_machine_serial_name = '구조물 변위 감지'
+          }
+
+          if(item.ctgo_machine_serial_id == 4){
+            this.smartEquip_crane = item;
+            this.smartEquip_crane.ctgo_machine_serial_name = '크레인 상하차 감지'
+          }
+
+          if(item.ctgo_machine_serial_id == 7){
+            this.smartEquip_closeness = item;
+            this.smartEquip_closeness.ctgo_machine_serial_name = '밀폐공간 유해물질 감지'
+          }
+        });
+        break;
+    }
+  }
+
+  async smartEquipEdit() {
+    const modal = await this.modal.create({
+      component:MonitorSmartEquipEditPage,
+      componentProps:{
+
+      }
+    });
+    modal.present();
   }
 
   /**
@@ -337,16 +428,16 @@ graphArr4 = [
     }
   }
 
-  graphData() {
-    let index = Math.ceil(this.maxIndex/100);
-    console.log("index",index);
-    if(this.maxIndex/100 !== 0) {
-      for(let i= 0; i<index; i++){
-        this.graphArrCount.push(i);
-      }
-    }
-    this.graphArrCount.push(index);
-  }
+  // graphData() {
+  //   let index = Math.ceil(this.maxIndex/100);
+  //   console.log("index",index);
+  //   if(this.maxIndex/100 !== 0) {
+  //     for(let i= 0; i<index; i++){
+  //       this.graphArrCount.push(i);
+  //     }
+  //   }
+  //   this.graphArrCount.push(index);
+  // }
   monitorQuery(){
    this.query =  this.route.queryParams.subscribe(params => {
         this.data = {
