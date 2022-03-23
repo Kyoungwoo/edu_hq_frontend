@@ -184,7 +184,7 @@ export class WorkStandardSetPage implements OnInit {
   }
 
   async constructionDelete() {
-    if (!this.constructionSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    if (!this.constructionSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.', color:'warning' });
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [
@@ -251,7 +251,9 @@ export class WorkStandardSetPage implements OnInit {
     }
   }
   async machineryDelete() {
-    if (!this.selectedMachinery.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    console.log(this.selectedMachinery);
+    let filteritem = this.selectedMachinery.filter(item => this.selectedMachinery.indexOf(item))
+    if(!filteritem.length) return this.toast.present({ message: '최소 1개 이상 선택해주세요.',color:'warning' });
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [
@@ -351,7 +353,7 @@ export class WorkStandardSetPage implements OnInit {
   }
 
   async toolDelete() {
-    if (!this.slectedTool.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    if (!this.slectedTool.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.',color:'warning'});
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [

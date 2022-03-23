@@ -120,7 +120,7 @@ export class AreaStandardSetPage implements OnInit {
 
   area_risk_use_state_data = [];
   gps_coordinate_data = new GPS_COORDINATE_DATA();
-  
+
   resGPS: ConnectResult<{
     area_bottom_name: string,
     area_risk_id: number,
@@ -136,7 +136,7 @@ export class AreaStandardSetPage implements OnInit {
     area_risk_name: string
   }>
 
-  resGPScood:ConnectResult <{
+  resGPScood: ConnectResult<{
     order_no: number,
     gps_id: number,
     gps_latitude: number,
@@ -144,8 +144,10 @@ export class AreaStandardSetPage implements OnInit {
   }>
   gpsselected: SelectItem = new SelectItem();
 
-  naverMapSetting:boolean = true;
+  naverMapSetting: boolean = true;
   areaRoleCheck: boolean = true;
+
+  updateEdit: boolean = false;
 
   constructor(
     private modal: ModalController,
@@ -158,13 +160,18 @@ export class AreaStandardSetPage implements OnInit {
 
   ngOnInit() {
     if (this.user.userData.user_role === 'MASTER_HEAD' ||
-        this.user.userData.user_role === 'LH_ADMIN' ||
-        this.user.userData.user_role === 'LH_HEAD') {
+      this.user.userData.user_role === 'LH_ADMIN' ||
+      this.user.userData.user_role === 'LH_HEAD') {
       this.areaRoleCheck = false;
     }
     this.getGuidemap();
     this.AreaOne();
     this.CtgoRisk();
+  }
+
+  async areaSearch() {
+    await this.getGuidemap();
+    await this.AreaOne();
   }
   async getGuidemap() {
     const res = await this.connect.run('/project/area/guidemap/get', { project_id: this.AreaOneForm.project_id, }, {
@@ -175,6 +182,9 @@ export class AreaStandardSetPage implements OnInit {
         ...this.form,
         ...res.rsObj
       };
+    } else {
+      this.form = null;
+      console.log("this.from", this.form);
     }
   }
 
@@ -246,12 +256,12 @@ export class AreaStandardSetPage implements OnInit {
 
 
   async areaTwoEdit(area, update?) {
-    if(update) {
-      if(!this.selectDataArea2.length) return await this.toast.present({ message: '장소를 선택해 주세요', color: 'danger' });
+    if (update) {
+      if (!this.selectDataArea2.length) return await this.toast.present({ message: '장소를 선택해 주세요', color: 'danger' });
     }
-    if(!this.area_top_id) return this.toast.present({message:'area1을 선택해주세요.',color:'warning'});
-    if(this.selectDataArea2.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.', color: 'danger' });
-    if(!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.', color: 'danger' });
+    if (!this.area_top_id) return this.toast.present({ message: 'area1을 선택해주세요.', color: 'warning' });
+    if (this.selectDataArea2.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.', color: 'danger' });
+    if (!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.', color: 'danger' });
     const modal = await this.modal.create({
       component: AreaAddPage,
       componentProps: {
@@ -272,13 +282,13 @@ export class AreaStandardSetPage implements OnInit {
 
 
   async areaThreeEdit(area, update?) {
-    if(update) {
-      if(!this.selectDataArea3.length) return await this.toast.present({ message: '장소를 선택해 주세요' });
+    if (update) {
+      if (!this.selectDataArea3.length) return await this.toast.present({ message: '장소를 선택해 주세요' });
     }
-    if(this.selectDataArea3.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.' });
-    if(!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.' });
-    if(!this.area_top_id) return this.toast.present({message:'area1을 선택해주세요.', color:'warning'});
-    if(!this.area_middle_id) return this.toast.present({message:'area2를 선택해주세요', color:'warning'});
+    if (this.selectDataArea3.length > 1) return await this.toast.present({ message: '한 개만 선택해 주세요.' });
+    if (!this.AreaOneForm.project_id) return await this.toast.present({ message: '현장을 선택해 주세요.' });
+    if (!this.area_top_id) return this.toast.present({ message: 'area1을 선택해주세요.', color: 'warning' });
+    if (!this.area_middle_id) return this.toast.present({ message: 'area2를 선택해주세요', color: 'warning' });
     const modal = await this.modal.create({
       component: AreaAddPage,
       componentProps: {
@@ -346,29 +356,41 @@ export class AreaStandardSetPage implements OnInit {
     this.addRiskAreaArr = [];
     this.riskProjectForm.limit_no = limit_no;
     this.menuCount = 2;
-    this.resRiskArea = await this.connect.run('/project/area/risk/get', this.riskProjectForm);
-    if (this.resRiskArea.rsCode === 0) {
-    } else  {
-      if(!this.riskProjectForm.limit_no) this.toast.present({message:this.resRiskArea.rsMsg,color:'warning'});
+    this.updateEdit = true;
+
+    const res = await this.connect.run('/project/area/risk/get', this.riskProjectForm);
+    if (res.rsCode === 0) {
+      this.resRiskArea = res;
+      setTimeout(() => {
+        this.updateEdit = false;
+      }, 1000);
+    } else {
+      if (!this.riskProjectForm.limit_no) this.toast.present({ message: this.resRiskArea.rsMsg, color: 'warning' });
     }
   }
 
   addRiskArea() {
-    this.addRiskAreaArr.push({
+    console.log("sadfasdf");
+    this.resRiskArea.rsMap.unshift({
+      second_user_id: 0, // 관리 책임자 부
+      area_risk_id: 0, // 위험지역 ID
       area_middle_name: '', // 장소2
-      area_bottom_name: '', // 장소3
-      area_top_name: '', // 장소1
-      area_bottom_id: 0, // 장소3 ID
+      ctgo_area_risk_name: '', // 위험지역 유형
       area_middle_id: 0, // 장소2 ID
-      area_risk_name: '',// 위험지역명
-      area_risk_type: '',// 실내/실외
-      area_risk_use_state: 0, // 사용 1 / 미사용 0
-      area_top_id: 0, // 장소1 ID
-      ctgo_area_risk_id: 0, // 위험지역 유형 ID
-      manager_user_id: 0, // 관리책임자 정 ID
+      ctgo_area_risk_id: 0, // 위험지역 ID
+      area_risk_name: '', // 위험지역 명
+      manager_user_id: 0, // 관리 책임자 정
+      area_bottom_name: '', // 장소3
+      area_risk_type: '', // 실내/실외
+      nfc_state: 0, // NFC 등록여부 개수
       project_id: 0, // 현장 ID
-      second_user_id: 0, // 관리책임자 부 ID
-    })
+      area_top_id: 0, // 장소1 ID
+      area_bottom_id: 0, // 장소3 ID
+      area_risk_use_state: 0, // 사용여부
+      area_top_name: '', // 장소1
+      gps_state: 0, // GPS 등록여부 / 1 등록, 0 미등록
+      row_count: 0
+    });
   }
 
   async CtgoRisk() {
@@ -377,38 +399,32 @@ export class AreaStandardSetPage implements OnInit {
   }
 
   async riskSave() {
-    this.addRiskAreaArr.forEach(async (item) => {
-      if(!item.area_risk_id) {
-        item.project_id = this.riskProjectForm.project_id;
-        const resInsert = await this.connect.run('/project/risk_area/insert', item);
-        if (resInsert.rsCode === 0) {
-          this.getRiskArea();
-          this.toast.present({message:'저장되었습니다.',color:'primary'});
-        } else {
-        this.toast.present({message:resInsert.rsMsg, color:'warning'});
+    const riskArea = this.resRiskArea.rsMap;
+      riskArea.forEach(async (item, i) => {
+        if (!item.area_top_id) return this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })
+        if (!item.area_middle_id) return this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })
+        if (!item.area_bottom_id) return this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })
+        if (!item.area_risk_name) return this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' })
+        if (!item.area_risk_type) return this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })
+        if (!item.manager_user_id) return this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })
+        if (!item.second_user_id) return this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })
+        if (!item.area_risk_id) {
+          item.project_id = this.riskProjectForm.project_id;
+          const resInsert = await this.connect.run('/project/risk_area/insert', item);
+          if (resInsert.rsCode === 0) {
+            this.getRiskArea();
+            if (this.addRiskAreaArr.length === i) {
+              this.toast.present({ message: '저장되었습니다.', color: 'primary' });
+            }
+          } else {
+            this.toast.present({ message: resInsert.rsMsg, color: 'warning' });
+          }
         }
-      }
-    });
-
-    this.resRiskArea.rsMap.forEach(async (riskItem) => {
-      let area_risk_use_state_data = [];
-      area_risk_use_state_data.push({
-        area_risk_id:riskItem.area_risk_id,
-        area_risk_use_state:riskItem.area_risk_use_state
       });
-      const resUpdate = await this.connect.run('/project/area/risk/use/update',{area_risk_use_state_data:area_risk_use_state_data});
-      if (resUpdate.rsCode === 0) {
-        this.getRiskArea();
-        this.toast.present({message:'저장되었습니다.',color:'primary'});
-      } else {
-        this.toast.present({message:resUpdate.rsMsg, color:'warning'});
-      }
-    })
-
-
   }
 
   async nfcView(area_risk_id) {
+    if(!area_risk_id) return;
     const modal = await this.modal.create({
       component: NfcInfoComponent,
       componentProps: { area_risk_id },
@@ -417,7 +433,9 @@ export class AreaStandardSetPage implements OnInit {
     modal.present();
   }
 
-  async memberSearch() {
+  async memberSearch(item) {
+    console.log(item);
+    if(item.area_risk_id) return;
     const modal = await this.modal.create({
       component: SearchAreaComponent,
       componentProps: {
@@ -427,42 +445,56 @@ export class AreaStandardSetPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      for (let i = 0; i < this.addRiskAreaArr.length; i++) {
-        this.addRiskAreaArr[i].area_top_id = data.area1selectedItem.area_top_id;
-        this.addRiskAreaArr[i].area_middle_id = data?.area2selectedItem?.area_middle_id;
-        this.addRiskAreaArr[i].area_bottom_id = data?.area3selectedItem?.area_bottom_id;
-
-        this.addRiskAreaArr[i].area_top_name = data.area1selectedItem.area_top_name;
-        this.addRiskAreaArr[i].area_middle_name = data?.area2selectedItem?.area_middle_name;
-        this.addRiskAreaArr[i].area_bottom_name = data?.area3selectedItem?.area_bottom_name;
-      }
-    }
-  }
-
-  async deleteRisk() {
-    if (this.riskAreaData) {
-      for (let i = 0; i < this.riskAreaData.length; i++) {
-        if (this.riskAreaData[i].area_risk_id) {
-
-        } else {
-          this.addRiskAreaArr.splice(i, 1);
+      const riskArea = this.resRiskArea.rsMap;
+      for (let i = 0; i < riskArea.length; i++) {
+        if(!riskArea[i].area_risk_id) {
+          item.area_top_id = data?.area1selectedItem.area_top_id;
+          item.area_middle_id = data?.area2selectedItem?.area_middle_id;
+          item.area_bottom_id = data?.area3selectedItem?.area_bottom_id;
+          item.area_top_name = data?.area1selectedItem.area_top_name;
+          item.area_middle_name = data?.area2selectedItem?.area_middle_name;
+          item.area_bottom_name = data?.area3selectedItem?.area_bottom_name;
         }
       }
     }
   }
 
+  async deleteRisk() {
+    if (!this.riskAreaData.length) return this.toast.present({ message: '최소 1개이상 선택해주세요.', color: 'warning' });
+    this.riskAreaData.forEach(async (item, i) => {
+      if(item.area_risk_id) {
+        const res = await this.connect.run('/project/risk_area/delete', {
+          area_risk_id: item.area_risk_id,
+          project_id: this.riskProjectForm.project_id
+        });
+        if (res.rsCode === 0) {
+          if (this.riskAreaData.length === i) {
+            this.toast.present({ message: '삭제 되었습니다.', color: 'primary' });
+            this.getRiskArea();
+          }
+        } else {
+          this.toast.present({ message: res.rsMsg, color: 'warning' })
+        }
+      } else {
+        console.log(this.riskAreaData);
+        const list = this.resRiskArea.rsMap;
+        list.splice(list.findIndex(data => data === item),1);
+      }
+    });
+  }
+
   allStatus(status) {
-    this.addRiskAreaArr.forEach(item => {
+    console.log(status);
+    this.resRiskArea.rsMap.forEach(item => {
       item.area_risk_use_state = status ? 1 : 0;
     })
   }
 
   async editState(item) {
     this.area_risk_use_state_data.push({
-      area_risk_id:item.area_risk_id,
-      area_risk_use_state:item.area_risk_use_state
-    })
-    console.log('----------------',this.area_risk_use_state_data)
+      area_risk_id: item.area_risk_id,
+      area_risk_use_state: item.area_risk_use_state
+    });
     // const res = await this.connect.run('/project/area/risk/use/update',);
   }
 
@@ -478,7 +510,7 @@ export class AreaStandardSetPage implements OnInit {
     this.gps_coordinate_data.gps_latitude = [];
     this.gps_coordinate_data.gps_longitude = [];
     this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
-    if(this.resGPScood.rsCode === 0) {
+    if (this.resGPScood.rsCode === 0) {
       this.resGPScood.rsMap.forEach(data => {
         this.gps_coordinate_data.gps_latitude.push(data.gps_latitude);
         this.gps_coordinate_data.gps_longitude.push(data.gps_longitude);
@@ -487,8 +519,26 @@ export class AreaStandardSetPage implements OnInit {
     };
   }
   async gpsSave() {
+    if (!this.gpsselected.gps_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
     this.gpsselected.gps_coordinate_data = this.gps_coordinate_data;
+    console.log(this.gpsselected);
     const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsselected, {});
     if (res.rsCode === 0) { };
+  }
+
+  async updateState(item) {
+    if (this.updateEdit) return;
+    let area_risk_use_state_data = [];
+    area_risk_use_state_data.push({
+      area_risk_id: item.area_risk_id,
+      area_risk_use_state: item.area_risk_use_state
+    });
+    const resUpdate = await this.connect.run('/project/area/risk/use/update', { area_risk_use_state_data: area_risk_use_state_data });
+    if (resUpdate.rsCode === 0) {
+      this.getRiskArea();
+      this.toast.present({ message: '저장되었습니다.', color: 'primary' });
+    } else {
+      this.toast.present({ message: resUpdate.rsMsg, color: 'warning' });
+    }
   }
 }

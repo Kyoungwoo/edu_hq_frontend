@@ -73,9 +73,10 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     this.path = polygon.getPaths().getAt(0);
   
-    naver.maps.Event.addListener(this.map, 'click', (e) => {
-      this.addMarker(e.coord);
-    });
+      naver.maps.Event.addListener(this.map, 'click', (e) => {
+        this.addMarker(e.coord);
+      });
+    
     this.afteInitRes();
   }
   afterInit() {
@@ -85,6 +86,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private addMarker(coord:LatLng, parse = false) {
+    if(this.disabled) return;
     // 좌표 생성
     const marker = new naver.maps.Marker({
       map: this.map,

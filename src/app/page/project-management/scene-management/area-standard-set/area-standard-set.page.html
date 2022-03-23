@@ -22,7 +22,7 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button [disabled]="areaRoleCheck" fill="translucent" style="width: 100px;" (click)="AreaOne()">검색
+                <app-button [disabled]="areaRoleCheck" fill="translucent" style="width: 100px;" (click)="areaSearch()">검색
                 </app-button>
               </app-col>
             </app-row>
@@ -70,7 +70,9 @@
             </app-col>
           </app-row>
         </h4>
-        <app-file-preview *ngFor="let futItem of form.file_data" [futItem]="futItem"></app-file-preview>
+        <ng-container *ngIf="form.file_data">
+          <app-file-preview *ngFor="let futItem of form.file_data" [futItem]="futItem"></app-file-preview>
+        </ng-container>
         <app-card>
           <ion-toolbar color="white" slot="top">
             <h5>장소등록</h5>
@@ -238,55 +240,60 @@
             </thead>
             <tbody>
               <!-- 추가 -->
-              <tr *ngFor="let item of addRiskAreaArr">
+              <tr *ngFor="let item of resRiskArea?.rsMap">
                 <td>
                   <app-check [on]="item"></app-check>
                 </td>
                 <td *ngIf="!item.area_top_name">
-                  <app-img style="width: 45%;" name="search" (click)="memberSearch()"></app-img>
+                  <app-img style="width: 45%;" name="search" (click)="memberSearch(item)"></app-img>
                 </td>
-                <td *ngIf="item.area_top_name" (click)="memberSearch()">
+                <td *ngIf="item.area_top_name" (click)="memberSearch(item)">
                   {{ (item.area_top_name ? item.area_top_name : '') + ' '
                   + (item.area_middle_name ? item.area_middle_name : '') + ' '
                   + (item.area_bottom_name ? item.area_bottom_name : '')}}
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.ctgo_area_risk_id">
+                  <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.ctgo_area_risk_id">
                     <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
                       opt.ctgo_area_risk_name }}</app-select-option>
                   </app-select>
                 </td>
                 <td>
-                  <app-input [(ngModel)]="item.area_risk_name"></app-input>
+                  <app-input [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.area_risk_name"></app-input>
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.area_risk_type">
+                  <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.area_risk_type">
                     <app-select-option value="실내">실내</app-select-option>
                     <app-select-option value="실외">실외</app-select-option>
                   </app-select>
                 </td>
-                <td></td>
-                <td></td>
+                <td>{{ item.gps_state === 1 ? '등록' : '미등록'}}</td>
+                <td (click)="nfcView(item.area_risk_id)">
+                  {{ item.nfc_state ? item.nfc_state +'개':'-'}}
+                </td>
                 <td>
-                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
+                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select-people label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
+                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.area_risk_use_state">
+                  <app-select (change)="updateState(item)" (click)="$event.stopPropagation()" [(ngModel)]="item.area_risk_use_state">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>
                 </td>
               </tr>
               <!-- 추가 끝 -->
-
+<!--               
               <tr *ngFor="let item of resRiskArea?.rsMap">
                 <td>
                   <app-check [on]="item"></app-check>
+                </td>
+                <td *ngIf="!item.area_top_name">
+                  <app-img style="width: 45%;" name="search" (click)="memberSearch(item)"></app-img>
                 </td>
                 <td>
                   {{ (item.area_top_name ? item.area_top_name : '') + ' '
@@ -294,7 +301,7 @@
                   + (item.area_bottom_name ? item.area_bottom_name : '')}}
                 </td>
                 <td>
-                  <app-select  [disabled]="true"[(ngModel)]="item.area_risk_id">
+                  <app-select  [disabled]="true"[(ngModel)]="item.ctgo_area_risk_id">
                     <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
                       opt.ctgo_area_risk_name }}</app-select-option>
                   </app-select>
@@ -321,12 +328,12 @@
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.area_risk_use_state">
+                  <app-select (change)="updateState(item)"(click)="$event.stopPropagation()" [(ngModel)]="item.area_risk_use_state">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </app-table>
         </app-check-group>

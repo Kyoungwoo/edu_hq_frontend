@@ -329,7 +329,12 @@
           </ion-toolbar>
           <tbody>
             <tr>
-              <app-select-company [multiple]="false" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="form.company_id"></app-select-company>
+              <td>
+                <app-select-company [multiple]="false" 
+                [project_id]="user.userData.belong_data.project_id" 
+                [disabled]="true"
+                [(ngModel)]="form.company_id"></app-select-company>
+              </td>
             </tr>
           </tbody>
         </app-table>
@@ -377,11 +382,13 @@
         </ion-toolbar>
         <tbody>
           <tr>
-            <app-select-company [project_id]="jobForm.project_id" 
-            [disabled]="editable" 
-            [multiple]="false" 
-            [project_id]="jobForm.project_id" 
-            [(ngModel)]="jobForm.company_id"></app-select-company>
+            <td>
+              <app-select-company [project_id]="jobForm.project_id" 
+              [disabled]="editable" 
+              [multiple]="false" 
+              [project_id]="jobForm.project_id" 
+              [(ngModel)]="jobForm.company_id"></app-select-company>
+            </td>
           </tr>
         </tbody>
       </app-table>
@@ -477,11 +484,13 @@
         </ion-toolbar>
         <tbody>
           <tr>
-            <app-select-company [disabled]="editable"
-              [multiple]="false" 
-              [project_id]="user.userData.belong_data.project_id"
-              [(ngModel)]="safeJobForm.company_id">
-            </app-select-company>
+            <td>
+              <app-select-company [disabled]="editable"
+                [multiple]="false" 
+                [project_id]="user.userData.belong_data.project_id"
+                [(ngModel)]="safeJobForm.company_id">
+              </app-select-company>
+            </td>
           </tr>
           <tr>
             <td>

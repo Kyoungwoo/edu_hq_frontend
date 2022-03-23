@@ -9,6 +9,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 export class NfcInfoComponent implements OnInit {
 
   @Input() area_risk_id;
+  
   nfcData:ConnectResult <{
     device_id: number, // 장비 ID
     serial_no: string, // 시리얼넘버

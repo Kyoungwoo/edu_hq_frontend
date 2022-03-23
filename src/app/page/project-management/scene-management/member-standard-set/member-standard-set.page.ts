@@ -554,7 +554,7 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async postionDelete() {
-    if (!this.selectList.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    if (!this.selectList.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [
@@ -658,7 +658,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async safeDelete() {
-    if (!this.safeJobSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    if (!this.safeJobSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.',color:'warning' });
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [
@@ -747,7 +747,7 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async deleteOccupation() {
-    if (!this.occupationSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.' });
+    if (!this.occupationSelected.length) return await this.toast.present({ message: '최소 1개 이상 선택해주세요.', color:'warning' });
     const alert = await this.alert.present({
       message: '삭제 하시겠습니까?',
       buttons: [
