@@ -1,3 +1,4 @@
+import { MonitorSmartEquipEditPageModule } from './monitor-smart-equip-edit/monitor-smart-equip-edit.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
     ComponentModule,
     MonitorPageRoutingModule,
     RiskEvaluationPopupPageModule,
+    MonitorSmartEquipEditPageModule
   ],
   declarations: [MonitorPage]
 })
