@@ -63,8 +63,8 @@ export class SafetyEducationResultListPage implements OnInit {
     if(this.res.rsCode === 0) {
       this.res.rsMap.map((item, i) => {
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
-        item.education_safe_date = 
-        item.education_safe_date + this.date.day(item.education_safe_date)[0];
+        item.education_safe_date = `${item.education_safe_date} (${this.date.day(item.education_safe_date)[0]})`
+        item.create_date = `${item.create_date} (${this.date.day(item.create_date)[0]})`
       });
     } else {
 
@@ -73,9 +73,13 @@ export class SafetyEducationResultListPage implements OnInit {
   async openDetailSearch() {
     const modal = await this._modal.create({
       component: SafetyEducationResultDetailSearchPage,
-
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.form = data;
+      this.getList();
+    }
   }
 
   async edit(editItem) {

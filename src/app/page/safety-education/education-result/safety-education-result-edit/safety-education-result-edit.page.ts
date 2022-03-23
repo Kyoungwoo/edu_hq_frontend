@@ -93,6 +93,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     }
     if(this.editItem) {
       this.disabled = true;
+      this.basicDetail();
       this.reportList();
       this.getItem();
     }
@@ -145,7 +146,7 @@ export class SafetyEducationResultEditPage implements OnInit {
   }
 
   //신규 교육 등록
-  async insert(approval_cnt_answer) {
+  async edit(approval_cnt_answer) {
     this.getDetilItem.approval_cnt_answer = approval_cnt_answer;
     let method = '';
     if(this.item) {
@@ -168,9 +169,9 @@ export class SafetyEducationResultEditPage implements OnInit {
     // });
 
     console.log(this.getDetilItem);
+    console.log(method);
     if(!this.getDetilItem.education_safe_report_instructor) return this.toast.present({message:'강사명이 없습니다.', color:'warning'});
-    if(!this.getDetilItem.education_safe_report_text) return this.toast.present({message:'결과 보고를 작성해 주세요.', color:'waring'});
-    if(!this.getDetilItem.education_safe_report_instructor) return this.toast.present({message:'',color:'waring'});
+    if(!this.getDetilItem.education_safe_report_text) return this.toast.present({message:'결과 보고를 작성해 주세요.', color:'warning'});
     const res = await this.connect.run(method,this.getDetilItem);
     if(res.rsCode === 0) {
       this.toast.present({message:'저장되었습니다.', color:'primary'});

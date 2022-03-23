@@ -4,7 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { SearchCompanyComponent, SelectItem } from '../../modal/search-company/search-company.component';
 
 export class CompanyData {
@@ -69,6 +68,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
+    console.log("company",this.value)
     if(this.isModalData) return;
     
     if(!this.value && !this.all) return;

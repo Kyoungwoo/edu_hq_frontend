@@ -106,10 +106,12 @@
             </ion-toolbar>
             <ion-row class="graph-row-today-work"> 
               <ion-col class="col-today-work">
+                <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div>
+
                 <div class="graph-area">
                   <div class="graph-wrap">
                     <div class="graph-line-wrap">
-                      <div *ngFor="let item of graphLine" class="graph-line-box">
+                      <div *ngFor="let item of todayWork_graphLine" class="graph-line-box">
                         <div class="graph-text">
                           <div class="div-text-g">{{ item }}</div>
                         </div>
@@ -123,37 +125,19 @@
                       <div class="graph-line"></div>
                     </div>
   
-                    <div class="bar-wrap">
-                      <div class="bar-item theme"></div>
-                      <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                        <div class="bar" [style.height]="(((item.master_worker+item.company_worker) / ceil_Total) * 89.3)+'%'"></div>
-                        <div class="text">{{ item.work_date }}</div>
+                    <div class="bar-flex-box">
+
+                      <div class="bar-flex-theme"></div>
+                      <div class="bar-wrap">
+                        <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
+                          <div *ngIf="item.master_worker || item.company_worker" class="bar" [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'"></div>
+                          <div class="text">{{ item.work_date }}</div>
+                        </div>
                       </div>
-                      <!-- <div *ngFor="let item of todayWork?.rsMap" class="bar-item"></div> -->
                     </div>
+
                   </div>
                 </div>
-
-<!-- 
-                <div style="position: relative;">
-                  <ng-container *ngFor="let item of graphArrCount let i = index">
-                    <div class="graph-box">
-                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
-                      <div class="grach-line"></div>
-                    </div>
-                  </ng-container>
-                </div>
-                <div class="graph-rod-group">
-                  <ng-container *ngFor="let item of graphArr let i = index">
-                    <div class="graph-rod-main">
-                      <div class="graph-rod-tow"></div>
-                      <div class="rod-name"
-                        style="position: absolute; bottom: -55px; width: 100%; left: -30px; text-align: center; transform: rotate(-45deg);">
-                        {{ item.date }}
-                      </div>
-                    </div>
-                  </ng-container>
-                </div> -->
                 
               </ion-col>
             </ion-row>
@@ -294,6 +278,7 @@
       <app-card color="white">
         <app-row style="align-items: stretch;">
           <app-col class="donut-group">
+            <div class="blinder">데이터가 없습니다.</div>
             <app-row>
               <app-col class="donut-group">
                 <ion-toolbar slot="top" color="white">
@@ -302,16 +287,16 @@
                       <h4>공종별 출역 작업자</h4>
                     </app-col>
                     <app-col size="auto">
-                      <ion-chip class="chip-back">총 113명</ion-chip>
+                      <ion-chip class="chip-back">총 {{ todayConstruction_totalCount }}명</ion-chip>
                     </app-col>
                   </ion-row>
                 </ion-toolbar>
-                <ion-row *ngFor="let item of graphArr2 let i = index">
-                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                <ion-row *ngFor="let item of todayConstruction?.rsMap">
+                  <app-col size="2" class="risk-type-name">{{ item.ctgo_construction_name }}</app-col>
                   <app-col style="display: flex; align-items: center;">
-                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                      [style.width]="item.count + '%'"></div>
-                    <h4>{{item.count}}</h4>
+                    <div *ngIf="item.cnt" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                      [style.width]="'calc((100% - 50.55px) * '+(item.cnt/todayConstruction_ceil_Total)+')'"></div>
+                    <h4 *ngIf="item.cnt" style="width: 36px;">{{item.cnt}}</h4>
                   </app-col>
                 </ion-row>
               </app-col>
@@ -359,7 +344,7 @@
                 <ion-row *ngFor="let item of graphArr4 let i = index">
                   <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
                   <app-col style="display: flex; align-items: center;">
-                    <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
                       [style.width]="item.count + '%'"></div>
                     <h4>{{item.count}}</h4>
                   </app-col>
@@ -494,12 +479,96 @@
               <h4>스마트 안전 장비</h4>
             </ion-col>
             <app-col size="auto">
-              <app-button>수정</app-button>
+              <app-button (click)="smartEquipEdit()">수정</app-button>
             </app-col>
           </ion-row>
         </ion-toolbar>
         <tbody>
           <tr>
+            <td style="vertical-align: top;">
+              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
+            </td>
+            <td class="table-text">
+              <h5>
+                {{ smartEquip_structure.ctgo_machine_serial_name }}
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>{{ smartEquip_structure.machine_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>{{ smartEquip_structure.mmachine_using_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>{{ smartEquip_structure.not_using_count }}대</app-col>
+                </app-row>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">
+              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
+            </td>
+            <td class="table-text">
+              <h5>
+                {{ smartEquip_crane.ctgo_machine_serial_name }}
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>{{ smartEquip_crane.machine_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>{{ smartEquip_crane.mmachine_using_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>{{ smartEquip_crane.not_using_count }}대</app-col>
+                </app-row>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">
+              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
+            </td>
+            <td class="table-text">
+              <h5>
+                {{ smartEquip_closeness.ctgo_machine_serial_name }}
+              </h5>
+              <p>
+                <app-row>
+                  <app-col>보유 대수</app-col>
+                  <app-col>{{ smartEquip_closeness.machine_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>가동 중</app-col>
+                  <app-col>{{ smartEquip_closeness.mmachine_using_count }}대</app-col>
+                </app-row>
+              </p>
+              <p>
+                <app-row>
+                  <app-col>미가동</app-col>
+                  <app-col>{{ smartEquip_closeness.not_using_count }}대</app-col>
+                </app-row>
+              </p>
+            </td>
+          </tr>
+          <!-- <tr>
             <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
             </td>
@@ -638,7 +707,7 @@
                 </app-row>
               </p>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </app-table>
     </app-col>

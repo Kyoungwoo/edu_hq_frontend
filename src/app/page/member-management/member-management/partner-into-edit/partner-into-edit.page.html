@@ -39,7 +39,7 @@
         </app-row>
         <app-row>
           <app-col>
-
+            
             <app-input-template name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
             [color]="validator.user_phone?.valid === false && 'warning'"
             [disabled]="!permission.approval" [required]="true" (buttonClick)="overlapPhone()">

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -16,9 +16,13 @@ import { SearchHeavyComponent } from '../../modal/search-heavy/search-heavy.comp
 })
 export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
 
-  @Input() color:Color;
-  @Input() label:string = "중장비";
-  @Input() disabled:boolean = false;
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.heavy();
+  }
+
+  @Input() color: Color;
+  @Input() label: string = "중장비";
+  @Input() disabled: boolean = false;
 
 
   constructor(
@@ -26,6 +30,7 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {}
+
   async heavy(){
     const modal = await this._modal.create({
       component:SearchHeavyComponent

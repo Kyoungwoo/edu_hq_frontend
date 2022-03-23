@@ -76,6 +76,7 @@ export class HeavyEquipEditPage implements OnInit {
         ...res.rsObj
       }
     }
+    console.log("this.form : ",this.form);
   }
 
   Heavyedit() {

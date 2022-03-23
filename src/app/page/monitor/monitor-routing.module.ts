@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: MonitorPage
+  },
+  {
+    path: 'monitor-smart-equip-edit',
+    loadChildren: () => import('./monitor-smart-equip-edit/monitor-smart-equip-edit.module').then( m => m.MonitorSmartEquipEditPageModule)
   }
 ];
 

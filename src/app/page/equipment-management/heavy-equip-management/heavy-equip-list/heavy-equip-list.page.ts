@@ -33,7 +33,7 @@ export class HeavyEquipListPage implements OnInit {
   form = {
     ctgo_machinery_id: 0,
     end_date: this.date.today(),
-    master_company_id: 0,
+    master_company_id: this.user.userData.belong_data.company_id,
     partner_company_id: 0,
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
@@ -50,7 +50,7 @@ export class HeavyEquipListPage implements OnInit {
     private toast: ToastService,
     private connect: ConnectService,
     private date: DateService,
-    private user: UserService,
+    public user: UserService,
     private alert: AlertService
   ) { }
 

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-table>
+  <app-table *mobileHidden>
     <thead>
       <tr>
         <th style="width: 40px;">No.</th>
@@ -29,6 +29,28 @@
       </tr>
     </tbody>
   </app-table>
+  <ng-container *mobileShow>
+    <app-card *ngFor="let item of res?.rsMap">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <h5>{{ item.ctgo_approval_module_name }}</h5>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <h5>작성일:{{ item.create_date }}</h5>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip color="success" color="success" *ngIf="item.approval_cnt_answer === '임시저장'">{{ item.approval_cnt_answer }}</ion-chip>
+          <ion-chip color="success" color="success" *ngIf="item.approval_cnt_answer === '결재중'">{{ item.approval_cnt_answer }}</ion-chip>
+          <ion-chip color="success" color="primary" *ngIf="item.approval_cnt_answer === '결재완료'">{{ item.approval_cnt_answer }}</ion-chip>
+          <ion-chip color="success" color="warning" *ngIf="item.approval_cnt_answer === '반려'">{{ item.approval_cnt_answer }}</ion-chip>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <ion-badge color="success">{{ item.approval_cnt_answer }}</ion-badge>
+        </app-col>
+      </app-row>
+    </app-card>
+  </ng-container>
   <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>

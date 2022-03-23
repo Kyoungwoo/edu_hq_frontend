@@ -110,7 +110,7 @@
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-input-group>
-        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-select-scene name="project_id" [all]="true" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
         <app-button (click)="openDetailSearch()">상세검색</app-button>
       </app-input-group>
     </ion-toolbar>
@@ -123,67 +123,22 @@
       </app-col>
     </app-row>
     <ng-container>
-      <app-card>
+      <app-card *ngFor="let item of res?.rsMap">
         <app-row style="align-items: flex-start;">
           <app-col>
-            <h5>채용 시 교육 결과 보고서</h5>
-            <p>(주)남광토건/교육일:2021.05.20(목)</p>
+            <h5>{{ item.ctgo_education_safe_name }}</h5>
+            <p>{{ item.company_name }}/교육일:{{ item.education_safe_date }}</p>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
+            <ion-chip color="success" color="success" *ngIf="item.approval_cnt_answer === '임시저장'">{{ item.approval_cnt_answer }}</ion-chip>
+            <ion-chip color="success" color="success" *ngIf="item.approval_cnt_answer === '결재중'">{{ item.approval_cnt_answer }}</ion-chip>
+            <ion-chip color="success" color="primary" *ngIf="item.approval_cnt_answer === '결재완료'">{{ item.approval_cnt_answer }}</ion-chip>
+            <ion-chip color="success" color="warning" *ngIf="item.approval_cnt_answer === '반려'">{{ item.approval_cnt_answer }}</ion-chip>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <ion-badge color="success">채용시</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>작업자 정기 교육 결과 보고서</h5>
-            <p>(주)남광토건/교육일:2021.05.20(목)</p>
-        </app-col>
-          <app-col size="auto">
-            <ion-chip color="danger">반려</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">정기(작업자)</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>관리감독자 정기 교육 결과 보고서</h5>
-            <p>(주)남광토건/교육일:2021.05.20(목)</p>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">정기(관리감독자)</ion-badge>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>특별 교육 결과 보고서</h5>
-            <p>(주)남광토건/교육일:2021.05.20(목)</p>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="primary">승인</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <ion-badge color="success">특별04</ion-badge>
+            <ion-badge color="success">{{ item.ctgo_education_safe_type }}</ion-badge>
           </app-col>
         </app-row>
       </app-card>

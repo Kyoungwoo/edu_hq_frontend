@@ -1,8 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
-import { SearchConstructionMachineryComponent } from '../../modal/search-construction-machinery/search-construction-machinery.component';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { MachineryItem, SearchConstructionMachineryComponent } from '../../modal/search-construction-machinery/search-construction-machinery.component';
 
 @Component({
   selector: 'app-select-construction-machinery',
@@ -16,27 +17,74 @@ import { SearchConstructionMachineryComponent } from '../../modal/search-constru
 })
 export class SelectConstructionMachineryComponent implements OnInit, ControlValueAccessor {
 
+
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.machinery();
+  }
+
   @Input() color:Color;
   @Input() label:string = "건설기계";
+  @Input() disabled: boolean = false;
+  @Input() text: string;
+  @Input() required: boolean = false;
+  @Input() company_id:number = 0;
+
+  isModalData: boolean = false;
+
+  res:ConnectResult<MachineryItem>
 
   constructor(
-    private _modal:ModalController
+    private _modal:ModalController,
+    private connect: ConnectService
   ) { }
 
   ngOnInit() {}
+
+  public async get() {
+    if(this.isModalData) return;
+    
+    console.log("this.company_id",this.company_id);
+    this.res = await this.connect.run('/category/certify/machinery/get', {
+      company_id: this.company_id,
+      search_text: ''
+    });
+    if (this.res.rsCode === 0) {
+      console.log("-------------insmodal",this.value);
+      const { rsMap } = this.res;
+      console.log("rsMap",rsMap);
+      this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
+    }
+  }
+
   async machinery(){
+    this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchConstructionMachineryComponent
+      component:SearchConstructionMachineryComponent,
+      componentProps: {
+        value: this.value,
+        form: {
+          company_id: this.company_id,
+          search_text: ''
+        }
+      }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log(data);
+      this.text = data.selectedItem.ctgo_machinery_name;
+      this.value = data.selectedItem.ctgo_machinery_id;
+    }
+    this.isModalData = false;
   }
 
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:any;
+  @Input() set value(v:number) {
     if(v !== this._value) {
       this._value = v;
+      this.get();
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -47,6 +95,7 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   writeValue(v:string): void { 
     if(v !== this._value) this._value = v;
     this.onChangeCallback(v);
+    this.get();
     this.change.emit(v);
   }
 

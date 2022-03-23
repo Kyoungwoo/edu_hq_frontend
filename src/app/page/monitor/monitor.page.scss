@@ -271,10 +271,21 @@ app-card:last-child{
     height: 100%; 
 
     .col-today-work{
-        height: calc(100% - 120px);
+        height: calc(100% - 140px);
         max-height: 500px;
         bottom: -16px;
     }
+}
+.blinder{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    // background: rgb(128 128 128 / 22%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-h2);
 }
 .graph-area{
     height: 100%;
@@ -293,35 +304,53 @@ app-card:last-child{
             flex-direction: column-reverse;
         }
     
-        .bar-wrap{
-            width: 100%;
+        .bar-flex-box{
             display: flex;
-            position: absolute;
             top: 0;
-            height: calc(100% + 30px);
-            justify-content: space-evenly;
+            position: absolute;
+            height: calc(100% + 49px);
+            width: 100%;
 
-            .bar-item{
+            .bar-flex-theme{
+                flex: 0 30px;
+                width: 30px;
+            }
+
+            .bar-wrap{
+                flex: 1;
+                width: 100%;
                 display: flex;
-                flex-direction: column;
-                justify-content: end;
-
-                .bar{
-                    // height: 40px;
-                    background: var(--ion-color-primary);
+                // position: absolute;
+                // top: 0;
+                // height: calc(100% + 49px);
+                justify-content: space-evenly;
+    
+                .bar-item{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    align-items: center;
+    
+                    .bar{
+                        width: 36px;
+                        background: var(--ion-color-primary);
+                    }
+                    .text{
+                        height: 50px;
+                        padding-top: 26px;
+                        font-size: var(--font-size-h6);
+                        transform: rotate(-45deg);
+                        white-space: nowrap;
+                    }
+    
+                    &.theme{width:26px;}
                 }
-                .text{
-                    height: 31px;
-                    padding-top: 8px;
-
-                    // transform: rotate(-45deg);
-                }
-
-                &.theme{width:26px;}
             }
         }
+
     }
 }
+
 
 .graph-line-box{
     flex: 1;
@@ -377,11 +406,20 @@ app-card:last-child{
         }
     }
     .graph-row-today-work{
-        height: 350px; 
+        height: 300px; 
     
         .col-today-work{
-            height: 300px;
+            height: 215px;
             max-height: 500px;
+        }
+    }
+    .bar-item{
+        width: 30px;
+    }
+    .bar-flex-box{
+        .bar-flex-theme{
+            flex: 0 22px!important;
+            width: 22px!important;
         }
     }
 }
