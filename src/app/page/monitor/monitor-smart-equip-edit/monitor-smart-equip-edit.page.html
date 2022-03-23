@@ -20,5 +20,27 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-toolbar color="white">
+    <h5>총 보유 : {{ total_count }}대 / 가동중 {{ using_total_count }}대</h5>
+  </ion-toolbar>
+  <app-table>
+    <thead>
+      <tr>
+        <th>스마트 장비</th>
+        <th>원청사명</th>
+        <th>보유대수</th>
+        <th>가동중</th>
+        <th>미가동</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of res?.rsMap">
+        <td>{{ item.ctgo_machine_serial_name }}</td>
+        <td>{{ item.company_name }}</td>
+        <td>{{ item.machine_count }}</td>
+        <td>{{ item.mmachine_using_count }}</td>
+        <td>{{ item.not_using_count }}</td>
+      </tr>
+    </tbody>
+  </app-table>
 </ion-content>
