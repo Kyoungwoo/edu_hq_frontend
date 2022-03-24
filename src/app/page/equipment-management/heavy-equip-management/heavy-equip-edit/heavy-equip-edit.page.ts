@@ -107,7 +107,7 @@ export class HeavyEquipEditPage implements OnInit {
 
   async Heavysave() {
     if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
-    if(!this.form.partner_company_id) return this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
+    if(!this.form.partner_company_name) return this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
     if(!this.form.ctgo_machinery_id) return this.toast.present({message:'중장비를 입력해주세요.',color:'warning'});
     if(!this.form.machinery_regist_no) return this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
     if(!this.form.ctgo_construction_id) return this.toast.present({message:'공종을 입력해주세요.',color:'warning'});

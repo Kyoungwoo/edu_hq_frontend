@@ -45,7 +45,7 @@
         </app-col>
       </app-row>
     </h4>
-    <app-file-preview *ngFor="let futItem of form.company_file_data" [futItem]="futItem" [readonly]="updateStatus"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.company_file_data  let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.company_file_data.splice(i,1)"></app-file-preview>
   </app-card>
 
   <h4>담당자 정보</h4>

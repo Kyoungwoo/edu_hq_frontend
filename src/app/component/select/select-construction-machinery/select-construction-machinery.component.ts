@@ -45,13 +45,14 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     
     console.log("this.company_id",this.company_id);
     this.res = await this.connect.run('/category/certify/machinery/get', {
-      company_id: this.company_id,
+      company_id: this.value,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
       console.log("-------------insmodal",this.value);
       const { rsMap } = this.res;
       console.log("rsMap",rsMap);
+      console.log("this.value",this.value);
       this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
     }
   }
