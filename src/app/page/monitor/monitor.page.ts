@@ -1,3 +1,5 @@
+import { DateService } from './../../basic/service/util/date.service';
+import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
@@ -203,7 +205,8 @@ graphArr4 = [
     private nfc : NfcService,
     private modal : ModalController,
     private route: ActivatedRoute,
-    public user: UserService
+    public user: UserService,
+    public date: DateService
   ) { }
   async ngOnInit() {
     const modal = await this.modal.create({
@@ -393,6 +396,9 @@ graphArr4 = [
     }
   }
 
+  /**
+   * @function smartEquipEdit(): 스마트 안전장비 가동중 수정 모달입니다.
+   */
   async smartEquipEdit() {
     const modal = await this.modal.create({
       component:MonitorSmartEquipEditPage,
@@ -400,6 +406,31 @@ graphArr4 = [
 
       }
     });
+    modal.present();
+  }
+
+  /**
+   * @function todayWorkDetail(): 금일 출역 작업자 모달입니다.
+   */
+  async todayWorkDetail(item) {
+    let trnas_item = item;
+    trnas_item.row_count = 0;
+    const modal = await this.modal.create({
+      component: TodayDepartureStatusListPage,
+      cssClass: 'today-departure-status-list-modal',
+      componentProps:{
+        listForm: {
+          project_id: this.form.project_id,
+          master_company_id: this.form.master_company_id,
+          ctgo_construction_ids: [],
+          start_date: '',
+          end_date: '',
+          limit_no: 0
+        },
+        item: trnas_item
+      }
+    });
+
     modal.present();
   }
 

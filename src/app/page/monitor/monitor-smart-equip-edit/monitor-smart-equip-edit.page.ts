@@ -1,3 +1,5 @@
+import { async } from '@angular/core/testing';
+import { UserService } from './../../../basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Component, OnInit } from '@angular/core';
@@ -54,10 +56,16 @@ export class MonitorSmartEquipEditPage implements OnInit {
     machine_count: number; // 스마트장비 보유 갯수
     mmachine_using_count: number // 가동중
   }>
+
+  /**
+   * @var original_items - 원본 데이터 저장용
+   */
+  original_items = [];
   
   constructor(
     private connect: ConnectService,
-    private toast: ToastService
+    private toast: ToastService,
+    public user: UserService
   ) { }
 
   ngOnInit() {
@@ -78,10 +86,63 @@ export class MonitorSmartEquipEditPage implements OnInit {
         using_total = using_total+item.mmachine_using_count;
       });
 
+      // 원본데이터 저장
+      this.original_items = JSON.parse(JSON.stringify(this.res.rsMap));
+
       this.total_count = total;
       this.using_total_count = using_total;
     } else {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
+    }
+  }
+
+  /**
+   * @function edit(): 개별현장 스마트 장비 리스트를 수정하는 메서드
+   */
+   async edit() {
+    let edit_items = [];
+    this.res.rsMap.map((item) => {
+      this.original_items.map((original_item) => {
+        if(Number(original_item.master_company_id) === Number(item.master_company_id) 
+        && Number(original_item.ctgo_machine_serial_id) === Number(item.ctgo_machine_serial_id)
+        && Number(original_item.mmachine_using_count) !== Number(item.mmachine_using_count)){
+          edit_items.push(item);
+        }
+      });
+    });
+
+    if(!edit_items.length) return this.toast.present({message: '변경된 내용이 없습니다.', color:'warning'});
+
+    let validation_state = true;
+    edit_items.map((item) => {
+      if(Number(item.mmachine_using_count) > Number(item.machine_count)) validation_state = false;
+    });
+
+    if(!validation_state) return this.toast.present({message: '가동중 값은 보유대수보다 높을수 없습니다.', color:'warning'});
+
+    await edit_items.map(async(item) => {
+      await this.edit_items({
+        ctgo_machine_serial_id: item.ctgo_machine_serial_id,
+        in_operation_cnt: Number(item.mmachine_using_count),
+        master_company_id: item.master_company_id,
+        project_id: this.form.project_id
+      });
+    });
+
+    await this.toast.present({message: '내용이 적용되었습니다.'});
+
+    setTimeout(() => {this.get();}, 300);
+  }
+
+  /**
+   * @function edit_items(): 수정 메서드 실행
+   */
+   async edit_items(item) {
+    this.res = await this.connect.run('/integrated/smart_equip_update',item);
+    if(this.res.rsCode === 0) {
+
+    } else {
+      // this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
 }
