@@ -28,8 +28,15 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   @Input() text: string;
   @Input() required: boolean = false;
 
-  @Input() company_id;
+  private _company_id:number;
+  @Input() set company_id(v:number) {
+    if(this._company_id !== v) {
+      this._company_id = v;
+      this.get();
+    }
+  }
 
+  get company_id() { return this._company_id }
   isModalData: boolean = false;
 
   res:ConnectResult<MachineryItem>
@@ -46,7 +53,7 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     console.log("this.value",this.value);
     if(this.isModalData) return;
     this.res = await this.connect.run('/category/certify/machinery/get', {
-      company_id: this.value,
+      company_id: this.company_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {

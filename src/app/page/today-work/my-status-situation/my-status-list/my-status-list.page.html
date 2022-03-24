@@ -44,6 +44,19 @@
           <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state === '입장' ? item.inside_time : item.outside_time }}</ion-chip>
         </app-col>
       </app-row>
+
+      <app-row >
+        <app-col size="auto">
+        </app-col>
+        <app-col>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
+        </app-col>
+        <app-col size="auto">
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state === '입장' ? item.inside_time : item.outside_time }}</ion-chip>
+        </app-col>
+      </app-row>
     </ng-container>
   </app-card>
 
