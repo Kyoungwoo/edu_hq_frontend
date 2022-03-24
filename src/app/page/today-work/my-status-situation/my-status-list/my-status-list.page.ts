@@ -185,7 +185,7 @@ export class MyStatusListPage implements OnInit {
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     const $qr = await this.qr.subscribe('worker',async (qrData) => {
       // this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.serial_key = 'E002';
+      this.nfcqrForm.serial_key = qrData.qr_data;
       this.nfcqrForm.nb_log_state = 'QR'
       if(qrData.type === 'NFC_CHANGE'){
         this.nfcScan();

@@ -65,11 +65,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-    console.log(this.disabled)
   }
 
   public async get() {
-    console.log("company",this.value)
     if(this.isModalData) return;
     
     if(!this.value && !this.all) return;
@@ -79,14 +77,15 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
       this.changeDetector.detectChanges();
       return;
     }
-
     if(!this.value) return;
 
-    this.res = await this.connect.run('/category/certify/company/partner_master/get', {
+    this.res = await this.connect.run('/category/certify/company/master/get', {
       project_id: this.project_id,
+      company_contract_type: '협력사',
       search_text: ''
     });
     if (this.res.rsCode === 0) {
+
       const { rsMap } = this.res;
         if (this.multiple) {
           this.text = rsMap
