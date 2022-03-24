@@ -68,7 +68,7 @@
   </app-row>
   <app-row>
     <app-col>
-      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
       <!-- <app-select>
         <app-select-option>전체</app-select-option>
       </app-select> -->
