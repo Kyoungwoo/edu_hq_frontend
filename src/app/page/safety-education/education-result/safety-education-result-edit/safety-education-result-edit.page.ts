@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -59,12 +60,16 @@ export class getEducationItem {
   selector: 'app-safety-education-result-edit',
   templateUrl: './safety-education-result-edit.page.html',
   styleUrls: ['./safety-education-result-edit.page.scss'],
+  animations: [ fadeInAnimation ]
+
 })
 export class SafetyEducationResultEditPage implements OnInit {
 
   @Input() item;
   @Input() editItem;
 
+  approvalView:boolean = false;
+  approvalDocument:boolean = false;
   res:ConnectResult<{
     education_safe_report_id: number,
     education_safe_id: number,

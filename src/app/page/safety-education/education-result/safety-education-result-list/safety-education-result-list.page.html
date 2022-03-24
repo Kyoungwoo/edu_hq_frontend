@@ -123,7 +123,7 @@
       </app-col>
     </app-row>
     <ng-container>
-      <app-card *ngFor="let item of res?.rsMap">
+      <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
         <app-row style="align-items: flex-start;">
           <app-col>
             <h5>{{ item.ctgo_education_safe_name }}</h5>

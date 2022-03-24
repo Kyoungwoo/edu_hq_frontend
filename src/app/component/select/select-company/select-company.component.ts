@@ -41,6 +41,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() text: string;
   @Input() multiple: boolean = false;
   @Input() disabled: boolean;
+  @Input() readonly:boolean = false;
 
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
