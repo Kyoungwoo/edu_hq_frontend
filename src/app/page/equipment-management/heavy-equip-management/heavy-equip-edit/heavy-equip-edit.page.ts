@@ -53,7 +53,7 @@ export class HeavyEquipEditPage implements OnInit {
     private alert: AlertService,
     private date: DateService,
     private toast: ToastService,
-    private user: UserService,
+    public user: UserService,
     private _modal: ModalController,
   ) { }
 
@@ -62,6 +62,7 @@ export class HeavyEquipEditPage implements OnInit {
       this.updateStatus = true;
       this.get();
     } else {
+      // this.form.master_company_id = 2;
       this.updateStatus = false;
     }
   }

@@ -63,7 +63,7 @@ export class MemberStandardSetPage implements OnInit {
 
   rolepass: boolean = true;
   form = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     company_password: ''
   }
   subpassword: ''
