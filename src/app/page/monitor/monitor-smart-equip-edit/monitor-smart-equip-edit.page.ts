@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monitor-smart-equip-edit.page.scss'],
 })
 export class MonitorSmartEquipEditPage implements OnInit {
+  /**
+   * @var smart_option - 구분 셀렉트 아이템 변수
+   */
   smart_option = [
     {
       text: '구조물 변위 감지',
@@ -30,12 +33,18 @@ export class MonitorSmartEquipEditPage implements OnInit {
   total_count = 0;
   using_total_count = 0;
 
+  /**
+   * @var form - 메서드 호출용 필수 변수모음
+   */
   form = {
     project_id: 1,
     master_company_id: 1,
     ctgo_machine_serial_id: 0
   }
 
+  /**
+   * @var res - 메서드로 받아온 아이템 Array
+   */
   res:ConnectResult<{
     not_using_count:number; // 미가동
     company_name:string; // 업체이름
