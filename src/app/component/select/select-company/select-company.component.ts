@@ -70,28 +70,29 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   public async get() {
     if(this.isModalData) return;
     
-    if(!this.value && !this.all) return;
-    
+    const { user_type } = this.user.userData;
     if(this.value === 0 && this.all) {
       this.text = '전체';
       this.changeDetector.detectChanges();
       return;
     }
-    if(!this.value) return;
+    console.log("this.value",this.value);
+    console.log("this.project_id",this.project_id);
 
-    this.res = await this.connect.run('/category/certify/company/master/get', {
+    this.res = await this.connect.run('/category/certify/company/partner_master/get', {
       project_id: this.project_id,
-      company_contract_type: '협력사',
       search_text: ''
     });
     if (this.res.rsCode === 0) {
-
       const { rsMap } = this.res;
         if (this.multiple) {
           this.text = rsMap
           .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
           .map(constractor => constractor.company_name).join();
       } else {
+        if(!this.value && user_type === 'LH') {
+          this.value = rsMap[0].company_id;
+        }
         this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
       }
     }

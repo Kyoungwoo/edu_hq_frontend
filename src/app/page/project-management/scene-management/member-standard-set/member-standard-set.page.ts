@@ -63,7 +63,7 @@ export class MemberStandardSetPage implements OnInit {
 
   rolepass: boolean = true;
   form = {
-    company_id: this.user.userData.belong_data.company_id,
+    company_id: 0,
     company_password: ''
   }
   subpassword: ''
@@ -153,8 +153,9 @@ export class MemberStandardSetPage implements OnInit {
           this.memberRoleCheck = false;
         }
     if(this.user.userData.user_role === 'PARTNER_HEAD' ||
-    this.user.userData.user_role === 'MASTER_HEAD') this.editable = true;
-
+    this.user.userData.user_role === 'MASTER_HEAD') {
+      this.editable = true;
+    }
     if (this.user.userData.user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
     } else if(this.lhHeadCheck) {
@@ -165,7 +166,6 @@ export class MemberStandardSetPage implements OnInit {
     //lh조직기구
 
     this.level1();
-    this.form.company_id = this.user.userData.belong_data.company_id;
 
   }
 
@@ -177,6 +177,9 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   async menuCount2() {
+    if(this.user.userData.user_role === 'MASTER_HEAD') {
+      this.form.company_id = this.user.userData.belong_data.company_id;
+    }
     this.menuCount = 2;
   }
 
