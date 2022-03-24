@@ -204,9 +204,9 @@
           (click)="approvalView = !approvalView"
           slot="end" 
           src="assets/img/menu/list-tab.svg"></app-img>
-          <app-img style="width: 30px;" @fadeInAnimation *ngIf="approvalView" 
+          <app-img style="width: 30px;" @fadeInAnimation slot="end" 
+          *ngIf="approvalView" 
           (click)="approvalView = !approvalView" 
-          slot="end" 
           src="assets/img/menu/list-tab-hide.svg"></app-img>
         </app-col>
       </app-row>
@@ -243,10 +243,17 @@
     <ion-toolbar color="white">
       <app-row>
         <app-col>
-          <h5>결재문서</h5>
+          <h5>결재선</h5>
         </app-col>
         <app-col size="auto">
-          <app-img style="width: 30px;" (click)="approvalDocument = !approvalDocument" slot="end" src="assets/basic/img/caret-down.svg"></app-img>
+          <app-img style="width: 30px;" @fadeInAnimation *ngIf="!approvalDocument" 
+          (click)="approvalDocument = !approvalDocument"
+          slot="end" 
+          src="assets/img/menu/list-tab.svg"></app-img>
+          <app-img style="width: 30px;" @fadeInAnimation slot="end" 
+          *ngIf="approvalDocument" 
+          (click)="approvalDocument = !approvalDocument" 
+          src="assets/img/menu/list-tab-hide.svg"></app-img>
         </app-col>
       </app-row>
     </ion-toolbar>
