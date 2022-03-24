@@ -11,20 +11,18 @@ import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 type NoticeType = "일반" | "안전관리" | "환경관리" | "공사관리" | "품질관리";
 
 class NoticeInfo {
-  company_id: number;
+  notice_title: string;
+  project_id: number;
+  user_name: string;
+  master_company_id: number;
   company_name: string;
   create_date: string;
-  favorites_state: number;
   hit_count: number;
+  favorites_state: number;
   notice_id: number;
-  notice_title: string;
-  notice_content: string;
-  notice_type: NoticeType;
-  project_id: number;
-  project_name: string;
-  user_name: string;
+  notice_type: string;
   row_count: number;
-  index:number
+  index: number
 }
 @Component({
   selector: 'app-notice-list',
@@ -35,7 +33,7 @@ export class NoticeListPage implements OnInit {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    company_id: this.user.userData.belong_data.company_id,
+    master_company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     notice_types: [],
     // project_ids: [1],
