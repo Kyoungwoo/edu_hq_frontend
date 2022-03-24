@@ -14,13 +14,13 @@ export class HeavyEquipDetail {
     rental_start_date: string;
     ctgo_construction_name: string;
     ctgo_machinery_id: number;
+    master_company_id: number;
     machinery_id: number;
     project_name: string;
     master_company_name: string;
     rental_end_date: string;
     project_id: number;
     partner_company_id: number;
-    master_company_id: number;
     rental_price: number;
     machinery_regist_no: string;
     rental_company_name: string;
@@ -53,7 +53,7 @@ export class HeavyEquipEditPage implements OnInit {
     private alert: AlertService,
     private date: DateService,
     private toast: ToastService,
-    private user: UserService,
+    public user: UserService,
     private _modal: ModalController,
   ) { }
 
