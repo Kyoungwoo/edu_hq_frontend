@@ -1,25 +1,35 @@
 <ion-content>
   <app-row class="menu-list">
-    <app-col size="2" class="menu-item" *ngFor="let menu of menuList"><app-img class="title-img" mode="light" [src]="menu.img"></app-img>
-      <h2>{{ menu.title }}</h2>
-      <ul class="sub-menu">
-        <li *ngFor="let subMenu of menu.subMenuList">
-          <app-button [attr.name]="'button_' + subMenu.link?.replace('/', '')" fill="clear" color="dark" [routerLink]="subMenu.link || null" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? menuClose() : notReady()">
-            {{ subMenu.title }}
-            <app-img slot="end" *ngIf="subMenu.thirdMenuList" [src]="subMenu.toggle ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
-          </app-button>
-          <ng-container *ngIf="subMenu.toggle">
-            <ul class="third-menu" [@listAnimation]="subMenu.thirdMenuList?.length">
-              <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link || null" (click)="thirdMenu.link ? menuClose() : notReady()">
-                <app-button [attr.name]="'button_' + thirdMenu.link?.replace('/', '')" fill="clear" color="dark" [style.opacity]="thirdMenu.link ? 1 : 0.5">
-                  {{ thirdMenu.title }}
-                </app-button>
-              </li>
-            </ul>
+    <ng-container *ngFor="let menu of menuList">
+
+      <app-col *ngIf="!menu.permission || menu.permission()" size="2" class="menu-item"><app-img class="title-img" mode="light" [src]="menu.img"></app-img>
+        <h2>{{ menu.title }}</h2>
+        <ul class="sub-menu">
+          
+          <ng-container *ngFor="let subMenu of menu.subMenuList">
+
+            <li *ngIf="!subMenu.permission || subMenu.permission()">
+              <app-button [attr.name]="'button_' + subMenu.link?.replace('/', '')" fill="clear" color="dark" [routerLink]="subMenu.link || null" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? menuClose() : notReady()">
+                {{ subMenu.title }}
+                <app-img slot="end" *ngIf="subMenu.thirdMenuList" [src]="subMenu.toggle ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
+              </app-button>
+              <ng-container *ngIf="subMenu.toggle">
+                <ul class="third-menu" [@listAnimation]="subMenu.thirdMenuList?.length">
+                  <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link || null" (click)="thirdMenu.link ? menuClose() : notReady()">
+                    <app-button [attr.name]="'button_' + thirdMenu.link?.replace('/', '')" fill="clear" color="dark" [style.opacity]="thirdMenu.link ? 1 : 0.5">
+                      {{ thirdMenu.title }}
+                    </app-button>
+                  </li>
+                </ul>
+              </ng-container>
+            </li>
+
           </ng-container>
-        </li>
-      </ul>
-    </app-col>
+
+        </ul>
+      </app-col>
+
+    </ng-container>
   </app-row>
 </ion-content>
   

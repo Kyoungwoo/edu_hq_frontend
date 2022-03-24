@@ -1,17 +1,20 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { listAnimation } from 'src/app/basic/basic.animation';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 export interface MenuItem {
   title: string,
   img: string,
+  permission?:() => boolean,
   subMenuList: SubMenuItem[]
 }
 export interface SubMenuItem {
   title: string,
   link?: string,
   toggle?: boolean,
+  permission?:() => boolean,
   thirdMenuList?: ThirdMenuItem[]
 }
 export interface ThirdMenuItem {
@@ -34,13 +37,18 @@ export class  SideMenuAdminComponent implements OnInit {
     { title: '통합관제', img: 'assets/img/menu/control-center.svg', subMenuList: [
       { title: '통합관제', link: '/monitor'}
     ]},
-    { title: '결재', img: 'assets/img/menu/sign.svg', subMenuList: [
+    { title: '전자결재', img: 'assets/img/menu/sign.svg',
+    subMenuList: [
       { title: '기안/임시저장함', link: '/confirm-obtain-list'},
       { title: '미결함', link: '/confirm-pending-list'},
       { title: '기결함', link: '/confirm-progress-list'},
       { title: '참조함', link: '/confirm-cc-list'},
-      { title: '결재설정', thirdMenuList: [
-        { title: '기본 결재선 지정', link: '/approval-edit'},
+      { title: '전자결재 설정', permission: () => {
+        const { user_type } = this.user.userData;
+        return user_type === 'COMPANY';
+      },
+      thirdMenuList: [
+        { title: '기본 전자결재선 지정', link: '/approval-edit'},
         { title: '위임 관리', link: ''}
       ]}
     ]},
@@ -138,7 +146,8 @@ export class  SideMenuAdminComponent implements OnInit {
   
   constructor(
     private alert: AlertService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    private user: UserService
   ) { }
 
   ngOnInit() {}
