@@ -16,7 +16,7 @@
      <app-col>
       <app-select-contractor [multiple]="false" name="master_company_id" 
       [required]="true" [project_id]="form.project_id" 
-      [disabled]="updateStatus" [(ngModel)]="user.userData.belong_data.company_id"></app-select-contractor>
+      [disabled]="true" [(ngModel)]="form.master_company_id"></app-select-contractor>
      </app-col>
    </app-row>
    <app-row mobileBreak>
@@ -27,7 +27,7 @@
       [(ngModel)]="form.partner_company_id"></app-select-company>
     </app-col>
     <app-col>
-      <app-select-construction-machinery [company_id]="user.userData.belong_data.company_id" 
+      <app-select-construction-machinery [company_id]="form.master_company_id" 
       [required]="true" [disabled]="updateStatus" 
       [(ngModel)]="form.ctgo_machinery_id"></app-select-construction-machinery>
     </app-col>

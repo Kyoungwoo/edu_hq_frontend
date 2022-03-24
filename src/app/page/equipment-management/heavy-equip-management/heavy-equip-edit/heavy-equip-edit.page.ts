@@ -62,6 +62,7 @@ export class HeavyEquipEditPage implements OnInit {
       this.updateStatus = true;
       this.get();
     } else {
+      this.form.master_company_id = this.user.userData.belong_data.company_id;
       this.updateStatus = false;
     }
   }
@@ -76,7 +77,6 @@ export class HeavyEquipEditPage implements OnInit {
         ...res.rsObj
       }
     }
-    console.log("this.form : ",this.form);
   }
 
   Heavyedit() {

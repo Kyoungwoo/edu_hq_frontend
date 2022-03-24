@@ -132,7 +132,6 @@ export class MyStatusListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log("data",data);
       this.form.master_company_id = data.master_company_id;
       this.form.project_id = data.project_id;
       this.get();

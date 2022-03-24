@@ -85,6 +85,7 @@ export class SceneListPage implements OnInit {
         item.index =  res.rsObj.row_count - this.form.limit_no - i;
       });
     } else if(res.rsCode === 1008) {
+      this.res = null;
       if(!this.form.limit_no) this.toast.present({ color: 'warning', message: res.rsMsg });
       // else 더 로딩할 데이터가 없음
     }

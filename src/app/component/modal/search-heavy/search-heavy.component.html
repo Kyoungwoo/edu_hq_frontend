@@ -6,46 +6,25 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    
+
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
         <app-img name="search"></app-img>
       </app-input>
-
   </ion-toolbar>
+
 </ion-header>
 <ion-content>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>타워 크레인</h5>
-        <p>경기08고4464 / 구일종합건설(주)</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>지계차</h5>
-        <p>경기08고8989 / 구일종합건설(주)</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>굴삭기</h5>
-        <p>경기08고6667 / 구일종합건설(주)</p>
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>불도저</h5>
-        <p>경기08고1234 / 구일종합건설(주)</p>
-      </app-col>
-    </app-row>
-  </app-card>
+  <app-row>
+    <app-col>
+      <app-select-contractor></app-select-contractor>
+    </app-col>
+    <app-col>
+      <app-select-construction-machinery></app-select-construction-machinery>
+    </app-col>
+    <app-col>
+      <app-select-construction></app-select-construction>
+    </app-col>
+  </app-row>
   <app-card>
     <app-row>
       <app-col size="auto">
