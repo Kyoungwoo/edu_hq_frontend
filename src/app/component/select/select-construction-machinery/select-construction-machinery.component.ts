@@ -27,7 +27,8 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   @Input() disabled: boolean = false;
   @Input() text: string;
   @Input() required: boolean = false;
-  @Input() company_id:number = 0;
+
+  @Input() company_id;
 
   isModalData: boolean = false;
 
@@ -41,18 +42,16 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   ngOnInit() {}
 
   public async get() {
-    if(this.isModalData) return;
-    
     console.log("this.company_id",this.company_id);
+    console.log("this.value",this.value);
+    if(this.isModalData) return;
     this.res = await this.connect.run('/category/certify/machinery/get', {
       company_id: this.value,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
-      console.log("-------------insmodal",this.value);
       const { rsMap } = this.res;
-      console.log("rsMap",rsMap);
-      console.log("this.value",this.value);
+      console.log("------rsMap",rsMap);
       this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
     }
   }
@@ -86,6 +85,7 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     if(v !== this._value) {
       this._value = v;
       this.get();
+      this.valueChange(v);
       this.onChangeCallback(v);
       this.change.emit(v);
     }
@@ -99,7 +99,12 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     this.get();
     this.change.emit(v);
   }
-
+  valueChange(v) {
+    this._value = v ? v : 0;
+    this.get();
+    this.onChangeCallback(v);
+    this.change.emit(v);
+  }
   private onChangeCallback = (v) => {};
   private onTouchedCallback = (v) => {};
   registerOnChange(fn: any): void { this.onChangeCallback = fn; }

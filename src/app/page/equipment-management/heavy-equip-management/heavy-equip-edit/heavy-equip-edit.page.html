@@ -14,7 +14,7 @@
       <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene>
      </app-col>
      <app-col>
-      <app-select-contractor name="master_company_id" [required]="true" [project_id]="form.project_id" [disabled]="updateStatus" [(ngModel)]="form.master_company_id" [disabled]="true" ></app-select-contractor>
+      <app-select-contractor [multiple]="false" name="master_company_id" [required]="true" [project_id]="form.project_id" [disabled]="updateStatus" [(ngModel)]="form.master_company_id" [disabled]="true" ></app-select-contractor>
      </app-col>
    </app-row>
    <app-row mobileBreak>
