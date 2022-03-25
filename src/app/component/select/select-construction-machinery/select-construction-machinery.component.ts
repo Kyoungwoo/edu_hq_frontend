@@ -32,7 +32,8 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   @Input() set company_id(v:number) {
     if(this._company_id !== v) {
       this._company_id = v;
-      this.get();
+      this._value = 0;
+      this.valueChange(this._value);
     }
   }
 
@@ -86,29 +87,21 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
 
   private _value:any;
   @Input() set value(v:number) {
-    if(v !== this._value) {
-      this._value = v;
-      this.get();
-      this.valueChange(v);
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
+    if(v !== this._value) this.valueChange(v);
   }
   get value() {
     return this._value;
   }
   writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.get();
-    this.change.emit(v);
+    if(v !== this._value) this.valueChange(v);
   }
-  valueChange(v) {
+  async valueChange(v) {
     this._value = v ? v : 0;
-    this.get();
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    await this.onChangeCallback(v);
+    await this.change.emit(v);
+    await this.get();
   }
+  
   private onChangeCallback = (v) => {};
   private onTouchedCallback = (v) => {};
   registerOnChange(fn: any): void { this.onChangeCallback = fn; }

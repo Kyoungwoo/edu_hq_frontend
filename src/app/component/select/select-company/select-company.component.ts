@@ -51,24 +51,28 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this.value = 0;
+      this._value = this.multiple ? [] : 0;
+      this.valueChange(this._value);
     }
   }
   
-  private _compayny_id:number = 0;
+  private _company_id:number = 0;
   @Input() set company_id(v:number) {
-    if(this._compayny_id !== v) {
-      this._compayny_id = v;
-      this.value = 0;
+    if(this._company_id !== v) {
+      this._company_id = v;
+      this._value = this.multiple ? [] : 0;
+      this.valueChange(this._value);
     }
   }
   get project_id() { return this._project_id }
-  get company_id() { return this._compayny_id }
+  get company_id() { return this._company_id }
 
   isModalData: boolean = false;
   
   res:ConnectResult<SelectItem>
   private data;
+
+  loading:boolean = false;
 
   constructor(
     private _modal: ModalController,
@@ -82,41 +86,59 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
-    if(this.isModalData) return;
+    if(this.loading) return;
+    this.loading = true;
     
     const { user_type } = this.user.userData;
-    if(!this.project_id || !this.company_id) {
-      this.value = 0;
-      return;
-    }
-    if(this.value === 0 && this.all) {
-      this.text = '전체';
-      this.changeDetector.detectChanges();
-      return;
-    }
 
+    
+    if(!this.project_id || !this.company_id || !this.value) {
+      if(this.multiple) {
+        this.value = [];
+      }
+      else {
+        this.value = 0;
+      }
+
+      if(this.all) {
+        this.text = '전체';
+      }
+      else {
+        this.text = '';
+      }
+      return;
+    }
+    
     this.res = await this.connect.run('/category/certify/partner/company/get', {
       master_company_id: this.company_id,
       project_id: this.project_id,
       search_text:''
     });
-    if (this.res.rsCode === 0) {
+
+    if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
-        if (this.multiple) {
-          this.text = rsMap
-          .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
-          .map(constractor => constractor.company_name).join();
-      } else {
+      if(this.multiple) {
+        if(!this.value && user_type === 'LH') {
+          this.value = [rsMap[0].company_id];
+        }
+
+        this.text = rsMap
+        .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
+        .map(constractor => constractor.company_name).join();
+      }
+      else {
         if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
-        this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
+
+        this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
       }
     }
+    this.loading = false;
   }
 
   public async openModal() {
-    this.isModalData = true;
+    this.loading = true;
     const modal = await this._modal.create({
       component: SearchCompanyComponent,
       componentProps: {
@@ -143,6 +165,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         this.value = data.selectItem.company_id;
       }
     }
+    this.loading = false;
   }
 
 
@@ -151,10 +174,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   private _value: any;
   @Input() set value(v:number[] | number) {
     if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
   }
   get value() {
@@ -162,11 +182,15 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   }
   writeValue(v:number[] | number): void { 
     if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
+  }
+
+  async valueChange(v) {
+    this._value = v ? v : this.multiple ? [] : 0;
+    await this.onChangeCallback(v);
+    await this.change.emit(v);
+    await this.get();
   }
 
   private onChangeCallback = (v) => { };
