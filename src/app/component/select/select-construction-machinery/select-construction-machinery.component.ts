@@ -49,8 +49,6 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   ngOnInit() {}
 
   public async get() {
-    console.log("this.company_id",this.company_id);
-    console.log("this.value",this.value);
     if(this.isModalData) return;
     this.res = await this.connect.run('/category/certify/machinery/get', {
       company_id: this.company_id,
@@ -58,7 +56,6 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     });
     if (this.res.rsCode === 0) {
       const { rsMap } = this.res;
-      console.log("------rsMap",rsMap);
       this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
     }
   }

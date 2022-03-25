@@ -92,7 +92,6 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
-        console.log("this.value : ",this.value)
         this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
       }
     }

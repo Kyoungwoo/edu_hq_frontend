@@ -5,6 +5,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { DateService } from 'src/app/basic/service/util/date.service';
 
 export class ctgoMemberItem {
   user_id: number;
@@ -40,7 +41,7 @@ export class WorkerStatusAddPage implements OnInit {
     area_top_id:0,
     insert_state:'', //입퇴장 타입(IN - 입장등록 / OUT - 퇴장등록) 유저리스트 메소드
     select_type:'', //입퇴장 타입(IN - 입장등록 / OUT - 퇴장등록) 입장퇴장 메소드
-    inside_time:'',
+    inout_datetime:'',
     serial_type:'',
     user_ids:[]
   }
@@ -53,7 +54,8 @@ export class WorkerStatusAddPage implements OnInit {
     private connect: ConnectService,
     private user: UserService,
     private alert: AlertService,
-    private toast: ToastService
+    private toast: ToastService,
+    private date: DateService
   ) { }
 
   ngOnInit() {
@@ -94,13 +96,17 @@ export class WorkerStatusAddPage implements OnInit {
   }
 
   async workerIn() {
-    this.selectData.map(item => this.form.user_ids.push(item.user_id));
+    this.form.user_ids = [];
+    console.log("this.selectData",this.selectData);
+    this.selectData.forEach(item => this.form.user_ids.push(item.user_id));
+    console.log("this.form.user_ids",this.form.user_ids);
     if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
-    if(!this.form.inside_time) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
+    if(!this.form.inout_datetime) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
     const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;
     this.form.area_top_id = area_top_id || 0;
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
     this.form.area_bottom_id = area_bottom_id ? area_bottom_id : 0;
+    this.form.inout_datetime = this.date.today() +' '+ this.form.inout_datetime;
     const alert = await this.alert.present({
       message: `선택한 인원을 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리하시겠습니까?`,
       buttons:[

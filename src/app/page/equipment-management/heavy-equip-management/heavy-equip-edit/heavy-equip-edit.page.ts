@@ -62,7 +62,6 @@ export class HeavyEquipEditPage implements OnInit {
       this.updateStatus = true;
       this.get();
     } else {
-      this.form.master_company_id = this.user.userData.belong_data.company_id;
       this.updateStatus = false;
     }
   }

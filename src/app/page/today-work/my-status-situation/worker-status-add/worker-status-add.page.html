@@ -46,7 +46,7 @@
   </div>
 </app-card>
 <app-datetime [label]="select_type === 'IN' ? '입장시간':'퇴장시간'" 
-[(ngModel)]="form.inside_time">
+[(ngModel)]="form.inout_datetime">
 </app-datetime>
 <app-button-footer>
   <app-button (click)="dismiss()">취소</app-button>
