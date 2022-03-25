@@ -1,42 +1,54 @@
-<ng-container>
-  <app-header-admin></app-header-admin>
-  <ion-content>
-    <app-row style="align-items: flex-start;">
-      <app-col size="280px">
-        <app-table type="card">
-          <ion-toolbar slot="top" color="white">
-            <app-row style="justify-content: space-between;">
-              <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
-            </app-row>
-          </ion-toolbar>
-          <tbody>
-            <tr>
-              <td>
-                <app-select-scene></app-select-scene>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-select label="결재 서식"></app-select>
-              </td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-col>
-      <app-col>
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="search()">검색</app-button></app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-approval-module [(ngModel)]="form.ctgo_approval_module_id"></app-select-approval-module>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+
+    </app-col>
+
+    <app-col>
+
+      <ng-container *ngIf="!res">
+
+        <app-card>전자결재 서식을 선택 후, 검색해주세요.</app-card>
+
+      </ng-container>
+
+      <ng-container *ngIf="res?.rsCode === 0">
+
         <app-row>
           <ion-toolbar color="white">
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="submit()">저장</app-button>
           </ion-toolbar>
         </app-row>
-        <app-row>
+        <app-row class="approval-row">
           <app-col>
             <ion-toolbar color="white">
               <h5>결재자</h5>
               <ion-buttons slot="end">
                 <app-button fill="translucent">초기화</app-button>
-                <app-button fill="translucent">추가</app-button>
+                <app-button fill="translucent" (click)="addAnswer()">추가</app-button>
               </ion-buttons>
             </ion-toolbar>
             <app-table type="card">
@@ -45,31 +57,29 @@
                   <th>No</th>
                   <th>구분</th>
                   <th>성명</th>
-                  <th>이동</th>
-                  <th>삭제</th>
+                  <th style="width: 60px">이동</th>
+                  <th style="width: 60px">삭제</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>-</td>
-                  <td>작성</td>
-                  <td>이건창</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>-</td>
-                  <td>검토</td>
-                  <td>이은주</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>최종</td>
-                  <td>승인</td>
-                  <td>이은주</td>
-                  <td></td>
-                  <td></td>
+              <tbody [sortablejs]="res?.rsObj?.answer_datas">
+                <tr *ngFor="let item of res?.rsObj?.answer_datas; let i = index; let f = first; let l = last;">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ f ? 
+                          l ? '작성/승인' : '작성' 
+                          : 
+                          l ? '승인' : '검토' 
+                  }}</td>
+                  <td>{{ item.answer_user_name }}</td>
+                  <td>
+                    <app-button *ngIf="!f" fill="translucent">
+                      <ion-icon name="swap-vertical-outline"></ion-icon>
+                    </app-button>
+                  </td>
+                  <td>
+                    <app-button *ngIf="!f" color="danger" fill="translucent">
+                      <ion-icon name="remove"></ion-icon>
+                    </app-button>
+                  </td>
                 </tr>
               </tbody>
             </app-table>
@@ -86,27 +96,25 @@
               <thead>
                 <tr>
                   <th>성명</th>
-                  <th>삭제</th>
+                  <th style="width: 60px">삭제</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>박소현</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>이건창</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>이건창</td>
-                  <td></td>
+                <tr *ngFor="let item of res?.rsObj?.refer_datas;">
+                  <td>{{ item.refer_user_name }}</td>
+                  <td>
+                    <app-button color="danger" fill="translucent">
+                      <ion-icon name="remove"></ion-icon>
+                    </app-button>
+                  </td>
                 </tr>
               </tbody>
             </app-table>
           </app-col>
         </app-row>
-      </app-col>
-    </app-row>
-  </ion-content>
-</ng-container>
+
+      </ng-container>
+
+    </app-col>
+  </app-row>
+</ion-content>

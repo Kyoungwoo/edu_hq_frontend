@@ -1,3 +1,4 @@
+import { TodayDepartureStatusListPageModule } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.module';
 import { MonitorSmartEquipEditPageModule } from './monitor-smart-equip-edit/monitor-smart-equip-edit.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,8 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
     ComponentModule,
     MonitorPageRoutingModule,
     RiskEvaluationPopupPageModule,
-    MonitorSmartEquipEditPageModule
+    MonitorSmartEquipEditPageModule,
+    TodayDepartureStatusListPageModule
   ],
   declarations: [MonitorPage]
 })

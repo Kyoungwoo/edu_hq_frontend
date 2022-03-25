@@ -68,7 +68,7 @@
   </app-row>
   <app-row>
     <app-col>
-      <app-select-contractor name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
       <!-- <app-select>
         <app-select-option>전체</app-select-option>
       </app-select> -->
@@ -100,13 +100,20 @@
                   <h4>금일 출역 근로자</h4>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip class="chip-back">총 {{ todayWork_totalCount }}명</ion-chip>
+                  <ion-chip class="chip-back" (click)="todayWorkDetail({
+                    company_admin: 0,
+                    company_worker: 0,
+                    master_admin: 0,
+                    master_worker: 0,
+                    total_cnt: 0,
+                    work_date: this.date.today()
+                })">총 {{ todayWork_totalCount }}명</ion-chip>
                 </app-col>
               </ion-row>
             </ion-toolbar>
             <ion-row class="graph-row-today-work"> 
               <ion-col class="col-today-work">
-                <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div>
+                <!-- <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div> -->
 
                 <div class="graph-area">
                   <div class="graph-wrap">
@@ -130,7 +137,9 @@
                       <div class="bar-flex-theme"></div>
                       <div class="bar-wrap">
                         <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                          <div *ngIf="item.master_worker || item.company_worker" class="bar" [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'"></div>
+                          <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker" class="bar" [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
+                            <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
+                          </div>
                           <div class="text">{{ item.work_date }}</div>
                         </div>
                       </div>
@@ -278,7 +287,7 @@
       <app-card color="white">
         <app-row style="align-items: stretch;">
           <app-col class="donut-group">
-            <div class="blinder">데이터가 없습니다.</div>
+            <!-- <div class="blinder">데이터가 없습니다.</div> -->
             <app-row>
               <app-col class="donut-group">
                 <ion-toolbar slot="top" color="white">

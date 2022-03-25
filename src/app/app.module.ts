@@ -16,6 +16,8 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 
+import { SortablejsModule } from 'ngx-sortablejs';
+
 const getConfig = () => {
   if(!isPlatform('ios')) {
     return  {
@@ -69,7 +71,8 @@ const getConfig = () => {
     IonicModule.forRoot(getConfig()),
     FormsModule,
     AppRoutingModule,
-    ScrollingModule
+    ScrollingModule,
+    SortablejsModule.forRoot({ animation: 150 }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

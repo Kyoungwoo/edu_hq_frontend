@@ -14,13 +14,13 @@ export class HeavyEquipDetail {
     rental_start_date: string;
     ctgo_construction_name: string;
     ctgo_machinery_id: number;
+    master_company_id: number;
     machinery_id: number;
     project_name: string;
     master_company_name: string;
     rental_end_date: string;
     project_id: number;
     partner_company_id: number;
-    master_company_id: number;
     rental_price: number;
     machinery_regist_no: string;
     rental_company_name: string;
@@ -62,7 +62,7 @@ export class HeavyEquipEditPage implements OnInit {
       this.updateStatus = true;
       this.get();
     } else {
-      // this.form.master_company_id = 2;
+      this.form.master_company_id = this.user.userData.belong_data.company_id;
       this.updateStatus = false;
     }
   }
@@ -77,7 +77,6 @@ export class HeavyEquipEditPage implements OnInit {
         ...res.rsObj
       }
     }
-    console.log("this.form : ",this.form);
   }
 
   Heavyedit() {

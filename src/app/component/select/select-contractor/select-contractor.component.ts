@@ -117,13 +117,13 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     const { data } = await modal.onDidDismiss();
     if(data) {
       if(this.multiple) {
-        const values:Constractor[] = data;
+        const values:Constractor[] = data.values;
         this.value = values?.map(constractor => constractor.company_id);
         this.text = values?.map(constractor => constractor.company_name).join();
       } else {
-        const value:Constractor = data;
+        const value:Constractor = data.values;
         this.value = value?.company_id || 0;
-        this.text = value?.company_name;
+        this.text = value?.company_name || '전체';
       }
     }
     this.loading = false;

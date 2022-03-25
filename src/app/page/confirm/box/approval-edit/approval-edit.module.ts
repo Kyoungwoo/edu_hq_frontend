@@ -9,6 +9,7 @@ import { ApprovalEditPageRoutingModule } from './approval-edit-routing.module';
 import { ApprovalEditPage } from './approval-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
-    ApprovalEditPageRoutingModule
+    ApprovalEditPageRoutingModule,
+    SortablejsModule
   ],
   declarations: [ApprovalEditPage]
 })

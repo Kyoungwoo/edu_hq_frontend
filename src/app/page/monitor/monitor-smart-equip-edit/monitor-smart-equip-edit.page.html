@@ -28,9 +28,9 @@
       <tr>
         <th>스마트 장비</th>
         <th>원청사명</th>
-        <th>보유대수</th>
-        <th>가동중</th>
-        <th>미가동</th>
+        <th width="80px">보유대수</th>
+        <th width="80px">가동중</th>
+        <th width="80px">미가동</th>
       </tr>
     </thead>
     <tbody>
@@ -38,9 +38,17 @@
         <td>{{ item.ctgo_machine_serial_name }}</td>
         <td>{{ item.company_name }}</td>
         <td>{{ item.machine_count }}</td>
-        <td>{{ item.mmachine_using_count }}</td>
+        <!-- *ngIf="user.userData.user_role === 'LH_HEAD' || user.userData.user_role === 'MASTER_HEAD'" -->
+        <td>
+          <div *ngIf="user.userData.user_role !== 'LH_HEAD' && user.userData.user_role !== 'MASTER_HEAD'">{{ item.mmachine_using_count }}</div>
+          <app-input *ngIf="user.userData.user_role === 'LH_HEAD' || user.userData.user_role === 'MASTER_HEAD'" [(ngModel)]="item.mmachine_using_count"></app-input>
+        </td>
         <td>{{ item.not_using_count }}</td>
       </tr>
     </tbody>
   </app-table>
+
+  <app-button-footer *ngIf="user.userData.user_role === 'LH_HEAD' || user.userData.user_role === 'MASTER_HEAD'">
+    <app-button name="submit" (click)="edit()">적용</app-button>
+  </app-button-footer>
 </ion-content>

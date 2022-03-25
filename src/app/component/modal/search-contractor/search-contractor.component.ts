@@ -175,13 +175,13 @@ export class SearchContractorComponent implements OnInit {
           return this.toast.present({ message: res.rsMsg, color: 'warning' });
         }
       }
-      this._modal_.dismiss(this.values);
+      this._modal_.dismiss({values: this.values, submit: true});
     }
     else if(this.multiple) {
-      this._modal_.dismiss(this.values);
+      this._modal_.dismiss({values: this.values, submit: true});
     }
     else {
-      this._modal_.dismiss(this.values[0]);
+      this._modal_.dismiss({values: this.values[0], submit: true});
     }
   }
 }

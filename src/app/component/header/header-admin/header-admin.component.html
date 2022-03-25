@@ -24,12 +24,16 @@
     <app-row>
       <app-col size="auto">
         <ion-segment class="sub-menu" color="primary" [scrollable]="true" [value]="selectedSubMenu?.title">
-          <ion-segment-button *ngFor="let subMenu of selectedMenu?.subMenuList"
-          [routerLink]="subMenu.link || null"
-          [value]="subMenu.title" [disabled]="!subMenu.link && !subMenu.thirdMenuList"
-          (click)="selectedSubMenu = subMenu">
-            {{ subMenu.title }}
-          </ion-segment-button>
+          <ng-container *ngFor="let subMenu of selectedMenu?.subMenuList">
+
+            <ion-segment-button *ngIf="!subMenu.permission || subMenu.permission()"
+            [routerLink]="subMenu.link || null"
+            [value]="subMenu.title" [disabled]="!subMenu.link && !subMenu.thirdMenuList"
+            (click)="selectedSubMenu = subMenu">
+              {{ subMenu.title }}
+            </ion-segment-button>
+
+          </ng-container>
         </ion-segment>
       </app-col>
     </app-row>

@@ -334,6 +334,15 @@ app-card:last-child{
                     .bar{
                         width: 36px;
                         background: var(--ion-color-primary);
+                        position: relative;
+                        cursor: pointer;
+
+                        .bar-inner-text{
+                            position: absolute;
+                            top: -20px;
+                            width: 100%;
+                            text-align: center;
+                        }
                     }
                     .text{
                         height: 50px;

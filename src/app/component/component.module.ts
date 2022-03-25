@@ -58,6 +58,7 @@ import { SelectProjectContractorComponent } from './select/select-project-contra
 import { SearchProjectContractorComponent } from './modal/search-project-contractor/search-project-contractor.component';
 import { InputSafejobComponent } from './input/input-safejob/input-safejob.component';
 import { InputCertifyComponent } from './input/input-certify/input-certify.component';
+import { SelectApprovalModuleComponent } from './select/select-approval-module/select-approval-module.component';
 
 
 
@@ -84,6 +85,7 @@ import { InputCertifyComponent } from './input/input-certify/input-certify.compo
     SearchAreaComponent,
     SearchProjectContractorComponent,
     // select
+    SelectApprovalModuleComponent,
     SelectCountryComponent,
     SelectToolComponent,
     SelectEducationComponent,
@@ -147,6 +149,7 @@ import { InputCertifyComponent } from './input/input-certify/input-certify.compo
     // select
     PeopleViewComponent,
     PeopleDeleteComponent,
+    SelectApprovalModuleComponent,
     SearchAreaComponent,
     SelectToolComponent,
     SelectEducationComponent,
