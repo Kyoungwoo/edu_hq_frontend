@@ -70,7 +70,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   public async get() {
     if(this.isModalData) return;
     
-    const { user_type } = this.user.userData;
+    const { user_type, belong_data } = this.user.userData;
     if(this.value === 0 && this.all) {
       this.text = '전체';
       this.changeDetector.detectChanges();
@@ -78,8 +78,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     }
 
     this.res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type:user_type,
-      // project_id: this.project_id,
+      company_contract_type: belong_data.company_contract_type,
       search_text: ''
     });
     if (this.res.rsCode === 0) {

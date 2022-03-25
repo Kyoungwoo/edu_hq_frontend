@@ -55,8 +55,8 @@ export class MinutesListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    console.log(this.user.userData);
     this.get();
-
   }
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
@@ -99,7 +99,7 @@ export class MinutesListPage implements OnInit {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
-  minutesEditl(){
+  minutesEdit(){
 
   }
   async detailSearch() {
