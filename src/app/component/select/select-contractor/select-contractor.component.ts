@@ -164,28 +164,6 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     await this.get();
   }
 
-
-  // private _value:number;
-  // @Input() set value(v:number) {
-  //   if(v !== this._value) {
-  //     this._value = v;
-  //     this.get();
-  //     this.onChangeCallback(v);
-  //     this.change.emit(v);
-  //   }
-  // }
-  // get value() {
-  //   return this._value;
-  // }
-  // writeValue(v:number): void {
-  //   if(v !== this._value) {
-  //     this._value = v;
-  //     this.get();
-  //     this.onChangeCallback(v);
-  //     this.change.emit(v);
-  //   }
-  // }
-
   private onChangeCallback = (v) => {};
   private onTouchedCallback = (v) => {};
   registerOnChange(fn: any): void { this.onChangeCallback = fn; }
