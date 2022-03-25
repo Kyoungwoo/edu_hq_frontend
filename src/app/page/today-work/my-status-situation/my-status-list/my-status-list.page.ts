@@ -98,12 +98,16 @@ export class MyStatusListPage implements OnInit {
   }
 
   roleCheck() {
-    const { user_role, user_type } = this.user.userData
+    const { user_role, user_type } = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
        user_role === 'LH_HEAD'||
        user_role === 'PARTNER_HEAD' ||
        user_role === 'MASTER_GENERAL' ||
        user_role === 'PARTNER_GENERAL') this.notWorker = true;
+    if(user_role === 'MASTER_HEAD' ||
+       user_role === 'PARTNER_HEAD') {
+         this.form.master_company_id = this.user.userData.belong_data.company_id;
+       }
 
     if(user_role === 'PARTNER_WORKER' ||
        user_type === 'WORKER') this.notWorker = false;

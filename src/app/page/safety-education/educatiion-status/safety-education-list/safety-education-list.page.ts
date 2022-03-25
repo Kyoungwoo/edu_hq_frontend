@@ -90,8 +90,6 @@ export class SafetyEducationListPage implements OnInit {
 
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    this.form.project_id = 0;
-    this.form.company_id = 0;
     this.res = await this.connect.run('/education/list',this.form);
     if(this.res.rsCode === 0) {
       this.res.rsMap.map((item, i) => {
