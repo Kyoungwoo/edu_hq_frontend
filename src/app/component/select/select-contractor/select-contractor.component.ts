@@ -65,28 +65,33 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     if(this.loading) return;
-    if(!this.project_id) return;
     this.loading = true;
+
     const { user_type } = this.user.userData;
-    console.log("this.value",this.value);
-    console.log("this.project_id",this.project_id);
+
     if(!this.project_id || !this.value) {
+      if(this.multiple) {
+        this.value = [];
+      }
+      else {
+        this.value = 0;
+      }
+
       if(this.allState) {
         this.text = '전체';
-        return;
       }
-      else this.text = '';
-
-      if(user_type !== 'LH') {
-        this.loading = false;
-        return;
+      else {
+        this.text = '';
       }
+      return;
     }
+
     this.res = await this.connect.run('/category/certify/company/master/get', {
       project_id: this.project_id,
       company_contract_type: '원청사',
       search_text: ''
     });
+
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
       if(this.multiple) {
@@ -97,7 +102,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         this.text = rsMap
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();
-      } else {
+      }
+      else {
         if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
