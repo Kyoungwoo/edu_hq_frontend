@@ -62,15 +62,15 @@
     </app-col>
   </app-row>
   <app-row mobileBreak>
-    <app-col size="1">
+    <!-- <app-col size="1">
       <app-input [readonly]="true" [required]="true" [(ngModel)]="form.project_postal_code" label="우편번호" (click)="address()">
       </app-input>
-    </app-col>
+    </app-col> -->
     <app-col size="3">
-      <app-input [disabled]="roleCheck" [required]="true" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()"
+      <app-input placeholder="주소를 검색해주세요." [disabled]="roleCheck" [required]="true" [readonly]="true" [(ngModel)]="form.project_address" (click)="address()"
         label="주소"></app-input>
     </app-col>
-    <app-col size="2">
+    <app-col size="3">
       <app-input [disabled]="roleCheck" [required]="true" [(ngModel)]="form.project_detail_address" label="상세주소"></app-input>
     </app-col>
     <app-col>

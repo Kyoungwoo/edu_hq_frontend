@@ -69,7 +69,6 @@ export class WorkStandardSetPage implements OnInit {
   }> 
   //회의록 현의사항 끝
 
-
   //재해 형태
   disasterForm = this.user.userData.belong_data.company_id;
 

@@ -126,7 +126,6 @@ export class SafetyEducationResultEditPage implements OnInit {
         ...this.getDetilItem,
         ...res.rsObj
       }
-      console.log(this.getDetilItem);
 
       const rsObj = this.getDetilItem;
       rsObj.create_date = `${rsObj.create_date} (${this.date.day(rsObj.create_date)[0]})`;

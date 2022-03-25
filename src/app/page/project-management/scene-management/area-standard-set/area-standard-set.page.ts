@@ -470,8 +470,8 @@ export class AreaStandardSetPage implements OnInit {
         if (res.rsCode === 0) {
           if (this.riskAreaData.length === i) {
             this.toast.present({ message: '삭제 되었습니다.', color: 'primary' });
-            this.getRiskArea();
           }
+          this.getRiskArea();
         } else {
           this.toast.present({ message: res.rsMsg, color: 'warning' })
         }

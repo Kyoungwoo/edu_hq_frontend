@@ -76,11 +76,10 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
       this.changeDetector.detectChanges();
       return;
     }
-    console.log("this.value",this.value);
-    console.log("this.project_id",this.project_id);
 
-    this.res = await this.connect.run('/category/certify/company/partner_master/get', {
-      project_id: this.project_id,
+    this.res = await this.connect.run('/category/certify/company/get', {
+      company_contract_type:user_type,
+      // project_id: this.project_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
@@ -93,6 +92,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
+        console.log("this.value : ",this.value)
         this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
       }
     }

@@ -597,10 +597,10 @@ export class MemberStandardSetPage implements OnInit {
 
   async addSafeJob() {
     this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
-    if (!this.safeJobForm.company_id) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
-    if (!this.safeJobForm.user_type) return await this.toast.present({ message: '구분를 선택해 주세요.', color: 'warning' });
-
-    if (this.resJobPosition?.rsMap?.length) {
+    if (!this.safeJobForm.company_id) return this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
+    if (!this.safeJobForm.user_type) return this.toast.present({ message: '구분를 선택해 주세요.', color: 'warning' });
+    
+    if (this.resSafeJob?.rsMap?.length) {
       this.resSafeJob?.rsMap?.unshift({
         ctgo_safe_job_name_vi: '',
         ctgo_safe_job_name_ch: '',
