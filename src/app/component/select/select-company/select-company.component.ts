@@ -135,6 +135,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     if (data) {
       this.data = data;
       if(data.allState) {
+        this.res.rsCode = 0;
         this.value = 0;
         this.text = '전체';
       } else  {
