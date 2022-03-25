@@ -1,14 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 
-class ApprovalPerson {
-  approval_order_no:number;
-  approval_last_state:0|1;
-  answer_user_id:number;
+class ApprovalObj {
+  approval_default_id: number; // 기본 결재선 ID
+  ctgo_approval_module_id: number; // 결재서식 ID
+  user_id: number; // 유저 ID
+  project_id: number; // 현장 ID
+
+  answer_datas: Array<AnswerObj>; // 결재자 정보
+  refer_datas: Array<ReferObj> // 참조자 정보
+}
+class AnswerObj {
+  answer_user_id: number; // 결재자 user_id
+  answer_user_name: string; // 결재자 이름
+  approval_order_no: number; // 결재자 순서
+  approval_last_state: 0|1; // 최종결재자 여부 1 최종 / 0 최종아님
+}
+class ReferObj {
+  refer_user_id: number; // 참조자 user_id
+  refer_user_name: string; // 참조자 이름
 }
 @Component({
   selector: 'app-approval-edit',
@@ -17,36 +32,30 @@ class ApprovalPerson {
 })
 export class ApprovalEditPage implements OnInit {
 
+  answerSortableOption = {
+    handle: '.answer-handle',
+    onMove: (ev) => {
+      if (ev.related) {
+          return !ev.related.classList.contains('locked');
+      }
+    }
+  }
+
   form = {
     project_id: this.user.userData.belong_data.project_id,
     ctgo_approval_module_id: null
   }
 
-  res:ConnectResult<{
-    approval_default_id: number, // 기본 결재선 ID
-    ctgo_approval_module_id: number, // 결재서식 ID
-    user_id: number, // 유저 ID
-    project_id: number, // 현장 ID
-
-    answer_datas: Array<{
-      answer_user_id: number, // 결재자 user_id
-      answer_user_name: string, // 결재자 이름
-      approval_order_no: number, // 결재자 순서
-      approval_last_state: 0|1 // 최종결재자 여부 1 최종 / 0 최종아님
-    }>, // 결재자 정보
-
-    refer_datas: Array<{
-      refer_user_id: number, // 참조자 user_id
-      refer_user_name: string // 참조자 이름
-    }> // 참조자 정보
-
-  }>;
+  res:ConnectResult<ApprovalObj>;
+  answerOrigin:AnswerObj[];
+  referOrigin:ReferObj[];
 
   constructor(
     private user: UserService,
     private connect: ConnectService,
     private toast: ToastService,
-    private modal: ModalController
+    private modal: ModalController,
+    private file: FileService
   ) { }
 
   ngOnInit() {
@@ -65,11 +74,18 @@ export class ApprovalEditPage implements OnInit {
 
     this.res = await this.connect.run('/approval/default/get', this.form, {
       loading: true,
-      parse: ['answer_datas']
+      parse: ['answer_datas', 'refer_datas']
     });
-    if(this.res.rsCode === 1008) {
+    if(this.res.rsCode === 0) {
+      // 초기화 기능 때문에 클론을 떠놔야 함
+      this.answerOrigin = this.file.clone(this.res.rsObj.answer_datas);
+      this.res.rsObj.refer_datas = this.res.rsObj.refer_datas || [];
+      this.referOrigin = this.file.clone(this.res.rsObj.refer_datas);
+    }
+    else if(this.res.rsCode === 1008) {
       // 내 정보를 넣어줌
       this.res.rsCode = 0;
+      
       this.res.rsObj = {
         approval_default_id: 0,
         ctgo_approval_module_id: this.form.ctgo_approval_module_id,
@@ -84,6 +100,9 @@ export class ApprovalEditPage implements OnInit {
         }],
         refer_datas: []
       };
+      // 초기화 기능 때문에 클론을 떠놔야 함
+      this.answerOrigin = this.file.clone(this.res.rsObj.answer_datas);
+      this.referOrigin = this.file.clone(this.res.rsObj.refer_datas);
     }
     else if(this.res.rsCode) {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
@@ -94,6 +113,12 @@ export class ApprovalEditPage implements OnInit {
     this.get();
   }
 
+  /**
+   * 결재자 초기화
+   */
+  async resetAnswer() {
+    this.res.rsObj.answer_datas = this.file.clone(this.answerOrigin);
+  }
   /** 
    * 결재자 추가
    */
@@ -120,6 +145,49 @@ export class ApprovalEditPage implements OnInit {
         approval_last_state: 0
       });
     }
+  }
+  /**
+   * 결재자 삭제
+   */
+  async removeAnswer(i) {
+    this.res.rsObj.answer_datas.splice(i, 1);
+  }
+  /**
+   * 참조자 초기화
+   */
+  async resetRefer() {
+    this.res.rsObj.refer_datas = this.file.clone(this.referOrigin);
+  }
+  /**
+   * 참조자 추가
+   */
+  async addRefer() {
+    const modal = await this.modal.create({
+      component: SearchPeopleComponent,
+      componentProps: {
+        form: {
+          company_id: this.user.userData.belong_data.company_id,
+          search_text: '',
+          user_type: 'WORKER'
+        }
+      }
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      const item = data.selectedItem;
+      this.res.rsObj.refer_datas.push({
+        refer_user_id: item.user_id,
+        refer_user_name: item.user_name
+      });
+    }
+  }
+  /**
+   * 참조자 삭제
+   */
+  async removeRefer(i) {
+    this.res.rsObj.refer_datas.splice(i, 1);
   }
 
   /**
