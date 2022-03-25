@@ -1,93 +1,77 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>작업자 정보</ion-title>
+    <ion-title>관리자 정보</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-avatar></app-avatar>
-  <app-card>
-    <app-row>
-      <app-col>
-        <h3>구범수</h3>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>아이디</h5>
-      </app-col>
-      <app-col>
-        <p>Gsil1</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>국적</h5>
-      </app-col>
-      <app-col >
-        <p>대한민국</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>업체명</h5>
-      </app-col>
-      <app-col>
-        <p>(주)지에스아이엘</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>직위</h5>
-      </app-col>
-      <app-col >
-        <p>작업자</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>현장명</h5>
-      </app-col>
-      <app-col>
-        <p>세종시 단독주택공사</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>공종</h5>
-      </app-col>
-      <app-col >
-        <p>건축</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>계약유형</h5>
-      </app-col>
-      <app-col >
-        <p>일용직</p>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <h5>직종</h5>
-      </app-col>
-      <app-col>
-        <p>장비운전원(지게차)</p>
-      </app-col>
-    </app-row>
-    <app-row style="border-bottom: none;">
-      <app-col>
-        <h5>안전직무</h5>
-      </app-col>
-      <app-col>
-        <p>신호수/관리감독자</p>
-      </app-col>
-    </app-row>
-  </app-card>
   <app-row>
+    <app-col size="auto">
+      <app-avatar name="worker-profile" view_type="PROFILE"
+      [(ngModel)]="res.user_profile_file_data" [file]="null" [file_json]="null">
+    </app-avatar>
+    </app-col>
+    <app-col>
+      <app-card style="width: 400px;">
+        <app-row style="height: 30px;">
+          <app-col>
+            <h5>성 명</h5>
+          </app-col>
+          <app-col size="4">
+            <p>{{ res.user_name }}</p>
+          </app-col>
+          <app-col>
+            <h5>아이디</h5>
+          </app-col>
+          <app-col size="4">
+            <p>{{ res.account_id }}</p>
+          </app-col>
+        </app-row>
+        
+        <app-row style="height: 30px;">
+          <app-col>
+            <h5>현장명</h5>
+          </app-col>
+          <app-col size="4">
+          <p>{{ res.project_name }}</p>
+          </app-col>
+          <app-col>
+            <h5>업체명</h5>
+          </app-col>
+          <app-col size="4">
+            <p>{{ res.company_name}}</p>
+          </app-col>
+        </app-row>
+        
+        <app-row style="height: 30px;">
+          
+          <app-col>
+            <h5>직위</h5>
+          </app-col>
+          <app-col size="4">
+            <p>{{ res.ctgo_job_position_name_kr }}</p>
+          </app-col>
+          <app-col>
+            <h5>공종</h5>
+          </app-col>
+          <app-col size="4" >
+            <p>{{ res.ctgo_construction_name }}</p>
+          </app-col>
+        </app-row>
+        <app-row style="height: 30px;">
+          <app-col>
+            <h5>안전직무</h5>
+          </app-col>
+          <app-col size="10">
+            <p>{{ res.safe_job_name_kr }}</p>
+          </app-col>
+        </app-row>
+      </app-card>
+    </app-col>
+  </app-row>
+  <!-- <app-row>
     <app-col>
       <ion-toolbar color="white">
        <h4>안전 마일리지 지급 내역</h4>
@@ -134,8 +118,8 @@
         </tbody>
       </app-table>
     </app-col>
-  </app-row>
+  </app-row> -->
 </ion-content>
 <app-button-footer>
-  <app-button>확인</app-button>
+  <app-button (click)="dismiss()">확인</app-button>
 </app-button-footer>

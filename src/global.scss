@@ -523,6 +523,12 @@
       --max-height: 960px;
     }
 
+    //safety-education-list
+    .education-info {
+      --max-width: 550px;
+      --max-height: 290px;
+    }
+
     .side-menu-admin-modal {
       --width: 100%;
       --box-shadow: var(--app-box-shadow);

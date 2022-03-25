@@ -97,9 +97,7 @@ export class WorkerStatusAddPage implements OnInit {
 
   async workerIn() {
     this.form.user_ids = [];
-    console.log("this.selectData",this.selectData);
     this.selectData.forEach(item => this.form.user_ids.push(item.user_id));
-    console.log("this.form.user_ids",this.form.user_ids);
     if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
     if(!this.form.inout_datetime) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
     const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;

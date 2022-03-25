@@ -86,7 +86,7 @@
               <td>{{ item.education_safe_place }}</td>
               <td>{{ item.education_safe_date }} ({{ item.date_day}})</td>
               <td>{{ item.education_safe_start_time }} ~ {{ item.education_safe_end_time }}</td>
-              <td>{{ item.education_safe_instructor }}</td>
+              <td (click)="test(item.education_safe_manager_id); $event.stopPropagation()">{{ item.education_safe_manager_name }}</td>
               <td>{{ item.education_safe_state }}</td>
             </tr>
           </tbody>
@@ -110,7 +110,7 @@
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-input-group>
-        <app-select-scene [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
+        <app-select-scene [disabled]="true" [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
         <app-button (click)="openDetailSearch()">상세검색</app-button>
       </app-input-group>
     </ion-toolbar>

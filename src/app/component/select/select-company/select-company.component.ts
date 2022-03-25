@@ -24,12 +24,16 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
     if(!this.disabled) {
-      if(this.project_id) {
+      if(this.project_id && this.company_id) {
         this.openModal();
-      } else {
+      } else if(!this.project_id) {
         this.res = new ConnectResult();
         this.res.rsCode = 1008;
         this.res.rsMsg = '현장을 선택해주세요.';
+      } else {
+        this.res = new ConnectResult();
+        this.res.rsCode = 1008;
+        this.res.rsMsg = '원청사을 선택해주세요.';
       }
     }
   }
@@ -47,10 +51,19 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this.value = this.multiple ? [] : 0;
+      this.value = 0;
+    }
+  }
+  
+  private _compayny_id:number = 0;
+  @Input() set company_id(v:number) {
+    if(this._compayny_id !== v) {
+      this._compayny_id = v;
+      this.value = 0;
     }
   }
   get project_id() { return this._project_id }
+  get company_id() { return this._compayny_id }
 
   isModalData: boolean = false;
   
@@ -65,22 +78,27 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
+
   }
 
   public async get() {
     if(this.isModalData) return;
     
     const { user_type } = this.user.userData;
+    if(!this.project_id || !this.company_id) {
+      this.value = 0;
+      return;
+    }
     if(this.value === 0 && this.all) {
       this.text = '전체';
       this.changeDetector.detectChanges();
       return;
     }
 
-    this.res = await this.connect.run('/category/certify/company/get', {
-      company_contract_type:user_type,
-      // project_id: this.project_id,
-      search_text: ''
+    this.res = await this.connect.run('/category/certify/partner/company/get', {
+      master_company_id: this.company_id,
+      project_id: this.project_id,
+      search_text:''
     });
     if (this.res.rsCode === 0) {
       const { rsMap } = this.res;
@@ -102,9 +120,11 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     const modal = await this._modal.create({
       component: SearchCompanyComponent,
       componentProps: {
+        all:this.all,
         value: this.value,
         multiple: this.multiple,
         form: {
+          master_company_id: this.company_id,
           project_id: this.project_id,
           search_text: ''
         }
@@ -114,12 +134,13 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     const { data } = await modal.onDidDismiss();
     if (data) {
       this.data = data;
-      if (this.multiple) {
-        this.value = data.map(company => company.company_id);
-        this.text = data.map(company => company.company_name).join();
-      } else {
-        this.text = data.company_name;
-        this.value = data.company_id;
+      if(data.allState) {
+        this.value = 0;
+        this.text = '전체';
+      } else  {
+        this.res.rsCode = 0;
+        this.text = data.selectItem.company_name;
+        this.value = data.selectItem.company_id;
       }
     }
   }

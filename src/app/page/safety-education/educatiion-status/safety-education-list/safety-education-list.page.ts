@@ -4,6 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { SafetyEducationDetailEditPage } from '../safety-education-detail-edit/safety-education-detail-edit.page';
 import { SafetyEducationDetailSearchPage } from '../safety-education-detail-search/safety-education-detail-search.page';
 
@@ -28,6 +29,8 @@ export class EduItem {
   education_safe_instructor: string
   row_count:number;
   date_day:string;
+  education_safe_manager_name:string;
+  education_safe_manager_id:number;
 }
 @Component({
   selector: 'app-safety-education-list',
@@ -123,5 +126,16 @@ export class SafetyEducationListPage implements OnInit {
       this.form = data;
       this.get();
     }
+  }
+
+  async test(education_safe_manager_id) {
+    const modal = await this._modal.create({
+      component:PeopleViewComponent,
+      componentProps:{
+        education_safe_manager_id
+      },
+      cssClass:'education-info'
+    });
+    modal.present();
   }
 }

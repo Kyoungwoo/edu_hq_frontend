@@ -25,7 +25,6 @@ export class EditItem {
   ctgo_education_safe_name: string
   user_name: string;
   education_safe_state: string;
-  ctgo_education_safe_text: string;
   ctgo_education_safe_type: string;
   project_name: string;
   ctgo_education_safe_title: string;
