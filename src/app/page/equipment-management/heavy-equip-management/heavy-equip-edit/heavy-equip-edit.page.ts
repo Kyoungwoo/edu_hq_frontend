@@ -33,17 +33,6 @@ export class HeavyEquipDetail {
     etc_file_data: FutItem[] = [];
 }
 
-export class ListData {
-  ctgo_machinery_id:number;
-  end_date:string;
-  master_company_id:number;
-  partner_company_id:number;
-  project_id:number;
-  search_text:string;
-  start_date:string;
-  limit_no:number;
-}
-
 @Component({
   selector: 'app-heavy-equip-edit',
   templateUrl: './heavy-equip-edit.page.html',
@@ -55,8 +44,6 @@ export class HeavyEquipEditPage implements OnInit {
   @Input() list_data;
   
   updateStatus: boolean = false;
-
-  list_form:ListData = new ListData();
 
   form:HeavyEquipDetail = new HeavyEquipDetail();
   selectList = [];
@@ -76,8 +63,14 @@ export class HeavyEquipEditPage implements OnInit {
       this.get();
     } else {
       this.updateStatus = false;
-      this.list_form = this.list_data;
+      
     }
+  }
+
+  SetListData(){
+    this.form.project_id = this.list_data.project_id;
+    this.form.master_company_id = this.list_data.master_company_id;
+    this.form.partner_company_id = this.list_data.partner_company_id;
   }
 
   async get() { //상세보기
