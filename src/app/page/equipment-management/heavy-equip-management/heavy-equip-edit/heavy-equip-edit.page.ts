@@ -41,9 +41,9 @@ export class HeavyEquipDetail {
 export class HeavyEquipEditPage implements OnInit {
 
   @Input() machinery_id;
-
+  @Input() list_data;
+  
   updateStatus: boolean = false;
-
 
   form:HeavyEquipDetail = new HeavyEquipDetail();
   selectList = [];
@@ -63,7 +63,14 @@ export class HeavyEquipEditPage implements OnInit {
       this.get();
     } else {
       this.updateStatus = false;
+      
     }
+  }
+
+  SetListData(){
+    this.form.project_id = this.list_data.project_id;
+    this.form.master_company_id = this.list_data.master_company_id;
+    this.form.partner_company_id = this.list_data.partner_company_id;
   }
 
   async get() { //상세보기

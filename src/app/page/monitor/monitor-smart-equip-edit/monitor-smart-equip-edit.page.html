@@ -13,7 +13,7 @@
       </app-select>
       <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-        <app-img name="search"></app-img>
+        <app-img (click)="get()" name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
