@@ -83,6 +83,9 @@ export class UserService {
     window.localStorage.setItem(TAG.Id, accountID);
     this.getId();
   }
+  removeId() {
+    window.localStorage.removeItem(TAG.Id);
+  }
 
   getAuthToken() {
     if(isPlatformServer(this.platformId)) return this.authToken = null; // ssr에서 auth token을 어떠헥 처리해야 하지? 쿠키로 해야하나? 아니면 정보를 안띄워야 하나?

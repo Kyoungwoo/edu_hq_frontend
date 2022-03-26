@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
-import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { AuthToken, UserData, UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -27,8 +26,6 @@ export class LoginPage implements OnInit, ViewDidEnter {
     private user: UserService,
     private nav: NavService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef,
-    private device: DeviceService,
     private alert: AlertService
   ) { }
 
@@ -107,6 +104,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
 
   public async login() {
     if(this.saveId) this.user.setId(this.form.accountID);
+    else this.user.removeId();
+    
     this.res = await this.connect.run('/token/get', this.form, {
       contentType: ContentType.ApplicationJson,
       loading: '로그인'
