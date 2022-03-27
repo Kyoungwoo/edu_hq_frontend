@@ -59,12 +59,16 @@ import { SearchProjectContractorComponent } from './modal/search-project-contrac
 import { InputSafejobComponent } from './input/input-safejob/input-safejob.component';
 import { InputCertifyComponent } from './input/input-certify/input-certify.component';
 import { SelectApprovalModuleComponent } from './select/select-approval-module/select-approval-module.component';
+import { ApprovalComponent } from './confirm/approval/approval.component';
 
 
 
 
 @NgModule({
   declarations: [
+    //confirm approval
+    ApprovalComponent,
+
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
@@ -132,6 +136,9 @@ import { SelectApprovalModuleComponent } from './select/select-approval-module/s
     BasicComponentModule
   ],
   exports: [
+    //confirm approval
+    ApprovalComponent,
+
     BasicComponentModule,
     HeaderAdminComponent,
     //input

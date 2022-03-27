@@ -560,6 +560,18 @@ const routes: Routes = [
     path: 'my-page-education-search',
     loadChildren: () => import('./page/my-page/my-page-education-search/my-page-education-search.module').then( m => m.MyPageEducationSearchPageModule)
   },
+  {
+    path: 'minutes-search',
+    loadChildren: () => import('./page/notice-board/minutes/minutes-search/minutes-search.module').then( m => m.MinutesSearchPageModule)
+  },
+  {
+    path: 'worker-minutes-edit',
+    loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module').then( m => m.WorkerMinutesEditPageModule)
+  },
+  {
+    path: 'worker-minutes-select-type',
+    loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module').then( m => m.WorkerMinutesSelectTypePageModule)
+  },
   
 
 ];

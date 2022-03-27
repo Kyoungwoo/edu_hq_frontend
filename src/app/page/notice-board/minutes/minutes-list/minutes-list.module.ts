@@ -7,9 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { MinutesListPageRoutingModule } from './minutes-list-routing.module';
 
 import { MinutesListPage } from './minutes-list.page';
-import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
-import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
+import { MinutesSearchPageModule } from '../minutes-search/minutes-search.module';
 import { MinutesEditPageModule } from '../minutes-edit/minutes-edit.module';
 
 @NgModule({
@@ -18,9 +17,8 @@ import { MinutesEditPageModule } from '../minutes-edit/minutes-edit.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     MinutesListPageRoutingModule,
-    DetailSearchPageModule,
+    MinutesSearchPageModule,
     MinutesEditPageModule
   ],
   declarations: [MinutesListPage]

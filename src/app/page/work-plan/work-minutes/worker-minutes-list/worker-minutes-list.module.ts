@@ -11,7 +11,8 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { WorkerMinutesDetailSearchPageModule } from '../worker-minutes-detail-search/worker-minutes-detail-search.module';
 import { MinutesEditPageModule } from 'src/app/page/notice-board/minutes/minutes-edit/minutes-edit.module';
-import { WorkMinutesModule } from '../component/work-minutes.module';
+import { WorkerMinutesSelectTypePageModule } from '../worker-minutes-select-type/worker-minutes-select-type.module';
+import { WorkerMinutesEditPageModule } from '../worker-minutes-edit/worker-minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -21,9 +22,12 @@ import { WorkMinutesModule } from '../component/work-minutes.module';
     ComponentModule,
     BasicComponentModule,
     WorkerMinutesListPageRoutingModule,
+    // 모바일 상세검색
     WorkerMinutesDetailSearchPageModule,
-    MinutesEditPageModule,
-    WorkMinutesModule
+    // 신규작성 시, 타입 선택
+    WorkerMinutesSelectTypePageModule,
+    // 수정 페이지
+    WorkerMinutesEditPageModule
   ],
   declarations: [WorkerMinutesListPage]
 })

@@ -54,23 +54,28 @@ var CompanyData = /** @class */ (function () {
 }());
 exports.CompanyData = CompanyData;
 var SelectCompanyComponent = /** @class */ (function () {
-    function SelectCompanyComponent(_modal, connect, user, changeDetector) {
+    function SelectCompanyComponent(_modal, connect, user) {
         this._modal = _modal;
         this.connect = connect;
         this.user = user;
-        this.changeDetector = changeDetector;
         this.all = false;
         this.label = "업체";
         this.required = false;
         this.multiple = false;
         this.readonly = false;
         this._project_id = 0;
-        this.isModalData = false;
         this.change = new core_1.EventEmitter();
         this.onChangeCallback = function (v) { };
         this.onTouchedCallback = function (v) { };
     }
     SelectCompanyComponent_1 = SelectCompanyComponent;
+    /**
+     * 선택된 현장의 하위 회사 목록을 검색하기 위한 select
+     * @Input project_id
+     * 만으로 검색
+     * company_id는 왜 넣었는지?
+     * 만약 '원청사 아래 협력사' 검색이 필요하다면 새로 하나 만들어야 함
+     */
     SelectCompanyComponent.prototype.onClick = function () {
         if (!this.disabled) {
             if (this.project_id) {
@@ -88,49 +93,65 @@ var SelectCompanyComponent = /** @class */ (function () {
         set: function (v) {
             if (this._project_id !== v) {
                 this._project_id = v;
-                this.value = this.multiple ? [] : 0;
+                this.get();
             }
         },
         enumerable: false,
         configurable: true
     });
-    SelectCompanyComponent.prototype.ngOnInit = function () {
-    };
+    SelectCompanyComponent.prototype.ngOnInit = function () { };
     SelectCompanyComponent.prototype.get = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var _b, user_type, belong_data, _c, rsMap;
+            var user_type, _b, rsMap;
             var _this = this;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        if (this.isModalData)
-                            return [2 /*return*/];
-                        _b = this.user.userData, user_type = _b.user_type, belong_data = _b.belong_data;
-                        if (this.value === 0 && this.all) {
-                            this.text = '전체';
-                            this.changeDetector.detectChanges();
+                        user_type = this.user.userData.user_type;
+                        if (!this.project_id || !this.value) {
+                            if (this.multiple) {
+                                this.value = [];
+                            }
+                            else {
+                                this.value = 0;
+                            }
+                            if (this.all) {
+                                this.text = '전체';
+                            }
+                            else {
+                                this.text = '';
+                            }
                             return [2 /*return*/];
                         }
-                        _c = this;
-                        return [4 /*yield*/, this.connect.run('/category/certify/company/get', {
-                                company_contract_type: belong_data.company_contract_type,
+                        _b = this;
+                        return [4 /*yield*/, this.connect.run('/category/certify/company/partner_master/get', {
+                                project_id: this.project_id,
                                 search_text: ''
                             })];
                     case 1:
-                        _c.res = _d.sent();
+                        _b.res = _c.sent();
                         if (this.res.rsCode === 0) {
                             rsMap = this.res.rsMap;
                             if (this.multiple) {
+                                if (!this.value && user_type === 'LH') {
+                                    this.value = [rsMap[0].company_id];
+                                }
                                 this.text = rsMap
                                     .filter(function (constractor) { return _this.value.indexOf(constractor.company_id); })
                                     .map(function (constractor) { return constractor.company_name; }).join();
+                                // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
+                                if (!this.text)
+                                    this.value = [];
                             }
                             else {
                                 if (!this.value && user_type === 'LH') {
                                     this.value = rsMap[0].company_id;
                                 }
-                                this.text = ((_a = rsMap.find(function (company) { return company.company_id === _this.value; })) === null || _a === void 0 ? void 0 : _a.company_name) || '';
+                                this.text = ((_a = rsMap.find(function (constractor) { return constractor.company_id === _this.value; })) === null || _a === void 0 ? void 0 : _a.company_name) || '';
+                                // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
+                                if (!this.text)
+                                    this.value = 0;
                             }
                         }
                         return [2 /*return*/];
@@ -143,19 +164,18 @@ var SelectCompanyComponent = /** @class */ (function () {
             var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        this.isModalData = true;
-                        return [4 /*yield*/, this._modal.create({
-                                component: search_company_component_1.SearchCompanyComponent,
-                                componentProps: {
-                                    value: this.value,
-                                    multiple: this.multiple,
-                                    form: {
-                                        project_id: this.project_id,
-                                        search_text: ''
-                                    }
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_company_component_1.SearchCompanyComponent,
+                            componentProps: {
+                                all: this.all,
+                                value: this.value,
+                                multiple: this.multiple,
+                                form: {
+                                    project_id: this.project_id,
+                                    search_text: ''
                                 }
-                            })];
+                            }
+                        })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
@@ -163,15 +183,7 @@ var SelectCompanyComponent = /** @class */ (function () {
                     case 2:
                         data = (_a.sent()).data;
                         if (data) {
-                            this.data = data;
-                            if (this.multiple) {
-                                this.value = data.map(function (company) { return company.company_id; });
-                                this.text = data.map(function (company) { return company.company_name; }).join();
-                            }
-                            else {
-                                this.text = data.company_name;
-                                this.value = data.company_id;
-                            }
+                            this.value = data.selectItem.company_id;
                         }
                         return [2 /*return*/];
                 }
@@ -184,10 +196,7 @@ var SelectCompanyComponent = /** @class */ (function () {
         },
         set: function (v) {
             if (v !== this._value) {
-                this._value = v ? v : this.multiple ? [] : 0;
-                this.get();
-                this.onChangeCallback(v);
-                this.change.emit(v);
+                this.valueChange(v);
             }
         },
         enumerable: false,
@@ -195,11 +204,14 @@ var SelectCompanyComponent = /** @class */ (function () {
     });
     SelectCompanyComponent.prototype.writeValue = function (v) {
         if (v !== this._value) {
-            this._value = v ? v : this.multiple ? [] : 0;
-            this.get();
-            this.onChangeCallback(v);
-            this.change.emit(v);
+            this.valueChange(v);
         }
+    };
+    SelectCompanyComponent.prototype.valueChange = function (v) {
+        this._value = v ? v : this.multiple ? [] : 0;
+        this.onChangeCallback(v);
+        this.change.emit(v);
+        this.get();
     };
     SelectCompanyComponent.prototype.registerOnChange = function (fn) { this.onChangeCallback = fn; };
     SelectCompanyComponent.prototype.registerOnTouched = function (fn) { this.onTouchedCallback = fn; };

@@ -23,15 +23,10 @@ export class SearchCompanyComponent implements OnInit {
   @Input() type?: boolean = false;
   @Input() all: boolean = false;
   @Input() form = {
-    master_company_id: 0,
     project_id: 0,
     search_text:''
   }
-
-  // form = {
-  //   company_contract_type:this.user.userData.user_type,
-  //   search_text:''
-  // }
+  
   res: ConnectResult<SelectItem>
 
   submitItem:SelectItem
@@ -55,7 +50,7 @@ export class SearchCompanyComponent implements OnInit {
   }
 
   async getCompany() {
-    this.res = await this.connect.run('/category/certify/partner/company/get', this.form);
+    this.res = await this.connect.run('/category/certify/company/partner_master/get', this.form);
     if (this.res.rsCode === 0) {
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });

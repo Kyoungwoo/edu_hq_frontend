@@ -58,12 +58,6 @@
           <app-select-option value="수생환경 유해성 물질">수생환경 유해성 물질</app-select-option>
           <app-select-option value="오존층 유해성 물질">오존층 유해성 물질</app-select-option>
         </app-select>
-        <app-select label="회의록 구분" [(ngModel)]="temptForm.safety_meeting_types" *ngIf="type === '회의록'" [multiple]="true">
-          <app-select-option type="all" [value]="[]">전체</app-select-option>
-          <app-select-option value="안전 및 보건에 관한 협의체 회의록">안전 및 보건에 관한 협의체 회의록</app-select-option>
-          <app-select-option value="노사 협의체 회의록">노사 협의체 회의록</app-select-option>
-          <app-select-option value="산업안전보건위원회 회의록">산업안전보건위원회 회의록</app-select-option>
-        </app-select>
       </app-col>
     </app-row>
     <app-row>

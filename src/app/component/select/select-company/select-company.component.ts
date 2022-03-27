@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -22,18 +22,23 @@ export class CompanyData {
 })
 export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
 
+  /**
+   * 선택된 현장의 하위 회사 목록을 검색하기 위한 select
+   * @Input project_id
+   * 만으로 검색
+   * company_id는 왜 넣었는지?
+   * 만약 '원청사 아래 협력사' 검색이 필요하다면 새로 하나 만들어야 함
+   */
+
   @HostListener('click') onClick() {
     if(!this.disabled) {
-      if(this.project_id && this.company_id) {
+      if(this.project_id) {
         this.openModal();
-      } else if(!this.project_id) {
+      } 
+      else {
         this.res = new ConnectResult();
         this.res.rsCode = 1008;
         this.res.rsMsg = '현장을 선택해주세요.';
-      } else {
-        this.res = new ConnectResult();
-        this.res.rsCode = 1008;
-        this.res.rsMsg = '원청사을 선택해주세요.';
       }
     }
   }
@@ -47,52 +52,30 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() readonly:boolean = false;
 
-  private _project_id:number = 0;
-  @Input() set project_id(v:number) {
+  @Input() 
+  set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this._value = this.multiple ? [] : 0;
-      this.valueChange(this._value);
-    }
-  }
-  
-  private _company_id:number = 0;
-  @Input() set company_id(v:number) {
-    if(this._company_id !== v) {
-      this._company_id = v;
-      this._value = this.multiple ? [] : 0;
-      this.valueChange(this._value);
+      this.get();
     }
   }
   get project_id() { return this._project_id }
-  get company_id() { return this._company_id }
-
-  isModalData: boolean = false;
+  private _project_id:number = 0;
   
-  res:ConnectResult<SelectItem>
-  private data;
-
-  loading:boolean = false;
+  res:ConnectResult<SelectItem>;
 
   constructor(
     private _modal: ModalController,
     private connect: ConnectService,
-    private user: UserService,
-    private changeDetector: ChangeDetectorRef
+    private user: UserService
   ) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public async get() {
-    if(this.loading) return;
-    this.loading = true;
-    
     const { user_type } = this.user.userData;
-
     
-    if(!this.project_id || !this.company_id || !this.value) {
+    if(!this.project_id || !this.value) {
       if(this.multiple) {
         this.value = [];
       }
@@ -108,9 +91,8 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
       }
       return;
     }
-    
-    this.res = await this.connect.run('/category/certify/partner/company/get', {
-      master_company_id: this.company_id,
+
+    this.res = await this.connect.run('/category/certify/company/partner_master/get', {
       project_id: this.project_id,
       search_text:''
     });
@@ -125,6 +107,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         this.text = rsMap
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();
+
+        // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
+        if(!this.text) this.value = [];
       }
       else {
         if(!this.value && user_type === 'LH') {
@@ -132,13 +117,14 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         }
 
         this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
+
+        // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
+        if(!this.text) this.value = 0;
       }
     }
-    this.loading = false;
   }
 
   public async openModal() {
-    this.loading = true;
     const modal = await this._modal.create({
       component: SearchCompanyComponent,
       componentProps: {
@@ -146,7 +132,6 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
         value: this.value,
         multiple: this.multiple,
         form: {
-          master_company_id: this.company_id,
           project_id: this.project_id,
           search_text: ''
         }
@@ -155,17 +140,8 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      this.data = data;
-      if(data.allState) {
-        this.value = 0;
-        this.text = '전체';
-      } else  {
-        this.res.rsCode = 0;
-        this.text = data.selectItem.company_name;
-        this.value = data.selectItem.company_id;
-      }
+      this.value = data.selectItem.company_id;
     }
-    this.loading = false;
   }
 
 
@@ -186,11 +162,11 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  async valueChange(v) {
+  valueChange(v) {
     this._value = v ? v : this.multiple ? [] : 0;
-    await this.onChangeCallback(v);
-    await this.change.emit(v);
-    await this.get();
+    this.onChangeCallback(v);
+    this.change.emit(v);
+    this.get();
   }
 
   private onChangeCallback = (v) => { };
