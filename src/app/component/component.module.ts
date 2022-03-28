@@ -42,7 +42,6 @@ import { SelectSerialNumberComponent } from './select/select-serial-number/selec
 import { SelectDangerousAreaComponent } from './select/select-dangerous-area/select-dangerous-area.component';
 import { ConfirmSettingPopupComponent } from './confirm/confirm-setting-popup/confirm-setting-popup.component';
 import { ConfirmProcessPopupComponent } from './confirm/confirm-process-popup/confirm-process-popup.component';
-import { ConfirmPopupComponent } from './confirm/confirm-popup/confirm-popup.component';
 import { SearchAttendanceComponent } from './modal/search-attendance/search-attendance.component';
 import { SelectAttendanceComponent } from './select/select-attendance/select-attendance.component';
 import { MonitorComponent } from './header/monitor/monitor.component';
@@ -60,19 +59,22 @@ import { InputSafejobComponent } from './input/input-safejob/input-safejob.compo
 import { InputCertifyComponent } from './input/input-certify/input-certify.component';
 import { SelectApprovalModuleComponent } from './select/select-approval-module/select-approval-module.component';
 import { ApprovalComponent } from './confirm/approval/approval.component';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 
 
 
 @NgModule({
   declarations: [
-    //confirm approval
+    // approval & confirm
     ApprovalComponent,
+    ConfirmSettingPopupComponent,
+    ConfirmProcessPopupComponent,
 
     HeaderAdminComponent,
     SideMenuUserComponent,
     SideMenuAdminComponent,
-    //input
+    // input
     InputCertifyComponent,
     InputSafejobComponent,
     // search
@@ -113,9 +115,6 @@ import { ApprovalComponent } from './confirm/approval/approval.component';
     SearchSerialNumberComponent,
     SelectSerialNumberComponent,
     SelectDangerousAreaComponent,
-    ConfirmSettingPopupComponent,
-    ConfirmProcessPopupComponent,
-    ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
     MonitorComponent,
@@ -133,15 +132,18 @@ import { ApprovalComponent } from './confirm/approval/approval.component';
     FormsModule,
     PipesModule,
     RouterModule,
-    BasicComponentModule
+    BasicComponentModule,
+    SortablejsModule // 결재 때문에 필요함
   ],
   exports: [
-    //confirm approval
+    // approval & confirm 
     ApprovalComponent,
+    ConfirmSettingPopupComponent,
+    ConfirmProcessPopupComponent,
 
     BasicComponentModule,
     HeaderAdminComponent,
-    //input
+    // input
     InputCertifyComponent,
     InputSafejobComponent,
     // search
@@ -182,9 +184,6 @@ import { ApprovalComponent } from './confirm/approval/approval.component';
     SearchSerialNumberComponent,
     SelectSerialNumberComponent,
     SelectDangerousAreaComponent,
-    ConfirmSettingPopupComponent,
-    ConfirmProcessPopupComponent,
-    ConfirmPopupComponent,
     SearchAttendanceComponent,
     SelectAttendanceComponent,
     MonitorComponent,

@@ -50,7 +50,6 @@ var select_serial_number_component_1 = require("./select/select-serial-number/se
 var select_dangerous_area_component_1 = require("./select/select-dangerous-area/select-dangerous-area.component");
 var confirm_setting_popup_component_1 = require("./confirm/confirm-setting-popup/confirm-setting-popup.component");
 var confirm_process_popup_component_1 = require("./confirm/confirm-process-popup/confirm-process-popup.component");
-var confirm_popup_component_1 = require("./confirm/confirm-popup/confirm-popup.component");
 var search_attendance_component_1 = require("./modal/search-attendance/search-attendance.component");
 var select_attendance_component_1 = require("./select/select-attendance/select-attendance.component");
 var monitor_component_1 = require("./header/monitor/monitor.component");
@@ -68,18 +67,21 @@ var input_safejob_component_1 = require("./input/input-safejob/input-safejob.com
 var input_certify_component_1 = require("./input/input-certify/input-certify.component");
 var select_approval_module_component_1 = require("./select/select-approval-module/select-approval-module.component");
 var approval_component_1 = require("./confirm/approval/approval.component");
+var ngx_sortablejs_1 = require("ngx-sortablejs");
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
     ComponentModule = __decorate([
         core_1.NgModule({
             declarations: [
-                //confirm approval
+                // approval & confirm
                 approval_component_1.ApprovalComponent,
+                confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
+                confirm_process_popup_component_1.ConfirmProcessPopupComponent,
                 header_admin_component_1.HeaderAdminComponent,
                 side_menu_user_component_1.SideMenuUserComponent,
                 side_menu_admin_component_1.SideMenuAdminComponent,
-                //input
+                // input
                 input_certify_component_1.InputCertifyComponent,
                 input_safejob_component_1.InputSafejobComponent,
                 // search
@@ -120,9 +122,6 @@ var ComponentModule = /** @class */ (function () {
                 search_serial_number_component_1.SearchSerialNumberComponent,
                 select_serial_number_component_1.SelectSerialNumberComponent,
                 select_dangerous_area_component_1.SelectDangerousAreaComponent,
-                confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
-                confirm_process_popup_component_1.ConfirmProcessPopupComponent,
-                confirm_popup_component_1.ConfirmPopupComponent,
                 search_attendance_component_1.SearchAttendanceComponent,
                 select_attendance_component_1.SelectAttendanceComponent,
                 monitor_component_1.MonitorComponent,
@@ -140,14 +139,17 @@ var ComponentModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 pipes_module_1.PipesModule,
                 router_1.RouterModule,
-                basic_component_module_1.BasicComponentModule
+                basic_component_module_1.BasicComponentModule,
+                ngx_sortablejs_1.SortablejsModule // 결재 때문에 필요함
             ],
             exports: [
-                //confirm approval
+                // approval & confirm 
                 approval_component_1.ApprovalComponent,
+                confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
+                confirm_process_popup_component_1.ConfirmProcessPopupComponent,
                 basic_component_module_1.BasicComponentModule,
                 header_admin_component_1.HeaderAdminComponent,
-                //input
+                // input
                 input_certify_component_1.InputCertifyComponent,
                 input_safejob_component_1.InputSafejobComponent,
                 // search
@@ -188,9 +190,6 @@ var ComponentModule = /** @class */ (function () {
                 search_serial_number_component_1.SearchSerialNumberComponent,
                 select_serial_number_component_1.SelectSerialNumberComponent,
                 select_dangerous_area_component_1.SelectDangerousAreaComponent,
-                confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
-                confirm_process_popup_component_1.ConfirmProcessPopupComponent,
-                confirm_popup_component_1.ConfirmPopupComponent,
                 search_attendance_component_1.SearchAttendanceComponent,
                 select_attendance_component_1.SelectAttendanceComponent,
                 monitor_component_1.MonitorComponent,
