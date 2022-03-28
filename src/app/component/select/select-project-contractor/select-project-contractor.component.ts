@@ -83,12 +83,10 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
     const { data } = await modal.onDidDismiss();
     if(data) {
       let compnay_name_string = [];
-      console.log("data",data);
-      for(let i = 0; i < data.length; i++) {
-        this.value.push(data[i].company_id);
-        compnay_name_string.push(data[i].company_name);
-      }
-      console.log("this.value",this.value);
+      data.forEach(item => {
+        if(!this.value.includes(item.company_id)) this.value.push(item.company_id);
+        compnay_name_string.push(item.company_name);
+      });
       this.text = compnay_name_string.toString();
     }
   }

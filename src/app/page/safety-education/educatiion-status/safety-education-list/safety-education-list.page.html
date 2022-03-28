@@ -70,9 +70,9 @@
               <th style="width: 120px;">업체명</th>
               <th>교육명</th>
               <th style="width: 120px;">교육대상</th>
-              <th style="width: 80px;">교육장소</th>
+              <th style="width: 120px;">교육장소</th>
               <th style="width: 120px;">교육일</th>
-              <th style="width: 150px;">교육시간</th>
+              <th style="width: 100px;">교육시간</th>
               <th style="width: 80px;">출석진행자</th>
               <th style="width: 70px;">교육상태</th>
             </tr>
@@ -86,7 +86,7 @@
               <td>{{ item.education_safe_place }}</td>
               <td>{{ item.education_safe_date }} ({{ item.date_day}})</td>
               <td>{{ item.education_safe_start_time }} ~ {{ item.education_safe_end_time }}</td>
-              <td (click)="test(item.education_safe_manager_id); $event.stopPropagation()">{{ item.education_safe_manager_name }}</td>
+              <td (click)="userInfo(item.education_safe_manager_id,$event)" >{{ item.education_safe_manager_name }}</td>
               <td>{{ item.education_safe_state }}</td>
             </tr>
           </tbody>

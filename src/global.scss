@@ -455,6 +455,7 @@
   ion-app.cameraView, ion-app.cameraView ion-content, ion-app.cameraView .nav-decor {
     background: transparent none !important; 
   }
+
   
   @media only screen and (min-height: 600px) and (min-width: 768px) {
     .sc-ion-modal-md-h {
@@ -523,10 +524,17 @@
       --max-height: 960px;
     }
 
+    // work-plan
+    .worker-minutes-select-type-modal {
+      --max-width: 480px;
+      --max-height: 320px;
+    }
+
     //safety-education-list
     .education-info {
       --max-width: 550px;
       --max-height: 290px;
+      --width:550px;
     }
 
     .side-menu-admin-modal {

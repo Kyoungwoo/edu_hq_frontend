@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>신규작성</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-row>
+    <app-col>
+      <app-select label="회의록 유형" [(ngModel)]="form.safety_meeting_type">
+        <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
+        <app-select-option value="노사">노사 협의체 회의록</app-select-option>
+        <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
+      </app-select>
+    </app-col>
+  </app-row>
+</ion-content>
+
+<app-button-footer>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>

@@ -29,6 +29,7 @@ export class SearchAttendanceComponent implements OnInit {
   @Input() editable:boolean = false;
   @Input() multiple:boolean = false;
   @Input() educationType:boolean = false;
+  @Input() value;
 
   form = {
     user_type: '',
@@ -63,16 +64,16 @@ export class SearchAttendanceComponent implements OnInit {
   async get() {
     this.res = await this.connect.run('/category/education/manager/get', this.form);
     if(this.res.rsCode === 0) {
-      
+      this.res.rsMap.filter(item => {
+        if(this.value.indexOf(item.user_id) > -1) {
+          this.values.push(item);
+          item.checked = true;
+        }
+      });
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
-
-  // selectAllConstractor() {
-  //   this.selectAll = true;
-  //   this.values = [];
-  // }
 
   selectItem(item) {
     item.checked = !item.checked;

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { WorkMinutesComponent } from './work-minutes.component';
+import { ApprovalComponent } from './approval.component';
 
-describe('WorkMinutesComponent', () => {
-  let component: WorkMinutesComponent;
-  let fixture: ComponentFixture<WorkMinutesComponent>;
+describe('ApprovalComponent', () => {
+  let component: ApprovalComponent;
+  let fixture: ComponentFixture<ApprovalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkMinutesComponent ],
+      declarations: [ ApprovalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WorkMinutesComponent);
+    fixture = TestBed.createComponent(ApprovalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

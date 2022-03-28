@@ -27,6 +27,7 @@ export class SearchContractorComponent implements OnInit {
   @Input() set project_id(_project_id:number) {
     this.form.project_id = _project_id;
   }
+  @Input() value;
   @Input() allState:boolean = false;
   @Input() editable:boolean = false;
   @Input() multiple:boolean = false;
@@ -77,7 +78,11 @@ export class SearchContractorComponent implements OnInit {
     // 현장에 관계 없이, 원청사 전체를 검색을 할 수 있어야 되는 상황이 있는건지?
     this.res = await this.connect.run('/category/certify/company/master/get', this.form);
     if(this.res.rsCode === 0) {
-      
+      console.log(this.value);
+      this.res.rsMap.filter(item => {
+        if(this.value === item.company_id) this.values.push(item);
+      });
+      if(!this.value) this.selectAll = true;
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
@@ -85,7 +90,6 @@ export class SearchContractorComponent implements OnInit {
 
   selectAllConstractor() {
     this.selectAll = true;
-    
     this.values = [];
     this.newValues = [];
   }

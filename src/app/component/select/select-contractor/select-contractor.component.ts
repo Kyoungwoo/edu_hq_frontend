@@ -43,15 +43,12 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this._value = this.multiple ? [] : 0;
-      this.valueChange(this._value);
+      this.get();
     }
   }
   get project_id() { return this._project_id }
 
   res:ConnectResult<Constractor>;
-
-  loading:boolean = false;
  
   constructor(
     private _modal:ModalController,
@@ -64,9 +61,6 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
-    if(this.loading) return;
-    this.loading = true;
-    
     const { user_type } = this.user.userData;
     
     if(!this.project_id || !this.value) {
@@ -74,17 +68,18 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         this.value = [];
       }
       else {
-        console.log("김화숙");
         this.value = 0;
       }
 
       if(this.allState) {
         this.text = '전체';
+        return;
       }
       else {
         this.text = '';
+        // LH의 경우, 검색해서 가장 위의 회사를 넣어주어야 한다. 때문에, LH가 아닌 경우만 리턴하고, LH의 경우 값을 받아와야 함.
+        if(user_type !== 'LH') return;
       }
-      return;
     }
 
     this.res = await this.connect.run('/category/certify/company/master/get', {
@@ -92,33 +87,39 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       company_contract_type: '원청사',
       search_text: ''
     });
-    console.log("this.res",this.res);
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
       if(this.multiple) {
-        if(!this.value && user_type === 'LH') { 
+        if(!this.value) {
+          // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
           this.value = [rsMap[0].company_id];
         }
         this.text = rsMap
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();
+
+        // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
+        if(!this.text) this.value = [];
       }
       else {
-        if(!this.value && user_type === 'LH') {
+        if(!this.value) {
+          // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
           this.value = rsMap[0].company_id;
         }
 
         this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
+
+        // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
+        if(!this.text) this.value = [];
       }
     }
-    this.loading = false;
   }
   
   public async openModal() {
-    this.loading = true;
     const modal = await this._modal.create({
       component: SearchContractorComponent,
       componentProps: {
+        value:this.value,
         allState: this.allState,
         project_id: this.project_id,
         multiple: this.multiple,
@@ -131,14 +132,11 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       if(this.multiple) {
         const values:Constractor[] = data.values;
         this.value = values?.map(constractor => constractor.company_id);
-        this.text = values?.map(constractor => constractor.company_name).join();
       } else {
         const value:Constractor = data.values;
         this.value = value?.company_id || 0;
-        this.text = value?.company_name || '전체';
       }
     }
-    this.loading = false;
   }
  
   @Output() change = new EventEmitter();
@@ -159,9 +157,9 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
   valueChange(v) {
     this._value = v ? v : this.multiple ? [] : 0;
-    this.get();
     this.onChangeCallback(v);
     this.change.emit(v);
+    this.get();
   }
 
   private onChangeCallback = (v) => {};

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -57,7 +57,8 @@ export class SafetyEducationListPage implements OnInit {
     private date: DateService,
     private connect: ConnectService,
     private toast: ToastService,
-    private user: UserService
+    private user: UserService,
+    private popover: PopoverController
   ) { }
 
   ngOnInit() {
@@ -128,14 +129,16 @@ export class SafetyEducationListPage implements OnInit {
     }
   }
 
-  async test(education_safe_manager_id) {
-    const modal = await this._modal.create({
+  async userInfo(education_safe_manager_id,ev) {
+    ev.stopPropagation()
+    const popover = await this.popover.create({
       component:PeopleViewComponent,
       componentProps:{
         education_safe_manager_id
       },
-      cssClass:'education-info'
+      cssClass:'education-info',
+      event:ev
     });
-    modal.present();
+    popover.present();
   }
 }

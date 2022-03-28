@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
@@ -10,37 +11,46 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 })
 export class WorkerMinutesDetailSearchPage implements OnInit {
 
-  form = {
-    approval_cnt_answer: [],//결재상태('임시저장’, '결재중’, '결재완료’, ‘반려’)
-    company_ids: [1],
+  @Input() form = {
+    project_id: null,
+    company_id: null,
+    safety_meeting_types: [],
+    start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
-    limit_no: 0,
-    project_ids: this.user.userData.belong_data.project_id,
-    safety_meeting_types: [], //회의록 유형('안전’, '노사’, ‘산업’)
     search_text: '',
-    start_date: this.date.today({ year: -5, month: -1 })
+    approval_cnt_answer: [],
+    limit_no: 0
   }
+
+  temptForm = {
+    project_id: null,
+    company_id: null,
+    safety_meeting_types: [],
+    start_date: this.date.today({ month: -1 }),
+    end_date: this.date.today(),
+    search_text: '',
+    approval_cnt_answer: [],
+    limit_no: 0
+  }
+
   constructor(
+    private _modal: ModalController,
+    public user: UserService,
     private date: DateService,
-    private user: UserService,
-    private _modal: ModalController
+    private file: FileService
   ) { }
 
-  ngOnInit() {
-
-  }
-  remove() {
-    this.form.approval_cnt_answer = [];//결재상태('임시저장’, '결재중’, '결재완료’, ‘반려’)
-    this.form.company_ids = [1],
-    this.form.end_date = this.date.today(),
-    this.form.limit_no = 0,
-    this.form.project_ids = this.user.userData.belong_data.project_id,
-    this.form.safety_meeting_types = [], //회의록 유형('안전’, '노사’, ‘산업’)
-    this.form.search_text = '',
-    this.form.start_date = this.date.today({ month: -1 })
+  async ngOnInit() {
+    this.temptForm = this.file.clone(this.form);
   }
 
-  search(){
-    this._modal.dismiss(this.form);
+  reset() {
+    this.temptForm = this.file.clone(this.form);
+  }
+  search() {
+    const form = this.file.clone(this.temptForm);
+    this._modal.dismiss(
+      form
+    );
   }
 }

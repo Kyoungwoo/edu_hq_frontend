@@ -6,22 +6,39 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 
-class ApprovalObj {
+export class ApprovalObj {
   approval_default_id: number; // 기본 결재선 ID
   ctgo_approval_module_id: number; // 결재서식 ID
   user_id: number; // 유저 ID
   project_id: number; // 현장 ID
 
   answer_datas: Array<AnswerObj>; // 결재자 정보
+  approval_comment?: Array<CommentObj>; // 코멘트 정보
   refer_datas: Array<ReferObj> // 참조자 정보
 }
-class AnswerObj {
+export class AnswerObj {
+  // 디폴트 값
   answer_user_id: number; // 결재자 user_id
   answer_user_name: string; // 결재자 이름
   approval_order_no: number; // 결재자 순서
   approval_last_state: 0|1; // 최종결재자 여부 1 최종 / 0 최종아님
+
+  // 결재 진행 중 값
+  approval_answer?:string;
+  approval_date?:string;
 }
-class ReferObj {
+export class CommentObj {
+  approval_answer: string;
+  approval_comment: string;
+  approval_date: string;
+  approval_last_state: 0|1;
+  approval_order_no: string;
+  company_id: 22
+  company_name: "구르미"
+  user_id: 3366458717
+  user_name: "업체에"
+}
+export class ReferObj {
   refer_user_id: number; // 참조자 user_id
   refer_user_name: string; // 참조자 이름
 }

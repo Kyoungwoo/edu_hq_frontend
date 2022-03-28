@@ -50,9 +50,11 @@ export class SupervisionSearchComponent implements OnInit {
   async getCtgoSupervision(submitArr?) {
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
+      this.filteritem = [];
       if(this.value.length) {
         this.res.rsMap.filter((item ,i) => {
           if(this.value.indexOf(item.company_id) === i) {
+            this.filteritem.push(item);
             item.checked = true;
           }
         });
@@ -154,6 +156,10 @@ export class SupervisionSearchComponent implements OnInit {
       }
       this.submitArr = [];
       this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
+    } else {
+      console.log(this.filteritem);
+      this.business_register_no_check = false;
+      this._modal_.dismiss(this.filteritem);
     }
   }
 }

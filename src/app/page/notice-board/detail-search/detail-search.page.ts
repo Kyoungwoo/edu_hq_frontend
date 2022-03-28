@@ -14,7 +14,7 @@ import { ExcelService } from 'src/app/basic/service/util/excel.service';
 
 export class DetailSearchPage implements OnInit {
 
-  @Input() type: string;
+  @Input() type:'공지사항' | 'MSDS';
 
   @Input() form = {
     company_ids: [1],
@@ -70,7 +70,7 @@ export class DetailSearchPage implements OnInit {
     }
 
   }
-  async search() {
+  search() {
     const form = this.file.clone(this.temptForm);
     this._modal.dismiss(
       form
