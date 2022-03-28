@@ -193,7 +193,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
         });
     };
     ConfirmObtainListPage.prototype.detail = function (item) {
-        this.approval.getComponent(item.ctgo_approval_module_id);
+        this.approval.getComponent(item.ctgo_approval_module_id, item.target_id);
     };
     ConfirmObtainListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
