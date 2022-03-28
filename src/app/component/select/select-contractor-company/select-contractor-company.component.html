@@ -1,0 +1,8 @@
+<app-input name="with img" label="업체명"
+[color]="res && res.rsCode ? 'warning' : color"
+[(ngModel)]="text"
+[readonly]="readonly || !project_id || !master_company_id" 
+placeholder="선택" [readonly]="true" [disabled]="disabled">
+  <app-img name="search"></app-img>
+</app-input>
+<app-input-caption *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-input-caption>

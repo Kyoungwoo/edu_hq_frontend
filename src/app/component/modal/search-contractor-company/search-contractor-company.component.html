@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>업체 검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input name="with img" label="업체명" [(ngModel)]="form.search_text" (keyup.enter)="getCompany()"  placeholder="업체명을 검색하세요">
+      <app-img (click)="getCompany()" name="search"></app-img>
+    </app-input>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card *ngIf="all" name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.selectItem = null">
+    <app-row>
+      <app-col>
+        <h5>전체</h5>
+      </app-col>
+    </app-row>
+  </app-card>
+    <app-card *ngFor="let item of res?.rsMap let i = index" (click)="selectItem = item" [color]="selectItem === item ? 'secondary':'white'">
+      <app-row>
+        <app-col size="4">
+          <h5>업체명</h5>
+          <p>{{ item.company_name}}</p>
+        </app-col>
+        <app-col size="4">
+          <h5>사업자번호</h5>
+          <p>{{ item.business_register_no }}</p>
+        </app-col>
+        <app-col size="4">
+          <h5>대표명</h5>
+          <p>{{ item.company_ceo }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="select()">적용</app-button>
+</app-button-footer>

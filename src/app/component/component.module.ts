@@ -1,3 +1,5 @@
+import { SearchContractorCompanyComponent } from './modal/search-contractor-company/search-contractor-company.component';
+import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -90,6 +92,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
     PeopleDeleteComponent,
     SearchAreaComponent,
     SearchProjectContractorComponent,
+    SearchContractorCompanyComponent,
     // select
     SelectApprovalModuleComponent,
     SelectCountryComponent,
@@ -124,7 +127,8 @@ import { SortablejsModule } from 'ngx-sortablejs';
     SupervisionSearchComponent,
     ProjectAreaSetComponent,
     SelectSupervisionComponent,
-    SelectProjectContractorComponent
+    SelectProjectContractorComponent,
+    SelectContractorCompanyComponent
   ],
   imports: [
     CommonModule,
@@ -155,6 +159,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
     SearchToolComponent,
     SearchConstructionMachineryComponent,
     SearchEducationComponent,
+    SearchContractorCompanyComponent,
     // select
     PeopleViewComponent,
     PeopleDeleteComponent,
@@ -194,7 +199,8 @@ import { SortablejsModule } from 'ngx-sortablejs';
     ProjectAreaSetComponent,
     SelectSupervisionComponent,
     SelectProjectContractorComponent,
-    SearchProjectContractorComponent
+    SearchProjectContractorComponent,
+    SelectContractorCompanyComponent
   ],
   providers:[
     SelectCompanyComponent
