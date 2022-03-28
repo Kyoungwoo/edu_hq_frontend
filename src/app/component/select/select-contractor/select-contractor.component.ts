@@ -66,14 +66,15 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   public async get() {
     if(this.loading) return;
     this.loading = true;
-
+    
     const { user_type } = this.user.userData;
-
+    
     if(!this.project_id || !this.value) {
       if(this.multiple) {
         this.value = [];
       }
       else {
+        console.log("김화숙");
         this.value = 0;
       }
 
@@ -91,14 +92,13 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       company_contract_type: '원청사',
       search_text: ''
     });
-
+    console.log("this.res",this.res);
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
       if(this.multiple) {
-        if(!this.value && user_type === 'LH') {
+        if(!this.value && user_type === 'LH') { 
           this.value = [rsMap[0].company_id];
         }
-
         this.text = rsMap
         .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
         .map(constractor => constractor.company_name).join();

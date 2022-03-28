@@ -102,16 +102,12 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     });
     if (this.res.rsCode === 0) {
       const { rsMap } = this.res;
-        if (this.multiple) {
-          this.text = rsMap
-          .filter(constractor => (this.value as number[]).indexOf(constractor.company_id))
-          .map(constractor => constractor.company_name).join();
-      } else {
         if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
+        console.log("rsMap",rsMap);
+        console.log("this.value",this.value);
         this.text = rsMap.find(company => company.company_id === this.value)?.company_name || '';
-      }
     }
   }
 
