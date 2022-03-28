@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -31,7 +31,7 @@ export class SafetyMeetingInfo {
   templateUrl: './worker-minutes-list.page.html',
   styleUrls: ['./worker-minutes-list.page.scss'],
 })
-export class WorkerMinutesListPage implements OnInit {
+export class WorkerMinutesListPage implements OnInit, OnDestroy {
 
   form = { 
     project_id: null,
@@ -52,6 +52,10 @@ export class WorkerMinutesListPage implements OnInit {
     add: false
   }
 
+  event = {
+    get: null
+  }
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
@@ -63,6 +67,18 @@ export class WorkerMinutesListPage implements OnInit {
   async ngOnInit() {
     await this.getForm();
     this.get();
+
+    // event 물리기
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('worker-minutes-list:get()', this.event.get);
+  }
+  ngOnDestroy() {
+    window.removeEventListener('worker-minutes-list:get()', this.event.get);
+  }
+  
+  /** event 파트 */
+  getEvent() {
+    this.get(0);
   }
 
   /** 

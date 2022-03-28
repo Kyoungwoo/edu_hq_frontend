@@ -72,6 +72,7 @@ export class SelectSupervisionComponent implements OnInit, ControlValueAccessor 
     modal.present();
     const { data } = await modal.onDidDismiss()
     if(data) {
+      this.value = [];
       let compnay_name_string = [];
       data.forEach(item => {
         if(!this.value.includes(item.company_id)) this.value.push(item.company_id);

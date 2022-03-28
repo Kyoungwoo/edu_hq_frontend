@@ -54,30 +54,26 @@ export class SearchProjectContractorComponent implements OnInit {
   }
 
   async getCtgoContractor(submitArr?) {
-    console.log("this.submitArr",this.submitArr);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
       if (this.value.length) {
         this.filteritem = [];
         this.res.rsMap.filter((item, i) => {
-          if (this.value.indexOf(item.company_id) === i) {
+          if (this.value.indexOf(item.company_id) > -1) {
             this.filteritem.push(item);
             item.checked = true;
           }
         });
       }
       if (submitArr?.length) {
-        this.submitArr = [];
-        this.res.rsMap.filter((item, i) => {
-          console.log("item",item);
-          console.log(this.value.indexOf(item));
-          // submitArr.forEach(data => {
-          //   if (item.business_register_no === data.business_register_no) {
-          //     this.filteritem.push(item);
-          //     item.checked = true;
-          //     this._modal_.dismiss(this.filteritem);
-          //   }
-          // });
+        this.res.rsMap.forEach((item, i) => {
+          submitArr.forEach(data => {
+            if (item.business_register_no === data.business_register_no) {
+              this.submitArr = [];
+              this.filteritem.push(item);
+              this._modal_.dismiss(this.filteritem);
+            }
+          });
         });
       }
     }
@@ -100,7 +96,7 @@ export class SearchProjectContractorComponent implements OnInit {
         business_register_no: '',
         company_name: '',
         company_ceo: '',
-        search_type: '감리사'
+        search_type: '원청사'
       });
     }
   }
@@ -142,14 +138,14 @@ export class SearchProjectContractorComponent implements OnInit {
     }
   }
 
-
   async submit() {
     if (this.business_register_no_check) {
       for (let i = 0; i < this.submitArr.length; i++) {
-        if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning" });
-        if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning" });
+        if (!this.submitArr[i].company_name) return this.toast.present({ message: '회사명 입력해 주세요.', color: "warning"  });
+        if (!this.submitArr[i].business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해 주세요.', color: "warning"  });
         if (this.submitArr[i].business_register_no.length < 10) return this.toast.present({ message: '사업자등록번호를 확인해주세요.', color: "warning" });
-        if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning" });
+        if (!this.submitArr[i].company_ceo) return this.toast.present({ message: '대표자를 입력해 주세요.', color: "warning"  });
+        if (this.submitArr[i].business_register_no.length > 10) this.overlap(this.submitArr[i].business_register_no);
         const res = await this.connect.run('/project/company/insert', {
           business_register_no: this.submitArr[i].business_register_no,
           company_ceo: this.submitArr[i].company_ceo,
@@ -158,9 +154,11 @@ export class SearchProjectContractorComponent implements OnInit {
         });
         if (res.rsCode === 0) {
           this.getCtgoContractor(this.submitArr);
+          this.business_register_no_check = false;
         }
       }
-      this.toast.present({ message: '새로운 업체가 등록되었습니다.', color: 'primary' });
+      this.submitArr = [];
+      this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
     } else {
       this.business_register_no_check = false;
       this._modal_.dismiss(this.filteritem);

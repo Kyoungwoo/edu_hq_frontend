@@ -16,7 +16,6 @@ import { MileagePopupComponent } from '../member-management/member-management/mi
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmSettingPopupComponent } from 'src/app/component/confirm/confirm-setting-popup/confirm-setting-popup.component';
 import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
-import { ConfirmPopupComponent } from 'src/app/component/confirm/confirm-popup/confirm-popup.component';
 
 /**
  * @class TodayConstructionItem

@@ -74,6 +74,9 @@ var WorkerMinutesListPage = /** @class */ (function () {
             company_id: false,
             add: false
         };
+        this.event = {
+            get: null
+        };
     }
     WorkerMinutesListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -83,10 +86,20 @@ var WorkerMinutesListPage = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.get();
+                        // event 물리기
+                        this.event.get = this.getEvent.bind(this);
+                        window.addEventListener('worker-minutes-list:get()', this.event.get);
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    WorkerMinutesListPage.prototype.ngOnDestroy = function () {
+        window.removeEventListener('worker-minutes-list:get()', this.event.get);
+    };
+    /** event 파트 */
+    WorkerMinutesListPage.prototype.getEvent = function () {
+        this.get(0);
     };
     /**
      * permission 과 form 을 가져옴.

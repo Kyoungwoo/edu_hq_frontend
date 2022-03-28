@@ -69,6 +69,7 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
     }
 
   public async openModal() {
+    console.log("search-value",this.value);
     const modal = await this._modal.create({
       component: SearchProjectContractorComponent,
       componentProps:{
@@ -82,10 +83,13 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      this.value = [];
       let compnay_name_string = [];
       data.forEach(item => {
+        console.log("!this.value.includes(item.company_id)",!this.value.includes(item.company_id));
         if(!this.value.includes(item.company_id)) this.value.push(item.company_id);
-        compnay_name_string.push(item.company_name);
+          compnay_name_string.push(item.company_name);
+        
       });
       this.text = compnay_name_string.toString();
     }

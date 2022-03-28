@@ -55,16 +55,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.WorkerMinutesEditPage = void 0;
 var core_1 = require("@angular/core");
-var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var file_service_1 = require("src/app/basic/service/core/file.service");
-var approval_edit_page_1 = require("src/app/page/confirm/box/approval-edit/approval-edit.page");
 var WorkerMinutesEditPage = /** @class */ (function () {
-    function WorkerMinutesEditPage(alert, user, connect, toast, modal, file, date) {
+    function WorkerMinutesEditPage(alert, user, connect, toast, modal, loading, file, date) {
         this.alert = alert;
         this.user = user;
         this.connect = connect;
         this.toast = toast;
         this.modal = modal;
+        this.loading = loading;
         this.file = file;
         this.date = date;
         this.form = {
@@ -89,10 +88,6 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             approval_id: null,
             safety_meeting_id: null // 회의록 ID
         };
-        this.approvalForm = {
-            project_id: this.user.userData.belong_data.project_id,
-            ctgo_approval_module_id: null
-        };
     }
     WorkerMinutesEditPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -101,11 +96,8 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                     case 0:
                         if (!!this.safety_meeting_id) return [3 /*break*/, 1];
                         // 신규 작성 시, 디폴트 값을 가져옴
-                        this.getDefaultForm();
-                        this.getDefaultContent();
-                        // 결재 - 신규작성시에는 디폴트 결재선을 불러옴
-                        this.getDefaultApprovalForm();
-                        this.getDefaultApproval();
+                        this.getDefaultForm(); // 폼으로 채우고
+                        this.getDefaultContent(); // 기본 정보를 가지고 온다.
                         return [3 /*break*/, 3];
                     case 1:
                         // 수정 시에는 정보를 가져와서 채워넣음
@@ -116,9 +108,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         _a.label = 3;
                     case 3:
                         // 나머지 정보
-                        this.form.safety_meeting_type_text = this.getTypeText(this.safety_meeting_type);
+                        this.form.safety_meeting_type_text = this.getTypeText(this.form.safety_meeting_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
-                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.safety_meeting_type);
+                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.safety_meeting_type);
                         return [2 /*return*/];
                 }
             });
@@ -147,8 +139,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.form = __assign(__assign({}, this.form), res.rsObj);
-                            // 정보를 가져온 후, 결재 정보를 가져와야 한다!
-                            this.getApproval();
+                            // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -220,77 +211,20 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         });
     };
     /**
-     * 결재선 정보 입력 (분리해서 컴포넌트로 만들어야 함)
+     * 삭제 버튼 클릭
      */
-    // (임시) approval 불러오는데에 필요한 정보들 가져오기
-    WorkerMinutesEditPage.prototype.getDefaultApprovalForm = function () {
-        this.approvalForm.project_id = this.form.project_id;
-        this.approvalForm.ctgo_approval_module_id = this.getApprovalModuleId(this.safety_meeting_type);
-    };
-    /**
-     * 기본 결재선 정보 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getDefaultApproval = function () {
+    WorkerMinutesEditPage.prototype.onDeleteClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.connect.run('/approval/default/get', this.approvalForm, {
-                                loading: true,
-                                parse: ['answer_datas', 'refer_datas']
-                            })];
-                    case 1:
-                        _a.approvalRes = _b.sent();
-                        if (this.approvalRes.rsCode === 0) {
-                            // 잘 가지고 왔으면 대씀
-                        }
-                        else if (this.approvalRes.rsCode === 1008) {
-                            // 내 정보를 넣어줌
-                            this.approvalRes.rsCode = 0;
-                            this.approvalRes.rsObj = {
-                                approval_default_id: 0,
-                                ctgo_approval_module_id: this.approvalForm.ctgo_approval_module_id,
-                                user_id: this.user.userData.user_id,
-                                project_id: this.approvalForm.project_id,
-                                answer_datas: [{
-                                        approval_order_no: 0,
-                                        approval_last_state: 0,
-                                        answer_user_id: this.user.userData.user_id,
-                                        answer_user_name: this.user.userData.user_name
-                                    }],
-                                refer_datas: []
-                            };
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: this.approvalRes.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * 저장된 결재선 정보 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getApproval = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, answer_datas, approval_comment;
+            var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/approval/get', {
-                            approval_id: this.form.approval_id
-                        })];
+                    case 0: return [4 /*yield*/, ev["delete"]()];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            answer_datas = JSON.parse(res.rsObj.approval_default_data.answer_datas);
-                            approval_comment = res.rsObj.approval_comment;
-                            this.approvalRes = new connect_service_1.ConnectResult();
-                            this.approvalRes.rsObj = new approval_edit_page_1.ApprovalObj();
-                            this.approvalRes.rsObj.answer_datas = answer_datas;
-                            this.approvalRes.rsObj.approval_comment = approval_comment;
+                            this.modal.dismiss();
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -301,88 +235,165 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         });
     };
     /**
-     * 임시저장
+     * 임시 저장버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.temptSave = function () {
-        var _this = this;
-        this.alert.present({
-            message: '임시 저장 하시겠습니까?',
-            buttons: [
-                { text: '아니오' },
-                { text: '예', handler: function () { return __awaiter(_this, void 0, void 0, function () {
-                        var answer_datas, refer_datas, url, res;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (!this.form.safety_meeting_place) {
-                                        this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
-                                        return [2 /*return*/];
-                                    }
-                                    if (!this.form.safety_meeting_content) {
-                                        this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
-                                        return [2 /*return*/];
-                                    }
-                                    if (!this.form.safety_meeting_resolve) {
-                                        this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
-                                        return [2 /*return*/];
-                                    }
-                                    answer_datas = this.approvalRes.rsObj.answer_datas;
-                                    /**
-                                     * order_no 정렬
-                                     * 최종 결재자만 approval_last_state 가 1이고 나머지는 0임
-                                     */
-                                    answer_datas.forEach(function (item, i) {
-                                        item.approval_order_no = i + 1;
-                                        item.approval_last_state = i < answer_datas.length - 1 ? 0 : 1;
-                                    });
-                                    refer_datas = this.approvalRes.rsObj.refer_datas || [];
-                                    this.form.safety_meeting_type = '안전';
-                                    this.form.approval_cnt_answer = '임시저장';
-                                    this.form.approval_default_data = [
-                                        {
-                                            default_type: 'ANSWER',
-                                            answer_datas: answer_datas
-                                        },
-                                        {
-                                            default_type: 'REFER',
-                                            refer_datas: refer_datas
-                                        }
-                                    ];
-                                    url = '';
-                                    if (!this.form.approval_id) {
-                                        url = '/board/safety_meeting/insert';
-                                    }
-                                    else {
-                                        url = '/board/safety_meeting/update';
-                                    }
-                                    return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
-                                case 1:
-                                    res = _a.sent();
-                                    if (res.rsCode === 0) {
-                                        this.toast.present({ color: 'success', message: '임시저장 되었습니다.' });
-                                        if (!this.form.approval_id) {
-                                            // 신규 작성이었다면, approval_id와 safety_meeting_id 반환받아서 넣어줘야 임시저장 시, 새로 추가되는 것이 아닌 수정이 된다.
-                                            this.form.approval_id = res.rsObj.approval_id;
-                                            this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
-                                        }
-                                    }
-                                    else {
-                                        this.toast.present({ color: 'warning', message: res.rsMsg });
-                                    }
-                                    return [2 /*return*/];
+    WorkerMinutesEditPage.prototype.onSaveClick = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var approval_data, url, res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        approval_data = ev.approval_data;
+                        if (!this.form.safety_meeting_place) {
+                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        if (!this.form.safety_meeting_content) {
+                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        if (!this.form.safety_meeting_resolve) {
+                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        this.form.safety_meeting_type = '안전';
+                        this.form.approval_cnt_answer = '임시저장';
+                        this.form.approval_default_data = approval_data;
+                        url = '';
+                        if (!this.form.approval_id) {
+                            url = '/board/safety_meeting/insert';
+                        }
+                        else {
+                            url = '/board/safety_meeting/update';
+                        }
+                        return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            this.toast.present({ color: 'success', message: '임시저장 되었습니다.' });
+                            if (!this.form.approval_id) {
+                                // 신규 작성이었다면, approval_id와 safety_meeting_id 반환받아서 넣어줘야 임시저장 시, 새로 추가되는 것이 아닌 수정이 된다.
+                                this.form.approval_id = res.rsObj.approval_id;
+                                this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
+                                // 목록을 새로고침 해줘야 함
+                                window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
                             }
-                        });
-                    }); } }
-            ]
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     /**
-     * 결재 요청
+     * 결재 요청 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.sendApproval = function () {
+    WorkerMinutesEditPage.prototype.onSendClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
+            var approval_data, res, loading, res, approvalRes;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        approval_data = ev.approval_data;
+                        if (!this.form.safety_meeting_place) {
+                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        if (!this.form.safety_meeting_content) {
+                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        if (!this.form.safety_meeting_resolve) {
+                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                            return [2 /*return*/];
+                        }
+                        this.form.safety_meeting_type = '안전';
+                        this.form.approval_cnt_answer = '결재중';
+                        this.form.approval_default_data = approval_data;
+                        if (!!this.form.approval_id) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/insert', this.form, { loading: true })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
+                            this.modal.dismiss();
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        return [3 /*break*/, 8];
+                    case 2: return [4 /*yield*/, this.loading.present()];
+                    case 3:
+                        loading = _a.sent();
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/update', this.form)];
+                    case 4:
+                        res = _a.sent();
+                        if (!(res.rsCode === 0)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, ev.send()];
+                    case 5:
+                        approvalRes = _a.sent();
+                        if (approvalRes.rsCode === 0) {
+                            this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
+                            this.modal.dismiss();
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: approvalRes.rsMsg });
+                        }
+                        return [3 /*break*/, 7];
+                    case 6:
+                        this.toast.present({ color: 'warning', message: res.rsMsg });
+                        _a.label = 7;
+                    case 7:
+                        loading.dismiss();
+                        _a.label = 8;
+                    case 8: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 결재 회수 버튼 클릭
+     */
+    WorkerMinutesEditPage.prototype.onRecoveryClick = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, ev.recovery()];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 결재 버튼 클릭
+     */
+    WorkerMinutesEditPage.prototype.onApprovalClick = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, ev.recovery()];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                        }
+                        return [2 /*return*/];
+                }
             });
         });
     };

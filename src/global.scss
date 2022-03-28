@@ -467,6 +467,12 @@
             box-shadow: 0 0 7px 0px rgba(0,0,0,0.15);
         }
     }
+    // approval & confirm
+    .confirm-process-modal {
+      --max-width: 500px;
+      --max-height: 450px;
+    }
+
     .worker-minutes-modal {
       --max-width: 300px;
       --max-height: 230px;
@@ -490,18 +496,6 @@
     .risk-evaluation-modal {
       --max-width: 800px;
       --max-height: 475px;
-    }
-    .confirm-modal {
-      --max-width: 500px;
-      --max-height: 450px;
-    }
-    .confirm-process-modal {
-      --max-width: 500px;
-      --max-height: 450px;
-    }
-    .confirm-setting-modal {
-      --max-width: 500px;
-      --max-height: 450px;
     }
 
     // my-page

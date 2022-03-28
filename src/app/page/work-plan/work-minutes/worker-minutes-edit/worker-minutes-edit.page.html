@@ -11,45 +11,15 @@
 
   <h2>{{ form.safety_meeting_type_text }}</h2>
 
-  <!-- <app-approval 
+  <app-approval 
   [project_id]="this.form.project_id"
   [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
-  [approval_id]="this.form.approval_id"></app-approval> -->
-  <app-row>
-    <app-col></app-col>
-    <app-col size="auto">
-      <app-button (click)="temptSave()">임시저장</app-button>
-    </app-col>
-    <app-col size="auto">
-      <app-button>결재선</app-button>
-    </app-col>
-    <app-col size="auto">
-      <app-button (click)="sendApproval()">결재요청</app-button>
-    </app-col>
-    <app-col size="auto">
-      <app-button>인쇄</app-button>
-    </app-col>
-  </app-row>
-  <app-row>
-    <app-col></app-col>
-    <app-col size="auto">
-      <app-row class="approval-group">
-        <app-col size="24px" class="approval-title">결<br>재</app-col>
-        <app-col size="auto" class="approval-col" *ngFor="let item of approvalRes?.rsObj?.answer_datas; let i = index; let f = first; let l = last;">
-          <div class="approval-type">{{ f ? 
-            l ? '작성/승인' : '작성' 
-            : 
-            l ? '승인' : '검토' 
-          }}</div>
-          <div class="approval-person">
-            <div class="approval-name">{{ item.answer_user_name }}</div>
-            <div class="approval-state">{{ item.approval_answer }}</div>
-            <div class="approval-date">{{ item.approval_date }}</div>
-          </div>
-        </app-col>
-      </app-row>
-    </app-col>
-  </app-row>
+  [approval_id]="this.form.approval_id"
+  (deleteClick)="onDeleteClick($event)"
+  (saveClick)="onSaveClick($event)"
+  (sendClick)="onSendClick($event)"
+  (recoveryClick)="onRecoveryClick($event)"
+  (approvalClick)="onApprovalClick($event)"></app-approval>
   
   <h4>기본 정보</h4>
 

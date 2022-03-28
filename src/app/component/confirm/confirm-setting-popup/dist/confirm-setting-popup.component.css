@@ -1,0 +1,11 @@
+.approval-row {
+  align-items: flex-start;
+}
+
+.item {
+  height: 58px;
+}
+
+.answer-handle {
+  cursor: ns-resize;
+}
