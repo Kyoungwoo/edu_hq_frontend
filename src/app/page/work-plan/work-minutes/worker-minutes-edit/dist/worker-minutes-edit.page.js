@@ -357,6 +357,24 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             });
         });
     };
+    /** 결재 회수 버튼 클릭 */
+    WorkerMinutesEditPage.prototype.onRecoveryClick = function (ev) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, ev.recovery()];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            // 목록을 새로고침 해줘야 함
+                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     __decorate([
         core_1.Input()
     ], WorkerMinutesEditPage.prototype, "safety_meeting_id");

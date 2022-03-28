@@ -4,9 +4,27 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { ApprovalObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { AnswerObj, ApprovalObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-setting-popup.component';
 
+
+export interface ApprovalBtnClickEvent {
+  approval_data: ApprovalData;
+  delete: () => Promise<ConnectResult>;
+  send: () => Promise<ConnectResult>;
+  recovery: () => Promise<ConnectResult>;
+  refresh: () => Promise<ConnectResult>;
+}
+export type ApprovalData = [
+  {
+    default_type: "ANSWER",
+    answer_datas: AnswerObj[]
+  },
+  {
+    default_type: "REFER",
+    refer_datas: ReferObj[]
+  }
+];
 @Component({
   selector: 'app-approval',
   templateUrl: './approval.component.html',
@@ -39,6 +57,7 @@ export class ApprovalComponent implements OnInit {
   @Output() deleteClick = new EventEmitter();
   @Output() saveClick = new EventEmitter();
   @Output() sendClick = new EventEmitter();
+  @Output() recoveryClick = new EventEmitter();
   @Output() printClick = new EventEmitter();
 
   form = {
@@ -77,6 +96,9 @@ export class ApprovalComponent implements OnInit {
       case '결재요청':
         this.onSendClick();
         break;
+      case '결재회수':
+        this.onRecoveryClick();
+        break;
       
     }
   }
@@ -108,9 +130,7 @@ export class ApprovalComponent implements OnInit {
       buttons: [
         { text: '아니오' },
         { text: '예', handler: async() => {
-          this.saveClick.emit({
-            approval_data: this.getApprovalData()
-          });
+          this.saveClick.emit(this.getClickEvent());
         }}
       ]
     });
@@ -139,10 +159,7 @@ export class ApprovalComponent implements OnInit {
       buttons: [
         { text: '아니오' },
         { text: '예', handler: async() => {
-          this.sendClick.emit({
-            approval_data: this.getApprovalData(),
-            send: this.sendApproval.bind(this)
-          });
+          this.sendClick.emit(this.getClickEvent());
         }}
       ]
     });
@@ -154,12 +171,42 @@ export class ApprovalComponent implements OnInit {
     });
     return res;
   }
+  /** 결재 회수 버튼 클릭 */
+  onRecoveryClick() {
+    this.alert.present({
+      message: '회수 하시겠습니까?',
+      buttons: [
+        { text: '아니오' },
+        { text: '예', handler: async() => {
+          this.recoveryClick.emit(this.getClickEvent());
+        }}
+      ]
+    });
+  }
+  /** 회수 함수 */
+  async recoveryApproval() {
+    const res = await this.connect.run('/approval/recovery', {
+      approval_id: this.form.approval_id
+    });
+    if(res.rsCode === 0) this.get();
+    return res;
+  }
 
   /** 프린트 버튼 클릭 */
   onPrintClick() {
 
   }
 
+  /** 반환 이벤트 파라미터 만들기 */
+  getClickEvent():ApprovalBtnClickEvent {
+    return {
+      approval_data: this.getApprovalData(),
+      delete: this.deleteApproval.bind(this),
+      send: this.sendApproval.bind(this),
+      recovery: this.recoveryApproval.bind(this),
+      refresh: this.get.bind(this)
+    }
+  }
   /** 
    * 서버에 올리는 형태로 데이터를 변경하는 함수 
    */
@@ -183,7 +230,7 @@ export class ApprovalComponent implements OnInit {
         default_type: "REFER",
         refer_datas
       }
-    ];
+    ] as ApprovalData;
   }
 
   /**

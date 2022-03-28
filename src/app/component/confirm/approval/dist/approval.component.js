@@ -57,6 +57,7 @@ var ApprovalComponent = /** @class */ (function () {
         this.deleteClick = new core_1.EventEmitter();
         this.saveClick = new core_1.EventEmitter();
         this.sendClick = new core_1.EventEmitter();
+        this.recoveryClick = new core_1.EventEmitter();
         this.printClick = new core_1.EventEmitter();
         this.form = {
             project_id: null,
@@ -115,6 +116,9 @@ var ApprovalComponent = /** @class */ (function () {
             case '결재요청':
                 this.onSendClick();
                 break;
+            case '결재회수':
+                this.onRecoveryClick();
+                break;
         }
     };
     /** 삭제버튼 클릭 */
@@ -161,9 +165,7 @@ var ApprovalComponent = /** @class */ (function () {
                 { text: '아니오' },
                 { text: '예', handler: function () { return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
-                            this.saveClick.emit({
-                                approval_data: this.getApprovalData()
-                            });
+                            this.saveClick.emit(this.getClickEvent());
                             return [2 /*return*/];
                         });
                     }); } }
@@ -206,10 +208,7 @@ var ApprovalComponent = /** @class */ (function () {
                 { text: '아니오' },
                 { text: '예', handler: function () { return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
-                            this.sendClick.emit({
-                                approval_data: this.getApprovalData(),
-                                send: this.sendApproval.bind(this)
-                            });
+                            this.sendClick.emit(this.getClickEvent());
                             return [2 /*return*/];
                         });
                     }); } }
@@ -232,8 +231,52 @@ var ApprovalComponent = /** @class */ (function () {
             });
         });
     };
+    /** 결재 회수 버튼 클릭 */
+    ApprovalComponent.prototype.onRecoveryClick = function () {
+        var _this = this;
+        this.alert.present({
+            message: '회수 하시겠습니까?',
+            buttons: [
+                { text: '아니오' },
+                { text: '예', handler: function () { return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            this.recoveryClick.emit(this.getClickEvent());
+                            return [2 /*return*/];
+                        });
+                    }); } }
+            ]
+        });
+    };
+    /** 회수 함수 */
+    ApprovalComponent.prototype.recoveryApproval = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/approval/recovery', {
+                            approval_id: this.form.approval_id
+                        })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0)
+                            this.get();
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     /** 프린트 버튼 클릭 */
     ApprovalComponent.prototype.onPrintClick = function () {
+    };
+    /** 반환 이벤트 파라미터 만들기 */
+    ApprovalComponent.prototype.getClickEvent = function () {
+        return {
+            approval_data: this.getApprovalData(),
+            "delete": this.deleteApproval.bind(this),
+            send: this.sendApproval.bind(this),
+            recovery: this.recoveryApproval.bind(this),
+            refresh: this.get.bind(this)
+        };
     };
     /**
      * 서버에 올리는 형태로 데이터를 변경하는 함수
@@ -411,6 +454,9 @@ var ApprovalComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "sendClick");
+    __decorate([
+        core_1.Output()
+    ], ApprovalComponent.prototype, "recoveryClick");
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "printClick");

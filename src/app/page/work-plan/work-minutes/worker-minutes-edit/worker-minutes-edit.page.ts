@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
 import { ApprovalObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 
 @Component({
@@ -164,7 +165,7 @@ export class WorkerMinutesEditPage implements OnInit {
   /** 
    * 삭제 버튼 클릭
    */
-   async onDeleteClick(ev) {
+   async onDeleteClick(ev:ApprovalBtnClickEvent) {
      // 여기서는 딱히 처리할게 없음. 그냥 삭제 후 닫기.
      const res = await ev.delete();
      if(res.rsCode  === 0) {
@@ -179,7 +180,7 @@ export class WorkerMinutesEditPage implements OnInit {
   /**
    * 임시 저장버튼 클릭
    */
-  async onSaveClick(ev) {
+  async onSaveClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
 
     if(!this.form.safety_meeting_place) { this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' }); return; }
@@ -217,7 +218,7 @@ export class WorkerMinutesEditPage implements OnInit {
   /**
    * 결재 버튼 클릭
    */
-  async onSendClick(ev) {
+  async onSendClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
 
     if(!this.form.safety_meeting_place) { this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' }); return; }
@@ -269,5 +270,14 @@ export class WorkerMinutesEditPage implements OnInit {
 
       loading.dismiss();
     }
+  }
+  /** 결재 회수 버튼 클릭 */
+  async onRecoveryClick(ev:ApprovalBtnClickEvent) {
+    const res = await ev.recovery();
+    if(res.rsCode === 0) {
+      // 목록을 새로고침 해줘야 함
+      window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+    }
+
   }
 }
