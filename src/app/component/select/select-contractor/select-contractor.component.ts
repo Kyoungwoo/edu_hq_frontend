@@ -115,6 +115,14 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         if(!this.text) this.value = 0;
       }
     }
+
+    if(this.res.rsCode === 1008) {
+      if(this.multiple) this.value = [];
+      else this.value = 0;
+
+      if(this.allState) this.text = '전체';
+      else this.text = '';
+    }
   }
   
   public async openModal() {

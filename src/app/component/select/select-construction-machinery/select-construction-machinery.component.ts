@@ -97,9 +97,9 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   }
   async valueChange(v) {
     this._value = v ? v : 0;
-    await this.onChangeCallback(v);
-    await this.change.emit(v);
-    await this.get();
+    this.onChangeCallback(v);
+    this.change.emit(v);
+    this.get();
   }
   
   private onChangeCallback = (v) => {};
