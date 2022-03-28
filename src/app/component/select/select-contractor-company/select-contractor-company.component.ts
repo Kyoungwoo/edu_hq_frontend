@@ -163,8 +163,16 @@ export class SelectContractorCompanyComponent implements OnInit, ControlValueAcc
     modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      console.log("test - ", data);
-      this.value = data.selectItem.company_id;
+      const allState = <Boolean>data.allState;
+      const selectedItem = <SelectItem>data.selectItem;
+      if(allState) {
+        this.value = 0;
+        this.text = '전체';
+      } else {
+        console.log(selectedItem);
+        this.value = selectedItem.company_id;
+        this.text = selectedItem.company_name;
+      }
     }
   }
 

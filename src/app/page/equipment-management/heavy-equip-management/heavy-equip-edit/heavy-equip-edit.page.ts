@@ -58,6 +58,11 @@ export class HeavyEquipEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.list_data);
+    this.form = {
+      ...this.form,
+      ...this.list_data
+    };
     if(this.machinery_id) {
       this.updateStatus = true;
       this.get();
@@ -112,15 +117,8 @@ export class HeavyEquipEditPage implements OnInit {
   }
 
   async Heavysave() {
-    if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
-    if(!this.form.partner_company_id) return this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
-    if(!this.form.ctgo_machinery_id) return this.toast.present({message:'중장비를 입력해주세요.',color:'warning'});
-    if(!this.form.machinery_regist_no) return this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
-    if(!this.form.ctgo_construction_id) return this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
-    if(!this.form.rental_company_name) return this.toast.present({message:'대여업체를 입력해주세요.',color:'warning'});
-    if(!this.form.rental_start_date) return this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
-    if(!this.form.rental_end_date) return this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
-    if(!this.form.rental_price) return this.toast.present({message:'보증금액을 입력해주세요.',color:'warning'});
+    let state = await this.UpdateValidation();
+    if(state) return;
     this.alert.present({
       message: '저장하시겠습니까?',
       buttons: [
@@ -141,6 +139,8 @@ export class HeavyEquipEditPage implements OnInit {
   }
 
   async Heavyupdate() { 
+    let state = await this.UpdateValidation();
+    if(state) return;
     this.alert.present({
       message:'수정 하시겠습니까?',
       buttons:[
@@ -158,5 +158,46 @@ export class HeavyEquipEditPage implements OnInit {
         }
       ]
     });
+  }
+
+  async UpdateValidation(){
+    let state = false;
+    if(!this.form.project_id){
+      state = true;
+      this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.partner_company_id){
+      state = true;
+      this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.ctgo_machinery_id){
+      state = true;
+      this.toast.present({message:'중장비를 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.machinery_regist_no){
+      state = true;
+      this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.ctgo_construction_id){
+      state = true;
+      this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.rental_company_name){
+      state = true;
+      this.toast.present({message:'대여업체를 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.rental_start_date){
+      state = true;
+      this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.rental_end_date){
+      state = true;
+      this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+    }
+    if(!this.form.rental_price){
+      state = true;
+      this.toast.present({message:'보증금액을 입력해주세요.',color:'warning'});
+    }
+    return state;
   }
 }

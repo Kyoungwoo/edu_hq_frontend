@@ -56,7 +56,10 @@ export class HeavyEquipListPage implements OnInit {
 
 
   ngOnInit() {
-    this.getList();
+    setTimeout(() => {
+      this.getList();
+    }, 500);
+    
   }
 
 

@@ -18,22 +18,38 @@ import { MachineryItem, SearchConstructionMachineryComponent } from '../../modal
 export class SelectConstructionMachineryComponent implements OnInit, ControlValueAccessor {
 
 
+  // @HostListener('click') onClick() {
+  //   if(!this.disabled) this.machinery();
+  // }
+
   @HostListener('click') onClick() {
-    if(!this.disabled) this.machinery();
+    if(!this.disabled) {
+      if(this.company_id) this.machinery();
+      else {
+        this.res = new ConnectResult();
+        this.res.rsCode = 1008;
+        this.res.rsMsg = '업체를 선택해주세요.';
+      }
+    }
   }
 
+  @Input() all:boolean = false;
   @Input() color:Color;
   @Input() label:string = "건설기계";
   @Input() disabled: boolean = false;
   @Input() text: string;
+  @Input() readonly:boolean = false;
   @Input() required: boolean = false;
 
   private _company_id:number;
   @Input() set company_id(v:number) {
     if(this._company_id !== v) {
+      // this._company_id = v;
+      // this._value = 0;
+
       this._company_id = v;
-      this._value = 0;
-      this.valueChange(this._value);
+      this.get();
+      // this.valueChange(this._value);
     }
   }
 
@@ -51,13 +67,41 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
 
   public async get() {
     if(this.isModalData) return;
+    // this.value = 0;
+    // if(this.all) {
+    //   this.text = '전체';
+    // }
+    // else {
+    //   this.text = '';
+    // }
+
+    if(!this.value && !this.all) return;
+    
+    if(this.value === 0 && this.all) {
+      this.text = '전체';
+      return;
+    }
+
+    if(!this.value) return;
+    
     this.res = await this.connect.run('/category/certify/machinery/get', {
       company_id: this.company_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
       const { rsMap } = this.res;
+      this.value = rsMap[0]?.company_id;
       this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
+    }
+
+    if(this.res.rsCode === 1008) {
+      this.value = 0;
+      if(this.all) {
+        this.text = '전체';
+      }
+      else {
+        this.text = '';
+      }
     }
   }
 
@@ -66,6 +110,7 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     const modal = await this._modal.create({
       component:SearchConstructionMachineryComponent,
       componentProps: {
+        all:this.all,
         value: this.value,
         form: {
           company_id: this.company_id,
@@ -76,9 +121,16 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      console.log(data);
-      this.text = data.selectedItem.ctgo_machinery_name;
-      this.value = data.selectedItem.ctgo_machinery_id;
+      const allState = <Boolean>data.allState;
+      const selectedItem = <MachineryItem>data.selectedItem;
+      if(allState) {
+        this.value = 0;
+        this.text = '전체';
+      } else {
+        console.log(selectedItem);
+        this.value = selectedItem.ctgo_machinery_id;
+        this.text = selectedItem.ctgo_machinery_name;
+      }
     }
     this.isModalData = false;
   }

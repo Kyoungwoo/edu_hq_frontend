@@ -1,7 +1,18 @@
-<app-input name="with img" [readonly]="true" 
+<app-input name="with img"
+[readonly]="readonly || !company_id" 
 [disabled]="disabled" 
-[color]="color" 
-[required]="required" 
+[required]="required"
+[color]="res && res.rsCode ? 'warning' : color"
+placeholder="선택"
 [label]="label" [(ngModel)]="text">
   <app-img *ngIf="!disabled" name="search"></app-img>
 </app-input>
+
+<!-- <app-input name="with img" label="업체명"
+[color]="res && res.rsCode ? 'warning' : color"
+[(ngModel)]="text"
+[readonly]="readonly || !project_id" 
+placeholder="선택" [readonly]="true" [disabled]="disabled">
+  <app-img *ngIf="!disabled" name="search"></app-img>
+</app-input>
+<app-input-caption *ngIf="res && res.rsCode" color="warning">{{ res.rsMsg }}</app-input-caption> -->

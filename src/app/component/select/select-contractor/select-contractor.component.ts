@@ -93,7 +93,11 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       if(this.multiple) {
         if(!this.value) {
           // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
-          this.value = [rsMap[0].company_id];
+          if(this.allState) {
+            this.value = [];
+            this.text = '전체';
+          }
+          else this.value = [rsMap[0].company_id];
         }
 
         this.text = rsMap
@@ -104,14 +108,13 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         if(!this.text) this.value = [];
       }
       else {
-        if(!this.value) {
-          // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
+        if(!this.value && user_type === 'LH') {
           this.value = rsMap[0].company_id;
         }
 
         this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
-
-        // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
+        // console.log(this.value);
+        // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
         if(!this.text) this.value = 0;
       }
     }

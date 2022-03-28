@@ -16,16 +16,16 @@
      <app-col>
       <app-select-contractor [multiple]="false" name="master_company_id"
       [required]="true" [project_id]="form.project_id"
-      [disabled]="true" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      [disabled]="updateStatus" [(ngModel)]="form.master_company_id"></app-select-contractor>
      </app-col>
    </app-row>
    <app-row mobileBreak>
     <app-col>
-      <app-select-company [project_id]="form.project_id" 
+      <app-select-contractor-company [project_id]="form.project_id" [master_company_id]="form.master_company_id" 
       [required]="true" label="업체명" name="input" 
       [disabled]="updateStatus"
-      [(ngModel)]="form.partner_company_id"></app-select-company>
-    </app-col>
+      [(ngModel)]="form.partner_company_id"></app-select-contractor-company>
+    </app-col> 
     <app-col>
       <app-select-construction-machinery [company_id]="form.master_company_id" 
       [required]="true" [disabled]="updateStatus" 
