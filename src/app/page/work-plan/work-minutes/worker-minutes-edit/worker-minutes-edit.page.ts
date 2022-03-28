@@ -216,7 +216,7 @@ export class WorkerMinutesEditPage implements OnInit {
     }
   }
   /**
-   * 결재 버튼 클릭
+   * 결재 요청 버튼 클릭
    */
   async onSendClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
@@ -247,7 +247,7 @@ export class WorkerMinutesEditPage implements OnInit {
       /**
        * 임시저장을 한 상태에서는 approval에서 따로 결재 요청(ev.send()) 처리한다.
        * 순서상, update 후 결재 요청을 욜리는 것이 맞다고 생각된다.
-       */ 
+       */
       const loading = await this.loading.present();
       
       const res = await this.connect.run('/board/safety_meeting/update', this.form);
@@ -271,8 +271,21 @@ export class WorkerMinutesEditPage implements OnInit {
       loading.dismiss();
     }
   }
-  /** 결재 회수 버튼 클릭 */
+  /** 
+   * 결재 회수 버튼 클릭 
+   */
   async onRecoveryClick(ev:ApprovalBtnClickEvent) {
+    const res = await ev.recovery();
+    if(res.rsCode === 0) {
+      // 목록을 새로고침 해줘야 함
+      window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+    }
+
+  }
+  /**
+   * 결재 버튼 클릭
+   */
+   async onApprovalClick(ev:ApprovalBtnClickEvent) {
     const res = await ev.recovery();
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함

@@ -46,6 +46,7 @@ exports.ApprovalComponent = void 0;
 var core_1 = require("@angular/core");
 var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var approval_edit_page_1 = require("src/app/page/confirm/box/approval-edit/approval-edit.page");
+var confirm_process_popup_component_1 = require("../confirm-process-popup/confirm-process-popup.component");
 var confirm_setting_popup_component_1 = require("../confirm-setting-popup/confirm-setting-popup.component");
 var ApprovalComponent = /** @class */ (function () {
     function ApprovalComponent(user, connect, toast, _modal, alert) {
@@ -58,6 +59,7 @@ var ApprovalComponent = /** @class */ (function () {
         this.saveClick = new core_1.EventEmitter();
         this.sendClick = new core_1.EventEmitter();
         this.recoveryClick = new core_1.EventEmitter();
+        this.approvalClick = new core_1.EventEmitter();
         this.printClick = new core_1.EventEmitter();
         this.form = {
             project_id: null,
@@ -65,6 +67,12 @@ var ApprovalComponent = /** @class */ (function () {
             approval_id: null
         };
         this.btnList = [];
+        /** 결재 버튼 클릭 */
+        this.approvalForm = {
+            approval_id: null,
+            approval_answer: null,
+            approval_comment: null
+        };
     }
     Object.defineProperty(ApprovalComponent.prototype, "project_id", {
         // 신규 결재선에 필요한 정보
@@ -215,7 +223,7 @@ var ApprovalComponent = /** @class */ (function () {
             ]
         });
     };
-    /** 임시저장 -> 결재 요청 상태 변경 함수 */
+    /** 임시저장 된 결재를 결재 요청 상태 변경 함수 */
     ApprovalComponent.prototype.sendApproval = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
@@ -265,6 +273,50 @@ var ApprovalComponent = /** @class */ (function () {
             });
         });
     };
+    ApprovalComponent.prototype.onApprovalClick = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: confirm_process_popup_component_1.ConfirmProcessPopupComponent,
+                            cssClass: 'confirm-process-modal'
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            this.approvalForm = {
+                                approval_id: this.form.approval_id,
+                                approval_answer: data.approval_answer,
+                                approval_comment: data.approval_comment
+                            };
+                            this.approvalClick.emit(this.getClickEvent());
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /** 결재 함수 */
+    ApprovalComponent.prototype.approvalApproval = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/approval/send', this.approvalForm)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0)
+                            this.get();
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     /** 프린트 버튼 클릭 */
     ApprovalComponent.prototype.onPrintClick = function () {
     };
@@ -275,6 +327,7 @@ var ApprovalComponent = /** @class */ (function () {
             "delete": this.deleteApproval.bind(this),
             send: this.sendApproval.bind(this),
             recovery: this.recoveryApproval.bind(this),
+            approval: this.approvalApproval.bind(this),
             refresh: this.get.bind(this)
         };
     };
@@ -457,6 +510,9 @@ var ApprovalComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "recoveryClick");
+    __decorate([
+        core_1.Output()
+    ], ApprovalComponent.prototype, "approvalClick");
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "printClick");

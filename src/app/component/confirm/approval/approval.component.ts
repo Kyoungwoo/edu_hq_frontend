@@ -5,6 +5,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { AnswerObj, ApprovalObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { ConfirmProcessPopupComponent } from '../confirm-process-popup/confirm-process-popup.component';
 import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-setting-popup.component';
 
 
@@ -13,6 +14,7 @@ export interface ApprovalBtnClickEvent {
   delete: () => Promise<ConnectResult>;
   send: () => Promise<ConnectResult>;
   recovery: () => Promise<ConnectResult>;
+  approval: () => Promise<ConnectResult>;
   refresh: () => Promise<ConnectResult>;
 }
 export type ApprovalData = [
@@ -58,6 +60,7 @@ export class ApprovalComponent implements OnInit {
   @Output() saveClick = new EventEmitter();
   @Output() sendClick = new EventEmitter();
   @Output() recoveryClick = new EventEmitter();
+  @Output() approvalClick = new EventEmitter();
   @Output() printClick = new EventEmitter();
 
   form = {
@@ -164,7 +167,7 @@ export class ApprovalComponent implements OnInit {
       ]
     });
   }
-  /** 임시저장 -> 결재 요청 상태 변경 함수 */
+  /** 임시저장 된 결재를 결재 요청 상태 변경 함수 */
   async sendApproval() {
     const res = await this.connect.run('/approval/update/req', {
       approval_id: this.form.approval_id
@@ -191,6 +194,34 @@ export class ApprovalComponent implements OnInit {
     if(res.rsCode === 0) this.get();
     return res;
   }
+  /** 결재 버튼 클릭 */
+  approvalForm = {
+    approval_id: null,
+    approval_answer: null,
+    approval_comment: null
+  }
+  async onApprovalClick() {
+    const modal = await this._modal.create({
+      component: ConfirmProcessPopupComponent,
+      cssClass: 'confirm-process-modal'
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.approvalForm = {
+        approval_id: this.form.approval_id,
+        approval_answer: data.approval_answer,
+        approval_comment: data.approval_comment
+      }
+      this.approvalClick.emit(this.getClickEvent());
+    }
+  }
+  /** 결재 함수 */
+  async approvalApproval() {
+    const res = await this.connect.run('/approval/send', this.approvalForm);
+    if(res.rsCode === 0) this.get();
+    return res;
+  }
 
   /** 프린트 버튼 클릭 */
   onPrintClick() {
@@ -204,6 +235,7 @@ export class ApprovalComponent implements OnInit {
       delete: this.deleteApproval.bind(this),
       send: this.sendApproval.bind(this),
       recovery: this.recoveryApproval.bind(this),
+      approval: this.approvalApproval.bind(this),
       refresh: this.get.bind(this)
     }
   }

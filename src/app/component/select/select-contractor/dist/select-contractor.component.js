@@ -119,7 +119,7 @@ var SelectContractorComponent = /** @class */ (function () {
                             }
                         }
                         _b = this;
-                        return [4 /*yield*/, this.connect.run('/category/certify/company/master/get', {
+                        return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
                                 project_id: this.project_id,
                                 company_contract_type: '원청사',
                                 search_text: ''
@@ -148,7 +148,7 @@ var SelectContractorComponent = /** @class */ (function () {
                                 this.text = ((_a = rsMap.find(function (constractor) { return constractor.company_id === _this.value; })) === null || _a === void 0 ? void 0 : _a.company_name) || '';
                                 // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
                                 if (!this.text)
-                                    this.value = [];
+                                    this.value = 0;
                             }
                         }
                         return [2 /*return*/];

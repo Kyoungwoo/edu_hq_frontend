@@ -438,6 +438,10 @@
   :root .sc-ion-modal-md-h .modal-wrapper {
     box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.15);
   }
+  :root .confirm-process-modal {
+    --max-width: 500px;
+    --max-height: 450px;
+  }
   :root .worker-minutes-modal {
     --max-width: 300px;
     --max-height: 230px;
@@ -461,18 +465,6 @@
   :root .risk-evaluation-modal {
     --max-width: 800px;
     --max-height: 475px;
-  }
-  :root .confirm-modal {
-    --max-width: 500px;
-    --max-height: 450px;
-  }
-  :root .confirm-process-modal {
-    --max-width: 500px;
-    --max-height: 450px;
-  }
-  :root .confirm-setting-modal {
-    --max-width: 500px;
-    --max-height: 450px;
   }
   :root .change-password-modal {
     --max-width: 640px;

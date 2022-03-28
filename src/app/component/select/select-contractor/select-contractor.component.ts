@@ -112,7 +112,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
 
         // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
-        if(!this.text) this.value = [];
+        if(!this.text) this.value = 0;
       }
     }
   }
