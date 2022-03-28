@@ -42,43 +42,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.WorkerMinutesListPage = exports.SafetyMeetingInfo = void 0;
+exports.ConfirmObtainListPage = void 0;
 var core_1 = require("@angular/core");
-var worker_minutes_detail_search_page_1 = require("../worker-minutes-detail-search/worker-minutes-detail-search.page");
-var worker_minutes_edit_page_1 = require("../worker-minutes-edit/worker-minutes-edit.page");
-var worker_minutes_select_type_page_1 = require("../worker-minutes-select-type/worker-minutes-select-type.page");
-var SafetyMeetingInfo = /** @class */ (function () {
-    function SafetyMeetingInfo() {
+var confirm_obtain_detail_search_page_1 = require("../confirm-obtain-detail-search/confirm-obtain-detail-search.page");
+var ConfirmObtainItem = /** @class */ (function () {
+    function ConfirmObtainItem() {
     }
-    return SafetyMeetingInfo;
+    return ConfirmObtainItem;
 }());
-exports.SafetyMeetingInfo = SafetyMeetingInfo;
-var WorkerMinutesListPage = /** @class */ (function () {
-    function WorkerMinutesListPage(modal, connect, date, toast, user) {
-        this.modal = modal;
-        this.connect = connect;
-        this.date = date;
-        this.toast = toast;
+var ConfirmObtainListPage = /** @class */ (function () {
+    function ConfirmObtainListPage(_modal, user, connect, toast, date, loading, approval) {
+        this._modal = _modal;
         this.user = user;
+        this.connect = connect;
+        this.toast = toast;
+        this.date = date;
+        this.loading = loading;
+        this.approval = approval;
         this.form = {
             project_id: null,
+            master_company_id: null,
             company_id: null,
-            safety_meeting_types: [],
-            start_date: this.date.today({ month: -1 }),
-            end_date: this.date.today(),
-            search_text: '',
-            approval_cnt_answer: [],
-            limit_no: 0
-        };
-        this.permission = {
-            company_id: false,
-            add: false
-        };
-        this.event = {
-            get: null
+            start_date: null,
+            end_date: null,
+            approval_cnt_answer: null,
+            search_text: null,
+            limit_no: 0 // 20개씩 가져옵니다
         };
     }
-    WorkerMinutesListPage.prototype.ngOnInit = function () {
+    ConfirmObtainListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -86,65 +78,44 @@ var WorkerMinutesListPage = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.get();
-                        // event 물리기
-                        this.event.get = this.getEvent.bind(this);
-                        window.addEventListener('worker-minutes-list:get()', this.event.get);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    WorkerMinutesListPage.prototype.ngOnDestroy = function () {
-        window.removeEventListener('worker-minutes-list:get()', this.event.get);
-    };
-    /** event 파트 */
-    WorkerMinutesListPage.prototype.getEvent = function () {
-        this.get(0);
-    };
-    /**
-     * permission 과 form 을 가져옴.
-     */
-    WorkerMinutesListPage.prototype.getForm = function () {
+    ConfirmObtainListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, user_role, belong_data, res, contractor;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var belong_data, res, contractor;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        console.log(this.user.userData);
-                        _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
+                        belong_data = this.user.userData.belong_data;
                         this.form.project_id = belong_data.project_id;
-                        if (!(belong_data.company_contract_type === 'LH'
-                            || belong_data.company_contract_type === '감리사')) return [3 /*break*/, 1];
-                        this.permission.company_id = true;
-                        this.permission.add = false;
                         this.form.company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
+                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 1];
+                        this.form.master_company_id = belong_data.company_id;
+                        return [3 /*break*/, 3];
                     case 1:
-                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
-                        this.permission.company_id = false;
-                        // 원청사 관리자에게만 보이는 버튼. LH,감리,협력사의 경우 회의 진행 버튼이 없다.(회의록 기획서 9p)
-                        this.permission.add = true;
-                        this.form.company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
-                    case 2:
-                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 4];
-                        this.permission.company_id = false;
-                        this.permission.add = false;
+                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
                                 project_id: this.form.project_id,
                                 search_text: ''
                             })];
-                    case 3:
-                        res = _b.sent();
+                    case 2:
+                        res = _a.sent();
                         if (res.rsCode === 0) {
                             contractor = res.rsMap[0];
-                            this.form.company_id = contractor.master_company_id;
+                            this.form.master_company_id = contractor.master_company_id;
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
                         }
-                        _b.label = 4;
-                    case 4: return [2 /*return*/];
+                        _a.label = 3;
+                    case 3:
+                        this.form.start_date = this.date.today({ month: -1 });
+                        this.form.end_date = this.date.today();
+                        this.form.approval_cnt_answer = '전체';
+                        return [2 /*return*/];
                 }
             });
         });
@@ -153,11 +124,10 @@ var WorkerMinutesListPage = /** @class */ (function () {
      * web, mobile 둘다 검색 시작할 때는 이걸 쓴다.
      * 이유는 limit_no를 초기화할 필요성이 있기 떄문 + 1008 예외처리가 다르다.
      */
-    WorkerMinutesListPage.prototype.get = function (limit_no) {
+    ConfirmObtainListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
             var trans_form, _a;
-            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -165,13 +135,11 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         trans_form = JSON.parse(JSON.stringify(this.form));
                         trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/approval/board/my/get', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
-                            this.res.rsMap.forEach(function (item, i) {
-                                item.index = _this.res.rsObj.row_count - _this.form.limit_no - i;
-                            });
+                            // 암것도 안함
                         }
                         else if (this.res.rsCode === 1008) {
                             // 암것도 안함.
@@ -187,7 +155,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
     /**
      * 모바일 무한스크롤 시, 사용된다.
      */
-    WorkerMinutesListPage.prototype.getMobile = function ($event) {
+    ConfirmObtainListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -195,7 +163,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, {})];
+                        return [4 /*yield*/, this.connect.run('/approval/board/my/get', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -224,49 +192,16 @@ var WorkerMinutesListPage = /** @class */ (function () {
             });
         });
     };
-    /**
-     * 모바일 상세검색 팝업. PC에서는 안씀
-     */
-    WorkerMinutesListPage.prototype.detailSearch = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal, data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_detail_search_page_1.WorkerMinutesDetailSearchPage,
-                            componentProps: {
-                                form: this.form
-                            }
-                        })];
-                    case 1:
-                        modal = _a.sent();
-                        modal.present();
-                        return [4 /*yield*/, modal.onDidDismiss()];
-                    case 2:
-                        data = (_a.sent()).data;
-                        if (data) {
-                            this.form = data;
-                            this.get();
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
+    ConfirmObtainListPage.prototype.detail = function (item) {
+        this.approval.getComponent(item.ctgo_approval_module_id);
     };
-    /**
-     * 회의록 추가
-     */
-    WorkerMinutesListPage.prototype.add = function () {
+    ConfirmObtainListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_select_type_page_1.WorkerMinutesSelectTypePage,
-                            cssClass: 'worker-minutes-select-type-modal',
-                            componentProps: {
-                                project_id: this.form.project_id
-                            }
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: confirm_obtain_detail_search_page_1.ConfirmObtainDetailSearchPage
                         })];
                     case 1:
                         modal = _a.sent();
@@ -276,32 +211,13 @@ var WorkerMinutesListPage = /** @class */ (function () {
             });
         });
     };
-    WorkerMinutesListPage.prototype.edit = function (item) {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
-                            componentProps: {
-                                safety_meeting_id: item.safety_meeting_id
-                            }
-                        })];
-                    case 1:
-                        modal = _a.sent();
-                        modal.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    WorkerMinutesListPage = __decorate([
+    ConfirmObtainListPage = __decorate([
         core_1.Component({
-            selector: 'app-worker-minutes-list',
-            templateUrl: './worker-minutes-list.page.html',
-            styleUrls: ['./worker-minutes-list.page.scss']
+            selector: 'app-confirm-obtain-list',
+            templateUrl: './confirm-obtain-list.page.html',
+            styleUrls: ['./confirm-obtain-list.page.scss']
         })
-    ], WorkerMinutesListPage);
-    return WorkerMinutesListPage;
+    ], ConfirmObtainListPage);
+    return ConfirmObtainListPage;
 }());
-exports.WorkerMinutesListPage = WorkerMinutesListPage;
+exports.ConfirmObtainListPage = ConfirmObtainListPage;

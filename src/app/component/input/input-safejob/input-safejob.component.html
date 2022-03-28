@@ -13,6 +13,7 @@
       <td>{{ i + 1 }}</td>
       <td>
         <app-select-safetymanager name="안전직무"
+        [label]="null"
         [company_id]="company_id" [user_type]="'COMPANY'"
         [(ngModel)]="item.ctgo_safe_job_id" placedholder="안전직무" [disabled]="disabled"></app-select-safetymanager>
       </td>

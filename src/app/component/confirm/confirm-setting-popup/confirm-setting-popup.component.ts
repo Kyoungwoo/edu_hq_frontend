@@ -104,7 +104,7 @@ export class ConfirmSettingPopupComponent implements OnInit {
         form: {
           company_id: this.user.userData.belong_data.company_id,
           search_text: '',
-          user_type: 'WORKER'
+          user_type: 'COMPANY'
         }
       }
     });

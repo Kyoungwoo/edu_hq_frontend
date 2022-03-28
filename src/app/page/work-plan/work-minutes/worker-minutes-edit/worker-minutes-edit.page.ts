@@ -286,11 +286,10 @@ export class WorkerMinutesEditPage implements OnInit {
    * 결재 버튼 클릭
    */
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
-    const res = await ev.recovery();
+    const res = await ev.approval();
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
     }
-
   }
 }

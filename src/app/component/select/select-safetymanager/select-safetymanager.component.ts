@@ -30,7 +30,7 @@ export class SelectSafetymanagerComponent implements OnInit, ControlValueAccesso
   }
 
   @Input() color:Color;
-  // @Input() label:string = "안전직무";
+  @Input() label:string = "안전직무";
   @Input() placeholder:string = "선택";
 
   private _company_id:number;

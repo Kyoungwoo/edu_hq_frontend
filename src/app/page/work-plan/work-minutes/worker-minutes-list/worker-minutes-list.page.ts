@@ -75,7 +75,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     window.removeEventListener('worker-minutes-list:get()', this.event.get);
   }
-  
+
   /** event 파트 */
   getEvent() {
     this.get(0);
@@ -120,7 +120,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
         const contractor = res.rsMap[0];
         this.form.company_id = contractor.master_company_id;
       }
-      else if(res.rsCode) {
+      else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
       }
 
@@ -136,9 +136,9 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    this.res = await this.connect.run('/board/safety_meeting/list', this.form);
+    this.res = await this.connect.run('/board/safety_meeting/list', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
-      this.res.rsMap.map((item, i) => {
+      this.res.rsMap.forEach((item, i) => {
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
       });
     }

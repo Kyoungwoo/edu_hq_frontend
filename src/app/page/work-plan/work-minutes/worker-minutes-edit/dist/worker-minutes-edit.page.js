@@ -385,7 +385,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, ev.recovery()];
+                    case 0: return [4 /*yield*/, ev.approval()];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {

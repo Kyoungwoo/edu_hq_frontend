@@ -39,14 +39,23 @@
     </app-row>
   </ion-toolbar>
   <ion-toolbar color="white" *ngIf="selectedSubMenu?.thirdMenuList">
+
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [scrollable]="true" [value]="url">
-          <ion-segment-button class="third-menu" *ngFor="let thirdMenu of selectedSubMenu.thirdMenuList" 
-          [routerLink]="thirdMenu.link || null"
-          [value]="thirdMenu.link" [disabled]="!thirdMenu.link">{{ thirdMenu.title }}</ion-segment-button>
+
+          <ng-container *ngFor="let thirdMenu of selectedSubMenu.thirdMenuList" >
+
+            <ion-segment-button class="third-menu" *ngIf="!thirdMenu.permission || thirdMenu.permission()"
+            [routerLink]="thirdMenu.link || null"
+            [value]="thirdMenu.link" [disabled]="!thirdMenu.link">{{ thirdMenu.title }}</ion-segment-button>
+
+          </ng-container>
+
         </ion-segment>
       </app-col>
     </app-row>
+    
+
   </ion-toolbar>
 </ion-header>

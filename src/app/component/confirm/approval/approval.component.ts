@@ -9,6 +9,7 @@ import { ConfirmProcessPopupComponent } from '../confirm-process-popup/confirm-p
 import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-setting-popup.component';
 
 
+export type ApprovalAnswerType = "전체" | "임시저장" | "결재중" | "결재완료" | "반려";
 export interface ApprovalBtnClickEvent {
   approval_data: ApprovalData;
   delete: () => Promise<ConnectResult>;
@@ -190,7 +191,7 @@ export class ApprovalComponent implements OnInit {
   async recoveryApproval() {
     const res = await this.connect.run('/approval/recovery', {
       approval_id: this.form.approval_id
-    });
+    }, { loading: true });
     if(res.rsCode === 0) this.get();
     return res;
   }
@@ -218,8 +219,7 @@ export class ApprovalComponent implements OnInit {
   }
   /** 결재 함수 */
   async approvalApproval() {
-    const res = await this.connect.run('/approval/send', this.approvalForm);
-    if(res.rsCode === 0) this.get();
+    const res = await this.connect.run('/approval/send', this.approvalForm, { loading: true });
     return res;
   }
 
@@ -271,6 +271,7 @@ export class ApprovalComponent implements OnInit {
    */
   async get() {
     if(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id) {
+      await this.getDefaultButton();
       await this.getDefaultApproval();
     }
     else if(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id) {

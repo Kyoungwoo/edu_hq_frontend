@@ -170,7 +170,7 @@ var MinutesListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, {})];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {

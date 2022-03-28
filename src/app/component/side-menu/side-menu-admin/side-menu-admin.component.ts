@@ -19,7 +19,8 @@ export interface SubMenuItem {
 }
 export interface ThirdMenuItem {
   title: string,
-  link: string
+  link: string,
+  permission?:() => boolean
 }
 
 @Injectable({
@@ -39,18 +40,25 @@ export class  SideMenuAdminComponent implements OnInit {
     ]},
     { title: '전자결재', img: 'assets/img/menu/sign.svg',
     subMenuList: [
-      { title: '기안/임시저장함', link: '/confirm-obtain-list'},
+      { title: '기안/임시저장함', link: '/confirm-obtain-list',
+        permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'COMPANY';
+        }
+      },
       { title: '미결함', link: '/confirm-pending-list'},
       { title: '기결함', link: '/confirm-progress-list'},
       { title: '참조함', link: '/confirm-cc-list'},
-      { title: '전자결재 설정', permission: () => {
-        const { user_type } = this.user.userData;
-        return user_type === 'COMPANY';
-      },
-      thirdMenuList: [
-        { title: '기본 전자결재선 지정', link: '/approval-edit'},
-        { title: '위임 관리', link: ''}
-      ]}
+      { title: '전자결재 설정', 
+        permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'COMPANY';
+        },
+        thirdMenuList: [
+          { title: '기본 전자결재선 지정', link: '/approval-edit'},
+          { title: '위임 관리', link: ''}
+        ]
+      }
     ]},
     { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
       { title: '교육현황', link: '/safety-education-list'},
@@ -103,14 +111,26 @@ export class  SideMenuAdminComponent implements OnInit {
     { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
       { title: '작업자 가입승인', link: '/worker-approval-list'},
       { title: '관리자 가입승인', thirdMenuList:[
-        {title:'LH 관리자 가입 승인',link:'/lh-approval-list'},
-        {title:'감리 가입승인',link:'/supervision-approval-list'},
+        {title:'LH 관리자 가입 승인',link:'/lh-approval-list', permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'LH';
+        }},
+        {title:'감리 가입승인',link:'/supervision-approval-list', permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'LH' || user_type === 'SUPER';
+        }},
         {title:'원청사/협력사 관리자 가입승인',link:'/partner-approval-list'}
       ]},
       { title: '작업자 정보', link: '/worker-info-list'},
       { title: '관리자 정보',thirdMenuList:[
-        {title:'LH 관리자 정보',link:'/lh-info-list'},
-        {title:'감리 정보',link:'/supervision-info-list'},
+        {title:'LH 관리자 정보',link:'/lh-info-list', permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'LH';
+        }},
+        {title:'감리 정보',link:'/supervision-info-list', permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'LH' || user_type === 'SUPER';
+        }},
         {title:'원청사/협력사 관리자 정보',link:'/partner-info-list'},
       ]},
       {title:'안전마일리지',link:''}
