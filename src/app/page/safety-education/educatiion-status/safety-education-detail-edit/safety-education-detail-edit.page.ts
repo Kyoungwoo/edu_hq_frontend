@@ -111,13 +111,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     }
   }
 
-  roleCheck() {
-    const { user_role } = this.user.userData;
-    if(user_role === 'LH_HEAD' ||
-    user_role === 'MASTER_GENERAL' || user_role === 'PARTNER_GENERAL' ||
-    user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD') this.editable = true;
 
-  }
 
   public async openDetailSearch() {
     const modal = await this._modal.create({
@@ -153,7 +147,12 @@ export class SafetyEducationDetailEditPage implements OnInit {
     }
   }
   async updateItem() {
-    console.log("this.form : ",this.form);
+    if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
+    if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});
+    if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'수정하시겠습니까?',
       buttons:[
@@ -177,12 +176,12 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async submit() {
-    if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.'});
-    if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.'});
-    if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.'});
-    if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.'});
-    if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
-    if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.'});
+    if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
+    if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});
+    if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[

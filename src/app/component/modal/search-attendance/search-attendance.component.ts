@@ -68,6 +68,11 @@ export class SearchAttendanceComponent implements OnInit {
     this.res = await this.connect.run('/category/education/manager/get', this.form);
     if (this.res.rsCode === 0) {
       console.log("this.values",this.values);
+      this.res?.rsMap?.filter(item => {
+        if (this.value.indexOf(item.user_id) > -1) {
+          item.checked = true;
+        }
+      });
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }

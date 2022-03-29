@@ -74,8 +74,7 @@ export class SafetyEducationListPage implements OnInit {
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
         this.form.project_id = belong_data.project_id;
-        
-     
+        this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
       }
@@ -84,6 +83,7 @@ export class SafetyEducationListPage implements OnInit {
     const { user_role , belong_data} = this.user.userData
     if(user_role === 'MASTER_GENERAL' ||
        user_role === 'MASTER_HEAD') {
+        this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
      
       } else if(user_role === 'LH_HEAD') {
@@ -104,6 +104,7 @@ export class SafetyEducationListPage implements OnInit {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
+
   public async edit(item?) {
     const modal = await this._modal.create({
       component: SafetyEducationDetailEditPage,
@@ -134,6 +135,7 @@ export class SafetyEducationListPage implements OnInit {
     const popover = await this.popover.create({
       component:PeopleViewComponent,
       componentProps:{
+        type:'관리자',
         education_safe_manager_id
       },
       cssClass:'education-info',

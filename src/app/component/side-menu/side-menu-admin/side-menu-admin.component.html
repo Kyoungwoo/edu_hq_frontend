@@ -15,11 +15,17 @@
               </app-button>
               <ng-container *ngIf="subMenu.toggle">
                 <ul class="third-menu" [@listAnimation]="subMenu.thirdMenuList?.length">
-                  <li *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link || null" (click)="thirdMenu.link ? menuClose() : notReady()">
-                    <app-button [attr.name]="'button_' + thirdMenu.link?.replace('/', '')" fill="clear" color="dark" [style.opacity]="thirdMenu.link ? 1 : 0.5">
-                      {{ thirdMenu.title }}
-                    </app-button>
-                  </li>
+
+                  <ng-container *ngFor="let thirdMenu of subMenu.thirdMenuList">
+
+                    <li *ngIf="!thirdMenu.permission || thirdMenu.permission()" [routerLink]="thirdMenu.link || null" (click)="thirdMenu.link ? menuClose() : notReady()">
+                      <app-button [attr.name]="'button_' + thirdMenu.link?.replace('/', '')" fill="clear" color="dark" [style.opacity]="thirdMenu.link ? 1 : 0.5">
+                        {{ thirdMenu.title }}
+                      </app-button>
+                    </li>
+
+                  </ng-container>
+
                 </ul>
               </ng-container>
             </li>

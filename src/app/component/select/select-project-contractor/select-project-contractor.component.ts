@@ -69,7 +69,6 @@ export class SelectProjectContractorComponent implements OnInit,ControlValueAcce
     }
 
   public async openModal() {
-    console.log("search-value",this.value);
     const modal = await this._modal.create({
       component: SearchProjectContractorComponent,
       componentProps:{

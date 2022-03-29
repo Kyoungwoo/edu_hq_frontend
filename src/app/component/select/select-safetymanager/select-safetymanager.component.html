@@ -1,4 +1,5 @@
 <app-select name="select" 
+[label]="label"
 [color]="res && res.rsCode ? 'warning' : color" 
 [placeholder]="placeholder" [(ngModel)]="value">
   <app-select-option *ngFor="let item of res?.rsMap" [value]="item.ctgo_safe_job_id">{{ item.ctgo_safe_job_name_kr }}</app-select-option>

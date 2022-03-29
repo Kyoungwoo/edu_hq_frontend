@@ -263,7 +263,7 @@ var ApprovalComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.connect.run('/approval/recovery', {
                             approval_id: this.form.approval_id
-                        })];
+                        }, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0)
@@ -307,11 +307,9 @@ var ApprovalComponent = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/approval/send', this.approvalForm)];
+                    case 0: return [4 /*yield*/, this.connect.run('/approval/send', this.approvalForm, { loading: true })];
                     case 1:
                         res = _a.sent();
-                        if (res.rsCode === 0)
-                            this.get();
                         return [2 /*return*/, res];
                 }
             });
@@ -365,21 +363,24 @@ var ApprovalComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.getDefaultApproval()];
+                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.getDefaultButton()];
                     case 1:
                         _a.sent();
-                        return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.getDefaultApproval()];
                     case 2:
-                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, this.getApprovalButton()];
-                    case 3:
                         _a.sent();
-                        return [4 /*yield*/, this.getApproval()];
+                        return [3 /*break*/, 6];
+                    case 3:
+                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, this.getApprovalButton()];
                     case 4:
                         _a.sent();
-                        _a.label = 5;
-                    case 5: return [2 /*return*/];
+                        return [4 /*yield*/, this.getApproval()];
+                    case 5:
+                        _a.sent();
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });

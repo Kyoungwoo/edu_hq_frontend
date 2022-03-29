@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-confirm-process-popup',
@@ -7,8 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmProcessPopupComponent implements OnInit {
 
-  constructor() { }
+  form = {
+    approval_answer: '승인',
+    approval_comment: null
+  }
+
+  constructor(
+    private _modal: ModalController
+  ) { }
 
   ngOnInit() {}
 
+  submit() {
+    this._modal.dismiss(this.form);
+  }
 }

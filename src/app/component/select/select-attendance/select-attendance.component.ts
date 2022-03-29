@@ -82,8 +82,6 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
     });
     if(this.res.rsCode === 0) {
       const { rsMap } = this.res;
-        console.log("this.value",rsMap);
-        console.log("this.value",this.value);
         this.text = rsMap
         .filter(education => (this.value as number[]).indexOf(education.user_id) !== -1)
         .map(education => education.user_name).join();

@@ -140,7 +140,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                             contractor = res.rsMap[0];
                             this.form.company_id = contractor.master_company_id;
                         }
-                        else if (res.rsCode) {
+                        else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
                         }
                         _b.label = 4;
@@ -165,11 +165,11 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         trans_form = JSON.parse(JSON.stringify(this.form));
                         trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form)];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
-                            this.res.rsMap.map(function (item, i) {
+                            this.res.rsMap.forEach(function (item, i) {
                                 item.index = _this.res.rsObj.row_count - _this.form.limit_no - i;
                             });
                         }

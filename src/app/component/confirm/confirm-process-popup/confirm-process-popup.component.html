@@ -7,9 +7,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select label="결재유형"></app-select>
-  <app-textarea label="결재의견" [rows]="10" placeholder="결재의견을 입력해주세요(50글자이내)"></app-textarea>
+  <app-radio-input [(ngModel)]="form.approval_answer">
+    <app-radio value="승인">승인</app-radio>
+    <app-radio value="반려">반려</app-radio>
+  </app-radio-input>
+  <app-textarea label="결재의견" [rows]="10" placeholder="결재의견을 입력해주세요(50글자이내)" [(ngModel)]="form.approval_comment"></app-textarea>
 </ion-content>
 <app-button-footer>
-  <app-button>확인</app-button>
+  <app-button (click)="submit()">확인</app-button>
 </app-button-footer>

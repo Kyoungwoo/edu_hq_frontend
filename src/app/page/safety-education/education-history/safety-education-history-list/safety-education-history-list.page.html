@@ -18,7 +18,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@
             <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.user_id)">
               <td>{{ item.index }}</td>
               <td>{{ item.company_name }}</td>
-              <td>{{ item.user_name}}</td>
+              <td (click)="userInfo(item.user_id,$event)">{{ item.user_name}}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
               <td>{{ item.ctgo_occupation_name }}</td>
               <td>{{ item.safe_job_name}}</td>
