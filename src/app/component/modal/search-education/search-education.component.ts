@@ -51,6 +51,9 @@ export class SearchEducationComponent implements OnInit {
         this.res.rsMap.filter(item => {
           if(item.ctgo_education_safe_id === this.value) this.values = item;
         });
+        if(!this.value) {
+          this.allState = true;
+        }
       }
     } else {
       this.toast.present({message:this.res.rsMsg, color:'warning'});

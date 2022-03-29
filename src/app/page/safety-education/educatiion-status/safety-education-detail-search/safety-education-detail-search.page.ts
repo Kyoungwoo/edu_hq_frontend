@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
 @Component({
@@ -21,12 +22,39 @@ export class SafetyEducationDetailSearchPage implements OnInit {
   }
   constructor(
     private date: DateService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    private user: UserService
   ) { }
 
   ngOnInit() {
-
+    this.projectRolechekc();
+    this.companyRolecheck();
   }
+
+  projectRolechekc() {
+    const { user_role , belong_data} = this.user.userData
+    if(user_role === 'MASTER_HEAD' ||
+      user_role === 'PARTNER_GENERAL'||
+      user_role === 'PARTNER_HEAD' ||
+      user_role === 'MASTER_GENERAL') {
+        this.form.project_id = belong_data.project_id;
+        
+     
+      } else if(user_role === 'LH_HEAD') {
+        this.form.project_id = belong_data.project_id;
+      }
+  }
+  companyRolecheck() {
+    const { user_role , belong_data} = this.user.userData
+    if(user_role === 'MASTER_GENERAL' ||
+       user_role === 'MASTER_HEAD') {
+        this.form.company_id = belong_data.company_id;
+     
+      } else if(user_role === 'LH_HEAD') {
+        this.form.company_id = 0;
+      }
+  }
+
   reset() {
     this.form = {
       company_id: 0,

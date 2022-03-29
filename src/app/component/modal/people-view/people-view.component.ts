@@ -26,6 +26,8 @@ export class userInfo {
   safe_job_name_kr: string;
   safe_job_name_vi: string;
   user_profile_file_data:FutItem[] = [];
+  ctgo_country_name:string;
+  work_contract_type:string;
 }
 
 @Component({
@@ -38,7 +40,7 @@ export class userInfo {
 
 export class PeopleViewComponent implements OnInit {
 
-  @Input() admin:string;
+  @Input() type:string;
   @Input() education_safe_manager_id:number
 
   menu:boolean = false;
@@ -51,6 +53,7 @@ export class PeopleViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.type);
     this.getInfo();
   }
 

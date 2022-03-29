@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { SafetyEducationHistoryDetailPage } from '../safety-education-history-detail/safety-education-history-detail.page';
 
 @Component({
@@ -41,10 +43,28 @@ export class SafetyEducationHistoryListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     private user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private popover: PopoverController,
+    private promise: PromiseService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.projectRolechekc();
+    await this.promise.wait(() => this.form.company_id);
+    this.getList();
+  }
+
+  projectRolechekc() {
+    const { user_role , belong_data} = this.user.userData
+    if(user_role === 'MASTER_HEAD' ||
+      user_role === 'PARTNER_GENERAL'||
+      user_role === 'PARTNER_HEAD' ||
+      user_role === 'MASTER_GENERAL') {
+        this.form.project_id = belong_data.project_id;
+        this.form.company_id = belong_data.company_id;
+      } else if(user_role === 'LH_HEAD') {
+        this.form.project_id = belong_data.project_id;
+      }
   }
 
   async getList(limit_no = this.form.limit_no) {
@@ -61,8 +81,9 @@ export class SafetyEducationHistoryListPage implements OnInit {
         item.safe_job_name?.toString();
       });
       // console.log(this.res);
-    } else {      
+    } else {
       this.toast.present({message:res.rsMsg,color:'warning'});
+      this.res = null;
     }
   }
 
@@ -74,5 +95,18 @@ export class SafetyEducationHistoryListPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  async userInfo(education_safe_manager_id,ev) {
+    ev.stopPropagation()
+    const popover = await this.popover.create({
+      component:PeopleViewComponent,
+      componentProps:{
+        education_safe_manager_id
+      },
+      cssClass:'education-info',
+      event:ev
+    });
+    popover.present();
   }
 }

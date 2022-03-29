@@ -48,11 +48,14 @@ export class SupervisionSearchComponent implements OnInit {
   }
 
   async getCtgoSupervision(submitArr?) {
+    console.log('this.value',this.value);
     this.res = await this.connect.run('/category/certify/company/get', this.form);
     if (this.res.rsCode === 0) {
+      this.filteritem = [];
       if(this.value.length) {
         this.res.rsMap.filter((item ,i) => {
-          if(this.value.indexOf(item.company_id) === i) {
+          if(this.value.indexOf(item.company_id) > -1) {
+            this.filteritem.push(item);
             item.checked = true;
           }
         });
@@ -61,8 +64,9 @@ export class SupervisionSearchComponent implements OnInit {
         this.res.rsMap.forEach((item, i) => {
           submitArr.forEach(data => {
             if(item.business_register_no === data.business_register_no) {
+              this.submitArr = [];
               this.filteritem.push(item);
-              item.checked = true;
+              this._modal_.dismiss(this.filteritem);
             }
           });
         });
@@ -149,11 +153,13 @@ export class SupervisionSearchComponent implements OnInit {
         if (res.rsCode === 0) {
           this.getCtgoSupervision(this.submitArr);
           this.business_register_no_check = false;
-          this._modal_.dismiss(this.filteritem);
         }
       }
       this.submitArr = [];
       this.toast.present({message:'새로운 업체가 등록되었습니다.',color:'primary'});
+    } else {
+      this.business_register_no_check = false;
+      this._modal_.dismiss(this.filteritem);
     }
   }
 }

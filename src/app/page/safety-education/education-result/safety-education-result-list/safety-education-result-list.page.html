@@ -19,12 +19,12 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [allState]="true" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-education [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+                <app-select-education [all]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
               </td>
             </tr>
             <tr>

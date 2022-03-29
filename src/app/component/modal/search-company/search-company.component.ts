@@ -20,6 +20,7 @@ export class SelectItem {
 })
 export class SearchCompanyComponent implements OnInit {
 
+  @Input() value;
   @Input() type?: boolean = false;
   @Input() all: boolean = false;
   @Input() form = {
@@ -52,6 +53,10 @@ export class SearchCompanyComponent implements OnInit {
   async getCompany() {
     this.res = await this.connect.run('/category/certify/company/partner_master/get', this.form);
     if (this.res.rsCode === 0) {
+      this.res.rsMap.filter(item => {
+        if(this.value === item.company_id) this.selectItem = item;
+      });
+      if(!this.value) this.allState = true;
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }

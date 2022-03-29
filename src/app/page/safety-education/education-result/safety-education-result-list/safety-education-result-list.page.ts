@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { EducationConfirmPendingListPage } from '../education-confirm-pending-list/education-confirm-pending-list.page';
 import { NewWriteTargetPage } from '../new-write-target/new-write-target.page';
 import { SafetyEducationResultDetailSearchPage } from '../safety-education-result-detail-search/safety-education-result-detail-search.page';
@@ -51,12 +54,31 @@ export class SafetyEducationResultListPage implements OnInit {
   constructor(
     private _modal: ModalController,
     private date: DateService,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private user: UserService,
+    private toast: ToastService,
+    private promise: PromiseService
+
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() { 
+    this.projectRolechekc();
+    await this.promise.wait(() => this.form.company_id);
     this.getList();
   }
+  projectRolechekc() {
+    const { user_role , belong_data} = this.user.userData
+    if(user_role === 'MASTER_HEAD' ||
+      user_role === 'PARTNER_GENERAL'||
+      user_role === 'PARTNER_HEAD' ||
+      user_role === 'MASTER_GENERAL') {
+        this.form.project_id = belong_data.project_id;
+        this.form.company_id = belong_data.company_id;
+      } else if(user_role === 'LH_HEAD') {
+        this.form.project_id = belong_data.project_id;
+      }
+  }
+
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/education/report/list',this.form);
@@ -67,7 +89,8 @@ export class SafetyEducationResultListPage implements OnInit {
         item.create_date = `${item.create_date} (${this.date.day(item.create_date)[0]})`
       });
     } else {
-
+      this.res = null;
+      this.toast.present({message:this.res.rsMsg,color:'warning'});
     }
   }
   async openDetailSearch() {

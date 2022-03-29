@@ -116,8 +116,27 @@
     </app-row>
     <app-row>
       <app-col>
-        <app-card *ngFor="let file of getDetilItem.education_safe_report_file_data" target="_blank">
-          <a [href]="file.full_url" download>{{ file.file_name }}</a>
+        <app-card *ngIf="getDetilItem.education_safe_report_file_data.length">
+          <ng-container *ngFor="let file of getDetilItem.education_safe_report_file_data; let i = index" target="_blank">
+            <div>
+              <app-row>
+              <app-col size="auto">
+                <p>{{ i + 1 }}</p>
+              </app-col>
+              <app-col>
+                <a [href]="file.full_url" download>{{ file.file_name }}</a>
+              </app-col>
+              <!-- <app-col size="auto">
+                <app-button size="small" color="danger" (click)="getDetilItem.education_safe_report_file_data.splice(i,1)">삭제</app-button>
+              </app-col> -->
+            </app-row>
+            </div>
+              <app-row>
+                <app-col>
+                  <app-line></app-line>
+                </app-col>
+              </app-row>
+          </ng-container>
         </app-card>
       </app-col>
     </app-row>

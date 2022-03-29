@@ -50,9 +50,6 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
       search_text: ''
     });
     if(res.rsCode === 0) {
-      console.log(this.user_type);
-      console.log("this.value",this.value);
-      console.log(res.rsMap);
       this.text = res.rsMap.find(user => user.user_id === this.value)?.user_name || '없음';
     }
   }

@@ -245,9 +245,9 @@
                   <app-check [on]="item"></app-check>
                 </td>
                 <td *ngIf="!item.area_top_name">
-                  <app-img style="width: 45%;" name="search" (click)="memberSearch(item)"></app-img>
+                  <app-img style="width: 45%;" name="search" (click)="riskAreaSearch(item)"></app-img>
                 </td>
-                <td *ngIf="item.area_top_name" (click)="memberSearch(item)">
+                <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
                   {{ (item.area_top_name ? item.area_top_name : '') + ' '
                   + (item.area_middle_name ? item.area_middle_name : '') + ' '
                   + (item.area_bottom_name ? item.area_bottom_name : '')}}
