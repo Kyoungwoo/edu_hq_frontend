@@ -11,7 +11,8 @@ export class ApprovalService {
     private _modal: ModalController
   ) { }
 
-  async getComponent(ctgo_approval_module_id) {
+  async getComponent(ctgo_approval_module_id, target_id) {
+    console.log(ctgo_approval_module_id);
     switch(ctgo_approval_module_id) {
       case 1: // 교육 결과 보고서 (채용시)
         return '';
@@ -29,16 +30,36 @@ export class ApprovalService {
         return '';
       case 8: // 수시 위험성 평가서
         return '';
-      case 9: // 산업안전보건위원회 회의록
+      case 9:  { // 산업안전보건위원회 회의록
         const modal = await this._modal.create({
           component: WorkerMinutesEditPage,
-          
-        })
+          componentProps:{
+            safety_meeting_id: target_id
+          }
+        });
+        modal.present();
         return '';
-      case 10: // 노사협의체 회의록
+      }
+      case 10: { // 노사협의체 회의록
+        const modal = await this._modal.create({
+          component: WorkerMinutesEditPage,
+          componentProps:{
+            safety_meeting_id: target_id
+          }
+        });
+        modal.present();
         return '';
-      case 11: // 안전 및 보건에 관한 협의체 회의록
+      }
+      case 11: { // 안전 및 보건에 관한 협의체 회의록
+        const modal = await this._modal.create({
+          component: WorkerMinutesEditPage,
+          componentProps:{
+            safety_meeting_id: target_id
+          }
+        });
+        modal.present();
         return '';
+      }
       case 12: // 위험 공종 안전 작업허가서(PTW)
         return '';
     }

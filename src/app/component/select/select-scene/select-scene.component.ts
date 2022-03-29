@@ -67,6 +67,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       componentProps: {
         type: this.type,
         all: this.all,
+        value: this.value,
         form: {
           company_id: this.company_id,
           search_text: ''

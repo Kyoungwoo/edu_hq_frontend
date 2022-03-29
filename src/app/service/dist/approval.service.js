@@ -49,12 +49,13 @@ var ApprovalService = /** @class */ (function () {
     function ApprovalService(_modal) {
         this._modal = _modal;
     }
-    ApprovalService.prototype.getComponent = function (ctgo_approval_module_id) {
+    ApprovalService.prototype.getComponent = function (ctgo_approval_module_id, target_id) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, modal;
+            var _a, modal, modal, modal;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        console.log(ctgo_approval_module_id);
                         _a = ctgo_approval_module_id;
                         switch (_a) {
                             case 1: return [3 /*break*/, 1];
@@ -67,10 +68,10 @@ var ApprovalService = /** @class */ (function () {
                             case 8: return [3 /*break*/, 8];
                             case 9: return [3 /*break*/, 9];
                             case 10: return [3 /*break*/, 11];
-                            case 11: return [3 /*break*/, 12];
-                            case 12: return [3 /*break*/, 13];
+                            case 11: return [3 /*break*/, 13];
+                            case 12: return [3 /*break*/, 15];
                         }
-                        return [3 /*break*/, 14];
+                        return [3 /*break*/, 16];
                     case 1: // 교육 결과 보고서 (채용시)
                     return [2 /*return*/, ''];
                     case 2: // 교육 결과 보고서 (작업자 정기)
@@ -88,18 +89,38 @@ var ApprovalService = /** @class */ (function () {
                     case 8: // 수시 위험성 평가서
                     return [2 /*return*/, ''];
                     case 9: return [4 /*yield*/, this._modal.create({
-                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                            componentProps: {
+                                safety_meeting_id: target_id
+                            }
                         })];
                     case 10:
                         modal = _b.sent();
+                        modal.present();
                         return [2 /*return*/, ''];
-                    case 11: // 노사협의체 회의록
+                    case 11: return [4 /*yield*/, this._modal.create({
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                            componentProps: {
+                                safety_meeting_id: target_id
+                            }
+                        })];
+                    case 12:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 13: return [4 /*yield*/, this._modal.create({
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                            componentProps: {
+                                safety_meeting_id: target_id
+                            }
+                        })];
+                    case 14:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 15: // 위험 공종 안전 작업허가서(PTW)
                     return [2 /*return*/, ''];
-                    case 12: // 안전 및 보건에 관한 협의체 회의록
-                    return [2 /*return*/, ''];
-                    case 13: // 위험 공종 안전 작업허가서(PTW)
-                    return [2 /*return*/, ''];
-                    case 14: return [2 /*return*/];
+                    case 16: return [2 /*return*/];
                 }
             });
         });

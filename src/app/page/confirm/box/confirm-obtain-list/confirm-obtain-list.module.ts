@@ -10,6 +10,7 @@ import { ConfirmObtainListPage } from './confirm-obtain-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ConfirmObtainDetailSearchPageModule } from '../confirm-obtain-detail-search/confirm-obtain-detail-search.module';
+import { WorkerMinutesEditPageModule } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ConfirmObtainDetailSearchPageModule } from '../confirm-obtain-detail-se
     ComponentModule,
     BasicComponentModule,
     ConfirmObtainListPageRoutingModule,
-    ConfirmObtainDetailSearchPageModule
+    ConfirmObtainDetailSearchPageModule,
+    WorkerMinutesEditPageModule
   ],
   declarations: [ConfirmObtainListPage]
 })

@@ -12,6 +12,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <app-card *ngIf="all" name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="allState = true; selectedItem = null">
+    <app-row>
+      <app-col>
+        <h5>전체</h5>
+      </app-col>
+    </app-row>
+  </app-card>
   <app-card name="project_info" *ngFor="let item of res?.rsMap" [button]="true" [color]="selectedItem === item ? 'secondary' : 'white'" (click)="this.allState = false; selectedItem = item">
     <app-row>
       <app-col size="auto">

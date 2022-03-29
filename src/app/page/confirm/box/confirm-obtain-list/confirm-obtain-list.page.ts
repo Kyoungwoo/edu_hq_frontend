@@ -144,7 +144,7 @@ export class ConfirmObtainListPage implements OnInit {
   }
 
   detail(item:ConfirmObtainItem) {
-    this.approval.getComponent(item.ctgo_approval_module_id);
+    this.approval.getComponent(item.ctgo_approval_module_id, item.target_id);
   }
 
   public async openDetailSearch() {

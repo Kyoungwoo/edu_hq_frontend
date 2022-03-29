@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
+import { promise } from 'protractor';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { SafetyEducationDetailEditPage } from '../safety-education-detail-edit/safety-education-detail-edit.page';
 import { SafetyEducationDetailSearchPage } from '../safety-education-detail-search/safety-education-detail-search.page';
@@ -58,13 +60,16 @@ export class SafetyEducationListPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private user: UserService,
-    private popover: PopoverController
+    private popover: PopoverController,
+    private promise: PromiseService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.projectRolechekc(),
+    this.companyRolecheck()
+    
+    await this.promise.wait(() => this.form.company_id);
     this.get();
-    this.projectRolechekc();
-    this.companyRolecheck();
   }
 
   projectRolechekc() {
@@ -74,25 +79,22 @@ export class SafetyEducationListPage implements OnInit {
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
         this.form.project_id = belong_data.project_id;
-        this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
       }
   }
+  
   companyRolecheck() {
     const { user_role , belong_data} = this.user.userData
     if(user_role === 'MASTER_GENERAL' ||
        user_role === 'MASTER_HEAD') {
-        this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
-     
-      } else if(user_role === 'LH_HEAD') {
-        this.form.company_id = 0;
       }
   }
   
 
   async get(limit_no = this.form.limit_no) {
+    console.log("asdfasdfasfd---------------2",this.form);
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/education/list',this.form);
     if(this.res.rsCode === 0) {
@@ -100,8 +102,9 @@ export class SafetyEducationListPage implements OnInit {
         item.index =  this.res.rsObj.row_count - this.form.limit_no - i;
         item.date_day = this.date.day(item.education_safe_date)[0];
       });
-    } else {      
+    } else {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
+      this.res = null;
     }
   }
 

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { EducationConfirmPendingListPage } from '../education-confirm-pending-list/education-confirm-pending-list.page';
 import { NewWriteTargetPage } from '../new-write-target/new-write-target.page';
 import { SafetyEducationResultDetailSearchPage } from '../safety-education-result-detail-search/safety-education-result-detail-search.page';
@@ -53,13 +55,16 @@ export class SafetyEducationResultListPage implements OnInit {
     private _modal: ModalController,
     private date: DateService,
     private connect: ConnectService,
-    private user: UserService
+    private user: UserService,
+    private toast: ToastService,
+    private promise: PromiseService
 
   ) { }
 
-  ngOnInit() { 
-    this.getList();
+  async ngOnInit() { 
     this.projectRolechekc();
+    await this.promise.wait(() => this.form.company_id);
+    this.getList();
   }
   projectRolechekc() {
     const { user_role , belong_data} = this.user.userData
@@ -84,7 +89,8 @@ export class SafetyEducationResultListPage implements OnInit {
         item.create_date = `${item.create_date} (${this.date.day(item.create_date)[0]})`
       });
     } else {
-
+      this.res = null;
+      this.toast.present({message:this.res.rsMsg,color:'warning'});
     }
   }
   async openDetailSearch() {

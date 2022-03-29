@@ -174,12 +174,12 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   special(state,item){
     if(state) {
       let recommendedeWidth = 0;
-      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16*100;
+      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16 * 100;
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
         if(item.education_complete_time === 0) completeWidth = 0;
-        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16*100;
+        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16 * 100;
         return `width:${completeWidth}%`;
     }
   }

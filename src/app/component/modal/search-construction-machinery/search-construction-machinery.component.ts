@@ -50,6 +50,7 @@ export class SearchConstructionMachineryComponent implements OnInit {
   select() {
     this._modal.dismiss({
       selectedItem: this.selectedItem,
+      allState: this.allState
     });
   }
 }
