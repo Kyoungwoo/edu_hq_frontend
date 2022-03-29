@@ -272,11 +272,15 @@
                   {{ item.nfc_state ? item.nfc_state +'개':'-'}}
                 </td>
                 <td>
-                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
+                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" 
+                  [company_id]="user.userData.belong_data.company_id" 
+                  [(ngModel)]="item.manager_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>
-                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" [company_id]="user.userData.belong_data.company_id" [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
+                  <app-select-people [disabled]="item.area_risk_id ? true : false" label="" 
+                  [company_id]="user.userData.belong_data.company_id" 
+                  [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
                 </td>
                 <td>

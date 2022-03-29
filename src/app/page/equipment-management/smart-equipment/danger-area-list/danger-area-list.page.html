@@ -8,37 +8,43 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+               </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-              <app-select-contractor></app-select-contractor>
-              </td>
-            </tr>
-            <tr>
-              <td>
-            <app-select label="디바이스 구분"></app-select>
+            <app-select label="스마트 장비">
+              <app-select-option type="all" [value]="[]">전체</app-select-option>
+              <app-select-option value="출입 NFC">출입 NFC</app-select-option>
+              <app-select-option value="밀폐환경감지">밀폐환경감지</app-select-option>
+              <app-select-option value="변위감지">변위감지</app-select-option>
+              <app-select-option value="구조물">구조물</app-select-option>
+            </app-select>
               </td>
             </tr>
             <tr>
               <td>
                 <app-input-group label="배정일">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -47,15 +53,16 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="edit()">신규배정</app-button>
-            <app-button fill="translucent">수정</app-button>
-            <app-button fill="translucent" color="danger">삭제</app-button>
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="Dangeredit()">신규배정</app-button>
+            <!-- <app-button fill="translucent" (click)="Dangerupdate()">수정</app-button> -->
+            <app-button fill="translucent" color="danger" (click)="Dangerdelete()">삭제</app-button>
+            <!-- <app-button fill="translucent" (click)="Dangersave()">저장</app-button> -->
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>위험지역 목록(총50건)</h5>
+          <h5>위험지역 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
+        <app-check-group [(ngModel)]="selectedList">
         <app-table>
           <thead>
             <tr>
@@ -71,19 +78,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button">
-              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
-              <td>변위감지</td>
-              <td>E0002</td>
-              <td>구일종합건설㈜</td>
-              <td>101동</td>
-              <td>전기실</td>
-              <td>고압변전 지역B</td>
-              <td>2021.10.16 10:22:13</td>
-              <td>Y</td>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index">
+              <td style="width: 40px;">
+                <app-check (click)="$event.stopPropagation()" [on]="item.ctgo_machine_serial_id " color="white" size="small" name="check"></app-check>
+              </td>
+              <td>
+                <app-select [disabled]="item.device_id ? true : false" [(ngModel)]="item.ctgo_machine_serial_id">
+                  <app-select-option *ngFor="let opt of ctgoMachine?.rsMap" [value]="opt.ctgo_machine_serial_id">{{ opt.ctgo_machine_serial_name}}</app-select-option>
+                </app-select>
+              </td>
+              <td>
+                <app-select-serial-number [disabled]="item.device_id ? true : false"  [(ngModel)]="item.serial_no">
+                  
+                </app-select-serial-number>
+              </td>
+              <td>{{ item.master_company_name }}</td>
+              <td *ngIf="!item.area_top_name">
+                <app-img style="width: 45%;" name="search" (click)="memberSearch(item)"></app-img>
+              </td>
+              <td *ngIf="item.area_top_name" (click)="memberSearch(item)">
+                {{ (item.area_top_name ? item.area_top_name : '') + ' '
+                + (item.area_middle_name ? item.area_middle_name : '') + ' '
+                + (item.area_bottom_name ? item.area_bottom_name : '')}}
+              </td>
+              <td>
+                <!-- <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.ctgo_area_risk_id">
+                  <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
+                    opt.ctgo_area_risk_name }}</app-select-option>
+                </app-select> -->
+              </td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.serial_use_state }}</td>
             </tr>
           </tbody>
         </app-table>
+      </app-check-group>
+      <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
       </app-col>
     </app-row>
     </ion-content>
@@ -121,66 +151,10 @@
             <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
           </app-row >
         </app-card>
-        <app-card>
-          <app-row style="align-items: flex-start;">
-            <app-col>
-              <p>구일종합건설(주)/101동</p>
-              <p>A0001/2021.10.18</p>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="primary">반납</ion-chip>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-          </app-row >
-        </app-card>
-        <app-card>
-          <app-row style="align-items: flex-start;">
-            <app-col>
-              <p>구일종합건설(주)/101동</p>
-              <p>A0001/2021.10.18</p>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="primary">반납</ion-chip>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-          </app-row >
-        </app-card>
-        <app-card>
-          <app-row style="align-items: flex-start;">
-            <app-col>
-              <p>구일종합건설(주)/101동</p>
-              <p>A0001/2021.10.18</p>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="danger">미사용</ion-chip>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-          </app-row >
-        </app-card>
-        <app-card>
-          <app-row style="align-items: flex-start;">
-            <app-col>
-              <p>구일종합건설(주)/101동</p>
-              <p>A0001/2021.10.18</p>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="primary">반납</ion-chip>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col size="auto"><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-          </app-row >
-        </app-card>
       </ng-container>
     </ion-content>
     <app-button-footer>
-      <app-button (click)="edit()">신규배정</app-button>
+      <!-- <app-button (click)="edit()">신규배정</app-button> -->
     </app-button-footer>
   </ng-container>
   
