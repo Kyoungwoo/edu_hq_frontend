@@ -107,13 +107,10 @@
                 + (item.area_bottom_name ? item.area_bottom_name : '')}}
               </td>
               <td>
-                {{ item.area_risk_name }}
+                {{ item.ctgo_area_risk_name }}
               </td>
               <td>
-                <!-- <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.ctgo_area_risk_id">
-                  <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
-                    opt.ctgo_area_risk_name }}</app-select-option>
-                </app-select> -->
+                {{ item.area_risk_name }}
               </td>
               <td>{{ item.create_date }}</td>
               <td>{{ item.serial_use_state }}</td>
