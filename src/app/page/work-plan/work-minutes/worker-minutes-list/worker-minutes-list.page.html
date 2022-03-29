@@ -42,13 +42,7 @@
             </tr>
             <tr>
               <td>
-                <app-select label="전자결재 유형" [(ngModel)]="form.approval_cnt_answer">
-                  <app-select-option type="all" [value]="[]">전체</app-select-option>
-                  <app-select-option value="임시저장">임시저장</app-select-option>
-                  <app-select-option value="결재중">결재중</app-select-option>
-                  <app-select-option value="결재완료">결재완료</app-select-option>
-                  <app-select-option value="반려">반려</app-select-option>
-                </app-select>
+                <app-select-approval-type [(ngModel)]="form.approval_cnt_answer"></app-select-approval-type>
               </td>
             </tr>
             <tr>

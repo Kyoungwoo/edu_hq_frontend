@@ -62,6 +62,7 @@ import { InputCertifyComponent } from './input/input-certify/input-certify.compo
 import { SelectApprovalModuleComponent } from './select/select-approval-module/select-approval-module.component';
 import { ApprovalComponent } from './confirm/approval/approval.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { SelectApprovalTypeComponent } from './select/select-approval-type/select-approval-type.component';
 
 
 
@@ -95,6 +96,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
     SearchContractorCompanyComponent,
     // select
     SelectApprovalModuleComponent,
+    SelectApprovalTypeComponent,
     SelectCountryComponent,
     SelectToolComponent,
     SelectEducationComponent,
@@ -161,9 +163,10 @@ import { SortablejsModule } from 'ngx-sortablejs';
     SearchEducationComponent,
     SearchContractorCompanyComponent,
     // select
+    SelectApprovalModuleComponent,
+    SelectApprovalTypeComponent,
     PeopleViewComponent,
     PeopleDeleteComponent,
-    SelectApprovalModuleComponent,
     SearchAreaComponent,
     SelectToolComponent,
     SelectEducationComponent,
