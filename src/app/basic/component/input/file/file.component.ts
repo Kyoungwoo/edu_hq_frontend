@@ -104,6 +104,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
         this.fileItemAdd(file, this.view_type, existLength + i + 1);
       }
     }
+    console.log(this.file_json);
   }
   private fileItemAdd(file:File|FileBlob, view_type, order_no) {
     this.value.push({
@@ -121,6 +122,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       order_no,
       view_type
     });
+    
   }
 
   private fileDelete(item:FutItem) {
@@ -147,8 +149,10 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
         view_type: _item.view_type
       }
     });
+    console.log(reorderedList);
     this.file_json.update = reorderedList.filter(_item => _item.seq_no);
     this.file_json.insert = reorderedList.filter(_item => !_item.seq_no);
+    console.log(this.file_json);
   }
 
 
