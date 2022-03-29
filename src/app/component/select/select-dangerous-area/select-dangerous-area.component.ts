@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -24,10 +24,16 @@ export class AreaDate {
 })
 export class SelectDangerousAreaComponent implements OnInit, ControlValueAccessor {
 
+  @HostListener('click') onClick() {
+    if(!this.disabled) this.dangerous();
+  }
+  
   @Input() color:Color;
   @Input() multiple:boolean = false;
   @Input() label:string = "위험지역";
   @Input() text:string;
+  @Input() disabled:boolean = false;
+
 
   private _project_id:number = 0;
   @Input() set project_id(v:number) {

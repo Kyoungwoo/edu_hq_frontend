@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -27,10 +28,20 @@ export class HeavyEquipDetail {
     ctgo_machinery_name: string;
     machinery_file: (File | Blob)[] = [];
     machinery_json : FileJson = new FileJson();
+
+
     plan_file_data: FutItem[] = [];
     regist_file_data: FutItem[] = [];
     rental_file_data: FutItem[] = [];
     etc_file_data: FutItem[] = [];
+    plan_file: (File | Blob)[] = [];
+    regist_file: (File | Blob)[] = [];
+    rental_file: (File | Blob)[] = [];
+    etc_file: (File | Blob)[] = [];
+    plan_json : FileJson = new FileJson();
+    regist_json : FileJson = new FileJson();
+    rental_json : FileJson = new FileJson();
+    etc_json : FileJson = new FileJson();
 }
 
 @Component({
@@ -148,6 +159,7 @@ export class HeavyEquipEditPage implements OnInit {
         {
           text:'예',
           handler: async() => {
+            await this.TransFileData();
             const res = await this.connect.run('/machinery/update', this.form);
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
@@ -200,4 +212,45 @@ export class HeavyEquipEditPage implements OnInit {
     }
     return state;
   }
+
+  /**
+   * @function TransFileData(): 4개의 파일을 통합해줍니다.
+   */
+  async TransFileData(){
+    // 초기화
+    this.form.machinery_json.insert = [];
+
+    await this.form.plan_file.map(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.plan_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.plan_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+
+    await this.form.regist_file.map(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.regist_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.regist_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+
+    await this.form.rental_file.map(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.rental_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.rental_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+
+    await this.form.etc_file.map(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.etc_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.etc_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+
+    this.form.machinery_json.insert.map((item, index) => {item.order_no = index+1});
+  }
 }
+
+// plan_file_data: FutItem[] = [];
+// regist_file_data: FutItem[] = [];
+// rental_file_data: FutItem[] = [];
+// etc_file_data: FutItem[] = [];
+
+// plan_file: (File | Blob)[] = [];
+// regist_file: (File | Blob)[] = [];
+// rental_file: (File | Blob)[] = [];
+// etc_file: (File | Blob)[] = [];
+
+// plan_json : FileJson = new FileJson();
+// regist_json : FileJson = new FileJson();
+// rental_json : FileJson = new FileJson();
+// etc_json : FileJson = new FileJson();

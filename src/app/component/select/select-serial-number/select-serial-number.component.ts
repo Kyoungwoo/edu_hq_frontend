@@ -18,6 +18,7 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
 
   @Input() color:Color;
   @Input() label:string = "시리얼No.";
+  @Input() disabled:boolean = false;
 
   constructor(
     private _modal:ModalController
