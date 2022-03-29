@@ -9,8 +9,19 @@ exports.__esModule = true;
 exports.ConfirmObtainDetailSearchPage = void 0;
 var core_1 = require("@angular/core");
 var ConfirmObtainDetailSearchPage = /** @class */ (function () {
-    function ConfirmObtainDetailSearchPage() {
+    function ConfirmObtainDetailSearchPage(file) {
+        this.file = file;
         this.form = {
+            project_id: null,
+            master_company_id: null,
+            company_id: null,
+            start_date: null,
+            end_date: null,
+            approval_cnt_answer: null,
+            search_text: null,
+            limit_no: 0 // 20개씩 가져옵니다
+        };
+        this.temptForm = {
             project_id: null,
             master_company_id: null,
             company_id: null,
@@ -22,7 +33,15 @@ var ConfirmObtainDetailSearchPage = /** @class */ (function () {
         };
     }
     ConfirmObtainDetailSearchPage.prototype.ngOnInit = function () {
+        this.temptForm = this.file.clone(this.form);
     };
+    ConfirmObtainDetailSearchPage.prototype.reset = function () {
+    };
+    ConfirmObtainDetailSearchPage.prototype.search = function () {
+    };
+    __decorate([
+        core_1.Input()
+    ], ConfirmObtainDetailSearchPage.prototype, "form");
     ConfirmObtainDetailSearchPage = __decorate([
         core_1.Component({
             selector: 'app-confirm-obtain-detail-search',

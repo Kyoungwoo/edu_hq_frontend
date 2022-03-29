@@ -150,8 +150,15 @@ export class ConfirmObtainListPage implements OnInit {
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: ConfirmObtainDetailSearchPage,
-      
+      componentProps: {
+        form: this.form
+      }
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+      
+    }
   }
 }

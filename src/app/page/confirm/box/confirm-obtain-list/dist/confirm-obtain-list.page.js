@@ -197,15 +197,23 @@ var ConfirmObtainListPage = /** @class */ (function () {
     };
     ConfirmObtainListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var modal;
+            var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: confirm_obtain_detail_search_page_1.ConfirmObtainDetailSearchPage
+                            component: confirm_obtain_detail_search_page_1.ConfirmObtainDetailSearchPage,
+                            componentProps: {
+                                form: this.form
+                            }
                         })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                        }
                         return [2 /*return*/];
                 }
             });
