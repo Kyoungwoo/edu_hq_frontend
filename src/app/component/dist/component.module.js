@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ComponentModule = void 0;
+var search_contractor_company_component_1 = require("./modal/search-contractor-company/search-contractor-company.component");
+var select_contractor_company_component_1 = require("./select/select-contractor-company/select-contractor-company.component");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
@@ -68,6 +70,7 @@ var input_certify_component_1 = require("./input/input-certify/input-certify.com
 var select_approval_module_component_1 = require("./select/select-approval-module/select-approval-module.component");
 var approval_component_1 = require("./confirm/approval/approval.component");
 var ngx_sortablejs_1 = require("ngx-sortablejs");
+var select_approval_type_component_1 = require("./select/select-approval-type/select-approval-type.component");
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
@@ -97,8 +100,10 @@ var ComponentModule = /** @class */ (function () {
                 people_delete_component_1.PeopleDeleteComponent,
                 search_area_component_1.SearchAreaComponent,
                 search_project_contractor_component_1.SearchProjectContractorComponent,
+                search_contractor_company_component_1.SearchContractorCompanyComponent,
                 // select
                 select_approval_module_component_1.SelectApprovalModuleComponent,
+                select_approval_type_component_1.SelectApprovalTypeComponent,
                 select_country_component_1.SelectCountryComponent,
                 select_tool_component_1.SelectToolComponent,
                 select_education_component_1.SelectEducationComponent,
@@ -131,7 +136,8 @@ var ComponentModule = /** @class */ (function () {
                 supervision_search_component_1.SupervisionSearchComponent,
                 project_area_set_component_1.ProjectAreaSetComponent,
                 select_supervision_component_1.SelectSupervisionComponent,
-                select_project_contractor_component_1.SelectProjectContractorComponent
+                select_project_contractor_component_1.SelectProjectContractorComponent,
+                select_contractor_company_component_1.SelectContractorCompanyComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -161,10 +167,12 @@ var ComponentModule = /** @class */ (function () {
                 search_tool_component_1.SearchToolComponent,
                 search_construction_machinery_component_1.SearchConstructionMachineryComponent,
                 search_education_component_1.SearchEducationComponent,
+                search_contractor_company_component_1.SearchContractorCompanyComponent,
                 // select
+                select_approval_module_component_1.SelectApprovalModuleComponent,
+                select_approval_type_component_1.SelectApprovalTypeComponent,
                 people_view_component_1.PeopleViewComponent,
                 people_delete_component_1.PeopleDeleteComponent,
-                select_approval_module_component_1.SelectApprovalModuleComponent,
                 search_area_component_1.SearchAreaComponent,
                 select_tool_component_1.SelectToolComponent,
                 select_education_component_1.SelectEducationComponent,
@@ -200,7 +208,8 @@ var ComponentModule = /** @class */ (function () {
                 project_area_set_component_1.ProjectAreaSetComponent,
                 select_supervision_component_1.SelectSupervisionComponent,
                 select_project_contractor_component_1.SelectProjectContractorComponent,
-                search_project_contractor_component_1.SearchProjectContractorComponent
+                search_project_contractor_component_1.SearchProjectContractorComponent,
+                select_contractor_company_component_1.SelectContractorCompanyComponent
             ],
             providers: [
                 select_company_component_1.SelectCompanyComponent

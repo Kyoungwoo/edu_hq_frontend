@@ -29,6 +29,11 @@
             </tr>
             <tr>
               <td>
+                <app-select-approval-type [(ngModel)]="form.approval_cnt_answer"></app-select-approval-type>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-input-group label="작성일">
                   <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
