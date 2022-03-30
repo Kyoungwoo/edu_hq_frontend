@@ -26,11 +26,6 @@ export class MsdsItem {
   file_json: FileJson = new FileJson();
   create_user_id:number;
 
-  public_scope_allstate: boolean;
-  public_scope_one: scopeOne;
-  public_scope_two: scopeTwo;
-  scope_company_id: number;
-
 };
 
 @Component({
@@ -40,16 +35,19 @@ export class MsdsItem {
 })
 export class MsdsEditPage implements OnInit {
 
+  permission = {
+    edit: false
+  }
+
   @ViewChild('msdsText') msdsText:SmarteditComponent;
   
   @Input() item;
   
   title:string;
   validator = new Validator(new MsdsItem()).validator;
-  rangeText = '';
-  useMsds: boolean = true;
   
   updateState: boolean = true;
+  useMsds: boolean = false;
 
   form = new MsdsItem();
   // smarteditText:string = '';
@@ -65,7 +63,8 @@ export class MsdsEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-  
+
+    this.getPermission();
     if(this.item?.msds_id) {
       this.title = '상세';
       this.get();
@@ -76,6 +75,17 @@ export class MsdsEditPage implements OnInit {
       this.title = '등록';
     } 
   }
+
+  getPermission() {
+    const company_contract_type = this.user.userData.belong_data.company_contract_type;
+    if(company_contract_type === '원청사'
+    || company_contract_type === '협력사') {
+      this.permission.edit = true;
+    } else {
+      this.permission.edit = false;
+    }
+  }
+
   async get() { //상세보기
     const res = await this.connect.run('/board/msds/detail', { 
       msds_id: this.item.msds_id
@@ -87,11 +97,9 @@ export class MsdsEditPage implements OnInit {
       }
 
         if(this.user.userData.user_id === this.form.create_user_id) {
-        this.useMsds = false;
+        this.useMsds = true;
       }
-      const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
-      const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
+      
     }
   }
   public submit() {
@@ -107,7 +115,7 @@ export class MsdsEditPage implements OnInit {
   async MsdsInsert() { //등록
     if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
+    
     //메소드 호출
     const alert = await this.alert.present({
       message:'등록 하시겠습니까?',
@@ -131,7 +139,7 @@ export class MsdsEditPage implements OnInit {
   async update() { //수정
     if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.msds_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
+  
     const alert = await this.alert.present({
       message:'수정 하시겠습니까?',
       buttons:[
@@ -169,39 +177,6 @@ export class MsdsEditPage implements OnInit {
         }
       ]
     })
-  }
-  async openRange() {
-    const { 
-      scope_company_id,
-      public_scope_allstate,
-      scope_company_name,
-      public_scope_one,
-      public_scope_two
-     } = this.form;
-    const modal = await this._modal.create({
-      component:NoticeOpenRangePage,
-      componentProps: {
-        form: {
-          scope_company_id,
-          scope_company_name,
-          public_scope_allstate,
-          public_scope_one,
-          public_scope_two
-        }
-      }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    const scope = <NoticePublicScope>data;
-    this.form = {
-      ...this.form,
-      ...scope
-    }
-    if(scope) {
-      const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
-      const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name}`;
-    }
   }
 
   dismiss() {

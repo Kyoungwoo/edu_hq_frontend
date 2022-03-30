@@ -39,9 +39,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-input label="게시물 공개범위" (click)="openRange()" [value]="rangeText" [readonly]="true" [required]="true">
-        <app-img name="search"></app-img>
-      </app-input>
+      <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id"></app-select-contractor>
     </app-col>
   </app-row>
     <app-row>
@@ -104,9 +102,9 @@
       </tr>
     </app-table>
 </ion-content>
-<app-button-footer *ngIf="permission.edit">
-  <app-button *ngIf="item" fill="translucent" (click)="submit()">수정</app-button>
-  <app-button *ngIf="item" color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
+<app-button-footer>
+  <app-button *ngIf="item && useNotice" fill="translucent" (click)="submit()">수정</app-button>
+  <app-button *ngIf="item && useNotice"color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
   <app-button *ngIf="!item" (click)="submit()">저장</app-button>
 </app-button-footer>
 </ng-container>

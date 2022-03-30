@@ -10,7 +10,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { NoticeOpenRangePage, NoticePublicScope, scopeOne, scopeTwo } from '../../notice-open-range/notice-open-range.page';
 
 
-export class NoticeItem implements NoticePublicScope {
+export class NoticeItem {
   notice_title: string;
   notice_content: string;
   project_id: number;
@@ -25,12 +25,9 @@ export class NoticeItem implements NoticePublicScope {
   notice_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
-  create_user_id:number;
+  create_user_id: number;
+  master_company_id: number;
   
-  public_scope_one: scopeOne;
-  public_scope_two: scopeTwo;
-  public_scope_allstate: boolean;
-  scope_company_id: number;
 }
 
 @Component({
@@ -52,14 +49,14 @@ export class NoticeEditPage implements OnInit {
 
   form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
-  rangeText = '';
+
+  useNotice: boolean = false;
 
   constructor(
     private connect: ConnectService,
     private _modal: ModalController,
     private toast: ToastService,
     public user: UserService,
-    private noticeRange: NoticeOpenRangePage,
     private date: DateService,
     private alert:AlertService,
   ) { }
@@ -97,9 +94,12 @@ export class NoticeEditPage implements OnInit {
         ...res.rsObj
       } 
 
-      const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
-      const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
+      if(this.user.userData.user_id === this.form.create_user_id) {
+        this.useNotice = true;
+      }
+      // const scopeOne = this.noticeRange.list1.find(item => item.value === this.form.public_scope_one);
+      // const scopeTwo = this.noticeRange.list2.find(item => item.value === this.form.public_scope_two);
+      // this.rangeText = `${scopeOne.text},${scopeTwo.text},${this.form.scope_company_name ? this.form.scope_company_name : ''}`;
       // if(!this.form.scope_company_name) {
       //   this.rangeText.substring(1,this.rangeText.length -1);
       // }
@@ -118,7 +118,7 @@ export class NoticeEditPage implements OnInit {
   async noticeInsert() { //등록
     if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
+
     //메소드 호출
     const alert = await this.alert.present({
       message:'등록 하시겠습니까?',
@@ -141,7 +141,7 @@ export class NoticeEditPage implements OnInit {
   async update() { //수정
     if(!this.form.project_id) return this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
     if(!this.form.notice_type) return this.toast.present({message:'구분을 선택해주세요.',color:'warning'});
-    if(!this.rangeText) return this.toast.present({message:'공개범위를 선택해주세요.',color:'warning'});
+    
     const alert = await this.alert.present({
       message:'수정 하시겠습니까?',
       buttons:[
@@ -179,41 +179,6 @@ export class NoticeEditPage implements OnInit {
         }
       ]
     })
-  }
-
-  async openRange() {
-    const {
-      scope_company_id,
-      scope_company_name,
-      public_scope_allstate,
-      public_scope_one,
-      public_scope_two
-     } = this.form;
-    const modal = await this._modal.create({
-      component:NoticeOpenRangePage,
-      componentProps: {
-        form: {
-          scope_company_id,
-          scope_company_name,
-          public_scope_allstate,
-          public_scope_one,
-          public_scope_two
-        }
-      }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    const scope = <NoticePublicScope>data;
-    this.form = {
-      ...this.form,
-      ...scope
-    }
-    if(scope) {
-      const scopeOne = this.noticeRange.list1.find(item => item.value === scope.public_scope_one);
-      const scopeTwo = this.noticeRange.list2.find(item => item.value === scope.public_scope_two);
-      this.rangeText = `${scopeOne.text},${scopeTwo.text},${scope.scope_company_name === 'null' ? scope.scope_company_name:''}`;
-      
-    }
   }
 
   dismiss() {
