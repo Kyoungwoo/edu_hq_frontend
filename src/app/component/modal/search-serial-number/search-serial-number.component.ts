@@ -7,6 +7,9 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 export class ProjectItem {
   serial_no: number;
   serial_type: string;
+  ctgo_machine_serial_id: number;
+  ctgo_machine_serial_name: string
+
 }
 
 @Component({
@@ -18,7 +21,7 @@ export class SearchSerialNumberComponent implements OnInit {
 
   @Input() form = {
     ctgo_machine_serial_id: 0,
-    search_text:''
+    search_text: ''
   }
 
   res: ConnectResult<ProjectItem>
@@ -31,6 +34,9 @@ export class SearchSerialNumberComponent implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
   ) { }
+
+  
+  selectList;
 
   ngOnInit() {
     this.getSerial();
