@@ -17,7 +17,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card *ngFor="let item of res?.rsMap" [color]="selectList === item ? 'secondary' : 'white'" (click)="selectList = item">
+  <!-- <app-card *ngFor="let item of res?.rsMap" [color]="selectList === item ? 'secondary' : 'white'" (click)="selectList = item"> -->
+  <app-card name="searial_info" *ngFor="let item of res?.rsMap" [button]="true" [color]="selectedItem === item ? 'secondary' : 'white'" (click)="this.allState = false; selectedItem = item">
     <app-row>
       <app-col>
         <h5>스마트 장비</h5>

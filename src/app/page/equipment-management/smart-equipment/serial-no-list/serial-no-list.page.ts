@@ -58,7 +58,7 @@ export class SerialNoListPage implements OnInit {
   /** @param update_state - 현재 업데이트중인지 여부 */
   update_state = false;
 
-  /** @param update_state - 현재 업데이트중인지 여부 */
+  /** @param method_type - serial_type에따라 메서드가 변경됨 */
   method_type = '';
 
   form = {
@@ -114,7 +114,7 @@ export class SerialNoListPage implements OnInit {
    * @function getList(): 중장비 시리얼 No 목록 가져오기
    */
    async getList() {
-    let method = await this.TransSearialType();
+    let method = await this.TransMethodType();
     const res = await this.connect.run(method, this.form,{parse: ['user_data']});
     if(res.rsCode === 0 ) {
       this.resetState();
@@ -143,9 +143,9 @@ export class SerialNoListPage implements OnInit {
   }
 
   /**
-   * @function TransSearialType(): searial_type에 따라서 메서드 URL을 반환해주는 메서드
+   * @function TransMethodType(): searial_type에 따라서 메서드 URL을 반환해주는 메서드
    */
-  TransSearialType(){
+   TransMethodType(){
     let method = '';
     switch(this.serial_type){
       case '개인':
@@ -236,9 +236,9 @@ export class SerialNoListPage implements OnInit {
   }
 
   /**
-   * @function SeariaSave(): "저장" 버튼을 클릭하면 실행되는 메서드
+   * @function SearialSave(): "저장" 버튼을 클릭하면 실행되는 메서드
    */
-   async SeariaSave() {
+   async SearialSave() {
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [
@@ -257,8 +257,14 @@ export class SerialNoListPage implements OnInit {
                 if(!item.ctgo_machine_serial_id) case_2 = true;
               });
 
-              if(case_1) return this.toast.present({ color: 'warning', message: '원청사를 선택해주세요.' });
-              if(case_2) return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
+              if(case_1) {
+                await loadingCus.dismiss();
+                return this.toast.present({ color: 'warning', message: '원청사를 선택해주세요.' });
+              }
+              if(case_2) {
+                await loadingCus.dismiss();
+                return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
+              }
               console.log(this.res_insert);
               // 예외처리 후 하나씩 리스트에 추가해준다. - 모든 api가 호출될때까지 기다린다
               const insert_promise = Promise.all(this.res_insert.map(async(item) => { return await this.SearialSaveMethod(item, 'insert')}));
