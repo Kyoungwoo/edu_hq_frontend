@@ -58,7 +58,7 @@ export class HeavyEquipListPage implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.getList();
-    }, 500);
+    }, 300);
     
   }
 
@@ -67,7 +67,10 @@ export class HeavyEquipListPage implements OnInit {
     this.form.limit_no = limit_no;
     const res = await this.connect.run('/machinery/list', this.form);
     if(res.rsCode === 0 ) {
-      this.res = res;
+      this.res = {
+        ...this.res,
+        ...res
+      };
       this.res.rsMap.map((item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i;
       });
