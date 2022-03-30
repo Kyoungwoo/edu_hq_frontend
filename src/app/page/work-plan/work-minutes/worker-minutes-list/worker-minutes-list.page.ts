@@ -4,7 +4,6 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { MinutesEditPage } from 'src/app/page/notice-board/minutes/minutes-edit/minutes-edit.page';
 import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/worker-minutes-detail-search.page';
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
@@ -194,7 +193,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.form = data;
-      this.get();
+      this.get(0);
     }
   }
 

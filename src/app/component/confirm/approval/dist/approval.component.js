@@ -61,6 +61,7 @@ var ApprovalComponent = /** @class */ (function () {
         this.recoveryClick = new core_1.EventEmitter();
         this.approvalClick = new core_1.EventEmitter();
         this.printClick = new core_1.EventEmitter();
+        this.change = new core_1.EventEmitter();
         this.form = {
             project_id: null,
             ctgo_approval_module_id: null,
@@ -322,6 +323,7 @@ var ApprovalComponent = /** @class */ (function () {
     ApprovalComponent.prototype.getClickEvent = function () {
         return {
             approval_data: this.getApprovalData(),
+            btnList: this.btnList,
             "delete": this.deleteApproval.bind(this),
             send: this.sendApproval.bind(this),
             recovery: this.recoveryApproval.bind(this),
@@ -333,7 +335,8 @@ var ApprovalComponent = /** @class */ (function () {
      * 서버에 올리는 형태로 데이터를 변경하는 함수
      */
     ApprovalComponent.prototype.getApprovalData = function () {
-        var answer_datas = this.res.rsObj.answer_datas;
+        var _a, _b, _c, _d;
+        var answer_datas = ((_b = (_a = this.res) === null || _a === void 0 ? void 0 : _a.rsObj) === null || _b === void 0 ? void 0 : _b.answer_datas) || [];
         /**
          * order_no 정렬
          * 최종 결재자만 approval_last_state 가 1이고 나머지는 0임
@@ -342,7 +345,7 @@ var ApprovalComponent = /** @class */ (function () {
             item.approval_order_no = i + 1;
             item.approval_last_state = i < answer_datas.length - 1 ? 0 : 1;
         });
-        var refer_datas = this.res.rsObj.refer_datas || [];
+        var refer_datas = ((_d = (_c = this.res) === null || _c === void 0 ? void 0 : _c.rsObj) === null || _d === void 0 ? void 0 : _d.refer_datas) || [];
         return [
             {
                 default_type: "ANSWER",
@@ -380,7 +383,9 @@ var ApprovalComponent = /** @class */ (function () {
                     case 5:
                         _a.sent();
                         _a.label = 6;
-                    case 6: return [2 /*return*/];
+                    case 6:
+                        this.change.emit(this.getClickEvent());
+                        return [2 /*return*/];
                 }
             });
         });
@@ -517,6 +522,9 @@ var ApprovalComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "printClick");
+    __decorate([
+        core_1.Output()
+    ], ApprovalComponent.prototype, "change");
     ApprovalComponent = __decorate([
         core_1.Component({
             selector: 'app-approval',

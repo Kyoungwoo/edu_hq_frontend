@@ -12,6 +12,7 @@ import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-s
 export type ApprovalAnswerType = "전체" | "임시저장" | "결재중" | "결재완료" | "반려";
 export interface ApprovalBtnClickEvent {
   approval_data: ApprovalData;
+  btnList:string[],
   delete: () => Promise<ConnectResult>;
   send: () => Promise<ConnectResult>;
   recovery: () => Promise<ConnectResult>;
@@ -63,6 +64,7 @@ export class ApprovalComponent implements OnInit {
   @Output() recoveryClick = new EventEmitter();
   @Output() approvalClick = new EventEmitter();
   @Output() printClick = new EventEmitter();
+  @Output() change = new EventEmitter();
 
   form = {
     project_id: null,
@@ -232,6 +234,7 @@ export class ApprovalComponent implements OnInit {
   getClickEvent():ApprovalBtnClickEvent {
     return {
       approval_data: this.getApprovalData(),
+      btnList: this.btnList,
       delete: this.deleteApproval.bind(this),
       send: this.sendApproval.bind(this),
       recovery: this.recoveryApproval.bind(this),
@@ -243,7 +246,7 @@ export class ApprovalComponent implements OnInit {
    * 서버에 올리는 형태로 데이터를 변경하는 함수 
    */
   private getApprovalData() {
-    const answer_datas = this.res.rsObj.answer_datas;
+    const answer_datas = this.res?.rsObj?.answer_datas || [];
     /**
      * order_no 정렬
      * 최종 결재자만 approval_last_state 가 1이고 나머지는 0임
@@ -252,7 +255,7 @@ export class ApprovalComponent implements OnInit {
       item.approval_order_no = i+1;
       item.approval_last_state = i < answer_datas.length-1 ? 0 : 1;
     });
-    const refer_datas = this.res.rsObj.refer_datas || [];
+    const refer_datas = this.res?.rsObj?.refer_datas || [];
     return [
       {
         default_type: "ANSWER",
@@ -278,6 +281,7 @@ export class ApprovalComponent implements OnInit {
       await this.getApprovalButton();
       await this.getApproval();
     }
+    this.change.emit(this.getClickEvent());
   }
 
   /** 

@@ -88,9 +88,7 @@
                 </app-select>
               </td>
               <td>
-                <app-select-serial-number [disabled]="item.device_id ? true : false"  [(ngModel)]="item.serial_no">
-                  
-                </app-select-serial-number>
+                <app-select-serial-number [disabled]="item.device_id ? true : false"  [(ngModel)]="item.serial_no"></app-select-serial-number>
               </td>
               <td>
                 <app-select-contractor label="" 
@@ -101,7 +99,7 @@
               <td *ngIf="!item.area_top_name && !item.device_id" style="text-align: right;">
                 <app-img style="width:12%;" name="search" (click)="riskAreaSearch(item)"></app-img>
               </td>
-              <td (click)="riskAreaSearch(item)">
+              <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
                 {{ (item.area_top_name ? item.area_top_name : '') + ' '
                 + (item.area_middle_name ? item.area_middle_name : '') + ' '
                 + (item.area_bottom_name ? item.area_bottom_name : '')}}

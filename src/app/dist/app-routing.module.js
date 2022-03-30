@@ -84,10 +84,6 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/minutes/minutes-list/minutes-list.module'); }).then(function (m) { return m.MinutesListPageModule; }); }
     },
     {
-        path: 'minutes-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/minutes/minutes-edit/minutes-edit.module'); }).then(function (m) { return m.MinutesEditPageModule; }); }
-    },
-    {
         path: 'notice-list',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/notice/notice-list/notice-list.module'); }).then(function (m) { return m.NoticeListPageModule; }); }
     },
@@ -571,6 +567,14 @@ var routes = [
     {
         path: 'minutes-search',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/minutes/minutes-search/minutes-search.module'); }).then(function (m) { return m.MinutesSearchPageModule; }); }
+    },
+    {
+        path: 'worker-minutes-edit',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module'); }).then(function (m) { return m.WorkerMinutesEditPageModule; }); }
+    },
+    {
+        path: 'worker-minutes-select-type',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module'); }).then(function (m) { return m.WorkerMinutesSelectTypePageModule; }); }
     },
 ];
 var AppRoutingModule = /** @class */ (function () {
