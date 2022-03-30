@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293951971220",
+    "project_id": "devmonster-s-keeper",
+    "storage_bucket": "devmonster-s-keeper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293951971220:android:d636c6fc95e0839d4d3981",
+        "android_client_info": {
+          "package_name": "com.devmonster.gsil.lh.skeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293951971220-69j9f1fhopehji6khgcp5lq7b3b2irap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoY2xWyzcnklKIBXh3lSvApAlaw7WvPvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293951971220-69j9f1fhopehji6khgcp5lq7b3b2irap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

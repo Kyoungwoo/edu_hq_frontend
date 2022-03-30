@@ -18,13 +18,13 @@ class ConfirmObtainItem {
   create_user_id:number;
   ctgo_approval_module_id:number;
   ctgo_approval_module_name:string;
-  index:number;
   master_company_name:string;
   max_approval_date:string;
   project_id:number;
   target_id:number;
   user_name:string;
-
+  
+  index:number;
   row_count:number;
 }
 @Component({
@@ -40,7 +40,7 @@ export class ConfirmObtainListPage implements OnInit {
     company_id: null, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
-    approval_cnt_answer: null as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
+    approval_cnt_answer: '전체' as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
     search_text: null, // 검색어
     limit_no: 0 // 20개씩 가져옵니다
   }
@@ -105,6 +105,9 @@ export class ConfirmObtainListPage implements OnInit {
     this.res = await this.connect.run('/approval/board/my/get', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       // 암것도 안함
+      this.res.rsMap.forEach((item, i) => {
+        item.index = this.res.rsObj.row_count - this.form.limit_no - i;
+      });
     }
     else if (this.res.rsCode === 1008) {
       // 암것도 안함.
@@ -153,12 +156,13 @@ export class ConfirmObtainListPage implements OnInit {
       componentProps: {
         form: this.form
       }
-    })
+    });
     modal.present();
     const { data } = await modal.onDidDismiss();
 
     if(data) {
-      
+      this.form = data;
+      this.get(0);
     }
   }
 }

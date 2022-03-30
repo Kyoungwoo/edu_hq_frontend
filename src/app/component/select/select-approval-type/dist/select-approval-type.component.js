@@ -19,7 +19,6 @@ var SelectApprovalTypeComponent = /** @class */ (function () {
         this.disabled = false;
         this.required = false;
         this.change = new core_1.EventEmitter();
-        this._value = [];
         this.onChangeCallback = function (v) { };
         this.onTouchedCallback = function (v) { };
     }

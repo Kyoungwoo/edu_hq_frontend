@@ -7,17 +7,18 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-scene></app-select-scene>
-  <app-select-contractor></app-select-contractor>
-  <app-select label="결재상태"></app-select>
+  <app-select-scene [(ngModel)]="temptForm.project_id"></app-select-scene>
+  <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.master_company_id"></app-select-contractor>
+  <app-select-contractor-company [project_id]="temptForm.project_id" [master_company_id]="temptForm.master_company_id" [(ngModel)]="temptForm.company_id"></app-select-contractor-company>
+  <app-select-approval-type [(ngModel)]="temptForm.approval_cnt_answer"></app-select-approval-type>
   <app-input-group label="작성일">
-  <app-calendar></app-calendar>
-  ~
-  <app-calendar></app-calendar>
+    <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
+    ~
+    <app-calendar [(ngModel)]="temptForm.end_date" [max]="temptForm.start_date"></app-calendar>
   </app-input-group>
-  <app-input label="검색어" placeholder="검색어를 입력하세요"></app-input>
+  <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="temptForm.search_text"></app-input>
 </ion-content>
 <app-button-footer>
-  <app-button>초기화</app-button>
-  <app-button>검색</app-button>
+  <app-button (click)="reset()">초기화</app-button>
+  <app-button (click)="search()">검색</app-button>
 </app-button-footer>

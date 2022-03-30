@@ -80,7 +80,7 @@
               <tbody>
                 <tr class="button" *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
                   <td style="width: 40px;"><app-radio color="white" size="small" name="check" [value]="item"></app-radio></td>
-                  <td>{{ res.rsObj.row_count - form.limit_no - i }}</td>
+                  <td>{{ item.index }}</td>
                   <td>{{ item.ctgo_approval_module_name }}</td>
                   <td>{{ item.company_name }}</td>
                   <td>{{ item.user_name }}</td>

@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListe
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { Color } from '@ionic/core';
+import { ApprovalAnswerType } from '../../confirm/approval/approval.component';
 
 @Component({
   selector: 'app-select-approval-type',
@@ -37,8 +38,8 @@ export class SelectApprovalTypeComponent implements OnInit, ControlValueAccessor
   @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:string[] = [];
-  @Input() set value(v:string[]) {
+  private _value:ApprovalAnswerType;
+  @Input() set value(v:ApprovalAnswerType) {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
@@ -48,7 +49,7 @@ export class SelectApprovalTypeComponent implements OnInit, ControlValueAccessor
   get value() {
     return this._value;
   }
-  writeValue(v:string[]): void {
+  writeValue(v:ApprovalAnswerType): void {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);

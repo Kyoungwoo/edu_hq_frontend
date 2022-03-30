@@ -105,6 +105,9 @@ export class ApprovalComponent implements OnInit {
       case '결재회수':
         this.onRecoveryClick();
         break;
+      case '결재':
+        this.onApprovalClick();
+        break;
       
     }
   }
