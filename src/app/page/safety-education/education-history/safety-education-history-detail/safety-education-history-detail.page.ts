@@ -121,7 +121,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.res = res.rsObj;
-      console.log(this.res.user_profile_file_data);
       this.res?.safe_job_name?.toString();
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
@@ -165,8 +164,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     } else {
       let completeWidth = 0;
       this.routineRes?.rsMap?.forEach(item => {
-        console.log(100/6*item.education_complete_time)
-
         return completeWidth = item.education_complete_time/6*100;
 
       });
@@ -177,13 +174,12 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   special(state,item){
     if(state) {
       let recommendedeWidth = 0;
-      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16*100;
+      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16 * 100;
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
-      console.log("item.education_complete_time : ",item.education_complete_time);
         if(item.education_complete_time === 0) completeWidth = 0;
-        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16*100;
+        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16 * 100;
         return `width:${completeWidth}%`;
     }
   }

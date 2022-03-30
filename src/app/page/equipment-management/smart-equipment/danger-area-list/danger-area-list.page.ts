@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
+import { SearchDangerousAreaComponent } from 'src/app/component/modal/search-dangerous-area/search-dangerous-area.component';
 import { DangerAreaAddPage } from '../danger-area-add/danger-area-add.page';
 import { DangerAreaDetailSearchPage } from '../danger-area-detail-search/danger-area-detail-search.page';
 
@@ -70,6 +71,19 @@ export class DangerAreaListPage implements OnInit {
     ctgo_area_risk_name: string
   }>
 
+  riskForm ={
+    area_bottom_id:0, // 배정 장소 레벨 3 ID
+    area_middle_id:0, // 배정 장소 레벨 2 ID
+    area_risk_id:0, // 배정 위험지역 ID
+    area_top_id:0, // 배정 장소 레벨 1 ID
+    assign_user_id:0, // 배정 유저 ID
+    ctgo_machine_serial_id:0, // 장비구분 ID
+    machinery_id:0, // 배정 중장비 ID
+    serial_id:0, // 시리얼 NO ID
+    serial_use_state:false, // 사용여부
+    user_id:0 // 유저 ID
+  }
+  
     resRiskArea: ConnectResult<{
     second_user_id: number, // 관리 책임자 부
     area_risk_id: number, // 위험지역 ID
@@ -149,7 +163,11 @@ export class DangerAreaListPage implements OnInit {
 
 
   async Dangeredit(item?) {
-    this.res.rsMap.unshift(new DangerAreaInfo);
+    if(!this.res?.rsMap.length) { 
+      this.res.rsMap = [];
+    } else {
+      this.res.rsMap.unshift(new DangerAreaInfo);
+    }
     // const modal = await this.modal.create({
     //   component:DangerAreaAddPage,
     //   componentProps:{
@@ -183,13 +201,13 @@ export class DangerAreaListPage implements OnInit {
         }
       ]
     });
+    alert.present();
   }
 
-  async memberSearch(item) {
-    console.log(item);
-    // if(item.area_risk_id) return;
+  async riskAreaSearch(item) {
+    if(item.device_id) return;
     const modal = await this.modal.create({
-      component: SearchAreaComponent,
+      component: SearchDangerousAreaComponent,
       componentProps: {
         project_id: this.riskProjectForm.project_id
       }
@@ -197,17 +215,24 @@ export class DangerAreaListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
+      console.log("data",data);
       const res = this.res.rsMap;
-      for (let i = 0; i < res.length; i++) {
+      for (let i = 0; i < res?.length; i++) {
         if(!res[i].area_risk_id) {
-          item.area_top_id = data?.area1selectedItem?.area_top_id;
-          item.area_middle_id = data?.area2selectedItem?.area_middle_id;
-          item.area_bottom_id = data?.area3selectedItem?.area_bottom_id;
-          item.area_top_name = data?.area1selectedItem.area_top_name;
-          item.area_middle_name = data?.area2selectedItem?.area_middle_name;
-          item.area_bottom_name = data?.area3selectedItem?.area_bottom_name;
+          item.area_top_id = data?.area_top_id;
+          item.area_middle_id = data?.area_middle_id;
+          item.area_bottom_id = data?.area_bottom_id;
+          item.area_top_name = data?.area_top_name;
+          item.area_middle_name = data?.area_middle_name;
+          item.area_bottom_name = data?.area_bottom_name;
+          item.area_risk_name = data?.area_risk_name;
+          item.ctgo_area_risk_name = data?.ctgo_area_risk_name;
         }
       }
     }
+  }
+
+  dataChange(ev)  {
+    console.log("ev",ev);
   }
 }

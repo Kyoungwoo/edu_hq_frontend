@@ -370,7 +370,6 @@ export class AreaStandardSetPage implements OnInit {
   }
 
   addRiskArea() {
-    console.log("sadfasdf");
     this.resRiskArea.rsMap.unshift({
       second_user_id: 0, // 관리 책임자 부
       area_risk_id: 0, // 위험지역 ID
@@ -433,7 +432,7 @@ export class AreaStandardSetPage implements OnInit {
     modal.present();
   }
 
-  async memberSearch(item) {
+  async riskAreaSearch(item) {
     console.log(item);
     if(item.area_risk_id) return;
     const modal = await this.modal.create({

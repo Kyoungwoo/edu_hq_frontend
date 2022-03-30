@@ -1,51 +1,33 @@
 import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Color } from '@ionic/core';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
-
-export interface Country {
-  ctgo_country_id: number,
-  ctgo_country_name_ch: string,
-  ctgo_country_name_en: string,
-  ctgo_country_name_kr: string,
-  ctgo_country_name_vi: string
-}
+import { Color } from '@ionic/core';
 
 @Component({
-  selector: 'app-select-country',
-  templateUrl: './select-country.component.html',
-  styleUrls: ['./select-country.component.scss'],
+  selector: 'app-select-approval-type',
+  templateUrl: './select-approval-type.component.html',
+  styleUrls: ['./select-approval-type.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SelectCountryComponent),
+    useExisting: forwardRef(() => SelectApprovalTypeComponent),
     multi: true
   }]
 })
-export class SelectCountryComponent implements OnInit, ControlValueAccessor {
+export class SelectApprovalTypeComponent implements OnInit, ControlValueAccessor {
   @HostListener('click') onClick() {
     this.el.nativeElement.querySelector('[name=select]').dispatchEvent(new Event('click'));
   }
   
   @Input() color:Color;
-  @Input() label:string = "국가";
+  @Input() label:string = "전자결재 유형";
   @Input() placeholder:string = "선택";
-  
-  res:ConnectResult<Country>;
 
   constructor(
     private el: ElementRef<HTMLElement>,
-    private connect: ConnectService,
     private promise: PromiseService
   ) { }
 
-  ngOnInit() {
-    this.get();
-  }
-
-  private async get() {
-    this.res = await this.connect.run('/category/country/get');
-  }
+  ngOnInit() {}
 
   //default setting
   @HostBinding('class.readonly') get classReadonly() { return this.readonly }
@@ -55,8 +37,8 @@ export class SelectCountryComponent implements OnInit, ControlValueAccessor {
   @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:string[] = [];
+  @Input() set value(v:string[]) {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
@@ -66,7 +48,7 @@ export class SelectCountryComponent implements OnInit, ControlValueAccessor {
   get value() {
     return this._value;
   }
-  writeValue(v:string): void {
+  writeValue(v:string[]): void {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
