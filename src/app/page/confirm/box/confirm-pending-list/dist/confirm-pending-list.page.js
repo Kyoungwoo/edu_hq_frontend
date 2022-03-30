@@ -42,35 +42,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ConfirmObtainListPage = void 0;
+exports.ConfirmPendingListPage = void 0;
 var core_1 = require("@angular/core");
-var confirm_obtain_detail_search_page_1 = require("../confirm-obtain-detail-search/confirm-obtain-detail-search.page");
+var confirm_pending_detail_search_page_1 = require("../confirm-pending-detail-search/confirm-pending-detail-search.page");
 var ConfirmObtainItem = /** @class */ (function () {
     function ConfirmObtainItem() {
     }
     return ConfirmObtainItem;
 }());
-var ConfirmObtainListPage = /** @class */ (function () {
-    function ConfirmObtainListPage(_modal, user, connect, toast, date, loading, approval) {
+var ConfirmPendingListPage = /** @class */ (function () {
+    function ConfirmPendingListPage(_modal, user, connect, toast, date, approval) {
         this._modal = _modal;
         this.user = user;
         this.connect = connect;
         this.toast = toast;
         this.date = date;
-        this.loading = loading;
         this.approval = approval;
         this.form = {
-            project_id: null,
-            master_company_id: null,
-            company_id: null,
-            start_date: null,
-            end_date: null,
-            approval_cnt_answer: '전체',
-            search_text: null,
+            project_id: 0,
+            master_company_id: 0,
+            company_id: 0,
+            start_date: '',
+            end_date: '',
+            search_text: '',
             limit_no: 0 // 20개씩 가져옵니다
         };
     }
-    ConfirmObtainListPage.prototype.ngOnInit = function () {
+    ConfirmPendingListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -83,7 +81,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
             });
         });
     };
-    ConfirmObtainListPage.prototype.getForm = function () {
+    ConfirmPendingListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
             var belong_data, res, contractor;
             return __generator(this, function (_a) {
@@ -114,7 +112,6 @@ var ConfirmObtainListPage = /** @class */ (function () {
                     case 3:
                         this.form.start_date = this.date.today({ month: -1 });
                         this.form.end_date = this.date.today();
-                        this.form.approval_cnt_answer = '전체';
                         return [2 /*return*/];
                 }
             });
@@ -124,7 +121,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
      * web, mobile 둘다 검색 시작할 때는 이걸 쓴다.
      * 이유는 limit_no를 초기화할 필요성이 있기 떄문 + 1008 예외처리가 다르다.
      */
-    ConfirmObtainListPage.prototype.get = function (limit_no) {
+    ConfirmPendingListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
             var trans_form, _a;
@@ -136,7 +133,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
                         trans_form = JSON.parse(JSON.stringify(this.form));
                         trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/approval/board/my/get', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/approval/board/req/get', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
@@ -159,7 +156,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
     /**
      * 모바일 무한스크롤 시, 사용된다.
      */
-    ConfirmObtainListPage.prototype.getMobile = function ($event) {
+    ConfirmPendingListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -167,7 +164,7 @@ var ConfirmObtainListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/approval/board/my/get', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/approval/board/req/get', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -196,16 +193,16 @@ var ConfirmObtainListPage = /** @class */ (function () {
             });
         });
     };
-    ConfirmObtainListPage.prototype.detail = function (item) {
+    ConfirmPendingListPage.prototype.detail = function (item) {
         this.approval.getComponent(item.ctgo_approval_module_id, item.target_id);
     };
-    ConfirmObtainListPage.prototype.openDetailSearch = function () {
+    ConfirmPendingListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: confirm_obtain_detail_search_page_1.ConfirmObtainDetailSearchPage,
+                            component: confirm_pending_detail_search_page_1.ConfirmPendingDetailSearchPage,
                             componentProps: {
                                 form: this.form
                             }
@@ -225,13 +222,13 @@ var ConfirmObtainListPage = /** @class */ (function () {
             });
         });
     };
-    ConfirmObtainListPage = __decorate([
+    ConfirmPendingListPage = __decorate([
         core_1.Component({
-            selector: 'app-confirm-obtain-list',
-            templateUrl: './confirm-obtain-list.page.html',
-            styleUrls: ['./confirm-obtain-list.page.scss']
+            selector: 'app-confirm-pending-list',
+            templateUrl: './confirm-pending-list.page.html',
+            styleUrls: ['./confirm-pending-list.page.scss']
         })
-    ], ConfirmObtainListPage);
-    return ConfirmObtainListPage;
+    ], ConfirmPendingListPage);
+    return ConfirmPendingListPage;
 }());
-exports.ConfirmObtainListPage = ConfirmObtainListPage;
+exports.ConfirmPendingListPage = ConfirmPendingListPage;

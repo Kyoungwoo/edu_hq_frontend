@@ -10,6 +10,7 @@ import { ConfirmPendingListPage } from './confirm-pending-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ConfirmPendingDetailSearchPageModule } from '../confirm-pending-detail-search/confirm-pending-detail-search.module';
+import { WorkerMinutesEditPageModule } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ConfirmPendingDetailSearchPageModule } from '../confirm-pending-detail-
     ComponentModule,
     BasicComponentModule,
     ConfirmPendingListPageRoutingModule,
-    ConfirmPendingDetailSearchPageModule
+    ConfirmPendingDetailSearchPageModule,
+    WorkerMinutesEditPageModule
   ],
   declarations: [ConfirmPendingListPage]
 })

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 
@@ -32,6 +33,7 @@ export class ConfirmObtainDetailSearchPage implements OnInit {
   }
 
   constructor(
+    private _modal: ModalController,
     private file: FileService
   ) { }
 
@@ -40,9 +42,12 @@ export class ConfirmObtainDetailSearchPage implements OnInit {
   }
 
   reset() {
-
+    this.temptForm = this.file.clone(this.form);
   }
   search() {
-
+    const form = this.file.clone(this.temptForm);
+    this._modal.dismiss(
+      form
+    );
   }
 }

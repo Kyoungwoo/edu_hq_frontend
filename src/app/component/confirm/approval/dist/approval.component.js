@@ -128,6 +128,9 @@ var ApprovalComponent = /** @class */ (function () {
             case '결재회수':
                 this.onRecoveryClick();
                 break;
+            case '결재':
+                this.onApprovalClick();
+                break;
         }
     };
     /** 삭제버튼 클릭 */

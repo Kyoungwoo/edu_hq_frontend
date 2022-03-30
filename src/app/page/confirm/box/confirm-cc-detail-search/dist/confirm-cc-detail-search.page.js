@@ -6,10 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ConfirmObtainDetailSearchPage = void 0;
+exports.ConfirmCcDetailSearchPage = void 0;
 var core_1 = require("@angular/core");
-var ConfirmObtainDetailSearchPage = /** @class */ (function () {
-    function ConfirmObtainDetailSearchPage(_modal, file) {
+var ConfirmCcDetailSearchPage = /** @class */ (function () {
+    function ConfirmCcDetailSearchPage(_modal, file) {
         this._modal = _modal;
         this.file = file;
         this.form = {
@@ -33,26 +33,26 @@ var ConfirmObtainDetailSearchPage = /** @class */ (function () {
             limit_no: 0 // 20개씩 가져옵니다
         };
     }
-    ConfirmObtainDetailSearchPage.prototype.ngOnInit = function () {
+    ConfirmCcDetailSearchPage.prototype.ngOnInit = function () {
         this.temptForm = this.file.clone(this.form);
     };
-    ConfirmObtainDetailSearchPage.prototype.reset = function () {
+    ConfirmCcDetailSearchPage.prototype.reset = function () {
         this.temptForm = this.file.clone(this.form);
     };
-    ConfirmObtainDetailSearchPage.prototype.search = function () {
+    ConfirmCcDetailSearchPage.prototype.search = function () {
         var form = this.file.clone(this.temptForm);
         this._modal.dismiss(form);
     };
     __decorate([
         core_1.Input()
-    ], ConfirmObtainDetailSearchPage.prototype, "form");
-    ConfirmObtainDetailSearchPage = __decorate([
+    ], ConfirmCcDetailSearchPage.prototype, "form");
+    ConfirmCcDetailSearchPage = __decorate([
         core_1.Component({
-            selector: 'app-confirm-obtain-detail-search',
-            templateUrl: './confirm-obtain-detail-search.page.html',
-            styleUrls: ['./confirm-obtain-detail-search.page.scss']
+            selector: 'app-confirm-cc-detail-search',
+            templateUrl: './confirm-cc-detail-search.page.html',
+            styleUrls: ['./confirm-cc-detail-search.page.scss']
         })
-    ], ConfirmObtainDetailSearchPage);
-    return ConfirmObtainDetailSearchPage;
+    ], ConfirmCcDetailSearchPage);
+    return ConfirmCcDetailSearchPage;
 }());
-exports.ConfirmObtainDetailSearchPage = ConfirmObtainDetailSearchPage;
+exports.ConfirmCcDetailSearchPage = ConfirmCcDetailSearchPage;

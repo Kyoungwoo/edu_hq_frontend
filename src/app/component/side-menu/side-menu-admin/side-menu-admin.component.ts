@@ -47,7 +47,7 @@ export class  SideMenuAdminComponent implements OnInit {
         }
       },
       { title: '미결함', link: '/confirm-pending-list'},
-      { title: '기결함', link: '/confirm-progress-list'},
+      { title: '진행/완료/반려', link: '/confirm-progress-list'},
       { title: '참조함', link: '/confirm-cc-list'},
       { title: '전자결재 설정', 
         permission: () => {
