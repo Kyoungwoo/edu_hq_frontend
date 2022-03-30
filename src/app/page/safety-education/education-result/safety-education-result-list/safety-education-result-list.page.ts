@@ -22,12 +22,12 @@ export class SafetyEducationResultListPage implements OnInit {
     company_id:0, // 원청사명 ID
     ctgo_education_safe_id: 0, // 교육명 ID
     // end_date: this.date.today(), // 검색 신청 종료일
-    end_date: '2022-12-01', // 검색 신청 종료일
+    end_date: '2025-12-01', // 검색 신청 종료일
     limit_no: 0, // 20까지
     project_id: 0, // 현장명 ID
     search_text:'',// 검색어
     // start_date: this.date.today({date:-7}) // 검색 신청 시작일
-    start_date: '2020-01-01' // 검색 신청 시작일
+    start_date: '2019-01-01' // 검색 신청 시작일
   }
 
   res:ConnectResult<{
@@ -89,8 +89,8 @@ export class SafetyEducationResultListPage implements OnInit {
         item.create_date = `${item.create_date} (${this.date.day(item.create_date)[0]})`
       });
     } else {
-      this.res = null;
       this.toast.present({message:this.res.rsMsg,color:'warning'});
+      this.res = null;
     }
   }
   async openDetailSearch() {
