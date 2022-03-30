@@ -55,7 +55,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
   }
 
   projectRolechekc() {
-    const { user_role , belong_data} = this.user.userData
+    const { user_role , belong_data} = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||

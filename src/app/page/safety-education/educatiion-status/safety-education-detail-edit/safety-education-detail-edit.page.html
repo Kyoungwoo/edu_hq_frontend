@@ -16,7 +16,7 @@
         <app-button (click)="updateItem()" fill="translucent">수정</app-button>
       </app-col>
       <app-col *ngIf="item" size="auto">
-        <app-button (click)="deleteItem()" fill="translucent">삭제</app-button>
+        <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
       </app-col>
       <app-col size="auto">
         <app-button *ngIf="!item" fill="translucent" (click)="submit()">저장</app-button>
@@ -317,7 +317,8 @@
     </ng-container>
   </ion-content>
   <app-button-footer>
-    <app-button *ngIf="item && educationMenu" fill="translucent">수정</app-button>
+    <app-button *ngIf="item && educationMenu" (click)="updateItem()" fill="translucent">수정</app-button>
+    <app-button *ngIf="item && educationMenu" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
     <app-button *ngIf="!item" (click)="submit()">저장</app-button>
   </app-button-footer>
   <app-button-footer>

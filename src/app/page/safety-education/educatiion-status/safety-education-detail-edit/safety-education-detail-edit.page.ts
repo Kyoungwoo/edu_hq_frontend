@@ -261,10 +261,15 @@ export class SafetyEducationDetailEditPage implements OnInit {
         {text:'아니요'},
         {text:'예',
           handler:async() => {
-            
+            const res = await this.connect.run('/education/delete',{education_safe_id:this.item.education_safe_id});
+            if(res.rsCode === 0) {
+              this.toast.present({message:'삭제되었습니다.',color:'primary'});
+              this._modal.dismiss(true);
+            }
           }
         }
       ]
-    })
+    });
+    alert.present();
   }
 }

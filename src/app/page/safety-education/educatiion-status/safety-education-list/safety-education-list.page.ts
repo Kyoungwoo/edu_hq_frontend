@@ -73,7 +73,7 @@ export class SafetyEducationListPage implements OnInit {
   }
 
   projectRolechekc() {
-    const { user_role , belong_data} = this.user.userData
+    const { user_role , belong_data} = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
@@ -94,7 +94,6 @@ export class SafetyEducationListPage implements OnInit {
   
 
   async get(limit_no = this.form.limit_no) {
-    console.log("asdfasdfasfd---------------2",this.form);
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/education/list',this.form);
     if(this.res.rsCode === 0) {
@@ -114,7 +113,7 @@ export class SafetyEducationListPage implements OnInit {
       componentProps:{
         item
       }
-    })
+    });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {

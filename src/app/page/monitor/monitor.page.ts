@@ -66,8 +66,12 @@ export class MonitorPage implements OnInit, OnDestroy {
   // ]
 
   form = {
-    project_id: 1,
-    master_company_id: 4
+    project_id: 112,
+    master_company_id: 0,
+    company_id: 0, // 회사 ID
+    ctgo_construction_id: 0, // 공종 ID
+    search_text: '', // 검색어
+    user_type: '전체' // 근로자 구분 관리자 OR 작업자 OR 전체
   }
 
   todayWork:ConnectResult<TodayWorkItem>;
@@ -193,6 +197,17 @@ graphArr4 = [
 //   ]}
 // ]
 
+workerInRes:ConnectResult<{
+  ctgo_construction_id: number,
+  user_type: string,
+  company_id: number,
+  user_id: number,
+  user_name: string,
+  company_name: string,
+  ctgo_construction_name: string,
+  row_count:number
+}>
+
   data = {
     monitor:''
   };
@@ -215,13 +230,14 @@ graphArr4 = [
     // modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
-    //   component:ApprovalPopupComponent,
-    //   cssClass:"modal-7"
-    // });
-    // modal.present();
+      //   component:ApprovalPopupComponent,
+      //   cssClass:"modal-7"
+      // });
+      // modal.present();
       
-    this.intervalMethodController();
-    this.methodContrroller();
+      this.intervalMethodController();
+      this.methodContrroller();
+      this.wokerInGetList();
   }
 
   /**
@@ -477,7 +493,15 @@ graphArr4 = [
       }
     );
   }
+
+  async wokerInGetList() {
+    this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
+    if(this.workerInRes.rsCode !== 0) {
+      this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
+    }
+  }
 }
+
 
 
 
