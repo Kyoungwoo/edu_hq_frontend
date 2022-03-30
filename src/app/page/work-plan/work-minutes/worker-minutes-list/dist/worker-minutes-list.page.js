@@ -246,7 +246,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         data = (_a.sent()).data;
                         if (data) {
                             this.form = data;
-                            this.get();
+                            this.get(0);
                         }
                         return [2 /*return*/];
                 }
