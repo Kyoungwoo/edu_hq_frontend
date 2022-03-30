@@ -15,6 +15,9 @@
       <app-col *ngIf="item" size="auto">
         <app-button (click)="updateItem()" fill="translucent">수정</app-button>
       </app-col>
+      <app-col *ngIf="item" size="auto">
+        <app-button (click)="deleteItem()" fill="translucent">삭제</app-button>
+      </app-col>
       <app-col size="auto">
         <app-button *ngIf="!item" fill="translucent" (click)="submit()">저장</app-button>
       </app-col>

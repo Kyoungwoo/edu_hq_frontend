@@ -112,16 +112,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of routineRes?.rsMap">
+              <tr>
                 <td>작업자 정기교육</td>
-                <td>{{ item.education_start_term }}~{{ item.education_end_term }}</td>
-                <td>{{ item.education_remaining_date }}</td>
-                <td>{{ item.education_complete_time }}H</td>
-                <td>{{ item.education_remaining_time }}H</td>
+                <td>{{ routineRes.education_start_term }}~{{ routineRes.education_end_term }}</td>
+                <td>{{ routineRes.education_remaining_date }}</td>
+                <td>{{ routineRes.education_complete_time }}H</td>
+                <td>{{ routineRes.education_remaining_time }}H</td>
                 <td>
-                  <ion-chip *ngIf="item.routine_edu_state === '양호'" outline color="primary">양호</ion-chip>
-                  <ion-chip *ngIf="item.routine_edu_state === '필요'" outline color="warning">필요</ion-chip>
-                  <ion-chip *ngIf="item.routine_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                  <ion-chip *ngIf="routineRes.routine_edu_state === '양호'" outline color="primary">양호</ion-chip>
+                  <ion-chip *ngIf="routineRes.routine_edu_state === '필요'" outline color="warning">필요</ion-chip>
+                  <ion-chip *ngIf="routineRes.routine_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
                 </td>
               </tr>
             </tbody>
@@ -140,8 +140,12 @@
               </div>
             </div>
             <div class="grp-box">
-              <div class="grp-item-one" [style]="routine(1)"></div>
-              <div class="grp-item-two" [style]="routine(0)"></div>
+              <div class="grp-item-one" [style]="routine(1)">
+                <p class="grp-item-tiem">{{ routineRes.education_recommended_time+'H'}}</p>
+              </div>
+              <div class="grp-item-two" [style]="routine(0)">
+                <p class="grp-item-tiem">{{ routineRes.education_complete_time ? routineRes.education_complete_time+'H' : ''}}</p>
+              </div>
               <div class="grp-bottom-border"></div>
               <div class="grp-time">
                 <div class="first">
@@ -205,8 +209,12 @@
           </div>
           <app-row *ngFor="let item of specialRes?.rsMap">
             <div class="grp-box">
-              <div class="grp-item-three" [style]="special(1,item)"></div>
-              <div class="grp-item-four" [style]="special(0,item)"></div>
+              <div class="grp-item-three" [style]="special(1,item)">
+                <p class="grp-item-tiem">{{ item.education_recommended_time+'H'}}</p>
+              </div>
+              <div class="grp-item-four" [style]="special(0,item)">
+                <p class="grp-item-tiem">{{ item.education_complete_time ? item.education_complete_time+'H' : ''}}</p>
+              </div>
               <div class="grp-bottom-border"></div>
             </div>
           </app-row>
@@ -216,7 +224,7 @@
                 <div>0H</div>
               </div>
               <div class="third">
-                <div class="third-one">8H(16H)</div>
+                <div class="third-one">12H(16H)</div>
               </div>
             </div>
           </div>
@@ -225,12 +233,12 @@
     </ng-container>
     <ng-container *ngIf="!menuCount">
       <app-row>
+        <app-col></app-col>
         <app-col>
           <app-input label="검색어" name="search" [(ngModel)]="useForm.search_text" (keyup.enter)="useItem(0)" placeholder="검색어를 입력해주세요.">
             <app-img name="search" (click)="useItem(0)"></app-img>
           </app-input>
         </app-col>
-        <app-col></app-col>
       </app-row>
       <app-row>
         <app-col>

@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
   <app-select-scene [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
-  <app-select-contractor [project_id]="form.project_id" [allState]="true" [(ngModel)]="form.company_id"></app-select-contractor>
-  <app-select-education [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+  <app-select-contractor [project_id]="form.project_id || 0" [allState]="true" [(ngModel)]="form.company_id"></app-select-contractor>
+  <app-select-education [all]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
   <app-select label="결재 현황" [(ngModel)]="form.approval_cnt_answer">
     <app-select-option value="전체">전체</app-select-option>
     <app-select-option value="진행중">진행중</app-select-option>

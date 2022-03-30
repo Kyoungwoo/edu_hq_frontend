@@ -64,17 +64,8 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   res:HistoryItem = new HistoryItem();
 
   hireRes:HireItem = new HireItem();
-  routineRes:ConnectResult<{
-    education_complete_time: number;
-    ctgo_education_safe_name: string;
-    education_remaining_date: number;
-    routine_edu_state: string;
-    user_id: number;
-    education_remaining_time: number;
-    education_start_term: string;
-    education_end_term: string;
-    education_recommended_time:number;
-  }>;
+
+  routineRes:RoutineItem = new RoutineItem();
 
   specialRes:ConnectResult<{
     education_complete_time: number,
@@ -139,7 +130,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   async routineItem() {
     const res = await this.connect.run('/education/report/routine/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
-      this.routineRes = res;
+      this.routineRes = res.rsObj;
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
@@ -157,16 +148,11 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   routine(state){
     if(state) {
       let recommendedeWidth = 0;
-      this.routineRes?.rsMap?.forEach(item => {
-        return recommendedeWidth = item.education_recommended_time/6*100;
-      });
+      recommendedeWidth = 100 * this.routineRes.education_recommended_time / 6;
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
-      this.routineRes?.rsMap?.forEach(item => {
-        return completeWidth = item.education_complete_time/6*100;
-
-      });
+      completeWidth = this.routineRes.education_complete_time/6*100;
       return `width:${completeWidth}%`;
     }
   }
@@ -174,12 +160,14 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
   special(state,item){
     if(state) {
       let recommendedeWidth = 0;
-      recommendedeWidth = item.education_recommended_time/item.education_towercrane_state ? 12:16 * 100;
+      const recommAllTiem = item.education_towercrane_state ? 12:16;
+      recommendedeWidth = (100 * item.education_recommended_time) / recommAllTiem;
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
+      const towercraneAllTiem = item.education_towercrane_state ? 12:16;
         if(item.education_complete_time === 0) completeWidth = 0;
-        else completeWidth = item.education_complete_time/item.education_towercrane_state ? 12:16 * 100;
+        else completeWidth = 100 * item.education_complete_time/towercraneAllTiem;
         return `width:${completeWidth}%`;
     }
   }
@@ -195,6 +183,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
       });
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
+      this.useRes = null;
     }
   }
 }

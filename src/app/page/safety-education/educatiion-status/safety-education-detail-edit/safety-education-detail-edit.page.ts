@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular'
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -251,5 +252,19 @@ export class SafetyEducationDetailEditPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  async deleteItem() {
+    const alert = await this.alert.present({
+      message:'삭제하시겠습니까?',
+      buttons:[
+        {text:'아니요'},
+        {text:'예',
+          handler:async() => {
+            
+          }
+        }
+      ]
+    })
   }
 }

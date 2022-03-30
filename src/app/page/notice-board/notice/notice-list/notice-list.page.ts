@@ -53,6 +53,9 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    if(this.user.userData.user_role === 'LH_HEAD') { 
+      this.form.project_id = 0;
+    }
     this.get();
   }
   public async getMobile($event) {
