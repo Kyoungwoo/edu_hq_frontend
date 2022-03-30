@@ -9,7 +9,7 @@ import { MinutesListPageRoutingModule } from './minutes-list-routing.module';
 import { MinutesListPage } from './minutes-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { MinutesSearchPageModule } from '../minutes-search/minutes-search.module';
-import { MinutesEditPageModule } from '../minutes-edit/minutes-edit.module';
+import { WorkerMinutesEditPageModule } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { MinutesEditPageModule } from '../minutes-edit/minutes-edit.module';
     ComponentModule,
     MinutesListPageRoutingModule,
     MinutesSearchPageModule,
-    MinutesEditPageModule
+    WorkerMinutesEditPageModule
   ],
   declarations: [MinutesListPage]
 })

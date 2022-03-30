@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.MinutesListPage = void 0;
 var core_1 = require("@angular/core");
-var minutes_edit_page_1 = require("../minutes-edit/minutes-edit.page");
+var worker_minutes_edit_page_1 = require("src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.page");
 var minutes_search_page_1 = require("../minutes-search/minutes-search.page");
 var MinutesListPage = /** @class */ (function () {
     function MinutesListPage(modal, connect, date, toast, user) {
@@ -221,7 +221,7 @@ var MinutesListPage = /** @class */ (function () {
                         data = (_a.sent()).data;
                         if (data) {
                             this.form = data;
-                            this.get();
+                            this.get(0);
                         }
                         return [2 /*return*/];
                 }
@@ -234,9 +234,9 @@ var MinutesListPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.modal.create({
-                            component: minutes_edit_page_1.MinutesEditPage,
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
                             componentProps: {
-                                item: item
+                                safety_meeting_id: item.safety_meeting_id
                             }
                         })];
                     case 1:

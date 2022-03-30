@@ -4,8 +4,8 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { WorkerMinutesEditPage } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.page';
 import { SafetyMeetingInfo } from 'src/app/page/work-plan/work-minutes/worker-minutes-list/worker-minutes-list.page';
-import { MinutesEditPage } from '../minutes-edit/minutes-edit.page';
 import { MinutesSearchPage } from '../minutes-search/minutes-search.page';
 
 @Component({
@@ -154,15 +154,15 @@ export class MinutesListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.form = data;
-      this.get();
+      this.get(0);
     }
   }
 
   async edit(item) {
     const modal = await this.modal.create({
-      component: MinutesEditPage,
+      component: WorkerMinutesEditPage,
       componentProps:{
-        item:item
+        safety_meeting_id: item.safety_meeting_id
       }
     });
     modal.present();

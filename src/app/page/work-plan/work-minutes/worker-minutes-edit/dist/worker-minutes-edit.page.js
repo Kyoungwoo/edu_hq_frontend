@@ -57,14 +57,12 @@ exports.WorkerMinutesEditPage = void 0;
 var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
 var WorkerMinutesEditPage = /** @class */ (function () {
-    function WorkerMinutesEditPage(alert, user, connect, toast, modal, loading, file, date) {
-        this.alert = alert;
+    function WorkerMinutesEditPage(user, connect, toast, modal, loading, date) {
         this.user = user;
         this.connect = connect;
         this.toast = toast;
         this.modal = modal;
         this.loading = loading;
-        this.file = file;
         this.date = date;
         this.form = {
             project_id: null,
@@ -87,6 +85,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             // 수정시 정보
             approval_id: null,
             safety_meeting_id: null // 회의록 ID
+        };
+        this.permission = {
+            edit: false
         };
     }
     WorkerMinutesEditPage.prototype.ngOnInit = function () {
@@ -396,6 +397,18 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * 결재 상태가 변할 때 행동
+     */
+    WorkerMinutesEditPage.prototype.onApprovalChange = function (ev) {
+        console.log(ev);
+        if (ev.btnList.includes('임시저장')) {
+            this.permission.edit = true;
+        }
+        else {
+            this.permission.edit = false;
+        }
     };
     __decorate([
         core_1.Input()

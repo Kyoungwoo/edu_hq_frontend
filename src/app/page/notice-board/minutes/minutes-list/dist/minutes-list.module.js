@@ -15,7 +15,7 @@ var minutes_list_routing_module_1 = require("./minutes-list-routing.module");
 var minutes_list_page_1 = require("./minutes-list.page");
 var component_module_1 = require("src/app/component/component.module");
 var minutes_search_module_1 = require("../minutes-search/minutes-search.module");
-var minutes_edit_module_1 = require("../minutes-edit/minutes-edit.module");
+var worker_minutes_edit_module_1 = require("src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module");
 var MinutesListPageModule = /** @class */ (function () {
     function MinutesListPageModule() {
     }
@@ -28,7 +28,7 @@ var MinutesListPageModule = /** @class */ (function () {
                 component_module_1.ComponentModule,
                 minutes_list_routing_module_1.MinutesListPageRoutingModule,
                 minutes_search_module_1.MinutesSearchPageModule,
-                minutes_edit_module_1.MinutesEditPageModule
+                worker_minutes_edit_module_1.WorkerMinutesEditPageModule
             ],
             declarations: [minutes_list_page_1.MinutesListPage]
         })

@@ -51,14 +51,16 @@ export class WorkerMinutesEditPage implements OnInit {
     safety_meeting_id: null // 회의록 ID
   }
 
+  permission = {
+    edit: false
+  }
+
   constructor(
-    private alert: AlertService,
     public user: UserService,
     private connect: ConnectService,
     private toast: ToastService,
     private modal: ModalController,
     private loading: LoadingService,
-    private file: FileService,
     private date: DateService
   ) { }
 
@@ -290,6 +292,19 @@ export class WorkerMinutesEditPage implements OnInit {
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+    }
+  }
+
+  /**
+   * 결재 상태가 변할 때 행동
+   */
+  onApprovalChange(ev:ApprovalBtnClickEvent) {
+    console.log(ev);
+    if(ev.btnList.includes('임시저장')) {
+      this.permission.edit = true;
+    }
+    else {
+      this.permission.edit = false;
     }
   }
 }
