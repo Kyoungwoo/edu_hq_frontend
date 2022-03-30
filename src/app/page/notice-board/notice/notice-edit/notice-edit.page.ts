@@ -58,10 +58,13 @@ export class NoticeEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private date: DateService,
-    private alert:AlertService,
+    private alert: AlertService,
   ) { }
 
   ngOnInit() {
+    if(this.user.userData.belong_data.company_contract_type === 'LH') { 
+      this.form.project_id = 0;
+    }
     this.getPermission();
     if(this.item?.notice_id) {
       this.title = '상세';

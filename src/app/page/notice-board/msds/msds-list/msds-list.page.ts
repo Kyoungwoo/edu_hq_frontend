@@ -63,7 +63,9 @@ export class MsdsListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-
+    if(this.user.userData.belong_data.company_contract_type === 'LH' || this.user.userData.belong_data.company_contract_type === '감리사') { 
+      this.form.project_id = 0;
+    }
     this.get();
   }
 
