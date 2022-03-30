@@ -118,7 +118,10 @@ export class SerialNoListPage implements OnInit {
     const res = await this.connect.run(method, this.form,{parse: ['user_data']});
     if(res.rsCode === 0 ) {
       this.resetState();
-      this.res = res;
+      this.res = {
+        ...this.res,
+        ...res
+      };
       this.res_original = JSON.parse(JSON.stringify(res.rsMap));
       this.res.rsMap.map((item, i) => {item.index = res.rsObj.row_count -i;});
     }
