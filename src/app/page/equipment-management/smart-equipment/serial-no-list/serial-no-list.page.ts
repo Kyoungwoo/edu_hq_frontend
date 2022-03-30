@@ -117,6 +117,7 @@ export class SerialNoListPage implements OnInit {
     let method = await this.TransSearialType();
     const res = await this.connect.run(method, this.form,{parse: ['user_data']});
     if(res.rsCode === 0 ) {
+      this.resetState();
       this.res = res;
       this.res_original = JSON.parse(JSON.stringify(res.rsMap));
       this.res.rsMap.map((item, i) => {item.index = res.rsObj.row_count -i;});
@@ -127,6 +128,15 @@ export class SerialNoListPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+  }
+
+  /**
+   * @function resetState(): 선택리스트, 추가리스트, 업데이트 실행여부 등 스테이터스 초기화
+   */
+  resetState(){
+    this.selectedList = [];
+    this.res_insert = [];
+    this.update_state = false;
   }
 
   /**
@@ -205,7 +215,6 @@ export class SerialNoListPage implements OnInit {
               insert_item.map((item) => {if(this.res_insert.indexOf(item) != -1) this.res_insert.splice(this.res_insert.indexOf(item),1);});
             }
 
-            console.log("delete ------ ", update_item);
             // update item이 있으면 삭제
             if(update_item.length){
               const res = await this.connect.run('/serial/delete', {
@@ -247,19 +256,18 @@ export class SerialNoListPage implements OnInit {
 
               if(case_1) return this.toast.present({ color: 'warning', message: '원청사를 선택해주세요.' });
               if(case_2) return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
-
+              console.log(this.res_insert);
               // 예외처리 후 하나씩 리스트에 추가해준다. - 모든 api가 호출될때까지 기다린다
               const insert_promise = Promise.all(this.res_insert.map(async(item) => { return await this.SearialSaveMethod(item, 'insert')}));
               
-              // 추가 리스트 초기화
-              insert_promise.then(() => {
-                this.res_insert = [];
-              });
+              // 추가할 아이템만 있을경우 실행
+              insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
             }
 
             // 수정된 아이템 찾기
             let changeed_itemIndex = [];
             if(this.res){
+              console.log(this.res);
               for(let i = 0; i < this.res.rsMap.length; i++){
                 if(
                   this.res.rsMap[i].master_company_id != this.res_original[i].master_company_id ||
@@ -278,10 +286,7 @@ export class SerialNoListPage implements OnInit {
               const update_promise = Promise.all(changeed_itemIndex.map(async(item) => { return await this.SearialSaveMethod(item, 'update')}));
               
               // 모든 api를 호출 후 리스트 다시 갱신
-              update_promise.then(() => {
-                this.update_state = false;
-                this.getList();
-              });
+              update_promise.then(() => {this.getList();});
             }
             await loadingCus.dismiss();
           }
