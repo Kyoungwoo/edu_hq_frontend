@@ -55,7 +55,6 @@ var ApprovalService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log(ctgo_approval_module_id);
                         _a = ctgo_approval_module_id;
                         switch (_a) {
                             case 1: return [3 /*break*/, 1];

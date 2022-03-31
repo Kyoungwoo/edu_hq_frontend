@@ -12,7 +12,6 @@ export class ApprovalService {
   ) { }
 
   async getComponent(ctgo_approval_module_id, target_id) {
-    console.log(ctgo_approval_module_id);
     switch(ctgo_approval_module_id) {
       case 1: // 교육 결과 보고서 (채용시)
         return '';
