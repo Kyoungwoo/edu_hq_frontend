@@ -873,17 +873,39 @@
   </app-row>
 </ng-container>
 
+<app-card>
+  <app-row>
+    <app-col>
+      <h5>SOS요청</h5>
+    </app-col>
+    <app-col size="auto">
+      <app-dismiss-button slot="end"></app-dismiss-button>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <p>구일종합건설㈜</p>
+      <p>홍길동</p>
+      <p>장소: 000</p>
+      <p>위험지역명: @@@</p> 
+    </app-col>
+  </app-row>
+</app-card>
+
+<div>
+  <p>dddfdf</p>
+</div>
 
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
       <app-card>
         <app-row style="align-items: flex-start;">
           <app-col>
-            <app-naver-map ></app-naver-map>
+            <app-naver-map [gps_log_id]="gps_log_id" [(ngModel)]="gps_log_data"></app-naver-map>
           </app-col>
           <app-col size="4">
             <ion-toolbar color="light">
-              <h5>GPS 목록 (총{{ this.workerInRes.rsObj.row_count || 0}}건)</h5>
+              <h5>출역한 근로자 목록 (총{{ this.workerInRes?.rsObj?.row_count || 0}}건)</h5>
             </ion-toolbar>
             <app-table>
               <thead>
@@ -894,11 +916,13 @@
                   <th>근로자 구분</th>
                 </tr>
               </thead>
-              <tbody *ngFor="let item of workerInRes?.rsMap">
-                <td>{{ item.company_name }}</td>
-                <td>{{ item.user_name }}</td>
-                <td>{{ item.ctgo_construction_name }}</td>
-                <td>{{ item.user_type }}</td>
+              <tbody>
+                <tr *ngFor="let item of workerInRes?.rsMap">
+                  <td>{{ item.company_name }}</td>
+                  <td>{{ item.user_name }}</td>
+                  <td>{{ item.ctgo_construction_name }}</td>
+                  <td>{{ item.user_type }}</td>
+                </tr>
               </tbody>
             </app-table>
           </app-col>

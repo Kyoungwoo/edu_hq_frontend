@@ -16,6 +16,7 @@ import { MileagePopupComponent } from '../member-management/member-management/mi
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmSettingPopupComponent } from 'src/app/component/confirm/confirm-setting-popup/confirm-setting-popup.component';
 import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
+import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 
 /**
  * @class TodayConstructionItem
@@ -66,8 +67,8 @@ export class MonitorPage implements OnInit, OnDestroy {
   // ]
 
   form = {
-    project_id: 112,
-    master_company_id: 0,
+    project_id: 1,
+    master_company_id: 4,
     company_id: 0, // 회사 ID
     ctgo_construction_id: 0, // 공종 ID
     search_text: '', // 검색어
@@ -208,9 +209,30 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
+gpsData:ConnectResult<{
+  area_risk_id: number,
+  gps_id: number,
+  user_id: number,
+  gps_log_id: number,
+  area_top_id: number,
+  area_middle_id: number,
+  area_bottom_id: number,
+  area_state: string,
+  user_longitude:number, //127.1066064454459,
+  user_latitude:number //37.404375691550484
+}>;
+
+gps_log_id = [];
+gps_log_data = new GpsCoordinateData();
+// testData = {
+//   gps_latitude:[127.105399,127.2715984,127.1809612], // x, 위도
+//   gps_longitude:[37.3595704,37.5398721,37.5660017]// y, 경도
+// }
+
   data = {
     monitor:''
   };
+
   query:any;
   constructor(
     private connect:ConnectService,
@@ -234,7 +256,7 @@ workerInRes:ConnectResult<{
       //   cssClass:"modal-7"
       // });
       // modal.present();
-      
+      this.gpsGet();
       this.intervalMethodController();
       this.methodContrroller();
       this.wokerInGetList();
@@ -496,8 +518,23 @@ workerInRes:ConnectResult<{
 
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
+    console.log("this.workerInRes",this.workerInRes);
     if(this.workerInRes.rsCode !== 0) {
       this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
+    }
+  }
+
+
+  async gpsGet() {
+    this.gpsData = await this.connect.run('/integrated/gps/log',this.form);
+    if(this.gpsData.rsCode === 0) {
+      this.gpsData.rsMap.forEach(item => {
+        this.gps_log_data.gps_latitude.push(item.user_latitude);
+        this.gps_log_data.gps_longitude.push(item.user_longitude);
+        this.gps_log_id.push(item.gps_log_id);
+      });
+    } else {
+      this.toast.present({message:this.gpsData.rsMsg, color:'warning'});
     }
   }
 }
