@@ -3,7 +3,11 @@
         cursor: pointer;
     }
     h5{
-        color: var(--ion-color-primary);
+        color: var(--ion-color-fourth);
+    }
+    h6{
+        color: var(--ion-color-fourth);
+        font-weight: bold;
     }
 }
 .button-edit{
@@ -33,15 +37,14 @@
 .card-flex { 
     height: 100%;
     ion-card-content{
-        background-color: red;
         height: 100% ;
         display: flex;
         flex-direction: column;
     }
 }
-.sub-content{
-    color: var(--ion-color-primary);
-}
 .wheather-addr{
     color: var(--ion-color-primary);
+}
+.card-warning{
+    background-color: var(--ion-color-warning-tint);
 }
