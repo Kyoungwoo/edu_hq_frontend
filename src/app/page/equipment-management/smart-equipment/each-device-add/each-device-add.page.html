@@ -7,57 +7,29 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <ion-buttons>
-      <ion-segment color="primary">
-        <ion-segment-button>헬스케어밴드</ion-segment-button>
-        <ion-segment-button>안전고리</ion-segment-button>
+      <ion-segment color="primary" [(ngModel)]="item.ctgo_machine_serial_id">
+        <ion-segment-button *ngFor="let data of ctgo" [value]="data.ctgo_machine_serial_id">{{ data.ctgo_machine_serial_name }}</ion-segment-button>
       </ion-segment>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-people label="성명"></app-select-people>
- <app-select-serial-number label="시리얼No."></app-select-serial-number>
+  <app-select-people-all label="성명" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
+ <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
   <ng-container>
     <h5>디바이스 등록 현황</h5>
-    <app-card>
+    <app-card *ngFor="let data of list">
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 헬스케어밴드</p>
-          <p>시리얼 No. : A0001</p>
-          <p>사용여부 : Y</p>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 헬스케어밴드</p>
-          <p>시리얼 No. : A0001</p>
-          <p>사용여부 : Y</p>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 헬스케어밴드</p>
-          <p>시리얼 No. : A0001</p>
-          <p>사용여부 : Y</p>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 헬스케어밴드</p>
-          <p>시리얼 No. : A0001</p>
-          <p>사용여부 : Y</p>
+          <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
+          <p>시리얼 No. : {{ data.searial_no }}</p>
+          <p>사용여부 : {{ data.serial_use_state ? 'Y' : 'N' }}</p>
         </app-col>
       </app-row>
     </app-card>
   </ng-container>
 </ion-content>
 <app-button-footer>
-  <app-button>저장</app-button>
+  <app-button (click)="select()">저장</app-button>
 </app-button-footer>
 

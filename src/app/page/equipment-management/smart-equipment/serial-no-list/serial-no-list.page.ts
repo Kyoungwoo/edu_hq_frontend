@@ -95,14 +95,14 @@ export class SerialNoListPage implements OnInit {
 
 
   ngOnInit() {
-    this.get();
+    setTimeout(() => {
+      this.get();
+    }, 300);
   }
 
   async get(){
     await this.getSearialCtgo();
     await this.getList();
-    this.update_state = false;
-    this.selectedList = [];
   }
 
   ChangeSearialType(ev){
@@ -117,7 +117,6 @@ export class SerialNoListPage implements OnInit {
     let method = await this.TransMethodType();
     const res = await this.connect.run(method, this.form,{parse: ['user_data']});
     if(res.rsCode === 0 ) {
-      this.resetState();
       this.res = {
         ...this.res,
         ...res
@@ -131,6 +130,7 @@ export class SerialNoListPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+    this.resetState();
   }
 
   /**

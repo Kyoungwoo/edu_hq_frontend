@@ -14,11 +14,11 @@ class SmartInfo {
   partner_company_name:string;
   device_id:number;
   serial_type:string;
-  user_name:string;
+  assign_user_name:string;
   ctgo_machine_serial_name:string;
   master_company_name:string;
   update_date:string;
-  user_id:number;
+  assign_user_id:number;
   partner_company_id:number;
   serial_id:number;
   master_company_id:number;
@@ -41,7 +41,8 @@ class SmartInfoInsertItem {
   // machinery_id: number = 0;
   serial_id: number = 0;
   serial_use_state: number = 0;
-  user_id: number = 0;
+  assign_user_id: number = 0;
+  assign_user_name:string = '';
   serial_no:string = '';
 }
 
@@ -102,19 +103,14 @@ export class EachDeviceListPage implements OnInit {
 
 
   ngOnInit() {
-    this.get();
+    setTimeout(() => {
+      this.get();
+    }, 300);
   }
 
   async get(){
     await this.getSmartCtgo();
     await this.getList();
-    this.update_state = false;
-    this.selectedList = [];
-  }
-
-  ChangeSearialType(ev){
-    console.log('ChangeSearialType - ', ev);
-    this.get();
   }
   
   /**
@@ -125,7 +121,6 @@ export class EachDeviceListPage implements OnInit {
     // ,{parse: ['user_data']}
     const res = await this.connect.run(method, this.form);
     if(res.rsCode === 0 ) {
-      this.resetState();
       this.res = {
         ...this.res,
         ...res
@@ -139,6 +134,7 @@ export class EachDeviceListPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+    this.resetState();
   }
 
   /**
@@ -255,7 +251,7 @@ export class EachDeviceListPage implements OnInit {
               this.res_insert.map((item, index) => {
                 if(!item.ctgo_machine_serial_id) case_1 = true;
                 if(!item.serial_id) case_2 = true;
-                if(!item.user_id) case_3 = true;
+                if(!item.assign_user_id) case_3 = true;
               });
 
               if(case_1){
@@ -284,12 +280,11 @@ export class EachDeviceListPage implements OnInit {
               console.log(this.res);
               for(let i = 0; i < this.res.rsMap.length; i++){
                 if(
-                  this.res.rsMap[i].master_company_id != this.res_original[i].master_company_id ||
-                  this.res.rsMap[i].ctgo_machine_serial_id != this.res_original[i].ctgo_machine_serial_id ||
-                  // this.res.rsMap[i].serial_bicon != this.res_original[i].serial_bicon ||
-                  // this.res.rsMap[i].serial_nfc != this.res_original[i].serial_nfc ||
-                  // this.res.rsMap[i].serial_value != this.res_original[i].serial_value ||
-                  this.res.rsMap[i].serial_use_state != this.res_original[i].serial_use_state
+                  this.res.rsMap[i].ctgo_machine_serial_id !== this.res_original[i].ctgo_machine_serial_id ||
+                  this.res.rsMap[i].serial_id !== this.res_original[i].serial_id ||
+                  this.res.rsMap[i].assign_user_id !== this.res_original[i].assign_user_id ||
+                  this.res.rsMap[i].return_state !== this.res_original[i].return_state ||
+                  this.res.rsMap[i].serial_use_state !== this.res_original[i].serial_use_state
                   ) changeed_itemIndex.push(this.res.rsMap[i]);
               }
             }
@@ -338,7 +333,19 @@ export class EachDeviceListPage implements OnInit {
   async edit() {
     const modal = await this.modal.create({
       component:EachDeviceAddPage,
+      componentProps: {
+        form: this.form,
+        item: new SmartInfoInsertItem(),
+        list: this.res_original,
+        ctgo: this.smart_ctgo_list
+      }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data){
+      this.res_insert.push(<SmartInfo>data.item);
+      this.SmartSave();
+    }
+    
   }
 }

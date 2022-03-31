@@ -110,7 +110,7 @@
               <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_nfc"></app-input></td>
               <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_value"></app-input></td>
               <td>
-                <app-select [(ngModel)]="item.serial_use_state">
+                <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
                   <app-select-option [value]="1">Y</app-select-option>
                   <app-select-option [value]="0">N</app-select-option>
                 </app-select>

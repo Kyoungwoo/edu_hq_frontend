@@ -42,6 +42,7 @@ export class SearchSerialNumberComponent implements OnInit {
 
   ngOnInit() {
     this.getSerial();
+    this.getSmartCtgo();
   }
 
   async getSerial() {

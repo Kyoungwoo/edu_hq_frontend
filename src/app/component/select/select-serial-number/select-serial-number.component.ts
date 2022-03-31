@@ -24,7 +24,6 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
 
   @Input() color:Color;
   @Input() label:string = "시리얼No.";
-  @Input() name:string = "";
   @Input() serial_type: '전체' | '개인' | '중장비' | '위험지역' = "전체";
   @Input() project_id:number = 0;
   @Input() master_company_id:number = 0;
@@ -32,7 +31,7 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
   @Input() required:boolean = false;
   @Input() all:boolean = false; // 전체 현장 노출 여부
 
-  text:string = '';
+  @Input() text:string = '';
 
   isModalData:boolean = false;
 
@@ -54,8 +53,6 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
     }
 
     if(!this.value) return;
-
-    this.text = this.name;
     
     // const res = await this.connect.run('/forSignUp/project/id/get', {
     //   project_id: this.value
