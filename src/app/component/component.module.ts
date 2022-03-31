@@ -1,5 +1,3 @@
-import { SearchContractorCompanyComponent } from './modal/search-contractor-company/search-contractor-company.component';
-import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -64,6 +62,11 @@ import { ApprovalComponent } from './confirm/approval/approval.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { SelectApprovalTypeComponent } from './select/select-approval-type/select-approval-type.component';
 
+import { SearchPeopleAllComponent } from './modal/search-people-all/search-people-all.component';
+import { SelectPeopleAllComponent } from './select/select-people-all/select-people-all.component';
+import { SearchContractorCompanyComponent } from './modal/search-contractor-company/search-contractor-company.component';
+import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
+
 
 
 
@@ -94,6 +97,7 @@ import { SelectApprovalTypeComponent } from './select/select-approval-type/selec
     SearchAreaComponent,
     SearchProjectContractorComponent,
     SearchContractorCompanyComponent,
+    SearchPeopleAllComponent,
     // select
     SelectApprovalModuleComponent,
     SelectApprovalTypeComponent,
@@ -130,7 +134,8 @@ import { SelectApprovalTypeComponent } from './select/select-approval-type/selec
     ProjectAreaSetComponent,
     SelectSupervisionComponent,
     SelectProjectContractorComponent,
-    SelectContractorCompanyComponent
+    SelectContractorCompanyComponent,
+    SelectPeopleAllComponent,
   ],
   imports: [
     CommonModule,
@@ -162,6 +167,7 @@ import { SelectApprovalTypeComponent } from './select/select-approval-type/selec
     SearchConstructionMachineryComponent,
     SearchEducationComponent,
     SearchContractorCompanyComponent,
+    SearchPeopleAllComponent,
     // select
     SelectApprovalModuleComponent,
     SelectApprovalTypeComponent,
@@ -203,7 +209,8 @@ import { SelectApprovalTypeComponent } from './select/select-approval-type/selec
     SelectSupervisionComponent,
     SelectProjectContractorComponent,
     SearchProjectContractorComponent,
-    SelectContractorCompanyComponent
+    SelectContractorCompanyComponent,
+    SelectPeopleAllComponent
   ],
   providers:[
     SelectCompanyComponent

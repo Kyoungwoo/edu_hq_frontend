@@ -74,10 +74,10 @@
               <tr>
                 <th style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>장비구분</th>
-                <th>시리얼 No.</th>
+                <th width="100px">시리얼 No.</th>
                 <th>원청사명</th>
                 <th>업체명</th>
-                <th>성명</th>
+                <th width="100px">성명</th>
                 <th>배정일시</th>
                 <th>반납</th>
                 <th>반납일시</th>
@@ -93,45 +93,55 @@
                   </app-select>
                 </td>
                 <td>
-                  <app-select-serial-number [name]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
-                  <!-- <app-button fill="translucent" size="small">
-                    <app-img name="search"></app-img>
-                  </app-button> -->
-                  <!-- @Input() name:string = "";
-                  @Input() serial_type: '전체' | '개인' | '중장비' | '위험지역' = "전체";
-                  @Input() project_id:number = 0;
-                  @Input() master_company_id:number = 0; -->
+                  <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [name]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
                 </td>
                 <td class="center-class"> - </td>
                 <td class="center-class"> - </td>
                 <td>
-                  <app-select-people label=""></app-select-people>
-                  <!-- <app-button fill="translucent" size="small">
-                    <app-img name="search"></app-img>
-                  </app-button> -->
+                  <app-select-people-all label="" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
                 </td>
                 <td class="center-class"> - </td>
                 <td class="center-class"> - </td>
                 <td class="center-class"> - </td>
                 <td>
-                  <app-select value="Y">
-                    <app-select-option value="Y">Y</app-select-option>
-                    <app-select-option value="N">N</app-select-option>
+                  <app-select [(ngModel)]="item.serial_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
                   </app-select>
                 </td>
               </tr>
   
-              <tr class="button">
-                <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
-                <td>출석용 NFC</td>
-                <td>C0005</td>
-                <td>극동건설(주)</td>
-                <td>협력사4</td>
-                <td>김소현</td>
-                <td>2021.09.16 10:22:13</td>
-                <td>Y</td>
-                <td>2021.10.16 10:22:13</td>
-                <td>Y</td>
+              <tr *ngFor="let item of res?.rsMap">
+                <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+                <td>
+                  <app-select label="" [disabled]="!update_state" [(ngModel)]="item.ctgo_machine_serial_id">
+                    <app-select-option *ngFor="let ctgo of smart_ctgo_list" [value]="ctgo.ctgo_machine_serial_id">{{ ctgo.ctgo_machine_serial_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td [class.center-class]="!item.serial_id">
+                  <app-select-serial-number *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                  {{ item.serial_id ? '' : ' - ' }}
+                </td>
+                <td [class.center-class]="!item.master_company_id">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <td [class.center-class]="!item.partner_company_id">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
+                <td [class.center-class]="!item.assign_user_id">
+                  <app-select-people-all *ngIf="item.assign_user_id || update_state" [disabled]="!update_state" label="" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
+                  {{ item.assign_user_name ? '' : ' - ' }}
+                </td>
+                <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
+                <td>
+                  <app-select label="" [disabled]="!update_state" [(ngModel)]="item.return_state">
+                    <app-select-option [value]="1">반납</app-select-option>
+                    <app-select-option [value]="0">사용 중</app-select-option>
+                  </app-select>
+                </td>
+                <td [class.center-class]="!item.return_date">{{ item.return_date ? item.return_date : ' - ' }}</td>
+                <td>
+                  <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
               </tr>
             </tbody>
           </app-table>
@@ -168,24 +178,24 @@
   </ion-header>
   <ion-content>
     <ng-container>
-      <app-card *ngFor="let item of [1,2,3,4]">
+      <app-card *ngFor="let item of res?.rsMap">
         <app-row style="align-items: flex-start;">
           <app-col>
-            <p>구일종합건설(주)/박소현/A001</p>
-            <p>배정일: 2021.10.18</p>
+            <p>{{ item.partner_company_name }}/{{ item.assign_user_name }}/{{ item.serial_no }}</p>
+            <p>배정일: {{ item.create_date }}</p>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="primary">반납</ion-chip>
+            <ion-chip [color]="item.return_state ? 'primary' : 'danger'">{{ item.return_state ? '반납' : '사용 중' }}</ion-chip>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <ion-badge color="success">안전관리</ion-badge>
-            <ion-badge color="medium">작업자</ion-badge>
+            <ion-badge color="success">{{ item.ctgo_machine_serial_name }}</ion-badge>
+            <!-- <ion-badge color="medium">{{ item. }}</ion-badge> -->
           </app-col>
         </app-row>
       </app-card>
-      <app-card *ngFor="let item of [1,2,3,4]">
+      <!-- <app-card *ngFor="let item of [1,2,3,4]">
         <app-row style="align-items: flex-start;">
           <app-col>
             <p>구일종합건설(주)/박소현/A001</p>
@@ -201,7 +211,7 @@
           <app-col size="auto">
           </app-col>
         </app-row>
-      </app-card>
+      </app-card> -->
     </ng-container>
   </ion-content>
   <app-button-footer>
