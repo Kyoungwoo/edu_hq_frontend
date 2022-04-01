@@ -6,11 +6,11 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-main-admin',
-  templateUrl: './main-admin.page.html',
-  styleUrls: ['./main-admin.page.scss'],
+  selector: 'app-main-sub-admin',
+  templateUrl: './main-sub-admin.page.html',
+  styleUrls: ['./main-sub-admin.page.scss'],
 })
-export class MainAdminPage implements OnInit {
+export class MainSubAdminPage implements OnInit {
 
   weather: any = {
     weather_speed: "", // 풍속,
@@ -104,11 +104,23 @@ export class MainAdminPage implements OnInit {
           header: '준비중'
         });
         break;
+      case '알림함':
+        this.nav.navigateRoot('/notify-list');
+        break;
+      case '교육결과보고':
+        this.nav.navigateRoot('/safety-education-result-list');
+        break;
+      case '위험성평가':
+        this.nav.navigateRoot('/risk-list');
+        break;
       case '미결함':
         this.nav.navigateRoot('/confirm-pending-list');
         break;
-      case '알림함':
-        this.nav.navigateRoot('/notify-list');
+      case '출역현황':
+        this.nav.navigateRoot('/confirm-pending-list');
+        break;
+      case 'MSDS':
+        this.nav.navigateRoot('/msds-list');
         break;
       case '공지사항':
         this.nav.navigateRoot('/notice-list');
@@ -125,15 +137,12 @@ export class MainAdminPage implements OnInit {
       case '개인정보처리방침':
         this.nav.navigateRoot('/privacy');
         break;
-      case '교육이력':
+      case '교육현황':
         this.nav.navigateRoot('/safety-education-list');
         break;
-      case '위험성평가':
-        this.nav.navigateRoot('/risk-list');
-        break;
-      case '마이페이지':
-        this.nav.navigateRoot('/my-page');
-        break;
+        case '마이페이지':
+          this.nav.navigateRoot('/my-page');
+          break;
     }
   }
 }

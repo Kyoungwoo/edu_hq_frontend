@@ -67,7 +67,6 @@ export class SafetyEducationResultListPage implements OnInit {
     private user: UserService,
     private toast: ToastService,
     private promise: PromiseService
-
   ) { }
 
   async ngOnInit() { 

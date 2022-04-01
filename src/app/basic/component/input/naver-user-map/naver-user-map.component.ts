@@ -80,28 +80,25 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       }, 20);
     });
   }
+
   private userMarker(coord, item, i) {
     console.log("item : ", item);
+
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
-      draggable: true,
+      draggable: false,
       icon:{
-        url:'../../../assets/img/logo.svg',
-        size: { width: 230, height: 250 }
+        url:item.area_state === '일반' ? '../../../assets/img/main/gps.svg' :  '../../../assets/img/main/gps-danger.svg'
       }
     });
     this.marker.push(marker);
-
-    console.log("marker.position : ", marker.position);
-
-    this.marker.push(marker);
     console.log("this.infoMarker", this.marker);
     let infoWindowElement;
-    if(item.area_risk_name) {
+    if(item.area_state === '일반') {
       infoWindowElement = (
         `<div class="iw_inner">
-            <h5>SOS 요청</h5>
+            <h5 style="text-align:center">SOS 요청</h5>
             <p>${item.company_name}</p>
             <p>${item.user_name}</p>
             <p>장소 : ${item.area_name ? item.area_name:''}</p>
@@ -116,7 +113,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
             <p>${item.company_name}</p>
             <p>${item.user_name}</p>
             <p>장소 : ${item.area_name ? item.area_name:''}</p>
-            <p>위험지역명${item.area_risk_name.toString()}</p>
+            <p>위험지역명${item.area_risk_name?.toString()}</p>
          </div>
         `
       );
@@ -126,32 +123,40 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       content: infoWindowElement,
       maxWidth: 120,
       maxHeight: 100,
-      disableAnchor:true,
-      
-      // pixelOffset: new naver.window.Point(20, -20)
     });
-    naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(this.map, this.marker[i]);
-        // this.promise.timeout(infowindow.close(),3000);
-      }
-    });
+      naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
+        console.log("this.marker[i]",this.marker[i])
+        if (infowindow.getMap()) {
+          infowindow.close();
+        } else {
+          // this.marker.find((item,index) => )
+          infowindow.open(this.map, this.marker[i],);
+          // this.promise.timeout(infowindow.close(),3000);
+        }
+      });
   }
 
   private async parseData(v) {
     await this.afterInit();
     if (v) {
       const length = v.length;
-      for (let i = 0; i < length; i++) {
-        const x = v[i].user_longitude;
-        const y = v[i].user_latitude;
-        const res = await this.connect.run('/integrated/gps/detail', { gps_log_id: v[i].gps_log_id },{
-          parse:['safe_job_name']
-        });
-        this.userMarker({ x, y }, res.rsObj, i);
-      }
+      console.log("length",length);
+      v.forEach(async(item,i) => {
+        const x = item.user_longitude;
+        const y = item.user_latitude;
+        this.userMarker({ x, y }, item, i);
+      });
+      // for (let i = 0; i < length; i++) {
+      //   console.log("i",i)
+      //   console.log("v[i].gps_log_id",v[i].gps_log_id);
+      //   const x = v[i].user_longitude;
+      //   const y = v[i].user_latitude;
+      //   const res = await this.connect.run('/integrated/gps/detail', { gps_log_id: v[i].gps_log_id },{
+      //     parse:['safe_job_name']
+      //   });
+      //   console.log("res.rsObj",res.rsObj);
+      //   this.userMarker({ x, y }, res.rsObj, i);
+      // }
     };
   }
 
