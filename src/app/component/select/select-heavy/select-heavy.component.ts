@@ -22,8 +22,10 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
 
   @Input() color: Color;
   @Input() label: string = "중장비";
+  @Input() project_id:number;
+  @Input() master_company_id: number;
   @Input() disabled: boolean = false;
-
+  @Input() text:any;
 
   constructor(
     private _modal:ModalController
@@ -33,28 +35,49 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
 
   async heavy(){
     const modal = await this._modal.create({
-      component:SearchHeavyComponent
+      component:SearchHeavyComponent,
+      componentProps:{
+        form: {
+          construction_id: 0,
+          ctgo_machinery_id: 0,
+          project_id:this.project_id,
+          master_company_id:this.master_company_id,
+          search_text: ''
+        }
+      }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log(data);
+      const selectedItem = data.selectedItem;
+      this.value = selectedItem.machinery_id;
+      this.text.ctgo_machinery_name = selectedItem.ctgo_machinery_name;
+      this.text.machinery_regist_no = selectedItem.machinery_regist_no;
+      this.text.master_company_name = selectedItem.master_company_name;
+      this.text.partner_company_name = selectedItem.partner_company_name;
+    }
   }
 
   @Output() change = new EventEmitter();
 
   private _value:string = "";
   @Input() set value(v:string) {
-    if(v !== this._value) {
-      this._value = v;
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
+    this.valueChange(v);
   }
   get value() {
     return this._value;
   }
   writeValue(v:string): void { 
-    if(v !== this._value) this._value = v;
-    this.onChangeCallback(v);
-    this.change.emit(v);
+    this.valueChange(v);
+  }
+
+  valueChange(v) {
+    if(v !== this._value) {
+      this._value = v;
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
 
   private onChangeCallback = (v) => {};

@@ -297,6 +297,7 @@ export class SerialNoListPage implements OnInit {
               // 모든 api를 호출 후 리스트 다시 갱신
               update_promise.then(() => {this.getList();});
             }
+            if(!changeed_itemIndex.length && !this.res_insert.length) this.resetState(); 
             await loadingCus.dismiss();
           }
         }

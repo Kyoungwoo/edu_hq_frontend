@@ -1,3 +1,4 @@
+import { AlertService } from './../../../../basic/service/ionic/alert.service';
 import { ToastService } from './../../../../basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
@@ -15,23 +16,35 @@ export class EachDeviceAddPage implements OnInit {
 
   constructor(
     private _modal:ModalController,
-    private toast:ToastService
+    private toast:ToastService,
+    private alert:AlertService
   ) { }
 
   ngOnInit() {
   }
 
-  select(){
-    if(!this.item.ctgo_machine_serial_id){
-      return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
-    }
-    if(!this.item.serial_id){
-      return this.toast.present({ color: 'warning', message: '시리얼No를 선택해주세요.' });
-    }
-    if(!this.item.assign_user_id){
-      return this.toast.present({ color: 'warning', message: '성명을 선택해주세요.' });
-    }
+  async select(){
+    const alert = await this.alert.present({
+      message: '저장 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
+            if(!this.item.ctgo_machine_serial_id){
+              return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
+            }
+            if(!this.item.serial_id){
+              return this.toast.present({ color: 'warning', message: '시리얼No를 선택해주세요.' });
+            }
+            if(!this.item.assign_user_id){
+              return this.toast.present({ color: 'warning', message: '성명을 선택해주세요.' });
+            }
 
-    this._modal.dismiss({item: this.item});
+            this._modal.dismiss({item: this.item, type: 'insert'});
+          }
+        }
+      ]
+    });
   }
 }

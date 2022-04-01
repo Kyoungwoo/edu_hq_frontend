@@ -5,14 +5,14 @@
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="white">
+  <!-- <ion-toolbar color="white">
     <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
       <app-img name="search"></app-img>
     </app-input>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 <ion-content>
-  <app-card (click)="this.areaView1 = !this.areaView1">
+  <app-card (click)="this.areaView1 = !this.areaView1" class="col-header-class">
     <app-row>
       <app-col>
         Area1
@@ -23,7 +23,7 @@
   <ng-container *ngIf="areaView1" >
     <app-card *ngFor="let item of area1?.rsMap" [button]="true" [color]="area1selectedItem === item ? 'secondary' : 'white'"
     (click)="area2Get(item)">
-      <div   >
+      <div>
         {{item.area_top_name}}
       </div>
     </app-card>
@@ -33,7 +33,7 @@
       </tr>
     </app-table> -->
   </ng-container>
-  <app-card (click)="areaView2 = !areaView2">
+  <app-card (click)="areaView2 = !areaView2" class="col-header-class">
     <app-row>
       <app-col>
         Area2
@@ -44,12 +44,12 @@
   <ng-container *ngIf="areaView2">
     <app-card *ngFor="let item of area2?.rsMap" [button]="true" [color]="area2selectedItem === item ? 'secondary' : 'white'"
     (click)="area3Get(item)">
-      <div   >
+      <div>
         {{item.area_middle_name}}
       </div>
     </app-card>
   </ng-container>
-  <app-card (click)="areaView3 = !areaView3">
+  <app-card (click)="areaView3 = !areaView3" class="col-header-class">
     <app-row>
       <app-col>
         Area3
@@ -67,5 +67,6 @@
   </ng-container>
 </ion-content>
 <app-button-footer>
+  <app-button *ngIf="selectType == 'manual'" (click)="openModal()">직접 등록</app-button>
   <app-button (click)="select()">적용</app-button>
 </app-button-footer>

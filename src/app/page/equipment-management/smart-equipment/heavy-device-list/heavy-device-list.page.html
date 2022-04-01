@@ -8,37 +8,40 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-              <app-select-contractor></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-            <app-select label="디바이스 구분"></app-select>
-              </td>
+                <app-select label="스마트 장비" [(ngModel)]="form.ctgo_machine_serial_id">
+                  <app-select-option [value]="0">전체</app-select-option>
+                  <app-select-option *ngFor="let item of smart_ctgo_list" [value]="item.ctgo_machine_serial_id">{{ item.ctgo_machine_serial_name }}</app-select-option>
+                </app-select>
+              </td> 
             </tr>
             <tr>
               <td>
                 <app-input-group label="배정일">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>
@@ -47,75 +50,90 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="edit()">신규배정</app-button>
-            <app-button fill="translucent">수정</app-button>
-            <app-button fill="translucent" color="danger">삭제</app-button>
-            <app-button fill="translucent">저장</app-button>
+            <app-button fill="translucent" (click)="addButton()">추가</app-button>
+            <app-button [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
+            <app-button fill="translucent" color="danger" (click)="SmartDelete()">삭제</app-button>
+            <app-button fill="translucent" (click)="SmartSave()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>건설기계 목록(총50건)</h5>
+          <h5>장비 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
-              <th>원청사명</th>
-              <th>업체명</th>
-              <th>건설기계 구분</th>
-              <th>등록번호</th>
-              <th>장비구분</th>
-              <th>시리얼No.</th>
-              <th>배정일시</th>
-              <th>사용여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-             
-              <td style="width: 40px;"><app-check color="white" size="small" name="check" [value]="true" [disabled]="true"></app-check></td>
-              <td>구일종합건설(주)</td>
-              <td>협력사1</td>
-              <td>
-                <app-button fill="translucent" size="small">
-                <app-img name="search"></app-img>
-                </app-button>
-            </td>
-              <td>52두 3338</td>
-              <td>
-                <app-select value="건설기계 NFC">
-                  <app-select-option value="건설기계 NFC">건설기계 NFC</app-select-option>
-                  <app-select-option value="크레인 상하차 알림장치">크레인 상하차 알림장치</app-select-option>
-                </app-select>
-              </td>
-              <td> 
-                <app-button fill="translucent" size="small">
-                <app-img name="search"></app-img>
-                </app-button>
-              </td>
-              <td>2021.09.16 10:50:26</td>
-              <td>
-                <app-select value="Y">
-                  <app-select-option value="Y">Y</app-select-option>
-                  <app-select-option value="N">N</app-select-option>
-                </app-select>
-              </td>
-            </tr>
-            <tr class="button">
-              <td style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></td>
-              <td>계룡건설산업(주)</td>
-              <td>협력사1</td>
-              <td>공기압축기</td>
-              <td>52두 3337</td>
-              <td>크레인 상하차 알림장치</td>
-              <td>E0002</td>
-              <td>2021.10.16 10:22:13</td>
-              <td>Y</td>
-            </tr>
-          </tbody>
-        </app-table>
+        <app-check-group [(ngModel)]="selectedList">
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
+                <th>스마트 장비</th>
+                <th>시리얼No.</th>
+                <th>중장비 구분</th>
+                <th>등록번호</th>
+                <th>원청사명</th>
+                <th>회사명</th>
+                <th>QR코드</th>
+                <th>배정일시</th>
+                <th>사용여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of res_insert">
+                <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+                <td>
+                  <app-select label="" [(ngModel)]="item.ctgo_machine_serial_id">
+                    <app-select-option *ngFor="let ctgo of smart_ctgo_list" [value]="ctgo.ctgo_machine_serial_id">{{ ctgo.ctgo_machine_serial_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td>
+                  <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                </td>
+                <td>
+                  <app-select-heavy [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item" [(ngModel)]="item.machinery_id" label=""></app-select-heavy>
+                </td>
+                <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td>
+                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
+                <td> - </td>
+                <td class="center-class"> - </td>
+                <td>
+                  <app-select [(ngModel)]="item.serial_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+              
+              <tr *ngFor="let item of res?.rsMap">
+                <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+                <td>
+                  <app-select label="" [disabled]="!update_state" [(ngModel)]="item.ctgo_machine_serial_id">
+                    <app-select-option *ngFor="let ctgo of smart_ctgo_list" [value]="ctgo.ctgo_machine_serial_id">{{ ctgo.ctgo_machine_serial_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td [class.center-class]="!item.serial_id">
+                  <app-select-serial-number *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                  {{ (item.serial_id || (!item.serial_id && update_state)) ? '' : ' - ' }}
+                </td>
+                <td [class.center-class]="!item.machinery_id">
+                  <app-select-heavy *ngIf="item.machinery_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item" [(ngModel)]="item.machinery_id" label=""></app-select-heavy>
+                  {{ (item.machinery_id || (!item.machinery_id && update_state)) ? '' : ' - ' }}
+                </td>
+                <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td>
+                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
+                <td class="center-class"> - </td>
+                <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
+                <td>
+                  <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
       </app-col>
-    </app-row>
+    </app-row> 
   </ion-content>
 </ng-container>
 
@@ -130,76 +148,24 @@
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-input-group>
-        <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
+        <app-select-scene [disabled]="true" name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
         <app-button (click)="openDetailSearch()">상세검색</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ng-container>
-      <app-card>
+      <app-card *ngFor="let item of res?.rsMap">
         <app-row style="align-items: flex-start;">
           <app-col>
-            <p>구일종합건설(주)/타워크레인/52두3338</p>
-            <p>A0001/2021.10.18</p>
+            <p>{{ item.partner_company_name }}/{{ item.ctgo_machinery_name }}/{{ item.machinery_regist_no }}</p>
+            <p>{{ item.serial_no }}/{{ item.create_date }}</p>
           </app-col>
           <app-col size="auto">
           </app-col>
         </app-row>
         <app-row style="align-items: flex-start;">
-          <app-col><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>구일종합건설(주)/타워크레인/52두3338</p>
-            <p>A0001/2021.10.18</p>
-          </app-col>
-          <app-col size="auto">
-          </app-col>
-        </app-row>
-        <app-row style="align-items: flex-start;">
-          <app-col><ion-badge color="success">인식용 NFC</ion-badge></app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>구일종합건설(주)/타워크레인/52두3338</p>
-            <p>A0001/2021.10.18</p>
-          </app-col>
-          <app-col size="auto">
-          </app-col>
-        </app-row>
-        <app-row style="align-items: flex-start;">
-          <app-col><ion-badge color="success">크레인 상하차</ion-badge></app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>구일종합건설(주)/타워크레인/52두3338</p>
-            <p>A0001/2021.10.18</p>
-          </app-col>
-          <app-col size="auto">
-          </app-col>
-        </app-row>
-        <app-row style="align-items: flex-start;">
-          <app-col><ion-badge color="success">인식용 NFC</ion-badge></app-col>
-        </app-row>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <p>구일종합건설(주)/타워크레인/52두3338</p>
-            <p>A0001/2021.10.18</p>
-          </app-col>
-          <app-col size="auto">
-          </app-col>
-        </app-row>
-        <app-row style="align-items: flex-start;">
-          <app-col><ion-badge color="success">크레인 상하차</ion-badge></app-col>
+          <app-col><ion-badge color="success">{{ item.ctgo_machine_serial_name }}</ion-badge></app-col>
         </app-row>
       </app-card>
     </ng-container>
