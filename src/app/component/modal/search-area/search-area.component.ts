@@ -1,3 +1,4 @@
+import { SearchDangerousAreaComponent } from './../search-dangerous-area/search-dangerous-area.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { listAnimation } from 'src/app/basic/basic.animation';
@@ -27,6 +28,7 @@ class area1{
 })
 export class SearchAreaComponent implements OnInit {
   @Input() project_id;
+  @Input() selectType: 'manual' | 'auto' = 'auto';
 
 
   areaView1:boolean
@@ -45,7 +47,11 @@ export class SearchAreaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.area1Get();
+    setTimeout(() => {
+      console.log(this.project_id);
+      this.area1Get();
+    }, 300);
+    
   }
 
   async area1Get() {
@@ -71,7 +77,48 @@ export class SearchAreaComponent implements OnInit {
     this._modal.dismiss({
       area1selectedItem:this.area1selectedItem,
       area2selectedItem:this.area2selectedItem,
-      area3selectedItem:this.area3selectedItem
+      area3selectedItem:this.area3selectedItem,
+      selectType: 'auto'
     })
   }
+  public async openModal() {
+    const modal = await this._modal.create({
+      component: SearchDangerousAreaComponent,
+      componentProps: {
+        project_id: this.project_id
+        // selectType: this.selectType
+        // form: {
+        //   project_id: this.project_id,
+        //   master_company_id: this.master_company_id,
+        //   company_id: this.company_id,
+        //   user_type: this.user_type,
+        //   search_text: ''
+        // }
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      console.log(data);
+      setTimeout(() => {
+        this._modal.dismiss({areaSelectedItem: data, selectType: 'manual'});
+      },300);
+    }
+  }
 }
+
+// class area1{
+//   area_top_name: string;
+//   area_top_id: number;
+//  }
+//  class area2{
+//   area_middle_name: string;
+//   area_top_id: number;
+//   area_middle_id: number;
+//  }
+//  class area3{
+//   area_bottom_name: string;
+//   area_top_id: number;
+//   area_middle_id: number;
+//   area_bottom_id: number;
+//  }

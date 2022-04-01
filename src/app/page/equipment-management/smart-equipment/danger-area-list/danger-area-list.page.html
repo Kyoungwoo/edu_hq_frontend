@@ -8,30 +8,27 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
                 <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
-               </td>
-            </tr>
-            <tr>
-              <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-            <app-select label="스마트 장비">
-              <app-select-option type="all" [value]="[]">전체</app-select-option>
-              <app-select-option value="출입 NFC">출입 NFC</app-select-option>
-              <app-select-option value="밀폐환경감지">밀폐환경감지</app-select-option>
-              <app-select-option value="변위감지">변위감지</app-select-option>
-              <app-select-option value="구조물">구조물</app-select-option>
-            </app-select>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
               </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="스마트 장비" [(ngModel)]="form.ctgo_machine_serial_id">
+                  <app-select-option [value]="0">전체</app-select-option>
+                  <app-select-option *ngFor="let item of smart_ctgo_list" [value]="item.ctgo_machine_serial_id">{{ item.ctgo_machine_serial_name }}</app-select-option>
+                </app-select>
+              </td> 
             </tr>
             <tr>
               <td>
@@ -44,7 +41,7 @@
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>
@@ -53,70 +50,90 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="Dangeredit()">신규배정</app-button>
-            <!-- <app-button fill="translucent" (click)="Dangerupdate()">수정</app-button> -->
-            <app-button fill="translucent" color="danger" (click)="Dangerdelete()">삭제</app-button>
-            <!-- <app-button fill="translucent" (click)="Dangersave()">저장</app-button> -->
+            <app-button fill="translucent" (click)="addButton()">추가</app-button>
+            <app-button [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
+            <app-button fill="translucent" color="danger" (click)="SmartDelete()">삭제</app-button>
+            <app-button fill="translucent" (click)="SmartSave()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>위험지역 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>장비 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-check-group [(ngModel)]="selectedList">
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
-              <th>스마트 장비</th>
-              <th>시리얼 No.</th>
-              <th>원청사명</th>
-              <th>장소</th>
-              <th>위험지역 유형</th>
-              <th>위험지역명</th>
-              <th>배정일시</th>
-              <th>사용여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index">
-              <td style="width: 40px;">
-                <app-check (click)="$event.stopPropagation()" [on]="item.ctgo_machine_serial_id " color="white" size="small" name="check"></app-check>
-              </td>
-              <td>
-                <app-select [disabled]="item.device_id ? true : false" [(ngModel)]="item.ctgo_machine_serial_id">
-                  <app-select-option *ngFor="let opt of ctgoMachine?.rsMap" [value]="opt.ctgo_machine_serial_id">{{ opt.ctgo_machine_serial_name}}</app-select-option>
-                </app-select>
-              </td>
-              <td>
-                <app-select-serial-number [disabled]="item.device_id ? true : false"  [(ngModel)]="item.serial_no"></app-select-serial-number>
-              </td>
-              <td>
-                <app-select-contractor label="" 
-                [disabled]="true"
-                [project_id]="item.device_id ? item.ctgo_machine_serial_id : user.userData.belong_data.project_id" 
-                [(ngModel)]="item.master_company_id"></app-select-contractor>
-              </td>
-              <td *ngIf="!item.area_top_name && !item.device_id" style="text-align: right;">
-                <app-img style="width:12%;" name="search" (click)="riskAreaSearch(item)"></app-img>
-              </td>
-              <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
-                {{ (item.area_top_name ? item.area_top_name : '') + ' '
-                + (item.area_middle_name ? item.area_middle_name : '') + ' '
-                + (item.area_bottom_name ? item.area_bottom_name : '')}}
-              </td>
-              <td>
-                {{ item.ctgo_area_risk_name }}
-              </td>
-              <td>
-                {{ item.area_risk_name }}
-              </td>
-              <td>{{ item.create_date }}</td>
-              <td>{{ item.serial_use_state }}</td>
-            </tr>
-          </tbody>
-        </app-table>
-      </app-check-group>
-      <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
+                <th>스마트 장비</th>
+                <th>시리얼No.</th>
+                <th>원청사명</th>
+                <th>장소</th>
+                <th>위험지역 유형</th>
+                <th>위험지역 명</th>
+                <th>QR코드</th>
+                <th>배정일시</th>
+                <th>사용여부</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of res_insert">
+                <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+                <td>
+                  <app-select label="" [(ngModel)]="item.ctgo_machine_serial_id">
+                    <app-select-option *ngFor="let ctgo of smart_ctgo_list" [value]="ctgo.ctgo_machine_serial_id">{{ ctgo.ctgo_machine_serial_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td>
+                  <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                </td>
+                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <td>
+                  <app-select-risk-area [item]="item" [form]="form" selectType="manual" label=""></app-select-risk-area>
+                </td>
+                <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
+                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td>
+                <td class="center-class"> - </td>
+                <td class="center-class"> - </td>
+                <td>
+                  <app-select [(ngModel)]="item.serial_use_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+              
+              <tr *ngFor="let item of res?.rsMap">
+                <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+                <td>
+                  <app-select label="" [disabled]="!update_state" [(ngModel)]="item.ctgo_machine_serial_id">
+                    <app-select-option *ngFor="let ctgo of smart_ctgo_list" [value]="ctgo.ctgo_machine_serial_id">{{ ctgo.ctgo_machine_serial_name }}</app-select-option>
+                  </app-select>
+                </td>
+                <td [class.center-class]="!item.serial_id">
+                  <app-select-serial-number *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                  {{ (item.serial_id || (!item.serial_id && update_state)) ? '' : ' - ' }}
+                </td>
+                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <td></td>
+                <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
+                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td>
+                <td>
+                  <app-button size="small" fill="clear" style="width:100%;">
+                    <app-img name="search"></app-img>
+                  </app-button>
+                </td>
+                <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
+                <td>
+                  <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-check-group>
+      <!-- <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
       </app-col>
     </app-row>
     </ion-content>

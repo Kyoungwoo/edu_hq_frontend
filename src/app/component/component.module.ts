@@ -1,3 +1,4 @@
+import { SelectRiskAreaComponent } from './select/select-risk-area/select-risk-area.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -136,6 +137,7 @@ import { SelectContractorCompanyComponent } from './select/select-contractor-com
     SelectProjectContractorComponent,
     SelectContractorCompanyComponent,
     SelectPeopleAllComponent,
+    SelectRiskAreaComponent
   ],
   imports: [
     CommonModule,
@@ -210,7 +212,8 @@ import { SelectContractorCompanyComponent } from './select/select-contractor-com
     SelectProjectContractorComponent,
     SearchProjectContractorComponent,
     SelectContractorCompanyComponent,
-    SelectPeopleAllComponent
+    SelectPeopleAllComponent,
+    SelectRiskAreaComponent
   ],
   providers:[
     SelectCompanyComponent

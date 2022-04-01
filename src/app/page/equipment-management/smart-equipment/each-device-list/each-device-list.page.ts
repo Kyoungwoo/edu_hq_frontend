@@ -27,6 +27,7 @@ class SmartInfo {
   create_date:string;
   serial_no:string;
   return_date:string;
+  user_type:string;
   index:number;
   row_count:number;
 }
@@ -63,6 +64,9 @@ export class EachDeviceListPage implements OnInit {
   /** @param update_state - 현재 업데이트중인지 여부 */
   update_state = false;
 
+  /** @param list_state - '전체' or '내 장비' */
+  list_state = '전체';
+
   /** @param update_state - 현재 업데이트중인지 여부 */
   // method_type = '';
 
@@ -84,6 +88,9 @@ export class EachDeviceListPage implements OnInit {
 
   /** @param res_insert - 추가할 리스트 */
   res_insert:SmartInfoInsertItem[] = [];
+
+  /** @param res_my - 서버에서 받아온 나의 시리얼 NO 리스트 */
+  res_my:ConnectResult<SmartInfo>;
 
   /** @param searial_ctgo_list - 스마트장비 카테고리 */
   smart_ctgo_list:SmartCtgo[] = [];
@@ -117,6 +124,15 @@ export class EachDeviceListPage implements OnInit {
    * @function getList(): 개인 디바이스 목록 가져오기
    */
    async getList() {
+    await this.getList_All();
+    await this.getList_My();
+    await this.resetState();
+  }
+
+  /**
+   * @function getList_All(): 모든 개인 디바이스 목록 가져오기
+   */
+   async getList_All() {
     let method = await this.TransMethodType();
     // ,{parse: ['user_data']}
     const res = await this.connect.run(method, this.form);
@@ -134,8 +150,28 @@ export class EachDeviceListPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
-    this.resetState();
-  }
+  }  
+
+  /**
+   * @function getList_My(): 나의 개인 디바이스 목록 가져오기
+   */
+   async getList_My() {
+    // let method = await this.TransMethodType();
+    // ,{parse: ['user_data']}
+    const res = await this.connect.run('/device/my/user/list', this.form);
+    if(res.rsCode === 0 ) {
+      this.res_my = {
+        ...this.res_my,
+        ...res
+      };
+    }
+    else if (res.rsCode === 1008) {
+      this.res_my = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }  
 
   /**
    * @function resetState(): 선택리스트, 추가리스트, 업데이트 실행여부 등 스테이터스 초기화
@@ -297,6 +333,7 @@ export class EachDeviceListPage implements OnInit {
               // 모든 api를 호출 후 리스트 다시 갱신
               update_promise.then(() => {this.getList();});
             }
+            if(!changeed_itemIndex.length && !this.res_insert.length) this.resetState(); 
             await loadingCus.dismiss();
           }
         }
@@ -322,14 +359,28 @@ export class EachDeviceListPage implements OnInit {
     });
   }
 
+  /**
+   * @function openDetailSearch(): 상세검색필터 모달
+   */
   public async openDetailSearch() {
     const modal = await this.modal.create({
       component: EachDeviceDetailSearchPage,
-
+      componentProps: {
+        form: this.form,
+        smart_ctgo_list: this.smart_ctgo_list
+      }
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data){
+      this.form = data.form;
+      this.get();
+    }
   }
 
+  /**
+   * @function edit(): 등록 모달
+   */
   async edit() {
     const modal = await this.modal.create({
       component:EachDeviceAddPage,
@@ -342,10 +393,6 @@ export class EachDeviceListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data){
-      this.res_insert.push(<SmartInfo>data.item);
-      this.SmartSave();
-    }
-    
+    if(data) this.SmartSaveMethod(<SmartInfo>data.item, data.type);
   }
 }
