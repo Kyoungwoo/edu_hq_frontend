@@ -12,12 +12,12 @@ export class AppComponent {
   constructor() {}
 
   async ngOnInit() {
-    await this.addListeners();
-    console.log('addListeners end');
-    await this.registerNotifications();
-    console.log('registerNotifications end');
-    await this.getDeliveredNotifications();
-    console.log('getDeliveredNotifications end');
+    // await this.addListeners();
+    // console.log('addListeners end');
+    // await this.registerNotifications();
+    // console.log('registerNotifications end');
+    // await this.getDeliveredNotifications();
+    // console.log('getDeliveredNotifications end');
   }
 
   addListeners = async () => {

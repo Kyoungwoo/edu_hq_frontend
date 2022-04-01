@@ -49,7 +49,11 @@ export class SafetyEducationResultListPage implements OnInit {
     approval_cnt_answer: string,
     create_date: string,
     row_count:number
-  }>
+  }>;
+
+  event = {
+    get: null
+  }
 
   constructor(
     private _modal: ModalController,
@@ -58,16 +62,28 @@ export class SafetyEducationResultListPage implements OnInit {
     private user: UserService,
     private toast: ToastService,
     private promise: PromiseService
-
   ) { }
 
   async ngOnInit() { 
     this.projectRolechekc();
     await this.promise.wait(() => this.form.company_id);
     this.getList();
+
+    // event 물리기
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('safety-education-result-list:get()', this.event.get);
   }
+  ngOnDestroy() {
+    window.removeEventListener('safety-education-result-list:get()', this.event.get);
+  }
+
+  /** event 파트 */
+  getEvent() {
+    this.getList(0);
+  }
+
   projectRolechekc() {
-    const { user_role , belong_data} = this.user.userData
+    const { user_role , belong_data} = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||

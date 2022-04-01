@@ -95,6 +95,11 @@
     h1, h2, h3, h4, h5, h6, p, app-radio, app-check {
         margin-top: 0;
         margin-bottom: 0;
+        color: var(--ion-text-color);
+    }
+    p {
+        font-size: var(--app-font-size-input);
+        font-weight: 400;
     }
     app-check + app-check {
         margin-top: var(--app-padding);

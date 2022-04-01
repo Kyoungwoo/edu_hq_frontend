@@ -54,6 +54,7 @@ import { GraphLineComponent } from './ui/graph-line/graph-line.component';
 import { FilePreviewComponent } from './ui/file-preview/file-preview.component';
 import { FilePopoverComponent } from './input/file-popover/file-popover.component';
 import { QrScannerComponent } from './dialog/qr-scanner/qr-scanner.component';
+import { NaverUserMapComponent } from './input/naver-user-map/naver-user-map.component';
 @NgModule({
   declarations: [
     // dialog components
@@ -74,6 +75,7 @@ import { QrScannerComponent } from './dialog/qr-scanner/qr-scanner.component';
     InputGroupComponent,
     InputTemplateComponent,
     NaverMapComponent,
+    NaverUserMapComponent,
     RadioComponent,
     RadioGroupComponent,
     RadioInputComponent,
@@ -131,6 +133,7 @@ import { QrScannerComponent } from './dialog/qr-scanner/qr-scanner.component';
     InputGroupComponent,
     InputTemplateComponent,
     NaverMapComponent,
+    NaverUserMapComponent,
     RadioComponent,
     RadioGroupComponent,
     RadioInputComponent,

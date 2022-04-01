@@ -75,7 +75,7 @@ var ApprovalService = /** @class */ (function () {
                     return [2 /*return*/, ''];
                     case 2: // 교육 결과 보고서 (작업자 정기)
                     return [2 /*return*/, ''];
-                    case 3: // 교육 결과 보고서 (관리감독자 정기)
+                    case 3: // 교육 결과 보고서 (관리감독자 정기) - 1차에 안함
                     return [2 /*return*/, ''];
                     case 4: // 교육 결과 보고서 (작업 내용 변경 시)
                     return [2 /*return*/, ''];

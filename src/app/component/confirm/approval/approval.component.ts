@@ -4,7 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { AnswerObj, ApprovalObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { AnswerObj, ApprovalObj, CommentObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { ConfirmProcessPopupComponent } from '../confirm-process-popup/confirm-process-popup.component';
 import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-setting-popup.component';
 
@@ -12,7 +12,8 @@ import { ConfirmSettingPopupComponent } from '../confirm-setting-popup/confirm-s
 export type ApprovalAnswerType = "전체" | "임시저장" | "결재중" | "결재완료" | "반려";
 export interface ApprovalBtnClickEvent {
   approval_data: ApprovalData;
-  btnList:string[],
+  approval_comment: CommentObj[];
+  btnList:string[];
   delete: () => Promise<ConnectResult>;
   send: () => Promise<ConnectResult>;
   recovery: () => Promise<ConnectResult>;
@@ -237,6 +238,7 @@ export class ApprovalComponent implements OnInit {
   getClickEvent():ApprovalBtnClickEvent {
     return {
       approval_data: this.getApprovalData(),
+      approval_comment: this.res?.rsObj?.approval_comment || [],
       btnList: this.btnList,
       delete: this.deleteApproval.bind(this),
       send: this.sendApproval.bind(this),
