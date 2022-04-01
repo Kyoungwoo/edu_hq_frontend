@@ -55,17 +55,16 @@ export class TodayConstructionItem {
 }
 
 export class userData {
-  area_name: number;
-  area_gps_target: string;
-  gps_id: number;
-  company_id: number;
-  user_id: number;
-  user_name: string;
-  company_name: string;
-  user_longitude: number;
-  safe_job_name: string;
-  area_risk_name: string;
-  user_latitude: number;
+ area_bottom_id: number;
+ area_middle_id: number;
+ area_risk_id: number;
+ area_state: string;
+ area_top_id: number;
+ gps_id: number;
+ gps_log_id: number;
+ user_id: number;
+ user_latitude: number;
+ user_longitude: number;
 }
 
 
@@ -219,7 +218,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:userData = new userData();
+gpsData:ConnectResult<userData>;
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -245,7 +244,6 @@ gps_log_data = new GpsCoordinateData();
   ) { }
 
   ngOnInit() {
-    console.log("asdfasdfasdf");
     this.intervalMethodController();
     this.methodContrroller();
     // const modal = await this.modal.create({
@@ -528,7 +526,9 @@ gps_log_data = new GpsCoordinateData();
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
     if(res.rsCode === 0) {
-      console.log("test");
+      console.log("res",res);
+      this.gpsData = res
+      console.log("this.gpsData",this.gpsData)
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }

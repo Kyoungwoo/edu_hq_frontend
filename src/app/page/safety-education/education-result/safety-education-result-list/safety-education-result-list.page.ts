@@ -51,6 +51,10 @@ export class SafetyEducationResultListPage implements OnInit {
     row_count:number
   }>
 
+  editable = {
+    add: false
+  }
+
   constructor(
     private _modal: ModalController,
     private date: DateService,
@@ -67,7 +71,7 @@ export class SafetyEducationResultListPage implements OnInit {
     this.getList();
   }
   projectRolechekc() {
-    const { user_role , belong_data} = this.user.userData
+    const { user_role , belong_data} = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
@@ -76,6 +80,7 @@ export class SafetyEducationResultListPage implements OnInit {
         this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
+        this.editable.add = true;
       }
   }
 
