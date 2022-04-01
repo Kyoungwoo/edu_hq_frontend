@@ -39,6 +39,10 @@ export class SafetyEducationHistoryListPage implements OnInit {
     row_count:number,
     company_name:string
   }>
+
+  editable = {
+    company_id:false
+  }
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
@@ -60,6 +64,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
+        this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {

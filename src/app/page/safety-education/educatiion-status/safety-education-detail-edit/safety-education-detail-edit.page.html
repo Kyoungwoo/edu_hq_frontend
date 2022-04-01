@@ -137,13 +137,13 @@
     </ion-toolbar>
     <ion-toolbar color="white" *ngIf="item">
       <ion-segment color="primary" [value]="true" >
-        <ion-segment-button (click)="educationMenu = true" [value]="true">교육정보</ion-segment-button>
-        <ion-segment-button (click)="educationMenu = false">출석현황</ion-segment-button>
+        <ion-segment-button (click)="editable.educationMenu = true" [value]="true">교육정보</ion-segment-button>
+        <ion-segment-button (click)="editable.educationMenu = false">출석현황</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container *ngIf="educationMenu">
+    <ng-container *ngIf="editable.educationMenu">
       <app-row>
         <app-col>
           <h4>기본정보</h4>
@@ -262,7 +262,7 @@
     </app-card>
     </ng-container>
 
-    <ng-container *ngIf="form.education_safe_state !== '교육 전' && !educationMenu">
+    <ng-container *ngIf="form.education_safe_state !== '교육 전' && !editable.educationMenu">
       <app-card>
         <app-row>
           <app-col>
@@ -317,12 +317,12 @@
     </ng-container>
   </ion-content>
   <app-button-footer>
-    <app-button *ngIf="item && educationMenu" (click)="updateItem()" fill="translucent">수정</app-button>
-    <app-button *ngIf="item && educationMenu" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
+    <app-button *ngIf="(item && editable.educationMenu) || editable.update" (click)="updateItem()" fill="translucent">수정</app-button>
+    <app-button *ngIf="item && editable.educationMenu" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
     <app-button *ngIf="!item" (click)="submit()">저장</app-button>
   </app-button-footer>
   <app-button-footer>
-    <app-button *ngIf="!educationMenu" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
-    <app-button *ngIf="!educationMenu" (click)="qrAdd()">출석등록QR)</app-button>
+    <app-button *ngIf="!editable.educationMenu" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+    <app-button *ngIf="!editable.educationMenu" (click)="qrAdd()">출석등록QR)</app-button>
   </app-button-footer>
 </ng-container>

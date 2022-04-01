@@ -1,14 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { FileBlob, FileJson, FileService, FutItem } from 'src/app/basic/service/core/file.service';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
-import { ApprovalObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 
 @Component({
   selector: 'app-worker-minutes-edit',
@@ -48,7 +46,8 @@ export class WorkerMinutesEditPage implements OnInit {
 
     // 수정시 정보
     approval_id: null, // 결재 ID
-    safety_meeting_id: null // 회의록 ID
+    safety_meeting_id: null, // 회의록 ID
+    user_name: null
   }
 
   permission = {
@@ -83,7 +82,7 @@ export class WorkerMinutesEditPage implements OnInit {
   }
 
   getDefaultForm() {
-    const { belong_data } = this.user.userData;
+    const { user_name, belong_data } = this.user.userData;
     this.form.project_id = this.project_id;
     this.form.company_id = belong_data.company_id;
     this.form.company_name = belong_data.company_name;
@@ -91,6 +90,7 @@ export class WorkerMinutesEditPage implements OnInit {
     this.form.safety_meeting_type = this.safety_meeting_type;
 
     this.form.safety_meeting_date = this.date.today();
+    this.form.user_name = user_name;
   }
 
   /**
@@ -168,17 +168,17 @@ export class WorkerMinutesEditPage implements OnInit {
    * 삭제 버튼 클릭
    */
    async onDeleteClick(ev:ApprovalBtnClickEvent) {
-     // 여기서는 딱히 처리할게 없음. 그냥 삭제 후 닫기.
-     const res = await ev.delete();
-     if(res.rsCode  === 0) {
-       this.modal.dismiss();
-       // 목록을 새로고침 해줘야 함
-       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
-     }
-     else {
-       this.toast.present({ color: 'warning', message: res.rsMsg });
-     }
-   }
+    // 여기서는 딱히 처리할게 없음. 그냥 삭제 후 닫기.
+    const res = await ev.delete();
+    if(res.rsCode  === 0) {
+      this.modal.dismiss();
+      // 목록을 새로고침 해줘야 함
+      window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
   /**
    * 임시 저장버튼 클릭
    */
@@ -189,7 +189,6 @@ export class WorkerMinutesEditPage implements OnInit {
     if(!this.form.safety_meeting_content) { this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' }); return; }
     if(!this.form.safety_meeting_resolve) { this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' }); return; }
 
-    this.form.safety_meeting_type = '안전';
     this.form.approval_cnt_answer = '임시저장';
     this.form.approval_default_data = approval_data;
 
@@ -227,7 +226,6 @@ export class WorkerMinutesEditPage implements OnInit {
     if(!this.form.safety_meeting_content) { this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' }); return; }
     if(!this.form.safety_meeting_resolve) { this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' }); return; }
 
-    this.form.safety_meeting_type = '안전';
     this.form.approval_cnt_answer = '결재중';
     this.form.approval_default_data = approval_data;
 
@@ -299,7 +297,6 @@ export class WorkerMinutesEditPage implements OnInit {
    * 결재 상태가 변할 때 행동
    */
   onApprovalChange(ev:ApprovalBtnClickEvent) {
-    console.log(ev);
     if(ev.btnList.includes('임시저장')) {
       this.permission.edit = true;
     }

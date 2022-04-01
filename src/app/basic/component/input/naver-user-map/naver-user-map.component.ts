@@ -17,7 +17,7 @@ declare const naver;
     multi: true
   }]
 })
-export class NaverUserMapComponent implements OnInit,AfterViewInit,ControlValueAccessor {
+export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
   @HostBinding('id') get id() { return this._id };
   private _id = `naver-user-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
@@ -80,12 +80,16 @@ export class NaverUserMapComponent implements OnInit,AfterViewInit,ControlValueA
       }, 20);
     });
   }
-  private userMarker(coord,item) {
-    console.log("item : ",item)
+  private userMarker(coord, item, i) {
+    console.log("item : ", item);
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
-      draggable: true
+      draggable: true,
+      icon:{
+        url:'../../../assets/img/logo.svg',
+        size: { width: 230, height: 250 }
+      }
     });
     this.marker.push(marker);
 
@@ -93,58 +97,61 @@ export class NaverUserMapComponent implements OnInit,AfterViewInit,ControlValueA
 
     this.marker.push(marker);
     console.log("this.infoMarker", this.marker);
-    // this._value.gps_latitude.push(coord.x);
-    // this._value.gps_longitude.push(coord.y);
-    let infoWindowElement = (
-      `<div class="iw_inner">
-        <h5>${item}</h5>
-        <p>서울특별시 중구 태평로1가 31 | 서울특별시 중구 세종대로 110 서울특별시청
-       </div>
-      `
+    let infoWindowElement;
+    if(item.area_risk_name) {
+      infoWindowElement = (
+        `<div class="iw_inner">
+            <h5>SOS 요청</h5>
+            <p>${item.company_name}</p>
+            <p>${item.user_name}</p>
+            <p>장소 : ${item.area_name ? item.area_name:''}</p>
+            <p>위험지역명${item.area_risk_name}</p>
+         </div>
+        `
       );
-
-    // '<div >',
-    // '   <a href="http://www.naver.com/" target="_blank" class="pin_a">',
-    // '       <span class="pin_txt"><em>캐나다</em> <span class="spr spr_arrow"></span></span>',
-    // '       <span class="spr spr_arr"></span>',
-    // '   </a>',
-    // '   <div class="pin"><span class="pin_blur"></span></div>',
-    // '</div>'].join(''));
+    } else {
+      infoWindowElement = (
+        `<div class="iw_inner">
+            <h5>${item.user_name}</h5>
+            <p>${item.company_name}</p>
+            <p>${item.user_name}</p>
+            <p>장소 : ${item.area_name ? item.area_name:''}</p>
+            <p>위험지역명${item.area_risk_name.toString()}</p>
+         </div>
+        `
+      );
+    }
 
     let infowindow = new naver.maps.InfoWindow({
       content: infoWindowElement,
       maxWidth: 120,
-      maxHeight:100
+      maxHeight: 100,
+      disableAnchor:true,
+      
       // pixelOffset: new naver.window.Point(20, -20)
     });
-    let close:boolean = false;
-    this.marker.forEach((item, i) => {
-      naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
-        close = !close;
-        console.log("infowindow.getMap()",close);
-        if (close) {
-          infowindow.close();
-        } else {
-          infowindow.open(this.map, this.marker[i]);
-          // this.promise.timeout(infowindow.close(),3000);
-        }
-      });
+    naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
+      if (infowindow.getMap()) {
+        infowindow.close();
+      } else {
+        infowindow.open(this.map, this.marker[i]);
+        // this.promise.timeout(infowindow.close(),3000);
+      }
     });
   }
 
   private async parseData(v) {
     await this.afterInit();
     if (v) {
-        const length = v.length;
-        console.log(length)
-        for (let i = 0; i < length; i++) {
-          console.log("v[i].gps_log_id",v[i].gps_log_id);
-          const x = v[i].user_longitude;
-          const y = v[i].user_latitude;
-          const res = await this.connect.run('/integrated/gps/detail',v[i].gps_log_id);
-          console.log("res",res);
-          this.userMarker({ x, y },res.rsObj);
-        }
+      const length = v.length;
+      for (let i = 0; i < length; i++) {
+        const x = v[i].user_longitude;
+        const y = v[i].user_latitude;
+        const res = await this.connect.run('/integrated/gps/detail', { gps_log_id: v[i].gps_log_id },{
+          parse:['safe_job_name']
+        });
+        this.userMarker({ x, y }, res.rsObj, i);
+      }
     };
   }
 

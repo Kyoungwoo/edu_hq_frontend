@@ -54,6 +54,11 @@ export class SafetyEducationListPage implements OnInit {
 
   res:ConnectResult<EduItem>
 
+  editable ={
+    add:false,
+    company_id:false
+  }
+
   constructor(
     private _modal: ModalController,
     private date: DateService,
@@ -78,8 +83,10 @@ export class SafetyEducationListPage implements OnInit {
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
+        this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
       } else if(user_role === 'LH_HEAD') {
+        this.editable.add = true;
         this.form.project_id = belong_data.project_id;
       }
   }

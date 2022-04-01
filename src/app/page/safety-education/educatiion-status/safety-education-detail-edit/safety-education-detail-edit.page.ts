@@ -83,10 +83,13 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   user_id = [];
 
-  editable:boolean = false;
+
+  editable = {
+    update:false,
+    educationMenu:true
+  };
 
 
-  educationMenu:boolean = true;
 
   constructor(
     private connect: ConnectService,
@@ -103,6 +106,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(this.item) {
       this.eduGetList();
       this.getItem();
+      const {user_role} = this.user.userData;
+      if(user_role === 'MASTER_HEAD' || user_role === 'LH_HEAD') this.editable.update = true;
     } else {
       this.form.education_safe_date = this.date.today();
       this.form.project_name = this.user.userData.belong_data.project_name;
@@ -145,6 +150,12 @@ export class SafetyEducationDetailEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      this.form.education_safe_manager_ids.forEach(item => {
+        if(item === this.user.userData.user_id || 
+          this.form.create_user_id === this.user.userData.user_id) {
+            this.editable.update = true;
+          }
+      })
     }
   }
   async updateItem() {

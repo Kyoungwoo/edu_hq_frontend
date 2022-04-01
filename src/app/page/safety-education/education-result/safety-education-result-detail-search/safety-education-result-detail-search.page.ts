@@ -21,7 +21,10 @@ export class SafetyEducationResultDetailSearchPage implements OnInit {
     search_text:'',// 검색어
     start_date: this.date.today({date:-7}) // 검색 신청 시작일
     // start_date: '2019-01-01' // 검색 신청 시작일
+  }
 
+  editable = {
+    company_id:false
   }
 
   constructor(
@@ -40,6 +43,7 @@ export class SafetyEducationResultDetailSearchPage implements OnInit {
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
+        this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {

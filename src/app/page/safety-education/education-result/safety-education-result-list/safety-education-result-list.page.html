@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>

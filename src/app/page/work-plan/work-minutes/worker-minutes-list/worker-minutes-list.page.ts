@@ -84,7 +84,6 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    * permission 과 form 을 가져옴.
    */
   async getForm() {
-    console.log(this.user.userData);
     const { user_role, belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;

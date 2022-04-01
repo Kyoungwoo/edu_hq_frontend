@@ -20,6 +20,10 @@ export class SafetyEducationDetailSearchPage implements OnInit {
     search_text: '',
     start_date: this.date.today()
   }
+
+  editable = {
+    company_id:false,
+  }
   constructor(
     private date: DateService,
     private _modal: ModalController,
@@ -37,9 +41,8 @@ export class SafetyEducationDetailSearchPage implements OnInit {
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
+        this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
-        
-     
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
       }

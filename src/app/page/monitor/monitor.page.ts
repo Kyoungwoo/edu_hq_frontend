@@ -8,14 +8,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { ApprovalPopupComponent } from '../member-management/member-approval-wait/approval-popup/approval-popup.component';
-import { SecurityPasswordComponent } from '../member-management/member-approval-wait/security-password/security-password.component';
-import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
-import { RiskEvaluationPopupPage } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page';
-import { MileagePopupComponent } from '../member-management/member-management/mileage-popup/mileage-popup.component';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmSettingPopupComponent } from 'src/app/component/confirm/confirm-setting-popup/confirm-setting-popup.component';
-import { ConfirmProcessPopupComponent } from 'src/app/component/confirm/confirm-process-popup/confirm-process-popup.component';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 
 /**
