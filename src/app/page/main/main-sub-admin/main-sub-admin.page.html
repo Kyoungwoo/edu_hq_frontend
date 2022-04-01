@@ -3,17 +3,7 @@
 <ion-content>
   <app-row style="align-items: flex-start; height: 100%;">
     <app-col style="height: 100%;" size="3">
-      <app-card style="height: 100%;">
-        <app-row>
-          <app-col>
-            <app-select label="지역본부"></app-select>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <app-select label="사업본부"></app-select>
-          </app-col>
-        </app-row>
+      <app-card style="height: 100%; overflow: scroll;">
         <app-row>
           <app-col>
             <app-select-scene></app-select-scene>
@@ -39,23 +29,23 @@
             <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
             <h5>비상알림</h5>
           </app-col>
-          <app-col size="4" (click)="router('교육이력')">
-            <app-img style="width: 70%;" src="assets/img/menu/education-career.svg"></app-img>
-            <h5>교육 이력</h5>
+          <app-col size="4" (click)="router('')">
+            <app-img style="width: 70%;" src="assets/img/menu/ptw.svg"></app-img>
+            <h5>위험 작업 허가</h5>
           </app-col>
+          <app-col size="4" (click)="router('교육결과보고')">
+            <app-img style="width: 70%;" src="assets/img/menu/education-result-report.svg"></app-img>
+            <h5>교육 결과 보고</h5>
+          </app-col>
+        </app-row>
+        <app-row style="text-align: center;" class="pointer-class">
           <app-col size="4" (click)="router('위험성평가')">
             <app-img style="width: 70%;" src="assets/img/menu/risk-evaluation-report.svg"></app-img>
             <h5>위험성 평가</h5>
           </app-col>
-        </app-row>
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('회의록')">
-            <app-img style="width: 70%;" src="assets/img/menu/conference.svg"></app-img>
-            <h5>회의록</h5>
-          </app-col>
           <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/ptw.svg"></app-img>
-            <h5>위험 작업 허가</h5>
+            <app-img style="width: 70%;" src="assets/img/menu/mileage.svg"></app-img>
+            <h5>안전 마일리지</h5>
           </app-col>
           <app-col size="4" (click)="router('')">
             <app-img style="width: 70%;" src="assets/img/menu/general-incongruity.svg"></app-img>
@@ -64,35 +54,51 @@
         </app-row>
         <app-row style="text-align: center;" class="pointer-class">
           <app-col size="4" (click)="router('')">
+            <app-img style="width: 70%;" src="assets/img/menu/equipment-management.svg"></app-img>
+            <h5>장비 관리</h5>
+          </app-col>
+          <app-col size="4" (click)="router('')">
+            <app-img style="width: 70%;" src="assets/img/menu/tbm record.svg"></app-img>           
+            <h5>TBM 일지</h5>
+          </app-col>
+          <app-col size="4" (click)="router('교육현황')">
+            <app-img style="width: 70%;" src="assets/img/menu/education-career.svg"></app-img>           
+            <h5>교육 현황</h5>
+          </app-col>
+        </app-row>
+        <app-row style="text-align: center;" class="pointer-class">
+          <app-col size="4" (click)="router('')">
             <app-img style="width: 70%;" src="assets/img/menu/general-check.svg"></app-img>
-            <h5>점검</h5>
+            <h5>점검 현황</h5>
+          </app-col>
+          <app-col size="4" (click)="router('출역현황')">
+            <app-img style="width: 70%;" src="assets/img/menu/output.svg"></app-img>           
+            <h5>출역 현황</h5>
           </app-col>
           <app-col size="4" (click)="router('')">
             <app-img style="width: 70%;" src="assets/img/main/plus.svg"></app-img>           
             <h5>추가</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-          </app-col>
         </app-row>
-        <!-- <app-row style="height: 200px;">
+        <app-row style="height: 250px;">
           <app-card style="height: 100%;">
             <ion-toolbar slot="top" color="white">
               <app-row>
                 <app-col>
                   <h4>금일 비상상황 알림</h4>
                 </app-col>
-                <app-col (click)="router('알림함')" size="auto">
+                <app-col (click)="router('')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
             <app-row>
               <app-col>
-                <h6>2021.09.12</h6>
+                <h5><b>[사고전파]</b> 사망사고 발생으로 작업을 중지</h5>
               </app-col>
             </app-row>
           </app-card>
-        </app-row> -->
+        </app-row>
       </app-card>
     </app-col>
 
@@ -203,48 +209,70 @@
           </app-card>
         </app-col>
       </app-row>
-
-      <app-row style="height: 34%;">
+      <app-row style="height: 33%;">
         <app-col style="height: 100%;">
           <app-card style="height: 100%;">
             <ion-toolbar slot="top" color="white">
               <app-row>
-                <app-col size="auto">
-                  <h4>진행중인 아차사고 신고</h4>
-                </app-col>
+                <ion-col size="auto">
+                  <h4>MSDS</h4>
+                </ion-col>
                 <app-col>
                   <ion-chip color="medium">3</ion-chip>
                 </app-col>
-                <app-col (click)="router('')" size="auto">
+                <app-col (click)="router('MSDS')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
             <app-row>
-              <app-col>
-                <app-table>
-                  <thead>
-                    <tr>
-                      <th>현장명</th>
-                      <th>소속</th>
-                      <th>공종</th>
-                      <th>제목</th>
-                      <th>작성시간</th>
-                      <th>신고 시간</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="sub-content button">
-                      <td>수원당담 공공</td>
-                      <td>수원당담 아파트</td>
-                      <td>토목</td>
-                      <td>**사고가 발생했습니다.</td>
-                      <td>김준태</td>
-                      <td>10:56:23</td>
-                    </tr>
-                  </tbody>
-                </app-table>
+              <app-col size="auto">  
+                <h6>2021.07.22</h6>
               </app-col>
+              <app-col>
+                <h5><b>[협력사2]</b> **물질</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </app-col>
+        <app-col style="height: 100%;">
+          <app-card style="height: 100%;">
+            <ion-toolbar slot="top" color="white">
+              <app-row>
+                <ion-col size="auto">
+                  <h4>교육 이수 현황</h4>
+                </ion-col>
+                <app-col>
+                  <ion-chip color="medium">3</ion-chip>
+                </app-col>
+                <app-col (click)="router('교육현황')" size="auto">
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </app-col>
+              </app-row>
+            </ion-toolbar>
+            <app-row> 
+              <app-col style="width: 30%;"></app-col>
+              <app-col style="width: 22%;">채용시</app-col>
+              <app-col style="width: 22%;">정기</app-col>
+              <app-col style="width: 22%;">특별</app-col>
+            </app-row>
+            <app-row style="background-color: var(--ion-color-medium-translucent); border-radius: 5px; margin-bottom: 10px; height:36px;">
+              <app-col  style="width: 30%; padding-left: 5px;"><h6>양호</h6></app-col>
+              <app-col  style="width: 22%;"><h6>100</h6></app-col>
+              <app-col  style="width: 22%;"><h6>50</h6></app-col>
+              <app-col  style="width: 22%;"><h6>5</h6></app-col>
+            </app-row>
+            <app-row style="background-color: var(--ion-color-primary-translucent); border-radius: 5px; margin-bottom: 10px; height:36px;">
+              <app-col  style="width: 30%; padding-left: 5px;"><h6>필요</h6></app-col>
+              <app-col  style="width: 22%;"><h6>20</h6></app-col>
+              <app-col  style="width: 22%;"><h6>14</h6></app-col>
+              <app-col  style="width: 22%;"><h6>5</h6></app-col>
+            </app-row>
+            <app-row style="background-color: var(--ion-color-warning-translucent); border-radius: 5px; height:36px;">
+              <app-col  style="width: 30%; padding-left: 5px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
+              <app-col  style="width: 22%;"><h6>-</h6></app-col>
+              <app-col  style="width: 22%;"><h6>-</h6></app-col>
+              <app-col  style="width: 22%;"><h6>3</h6></app-col>
             </app-row>
           </app-card>
         </app-col>
@@ -306,7 +334,7 @@
             <app-row>
                 <app-img src="assets/img/main/helmet1.svg"></app-img>
               <app-col>
-                <h6>LH관리자 가입 대기</h6>
+                <h6>관리자 가입 대기</h6>
               </app-col>
               <app-col size="auto">
                 <h3>12</h3>
@@ -317,7 +345,7 @@
             <app-row>
               <app-img src="assets/img/main/helmet2.svg"></app-img>
               <app-col>
-                <h6>감리 가입 대기</h6>
+                <h6>작업자 가입 대기</h6>
               </app-col>
               <app-col size="auto">
                 <h3>8</h3>
@@ -327,7 +355,7 @@
         </div>
         </app-card>
           <!-- //날씨 -->
-        <app-card class="card-flex" style="height: 58.5%;"> 
+        <app-card class="card-flex" style="height: 58%;"> 
         <div>
             <ion-toolbar slot="top" color="white">
               <app-row>
