@@ -28,15 +28,15 @@ export class AnswerObj {
   approval_date?:string;
 }
 export class CommentObj {
-  approval_answer: string;
+  approval_answer: "승인"|"반려"|"미결";
   approval_comment: string;
   approval_date: string;
   approval_last_state: 0|1;
-  approval_order_no: string;
-  company_id: 22
-  company_name: "구르미"
-  user_id: 3366458717
-  user_name: "업체에"
+  approval_order_no: number;
+  company_id: number;
+  company_name: string;
+  user_id: number;
+  user_name: string;
 }
 export class ReferObj {
   refer_user_id: number; // 참조자 user_id

@@ -156,7 +156,7 @@ export class SafetyEducationResultEditPage implements OnInit {
   //참석자 목록
   async reportList() {
     this.res = await this.connect.run('/education/report/attendant/list',{education_safe_report_id:this.editItem.education_safe_report_id});
-    if(this.res.rsCode !== 0) {
+    if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
@@ -166,12 +166,16 @@ export class SafetyEducationResultEditPage implements OnInit {
    */
    getTypeText(ctgo_education_safe_type) {
     switch(ctgo_education_safe_type) {
-      case '안전':
-        return '안전 및 보건에 관한 협의체 회의록';
-      case '노사':
-        return '노사 협의체 회의록';
-      case '산업':
-        return '산업안전보건위원회 회의록';
+      case '채용시':
+        return '교육 결과 보고서 (채용시)';
+      case '정기':
+        return '교육 결과 보고서 (작업자 정기)';
+      case '관리감독자정기': // => 1차에 안들어감
+        return '교육 결과 보고서 (관리감독자 정기)';
+      case '작업변경시':
+        return '교육 결과 보고서 (작업 내용 변경 시)';
+      case '특별':
+        return '교육 결과 보고서 (특별 교육)';
     }
   }
   /**
@@ -234,7 +238,7 @@ export class SafetyEducationResultEditPage implements OnInit {
       if(!this.form.approval_id) {
         // 신규 작성이었다면, approval_id와 safety_meeting_id 반환받아서 넣어줘야 임시저장 시, 새로 추가되는 것이 아닌 수정이 된다.
         this.form.approval_id = res.rsObj.approval_id;
-        // this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
+        this.form.education_safe_report_id = res.rsObj.education_safe_report_id;
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
       }

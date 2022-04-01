@@ -324,8 +324,10 @@ var ApprovalComponent = /** @class */ (function () {
     };
     /** 반환 이벤트 파라미터 만들기 */
     ApprovalComponent.prototype.getClickEvent = function () {
+        var _a, _b;
         return {
             approval_data: this.getApprovalData(),
+            approval_comment: ((_b = (_a = this.res) === null || _a === void 0 ? void 0 : _a.rsObj) === null || _b === void 0 ? void 0 : _b.approval_comment) || [],
             btnList: this.btnList,
             "delete": this.deleteApproval.bind(this),
             send: this.sendApproval.bind(this),

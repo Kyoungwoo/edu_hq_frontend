@@ -1,5 +1,10 @@
 :host {
     ion-textarea {
         margin-top: 0;
+        ::ng-deep {
+            textarea {
+                opacity: 1 !important;
+            }
+        }
     }
 }
