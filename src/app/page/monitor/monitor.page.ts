@@ -54,17 +54,27 @@ export class TodayConstructionItem {
   mmachine_using_count:number // 사용중 스마트장비 수
 }
 
+export class userData {
+  area_name: number;
+  area_gps_target: string;
+  gps_id: number;
+  company_id: number;
+  user_id: number;
+  user_name: string;
+  company_name: string;
+  user_longitude: number;
+  safe_job_name: string;
+  area_risk_name: string;
+  user_latitude: number;
+}[]
+
+
 @Component({
   selector: 'app-moniter',
   templateUrl: './monitor.page.html',
   styleUrls: ['./monitor.page.scss'],
 })
 export class MonitorPage implements OnInit, OnDestroy {
-  // theme_1 = [
-  //   {qwe_id:1, qwe_name:"test_1"},
-  //   {qwe_id:2, qwe_name:"test_2"},
-  //   {qwe_id:3, qwe_name:"test_3"},
-  // ]
 
   form = {
     project_id: 1,
@@ -209,18 +219,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:ConnectResult<{
-  area_risk_id: number,
-  gps_id: number,
-  user_id: number,
-  gps_log_id: number,
-  area_top_id: number,
-  area_middle_id: number,
-  area_bottom_id: number,
-  area_state: string,
-  user_longitude:number, //127.1066064454459,
-  user_latitude:number //37.404375691550484
-}>;
+gpsData:userData = new userData();
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -244,11 +243,16 @@ gps_log_data = new GpsCoordinateData();
     public user: UserService,
     public date: DateService
   ) { }
-  async ngOnInit() {
-    const modal = await this.modal.create({
-      component:RiskEvaluationPopupPage,
-      // cssClass:"confirm-modal"
-    });
+
+  ngOnInit() {
+    this.gpsGet();
+    this.intervalMethodController();
+    this.methodContrroller();
+    this.wokerInGetList();
+    // const modal = await this.modal.create({
+    //   component:RiskEvaluationPopupPage,
+    //   // cssClass:"confirm-modal"
+    // });
     // modal.present();
     // this.graphData()
     // const modal = await this.modal.create({
@@ -256,10 +260,6 @@ gps_log_data = new GpsCoordinateData();
       //   cssClass:"modal-7"
       // });
       // modal.present();
-      this.gpsGet();
-      this.intervalMethodController();
-      this.methodContrroller();
-      this.wokerInGetList();
   }
 
   /**
@@ -526,22 +526,13 @@ gps_log_data = new GpsCoordinateData();
 
 
   async gpsGet() {
-    this.gpsData = await this.connect.run('/integrated/gps/log',this.form);
-    if(this.gpsData.rsCode === 0) {
-      this.gpsData.rsMap.forEach(item => {
-        this.gps_log_data.gps_latitude.push(item.user_latitude);
-        this.gps_log_data.gps_longitude.push(item.user_longitude);
-        this.gps_log_id.push(item.gps_log_id);
-      });
+    const res = await this.connect.run('/integrated/gps/log',this.form);
+    if(res.rsCode === 0) {
     } else {
-      this.toast.present({message:this.gpsData.rsMsg, color:'warning'});
+      this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 }
-
-
-
-
   // async getWeatherGroup() {
     // const resultDust = await Promise.all([    
     //   this.getDust()
