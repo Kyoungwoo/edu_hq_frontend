@@ -1,0 +1,134 @@
+:host {
+  --app-disabled-opacity: 0.6;
+  margin-top: calc(var(--app-padding)*2);
+  margin-bottom: calc(var(--app-padding)*2);
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-box-shadow);
+  background: var(--ion-color-white);
+  border: 1px solid var(--ion-color-base, var(--ion-color-white));
+  padding: 7px;
+  display: flex;
+  align-items: flex-end;
+  text-align: left;
+  font-size: var(--app-font-size-input);
+  position: relative;
+  z-index: 1;
+}
+:host .input-group {
+  flex: 1 1 0%;
+  width: 100%;
+}
+:host label {
+  display: block;
+  font-size: var(--font-size-h6);
+  color: var(--ion-text-color);
+  font-weight: 500;
+}
+:host .input {
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--ion-text-color);
+}
+:host .button {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: var(--font-size-h6);
+  text-align: right;
+}
+:host .button:focus {
+  background: rgba(var(--ion-color-primary-translucent-rgb), 0.7);
+}
+:host .button.empty {
+  display: none;
+}
+
+:host.readonly > .button {
+  cursor: default;
+  opacity: var(--app-readonly-opacity);
+}
+
+:host.disabled,
+.disabled :host {
+  pointer-events: none;
+  background: none;
+  box-shadow: none;
+  border: 1px solid var(--ion-color-step-200);
+}
+:host.disabled > .input,
+.disabled :host > .input {
+  opacity: var(--app-disabled-opacity);
+}
+:host.disabled > .button,
+.disabled :host > .button {
+  cursor: default;
+  opacity: var(--app-disabled-opacity);
+  display: none;
+}
+
+:host ::ng-deep ::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--app-placeholder-color);
+  opacity: 1;
+  /* Firefox */
+}
+:host ::ng-deep :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--app-placeholder-color);
+}
+:host ::ng-deep ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--app-placeholder-color);
+}
+:host ::ng-deep input, :host ::ng-deep textarea {
+  border: 0;
+  width: 100%;
+  outline: none !important;
+  background: none !important;
+  padding: 0 !important;
+}
+:host ::ng-deep input {
+  min-height: 25px;
+}
+:host ::ng-deep ion-textarea, :host ::ng-deep textarea {
+  min-height: 50px;
+}
+:host ::ng-deep h1, :host ::ng-deep h2, :host ::ng-deep h3, :host ::ng-deep h4, :host ::ng-deep h5, :host ::ng-deep h6, :host ::ng-deep p, :host ::ng-deep app-radio, :host ::ng-deep app-check {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: var(--ion-text-color);
+}
+:host ::ng-deep p {
+  font-size: var(--app-font-size-input);
+  font-weight: 400;
+}
+:host ::ng-deep app-check + app-check {
+  margin-top: var(--app-padding);
+}
+:host ::ng-deep app-check {
+  --app-size: 26px;
+}
+
+:host.input-label > .button {
+  min-height: 43px;
+  min-width: 43px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+:host.input-label ::ng-deep > .button app-img {
+  width: 20px;
+}
+
+:host.input-no-label > .button {
+  min-height: 25px;
+  min-width: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 15px;
+}
+
+:host.input-no-label ::ng-deep > .button app-img {
+  width: 15px;
+}

@@ -53,99 +53,135 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.WorkerMinutesEditPage = void 0;
+exports.SafetyEducationResultEditPage = exports.EducationItem = void 0;
 var core_1 = require("@angular/core");
+var basic_animation_1 = require("src/app/basic/basic.animation");
 var file_service_1 = require("src/app/basic/service/core/file.service");
-var WorkerMinutesEditPage = /** @class */ (function () {
-    function WorkerMinutesEditPage(user, connect, toast, modal, loading, date) {
-        this.user = user;
+var EducationItem = /** @class */ (function () {
+    function EducationItem() {
+        this.education_safe_report_file_data = [];
+        this.file = []; // FILE
+        this.file_json = new file_service_1.FileJson(); // JSON
+        this.approval_default_data = [];
+    }
+    return EducationItem;
+}());
+exports.EducationItem = EducationItem;
+var SafetyEducationResultEditPage = /** @class */ (function () {
+    function SafetyEducationResultEditPage(connect, toast, date, user, _modal, loading) {
         this.connect = connect;
         this.toast = toast;
-        this.modal = modal;
-        this.loading = loading;
         this.date = date;
-        this.form = {
-            project_id: null,
-            company_id: null,
-            company_name: null,
-            safety_meeting_type: null,
-            safety_meeting_type_text: null,
-            safety_meeting_date: null,
-            safety_meeting_place: null,
-            safety_meeting_content: null,
-            safety_meeting_resolve: null,
-            safety_meeting_etc: '',
-            file_data: [],
-            file: [],
-            file_json: new file_service_1.FileJson(),
-            // 결재 값
-            ctgo_approval_module_id: null,
-            approval_cnt_answer: null,
-            approval_default_data: [],
-            // 수정시 정보
-            approval_id: null,
-            safety_meeting_id: null,
-            user_name: null
-        };
+        this.user = user;
+        this._modal = _modal;
+        this.loading = loading;
+        this.approvalView = false;
+        this.approvalDocument = false;
+        this.form = new EducationItem();
         this.permission = {
-            edit: false
+            edit: true
         };
     }
-    WorkerMinutesEditPage.prototype.ngOnInit = function () {
+    SafetyEducationResultEditPage.prototype.ngOnInit = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        if (!!this.safety_meeting_id) return [3 /*break*/, 1];
-                        // 신규 작성 시, 디폴트 값을 가져옴
-                        this.getDefaultForm(); // 폼으로 채우고
-                        this.getDefaultContent(); // 기본 정보를 가지고 온다.
-                        return [3 /*break*/, 3];
+                        this.form.education_safe_id = (_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id;
+                        if (!this.item) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.basicDetail()];
                     case 1:
-                        // 수정 시에는 정보를 가져와서 채워넣음
-                        this.form.safety_meeting_id = this.safety_meeting_id;
-                        return [4 /*yield*/, this.getDetail()];
+                        _b.sent();
+                        _b.label = 2;
                     case 2:
-                        _a.sent();
-                        _a.label = 3;
+                        if (!this.editItem) return [3 /*break*/, 4];
+                        return [4 /*yield*/, Promise.all([
+                                this.basicDetail(),
+                                this.reportList(),
+                                this.getItem()
+                            ])];
                     case 3:
+                        _b.sent();
+                        _b.label = 4;
+                    case 4:
                         // 나머지 정보
-                        this.form.safety_meeting_type_text = this.getTypeText(this.form.safety_meeting_type);
+                        this.form.ctgo_education_safe_type_text = this.getTypeText(this.form.ctgo_education_safe_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
-                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.safety_meeting_type);
+                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.ctgo_education_safe_type);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    WorkerMinutesEditPage.prototype.getDefaultForm = function () {
-        var _a = this.user.userData, user_name = _a.user_name, belong_data = _a.belong_data;
-        this.form.project_id = this.project_id;
-        this.form.company_id = belong_data.company_id;
-        this.form.company_name = belong_data.company_name;
-        this.form.safety_meeting_type = this.safety_meeting_type;
-        this.form.safety_meeting_date = this.date.today();
-        this.form.user_name = user_name;
-    };
-    /**
-     * 회의록 정보 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getDetail = function () {
+    //기본 데이터
+    SafetyEducationResultEditPage.prototype.basicDetail = function () {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
             var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/detail', {
-                            safety_meeting_id: this.form.safety_meeting_id
-                        }, { parse: ['file_data'] })];
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.form.approval_default_data.push({
+                            default_type: 'REFER',
+                            answer_datas: [{
+                                    answer_user_id: this.user.userData.user_id,
+                                    approval_last_state: 0,
+                                    approval_order_no: 1
+                                }],
+                            refer_datas: [{
+                                    refer_user_id: this.user.userData.user_id
+                                }]
+                        });
+                        return [4 /*yield*/, this.connect.run('/education/detail', { education_safe_id: ((_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id) | ((_b = this.editItem) === null || _b === void 0 ? void 0 : _b.education_safe_id) }, {
+                                parse: ['education_safe_manager_names', 'education_safe_manager_ids']
+                            })];
                     case 1:
-                        res = _a.sent();
+                        res = _c.sent();
                         if (res.rsCode === 0) {
                             this.form = __assign(__assign({}, this.form), res.rsObj);
                             // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
                         }
                         else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                            this.toast.present({ message: res.rsMsg, color: 'warning' });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //교육 상세보기
+    SafetyEducationResultEditPage.prototype.getItem = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/education/report/get', { education_safe_report_id: this.editItem.education_safe_report_id }, {
+                            parse: ['education_safe_report_file_data']
+                        })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            this.form = __assign(__assign({}, this.form), res.rsObj);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //참석자 목록
+    SafetyEducationResultEditPage.prototype.reportList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.editItem.education_safe_report_id })];
+                    case 1:
+                        _a.res = _b.sent();
+                        if (this.res.rsCode !== 0) {
+                            this.toast.present({ message: this.res.rsMsg, color: 'warning' });
                         }
                         return [2 /*return*/];
                 }
@@ -155,8 +191,8 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 회의록 텍스트 가져오기
      */
-    WorkerMinutesEditPage.prototype.getTypeText = function (safety_meeting_type) {
-        switch (safety_meeting_type) {
+    SafetyEducationResultEditPage.prototype.getTypeText = function (ctgo_education_safe_type) {
+        switch (ctgo_education_safe_type) {
             case '안전':
                 return '안전 및 보건에 관한 협의체 회의록';
             case '노사':
@@ -166,57 +202,26 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         }
     };
     /**
-     * 회의록 결재선 아이디 가져오기
+     * 교육결과 보고서 아이디 가져오기
      */
-    WorkerMinutesEditPage.prototype.getApprovalModuleId = function (safety_meeting_type) {
-        switch (safety_meeting_type) {
-            case '안전':
-                return 11;
-            case '노사':
-                return 10;
-            case '산업':
-                return 9;
+    SafetyEducationResultEditPage.prototype.getApprovalModuleId = function (ctgo_education_safe_type) {
+        switch (ctgo_education_safe_type) {
+            case '채용시':
+                return 1;
+            case '정기':
+                return 2;
+            case '관리감독자정기': // => 1차에 안들어감
+                return 3;
+            case '작업변경시':
+                return 4;
+            case '특별':
+                return 5;
         }
-    };
-    /**
-     * 기본 회의록 협의사항 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getDefaultContent = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/default/get', {
-                            project_id: this.form.project_id,
-                            company_id: this.form.company_id
-                        })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            switch (this.form.safety_meeting_type) {
-                                case '안전':
-                                    this.form.safety_meeting_content = res.rsObj.safety_default;
-                                    break;
-                                case '노사':
-                                    this.form.safety_meeting_content = res.rsObj.union_default;
-                                    break;
-                                case '산업':
-                                    this.form.safety_meeting_content = res.rsObj.health_default;
-                                    break;
-                            }
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
     };
     /**
      * 삭제 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onDeleteClick = function (ev) {
+    SafetyEducationResultEditPage.prototype.onDeleteClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -225,7 +230,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
                         }
@@ -240,33 +245,29 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 임시 저장버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onSaveClick = function (ev) {
+    SafetyEducationResultEditPage.prototype.onSaveClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, url, res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.safety_meeting_place) {
-                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
+                        if (!this.form.education_safe_report_instructor) {
+                            this.toast.present({ color: 'warning', message: '강사명이 없습니다.' });
                             return [2 /*return*/];
                         }
-                        if (!this.form.safety_meeting_content) {
-                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_resolve) {
-                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                        if (!this.form.education_safe_report_text) {
+                            this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '임시저장';
                         this.form.approval_default_data = approval_data;
                         url = '';
                         if (!this.form.approval_id) {
-                            url = '/board/safety_meeting/insert';
+                            url = '/education/report/insert';
                         }
                         else {
-                            url = '/board/safety_meeting/update';
+                            url = '/education/report/update';
                         }
                         return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
                     case 1:
@@ -276,9 +277,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                             if (!this.form.approval_id) {
                                 // 신규 작성이었다면, approval_id와 safety_meeting_id 반환받아서 넣어줘야 임시저장 시, 새로 추가되는 것이 아닌 수정이 된다.
                                 this.form.approval_id = res.rsObj.approval_id;
-                                this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
+                                // this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
                                 // 목록을 새로고침 해줘야 함
-                                window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                                window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                             }
                         }
                         else {
@@ -292,36 +293,32 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 요청 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onSendClick = function (ev) {
+    SafetyEducationResultEditPage.prototype.onSendClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, res, loading, res, approvalRes;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.safety_meeting_place) {
-                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
+                        if (!this.form.education_safe_report_instructor) {
+                            this.toast.present({ color: 'warning', message: '강사명이 없습니다.' });
                             return [2 /*return*/];
                         }
-                        if (!this.form.safety_meeting_content) {
-                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_resolve) {
-                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                        if (!this.form.education_safe_report_text) {
+                            this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '결재중';
                         this.form.approval_default_data = approval_data;
                         if (!!this.form.approval_id) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/insert', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/education/report/insert', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -330,7 +327,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                     case 2: return [4 /*yield*/, this.loading.present()];
                     case 3:
                         loading = _a.sent();
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/update', this.form)];
+                        return [4 /*yield*/, this.connect.run('/education/report/update', this.form)];
                     case 4:
                         res = _a.sent();
                         if (!(res.rsCode === 0)) return [3 /*break*/, 6];
@@ -339,9 +336,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         approvalRes = _a.sent();
                         if (approvalRes.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: approvalRes.rsMsg });
@@ -361,7 +358,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 회수 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onRecoveryClick = function (ev) {
+    SafetyEducationResultEditPage.prototype.onRecoveryClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -371,7 +368,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -381,7 +378,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onApprovalClick = function (ev) {
+    SafetyEducationResultEditPage.prototype.onApprovalClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -391,7 +388,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -401,7 +398,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 상태가 변할 때 행동
      */
-    WorkerMinutesEditPage.prototype.onApprovalChange = function (ev) {
+    SafetyEducationResultEditPage.prototype.onApprovalChange = function (ev) {
         if (ev.btnList.includes('임시저장')) {
             this.permission.edit = true;
         }
@@ -411,20 +408,18 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     };
     __decorate([
         core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "safety_meeting_id");
+    ], SafetyEducationResultEditPage.prototype, "item");
     __decorate([
         core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "project_id");
-    __decorate([
-        core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "safety_meeting_type");
-    WorkerMinutesEditPage = __decorate([
+    ], SafetyEducationResultEditPage.prototype, "editItem");
+    SafetyEducationResultEditPage = __decorate([
         core_1.Component({
-            selector: 'app-worker-minutes-edit',
-            templateUrl: './worker-minutes-edit.page.html',
-            styleUrls: ['./worker-minutes-edit.page.scss']
+            selector: 'app-safety-education-result-edit',
+            templateUrl: './safety-education-result-edit.page.html',
+            styleUrls: ['./safety-education-result-edit.page.scss'],
+            animations: [basic_animation_1.fadeInAnimation]
         })
-    ], WorkerMinutesEditPage);
-    return WorkerMinutesEditPage;
+    ], SafetyEducationResultEditPage);
+    return SafetyEducationResultEditPage;
 }());
-exports.WorkerMinutesEditPage = WorkerMinutesEditPage;
+exports.SafetyEducationResultEditPage = SafetyEducationResultEditPage;

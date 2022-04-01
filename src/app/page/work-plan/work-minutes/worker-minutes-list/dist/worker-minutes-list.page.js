@@ -110,7 +110,6 @@ var WorkerMinutesListPage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log(this.user.userData);
                         _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
                         this.form.project_id = belong_data.project_id;
                         if (!(belong_data.company_contract_type === 'LH'
