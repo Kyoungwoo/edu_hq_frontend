@@ -66,7 +66,7 @@ export class userData {
   safe_job_name: string;
   area_risk_name: string;
   user_latitude: number;
-}[]
+}
 
 
 @Component({
@@ -245,10 +245,9 @@ gps_log_data = new GpsCoordinateData();
   ) { }
 
   ngOnInit() {
-    this.gpsGet();
+    console.log("asdfasdfasdf");
     this.intervalMethodController();
     this.methodContrroller();
-    this.wokerInGetList();
     // const modal = await this.modal.create({
     //   component:RiskEvaluationPopupPage,
     //   // cssClass:"confirm-modal"
@@ -267,7 +266,8 @@ gps_log_data = new GpsCoordinateData();
    */
    methodContrroller(){
     this.monitorQuery();
-
+    this.wokerInGetList();
+    this.gpsGet();//근로자 gps
     this.getTodayWorker(); // 금일 출역 작업자
     this.getTodayConstruction(); // 공종별 출역 작업자
     this.getSmartEquip() // 스마트 안전장비 
@@ -528,6 +528,7 @@ gps_log_data = new GpsCoordinateData();
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
     if(res.rsCode === 0) {
+      console.log("test");
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
