@@ -52,6 +52,9 @@ class SearialCtgo {
   styleUrls: ['./serial-no-list.page.scss'],
 })
 export class SerialNoListPage implements OnInit {
+  /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
+  allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
+
   /** @param serial_type - 시리얼 타입입니다. ('개인' | '중장비' | '위험지역') */
   serial_type: '개인' | '중장비' | '위험지역' = '개인';
 

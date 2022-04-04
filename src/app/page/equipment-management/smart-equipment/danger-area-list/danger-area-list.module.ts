@@ -1,3 +1,4 @@
+import { DangerQrViewPageModule } from './../danger-qr-view/danger-qr-view.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,8 @@ import { DangerAreaAddPageModule } from '../danger-area-add/danger-area-add.modu
     BasicComponentModule,
     DangerAreaListPageRoutingModule,
     DangerAreaDetailSearchPageModule,
-    DangerAreaAddPageModule
+    DangerAreaAddPageModule,
+    DangerQrViewPageModule
   ],
   declarations: [DangerAreaListPage]
 })

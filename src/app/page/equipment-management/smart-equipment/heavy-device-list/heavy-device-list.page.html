@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="true"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="allState"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@
             <app-button fill="translucent" (click)="addButton()">추가</app-button>
             <app-button [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
             <app-button fill="translucent" color="danger" (click)="SmartDelete()">삭제</app-button>
-            <app-button fill="translucent" (click)="SmartSave()">저장</app-button>
+            <app-button [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SmartSave()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -120,7 +120,11 @@
                 <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td>
                 <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
                 <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
-                <td class="center-class"> - </td>
+                <td class="center-class">
+                  <app-button size="small" fill="clear" style="width:100%;" (click)="openModal_QR(item)">
+                    <app-img name="search"></app-img>
+                  </app-button>
+                </td>
                 <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">

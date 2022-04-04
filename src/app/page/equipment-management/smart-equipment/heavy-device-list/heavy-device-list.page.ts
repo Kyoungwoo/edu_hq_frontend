@@ -1,3 +1,4 @@
+import { HeavyQrViewPage } from './../heavy-qr-view/heavy-qr-view.page';
 import { LoadingService } from './../../../../basic/service/ionic/loading.service';
 import { AlertService } from './../../../../basic/service/ionic/alert.service';
 import { UserService } from './../../../../basic/service/core/user.service';
@@ -66,6 +67,9 @@ class SmartCtgo {
   styleUrls: ['./heavy-device-list.page.scss'],
 })
 export class HeavyDeviceListPage implements OnInit {
+  /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
+  allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
+  
   /** @param serial_type - 시리얼 타입입니다. ('개인' | '중장비' | '위험지역') */
   serial_type: '개인' | '중장비' | '위험지역' = '중장비';
 
@@ -221,8 +225,8 @@ export class HeavyDeviceListPage implements OnInit {
             let update_item = [];
 
             this.selectedList.map((item) => {
-              if(!item.serial_id) insert_item.push(item);
-              if(item.serial_id) update_item.push(item.serial_id);
+              if(!item.device_id) insert_item.push(item);
+              if(item.device_id) update_item.push(item.device_id);
             });
 
             // insert item이 있으면 삭제
@@ -232,8 +236,8 @@ export class HeavyDeviceListPage implements OnInit {
 
             // update item이 있으면 삭제
             if(update_item.length){
-              const res = await this.connect.run('/serial/delete', {
-                serial_ids : update_item
+              const res = await this.connect.run('/device/delete', {
+                device_ids : update_item
               });
               if (res.rsCode === 0) {
                 this.getList();
@@ -375,5 +379,16 @@ export class HeavyDeviceListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.SmartSaveMethod(<SmartInfo>data.item, data.type);
+  }
+
+  async openModal_QR(item){
+    const modal = await this.modal.create({
+      component: HeavyQrViewPage,
+      cssClass: 'danger-qr-view-modal',
+      componentProps: {
+        item: item
+      }
+    });
+    modal.present();
   }
 }

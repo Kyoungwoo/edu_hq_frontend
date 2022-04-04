@@ -6,6 +6,26 @@ import { Color } from '@ionic/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef, HostListener, Input, EventEmitter, Output } from '@angular/core';
 
+class SmartInfoInsertItem {
+  area_full_name:string = '';
+  area_top_id: number = 0;
+  area_top_name: string = '';
+  area_middle_id: number = 0;
+  area_middle_name: string = '';
+  area_bottom_id: number = 0;
+  area_bottom_name: string = '';
+  area_risk_id: number = 0;
+  area_risk_name: string = '';
+  ctgo_area_risk_id: number = 0;
+  ctgo_area_risk_name: string = '';
+  master_company_name:string;
+  ctgo_machine_serial_id: number = 0;
+  serial_id: number = 0;
+  serial_use_state: number = 0;
+  ctgo_machinery_name: string = '';
+  serial_no:string = '';
+}
+
 @Component({
   selector: 'app-select-risk-area',
   templateUrl: './select-risk-area.component.html',
@@ -61,6 +81,7 @@ export class SelectRiskAreaComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      console.log("select - ",data);
       if(data.selectType == 'manual'){
         this.item = {
           ...this.item,
@@ -84,8 +105,8 @@ export class SelectRiskAreaComponent implements OnInit, ControlValueAccessor {
   @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:number;
-  @Input() set value(v:number) {
+  private _value:any;
+  @Input() set value(v:any) {
     this.valueChange(v);
   }
   get value() {

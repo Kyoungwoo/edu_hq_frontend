@@ -122,7 +122,7 @@ export class MyStatusListPage implements OnInit {
       this.resrisk = await this.connect.run('/work_project/nfc_beacon/my_risk/list',this.form,{parse:['inner_data']});
       if(this.resrisk.rsCode === 0) {
       } else {
-        this.toast.present({message:'위험지역 출역 기록이 없습니다.', color:'warning'});
+        this.toast.present({message:'게이트 먼저 입장해주세요.', color:'warning'});
       }
   }
 

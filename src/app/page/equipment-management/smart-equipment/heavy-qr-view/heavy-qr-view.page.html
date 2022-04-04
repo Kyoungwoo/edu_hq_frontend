@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>건설기계 QR</ion-title>
+    <app-dismiss-button slot="end"></app-dismiss-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="item">
+  <div  style="display: flex; justify-content: center; align-items: center;">
+    <img (click)="downloadQR()" id="qrious"/>
+  </div>
+  
+  <app-card>
+    <app-row>
+      <app-col>
+        <app-input [readonly]="true" name="건설기계 구분" label="건설기계 구분" [(ngModel)]="item.ctgo_machinery_name"></app-input>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card>
+    <app-row>
+      <app-col>
+        <app-input [readonly]="true" name="등록번호" label="등록번호" [(ngModel)]="item.machinery_regist_no"></app-input>
+      </app-col>
+    </app-row>
+  </app-card>
+</ion-content>

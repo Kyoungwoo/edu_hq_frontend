@@ -10,6 +10,9 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./each-device-detail-search.page.scss'],
 })
 export class EachDeviceDetailSearchPage implements OnInit {
+  /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
+  allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
+  
   @Input() form; // 검색조건
   @Input() smart_ctgo_list; // 카테고리 리스트
 

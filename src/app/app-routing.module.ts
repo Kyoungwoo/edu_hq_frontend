@@ -567,7 +567,8 @@ const routes: Routes = [
   {
     path: 'worker-minutes-select-type',
     loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module').then( m => m.WorkerMinutesSelectTypePageModule)
-  },  {
+  },
+  {
     path: 'main-sub-admin',
     loadChildren: () => import('./page/main/main-sub-admin/main-sub-admin.module').then( m => m.MainSubAdminPageModule)
   },
@@ -582,11 +583,15 @@ const routes: Routes = [
   {
     path: 'main-user-worker',
     loadChildren: () => import('./page/main/main-user-worker/main-user-worker.module').then( m => m.MainUserWorkerPageModule)
+  },
+  {
+    path: 'danger-qr-view',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/danger-qr-view/danger-qr-view.module').then( m => m.DangerQrViewPageModule)
+  },
+  {
+    path: 'heavy-qr-view',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-qr-view/heavy-qr-view.module').then( m => m.HeavyQrViewPageModule)
   }
-
-
-  
-
 ];
 
 @NgModule({

@@ -1,3 +1,5 @@
+import { HeavyQrViewPageModule } from './../heavy-qr-view/heavy-qr-view.module';
+import { QrEducationInPageModule } from './../../../safety-education/educatiion-status/qr-education-in/qr-education-in.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +11,6 @@ import { HeavyDeviceListPageRoutingModule } from './heavy-device-list-routing.mo
 import { HeavyDeviceListPage } from './heavy-device-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
-import { HeavyDeviceDetailSearchPage } from '../heavy-device-detail-search/heavy-device-detail-search.page';
 import { HeavyDeviceDetailSearchPageModule } from '../heavy-device-detail-search/heavy-device-detail-search.module';
 import { HeavyDeviceAddPageModule } from '../heavy-device-add/heavy-device-add.module';
 
@@ -22,7 +23,8 @@ import { HeavyDeviceAddPageModule } from '../heavy-device-add/heavy-device-add.m
     BasicComponentModule,
     HeavyDeviceListPageRoutingModule,
     HeavyDeviceDetailSearchPageModule,
-    HeavyDeviceAddPageModule
+    HeavyDeviceAddPageModule,
+    HeavyQrViewPageModule
   ],
   declarations: [HeavyDeviceListPage]
 })

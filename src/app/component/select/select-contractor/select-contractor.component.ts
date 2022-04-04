@@ -107,10 +107,10 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       }
       else {
         if(!this.value && user_type === 'LH') {
-          this.value = rsMap[0].company_id;
+          if(!this.allState) this.value = rsMap[0].company_id;
         }
 
-        this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || '';
+        this.text = rsMap.find(constractor => constractor.company_id === this.value)?.company_name || (this.allState ? '전체' : '');
         // console.log(this.value);
         // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
         if(!this.text) this.value = 0;

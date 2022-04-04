@@ -456,6 +456,12 @@
     background: transparent none !important; 
   }
 
+  // QR modal css
+  .danger-qr-view-modal {
+    --max-width: 500px!important;
+    --max-height: 600px!important;
+  }
+
   
   @media only screen and (min-height: 600px) and (min-width: 768px) {
     .sc-ion-modal-md-h {

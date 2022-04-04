@@ -1,3 +1,5 @@
+import { DangerQrViewPage } from './../danger-qr-view/danger-qr-view.page';
+import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { LoadingService } from './../../../../basic/service/ionic/loading.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -78,6 +80,9 @@ class SmartCtgo {
   styleUrls: ['./danger-area-list.page.scss'],
 })
 export class DangerAreaListPage implements OnInit {
+  /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
+  allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
+  
   /** @param serial_type - 시리얼 타입입니다. ('개인' | '중장비' | '위험지역') */
   serial_type: '개인' | '중장비' | '위험지역' = '위험지역';
 
@@ -144,9 +149,7 @@ export class DangerAreaListPage implements OnInit {
    */
    async getList() {
     let method = await this.TransMethodType();
-    console.log("들어옴? 1 ");
     await this.resetState();
-    console.log("들어옴? 2 ");
     const res = await this.connect.run(method, this.form);
     if(res.rsCode === 0 ) {
       
@@ -155,7 +158,7 @@ export class DangerAreaListPage implements OnInit {
         ...res
       };
       this.res_original = JSON.parse(JSON.stringify(res.rsMap));
-      this.res.rsMap.map((item, i) => {item.index = res.rsObj.row_count -i;});
+      this.res.rsMap.map((item, i) => {item.index = res.rsObj.row_count -i; });
     }
     else if (res.rsCode === 1008) {
       this.res = null;
@@ -233,8 +236,8 @@ export class DangerAreaListPage implements OnInit {
             let update_item = [];
 
             this.selectedList.map((item) => {
-              if(!item.serial_id) insert_item.push(item);
-              if(item.serial_id) update_item.push(item.serial_id);
+              if(!item.device_id) insert_item.push(item);
+              if(item.device_id) update_item.push(item.device_id);
             });
 
             // insert item이 있으면 삭제
@@ -244,8 +247,8 @@ export class DangerAreaListPage implements OnInit {
 
             // update item이 있으면 삭제
             if(update_item.length){
-              const res = await this.connect.run('/serial/delete', {
-                serial_ids : update_item
+              const res = await this.connect.run('/device/delete', {
+                device_ids : update_item
               });
               if (res.rsCode === 0) {
                 this.getList();
@@ -270,6 +273,7 @@ export class DangerAreaListPage implements OnInit {
         {
           text: '예',
           handler: async () => {
+            console.log(this.res_insert);
             let case_1 = false; // 장비구분을 하나라도 선택 안했을때
             let case_2 = false; // serial_id를 하나라도 선택 안했을때
             let case_3 = false; // 성명을 하나라도 선택 안했을때
@@ -311,11 +315,15 @@ export class DangerAreaListPage implements OnInit {
                 if(
                   this.res.rsMap[i].ctgo_machine_serial_id !== this.res_original[i].ctgo_machine_serial_id ||
                   this.res.rsMap[i].serial_id !== this.res_original[i].serial_id ||
+                  this.res.rsMap[i].area_risk_id !== this.res_original[i].area_risk_id ||
+                  this.res.rsMap[i].area_top_id !== this.res_original[i].area_top_id ||
+                  this.res.rsMap[i].area_middle_id !== this.res_original[i].area_middle_id ||
+                  this.res.rsMap[i].area_bottom_id !== this.res_original[i].area_bottom_id ||
                   this.res.rsMap[i].serial_use_state !== this.res_original[i].serial_use_state
                   ) changeed_itemIndex.push(this.res.rsMap[i]);
               }
             }
-
+            
             // 한개라도 바뀐 아이템이 있으면 수정 실행
             if(changeed_itemIndex.length){
               // 수정된 아이템들 업데이트하기 - 모든 api를 호출할때까지 기다린다
@@ -386,5 +394,55 @@ export class DangerAreaListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.SmartSaveMethod(<SmartInfo>data.item, data.type);
+  }
+
+  public async openModal(type:string,index:number) {
+    // this.isModalData = true;
+    const modal = await this.modal.create({
+      component: SearchAreaComponent,
+      componentProps: {
+        project_id: this.form.project_id,
+        selectType: 'manual'
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      let setItem = type == 'insert' ? this.res_insert[index] : this.res.rsMap[index];
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = '';
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_id = 0;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name = '';
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_id = 0;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name = '';
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_id = 0;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name = '';
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_risk_id = 0;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_risk_name = '';
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).ctgo_area_risk_id = 0;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).ctgo_area_risk_name = '';
+
+      if(data.selectType == 'manual'){
+        if(type == 'update') this.res.rsMap[index] = {...this.res.rsMap[index],...data.areaSelectedItem};
+        else this.res_insert[index] = {...this.res_insert[index],...data.areaSelectedItem};
+      } else {
+        if(type == 'update') this.res.rsMap[index] = {...this.res.rsMap[index],...data.area1selectedItem,...data.area2selectedItem,...data.area3selectedItem};
+        else this.res_insert[index] = {...this.res_insert[index],...data.area1selectedItem,...data.area2selectedItem,...data.area3selectedItem};
+      }
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name+' '+(type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name+' '+(type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name;
+      console.log((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]));
+      console.log(type);
+    }
+    // this.isModalData = false;
+  }
+
+  async openModal_QR(item){
+    const modal = await this.modal.create({
+      component: DangerQrViewPage,
+      cssClass: 'danger-qr-view-modal',
+      componentProps: {
+        item: item
+      }
+    });
+    modal.present();
   }
 }
