@@ -4,14 +4,12 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
 
 @Component({
-  selector: 'app-main-user',
-  templateUrl: './main-user.page.html',
-  styleUrls: ['./main-user.page.scss'],
+  selector: 'app-main-user-worker',
+  templateUrl: './main-user-worker.page.html',
+  styleUrls: ['./main-user-worker.page.scss'],
 })
-export class MainUserPage implements OnInit {
+export class MainUserWorkerPage implements OnInit {
 
-  menu: number = 1;
-  
   constructor(
     private modal: ModalController,
     private nav: NavService
@@ -23,10 +21,12 @@ export class MainUserPage implements OnInit {
     this.nav.navigateForward('/my-page-type');
   }
 
+  
   async openMenu() {
     const modal = await this.modal.create({
       component: SideMenuUserComponent
     });
     modal.present();
   }
+
 }

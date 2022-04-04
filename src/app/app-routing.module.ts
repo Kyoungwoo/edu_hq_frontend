@@ -570,6 +570,18 @@ const routes: Routes = [
   },  {
     path: 'main-sub-admin',
     loadChildren: () => import('./page/main/main-sub-admin/main-sub-admin.module').then( m => m.MainSubAdminPageModule)
+  },
+  {
+    path: 'main-user-master',
+    loadChildren: () => import('./page/main/main-user-master/main-user-master.module').then( m => m.MainUserMasterPageModule)
+  },
+  {
+    path: 'main-user-partner',
+    loadChildren: () => import('./page/main/main-user-partner/main-user-partner.module').then( m => m.MainUserPartnerPageModule)
+  },
+  {
+    path: 'main-user-worker',
+    loadChildren: () => import('./page/main/main-user-worker/main-user-worker.module').then( m => m.MainUserWorkerPageModule)
   }
 
 

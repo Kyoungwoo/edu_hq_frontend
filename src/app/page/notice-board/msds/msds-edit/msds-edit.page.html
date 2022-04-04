@@ -13,7 +13,7 @@
       <app-select-scene label="현장명"  [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
     </app-col>
     <app-col>
-      <app-input label="원청사명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
+      <app-input label="원청사명" [(ngModel)]="form.company_name" [disabled]="true" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">

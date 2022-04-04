@@ -39,7 +39,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-select-contractor>
     </app-col>
   </app-row>
     <app-row>

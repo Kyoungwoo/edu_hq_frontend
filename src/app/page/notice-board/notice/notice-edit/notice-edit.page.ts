@@ -58,6 +58,7 @@ export class NoticeEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private date: DateService,
+    
     private alert: AlertService,
   ) { }
 

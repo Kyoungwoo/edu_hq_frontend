@@ -1,5 +1,6 @@
-
-
+ion-content {
+    --background: var(--ion-color-white);
+}
 .profile-row {
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -31,10 +32,15 @@
 
         
     app-img {
-        width: 50%;
+        width: 65%;
     }
     }
     p {
-        font-size: var(--font-size-h4);
+        font-size: var(--font-size-h5);
     }
+   
+}
+.segment-border {
+border-top: 1px solid var(--ion-color-step-100);
+border-bottom: 1px solid var(--ion-color-step-100);
 }
