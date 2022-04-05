@@ -73,11 +73,12 @@
             [style.opacity]="subMenu.link ? 1 : 0.5"
             (click)="subMenu.toggle = !subMenu.toggle; subMenu.link ? menuClose() : notReady()">{{ subMenu.title }}</ion-item>
 
-            <ng-container *ngIf="subMenu.toggle">
+            <!-- 현재 third menu list -->
+            <!-- <ng-container *ngIf="subMenu.toggle">
               <ion-item *ngFor="let thirdMenu of subMenu.thirdMenuList" [routerLink]="thirdMenu.link || null" (click)="menuClose()" style="padding-left: 30px;">
                 {{ thirdMenu.title }}
               </ion-item>
-            </ng-container>
+            </ng-container> -->
 
           </ng-container>
         </ng-container> 
