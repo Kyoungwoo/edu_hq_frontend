@@ -41,7 +41,7 @@ export class SideMenuUserComponent implements OnInit {
       { title: '회의록', link: '/worker-minutes-list', params: {}, permission: () => { return true }}
     ]},
     { img:'assets/img/menu/safety-education.svg', title: '안전교육', subMenuList: [
-      { title: '교육현황', link: '/safety-education-list', params: {}, permission: () => { 
+      { title: '교육현황', link: '/safety-education-list', params: {}, permission: () => {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
