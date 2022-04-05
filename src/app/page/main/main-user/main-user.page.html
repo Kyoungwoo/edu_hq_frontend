@@ -34,19 +34,19 @@
   <div class="main-button">
     <app-row>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('위험성평가')">
           <app-img src="assets/img/menu/risk-evaluation-report-dark.svg"></app-img>
           <p>위험성 평가</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('회의록')">
           <app-img src="assets/img/menu/conference-dark.svg"></app-img>
           <p>회의록</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('미결함')">
           <app-img src="assets/img/menu/undetermined-dark.svg"></app-img>
           <p>미결함</p>
         </app-button>
@@ -54,19 +54,19 @@
     </app-row>
     <app-row>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('통합관제')">
           <app-img src="assets/img/menu/control-center-dark.svg"></app-img>
           <p>통합관제</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('')">
           <app-img src="assets/img/menu/general-check-dark.svg"></app-img>
           <p>점검</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('')">
           <app-img src="assets/img/menu/general-incongruity-dark.svg"></app-img>
           <p>부적합 조치</p>
         </app-button>
@@ -74,19 +74,19 @@
     </app-row>
     <app-row>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('')">
           <app-img src="assets/img/menu/ptw-dark.svg"></app-img>
           <p>위험작업허가</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square">
+        <app-button class="square" shape="square" (click)="router('')">
           <app-img src="assets/img/menu/nfc-dark.svg"></app-img>
           <p>NFC/QR</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square" color="danger">
+        <app-button class="square" shape="square" color="danger" (click)="router('')">
           <app-img src="assets/img/menu/emergency-alarm-management-dark.svg"></app-img>
           <p>비상알림</p>
         </app-button>
