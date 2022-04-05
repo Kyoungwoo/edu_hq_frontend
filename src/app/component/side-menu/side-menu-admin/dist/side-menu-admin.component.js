@@ -16,7 +16,8 @@ var SideMenuAdminComponent = /** @class */ (function () {
         this._modal = _modal;
         this.user = user;
         this.menuList = [
-            { title: '통합관제', img: 'assets/img/menu/control-center.svg', subMenuList: [
+            { title: '통합관제', img: 'assets/img/menu/control-center.svg',
+                subMenuList: [
                     { title: '통합관제', link: '/monitor' }
                 ] },
             { title: '전자결재', img: 'assets/img/menu/sign.svg', subMenuList: [
@@ -120,9 +121,12 @@ var SideMenuAdminComponent = /** @class */ (function () {
                             { title: '회원 정보 기준 설정', link: '/member-standard-set' },
                             { title: '교육 정보 기준 설정', link: '' },
                             { title: '장소 정보 기준 설정', link: '/area-standard-set' },
-                            { title: '작업 정보 기준 설정', link: '/work-standard-set' },
+                            { title: '작업 정보 기준 설정', link: '/work-standard-set', permission: function () {
+                                    var user_type = _this.user.userData.user_type;
+                                    return user_type === 'COMPANY';
+                                } },
                             { title: '비상 관리 기준 설정', link: '' },
-                            { title: '시스템 활용 기준 설정', link: '' },
+                            { title: '시스템 활용 기준 설정', link: '' }
                         ] }
                 ] },
             { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
@@ -141,7 +145,7 @@ var SideMenuAdminComponent = /** @class */ (function () {
     };
     SideMenuAdminComponent.prototype.notReady = function () {
         this.alert.present({
-            message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+            img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
             header: '준비중'
         });
     };

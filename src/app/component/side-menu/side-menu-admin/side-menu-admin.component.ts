@@ -35,8 +35,9 @@ export interface ThirdMenuItem {
 export class  SideMenuAdminComponent implements OnInit {
 
   menuList:MenuItem[] = [
-    { title: '통합관제', img: 'assets/img/menu/control-center.svg', subMenuList: [
-      { title: '통합관제', link: '/monitor'}
+    { title: '통합관제', img: 'assets/img/menu/control-center.svg', 
+    subMenuList: [
+      { title: '통합관제', link: '/monitor' }
     ]},
     { title: '전자결재', img: 'assets/img/menu/sign.svg',
     subMenuList: [
@@ -64,9 +65,9 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '교육현황', link: '/safety-education-list'},
       { title: '교육 결과 보고', link: '/safety-education-result-list'},
       { title: '교육이력', thirdMenuList:[
-        {title:'근로자 교육 이력',link:'/safety-education-history-list'},
-        {title:'정기 교육 이력',link:''},
-        {title:'특별 교육 이력',link:''}
+        {title:'근로자 교육 이력', link:'/safety-education-history-list'},
+        {title:'정기 교육 이력', link:''},
+        {title:'특별 교육 이력', link:''}
       ]}
     ]},
     { title: '작업계획', img: 'assets/img/menu/work-plan.svg', subMenuList: [
@@ -144,9 +145,12 @@ export class  SideMenuAdminComponent implements OnInit {
         { title:'회원 정보 기준 설정',link:'/member-standard-set' },
         { title:'교육 정보 기준 설정',link:'' },
         { title:'장소 정보 기준 설정',link:'/area-standard-set' },
-        { title:'작업 정보 기준 설정',link:'/work-standard-set' },
+        { title:'작업 정보 기준 설정',link:'/work-standard-set' , permission: () => {
+          const { user_type } = this.user.userData;
+          return user_type === 'COMPANY';
+        }},
         { title:'비상 관리 기준 설정',link:'' },
-        { title:'시스템 활용 기준 설정',link:'' },
+        { title:'시스템 활용 기준 설정',link:'' }
       ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
@@ -177,7 +181,7 @@ export class  SideMenuAdminComponent implements OnInit {
   }
   notReady() {
     this.alert.present({
-      message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+      img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
       header: '준비중'
     });
   }
