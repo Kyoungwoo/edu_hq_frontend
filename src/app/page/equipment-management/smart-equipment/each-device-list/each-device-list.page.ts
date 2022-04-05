@@ -393,7 +393,8 @@ export class EachDeviceListPage implements OnInit {
         form: this.form,
         item: new SmartInfoInsertItem(),
         list: this.res_original,
-        ctgo: this.smart_ctgo_list
+        ctgo: this.smart_ctgo_list,
+        serial_type: this.serial_type
       }
     });
     modal.present();

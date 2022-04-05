@@ -1,3 +1,4 @@
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { SearialItem } from './../../modal/search-serial-number/search-serial-number.component';
 import { ConnectService } from './../../../basic/service/core/connect.service';
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output, HostListener, ChangeDetectorRef } from '@angular/core';
@@ -19,7 +20,10 @@ import { SearchSerialNumberComponent } from '../../modal/search-serial-number/se
 export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
+    if(!this.disabled){
+      if(!this.ctgo_machine_serial_id) return this.toast.present({message: '스마트 장비를 먼저 선택해주세요.', color: 'warning'});
+      this.openModal();
+    }
   }
 
   @Input() color:Color;
@@ -27,6 +31,7 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
   @Input() serial_type: '전체' | '개인' | '중장비' | '위험지역' = "전체";
   @Input() project_id:number = 0;
   @Input() master_company_id:number = 0;
+  @Input() ctgo_machine_serial_id:number = 0;
   @Input() disabled:boolean = false;
   @Input() required:boolean = false;
   @Input() all:boolean = false; // 전체 현장 노출 여부
@@ -38,7 +43,8 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
   constructor(
     private connect: ConnectService,
     private _modal:ModalController,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private toast:ToastService
   ) { }
   ngOnInit() {}
   public async get() {
@@ -73,7 +79,7 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
           serial_type: this.serial_type,
           project_id: this.project_id,
           master_company_id: this.master_company_id,
-          ctgo_machine_serial_id: 0,
+          ctgo_machine_serial_id: this.ctgo_machine_serial_id,
           search_text: ''
         }
       }

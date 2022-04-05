@@ -93,7 +93,7 @@
                   </app-select>
                 </td>
                 <td>
-                  <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                  <app-select-serial-number [ctgo_machine_serial_id]="item.ctgo_machine_serial_id" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
                 </td>
                 <td class="center-class"> - </td>
                 <td class="center-class"> - </td>
@@ -119,7 +119,7 @@
                   </app-select>
                 </td>
                 <td [class.center-class]="!item.serial_id">
-                  <app-select-serial-number *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+                  <app-select-serial-number [ctgo_machine_serial_id]="item.ctgo_machine_serial_id" *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
                   {{ (item.serial_id || (!item.serial_id && update_state)) ? '' : ' - ' }}
                 </td>
                 <td [class.center-class]="!item.master_company_id">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>

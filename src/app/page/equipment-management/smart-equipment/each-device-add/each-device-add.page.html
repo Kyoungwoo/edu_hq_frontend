@@ -5,25 +5,63 @@
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="white">
+  <!-- <ion-toolbar color="white">
     <ion-buttons>
       <ion-segment color="primary" [(ngModel)]="item.ctgo_machine_serial_id">
         <ion-segment-button *ngFor="let data of ctgo" [value]="data.ctgo_machine_serial_id">{{ data.ctgo_machine_serial_name }}</ion-segment-button>
       </ion-segment>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 <ion-content>
   <app-select-people-all label="성명" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
- <app-select-serial-number [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
+  <!-- <app-select-serial-number label="시리얼No" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number> -->
   <ng-container>
-    <h5>디바이스 등록 현황</h5>
-    <app-card *ngFor="let data of list">
+    <div class="serial-add-class">
+      <h5>디바이스 등록 현황</h5>
+      <app-button (click)="openModal_SerialMobile()">추가</app-button>
+    </div>
+
+    <!-- Add Item List -->
+    <div style="position: relative;" *ngFor="let data of insert_list; let i = index;">
+      <ion-button (click)="deleteItem(i)" class="device-delete-btn">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
+            <p>시리얼 No. : {{ data.serial_no }}</p>
+            <p>시리얼 타입 : {{ data.serial_type }}</p>
+          </app-col>
+
+          <app-col size="3">
+            <p>사용여부</p>
+            <app-select class="use-state-class" [(ngModel)]="data.serial_use_state">
+              <app-select-option [value]="1">Y</app-select-option>
+              <app-select-option [value]="0">N</app-select-option>
+            </app-select>
+          </app-col>
+        </app-row>
+      </app-card>
+    </div>
+    
+
+    <app-card style="position: relative;" *ngFor="let data of res?.rsMap">
       <app-row>
         <app-col>
           <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
-          <p>시리얼 No. : {{ data.searial_no }}</p>
-          <p>사용여부 : {{ data.serial_use_state ? 'Y' : 'N' }}</p>
+          <p>시리얼 No. : {{ data.serial_no }}</p>
+          <p>시리얼 타입 : {{ data.serial_type }}</p>
+        </app-col>
+
+        <app-col size="3">
+          <p>사용여부</p>
+          <app-select class="use-state-class" [(ngModel)]="data.serial_use_state">
+            <app-select-option [value]="1">Y</app-select-option>
+            <app-select-option [value]="0">N</app-select-option>
+          </app-select>
         </app-col>
       </app-row>
     </app-card>

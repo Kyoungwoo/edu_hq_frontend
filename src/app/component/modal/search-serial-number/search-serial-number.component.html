@@ -7,8 +7,8 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-select label="스마트 장비" name="select" [(ngModel)]="form.ctgo_machine_serial_id">
-        <app-select-option [value]="0">전체</app-select-option>
+      <app-select [disabled]="state == 'pc'" label="스마트 장비" name="select" [(ngModel)]="form.ctgo_machine_serial_id">
+        <app-select-option *ngIf="state == 'mobile'" [value]="0">전체</app-select-option>
         <app-select-option *ngFor="let opt of smart_ctgo_list" [value]="opt.ctgo_machine_serial_id">{{ opt.ctgo_machine_serial_name }}</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력하세요">

@@ -27,6 +27,7 @@ export class SearchSerialNumberComponent implements OnInit {
   smart_ctgo_list:SmartCtgo[] = [];
 
   @Input() form;
+  @Input() state: 'mobile' | 'pc' = 'pc';
 
   res: ConnectResult<SearialItem>
 
