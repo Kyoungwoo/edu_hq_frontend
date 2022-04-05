@@ -110,6 +110,7 @@
           <h6>2021.08.19</h6>
         </app-col>
       </app-row>
+        <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
     </div>
     <div [style.display]="menu === 2 ? 'block' : 'none'">
       <app-row style="margin-top: 15px;">
@@ -121,6 +122,7 @@
           <h6>2021.08.19</h6>
         </app-col>
       </app-row>
+      <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
     </div>
     <div [style.display]="menu === 3 ? 'block' : 'none'">
       <app-row style="margin-top: 15px;">
@@ -132,9 +134,6 @@
           <h6>2021.08.19</h6>
         </app-col>
       </app-row>
+      <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
     </div>
 </ion-content>
-<app-button-footer>
-  <app-button color="secondary">더보기
-  </app-button>
-</app-button-footer>

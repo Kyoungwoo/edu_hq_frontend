@@ -32,21 +32,23 @@ ion-toolbar {
 .top-buttons {
 	background: var(--ion-color-white);
 	border-bottom: 1px solid var(--ion-color-step-100);
-	// padding: 0px 16px 10px 16px;
-	app-col {
-		width: 60px;
-	}
+	display: flex;
 }
 app-button.top-button {
-	width: 70px;
+	width: 100%;
 	app-img {
-		width: 35px;
+		width: 50%;
 		padding-top: 5px;
 	}
 	h6 {
 		font-weight: normal;
 		padding-top: 5px;
 		padding-bottom: 5px;
+	}
+	::ng-deep {
+		.button-inner {
+			flex-wrap: unset !important;
+		}
 	}
 }
 
@@ -100,8 +102,8 @@ app-button.top-button {
 			--detail-icon-opacity: 0;
 		}
 		app-img {
-			width: 50px;
-			height: 50px;
+			width: 45px;
+			height: 45px;
 			margin-right: 5px;
 		}
 		ul {

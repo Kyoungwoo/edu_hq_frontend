@@ -53,6 +53,15 @@ export class MainUserWorkerPage implements OnInit {
       case '스마트안전장비':
         this.nav.navigateRoot('/each-device-list');
         break;
+        case '공지사항':
+          this.nav.navigateRoot('/notice-list');
+          break;
+        case 'MSDS':
+          this.nav.navigateRoot('/msds-list');
+          break;
+        case '회의록':
+          this.nav.navigateRoot('/minutes-list');
+          break;
     }
   }
 }

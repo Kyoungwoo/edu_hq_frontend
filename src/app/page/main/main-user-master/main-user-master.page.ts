@@ -52,6 +52,15 @@ export class MainUserMasterPage implements OnInit {
       case '위험성평가':
         this.nav.navigateRoot('/risk-list');
         break;
+        case '공지사항':
+          this.nav.navigateRoot('/notice-list');
+          break;
+        case 'MSDS':
+          this.nav.navigateRoot('/msds-list');
+          break;
+        case '회의록':
+          this.nav.navigateRoot('/minutes-list');
+          break;
     }
   }
 }

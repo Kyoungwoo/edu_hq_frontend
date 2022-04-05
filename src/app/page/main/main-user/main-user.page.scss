@@ -38,7 +38,15 @@ ion-content {
     p {
         font-size: var(--font-size-h6);
     }
+    app-row {
+        align-items: stretch;
+    }
    
+}
+
+.more {
+    display: flex;
+    align-items: flex-end;
 }
 .segment-border {
 border-top: 1px solid var(--ion-color-step-100);

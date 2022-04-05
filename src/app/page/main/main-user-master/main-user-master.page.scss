@@ -38,6 +38,9 @@ ion-content {
     p {
         font-size: var(--font-size-h6);
     }
+	app-row {
+        align-items: stretch;
+    }
    
 }
 .segment-border {
