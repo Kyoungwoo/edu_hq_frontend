@@ -34,7 +34,7 @@ public class NfcPlugin: CAPPlugin {
             }
         } else {
             //NFC 지원기기아님
-            call.resolve(["message":nil])
+            call.resolve(["message":"NotSupport"])
         }
     
     }

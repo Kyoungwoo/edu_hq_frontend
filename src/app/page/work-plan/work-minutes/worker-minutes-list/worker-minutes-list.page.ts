@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/worker-minutes-detail-search.page';
@@ -61,6 +62,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     private date: DateService,
     private toast: ToastService,
     public user: UserService,
+    private nav: NavService
   ) { }
 
   async ngOnInit() {
@@ -218,5 +220,16 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
       }
     });
     modal.present();
+  }
+
+  /**
+   * 미결함으로 이동
+   */
+   async pending() {
+    this.nav.navigateForward('/confirm-pending-list');
+    /* const modal = await this._modal.create({
+      component:EducationConfirmPendingListPage,
+    });
+    modal.present(); */
   }
 }

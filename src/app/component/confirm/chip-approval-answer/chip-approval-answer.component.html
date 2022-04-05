@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="approval_cnt_answer">
+  <ion-chip *ngSwitchCase="'임시저장'" color="success" color="success">{{ approval_cnt_answer }}</ion-chip>
+  <ion-chip *ngSwitchCase="'결재중'" color="success" color="success">{{ approval_cnt_answer }}</ion-chip>
+  <ion-chip *ngSwitchCase="'결재완료'" color="success" color="primary">{{ approval_cnt_answer }}</ion-chip>
+  <ion-chip *ngSwitchCase="'반려'" color="success" color="warning">{{ approval_cnt_answer }}</ion-chip>
+</ng-container>

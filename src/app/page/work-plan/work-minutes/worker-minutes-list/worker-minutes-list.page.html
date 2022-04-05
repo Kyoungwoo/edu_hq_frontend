@@ -60,7 +60,7 @@
 
           <ion-buttons slot="start">
             <app-button *ngIf="permission.add" fill="translucent" (click)="add()">신규작성</app-button>
-            <app-button fill="translucent">미결문서</app-button>
+            <app-button fill="translucent" (click)="pending()">미결문서</app-button>
           </ion-buttons>
 
         </ion-toolbar>

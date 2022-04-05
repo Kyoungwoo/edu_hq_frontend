@@ -129,30 +129,30 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container>
-      <app-card *ngFor="let item of res?.rsMap; let i = index;">
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>{{ item.ctgo_approval_module_name }}</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">{{ item.approval_cnt_answer }}</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>{{ item.company_name }}/{{ item.user_name }}</p>
-            <p>작성일: {{ item.create_date }}</p>
-            <p>결재일: {{ item.max_approval_date }}</p>
-          </app-col>
-        </app-row>
-      </app-card>
 
-      <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
-        <ion-infinite-scroll-content loading-spinner="dots">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ng-container>
+    <app-card *ngFor="let item of res?.rsMap; let i = index;">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <h5>{{ item.ctgo_approval_module_name }}</h5>
+        </app-col>
+        <app-col size="auto">
+          <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+          <p>결재일: {{ item.max_approval_date }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
   </ion-content>
 
 

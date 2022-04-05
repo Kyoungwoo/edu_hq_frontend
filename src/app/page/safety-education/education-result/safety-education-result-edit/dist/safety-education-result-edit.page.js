@@ -90,16 +90,15 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                     case 0:
                         this.form.education_safe_id = (_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id;
                         if (!this.item) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.basicDetail()];
+                        return [4 /*yield*/, this.getDefaultItem()];
                     case 1:
                         _b.sent();
                         _b.label = 2;
                     case 2:
-                        if (!this.editItem) return [3 /*break*/, 4];
+                        if (!this.education_safe_report_id) return [3 /*break*/, 4];
                         return [4 /*yield*/, Promise.all([
-                                this.basicDetail(),
-                                this.reportList(),
-                                this.getItem()
+                                this.getItem(),
+                                this.reportList()
                             ])];
                     case 3:
                         _b.sent();
@@ -114,13 +113,14 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
             });
         });
     };
-    //기본 데이터
-    SafetyEducationResultEditPage.prototype.basicDetail = function () {
-        var _a, _b;
+    /**
+     * 교육 리포트가 없을 경우
+     */
+    SafetyEducationResultEditPage.prototype.getDefaultItem = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         this.form.approval_default_data.push({
                             default_type: 'REFER',
@@ -133,11 +133,11 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                                     refer_user_id: this.user.userData.user_id
                                 }]
                         });
-                        return [4 /*yield*/, this.connect.run('/education/detail', { education_safe_id: ((_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id) | ((_b = this.editItem) === null || _b === void 0 ? void 0 : _b.education_safe_id) }, {
+                        return [4 /*yield*/, this.connect.run('/education/detail', { education_safe_id: this.item.education_safe_id }, {
                                 parse: ['education_safe_manager_names', 'education_safe_manager_ids']
                             })];
                     case 1:
-                        res = _c.sent();
+                        res = _a.sent();
                         if (res.rsCode === 0) {
                             this.form = __assign(__assign({}, this.form), res.rsObj);
                             // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
@@ -150,19 +150,25 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
             });
         });
     };
-    //교육 상세보기
+    /**
+     * 교육 리포트가 있을 경우
+     */
     SafetyEducationResultEditPage.prototype.getItem = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/education/report/get', { education_safe_report_id: this.editItem.education_safe_report_id }, {
+                    case 0: return [4 /*yield*/, this.connect.run('/education/report/get', { education_safe_report_id: this.education_safe_report_id }, {
                             parse: ['education_safe_report_file_data']
                         })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.form = __assign(__assign({}, this.form), res.rsObj);
+                            // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
+                        }
+                        else {
+                            this.toast.present({ message: res.rsMsg, color: 'warning' });
                         }
                         return [2 /*return*/];
                 }
@@ -177,7 +183,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.editItem.education_safe_report_id })];
+                        return [4 /*yield*/, this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.education_safe_report_id })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
@@ -415,7 +421,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
     ], SafetyEducationResultEditPage.prototype, "item");
     __decorate([
         core_1.Input()
-    ], SafetyEducationResultEditPage.prototype, "editItem");
+    ], SafetyEducationResultEditPage.prototype, "education_safe_report_id");
     SafetyEducationResultEditPage = __decorate([
         core_1.Component({
             selector: 'app-safety-education-result-edit',

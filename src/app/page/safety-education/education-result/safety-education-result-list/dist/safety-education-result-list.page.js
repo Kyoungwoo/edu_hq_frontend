@@ -44,18 +44,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.SafetyEducationResultListPage = void 0;
 var core_1 = require("@angular/core");
-var education_confirm_pending_list_page_1 = require("../education-confirm-pending-list/education-confirm-pending-list.page");
 var new_write_target_page_1 = require("../new-write-target/new-write-target.page");
 var safety_education_result_detail_search_page_1 = require("../safety-education-result-detail-search/safety-education-result-detail-search.page");
 var safety_education_result_edit_page_1 = require("../safety-education-result-edit/safety-education-result-edit.page");
 var SafetyEducationResultListPage = /** @class */ (function () {
-    function SafetyEducationResultListPage(_modal, date, connect, user, toast, promise) {
+    function SafetyEducationResultListPage(_modal, date, connect, user, toast, promise, nav) {
         this._modal = _modal;
         this.date = date;
         this.connect = connect;
         this.user = user;
         this.toast = toast;
         this.promise = promise;
+        this.nav = nav;
         this.form = {
             approval_cnt_answer: '전체',
             company_id: 0,
@@ -70,6 +70,10 @@ var SafetyEducationResultListPage = /** @class */ (function () {
         };
         this.event = {
             get: null
+        };
+        this.editable = {
+            company_id: false,
+            add: false
         };
     }
     SafetyEducationResultListPage.prototype.ngOnInit = function () {
@@ -104,11 +108,13 @@ var SafetyEducationResultListPage = /** @class */ (function () {
             user_role === 'PARTNER_GENERAL' ||
             user_role === 'PARTNER_HEAD' ||
             user_role === 'MASTER_GENERAL') {
+            this.editable.company_id = true;
             this.form.project_id = belong_data.project_id;
             this.form.company_id = belong_data.company_id;
         }
         else if (user_role === 'LH_HEAD') {
             this.form.project_id = belong_data.project_id;
+            this.editable.add = true;
         }
     };
     SafetyEducationResultListPage.prototype.getList = function (limit_no) {
@@ -130,6 +136,9 @@ var SafetyEducationResultListPage = /** @class */ (function () {
                                 item.education_safe_date = item.education_safe_date + " (" + _this.date.day(item.education_safe_date)[0] + ")";
                                 item.create_date = item.create_date + " (" + _this.date.day(item.create_date)[0] + ")";
                             });
+                        }
+                        else if (this.res.rsCode === 1008) {
+                            // 암것도 안함
                         }
                         else {
                             this.toast.present({ message: this.res.rsMsg, color: 'warning' });
@@ -163,7 +172,7 @@ var SafetyEducationResultListPage = /** @class */ (function () {
             });
         });
     };
-    SafetyEducationResultListPage.prototype.edit = function (editItem) {
+    SafetyEducationResultListPage.prototype.edit = function (item) {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
@@ -171,7 +180,7 @@ var SafetyEducationResultListPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this._modal.create({
                             component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
                             componentProps: {
-                                editItem: editItem
+                                education_safe_report_id: item.education_safe_report_id
                             }
                         })];
                     case 1:
@@ -183,22 +192,6 @@ var SafetyEducationResultListPage = /** @class */ (function () {
                         if (data) {
                             this.getList();
                         }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    SafetyEducationResultListPage.prototype.pending = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._modal.create({
-                            component: education_confirm_pending_list_page_1.EducationConfirmPendingListPage
-                        })];
-                    case 1:
-                        modal = _a.sent();
-                        modal.present();
                         return [2 /*return*/];
                 }
             });
@@ -217,6 +210,17 @@ var SafetyEducationResultListPage = /** @class */ (function () {
                         modal.present();
                         return [2 /*return*/];
                 }
+            });
+        });
+    };
+    /**
+     * 미결함으로 이동
+     */
+    SafetyEducationResultListPage.prototype.pending = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.nav.navigateForward('/confirm-pending-list');
+                return [2 /*return*/];
             });
         });
     };

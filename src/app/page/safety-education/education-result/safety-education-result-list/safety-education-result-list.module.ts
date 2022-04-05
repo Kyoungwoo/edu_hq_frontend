@@ -8,9 +8,7 @@ import { SafetyEducationResultListPageRoutingModule } from './safety-education-r
 
 import { SafetyEducationResultListPage } from './safety-education-result-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { SafetyEducationResultDetailSearchPageModule } from '../safety-education-result-detail-search/safety-education-result-detail-search.module';
-import { SafetyEducationResultEditPageModule } from '../safety-education-result-edit/safety-education-result-edit.module';
 import { NewWriteTargetPageModule } from '../new-write-target/new-write-target.module';
 import { EducationConfirmPendingListPageModule } from '../education-confirm-pending-list/education-confirm-pending-list.module';
 
@@ -20,7 +18,6 @@ import { EducationConfirmPendingListPageModule } from '../education-confirm-pend
     FormsModule,
     IonicModule,
     ComponentModule,
-    BasicComponentModule,
     SafetyEducationResultListPageRoutingModule,
     SafetyEducationResultDetailSearchPageModule,
     NewWriteTargetPageModule,

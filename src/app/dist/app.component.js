@@ -114,9 +114,12 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.addListeners()];
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.addListeners()];
                     case 1:
                         _a.sent();
                         console.log('addListeners end');
@@ -128,7 +131,12 @@ var AppComponent = /** @class */ (function () {
                     case 3:
                         _a.sent();
                         console.log('getDeliveredNotifications end');
-                        return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 4:
+                        e_1 = _a.sent();
+                        console.log('push notification not supported');
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });

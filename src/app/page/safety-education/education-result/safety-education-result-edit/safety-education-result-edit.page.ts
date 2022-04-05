@@ -63,7 +63,7 @@ export class EducationItem {
 export class SafetyEducationResultEditPage implements OnInit {
 
   @Input() item;
-  @Input() editItem;
+  @Input() education_safe_report_id;
 
   approvalView:boolean = false;
   approvalDocument:boolean = false;
@@ -95,13 +95,12 @@ export class SafetyEducationResultEditPage implements OnInit {
   async ngOnInit() {
     this.form.education_safe_id = this.item?.education_safe_id;
     if(this.item) {
-      await this.basicDetail();
+      await this.getDefaultItem();
     }
-    if(this.editItem) {
+    if(this.education_safe_report_id) {
       await Promise.all([
-        this.basicDetail(),
-        this.reportList(),
-        this.getItem()
+        this.getItem(),
+        this.reportList()
       ]);
     }
 
@@ -111,8 +110,10 @@ export class SafetyEducationResultEditPage implements OnInit {
     this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.ctgo_education_safe_type);
   }
   
-  //기본 데이터
-  async basicDetail() {
+  /**
+   * 교육 리포트가 없을 경우
+   */
+  async getDefaultItem() {
     this.form.approval_default_data.push({
       default_type:'REFER',
       answer_datas:[{
@@ -125,8 +126,8 @@ export class SafetyEducationResultEditPage implements OnInit {
       }]
     });
     
-    const res = await this.connect.run('/education/detail',{education_safe_id:this.item?.education_safe_id | this.editItem?.education_safe_id},{
-      parse:['education_safe_manager_names','education_safe_manager_ids']
+    const res = await this.connect.run('/education/detail', {education_safe_id: this.item.education_safe_id },{
+      parse:[ 'education_safe_manager_names', 'education_safe_manager_ids' ]
     });
     if(res.rsCode === 0) {
       this.form = {
@@ -135,27 +136,35 @@ export class SafetyEducationResultEditPage implements OnInit {
       }
 
       // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
-    } else {
+    } 
+    else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 
-  //교육 상세보기
+  /**
+   * 교육 리포트가 있을 경우
+   */
   async getItem() {
-    const res = await this.connect.run('/education/report/get',{education_safe_report_id:this.editItem.education_safe_report_id},{
-      parse:['education_safe_report_file_data']
+    const res = await this.connect.run('/education/report/get', { education_safe_report_id: this.education_safe_report_id },{
+      parse:[ 'education_safe_report_file_data' ]
     })
     if(res.rsCode === 0) {
       this.form = {
         ...this.form,
         ...res.rsObj
       }
+
+      // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
+    }
+    else {
+      this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 
   //참석자 목록
   async reportList() {
-    this.res = await this.connect.run('/education/report/attendant/list',{education_safe_report_id:this.editItem.education_safe_report_id});
+    this.res = await this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.education_safe_report_id });
     if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }

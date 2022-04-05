@@ -54,12 +54,13 @@ var SafetyMeetingInfo = /** @class */ (function () {
 }());
 exports.SafetyMeetingInfo = SafetyMeetingInfo;
 var WorkerMinutesListPage = /** @class */ (function () {
-    function WorkerMinutesListPage(modal, connect, date, toast, user) {
+    function WorkerMinutesListPage(modal, connect, date, toast, user, nav) {
         this.modal = modal;
         this.connect = connect;
         this.date = date;
         this.toast = toast;
         this.user = user;
+        this.nav = nav;
         this.form = {
             project_id: null,
             company_id: null,
@@ -291,6 +292,17 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         modal.present();
                         return [2 /*return*/];
                 }
+            });
+        });
+    };
+    /**
+     * 미결함으로 이동
+     */
+    WorkerMinutesListPage.prototype.pending = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.nav.navigateForward('/confirm-pending-list');
+                return [2 /*return*/];
             });
         });
     };

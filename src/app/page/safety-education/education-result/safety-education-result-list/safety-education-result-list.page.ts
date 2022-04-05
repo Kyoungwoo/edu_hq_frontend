@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { EducationConfirmPendingListPage } from '../education-confirm-pending-list/education-confirm-pending-list.page';
 import { NewWriteTargetPage } from '../new-write-target/new-write-target.page';
 import { SafetyEducationResultDetailSearchPage } from '../safety-education-result-detail-search/safety-education-result-detail-search.page';
@@ -18,7 +20,7 @@ import { SafetyEducationResultEditPage } from '../safety-education-result-edit/s
 export class SafetyEducationResultListPage implements OnInit {
 
   form = {
-    approval_cnt_answer:'전체', // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
+    approval_cnt_answer: '전체', // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
     company_id:0, // 원청사명 ID
     ctgo_education_safe_id: 0, // 교육명 ID
     end_date: this.date.today(), // 검색 신청 종료일
@@ -46,7 +48,7 @@ export class SafetyEducationResultListPage implements OnInit {
     ctgo_education_safe_title: string,
     company_name: string,
     education_safe_id: number,
-    approval_cnt_answer: string,
+    approval_cnt_answer: ApprovalAnswerType,
     create_date: string,
     row_count:number
   }>;
@@ -66,7 +68,8 @@ export class SafetyEducationResultListPage implements OnInit {
     private connect: ConnectService,
     private user: UserService,
     private toast: ToastService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    private nav: NavService
   ) { }
 
   async ngOnInit() { 
@@ -111,7 +114,11 @@ export class SafetyEducationResultListPage implements OnInit {
         item.education_safe_date = `${item.education_safe_date} (${this.date.day(item.education_safe_date)[0]})`
         item.create_date = `${item.create_date} (${this.date.day(item.create_date)[0]})`
       });
-    } else {
+    }
+    else if(this.res.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else {
       this.toast.present({message:this.res.rsMsg,color:'warning'});
       this.res = null;
     }
@@ -128,11 +135,11 @@ export class SafetyEducationResultListPage implements OnInit {
     }
   }
 
-  async edit(editItem) {
+  async edit(item) {
     const modal = await this._modal.create({
-      component:SafetyEducationResultEditPage,
+      component: SafetyEducationResultEditPage,
       componentProps:{
-        editItem
+        education_safe_report_id: item.education_safe_report_id
       }
     });
     modal.present();
@@ -142,17 +149,21 @@ export class SafetyEducationResultListPage implements OnInit {
     }
   }
 
-  async pending() {
-    const modal = await this._modal.create({
-      component:EducationConfirmPendingListPage,
-    });
-    modal.present();
-  }
-
   public async add() {
     const modal = await this._modal.create({
       component: NewWriteTargetPage,
     });
     modal.present();
+  }
+
+  /**
+   * 미결함으로 이동
+   */
+  async pending() {
+    this.nav.navigateForward('/confirm-pending-list');
+    /* const modal = await this._modal.create({
+      component:EducationConfirmPendingListPage,
+    });
+    modal.present(); */
   }
 }

@@ -12,12 +12,16 @@ export class AppComponent {
   constructor() {}
 
   async ngOnInit() {
-    // await this.addListeners();
-    // console.log('addListeners end');
-    // await this.registerNotifications();
-    // console.log('registerNotifications end');
-    // await this.getDeliveredNotifications();
-    // console.log('getDeliveredNotifications end');
+    try {
+      await this.addListeners();
+      console.log('addListeners end');
+      await this.registerNotifications();
+      console.log('registerNotifications end');
+      await this.getDeliveredNotifications();
+      console.log('getDeliveredNotifications end');
+    } catch(e) {
+      console.log('push notification not supported');
+    }
   }
 
   addListeners = async () => {

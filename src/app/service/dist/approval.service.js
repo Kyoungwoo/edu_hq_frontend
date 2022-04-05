@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.ApprovalService = void 0;
 var core_1 = require("@angular/core");
+var safety_education_result_edit_page_1 = require("../page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.page");
 var worker_minutes_edit_page_1 = require("../page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.page");
 var ApprovalService = /** @class */ (function () {
     function ApprovalService(_modal) {
@@ -51,75 +52,127 @@ var ApprovalService = /** @class */ (function () {
     }
     ApprovalService.prototype.getComponent = function (ctgo_approval_module_id, target_id) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, modal, modal, modal;
+            var _a, modal, modal, modal, modal, modal, modal, modal, modal;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = ctgo_approval_module_id;
                         switch (_a) {
                             case 1: return [3 /*break*/, 1];
-                            case 2: return [3 /*break*/, 2];
-                            case 3: return [3 /*break*/, 3];
-                            case 4: return [3 /*break*/, 4];
-                            case 5: return [3 /*break*/, 5];
-                            case 6: return [3 /*break*/, 6];
-                            case 7: return [3 /*break*/, 7];
-                            case 8: return [3 /*break*/, 8];
-                            case 9: return [3 /*break*/, 9];
-                            case 10: return [3 /*break*/, 11];
-                            case 11: return [3 /*break*/, 13];
-                            case 12: return [3 /*break*/, 15];
+                            case 2: return [3 /*break*/, 3];
+                            case 3: return [3 /*break*/, 5];
+                            case 4: return [3 /*break*/, 7];
+                            case 5: return [3 /*break*/, 9];
+                            case 6: return [3 /*break*/, 11];
+                            case 7: return [3 /*break*/, 12];
+                            case 8: return [3 /*break*/, 13];
+                            case 9: return [3 /*break*/, 14];
+                            case 10: return [3 /*break*/, 16];
+                            case 11: return [3 /*break*/, 18];
+                            case 12: return [3 /*break*/, 20];
                         }
-                        return [3 /*break*/, 16];
-                    case 1: // 교육 결과 보고서 (채용시)
-                    return [2 /*return*/, ''];
-                    case 2: // 교육 결과 보고서 (작업자 정기)
-                    return [2 /*return*/, ''];
-                    case 3: // 교육 결과 보고서 (관리감독자 정기) - 1차에 안함
-                    return [2 /*return*/, ''];
-                    case 4: // 교육 결과 보고서 (작업 내용 변경 시)
-                    return [2 /*return*/, ''];
-                    case 5: // 교육 결과 보고서 (특별 교육)
-                    return [2 /*return*/, ''];
-                    case 6: // 최초 위험성 평가서
-                    return [2 /*return*/, ''];
-                    case 7: // 정기 위험성 평가서
-                    return [2 /*return*/, ''];
-                    case 8: // 수시 위험성 평가서
-                    return [2 /*return*/, ''];
-                    case 9: return [4 /*yield*/, this._modal.create({
-                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                        return [3 /*break*/, 21];
+                    case 1: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
                             componentProps: {
-                                safety_meeting_id: target_id
+                                education_safe_report_id: target_id
+                            }
+                        })];
+                    case 2:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 3: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
+                            componentProps: {
+                                education_safe_report_id: target_id
+                            }
+                        })];
+                    case 4:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 5: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
+                            componentProps: {
+                                education_safe_report_id: target_id
+                            }
+                        })];
+                    case 6:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 7: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
+                            componentProps: {
+                                education_safe_report_id: target_id
+                            }
+                        })];
+                    case 8:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 9: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
+                            componentProps: {
+                                education_safe_report_id: target_id
                             }
                         })];
                     case 10:
                         modal = _b.sent();
                         modal.present();
                         return [2 /*return*/, ''];
-                    case 11: return [4 /*yield*/, this._modal.create({
-                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
-                            componentProps: {
-                                safety_meeting_id: target_id
-                            }
-                        })];
+                    case 11:
+                        { // 최초 위험성 평가서
+                            return [2 /*return*/, ''];
+                        }
+                        _b.label = 12;
                     case 12:
-                        modal = _b.sent();
-                        modal.present();
-                        return [2 /*return*/, ''];
-                    case 13: return [4 /*yield*/, this._modal.create({
+                        { // 정기 위험성 평가서
+                            return [2 /*return*/, ''];
+                        }
+                        _b.label = 13;
+                    case 13:
+                        { // 수시 위험성 평가서
+                            return [2 /*return*/, ''];
+                        }
+                        _b.label = 14;
+                    case 14: return [4 /*yield*/, this._modal.create({
                             component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
                             componentProps: {
                                 safety_meeting_id: target_id
                             }
                         })];
-                    case 14:
+                    case 15:
                         modal = _b.sent();
                         modal.present();
                         return [2 /*return*/, ''];
-                    case 15: // 위험 공종 안전 작업허가서(PTW)
-                    return [2 /*return*/, ''];
-                    case 16: return [2 /*return*/];
+                    case 16: return [4 /*yield*/, this._modal.create({
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                            componentProps: {
+                                safety_meeting_id: target_id
+                            }
+                        })];
+                    case 17:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 18: return [4 /*yield*/, this._modal.create({
+                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                            componentProps: {
+                                safety_meeting_id: target_id
+                            }
+                        })];
+                    case 19:
+                        modal = _b.sent();
+                        modal.present();
+                        return [2 /*return*/, ''];
+                    case 20:
+                        { // 위험 공종 안전 작업허가서(PTW)
+                            return [2 /*return*/, ''];
+                        }
+                        _b.label = 21;
+                    case 21: return [2 /*return*/];
                 }
             });
         });

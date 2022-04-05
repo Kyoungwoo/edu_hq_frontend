@@ -8,7 +8,7 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
@@ -50,33 +50,47 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
-          <h5>진행/완료/반려 목록(총{{res?.rsObj?.row_count || 0 }}건)</h5>
-        </ion-toolbar>
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;">No.</th>
-              <th>서식명</th>
-              <th>업체명</th>
-              <th>작성자</th>
-              <th>작성일</th>
-              <th>결재일</th>
-              <th>결재상태</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="button"  *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
-              <td>{{ item.index }}</td>
-              <td>{{ item.ctgo_approval_module_name }}</td>
-              <td>{{ item.company_name }}</td>
-              <td>{{ item.user_name }}</td>
-              <td>{{ item.create_date }}</td>
-              <td>{{ item.max_approval_date }}</td>
-              <td>{{ item.approval_cnt_answer }}</td>
-            </tr>
-          </tbody>
-        </app-table>
+
+        <ng-container *ngIf="res && res.rsCode === 0">
+
+          <ion-toolbar color="white">
+            <h5>진행/완료/반려 목록(총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          </ion-toolbar>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;">No.</th>
+                <th>서식명</th>
+                <th>업체명</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>결재일</th>
+                <th>결재상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button"  *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
+                <td>{{ item.index }}</td>
+                <td>{{ item.ctgo_approval_module_name }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.max_approval_date }}</td>
+                <td>{{ item.approval_cnt_answer }}</td>
+              </tr>
+            </tbody>
+          </app-table>
+
+          <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+
+        </ng-container>
+
+        <ng-container *ngIf="res && res.rsCode === 1008">
+
+          <app-card>검색된 목록이 없습니다.</app-card>
+
+        </ng-container>
+
       </app-col>
     </app-row>
   </ion-content>
@@ -89,7 +103,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>기결</ion-title>
+      <ion-title>진행/완료/반려</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -102,29 +116,29 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container>
-      <app-card *ngFor="let item of res?.rsMap; let i = index;">
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>{{ item.ctgo_approval_module_name }}</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">{{ item.approval_cnt_answer }}</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>{{ item.company_name }}/{{ item.user_name }}</p>
-            <p>작성일: {{ item.create_date }}</p>
-          </app-col>
-        </app-row>
-      </app-card>
 
-      <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
-        <ion-infinite-scroll-content loading-spinner="dots">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ng-container>
+    <app-card *ngFor="let item of res?.rsMap; let i = index;">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <h5>{{ item.ctgo_approval_module_name }}</h5>
+        </app-col>
+        <app-col size="auto">
+          <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <p>{{ item.company_name }}/{{ item.user_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
   </ion-content>
 
 

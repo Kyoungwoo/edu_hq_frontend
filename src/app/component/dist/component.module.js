@@ -7,8 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.ComponentModule = void 0;
-var search_contractor_company_component_1 = require("./modal/search-contractor-company/search-contractor-company.component");
-var select_contractor_company_component_1 = require("./select/select-contractor-company/select-contractor-company.component");
+var select_risk_area_component_1 = require("./select/select-risk-area/select-risk-area.component");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
@@ -71,6 +70,11 @@ var select_approval_module_component_1 = require("./select/select-approval-modul
 var approval_component_1 = require("./confirm/approval/approval.component");
 var ngx_sortablejs_1 = require("ngx-sortablejs");
 var select_approval_type_component_1 = require("./select/select-approval-type/select-approval-type.component");
+var search_people_all_component_1 = require("./modal/search-people-all/search-people-all.component");
+var select_people_all_component_1 = require("./select/select-people-all/select-people-all.component");
+var search_contractor_company_component_1 = require("./modal/search-contractor-company/search-contractor-company.component");
+var select_contractor_company_component_1 = require("./select/select-contractor-company/select-contractor-company.component");
+var chip_approval_answer_component_1 = require("./confirm/chip-approval-answer/chip-approval-answer.component");
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
@@ -79,6 +83,7 @@ var ComponentModule = /** @class */ (function () {
             declarations: [
                 // approval & confirm
                 approval_component_1.ApprovalComponent,
+                chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,
                 header_admin_component_1.HeaderAdminComponent,
@@ -101,6 +106,7 @@ var ComponentModule = /** @class */ (function () {
                 search_area_component_1.SearchAreaComponent,
                 search_project_contractor_component_1.SearchProjectContractorComponent,
                 search_contractor_company_component_1.SearchContractorCompanyComponent,
+                search_people_all_component_1.SearchPeopleAllComponent,
                 // select
                 select_approval_module_component_1.SelectApprovalModuleComponent,
                 select_approval_type_component_1.SelectApprovalTypeComponent,
@@ -137,7 +143,9 @@ var ComponentModule = /** @class */ (function () {
                 project_area_set_component_1.ProjectAreaSetComponent,
                 select_supervision_component_1.SelectSupervisionComponent,
                 select_project_contractor_component_1.SelectProjectContractorComponent,
-                select_contractor_company_component_1.SelectContractorCompanyComponent
+                select_contractor_company_component_1.SelectContractorCompanyComponent,
+                select_people_all_component_1.SelectPeopleAllComponent,
+                select_risk_area_component_1.SelectRiskAreaComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -151,6 +159,7 @@ var ComponentModule = /** @class */ (function () {
             exports: [
                 // approval & confirm 
                 approval_component_1.ApprovalComponent,
+                chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,
                 basic_component_module_1.BasicComponentModule,
@@ -168,6 +177,7 @@ var ComponentModule = /** @class */ (function () {
                 search_construction_machinery_component_1.SearchConstructionMachineryComponent,
                 search_education_component_1.SearchEducationComponent,
                 search_contractor_company_component_1.SearchContractorCompanyComponent,
+                search_people_all_component_1.SearchPeopleAllComponent,
                 // select
                 select_approval_module_component_1.SelectApprovalModuleComponent,
                 select_approval_type_component_1.SelectApprovalTypeComponent,
@@ -209,7 +219,9 @@ var ComponentModule = /** @class */ (function () {
                 select_supervision_component_1.SelectSupervisionComponent,
                 select_project_contractor_component_1.SelectProjectContractorComponent,
                 search_project_contractor_component_1.SearchProjectContractorComponent,
-                select_contractor_company_component_1.SelectContractorCompanyComponent
+                select_contractor_company_component_1.SelectContractorCompanyComponent,
+                select_people_all_component_1.SelectPeopleAllComponent,
+                select_risk_area_component_1.SelectRiskAreaComponent
             ],
             providers: [
                 select_company_component_1.SelectCompanyComponent

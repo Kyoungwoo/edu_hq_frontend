@@ -53,7 +53,7 @@ export class MonitorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.$router.unsubscribe();
+    this.$router?.unsubscribe();
   }
 
   async openSideMenu(){
