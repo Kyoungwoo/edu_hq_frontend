@@ -7,7 +7,6 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
-import { EducationConfirmPendingListPage } from '../education-confirm-pending-list/education-confirm-pending-list.page';
 import { NewWriteTargetPage } from '../new-write-target/new-write-target.page';
 import { SafetyEducationResultDetailSearchPage } from '../safety-education-result-detail-search/safety-education-result-detail-search.page';
 import { SafetyEducationResultEditPage } from '../safety-education-result-edit/safety-education-result-edit.page';
