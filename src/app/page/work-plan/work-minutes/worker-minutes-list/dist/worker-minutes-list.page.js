@@ -54,11 +54,11 @@ var SafetyMeetingInfo = /** @class */ (function () {
 }());
 exports.SafetyMeetingInfo = SafetyMeetingInfo;
 var WorkerMinutesListPage = /** @class */ (function () {
-    function WorkerMinutesListPage(modal, connect, date, toast, user, nav) {
+    function WorkerMinutesListPage(modal, connect, toast, date, user, nav) {
         this.modal = modal;
         this.connect = connect;
-        this.date = date;
         this.toast = toast;
+        this.date = date;
         this.user = user;
         this.nav = nav;
         this.form = {
@@ -68,7 +68,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
             start_date: this.date.today({ month: -1 }),
             end_date: this.date.today(),
             search_text: '',
-            approval_cnt_answer: [],
+            approval_cnt_answer: '전체',
             limit_no: 0
         };
         this.permission = {

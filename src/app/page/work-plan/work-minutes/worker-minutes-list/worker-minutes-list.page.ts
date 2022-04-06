@@ -40,7 +40,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    approval_cnt_answer: [],
+    approval_cnt_answer: '전체',
     limit_no: 0
   }
 
@@ -59,8 +59,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
-    private date: DateService,
     private toast: ToastService,
+    private date: DateService,
     public user: UserService,
     private nav: NavService
   ) { }
@@ -215,7 +215,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   async edit(item:SafetyMeetingInfo) {
     const modal = await this.modal.create({
       component: WorkerMinutesEditPage,
-      componentProps:{
+      componentProps: {
         safety_meeting_id: item.safety_meeting_id
       }
     });

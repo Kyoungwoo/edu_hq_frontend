@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SafetyEducationResultEditPage } from '../page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.page';
+import { RiskEvaluationEditPage } from '../page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.page';
 import { WorkerMinutesEditPage } from '../page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.page';
 
 @Injectable({
@@ -65,12 +66,33 @@ export class ApprovalService {
         return '';
       }
       case 6: { // 최초 위험성 평가서
+        const modal = await this._modal.create({
+          component: RiskEvaluationEditPage,
+          componentProps:{
+            risk_asment_id: target_id
+          }
+        });
+        modal.present();
         return '';
       }
       case 7: { // 정기 위험성 평가서
+        const modal = await this._modal.create({
+          component: RiskEvaluationEditPage,
+          componentProps:{
+            risk_asment_id: target_id
+          }
+        });
+        modal.present();
         return '';
       }
       case 8: { // 수시 위험성 평가서
+        const modal = await this._modal.create({
+          component: RiskEvaluationEditPage,
+          componentProps:{
+            risk_asment_id: target_id
+          }
+        });
+        modal.present();
         return '';
       }
       case 9:  { // 산업안전보건위원회 회의록
@@ -103,7 +125,7 @@ export class ApprovalService {
         modal.present();
         return '';
       }
-      case 12: { // 위험 공종 안전 작업허가서(PTW)
+      case 12: { // 위험 공종 안전 작업허가서(PTW) - 2차
         return '';
       }
     }

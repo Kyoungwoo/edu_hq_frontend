@@ -1,9 +1,9 @@
 
-.flex-box{
+.flex-box {
 	display: flex;
 	
 
-	.flex-revers{
+	.flex-revers {
 		flex-direction: column;
 		flex: 0 0 15%;
 
@@ -46,6 +46,6 @@
 		}
 	}
 }
-.check_style{
+.selected {
 	background-color: var(--ion-color-primary-translucent);
 }

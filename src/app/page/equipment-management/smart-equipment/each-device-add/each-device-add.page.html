@@ -14,7 +14,7 @@
   </ion-toolbar> -->
 </ion-header>
 <ion-content>
-  <app-select-people-all label="성명" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
+  <app-select-people-all (ngModelChange)="changePeople($event)" label="성명" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
   <!-- <app-select-serial-number label="시리얼No" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number> -->
   <ng-container>
     <div class="serial-add-class">

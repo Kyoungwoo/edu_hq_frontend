@@ -15,13 +15,16 @@ import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approv
 })
 export class WorkerMinutesEditPage implements OnInit {
 
+  /** 수정 시 필요한 ID */
   @Input() safety_meeting_id;
 
+  /** 신규 작성시 필요한 정보 */
   @Input() project_id;
   @Input() safety_meeting_type;
 
   form = {
     project_id: null, // 현장ID
+    project_name: null,
     company_id: null, // 회사ID
     company_name: null, // 회사 이름
 
@@ -94,6 +97,32 @@ export class WorkerMinutesEditPage implements OnInit {
   }
 
   /**
+   * 기본 회의록 협의사항 가져오기
+   */
+   async getDefaultContent() {
+    const res = await this.connect.run('/board/safety_meeting/default/get', {
+      project_id: this.form.project_id,
+      company_id: this.form.company_id
+    });
+    if(res.rsCode === 0) {
+      switch(this.form.safety_meeting_type) {
+        case '안전':
+          this.form.safety_meeting_content = res.rsObj.safety_default;
+          break;
+        case '노사':
+          this.form.safety_meeting_content = res.rsObj.union_default;
+          break;
+        case '산업':
+          this.form.safety_meeting_content = res.rsObj.health_default;
+          break;
+      }
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  /**
    * 회의록 정보 가져오기
    */
   async getDetail() {
@@ -136,31 +165,6 @@ export class WorkerMinutesEditPage implements OnInit {
         return 10;
       case '산업':
         return 9;
-    }
-  }
-  /**
-   * 기본 회의록 협의사항 가져오기
-   */
-  async getDefaultContent() {
-    const res = await this.connect.run('/board/safety_meeting/default/get', {
-      project_id: this.form.project_id,
-      company_id: this.form.company_id
-    });
-    if(res.rsCode === 0) {
-      switch(this.form.safety_meeting_type) {
-        case '안전':
-          this.form.safety_meeting_content = res.rsObj.safety_default;
-          break;
-        case '노사':
-          this.form.safety_meeting_content = res.rsObj.union_default;
-          break;
-        case '산업':
-          this.form.safety_meeting_content = res.rsObj.health_default;
-          break;
-      }
-    }
-    else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 

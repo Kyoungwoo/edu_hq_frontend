@@ -95,7 +95,8 @@ export class SelectRiskAreaComponent implements OnInit, ControlValueAccessor {
           ...data.area3selectedItem
         }
       }
-      this.item.area_full_name = this.item.area_top_name+' '+this.item.area_middle_name+' '+this.item.area_bottom_name;
+      this.item.area_full_name = (this.item.area_top_name ? this.item.area_top_name : '')+' '+(this.item.area_middle_name ? this.item.area_middle_name : '')+' '+(this.item.area_bottom_name ? this.item.area_bottom_name : '');
+      // this.value = this.item.area_full_name;
     }
     this.isModalData = false;
   }

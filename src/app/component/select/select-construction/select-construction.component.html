@@ -1,7 +1,7 @@
 <app-select name="select"
 [color]="res && res.rsCode ? 'warning' : color"
 [label]="label" [placeholder]="placeholder" [(ngModel)]="value" 
-(click)="checkProject()"
+(click)="checkInputs()"
 [readonly]="readonly || !project_id" 
 [disabled]="disabled"
 [required]="required"

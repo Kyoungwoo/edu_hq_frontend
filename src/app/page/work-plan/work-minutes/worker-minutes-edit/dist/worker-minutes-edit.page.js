@@ -66,6 +66,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         this.date = date;
         this.form = {
             project_id: null,
+            project_name: null,
             company_id: null,
             company_name: null,
             safety_meeting_type: null,
@@ -128,6 +129,41 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         this.form.user_name = user_name;
     };
     /**
+     * 기본 회의록 협의사항 가져오기
+     */
+    WorkerMinutesEditPage.prototype.getDefaultContent = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/default/get', {
+                            project_id: this.form.project_id,
+                            company_id: this.form.company_id
+                        })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            switch (this.form.safety_meeting_type) {
+                                case '안전':
+                                    this.form.safety_meeting_content = res.rsObj.safety_default;
+                                    break;
+                                case '노사':
+                                    this.form.safety_meeting_content = res.rsObj.union_default;
+                                    break;
+                                case '산업':
+                                    this.form.safety_meeting_content = res.rsObj.health_default;
+                                    break;
+                            }
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
      * 회의록 정보 가져오기
      */
     WorkerMinutesEditPage.prototype.getDetail = function () {
@@ -177,41 +213,6 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             case '산업':
                 return 9;
         }
-    };
-    /**
-     * 기본 회의록 협의사항 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getDefaultContent = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/default/get', {
-                            project_id: this.form.project_id,
-                            company_id: this.form.company_id
-                        })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            switch (this.form.safety_meeting_type) {
-                                case '안전':
-                                    this.form.safety_meeting_content = res.rsObj.safety_default;
-                                    break;
-                                case '노사':
-                                    this.form.safety_meeting_content = res.rsObj.union_default;
-                                    break;
-                                case '산업':
-                                    this.form.safety_meeting_content = res.rsObj.health_default;
-                                    break;
-                            }
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
     };
     /**
      * 삭제 버튼 클릭

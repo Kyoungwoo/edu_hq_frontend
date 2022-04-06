@@ -8,94 +8,111 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
             <tr>
               <td>
-                <app-select-scene></app-select-scene>
+                <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-occupation></app-select-occupation>
+                <app-select-construction [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="form.ctgo_construction_id" [all]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select label="결재현황"></app-select>
+                <app-select-approval-type [(ngModel)]="form.approval_cnt_answer"></app-select-approval-type>
               </td>
             </tr>
             <tr>
               <td>
                 <app-input-group label="작업기간">
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.risk_asment_start_date" [max]="form.risk_asment_end_date"></app-calendar>
                   ~
-                  <app-calendar></app-calendar>
+                  <app-calendar [(ngModel)]="form.risk_asment_end_date" [min]="form.risk_asment_start_date"></app-calendar>
                 </app-input-group>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>
         </app-table>
       </app-col>
+
       <app-col>
+
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button (click)="edit()" fill="translucent">신규 작성</app-button>
+            <app-button fill="translucent" (click)="add()">신규 작성</app-button>
             <app-button fill="translucent">복사 작성</app-button>
-            <app-button fill="translucent">미결 문서</app-button>
+            <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <ion-segment color="primary">
-              <ion-segment-button>최초</ion-segment-button>
-              <ion-segment-button>정기</ion-segment-button>
-              <ion-segment-button>수시</ion-segment-button>
+            <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)">
+              <ion-segment-button value="최초">최초</ion-segment-button>
+              <ion-segment-button value="정기">정기</ion-segment-button>
+              <ion-segment-button value="수시">수시</ion-segment-button>
             </ion-segment>
           </ion-buttons>
         </ion-toolbar>
-        <ion-toolbar color="white">
-          <h5>수시 위험성평가 목록(총50건)</h5>
-        </ion-toolbar>
-        <app-table>
-          <thead>
-            <tr>
-              <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
-              <th style="width: 40px;">No</th>
-              <th>공종</th>
-              <th>서식명</th>
-              <th>업체명</th>
-              <th>작업기간</th>
-              <th>작성자</th>
-              <th>작성일</th>
-              <th>결재현황</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="button">
-              <td><app-check color="white" size="small" name="check"></app-check></td>
-              <td>50</td>
-              <td>토목</td>
-              <td>수시 위험성 평가서</td>
-              <td>(주)지에스아이엘</td>
-              <td>2021.05.06~2022.06.06</td>
-              <td>이상범</td>
-              <td>2021.05.06</td>
-              <td>진행중</td>
-            </tr>
-          </tbody>
-        </app-table>
+
+        <ng-container *ngIf="res && res.rsCode === 0">
+
+          <ion-toolbar color="white">
+            <h5>수시 위험성평가 목록(총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          </ion-toolbar>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 40px;"><app-check color="white" size="small" name="check"></app-check></th>
+                <th style="width: 40px;">No</th>
+                <th>공종</th>
+                <th>서식명</th>
+                <th>업체명</th>
+                <th>작업기간</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>결재현황</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+                <td><app-radio color="white" size="small" name="check"></app-radio></td>
+                <td>50</td>
+                <td>토목</td>
+                <td>수시 위험성 평가서</td>
+                <td>(주)지에스아이엘</td>
+                <td>2021.05.06~2022.06.06</td>
+                <td>이상범</td>
+                <td>2021.05.06</td>
+                <td>진행중</td>
+              </tr>
+            </tbody>
+          </app-table>
+
+          <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+
+        </ng-container>
+
+        <ng-container *ngIf="res && res.rsCode === 1008">
+
+          <app-card>검색된 목록이 없습니다.</app-card>
+
+        </ng-container>
+
       </app-col>
+
     </app-row>
   </ion-content>
 </ng-container>

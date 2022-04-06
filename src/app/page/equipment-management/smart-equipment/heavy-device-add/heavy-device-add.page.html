@@ -5,59 +5,68 @@
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="white">
-    <ion-buttons >
-      <ion-segment color="primary" [value]="1">
-        <ion-segment-button (click)="menuCount = 1" [value]="1">건설기계 NFC</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 2">크레인 상하차 알림 장치</ion-segment-button>
+  <!-- <ion-toolbar color="white">
+    <ion-buttons>
+      <ion-segment color="primary" [(ngModel)]="item.ctgo_machine_serial_id">
+        <ion-segment-button *ngFor="let data of ctgo" [value]="data.ctgo_machine_serial_id">{{ data.ctgo_machine_serial_name }}</ion-segment-button>
       </ion-segment>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 <ion-content>
-  <app-select-construction-machinery></app-select-construction-machinery>
-  <app-select-serial-number label="시리얼No."></app-select-serial-number>
+  <app-select-heavy (ngModelChange)="changeMachine($event)" label="건설기계" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item" [(ngModel)]="item.machinery_id"></app-select-heavy>
   <ng-container>
-    <h5>디바이스 등록 현황</h5>
-    <app-card>
+    <div class="serial-add-class">
+      <h5>디바이스 등록 현황</h5>
+      <app-button (click)="openModal_SerialMobile()">추가</app-button>
+    </div>
+
+    <!-- Add Item List -->
+    <div style="position: relative;" *ngFor="let data of insert_list; let i = index;">
+      <ion-button (click)="deleteItem(i)" class="device-delete-btn">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
+            <p>시리얼 No. : {{ data.serial_no }}</p>
+            <p>시리얼 타입 : {{ data.serial_type }}</p>
+          </app-col>
+
+          <app-col size="3">
+            <p>사용여부</p>
+            <app-select class="use-state-class" [(ngModel)]="data.serial_use_state">
+              <app-select-option [value]="1">Y</app-select-option>
+              <app-select-option [value]="0">N</app-select-option>
+            </app-select>
+          </app-col>
+        </app-row>
+      </app-card>
+    </div>
+    
+
+    <app-card style="position: relative;" *ngFor="let data of res?.rsMap">
       <app-row>
         <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
-          <p>사용여부 : Y</p>
+          <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
+          <p>시리얼 No. : {{ data.serial_no }}</p>
+          <p>시리얼 타입 : {{ data.serial_type }}</p>
         </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
-          <p>사용여부 : Y</p>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
-          <p>사용여부 : Y</p>
-        </app-col>
-      </app-row>
-    </app-card>
-    <app-card>
-      <app-row>
-        <app-col>
-          <p>디바이스 구분 : 중장비 접근감지</p>
-          <p>시리얼 No. : E0001</p>
-          <p>사용여부 : Y</p>
+
+        <app-col size="3">
+          <p>사용여부</p>
+          <app-select class="use-state-class" [(ngModel)]="data.serial_use_state">
+            <app-select-option [value]="1">Y</app-select-option>
+            <app-select-option [value]="0">N</app-select-option>
+          </app-select>
         </app-col>
       </app-row>
     </app-card>
   </ng-container>
-  <app-button fill="translucent">{{menuCount ===1 ? '등록할 NFC태깅':'장비인식'}}</app-button>
 </ion-content>
 <app-button-footer>
-  <app-button>저장</app-button>
+  <app-button (click)="select()">저장</app-button>
 </app-button-footer>
+
