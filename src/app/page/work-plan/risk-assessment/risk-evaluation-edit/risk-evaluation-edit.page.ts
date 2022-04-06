@@ -312,7 +312,9 @@ export class RiskEvaluationEditPage implements OnInit {
   public async add() {
     const modal = await this._modal.create({
       component:RiskEvaluationPopupPage,
-
+      componentProps: {
+        project_id: this.form.project_id
+      }
     })
     modal.present();
   }

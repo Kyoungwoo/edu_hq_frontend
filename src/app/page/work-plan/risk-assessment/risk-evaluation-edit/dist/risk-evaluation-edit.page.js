@@ -392,7 +392,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage
+                            component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
                         })];
                     case 1:
                         modal = _a.sent();

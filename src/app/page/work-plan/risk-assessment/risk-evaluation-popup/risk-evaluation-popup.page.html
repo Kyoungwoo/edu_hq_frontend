@@ -9,12 +9,13 @@
 <ion-content>
 <app-row>
   <app-col slot="start">
-    <app-select-business></app-select-business>
+    <app-select-business [(ngModel)]="form.ctgo_business_field_id" [disabled]="true"></app-select-business>
   </app-col>
   <app-col></app-col>
   <app-col></app-col>
 </app-row>
 <div class="flex-box">
+
   <div class="flex-revers">
     <!-- header -->
     <div class="flex-header">
@@ -23,9 +24,12 @@
     </div>
     <div class="flex-list" >
       <!-- item -->
-      <div *ngFor="let item of list" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+      <div *ngFor="let item of res1?.rsMap" class="flex-item" [class.selected]="selectItem1 === item" (click)="item1Click(item)">
+        {{ item.risk_construction_name }}
+      </div>
     </div>
   </div>
+
   <div class="flex-revers">
     <!-- header -->
     <div class="flex-header">
@@ -34,9 +38,12 @@
     </div>
     <div class="flex-list">
       <!-- item -->
-      <div *ngFor="let item of list1" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+      <div *ngFor="let item of res2?.rsMap" class="flex-item" [class.selected]="selectItem2 === item" (click)="item2Click(item)">
+        {{ item.risk_unit_name }}
+      </div>
     </div>
   </div>
+
   <div class="flex-revers">
     <!-- header -->
     <div class="flex-header">
@@ -45,11 +52,12 @@
     </div>
     <div class="flex-list">
       <!-- item -->
-      <div *ngFor="let item of list2" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}
-        <app-img [src]="item.src"></app-img>
+      <div *ngFor="let item of res3?.rsMap" class="flex-item" [class.selected]="selectItem3 === item" (click)="item3Click(item)">
+        {{ item.risk_factor_name }}
       </div>
     </div>
   </div>
+
   <div class="flex-revers">
     <!-- header -->
     <div class="flex-header">
@@ -57,16 +65,21 @@
     </div>
     <div class="flex-list">
       <!-- item -->
-      <div *ngFor="let item of list3" class="flex-item" (click)="item.checked = !item.checked" [class.check_style]="item.checked">{{ item.text }}</div>
+      <div *ngFor="let item of res4?.rsMap" class="flex-item" [class.selected]="selectItem4 === item" (click)="item4Click(item)">
+        {{ item.risk_plan_name }}
+      </div>
     </div>
   </div>
+
 </div>
+
 <app-row>
   <app-col></app-col>
   <app-col size="auto">
-    <app-button fill="translucent">되돌리기</app-button>
+    <app-button fill="translucent">초기화</app-button>
   </app-col>
 </app-row>
+
 <h4>추가 리스트</h4>
 <app-table>
   <thead>

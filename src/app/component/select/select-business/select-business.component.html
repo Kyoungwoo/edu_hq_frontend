@@ -1,3 +1,3 @@
-<app-select [color]="color" [label]="label" [placeholder]="placeholder" [(ngModel)]="value">
-  <app-select-option *ngFor="let country of res?.rsMap" [value]="country. ctgo_business_id">{{ country.ctgo_business_name }}</app-select-option>
+<app-select [color]="color" [label]="label" [placeholder]="placeholder" [(ngModel)]="value" [readonly]="readonly" [disabled]="disabled" [required]="required">
+  <app-select-option *ngFor="let country of res?.rsMap" [value]="country.ctgo_business_field_id">{{ country.ctgo_business_field_name }}</app-select-option>
 </app-select>

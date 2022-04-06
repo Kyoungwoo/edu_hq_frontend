@@ -1,5 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
+
+export class ConstructionItem {
+  risk_construction_id:number = null;
+  risk_construction_name:string = null;
+}
+export class UnitItem {
+  risk_unit_id:number = null;
+  risk_unit_name:string = null;
+}
+export class FactorItem {
+  risk_factor_id:number = null;
+  risk_factor_name:string = null;
+}
+export class PlanItem {
+  risk_plan_id:number = null;
+  risk_plan_name:string = null;
+}
 @Component({
   selector: 'app-risk-evaluation-popup',
   templateUrl: './risk-evaluation-popup.page.html',
@@ -7,117 +26,95 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RiskEvaluationPopupPage implements OnInit {
 
-  menuCount:Number = 1;
-  list=
-  [
-    {
-      checked:false,
-      text:'기초 파일 공사'
-    },
-    {
-      checked:false,
-      text:'굴착 및 되메움 공사'
-    },
-    {
-      checked:false,
-      text:'매립 공사'
-    },
-    {
-      checked:false,
-      text:'절토성토 공사'
-    },
-    {
-      checked:false,
-      text:'벌개제근 및 표토제거 공사'
-    },
-    {
-      checked:false,
-      text:'발파 공사'
-    },
-    {
-      checked:false,
-      text:'흙막이 공사(Strut)'
-    },
-    {
-      checked:false,
-      text:'흙막이 공사(E/A)'
-    },
-    {
-      checked:false,
-      text:'흙막이 공사(C.I.P)'
-    },
-  ]
+  @Input() project_id:number;
 
-  list1=
-  [
-    {
-      checked:false,
-      text:'장비반입/작업준비'
-    },
-    {
-      checked:false,
-      text:'쇄암'
-    },
-    {
-      checked:false,
-      text:'준설토 선적'
-    },
-    {
-      checked:false,
-      text:'준설토 운반'
-    },
-    {
-      checked:false,
-      text:'상차 및 덤프 운반'
-    },
-    {
-      checked:false,
-      text:'하역 및 매립'
-    },
-    {
-      checked:false,
-      text:'지반정리/정리정돈'
-    },
-  ]
-  list2=
-  [
-    {
-      checked:false,
-      text:'직접입력',
-      src:'assets/basic/img/plus.svg'
-    },
-    {
-      checked:false,
-      text:'장비 후진시 유도자 미배치로 인한 충돌'
-    },
-    {
-      checked:false,
-      text:'차량운행 경로 미지정으로 인한 차량 충돌 사고'
-    },
-    {
-      checked:false,
-      text:'외부인 출입에 의한 사고'
-    },
-  ]
-  list3=
-  [
-    {
-      checked:false,
-      text:'차량 운행경로에 유도원 2명이상 배치'
-    },
-    {
-      checked:false,
-      text:'지게차 이동 동선에 자재 적재, 타 작업 등의 확인 점검'
-    },
-    {
-      checked:false,
-      text:'장비 작업계획서 차량운행 경로 확인후 작업 지시'
-    },
-  ]
+  form = {
+    ctgo_business_field_id: null
+  }
+  
+  res1:ConnectResult<ConstructionItem>;
+  selectItem1:ConstructionItem;
 
-  constructor() { }
+  res2:ConnectResult<UnitItem>;
+  selectItem2:UnitItem;
 
-  ngOnInit() {
+  res3:ConnectResult<FactorItem>;
+  selectItem3:FactorItem;
+
+  res4:ConnectResult<PlanItem>;
+  selectItem4:PlanItem;
+
+  constructor(
+    private connect: ConnectService,
+    private toast: ToastService
+  ) { }
+
+  async ngOnInit() {
+    await this.getBusinessField();
+    this.get1();
   }
 
+  async getBusinessField() {
+    const res = await this.connect.run('/category/certify/businessfield/get', {
+      project_id: this.project_id
+    });
+    if(res.rsCode === 0) {
+      this.form.ctgo_business_field_id = res.rsObj.ctgo_business_field_id;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+  async get1() {
+    this.res1 = await this.connect.run('/risk/assessment/ctgo/construction/get', {
+      ctgo_business_field_id: this.form.ctgo_business_field_id
+    });
+    if(this.res1.rsCode) {
+      this.toast.present({ color: 'warning', message: this.res1.rsMsg });
+    }
+  }
+  item1Click(item:ConstructionItem) {
+    this.selectItem1 = item;
+    this.get2();
+  }
+
+  async get2() {
+    this.res2 = await this.connect.run('/risk/assessment/ctgo/unit/get', {
+      risk_construction_id: this.selectItem1.risk_construction_id
+    });
+    if(this.res2.rsCode) {
+      this.toast.present({ color: 'warning', message: this.res2.rsMsg });
+    }
+  }
+  item2Click(item:UnitItem) {
+    this.selectItem2 = item;
+  }
+
+  async get3() {
+    this.res3 = await this.connect.run('/risk/assessment/ctgo/factor/get', {
+      risk_construction_id: this.selectItem1.risk_construction_id,
+      risk_unit_id: this.selectItem2.risk_unit_id
+    });
+    if(this.res3.rsCode) {
+      this.toast.present({ color: 'warning', message: this.res3.rsMsg });
+    }
+  }
+  item3Click(item:FactorItem) {
+    this.selectItem3 = item;
+  }
+
+  async get4() {
+    this.res4 = await this.connect.run('/risk/assessment/ctgo/plan/get', {
+      risk_construction_id: this.selectItem1.risk_construction_id,
+      risk_unit_id: this.selectItem2.risk_unit_id,
+      risk_factor_id: this.selectItem3.risk_factor_id
+
+    });
+    if(this.res4.rsCode) {
+      this.toast.present({ color: 'warning', message: this.res4.rsMsg });
+    }
+  }
+  item4Click(item:PlanItem) {
+    this.selectItem4 = item;
+  }
 }
