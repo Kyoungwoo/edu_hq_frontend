@@ -252,6 +252,9 @@ export class SerialNoListPage implements OnInit {
             let case_1 = false; // 원청사를 하나라도 선택 안했을때
             let case_2 = false; // 장비구분을 하나라도 선택 안했을때
 
+            let insert_promise = null;
+            let update_promise = null;
+
             // 추가한 리스트 인서트
             let loadingCus = await this.loading.present();
             if(this.res_insert.length){
@@ -270,7 +273,7 @@ export class SerialNoListPage implements OnInit {
               }
               console.log(this.res_insert);
               // 예외처리 후 하나씩 리스트에 추가해준다. - 모든 api가 호출될때까지 기다린다
-              const insert_promise = Promise.all(this.res_insert.map(async(item) => { return await this.SearialSaveMethod(item, 'insert')}));
+              insert_promise = await Promise.all(this.res_insert.map((item) => { return this.SearialSaveMethod(item, 'insert')}));
               
               // 추가할 아이템만 있을경우 실행
               insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
@@ -295,7 +298,7 @@ export class SerialNoListPage implements OnInit {
             // 한개라도 바뀐 아이템이 있으면 수정 실행
             if(changeed_itemIndex.length){
               // 수정된 아이템들 업데이트하기 - 모든 api를 호출할때까지 기다린다
-              const update_promise = Promise.all(changeed_itemIndex.map(async(item) => { return await this.SearialSaveMethod(item, 'update')}));
+              update_promise = await Promise.all(changeed_itemIndex.map((item) => { return this.SearialSaveMethod(item, 'update')}));
               
               // 모든 api를 호출 후 리스트 다시 갱신
               update_promise.then(() => {this.getList();});

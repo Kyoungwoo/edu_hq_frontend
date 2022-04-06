@@ -9,7 +9,7 @@ export class SearialItem {
   serial_no: string;
   serial_type: string;
   ctgo_machine_serial_id: number;
-  ctgo_machine_serial_name: string
+  ctgo_machine_serial_name: string;
 }
 
 class SmartCtgo {
