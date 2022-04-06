@@ -29,11 +29,11 @@ const routes: Routes = [
   },
   {
     path: 'main-admin',
-    loadChildren: () => import('./page/main/main-admin/main-admin.module').then(m => m.MainAdminPageModule)
+    loadChildren: () => import('./page/main/admin/main-admin/main-admin.module').then(m => m.MainAdminPageModule)
   },
   {
     path: 'main-user',
-    loadChildren: () => import('./page/main/main-user/main-user.module').then(m => m.MainUserPageModule)
+    loadChildren: () => import('./page/main/user/main-user/main-user.module').then(m => m.MainUserPageModule)
   },
   {
     path: 'sign-up-type',
@@ -570,19 +570,19 @@ const routes: Routes = [
   },
   {
     path: 'main-sub-admin',
-    loadChildren: () => import('./page/main/main-sub-admin/main-sub-admin.module').then( m => m.MainSubAdminPageModule)
+    loadChildren: () => import('./page/main/admin/main-sub-admin/main-sub-admin.module').then( m => m.MainSubAdminPageModule)
   },
   {
     path: 'main-user-master',
-    loadChildren: () => import('./page/main/main-user-master/main-user-master.module').then( m => m.MainUserMasterPageModule)
+    loadChildren: () => import('./page/main/user/main-user-master/main-user-master.module').then( m => m.MainUserMasterPageModule)
   },
   {
     path: 'main-user-partner',
-    loadChildren: () => import('./page/main/main-user-partner/main-user-partner.module').then( m => m.MainUserPartnerPageModule)
+    loadChildren: () => import('./page/main/user/main-user-partner/main-user-partner.module').then( m => m.MainUserPartnerPageModule)
   },
   {
     path: 'main-user-worker',
-    loadChildren: () => import('./page/main/main-user-worker/main-user-worker.module').then( m => m.MainUserWorkerPageModule)
+    loadChildren: () => import('./page/main/user/main-user-worker/main-user-worker.module').then( m => m.MainUserWorkerPageModule)
   },
   {
     path: 'danger-qr-view',
@@ -591,6 +591,10 @@ const routes: Routes = [
   {
     path: 'heavy-qr-view',
     loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-qr-view/heavy-qr-view.module').then( m => m.HeavyQrViewPageModule)
+  },
+  {
+    path: 'setting-menu',
+    loadChildren: () => import('./page/main/user/setting-menu/setting-menu.module').then( m => m.SettingMenuPageModule)
   }
 ];
 
