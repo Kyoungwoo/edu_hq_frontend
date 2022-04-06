@@ -1,0 +1,31 @@
+.serial-add-class{
+	display: flex;
+
+	h5{
+		flex: 1;
+	}
+
+	app-button{
+		min-height: 30px;
+		height: 30px;
+		margin-top: 23px;
+		font-size: var(--font-size-h5);
+	}
+}
+
+.device-delete-btn{
+    z-index: 9999;
+    position: absolute;
+    left: -8px;
+    top: -8px;
+    margin: 0;
+    height: 23px;
+    width: 23px;
+    border-radius: 12px;
+    overflow: hidden;
+    --background: var(--ion-color-danger);
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+}

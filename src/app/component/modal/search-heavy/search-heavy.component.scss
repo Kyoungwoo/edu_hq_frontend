@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px) {
+    app-row.heavy-filter{
+        flex-direction: column;
+
+        app-col{
+            padding-top: 0;
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 4px;
+        }
+    }
+  }

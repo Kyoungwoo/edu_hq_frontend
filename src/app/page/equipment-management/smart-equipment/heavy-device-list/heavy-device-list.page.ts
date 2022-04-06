@@ -136,9 +136,7 @@ export class HeavyDeviceListPage implements OnInit {
    */
    async getList() {
     let method = await this.TransMethodType();
-    console.log("들어옴? 1 ");
     await this.resetState();
-    console.log("들어옴? 2 ");
     const res = await this.connect.run(method, this.form);
     if(res.rsCode === 0 ) {
       
@@ -266,6 +264,9 @@ export class HeavyDeviceListPage implements OnInit {
             let case_2 = false; // serial_id를 하나라도 선택 안했을때
             let case_3 = false; // 성명을 하나라도 선택 안했을때
 
+            let insert_promise = null;
+            let update_promise = null;
+
             // 추가한 리스트 인서트
             let loadingCus = await this.loading.present();
             if(this.res_insert.length){
@@ -289,10 +290,7 @@ export class HeavyDeviceListPage implements OnInit {
               }
               console.log(this.res_insert);
               // 예외처리 후 하나씩 리스트에 추가해준다. - 모든 api가 호출될때까지 기다린다
-              const insert_promise = Promise.all(this.res_insert.map(async(item) => { return await this.SmartSaveMethod(item, 'insert')}));
-              
-              // 추가할 아이템만 있을경우 실행
-              insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
+              insert_promise = await Promise.all(this.res_insert.map((item) => { return this.SmartSaveMethod(item, 'insert')}));
             }
 
             // 수정된 아이템 찾기
@@ -312,14 +310,18 @@ export class HeavyDeviceListPage implements OnInit {
             // 한개라도 바뀐 아이템이 있으면 수정 실행
             if(changeed_itemIndex.length){
               // 수정된 아이템들 업데이트하기 - 모든 api를 호출할때까지 기다린다
-              const update_promise = Promise.all(changeed_itemIndex.map(async(item) => { return await this.SmartSaveMethod(item, 'update')}));
-              
-              // 모든 api를 호출 후 리스트 다시 갱신
-              update_promise.then(() => {this.getList();});
+              update_promise = await Promise.all(changeed_itemIndex.map((item) => { return this.SmartSaveMethod(item, 'update')}));
             }
 
-            if(!changeed_itemIndex.length && !this.res_insert.length) this.resetState(); 
-            await loadingCus.dismiss();
+            const all_promise = Promise.all([
+              insert_promise,
+              update_promise
+            ]);
+            
+            await all_promise.then(() => {
+              if(changeed_itemIndex.length || this.res_insert.length) this.getList();
+              loadingCus.dismiss();
+            });
           }
         }
       ]
@@ -332,15 +334,15 @@ export class HeavyDeviceListPage implements OnInit {
    * @param type - 메서드 타입('insert' | 'update')
    * @returns resolve(true)
    */
-  SmartSaveMethod(item, type: 'insert' | 'update'){
+  async SmartSaveMethod(item, type: 'insert' | 'update'){
     return new Promise(async(resolve, reject) => {
       const res = await this.connect.run('/device/'+type, item);
       if (res.rsCode === 0) {
-  
+        resolve(true);
       } else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
+        resolve(true);
       }
-      resolve(true);
     });
   }
 
@@ -373,12 +375,14 @@ export class HeavyDeviceListPage implements OnInit {
         form: this.form,
         item: new SmartInfoInsertItem(),
         list: this.res_original,
-        ctgo: this.smart_ctgo_list
+        ctgo: this.smart_ctgo_list,
+        serial_type: this.serial_type
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) this.SmartSaveMethod(<SmartInfo>data.item, data.type);
+    // this.SmartSaveMethod(<SmartInfo>data.item, data.type);
+    if(data) this.getList();
   }
 
   async openModal_QR(item){
