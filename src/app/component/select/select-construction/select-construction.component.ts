@@ -39,6 +39,17 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
   get project_id() { return this._project_id }
 
+
+  @Input() 
+  set master_company_id(v:number) {
+    if(this._master_company_id !== v) {
+      this._master_company_id = v;
+      this.get();
+    }
+  }
+  get master_company_id() { return this._master_company_id }
+  private _master_company_id:number = 0;
+
   res:ConnectResult<Construction>;
 
   constructor(
@@ -52,16 +63,25 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
 
   private async get() {
-    if(!this.project_id) { this.res = null; return; }
+    if(!this.project_id || !this.master_company_id) {
+      this.res = null;
+      return;
+    }
     this.res = await this.connect.run('/category/construction/get', {
-      project_id: this.project_id
+      project_id: this.project_id,
+      master_company_id: this.master_company_id
     });
   }
-  checkProject() {
+  checkInputs() {
     if(!this.project_id) {
       this.res = new ConnectResult();
       this.res.rsCode = 1008;
       this.res.rsMsg = '현장을 선택해주세요.';
+    }
+    else if(!this.project_id) {
+      this.res = new ConnectResult();
+      this.res.rsCode = 1008;
+      this.res.rsMsg = '원청사를 선택해주세요.';
     }
   }
 
@@ -73,8 +93,8 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:string = "";
-  @Input() set value(v:string) {
+  private _value:any = 0;
+  @Input() set value(v:any) {
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);
@@ -84,7 +104,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   get value() {
     return this._value;
   }
-  writeValue(v:string): void { 
+  writeValue(v:any): void { 
     if(v !== this._value) {
       this._value = v;
       this.onChangeCallback(v);

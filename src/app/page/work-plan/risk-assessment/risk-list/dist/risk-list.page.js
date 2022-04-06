@@ -42,33 +42,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.WorkerMinutesListPage = exports.SafetyMeetingInfo = void 0;
+exports.RiskListPage = void 0;
 var core_1 = require("@angular/core");
-var worker_minutes_detail_search_page_1 = require("../worker-minutes-detail-search/worker-minutes-detail-search.page");
-var worker_minutes_edit_page_1 = require("../worker-minutes-edit/worker-minutes-edit.page");
-var worker_minutes_select_type_page_1 = require("../worker-minutes-select-type/worker-minutes-select-type.page");
-var SafetyMeetingInfo = /** @class */ (function () {
-    function SafetyMeetingInfo() {
-    }
-    return SafetyMeetingInfo;
-}());
-exports.SafetyMeetingInfo = SafetyMeetingInfo;
-var WorkerMinutesListPage = /** @class */ (function () {
-    function WorkerMinutesListPage(modal, connect, toast, date, user, nav) {
-        this.modal = modal;
+var risk_detail_search_page_1 = require("../risk-detail-search/risk-detail-search.page");
+var risk_evaluation_edit_page_1 = require("../risk-evaluation-edit/risk-evaluation-edit.page");
+var RiskListPage = /** @class */ (function () {
+    function RiskListPage(connect, toast, date, _modal, user, nav) {
         this.connect = connect;
         this.toast = toast;
         this.date = date;
+        this._modal = _modal;
         this.user = user;
         this.nav = nav;
         this.form = {
             project_id: null,
             company_id: null,
-            safety_meeting_types: [],
-            start_date: this.date.today({ month: -1 }),
-            end_date: this.date.today(),
-            search_text: '',
+            ctgo_construction_id: 0,
+            risk_asment_type: '수시',
             approval_cnt_answer: '전체',
+            risk_asment_start_date: this.date.today({ month: -1 }),
+            risk_asment_end_date: this.date.today(),
+            search_text: '',
             limit_no: 0
         };
         this.permission = {
@@ -79,7 +73,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
             get: null
         };
     }
-    WorkerMinutesListPage.prototype.ngOnInit = function () {
+    RiskListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -89,23 +83,23 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         this.get();
                         // event 물리기
                         this.event.get = this.getEvent.bind(this);
-                        window.addEventListener('worker-minutes-list:get()', this.event.get);
+                        window.addEventListener('risk-list:get()', this.event.get);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    WorkerMinutesListPage.prototype.ngOnDestroy = function () {
-        window.removeEventListener('worker-minutes-list:get()', this.event.get);
+    RiskListPage.prototype.ngOnDestroy = function () {
+        window.removeEventListener('risk-list:get()', this.event.get);
     };
     /** event 파트 */
-    WorkerMinutesListPage.prototype.getEvent = function () {
+    RiskListPage.prototype.getEvent = function () {
         this.get(0);
     };
     /**
      * permission 과 form 을 가져옴.
      */
-    WorkerMinutesListPage.prototype.getForm = function () {
+    RiskListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, user_role, belong_data, res, contractor;
             return __generator(this, function (_b) {
@@ -153,7 +147,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
      * web, mobile 둘다 검색 시작할 때는 이걸 쓴다.
      * 이유는 limit_no를 초기화할 필요성이 있기 떄문 + 1008 예외처리가 다르다.
      */
-    WorkerMinutesListPage.prototype.get = function (limit_no) {
+    RiskListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
             var trans_form, _a;
@@ -165,7 +159,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         trans_form = JSON.parse(JSON.stringify(this.form));
                         trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/risk/assessment/list/get', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
@@ -187,7 +181,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
     /**
      * 모바일 무한스크롤 시, 사용된다.
      */
-    WorkerMinutesListPage.prototype.getMobile = function ($event) {
+    RiskListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -195,7 +189,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, {})];
+                        return [4 /*yield*/, this.connect.run('/risk/assessment/list/get', this.form, {})];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -224,48 +218,32 @@ var WorkerMinutesListPage = /** @class */ (function () {
             });
         });
     };
-    /**
-     * 모바일 상세검색 팝업. PC에서는 안씀
-     */
-    WorkerMinutesListPage.prototype.detailSearch = function () {
+    RiskListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var modal, data;
+            var modal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_detail_search_page_1.WorkerMinutesDetailSearchPage,
-                            componentProps: {
-                                form: this.form
-                            }
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_detail_search_page_1.RiskDetailSearchPage
                         })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
-                        return [4 /*yield*/, modal.onDidDismiss()];
-                    case 2:
-                        data = (_a.sent()).data;
-                        if (data) {
-                            this.form = data;
-                            this.get(0);
-                        }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    /**
-     * 회의록 추가
-     */
-    WorkerMinutesListPage.prototype.add = function () {
+    RiskListPage.prototype.add = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_select_type_page_1.WorkerMinutesSelectTypePage,
-                            cssClass: 'worker-minutes-select-type-modal',
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_evaluation_edit_page_1.RiskEvaluationEditPage,
                             componentProps: {
-                                project_id: this.form.project_id
+                                project_id: this.form.project_id,
+                                risk_asment_type: this.form.risk_asment_type
                             }
                         })];
                     case 1:
@@ -276,15 +254,15 @@ var WorkerMinutesListPage = /** @class */ (function () {
             });
         });
     };
-    WorkerMinutesListPage.prototype.edit = function (item) {
+    RiskListPage.prototype.edit = function (item) {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: worker_minutes_edit_page_1.WorkerMinutesEditPage,
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_evaluation_edit_page_1.RiskEvaluationEditPage,
                             componentProps: {
-                                safety_meeting_id: item.safety_meeting_id
+                                risk_asment_id: item.risk_asment_id
                             }
                         })];
                     case 1:
@@ -298,7 +276,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
     /**
      * 미결함으로 이동
      */
-    WorkerMinutesListPage.prototype.pending = function () {
+    RiskListPage.prototype.pending = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.nav.navigateForward('/confirm-pending-list');
@@ -306,13 +284,13 @@ var WorkerMinutesListPage = /** @class */ (function () {
             });
         });
     };
-    WorkerMinutesListPage = __decorate([
+    RiskListPage = __decorate([
         core_1.Component({
-            selector: 'app-worker-minutes-list',
-            templateUrl: './worker-minutes-list.page.html',
-            styleUrls: ['./worker-minutes-list.page.scss']
+            selector: 'app-risk-list',
+            templateUrl: './risk-list.page.html',
+            styleUrls: ['./risk-list.page.scss']
         })
-    ], WorkerMinutesListPage);
-    return WorkerMinutesListPage;
+    ], RiskListPage);
+    return RiskListPage;
 }());
-exports.WorkerMinutesListPage = WorkerMinutesListPage;
+exports.RiskListPage = RiskListPage;

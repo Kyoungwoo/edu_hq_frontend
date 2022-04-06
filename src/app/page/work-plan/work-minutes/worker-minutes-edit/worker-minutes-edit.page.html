@@ -26,9 +26,7 @@
 
   <app-row mobileBreak>
     <app-col>
-      <app-input-template label="현장명" [disabled]="true">
-        <p slot="input">{{ form.project_id }}</p>
-      </app-input-template>
+      <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
     </app-col>
     <app-col>
       <app-calendar label="회의 일자" [(ngModel)]="form.safety_meeting_date" [disabled]="!permission.edit"></app-calendar>

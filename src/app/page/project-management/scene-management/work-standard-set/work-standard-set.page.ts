@@ -12,9 +12,13 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 })
 export class WorkStandardSetPage implements OnInit {
 
-  menuCount: Number = 1;
+  segment:number = 1;
+
   //공종 시작
-  constructionForm = this.user.userData.belong_data.project_id;
+  constructionForm = {
+    project_id: null,
+    master_company_id: null
+  }
   resConstruction: ConnectResult<{
     ctgo_construction_id: number, // 공종ID
     ctgo_construction_name: string, // 공종명
@@ -100,34 +104,68 @@ export class WorkStandardSetPage implements OnInit {
       this.workRoleCheck = false;
       this.editable = true;
     }
-    this.menuCount1();
+
+    this.segmentChange();
   }
 
-  menuCount1() { 
-    this.menuCount = 1;
-      this.getConstruction()
-  }
-  menuCount5() {
-    this.menuCount = 5;
-        this.getMachinery()
+  async segmentChange() {
+    switch(this.segment) {
+      case 1:
+        await this.getConstructionForm();
+        this.getConstruction();
+        break;
+      case 2: // 2차 개발
+        break;
+      case 3: // 2차 개발
+        break;
+      case 4: // 2차 개발
+        break;
+      case 5:
+        this.getMachinery();
+        break;
+      case 6:
+        this.getTool();
+        break;
+      case 7: // 2차 개발
+        break;
+      case 8:
+        this.getMeeting();
+        break;
+      case 9:
+        this.getDisaster();
+        break;
+      case 10: // 2차 개발
+        break;
+    }
   }
 
-  menuCount6() {
-    this.menuCount = 6;
-      this.getTool();
+  async getConstructionForm() {
+    const { belong_data } = this.user.userData;
+    this.constructionForm.project_id = belong_data.project_id;
+    
+    if(belong_data.company_contract_type === '원청사') {
+      this.constructionForm.master_company_id = belong_data.company_id;
+    }
+    else if(belong_data.company_contract_type === '협력사') {
+      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+        project_id: this.constructionForm.project_id,
+        search_text: ''
+      });
+      if(res.rsCode === 0) {
+        const contractor = res.rsMap[0];
+        this.constructionForm.master_company_id = contractor.master_company_id;
+      }
+      else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+    }
   }
-  async menuCount8() {
-    this.menuCount = 8;
-    this.getMeeting();
-  }
-  menuCount9() {
-    this.menuCount = 9;
-    this.getDisaster();
-  }
+  
   //공종 시작
   async getConstruction() {
     if (!this.constructionForm) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
-    this.resConstruction = await this.connect.run('/project/construction/get', { project_id: this.constructionForm });
+    this.resConstruction = await this.connect.run('/project/construction/get', this.constructionForm);
     if (this.resConstruction.rsCode === 0) { };
   }
 
@@ -137,7 +175,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resConstruction?.rsMap.unshift({
         ctgo_construction_id: 0, // 공종ID
         ctgo_construction_name: '', // 공종명
-        project_id: this.constructionForm, // 현장 ID
+        project_id: this.constructionForm.project_id, // 현장 ID
         ctgo_construction_use_state: 0// 1 사용 / 0 미사용
       });
     } else {
@@ -145,7 +183,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resConstruction?.rsMap.push({
         ctgo_construction_id: 0, // 공종ID
         ctgo_construction_name: '', // 공종명
-        project_id: this.constructionForm, // 현장 ID
+        project_id: this.constructionForm.project_id, // 현장 ID
         ctgo_construction_use_state: 0// 1 사용 / 0 미사용
       });
     }

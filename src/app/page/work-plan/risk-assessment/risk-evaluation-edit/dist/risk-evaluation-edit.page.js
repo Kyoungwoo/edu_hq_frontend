@@ -53,127 +53,119 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.WorkerMinutesEditPage = void 0;
+exports.RiskEvaluationEditPage = exports.RiskEvaluationData = void 0;
 var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
-var WorkerMinutesEditPage = /** @class */ (function () {
-    function WorkerMinutesEditPage(user, connect, toast, modal, loading, date) {
+var risk_evaluation_popup_page_1 = require("../risk-evaluation-popup/risk-evaluation-popup.page");
+var RiskEvaluationData = /** @class */ (function () {
+    function RiskEvaluationData() {
+        this.risk_asment_id = null; // 위험성평가 ID (위험성평가 문서 ID)
+        this.seq_no = null; // 시퀀스 - 이 한 줄의 ID
+        this.risk_construction_id = null; // 공사 ID
+        this.risk_construction_name = null; // 공사명
+        this.risk_unit_id = null; // 단위작업 ID
+        this.risk_unit_name = null; // 단위작업
+        this.area_top_id = null; // 장소 첫번째 ID
+        this.area_top_name = null; // 장소 첫번째
+        this.area_middle_id = null; // 장소 두번째 ID null 이면 안고른거
+        this.area_middle_name = null; // 장소 두번째
+        this.area_bottom_id = null; // 장소 세번째 ID null 이면 안고른거
+        this.area_bottom_name = null; // 장소 세번째
+        this.ctgo_machinery_ids = []; // 건설기계 ID들
+        this.ctgo_machinery_names = []; // 건설기계명들
+        this.ctgo_tool_ids = []; // 특수공도구 ID들
+        this.ctgo_tool_names = []; // 특수공도구명들
+        this.risk_factor_id = null; // 위험요인 ID null 이면 직접입력
+        this.risk_factor_name = null; // 위험요인
+        this.risk_frequency = null; // 빈도
+        this.risk_strength = null; // 강도
+        this.risk_danger_level = null; // 위험도
+        this.risk_plan_id = null; // 감소대책 ID null 이면 직접입력
+        this.risk_plan_name = null; // 감소대책
+    }
+    return RiskEvaluationData;
+}());
+exports.RiskEvaluationData = RiskEvaluationData;
+var RiskEvaluationEditPage = /** @class */ (function () {
+    function RiskEvaluationEditPage(user, connect, toast, _modal, loading, date) {
         this.user = user;
         this.connect = connect;
         this.toast = toast;
-        this.modal = modal;
+        this._modal = _modal;
         this.loading = loading;
         this.date = date;
         this.form = {
             project_id: null,
-            project_name: null,
             company_id: null,
             company_name: null,
-            safety_meeting_type: null,
-            safety_meeting_type_text: null,
-            safety_meeting_date: null,
-            safety_meeting_place: null,
-            safety_meeting_content: null,
-            safety_meeting_resolve: null,
-            safety_meeting_etc: '',
-            file_data: [],
+            ctgo_construction_id: null,
+            risk_asment_type: '수시',
+            risk_asment_type_text: '수시',
+            risk_asment_start_date: this.date.today({ date: 1 }),
+            risk_asment_end_date: this.date.today({ date: 1 }),
+            evaluation_data: [],
+            risk_file_data: [],
             file: [],
             file_json: new file_service_1.FileJson(),
             // 결재 값
             ctgo_approval_module_id: null,
             approval_cnt_answer: null,
             approval_default_data: [],
-            // 수정시 정보
+            // 수정시
             approval_id: null,
-            safety_meeting_id: null,
-            user_name: null
+            risk_asment_id: null,
+            user_name: null,
+            create_date: this.date.today()
         };
         this.permission = {
             edit: false
         };
     }
-    WorkerMinutesEditPage.prototype.ngOnInit = function () {
+    RiskEvaluationEditPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!!this.safety_meeting_id) return [3 /*break*/, 1];
+                        if (!!this.risk_asment_id) return [3 /*break*/, 1];
                         // 신규 작성 시, 디폴트 값을 가져옴
-                        this.getDefaultForm(); // 폼으로 채우고
-                        this.getDefaultContent(); // 기본 정보를 가지고 온다.
+                        this.getDefaultForm(); // 폼 채우기
                         return [3 /*break*/, 3];
                     case 1:
                         // 수정 시에는 정보를 가져와서 채워넣음
-                        this.form.safety_meeting_id = this.safety_meeting_id;
+                        this.form.risk_asment_id = this.risk_asment_id;
                         return [4 /*yield*/, this.getDetail()];
                     case 2:
                         _a.sent();
                         _a.label = 3;
                     case 3:
                         // 나머지 정보
-                        this.form.safety_meeting_type_text = this.getTypeText(this.form.safety_meeting_type);
+                        this.form.risk_asment_type_text = this.getTypeText(this.form.risk_asment_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
-                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.safety_meeting_type);
+                        this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.risk_asment_type);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    WorkerMinutesEditPage.prototype.getDefaultForm = function () {
+    RiskEvaluationEditPage.prototype.getDefaultForm = function () {
         var _a = this.user.userData, user_name = _a.user_name, belong_data = _a.belong_data;
         this.form.project_id = this.project_id;
         this.form.company_id = belong_data.company_id;
         this.form.company_name = belong_data.company_name;
-        this.form.safety_meeting_type = this.safety_meeting_type;
-        this.form.safety_meeting_date = this.date.today();
+        this.form.risk_asment_type = this.risk_asment_type;
         this.form.user_name = user_name;
     };
     /**
-     * 기본 회의록 협의사항 가져오기
+     * 위험성평가 정보 가져오기
      */
-    WorkerMinutesEditPage.prototype.getDefaultContent = function () {
+    RiskEvaluationEditPage.prototype.getDetail = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/default/get', {
-                            project_id: this.form.project_id,
-                            company_id: this.form.company_id
-                        })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            switch (this.form.safety_meeting_type) {
-                                case '안전':
-                                    this.form.safety_meeting_content = res.rsObj.safety_default;
-                                    break;
-                                case '노사':
-                                    this.form.safety_meeting_content = res.rsObj.union_default;
-                                    break;
-                                case '산업':
-                                    this.form.safety_meeting_content = res.rsObj.health_default;
-                                    break;
-                            }
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * 회의록 정보 가져오기
-     */
-    WorkerMinutesEditPage.prototype.getDetail = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/detail', {
-                            safety_meeting_id: this.form.safety_meeting_id
-                        }, { parse: ['file_data'] })];
+                    case 0: return [4 /*yield*/, this.connect.run('/risk/assessment/detail/get', {
+                            risk_asment_id: this.form.risk_asment_id
+                        }, { parse: ['risk_file_data'] })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -189,35 +181,35 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         });
     };
     /**
-     * 회의록 텍스트 가져오기
+     * 위험성평가 텍스트 가져오기
      */
-    WorkerMinutesEditPage.prototype.getTypeText = function (safety_meeting_type) {
-        switch (safety_meeting_type) {
-            case '안전':
-                return '안전 및 보건에 관한 협의체 회의록';
-            case '노사':
-                return '노사 협의체 회의록';
-            case '산업':
-                return '산업안전보건위원회 회의록';
+    RiskEvaluationEditPage.prototype.getTypeText = function (risk_asment_type) {
+        switch (risk_asment_type) {
+            case '최초':
+                return '최초';
+            case '정기':
+                return '정기';
+            case '수시':
+                return '수시';
         }
     };
     /**
      * 회의록 결재선 아이디 가져오기
      */
-    WorkerMinutesEditPage.prototype.getApprovalModuleId = function (safety_meeting_type) {
-        switch (safety_meeting_type) {
-            case '안전':
-                return 11;
-            case '노사':
-                return 10;
-            case '산업':
-                return 9;
+    RiskEvaluationEditPage.prototype.getApprovalModuleId = function (risk_asment_type) {
+        switch (risk_asment_type) {
+            case '최초':
+                return 6;
+            case '정기':
+                return 7;
+            case '수시':
+                return 8;
         }
     };
     /**
      * 삭제 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onDeleteClick = function (ev) {
+    RiskEvaluationEditPage.prototype.onDeleteClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -226,9 +218,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -241,33 +233,25 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 임시 저장버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onSaveClick = function (ev) {
+    RiskEvaluationEditPage.prototype.onSaveClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, url, res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.safety_meeting_place) {
-                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_content) {
-                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_resolve) {
-                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                        if (!this.form.evaluation_data.length) {
+                            this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '임시저장';
                         this.form.approval_default_data = approval_data;
                         url = '';
                         if (!this.form.approval_id) {
-                            url = '/board/safety_meeting/insert';
+                            url = '/risk/assessment/insert';
                         }
                         else {
-                            url = '/board/safety_meeting/update';
+                            url = '/risk/assessment/update';
                         }
                         return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
                     case 1:
@@ -277,9 +261,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                             if (!this.form.approval_id) {
                                 // 신규 작성이었다면, approval_id와 safety_meeting_id 반환받아서 넣어줘야 임시저장 시, 새로 추가되는 것이 아닌 수정이 된다.
                                 this.form.approval_id = res.rsObj.approval_id;
-                                this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
+                                this.form.risk_asment_id = res.rsObj.risk_asment_id;
                                 // 목록을 새로고침 해줘야 함
-                                window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                                window.dispatchEvent(new CustomEvent('risk-list:get()'));
                             }
                         }
                         else {
@@ -293,23 +277,15 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 요청 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onSendClick = function (ev) {
+    RiskEvaluationEditPage.prototype.onSendClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, res, loading, res, approvalRes;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.safety_meeting_place) {
-                            this.toast.present({ color: 'warning', message: '회의 장소를 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_content) {
-                            this.toast.present({ color: 'warning', message: '협의 사항을 입력해주세요.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.safety_meeting_resolve) {
-                            this.toast.present({ color: 'warning', message: '의결 사항을 입력해주세요.' });
+                        if (!this.form.evaluation_data.length) {
+                            this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '결재중';
@@ -320,9 +296,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -340,9 +316,9 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         approvalRes = _a.sent();
                         if (approvalRes.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this.modal.dismiss();
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: approvalRes.rsMsg });
@@ -362,7 +338,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 회수 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onRecoveryClick = function (ev) {
+    RiskEvaluationEditPage.prototype.onRecoveryClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -372,7 +348,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -382,7 +358,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 버튼 클릭
      */
-    WorkerMinutesEditPage.prototype.onApprovalClick = function (ev) {
+    RiskEvaluationEditPage.prototype.onApprovalClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -392,7 +368,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
-                            window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -402,7 +378,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
     /**
      * 결재 상태가 변할 때 행동
      */
-    WorkerMinutesEditPage.prototype.onApprovalChange = function (ev) {
+    RiskEvaluationEditPage.prototype.onApprovalChange = function (ev) {
         if (ev.btnList.includes('임시저장')) {
             this.permission.edit = true;
         }
@@ -410,22 +386,38 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             this.permission.edit = false;
         }
     };
+    RiskEvaluationEditPage.prototype.add = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     __decorate([
         core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "safety_meeting_id");
+    ], RiskEvaluationEditPage.prototype, "risk_asment_id");
     __decorate([
         core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "project_id");
+    ], RiskEvaluationEditPage.prototype, "project_id");
     __decorate([
         core_1.Input()
-    ], WorkerMinutesEditPage.prototype, "safety_meeting_type");
-    WorkerMinutesEditPage = __decorate([
+    ], RiskEvaluationEditPage.prototype, "risk_asment_type");
+    RiskEvaluationEditPage = __decorate([
         core_1.Component({
-            selector: 'app-worker-minutes-edit',
-            templateUrl: './worker-minutes-edit.page.html',
-            styleUrls: ['./worker-minutes-edit.page.scss']
+            selector: 'app-risk-evaluation-edit',
+            templateUrl: './risk-evaluation-edit.page.html',
+            styleUrls: ['./risk-evaluation-edit.page.scss']
         })
-    ], WorkerMinutesEditPage);
-    return WorkerMinutesEditPage;
+    ], RiskEvaluationEditPage);
+    return RiskEvaluationEditPage;
 }());
-exports.WorkerMinutesEditPage = WorkerMinutesEditPage;
+exports.RiskEvaluationEditPage = RiskEvaluationEditPage;

@@ -4,23 +4,23 @@
   <ion-toolbar color="white" *ngIf="!workRoleCheck">
     <app-row>
       <app-col size="auto">
-        <ion-segment style="--background: white ;" color="primary" [value]="1">
-          <ion-segment-button (click)="menuCount1()" [value]="1">공종</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 2">위험 공종</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 3">위험성평가<br>항목</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 4">위험성평가<br>추가 항목</ion-segment-button>
-          <ion-segment-button (click)="menuCount5()">건설기계</ion-segment-button>
-          <ion-segment-button (click)="menuCount6()">특수공도구</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 7">위험지역<br>점검표</ion-segment-button>
-          <ion-segment-button (click)="menuCount8()">회의록<br>협의사항</ion-segment-button>
-          <ion-segment-button (click)="menuCount9()">재해 형태</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 10">작업절차서<br>등록</ion-segment-button>
+        <ion-segment color="primary" [(ngModel)]="segment" (ionChange)="segmentChange()">
+          <ion-segment-button [value]="1">공종</ion-segment-button>
+          <ion-segment-button [value]="2" [disabled]="true">위험 공종</ion-segment-button>
+          <ion-segment-button [value]="3" [disabled]="true">위험성평가<br>항목</ion-segment-button>
+          <ion-segment-button [value]="4" [disabled]="true">위험성평가<br>추가 항목</ion-segment-button>
+          <ion-segment-button [value]="5">건설기계</ion-segment-button>
+          <ion-segment-button [value]="6">특수공도구</ion-segment-button>
+          <ion-segment-button [value]="7" [disabled]="true">위험지역<br>점검표</ion-segment-button>
+          <ion-segment-button [value]="8">회의록<br>협의사항</ion-segment-button>
+          <ion-segment-button [value]="9">재해 형태</ion-segment-button>
+          <ion-segment-button [value]="10" [disabled]="true">작업절차서<br>등록</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
   <ng-container *ngIf="!workRoleCheck">
-    <app-row style="align-items: flex-start;" *ngIf="menuCount === 1">
+    <app-row style="align-items: flex-start;" *ngIf="segment === 1">
       <app-col size="280px">
         <app-table type="card">
           <ion-toolbar slot="top" color="white">
@@ -37,7 +37,12 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="constructionForm"></app-select-scene>
+                <app-select-scene [disabled]="workRoleCheck" [(ngModel)]="constructionForm.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [disabled]="workRoleCheck" [project_id]="constructionForm.project_id" [(ngModel)]="constructionForm.master_company_id"></app-select-contractor>
               </td>
             </tr>
           </tbody>
@@ -104,7 +109,7 @@
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="menuCount === 5">
+  <app-row style="align-items: flex-start;" *ngIf="segment === 5">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -193,7 +198,7 @@
     </app-col>
   </app-row>
 
-  <app-row style="align-items: flex-start;" *ngIf="menuCount === 6">
+  <app-row style="align-items: flex-start;" *ngIf="segment === 6">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -283,7 +288,7 @@
     </app-col>
   </app-row>
 
-  <ng-container *ngIf="menuCount === 8">
+  <ng-container *ngIf="segment === 8">
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
@@ -362,7 +367,7 @@
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="menuCount === 9">
+  <app-row style="align-items: flex-start;" *ngIf="segment === 9">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
