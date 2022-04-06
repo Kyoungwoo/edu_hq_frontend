@@ -211,7 +211,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:ConnectResult<userData>;
+gpsData:userData = new userData();
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -238,6 +238,7 @@ gps_log_data = new GpsCoordinateData();
 
   ngOnInit() {
     this.intervalMethodController();
+    console.log("asdfasdfa");
     this.methodContrroller();
     // const modal = await this.modal.create({
     //   component:RiskEvaluationPopupPage,
@@ -256,6 +257,7 @@ gps_log_data = new GpsCoordinateData();
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
+     console.log("asdfasdfa");
     this.monitorQuery();
     this.wokerInGetList();
     this.gpsGet();//근로자 gps
@@ -519,8 +521,7 @@ gps_log_data = new GpsCoordinateData();
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
     if(res.rsCode === 0) {
-      console.log("res",res);
-      this.gpsData = res
+      // this.gpsData = res.rsMap
       console.log("this.gpsData",this.gpsData)
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});

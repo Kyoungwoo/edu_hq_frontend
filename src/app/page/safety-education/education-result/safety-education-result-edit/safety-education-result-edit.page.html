@@ -96,7 +96,10 @@
         </app-button>
       </app-col>
     </app-row>
-    <app-file-preview *ngFor="let futItem of form.education_safe_report_file_data; let i = index" [futItem]="futItem" [readonly]="!permission.edit"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.education_safe_report_file_data; let i = index" 
+    [futItem]="futItem" 
+    [readonly]="!permission.edit"
+    (buttonClick)="form.education_safe_report_file_data.splice(i,1)"></app-file-preview>
 
     <ng-container>
       <app-row>

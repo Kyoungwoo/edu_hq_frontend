@@ -55,6 +55,7 @@ export class SearchAttendanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.value);
     if (this.educationType) {
       this.form.user_type = '관리자';
     }
@@ -62,31 +63,35 @@ export class SearchAttendanceComponent implements OnInit {
     this.get();
     this.getItem();
   }
-  
-  
+
+
   async get() {
     this.res = await this.connect.run('/category/education/manager/get', this.form);
     if (this.res.rsCode === 0) {
-      console.log("this.values",this.values);
-      this.res?.rsMap?.filter(item => {
-        if (this.value.indexOf(item.user_id) > -1) {
-          item.checked = true;
-        }
-      });
+      console.log("this.value",this.value);
+      if (this.value) {
+        this.res?.rsMap?.filter(item => {
+          if (this.value.indexOf(item.user_id) > -1) {
+            item.checked = true;
+          }
+        });
+      }
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
-  
+
   async getItem() {
     await this.promise.wait(() => this.res);
-    this.res?.rsMap?.filter(item => {
-      if (this.value.indexOf(item.user_id) > -1) {
-        this.values.push(item);
-        console.log(this.values);
-        item.checked = true;
-      }
-    });
+    if (this.value) [
+      this.res?.rsMap?.filter(item => {
+        if (this.value.indexOf(item.user_id) > -1) {
+          this.values.push(item);
+          console.log(this.values);
+          item.checked = true;
+        }
+      })
+    ]
   }
 
   selectItem(item) {

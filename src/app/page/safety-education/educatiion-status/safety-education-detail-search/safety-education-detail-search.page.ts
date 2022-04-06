@@ -44,7 +44,7 @@ export class SafetyEducationDetailSearchPage implements OnInit {
         this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
       } else if(user_role === 'LH_HEAD') {
-        this.form.project_id = belong_data.project_id;
+        this.form.project_id = 0;
       }
   }
   companyRolecheck() {

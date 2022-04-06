@@ -14,12 +14,12 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene  [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
+                <app-select-scene  [all]="editable.add" [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
+                <app-select-contractor [allState]="editable.add" [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -41,6 +41,7 @@
                 <app-select label="교육 상태" [(ngModel)]="form.education_safe_state">
                   <app-select-option value="전체">전체</app-select-option>
                   <app-select-option value="교육 전">교육 전</app-select-option>
+                  <app-select-option value="교육 중">교육 중</app-select-option>
                   <app-select-option value="교육 종료">교육 종료</app-select-option>
                 </app-select>
               </td>
@@ -54,7 +55,7 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white">
+        <ion-toolbar color="white" *ngIf="!editable.add" >
           <ion-buttons slot="start">
             <app-button fill="translucent" (click)="edit()">신규 개설</app-button>
           </ion-buttons>
@@ -109,7 +110,7 @@
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-input-group>
-        <app-select-scene [disabled]="true" [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
+        <app-select-scene [disabled]="true" [all]="editable.add" [(ngModel)]="form.project_id"></app-select-scene>
         <app-button (click)="openDetailSearch()">상세검색</app-button>
       </app-input-group>
     </ion-toolbar>
@@ -127,7 +128,8 @@
               /{{ item.education_safe_start_time }}~{{ item.education_safe_end_time }}</p>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="success">{{ item.education_safe_state }} </ion-chip>
+            <ion-chip color="success" *ngIf="item.education_safe_state === '교윶 중'">{{ item.education_safe_state }} </ion-chip>
+            <ion-chip color="medium" *ngIf="item.education_safe_state === '교육 종료'">{{ item.education_safe_state }} </ion-chip>
           </app-col>
         </app-row>
         <app-row>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import QRious from 'qrious';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 
@@ -16,7 +16,7 @@ export class QrEducationInPage implements OnInit {
   qr = null;
 
   eduTime:string;
-  constructor(private navParams: NavParams,private connect:ConnectService) { }
+  constructor(private navParams: NavParams,private connect:ConnectService, private _modal:ModalController) { }
 
   ngOnInit() {
     this.eduTime = `${this.item.education_safe_start_time} ~ ${this.item.education_safe_end_time}`;
@@ -37,5 +37,9 @@ export class QrEducationInPage implements OnInit {
     link.download = 'QRcode'; 
     link.href = this.qr.image.currentSrc; 
     link.click(); 
+  }
+
+  dismiss() {
+    this._modal.dismiss(true);
   }
 }

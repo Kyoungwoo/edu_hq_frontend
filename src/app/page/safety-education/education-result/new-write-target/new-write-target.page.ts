@@ -55,6 +55,7 @@ export class NewWriteTargetPage implements OnInit {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
+  
   async edit(item) {
     const modal = await this._modal.create({
       component: SafetyEducationResultEditPage,
