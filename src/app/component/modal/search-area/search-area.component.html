@@ -45,7 +45,7 @@
     <app-card *ngFor="let item of area2?.rsMap" [button]="true" [color]="area2selectedItem === item ? 'secondary' : 'white'"
     (click)="area3Get(item)">
       <div>
-        {{item.area_middle_name}}
+        {{ item.area_middle_name }}
       </div>
     </app-card>
   </ng-container>

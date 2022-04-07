@@ -68,6 +68,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
         this.date = date;
         this.form = {
             project_id: null,
+            master_company_id: null,
             company_id: null,
             company_name: null,
             ctgo_construction_id: null,
@@ -99,6 +100,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log(this.user.userData);
                         if (!!this.risk_asment_id) return [3 /*break*/, 1];
                         // 신규 작성 시, 디폴트 값을 가져옴
                         this.getDefaultForm(); // 폼 채우기
@@ -121,12 +123,40 @@ var RiskEvaluationEditPage = /** @class */ (function () {
         });
     };
     RiskEvaluationEditPage.prototype.getDefaultForm = function () {
-        var _a = this.user.userData, user_name = _a.user_name, belong_data = _a.belong_data;
-        this.form.project_id = this.project_id;
-        this.form.company_id = belong_data.company_id;
-        this.form.company_name = belong_data.company_name;
-        this.form.risk_asment_type = this.risk_asment_type;
-        this.form.user_name = user_name;
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, user_name, belong_data, res, contractor;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.user.userData, user_name = _a.user_name, belong_data = _a.belong_data;
+                        this.form.project_id = this.project_id;
+                        this.form.company_id = belong_data.company_id;
+                        this.form.company_name = belong_data.company_name;
+                        this.form.risk_asment_type = this.risk_asment_type;
+                        this.form.user_name = user_name;
+                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 1];
+                        this.form.master_company_id = belong_data.company_id;
+                        return [3 /*break*/, 3];
+                    case 1:
+                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
+                                project_id: this.form.project_id,
+                                search_text: ''
+                            })];
+                    case 2:
+                        res = _b.sent();
+                        if (res.rsCode === 0) {
+                            contractor = res.rsMap[0];
+                            this.form.master_company_id = contractor.master_company_id;
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        _b.label = 3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * 위험성평가 정보 가져오기
@@ -215,6 +245,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 0:
                         approval_data = ev.approval_data;
                         this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!this.form.ctgo_construction_id) {
+                            this.toast.present({ color: 'warning', message: '공종을 선택해주세요.' });
+                            return [2 /*return*/];
+                        }
                         if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
@@ -261,6 +295,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 0:
                         approval_data = ev.approval_data;
                         this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!this.form.ctgo_construction_id) {
+                            this.toast.present({ color: 'warning', message: '공종을 선택해주세요.' });
+                            return [2 /*return*/];
+                        }
                         if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];

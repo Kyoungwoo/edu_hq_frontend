@@ -33,7 +33,7 @@
       </app-input-template>
     </app-col>
     <app-col>
-      <app-select-construction [(ngModel)]="form.ctgo_construction_id" [disabled]="true"></app-select-construction>
+      <app-select-construction [project_id]="form.project_id" [master_company_id]="form.master_company_id" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
     <app-col>
       <app-select label="평가표 구분" [(ngModel)]="form.risk_asment_type" [required]="true" (change)="form.risk_asment_type_text = getTypeText(form.risk_asment_type)">

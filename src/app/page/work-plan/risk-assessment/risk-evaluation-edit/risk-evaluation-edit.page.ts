@@ -66,6 +66,7 @@ export class RiskEvaluationEditPage implements OnInit {
 
   form = {
     project_id: null, // 현장 ID
+    master_company_id: null, // 원청사 ID
     company_id: null, // 업체 ID
     company_name: null,
     ctgo_construction_id: null, // 공종 ID
@@ -108,6 +109,7 @@ export class RiskEvaluationEditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    console.log(this.user.userData);
     if(!this.risk_asment_id) {
       // 신규 작성 시, 디폴트 값을 가져옴
       this.getDefaultForm(); // 폼 채우기
@@ -124,7 +126,7 @@ export class RiskEvaluationEditPage implements OnInit {
     this.form.ctgo_approval_module_id = this.getApprovalModuleId(this.form.risk_asment_type);
   }
 
-  getDefaultForm() {
+  async getDefaultForm() {
     const { user_name, belong_data } = this.user.userData;
     this.form.project_id = this.project_id;
     this.form.company_id = belong_data.company_id;
@@ -133,6 +135,24 @@ export class RiskEvaluationEditPage implements OnInit {
     this.form.risk_asment_type = this.risk_asment_type;
 
     this.form.user_name = user_name;
+
+    if(belong_data.company_contract_type === '원청사') {
+      this.form.master_company_id = belong_data.company_id;
+    }
+    else if(belong_data.company_contract_type === '협력사') {
+      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+        project_id: this.form.project_id,
+        search_text: ''
+      });
+      if(res.rsCode === 0) {
+        const contractor = res.rsMap[0];
+        this.form.master_company_id = contractor.master_company_id;
+      }
+      else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+    }
   }
 
   /**
@@ -204,6 +224,8 @@ export class RiskEvaluationEditPage implements OnInit {
     const approval_data = ev.approval_data;
 
     this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+    
+    if(!this.form.ctgo_construction_id) { this.toast.present({ color: 'warning', message: '공종을 선택해주세요.' }); return; }
     if(!this.form.evaluation_data?.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
 
     this.form.approval_cnt_answer = '임시저장';
@@ -240,6 +262,8 @@ export class RiskEvaluationEditPage implements OnInit {
     const approval_data = ev.approval_data;
 
     this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+
+    if(!this.form.ctgo_construction_id) { this.toast.present({ color: 'warning', message: '공종을 선택해주세요.' }); return; }
     if(!this.form.evaluation_data?.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
 
     this.form.approval_cnt_answer = '결재중';
