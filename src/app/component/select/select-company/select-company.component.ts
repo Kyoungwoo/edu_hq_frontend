@@ -159,6 +159,7 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   writeValue(v:number[] | number): void { 
     if(v !== this._value) {
       this.valueChange(v);
+      this.get();
     }
   }
 

@@ -16,8 +16,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //공종 시작
   constructionForm = {
-    project_id: null,
-    master_company_id: null
+    project_id: 0,
+    master_company_id: 0
   }
   resConstruction: ConnectResult<{
     ctgo_construction_id: number, // 공종ID
@@ -30,14 +30,20 @@ export class WorkStandardSetPage implements OnInit {
   //공종 끝
 
   //건설기계
-  machineryFrom = this.user.userData.belong_data.company_id;
+  machineryFrom = {
+    project_id:this.user.userData.belong_data.company_id,
+    master_company_id:this.user.userData.belong_data.company_id,
+    search_text:''
+  }
+
   resMachinery: ConnectResult<{
     ctgo_machinery_id: number,
-    company_id: number,
+    master_company_id: number,
     ctgo_machinery_name: string,
     ctgo_machinery_doc:boolean
     ctgo_machinery_doc_state: number,
-    ctgo_machinery_use_state: number
+    ctgo_machinery_use_state: number,
+    project_id:number
   }>
   selectedMachinery = [];
   //건설기계 끝
@@ -121,7 +127,6 @@ export class WorkStandardSetPage implements OnInit {
       case '4': // 2차 개발
         break;
       case '5':
-        console.log("ASdfasdfasdf");
         this.getMachinery();
         break;
       case '6':
@@ -256,8 +261,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //건설기계
   async getMachinery() {
-  await this.promise.wait(() => this.machineryFrom);
-  this.resMachinery = await this.connect.run('/project/machinery/get', { company_id: this.machineryFrom });
+  console.log("this.machineryFrom",this.machineryFrom);
+  this.resMachinery = await this.connect.run('/project/machinery/get', this.machineryFrom);
     if (this.resMachinery.rsCode === 0) { 
       this.resMachinery.rsMap.forEach(item => {
         item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc = true : item.ctgo_machinery_doc = false;
@@ -266,11 +271,12 @@ export class WorkStandardSetPage implements OnInit {
   }
 
   async machineryAdd() {
-    if (!this.machineryFrom) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
+    if (!this.machineryFrom) return await this.toast.present({ message: '업체을 선택해주세요.', color: 'warning' });
     if (this.resMachinery?.rsMap?.length) {
       this.resMachinery?.rsMap.unshift({
         ctgo_machinery_id: 0,
-        company_id: this.machineryFrom,
+        master_company_id: this.machineryFrom.master_company_id,
+        project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
         ctgo_machinery_use_state: 0,
@@ -280,7 +286,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resMachinery.rsMap = [];
       this.resMachinery?.rsMap.push({
         ctgo_machinery_id: 0,
-        company_id: this.machineryFrom,
+        master_company_id: this.machineryFrom.master_company_id,
+        project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
         ctgo_machinery_use_state: 0,
@@ -335,10 +342,10 @@ export class WorkStandardSetPage implements OnInit {
   machinerySave(){
     this.resMachinery.rsMap.forEach(item => {
       item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
-
-    })
+    });
     this.resMachinery.rsMap.forEach(async (item, i) => {
       if (item.ctgo_machinery_id === 0) {
+        console.log("item",item);
         const res = await this.connect.run('/project/machinery/insert', item, {})
         if (res.rsCode === 0) {
           item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
@@ -347,6 +354,7 @@ export class WorkStandardSetPage implements OnInit {
           }
         };
       } else {
+        return;
         const res = await this.connect.run('/project/machinery/update', item, {});
         if (res.rsCode === 0) {
           item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
