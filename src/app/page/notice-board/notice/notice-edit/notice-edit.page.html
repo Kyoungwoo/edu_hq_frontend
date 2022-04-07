@@ -12,9 +12,7 @@
     <h4>공지사항</h4>
    <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
      <app-col>
-        <app-select-scene label="현장명"
-        [company_id]="user.userData.belong_data.company_id"
-        [(ngModel)]="form.project_id" [required]="true" [disabled]="!permission.edit"></app-select-scene>
+        <app-select-scene label="현장명" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
      </app-col>
      <app-col>
       <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
@@ -39,7 +37,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-select-contractor>
+      <app-select-contractor [allState]="true" [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-select-contractor>
     </app-col>
   </app-row>
     <app-row>
