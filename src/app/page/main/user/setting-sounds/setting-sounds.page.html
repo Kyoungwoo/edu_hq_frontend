@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>알림 설정</ion-title>
+    <ion-buttons slot="end">
+      <app-menu-button></app-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-radio-group >
+  <app-card name="setting-sound">
+    <app-row class="card-inner">
+      <app-col>
+          <app-radio size="small" value="silentsounds"></app-radio>
+        </app-col>
+        <app-col size="auto">
+          <h4> 소리+진동</h4>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card name="setting-sound">
+      <app-row class="card-inner">
+        <app-col>
+            <app-radio size="small" value="sounds"></app-radio>
+          </app-col>
+          <app-col size="auto">
+            <h4>소리</h4>
+          </app-col>
+        </app-row>
+      </app-card>
+      <app-card name="setting-sound">
+        <app-row class="card-inner">
+          <app-col>
+              <app-radio size="small" value="silent"></app-radio>
+            </app-col>
+            <app-col size="auto">
+              <h4>진동</h4>
+            </app-col>
+          </app-row>
+        </app-card>
+  </app-radio-group>
+</ion-content>
