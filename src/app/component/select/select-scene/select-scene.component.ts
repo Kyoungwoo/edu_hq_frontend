@@ -57,7 +57,9 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       project_id: this.value
     });
     if(res.rsCode === 0) {
+      console.log("test - ", res.rsObj);
       this.text = res.rsObj.project_name;
+      this.value = res.rsObj.project_id;
     }
   }
   public async openModal() {
@@ -98,22 +100,21 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   private _value:number;
   @Input() set value(v:number) {
-    if(v !== this._value) {
-      this._value = v;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
+    this.valueChange(v);
   }
   get value() {
     return this._value;
   }
   writeValue(v:number): void {
+    this.valueChange(v);
+  }
+
+  async valueChange(v) {
     if(v !== this._value) {
-      this._value = v;
-      this.get();
+      this._value = v ? v : 0;
       this.onChangeCallback(v);
       this.change.emit(v);
+      this.get();
     }
   }
 

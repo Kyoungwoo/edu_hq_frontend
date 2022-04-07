@@ -53,9 +53,6 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    if(this.user.userData.belong_data.company_contract_type === 'LH') { 
-      this.form.project_id = 0;
-    }
     this.get();
   }
   public async getMobile($event) {
