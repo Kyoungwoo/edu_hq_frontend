@@ -42,28 +42,28 @@ export class MainUserPartnerPage implements OnInit {
         });
         break;
       case '미결함':
-        this.nav.navigateRoot('/confirm-pending-list');
+        this.nav.navigateForward('/confirm-pending-list');
         break;
       case '나의교육':
-        this.nav.navigateRoot('/my-education-list');
+        this.nav.navigateForward('/my-education-list');
         break;
         case '나의출입현황':
-          this.nav.navigateRoot('/my-status-list');
+          this.nav.navigateForward('/my-status-list');
           break;
       case '위험성평가':
-        this.nav.navigateRoot('/risk-list');
+        this.nav.navigateForward('/risk-list');
         break;
         case '공지사항':
-          this.nav.navigateRoot('/notice-list');
+          this.nav.navigateForward('/notice-list');
           break;
         case 'MSDS':
-          this.nav.navigateRoot('/msds-list');
+          this.nav.navigateForward('/msds-list');
           break;
         case '회의록':
-          this.nav.navigateRoot('/minutes-list');
+          this.nav.navigateForward('/minutes-list');
           break;
           case 'SOS':
-          this.nav.navigateRoot('/sos-popup');
+          this.nav.navigateForward('/sos-popup');
           break;
     }
   }
