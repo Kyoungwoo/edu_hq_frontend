@@ -39,10 +39,10 @@
     <app-col>
       <ion-toolbar color="white">
         <ion-buttons slot="start">
-          <app-button fill="translucent" (click)="addButton()">추가</app-button>
-          <app-button [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
-          <app-button fill="translucent" color="danger" (click)="SearialDelete()">삭제</app-button>
-          <app-button [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SearialSave()">저장</app-button>
+          <app-button *ngIf="btnPromise('insert')" fill="translucent" (click)="addButton()">추가</app-button>
+          <app-button *ngIf="btnPromise('update')" [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
+          <app-button *ngIf="btnPromise('delete')" fill="translucent" color="danger" (click)="SearialDelete()">삭제</app-button>
+          <app-button *ngIf="btnPromise('update')" [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SearialSave()">저장</app-button>
         </ion-buttons>
         <ion-buttons slot="end">
           <ion-segment color="primary" [(ngModel)]="this.serial_type" (ngModelChange)="ChangeSearialType($event)">
@@ -59,7 +59,7 @@
         <app-table>
           <thead>
             <tr>
-              <th style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
+              <th *ngIf="btnPromise('delete_check')" style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
               <th>원청사명</th>
               <th>장비구분</th>
               <th width="80px">시리얼 No.</th>
@@ -73,7 +73,7 @@
           <tbody>
             <!-- 추가된 ITEM 영역 -->
             <tr *ngFor="let item of res_insert">
-              <td style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
+              <td *ngIf="btnPromise('delete_check')" style="width: 40px;"><app-check [on]="item" color="white" size="small" name="check"></app-check></td>
               <td>
                 <app-select-contractor label="" [disabled]="user.userData.user_type == 'LH' ? false : true" [project_id]="item.project_id" [(ngModel)]="item.master_company_id"></app-select-contractor>
               </td>
