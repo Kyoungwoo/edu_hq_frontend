@@ -108,16 +108,16 @@
   <app-row>
     <app-col>
       <ion-segment color="primary" [value]="1">
-        <ion-segment-button (click)="menuCount = 1" [value]="1">장소</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 2">위험지역</ion-segment-button>
-        <ion-segment-button (click)="menuCount = 3">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
+        <ion-segment-button (click)="menu = 1" [value]="1">통합관제</ion-segment-button>
+        <ion-segment-button (click)="menu = 2">CCTV모니터링</ion-segment-button>
+        <ion-segment-button (click)="menu = 3">근로자 실시간<br>위치 모니터링</ion-segment-button>
       </ion-segment>
     </app-col>
   </app-row>
 </ion-toolbar>
 
-
 <ion-content>
+  <div [style.display]="menu === 1 ? 'block' : 'none'">
   <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
     <app-col>
       <app-card color="white">
@@ -750,9 +750,11 @@
       </app-table>
     </app-col>
   </app-row>
+</div>
 
   <ng-container  *mobileShow>
-  <app-row  style="align-items: flex-start;" *ngIf="menuCount === 2">
+    <div [style.display]="menu === 2 ? 'block' : 'none'">
+  <app-row  style="align-items: flex-start;">
     <app-col>
       <app-card color="white">
         <app-row style="align-items: stretch;">
@@ -777,7 +779,9 @@
       </app-card>
     </app-col>
   </app-row>
+</div>
 </ng-container>
+
 
 <ng-container *mobileHidden>
   <app-row  style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
@@ -871,7 +875,7 @@
 </ng-container>
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
-      <app-card>
+      <app-card >
         <app-row style="align-items: flex-start;">
           <app-col>
             <app-naver-user-map [(ngModel)]="gpsData.rsMap"></app-naver-user-map>

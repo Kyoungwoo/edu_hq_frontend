@@ -68,6 +68,8 @@ export class userData {
 })
 export class MonitorPage implements OnInit, OnDestroy {
 
+  menu: number = 1;
+  
   form = {
     project_id: 1,
     master_company_id: 4,

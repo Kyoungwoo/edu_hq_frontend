@@ -69,6 +69,7 @@ import { SearchContractorCompanyComponent } from './modal/search-contractor-comp
 import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
 import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip-approval-answer.component';
 import { EmergencyPopupComponent } from './page/main/user/emergency-popup/emergency-popup.component';
+import { EmergencyClearPopupComponent } from './page/main/user/emergency-clear-popup/emergency-clear-popup.component';
 
 
 
@@ -82,6 +83,7 @@ import { EmergencyPopupComponent } from './page/main/user/emergency-popup/emerge
     ConfirmProcessPopupComponent,
 
     EmergencyPopupComponent,
+    EmergencyClearPopupComponent,
 
     HeaderAdminComponent,
     SideMenuUserComponent,
@@ -162,6 +164,7 @@ import { EmergencyPopupComponent } from './page/main/user/emergency-popup/emerge
 
     BasicComponentModule,
     EmergencyPopupComponent,
+    EmergencyClearPopupComponent,
     HeaderAdminComponent,
     // input
     InputCertifyComponent,
