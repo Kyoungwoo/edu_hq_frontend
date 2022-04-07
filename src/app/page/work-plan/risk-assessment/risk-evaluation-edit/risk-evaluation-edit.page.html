@@ -112,17 +112,17 @@
 
                     <td [attr.rowspan]="unitItem.rowspan">{{ unitItem.risk_unit_name }}</td>
                     <td [attr.rowspan]="unitItem.rowspan">
-                      <app-button fill="translucent" size="small">
+                      <app-button fill="translucent" size="small" (click)="openArea()">
                         <app-img name="search"></app-img>
                       </app-button>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan">
-                      <app-button fill="translucent" size="small">
+                      <app-button fill="translucent" size="small" (click)="openMachinery()">
                         <app-img name="search"></app-img>
                       </app-button>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan">
-                      <app-button fill="translucent" size="small">
+                      <app-button fill="translucent" size="small" (click)="openTool()">
                         <app-img name="search"></app-img>
                       </app-button>
                     </td>
