@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td>
-           <app-select-construction-machinery [company_id]="form.master_company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
+           <app-select-construction-machinery [project_id]="form.project_id" [company_id]="form.master_company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
           </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
       <app-table>
         <thead>
           <tr>
-            <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+            <th style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
             <th>건설기계구분</th>
             <th>등록번호</th>
             <th>원청사명</th>
