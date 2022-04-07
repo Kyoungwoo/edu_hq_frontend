@@ -97,7 +97,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     this.form.education_safe_id = this.item?.education_safe_id;
     if(this.item) {
       this.form.education_safe_report_instructor = this.item.education_safe_instructor;
-      this.form.education_safe_report_text = this.item.ctgo_education_safe_text
+      this.form.education_safe_report_text = this.item.ctgo_education_safe_text;
       await this.getDefaultItem();
       this.reportList()
 
@@ -218,7 +218,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     // 여기서는 딱히 처리할게 없음. 그냥 삭제 후 닫기.
     const res = await ev.delete();
     if(res.rsCode  === 0) {
-      this._modal.dismiss();
+      this._modal.dismiss(true);
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
     }

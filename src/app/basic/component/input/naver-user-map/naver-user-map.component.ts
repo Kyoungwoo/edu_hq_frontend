@@ -92,26 +92,28 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     });
     this.marker.push(marker);
     let infoWindowElement;
-    const res = await this.connect.run('/integrated/gps/detail',{gps_log_id:item.gps_log_id});
+    const res = await this.connect.run('/integrated/gps/detail',{gps_log_id:item.gps_log_id},{
+      parse:['safe_job_name']
+    });
     if(res.rsCode === 0) {
       if(item.area_state === '일반') {
         infoWindowElement = (
           `<div class="iw_inner">
-              <h5 style="text-align:center">SOS 요청</h5>
-              <p>${res.rsObj.company_name}</p>
-              <p>${res.rsObj.user_name}</p>
-              <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+            <h5>${res.rsObj.user_name}</h5>
+            <p>${res.rsObj.company_name}</p>
+            <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+            <p>안전직무 : ${res.rsObj.safe_job_name}</p>
            </div>
           `
         );
       } else {
         infoWindowElement = (
           `<div class="iw_inner">
-              <h5>${res.rsObj.user_name}</h5>
-              <p>${res.rsObj.company_name}</p>
-              <p>${res.rsObj.user_name}</p>
-              <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-              <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
+            <h5 style="text-align:center">SOS 요청</h5>
+            <p>${res.rsObj.company_name}</p>
+            <p>${res.rsObj.user_name}</p>
+            <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+            <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
            </div>
           `
         );

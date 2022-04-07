@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
@@ -25,7 +26,8 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
     private modal:ModalController,
     private router: Router,
     public adminMenu: SideMenuAdminComponent,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public user: UserService
   ) {
     this.$router = this.router.events.subscribe(async(nav) => {
       if(nav instanceof NavigationEnd) {
