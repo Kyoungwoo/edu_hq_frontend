@@ -166,7 +166,9 @@ export class MemberStandardSetPage implements OnInit {
     //lh조직기구
 
     this.level1();
-
+    this.getJobPosition();
+    this.getSafeJob();
+    this.getOccupation();
   }
 
   async menuCount1() {
@@ -186,7 +188,6 @@ export class MemberStandardSetPage implements OnInit {
   async menuCount5() {
     this.menuCount = 5;
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.getJobPosition();
       this.rolepass = false;
     }
   }
@@ -194,7 +195,6 @@ export class MemberStandardSetPage implements OnInit {
   async menuCount6() {
     this.menuCount = 6;
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.getSafeJob();
       this.rolepass = false;
     }
   }
@@ -203,7 +203,6 @@ export class MemberStandardSetPage implements OnInit {
     this.menuCount = 7;
     if (!this.lhHeadCheck || !this.memberRoleCheck) {
       this.rolepass = false;
-      this.getOccupation();
     }
 
   }

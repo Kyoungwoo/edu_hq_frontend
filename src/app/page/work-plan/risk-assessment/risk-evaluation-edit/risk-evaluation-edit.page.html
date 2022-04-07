@@ -97,37 +97,69 @@
           </tr>
         </thead>
         <tbody>
-            <tr>
-              <td rowspan="2">매립공사</td>
-              <td rowspan="2">장비반입<br>/작업준비</td>
-              <td rowspan="2">
-                <app-button fill="translucent" size="small">
-                  <app-img name="search"></app-img>
-                </app-button>
-              </td>
-              <td rowspan="2">
-                <app-button fill="translucent" size="small">
-                  <app-img name="search"></app-img>
-                </app-button>
-              </td>
-              <td rowspan="2">
-                <app-button fill="translucent" size="small">
-                  <app-img name="search"></app-img>
-                </app-button>
-              </td>
-              <td rowspan="2">차량운행 경로 미지정으로 인한 차량 중돌 사고</td>
-              <td rowspan="2">
-                <app-select></app-select>
-              </td>
-              <td rowspan="2">
-                <app-select></app-select>
-              </td>
-              <td rowspan="2">6</td>
-              <td>차량 운행경로에 유도원 2명이상 배치</td>
-            </tr>
-            <tr>
-              <td>지게차 이동 동선에 자재적재, 터 작업 등의 확인 점검</td>
-            </tr>
+          
+          <ng-container *ngFor="let cunstructionItem of riskTableList">
+
+            <ng-container *ngFor="let unitItem of cunstructionItem.unitList; let unitStart = first;">
+
+              <ng-container *ngFor="let factorItem of unitItem.facterList; let factorStart = first;">
+
+                <tr *ngFor="let planItem of factorItem.planList; let planStart = first;">
+
+                  <td *ngIf="unitStart && factorStart && planStart" [attr.rowspan]="cunstructionItem.rowspan">{{ cunstructionItem.risk_construction_name }}</td>
+
+                  <ng-container *ngIf="factorStart && planStart">
+
+                    <td [attr.rowspan]="unitItem.rowspan">{{ unitItem.risk_unit_name }}</td>
+                    <td [attr.rowspan]="unitItem.rowspan">
+                      <app-button fill="translucent" size="small" (click)="openArea()">
+                        <app-img name="search"></app-img>
+                      </app-button>
+                    </td>
+                    <td [attr.rowspan]="unitItem.rowspan">
+                      <app-button fill="translucent" size="small" (click)="openMachinery()">
+                        <app-img name="search"></app-img>
+                      </app-button>
+                    </td>
+                    <td [attr.rowspan]="unitItem.rowspan">
+                      <app-button fill="translucent" size="small" (click)="openTool()">
+                        <app-img name="search"></app-img>
+                      </app-button>
+                    </td>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="planStart">
+
+                    <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_factor_name }}</td>
+                    <td [attr.rowspan]="factorItem.rowspan">
+                      <app-select [(ngModel)]="factorItem.risk_frequency" (change)="riskFrequencyChange(factorItem)">
+                        <app-select-option [value]="1">1</app-select-option>
+                        <app-select-option [value]="2">2</app-select-option>
+                        <app-select-option [value]="3">3</app-select-option>
+                      </app-select>
+                    </td>
+                    <td [attr.rowspan]="factorItem.rowspan">
+                      <app-select [(ngModel)]="factorItem.risk_strength" (change)="riskStrengthChange(factorItem)">
+                        <app-select-option [value]="1">1</app-select-option>
+                        <app-select-option [value]="2">2</app-select-option>
+                        <app-select-option [value]="3">3</app-select-option>
+                      </app-select>
+                    </td>
+                    <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_danger_level }}</td>
+
+                  </ng-container>
+
+                  <td>{{ planItem.risk_plan_name }}</td>
+
+                </tr>
+                
+              </ng-container>
+
+            </ng-container>
+
+          </ng-container>
+          
         </tbody>
       </app-table>
     </app-col>

@@ -7,18 +7,18 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 class area1{
   area_top_name: string;
   area_top_id: number;
- }
- class area2{
+}
+class area2{
   area_middle_name: string;
   area_top_id: number;
   area_middle_id: number;
- }
- class area3{
+}
+class area3{
   area_bottom_name: string;
   area_top_id: number;
   area_middle_id: number;
   area_bottom_id: number;
- }
+}
 
 @Component({
   selector: 'app-search-area',
@@ -30,17 +30,17 @@ export class SearchAreaComponent implements OnInit {
   @Input() project_id;
   @Input() selectType: 'manual' | 'auto' = 'auto';
 
+  areaView1:boolean;
+  areaView2:boolean;
+  areaView3:boolean;
 
-  areaView1:boolean
-  areaView2:boolean
-  areaView3:boolean
+  area1:ConnectResult <area1>;
+  area2:ConnectResult <area2>
+  area3:ConnectResult <area3>
+  area1selectedItem:area1;
+  area2selectedItem:area2;
+  area3selectedItem:area3;
 
- area1:ConnectResult <area1>;
- area2:ConnectResult <area2>
- area3:ConnectResult <area3>
- area1selectedItem:area1;
- area2selectedItem:area2;
- area3selectedItem:area3;
   constructor(
     private connect: ConnectService, 
     private _modal: ModalController
@@ -51,7 +51,6 @@ export class SearchAreaComponent implements OnInit {
       console.log(this.project_id);
       this.area1Get();
     }, 300);
-    
   }
 
   async area1Get() {
@@ -60,6 +59,7 @@ export class SearchAreaComponent implements OnInit {
   }
 
   async area2Get(item) {
+    this.area3 = null;
     this.area1selectedItem = item;
     this.area2 = await this.connect.run('/category/area/middle/get',{area_top_id:item.area_top_id});
     if(this.area2.rsCode === 0) {};
@@ -106,19 +106,3 @@ export class SearchAreaComponent implements OnInit {
     }
   }
 }
-
-// class area1{
-//   area_top_name: string;
-//   area_top_id: number;
-//  }
-//  class area2{
-//   area_middle_name: string;
-//   area_top_id: number;
-//   area_middle_id: number;
-//  }
-//  class area3{
-//   area_bottom_name: string;
-//   area_top_id: number;
-//   area_middle_id: number;
-//   area_bottom_id: number;
-//  }

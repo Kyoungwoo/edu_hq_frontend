@@ -53,39 +53,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.RiskEvaluationEditPage = exports.RiskEvaluationData = void 0;
+exports.RiskEvaluationEditPage = void 0;
 var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
+var search_area_component_1 = require("src/app/component/modal/search-area/search-area.component");
 var risk_evaluation_popup_page_1 = require("../risk-evaluation-popup/risk-evaluation-popup.page");
-var RiskEvaluationData = /** @class */ (function () {
-    function RiskEvaluationData() {
-        this.risk_asment_id = null; // 위험성평가 ID (위험성평가 문서 ID)
-        this.seq_no = null; // 시퀀스 - 이 한 줄의 ID
-        this.risk_construction_id = null; // 공사 ID
-        this.risk_construction_name = null; // 공사명
-        this.risk_unit_id = null; // 단위작업 ID
-        this.risk_unit_name = null; // 단위작업
-        this.area_top_id = null; // 장소 첫번째 ID
-        this.area_top_name = null; // 장소 첫번째
-        this.area_middle_id = null; // 장소 두번째 ID null 이면 안고른거
-        this.area_middle_name = null; // 장소 두번째
-        this.area_bottom_id = null; // 장소 세번째 ID null 이면 안고른거
-        this.area_bottom_name = null; // 장소 세번째
-        this.ctgo_machinery_ids = []; // 건설기계 ID들
-        this.ctgo_machinery_names = []; // 건설기계명들
-        this.ctgo_tool_ids = []; // 특수공도구 ID들
-        this.ctgo_tool_names = []; // 특수공도구명들
-        this.risk_factor_id = null; // 위험요인 ID null 이면 직접입력
-        this.risk_factor_name = null; // 위험요인
-        this.risk_frequency = null; // 빈도
-        this.risk_strength = null; // 강도
-        this.risk_danger_level = null; // 위험도
-        this.risk_plan_id = null; // 감소대책 ID null 이면 직접입력
-        this.risk_plan_name = null; // 감소대책
-    }
-    return RiskEvaluationData;
-}());
-exports.RiskEvaluationData = RiskEvaluationData;
 var RiskEvaluationEditPage = /** @class */ (function () {
     function RiskEvaluationEditPage(user, connect, toast, _modal, loading, date) {
         this.user = user;
@@ -120,6 +92,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
         this.permission = {
             edit: false
         };
+        this.riskTableList = [];
     }
     RiskEvaluationEditPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -234,13 +207,15 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      * 임시 저장버튼 클릭
      */
     RiskEvaluationEditPage.prototype.onSaveClick = function (ev) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, url, res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.evaluation_data.length) {
+                        this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
@@ -255,7 +230,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         }
                         return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '임시저장 되었습니다.' });
                             if (!this.form.approval_id) {
@@ -278,22 +253,24 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      * 결재 요청 버튼 클릭
      */
     RiskEvaluationEditPage.prototype.onSendClick = function (ev) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, res, loading, res, approvalRes;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.evaluation_data.length) {
+                        this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '결재중';
                         this.form.approval_default_data = approval_data;
                         if (!!this.form.approval_id) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/insert', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/risk/assessment/insert', this.form, { loading: true })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
                             this._modal.dismiss();
@@ -306,14 +283,14 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         return [3 /*break*/, 8];
                     case 2: return [4 /*yield*/, this.loading.present()];
                     case 3:
-                        loading = _a.sent();
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/update', this.form)];
+                        loading = _b.sent();
+                        return [4 /*yield*/, this.connect.run('/risk/assessment/update', this.form)];
                     case 4:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (!(res.rsCode === 0)) return [3 /*break*/, 6];
                         return [4 /*yield*/, ev.send()];
                     case 5:
-                        approvalRes = _a.sent();
+                        approvalRes = _b.sent();
                         if (approvalRes.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
                             this._modal.dismiss();
@@ -326,10 +303,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         return [3 /*break*/, 7];
                     case 6:
                         this.toast.present({ color: 'warning', message: res.rsMsg });
-                        _a.label = 7;
+                        _b.label = 7;
                     case 7:
                         loading.dismiss();
-                        _a.label = 8;
+                        _b.label = 8;
                     case 8: return [2 /*return*/];
                 }
             });
@@ -388,7 +365,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     };
     RiskEvaluationEditPage.prototype.add = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var modal, data, riskList, riskTableData_1;
+            var modal, data, riskList;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
@@ -405,45 +382,207 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         data = (_a.sent()).data;
                         if (data) {
                             riskList = data.riskList;
-                            riskTableData_1 = [];
-                            riskList.forEach(function (riskItem) {
-                                var tableConstructionItem = riskTableData_1.find(function (item) { return item.risk_construction_id === riskItem.risk_construction_id; });
-                                /** 공사명이 없다면 새로 추가 */
-                                if (!tableConstructionItem) {
-                                    tableConstructionItem = {
-                                        risk_construction_id: riskItem.risk_construction_id,
-                                        risk_construction_name: riskItem.risk_construction_name,
-                                        unitList: []
-                                    };
-                                    riskTableData_1.push(tableConstructionItem);
-                                }
-                                var tableUnitItem = tableConstructionItem.unitList.find(function (item) { return item.risk_unit_id === riskItem.risk_unit_id; });
-                                /** 공사명에 단위작업이 없다면 새로 추가 */
-                                if (!tableUnitItem) {
-                                    tableUnitItem = {
-                                        risk_unit_id: riskItem.risk_unit_id,
-                                        risk_unit_name: riskItem.risk_unit_name,
-                                        facterList: []
-                                    };
-                                    tableConstructionItem.unitList.push(tableUnitItem);
-                                }
-                                /** 위험요인 아이디가 있고(직접입력이 아니고) && 현재 있는 위험요인인지 체크 */
-                                var tableFacterItem = tableUnitItem.facterList.find(function (item) { return item.risk_factor_id && item.risk_factor_id === riskItem.risk_factor_id; });
-                                /** 단위작업에 위험요인이 없다면 새로 추가 */
-                                if (!tableFacterItem) {
-                                    tableFacterItem = {
-                                        risk_factor_id: riskItem.risk_factor_id,
-                                        risk_factor_name: riskItem.risk_factor_name,
-                                        planList: []
-                                    };
-                                    tableUnitItem.facterList.push(tableFacterItem);
-                                }
-                                /** 위험요인에 감소대책 추가 */
-                                tableFacterItem.planList.push({
-                                    risk_plan_id: null,
-                                    risk_plan_name: riskItem.risk_plan_name
-                                });
-                            });
+                            /** 테이블 형식 데이터로 변환 */
+                            this.riskTableList = this.riskListToTable(riskList);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RiskEvaluationEditPage.prototype.riskFrequencyChange = function (factorItem) {
+        var risk_frequency = factorItem.risk_frequency, risk_strength = factorItem.risk_strength;
+        factorItem.risk_danger_level = risk_frequency * risk_strength;
+    };
+    RiskEvaluationEditPage.prototype.riskStrengthChange = function (factorItem) {
+        var risk_frequency = factorItem.risk_frequency, risk_strength = factorItem.risk_strength;
+        factorItem.risk_danger_level = risk_frequency * risk_strength;
+    };
+    /**
+     * 편집 가능 리스트를 테이블 리스트 형태로 변경
+     */
+    RiskEvaluationEditPage.prototype.riskListToTable = function (riskList) {
+        var riskTableList = [];
+        riskList.forEach(function (riskItem) {
+            var tableConstructionItem = riskTableList.find(function (item) { return item.risk_construction_id === riskItem.risk_construction_id; });
+            /** 공사명이 없다면 새로 추가 */
+            if (!tableConstructionItem) {
+                tableConstructionItem = {
+                    rowspan: 0,
+                    risk_construction_id: riskItem.risk_construction_id,
+                    risk_construction_name: riskItem.risk_construction_name,
+                    seq_no: riskItem.seq_no,
+                    unitList: []
+                };
+                riskTableList.push(tableConstructionItem);
+            }
+            var tableUnitItem = tableConstructionItem.unitList.find(function (item) { return item.risk_unit_id === riskItem.risk_unit_id; });
+            /** 공사명에 단위작업이 없다면 새로 추가 */
+            if (!tableUnitItem) {
+                tableUnitItem = {
+                    rowspan: 0,
+                    risk_unit_id: riskItem.risk_unit_id,
+                    risk_unit_name: riskItem.risk_unit_name,
+                    area_top_id: riskItem.area_top_id,
+                    area_top_name: riskItem.area_top_name,
+                    area_middle_id: riskItem.area_middle_id,
+                    area_middle_name: riskItem.area_middle_name,
+                    area_bottom_id: riskItem.area_bottom_id,
+                    area_bottom_name: riskItem.area_bottom_name,
+                    ctgo_machinery_ids: riskItem.ctgo_machinery_ids,
+                    ctgo_machinery_names: riskItem.ctgo_machinery_names,
+                    ctgo_tool_ids: riskItem.ctgo_tool_ids,
+                    ctgo_tool_names: riskItem.ctgo_tool_names,
+                    facterList: []
+                };
+                tableConstructionItem.unitList.push(tableUnitItem);
+            }
+            /** 위험요인 아이디가 있고(직접입력이 아니고) && 현재 있는 위험요인인지 체크 */
+            var tableFactorItem = tableUnitItem.facterList.find(function (item) { return item.risk_factor_id && item.risk_factor_id === riskItem.risk_factor_id; });
+            /** 단위작업에 위험요인이 없다면 새로 추가 */
+            if (!tableFactorItem) {
+                tableFactorItem = {
+                    rowspan: 0,
+                    risk_factor_id: riskItem.risk_factor_id,
+                    risk_factor_name: riskItem.risk_factor_name,
+                    risk_frequency: riskItem.risk_frequency,
+                    risk_strength: riskItem.risk_strength,
+                    risk_danger_level: riskItem.risk_danger_level,
+                    planList: []
+                };
+                tableUnitItem.facterList.push(tableFactorItem);
+            }
+            /** 위험요인에 감소대책 추가 */
+            tableFactorItem.planList.push({
+                risk_plan_id: null,
+                risk_plan_name: riskItem.risk_plan_name
+            });
+            /** 테이블 레이아웃 병합 정보 추가 */
+            tableConstructionItem.rowspan++;
+            tableUnitItem.rowspan++;
+            tableFactorItem.rowspan++;
+        });
+        return riskTableList;
+    };
+    /**
+     * 테이블 리스트를 편집 가능 리스트 형태로 변경
+     */
+    RiskEvaluationEditPage.prototype.riskTableToList = function (riskTableList) {
+        var _this = this;
+        var riskList = [];
+        riskTableList.forEach(function (constructionItem) {
+            constructionItem.unitList.forEach(function (unitItem) {
+                unitItem.facterList.forEach(function (factorItem) {
+                    factorItem.planList.forEach(function (planItem) {
+                        riskList.push({
+                            risk_asment_id: _this.form.risk_asment_id,
+                            seq_no: constructionItem.seq_no,
+                            risk_construction_id: constructionItem.risk_construction_id,
+                            risk_construction_name: constructionItem.risk_construction_name,
+                            risk_unit_id: unitItem.risk_unit_id,
+                            risk_unit_name: unitItem.risk_unit_name,
+                            area_top_id: unitItem.area_top_id,
+                            area_top_name: unitItem.area_top_name,
+                            area_middle_id: unitItem.area_middle_id,
+                            area_middle_name: unitItem.area_middle_name,
+                            area_bottom_id: unitItem.area_bottom_id,
+                            area_bottom_name: unitItem.area_bottom_name,
+                            ctgo_machinery_ids: unitItem.ctgo_machinery_ids,
+                            ctgo_machinery_names: unitItem.ctgo_machinery_names,
+                            ctgo_tool_ids: unitItem.ctgo_tool_ids,
+                            ctgo_tool_names: unitItem.ctgo_tool_names,
+                            risk_factor_id: factorItem.risk_factor_id,
+                            risk_factor_name: factorItem.risk_factor_name,
+                            risk_frequency: factorItem.risk_frequency,
+                            risk_strength: factorItem.risk_strength,
+                            risk_danger_level: factorItem.risk_danger_level,
+                            risk_plan_id: planItem.risk_plan_id,
+                            risk_plan_name: planItem.risk_plan_name // 감소대책
+                        });
+                    });
+                });
+            });
+        });
+        return riskList;
+    };
+    /**
+     * 장소 팝업
+     */
+    RiskEvaluationEditPage.prototype.openArea = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 건설기계 팝업
+     */
+    RiskEvaluationEditPage.prototype.openMachinery = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 특수공도구 팝업
+     */
+    RiskEvaluationEditPage.prototype.openTool = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
                         }
                         return [2 /*return*/];
                 }

@@ -28,7 +28,7 @@
     </app-col> 
     <app-col>
       <app-select-construction-machinery [company_id]="form.master_company_id" 
-      [required]="true" [disabled]="updateStatus" 
+      [required]="true" [disabled]="updateStatus" [project_id]="form.project_id"
       [(ngModel)]="form.ctgo_machinery_id"></app-select-construction-machinery>
     </app-col>
   </app-row>

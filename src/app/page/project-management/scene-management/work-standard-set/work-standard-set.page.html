@@ -5,22 +5,22 @@
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [(ngModel)]="segment" (ionChange)="segmentChange()">
-          <ion-segment-button [value]="1">공종</ion-segment-button>
-          <ion-segment-button [value]="2" [disabled]="true">위험 공종</ion-segment-button>
-          <ion-segment-button [value]="3" [disabled]="true">위험성평가<br>항목</ion-segment-button>
-          <ion-segment-button [value]="4" [disabled]="true">위험성평가<br>추가 항목</ion-segment-button>
-          <ion-segment-button [value]="5">건설기계</ion-segment-button>
-          <ion-segment-button [value]="6">특수공도구</ion-segment-button>
-          <ion-segment-button [value]="7" [disabled]="true">위험지역<br>점검표</ion-segment-button>
-          <ion-segment-button [value]="8">회의록<br>협의사항</ion-segment-button>
-          <ion-segment-button [value]="9">재해 형태</ion-segment-button>
-          <ion-segment-button [value]="10" [disabled]="true">작업절차서<br>등록</ion-segment-button>
+          <ion-segment-button value="1">공종</ion-segment-button>
+          <ion-segment-button value="2" [disabled]="true">위험 공종</ion-segment-button>
+          <ion-segment-button value="3" [disabled]="true">위험성평가<br>항목</ion-segment-button>
+          <ion-segment-button value="4" [disabled]="true">위험성평가<br>추가 항목</ion-segment-button>
+          <ion-segment-button value="5">건설기계</ion-segment-button>
+          <ion-segment-button value="6">특수공도구</ion-segment-button>
+          <ion-segment-button value="7" [disabled]="true">위험지역<br>점검표</ion-segment-button>
+          <ion-segment-button value="8">회의록<br>협의사항</ion-segment-button>
+          <ion-segment-button value="9">재해 형태</ion-segment-button>
+          <ion-segment-button value="10" [disabled]="true">작업절차서<br>등록</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
   <ng-container *ngIf="!workRoleCheck">
-    <app-row style="align-items: flex-start;" *ngIf="segment === 1">
+    <app-row style="align-items: flex-start;" *ngIf="segment === '1'">
       <app-col size="280px">
         <app-table type="card">
           <ion-toolbar slot="top" color="white">
@@ -97,19 +97,12 @@
               </tbody>
             </app-table>
           </app-check-group>
-          <app-row *ngIf="!resConstruction?.rsMap?.length">
-            <app-col>
-              <app-card>
-                <h5>목록이 없습니다.</h5>
-              </app-card>
-            </app-col>
-          </app-row>
         </ng-container>
       </app-col>
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 5">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '5'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -126,9 +119,14 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [multiple]="false"
-                [disabled]="editable" [(ngModel)]="machineryFrom"></app-select-company>
-            </td>`
+              <app-select-scene [disabled]="editable" [(ngModel)]="machineryFrom.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="user.userData.belong_data.project_id" [multiple]="false"
+                [disabled]="editable" [(ngModel)]="machineryFrom.master_company_id"></app-select-contractor>
+            </td>
           </tr>
         </tbody>
       </app-table>
@@ -187,18 +185,11 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resMachinery?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
     </app-col>
   </app-row>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 6">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '6'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -220,8 +211,8 @@
           </tr>
           <tr>
             <td>
-              <app-select-company [project_id]="toolForm.project_id" [disabled]="editable"
-                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-company>
+              <app-select-contractor [project_id]="toolForm.project_id" [disabled]="editable"
+                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>
@@ -277,18 +268,11 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resTool?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
     </app-col>
   </app-row>
 
-  <ng-container *ngIf="segment === 8">
+  <ng-container *ngIf="segment === '8'">
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
@@ -312,8 +296,8 @@
             </tr>
             <tr>
               <td>
-                <app-select-company [disabled]="editable" [project_id]="meetingForm.project_id" [multiple]="false"
-                  [(ngModel)]="meetingForm.company_id"></app-select-company>
+                <app-select-contractor [disabled]="editable" [project_id]="meetingForm.project_id" [multiple]="false"
+                  [(ngModel)]="meetingForm.company_id"></app-select-contractor>
               </td>
             </tr>
           </tbody>
@@ -367,7 +351,7 @@
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 9">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '9'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -384,7 +368,13 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="editable" [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-scene [disabled]="editable" [(ngModel)]="disasterForm.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="disasterForm.project_id" 
+              [disabled]="editable" [(ngModel)]="disasterForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>
@@ -400,7 +390,7 @@
           <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
-      <ng-container *ngIf="!workRoleCheck else roleEmpty">
+      <ng-container *ngIf="!workRoleCheck">
         <ion-toolbar color="white">
           <app-row>
             <app-col>
@@ -440,23 +430,7 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resDisaster?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
-      <ng-template #roleEmpty>
-        <app-card>
-          <app-row>
-            <app-col>
-              <h5>권한이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
-      </ng-template>
     </app-col>
   </app-row>
 </ion-content>

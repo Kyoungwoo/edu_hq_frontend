@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 export class ConstructionItem {
   risk_construction_id:number = null;
   risk_construction_name:string = null;
+  seq_no:number = 0;
 }
 export class UnitItem {
   risk_unit_id:number = null;
@@ -20,15 +21,38 @@ export class PlanItem {
   risk_plan_id:number = null;
   risk_plan_name:string = null;
 }
-export class RiskItem implements ConstructionItem, UnitItem, FactorItem, PlanItem {
-  risk_construction_id: number = null;
-  risk_construction_name: string = null;
-  risk_factor_id: number = null;
-  risk_factor_name: string = null;
-  risk_unit_id: number = null;
-  risk_unit_name: string = null;
-  risk_plan_id: number = null;
-  risk_plan_name: string = null;
+export class RiskItem {
+  risk_asment_id:number = null; // 위험성평가 ID (위험성평가 문서 ID)
+  seq_no:number = null; // 시퀀스 - 이 한 줄의 ID
+
+  risk_construction_id:number = null; // 공사 ID
+  risk_construction_name:string = null; // 공사명
+
+  risk_unit_id:number = null; // 단위작업 ID
+  risk_unit_name:string = null; // 단위작업
+
+  area_top_id:number = null; // 장소 첫번째 ID
+  area_top_name:string = null; // 장소 첫번째
+  area_middle_id:number = null; // 장소 두번째 ID null 이면 안고른거
+  area_middle_name:string = null; // 장소 두번째
+  area_bottom_id:number = null; // 장소 세번째 ID null 이면 안고른거
+  area_bottom_name:string = null; // 장소 세번째
+
+  ctgo_machinery_ids:number[] = []; // 건설기계 ID들
+  ctgo_machinery_names:string[] = []; // 건설기계명들
+
+  ctgo_tool_ids:number[] = []; // 특수공도구 ID들
+  ctgo_tool_names:string[] = []; // 특수공도구명들
+
+  risk_factor_id:number = null; // 위험요인 ID null 이면 직접입력
+  risk_factor_name:string = null; // 위험요인
+  
+  risk_frequency:number = 1; // 빈도
+  risk_strength:number = 1; // 강도
+  risk_danger_level:number = 1; // 위험도
+
+  risk_plan_id:number = null // 감소대책 ID null 이면 직접입력
+  risk_plan_name:string = null; // 감소대책
 }
 @Component({
   selector: 'app-risk-evaluation-popup',

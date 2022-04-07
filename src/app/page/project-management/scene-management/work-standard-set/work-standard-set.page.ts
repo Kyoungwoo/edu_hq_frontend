@@ -12,12 +12,12 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 })
 export class WorkStandardSetPage implements OnInit {
 
-  segment:number = 1;
+  segment:string = '1';
 
   //공종 시작
   constructionForm = {
-    project_id: null,
-    master_company_id: null
+    project_id: 0,
+    master_company_id: 0
   }
   resConstruction: ConnectResult<{
     ctgo_construction_id: number, // 공종ID
@@ -30,26 +30,32 @@ export class WorkStandardSetPage implements OnInit {
   //공종 끝
 
   //건설기계
-  machineryFrom = this.user.userData.belong_data.company_id;
+  machineryFrom = {
+    project_id:this.user.userData.belong_data.company_id,
+    master_company_id:this.user.userData.belong_data.master_company_id,
+    search_text:''
+  }
+
   resMachinery: ConnectResult<{
     ctgo_machinery_id: number,
-    company_id: number,
+    master_company_id: number,
     ctgo_machinery_name: string,
     ctgo_machinery_doc:boolean
     ctgo_machinery_doc_state: number,
-    ctgo_machinery_use_state: number
+    ctgo_machinery_use_state: number,
+    project_id:number
   }>
   selectedMachinery = [];
   //건설기계 끝
 
   //특수 공도구
   toolForm = {
-    company_id:this.user.userData.belong_data.company_id,
+    master_company_id:this.user.userData.belong_data.master_company_id,
     project_id:this.user.userData.belong_data.project_id
   }
   resTool:ConnectResult<{
     ctgo_tool_id: number,
-    company_id: number,
+    master_company_id: number,
     project_id: number,
     ctgo_tool_name: string,
     ctgo_tool_use_state: number
@@ -74,12 +80,16 @@ export class WorkStandardSetPage implements OnInit {
   //회의록 현의사항 끝
 
   //재해 형태
-  disasterForm = this.user.userData.belong_data.company_id;
+  disasterForm =  {
+    project_id:this.user.userData.belong_data.project_id,
+    master_company_id:this.user.userData.belong_data.company_id
+  }
 
   resDisaster:ConnectResult<{
     ctgo_disaster_name:string,
     ctgo_disaster_use_state: number,
-    company_id: number,
+    project_id:number,
+    master_company_id: number,
     default_state: number,
     ctgo_disaster_id: number
   }>
@@ -110,31 +120,31 @@ export class WorkStandardSetPage implements OnInit {
 
   async segmentChange() {
     switch(this.segment) {
-      case 1:
+      case '1':
         await this.getConstructionForm();
         this.getConstruction();
         break;
-      case 2: // 2차 개발
+      case '2': // 2차 개발
         break;
-      case 3: // 2차 개발
+      case '3': // 2차 개발
         break;
-      case 4: // 2차 개발
+      case '4': // 2차 개발
         break;
-      case 5:
+      case '5':
         this.getMachinery();
         break;
-      case 6:
+      case '6':
         this.getTool();
         break;
-      case 7: // 2차 개발
+      case '7': // 2차 개발
         break;
-      case 8:
+      case '8':
         this.getMeeting();
         break;
-      case 9:
+      case '9':
         this.getDisaster();
         break;
-      case 10: // 2차 개발
+      case '10': // 2차 개발
         break;
     }
   }
@@ -255,21 +265,21 @@ export class WorkStandardSetPage implements OnInit {
 
   //건설기계
   async getMachinery() {
-  await this.promise.wait(() => this.machineryFrom);
-  this.resMachinery = await this.connect.run('/project/machinery/get', { company_id: this.machineryFrom });
+  this.resMachinery = await this.connect.run('/project/machinery/get', this.machineryFrom);
     if (this.resMachinery.rsCode === 0) { 
       this.resMachinery.rsMap.forEach(item => {
         item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc = true : item.ctgo_machinery_doc = false;
-      })
+      });
     };
   }
 
   async machineryAdd() {
-    if (!this.machineryFrom) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
+    if (!this.machineryFrom) return await this.toast.present({ message: '업체을 선택해주세요.', color: 'warning' });
     if (this.resMachinery?.rsMap?.length) {
       this.resMachinery?.rsMap.unshift({
         ctgo_machinery_id: 0,
-        company_id: this.machineryFrom,
+        master_company_id: this.machineryFrom.master_company_id,
+        project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
         ctgo_machinery_use_state: 0,
@@ -279,7 +289,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resMachinery.rsMap = [];
       this.resMachinery?.rsMap.push({
         ctgo_machinery_id: 0,
-        company_id: this.machineryFrom,
+        master_company_id: this.machineryFrom.master_company_id,
+        project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
         ctgo_machinery_use_state: 0,
@@ -288,7 +299,6 @@ export class WorkStandardSetPage implements OnInit {
     }
   }
   async machineryDelete() {
-    console.log(this.selectedMachinery);
     let filteritem = this.selectedMachinery.filter(item => this.selectedMachinery.indexOf(item))
     if(!filteritem.length) return this.toast.present({ message: '최소 1개 이상 선택해주세요.',color:'warning' });
     const alert = await this.alert.present({
@@ -304,7 +314,8 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/machinery/delete', {
-                  company_id: checkedItem.company_id,
+                  master_company_id: checkedItem.master_company_id,
+                  project_id:checkedItem.project_id,
                   ctgo_machinery_id: checkedItem.ctgo_machinery_id
                 });
                 if (res.rsCode === 0) {
@@ -334,21 +345,21 @@ export class WorkStandardSetPage implements OnInit {
   machinerySave(){
     this.resMachinery.rsMap.forEach(item => {
       item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
-
-    })
+    });
     this.resMachinery.rsMap.forEach(async (item, i) => {
       if (item.ctgo_machinery_id === 0) {
         const res = await this.connect.run('/project/machinery/insert', item, {})
         if (res.rsCode === 0) {
-          item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
+          this.getMachinery();
           if(this.resMachinery.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
         };
       } else {
+        console.log("11234");
         const res = await this.connect.run('/project/machinery/update', item, {});
         if (res.rsCode === 0) {
-          item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
+          this.getMachinery();
           if(this.resMachinery.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -367,12 +378,12 @@ export class WorkStandardSetPage implements OnInit {
 
   async toolAdd() {
     if (!this.toolForm.project_id) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
-    if (!this.toolForm.company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
+    if (!this.toolForm.master_company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
 
     if (this.resTool?.rsMap?.length) {
       this.resTool?.rsMap.unshift({
         ctgo_tool_id: 0,
-        company_id: this.toolForm.company_id,
+        master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
         ctgo_tool_use_state: 0
@@ -381,7 +392,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resTool.rsMap = [];
       this.resTool?.rsMap.push({
         ctgo_tool_id: 0,
-        company_id: this.toolForm.company_id,
+        master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
         ctgo_tool_use_state: 0
@@ -404,7 +415,7 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/tool/delete', {
-                  company_id: checkedItem.company_id,
+                  master_company_id: checkedItem.master_company_id,
                   ctgo_tool_id: checkedItem.ctgo_tool_id,
                   project_id: checkedItem.project_id
                 });
@@ -426,6 +437,7 @@ export class WorkStandardSetPage implements OnInit {
       if (item.ctgo_tool_id === 0) {
         const res = await this.connect.run('/project/tool/insert', item, {})
         if (res.rsCode === 0) {
+          this.getTool();
           if(this.resTool.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -433,6 +445,7 @@ export class WorkStandardSetPage implements OnInit {
       } else {
         const res = await this.connect.run('/project/tool/update', item, {});
         if (res.rsCode === 0) {
+          this.getTool();
           if(this.resTool.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -487,7 +500,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resDisaster?.rsMap.unshift({
         ctgo_disaster_name:'',
         ctgo_disaster_use_state: 0,
-        company_id: this.disasterForm,
+        project_id:this.disasterForm.project_id,
+        master_company_id: this.disasterForm.master_company_id,
         default_state: 0,
         ctgo_disaster_id: 0
       });
@@ -496,7 +510,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resDisaster?.rsMap.push({
         ctgo_disaster_name:'',
         ctgo_disaster_use_state: 0,
-        company_id: this.disasterForm,
+        project_id:this.disasterForm.project_id,
+        master_company_id: this.disasterForm.master_company_id,
         default_state: 0,
         ctgo_disaster_id: 0
       });
@@ -530,7 +545,8 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/disaster/delete', {
-                  company_id: checkedItem.company_id,
+                  project_id: checkedItem.project_id,
+                  master_company_id: checkedItem.master_company_id,
                   ctgo_disaster_id: checkedItem.ctgo_disaster_id
                 });
                 if (res.rsCode === 0) {
@@ -551,6 +567,7 @@ export class WorkStandardSetPage implements OnInit {
       if (item.ctgo_disaster_id === 0) {
         const res = await this.connect.run('/project/disaster/insert', item, {})
         if (res.rsCode === 0) {
+          this.getDisaster();
           if(this.resDisaster.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -558,6 +575,7 @@ export class WorkStandardSetPage implements OnInit {
       } else {
         const res = await this.connect.run('/project/disaster/update', item, {});
         if (res.rsCode === 0) {
+          this.getDisaster();
           if(this.resDisaster.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
