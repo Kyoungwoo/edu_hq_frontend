@@ -28,7 +28,7 @@ export class HeavyEquipDetail {
     ctgo_machinery_name: string;
     machinery_file: (File | Blob)[] = [];
     machinery_json : FileJson = new FileJson();
-
+    create_user_id:number;
 
     plan_file_data: FutItem[] = [];
     regist_file_data: FutItem[] = [];
@@ -237,6 +237,24 @@ export class HeavyEquipEditPage implements OnInit {
     await this.form.etc_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
 
     this.form.machinery_json.insert.map((item, index) => {item.order_no = index+1});
+  }
+
+  /**
+   * @function btnPromise(): 권한에 따른 버튼활성화 메서드
+   * @param type - 버튼의 type
+   * @returns true or false
+   */
+  btnPromise(type){
+    let state = false;
+    switch(type){
+      case 'save':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY' || this.user.userData.user_id == this.form.create_user_id) state = true;
+        break;
+      case 'delete':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_role == 'MASTER_HEAD' || this.user.userData.user_id == this.form.create_user_id) state = true;
+        break;
+    }
+    return state;
   }
 }
 

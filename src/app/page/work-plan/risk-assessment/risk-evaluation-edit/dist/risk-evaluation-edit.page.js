@@ -388,7 +388,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     };
     RiskEvaluationEditPage.prototype.add = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var modal;
+            var modal, data, riskList, riskTableData_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
@@ -400,6 +400,51 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 1:
                         modal = _a.sent();
                         modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            riskList = data.riskList;
+                            riskTableData_1 = [];
+                            riskList.forEach(function (riskItem) {
+                                var tableConstructionItem = riskTableData_1.find(function (item) { return item.risk_construction_id === riskItem.risk_construction_id; });
+                                /** 공사명이 없다면 새로 추가 */
+                                if (!tableConstructionItem) {
+                                    tableConstructionItem = {
+                                        risk_construction_id: riskItem.risk_construction_id,
+                                        risk_construction_name: riskItem.risk_construction_name,
+                                        unitList: []
+                                    };
+                                    riskTableData_1.push(tableConstructionItem);
+                                }
+                                var tableUnitItem = tableConstructionItem.unitList.find(function (item) { return item.risk_unit_id === riskItem.risk_unit_id; });
+                                /** 공사명에 단위작업이 없다면 새로 추가 */
+                                if (!tableUnitItem) {
+                                    tableUnitItem = {
+                                        risk_unit_id: riskItem.risk_unit_id,
+                                        risk_unit_name: riskItem.risk_unit_name,
+                                        facterList: []
+                                    };
+                                    tableConstructionItem.unitList.push(tableUnitItem);
+                                }
+                                /** 위험요인 아이디가 있고(직접입력이 아니고) && 현재 있는 위험요인인지 체크 */
+                                var tableFacterItem = tableUnitItem.facterList.find(function (item) { return item.risk_factor_id && item.risk_factor_id === riskItem.risk_factor_id; });
+                                /** 단위작업에 위험요인이 없다면 새로 추가 */
+                                if (!tableFacterItem) {
+                                    tableFacterItem = {
+                                        risk_factor_id: riskItem.risk_factor_id,
+                                        risk_factor_name: riskItem.risk_factor_name,
+                                        planList: []
+                                    };
+                                    tableUnitItem.facterList.push(tableFacterItem);
+                                }
+                                /** 위험요인에 감소대책 추가 */
+                                tableFacterItem.planList.push({
+                                    risk_plan_id: null,
+                                    risk_plan_name: riskItem.risk_plan_name
+                                });
+                            });
+                        }
                         return [2 /*return*/];
                 }
             });

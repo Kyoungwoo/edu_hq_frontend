@@ -328,4 +328,29 @@ export class SerialNoListPage implements OnInit {
       resolve(true);
     });
   }
+
+  /**
+   * @function btnPromise(): 권한에 따른 버튼활성화 메서드
+   * @param type - 버튼의 type
+   * @param user_id - 체크박스가 있는 목록 해당 아이템을 등록한 사람의 user_id
+   * @returns true or false
+   */
+   btnPromise(type, user_id = null){
+    let state = false;
+    switch(type){
+      case 'insert':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        break;
+      case 'update':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        break;
+      case 'delete':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        break;
+      case 'delete_check':
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        break;
+    }
+    return state;
+  }
 }

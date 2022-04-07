@@ -3,15 +3,10 @@
 }
 .flex-box .flex-revers {
   flex-direction: column;
-  flex: 0 0 15%;
+  flex: 0 0 20%;
 }
 .flex-box .flex-revers:nth-child(3) {
-  flex: 0 0 35%;
-}
-.flex-box .flex-revers:nth-child(4) {
-  flex: 0 0 35%;
-}
-.flex-box .flex-revers:nth-child(4) .flex-list {
+  flex: 0 0 60%;
   border-right: none;
 }
 .flex-box .flex-revers .flex-header {
@@ -39,6 +34,10 @@
 }
 .flex-box .flex-revers .flex-item {
   padding: 5px;
+  cursor: pointer;
+}
+.flex-box .flex-revers .flex-item:hover {
+  background: var(--ion-color-step-100);
 }
 
 .selected {

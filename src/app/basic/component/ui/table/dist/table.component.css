@@ -1,0 +1,155 @@
+:host {
+  margin-top: var(--app-margin);
+  margin-bottom: var(--app-margin);
+  box-shadow: var(--app-box-shadow);
+  border-radius: var(--app-border-radius);
+  background: var(--ion-color-white);
+  color: var(--ion-text-color);
+  display: block;
+  text-align: left;
+  overflow: hidden;
+}
+:host .table-wrapper {
+  display: block;
+  overflow: hidden;
+}
+:host table {
+  margin-left: -1px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  width: calc(100% + 2px);
+}
+
+:host ::ng-deep th {
+  background: var(--ion-color-light);
+  font-size: var(--font-size-h6);
+  border: 1px solid var(--ion-color-step-100);
+  padding: 6px;
+  vertical-align: bottom;
+}
+:host ::ng-deep th small {
+  font-size: var(--font-size-h6-small);
+}
+:host ::ng-deep td {
+  background: var(--ion-color-white);
+  font-size: var(--font-size-h6);
+  border: 1px solid var(--ion-color-step-100);
+  padding: 8px 6px;
+  vertical-align: top;
+}
+:host ::ng-deep td small {
+  font-size: var(--font-size-h6-small);
+}
+:host ::ng-deep pre > code {
+  padding: 8px;
+}
+:host ::ng-deep app-col {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+:host ::ng-deep app-button,
+:host ::ng-deep app-check,
+:host ::ng-deep app-radio,
+:host ::ng-deep app-input-template {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+:host ::ng-deep app-input-template {
+  box-shadow: none;
+  padding: 0;
+}
+:host ::ng-deep app-input-template app-button {
+  bottom: 0 !important;
+  right: 0 !important;
+}
+:host ::ng-deep .disabled app-input-template {
+  border: 0 !important;
+}
+:host ::ng-deep app-input-caption {
+  margin-top: -2px;
+}
+
+:host.table-card .table-wrapper {
+  padding: 5px 10px;
+}
+
+:host.table-card ::ng-deep th {
+  background: var(--ion-color-white);
+  border: none;
+  border-bottom: 1px solid var(--ion-color-step-100);
+  text-align: center;
+  padding-left: 2px;
+  padding-right: 0px;
+}
+:host.table-card ::ng-deep td {
+  border: none;
+  border-bottom: 1px solid var(--ion-color-step-100);
+  vertical-align: middle;
+  text-align: center;
+  padding-left: 2px;
+  padding-right: 0px;
+}
+:host.table-card ::ng-deep td > app-img,
+:host.table-card ::ng-deep td > a > app-img {
+  width: 1.2em;
+}
+:host.table-card ::ng-deep tr:last-child td {
+  border-bottom: 0;
+}
+:host.table-card ::ng-deep ion-toolbar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--ion-color-step-300);
+  --padding-start: 0;
+  --padding-end: 0;
+}
+:host.table-card ::ng-deep ion-toolbar > app-row {
+  padding-left: 12px;
+  padding-right: 10px;
+}
+:host.table-card ::ng-deep app-input-template {
+  border: 0 !important;
+}
+
+:host ::ng-deep tr.button,
+:host ::ng-deep th.button,
+:host ::ng-deep td.button,
+:host ::ng-deep tr[button],
+:host ::ng-deep th[button],
+:host ::ng-deep td[button] {
+  cursor: pointer;
+}
+:host ::ng-deep tr.button:hover,
+:host ::ng-deep th.button:hover,
+:host ::ng-deep td.button:hover,
+:host ::ng-deep tr[button]:hover,
+:host ::ng-deep th[button]:hover,
+:host ::ng-deep td[button]:hover {
+  background: var(--ion-color-step-50);
+}
+:host ::ng-deep tr.button:hover th,
+:host ::ng-deep tr.button:hover td,
+:host ::ng-deep th.button:hover th,
+:host ::ng-deep th.button:hover td,
+:host ::ng-deep td.button:hover th,
+:host ::ng-deep td.button:hover td,
+:host ::ng-deep tr[button]:hover th,
+:host ::ng-deep tr[button]:hover td,
+:host ::ng-deep th[button]:hover th,
+:host ::ng-deep th[button]:hover td,
+:host ::ng-deep td[button]:hover th,
+:host ::ng-deep td[button]:hover td {
+  background: var(--ion-color-step-50);
+}
+:host ::ng-deep td.input {
+  background: var(--ion-color-step-50);
+}
+
+:host.text-align-left,
+:host ::ng-deep .text-align-left {
+  text-align: left;
+}
+
+:host.text-align-right,
+:host ::ng-deep .text-align-right {
+  text-align: right;
+}

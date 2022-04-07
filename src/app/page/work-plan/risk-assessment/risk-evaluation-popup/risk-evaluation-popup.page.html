@@ -48,28 +48,29 @@
     <!-- header -->
     <div class="flex-header">
       <div>위험요인</div>
-      <app-img name="next-dark"></app-img>
+      <!-- <app-img name="next-dark"></app-img> -->
     </div>
     <div class="flex-list">
       <!-- item -->
+      <div *ngIf="selectItem2" class="flex-item" (click)="empty3Click()"><ion-icon name="add-circle-outline"></ion-icon> 직접입력</div>
       <div *ngFor="let item of res3?.rsMap" class="flex-item" [class.selected]="selectItem3 === item" (click)="item3Click(item)">
         {{ item.risk_factor_name }}
       </div>
     </div>
   </div>
 
-  <div class="flex-revers">
-    <!-- header -->
+  <!-- 감소대책은 무조건 직접입력으로 바뀜 -->
+  <!-- <div class="flex-revers">
     <div class="flex-header">
       <div>감소대책</div>
     </div>
     <div class="flex-list">
-      <!-- item -->
+      <div class="flex-item">직접입력</div>
       <div *ngFor="let item of res4?.rsMap" class="flex-item" [class.selected]="selectItem4 === item" (click)="item4Click(item)">
         {{ item.risk_plan_name }}
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 
@@ -92,35 +93,32 @@
       <th style="width: 40px;">삭제</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngFor="let item of riskList; let i = index; let c = count;">
     <tr>
-      <td style="width: 40px;">4</td>
-      <td>매립 공사</td>
-      <td>장비 반입/작업 준비</td>
-      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
-      <td>차량 운행경로에 유도원 2명이상 배치</td>
-      <td style="width: 40px;"><app-img name="delete"></app-img></td>
-    </tr>
-    <tr>
-      <td style="width: 40px;">3</td>
-      <td>매립 공사</td>
-      <td>장비 반입/작업 준비</td>
-      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
-      <td>차량 운행경로에 유도원 2명이상 배치</td>
-      <td style="width: 40px;"><app-img name="delete"></app-img></td>
-    </tr>
-    <tr>
-      <td style="width: 40px;">2</td>
-      <td>매립 공사</td>
-      <td>장비 반입/작업 준비</td>
-      <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
-      <td>차량 운행경로에 유도원 2명이상 배치</td>
-      <td style="width: 40px;"><app-img name="delete"></app-img></td>
+      <td style="width: 40px;">{{ c - i }}</td>
+      <td>{{ item.risk_construction_name }}</td>
+      <td>{{ item.risk_unit_name }}</td>
+      <td [class.input]="!item.risk_factor_id">
+        <ng-container *ngIf="item.risk_factor_id; else tempFactorEmpty">
+          {{ item.risk_factor_name }}
+        </ng-container>
+        <ng-template #tempFactorEmpty>
+          <app-input [(ngModel)]="item.risk_factor_name"></app-input>
+        </ng-template>
+      </td>
+      <td class="input">
+        <app-input [(ngModel)]="item.risk_plan_name"></app-input>
+      </td>
+      <td style="width: 40px;">
+        <app-button color="danger" fill="translucent" (click)="riskList.splice(i, 1)">
+          <app-img name="delete"></app-img>
+        </app-button>
+      </td>
     </tr>
   </tbody>
 </app-table>
 </ion-content>
 <app-button-footer>
-  <app-button>동의합니다</app-button>
+  <app-button (click)="submit()">적용</app-button>
 </app-button-footer>
 
