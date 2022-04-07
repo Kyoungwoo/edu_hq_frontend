@@ -13,10 +13,10 @@
         <h4>교육 정보</h4>
       </app-col>
       <app-col *ngIf="item" size="auto">
-        <app-button (click)="updateItem()" fill="translucent">수정</app-button>
+        <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
       </app-col>
       <app-col *ngIf="item" size="auto">
-        <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
+        <app-button (click)="updateItem()" fill="translucent">수정</app-button>
       </app-col>
       <app-col size="auto">
         <app-button *ngIf="!item" fill="translucent" (click)="submit()">저장</app-button>
@@ -41,7 +41,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-education name="safe" [required]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+          <app-select-education (change)="educationText($event)" name="safe" [required]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
         </app-col>
       </app-row>
       <app-row>
@@ -185,11 +185,10 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-select-education name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+            <app-select-education (change)="educationText($event)" name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
           </app-col>
         </app-row>
       </app-card>
-
 
       <app-card>
         <app-row>

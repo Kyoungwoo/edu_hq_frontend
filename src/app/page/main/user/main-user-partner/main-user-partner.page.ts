@@ -62,6 +62,9 @@ export class MainUserPartnerPage implements OnInit {
         case '회의록':
           this.nav.navigateRoot('/minutes-list');
           break;
+          case 'SOS':
+          this.nav.navigateRoot('/sos-popup');
+          break;
     }
   }
 }

@@ -5,22 +5,22 @@
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [(ngModel)]="segment" (ionChange)="segmentChange()">
-          <ion-segment-button [value]="1">공종</ion-segment-button>
-          <ion-segment-button [value]="2" [disabled]="true">위험 공종</ion-segment-button>
-          <ion-segment-button [value]="3" [disabled]="true">위험성평가<br>항목</ion-segment-button>
-          <ion-segment-button [value]="4" [disabled]="true">위험성평가<br>추가 항목</ion-segment-button>
-          <ion-segment-button [value]="5">건설기계</ion-segment-button>
-          <ion-segment-button [value]="6">특수공도구</ion-segment-button>
-          <ion-segment-button [value]="7" [disabled]="true">위험지역<br>점검표</ion-segment-button>
-          <ion-segment-button [value]="8">회의록<br>협의사항</ion-segment-button>
-          <ion-segment-button [value]="9">재해 형태</ion-segment-button>
-          <ion-segment-button [value]="10" [disabled]="true">작업절차서<br>등록</ion-segment-button>
+          <ion-segment-button value="1">공종</ion-segment-button>
+          <ion-segment-button value="2" [disabled]="true">위험 공종</ion-segment-button>
+          <ion-segment-button value="3" [disabled]="true">위험성평가<br>항목</ion-segment-button>
+          <ion-segment-button value="4" [disabled]="true">위험성평가<br>추가 항목</ion-segment-button>
+          <ion-segment-button value="5">건설기계</ion-segment-button>
+          <ion-segment-button value="6">특수공도구</ion-segment-button>
+          <ion-segment-button value="7" [disabled]="true">위험지역<br>점검표</ion-segment-button>
+          <ion-segment-button value="8">회의록<br>협의사항</ion-segment-button>
+          <ion-segment-button value="9">재해 형태</ion-segment-button>
+          <ion-segment-button value="10" [disabled]="true">작업절차서<br>등록</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
   </ion-toolbar>
   <ng-container *ngIf="!workRoleCheck">
-    <app-row style="align-items: flex-start;" *ngIf="segment === 1">
+    <app-row style="align-items: flex-start;" *ngIf="segment === '1'">
       <app-col size="280px">
         <app-table type="card">
           <ion-toolbar slot="top" color="white">
@@ -109,7 +109,7 @@
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 5">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '5'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -198,7 +198,7 @@
     </app-col>
   </app-row>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 6">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '6'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">
@@ -288,7 +288,7 @@
     </app-col>
   </app-row>
 
-  <ng-container *ngIf="segment === 8">
+  <ng-container *ngIf="segment === '8'">
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
@@ -367,7 +367,7 @@
     </app-row>
   </ng-container>
 
-  <app-row style="align-items: flex-start;" *ngIf="segment === 9">
+  <app-row style="align-items: flex-start;" *ngIf="segment === '9'">
     <app-col size="280px">
       <app-table type="card">
         <ion-toolbar slot="top" color="white">

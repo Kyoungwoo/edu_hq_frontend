@@ -211,7 +211,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:userData = new userData();
+gpsData:ConnectResult<userData>
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -221,7 +221,7 @@ gps_log_data = new GpsCoordinateData();
 // }
 
   data = {
-    monitor:''
+    monitor:'통합관제'
   };
 
   query:any;
@@ -238,7 +238,6 @@ gps_log_data = new GpsCoordinateData();
 
   ngOnInit() {
     this.intervalMethodController();
-    console.log("asdfasdfa");
     this.methodContrroller();
     // const modal = await this.modal.create({
     //   component:RiskEvaluationPopupPage,
@@ -257,7 +256,6 @@ gps_log_data = new GpsCoordinateData();
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
-     console.log("asdfasdfa");
     this.monitorQuery();
     this.wokerInGetList();
     this.gpsGet();//근로자 gps
@@ -368,7 +366,6 @@ gps_log_data = new GpsCoordinateData();
     const res = await this.connect.run('/integrated/construction_worker',this.form,{});
     switch(res.rsCode) {
       case 0 :
-        console.log(res);
         let total = 0;
         this.todayConstruction = res;
 
@@ -501,17 +498,17 @@ gps_log_data = new GpsCoordinateData();
   // }
   monitorQuery(){
    this.query =  this.route.queryParams.subscribe(params => {
+      console.log("params",params);
         this.data = {
           monitor:params.monitor
         }
-        console.log(this.data);
       }
     );
+    console.log("this.query",this.query);
   }
 
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
-    console.log("this.workerInRes",this.workerInRes);
     if(this.workerInRes.rsCode !== 0) {
       this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
     }
@@ -521,8 +518,11 @@ gps_log_data = new GpsCoordinateData();
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
     if(res.rsCode === 0) {
-      // this.gpsData = res.rsMap
-      console.log("this.gpsData",this.gpsData)
+      this.gpsData = {
+        ...res,
+        ...this.gpsData
+      }
+      console.log("this.gpsData",this.gpsData);
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }

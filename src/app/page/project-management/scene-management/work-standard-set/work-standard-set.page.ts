@@ -12,7 +12,7 @@ import { PromiseService } from 'src/app/basic/service/util/promise.service';
 })
 export class WorkStandardSetPage implements OnInit {
 
-  segment:number = 1;
+  segment:string = '1';
 
   //공종 시작
   constructionForm = {
@@ -110,31 +110,32 @@ export class WorkStandardSetPage implements OnInit {
 
   async segmentChange() {
     switch(this.segment) {
-      case 1:
+      case '1':
         await this.getConstructionForm();
         this.getConstruction();
         break;
-      case 2: // 2차 개발
+      case '2': // 2차 개발
         break;
-      case 3: // 2차 개발
+      case '3': // 2차 개발
         break;
-      case 4: // 2차 개발
+      case '4': // 2차 개발
         break;
-      case 5:
+      case '5':
+        console.log("ASdfasdfasdf");
         this.getMachinery();
         break;
-      case 6:
+      case '6':
         this.getTool();
         break;
-      case 7: // 2차 개발
+      case '7': // 2차 개발
         break;
-      case 8:
+      case '8':
         this.getMeeting();
         break;
-      case 9:
+      case '9':
         this.getDisaster();
         break;
-      case 10: // 2차 개발
+      case '10': // 2차 개발
         break;
     }
   }

@@ -72,13 +72,7 @@ export class SearchEducationComponent implements OnInit {
   itemClick(item:Education) {
     this.allState = false;
     if(!this.multiple) {
-      
-      if(this.values === item) {
-        this.values = null;
-      }
-      else {
-        this.values = item;
-      }
+      this.values = item;
     }
     else {
       if(!this.values) this.values = [];

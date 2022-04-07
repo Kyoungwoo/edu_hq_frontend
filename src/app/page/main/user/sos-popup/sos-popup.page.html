@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>SOS 요청</ion-title>
+    <ion-buttons slot="end">
+      <app-menu-button></app-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-img src="assets/img/menu/emergency-alarm-management.svg"></app-img>
+  <h3>원청사 관리자 및<br>소속 협력사 관리자에게<br>[]님의 SOS 요청이<br>발송됩니다.
+  <br><br>전송 하시겠습니까?</h3>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="cancle()">취소</app-button>
+  <app-button>전송</app-button>
+</app-button-footer>

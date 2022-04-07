@@ -9,7 +9,25 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <app-card name="setting-sound" [button]="true" (click)="router('알림설정')">
+    <app-row class="card-inner">
+      <app-col>
+        <h4>알림 설정</h4>
+      </app-col>
+      <app-col size="auto">
+        <app-img class="arrow-right" src="assets/img/sign-up/arrow-right.svg"></app-img>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card name="setting-sound" [button]="true" (click)="router('')">
+    <app-row class="card-inner">
+      <app-col>
+        <h4>바로가기 메뉴</h4>
+      </app-col>
+      <app-col size="auto">
+        <app-img class="arrow-right" src="assets/img/sign-up/arrow-right.svg"></app-img>
+      </app-col>
+    </app-row>
+  </app-card>
 </ion-content>
