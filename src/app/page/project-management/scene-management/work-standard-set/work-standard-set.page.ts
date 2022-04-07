@@ -32,7 +32,7 @@ export class WorkStandardSetPage implements OnInit {
   //건설기계
   machineryFrom = {
     project_id:this.user.userData.belong_data.company_id,
-    master_company_id:this.user.userData.belong_data.company_id,
+    master_company_id:this.user.userData.belong_data.master_company_id,
     search_text:''
   }
 
@@ -50,12 +50,12 @@ export class WorkStandardSetPage implements OnInit {
 
   //특수 공도구
   toolForm = {
-    company_id:this.user.userData.belong_data.company_id,
+    master_company_id:this.user.userData.belong_data.master_company_id,
     project_id:this.user.userData.belong_data.project_id
   }
   resTool:ConnectResult<{
     ctgo_tool_id: number,
-    company_id: number,
+    master_company_id: number,
     project_id: number,
     ctgo_tool_name: string,
     ctgo_tool_use_state: number
@@ -80,12 +80,16 @@ export class WorkStandardSetPage implements OnInit {
   //회의록 현의사항 끝
 
   //재해 형태
-  disasterForm = this.user.userData.belong_data.company_id;
+  disasterForm =  {
+    project_id:this.user.userData.belong_data.project_id,
+    master_company_id:this.user.userData.belong_data.company_id
+  }
 
   resDisaster:ConnectResult<{
     ctgo_disaster_name:string,
     ctgo_disaster_use_state: number,
-    company_id: number,
+    project_id:number,
+    master_company_id: number,
     default_state: number,
     ctgo_disaster_id: number
   }>
@@ -261,12 +265,11 @@ export class WorkStandardSetPage implements OnInit {
 
   //건설기계
   async getMachinery() {
-  console.log("this.machineryFrom",this.machineryFrom);
   this.resMachinery = await this.connect.run('/project/machinery/get', this.machineryFrom);
     if (this.resMachinery.rsCode === 0) { 
       this.resMachinery.rsMap.forEach(item => {
         item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc = true : item.ctgo_machinery_doc = false;
-      })
+      });
     };
   }
 
@@ -296,7 +299,6 @@ export class WorkStandardSetPage implements OnInit {
     }
   }
   async machineryDelete() {
-    console.log(this.selectedMachinery);
     let filteritem = this.selectedMachinery.filter(item => this.selectedMachinery.indexOf(item))
     if(!filteritem.length) return this.toast.present({ message: '최소 1개 이상 선택해주세요.',color:'warning' });
     const alert = await this.alert.present({
@@ -312,7 +314,8 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/machinery/delete', {
-                  company_id: checkedItem.company_id,
+                  master_company_id: checkedItem.master_company_id,
+                  project_id:checkedItem.project_id,
                   ctgo_machinery_id: checkedItem.ctgo_machinery_id
                 });
                 if (res.rsCode === 0) {
@@ -345,19 +348,18 @@ export class WorkStandardSetPage implements OnInit {
     });
     this.resMachinery.rsMap.forEach(async (item, i) => {
       if (item.ctgo_machinery_id === 0) {
-        console.log("item",item);
         const res = await this.connect.run('/project/machinery/insert', item, {})
         if (res.rsCode === 0) {
-          item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
+          this.getMachinery();
           if(this.resMachinery.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
         };
       } else {
-        return;
+        console.log("11234");
         const res = await this.connect.run('/project/machinery/update', item, {});
         if (res.rsCode === 0) {
-          item.ctgo_machinery_doc ? item.ctgo_machinery_doc_state = 1 : item.ctgo_machinery_doc_state = 0;
+          this.getMachinery();
           if(this.resMachinery.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -376,12 +378,12 @@ export class WorkStandardSetPage implements OnInit {
 
   async toolAdd() {
     if (!this.toolForm.project_id) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
-    if (!this.toolForm.company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
+    if (!this.toolForm.master_company_id) return await this.toast.present({ message: '업체를 선택해주세요.', color: 'danger' });
 
     if (this.resTool?.rsMap?.length) {
       this.resTool?.rsMap.unshift({
         ctgo_tool_id: 0,
-        company_id: this.toolForm.company_id,
+        master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
         ctgo_tool_use_state: 0
@@ -390,7 +392,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resTool.rsMap = [];
       this.resTool?.rsMap.push({
         ctgo_tool_id: 0,
-        company_id: this.toolForm.company_id,
+        master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
         ctgo_tool_use_state: 0
@@ -413,7 +415,7 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/tool/delete', {
-                  company_id: checkedItem.company_id,
+                  master_company_id: checkedItem.master_company_id,
                   ctgo_tool_id: checkedItem.ctgo_tool_id,
                   project_id: checkedItem.project_id
                 });
@@ -435,6 +437,7 @@ export class WorkStandardSetPage implements OnInit {
       if (item.ctgo_tool_id === 0) {
         const res = await this.connect.run('/project/tool/insert', item, {})
         if (res.rsCode === 0) {
+          this.getTool();
           if(this.resTool.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -442,6 +445,7 @@ export class WorkStandardSetPage implements OnInit {
       } else {
         const res = await this.connect.run('/project/tool/update', item, {});
         if (res.rsCode === 0) {
+          this.getTool();
           if(this.resTool.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -496,7 +500,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resDisaster?.rsMap.unshift({
         ctgo_disaster_name:'',
         ctgo_disaster_use_state: 0,
-        company_id: this.disasterForm,
+        project_id:this.disasterForm.project_id,
+        master_company_id: this.disasterForm.master_company_id,
         default_state: 0,
         ctgo_disaster_id: 0
       });
@@ -505,7 +510,8 @@ export class WorkStandardSetPage implements OnInit {
       this.resDisaster?.rsMap.push({
         ctgo_disaster_name:'',
         ctgo_disaster_use_state: 0,
-        company_id: this.disasterForm,
+        project_id:this.disasterForm.project_id,
+        master_company_id: this.disasterForm.master_company_id,
         default_state: 0,
         ctgo_disaster_id: 0
       });
@@ -539,7 +545,8 @@ export class WorkStandardSetPage implements OnInit {
                 list.splice(list.findIndex(item => item === checkedItem), 1);
               } else {
                 const res = await this.connect.run('/project/disaster/delete', {
-                  company_id: checkedItem.company_id,
+                  project_id: checkedItem.project_id,
+                  master_company_id: checkedItem.master_company_id,
                   ctgo_disaster_id: checkedItem.ctgo_disaster_id
                 });
                 if (res.rsCode === 0) {
@@ -560,6 +567,7 @@ export class WorkStandardSetPage implements OnInit {
       if (item.ctgo_disaster_id === 0) {
         const res = await this.connect.run('/project/disaster/insert', item, {})
         if (res.rsCode === 0) {
+          this.getDisaster();
           if(this.resDisaster.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -567,6 +575,7 @@ export class WorkStandardSetPage implements OnInit {
       } else {
         const res = await this.connect.run('/project/disaster/update', item, {});
         if (res.rsCode === 0) {
+          this.getDisaster();
           if(this.resDisaster.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }

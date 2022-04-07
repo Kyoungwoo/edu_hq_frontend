@@ -59,6 +59,7 @@ var ConstructionItem = /** @class */ (function () {
     function ConstructionItem() {
         this.risk_construction_id = null;
         this.risk_construction_name = null;
+        this.seq_no = 0;
     }
     return ConstructionItem;
 }());
@@ -89,14 +90,29 @@ var PlanItem = /** @class */ (function () {
 exports.PlanItem = PlanItem;
 var RiskItem = /** @class */ (function () {
     function RiskItem() {
-        this.risk_construction_id = null;
-        this.risk_construction_name = null;
-        this.risk_factor_id = null;
-        this.risk_factor_name = null;
-        this.risk_unit_id = null;
-        this.risk_unit_name = null;
-        this.risk_plan_id = null;
-        this.risk_plan_name = null;
+        this.risk_asment_id = null; // 위험성평가 ID (위험성평가 문서 ID)
+        this.seq_no = null; // 시퀀스 - 이 한 줄의 ID
+        this.risk_construction_id = null; // 공사 ID
+        this.risk_construction_name = null; // 공사명
+        this.risk_unit_id = null; // 단위작업 ID
+        this.risk_unit_name = null; // 단위작업
+        this.area_top_id = null; // 장소 첫번째 ID
+        this.area_top_name = null; // 장소 첫번째
+        this.area_middle_id = null; // 장소 두번째 ID null 이면 안고른거
+        this.area_middle_name = null; // 장소 두번째
+        this.area_bottom_id = null; // 장소 세번째 ID null 이면 안고른거
+        this.area_bottom_name = null; // 장소 세번째
+        this.ctgo_machinery_ids = []; // 건설기계 ID들
+        this.ctgo_machinery_names = []; // 건설기계명들
+        this.ctgo_tool_ids = []; // 특수공도구 ID들
+        this.ctgo_tool_names = []; // 특수공도구명들
+        this.risk_factor_id = null; // 위험요인 ID null 이면 직접입력
+        this.risk_factor_name = null; // 위험요인
+        this.risk_frequency = 1; // 빈도
+        this.risk_strength = 1; // 강도
+        this.risk_danger_level = 1; // 위험도
+        this.risk_plan_id = null; // 감소대책 ID null 이면 직접입력
+        this.risk_plan_name = null; // 감소대책
     }
     return RiskItem;
 }());

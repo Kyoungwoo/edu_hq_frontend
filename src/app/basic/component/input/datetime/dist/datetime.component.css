@@ -1,0 +1,6 @@
+:host app-col {
+  padding: 0;
+}
+:host input {
+  text-align: center;
+}

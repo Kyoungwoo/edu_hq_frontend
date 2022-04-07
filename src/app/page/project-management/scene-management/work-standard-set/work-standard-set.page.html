@@ -212,7 +212,7 @@
           <tr>
             <td>
               <app-select-contractor [project_id]="toolForm.project_id" [disabled]="editable"
-                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-contractor>
+                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>
@@ -368,7 +368,13 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="editable" [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-scene [disabled]="editable" [(ngModel)]="disasterForm.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="disasterForm.project_id" 
+              [disabled]="editable" [(ngModel)]="disasterForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>

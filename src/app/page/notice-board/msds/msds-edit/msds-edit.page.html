@@ -13,7 +13,7 @@
       <app-select-scene label="현장명"  [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
     </app-col>
     <app-col>
-      <app-input label="원청사명" [(ngModel)]="form.company_name" [disabled]="true" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-input>
+      <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
@@ -74,47 +74,21 @@
       <app-textarea value="공지합니다" [readonly]="true"></app-textarea>
     </app-col>
   </app-row>
-  <h4>첨부자료</h4>
-  <app-card>
+  <h4>
     <app-row>
-      <app-col></app-col>
+      <app-col>
+        첨부자료
+      </app-col>
       <app-col size="auto">
-        <app-button>추가
-          <app-file name="input" view_type="MSDS"
-          [(ngModel)]="form.file_data"
-          [file]="form.file"
-          [file_json]="form.file_json"
-          ></app-file>
+        <app-button fill="translucent">추가
+          <app-file name="input" view_type="NOTICE" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
         </app-button>
       </app-col>
     </app-row>
-  </app-card>
-  <app-table>
-    <tr *ngFor="let item of form.file_data let i = index">
-      <td *ngIf="item.view_type==='MSDS'">
-        <app-row>
-          <app-col>
-            <a [href]="item.full_url" target="_blank" [download]="item.file_name">
-              <ion-icon name="save-outline"></ion-icon>
-              {{ item.file_name }}
-            </a>
-          </app-col>
-          <app-col size="auto">
-            <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.file_data.splice(i,1)">
-              <app-img name="minus"></app-img>
-            </app-button>
-          </app-col>
-        </app-row>
-        <ion-row
-        *ngIf="item.content_type.startsWith('image')">
-          <ion-col>
-            <div class="image-detail">이미지 미리보기</div>
-            <app-img class="image-class" [src]="item.full_url"></app-img>
-          </ion-col>
-        </ion-row>
-      </td>
-    </tr>
-  </app-table>
+  </h4>
+  
+  <app-file-preview *ngFor="let futItem of form.file_data" [futItem]="futItem"></app-file-preview>
+
 </ion-content>
 <app-button-footer *mobileHidden>
   <app-button *ngIf="item && useMsds" (click)="submit()" fill="translucent">수정</app-button>
