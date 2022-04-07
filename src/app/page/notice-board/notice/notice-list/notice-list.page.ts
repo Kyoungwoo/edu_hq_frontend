@@ -1,3 +1,4 @@
+import { NoticeItem } from './../notice-edit/notice-edit.page';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -53,7 +54,8 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.get();
+    setTimeout(() => {this.get();}, 300);
+    
   }
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
@@ -113,11 +115,15 @@ export class NoticeListPage implements OnInit {
     }
   }
 
-  async edit(item?) {
+  async edit(item = null) {
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{
-        item
+        item:item,
+        form: {
+          ...new NoticeItem(),
+          ...item ? item : this.form,
+        }
       }
     });
     modal.present();

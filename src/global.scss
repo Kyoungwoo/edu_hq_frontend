@@ -550,7 +550,15 @@
     }
   }
 
-
+//sos
+.emergency-modal {
+  --max-width: 350px;
+  --max-height: 450px;
+}
+.emergency-clear-modal {
+  --max-width: 350px;
+  --max-height: 300px;
+}
   // jihyuk custom
   app-select.use-state-class{
     app-input-template{

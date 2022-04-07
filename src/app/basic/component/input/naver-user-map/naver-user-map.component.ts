@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBin
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { userData } from 'src/app/page/monitor/monitor.page';
 import { NaverMapId } from '../naver-map/naver-map.component';
 
@@ -82,6 +83,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async userMarker(coord, item, i) {
+    item.area_state = '위험'
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -98,8 +100,8 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     if(res.rsCode === 0) {
       if(item.area_state === '일반') {
         infoWindowElement = (
-          `<div class="iw_inner">
-            <h5>${res.rsObj.user_name}</h5>
+          `<div style="padding:5px">
+            <h5 style="text-align:center">${res.rsObj.user_name}</h5>
             <p>${res.rsObj.company_name}</p>
             <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
             <p>안전직무 : ${res.rsObj.safe_job_name}</p>
@@ -108,7 +110,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
         );
       } else {
         infoWindowElement = (
-          `<div class="iw_inner">
+          `<div style="padding:5px">
             <h5 style="text-align:center">SOS 요청</h5>
             <p>${res.rsObj.company_name}</p>
             <p>${res.rsObj.user_name}</p>
@@ -124,13 +126,17 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       maxWidth: 120,
       maxHeight: 100,
     });
+    if(item.area_state !== '일반') {
+      infowindow.open(this.map, this.marker[i]);
+      setTimeout(() => {
+        infowindow.close();
+      }, 5000);
+    }
       naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
         if (infowindow.getMap()) {
           infowindow.close();
         } else {
-          // this.marker.find((item,index) => )
-          infowindow.open(this.map, this.marker[i],);
-          // this.promise.timeout(infowindow.close(),3000);
+          infowindow.open(this.map, this.marker[i]);
         }
       });
   }
