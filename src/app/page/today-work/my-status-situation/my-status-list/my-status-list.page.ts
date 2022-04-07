@@ -117,12 +117,14 @@ export class MyStatusListPage implements OnInit {
       this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list',this.form,{parse:['inner_data']});
       if(this.resgate.rsCode === 0) {
       } else {
-        this.toast.present({message:'게이트 출역 길록이 없습니다.', color:'warning'});
+        this.toast.present({message:'게이트 출역 기록이 없습니다.', color:'warning'});
       }
       this.resrisk = await this.connect.run('/work_project/nfc_beacon/my_risk/list',this.form,{parse:['inner_data']});
       if(this.resrisk.rsCode === 0) {
       } else {
-        this.toast.present({message:'게이트 먼저 입장해주세요.', color:'warning'});
+        if(!this.resgate) {
+          this.toast.present({message:'게이트 먼저 입장해주세요.', color:'warning'});
+        }
       }
   }
 
@@ -159,10 +161,7 @@ export class MyStatusListPage implements OnInit {
 
   async nfcScan() {
     const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
-      // this.nfcqrForm.project_id = this.form.project_id;
-      // this.nfcqrForm.serial_key = nfcData;
-      // if(nfcData === 'N22') this.gateState = true;
-      this.nfcqrForm.serial_key = 'N33';
+      this.nfcqrForm.serial_key = nfcData;
       this.nfcqrForm.nb_log_state = 'NFC';
       if(nfcData.type === 'QR_CHANGE') {
         this.inNfcQr();
@@ -180,9 +179,7 @@ export class MyStatusListPage implements OnInit {
       }
     });
   }
-
-
-
+ㅋ
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
@@ -194,7 +191,7 @@ export class MyStatusListPage implements OnInit {
         this.nfcScan();
       }
       else {
-        if(!qrData) return this.toast.present({ message: 'qr을 다시 스캔해주세요.' });
+        if(!qrData) return this.toast.present({ message: 'NFC을 다시 스캔해주세요.' });
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode === 0) {
           $qr.unsubscribe();

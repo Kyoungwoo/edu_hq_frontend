@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-select-scene name="scene" [(ngModel)]="form.project_id" ></app-select-scene>
+  <app-select-scene [all]="editable.add" name="scene" [(ngModel)]="form.project_id" ></app-select-scene>
   <app-select-contractor name="contractor" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
   <app-select-education name="education" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
   <app-input-group label="교육일">

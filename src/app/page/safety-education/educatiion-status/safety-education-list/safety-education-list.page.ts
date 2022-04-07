@@ -73,22 +73,22 @@ export class SafetyEducationListPage implements OnInit {
     this.projectRolechekc(),
     this.companyRolecheck()
     
-    await this.promise.wait(() => this.form.company_id);
+    // await this.promise.wait(() => this.form.company_id);
     this.get();
   }
 
   projectRolechekc() {
-    const { user_role , belong_data} = this.user.userData;
-    if(user_role === 'MASTER_HEAD' ||
-      user_role === 'PARTNER_GENERAL'||
-      user_role === 'PARTNER_HEAD' ||
-      user_role === 'MASTER_GENERAL') {
-        this.editable.company_id = true;
-        this.form.project_id = belong_data.project_id;
-      } else if(user_role === 'LH_HEAD') {
-        this.editable.add = true;
-        this.form.project_id = belong_data.project_id;
-      }
+  const { user_role , belong_data} = this.user.userData;
+  if(user_role === 'MASTER_HEAD' ||
+    user_role === 'PARTNER_GENERAL'||
+    user_role === 'PARTNER_HEAD' ||
+    user_role === 'MASTER_GENERAL') {
+      this.editable.company_id = true;
+      this.form.project_id = belong_data.project_id;
+    } else if(user_role === 'LH_HEAD') {
+      this.editable.add = true;
+      this.form.project_id = belong_data.project_id;
+    }
   }
   
   companyRolecheck() {

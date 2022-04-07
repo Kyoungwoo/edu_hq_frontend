@@ -153,7 +153,7 @@
       <app-card>
         <app-row>
           <app-col>
-          <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
+            <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -173,14 +173,6 @@
           </app-col>
         </app-row>
       </app-card>
-      
-      <app-card>
-        <app-row>
-          <app-col>
-            <app-select-education name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
-          </app-col>
-        </app-row>
-      </app-card>
 
       <app-card>
         <app-row>
@@ -193,10 +185,11 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input label="교육명" name="ctgo_education_safe_title" placeholder="교육명을 입력해주세요." [(ngModel)]="form.ctgo_education_safe_title"></app-input>
+            <app-select-education name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
           </app-col>
         </app-row>
       </app-card>
+
 
       <app-card>
         <app-row>
@@ -217,7 +210,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-calendar label="개설일" name="create_date" [(ngModel)]="form.education_safe_date"></app-calendar>
+            <app-calendar name="create_date" label="교육일" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
           </app-col>
         </app-row>
       </app-card>
@@ -229,6 +222,9 @@
             [(ngModel)]="form.education_safe_start_time">
             </app-datetime>
           </app-col>
+        </app-row>
+
+        <app-row>
           <app-col>
             <app-datetime name="education_safe_end_time" label="교육종료시간" 
             [(ngModel)]="form.education_safe_end_time">

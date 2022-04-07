@@ -134,8 +134,9 @@ export class SafetyEducationDetailEditPage implements OnInit {
       education_safe_id:this.item.education_safe_id,
       search_text:this.attentForm.search_text
     });
-    if(this.res.rsCode === 0) {}
-    else this.toast.present({message:this.res.rsMsg, color:'warning'});
+    if(this.res.rsCode === 0) {
+
+    }
   }
   notReady() {
     this.toast.present({message:'준비중....',color:'warning'});
@@ -183,8 +184,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
       ]
     });
     alert.present();
-
-
   }
 
   async submit() {
@@ -263,6 +262,10 @@ export class SafetyEducationDetailEditPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.eduGetList();
+    }
   }
 
   async deleteItem() {

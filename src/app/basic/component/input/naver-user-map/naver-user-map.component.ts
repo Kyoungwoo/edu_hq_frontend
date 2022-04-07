@@ -20,7 +20,7 @@ declare const naver;
 export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
   @HostBinding('id') get id() { return this._id };
-  private _id = `naver-user-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
+  private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
   map: any;
 
   marker: any[] = [];
@@ -82,8 +82,6 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private userMarker(coord, item, i) {
-    console.log("item : ", item);
-
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -93,7 +91,6 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       }
     });
     this.marker.push(marker);
-    console.log("this.infoMarker", this.marker);
     let infoWindowElement;
     if(item.area_state === '일반') {
       infoWindowElement = (
@@ -140,12 +137,13 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     await this.afterInit();
     if (v) {
       const length = v.length;
-      console.log("length",length);
-      v.forEach(async(item,i) => {
-        const x = item.user_longitude;
-        const y = item.user_latitude;
-        this.userMarker({ x, y }, item, i);
-      });
+      if(v.length) {
+        v.forEach(async(item,i) => {
+          const x = item.user_longitude;
+          const y = item.user_latitude;
+          this.userMarker({ x, y }, item, i);
+        });
+      }
       // for (let i = 0; i < length; i++) {
       //   console.log("i",i)
       //   console.log("v[i].gps_log_id",v[i].gps_log_id);

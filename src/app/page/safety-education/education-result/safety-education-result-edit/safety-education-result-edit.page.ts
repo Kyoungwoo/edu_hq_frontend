@@ -93,9 +93,14 @@ export class SafetyEducationResultEditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    console.log("item",this.item);
     this.form.education_safe_id = this.item?.education_safe_id;
     if(this.item) {
+      this.form.education_safe_report_instructor = this.item.education_safe_instructor;
+      this.form.education_safe_report_text = this.item.ctgo_education_safe_text
       await this.getDefaultItem();
+      this.reportList()
+
     }
     if(this.education_safe_report_id) {
       await Promise.all([
@@ -164,7 +169,8 @@ export class SafetyEducationResultEditPage implements OnInit {
 
   //참석자 목록
   async reportList() {
-    this.res = await this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.education_safe_report_id });
+    console.log("this.education_safe_report_id",this.education_safe_report_id);
+    this.res = await this.connect.run('/education/report/attendant/list', { education_safe_report_id:this.item ?  this.item.education_safe_id : this.education_safe_report_id});
     if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
@@ -226,8 +232,8 @@ export class SafetyEducationResultEditPage implements OnInit {
   async onSaveClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
 
-    if(!this.form.education_safe_report_instructor) { this.toast.present({ color: 'warning', message: '강사명이 없습니다.' }); return; }
-    if(!this.form.education_safe_report_text) { this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' }); return; }
+    // if(!this.form.education_safe_report_instructor) { this.toast.present({ color: 'warning', message: '강사명이 없습니다.' }); return; }
+    // if(!this.form.education_safe_report_text) { this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' }); return; }
 
     this.form.approval_cnt_answer = '임시저장';
     this.form.approval_default_data = approval_data;
@@ -263,7 +269,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     const approval_data = ev.approval_data;
 
     if(!this.form.education_safe_report_instructor) { this.toast.present({ color: 'warning', message: '강사명이 없습니다.' }); return; }
-    if(!this.form.education_safe_report_text) { this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' }); return; }
+    if(!this.form.education_safe_report_text) { this.toast.present({ color: 'warning', message: '교육 내용을 입력해주세요.' }); return; }
 
     this.form.approval_cnt_answer = '결재중';
     this.form.approval_default_data = approval_data;
@@ -274,7 +280,7 @@ export class SafetyEducationResultEditPage implements OnInit {
 
       if(res.rsCode === 0) {
         this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-        this._modal.dismiss();
+        this._modal.dismiss(true);
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
       }
@@ -295,7 +301,7 @@ export class SafetyEducationResultEditPage implements OnInit {
         const approvalRes = await ev.send();
         if(approvalRes.rsCode === 0) {
           this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-          this._modal.dismiss();
+          this._modal.dismiss(true);
           // 목록을 새로고침 해줘야 함
           window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
         }

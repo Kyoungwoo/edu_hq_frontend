@@ -14,12 +14,12 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene name="project_id" [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
+                <app-select-scene [all]="editable.add" name="project_id" [all]="true" [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
+                <app-select-contractor [allState]="editable.add" [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -57,9 +57,6 @@
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
         </ion-toolbar>
-        
-        <ng-container *ngIf="res && res.rsCode === 0">
-
           <ion-toolbar color="white">
             <h5>결과 보고 목록(총{{ res?.rsObj?.row_count || 0 }}건)</h5>
           </ion-toolbar>
@@ -91,15 +88,6 @@
           </app-table>
 
           <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
-
-        </ng-container>
-
-        <ng-container *ngIf="res && res.rsCode === 1008">
-
-          <app-card>검색된 목록이 없습니다.</app-card>
-
-        </ng-container>
-
       </app-col>
     </app-row>
   </ion-content>

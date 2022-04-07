@@ -153,6 +153,10 @@ export class SafetyEducationResultListPage implements OnInit {
       component: NewWriteTargetPage,
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getList();
+    }
   }
 
   /**
