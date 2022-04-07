@@ -82,7 +82,7 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
+      <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
   </app-row>
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
