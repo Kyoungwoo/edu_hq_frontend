@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 export interface MenuItem {
   title: string,
@@ -153,7 +154,8 @@ export class SideMenuUserComponent implements OnInit {
   constructor(
     private alert: AlertService,
     public _modal: ModalController,
-    private user: UserService
+    private user: UserService,
+    private nav: NavService
   ) { 
     this.menuSelected = this.menuList[0];
   }
@@ -168,5 +170,19 @@ export class SideMenuUserComponent implements OnInit {
       img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
       header: '준비중'
     });
+  }
+
+  router(title: string) {
+    switch (title) {
+      case '':
+        this.alert.present({
+          message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+          header: '준비중'
+        });
+        break;
+      case '설정':
+        this.nav.navigateRoot('/setting-menu');
+        break;
+    }
   }
 }
