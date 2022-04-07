@@ -16,13 +16,14 @@ export class WorkStandardSetPage implements OnInit {
 
   //공종 시작
   constructionForm = {
-    project_id: 0,
-    master_company_id: 0
+    project_id:this.user.userData.belong_data.project_id,
+    master_company_id:this.user.userData.belong_data.master_company_id,
   }
   resConstruction: ConnectResult<{
     ctgo_construction_id: number, // 공종ID
     ctgo_construction_name: string, // 공종명
     project_id: number, // 현장 ID
+    master_company_id:number,
     ctgo_construction_use_state: number// 1 사용 / 0 미사용
   }>
 
@@ -31,7 +32,7 @@ export class WorkStandardSetPage implements OnInit {
 
   //건설기계
   machineryFrom = {
-    project_id:this.user.userData.belong_data.company_id,
+    project_id:this.user.userData.belong_data.project_id,
     master_company_id:this.user.userData.belong_data.master_company_id,
     search_text:''
   }
@@ -82,7 +83,7 @@ export class WorkStandardSetPage implements OnInit {
   //재해 형태
   disasterForm =  {
     project_id:this.user.userData.belong_data.project_id,
-    master_company_id:this.user.userData.belong_data.company_id
+    master_company_id:this.user.userData.belong_data.master_company_id
   }
 
   resDisaster:ConnectResult<{
@@ -185,6 +186,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resConstruction?.rsMap.unshift({
         ctgo_construction_id: 0, // 공종ID
         ctgo_construction_name: '', // 공종명
+        master_company_id:this.constructionForm.master_company_id,
         project_id: this.constructionForm.project_id, // 현장 ID
         ctgo_construction_use_state: 0// 1 사용 / 0 미사용
       });
@@ -193,6 +195,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resConstruction?.rsMap.push({
         ctgo_construction_id: 0, // 공종ID
         ctgo_construction_name: '', // 공종명
+        master_company_id:this.constructionForm.master_company_id,
         project_id: this.constructionForm.project_id, // 현장 ID
         ctgo_construction_use_state: 0// 1 사용 / 0 미사용
       });
@@ -203,6 +206,7 @@ export class WorkStandardSetPage implements OnInit {
       if (item.ctgo_construction_id === 0) {
         const res = await this.connect.run('/project/construction/insert', item, {})
         if (res.rsCode === 0) {
+          this.getConstruction();
           if(this.resConstruction.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
@@ -210,14 +214,15 @@ export class WorkStandardSetPage implements OnInit {
       } else {
         const res = await this.connect.run('/project/construction/update', item, {});
         if (res.rsCode === 0) {
+          this.getConstruction();
           if(this.resConstruction.rsMap.length === (i + 1)) {
             this.toast.present({ message: '저장 되었습니다.', color: 'primary' });
           }
         };
       }
     });
-
   }
+
   constructionState(state) {
     if (state) {
       for (let j = 0; j < this.resConstruction.rsMap.length; j++) {
@@ -267,9 +272,6 @@ export class WorkStandardSetPage implements OnInit {
   async getMachinery() {
   this.resMachinery = await this.connect.run('/project/machinery/get', this.machineryFrom);
     if (this.resMachinery.rsCode === 0) { 
-      this.resMachinery.rsMap.forEach(item => {
-        item.ctgo_machinery_doc_state ? item.ctgo_machinery_doc = true : item.ctgo_machinery_doc = false;
-      });
     };
   }
 
@@ -356,7 +358,6 @@ export class WorkStandardSetPage implements OnInit {
           }
         };
       } else {
-        console.log("11234");
         const res = await this.connect.run('/project/machinery/update', item, {});
         if (res.rsCode === 0) {
           this.getMachinery();
@@ -491,9 +492,10 @@ export class WorkStandardSetPage implements OnInit {
 
   //재해형태
   async getDisaster() {
-    this.resDisaster = await this.connect.run('/project/disaster/get',{company_id:this.disasterForm},{});
+    this.resDisaster = await this.connect.run('/project/disaster/get',this.disasterForm,{});
     if(this.resDisaster.rsCode === 0) {};
   }
+
   async disasterAdd() {
     if (!this.disasterForm) return await this.toast.present({ message: '현장을 선택해주세요.', color: 'danger' });
     if (this.resDisaster?.rsMap?.length) {

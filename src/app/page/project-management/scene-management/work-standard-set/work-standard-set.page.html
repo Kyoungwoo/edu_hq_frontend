@@ -173,7 +173,10 @@
                   <app-input [(ngModel)]="item.ctgo_machinery_name"></app-input>
                 </td>
                 <td>
-                  <app-check [(ngModel)]="item.ctgo_machinery_doc"></app-check>
+                  <app-select [(ngModel)]="item.ctgo_machinery_doc_state">
+                    <app-select-option [value]="1">Y</app-select-option>
+                    <app-select-option [value]="0">N</app-select-option>
+                  </app-select>
                 </td>
                 <td>
                   <app-select [(ngModel)]="item.ctgo_machinery_use_state">
