@@ -56,6 +56,7 @@ exports.__esModule = true;
 exports.RiskEvaluationEditPage = void 0;
 var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
+var search_area_component_1 = require("src/app/component/modal/search-area/search-area.component");
 var risk_evaluation_popup_page_1 = require("../risk-evaluation-popup/risk-evaluation-popup.page");
 var RiskEvaluationEditPage = /** @class */ (function () {
     function RiskEvaluationEditPage(user, connect, toast, _modal, loading, date) {
@@ -206,13 +207,15 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      * 임시 저장버튼 클릭
      */
     RiskEvaluationEditPage.prototype.onSaveClick = function (ev) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, url, res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.evaluation_data.length) {
+                        this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
@@ -227,7 +230,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         }
                         return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '임시저장 되었습니다.' });
                             if (!this.form.approval_id) {
@@ -250,13 +253,15 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      * 결재 요청 버튼 클릭
      */
     RiskEvaluationEditPage.prototype.onSendClick = function (ev) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var approval_data, res, loading, res, approvalRes;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.evaluation_data.length) {
+                        this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+                        if (!((_a = this.form.evaluation_data) === null || _a === void 0 ? void 0 : _a.length)) {
                             this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' });
                             return [2 /*return*/];
                         }
@@ -265,7 +270,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         if (!!this.form.approval_id) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.connect.run('/risk/assessment/insert', this.form, { loading: true })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
                             this._modal.dismiss();
@@ -278,14 +283,14 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         return [3 /*break*/, 8];
                     case 2: return [4 /*yield*/, this.loading.present()];
                     case 3:
-                        loading = _a.sent();
+                        loading = _b.sent();
                         return [4 /*yield*/, this.connect.run('/risk/assessment/update', this.form)];
                     case 4:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (!(res.rsCode === 0)) return [3 /*break*/, 6];
                         return [4 /*yield*/, ev.send()];
                     case 5:
-                        approvalRes = _a.sent();
+                        approvalRes = _b.sent();
                         if (approvalRes.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
                             this._modal.dismiss();
@@ -298,10 +303,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         return [3 /*break*/, 7];
                     case 6:
                         this.toast.present({ color: 'warning', message: res.rsMsg });
-                        _a.label = 7;
+                        _b.label = 7;
                     case 7:
                         loading.dismiss();
-                        _a.label = 8;
+                        _b.label = 8;
                     case 8: return [2 /*return*/];
                 }
             });
@@ -499,6 +504,90 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             });
         });
         return riskList;
+    };
+    /**
+     * 장소 팝업
+     */
+    RiskEvaluationEditPage.prototype.openArea = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 건설기계 팝업
+     */
+    RiskEvaluationEditPage.prototype.openMachinery = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 특수공도구 팝업
+     */
+    RiskEvaluationEditPage.prototype.openTool = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: search_area_component_1.SearchAreaComponent,
+                            componentProps: {
+                                project_id: this.form.project_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            console.log(data);
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     __decorate([
         core_1.Input()

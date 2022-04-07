@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
@@ -41,15 +42,21 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
   @Input() readonly:boolean = false;
   @Input() required: boolean = false;
 
+  @Input() 
+  set project_id(v:number) {
+    if(this._project_id !== v) {
+      this._project_id = v;
+      this.get();
+    }
+  }
+  get project_id() { return this._project_id }
+  private _project_id:number = 0;
+
   private _company_id:number;
   @Input() set company_id(v:number) {
     if(this._company_id !== v) {
-      // this._company_id = v;
-      // this._value = 0;
-
       this._company_id = v;
       this.get();
-      // this.valueChange(this._value);
     }
   }
 
@@ -60,12 +67,14 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
 
   constructor(
     private _modal:ModalController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private user: UserService
   ) { }
 
   ngOnInit() {}
 
   public async get() {
+    const { user_type } = this.user.userData;
     if(this.isModalData) return;
     // this.value = 0;
     // if(this.all) {
@@ -75,23 +84,44 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     //   this.text = '';
     // }
 
-    if(!this.value && !this.all) return;
+    // if(!this.value && !this.all) return;
     
-    if(this.value === 0 && this.all) {
-      this.text = '전체';
+    // if(this.value === 0 && this.all) {
+    //   this.text = '전체';
+    //   return;
+    // }
+
+    // if(!this.value) return;
+    
+    if(!this.project_id || !this.company_id || !this.value) {
+      this.value = 0;
+
+      if(this.all) {
+        this.text = '전체';
+      }
+      else {
+        this.text = '';
+      }
       return;
     }
 
-    if(!this.value) return;
-    
     this.res = await this.connect.run('/category/certify/machinery/get', {
       company_id: this.company_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
       const { rsMap } = this.res;
-      this.value = rsMap[0]?.company_id;
+      // this.value = rsMap[0]?.company_id;
+      // this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
+
+      if(!this.value && user_type === 'LH') {
+        this.value = rsMap[0]?.company_id;
+      }
+
       this.text = rsMap.find(company => company.ctgo_machinery_id === this.value)?.ctgo_machinery_name || '';
+
+      // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
+      if(!this.text) this.value = 0;
     }
 
     if(this.res.rsCode === 1008) {
@@ -113,7 +143,8 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
         all:this.all,
         value: this.value,
         form: {
-          company_id: this.company_id,
+          master_company_id: this.company_id,
+          project_id: this.project_id,
           search_text: ''
         }
       }

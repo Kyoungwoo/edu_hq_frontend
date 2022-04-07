@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
+import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -202,7 +203,8 @@ export class RiskEvaluationEditPage implements OnInit {
   async onSaveClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
 
-    if(!this.form.evaluation_data.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
+    this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+    if(!this.form.evaluation_data?.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
 
     this.form.approval_cnt_answer = '임시저장';
     this.form.approval_default_data = approval_data;
@@ -237,7 +239,8 @@ export class RiskEvaluationEditPage implements OnInit {
   async onSendClick(ev:ApprovalBtnClickEvent) {
     const approval_data = ev.approval_data;
 
-    if(!this.form.evaluation_data.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
+    this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+    if(!this.form.evaluation_data?.length) { this.toast.present({ color: 'warning', message: '위험성 평가 평가표 정보를 입력해주세요.' }); return; }
 
     this.form.approval_cnt_answer = '결재중';
     this.form.approval_default_data = approval_data;
@@ -475,5 +478,60 @@ export class RiskEvaluationEditPage implements OnInit {
     });
 
     return riskList;
+  }
+
+  /**
+   * 장소 팝업
+   */
+  async openArea() {
+    const modal = await this._modal.create({
+      component: SearchAreaComponent,
+      componentProps: {
+        project_id: this.form.project_id
+      }
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+      console.log(data);
+    }
+  }
+  /**
+   * 건설기계 팝업
+   */
+   async openMachinery() {
+    const modal = await this._modal.create({
+      component: SearchAreaComponent,
+      componentProps: {
+        project_id: this.form.project_id
+      }
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+      console.log(data);
+    }
+  }
+  /**
+   * 특수공도구 팝업
+   */
+   async openTool() {
+    const modal = await this._modal.create({
+      component: SearchAreaComponent,
+      componentProps: {
+        project_id: this.form.project_id
+      }
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+      console.log(data);
+    }
   }
 }

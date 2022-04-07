@@ -20,10 +20,7 @@ export class MachineryItem {
 export class SearchConstructionMachineryComponent implements OnInit {
 
   @Input() all:boolean = false;
-  @Input() form = {
-    company_id: 0,
-    search_text: ''
-  }
+  @Input() form:any;
   res:ConnectResult<MachineryItem>;
 
   allState: boolean = false;

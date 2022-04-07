@@ -1,3 +1,4 @@
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ModalController } from '@ionic/angular';
@@ -17,6 +18,7 @@ export class ProjectItem {
 })
 export class SearchSceneComponent implements OnInit {
 
+  @Input() value;
   @Input() type:ProjectSearchType;
   @Input() all:boolean = false;
   @Input() form = {
@@ -32,7 +34,8 @@ export class SearchSceneComponent implements OnInit {
     private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
     private _modal : ModalController,
-    private promise: PromiseService
+    private promise: PromiseService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -69,6 +72,14 @@ export class SearchSceneComponent implements OnInit {
     }
     else {
       this.res = await this.connect.run('/category/certify/search_my_project/get', this.form, { loading: '현장 검색' });
+      if (this.res.rsCode === 0) {
+        this.res.rsMap.filter(item => {
+          if(this.value === item.project_id) this.selectedItem = item;
+        });
+        if(!this.value) this.allState = true;
+      } else {
+        this.toast.present({ color: 'warning', message: this.res.rsMsg });
+      }
     }
   }
   select() {

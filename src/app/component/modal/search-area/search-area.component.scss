@@ -8,3 +8,55 @@ app-table {
 .col-header-class{
 	background: #dedede;
 }
+
+.flex-box {
+	display: flex;
+	
+
+	.flex-revers {
+		flex-direction: column;
+		flex: 0 0 20%;
+
+		&:nth-child(3) {
+			flex: 0 0 60%;
+			border-right: none;
+		}
+
+		.flex-header{
+			background: var(--ion-color-medium-translucent);
+			height: 40px;
+			text-align: center;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			app-img {
+				position: absolute;
+				right: -10px;
+				z-index: 1;
+			}
+		}
+
+		.flex-list {
+			height: 550px;
+			overflow: auto;
+			background: white;
+			border-right: 1px solid var(--ion-color-step-100);
+
+			&:nth-child(4) {
+				border-right: none;
+			}
+		}
+
+		.flex-item {
+			padding: 5px;
+			cursor: pointer;
+		}
+		.flex-item:hover {
+			background: var(--ion-color-step-100);
+		}
+	}
+}
+.selected {
+	background-color: var(--ion-color-primary-translucent);
+}
