@@ -16,11 +16,11 @@
       </app-col>
       <app-col size="auto">
         <app-row class="weather-temp">
-          {{ weather.weather_temp + "&deg;C"}}
+          {{ weather.weather_temp + "&deg;C" }}
         </app-row>
         <app-row class="ratio">
           {{ weather.high_weather_temp + "&deg;C" }}
-          {{ weather.low_weather_temp + "&deg;C"}}
+          {{ weather.low_weather_temp + "&deg;C" }}
         </app-row>
       </app-col>
       <app-col class="colstyle" size="auto">
@@ -44,7 +44,7 @@
           최대풍속
         </app-row>
         <app-row class="ratio">
-          {{ weather.weather_speed + "m/s"}}
+          {{ weather.weather_speed + "m/s" }}
         </app-row>
       </app-col>
       <app-col class="colstyle" size="auto">
@@ -67,9 +67,6 @@
     </app-col>
     <app-col>
       <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
-      <!-- <app-select>
-        <app-select-option>전체</app-select-option>
-      </app-select> -->
     </app-col>
   </app-row>
 
@@ -877,7 +874,7 @@
       <app-card>
         <app-row style="align-items: flex-start;">
           <app-col>
-            <app-naver-user-map [(ngModel)]="gpsData"></app-naver-user-map>
+            <app-naver-user-map [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
           </app-col>
           <app-col size="4">
             <ion-toolbar color="light">

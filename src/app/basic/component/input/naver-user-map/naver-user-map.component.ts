@@ -81,7 +81,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     });
   }
 
-  private userMarker(coord, item, i) {
+  private async userMarker(coord, item, i) {
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -92,37 +92,37 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     });
     this.marker.push(marker);
     let infoWindowElement;
-    if(item.area_state === '일반') {
-      infoWindowElement = (
-        `<div class="iw_inner">
-            <h5 style="text-align:center">SOS 요청</h5>
-            <p>${item.company_name}</p>
-            <p>${item.user_name}</p>
-            <p>장소 : ${item.area_name ? item.area_name:''}</p>
-            <p>위험지역명${item.area_risk_name}</p>
-         </div>
-        `
-      );
-    } else {
-      infoWindowElement = (
-        `<div class="iw_inner">
-            <h5>${item.user_name}</h5>
-            <p>${item.company_name}</p>
-            <p>${item.user_name}</p>
-            <p>장소 : ${item.area_name ? item.area_name:''}</p>
-            <p>위험지역명${item.area_risk_name?.toString()}</p>
-         </div>
-        `
-      );
+    const res = await this.connect.run('/integrated/gps/detail',{gps_log_id:item.gps_log_id});
+    if(res.rsCode === 0) {
+      if(item.area_state === '일반') {
+        infoWindowElement = (
+          `<div class="iw_inner">
+              <h5 style="text-align:center">SOS 요청</h5>
+              <p>${res.rsObj.company_name}</p>
+              <p>${res.rsObj.user_name}</p>
+              <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+           </div>
+          `
+        );
+      } else {
+        infoWindowElement = (
+          `<div class="iw_inner">
+              <h5>${res.rsObj.user_name}</h5>
+              <p>${res.rsObj.company_name}</p>
+              <p>${res.rsObj.user_name}</p>
+              <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+              <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
+           </div>
+          `
+        );
+      }     
     }
-
     let infowindow = new naver.maps.InfoWindow({
       content: infoWindowElement,
       maxWidth: 120,
       maxHeight: 100,
     });
       naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
-        console.log("this.marker[i]",this.marker[i])
         if (infowindow.getMap()) {
           infowindow.close();
         } else {
@@ -136,8 +136,9 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   private async parseData(v) {
     await this.afterInit();
     if (v) {
+      console.log("v---",v);
       const length = v.length;
-      if(v.length) {
+      if(length) {
         v.forEach(async(item,i) => {
           const x = item.user_longitude;
           const y = item.user_latitude;

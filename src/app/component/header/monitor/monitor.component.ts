@@ -41,14 +41,16 @@ export class MonitorComponent implements OnInit {
     private animationCtrl: AnimationController,
     private modal:ModalController,
     private nav: NavService,
-    public adminMenu: SideMenuAdminComponent,
-    
+    public adminMenu: SideMenuAdminComponent
   ) { }
   
   ngOnInit() {}
   
+  ngAfterViewInit() {
+    this.tabActive = this.tabList[0];
+  }
+
   tabClick(tab, i) {
-    // console.log(tab);
     this.tabActive = tab;
   }
 
