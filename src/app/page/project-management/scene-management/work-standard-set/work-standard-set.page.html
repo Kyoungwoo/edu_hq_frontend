@@ -97,13 +97,6 @@
               </tbody>
             </app-table>
           </app-check-group>
-          <app-row *ngIf="!resConstruction?.rsMap?.length">
-            <app-col>
-              <app-card>
-                <h5>목록이 없습니다.</h5>
-              </app-card>
-            </app-col>
-          </app-row>
         </ng-container>
       </app-col>
     </app-row>
@@ -126,9 +119,14 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [multiple]="false"
-                [disabled]="editable" [(ngModel)]="machineryFrom"></app-select-company>
-            </td>`
+              <app-select-scene [disabled]="editable" [(ngModel)]="machineryFrom.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="user.userData.belong_data.project_id" [multiple]="false"
+                [disabled]="editable" [(ngModel)]="machineryFrom.master_company_id"></app-select-contractor>
+            </td>
           </tr>
         </tbody>
       </app-table>
@@ -187,13 +185,6 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resMachinery?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
     </app-col>
   </app-row>
@@ -220,8 +211,8 @@
           </tr>
           <tr>
             <td>
-              <app-select-company [project_id]="toolForm.project_id" [disabled]="editable"
-                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.company_id"></app-select-company>
+              <app-select-contractor [project_id]="toolForm.project_id" [disabled]="editable"
+                [project_id]="toolForm.project_id" [(ngModel)]="toolForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>
@@ -277,13 +268,6 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resTool?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
     </app-col>
   </app-row>
@@ -312,8 +296,8 @@
             </tr>
             <tr>
               <td>
-                <app-select-company [disabled]="editable" [project_id]="meetingForm.project_id" [multiple]="false"
-                  [(ngModel)]="meetingForm.company_id"></app-select-company>
+                <app-select-contractor [disabled]="editable" [project_id]="meetingForm.project_id" [multiple]="false"
+                  [(ngModel)]="meetingForm.company_id"></app-select-contractor>
               </td>
             </tr>
           </tbody>
@@ -384,7 +368,13 @@
         <tbody>
           <tr>
             <td>
-              <app-select-company [project_id]="user.userData.belong_data.project_id" [disabled]="editable" [(ngModel)]="disasterForm"></app-select-company>
+              <app-select-scene [disabled]="editable" [(ngModel)]="disasterForm.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="disasterForm.project_id" 
+              [disabled]="editable" [(ngModel)]="disasterForm.master_company_id"></app-select-contractor>
             </td>
           </tr>
         </tbody>
@@ -400,7 +390,7 @@
           <app-button [disabled]="workRoleCheck" fill="translucent" (click)="disasterState(0)">전체 미사용</app-button>
         </ion-buttons>
       </ion-toolbar>
-      <ng-container *ngIf="!workRoleCheck else roleEmpty">
+      <ng-container *ngIf="!workRoleCheck">
         <ion-toolbar color="white">
           <app-row>
             <app-col>
@@ -440,23 +430,7 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-card *ngIf="!resDisaster?.rsMap?.length">
-          <app-row>
-            <app-col>
-              <h5>목록이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
       </ng-container>
-      <ng-template #roleEmpty>
-        <app-card>
-          <app-row>
-            <app-col>
-              <h5>권한이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
-      </ng-template>
     </app-col>
   </app-row>
 </ion-content>

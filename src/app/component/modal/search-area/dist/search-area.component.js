@@ -66,11 +66,11 @@ var SearchAreaComponent = /** @class */ (function () {
         this.connect = connect;
         this._modal = _modal;
         this.selectType = 'auto';
+        this.multiple = false;
     }
     SearchAreaComponent.prototype.ngOnInit = function () {
         var _this = this;
         setTimeout(function () {
-            console.log(_this.project_id);
             _this.area1Get();
         }, 300);
     };
@@ -97,6 +97,7 @@ var SearchAreaComponent = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        this.area3 = null;
                         this.area1selectedItem = item;
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/category/area/middle/get', { area_top_id: item.area_top_id })];
@@ -181,6 +182,9 @@ var SearchAreaComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], SearchAreaComponent.prototype, "selectType");
+    __decorate([
+        core_1.Input()
+    ], SearchAreaComponent.prototype, "multiple");
     SearchAreaComponent = __decorate([
         core_1.Component({
             selector: 'app-search-area',

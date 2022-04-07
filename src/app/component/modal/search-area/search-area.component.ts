@@ -29,6 +29,7 @@ class area3{
 export class SearchAreaComponent implements OnInit {
   @Input() project_id;
   @Input() selectType: 'manual' | 'auto' = 'auto';
+  @Input() multiple:boolean = false;
 
   areaView1:boolean;
   areaView2:boolean;
@@ -48,17 +49,17 @@ export class SearchAreaComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      console.log(this.project_id);
       this.area1Get();
     }, 300);
   }
 
   async area1Get() {
-    this.area1 = await this.connect.run('/category/area/top/get',{project_id:this.project_id});
+    this.area1 = await this.connect.run('/category/area/top/get', { project_id:this.project_id });
     if(this.area1.rsCode === 0) {};
   }
 
   async area2Get(item) {
+    this.area3 = null;
     this.area1selectedItem = item;
     this.area2 = await this.connect.run('/category/area/middle/get',{area_top_id:item.area_top_id});
     if(this.area2.rsCode === 0) {};

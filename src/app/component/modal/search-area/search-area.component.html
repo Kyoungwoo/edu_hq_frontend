@@ -5,65 +5,109 @@
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
-  <!-- <ion-toolbar color="white">
-    <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
-      <app-img name="search"></app-img>
-    </app-input>
-  </ion-toolbar> -->
 </ion-header>
 <ion-content>
-  <app-card (click)="this.areaView1 = !this.areaView1" class="col-header-class">
-    <app-row>
-      <app-col>
-        Area1
-      </app-col>
-      <app-img [src]="areaView1 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-    </app-row>
-  </app-card>
-  <ng-container *ngIf="areaView1" >
-    <app-card *ngFor="let item of area1?.rsMap" [button]="true" [color]="area1selectedItem === item ? 'secondary' : 'white'"
-    (click)="area2Get(item)">
-      <div>
-        {{item.area_top_name}}
+  <ng-container *mobileHidden>
+    <div class="flex-box">
+
+      <div class="flex-revers">
+        <!-- header -->
+        <div class="flex-header">
+          <div>area1</div>
+          <app-img name="next"></app-img>
+        </div>
+        <div class="flex-list" >
+          <!-- item -->
+          <div *ngFor="let item of area1?.rsMap" class="flex-item" [class.selected]="area1selectedItem === item" (click)="area2Get(item)">
+            {{ item.area_top_name }}
+          </div>
+        </div>
       </div>
-    </app-card>
-    <!-- <app-table *ngFor="let item of area1?.rsMap" (click)="area1selectedItem = item">
-      <tr style="background-color: red;">
-        <td>{{item.area_top_name}}</td>
-      </tr>
-    </app-table> -->
+    
+      <div class="flex-revers">
+        <!-- header -->
+        <div class="flex-header">
+          <div>area2</div>
+          <app-img name="next"></app-img>
+        </div>
+        <div class="flex-list">
+          <!-- item -->
+          <div *ngFor="let item of area2?.rsMap" class="flex-item" [class.selected]="area2selectedItem === item" (click)="area3Get(item)">
+            {{ item.area_middle_name }}
+          </div>
+        </div>
+      </div>
+    
+      <div class="flex-revers">
+        <!-- header -->
+        <div class="flex-header">
+          <div>area3</div>
+        </div>
+        <div class="flex-list">
+          <!-- item -->
+          <div *ngFor="let item of area3?.rsMap" class="flex-item" [class.selected]="area3selectedItem === item" (click)="area3selectedItem = item">
+            {{ item.area_bottom_name }}
+          </div>
+        </div>
+      </div>
+    
+    </div>
   </ng-container>
-  <app-card (click)="areaView2 = !areaView2" class="col-header-class">
-    <app-row>
-      <app-col>
-        Area2
-      </app-col>
-      <app-img [src]="areaView2 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-    </app-row>
-  </app-card>
-  <ng-container *ngIf="areaView2">
-    <app-card *ngFor="let item of area2?.rsMap" [button]="true" [color]="area2selectedItem === item ? 'secondary' : 'white'"
-    (click)="area3Get(item)">
-      <div>
-        {{ item.area_middle_name }}
-      </div>
+  
+  <ng-container *mobileShow>
+    <app-card (click)="this.areaView1 = !this.areaView1" class="col-header-class">
+      <app-row>
+        <app-col>
+          Area1
+        </app-col>
+        <app-img [src]="areaView1 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+      </app-row>
     </app-card>
-  </ng-container>
-  <app-card (click)="areaView3 = !areaView3" class="col-header-class">
-    <app-row>
-      <app-col>
-        Area3
-      </app-col>
-      <app-img [src]="areaView3 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
-    </app-row>
-  </app-card>
-  <ng-container *ngIf="areaView3">
-    <app-card *ngFor="let item of area3?.rsMap" [button]="true" [color]="area3selectedItem === item ? 'secondary' : 'white'"
-    (click)="area3selectedItem = item">
-      <div>
-        {{item.area_bottom_name}}
-      </div>
+    <ng-container *ngIf="areaView1" >
+      <app-card *ngFor="let item of area1?.rsMap" [button]="true" [color]="area1selectedItem === item ? 'secondary' : 'white'"
+      (click)="area2Get(item)">
+        <div>
+          {{item.area_top_name}}
+        </div>
+      </app-card>
+      <!-- <app-table *ngFor="let item of area1?.rsMap" (click)="area1selectedItem = item">
+        <tr style="background-color: red;">
+          <td>{{item.area_top_name}}</td>
+        </tr>
+      </app-table> -->
+    </ng-container>
+    <app-card (click)="areaView2 = !areaView2" class="col-header-class">
+      <app-row>
+        <app-col>
+          Area2
+        </app-col>
+        <app-img [src]="areaView2 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+      </app-row>
     </app-card>
+    <ng-container *ngIf="areaView2">
+      <app-card *ngFor="let item of area2?.rsMap" [button]="true" [color]="area2selectedItem === item ? 'secondary' : 'white'"
+      (click)="area3Get(item)">
+        <div>
+          {{item.area_middle_name}}
+        </div>
+      </app-card>
+    </ng-container>
+    <app-card (click)="areaView3 = !areaView3" class="col-header-class">
+      <app-row>
+        <app-col>
+          Area3
+        </app-col>
+        <app-img [src]="areaView3 ? 'assets/img/menu/list-tab-hide.svg':'assets/img/menu/list-tab.svg'"></app-img>
+      </app-row>
+    </app-card>
+    <ng-container *ngIf="areaView3">
+      <app-card *ngFor="let item of area3?.rsMap" [button]="true" [color]="area3selectedItem === item ? 'secondary' : 'white'"
+      (click)="area3selectedItem = item">
+        <div>
+          {{item.area_bottom_name}}
+        </div>
+      </app-card>
+    </ng-container>
   </ng-container>
 </ion-content>
 <app-button-footer>
