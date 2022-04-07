@@ -1,3 +1,4 @@
+import { NumberSymbol } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -7,7 +8,7 @@ import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
-import { RiskEvaluationPopupPage } from '../risk-evaluation-popup/risk-evaluation-popup.page';
+import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export class RiskEvaluationData {
   risk_asment_id:number = null; // 위험성평가 ID (위험성평가 문서 ID)
@@ -317,5 +318,77 @@ export class RiskEvaluationEditPage implements OnInit {
       }
     })
     modal.present();
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+
+      const riskList = data.riskList as RiskItem[];
+
+      /** 데이터 변환 */
+      const riskTableData:{
+        risk_construction_id:number,
+        risk_construction_name:string,
+        unitList: {
+          risk_unit_id:number,
+          risk_unit_name:string,
+          facterList: {
+            risk_factor_id:number,
+            risk_factor_name:string,
+            planList: {
+              risk_plan_id:number,
+              risk_plan_name:string
+            }[]
+          }[]
+        }[]
+      }[] = [];
+
+      riskList.forEach(riskItem => {
+        let tableConstructionItem = riskTableData.find(item => item.risk_construction_id === riskItem.risk_construction_id);
+
+        /** 공사명이 없다면 새로 추가 */
+        if(!tableConstructionItem) {
+          tableConstructionItem = {
+            risk_construction_id: riskItem.risk_construction_id,
+            risk_construction_name: riskItem.risk_construction_name,
+            unitList: []
+          };
+          riskTableData.push(tableConstructionItem);
+        }
+        
+        let tableUnitItem = tableConstructionItem.unitList.find(item => item.risk_unit_id === riskItem.risk_unit_id);
+
+        /** 공사명에 단위작업이 없다면 새로 추가 */
+        if(!tableUnitItem) {
+          tableUnitItem = {
+            risk_unit_id: riskItem.risk_unit_id,
+            risk_unit_name: riskItem.risk_unit_name,
+            facterList: []
+          }
+          tableConstructionItem.unitList.push(tableUnitItem);
+        }
+
+        /** 위험요인 아이디가 있고(직접입력이 아니고) && 현재 있는 위험요인인지 체크 */
+        let tableFacterItem = tableUnitItem.facterList.find(item => item.risk_factor_id && item.risk_factor_id === riskItem.risk_factor_id);
+
+        /** 단위작업에 위험요인이 없다면 새로 추가 */
+        if(!tableFacterItem) {
+          tableFacterItem = {
+            risk_factor_id: riskItem.risk_factor_id,
+            risk_factor_name: riskItem.risk_factor_name,
+            planList: []
+          }
+          tableUnitItem.facterList.push(tableFacterItem);
+        }
+
+        /** 위험요인에 감소대책 추가 */
+        tableFacterItem.planList.push({
+          risk_plan_id: null,
+          risk_plan_name: riskItem.risk_plan_name
+        });
+      });
+
+    }
+
+    
   }
 }

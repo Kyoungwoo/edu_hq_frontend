@@ -130,6 +130,9 @@
             }
         }
     }
+    td.input {
+        background: var(--ion-color-step-50);
+    }
 }
 :host.text-align-left,
 :host ::ng-deep .text-align-left {

@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -42,7 +53,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.RiskEvaluationPopupPage = exports.PlanItem = exports.FactorItem = exports.UnitItem = exports.ConstructionItem = void 0;
+exports.RiskEvaluationPopupPage = exports.RiskItem = exports.PlanItem = exports.FactorItem = exports.UnitItem = exports.ConstructionItem = void 0;
 var core_1 = require("@angular/core");
 var ConstructionItem = /** @class */ (function () {
     function ConstructionItem() {
@@ -76,13 +87,34 @@ var PlanItem = /** @class */ (function () {
     return PlanItem;
 }());
 exports.PlanItem = PlanItem;
+var RiskItem = /** @class */ (function () {
+    function RiskItem() {
+        this.risk_construction_id = null;
+        this.risk_construction_name = null;
+        this.risk_factor_id = null;
+        this.risk_factor_name = null;
+        this.risk_unit_id = null;
+        this.risk_unit_name = null;
+        this.risk_plan_id = null;
+        this.risk_plan_name = null;
+    }
+    return RiskItem;
+}());
+exports.RiskItem = RiskItem;
 var RiskEvaluationPopupPage = /** @class */ (function () {
-    function RiskEvaluationPopupPage(connect, toast) {
+    function RiskEvaluationPopupPage(connect, toast, _modal) {
         this.connect = connect;
         this.toast = toast;
+        this._modal = _modal;
         this.form = {
             ctgo_business_field_id: null
         };
+        /**
+         * 현재 감소 대책을 직접입력 밖에 없음
+          res4:ConnectResult<PlanItem>;
+          selectItem4:PlanItem;
+         */
+        this.riskList = [];
     }
     RiskEvaluationPopupPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -140,6 +172,10 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
     };
     RiskEvaluationPopupPage.prototype.item1Click = function (item) {
         this.selectItem1 = item;
+        this.selectItem2 = null;
+        this.selectItem3 = null;
+        this.res2 = null;
+        this.res3 = null;
         this.get2();
     };
     RiskEvaluationPopupPage.prototype.get2 = function () {
@@ -164,6 +200,7 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
     };
     RiskEvaluationPopupPage.prototype.item2Click = function (item) {
         this.selectItem2 = item;
+        this.get3();
     };
     RiskEvaluationPopupPage.prototype.get3 = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -178,7 +215,13 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
                             })];
                     case 1:
                         _a.res3 = _b.sent();
-                        if (this.res3.rsCode) {
+                        if (this.res3.rsCode === 0) {
+                            // 암것도 안함
+                        }
+                        else if (this.res3.rsCode === 1008) {
+                            // 암것도 안함
+                        }
+                        else {
                             this.toast.present({ color: 'warning', message: this.res3.rsMsg });
                         }
                         return [2 /*return*/];
@@ -188,31 +231,33 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
     };
     RiskEvaluationPopupPage.prototype.item3Click = function (item) {
         this.selectItem3 = item;
+        this.addRiskItem();
+        // this.get4(); 현재 감소대책 입력은 직접입력 뿐
     };
-    RiskEvaluationPopupPage.prototype.get4 = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.connect.run('/risk/assessment/ctgo/plan/get', {
-                                risk_construction_id: this.selectItem1.risk_construction_id,
-                                risk_unit_id: this.selectItem2.risk_unit_id,
-                                risk_factor_id: this.selectItem3.risk_factor_id
-                            })];
-                    case 1:
-                        _a.res4 = _b.sent();
-                        if (this.res4.rsCode) {
-                            this.toast.present({ color: 'warning', message: this.res4.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
+    RiskEvaluationPopupPage.prototype.empty3Click = function () {
+        this.selectItem3 = null;
+        this.addRiskItem();
+    };
+    /**
+     * 현재 감소대책 입력은 직접입력 뿐
+    async get4() {
+      this.res4 = await this.connect.run('/risk/assessment/ctgo/plan/get', {
+        risk_construction_id: this.selectItem1.risk_construction_id,
+        risk_unit_id: this.selectItem2.risk_unit_id,
+        risk_factor_id: this.selectItem3.risk_factor_id
+  
+      });
+      if(this.res4.rsCode) {
+        this.toast.present({ color: 'warning', message: this.res4.rsMsg });
+      }
+    } */
+    RiskEvaluationPopupPage.prototype.addRiskItem = function () {
+        this.riskList.unshift(__assign(__assign(__assign(__assign({}, new RiskItem()), this.selectItem1), this.selectItem2), this.selectItem3));
+    };
+    RiskEvaluationPopupPage.prototype.submit = function () {
+        this._modal.dismiss({
+            riskList: this.riskList
         });
-    };
-    RiskEvaluationPopupPage.prototype.item4Click = function (item) {
-        this.selectItem4 = item;
     };
     __decorate([
         core_1.Input()
