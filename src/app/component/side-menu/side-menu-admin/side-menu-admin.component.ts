@@ -266,17 +266,17 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '현장 등록', link: '/scene-list',
       permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY';
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
       { title: '감리사 관리', link: '/supervision-list',
       permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'LH';
+        return user_type === 'LH' || user_type === 'SUPER';
       }},
       { title: '원청사 관리', link: '/contractor-list',
       permission: () => {
         const {  user_type, user_role } = this.user.userData;
-        return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+        return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL' || user_type === 'SUPER';
       }},
       { title: '협력사 관리', link: '/partner-list',
       permission: () => {

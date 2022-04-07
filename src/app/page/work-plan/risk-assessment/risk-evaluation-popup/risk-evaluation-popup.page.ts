@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
@@ -18,6 +19,16 @@ export class FactorItem {
 export class PlanItem {
   risk_plan_id:number = null;
   risk_plan_name:string = null;
+}
+export class RiskItem implements ConstructionItem, UnitItem, FactorItem, PlanItem {
+  risk_construction_id: number = null;
+  risk_construction_name: string = null;
+  risk_factor_id: number = null;
+  risk_factor_name: string = null;
+  risk_unit_id: number = null;
+  risk_unit_name: string = null;
+  risk_plan_id: number = null;
+  risk_plan_name: string = null;
 }
 @Component({
   selector: 'app-risk-evaluation-popup',
@@ -41,12 +52,18 @@ export class RiskEvaluationPopupPage implements OnInit {
   res3:ConnectResult<FactorItem>;
   selectItem3:FactorItem;
 
-  res4:ConnectResult<PlanItem>;
-  selectItem4:PlanItem;
+  /**
+   * 현재 감소 대책을 직접입력 밖에 없음
+    res4:ConnectResult<PlanItem>;
+    selectItem4:PlanItem;
+   */
+
+  riskList:RiskItem[] = [];
 
   constructor(
     private connect: ConnectService,
-    private toast: ToastService
+    private toast: ToastService,
+    private _modal: ModalController
   ) { }
 
   async ngOnInit() {
@@ -75,6 +92,10 @@ export class RiskEvaluationPopupPage implements OnInit {
   }
   item1Click(item:ConstructionItem) {
     this.selectItem1 = item;
+    this.selectItem2 = null;
+    this.selectItem3 = null;
+    this.res2 = null;
+    this.res3 = null;
     this.get2();
   }
 
@@ -88,6 +109,7 @@ export class RiskEvaluationPopupPage implements OnInit {
   }
   item2Click(item:UnitItem) {
     this.selectItem2 = item;
+    this.get3();
   }
 
   async get3() {
@@ -95,14 +117,28 @@ export class RiskEvaluationPopupPage implements OnInit {
       risk_construction_id: this.selectItem1.risk_construction_id,
       risk_unit_id: this.selectItem2.risk_unit_id
     });
-    if(this.res3.rsCode) {
+    if(this.res3.rsCode === 0) {
+      // 암것도 안함
+    }
+    else if(this.res3.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else {
       this.toast.present({ color: 'warning', message: this.res3.rsMsg });
     }
   }
   item3Click(item:FactorItem) {
     this.selectItem3 = item;
+    this.addRiskItem();
+    // this.get4(); 현재 감소대책 입력은 직접입력 뿐
+  }
+  empty3Click() {
+    this.selectItem3 = null;
+    this.addRiskItem();
   }
 
+  /**
+   * 현재 감소대책 입력은 직접입력 뿐
   async get4() {
     this.res4 = await this.connect.run('/risk/assessment/ctgo/plan/get', {
       risk_construction_id: this.selectItem1.risk_construction_id,
@@ -113,8 +149,19 @@ export class RiskEvaluationPopupPage implements OnInit {
     if(this.res4.rsCode) {
       this.toast.present({ color: 'warning', message: this.res4.rsMsg });
     }
+  } */
+
+  addRiskItem() {
+    this.riskList.unshift({
+      ...new RiskItem(),
+      ...this.selectItem1,
+      ...this.selectItem2,
+      ...this.selectItem3
+    });
   }
-  item4Click(item:PlanItem) {
-    this.selectItem4 = item;
+  submit() {
+    this._modal.dismiss({
+      riskList: this.riskList
+    });
   }
 }

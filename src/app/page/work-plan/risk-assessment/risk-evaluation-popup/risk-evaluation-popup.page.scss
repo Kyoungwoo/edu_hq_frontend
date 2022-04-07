@@ -5,19 +5,14 @@
 
 	.flex-revers {
 		flex-direction: column;
-		flex: 0 0 15%;
+		flex: 0 0 20%;
 
 		&:nth-child(3) {
-			flex: 0 0 35%;
+			flex: 0 0 60%;
+			border-right: none;
 		}
-		&:nth-child(4) {
-			flex: 0 0 35%;
-			.flex-list{
-				border-right: none;
-			}
-		}
+
 		.flex-header{
-			
 			background: var(--ion-color-medium-translucent);
 			height: 40px;
 			text-align: center;
@@ -31,7 +26,8 @@
 				z-index: 1;
 			}
 		}
-		.flex-list{
+
+		.flex-list {
 			height: 300px;
 			overflow: auto;
 			background: white;
@@ -41,8 +37,13 @@
 				border-right: none;
 			}
 		}
+
 		.flex-item {
 			padding: 5px;
+			cursor: pointer;
+		}
+		.flex-item:hover {
+			background: var(--ion-color-step-100);
 		}
 	}
 }
