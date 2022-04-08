@@ -100,6 +100,7 @@ export class SupervisionListPage implements OnInit {
       });
     }
     else if (res.rsCode === 1008) {
+      this.toast.present({message:res.rsMsg, color:'warning'});
       this.res = null;
     }
     else {
@@ -125,8 +126,8 @@ export class SupervisionListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
-    async getCtgoBusiness() {
-    this.businessState = false;
+    async getCtgoBusiness(ev?) {
+    if(!ev) this.form.hq_business_id = 0;
     this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
     {
       hq_regional_id:this.form.hq_regional_id

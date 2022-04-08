@@ -500,13 +500,11 @@ gps_log_data = new GpsCoordinateData();
   // }
   monitorQuery(){
    this.query =  this.route.queryParams.subscribe(params => {
-      console.log("params",params);
         this.data = {
           monitor:params.monitor
         }
       }
     );
-    console.log("this.query",this.query);
   }
 
   async wokerInGetList() {
@@ -519,17 +517,21 @@ gps_log_data = new GpsCoordinateData();
 
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
+    console.log("this.gpsData",res);
     if(res.rsCode === 0) {
-      this.gpsData = {
-        ...res,
-        ...this.gpsData
-      }
+      this.gpsData = res
       console.log("this.gpsData",this.gpsData);
+      
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
+
+  test(ev) {
+    console.log("ev",ev);
+  }
 }
+
   // async getWeatherGroup() {
     // const resultDust = await Promise.all([    
     //   this.getDust()
