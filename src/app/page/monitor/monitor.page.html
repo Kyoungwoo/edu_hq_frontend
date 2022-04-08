@@ -1,20 +1,22 @@
 <app-moniter-header *mobileHidden></app-moniter-header>
 
-<ion-toolbar *mobileHidden>
-  <app-card class="margin-card">
-    <ion-row>
-      <!-- <app-col size="3">
-        <app-select>
-          <app-select-option>전체</app-select-option>
-        </app-select>
-      </app-col> -->
+<ion-toolbar *mobileHidden color="white">
+ 
+    <app-row>
+      <app-col>
+        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+      </app-col>
+      <app-col>
+        <app-select-contractor  [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      </app-col>
+      <app-col></app-col>
       <app-col></app-col>
       <app-col size="auto">
-        <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
-          <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+        <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
+          <app-img style="width: 55px;" src="assets/img/weather/01_day.svg"></app-img>
         </app-button>
       </app-col>
-      <app-col size="auto">
+      <app-col size="auto" class="weather">
         <app-row class="weather-temp">
           {{ weather.weather_temp + "&deg;C" }}
         </app-row>
@@ -52,23 +54,15 @@
           미세먼지
         </app-row>
         <app-row class="ratio">
-          <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+          <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
           {{ dust.grade_name}}
         </app-row>
       </app-col>
-    </ion-row>
-  </app-card>
+    </app-row>
+ 
 </ion-toolbar>
 
-<ion-toolbar color="white">
-  <app-row>
-    <app-col>
-      <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
-    </app-col>
-  </app-row>
+
 
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
@@ -102,7 +96,7 @@
       </app-input>
     </app-col>
   </app-row>
-</ion-toolbar>
+
 
 <ion-toolbar color="white" *mobileShow>
   <app-row>

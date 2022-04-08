@@ -603,6 +603,10 @@ const routes: Routes = [
     path: 'sos-popup',
     loadChildren: () => import('./page/main/user/sos-popup/sos-popup.module').then( m => m.SosPopupPageModule)
   },
+  {
+    path: 'monitor-realtime-location',
+    loadChildren: () => import('./page/page/monitor/monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
+  },
 
 
 ];

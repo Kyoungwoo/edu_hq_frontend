@@ -5,6 +5,9 @@ ion-toolbar{
     --padding-top: 12px;
     --padding-bottom: 12px;
 }
+.weather {
+    margin-right: 30px;
+}
 .weather-temp {
     font-size: 25px;
     font-weight: bold;
@@ -18,6 +21,7 @@ ion-toolbar{
 }
 .colstyle{
     align-self: flex-end;
+    margin-right: 15px;
 }
 .margin-card {
     margin-top: 0;
