@@ -37,6 +37,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   user_marker: any[] = [];
   infoMarker: any[] = [];
 
+  isAfterInit:boolean = false;
   afteInitRes;
 
   constructor(
@@ -82,15 +83,20 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
 
     this.afteInitRes();
-
+    this.isAfterInit = true;
   }
   afterInit() {
-    return new Promise(res => {
-      this.afteInitRes = res;
-    });
+    if(this.isAfterInit) {
+      return new Promise(res => res(true));
+    } else {
+      return new Promise(res => {
+        this.afteInitRes = res;
+      });
+    }
   }
 
   private addMarker(coord?: LatLng, parse = false) {
+    console.log(coord, this.disabled);
     if (this.disabled) return;
     // 좌표 생성
     const marker = new naver.maps.Marker({
@@ -137,10 +143,10 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     for (let i = 0; i < length; i++) {
       const marker = this.marker.pop();
       marker.setMap(null);
+      this.path.splice(0, 1);
+      this._value.gps_latitude.splice(0, 1);
+      this._value.gps_longitude.splice(0, 1);
     }
-    this.path.splice(0, this.path.length);
-    this._value.gps_latitude.splice(0, this.path.length);
-    this._value.gps_longitude.splice(0, this.path.length);
   }
 
   private getMapSize(): Promise<DOMRect> {
@@ -159,9 +165,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private async parseData(v) {
-    console.log("v",v);
     await this.afterInit();
-    // this.resetMarker();
+    this.resetMarker();
     if (v) {
         const length = v.gps_latitude.length;
         for (let i = 0; i < length; i++) {
@@ -194,7 +199,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     return this._value;
   }
   writeValue(v: GpsCoordinateData): void {
-    console.log("v------------------",v);
     if (!this.file.shallowEqual(v, this._value)) {
       this._value = v;
       this.parseData(v);
