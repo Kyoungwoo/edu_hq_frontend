@@ -535,15 +535,19 @@ gps_log_data = new GpsCoordinateData();
   }
 
   style(item) {
-    let color:string;
-    let allcolor:string;
-    switch(item.name) {
+    let style;
+    switch(item.name) { 
       case '작업전':
-        color = 'warning'
-        break;
+        style = {'background-color':'var(--ion-color-warning)'}
+      break;
+      case '작업중':
+        style = {'background-color':'var(--ion-color-primary)'}
+      break;
+      case '작업종료':
+        style = {'background-color':'var(--ion-color-secondary)'}
+      break;
     }
-   return allcolor = `background:${color}`;
-    console.log("color : ",allcolor);
+    return style
   }
 }
 

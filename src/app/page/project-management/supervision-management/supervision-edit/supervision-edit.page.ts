@@ -39,6 +39,12 @@ export class SupervisionEditPage implements OnInit {
   emailaddress: string;
   directlyInput: string;
   form: SupervisionEdit = new SupervisionEdit();
+  termsRes:ConnectResult<{
+    terms_title: string;
+    create_date: string;
+    update_date: string;
+    terms_text:string;
+  }>
 
   updateStatus: boolean = true;
   constructor(
@@ -54,6 +60,7 @@ export class SupervisionEditPage implements OnInit {
     this.getPermission();
     this.form.project_id = this.project_id;
     this.getItem();
+    this.getTerms();
   }
 
   getPermission() {
@@ -79,7 +86,7 @@ export class SupervisionEditPage implements OnInit {
     }
   }
   async superSave() {
-    if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning'})
+    // if(!this.form.consignee_consent_date) return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning'})
     // if(!this.form.company_name) return this.toast.present({ message: '업체명을 입력해주세요.'});
     // if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     // if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
@@ -135,5 +142,10 @@ export class SupervisionEditPage implements OnInit {
     this.emailaddress = spliteamil[1];
     this.updateStatus = false;
   }
-
+  async getTerms() {
+    this.termsRes = await this.connect.run('/support/terms/get',{terms_title:'개인정보 처리방침'});
+    //아무작동안함
+    if(this.termsRes.rsCode === 0) {
+    }
+  }
 }

@@ -355,9 +355,7 @@
                   <ion-row *ngFor="let item of graphArr3 let i = index" color="warning">
                     <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
                     <app-col style="display: flex; align-items: center;">
-                      <!-- <div [style.background]="var(--ion-color-danger)" style="height: 40px; margin-right: 10px; border-radius: 2px;"
-                        [style.width]="item.count + '%'"></div> -->
-                        <div [ngClass]="item.name === '작업전' ? 'test' : item.name === '작업중' ? 'test1' : 'test2'"
+                        <div [ngStyle]="style(item)" class="worker-state"
                         [style.width]="item.count + '%'"></div>
                       <h4>{{item.count}}</h4>
                     </app-col>

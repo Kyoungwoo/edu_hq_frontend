@@ -146,17 +146,8 @@
 </app-row>
 <app-row>
   <app-col>
-    <app-card>
-      <span class="font-height">
-        <h3 style="text-align: center;">개인정보 처리 위탁 동의서</h3>
-        산업안전보건법 시행규칙 제 79 조 (협의체 구성 및 운영)<br>
-        1. 작업의 시작 시간<br>
-        2. 작업 또는 작업장 간의 연락방법<br>
-        3. 재해발생 위험이 있는 경우 대피방법<br>
-        4. 작업장에서의 법 제36조에 따른 위험성평가의 실시에 관한 사항<br>
-        5. 사업주와 수급인 또는 수급인 상호 간의 연락 방법 및 작업공정의 조정
-      </span>
-    </app-card>
+    <h4>개인정보 처리 위탁 동의서</h4>
+    <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10"  [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
     <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button>
   </app-col>
 </app-row>
