@@ -90,7 +90,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
   }
 
-  private addMarker(coord: LatLng, parse = false) {
+  private addMarker(coord?: LatLng, parse = false) {
     if (this.disabled) return;
     // 좌표 생성
     const marker = new naver.maps.Marker({
@@ -159,6 +159,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private async parseData(v) {
+    console.log("v",v);
     await this.afterInit();
     // this.resetMarker();
     if (v) {
@@ -168,7 +169,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
           const y = v.gps_longitude[i];
           this.addMarker({ x, y }, true);
         }
-    };
+    }
   }
 
   //default setting
@@ -188,10 +189,12 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       this.change.emit(v);
     }
   }
+
   get value() {
     return this._value;
   }
   writeValue(v: GpsCoordinateData): void {
+    console.log("v------------------",v);
     if (!this.file.shallowEqual(v, this._value)) {
       this._value = v;
       this.parseData(v);

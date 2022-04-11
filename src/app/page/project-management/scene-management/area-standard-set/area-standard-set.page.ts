@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
+import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -82,7 +83,7 @@ export class AreaStandardSetPage implements OnInit {
   area_top_id: number;
   area_middle_id: number;
 
-
+  testtttt = 0;
   //장소 끝
 
   resRiskArea: ConnectResult<{
@@ -120,7 +121,7 @@ export class AreaStandardSetPage implements OnInit {
   riskAreaData = [];
 
   area_risk_use_state_data = [];
-  gps_coordinate_data = new GPS_COORDINATE_DATA();
+  gps_coordinate_data = new GpsCoordinateData();
 
   resGPS: ConnectResult<{
     area_bottom_name: string,
@@ -370,8 +371,8 @@ export class AreaStandardSetPage implements OnInit {
   }
 
   addRiskArea() {
-    console.log('asdfasdtest',this.resRiskArea.rsMap);
-    if(this.resRiskArea?.rsMap) {
+    console.log('asdfasdtest', this.resRiskArea.rsMap);
+    if (this.resRiskArea?.rsMap) {
       this.resRiskArea.rsMap.unshift({
         second_user_id: 0, // 관리 책임자 부
         area_risk_id: 0, // 위험지역 ID
@@ -424,31 +425,31 @@ export class AreaStandardSetPage implements OnInit {
 
   async riskSave() {
     const riskArea = this.resRiskArea.rsMap;
-      riskArea.forEach(async (item, i) => {
-        if (!item.area_top_id) return this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })
-        if (!item.area_middle_id) return this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })
-        if (!item.area_bottom_id) return this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })
-        if (!item.area_risk_name) return this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' })
-        if (!item.area_risk_type) return this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })
-        if (!item.manager_user_id) return this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })
-        if (!item.second_user_id) return this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })
-        if (!item.area_risk_id) {
-          item.project_id = this.riskProjectForm.project_id;
-          const resInsert = await this.connect.run('/project/risk_area/insert', item);
-          if (resInsert.rsCode === 0) {
-            this.getRiskArea();
-            if (this.addRiskAreaArr.length === i) {
-              this.toast.present({ message: '저장되었습니다.', color: 'primary' });
-            }
-          } else {
-            this.toast.present({ message: resInsert.rsMsg, color: 'warning' });
+    riskArea.forEach(async (item, i) => {
+      if (!item.area_top_id) return this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })
+      if (!item.area_middle_id) return this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })
+      if (!item.area_bottom_id) return this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })
+      if (!item.area_risk_name) return this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' })
+      if (!item.area_risk_type) return this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })
+      if (!item.manager_user_id) return this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })
+      if (!item.second_user_id) return this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })
+      if (!item.area_risk_id) {
+        item.project_id = this.riskProjectForm.project_id;
+        const resInsert = await this.connect.run('/project/risk_area/insert', item);
+        if (resInsert.rsCode === 0) {
+          this.getRiskArea();
+          if (this.addRiskAreaArr.length === i) {
+            this.toast.present({ message: '저장되었습니다.', color: 'primary' });
           }
+        } else {
+          this.toast.present({ message: resInsert.rsMsg, color: 'warning' });
         }
-      });
+      }
+    });
   }
 
   async nfcView(area_risk_id) {
-    if(!area_risk_id) return;
+    if (!area_risk_id) return;
     const modal = await this.modal.create({
       component: NfcInfoComponent,
       componentProps: { area_risk_id },
@@ -459,7 +460,7 @@ export class AreaStandardSetPage implements OnInit {
 
   async riskAreaSearch(item) {
     console.log(item);
-    if(item.area_risk_id) return;
+    if (item.area_risk_id) return;
     const modal = await this.modal.create({
       component: SearchAreaComponent,
       componentProps: {
@@ -471,7 +472,7 @@ export class AreaStandardSetPage implements OnInit {
     if (data) {
       const riskArea = this.resRiskArea.rsMap;
       for (let i = 0; i < riskArea.length; i++) {
-        if(!riskArea[i].area_risk_id) {
+        if (!riskArea[i].area_risk_id) {
           item.area_top_id = data?.area1selectedItem.area_top_id;
           item.area_middle_id = data?.area2selectedItem?.area_middle_id;
           item.area_bottom_id = data?.area3selectedItem?.area_bottom_id;
@@ -486,13 +487,14 @@ export class AreaStandardSetPage implements OnInit {
   async deleteRisk() {
     if (!this.riskAreaData.length) return this.toast.present({ message: '최소 1개이상 선택해주세요.', color: 'warning' });
     const alert = await this.alert.present({
-      message:'삭제 하시겠습니까?',
-      buttons:[
-        {text:'아니요'},
-        {text:'예',
-          handler:async() => {
+      message: '삭제 하시겠습니까?',
+      buttons: [
+        { text: '아니요' },
+        {
+          text: '예',
+          handler: async () => {
             this.riskAreaData.forEach(async (item, i) => {
-              if(item.area_risk_id) {
+              if (item.area_risk_id) {
                 const res = await this.connect.run('/project/risk_area/delete', {
                   area_risk_id: item.area_risk_id,
                   project_id: this.riskProjectForm.project_id
@@ -507,7 +509,7 @@ export class AreaStandardSetPage implements OnInit {
                 }
               } else {
                 const list = this.resRiskArea.rsMap;
-                list.splice(list.findIndex(data => data === item),1);
+                list.splice(list.findIndex(data => data === item), 1);
               }
             });
           }
@@ -539,26 +541,35 @@ export class AreaStandardSetPage implements OnInit {
 
   async getGpsCoodrinate(item) {
     this.gpsselected = item;
-    if(!item.gps_id) return;
     this.naverMapSetting = false;
-    this.gps_coordinate_data.gps_latitude = [];
-    this.gps_coordinate_data.gps_longitude = [];
-      this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
-      if (this.resGPScood.rsCode === 0) {
-        this.resGPScood.rsMap.forEach(data => {
+    if (!item.gps_id) return this.toast.present({ message: '위험지역을 설정해 주세요.', color: 'warning' });
+    
+    this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
+    if (this.resGPScood.rsCode === 0) {
+      this.resGPScood.rsMap.forEach(data => {
+        if(item.gps_id === data.gps_id) {
           this.gps_coordinate_data.gps_latitude.push(data.gps_latitude);
           this.gps_coordinate_data.gps_longitude.push(data.gps_longitude);
-        });
-        this.changeRef.detectChanges();
-      };
+          console.log("this.gps_coordinate_data",this.gps_coordinate_data);
+        }
+      });
+      this.changeRef.detectChanges();
+    } else {
+      console.log("this.gps_coordinate_data else = ",this.gps_coordinate_data);
+    }
   }
   async gpsSave() {
-    if(this.gpsselected.gps_id) {
-      // if (!this.gpsselected.gps_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
+    if (!this.gpsselected.gps_id) {
+      if (!this.gpsselected.area_risk_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
       this.gpsselected.gps_coordinate_data = this.gps_coordinate_data;
       console.log(this.gpsselected);
       const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsselected, {});
-      if (res.rsCode === 0) { };
+      if (res.rsCode === 0) {
+        this.toast.present({ message: '등록되었습니다.', color:'primary' });
+
+      } else {
+        this.toast.present({ message: res.rsMsg, color:'warning' });
+      }
     }
   }
 
