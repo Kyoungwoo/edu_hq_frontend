@@ -10,6 +10,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
+import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -588,15 +589,20 @@ export class RiskEvaluationEditPage implements OnInit {
     unitItem.ctgo_machinery_ids.splice(index, 1);
     unitItem.ctgo_machinery_names.splice(index, 1);
   }
-  
+
   /**
    * 특수공도구 팝업
    */
    async openTool(unitItem) {
     const modal = await this._modal.create({
-      component: SearchAreaComponent,
+      component: SearchToolComponent,
       componentProps: {
-        project_id: this.form.project_id
+        form: {
+          project_id: this.form.project_id,
+          master_company_id: this.form.master_company_id,
+          search_text: ''
+        },
+        multiple: true
       }
     });
     modal.present();

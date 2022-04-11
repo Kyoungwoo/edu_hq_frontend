@@ -58,6 +58,7 @@ var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
 var search_area_component_1 = require("src/app/component/modal/search-area/search-area.component");
 var search_construction_machinery_component_1 = require("src/app/component/modal/search-construction-machinery/search-construction-machinery.component");
+var search_tool_component_1 = require("src/app/component/modal/search-tool/search-tool.component");
 var risk_evaluation_popup_page_1 = require("../risk-evaluation-popup/risk-evaluation-popup.page");
 var RiskEvaluationEditPage = /** @class */ (function () {
     function RiskEvaluationEditPage(user, connect, toast, _modal, loading, date) {
@@ -668,9 +669,14 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: search_area_component_1.SearchAreaComponent,
+                            component: search_tool_component_1.SearchToolComponent,
                             componentProps: {
-                                project_id: this.form.project_id
+                                form: {
+                                    project_id: this.form.project_id,
+                                    master_company_id: this.form.master_company_id,
+                                    search_text: ''
+                                },
+                                multiple: true
                             }
                         })];
                     case 1:

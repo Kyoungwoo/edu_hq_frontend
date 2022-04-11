@@ -7,58 +7,27 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-select label="구분" name="select">
-        <app-select-option *ngFor="let option of [1,2,3,4]" [value]="option">{{ option }}</app-select-option>
-      </app-select>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
+      <app-input name="search_text" label="검색어" placeholder="검색어를 입력하세요" [(ngModel)]="form.search_text" (buttonClick)="get()">
         <app-img name="search"></app-img>
       </app-input>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card>
+  <app-card *ngFor="let item of res?.rsMap" [color]="selectedList.includes(item) ? 'secondary' : 'white'" (click)="selectItem(item)">
     <app-row>
       <app-col size="auto">
-        <h5>전기드릴</h5>
-        
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>코어드릴</h5>
-        
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>핸드그라인더</h5>
-        
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>연마기</h5>
-        
-      </app-col>
-    </app-row>
-  </app-card>
-  <app-card>
-    <app-row>
-      <app-col size="auto">
-        <h5>원형톱</h5>
-        
+        <h5>{{ item.ctgo_tool_name }}</h5>
       </app-col>
     </app-row>
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button>취소</app-button>
-  <app-button>적용</app-button>
+  <div class="selected-list" slot="top" *ngIf="multiple">
+    <ion-chip *ngFor="let item of selectedList; let i = index;" color="primary" (click)="selectedList.splice(i, 1)">
+      {{ item.ctgo_tool_name }}
+      <ion-icon name="close"></ion-icon>
+    </ion-chip>
+  </div>
+  <app-button name="submit" (click)="submit()">적용</app-button>
 </app-button-footer>
