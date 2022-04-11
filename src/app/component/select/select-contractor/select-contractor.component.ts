@@ -61,6 +61,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
+
     const { user_type } = this.user.userData;
     
     if(!this.project_id || !this.value) {
@@ -164,6 +165,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   writeValue(v:[]): void { 
     if(v !== this._value) {
       this.valueChange(v);
+      this.get();
+
     }
   }
   valueChange(v) {

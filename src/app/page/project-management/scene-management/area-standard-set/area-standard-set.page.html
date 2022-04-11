@@ -216,7 +216,7 @@
           <app-button (click)="riskSave()" fill="translucent">저장</app-button>
         </ion-buttons>
       </ion-toolbar>
-      <ng-container *ngIf="!areaRoleCheck else riskareaEmpty">
+      <ng-container *ngIf="!areaRoleCheck">
         <app-check-group [(ngModel)]="riskAreaData">
           <app-table>
             <thead>
@@ -224,7 +224,7 @@
                 <th rowspan="2" style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th rowspan="2" style="width: 70px;">장소</th>
+                <th rowspan="2" style="width: 150ㅔㅌ;">장소</th>
                 <th rowspan="2">위험지역 유형</th>
                 <th rowspan="2">위험지역명</th>
                 <th rowspan="2">실내/실외</th>
@@ -245,7 +245,9 @@
                   <app-check [on]="item"></app-check>
                 </td>
                 <td *ngIf="!item.area_top_name">
-                  <app-img style="width: 45%;" name="search" (click)="riskAreaSearch(item)"></app-img>
+                  <app-input name="search-project" (click)="riskAreaSearch(item)">
+                    <app-img name="search"></app-img>
+                  </app-input>
                 </td>
                 <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
                   {{ (item.area_top_name ? item.area_top_name : '') + ' '
@@ -341,13 +343,6 @@
             </tbody>
           </app-table>
         </app-check-group>
-        <app-row *ngIf="!resRiskArea?.rsMap?.length">
-          <app-col>
-            <app-card>
-              <h5>항목이 없습니다.</h5>
-            </app-card>
-          </app-col>
-        </app-row>
         <app-pager [totalCount]="resRiskArea?.rsObj.row_count" [limitNo]="riskProjectForm.limit_no" (pagerChange)="getRiskArea($event)"></app-pager>
       </ng-container>
       <ng-template #riskareaEmpty>
@@ -391,13 +386,12 @@
     <app-col>
       <div>
         <ion-toolbar color="white">
-          <h5>실외 위험지역</h5>
           <ion-buttons slot="end">
             <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="gpsSave()">저장</app-button>
           </ion-buttons>
         </ion-toolbar>
       </div>
-      <ng-container *ngIf="!areaRoleCheck else riskareaEmpty">
+      <ng-container *ngIf="!areaRoleCheck">
         <app-card>
           <h5 style="text-align: center;">GPS를 통해 근로자 위치 정보를 수집할 실외 위험지역 영역을 설정하여 주세요</h5>
           <br>
@@ -434,15 +428,6 @@
           </app-table>
         </app-card>
       </ng-container>
-      <ng-template #riskareaEmpty>
-        <app-card>
-          <app-row>
-            <app-col>
-              <h5>권한이 없습니다.</h5>
-            </app-col>
-          </app-row>
-        </app-card>
-      </ng-template>
     </app-col>
   </app-row>
 </ion-content>
