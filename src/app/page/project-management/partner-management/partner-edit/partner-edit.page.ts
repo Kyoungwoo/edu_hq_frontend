@@ -57,6 +57,14 @@ export class PartnerEditPage implements OnInit {
   isNew:boolean = false;
   
   form:PartnerDetail = new PartnerDetail();
+
+  termsRes:ConnectResult<{
+    terms_title: string;
+    create_date: string;
+    update_date: string;
+    terms_text:string;
+  }>
+  
   selectList = [];
 
   constructor(
@@ -80,9 +88,12 @@ export class PartnerEditPage implements OnInit {
     } else {
       this.viewMode = false;
       this.isNew = true;
+      this.permission.agree = true;
     }
 
     this.test();
+    this.getTerms();
+    
   }
 
   private async test() {
@@ -301,5 +312,12 @@ export class PartnerEditPage implements OnInit {
     }
 
     return true;
+  }
+
+  async getTerms() {
+    this.termsRes = await this.connect.run('/support/terms/get',{terms_title:'개인정보 처리방침'});
+    //아무작동안함
+    if(this.termsRes.rsCode === 0) {
+    }
   }
 }

@@ -199,7 +199,7 @@ ion-toolbar{
         line-height: 150px;
     }
     .circlel-plan{
-        background-color:var(--ion-color-warning);
+        background-color:var(--ion-color-monitor-warning);
         width: 20px;
         height: 20px;
         border-radius: 75px;
@@ -437,22 +437,13 @@ app-card:last-child{
         }
     }
 }
-.working { 
-    background-color: var(--ion-color-star);
-    height: 50px; 
+.worker-state { 
+    height: 40px; 
     margin-right: 10px;
     border-radius: 2px;
 }
-
-.working1 { 
-    background-color: var(--ion-color-primary);
-    height: 50px; 
-    margin-right: 10px;
-    border-radius: 2px;
-}
-.working2 { 
-    background-color: var(--ion-color-tertiary);
-    height: 50px; 
+.danger-state { 
+    height: 40px; 
     margin-right: 10px;
     border-radius: 2px;
 }

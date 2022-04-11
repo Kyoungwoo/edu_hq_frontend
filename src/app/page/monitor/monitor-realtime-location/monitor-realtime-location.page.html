@@ -1,9 +1,75 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>monitor-realtime-location</ion-title>
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>근로자 위치 정보</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<app-card>
+  <app-row>
+    <app-col>
+      <h5>회사명</h5>
+    </app-col>
+    <app-col>
+      <p>구일종합건설(주)</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>성명</h5>
+    </app-col>
+    <app-col>
+      <p>박소현</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>장소</h5>
+    </app-col>
+    <app-col>
+      <p>A구역</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>안전직무</h5>
+    </app-col>
+    <app-col>
+      <p>유도원</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>작업팀장</h5>
+    </app-col>
+    <app-col>
+      <p>홍길동</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>작업인원</h5>
+    </app-col>
+    <app-col>
+      <p>3명</p>
+    </app-col>
+  </app-row>
+  <app-row>
+    <app-col>
+      <h5>작업내용</h5>
+    </app-col>
+    <app-col>
+      <p>가설 동바리 설치</p>
+    </app-col>
+  </app-row>
+</app-card>
+<app-card>
+  <app-naver-user-map></app-naver-user-map>
+</app-card>
 </ion-content>
