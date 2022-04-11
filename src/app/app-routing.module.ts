@@ -595,7 +595,8 @@ const routes: Routes = [
   {
     path: 'setting-menu',
     loadChildren: () => import('./page/main/user/setting-menu/setting-menu.module').then( m => m.SettingMenuPageModule)
-  },  {
+  },
+  {
     path: 'setting-sounds',
     loadChildren: () => import('./page/main/user/setting-sounds/setting-sounds.module').then( m => m.SettingSoundsPageModule)
   },
@@ -605,7 +606,7 @@ const routes: Routes = [
   },
   {
     path: 'monitor-realtime-location',
-    loadChildren: () => import('./page/page/monitor/monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
+    loadChildren: () => import('./page//monitor/monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
   },
 
 

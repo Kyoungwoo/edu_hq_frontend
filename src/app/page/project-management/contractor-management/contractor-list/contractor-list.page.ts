@@ -119,7 +119,8 @@ export class ContractorListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
-  async getCtgoBusiness() {
+  async getCtgoBusiness(ev?) {
+    if(!ev) this.form.hq_business_id = 0;
     this.businessState = false;
     this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
     {

@@ -113,9 +113,6 @@ export class SceneListPage implements OnInit {
     }
   }
   async edit(project_id?) {
-    if(this.user.userData.user_role !== 'LH_HEAD') {
-      return await this.toast.present({message:'권한이 없습니다.',color:'danger'});
-    }
     const modal = await this.modal.create({
       component:SceneEditPage,
       componentProps: { project_id }
@@ -154,8 +151,9 @@ export class SceneListPage implements OnInit {
     }
   }
   
-  async getCtgoBusiness() {
+  async getCtgoBusiness(ev?) {
     this.businessState = false;
+    if(!ev) this.form.hq_business_id = 0;
     this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
     {
       hq_regional_id:this.form.hq_regional_id

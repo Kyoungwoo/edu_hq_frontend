@@ -16,7 +16,7 @@
         <tbody>
           <tr>
             <td>
-              <app-select label="지역본부" [(ngModel)]="form.hq_regional_id" (change)="getCtgoBusiness()">
+              <app-select label="지역본부" [(ngModel)]="form.hq_regional_id" (change)="getCtgoBusiness($event)">
                 <app-select-option [value]="0">전체</app-select-option>
                 <app-select-option *ngFor="let opt of ctgoRegional?.rsMap" [value]="opt.hq_regional_id">{{ opt.hq_regional_name }}</app-select-option>
               </app-select>
@@ -25,6 +25,7 @@
           <tr>
             <td>
               <app-select label="사업본부" [disabled]="businessState" [(ngModel)]="form.hq_business_id">
+                <app-select-option [value]="0">전체</app-select-option>
                 <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_business_id">{{ opt.hq_business_name }}</app-select-option>
               </app-select>
             </td>
@@ -41,7 +42,7 @@
       <ion-toolbar color="white">
         <ion-buttons slot="start">
           <app-col>
-            <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+            <app-button fill="translucent" *ngIf="user.userData.user_role === 'LH_HEAD'" (click)="edit()">신규 등록</app-button>
             <app-button fill="translucent">엑셀 다운로드</app-button>
           </app-col>
         </ion-buttons>

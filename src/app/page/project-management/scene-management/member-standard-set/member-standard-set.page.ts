@@ -232,9 +232,9 @@ export class MemberStandardSetPage implements OnInit {
     if (this.resLevel3.rsCode === 0) { }
   }
 
-  async level2In(item, ev) {
-    ev.stopPropagation();
+  async level2In(item) {
     this.hq_regional_id = item.hq_regional_id;
+    this.area1SelectList = item;
     if (item.hq_regional_id) {
       this.resLevel2 = await this.connect.run('/project/organization/business/get', {
         hq_regional_id: item.hq_regional_id
@@ -245,9 +245,9 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
 
-  async level3In(item, ev) {
-    ev.stopPropagation();
+  async level3In(item) {
     this.hq_business_id = item.hq_business_id;
+    this.area2SelectList = item;
     this.resLevel3 = await this.connect.run('/project/organization/department/get', {
       hq_regional_id: item.hq_regional_id,
       hq_business_id: item.hq_business_id
@@ -256,25 +256,23 @@ export class MemberStandardSetPage implements OnInit {
   }
 
 
-  radioChange(ev, level, item) {
+  radioChange(level) {
     console.log("asdfasdfa");
-    ev.stopPropagation();
     switch (level) {
       case 'level1':
-          if (this.area1SelectList !== item) {
+          this.resLevel1.rsMap.forEach(item => {
             item.checked = false;
-          }
+          })
         break;
       case 'level2':
-          if (this.area2SelectList !== item) {
-            this.area3SelectList = [];
-            item.checked = false;
-          }
+        this.resLevel2.rsMap.forEach(item => {
+          item.checked = false;
+        })
         break;
       case 'level3':
-          if (this.area2SelectList !== item) {
-            item.checked = false;
-          }
+        this.resLevel3.rsMap.forEach(item => {
+          item.checked = false;
+        })
         break;
     }
   }
@@ -364,7 +362,7 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level2':
         this.resLevel2?.rsMap.forEach((item, i) => {
-          if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+          if (this.area2SelectList.hq_business_id === item.hq_business_id) {
             item.checked = true;
           } else {
             item.checked = false;
@@ -373,7 +371,7 @@ export class MemberStandardSetPage implements OnInit {
         break;
       case 'level3':
         this.resLevel3?.rsMap.forEach((item, i) => {
-          if (this.area1SelectList.hq_regional_id === item.hq_regional_id) {
+          if (this.area3SelectList.hq_department_id === item.hq_department_id) {
             item.checked = true;
           } else {
             item.checked = false;

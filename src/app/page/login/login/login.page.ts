@@ -133,9 +133,10 @@ export class LoginPage implements OnInit, ViewDidEnter {
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
+    console.log('test',this.res);
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
-
+      console.log('userData', userData);
       if(userData.user_type === 'WORKER') {
         this.res.rsCode = 500;
         this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';

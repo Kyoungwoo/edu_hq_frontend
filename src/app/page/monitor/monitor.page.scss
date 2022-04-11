@@ -199,7 +199,7 @@ ion-toolbar{
         line-height: 150px;
     }
     .circlel-plan{
-        background-color:var(--ion-color-success);
+        background-color:var(--ion-color-warning);
         width: 20px;
         height: 20px;
         border-radius: 75px;
@@ -210,7 +210,7 @@ ion-toolbar{
         line-height: 150px;
     }
     .circlel-per{
-        background-color: var(--ion-color-secondary-contrast);
+        background-color: var(--ion-color-primary);
         width: 20px;
         height: 20px;
         border-radius: 75px;
@@ -244,7 +244,8 @@ ion-toolbar{
 }
 
 .risk-type-name {
-    text-align: right;
+    margin-left: 15px;
+    text-align: left;
     font-size: var(--font-size-h4);
     color: var(--ion-color-secondary-contrast);
 }
@@ -435,4 +436,23 @@ app-card:last-child{
             width: 22px!important;
         }
     }
+}
+.test { 
+    background-color: var(--ion-color-warning);
+    height: 40px; 
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.test1 { 
+    background-color: var(--ion-color-primary);
+    height: 40px; 
+    margin-right: 10px;
+    border-radius: 2px;
+}
+.test2 { 
+    background-color: var(--ion-color-secondary);
+    height: 40px; 
+    margin-right: 10px;
+    border-radius: 2px;
 }

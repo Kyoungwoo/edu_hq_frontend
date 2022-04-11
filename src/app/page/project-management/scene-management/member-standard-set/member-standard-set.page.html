@@ -67,10 +67,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index" (click)="level2In(item,$event)" >
+                    <tr class="button" *ngFor="let item of resLevel1?.rsMap let i = index" 
+                    (click)="level2In(item); radioChange('level1')">
                       <td>
                         <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level1" [value]="item"
-                          (click)="radioChange($event,'level1',item)"></app-radio>
+                          ></app-radio>
                         <ng-template #deletebutton>
                           <app-button (click)="resLevel1.rsMap.splice(i,1); $event.stopPropagation();" size="small"
                             color="danger">
@@ -160,10 +161,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index">
+                    <tr class="button" *ngFor="let item of resLevel2?.rsMap let i = index" 
+                    (click)="level3In(item); radioChange('level2')">
                       <td>
                         <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level2" [value]="item"
-                          (click)="radioChange($event,'level2',item); level3In(item,$event)"></app-radio>
+                         ></app-radio>
                         <ng-template #deletebutton>
                           <app-button (click)="resLevel2.rsMap.splice(i,1); $event.stopPropagation();" size="small"
                             color="danger">
@@ -171,7 +173,6 @@
                           </app-button>
                         </ng-template>
                       </td>
-
                       <td *ngIf="item.checked">
                         <app-input [(ngModel)]="item.hq_business_code"></app-input>
                       </td>
@@ -253,11 +254,11 @@
                       <th>사용여부</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let item of resLevel3?.rsMap let i = index">
-                    <tr>
+                  <tbody>
+                    <tr class="button" *ngFor="let item of resLevel3?.rsMap let i = index" (click)="area3SelectList = item; radioChange('level3')">
                       <td>
                         <app-radio *ngIf="item.hq_regional_id; else deletebutton" name="level3" [value]="item"
-                          (click)="$event.stopPropagation()"></app-radio>
+                          ></app-radio>
                         <ng-template #deletebutton>
                           <app-button (click)="resLevel3.rsMap.splice(i,1); $event.stopPropagation()" size="small"
                             color="danger">
