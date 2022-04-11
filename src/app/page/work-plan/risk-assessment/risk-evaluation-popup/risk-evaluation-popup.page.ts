@@ -62,6 +62,7 @@ export class RiskItem {
 export class RiskEvaluationPopupPage implements OnInit {
 
   @Input() project_id:number;
+  @Input() riskList:RiskItem[] = [];
 
   form = {
     ctgo_business_field_id: null
@@ -81,8 +82,6 @@ export class RiskEvaluationPopupPage implements OnInit {
     res4:ConnectResult<PlanItem>;
     selectItem4:PlanItem;
    */
-
-  riskList:RiskItem[] = [];
 
   constructor(
     private connect: ConnectService,
