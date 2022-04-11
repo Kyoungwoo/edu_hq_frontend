@@ -1,0 +1,7 @@
+.chip-list {
+  margin-bottom: 4px;
+}
+.chip-list ion-chip {
+  display: flex;
+  width: 100%;
+}

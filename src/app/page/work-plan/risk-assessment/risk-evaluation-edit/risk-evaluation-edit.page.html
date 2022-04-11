@@ -122,9 +122,12 @@
                       </app-button>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan">
-                      {{ unitItem.area_top_name }}
-                      {{ unitItem.area_middle_name }}
-                      {{ unitItem.area_bottom_name }}
+                      <div class="chip-list" *ngFor="let ctgo_machinery_id of unitItem.ctgo_machinery_ids; let i = index;">
+                        <ion-chip color="primary" (click)="removeMachinery(unitItem, ctgo_machinery_id)">
+                          {{ unitItem.ctgo_machinery_names[i] }}
+                          <ion-icon name="close"></ion-icon>
+                        </ion-chip>
+                      </div>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
                       <app-button fill="translucent" size="small" (click)="openMachinery(unitItem)">
@@ -132,9 +135,10 @@
                       </app-button>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan">
-                      {{ unitItem.area_top_name }}
-                      {{ unitItem.area_middle_name }}
-                      {{ unitItem.area_bottom_name }}
+                      <ion-chip color="primary" *ngFor="let item of unitItem.ctgo_tool_ids; let i = index;">
+                        {{ unitItem.ctgo_tool_names[i] }}
+                        <ion-icon name="close"></ion-icon>
+                      </ion-chip>
                     </td>
                     <td [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
                       <app-button fill="translucent" size="small" (click)="openTool(unitItem)">
