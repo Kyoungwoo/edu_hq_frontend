@@ -121,7 +121,6 @@ var SelectContractorComponent = /** @class */ (function () {
                         _b = this;
                         return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
                                 project_id: this.project_id,
-                                company_contract_type: '원청사',
                                 search_text: ''
                             })];
                     case 1:
@@ -131,7 +130,12 @@ var SelectContractorComponent = /** @class */ (function () {
                             if (this.multiple) {
                                 if (!this.value) {
                                     // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
-                                    this.value = [rsMap[0].company_id];
+                                    if (this.allState) {
+                                        this.value = [];
+                                        this.text = '전체';
+                                    }
+                                    else
+                                        this.value = [rsMap[0].company_id];
                                 }
                                 this.text = rsMap
                                     .filter(function (constractor) { return _this.value.indexOf(constractor.company_id); })
@@ -141,15 +145,26 @@ var SelectContractorComponent = /** @class */ (function () {
                                     this.value = [];
                             }
                             else {
-                                if (!this.value) {
-                                    // 여기까지 올 때, value가 없을 수 있는 경우는 user_type이 LH인 경우밖에 없음.
-                                    this.value = rsMap[0].company_id;
+                                if (!this.value && user_type === 'LH') {
+                                    if (!this.allState)
+                                        this.value = rsMap[0].company_id;
                                 }
-                                this.text = ((_a = rsMap.find(function (constractor) { return constractor.company_id === _this.value; })) === null || _a === void 0 ? void 0 : _a.company_name) || '';
-                                // 현장에 소속되어 있는 원청사 중 value와 같은 값이 없다면 리셋
+                                this.text = ((_a = rsMap.find(function (constractor) { return constractor.company_id === _this.value; })) === null || _a === void 0 ? void 0 : _a.company_name) || (this.allState ? '전체' : '');
+                                // console.log(this.value);
+                                // 현장에 소속되어 있는 업체 중 value와 같은 값이 없다면 리셋
                                 if (!this.text)
                                     this.value = 0;
                             }
+                        }
+                        if (this.res.rsCode === 1008) {
+                            if (this.multiple)
+                                this.value = [];
+                            else
+                                this.value = 0;
+                            if (this.allState)
+                                this.text = '전체';
+                            else
+                                this.text = '';
                         }
                         return [2 /*return*/];
                 }
@@ -164,6 +179,7 @@ var SelectContractorComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this._modal.create({
                             component: search_contractor_component_1.SearchContractorComponent,
                             componentProps: {
+                                value: this.value,
                                 allState: this.allState,
                                 project_id: this.project_id,
                                 multiple: this.multiple,

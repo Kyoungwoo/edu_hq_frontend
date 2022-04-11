@@ -100,19 +100,23 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(this.user.userData);
-                        if (!!this.risk_asment_id) return [3 /*break*/, 1];
-                        // 신규 작성 시, 디폴트 값을 가져옴
+                        /**
+                         * 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 가지고 와야 함
+                         */
                         this.getDefaultForm(); // 폼 채우기
-                        return [3 /*break*/, 3];
+                        if (!!this.risk_asment_id) return [3 /*break*/, 1];
+                        return [3 /*break*/, 4];
                     case 1:
                         // 수정 시에는 정보를 가져와서 채워넣음
                         this.form.risk_asment_id = this.risk_asment_id;
                         return [4 /*yield*/, this.getDetail()];
                     case 2:
                         _a.sent();
-                        _a.label = 3;
+                        return [4 /*yield*/, this.getEvaluationDetail()];
                     case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4:
                         // 나머지 정보
                         this.form.risk_asment_type_text = this.getTypeText(this.form.risk_asment_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
@@ -173,6 +177,41 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.form = __assign(__assign({}, this.form), res.rsObj);
+                            // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 위험성평가 평가표 정보 가져오기
+     */
+    RiskEvaluationEditPage.prototype.getEvaluationDetail = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/risk/assessment/detail/evaluation/get', {
+                            risk_asment_id: this.form.risk_asment_id
+                        })];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            res.rsMap.forEach(function (item) {
+                                try {
+                                    // 배열이 스트링으로 들어오므로 배열로 변환해줘야 함
+                                    item.ctgo_machinery_ids = JSON.parse(item.ctgo_machinery_ids);
+                                    item.ctgo_machinery_names = JSON.parse(item.ctgo_machinery_names);
+                                    item.ctgo_tool_ids = JSON.parse(item.ctgo_tool_ids);
+                                    item.ctgo_tool_names = JSON.parse(item.ctgo_tool_names);
+                                }
+                                catch (e) { }
+                            });
+                            this.riskTableList = this.riskListToTable(res.rsMap);
                             // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
                         }
                         else {
@@ -546,7 +585,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     /**
      * 장소 팝업
      */
-    RiskEvaluationEditPage.prototype.openArea = function () {
+    RiskEvaluationEditPage.prototype.openArea = function (unitItem) {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
@@ -564,7 +603,12 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 2:
                         data = (_a.sent()).data;
                         if (data) {
-                            console.log(data);
+                            unitItem.area_top_id = data.area1selectedItem.area_top_id;
+                            unitItem.area_top_name = data.area1selectedItem.area_top_name;
+                            unitItem.area_middle_id = data.area2selectedItem.area_middle_id;
+                            unitItem.area_middle_name = data.area2selectedItem.area_middle_name;
+                            unitItem.area_bottom_id = data.area3selectedItem.area_bottom_id;
+                            unitItem.area_bottom_name = data.area3selectedItem.area_bottom_name;
                         }
                         return [2 /*return*/];
                 }
@@ -574,7 +618,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     /**
      * 건설기계 팝업
      */
-    RiskEvaluationEditPage.prototype.openMachinery = function () {
+    RiskEvaluationEditPage.prototype.openMachinery = function (unitItem) {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
@@ -602,7 +646,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     /**
      * 특수공도구 팝업
      */
-    RiskEvaluationEditPage.prototype.openTool = function () {
+    RiskEvaluationEditPage.prototype.openTool = function (unitItem) {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
