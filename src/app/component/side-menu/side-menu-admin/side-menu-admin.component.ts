@@ -285,8 +285,8 @@ export class  SideMenuAdminComponent implements OnInit {
       }},
       { title: '기준 정보 관리',
         permission: () => {
-          const { user_role } = this.user.userData;
-          return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+          const { user_type ,user_role } = this.user.userData;
+          return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD' || user_type === 'SUPER';
         },
       thirdMenuList: [
         { title:'회원 정보 기준 설정',link:'/member-standard-set',

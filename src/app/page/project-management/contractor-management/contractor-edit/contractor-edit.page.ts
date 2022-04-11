@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -42,6 +42,13 @@ export class ContractorEditPage implements OnInit {
 
   form: SupervisionEdit = new SupervisionEdit();
   
+  termsRes:ConnectResult<{
+    terms_title: string;
+    create_date: string;
+    update_date: string;
+    terms_text:string;
+  }>
+  
   email:string;
   emailaddress:string;
   directlyInput:string;
@@ -59,6 +66,8 @@ export class ContractorEditPage implements OnInit {
     this.getPermission();
     this.form.project_id = this.project_id;
     this.getItem();
+    this.getTerms();
+    
   }
   getPermission() {
     const company_contract_type = this.user.userData.belong_data.company_contract_type;
@@ -143,5 +152,12 @@ export class ContractorEditPage implements OnInit {
     this.email = spliteamil[0];
     this.emailaddress = spliteamil[1];
     this.updateStatus = false;
+  }
+
+  async getTerms() {
+    this.termsRes = await this.connect.run('/support/terms/get',{terms_title:'개인정보 처리방침'});
+    //아무작동안함
+    if(this.termsRes.rsCode === 0) {
+    }
   }
 }

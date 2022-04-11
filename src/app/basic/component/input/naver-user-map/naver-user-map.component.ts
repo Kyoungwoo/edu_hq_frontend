@@ -83,7 +83,6 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async userMarker(coord, item, i) {
-    item.area_state = '위험'
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -132,19 +131,18 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
         infowindow.close();
       }, 5000);
     }
-      naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
-        if (infowindow.getMap()) {
-          infowindow.close();
-        } else {
-          infowindow.open(this.map, this.marker[i]);
-        }
-      });
+    naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
+      if (infowindow.getMap()) {
+        infowindow.close();
+      } else {
+        infowindow.open(this.map, this.marker[i]);
+      }
+    });
   }
 
   private async parseData(v) {
     await this.afterInit();
     if (v) {
-      console.log("v---",v);
       const length = v.length;
       if(length) {
         v.forEach(async(item,i) => {
@@ -153,17 +151,6 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
           this.userMarker({ x, y }, item, i);
         });
       }
-      // for (let i = 0; i < length; i++) {
-      //   console.log("i",i)
-      //   console.log("v[i].gps_log_id",v[i].gps_log_id);
-      //   const x = v[i].user_longitude;
-      //   const y = v[i].user_latitude;
-      //   const res = await this.connect.run('/integrated/gps/detail', { gps_log_id: v[i].gps_log_id },{
-      //     parse:['safe_job_name']
-      //   });
-      //   console.log("res.rsObj",res.rsObj);
-      //   this.userMarker({ x, y }, res.rsObj, i);
-      // }
     };
   }
 

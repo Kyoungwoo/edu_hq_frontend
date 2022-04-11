@@ -37,6 +37,8 @@ export class NoticeItem {
 })
 export class NoticeEditPage implements OnInit {
 
+  update_state = false;
+
   permission = {
     edit: false
   }
@@ -113,11 +115,9 @@ export class NoticeEditPage implements OnInit {
 
   public submit() {
     this.noticeText.update();
-    if(this.form.notice_id) {
-      this.update();
-    } else {
-      this.noticeInsert();
-    }
+    
+    if(this.form.notice_id) this.update();
+    else this.noticeInsert();
   }
 
   async noticeInsert() { //등록
@@ -155,6 +155,7 @@ export class NoticeEditPage implements OnInit {
           handler:async() => {
             const res = await this.connect.run('/board/notice/update', this.form);
             if(res.rsCode === 0) {
+              this.update_state = false;
               this._modal.dismiss('Y');
             } else {
               this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -188,5 +189,10 @@ export class NoticeEditPage implements OnInit {
 
   dismiss() {
     this._modal.dismiss();
+  }
+
+  updateButton(){
+    if(this.update_state) this.submit();
+    else this.update_state = true;
   }
 }

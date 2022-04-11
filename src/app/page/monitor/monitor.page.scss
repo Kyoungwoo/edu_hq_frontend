@@ -5,6 +5,9 @@ ion-toolbar{
     --padding-top: 12px;
     --padding-bottom: 12px;
 }
+.weather {
+    margin-right: 30px;
+}
 .weather-temp {
     font-size: 25px;
     font-weight: bold;
@@ -18,6 +21,7 @@ ion-toolbar{
 }
 .colstyle{
     align-self: flex-end;
+    margin-right: 15px;
 }
 .margin-card {
     margin-top: 0;
@@ -195,7 +199,7 @@ ion-toolbar{
         line-height: 150px;
     }
     .circlel-plan{
-        background-color:var(--ion-color-success);
+        background-color:var(--ion-color-warning);
         width: 20px;
         height: 20px;
         border-radius: 75px;
@@ -206,7 +210,7 @@ ion-toolbar{
         line-height: 150px;
     }
     .circlel-per{
-        background-color: var(--ion-color-secondary-contrast);
+        background-color: var(--ion-color-primary);
         width: 20px;
         height: 20px;
         border-radius: 75px;
@@ -240,7 +244,8 @@ ion-toolbar{
 }
 
 .risk-type-name {
-    text-align: right;
+    margin-left: 15px;
+    text-align: left;
     font-size: var(--font-size-h4);
     color: var(--ion-color-secondary-contrast);
 }
@@ -431,4 +436,9 @@ app-card:last-child{
             width: 22px!important;
         }
     }
+}
+.worker-state { 
+    height: 40px; 
+    margin-right: 10px;
+    border-radius: 2px;
 }

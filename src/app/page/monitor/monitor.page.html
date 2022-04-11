@@ -1,20 +1,22 @@
 <app-moniter-header *mobileHidden></app-moniter-header>
 
-<ion-toolbar *mobileHidden>
-  <app-card class="margin-card">
-    <ion-row>
-      <!-- <app-col size="3">
-        <app-select>
-          <app-select-option>전체</app-select-option>
-        </app-select>
-      </app-col> -->
+<ion-toolbar *mobileHidden color="white">
+ 
+    <app-row>
+      <app-col>
+        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+      </app-col>
+      <app-col>
+        <app-select-contractor  [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
+      </app-col>
+      <app-col></app-col>
       <app-col></app-col>
       <app-col size="auto">
-        <app-button style="padding: 0;" color="primary" [fill]="'translucent'" [disabled]="true">
-          <app-img style="width: 50px;" [src]="weather.weather_icon"></app-img>
+        <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
+          <app-img style="width: 55px;" src="assets/img/weather/01_day.svg"></app-img>
         </app-button>
       </app-col>
-      <app-col size="auto">
+      <app-col size="auto" class="weather">
         <app-row class="weather-temp">
           {{ weather.weather_temp + "&deg;C" }}
         </app-row>
@@ -52,23 +54,14 @@
           미세먼지
         </app-row>
         <app-row class="ratio">
-          <app-img style="width: 20px;" [src]="dust.icon_url"></app-img>
+          <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
           {{ dust.grade_name}}
         </app-row>
       </app-col>
-    </ion-row>
-  </app-card>
+    </app-row>
+ 
 </ion-toolbar>
 
-<ion-toolbar color="white">
-  <app-row>
-    <app-col>
-      <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id" [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [(ngModel)]="form.master_company_id"></app-select-contractor>
-    </app-col>
-  </app-row>
 
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
@@ -82,7 +75,8 @@
       </app-select>
     </app-col>
     <app-col>
-      <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
+      <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id"
+        [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
   </app-row>
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
@@ -102,7 +96,7 @@
       </app-input>
     </app-col>
   </app-row>
-</ion-toolbar>
+
 
 <ion-toolbar color="white" *mobileShow>
   <app-row>
@@ -118,18 +112,18 @@
 
 <ion-content>
   <div [style.display]="menu === 1 ? 'block' : 'none'">
-  <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
-    <app-col>
-      <app-card color="white">
-        <app-row style="align-items: stretch;">
-          <app-col class="border-box donut-group">
-            <ion-toolbar slot="top" color="white">
-              <ion-row>
-                <app-col>
-                  <h4>금일 출역 근로자</h4>
-                </app-col>
-                <app-col size="auto">
-                  <ion-chip class="chip-back" (click)="todayWorkDetail({
+    <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
+      <app-col>
+        <app-card color="white">
+          <app-row style="align-items: stretch;">
+            <app-col class="border-box donut-group">
+              <ion-toolbar slot="top" color="white">
+                <ion-row>
+                  <app-col>
+                    <h4>금일 출역 근로자</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-chip class="chip-back" (click)="todayWorkDetail({
                     company_admin: 0,
                     company_worker: 0,
                     master_admin: 0,
@@ -137,97 +131,100 @@
                     total_cnt: 0,
                     work_date: this.date.today()
                 })">총 {{ todayWork_totalCount }}명</ion-chip>
-                </app-col>
-              </ion-row>
-            </ion-toolbar>
-            <ion-row class="graph-row-today-work"> 
-              <ion-col class="col-today-work">
-                <!-- <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div> -->
+                  </app-col>
+                </ion-row>
+              </ion-toolbar>
+              <ion-row class="graph-row-today-work">
+                <ion-col class="col-today-work">
+                  <!-- <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div> -->
 
-                <div class="graph-area">
-                  <div class="graph-wrap">
-                    <div class="graph-line-wrap">
-                      <div *ngFor="let item of todayWork_graphLine" class="graph-line-box">
+                  <div class="graph-area">
+                    <div class="graph-wrap">
+                      <div class="graph-line-wrap">
+                        <div *ngFor="let item of todayWork_graphLine" class="graph-line-box">
+                          <div class="graph-text">
+                            <div class="div-text-g">{{ item }}</div>
+                          </div>
+                          <div class="graph-line"></div>
+                        </div>
+                      </div>
+                      <div class="graph-line-box">
                         <div class="graph-text">
-                          <div class="div-text-g">{{ item }}</div>
+                          <div class="div-text-g">0</div>
                         </div>
                         <div class="graph-line"></div>
                       </div>
-                    </div>
-                    <div class="graph-line-box">
-                      <div class="graph-text">
-                        <div class="div-text-g">0</div>
-                      </div>
-                      <div class="graph-line"></div>
-                    </div>
-  
-                    <div class="bar-flex-box">
 
-                      <div class="bar-flex-theme"></div>
-                      <div class="bar-wrap">
-                        <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                          <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker" class="bar" [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
-                            <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
+                      <div class="bar-flex-box">
+
+                        <div class="bar-flex-theme"></div>
+                        <div class="bar-wrap">
+                          <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
+                            <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker"
+                              class="bar"
+                              [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
+                              <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
+                            </div>
+                            <div class="text">{{ item.work_date }}</div>
                           </div>
-                          <div class="text">{{ item.work_date }}</div>
                         </div>
                       </div>
-                    </div>
 
+                    </div>
                   </div>
-                </div>
-                
-              </ion-col>
-            </ion-row>
-          </app-col>
-          <app-col class="donut-group">
-            <ion-toolbar slot="top" color="white">
+
+                </ion-col>
+              </ion-row>
+            </app-col>
+            <app-col class="donut-group">
+              <ion-toolbar slot="top" color="white">
+                <ion-row>
+                  <app-col>
+                    <h4>금일 작업 근로자</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-chip class="chip-back">총 113명</ion-chip>
+                  </app-col>
+                </ion-row>
+              </ion-toolbar>
               <ion-row>
-                <app-col>
-                  <h4>금일 작업 근로자</h4>
+                <app-col style="position: relative;" size="7">
+                  <div style="width: 75%; position: relative;">
+                    <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
+                      <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff9041"
+                        stroke-width="6">
+                      </circle>
+                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44c650" stroke-width="6"
+                        stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+                    </svg>
+                    <div class="donut-in-count">
+                      33
+                    </div>
+                    <div class="donut-in-text">
+                      총 작업
+                    </div>
+                  </div>
                 </app-col>
-                <app-col size="auto">
-                  <ion-chip class="chip-back">총 113명</ion-chip>
+                <app-col class="graph-sub" size="4">
+                  <app-row>
+                    <app-col size="auto" style="display: flex; align-items: center;">
+                      <div class="circlel-plan"></div>
+                      <p class="count-name">위험작업&nbsp;&nbsp;</p>
+                      <p class="count-contant" style="font-size: 20px;">6</p>
+                    </app-col>
+                  </app-row>
+                  <app-row>
+                    <app-col size="auto" style="display: flex; align-items: center;">
+                      <div class="circlel-per"></div>
+                      <p class="count-name">일반작업&nbsp;&nbsp;&nbsp;</p>
+                      <p class="count-contant" style="font-size: 20px;">50</p>
+                    </app-col>
+                  </app-row>
                 </app-col>
               </ion-row>
-            </ion-toolbar>
-            <ion-row>
-              <app-col style="position: relative;" size="7">
-                <div style="width: 75%; position: relative;">
-                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
-                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6">
-                    </circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
-                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
-                  </svg>
-                  <div class="donut-in-count">
-                    33
-                  </div>
-                  <div class="donut-in-text">
-                    총 작업
-                  </div>
-                </div>
-              </app-col>
-              <app-col class="graph-sub" size="4">
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-plan"></div>
-                    <p class="count-name">위험&nbsp;&nbsp;</p>
-                    <p class="count-contant">6</p>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-per"></div>
-                    <p class="count-name">일반&nbsp;&nbsp;&nbsp;</p>
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </ion-row>
-          </app-col>
-          <!-- <app-col class="donut-group">
+            </app-col>
+            <!-- <app-col class="donut-group">
             <app-row>
               <app-col class="donut-group">
                 <app-row>
@@ -251,7 +248,7 @@
           </app-col> -->
 
 
-          <!-- <app-col class="donut-group">
+            <!-- <app-col class="donut-group">
             <ion-row>
               <app-col>
                 <h4>작업자 상태</h4>
@@ -310,90 +307,91 @@
               </app-col>
             </ion-row>
           </app-col> -->
-        </app-row>
-      </app-card>
+          </app-row>
+        </app-card>
 
-      <app-card color="white">
-        <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <!-- <div class="blinder">데이터가 없습니다.</div> -->
-            <app-row>
-              <app-col class="donut-group">
-                <ion-toolbar slot="top" color="white">
-                  <ion-row>
-                    <app-col>
-                      <h4>공종별 출역 작업자</h4>
-                    </app-col>
-                    <app-col size="auto">
-                      <ion-chip class="chip-back">총 {{ todayConstruction_totalCount }}명</ion-chip>
+        <app-card color="white">
+          <app-row style="align-items: stretch;">
+            <app-col class="donut-group">
+              <!-- <div class="blinder">데이터가 없습니다.</div> -->
+              <app-row>
+                <app-col class="donut-group">
+                  <ion-toolbar slot="top" color="white">
+                    <ion-row>
+                      <app-col>
+                        <h4>공종별 출역 작업자</h4>
+                      </app-col>
+                      <app-col size="auto">
+                        <ion-chip class="chip-back">총 {{ todayConstruction_totalCount }}명</ion-chip>
+                      </app-col>
+                    </ion-row>
+                  </ion-toolbar>
+                  <ion-row *ngFor="let item of todayConstruction?.rsMap">
+                    <app-col size="2" class="risk-type-name">{{ item.ctgo_construction_name }}</app-col>
+                    <app-col style="display: flex; align-items: center;">
+                      <div *ngIf="item.cnt"
+                        style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                        [style.width]="'calc((100% - 50.55px) * '+(item.cnt/todayConstruction_ceil_Total)+')'"></div>
+                      <h4 *ngIf="item.cnt" style="width: 36px;">{{item.cnt}}</h4>
                     </app-col>
                   </ion-row>
-                </ion-toolbar>
-                <ion-row *ngFor="let item of todayConstruction?.rsMap">
-                  <app-col size="2" class="risk-type-name">{{ item.ctgo_construction_name }}</app-col>
-                  <app-col style="display: flex; align-items: center;">
-                    <div *ngIf="item.cnt" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                      [style.width]="'calc((100% - 50.55px) * '+(item.cnt/todayConstruction_ceil_Total)+')'"></div>
-                    <h4 *ngIf="item.cnt" style="width: 36px;">{{item.cnt}}</h4>
-                  </app-col>
-                </ion-row>
-              </app-col>
-            </app-row>
-          </app-col>
+                </app-col>
+              </app-row>
+            </app-col>
 
-          <app-col class="middle-box donut-group">
-            <app-row>
-              <app-col class="donut-group">
-                <ion-toolbar slot="top" color="white">
-                  <ion-row>
-                    <app-col>
-                      <h4>작업자 상태</h4>
-                    </app-col>
-                    <app-col size="auto">
-                      <ion-chip class="chip-back">총 113명</ion-chip>
+            <app-col class="middle-box donut-group">
+              <app-row>
+                <app-col class="donut-group">
+                  <ion-toolbar slot="top" color="white">
+                    <ion-row>
+                      <app-col>
+                        <h4>작업자 상태</h4>
+                      </app-col>
+                      <app-col size="auto">
+                        <ion-chip class="chip-back">총<b>113</b>명</ion-chip>
+                      </app-col>
+                    </ion-row>
+                  </ion-toolbar>
+                  <ion-row *ngFor="let item of graphArr3 let i = index" color="warning">
+                    <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                    <app-col style="display: flex; align-items: center;">
+                        <div [ngStyle]="style(item)" class="worker-state"
+                        [style.width]="item.count + '%'"></div>
+                      <h4>{{item.count}}</h4>
                     </app-col>
                   </ion-row>
-                </ion-toolbar>
-                <ion-row *ngFor="let item of graphArr3 let i = index">
-                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
-                  <app-col style="display: flex; align-items: center;">
-                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                      [style.width]="item.count + '%'"></div>
-                    <h4>{{item.count}}</h4>
-                  </app-col>
-                </ion-row>
-              </app-col>
-            </app-row>
-          </app-col>
+                </app-col>
+              </app-row>
+            </app-col>
 
-          <app-col class="donut-group">
-            <app-row>
-              <app-col class="donut-group">
-                <ion-toolbar slot="top" color="white">
-                  <ion-row>
-                    <app-col>
-                      <h4>위험공종별 작업 계획</h4>
-                    </app-col>
-                    <app-col size="auto">
-                      <ion-chip class="chip-back">총 113명</ion-chip>
+            <app-col class="donut-group">
+              <app-row>
+                <app-col class="donut-group">
+                  <ion-toolbar slot="top" color="white">
+                    <ion-row>
+                      <app-col>
+                        <h4>위험공종별 작업 계획</h4>
+                      </app-col>
+                      <app-col size="auto">
+                        <ion-chip class="chip-back">총 113명</ion-chip>
+                      </app-col>
+                    </ion-row>
+                  </ion-toolbar>
+                  <ion-row *ngFor="let item of graphArr4 let i = index">
+                    <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                    <app-col style="display: flex; align-items: center;">
+                      <div style="height: 30px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                        [style.width]="item.count + '%'"></div>
+                      <h4>{{item.count}}</h4>
                     </app-col>
                   </ion-row>
-                </ion-toolbar>
-                <ion-row *ngFor="let item of graphArr4 let i = index">
-                  <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
-                  <app-col style="display: flex; align-items: center;">
-                    <div style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                      [style.width]="item.count + '%'"></div>
-                    <h4>{{item.count}}</h4>
-                  </app-col>
-                </ion-row>
-              </app-col>
-            </app-row>
-          </app-col>
-        </app-row>
-      </app-card>
+                </app-col>
+              </app-row>
+            </app-col>
+          </app-row>
+        </app-card>
 
-      <!-- <app-card>
+        <!-- <app-card>
         <app-row style="align-items: stretch;">
           <app-col class="donut-group">
             <app-row>
@@ -508,105 +506,105 @@
         </app-row>
       </app-card> -->
 
-    </app-col>
-    <app-col style="flex: 0 0 250px;" *mobileHidden>
-      <app-table type="card">
-        <ion-toolbar class="toolbar-padding" slot="top" color="white">
-          <ion-row style="justify-content: space-between;">
-            <ion-col style="text-align: center;">
-              <h4>스마트 안전 장비</h4>
-            </ion-col>
-            <app-col size="auto">
-              <app-button (click)="smartEquipEdit()">수정</app-button>
-            </app-col>
-          </ion-row>
-        </ion-toolbar>
-        <tbody>
-          <tr>
-            <td style="vertical-align: top;">
-              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
-            </td>
-            <td class="table-text">
-              <h5>
-                {{ smartEquip_structure.ctgo_machine_serial_name }}
-              </h5>
-              <p>
-                <app-row>
-                  <app-col>보유 대수</app-col>
-                  <app-col>{{ smartEquip_structure.machine_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>가동 중</app-col>
-                  <app-col>{{ smartEquip_structure.mmachine_using_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>미가동</app-col>
-                  <app-col>{{ smartEquip_structure.not_using_count }}대</app-col>
-                </app-row>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: top;">
-              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
-            </td>
-            <td class="table-text">
-              <h5>
-                {{ smartEquip_crane.ctgo_machine_serial_name }}
-              </h5>
-              <p>
-                <app-row>
-                  <app-col>보유 대수</app-col>
-                  <app-col>{{ smartEquip_crane.machine_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>가동 중</app-col>
-                  <app-col>{{ smartEquip_crane.mmachine_using_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>미가동</app-col>
-                  <app-col>{{ smartEquip_crane.not_using_count }}대</app-col>
-                </app-row>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="vertical-align: top;">
-              <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
-            </td>
-            <td class="table-text">
-              <h5>
-                {{ smartEquip_closeness.ctgo_machine_serial_name }}
-              </h5>
-              <p>
-                <app-row>
-                  <app-col>보유 대수</app-col>
-                  <app-col>{{ smartEquip_closeness.machine_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>가동 중</app-col>
-                  <app-col>{{ smartEquip_closeness.mmachine_using_count }}대</app-col>
-                </app-row>
-              </p>
-              <p>
-                <app-row>
-                  <app-col>미가동</app-col>
-                  <app-col>{{ smartEquip_closeness.not_using_count }}대</app-col>
-                </app-row>
-              </p>
-            </td>
-          </tr>
-          <!-- <tr>
+      </app-col>
+      <app-col style="flex: 0 0 250px;" *mobileHidden>
+        <app-table type="card">
+          <ion-toolbar class="toolbar-padding" slot="top" color="white">
+            <ion-row style="justify-content: space-between;">
+              <ion-col>
+                <h4>스마트 안전 장비</h4>
+              </ion-col>
+              <app-col size="auto">
+                <app-button fill="translucent" (click)="smartEquipEdit()">수정</app-button>
+              </app-col>
+            </ion-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td style="vertical-align: top;">
+                <app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img>
+              </td>
+              <td class="table-text">
+                <h5>
+                  {{ smartEquip_structure.ctgo_machine_serial_name }}
+                </h5>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">보유 대수</app-col>
+                    <app-col><h4>{{ smartEquip_structure.machine_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">가동 중</app-col>
+                    <app-col><h4>{{ smartEquip_structure.mmachine_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">미가동</app-col>
+                    <app-col><h4>{{ smartEquip_structure.not_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
+              </td>
+              <td class="table-text">
+                <h5>
+                  {{ smartEquip_crane.ctgo_machine_serial_name }}
+                </h5>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">보유 대수</app-col>
+                    <app-col><h4>{{ smartEquip_crane.machine_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">가동 중</app-col>
+                    <app-col><h4>{{ smartEquip_crane.mmachine_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">미가동</app-col>
+                    <app-col><h4>{{ smartEquip_crane.not_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <app-img style="width: 50px;" src="/assets/img/monitor/closeness.svg"></app-img>
+              </td>
+              <td class="table-text">
+                <h5>
+                  {{ smartEquip_closeness.ctgo_machine_serial_name }}
+                </h5>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">보유 대수</app-col>
+                    <app-col><h4>{{ smartEquip_closeness.machine_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">가동 중</app-col>
+                    <app-col><h4>{{ smartEquip_closeness.mmachine_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+                <p>
+                  <app-row>
+                    <app-col style="text-align: left;">미가동</app-col>
+                    <app-col><h4>{{ smartEquip_closeness.mmachine_using_count }}</h4></app-col>
+                  </app-row>
+                </p>
+              </td>
+            </tr>
+            <!-- <tr>
             <td style="vertical-align: top;">
               <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
             </td>
@@ -746,165 +744,167 @@
               </p>
             </td>
           </tr> -->
-        </tbody>
-      </app-table>
-    </app-col>
-  </app-row>
-</div>
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+  </div>
 
-  <ng-container  *mobileShow>
+  <ng-container *mobileShow>
     <div [style.display]="menu === 2 ? 'block' : 'none'">
-  <app-row  style="align-items: flex-start;">
-    <app-col>
-      <app-card color="white">
-        <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>CCTV 설치 장소 1</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <app-button>수정</app-button>
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <app-card color="white">
+            <app-row style="align-items: stretch;">
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>CCTV 설치 장소 1</h4>
+                  </app-col>
+                  <app-col></app-col>
+                  <app-col size="auto">
+                    <app-button>수정</app-button>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="position: relative;">
+                    <div style="border: 1px solid; height: 500px; position: relative;">
+                    </div>
+                  </app-col>
+                </app-row>
               </app-col>
             </app-row>
-            <app-row>
-              <app-col style="position: relative;">
-                <div style="border: 1px solid; height: 500px; position: relative;">
-                </div>
-              </app-col>
-            </app-row>
-          </app-col>
+          </app-card>
+        </app-col>
+      </app-row>
+    </div>
+  </ng-container>
+
+  <ng-container *mobileHidden>
+    <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
+      <app-col>
+        <app-card color="white">
+          <app-row style="align-items: stretch;">
+            <app-col class="donut-group">
+              <app-row>
+                <app-col>
+                  <h4>CCTV 설치 장소 1</h4>
+                </app-col>
+                <app-col></app-col>
+                <app-col size="auto">
+                  <app-button>수정</app-button>
+                </app-col>
+              </app-row>
+              <app-row>
+                <app-col style="position: relative;">
+                  <div style="border: 1px solid; height: 500px; position: relative;">
+                  </div>
+                </app-col>
+              </app-row>
+            </app-col>
+
+            <app-col class="donut-group">
+              <app-row>
+                <app-col>
+                  <h4>CCTV 설치 장소 2</h4>
+                </app-col>
+                <app-col></app-col>
+                <app-col size="auto">
+                  <app-button>수정</app-button>
+                </app-col>
+              </app-row>
+              <app-row>
+                <app-col style="position: relative;">
+                  <div style="border: 1px solid; height: 500px; position: relative;">
+                  </div>
+                </app-col>
+              </app-row>
+            </app-col>
           </app-row>
-      </app-card>
-    </app-col>
-  </app-row>
-</div>
-</ng-container>
+        </app-card>
+      </app-col>
+    </app-row>
 
 
-<ng-container *mobileHidden>
-  <app-row  style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
-    <app-col>
-      <app-card color="white">
-        <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>CCTV 설치 장소 1</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <app-button>수정</app-button>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;">
-                <div style="border: 1px solid; height: 500px; position: relative;">
-                </div>
-              </app-col>
-            </app-row>
-          </app-col>
+    <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
+      <app-col>
+        <app-card color="white">
+          <app-row style="align-items: stretch;">
+            <app-col class="donut-group">
+              <app-row>
+                <app-col>
+                  <h4>CCTV 설치 장소 3</h4>
+                </app-col>
+                <app-col></app-col>
+                <app-col size="auto">
+                  <app-button>수정</app-button>
+                </app-col>
+              </app-row>
+              <app-row>
+                <app-col style="position: relative;">
+                  <div style="border: 1px solid; height: 500px; position: relative;">
+                  </div>
+                </app-col>
+              </app-row>
+            </app-col>
 
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>CCTV 설치 장소 2</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <app-button>수정</app-button>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;">
-                <div style="border: 1px solid; height: 500px; position: relative;">
-                </div>
-              </app-col>
-            </app-row>
-          </app-col>
-        </app-row>
-      </app-card>
-    </app-col>
-  </app-row>
+            <app-col class="donut-group">
+              <app-row>
+                <app-col>
+                  <h4>CCTV 설치 장소 4</h4>
+                </app-col>
+                <app-col></app-col>
+                <app-col size="auto">
+                  <app-button>수정</app-button>
+                </app-col>
+              </app-row>
+              <app-row>
+                <app-col style="position: relative;">
+                  <div style="border: 1px solid; height: 500px; position: relative;">
+                  </div>
+                </app-col>
+              </app-row>
+            </app-col>
+          </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
 
-
-  <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
-    <app-col>
-      <app-card color="white">
-        <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>CCTV 설치 장소 3</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <app-button>수정</app-button>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;">
-                <div style="border: 1px solid; height: 500px; position: relative;">
-                </div>
-              </app-col>
-            </app-row>
-          </app-col>
-
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>CCTV 설치 장소 4</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <app-button>수정</app-button>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;">
-                <div style="border: 1px solid; height: 500px; position: relative;">
-                </div>
-              </app-col>
-            </app-row>
-          </app-col>
-        </app-row>
-      </app-card>
-    </app-col>
-  </app-row>
-</ng-container>
-  <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-    <app-col>
-      <app-card >
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <app-naver-user-map [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
-          </app-col>
-          <app-col size="4">
-            <ion-toolbar color="light">
-              <h5>출역한 근로자 목록 (총{{ this.workerInRes?.rsObj?.row_count || 0}}건)</h5>
-            </ion-toolbar>
-            <app-table>
-              <thead>
-                <tr>
-                  <th>회사명</th>
-                  <th>성명</th>
-                  <th>공종</th>
-                  <th>근로자 구분</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of workerInRes?.rsMap">
-                  <td>{{ item.company_name }}</td>
-                  <td>{{ item.user_name }}</td>
-                  <td>{{ item.ctgo_construction_name }}</td>
-                  <td>{{ item.user_type }}</td>
-                </tr>
-              </tbody>
-            </app-table>
-          </app-col>
-        </app-row>
-      </app-card>
-    </app-col>
-  </app-row>
+  <ng-container *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
+    <app-row>
+      <app-col>
+        <app-card>
+          <app-row style="align-items: flex-start;">
+            <app-col>
+              <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
+            </app-col>
+            <app-col size="4">
+              <ion-toolbar color="light">
+                <h5>출역한 근로자 목록 (총{{ workerInRes?.rsObj?.row_count || 0}}건)</h5>
+              </ion-toolbar>
+              <app-table>
+                <thead>
+                  <tr>
+                    <th>회사명</th>
+                    <th>성명</th>
+                    <th>공종</th>
+                    <th>근로자 구분</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of workerInRes?.rsMap">
+                    <td>{{ item.company_name }}</td>
+                    <td>{{ item.user_name }}</td>
+                    <td>{{ item.ctgo_construction_name }}</td>
+                    <td>{{ item.user_type }}</td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-col>
+          </app-row>
+        </app-card>
+      </app-col>
+    </app-row>
+  </ng-container>
 </ion-content>

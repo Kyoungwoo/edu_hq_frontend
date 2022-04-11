@@ -154,15 +154,18 @@ export class MonitorPage implements OnInit, OnDestroy {
 graphArr3 = [
   {
     name:'작업전',
-    count:10
+    count:10,
+    color: 'warning'
   },
   {
     name:'작업중',
-    count:2
+    count:2,
+    color: 'green'
   },
   {
     name:'작업종료',
-    count:3
+    count:3,
+    color: 'red'
   }
 ]
 graphArr4 = [
@@ -500,13 +503,11 @@ gps_log_data = new GpsCoordinateData();
   // }
   monitorQuery(){
    this.query =  this.route.queryParams.subscribe(params => {
-      console.log("params",params);
         this.data = {
           monitor:params.monitor
         }
       }
     );
-    console.log("this.query",this.query);
   }
 
   async wokerInGetList() {
@@ -519,17 +520,37 @@ gps_log_data = new GpsCoordinateData();
 
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
+    console.log("this.gpsData",res);
     if(res.rsCode === 0) {
-      this.gpsData = {
-        ...res,
-        ...this.gpsData
-      }
+      this.gpsData = res
       console.log("this.gpsData",this.gpsData);
+      
     } else {
       this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
+
+  test(ev) {
+    console.log("ev",ev);
+  }
+
+  style(item) {
+    let style;
+    switch(item.name) { 
+      case '작업전':
+        style = {'background-color':'var(--ion-color-warning)'}
+      break;
+      case '작업중':
+        style = {'background-color':'var(--ion-color-primary)'}
+      break;
+      case '작업종료':
+        style = {'background-color':'var(--ion-color-secondary)'}
+      break;
+    }
+    return style
+  }
 }
+
   // async getWeatherGroup() {
     // const resultDust = await Promise.all([    
     //   this.getDust()

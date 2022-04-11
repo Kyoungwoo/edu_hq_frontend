@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'monitor-smart-equip-edit',
     loadChildren: () => import('./monitor-smart-equip-edit/monitor-smart-equip-edit.module').then( m => m.MonitorSmartEquipEditPageModule)
+  },  {
+    path: 'monitor-realtime-location',
+    loadChildren: () => import('./monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
   }
+
 ];
 
 @NgModule({

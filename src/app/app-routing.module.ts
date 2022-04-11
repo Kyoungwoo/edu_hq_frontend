@@ -595,13 +595,18 @@ const routes: Routes = [
   {
     path: 'setting-menu',
     loadChildren: () => import('./page/main/user/setting-menu/setting-menu.module').then( m => m.SettingMenuPageModule)
-  },  {
+  },
+  {
     path: 'setting-sounds',
     loadChildren: () => import('./page/main/user/setting-sounds/setting-sounds.module').then( m => m.SettingSoundsPageModule)
   },
   {
     path: 'sos-popup',
     loadChildren: () => import('./page/main/user/sos-popup/sos-popup.module').then( m => m.SosPopupPageModule)
+  },
+  {
+    path: 'monitor-realtime-location',
+    loadChildren: () => import('./page//monitor/monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
   },
 
 
