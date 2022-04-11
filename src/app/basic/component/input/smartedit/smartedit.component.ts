@@ -28,6 +28,16 @@ export class SmarteditComponent implements OnInit {
   @Input() placeholder:string;
   @Output() change = new EventEmitter();
 
+  @Input() 
+  set disabled(v:boolean) {
+    if(this._disabled !== v) {
+      this._disabled = v;
+      this.disabledChange();
+    }
+  }
+  get disabled() { return this._disabled }
+  private _disabled:boolean = false;
+
   oEditors:any = [];
   
   constructor(
@@ -40,6 +50,7 @@ export class SmarteditComponent implements OnInit {
 
   smartEditor(){
     nhn.husky.EZCreator.createInIFrame({
+      // bUseBlocker: this._disabled,
       oAppRef: this.oEditors,
       elPlaceHolder: "smartEditor",  //textarea ID 입력
       // sSkinURI: "/libs/smarteditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
@@ -54,6 +65,8 @@ export class SmarteditComponent implements OnInit {
         bUseModeChanger : false
       }
     });
+    console.log(nhn.husky.EZCreator);
+    // this.disabledChange();
   }
   private insert() {
     try {
@@ -86,6 +99,10 @@ export class SmarteditComponent implements OnInit {
       this._onChangeCallback(v);
       this.change.emit(v);
     }
+  }
+  disabledChange(){
+    if(this._disabled) nhn.husky.EZCreator.showBlocker();
+    else nhn.husky.EZCreator.hideBlocker();
   }
   private _onChangeCallback = (v) => {};
   private _onTouchedCallback = (v) => {};

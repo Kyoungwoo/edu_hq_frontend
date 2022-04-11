@@ -47,8 +47,9 @@
     </app-row>
     <app-row>
       <app-col>
-        <app-textarea *ngIf="!useNotice || !update_state" label="내용" [rows]="10" [(ngModel)]="form.notice_content"></app-textarea>
-        <app-smartedit *ngIf="useNotice && update_state" #noticeText name="notice_text" placeholder="내용을 입력하세요." 
+        <!-- <app-textarea *ngIf="!useNotice || !update_state" label="내용" [rows]="10" [(ngModel)]="form.notice_content"></app-textarea> -->
+        <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
+        [disabled]="useNotice && !update_state"
         [color]="validator.notice_title?.valid === false && 'warning'"
         [(ngModel)]="form.notice_content"></app-smartedit>
         <app-input-caption *ngIf="validator.notice_title?.valid === false">{{ validator.notice_title.message }}</app-input-caption>

@@ -6,17 +6,21 @@
       <app-card style="height: 100%; overflow: scroll;">
         <app-row>
           <app-col>
-            <app-select label="지역본부"></app-select>
+            <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="지역본부" [(ngModel)]="form.hq_regional_id">
+              <app-select-option *ngFor="let item of regional_list" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
+            </app-select>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-select label="사업본부"></app-select>
+            <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="사업본부" [(ngModel)]="form.hq_business_id">
+              <app-select-option *ngFor="let item of business_list" [value]="item.hq_business_id">{{ item.hq_business_name }}</app-select-option>
+            </app-select>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <app-select-scene></app-select-scene>
+            <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
           </app-col>
         </app-row>
         <app-row>
@@ -24,11 +28,11 @@
             <app-row>
               <app-col style="text-align: center;">
                 <h5>착공일</h5>
-                <p>2021.07.01</p>
+                <p>{{ form.contract_start_date }}</p>
               </app-col>
               <app-col style="text-align: center;">
                 <h5>준공일</h5>
-                <p>2021.07.01</p>
+                <p>{{ form.contract_end_date }}</p>
               </app-col>
             </app-row>
           </app-card>
@@ -106,19 +110,19 @@
                   <h4>알림함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.alarm_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('알림함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of alarm_list">
               <app-col size="auto">
-                <ion-chip color="danger">반려</ion-chip>
+                <ion-chip color="danger">{{ item.notify_head }}</ion-chip>
               </app-col>
               <app-col>
-                <h5>개인정보처리방침 개정</h5>
+                <h5>{{ item.notify_text_kr }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -132,19 +136,19 @@
                   <h4>미결함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.approval_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('미결함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of approval_list">
               <app-col size="auto">
-                <h6>구일종합건설(주)</h6>
+                <h6>{{ item.master_company_name }}</h6>
               </app-col>
               <app-col>
-                <h5>위험공종안전작업허가서</h5>
+                <h5>{{ item.ctgo_approval_module_name }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -160,19 +164,19 @@
                   <h4>공지사항</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.notice_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('공지사항')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of notice_list">
               <app-col size="auto">
-                <h6>2021.08.19</h6>
+                <h6>{{ item.create_date }}</h6>
               </app-col>
               <app-col>
-                <h5>공지사항 제목</h5>
+                <h5>{{ item.notice_title }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -185,19 +189,19 @@
                   <h4>회의록</h4>
                 </ion-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.safetymeeting_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('회의록')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of safetymeeting_list">
               <app-col size="auto">  
-                <h6>2021.07.22</h6>
+                <h6>{{ item.create_date }}</h6>
               </app-col>
               <app-col>
-                <h5>회의주제</h5>
+                <h5>{{ item.safety_meeting_type }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -251,7 +255,7 @@
       </app-row>
     </app-col>
     <app-col style="height: 100%;" size="3">
-      <app-card class="card-flex" style="height: 40%;">
+      <app-card class="card-flex" style="height: calc(40% - 6px);">
         <!-- <div>
           <app-row>
             <app-col style="display: flex; align-items: center;" routerLink="/my-page">
@@ -281,13 +285,13 @@
        <div>
           <app-row>
             <app-col size="auto" style="text-align: center;">
-              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg">
+              <app-avatar style="width: 100px; height: 100px;" src="assets/img/logo.svg">
               </app-avatar>
             </app-col>
             <app-col size="auto" style="text-align: left;">
-              <h3 style="font-weight: 700;">홍길동</h3>
-              <p>구일종합건설(주)</p>
-              <p>대표이사</p>
+              <h3 style="font-weight: 700;">{{ user.userData.user_name }}</h3>
+              <p>{{ user.userData.belong_data.company_name }}</p>
+              <p>{{ form.ctgo_job_position_name }}</p>
             </app-col>
           </app-row>
         
@@ -309,14 +313,14 @@
                 <h6>LH관리자<br>가입 대기</h6>
               </app-col>
               <app-col size="auto">
-                <h3><b>12</b></h3>
+                <h3><b>{{ form.lh_count }}</b></h3>
               </app-col>
               <app-img src="assets/img/main/helmet2.svg" style="padding-left: 10px;"></app-img>
               <app-col>
                 <h6>감리<br>가입 대기</h6>
               </app-col>
               <app-col size="auto">
-                <h3><b>8</b></h3>
+                <h3><b>{{ form.super_count }}</b></h3>
               </app-col>
             </app-row>
           </app-card>
@@ -334,7 +338,7 @@
         </div>
         </app-card>
           <!-- //날씨 -->
-        <app-card class="card-flex" style="height: 58.5%;"> 
+        <app-card class="card-flex" style="height: calc(60% - 6px);"> 
         <div>
             <ion-toolbar slot="top" color="white">
               <app-row>

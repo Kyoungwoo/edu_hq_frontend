@@ -145,9 +145,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
       }
 
       this.user.setUserData(userData, false);
-      this.nav.navigateRoot('/main-admin', {
-        animated: true
-      });
+      if(userData.user_type === 'COMPANY') this.nav.navigateRoot('/main-sub-admin', {animated: true});
+      else this.nav.navigateRoot('/main-admin', {animated: true});
     }
   }
 } 
