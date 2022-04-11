@@ -57,6 +57,7 @@ exports.RiskEvaluationEditPage = void 0;
 var core_1 = require("@angular/core");
 var file_service_1 = require("src/app/basic/service/core/file.service");
 var search_area_component_1 = require("src/app/component/modal/search-area/search-area.component");
+var search_construction_machinery_component_1 = require("src/app/component/modal/search-construction-machinery/search-construction-machinery.component");
 var risk_evaluation_popup_page_1 = require("../risk-evaluation-popup/risk-evaluation-popup.page");
 var RiskEvaluationEditPage = /** @class */ (function () {
     function RiskEvaluationEditPage(user, connect, toast, _modal, loading, date) {
@@ -624,9 +625,14 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: search_area_component_1.SearchAreaComponent,
+                            component: search_construction_machinery_component_1.SearchConstructionMachineryComponent,
                             componentProps: {
-                                project_id: this.form.project_id
+                                form: {
+                                    project_id: this.form.project_id,
+                                    master_company_id: this.form.master_company_id,
+                                    search_text: ''
+                                },
+                                multiple: true
                             }
                         })];
                     case 1:
@@ -636,12 +642,22 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 2:
                         data = (_a.sent()).data;
                         if (data) {
-                            console.log(data);
+                            unitItem.ctgo_machinery_ids = [];
+                            unitItem.ctgo_machinery_names = [];
+                            data.selectedItemList.forEach(function (item) {
+                                unitItem.ctgo_machinery_ids.push(item.ctgo_machinery_id);
+                                unitItem.ctgo_machinery_names.push(item.ctgo_machinery_name);
+                            });
                         }
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    RiskEvaluationEditPage.prototype.removeMachinery = function (unitItem, ctgo_machinery_id) {
+        var index = unitItem.ctgo_machinery_ids.indexOf(ctgo_machinery_id);
+        unitItem.ctgo_machinery_ids.splice(index, 1);
+        unitItem.ctgo_machinery_names.splice(index, 1);
     };
     /**
      * 특수공도구 팝업

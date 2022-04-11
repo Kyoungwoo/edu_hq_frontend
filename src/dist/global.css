@@ -233,6 +233,10 @@
   color: var(--ion-colo-base);
   margin: 0;
 }
+:root ion-chip ion-icon {
+  min-width: 1em;
+  margin-left: 4px;
+}
 :root ion-chip[fill=solid] {
   background: var(--ion-color-base);
   color: var(--ion-color-contrast);
@@ -428,6 +432,10 @@
 :root ion-app.cameraView, :root ion-app.cameraView ion-content, :root ion-app.cameraView .nav-decor {
   background: transparent none !important;
 }
+:root .danger-qr-view-modal {
+  --max-width: 500px!important;
+  --max-height: 600px!important;
+}
 @media only screen and (min-height: 600px) and (min-width: 768px) {
   :root .sc-ion-modal-md-h {
     --width: 100%;
@@ -489,6 +497,7 @@
   :root .education-info {
     --max-width: 550px;
     --max-height: 290px;
+    --width:550px;
   }
   :root .side-menu-admin-modal {
     --width: 100%;
@@ -501,4 +510,15 @@
   :root .side-menu-admin-modal .modal-wrapper {
     margin-top: calc(64px + var(--ion-safe-area-top));
   }
+}
+:root .emergency-modal {
+  --max-width: 350px;
+  --max-height: 450px;
+}
+:root .emergency-clear-modal {
+  --max-width: 350px;
+  --max-height: 300px;
+}
+:root app-select.use-state-class app-input-template {
+  margin-top: 0 !important;
 }

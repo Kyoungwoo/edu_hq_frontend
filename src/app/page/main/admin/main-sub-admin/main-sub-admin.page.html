@@ -6,7 +6,7 @@
       <app-card style="height: 100%; overflow: scroll;">
         <app-row>
           <app-col>
-            <app-select-scene></app-select-scene>
+            <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
           </app-col>
         </app-row>
         <app-row>
@@ -14,11 +14,11 @@
             <app-row>
               <app-col style="text-align: center;">
                 <h5>착공일</h5>
-                <p>2021.07.01</p>
+                <p>{{ form.contract_start_date }}</p>
               </app-col>
               <app-col style="text-align: center;">
                 <h5>준공일</h5>
-                <p>2021.07.01</p>
+                <p>{{ form.contract_end_date }}</p>
               </app-col>
             </app-row>
           </app-card>
@@ -119,12 +119,12 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of alarm_list">
               <app-col size="auto">
-                <ion-chip color="danger">반려</ion-chip>
+                <ion-chip color="danger">{{ item.notify_head }}</ion-chip>
               </app-col>
               <app-col>
-                <h5>개인정보처리방침 개정</h5>
+                <h5>{{ item.notify_text_kr }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -145,12 +145,12 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of approval_list">
               <app-col size="auto">
-                <h6>구일종합건설(주)</h6>
+                <h6>{{ item.master_company_name }}</h6>
               </app-col>
               <app-col>
-                <h5>위험공종안전작업허가서</h5>
+                <h5>{{ item.ctgo_approval_module_name }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -173,12 +173,12 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of notice_list">
               <app-col size="auto">
-                <h6>2021.08.19</h6>
+                <h6>{{ item.create_date }}</h6>
               </app-col>
               <app-col>
-                <h5>공지사항 제목</h5>
+                <h5>{{ item.notice_title }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -198,12 +198,12 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of safetymeeting_list">
               <app-col size="auto">  
-                <h6>2021.07.22</h6>
+                <h6>{{ item.create_date }}</h6>
               </app-col>
               <app-col>
-                <h5>회의주제</h5>
+                <h5>{{ item.safety_meeting_type }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -218,19 +218,19 @@
                   <h4>MSDS</h4>
                 </ion-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <!-- <ion-chip color="medium">{{ form.msds_count }}</ion-chip> -->
                 </app-col>
                 <app-col (click)="router('MSDS')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row>
+            <app-row *ngFor="let item of msds_list">
               <app-col size="auto">  
-                <h6>2021.07.22</h6>
+                <h6>{{ item.create_date }}</h6>
               </app-col>
               <app-col>
-                <h5><b>[협력사2]</b> **물질</h5>
+                <h5><b>[{{ item.company_name }}]</b> {{ item.msds_title }}</h5>
               </app-col>
             </app-row>
           </app-card>
@@ -243,7 +243,7 @@
                   <h4>교육 이수 현황</h4>
                 </ion-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <!-- <ion-chip color="medium">3</ion-chip> -->
                 </app-col>
                 <app-col (click)="router('교육현황')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -258,21 +258,21 @@
             </app-row>
             <app-row style="background-color: var(--ion-color-medium-translucent); border-radius: 5px; margin-bottom: 10px; height:36px;">
               <app-col  style="width: 30%; padding-left: 5px;"><h6>양호</h6></app-col>
-              <app-col  style="width: 22%;"><h6>100</h6></app-col>
-              <app-col  style="width: 22%;"><h6>50</h6></app-col>
-              <app-col  style="width: 22%;"><h6>5</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.hire_data.good ? education.hire_data.good : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.regular_data.good ? education.regular_data.good : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.special_data.good ? education.special_data.good : '-' }}</h6></app-col>
             </app-row>
             <app-row style="background-color: var(--ion-color-primary-translucent); border-radius: 5px; margin-bottom: 10px; height:36px;">
               <app-col  style="width: 30%; padding-left: 5px;"><h6>필요</h6></app-col>
-              <app-col  style="width: 22%;"><h6>20</h6></app-col>
-              <app-col  style="width: 22%;"><h6>14</h6></app-col>
-              <app-col  style="width: 22%;"><h6>5</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.hire_data.excess ? education.hire_data.excess : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.regular_data.excess ? education.regular_data.excess : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.special_data.excess ? education.special_data.excess : '-' }}</h6></app-col>
             </app-row>
             <app-row style="background-color: var(--ion-color-warning-translucent); border-radius: 5px; height:36px;">
               <app-col  style="width: 30%; padding-left: 5px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
-              <app-col  style="width: 22%;"><h6>-</h6></app-col>
-              <app-col  style="width: 22%;"><h6>-</h6></app-col>
-              <app-col  style="width: 22%;"><h6>3</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.hire_data.necessary ? education.hire_data.necessary : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.regular_data.necessary ? education.regular_data.necessary : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.special_data.necessary ? education.special_data.necessary : '-' }}</h6></app-col>
             </app-row>
           </app-card>
         </app-col>

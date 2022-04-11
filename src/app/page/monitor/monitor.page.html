@@ -59,10 +59,10 @@
         </app-row>
       </app-col>
     </app-row>
- 
+
 </ion-toolbar>
 
-
+<div *mobileHidden>
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
       <app-select-company [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-company>
@@ -79,6 +79,7 @@
         [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
   </app-row>
+<<<<<<< HEAD
   <ng-container *mobileHidden>
     <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
       <app-col>
@@ -99,6 +100,26 @@
     </app-row>
   </ng-container>
 
+=======
+  <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
+    <app-col>
+      <app-select [disabled]="true" label="위험공종">
+        <app-select-option>전체</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col>
+      <app-select [disabled]="true" label="작업상태">
+        <app-select-option>전체</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col>
+      <app-input label="검색" [(ngModel)]="form.search_text" (keyup.enter)="wokerInGetList()" placeholder="검색어를 입력해 주세요.">
+        <app-img (click)="wokerInGetList()" name="search">검색</app-img>
+      </app-input>
+    </app-col>
+  </app-row>
+</div>
+>>>>>>> 1198d3a3937f2e55d066b5355135a2cdce305727
 
 <ion-toolbar color="white" *mobileShow>
   <app-row>
@@ -869,7 +890,7 @@
     <app-row *mobileHidden>
       <app-col>
         <app-card>
-          <app-row>
+          <app-row style="align-items: flex-start;">
             <app-col>
               <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
             </app-col>

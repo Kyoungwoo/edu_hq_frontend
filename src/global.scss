@@ -238,6 +238,10 @@
     background: var(--ion-color-translucent);
     color: var(--ion-colo-base);
     margin: 0;
+    ion-icon {
+      min-width: 1em;
+      margin-left: 4px;
+    }
   }
   ion-chip[fill=solid] {
     background: var(--ion-color-base);
