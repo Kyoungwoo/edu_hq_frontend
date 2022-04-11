@@ -40,7 +40,7 @@
   <app-table>
     <thead>
       <tr>
-        <th style="width: 40px;">
+        <th *ngIf="!viewMode" style="width: 40px;">
           <app-check *ngIf="permission.edit && !viewMode" type="all"></app-check>
         </th>
         <th>현장명</th>
@@ -68,7 +68,7 @@
             <app-input name="contract_name" label="계약명" [(ngModel)]="item.contract_name"></app-input>
           </td>
           <td>
-            <app-select-construction name="ctgo_construction_id" [project_id]="item.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
+            <app-select-construction [master_company_id]="user.userData.belong_data.master_company_id" label="" name="ctgo_construction_id" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
           </td>
           <td>
             <app-input name="contract_amount" label="계약금액" [(ngModel)]="item.contract_amount"></app-input>
@@ -91,7 +91,6 @@
       </ng-container>
       <ng-template #tempView>
         <tr *ngFor="let item of form.company_contract_data; let i = index">
-          <td></td>
           <td>
             {{ item.project_name }}
           </td>
@@ -147,7 +146,7 @@
 <app-row>
   <app-col>
     <h4>개인정보 처리 위탁 동의서</h4>
-    <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10"  [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
+    <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10" [disabled]="viewMode" [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
     <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button>
   </app-col>
 </app-row>

@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
+import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -559,9 +560,14 @@ export class RiskEvaluationEditPage implements OnInit {
    */
    async openMachinery(unitItem) {
     const modal = await this._modal.create({
-      component: SearchAreaComponent,
+      component: SearchConstructionMachineryComponent,
       componentProps: {
-        project_id: this.form.project_id
+        form: {
+          project_id: this.form.project_id,
+          master_company_id: this.form.master_company_id,
+          search_text: ''
+        },
+        multiple: true
       }
     });
     modal.present();
@@ -569,9 +575,20 @@ export class RiskEvaluationEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if(data) {
-      console.log(data);
+      unitItem.ctgo_machinery_ids = [];
+      unitItem.ctgo_machinery_names = [];
+      data.selectedItemList.forEach(item => {
+        unitItem.ctgo_machinery_ids.push(item.ctgo_machinery_id);
+        unitItem.ctgo_machinery_names.push(item.ctgo_machinery_name);
+      })
     }
   }
+  removeMachinery(unitItem, ctgo_machinery_id) {
+    const index = unitItem.ctgo_machinery_ids.indexOf(ctgo_machinery_id);
+    unitItem.ctgo_machinery_ids.splice(index, 1);
+    unitItem.ctgo_machinery_names.splice(index, 1);
+  }
+  
   /**
    * 특수공도구 팝업
    */

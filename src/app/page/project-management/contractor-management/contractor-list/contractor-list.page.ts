@@ -15,12 +15,14 @@ export class ContractorListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_regional_id: this.user.userData.belong_data.hq_regional_id || 0,
     hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
     limit_no: 0,
     master_company_ids: [],
     search_text: ''
   }
+
+  master_compnay_id:number = this.user.userData.belong_data.master_company_id;
 
   res:ConnectResult <{
     index: number,
@@ -69,6 +71,7 @@ export class ContractorListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("this.master_compnay_id",this.master_compnay_id);
     this.ctgoBusiness = {
       errorStatus: null,
       rsCode: null,
@@ -85,6 +88,10 @@ export class ContractorListPage implements OnInit {
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
+    this.form.master_company_ids = [];
+
+    this.form.master_company_ids.push(this.master_compnay_id);
+    console.log(this.form.master_company_ids)
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;

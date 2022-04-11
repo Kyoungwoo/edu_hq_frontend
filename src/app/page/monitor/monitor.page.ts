@@ -517,7 +517,6 @@ gps_log_data = new GpsCoordinateData();
 
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
-    console.log("this.gpsData",res);
     if(res.rsCode === 0) {
       this.gpsData = res
       console.log("this.gpsData",this.gpsData);
