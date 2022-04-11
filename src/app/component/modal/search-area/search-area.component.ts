@@ -4,16 +4,16 @@ import { ModalController } from '@ionic/angular';
 import { listAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 
-class area1{
+class Area1 {
   area_top_name: string;
   area_top_id: number;
 }
-class area2{
+class Area2 {
   area_middle_name: string;
   area_top_id: number;
   area_middle_id: number;
 }
-class area3{
+class Area3 {
   area_bottom_name: string;
   area_top_id: number;
   area_middle_id: number;
@@ -29,18 +29,17 @@ class area3{
 export class SearchAreaComponent implements OnInit {
   @Input() project_id;
   @Input() selectType: 'manual' | 'auto' = 'auto';
-  @Input() multiple:boolean = false;
 
   areaView1:boolean;
   areaView2:boolean;
   areaView3:boolean;
 
-  area1:ConnectResult <area1>;
-  area2:ConnectResult <area2>
-  area3:ConnectResult <area3>
-  area1selectedItem:area1;
-  area2selectedItem:area2;
-  area3selectedItem:area3;
+  area1:ConnectResult <Area1>;
+  area2:ConnectResult <Area2>
+  area3:ConnectResult <Area3>
+  area1selectedItem:Area1;
+  area2selectedItem:Area2;
+  area3selectedItem:Area3;
 
   constructor(
     private connect: ConnectService, 
@@ -73,7 +72,12 @@ export class SearchAreaComponent implements OnInit {
     });
     if(this.area1.rsCode === 0) {};
   }
-  select() {
+  
+  area3Click(item:Area3) {
+    
+  }
+
+  submit() {
     this._modal.dismiss({
       area1selectedItem:this.area1selectedItem,
       area2selectedItem:this.area2selectedItem,

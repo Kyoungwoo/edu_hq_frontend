@@ -68,9 +68,9 @@ export class SelectPeopleComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      const selectedItem = <ctgoMemberItem>data.selectedItem
-      this.value = selectedItem.user_id
-      this.text = selectedItem.user_name
+      const selectedItem = <ctgoMemberItem>data.selectedItem;
+      this.value = selectedItem.user_id;
+      this.text = selectedItem.user_name;
     }
   }
 

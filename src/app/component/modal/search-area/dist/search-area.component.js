@@ -46,27 +46,26 @@ exports.SearchAreaComponent = void 0;
 var search_dangerous_area_component_1 = require("./../search-dangerous-area/search-dangerous-area.component");
 var core_1 = require("@angular/core");
 var basic_animation_1 = require("src/app/basic/basic.animation");
-var area1 = /** @class */ (function () {
-    function area1() {
+var Area1 = /** @class */ (function () {
+    function Area1() {
     }
-    return area1;
+    return Area1;
 }());
-var area2 = /** @class */ (function () {
-    function area2() {
+var Area2 = /** @class */ (function () {
+    function Area2() {
     }
-    return area2;
+    return Area2;
 }());
-var area3 = /** @class */ (function () {
-    function area3() {
+var Area3 = /** @class */ (function () {
+    function Area3() {
     }
-    return area3;
+    return Area3;
 }());
 var SearchAreaComponent = /** @class */ (function () {
     function SearchAreaComponent(connect, _modal) {
         this.connect = connect;
         this._modal = _modal;
         this.selectType = 'auto';
-        this.multiple = false;
     }
     SearchAreaComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -131,7 +130,9 @@ var SearchAreaComponent = /** @class */ (function () {
             });
         });
     };
-    SearchAreaComponent.prototype.select = function () {
+    SearchAreaComponent.prototype.area3Click = function (item) {
+    };
+    SearchAreaComponent.prototype.submit = function () {
         this._modal.dismiss({
             area1selectedItem: this.area1selectedItem,
             area2selectedItem: this.area2selectedItem,
@@ -182,9 +183,6 @@ var SearchAreaComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], SearchAreaComponent.prototype, "selectType");
-    __decorate([
-        core_1.Input()
-    ], SearchAreaComponent.prototype, "multiple");
     SearchAreaComponent = __decorate([
         core_1.Component({
             selector: 'app-search-area',

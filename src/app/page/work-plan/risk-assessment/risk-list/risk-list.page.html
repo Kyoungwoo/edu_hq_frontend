@@ -89,14 +89,14 @@
             <tbody>
               <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
                 <td><app-radio color="white" size="small" name="check"></app-radio></td>
-                <td>50</td>
-                <td>토목</td>
-                <td>수시 위험성 평가서</td>
-                <td>(주)지에스아이엘</td>
-                <td>2021.05.06~2022.06.06</td>
-                <td>이상범</td>
-                <td>2021.05.06</td>
-                <td>진행중</td>
+                <td>{{ item.index }}</td>
+                <td>{{ item.ctgo_construction_name }}</td>
+                <td>{{ item.ctgo_approval_module_name }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.approval_cnt_answer }}</td>
               </tr>
             </tbody>
           </app-table>
@@ -136,10 +136,10 @@
       </app-input-group>
     </ion-toolbar>
     <ion-toolbar color="white">
-      <ion-segment color="primary">
-        <ion-segment-button>최초</ion-segment-button>
-        <ion-segment-button>정기</ion-segment-button>
-        <ion-segment-button>수시</ion-segment-button>
+      <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)">
+        <ion-segment-button value="최초">최초</ion-segment-button>
+        <ion-segment-button value="정기">정기</ion-segment-button>
+        <ion-segment-button value="수시">수시</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>
@@ -148,93 +148,25 @@
       <app-row>
         <app-col></app-col>
         <app-col size="auto">
-          <app-button fill="translucent">신규등록</app-button>
+          <app-button fill="translucent" (click)="add()">신규등록</app-button>
         </app-col>
       </app-row>
-      <app-card>
+      <app-card *ngFor="let item of res?.rsMap">
         <app-row style="align-items: flex-start;">
           <app-col>
-            <h5>수시 위험성 평가표</h5>
+            <h5>{{ item.ctgo_approval_module_name }}</h5>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
+            <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
           </app-col>
         </app-row>
         <app-row>
           <app-col>
-            <p>(주)지에스아이엘</p>
-            <p>작업기간: 21.05.21 ~ 22.06.06</p>
+            <p>{{ item.company_name }}</p>
+            <p>작업기간: {{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</p>
           </app-col>
         </app-row>
-        <ion-badge color="success">토목</ion-badge>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>수시 위험성 평가표</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>(주)지에스아이엘</p>
-            <p>작업기간: 21.05.21 ~ 22.06.06</p>
-          </app-col>
-        </app-row>
-        <ion-badge color="success">전기</ion-badge>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>수시 위험성 평가표</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="success">진행중</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>(주)지에스아이엘</p>
-            <p>작업기간: 21.05.21 ~ 22.06.06</p>
-          </app-col>
-        </app-row>
-        <ion-badge color="success">소방</ion-badge>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>수시 위험성 평가표</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="primary">승인</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>(주)지에스아이엘</p>
-            <p>작업기간: 21.05.21 ~ 22.06.06</p>
-          </app-col>
-        </app-row>
-        <ion-badge color="success">전기</ion-badge>
-      </app-card>
-      <app-card>
-        <app-row style="align-items: flex-start;">
-          <app-col>
-            <h5>수시 위험성 평가표</h5>
-          </app-col>
-          <app-col size="auto">
-            <ion-chip color="danger">반려</ion-chip>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>(주)지에스아이엘</p>
-            <p>작업기간: 21.05.21 ~ 22.06.06</p>
-          </app-col>
-        </app-row>
-        <ion-badge color="success">토목</ion-badge>
+        <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge>
       </app-card>
     </ng-container>
     </ion-content>

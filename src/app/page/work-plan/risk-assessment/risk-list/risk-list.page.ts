@@ -5,9 +5,30 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { RiskDetailSearchPage } from '../risk-detail-search/risk-detail-search.page';
 import { RiskEvaluationEditPage } from '../risk-evaluation-edit/risk-evaluation-edit.page';
 
+
+class RiskListItem {
+  approval_cnt_answer:ApprovalAnswerType = "임시저장";
+  approval_id = 109;
+  company_id = 22;
+  company_name = "구르미";
+  create_date = "2022-04-08";
+  create_user_id = 3366458717;
+  ctgo_approval_module_name = "수시 위험성 평가서";
+  ctgo_construction_id = 9;
+  ctgo_construction_name = "소방";
+  index = 1;
+  project_id = 1;
+  risk_asment_end_date = "2022-04-09";
+  risk_asment_id = 31;
+  risk_asment_start_date = "2022-04-09";
+  risk_asment_type = "수시";
+  user_name = "업체에";
+  row_count = 0;
+}
 @Component({
   selector: 'app-risk-list',
   templateUrl: './risk-list.page.html',
@@ -27,7 +48,7 @@ export class RiskListPage implements OnInit {
     limit_no: 0
   }
 
-  res:ConnectResult<any>;
+  res:ConnectResult<RiskListItem>;
 
   permission = {
     company_id: false,
@@ -117,8 +138,6 @@ export class RiskListPage implements OnInit {
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     
-    let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/risk/assessment/list/get', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.forEach((item, i) => {
