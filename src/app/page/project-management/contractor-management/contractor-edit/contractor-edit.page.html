@@ -27,25 +27,27 @@
       <app-input label="현장 전화번호" [disabled]="updateStatus" [(ngModel)]="form.company_phone"></app-input>
     </app-col>
   </app-row>
-  <h4>회사 로고</h4>
-  <app-card>
-    <h4>
-      <app-row>
-        <app-col>
-          첨부자료
-        </app-col>
-        <app-col size="auto">
-          <app-button *ngIf="!updateStatus">
-            <app-file
-            [(ngModel)]="form.company_file_data"
-            [file]="form.file"
-            [file_json]="form.file_json" [multiple]="true"></app-file>
-            추가
-          </app-button>
-        </app-col>
-      </app-row>
-    </h4>
-    <app-file-preview *ngFor="let futItem of form.company_file_data  let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.company_file_data.splice(i,1)"></app-file-preview>
+  <app-row>
+    <app-col>
+      <h4>회사 로고</h4>
+    </app-col>
+    <app-col size="auto">
+      <app-button *ngIf="!updateStatus" fill="translucent">
+        <app-file view_type="LOGO"
+        [(ngModel)]="form.company_file_data"
+        [file]="form.file"
+        [file_json]="form.file_json" [multiple]="true"></app-file>
+        추가
+      </app-button>
+    </app-col>
+  </app-row>
+  <app-file-preview *ngFor="let futItem of form.company_file_data  let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.company_file_data.splice(i,1)"></app-file-preview>
+  <app-card *ngIf="!form.company_file_data">
+    <app-row>
+      <app-col>
+        <h5>등록된 로고가 없습니다.</h5>
+      </app-col>
+    </app-row>
   </app-card>
 
   <h4>담당자 정보</h4>

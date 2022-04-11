@@ -98,7 +98,7 @@ export class WorkStandardSetPage implements OnInit {
   disasterSelected = [];
 
   workRoleCheck:boolean = true;
-  editable = false;
+  editable = true;
   //재해 형태 끝
   constructor(
     private connect: ConnectService,
@@ -113,7 +113,7 @@ export class WorkStandardSetPage implements OnInit {
      this.user.userData.user_role === 'LH_ADMIN' ||
       this.user.userData.user_role === 'LH_HEAD') {
       this.workRoleCheck = false;
-      this.editable = true;
+      this.editable = false;
     }
 
     this.segmentChange();

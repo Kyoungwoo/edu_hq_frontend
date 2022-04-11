@@ -29,7 +29,12 @@
           </tr>
           <tr>
             <td>
-              <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_ids"></app-select-contractor>
+              <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="master_compnay_id"></app-select-contractor>
             </td>
           </tr>
           <tr>
