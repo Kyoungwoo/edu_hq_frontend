@@ -63,6 +63,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
 
   private async get() {
+    console.log(this.project_id, this.master_company_id);
     if(!this.project_id || !this.master_company_id) {
       this.res = null;
       return;

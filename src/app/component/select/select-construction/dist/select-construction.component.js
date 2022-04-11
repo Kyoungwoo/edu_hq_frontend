@@ -99,6 +99,7 @@ var SelectConstructionComponent = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        console.log(this.project_id, this.master_company_id);
                         if (!this.project_id || !this.master_company_id) {
                             this.res = null;
                             return [2 /*return*/];

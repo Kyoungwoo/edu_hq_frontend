@@ -46,6 +46,28 @@ exports.RiskListPage = void 0;
 var core_1 = require("@angular/core");
 var risk_detail_search_page_1 = require("../risk-detail-search/risk-detail-search.page");
 var risk_evaluation_edit_page_1 = require("../risk-evaluation-edit/risk-evaluation-edit.page");
+var RiskListItem = /** @class */ (function () {
+    function RiskListItem() {
+        this.approval_cnt_answer = "임시저장";
+        this.approval_id = 109;
+        this.company_id = 22;
+        this.company_name = "구르미";
+        this.create_date = "2022-04-08";
+        this.create_user_id = 3366458717;
+        this.ctgo_approval_module_name = "수시 위험성 평가서";
+        this.ctgo_construction_id = 9;
+        this.ctgo_construction_name = "소방";
+        this.index = 1;
+        this.project_id = 1;
+        this.risk_asment_end_date = "2022-04-09";
+        this.risk_asment_id = 31;
+        this.risk_asment_start_date = "2022-04-09";
+        this.risk_asment_type = "수시";
+        this.user_name = "업체에";
+        this.row_count = 0;
+    }
+    return RiskListItem;
+}());
 var RiskListPage = /** @class */ (function () {
     function RiskListPage(connect, toast, date, _modal, user, nav) {
         this.connect = connect;
@@ -150,14 +172,12 @@ var RiskListPage = /** @class */ (function () {
     RiskListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
-            var trans_form, _a;
+            var _a;
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         this.form.limit_no = limit_no;
-                        trans_form = JSON.parse(JSON.stringify(this.form));
-                        trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/risk/assessment/list/get', this.form, { loading: true })];
                     case 1:

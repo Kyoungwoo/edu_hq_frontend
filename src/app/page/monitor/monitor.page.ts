@@ -155,39 +155,36 @@ graphArr3 = [
   {
     name:'작업전',
     count:10,
-    color: 'warning'
   },
   {
     name:'작업중',
-    count:2,
-    color: 'green'
+    count:90,
   },
   {
     name:'작업종료',
-    count:3,
-    color: 'red'
+    count:50,
   }
 ]
 graphArr4 = [
   {
-    name:'전기',
+    name:'고소 작업(높이 2m 이상)',
     count:10
   },
   {
-    name:'토목',
+    name:'굴착 가설(깊이 1.5m 이상)',
     count:2
   },
   {
-    name:'조경',
-    count:3
+    name:'기설 구조물 설치 해제',
+    count:80
   },
   {
-    name:'건축',
-    count:4
+    name:'밀폐공간',
+    count:35
   },
   {
-    name:'기계',
-    count:5
+    name:'휴일작업',
+    count:70
   },
 ]
 
@@ -537,14 +534,30 @@ gps_log_data = new GpsCoordinateData();
     let style;
     switch(item.name) { 
       case '작업전':
-        style = {'background-color':'var(--ion-color-warning)'}
+        style = {'background-color':'var(--ion-color-monitor-yellow)'}
       break;
       case '작업중':
         style = {'background-color':'var(--ion-color-primary)'}
       break;
       case '작업종료':
-        style = {'background-color':'var(--ion-color-secondary)'}
+        style = {'background-color':'var(--ion-color-tertiary)'}
       break;
+      case '고소 작업(높이 2m 이상)':
+        style = {'background-color':'var(--ion-color-monitor-yellow)'}
+      break;
+      case '굴착 가설(깊이 1.5m 이상)':
+        style = {'background-color':'var(--ion-color-monitor-warning)'}
+      break;
+      case '기설 구조물 설치 해제':
+        style = {'background-color':'var(--ion-color-primary)'}
+      break;
+      case '밀폐공간':
+        style = {'background-color':'var(--ion-color-tertiary)'}
+      break;
+      case '휴일작업':
+        style = {'background-color':'var(--ion-color-fourth)'}
+      break;
+      
     }
     return style
   }

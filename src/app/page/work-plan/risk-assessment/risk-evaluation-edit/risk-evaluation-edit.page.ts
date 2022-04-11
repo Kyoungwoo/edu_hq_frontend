@@ -109,15 +109,18 @@ export class RiskEvaluationEditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log(this.user.userData);
+    /**
+     * 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 가지고 와야 함
+     */
+    this.getDefaultForm(); // 폼 채우기
     if(!this.risk_asment_id) {
-      // 신규 작성 시, 디폴트 값을 가져옴
-      this.getDefaultForm(); // 폼 채우기
+      // 신규 작성 시에는 가지고 온 디폴트 값을 건드리지 않음.
     }
     else {
       // 수정 시에는 정보를 가져와서 채워넣음
       this.form.risk_asment_id = this.risk_asment_id;
       await this.getDetail();
+      await this.getEvaluationDetail();
     }
 
     // 나머지 정보
@@ -167,6 +170,30 @@ export class RiskEvaluationEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+  /**
+   * 위험성평가 평가표 정보 가져오기
+   */
+   async getEvaluationDetail() {
+    const res = await this.connect.run('/risk/assessment/detail/evaluation/get', {
+      risk_asment_id: this.form.risk_asment_id
+    });
+    if(res.rsCode === 0) {
+      res.rsMap.forEach(item => {
+        try {
+          // 배열이 스트링으로 들어오므로 배열로 변환해줘야 함
+          item.ctgo_machinery_ids = JSON.parse(item.ctgo_machinery_ids);
+          item.ctgo_machinery_names = JSON.parse(item.ctgo_machinery_names);
+          item.ctgo_tool_ids = JSON.parse(item.ctgo_tool_ids);
+          item.ctgo_tool_names = JSON.parse(item.ctgo_tool_names);
+        } catch(e) {}
+      });
+      this.riskTableList = this.riskListToTable(res.rsMap);
       // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
     }
     else {
@@ -507,7 +534,7 @@ export class RiskEvaluationEditPage implements OnInit {
   /**
    * 장소 팝업
    */
-  async openArea() {
+  async openArea(unitItem) {
     const modal = await this._modal.create({
       component: SearchAreaComponent,
       componentProps: {
@@ -519,13 +546,18 @@ export class RiskEvaluationEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if(data) {
-      console.log(data);
+      unitItem.area_top_id = data.area1selectedItem.area_top_id;
+      unitItem.area_top_name = data.area1selectedItem.area_top_name;
+      unitItem.area_middle_id = data.area2selectedItem.area_middle_id;
+      unitItem.area_middle_name = data.area2selectedItem.area_middle_name;
+      unitItem.area_bottom_id = data.area3selectedItem.area_bottom_id;
+      unitItem.area_bottom_name = data.area3selectedItem.area_bottom_name;
     }
   }
   /**
    * 건설기계 팝업
    */
-   async openMachinery() {
+   async openMachinery(unitItem) {
     const modal = await this._modal.create({
       component: SearchAreaComponent,
       componentProps: {
@@ -543,7 +575,7 @@ export class RiskEvaluationEditPage implements OnInit {
   /**
    * 특수공도구 팝업
    */
-   async openTool() {
+   async openTool(unitItem) {
     const modal = await this._modal.create({
       component: SearchAreaComponent,
       componentProps: {

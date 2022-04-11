@@ -130,7 +130,7 @@
                     master_worker: 0,
                     total_cnt: 0,
                     work_date: this.date.today()
-                })">총 {{ todayWork_totalCount }}명</ion-chip>
+                })">총 <b>{{ todayWork_totalCount }}</b>명</ion-chip>
                   </app-col>
                 </ion-row>
               </ion-toolbar>
@@ -183,7 +183,7 @@
                     <h4>금일 작업 근로자</h4>
                   </app-col>
                   <app-col size="auto">
-                    <ion-chip class="chip-back">총 113명</ion-chip>
+                    <ion-chip class="chip-back">총<b>113</b>명</ion-chip>
                   </app-col>
                 </ion-row>
               </ion-toolbar>
@@ -192,7 +192,7 @@
                   <div style="width: 75%; position: relative;">
                     <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
                       <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff9041"
+                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFC876"
                         stroke-width="6">
                       </circle>
                       <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44c650" stroke-width="6"
@@ -217,7 +217,7 @@
                   <app-row>
                     <app-col size="auto" style="display: flex; align-items: center;">
                       <div class="circlel-per"></div>
-                      <p class="count-name">일반작업&nbsp;&nbsp;&nbsp;</p>
+                      <p class="count-name">일반작업&nbsp;&nbsp;</p>
                       <p class="count-contant" style="font-size: 20px;">50</p>
                     </app-col>
                   </app-row>
@@ -322,7 +322,7 @@
                         <h4>공종별 출역 작업자</h4>
                       </app-col>
                       <app-col size="auto">
-                        <ion-chip class="chip-back">총 {{ todayConstruction_totalCount }}명</ion-chip>
+                        <ion-chip class="chip-back">총<b>{{ todayConstruction_totalCount }}</b>명</ion-chip>
                       </app-col>
                     </ion-row>
                   </ion-toolbar>
@@ -352,7 +352,7 @@
                       </app-col>
                     </ion-row>
                   </ion-toolbar>
-                  <ion-row *ngFor="let item of graphArr3 let i = index" color="warning">
+                  <ion-row *ngFor="let item of graphArr3 let i = index">
                     <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
                     <app-col style="display: flex; align-items: center;">
                         <div [ngStyle]="style(item)" class="worker-state"
@@ -373,15 +373,15 @@
                         <h4>위험공종별 작업 계획</h4>
                       </app-col>
                       <app-col size="auto">
-                        <ion-chip class="chip-back">총 113명</ion-chip>
+                        <ion-chip class="chip-back">총<b>113</b>명</ion-chip>
                       </app-col>
                     </ion-row>
                   </ion-toolbar>
                   <ion-row *ngFor="let item of graphArr4 let i = index">
-                    <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
+                    <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
                     <app-col style="display: flex; align-items: center;">
-                      <div style="height: 30px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                        [style.width]="item.count + '%'"></div>
+                      <div [ngStyle]="style(item)" class="danger-state"
+                      [style.width]="item.count + '%'"></div>
                       <h4>{{item.count}}</h4>
                     </app-col>
                   </ion-row>
@@ -507,7 +507,7 @@
       </app-card> -->
 
       </app-col>
-      <app-col style="flex: 0 0 250px;" *mobileHidden>
+      <app-col style="flex: 0 0 250px;">
         <app-table type="card">
           <ion-toolbar class="toolbar-padding" slot="top" color="white">
             <ion-row style="justify-content: space-between;">
@@ -525,7 +525,7 @@
                 <app-img style="width: 50px;" src="/assets/img/monitor/dangerarea.svg"></app-img>
               </td>
               <td class="table-text">
-                <h5>
+                <h5 style="text-align: left;">
                   {{ smartEquip_structure.ctgo_machine_serial_name }}
                 </h5>
                 <p>
@@ -553,7 +553,7 @@
                 <app-img style="width: 50px;" src="/assets/img/monitor/heavy.svg"></app-img>
               </td>
               <td class="table-text">
-                <h5>
+                <h5 style="text-align: left;">
                   {{ smartEquip_crane.ctgo_machine_serial_name }}
                 </h5>
                 <p>
@@ -581,7 +581,7 @@
                 <app-img style="width: 50px;" src="/assets/img/monitor/closeness.svg"></app-img>
               </td>
               <td class="table-text">
-                <h5>
+                <h5 style="text-align: left;">
                   {{ smartEquip_closeness.ctgo_machine_serial_name }}
                 </h5>
                 <p>
@@ -752,31 +752,23 @@
 
   <ng-container *mobileShow>
     <div [style.display]="menu === 2 ? 'block' : 'none'">
-      <app-row style="align-items: flex-start;">
-        <app-col>
-          <app-card color="white">
-            <app-row style="align-items: stretch;">
-              <app-col class="donut-group">
-                <app-row>
-                  <app-col>
-                    <h4>CCTV 설치 장소 1</h4>
-                  </app-col>
-                  <app-col></app-col>
-                  <app-col size="auto">
-                    <app-button>수정</app-button>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col style="position: relative;">
-                    <div style="border: 1px solid; height: 500px; position: relative;">
-                    </div>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-      </app-row>
+      <app-card>
+        <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
+        <ion-row style="align-items: flex-start;">
+          <app-col>
+            <h4>CCTV 설치장소1</h4>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent">수정</app-button>
+          </app-col>
+        </ion-row>
+        <app-row>
+          <app-col style="position: relative;">
+            <div style="border: 1px solid; height: 500px; position: relative;">
+            </div>
+          </app-col>
+        </app-row>
+      </app-card>
     </div>
   </ng-container>
 
@@ -792,7 +784,7 @@
                 </app-col>
                 <app-col></app-col>
                 <app-col size="auto">
-                  <app-button>수정</app-button>
+                  <app-button fill="translucent">수정</app-button>
                 </app-col>
               </app-row>
               <app-row>
@@ -810,7 +802,7 @@
                 </app-col>
                 <app-col></app-col>
                 <app-col size="auto">
-                  <app-button>수정</app-button>
+                  <app-button fill="translucent">수정</app-button>
                 </app-col>
               </app-row>
               <app-row>
@@ -837,7 +829,7 @@
                 </app-col>
                 <app-col></app-col>
                 <app-col size="auto">
-                  <app-button>수정</app-button>
+                  <app-button fill="translucent">수정</app-button>
                 </app-col>
               </app-row>
               <app-row>
@@ -855,7 +847,7 @@
                 </app-col>
                 <app-col></app-col>
                 <app-col size="auto">
-                  <app-button>수정</app-button>
+                  <app-button fill="translucent">수정</app-button>
                 </app-col>
               </app-row>
               <app-row>
@@ -875,7 +867,7 @@
     <app-row *mobileHidden>
       <app-col>
         <app-card>
-          <app-row style="align-items: flex-start;">
+          <app-row>
             <app-col>
               <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
             </app-col>
