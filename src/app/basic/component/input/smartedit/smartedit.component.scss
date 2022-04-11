@@ -1,4 +1,6 @@
 :host {
     display: block;
     border: 1px solid var(--ion-color-base, var(--ion-color-white));
+    position: relative;
+    overflow: hidden;
 }

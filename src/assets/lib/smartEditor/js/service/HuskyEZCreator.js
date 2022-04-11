@@ -24,6 +24,7 @@ if (!nhn.husky) nhn.husky = {};
  */
 nhn.husky.EZCreator = new (function(){
 	this.nBlockerCount = 0;
+	var elIFrame;
 
 	this.createInIFrame = function(htOptions){
 		if(arguments.length == 1){
@@ -45,7 +46,7 @@ nhn.husky.EZCreator = new (function(){
 			htParams = arguments[6];
 		}
 
-		if(bUseBlocker) nhn.husky.EZCreator.showBlocker();
+		// if(bUseBlocker) nhn.husky.EZCreator.showBlocker();
 
 		var attachEvent = function(elNode, sEvent, fHandler){ 
 			if(elNode.addEventListener){
@@ -63,7 +64,8 @@ nhn.husky.EZCreator = new (function(){
 		if(typeof(elPlaceHolder) != "object")
 			elPlaceHolder = document.getElementById(elPlaceHolder);
 
-		var elIFrame, nEditorHeight;
+			// var elIFrame, nEditorHeight;
+			var nEditorHeight;
 
 		try{
 			elIFrame = document.createElement("<IFRAME frameborder=0 scrolling=no>");
@@ -89,7 +91,7 @@ nhn.husky.EZCreator = new (function(){
 				elIFrame.style.height = nEditorHeight+ "px";
 				elIFrame.contentWindow.document.body.style.margin = "0";
 			}catch(e){
-				nhn.husky.EZCreator.hideBlocker(true);
+				// nhn.husky.EZCreator.hideBlocker(true); 강ㅔㅜ석
 				elIFrame.style.border = "5px solid red";
 				elIFrame.style.width = "500px";
 				elIFrame.style.height = "500px";
@@ -110,38 +112,88 @@ nhn.husky.EZCreator = new (function(){
 			oApp.run({fnOnAppReady:fOnAppLoad}); 
 			
 //			top.document.title += ", "+((new Date())-window.STime);
-			nhn.husky.EZCreator.hideBlocker();
+			// nhn.husky.EZCreator.hideBlocker(); 강제주석
 		});
 //		window.STime = new Date();
 		elIFrame.src = sSkinURI;
 		this.elIFrame = elIFrame;
-	};
-	
-	this.showBlocker = function(){
-		if(this.nBlockerCount<1){
-			var elBlocker = document.createElement("DIV");
-			elBlocker.style.position = "absolute";
-			elBlocker.style.top = 0;
-			elBlocker.style.left = 0;
-			elBlocker.style.backgroundColor = "#FFFFFF";
-			elBlocker.style.width = "100%";
 
-			document.body.appendChild(elBlocker);
+		// console.log(nhn.husky);
+		// console.log("document.getElementById('smart-Blocker')", document.body.getElementById('smart-Blocker'));
+		// if(document.body.getElementById('smart-Blocker')) {
 			
-			nhn.husky.EZCreator.elBlocker = elBlocker;
-		}
+		// 	if(bUseBlocker) this.hideBlocker();
+		// 	else this.showBlocker();
+		// }
+		// else nhn.husky.EZCreator.createBlocker(bUseBlocker);
+		// nhn.husky.EZCreator.createBlocker(bUseBlocker);
 
-		nhn.husky.EZCreator.elBlocker.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight)+"px";
+		// let test_interval = null;
+		// if(bUseBlocker) {
+		// 	test_interval = setInterval(() => {
+		// 		if(document.getElementById('smart-Blocker')) {
+		// 			clearInterval(test_interval);
+		// 		} else {
+		// 			nhn.husky.EZCreator.createBlocker(bUseBlocker);
+		// 		}
+		// 	},100);
+		// }
+		nhn.husky.EZCreator.createBlocker(bUseBlocker);
+		// if(!nhn.husky?.elBlocker) {
+		// 	console.log('true 들어옴',nhn.husky?.elBlocker);
+			
+		// 	nhn.husky.EZCreator.createBlocker(bUseBlocker);
+		// }
+		// else console.log('else 들어옴');
+	};
+
+	this.createBlocker = function(display){
+		var elBlocker = document.createElement("DIV");
+		elBlocker.style.position = "absolute";
+		elBlocker.style.top = 0;
+		elBlocker.style.left = 0;
+		elBlocker.style.backgroundColor = "rgba(0 0 0 / 0.2)";
+		elBlocker.style.width = "100%";
+		elBlocker.style.height = "calc(100% - 5px)";
+		elBlocker.style.display = display ? 'block' : 'none';
+		elBlocker.id = 'smart-Blocker';
+
+		document.getElementsByTagName('app-smartedit')[0]?.appendChild(elBlocker);
+
+		nhn.husky.EZCreator.elBlocker = elBlocker;
+	}
+	
+	// this.showBlocker = function(){
+	// 	if(this.nBlockerCount<1){
+	// 		var elBlocker = document.createElement("DIV");
+	// 		elBlocker.style.position = "absolute";
+	// 		elBlocker.style.top = 0;
+	// 		elBlocker.style.left = 0;
+	// 		elBlocker.style.backgroundColor = "rgba(0 0 0 / 0.2)";
+	// 		elBlocker.style.width = "100%";
+	// 		elBlocker.style.height = "calc(100% - 5px)";
+	// 		elBlocker.style.height = "none";
+
+	// 		document.body.appendChild(elBlocker);
+
+	// 		nhn.husky.EZCreator.elBlocker = elBlocker;
+	// 	}
+
+	// 	nhn.husky.EZCreator.elBlocker.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight)+"px";
 		
-		this.nBlockerCount++;
+	// 	this.nBlockerCount++;
+	// };
+
+	this.showBlocker = function(){
+		if(nhn.husky.EZCreator.elBlocker) nhn.husky.EZCreator.elBlocker.style.display = "block";
 	};
 	
 	this.hideBlocker = function(bForce){
-		if(!bForce){
-			if(--this.nBlockerCount > 0) return;
-		}
+		// if(!bForce){
+		// 	if(--this.nBlockerCount > 0) return;
+		// }
 		
-		this.nBlockerCount = 0;
+		// this.nBlockerCount = 0;
 		
 		if(nhn.husky.EZCreator.elBlocker) nhn.husky.EZCreator.elBlocker.style.display = "none";
 	}

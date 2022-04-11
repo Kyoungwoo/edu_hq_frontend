@@ -59,10 +59,10 @@
         </app-row>
       </app-col>
     </app-row>
- 
+
 </ion-toolbar>
 
-
+<div *mobileHidden>
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
       <app-select-company [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-company>
@@ -96,7 +96,7 @@
       </app-input>
     </app-col>
   </app-row>
-
+</div>
 
 <ion-toolbar color="white" *mobileShow>
   <app-row>
@@ -867,7 +867,7 @@
     <app-row *mobileHidden>
       <app-col>
         <app-card>
-          <app-row>
+          <app-row style="align-items: flex-start;">
             <app-col>
               <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
             </app-col>
