@@ -113,8 +113,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     if(res.rsCode === 0) {
       this.res = res.rsObj;
       this.res?.safe_job_name?.toString();
-    } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 
@@ -123,8 +121,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     console.log("this.hireRes : ",this.hireRes);
     if(res.rsCode === 0) {
       this.hireRes = res.rsObj;
-    } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
     }
   }
 
@@ -132,18 +128,14 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     const res = await this.connect.run('/education/report/routine/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.routineRes = res.rsObj;
-    } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
-    }
+    } 
   }
 
   async specialItem() {
     const res = await this.connect.run('/education/report/special/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.specialRes = res;
-    } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
-    }
+    } 
   }
 
   routine(state){
@@ -183,7 +175,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
         item.index = res.rsObj.row_count - this.useForm.limit_no - i
       });
     } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
       this.useRes = null;
     }
   }
