@@ -8,6 +8,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { RiskDetailSearchPage } from '../risk-detail-search/risk-detail-search.page';
 import { RiskEvaluationEditPage } from '../risk-evaluation-edit/risk-evaluation-edit.page';
+import { RiskPendingListPage } from '../risk-pending-list/risk-pending-list.page';
 
 
 class RiskListItem {
@@ -215,10 +216,9 @@ export class RiskListPage implements OnInit {
    * 미결함으로 이동
    */
    async pending() {
-    this.nav.navigateForward('/confirm-pending-list');
-    /* const modal = await this._modal.create({
-      component:EducationConfirmPendingListPage,
+    const modal = await this._modal.create({
+      component: RiskPendingListPage,
     });
-    modal.present(); */
+    modal.present();
   }
 }

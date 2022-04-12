@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>미결 문서</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="res && res.rsCode === 0">
+
+    <app-table>
+      <thead>
+        <tr>
+          <th style="width: 40px;">No</th>
+          <th>서식명</th>
+          <th>회사명</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>결재 현황</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of ">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </app-table>
+    
+    <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+
+  </ng-container>
+
+  <ng-container *ngIf="res && res.rsCode === 1008">
+
+    <app-card>검색된 목록이 없습니다.</app-card>
+
+  </ng-container>
+</ion-content>
