@@ -52,6 +52,7 @@ export class UserData {
   user_name:string; // "김수홍"
   user_phone:string; // "01000249857"
   user_profile:string; // "null"
+  user_main_page:string; // "null"
   user_role:UserRole; // "COMPANY_WORKER" | "COMPANY_GENERAL" | ""
   user_type:UserType; // "WORKER"
 }

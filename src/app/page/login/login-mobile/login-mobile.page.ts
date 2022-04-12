@@ -146,10 +146,22 @@ export class LoginMobilePage implements OnInit {
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
 
+      switch(userData.user_type){
+        case 'LH':
+        case 'SUPER':
+          userData.user_main_page = '/main-user';
+          break;
+        case 'COMPANY':
+          if(userData.user_role === 'MASTER_HEAD' || userData.user_role === 'MASTER_GENERAL') userData.user_main_page = '/main-master';
+          else userData.user_main_page = '/main-partner';
+          break;
+        case 'WORKER':
+          userData.user_main_page = '/main-worker';
+          break;
+      }
+
       this.user.setUserData(userData, this.autoLogin);
-      this.nav.navigateRoot('/main-user', {
-        animated
-      });
+      this.nav.navigateRoot(userData.user_main_page, {animated});
     }
   }
 }

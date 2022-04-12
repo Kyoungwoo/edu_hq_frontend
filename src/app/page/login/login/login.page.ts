@@ -144,9 +144,15 @@ export class LoginPage implements OnInit, ViewDidEnter {
         return;
       }
 
+      if(userData.user_type === 'COMPANY') userData.user_main_page = '/main-sub-admin';
+      else userData.user_main_page = '/main-admin';
+      
       this.user.setUserData(userData, false);
-      if(userData.user_type === 'COMPANY') this.nav.navigateRoot('/main-sub-admin', {animated: true});
-      else this.nav.navigateRoot('/main-admin', {animated: true});
+      // if(userData.user_type === 'COMPANY') this.nav.navigateRoot('/main-sub-admin', {animated: true});
+      // else this.nav.navigateRoot('/main-admin', {animated: true});
+
+
+      this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }
   }
 } 
