@@ -8,13 +8,13 @@
         <app-avatar class="profile"></app-avatar>
       </app-col>
       <app-col size="auto" (click)="navMypage()">
-        <h4>홍길동님</h4>
+        <h4>{{ user.userData.user_name }}님</h4>
         <app-row>
           <app-col size="auto">
-            <p style="margin-right: 5px;">08월 27일</p>
+            <p style="margin-right: 5px;">{{ Top_Today.month }}월 {{ Top_Today.day }}일</p>
           </app-col>
           <app-col size="auto">
-            <p>금요일</p>
+            <p>{{ Top_Today.week }}</p>
           </app-col>
         </app-row>
       </app-col>
@@ -27,7 +27,7 @@
     </app-row>
   </ion-toolbar>
   
-    <app-select-scene></app-select-scene>
+  <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
   
 </ion-header>
 <ion-content> 
@@ -94,44 +94,44 @@
     </app-row>
   </div>
     <ion-toolbar color="white" class="segment-border">
-      <ion-segment color="primary">
-        <ion-segment-button (click)="menu = 1">공지사항</ion-segment-button>
-        <ion-segment-button (click)="menu = 2">MSDS</ion-segment-button>
-        <ion-segment-button (click)="menu = 3">회의록</ion-segment-button>
+      <ion-segment [(ngModel)]="menu" color="primary">
+        <ion-segment-button [value]="1" (click)="menu = 1;">공지사항</ion-segment-button>
+        <ion-segment-button [value]="2" (click)="menu = 2;">MSDS</ion-segment-button>
+        <ion-segment-button [value]="3" (click)="menu = 3;">회의록</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
     <div [style.display]="menu === 1 ? 'block' : 'none'">
-      <app-row style="margin-top: 15px;">
+      <app-row *ngFor="let item of notice_list;" style="margin-top: 15px;">
         <app-col style="margin-left: 20px;">
-          <h5>공지사항 제목</h5>
+          <h5>{{ item.notice_title }}</h5>
         </app-col>
         <app-col></app-col>
         <app-col>
-          <h6>2021.08.19</h6>
+          <h6>{{ item.create_date }}</h6>
         </app-col>
       </app-row>
       <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
     </div>
     <div [style.display]="menu === 2 ? 'block' : 'none'">
-      <app-row style="margin-top: 15px;">
+      <app-row *ngFor="let item of msds_list;" style="margin-top: 15px;">
         <app-col style="margin-left: 20px;">
-          <h5>[협력사1]<br>**물질</h5>
+          <h5>[{{ item.company_name }}]<br>{{ item.msds_title }}</h5>
         </app-col>
         <app-col></app-col>
         <app-col>
-          <h6>2021.08.19</h6>
+          <h6>{{ item.create_date }}</h6>
         </app-col>
       </app-row>
       <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
     </div>
     <div [style.display]="menu === 3 ? 'block' : 'none'">
-      <app-row style="margin-top: 15px;">
+      <app-row *ngFor="let item of safetymeeting_list;" style="margin-top: 15px;">
         <app-col style="margin-left: 20px;">
-          <h5>[노사협의체]<br>회의주제</h5>
+          <h5>{{ item.safety_meeting_type }}</h5>
         </app-col>
         <app-col></app-col>
         <app-col>
-          <h6>2021.08.19</h6>
+          <h6>{{ item.create_date }}</h6>
         </app-col>
       </app-row>
       <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
