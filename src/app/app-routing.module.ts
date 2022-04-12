@@ -8,22 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'basic/guide',
-    loadChildren: () => import('./basic/page/guide/guide.module').then(m => m.GuidePageModule)
-  },
-  {
-    path: 'basic/guide-image',
-    loadChildren: () => import('./basic/page/guide-image/guide-image.module').then( m => m.GuideImagePageModule)
-  },
-  {
-    path: 'basic/guide-card-layout',
-    loadChildren: () => import('./basic/page/guide-card-layout/guide-card-layout.module').then(m => m.GuideCardLayoutPageModule)
-  },
-  {
-    path: 'basic/guide-table-layout',
-    loadChildren: () => import('./basic/page/guide-table-layout/guide-table-layout.module').then(m => m.GuideTableLayoutPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./page/login/login/login.module').then(m => m.LoginPageModule)
   },
@@ -391,10 +375,6 @@ const routes: Routes = [
   {
     path: 'worker-approval-edit',
     loadChildren: () => import('./page/member-management/member-approval-wait/worker-approval-edit/worker-approval-edit.module').then( m => m.WorkerApprovalEditPageModule)
-  },
-  { 
-    path: 'guide-side-menu',
-    loadChildren: () => import('./basic/page/guide-side-menu/guide-side-menu.module').then( m => m.GuideSideMenuPageModule)
   },
   {
     path: 'belong-info-edit',

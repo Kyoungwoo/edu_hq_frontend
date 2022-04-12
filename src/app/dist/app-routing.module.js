@@ -16,22 +16,6 @@ var routes = [
         pathMatch: 'full'
     },
     {
-        path: 'basic/guide',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./basic/page/guide/guide.module'); }).then(function (m) { return m.GuidePageModule; }); }
-    },
-    {
-        path: 'basic/guide-image',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./basic/page/guide-image/guide-image.module'); }).then(function (m) { return m.GuideImagePageModule; }); }
-    },
-    {
-        path: 'basic/guide-card-layout',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./basic/page/guide-card-layout/guide-card-layout.module'); }).then(function (m) { return m.GuideCardLayoutPageModule; }); }
-    },
-    {
-        path: 'basic/guide-table-layout',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./basic/page/guide-table-layout/guide-table-layout.module'); }).then(function (m) { return m.GuideTableLayoutPageModule; }); }
-    },
-    {
         path: 'login',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/login/login/login.module'); }).then(function (m) { return m.LoginPageModule; }); }
     },
@@ -399,10 +383,6 @@ var routes = [
     {
         path: 'worker-approval-edit',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/member-management/member-approval-wait/worker-approval-edit/worker-approval-edit.module'); }).then(function (m) { return m.WorkerApprovalEditPageModule; }); }
-    },
-    {
-        path: 'guide-side-menu',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./basic/page/guide-side-menu/guide-side-menu.module'); }).then(function (m) { return m.GuideSideMenuPageModule; }); }
     },
     {
         path: 'belong-info-edit',
