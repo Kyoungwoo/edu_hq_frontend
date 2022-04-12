@@ -25,6 +25,11 @@ export class RiskPendingListPage implements OnInit {
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/risk/assessment/approval/req/get', this.form, { loading: true });
-    // if(res.rs)
+    if(this.res.rsCode === 0 || this.res.rsCode === 1008) {
+
+    }
+    else {
+      // this.
+    }
   }
 }

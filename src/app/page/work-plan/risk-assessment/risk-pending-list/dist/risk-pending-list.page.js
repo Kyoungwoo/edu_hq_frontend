@@ -66,6 +66,11 @@ var RiskPendingListPage = /** @class */ (function () {
                         return [4 /*yield*/, this.connect.run('/risk/assessment/approval/req/get', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
+                        if (this.res.rsCode === 0 || this.res.rsCode === 1008) {
+                        }
+                        else {
+                            // this.
+                        }
                         return [2 /*return*/];
                 }
             });
