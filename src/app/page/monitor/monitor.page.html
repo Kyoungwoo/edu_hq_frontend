@@ -79,8 +79,7 @@
         [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
     </app-col>
   </app-row>
-<<<<<<< HEAD
-  <ng-container *mobileHidden>
+  <ng-container *mobileShow>
     <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
       <app-col>
         <app-select [disabled]="true" label="위험공종">
@@ -100,7 +99,6 @@
     </app-row>
   </ng-container>
 
-=======
   <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
     <app-col>
       <app-select [disabled]="true" label="위험공종">
@@ -119,7 +117,6 @@
     </app-col>
   </app-row>
 </div>
->>>>>>> 1198d3a3937f2e55d066b5355135a2cdce305727
 
 <ion-toolbar color="white" *mobileShow>
   <app-row>
@@ -892,7 +889,7 @@
         <app-card>
           <app-row style="align-items: flex-start;">
             <app-col>
-              <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
+              <app-naver-user-map [(ngModel)]="gpsData"></app-naver-user-map>
             </app-col>
             <app-col size="4">
               <ion-toolbar color="light">
@@ -923,7 +920,7 @@
     </app-row>
     <app-row *mobileShow>
       <app-col>
-        <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
+        <app-naver-user-map [(ngModel)]="gpsData"></app-naver-user-map>
       </app-col>
     </app-row>
   </ng-container>
