@@ -138,18 +138,6 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     } 
   }
 
-  routine(state){
-    if(state) {
-      let recommendedeWidth = 0;
-      recommendedeWidth = 100 * this.routineRes.education_recommended_time / 6;
-      return `width:${recommendedeWidth}%`;
-    } else {
-      let completeWidth = 0;
-      completeWidth = this.routineRes.education_complete_time/6*100;
-      return `width:${completeWidth}%`;
-    }
-  }
-
   special(state,item){
     if(state) {
       let recommendedeWidth = 0;
