@@ -5,9 +5,20 @@ h4{
 	margin: 0;
 }
 
+.education-row {
+	align-items: flex-end;
+}
+.education-tr {
+	th {
+		min-height: 34px;
+	}
+	td {
+		min-height: 44px;
+	}
+}
 .grp-group-one {
     width: 100%;
-    height: 100%;
+    // min-height: ;
 }
 .grp-group-two {
     width: 100%;
@@ -82,10 +93,6 @@ h4{
     background: var(--ion-color-medium);
     width: 100%;
     height: 3px;
-
-	&:nth-child(3) {
-		margin-bottom: 10px;
-	}
 }
 
 .grp-time {

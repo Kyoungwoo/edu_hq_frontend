@@ -57,7 +57,7 @@ export class SideMenuUserComponent implements OnInit {
       }},
       { title: '나의 교육', link: '/my-education-list', params: {}, permission: () => {
         const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+        return user_type === 'COMPANY' || user_type === 'WORKER';
        }},
       { title: '교육 결과보고', link: '/safety-education-result-list', params: {}, permission: () => { 
         const { user_role, user_type } = this.user.userData;
