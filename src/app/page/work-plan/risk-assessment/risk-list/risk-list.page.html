@@ -54,8 +54,8 @@
 
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="add()">신규 작성</app-button>
-            <app-button fill="translucent">복사 작성</app-button>
+            <app-button *ngIf="permission.add" fill="translucent" (click)="add()">신규 작성</app-button>
+            <app-button *ngIf="permission.add" fill="translucent">복사 작성</app-button>
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
           <ion-buttons slot="end">

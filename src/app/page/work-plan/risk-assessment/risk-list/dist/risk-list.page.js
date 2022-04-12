@@ -46,6 +46,7 @@ exports.RiskListPage = void 0;
 var core_1 = require("@angular/core");
 var risk_detail_search_page_1 = require("../risk-detail-search/risk-detail-search.page");
 var risk_evaluation_edit_page_1 = require("../risk-evaluation-edit/risk-evaluation-edit.page");
+var risk_pending_list_page_1 = require("../risk-pending-list/risk-pending-list.page");
 var RiskListItem = /** @class */ (function () {
     function RiskListItem() {
         this.approval_cnt_answer = "임시저장";
@@ -298,9 +299,17 @@ var RiskListPage = /** @class */ (function () {
      */
     RiskListPage.prototype.pending = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var modal;
             return __generator(this, function (_a) {
-                this.nav.navigateForward('/confirm-pending-list');
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_pending_list_page_1.RiskPendingListPage
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
             });
         });
     };
