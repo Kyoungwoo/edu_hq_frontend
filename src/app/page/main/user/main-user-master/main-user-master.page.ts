@@ -87,6 +87,8 @@ export class MainUserMasterPage implements OnInit {
         this.form.notice_count = res.rsObj.read_count;
         break;
       default:
+        this.notice_list = [];
+        this.form.notice_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -102,6 +104,8 @@ export class MainUserMasterPage implements OnInit {
         this.form.safetymeeting_count = res.rsObj.read_count;
         break;
       default:
+        this.safetymeeting_list = [];
+        this.form.safetymeeting_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -117,6 +121,8 @@ export class MainUserMasterPage implements OnInit {
         // this.form.msds_count = res.rsObj.read_count;
         break;
       default:
+        this.msds_list = [];
+        this.form.notice_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -132,6 +138,8 @@ export class MainUserMasterPage implements OnInit {
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
+        this.notify_list = [];
+        this.form.alarm_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -152,7 +160,8 @@ export class MainUserMasterPage implements OnInit {
     switch (title) {
       case '':
         this.alert.present({
-          message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+          // message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+          message: '해당 기능은 아직 준비중인 기능입니다.',
           header: '준비중'
         });
         break;
@@ -168,15 +177,18 @@ export class MainUserMasterPage implements OnInit {
       case '위험성평가':
         this.nav.navigateForward('/risk-list');
         break;
-        case '공지사항':
-          this.nav.navigateForward('/notice-list');
-          break;
-        case 'MSDS':
-          this.nav.navigateForward('/msds-list');
-          break;
-        case '회의록':
-          this.nav.navigateForward('/minutes-list');
-          break;
+      case '공지사항':
+        this.nav.navigateForward('/notice-list');
+        break;
+      case 'MSDS':
+        this.nav.navigateForward('/msds-list');
+        break;
+      case '회의록':
+        this.nav.navigateForward('/minutes-list');
+        break;
+      case '알림함':
+        this.nav.navigateForward('/notify-list');
+        break;
     }
   }
 }

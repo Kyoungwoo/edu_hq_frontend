@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { FileService } from 'src/app/basic/service/core/file.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
@@ -9,34 +10,32 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 })
 export class OpenDetailSearchPage implements OnInit {
 
-  form = {
-    create_date:this.date.today({year:-2,month:-1}),
-    end_date:this.date.today(),
-    notify_menu:'',
-    project_id:null,
-    search_text:''
-  }
+  // form = {
+  //   create_date:this.date.today({year:-2,month:-1}),
+  //   end_date:this.date.today(),
+  //   notify_menu:'',
+  //   project_id:null,
+  //   search_text:''
+  // }
+  @Input() form:any
+
+  form_dump;
 
   constructor(
     private date: DateService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    private file: FileService
   ) { }
 
   ngOnInit() {
+    this.form_dump = this.file.clone(this.form);
   }
 
   remove() {
-    this.form = {
-      create_date:this.date.today({year:-2,month:-1}),
-      end_date:this.date.today(),
-      notify_menu:'',
-      project_id:null,
-      search_text:''
-    }
+    this.form = this.file.clone(this.form_dump);
   }
 
   search() {
     this._modal.dismiss(this.form);
   }
-
 }

@@ -191,12 +191,12 @@ var SideMenuUserComponent = /** @class */ (function () {
         switch (title) {
             case '':
                 this.alert.present({
-                    message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
+                    img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
                     header: '준비중'
                 });
                 break;
             case '설정':
-                this.nav.navigateRoot('/setting-menu');
+                this.nav.navigateForward('/setting-menu');
                 break;
         }
     };

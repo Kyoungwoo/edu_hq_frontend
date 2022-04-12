@@ -87,6 +87,8 @@ export class MainUserWorkerPage implements OnInit {
         this.form.notice_count = res.rsObj.read_count;
         break;
       default:
+        this.notice_list = [];
+        this.form.notice_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -102,6 +104,8 @@ export class MainUserWorkerPage implements OnInit {
         this.form.safetymeeting_count = res.rsObj.read_count;
         break;
       default:
+        this.safetymeeting_list = [];
+        this.form.safetymeeting_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -117,6 +121,8 @@ export class MainUserWorkerPage implements OnInit {
         // this.form.msds_count = res.rsObj.read_count;
         break;
       default:
+        this.msds_list = [];
+        this.form.notice_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -132,6 +138,8 @@ export class MainUserWorkerPage implements OnInit {
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
+        this.notify_list = [];
+        this.form.alarm_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -163,24 +171,27 @@ export class MainUserWorkerPage implements OnInit {
       case '나의교육':
         this.nav.navigateForward('/my-education-list');
         break;
-        case '나의출입현황':
-          this.nav.navigateForward('/my-status-list');
-          break;
+      case '나의출입현황':
+        this.nav.navigateForward('/my-status-list');
+        break;
       case '스마트안전장비':
         this.nav.navigateForward('/each-device-list');
         break;
-        case '공지사항':
-          this.nav.navigateForward('/notice-list');
-          break;
-        case 'MSDS':
-          this.nav.navigateForward('/msds-list');
-          break;
-        case '회의록':
-          this.nav.navigateForward('/minutes-list');
-          break;
-          case 'SOS':
-            this.nav.navigateForward('/sos-popup');
-            break;
+      case '공지사항':
+        this.nav.navigateForward('/notice-list');
+        break;
+      case 'MSDS':
+        this.nav.navigateForward('/msds-list');
+        break;
+      case '회의록':
+        this.nav.navigateForward('/minutes-list');
+        break;
+      case 'SOS':
+        this.nav.navigateForward('/sos-popup');
+        break;
+      case '알림함':
+        this.nav.navigateForward('/notify-list');
+        break;
     }
   }
 }

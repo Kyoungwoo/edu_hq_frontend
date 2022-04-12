@@ -8,7 +8,7 @@
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
               <app-col size="auto"><h5>필터</h5></app-col>
-              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
           <tbody>
@@ -80,9 +80,9 @@
         <ion-back-button></ion-back-button>
       </ion-buttons>
       <ion-title>알림함</ion-title>
-      <ion-buttons slot="end">
+      <!-- <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
-      </ion-buttons>
+      </ion-buttons> -->
     </ion-toolbar>
     <ion-toolbar color="white">
       <app-input-group>
