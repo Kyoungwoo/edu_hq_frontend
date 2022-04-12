@@ -21,8 +21,10 @@
   
   @include generateColor('white', #ffffff, #000000);
   @include generateColor('star', #ffba0d, #ffffff);
+
   @include generateColor('monitor-warning', #FFC876, #ffffff);
   @include generateColor('monitor-yellow', #FCE640, #ffffff);
+  @include generateColor('monitor-green', #B9DC3D, #ffffff);
 
 }
 @include generateColorClass('primary');
