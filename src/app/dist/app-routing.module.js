@@ -37,11 +37,11 @@ var routes = [
     },
     {
         path: 'main-admin',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/main-admin/main-admin.module'); }).then(function (m) { return m.MainAdminPageModule; }); }
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/admin/main-admin/main-admin.module'); }).then(function (m) { return m.MainAdminPageModule; }); }
     },
     {
         path: 'main-user',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/main-user/main-user.module'); }).then(function (m) { return m.MainUserPageModule; }); }
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/main-user/main-user.module'); }).then(function (m) { return m.MainUserPageModule; }); }
     },
     {
         path: 'sign-up-type',
@@ -317,10 +317,6 @@ var routes = [
         canDeactivate: []
     },
     {
-        path: 'risk-evaluation-confirm',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/risk-assessment/risk-evaluation-confirm/risk-evaluation-confirm.module'); }).then(function (m) { return m.RiskEvaluationConfirmPageModule; }); }
-    },
-    {
         path: 'risk-evaluation-popup',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module'); }).then(function (m) { return m.RiskEvaluationPopupPageModule; }); }
     },
@@ -575,6 +571,46 @@ var routes = [
     {
         path: 'worker-minutes-select-type',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module'); }).then(function (m) { return m.WorkerMinutesSelectTypePageModule; }); }
+    },
+    {
+        path: 'main-sub-admin',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/admin/main-sub-admin/main-sub-admin.module'); }).then(function (m) { return m.MainSubAdminPageModule; }); }
+    },
+    {
+        path: 'main-user-master',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/main-user-master/main-user-master.module'); }).then(function (m) { return m.MainUserMasterPageModule; }); }
+    },
+    {
+        path: 'main-user-partner',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/main-user-partner/main-user-partner.module'); }).then(function (m) { return m.MainUserPartnerPageModule; }); }
+    },
+    {
+        path: 'main-user-worker',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/main-user-worker/main-user-worker.module'); }).then(function (m) { return m.MainUserWorkerPageModule; }); }
+    },
+    {
+        path: 'danger-qr-view',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/danger-qr-view/danger-qr-view.module'); }).then(function (m) { return m.DangerQrViewPageModule; }); }
+    },
+    {
+        path: 'heavy-qr-view',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-qr-view/heavy-qr-view.module'); }).then(function (m) { return m.HeavyQrViewPageModule; }); }
+    },
+    {
+        path: 'setting-menu',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/setting-menu/setting-menu.module'); }).then(function (m) { return m.SettingMenuPageModule; }); }
+    },
+    {
+        path: 'setting-sounds',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/setting-sounds/setting-sounds.module'); }).then(function (m) { return m.SettingSoundsPageModule; }); }
+    },
+    {
+        path: 'sos-popup',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/sos-popup/sos-popup.module'); }).then(function (m) { return m.SosPopupPageModule; }); }
+    },
+    {
+        path: 'monitor-realtime-location',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page//monitor/monitor-realtime-location/monitor-realtime-location.module'); }).then(function (m) { return m.MonitorRealtimeLocationPageModule; }); }
     },
 ];
 var AppRoutingModule = /** @class */ (function () {

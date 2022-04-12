@@ -118,19 +118,19 @@ var RiskItem = /** @class */ (function () {
 }());
 exports.RiskItem = RiskItem;
 var RiskEvaluationPopupPage = /** @class */ (function () {
+    /**
+     * 현재 감소 대책을 직접입력 밖에 없음
+      res4:ConnectResult<PlanItem>;
+      selectItem4:PlanItem;
+     */
     function RiskEvaluationPopupPage(connect, toast, _modal) {
         this.connect = connect;
         this.toast = toast;
         this._modal = _modal;
+        this.riskList = [];
         this.form = {
             ctgo_business_field_id: null
         };
-        /**
-         * 현재 감소 대책을 직접입력 밖에 없음
-          res4:ConnectResult<PlanItem>;
-          selectItem4:PlanItem;
-         */
-        this.riskList = [];
     }
     RiskEvaluationPopupPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -278,6 +278,9 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RiskEvaluationPopupPage.prototype, "project_id");
+    __decorate([
+        core_1.Input()
+    ], RiskEvaluationPopupPage.prototype, "riskList");
     RiskEvaluationPopupPage = __decorate([
         core_1.Component({
             selector: 'app-risk-evaluation-popup',

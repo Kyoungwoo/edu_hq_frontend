@@ -309,10 +309,6 @@ const routes: Routes = [
     canDeactivate: []
   },
   {
-    path: 'risk-evaluation-confirm',
-    loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-confirm/risk-evaluation-confirm.module').then( m => m.RiskEvaluationConfirmPageModule)
-  },
-  {
     path: 'risk-evaluation-popup',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module').then( m => m.RiskEvaluationPopupPageModule)
   },

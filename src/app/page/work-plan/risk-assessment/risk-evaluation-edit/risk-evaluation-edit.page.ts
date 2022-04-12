@@ -96,7 +96,8 @@ export class RiskEvaluationEditPage implements OnInit {
   }
 
   permission = {
-    edit: false
+    edit: false,
+    tableEdit: false
   }
 
   riskTableList:RiskTableItem[] = [];
@@ -368,9 +369,15 @@ export class RiskEvaluationEditPage implements OnInit {
   onApprovalChange(ev:ApprovalBtnClickEvent) {
     if(ev.btnList.includes('임시저장')) {
       this.permission.edit = true;
+      this.permission.tableEdit = true;
+    }
+    else if(ev.btnList.includes('결재')) {
+      this.permission.edit = false;
+      this.permission.tableEdit = true;
     }
     else {
       this.permission.edit = false;
+      this.permission.tableEdit = false;
     }
   }
 
@@ -378,7 +385,8 @@ export class RiskEvaluationEditPage implements OnInit {
     const modal = await this._modal.create({
       component:RiskEvaluationPopupPage,
       componentProps: {
-        project_id: this.form.project_id
+        project_id: this.form.project_id,
+        riskList: this.riskTableToList(this.riskTableList)
       }
     })
     modal.present();
@@ -581,7 +589,7 @@ export class RiskEvaluationEditPage implements OnInit {
       data.selectedItemList.forEach(item => {
         unitItem.ctgo_machinery_ids.push(item.ctgo_machinery_id);
         unitItem.ctgo_machinery_names.push(item.ctgo_machinery_name);
-      })
+      });
     }
   }
   removeMachinery(unitItem, ctgo_machinery_id) {
@@ -610,7 +618,17 @@ export class RiskEvaluationEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if(data) {
-      console.log(data);
+      unitItem.ctgo_tool_ids = [];
+      unitItem.ctgo_tool_names = [];
+      data.selectedList.forEach(item => {
+        unitItem.ctgo_tool_ids.push(item.ctgo_tool_id);
+        unitItem.ctgo_tool_names.push(item.ctgo_tool_name);
+      });
     }
+  }
+  removeTool(unitItem, ctgo_tool_id) {
+    const index = unitItem.ctgo_tool_ids.indexOf(ctgo_tool_id);
+    unitItem.ctgo_tool_ids.splice(index, 1);
+    unitItem.ctgo_tool_names.splice(index, 1);
   }
 }

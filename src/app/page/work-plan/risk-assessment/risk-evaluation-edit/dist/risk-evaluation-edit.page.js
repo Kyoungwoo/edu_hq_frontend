@@ -93,7 +93,8 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             create_date: this.date.today()
         };
         this.permission = {
-            edit: false
+            edit: false,
+            tableEdit: false
         };
         this.riskTableList = [];
     }
@@ -437,9 +438,15 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     RiskEvaluationEditPage.prototype.onApprovalChange = function (ev) {
         if (ev.btnList.includes('임시저장')) {
             this.permission.edit = true;
+            this.permission.tableEdit = true;
+        }
+        else if (ev.btnList.includes('결재')) {
+            this.permission.edit = false;
+            this.permission.tableEdit = true;
         }
         else {
             this.permission.edit = false;
+            this.permission.tableEdit = false;
         }
     };
     RiskEvaluationEditPage.prototype.add = function () {
@@ -450,7 +457,8 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this._modal.create({
                             component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage,
                             componentProps: {
-                                project_id: this.form.project_id
+                                project_id: this.form.project_id,
+                                riskList: this.riskTableToList(this.riskTableList)
                             }
                         })];
                     case 1:
@@ -686,12 +694,22 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                     case 2:
                         data = (_a.sent()).data;
                         if (data) {
-                            console.log(data);
+                            unitItem.ctgo_tool_ids = [];
+                            unitItem.ctgo_tool_names = [];
+                            data.selectedList.forEach(function (item) {
+                                unitItem.ctgo_tool_ids.push(item.ctgo_tool_id);
+                                unitItem.ctgo_tool_names.push(item.ctgo_tool_name);
+                            });
                         }
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    RiskEvaluationEditPage.prototype.removeTool = function (unitItem, ctgo_tool_id) {
+        var index = unitItem.ctgo_tool_ids.indexOf(ctgo_tool_id);
+        unitItem.ctgo_tool_ids.splice(index, 1);
+        unitItem.ctgo_tool_names.splice(index, 1);
     };
     __decorate([
         core_1.Input()
