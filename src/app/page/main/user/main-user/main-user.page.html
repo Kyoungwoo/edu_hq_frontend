@@ -19,7 +19,7 @@
         </app-row>
       </app-col>
       <app-col style="text-align: right;">
-        <app-img class="alarm" src="assets/img/main/bell.svg"></app-img>
+        <app-img (click)="router('알림함')" class="alarm" src="assets/img/main/bell.svg"></app-img>
       </app-col>
       <app-col size="auto">
         <app-menu-button></app-menu-button>
@@ -27,7 +27,7 @@
     </app-row>
   </ion-toolbar>
   
-  <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+  <app-select-scene name="project_id" [(ngModel)]="form.project_id" (ngModelChange)="getBoard()"></app-select-scene>
   
 </ion-header>
 <ion-content> 

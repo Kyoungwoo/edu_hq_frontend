@@ -177,6 +177,8 @@ export class MainSubAdminPage implements OnInit {
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
+        this.alarm_list = [];
+        this.form.alarm_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -192,6 +194,8 @@ export class MainSubAdminPage implements OnInit {
         this.form.approval_count = res.rsObj.read_count;
         break;
       default:
+        this.approval_list = [];
+        this.form.approval_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -207,6 +211,8 @@ export class MainSubAdminPage implements OnInit {
         this.form.notice_count = res.rsObj.read_count;
         break;
       default:
+        this.notice_list = [];
+        this.form.notice_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -222,6 +228,8 @@ export class MainSubAdminPage implements OnInit {
         this.form.safetymeeting_count = res.rsObj.read_count;
         break;
       default:
+        this.safetymeeting_list = [];
+        this.form.safetymeeting_count = 0;
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
@@ -237,6 +245,7 @@ export class MainSubAdminPage implements OnInit {
         // this.form.msds_count = res.rsObj.read_count;
         break;
       default:
+        this.msds_list = [];
         // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
