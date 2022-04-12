@@ -11,6 +11,7 @@ import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
+import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
 
 /**
  * @class TodayConstructionItem
@@ -508,6 +509,13 @@ gps_log_data = new GpsCoordinateData();
     console.log("res",this.gpsData.rsMap);
     if(this.gpsData.rsCode === 0) {
     }
+  }
+
+  async realtimeedit() {
+    const modal = await this.modal.create({
+      component:MonitorRealtimeLocationPage
+    });
+    modal.present();
   }
 
   style(item) {
