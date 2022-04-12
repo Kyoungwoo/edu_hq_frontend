@@ -110,7 +110,7 @@
                   <h4>알림함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">{{ form.alarm_count }}</ion-chip>
+                  <ion-badge color="medium">{{ form.alarm_count }}</ion-badge>
                 </app-col>
                 <app-col (click)="router('알림함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -119,7 +119,7 @@
             </ion-toolbar>
             <app-row *ngFor="let item of alarm_list">
               <app-col size="auto">
-                <ion-chip color="danger">{{ item.notify_head }}</ion-chip>
+                <ion-chip color="warning">{{ item.notify_head }}</ion-chip>
               </app-col>
               <app-col>
                 <h5>{{ item.notify_text_kr }}</h5>

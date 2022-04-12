@@ -11,6 +11,8 @@ import { MonitorPageRoutingModule } from './monitor-routing.module';
 import { MonitorPage } from './monitor.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.module';
+import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
+import { MonitorRealtimeLocationPageModule } from './monitor-realtime-location/monitor-realtime-location.module';
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { RiskEvaluationPopupPageModule } from '../work-plan/risk-assessment/risk
     MonitorPageRoutingModule,
     RiskEvaluationPopupPageModule,
     MonitorSmartEquipEditPageModule,
-    TodayDepartureStatusListPageModule
+    TodayDepartureStatusListPageModule,
+    MonitorRealtimeLocationPageModule,
   ],
   declarations: [MonitorPage]
 })

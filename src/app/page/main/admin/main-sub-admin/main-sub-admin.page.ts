@@ -20,8 +20,8 @@ export class MainSubAdminPage implements OnInit {
     ctgo_job_position_name: '',
     contract_end_date: '-', // 준공일
     contract_start_date: '-', // 착공일
-    lh_count: 0, // lh 가입대기
-    super_count: 0, // 감리 가입대기
+    admin_count: 0, // lh 가입대기
+    worker_count: 0, // 감리 가입대기
     alarm_count: 0, // 안읽은 알림
     approval_count: 0, // 안읽은 미결함
     notice_count: 0, // 안읽은 공지사항
@@ -145,7 +145,7 @@ export class MainSubAdminPage implements OnInit {
        }
        break;
      default:
-       this.toast.present({ color: 'warning', message: res.rsMsg });
+      //  this.toast.present({ color: 'warning', message: res.rsMsg });
        break;
    }
  }
@@ -153,7 +153,7 @@ export class MainSubAdminPage implements OnInit {
    * @function getWaiting(): 가입대기 가져오기
    */
    async getWaiting() {
-    const res = await this.connect.run('/main/etc/waiting_lh', this.form, {});
+    const res = await this.connect.run('/main/etc/waiting_master', this.form, {});
     switch (res.rsCode) {
       case 0:
         this.form = {
@@ -162,7 +162,7 @@ export class MainSubAdminPage implements OnInit {
         }
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -177,7 +177,7 @@ export class MainSubAdminPage implements OnInit {
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -192,7 +192,7 @@ export class MainSubAdminPage implements OnInit {
         this.form.approval_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -207,7 +207,7 @@ export class MainSubAdminPage implements OnInit {
         this.form.notice_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -222,7 +222,7 @@ export class MainSubAdminPage implements OnInit {
         this.form.safetymeeting_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -237,7 +237,7 @@ export class MainSubAdminPage implements OnInit {
         // this.form.msds_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -253,7 +253,7 @@ export class MainSubAdminPage implements OnInit {
         this.education = res.rsObj;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -267,7 +267,7 @@ export class MainSubAdminPage implements OnInit {
         this.form.ctgo_job_position_name = res.rsObj.ctgo_job_position_name;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }

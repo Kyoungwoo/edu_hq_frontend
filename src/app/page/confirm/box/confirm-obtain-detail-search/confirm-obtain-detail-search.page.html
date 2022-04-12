@@ -16,7 +16,7 @@
     ~
     <app-calendar [(ngModel)]="temptForm.end_date" [max]="temptForm.start_date"></app-calendar>
   </app-input-group>
-  <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="temptForm.search_text"></app-input>
+  <app-input label="검색어" placeholder="검색어를 입력해 주세요." [(ngModel)]="temptForm.search_text"></app-input>
 </ion-content>
 <app-button-footer>
   <app-button (click)="reset()">초기화</app-button>

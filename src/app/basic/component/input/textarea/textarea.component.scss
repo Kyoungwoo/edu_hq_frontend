@@ -8,3 +8,8 @@
         }
     }
 }
+:host ::ng-deep {
+    label + .input {
+        margin-top: 6px;
+    }
+}

@@ -11,6 +11,7 @@ import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
+import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
 
 /**
  * @class TodayConstructionItem
@@ -156,11 +157,11 @@ graphArr3 = [
 graphArr4 = [
   {
     name:'고소 작업(높이 2m 이상)',
-    count:10
+    count:17
   },
   {
     name:'굴착 가설(깊이 1.5m 이상)',
-    count:2
+    count:8
   },
   {
     name:'기설 구조물 설치 해제',
@@ -510,6 +511,13 @@ gps_log_data = new GpsCoordinateData();
     }
   }
 
+  async realtimeedit() {
+    const modal = await this.modal.create({
+      component:MonitorRealtimeLocationPage
+    });
+    modal.present();
+  }
+
   style(item) {
     let style;
     switch(item.name) { 
@@ -526,7 +534,7 @@ gps_log_data = new GpsCoordinateData();
         style = {'background-color':'var(--ion-color-monitor-yellow)'}
       break;
       case '굴착 가설(깊이 1.5m 이상)':
-        style = {'background-color':'var(--ion-color-monitor-warning)'}
+        style = {'background-color':'var(--ion-color-monitor-green)'}
       break;
       case '기설 구조물 설치 해제':
         style = {'background-color':'var(--ion-color-primary)'}

@@ -230,8 +230,12 @@
   cursor: default;
   border-radius: var(--app-border-radius);
   background: var(--ion-color-translucent);
-  color: var(--ion-colo-base);
+  color: var(--ion-color-base);
+  border: 1px solid var(--ion-color-base);
+  padding: 3px 11px;
+  height: 26px;
   margin: 0;
+  font-size: 12px;
 }
 :root ion-chip ion-icon {
   min-width: 1em;
@@ -254,10 +258,12 @@
   vertical-align: middle;
   font-weight: 500;
   border-radius: 15px;
-  --padding-start: 10px;
-  --padding-end: 10px;
+  --padding-start: 12px;
+  --padding-end: 12px;
   --padding-top: 5px;
   --padding-bottom: 5px;
+  background: var(--ion-color-translucent);
+  color: var(--ion-color-base);
   margin: 0;
 }
 :root ion-badge + ion-badge {

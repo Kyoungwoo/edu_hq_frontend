@@ -145,7 +145,7 @@ export class MainAdminPage implements OnInit {
         this.regional_list = res.rsMap;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -160,7 +160,7 @@ export class MainAdminPage implements OnInit {
         if(!this.form.hq_business_id && res.rsMap.length) this.form.hq_business_id = this.business_list[0].hq_business_id;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -177,7 +177,7 @@ export class MainAdminPage implements OnInit {
        }
        break;
      default:
-       this.toast.present({ color: 'warning', message: res.rsMsg });
+      //  this.toast.present({ color: 'warning', message: res.rsMsg });
        break;
    }
  }
@@ -194,7 +194,7 @@ export class MainAdminPage implements OnInit {
         }
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -209,7 +209,7 @@ export class MainAdminPage implements OnInit {
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -224,7 +224,7 @@ export class MainAdminPage implements OnInit {
         this.form.approval_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -239,7 +239,7 @@ export class MainAdminPage implements OnInit {
         this.form.notice_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -254,7 +254,7 @@ export class MainAdminPage implements OnInit {
         this.form.safetymeeting_count = res.rsObj.read_count;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
@@ -268,7 +268,7 @@ export class MainAdminPage implements OnInit {
         this.form.ctgo_job_position_name = res.rsObj.ctgo_job_position_name;
         break;
       default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
