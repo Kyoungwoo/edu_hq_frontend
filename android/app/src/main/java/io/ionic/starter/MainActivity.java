@@ -9,7 +9,7 @@ public class MainActivity extends BridgeActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-//    registerPlugin(DarkModePlugin.class);
+    registerPlugin(DarkModePlugin.class);
     registerPlugin(NfcPlugin.class);
     registerPlugin(QrPlugin.class);
   }
