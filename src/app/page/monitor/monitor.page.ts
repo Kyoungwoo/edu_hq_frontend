@@ -201,7 +201,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData = new userData();
+gpsData:ConnectResult<userData>;
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -504,10 +504,9 @@ gps_log_data = new GpsCoordinateData();
 
 
   async gpsGet() {
-    const res = await this.connect.run('/integrated/gps/log',this.form);
-    console.log("res",res.rsMap);
-    if(res.rsCode === 0) {
-      // this.gpsData = res.rsMap
+    this.gpsData = await this.connect.run('/integrated/gps/log',this.form);
+    console.log("res",this.gpsData.rsMap);
+    if(this.gpsData.rsCode === 0) {
     }
   }
 
