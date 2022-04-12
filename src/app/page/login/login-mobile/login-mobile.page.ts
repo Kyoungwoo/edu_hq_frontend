@@ -152,11 +152,11 @@ export class LoginMobilePage implements OnInit {
           userData.user_main_page = '/main-user';
           break;
         case 'COMPANY':
-          if(userData.user_role === 'MASTER_HEAD' || userData.user_role === 'MASTER_GENERAL') userData.user_main_page = '/main-master';
-          else userData.user_main_page = '/main-partner';
+          if(userData.user_role === 'MASTER_HEAD' || userData.user_role === 'MASTER_GENERAL') userData.user_main_page = '/main-user-master';
+          else userData.user_main_page = '/main-user-partner';
           break;
         case 'WORKER':
-          userData.user_main_page = '/main-worker';
+          userData.user_main_page = '/main-user-worker';
           break;
       }
 
