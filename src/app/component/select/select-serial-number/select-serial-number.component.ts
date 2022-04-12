@@ -27,7 +27,7 @@ export class SelectSerialNumberComponent implements OnInit, ControlValueAccessor
   }
 
   @Input() color:Color;
-  @Input() label:string = "시리얼No.";
+  @Input() label:string = "시리얼NO";
   @Input() serial_type: '전체' | '개인' | '중장비' | '위험지역' = "전체";
   @Input() project_id:number = 0;
   @Input() master_company_id:number = 0;
