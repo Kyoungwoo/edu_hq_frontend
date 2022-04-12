@@ -63,7 +63,7 @@ export class MemberStandardSetPage implements OnInit {
 
   rolepass: boolean = true;
   form = {
-    company_id: 0,
+    company_id: this.user.userData.belong_data.company_id,
     company_password: ''
   }
   subpassword: ''
@@ -145,23 +145,7 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.user.userData.user_role === 'PARTNER_HEAD' ||
-        this.user.userData.user_role === 'MASTER_HEAD' ||
-        this.user.userData.user_role === 'LH_ADMIN' ||
-        this.user.userData.user_role === 'LH_HEAD') {
-          
-          this.memberRoleCheck = false;
-        }
-    if(this.user.userData.user_role === 'PARTNER_HEAD' ||
-    this.user.userData.user_role === 'MASTER_HEAD') {
-      this.editable = true;
-    }
-    if (this.user.userData.user_role === 'LH_HEAD') {
-      this.lhHeadCheck = false;
-    } else if(this.lhHeadCheck) {
-      this.menuCount = 2;
-      this.menuCount2();
-    }
+    this.authority();
 
     //lh조직기구
 
@@ -175,6 +159,24 @@ export class MemberStandardSetPage implements OnInit {
     this.menuCount = 1;
     if (!this.lhHeadCheck) {
       this.level1();
+    }
+  }
+
+  authority() {
+    if (this.user.userData.user_role === 'PARTNER_HEAD' ||
+    this.user.userData.user_role === 'MASTER_HEAD' ||
+    this.user.userData.user_role === 'LH_ADMIN' ||
+    this.user.userData.user_role === 'LH_HEAD') this.memberRoleCheck = false;
+    
+    if(this.user.userData.user_role === 'PARTNER_HEAD' ||
+    this.user.userData.user_role === 'MASTER_HEAD') {
+      this.editable = true;
+    }
+    if (this.user.userData.user_role === 'LH_HEAD') {
+      this.lhHeadCheck = false;
+    } else if(this.lhHeadCheck) {
+      this.menuCount = 2;
+      this.menuCount2();
     }
   }
 
@@ -455,7 +457,7 @@ export class MemberStandardSetPage implements OnInit {
   passwordCheck() {
     const rex =  /^[0-9]{4,}$/;
     const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-    if (!rex.test(this.form.company_password) && this.form.company_password.length > 1) {
+    if (!rex.test(this.form.company_password) && this.form.company_password?.length) {
       this.passchkck = false;
       this.passwordMeassge = '비밀번호 양식이 맞지 않습니다.';
     } else {
@@ -472,8 +474,9 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
-    if (!this.rolepass) return await this.toast.present({ message: '권한이 없습니다.' , color:'warning'});
-    if (this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
+    if(!this.rolepass) return this.toast.present({ message: '권한이 없습니다.' , color:'warning'});
+    if(!this.passchkck) return this.toast.present({ message: '비밀번호 양식이 맞지 않습니다.' , color:'warning'});
+    if(this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
     const res = await this.connect.run('/project/company/pass/update', this.form, {});
     if (res.rsCode === 0) {
       this.toast.present({ message: '비밀번호가 변경 되었습니다.',color:'primary' });

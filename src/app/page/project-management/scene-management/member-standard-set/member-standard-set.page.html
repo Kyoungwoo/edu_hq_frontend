@@ -6,7 +6,7 @@
       <app-col size="auto">
         <ion-segment class="sub-segment" color="primary" [value]="this.lhHeadCheck ? 2 : 1">
           <ion-segment-button *ngIf="!lhHeadCheck" (click)="menuCount1()" [value]="1">LH 조직관리</ion-segment-button>
-          <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount2()" [value]="2">정보 접근<br>비밀번호</ion-segment-button>
+          <ion-segment-button *ngIf="!memberRoleCheck" (click)="menuCount2()" [value]="2">정보 접근<br>비밀번호</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
           <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
@@ -316,8 +316,7 @@
       </app-col>
     </app-row>
   </ng-container>
-
-  <ng-container *ngIf="!memberRoleCheck">
+  
     <app-row *ngIf="menuCount === 2" style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
@@ -333,7 +332,6 @@
               <td>
                 <app-select-company
                 [project_id]="user.userData.belong_data.project_id" 
-                [disabled]="true"
                 [(ngModel)]="form.company_id"></app-select-company>
               </td>
             </tr>
@@ -365,7 +363,6 @@
         </app-card>
       </app-col>
     </app-row>
-  </ng-container>
 
   <app-row *ngIf="menuCount === 5" style="align-items: flex-start;">
     <app-col size="280px">

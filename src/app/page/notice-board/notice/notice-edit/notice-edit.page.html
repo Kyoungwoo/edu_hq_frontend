@@ -66,14 +66,17 @@
           첨부자료
         </app-col>
         <app-col size="auto">
-          <app-button [disabled]="!item || (!useNotice || !update_state)" fill="translucent">추가
-            <app-file name="input" view_type="NOTICE" [(ngModel)]="form.notice_file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
+          <app-button [disabled]="!update_state" fill="translucent">추가
+            <app-file name="input" view_type="NOTICE" 
+            [(ngModel)]="form.notice_file_data" 
+            [file]="form.file" 
+            [file_json]="form.file_json"></app-file>
           </app-button>
         </app-col>
       </app-row>
     </h4>
-
-    <app-file-preview *ngFor="let futItem of form.notice_file_data" [futItem]="futItem"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.notice_file_data; let i = index" [futItem]="futItem"  
+    (buttonClick)="form.notice_file_data.splice(i,1)"></app-file-preview>
 
 </ion-content>
 <app-button-footer>

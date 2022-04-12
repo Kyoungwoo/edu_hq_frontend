@@ -14,7 +14,7 @@ export class PartnerListPage implements OnInit {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    master_company_id: 0,
+    master_company_id: this.user.userData.belong_data.master_company_id,
     search_text: '',
     limit_no: 0
   }
@@ -55,6 +55,7 @@ export class PartnerListPage implements OnInit {
   }
 
   getPromission() {
+    console.log("this.form.master_company_id",this.form.master_company_id);
     const { user_role, belong_data } = this.user.userData;
     if(user_role === 'LH_HEAD') {
       this.permission.edit = true;
@@ -70,7 +71,7 @@ export class PartnerListPage implements OnInit {
     if(user_type === 'LH') {
       this.form.master_company_id = 0;
     } else {
-      this.form.master_company_id = belong_data.company_id;
+      this.form.master_company_id = belong_data.master_company_id;
     }
   }
 

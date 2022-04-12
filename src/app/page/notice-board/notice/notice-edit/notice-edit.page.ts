@@ -52,7 +52,7 @@ export class NoticeEditPage implements OnInit {
   @Input() form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
 
-  useNotice: boolean = false;
+  useNotice:boolean = false;
 
   constructor(
     private connect: ConnectService,
@@ -60,8 +60,7 @@ export class NoticeEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private date: DateService,
-    
-    private alert: AlertService,
+    private alert: AlertService
   ) { }
 
   ngOnInit() {
@@ -70,11 +69,11 @@ export class NoticeEditPage implements OnInit {
     // }
     this.getPermission();
     if(this.item) {
-      console.log(this.item);
       this.title = '상세';
       this.get();
     } else {
-      console.log(this.form);
+      this.update_state = true;
+      console.log("item",this.update_state);
       this.form.company_name = this.user.userData.belong_data.company_name;
       this.form.user_name = this.user.userData.user_name;
       this.form.create_date = this.date.today();

@@ -61,7 +61,6 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   }
 
   public async get() {
-
     const { user_type } = this.user.userData;
     
     if(!this.project_id || !this.value) {

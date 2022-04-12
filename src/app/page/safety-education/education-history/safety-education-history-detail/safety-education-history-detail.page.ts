@@ -120,6 +120,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   async hireItem() {
     const res = await this.connect.run('/education/report/hire/get',{approval_user_id:this.user_id});
+    console.log("this.hireRes : ",this.hireRes);
     if(res.rsCode === 0) {
       this.hireRes = res.rsObj;
     } else {

@@ -24,9 +24,7 @@ export class Constractor {
   styleUrls: ['./search-contractor.component.scss'],
 })
 export class SearchContractorComponent implements OnInit {
-  @Input() set project_id(_project_id:number) {
-    this.form.project_id = _project_id;
-  }
+  @Input() project_id:number;
   @Input() value;
   @Input() allState:boolean = false;
   @Input() editable:boolean = false;
@@ -75,8 +73,9 @@ export class SearchContractorComponent implements OnInit {
   }
 
   async get() {
+    this.form.project_id = this.project_id;
     // 현장에 관계 없이, 원청사 전체를 검색을 할 수 있어야 되는 상황이 있는건지?
-    console.log("this.project_id",this.project_id);
+    console.log("this.project_id-------",this.project_id);
     this.res = await this.connect.run('/category/certify/search_my_master_company/get', this.form);
     if(this.res.rsCode === 0) {
       console.log(this.value);

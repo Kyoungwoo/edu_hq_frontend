@@ -89,8 +89,8 @@
                 <ion-text *ngIf="item.ctgo_country_id !== 1" color="danger">{{ item.ctgo_country_name_kr }}</ion-text>
               </td>
               <td>
-                <ion-text *ngIf="item.user_health === '특별관리대상'" color="danger">{{ item.user_health }}</ion-text>
-                <ion-text *ngIf="item.user_health !== '특별관리대상'" color="dark">{{ item.user_health }}</ion-text>
+                <ion-text [color]="item.user_health === '특별관리대상' ? 'danger' : 'dark'">{{ item.user_health }}</ion-text>
+                <!-- <ion-text *ngIf="item.user_health !== '특별관리대상'" color="dark">{{ item.user_health }}</ion-text> -->
               </td>
               <td>{{ item.create_date }}</td>
               <!-- <td>{{ item.delete_state ? '재직중':'퇴사' }}</td> -->
