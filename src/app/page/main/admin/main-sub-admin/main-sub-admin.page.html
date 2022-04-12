@@ -112,7 +112,7 @@
                   <h4>알림함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.alarm_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('알림함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -138,7 +138,7 @@
                   <h4>미결함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.approval_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('미결함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -166,7 +166,7 @@
                   <h4>공지사항</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.notice_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('공지사항')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -191,7 +191,7 @@
                   <h4>회의록</h4>
                 </ion-col>
                 <app-col>
-                  <ion-chip color="medium">3</ion-chip>
+                  <ion-chip color="medium">{{ form.safetymeeting_count }}</ion-chip>
                 </app-col>
                 <app-col (click)="router('회의록')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -309,13 +309,13 @@
        <div>
           <app-row>
             <app-col size="auto" style="text-align: center;">
-              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg">
+              <app-avatar style="width: 100px; height: 100px;" src="assets/img/logo.svg">
               </app-avatar>
             </app-col>
             <app-col size="auto" style="text-align: left;">
-              <h3 style="font-weight: 700;">홍길동</h3>
-              <p>구일종합건설(주)</p>
-              <p>대표이사</p>
+              <h3 style="font-weight: 700;">{{ user.userData.user_name }}</h3>
+              <p>{{ user.userData.belong_data.company_name }}</p>
+              <p>{{ form.ctgo_job_position_name }}</p>
             </app-col>
           </app-row>
         
@@ -337,14 +337,14 @@
                 <h6>관리자<br>가입 대기</h6>
               </app-col>
               <app-col size="auto">
-                <h3>12</h3>
+                <h3><b>{{ form.admin_count }}</b></h3>
               </app-col>
               <app-img src="assets/img/main/helmet2.svg" style="padding-left: 10px;"></app-img>
               <app-col>
                 <h6>작업자<br>가입 대기</h6>
               </app-col>
               <app-col size="auto">
-                <h3>8</h3>
+                <h3><b>{{ form.worker_count }}</b></h3>
               </app-col>
             </app-row>
           </app-card>

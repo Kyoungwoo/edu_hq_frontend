@@ -4,3 +4,7 @@
 :host ion-textarea ::ng-deep textarea {
   opacity: 1 !important;
 }
+
+:host ::ng-deep label + .input {
+  margin-top: 6px;
+}

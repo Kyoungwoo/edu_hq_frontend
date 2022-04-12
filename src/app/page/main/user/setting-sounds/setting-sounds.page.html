@@ -11,36 +11,36 @@
 </ion-header>
 
 <ion-content>
-  <app-radio-group >
-  <app-card name="setting-sound">
-    <app-row class="card-inner">
-      <app-col>
-          <app-radio size="small" value="silentsounds"></app-radio>
+  <app-radio-group [(ngModel)]="notify_type" (ngModelChange)="updateAlarmSetting()">
+    <app-card name="setting-sound" (click)="notify_type = 3;">
+      <app-row class="card-inner">
+        <app-col>
+          <app-radio size="small" [value]="3"></app-radio>
         </app-col>
         <app-col size="auto">
           <h4> 소리+진동</h4>
         </app-col>
       </app-row>
     </app-card>
-    <app-card name="setting-sound">
+    <app-card name="setting-sound" (click)="notify_type = 1;">
       <app-row class="card-inner">
         <app-col>
-            <app-radio size="small" value="sounds"></app-radio>
-          </app-col>
-          <app-col size="auto">
-            <h4>소리</h4>
-          </app-col>
-        </app-row>
-      </app-card>
-      <app-card name="setting-sound">
-        <app-row class="card-inner">
-          <app-col>
-              <app-radio size="small" value="silent"></app-radio>
-            </app-col>
-            <app-col size="auto">
-              <h4>진동</h4>
-            </app-col>
-          </app-row>
-        </app-card>
+          <app-radio size="small" [value]="1"></app-radio>
+        </app-col>
+        <app-col size="auto">
+          <h4>소리</h4>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card name="setting-sound" (click)="notify_type = 2;">
+      <app-row class="card-inner">
+        <app-col>
+          <app-radio size="small" [value]="2"></app-radio>
+        </app-col>
+        <app-col size="auto">
+          <h4>진동</h4>
+        </app-col>
+      </app-row>
+    </app-card>
   </app-radio-group>
 </ion-content>
