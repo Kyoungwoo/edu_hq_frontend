@@ -38,6 +38,7 @@ export class MainUserPartnerPage implements OnInit {
   notice_list = []; // 공지사항
   safetymeeting_list = []; // 회의록
   msds_list = []; // 회의록
+  notify_list = []; // 알림
 
   menu: number = 1;
 
@@ -72,6 +73,7 @@ export class MainUserPartnerPage implements OnInit {
     await this.getNotice();
     await this.getSafrtyMeeting();
     await this.getMsds();
+    await this.getNotify();
   }
 
   /**
@@ -113,6 +115,21 @@ export class MainUserPartnerPage implements OnInit {
       case 0:
         this.msds_list = res.rsMap;
         // this.form.msds_count = res.rsObj.read_count;
+        break;
+      default:
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
+        break;
+    }
+  }
+  /**
+   * @function getNotify(): 알림 가져오기
+   */
+   async getNotify() {
+    const res = await this.connect.run('/main/board/notify', this.form, {});
+    switch (res.rsCode) {
+      case 0:
+        this.notify_list = res.rsMap;
+        this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
         // this.toast.present({ color: 'warning', message: res.rsMsg });

@@ -1,5 +1,7 @@
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { async } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -30,6 +32,7 @@ export interface ThirdMenuItem {
 })
 export class SideMenuUserComponent implements OnInit {
 
+  language_type:string = '';
   menuSelected:MenuItem = null;
 
   menuList:MenuItem[] = [
@@ -155,12 +158,16 @@ export class SideMenuUserComponent implements OnInit {
     private alert: AlertService,
     public _modal: ModalController,
     private user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    private alertController: AlertController,
+    private connect: ConnectService
   ) { 
     this.menuSelected = this.menuList[0];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getMyLanguage();
+  }
 
   menuClose() {
     this._modal.dismiss();
@@ -182,6 +189,80 @@ export class SideMenuUserComponent implements OnInit {
         break;
       case '설정':
         this.nav.navigateRoot('/setting-menu');
+        break;
+    }
+  }
+
+  /**
+   * @function languageChange(): 언어설정을 변경해주는 메서드
+   */
+  async languageChange(){
+    this.alert.present({
+      header: 'Language',
+      inputs: [
+        {type:'radio', value: 'kr', label: '한국어(Korean)', checked: this.language_type === 'kr' ? true : false},
+        {type:'radio', value: 'en', label: '영어(English)', checked: this.language_type === 'en' ? true : false},
+        {type:'radio', value: 'ch', label: '중국어(Chinese)', checked: this.language_type === 'ch' ? true : false},
+        {type:'radio', value: 'vi', label: '베트남(Vietnamese)', checked: this.language_type === 'vi' ? true : false}
+      ],
+      buttons: [
+        {
+          text: '확인', 
+          handler: async(item) => {
+            this.language_type = item;
+            const res = await this.connect.run('/main/etc/language/update', {language_type: this.language_type}, {});
+            switch (res.rsCode) {
+              case 0:
+                this.getMyLanguage();
+                break;
+              default:
+                // this.toast.present({ color: 'warning', message: res.rsMsg });
+                break;
+            }
+          }
+        }
+      ]
+    });
+    // const alert_lang = await this.alertController.create({
+    //   header: 'Language',
+    //   inputs: [
+    //     {type:'radio', value: 'kr', label: '한국어(Korean)', checked: this.language_type === 'kr' ? true : false},
+    //     {type:'radio', value: 'en', label: '영어(English)', checked: this.language_type === 'en' ? true : false},
+    //     {type:'radio', value: 'ch', label: '중국어(Chinese)', checked: this.language_type === 'ch' ? true : false},
+    //     {type:'radio', value: 'vi', label: '베트남(Vietnamese)', checked: this.language_type === 'vi' ? true : false}
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: '확인', 
+    //       handler: async(item) => {
+    //         this.language_type = item;
+    //         const res = await this.connect.run('/main/etc/language/update', {language_type: this.language_type}, {});
+    //         switch (res.rsCode) {
+    //           case 0:
+    //             this.getMyLanguage();
+    //             break;
+    //           default:
+    //             // this.toast.present({ color: 'warning', message: res.rsMsg });
+    //             break;
+    //         }
+    //       }
+    //     }
+    //   ]
+    // });
+    // await alert_lang.present();
+  }
+
+  /**
+   * @function languageChange(): 언어설정을 가져오는 메서드
+   */
+  async getMyLanguage(){
+    const res = await this.connect.run('/main/etc/language/get');
+    switch (res.rsCode) {
+      case 0:
+        this.language_type = res.rsObj.language_type;
+        break;
+      default:
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
         break;
     }
   }
