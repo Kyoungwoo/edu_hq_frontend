@@ -3,10 +3,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
-import { userData } from 'src/app/page/monitor/monitor.page';
 import { NaverMapId } from '../naver-map/naver-map.component';
 
 declare const naver;
+
+export class userData {
+  area_bottom_id: number;
+  area_middle_id: number;
+  area_risk_id: number;
+  area_state: string;
+  area_top_id: number;
+  gps_id: number;
+  gps_log_id: number;
+  user_id: number;
+  user_latitude: number;
+  user_longitude: number;
+ }
 
 @Component({
   selector: 'app-naver-user-map',
@@ -25,6 +37,8 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   map: any;
 
   marker: any[] = [];
+
+  isAfterInit:boolean = false;
 
   afteInitRes;
 
@@ -58,13 +72,18 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     this.map.setSize(size);
 
     this.afteInitRes();
+    this.isAfterInit = true;
 
   }
 
   afterInit() {
-    return new Promise(res => {
-      this.afteInitRes = res;
-    });
+    if(this.isAfterInit) {
+      return new Promise(res => res(true));
+    } else {
+      return new Promise(res => {
+        this.afteInitRes = res;
+      });
+    }
   }
 
   private getMapSize(): Promise<DOMRect> {
@@ -97,28 +116,28 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       parse:['safe_job_name']
     });
     if(res.rsCode === 0) {
-      if(item.area_state === '일반') {
-        infoWindowElement = (
-          `<div style="padding:5px">
-            <h5 style="text-align:center">${res.rsObj.user_name}</h5>
-            <p>${res.rsObj.company_name}</p>
-            <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-            <p>안전직무 : ${res.rsObj.safe_job_name}</p>
-           </div>
-          `
-        );
-      } else {
-        infoWindowElement = (
-          `<div style="padding:5px">
-            <h5 style="text-align:center">SOS 요청</h5>
-            <p>${res.rsObj.company_name}</p>
-            <p>${res.rsObj.user_name}</p>
-            <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-            <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
-           </div>
-          `
-        );
-      }     
+      // if(item.area_state === '일반') {
+      //   infoWindowElement = (
+      //     `<div style="padding:5px">
+      //       <h5 style="text-align:center">${res.rsObj.user_name}</h5>
+      //       <p>${res.rsObj.company_name}</p>
+      //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+      //       <p>안전직무 : ${res.rsObj.safe_job_name}</p>
+      //      </div>
+      //     `
+      //   );
+      // } else {
+      //   infoWindowElement = (
+      //     `<div style="padding:5px">
+      //       <h5 style="text-align:center">SOS 요청</h5>
+      //       <p>${res.rsObj.company_name}</p>
+      //       <p>${res.rsObj.user_name}</p>
+      //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
+      //       <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
+      //      </div>
+      //     `
+      //   );
+      // }     
     }
     let infowindow = new naver.maps.InfoWindow({
       content: infoWindowElement,
@@ -141,6 +160,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async parseData(v) {
+    console.log("v - ",v)
     await this.afterInit();
     if (v) {
       const length = v.length;

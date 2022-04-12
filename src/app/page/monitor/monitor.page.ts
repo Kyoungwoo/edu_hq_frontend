@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
+import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
 
 /**
  * @class TodayConstructionItem
@@ -45,19 +46,6 @@ export class TodayConstructionItem {
   ctgo_machine_serial_id:number // 스마트장비 id
   machine_count:number // 스마트장비 수
   mmachine_using_count:number // 사용중 스마트장비 수
-}
-
-export class userData {
- area_bottom_id: number;
- area_middle_id: number;
- area_risk_id: number;
- area_state: string;
- area_top_id: number;
- gps_id: number;
- gps_log_id: number;
- user_id: number;
- user_latitude: number;
- user_longitude: number;
 }
 
 
@@ -213,7 +201,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:ConnectResult<userData>
+gpsData = new userData();
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();
@@ -517,17 +505,10 @@ gps_log_data = new GpsCoordinateData();
 
   async gpsGet() {
     const res = await this.connect.run('/integrated/gps/log',this.form);
+    console.log("res",res.rsMap);
     if(res.rsCode === 0) {
-      this.gpsData = res
-      console.log("this.gpsData",this.gpsData);
-      
-    } else {
-      this.toast.present({message:res.rsMsg, color:'warning'});
+      // this.gpsData = res.rsMap
     }
-  }
-
-  test(ev) {
-    console.log("ev",ev);
   }
 
   style(item) {
