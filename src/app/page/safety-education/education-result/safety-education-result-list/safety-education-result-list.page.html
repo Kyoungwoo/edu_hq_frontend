@@ -43,7 +43,7 @@
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" placeholder="검색어를 입력해주세요." [(ngModel)]="form.search_text"></app-input>
+                <app-input label="검색어" placeholder="검색어를 입력해 주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
           </tbody>
@@ -124,12 +124,12 @@
         <app-row style="align-items: flex-start;">
           <app-col>
             <h5>{{ item.ctgo_education_safe_name }}</h5>
-            <p>{{ item.company_name }} / 교육일:{{ item.education_safe_date }}</p>
           </app-col>
           <app-col size="auto">
             <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
           </app-col>
         </app-row>
+        <p>{{ item.company_name }} / 교육일:{{ item.education_safe_date }}</p>
         <app-row>
           <app-col>
             <ion-badge color="success">{{ item.ctgo_education_safe_type }}</ion-badge>

@@ -46,7 +46,7 @@
             </tr>
             <tr>
               <td>
-                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해주세요."></app-input>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -68,7 +68,7 @@
             <app-table>
               <thead>
                 <tr>
-                  <th style="width: 100px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                  <th style="width: 40px; text-align: center;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                   || user.userData.belong_data.company_contract_type === '원청사'">
                     상단노출
                   </th>
@@ -82,7 +82,7 @@
               </thead>
               <tbody>
                 <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
-                  <td (click)="favoritesCheck($event, item)" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                  <td style="text-align: center;" (click)="favoritesCheck($event, item)" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                   || user.userData.belong_data.company_contract_type === '원청사'">
                     <app-button size="small" shape="square" fill="translucent"
                     [color]="item.favorites_state ? 'star' : 'medium'">
@@ -129,14 +129,15 @@
   </ion-header>
   <ion-content>
     <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
-      <app-row style="align-items: flex-start;" >
+      <app-row style="align-items: flex-start;">
         <app-col>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
           <p>작성일: {{ item.create_date }}</p>
-          <ion-badge color="success">{{ item.notice_type }}</ion-badge>
         </app-col>
       </app-row>
+      <ion-badge color="success">{{ item.notice_type }}</ion-badge>
     </app-card>
+
     <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
       <ion-infinite-scroll-content loading-spinner="dots">
       </ion-infinite-scroll-content>
