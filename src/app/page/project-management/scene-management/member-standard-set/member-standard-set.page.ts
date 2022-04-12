@@ -351,7 +351,7 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async levelUpdate(level) {
-    if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'warning' });
+    // if (this.user.userData.user_role !== 'LH_HEAD') return await this.toast.present({ message: '권한이 없습니다.', color: 'warning' });
     switch (level) {
       case 'level1':
         this.resLevel1?.rsMap.forEach((item, i) => {
