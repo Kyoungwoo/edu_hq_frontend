@@ -60,10 +60,10 @@
                     <tr>
                       <th style="width: 20px;">
                       </th>
-                      <th>코드</th>
-                      <th>level 1</th>
-                      <th>권한</th>
-                      <th>사용여부</th>
+                      <th style="width: 80px;">코드</th>
+                      <th style="width: 100px;">level 1</th>
+                      <th style="width: 100px;">권한</th>
+                      <th style="width: 70px;">사용여부</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -80,7 +80,7 @@
                         </ng-template>
                       </td>
                       <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_regional_code"></app-input>
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_regional_code"></app-input>
                       </td>
                       <td *ngIf="!item.checked && item.hq_regional_id">
                         <app-input [disabled]="true" [(ngModel)]="item.hq_regional_code"></app-input>
@@ -88,12 +88,12 @@
                       <td *ngIf="!item.checked && !item.hq_regional_id">
                         <app-input [(ngModel)]="item.hq_regional_code"></app-input>
                       </td>
-
+                      
+                      <td *ngIf="item.checked">
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_regional_name"></app-input>
+                      </td>
                       <td *ngIf="!item.checked && item.hq_regional_id">
                         <app-input [disabled]="true" [(ngModel)]="item.hq_regional_name"></app-input>
-                      </td>
-                      <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_regional_name"></app-input>
                       </td>
                       <td *ngIf="!item.checked && !item.hq_regional_id">
                         <app-input [(ngModel)]="item.hq_regional_name"></app-input>
@@ -154,10 +154,10 @@
                   <thead>
                     <tr>
                       <th style="width: 20px;"></th>
-                      <th>코드</th>
-                      <th>level 2</th>
-                      <th>권한</th>
-                      <th>사용여부</th>
+                      <th style="width: 80px;">코드</th>
+                      <th style="width: 100px;">level 2</th>
+                      <th style="width: 100px;">권한</th>
+                      <th style="width: 70px;">사용여부</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -174,7 +174,7 @@
                         </ng-template>
                       </td>
                       <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_business_code"></app-input>
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_business_code"></app-input>
                       </td>
                       <td *ngIf="!item.checked && item.hq_business_id">
                         {{item.hq_business_code}}
@@ -187,7 +187,7 @@
                         {{item.hq_business_name}}
                       </td>
                       <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_business_name"></app-input>
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_business_name"></app-input>
                       </td>
                       <td *ngIf="!item.checked && !item.hq_business_id">
                         <app-input [(ngModel)]="item.hq_business_name"></app-input>
@@ -249,9 +249,9 @@
                     <tr>
                       <th style="width: 20px;">
                       </th>
-                      <th>코드</th>
-                      <th>level 3</th>
-                      <th>사용여부</th>
+                      <th style="width: 80px;">코드</th>
+                      <th style="width: 100px;">level 3</th>
+                      <th style="width: 70px;">사용여부</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -268,7 +268,7 @@
                       </td>
 
                       <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_department_code"></app-input>
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_department_code"></app-input>
                       </td>
                       <td *ngIf="!item.checked && item.hq_department_id">
                         {{item.hq_department_code}}
@@ -282,7 +282,7 @@
                         {{item.hq_department_name}}
                       </td>
                       <td *ngIf="item.checked">
-                        <app-input [(ngModel)]="item.hq_department_name"></app-input>
+                        <app-input (click)="$event.stopPropagation()" [(ngModel)]="item.hq_department_name"></app-input>
                       </td>
                       <td *ngIf="!item.checked && !item.hq_department_id">
                         <app-input [(ngModel)]="item.hq_department_name"></app-input>

@@ -89,6 +89,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
     educationMenu:true
   };
 
+  eduUpdate:boolean = false;
+
 
 
   constructor(
@@ -106,8 +108,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(this.item) {
       this.eduGetList();
       this.getItem();
-      const {user_role} = this.user.userData;
-      if(user_role === 'MASTER_HEAD' || user_role === 'LH_HEAD') this.editable.update = true;
     } else {
       this.form.education_safe_date = this.date.today();
       this.form.project_name = this.user.userData.belong_data.project_name;
@@ -133,13 +133,14 @@ export class SafetyEducationDetailEditPage implements OnInit {
       search_text:this.attentForm.search_text
     });
     if(this.res.rsCode === 0) {
-
+      this.eduUpdate = true;
+      console.log("this.editable.update)",this.editable.update);
     }
   }
   notReady() {
     this.toast.present({message:'준비중....',color:'warning'});
   }
-
+  
   async getItem() {
     const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
       parse:['education_safe_manager_ids','education_safe_manager_names']
@@ -154,6 +155,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
         if(item === this.user.userData.user_id || 
           this.form.create_user_id === this.user.userData.user_id) {
             this.editable.update = true;
+            this.eduUpdate = false;
           }
       })
     }

@@ -1,7 +1,7 @@
-<app-input-template [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="popoverDateTimePicker()">
+<app-input-template [required]="required" [label]="label" [readonly]="readonly" [disabled]="disabled" (click)="popoverDateTimePicker()">
   <app-row slot="input">
     <app-col size="1.5em">
-      <input [readonly]="true" [disabled]="disabled" type="tel" class="hour-input" placeholder="시" [(ngModel)]="form.hour" maxlength="2" (keyup)="changeHour($event)" (focus)="fucus()" (blur)="blur()">
+      <input [required]="required" [readonly]="true" [disabled]="disabled" type="tel" class="hour-input" placeholder="시" [(ngModel)]="form.hour" maxlength="2" (keyup)="changeHour($event)" (focus)="fucus()" (blur)="blur()">
     </app-col>
     <app-col size="auto">
       :

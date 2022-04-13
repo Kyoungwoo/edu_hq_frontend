@@ -85,6 +85,7 @@ export class SafetyEducationListPage implements OnInit {
     user_role === 'MASTER_GENERAL') {
       this.editable.company_id = true;
       this.form.project_id = belong_data.project_id;
+      this.form.company_id = belong_data.master_company_id;
     } else if(user_role === 'LH_HEAD') {
       this.editable.add = true;
       this.form.project_id = belong_data.project_id;

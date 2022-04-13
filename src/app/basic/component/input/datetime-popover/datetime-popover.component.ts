@@ -49,7 +49,7 @@ export class DatetimePopoverComponent implements OnInit, AfterViewInit {
   minuteClick(minute) {
     this.minute = minute.value;
     this.miniuteClicked = true;
-    if(this.hourClicked && this.miniuteClicked) this._popover.dismiss({ hour: this.hour, minute: this.minute });
+    if(this.hourClicked && this.miniuteClicked || this.hour) this._popover.dismiss({ hour: this.hour, minute: this.minute });
   }
 
   private scrollToIndex(virtualScroll:CdkVirtualScrollViewport, list:Array<{value:string}>, value) {

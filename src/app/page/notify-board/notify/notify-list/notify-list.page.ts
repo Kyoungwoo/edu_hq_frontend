@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -16,9 +17,8 @@ export class NotifyListPage implements OnInit {
     create_date:this.date.today({year:-2,month:-1}),
     end_date:this.date.today(),
     notify_menu:'',
-    project_id:0,
-    search_text:'',
-    limit_no:0
+    project_id: this.user.userData.belong_data.project_id,
+    search_text:''
   }
 
   res:ConnectResult<{
@@ -42,15 +42,15 @@ export class NotifyListPage implements OnInit {
     private modal:ModalController,
     private connect:ConnectService,
     private toast: ToastService,
-    private date: DateService
+    private date: DateService,
+    private user: UserService
   ) { }
 
   ngOnInit() {
     this.get();
   }
 
-  async get(limit_no = this.form.limit_no) {
-    this.form.limit_no = limit_no;
+  async get() {
     this.res = await this.connect.run('/notify/get',this.form);
     if(this.res.rsCode === 0) {}
     else {
@@ -60,7 +60,10 @@ export class NotifyListPage implements OnInit {
 
   async openDetail() {
     const modal = await this.modal.create({
-      component:OpenDetailSearchPage
+      component:OpenDetailSearchPage,
+      componentProps: {
+        form: this.form
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();

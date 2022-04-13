@@ -17,6 +17,8 @@ import { DatetimePopoverComponent } from '../datetime-popover/datetime-popover.c
 export class DatetimeComponent implements OnInit, ControlValueAccessor {
 
   @Input() label:string;
+  @Input() required:boolean = false;
+  
 
   form = {
     hour: '',

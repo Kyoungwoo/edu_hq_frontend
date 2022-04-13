@@ -25,7 +25,6 @@ constructor(
     qrCallback;
     
   async subscribe(type?,callback?) {
-    console.log("this.qrCallback",this.qrCallback);
     this.qrCallback = callback;
     const modal = await this._modal.create({
       component:QrScannerComponent,
