@@ -1,3 +1,4 @@
+import { PushService } from './../../../service/push.service';
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
 import { DeviceService } from 'src/app/basic/service/core/device.service';
@@ -27,7 +28,8 @@ export class LoginMobilePage implements OnInit {
     private promise: PromiseService,
     private changeDetector: ChangeDetectorRef,
     private device: DeviceService,
-    private alert: AlertService
+    private alert: AlertService,
+    private psuh: PushService
   ) { }
 
   ngOnInit() {
@@ -160,6 +162,8 @@ export class LoginMobilePage implements OnInit {
           break;
       }
 
+      // 로그인이 완료되면 푸시, 유저데이터저장, 메인페이지 활성화
+      this.psuh.init();
       this.user.setUserData(userData, this.autoLogin);
       this.nav.navigateRoot(userData.user_main_page, {animated});
     }
