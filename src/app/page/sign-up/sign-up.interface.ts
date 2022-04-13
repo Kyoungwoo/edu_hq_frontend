@@ -1,4 +1,5 @@
 export class SignUpCompanyInfo {
+  company_contract_type:'원청사' | '협력사' | '감리사';
   company_id:number = null;
   business_register_no:number = null;
   company_name:string = null;
