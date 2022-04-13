@@ -11,6 +11,19 @@ app-button {
     border-radius: 0;
     height: 64px;
 }
+
+.profile-row {
+    .profile {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-logout {
+        height: 28px;
+        border-radius: 5px;
+        margin-right: 16px;
+    }
+}
+
 .menu.active {
     background: var(--ion-color-secondary);
     color: var(--ion-color-secondary-contrast);
@@ -20,11 +33,4 @@ app-button {
 }
 .third-menu::part(indicator) {
     display: none;
-}
-
-.profile-row {
-    .profile {
-        width: 40px;
-        height: 40px;
-    }
 }
