@@ -60,7 +60,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>공지사항 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>공지사항 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-card *ngIf="resFavorite?.rsCode" color="warning">{{ resFavorite.rsMsg }}</app-card>
         <ng-container *ngIf="res">
