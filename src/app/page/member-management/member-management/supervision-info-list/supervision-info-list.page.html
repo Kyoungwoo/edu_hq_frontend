@@ -62,17 +62,18 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>관리자 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>관리자 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
-              <th style="width: 40px;">NO</th>
+              <th style="width: 48px;">No</th>
+              <th>공종</th>
               <th>업체명</th>
-              <th>성명</th>
-              <th>생년월일</th>
+              <th style="width: 160px;">성명</th>
+              <th style="width: 200px;">생년월일</th>
               <th>직위</th>
-              <th>가입일</th>
+              <th style="width: 200px;">가입일</th>
               <!-- <th>재직상태</th> -->
             </tr>
           </thead>

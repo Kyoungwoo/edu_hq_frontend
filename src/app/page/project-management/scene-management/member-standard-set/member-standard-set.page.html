@@ -7,10 +7,10 @@
         <ion-segment class="sub-segment" color="primary" [value]="initValue">
           <ion-segment-button *ngIf="!lhHeadCheck" (click)="menuCount1()" [value]="1">LH 조직관리</ion-segment-button>
           <ion-segment-button *ngIf="!memberRoleCheck" (click)="menuCount2()" [value]="2">정보 접근<br>비밀번호</ion-segment-button>
-          <!-- <ion-segment-button disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
-          <ion-segment-button disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
-          <ion-segment-button (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button> -->
+          <ion-segment-button *ngIf="!superView" disabled (click)="menuCount = 3">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button *ngIf="!superView" disabled (click)="menuCount = 4">안전 마일리지<br>사용</ion-segment-button>
+          <ion-segment-button *ngIf="!superView" (click)="menuCount = 3" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button *ngIf="!superView" (click)="menuCount = 4" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
           <ion-segment-button [value]="5" *ngIf="!memberRoleCheck || superView" (click)="menuCount5()">직위</ion-segment-button>
           <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount6()">안전직무</ion-segment-button>
           <ion-segment-button *ngIf="!memberRoleCheck" [disabled]="memberRoleCheck" (click)="menuCount7()">직종</ion-segment-button>
@@ -402,7 +402,7 @@
       <ion-toolbar color="white">
         <app-row>
           <app-col>
-            <h5>직위 목록 (총{{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
+            <h5>직위 목록 (총 {{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="jobAddSave()">저장</app-button>
@@ -417,7 +417,7 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th style="width:40px">No</th>
+                <th style="width:48px">No</th>
                 <th>직위명</th>
                 <th>영어</th>
                 <th>중국어</th>
@@ -505,7 +505,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
+            <h5>안전직무 목록 (총 {{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
@@ -520,7 +520,7 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>No</th>
+                <th style="width: 48px;">No</th>
                 <th>안전 직무명</th>
                 <th>영어</th>
                 <th>중국어</th>
@@ -610,7 +610,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>직종 목록 (총{{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
+            <h5>직종 목록 (총 {{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="occupationSave()">저장</app-button>
@@ -625,8 +625,8 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>No</th>
-                <th>직종 명</th>
+                <th style="width: 48px;">No</th>
+                <th>직종명</th>
                 <th>영어</th>
                 <th>중국어</th>
                 <th>배트남어</th>

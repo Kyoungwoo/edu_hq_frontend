@@ -177,7 +177,7 @@ export class PartnerIntoEditPage implements OnInit {
     } else {
       this.permission.mileageinsert = false;
     }
-    if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+    if(this.user.userData.user_role === 'LH_HEAD' || this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
       this.permission.approval = true;
     } else {
       this.permission.approval = false;

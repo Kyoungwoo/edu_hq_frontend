@@ -51,7 +51,7 @@
         </app-col>
       </ion-toolbar>
       <ion-toolbar color="white">
-        <h5>현장 목록 (총{{res?.rsObj?.row_count || 0}}건)</h5>
+        <h5>현장 목록 (총 {{res?.rsObj?.row_count || 0}}건)</h5>
       </ion-toolbar>
       <!-- check-group ngModel -->
       <app-check-group >
@@ -61,7 +61,7 @@
               <th style="width: 40px;">
                 <app-check type="all" color="white" size="small" name="check"></app-check>
               </th>
-              <th>No</th>
+              <th style="width: 48px;">No</th>
               <th>지역본부</th>
               <th>사업본부</th>
               <th>현장명</th>
