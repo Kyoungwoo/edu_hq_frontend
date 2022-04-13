@@ -165,7 +165,7 @@
             </app-input-template>
   
           </app-col>
-          <app-col *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER'">
+          <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER'">
             
             <app-select-construction [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!editable"></app-select-construction>
             <app-input-caption *ngIf="belongValidator.ctgo_construction_id?.valid === false" color="warning">{{ belongValidator.ctgo_construction_id?.message }}</app-input-caption>
