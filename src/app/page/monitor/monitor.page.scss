@@ -17,12 +17,12 @@ ion-toolbar{
     color:var(--ion-color-primary);
 }
 
+.colstyle{
+    margin-right: 15px;
+}
 .title { 
     font-size: 15px;
-}
-.colstyle{
-    // align-self: flex-end;
-    margin-right: 15px;
+    margin-bottom: 4px;
 }
 .margin-card {
     margin-top: 0;
@@ -38,7 +38,7 @@ ion-toolbar{
     .donut-in-count {
         position: absolute;
         top: 42%;
-        left: 50%;
+        left: 49%;
         transform: translate(-50%,-50%);
         font-size: 40px;
         font-weight: 600;
@@ -46,7 +46,7 @@ ion-toolbar{
     .donut-in-text{
         position: absolute;
         top: 60%;
-        left: 50%;
+        left: 49%;
         transform: translate(-50%,-50%);
         font-size: var(--font-size-h4);
         color: #2F8D38;

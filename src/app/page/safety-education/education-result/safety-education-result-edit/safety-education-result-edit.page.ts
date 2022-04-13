@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
+import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 
 export class EducationItem {
   project_id: number;
@@ -82,6 +83,8 @@ export class SafetyEducationResultEditPage implements OnInit {
   permission = {
     edit: true
   }
+
+  approval_comment:CommentObj[];
 
   constructor(
     private connect: ConnectService,
@@ -352,5 +355,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     else {
       this.permission.edit = false;
     }
+    
+    this.approval_comment = ev.approval_comment;
   }
 }

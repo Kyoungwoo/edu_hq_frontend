@@ -39,7 +39,7 @@ export class SearchSceneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.type !== 'SIGNUPLH') this.get();
+    this.get();
     this.test();
   }
 

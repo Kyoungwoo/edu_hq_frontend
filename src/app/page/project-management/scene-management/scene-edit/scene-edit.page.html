@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content>
   <h4>현장 개요</h4>
-  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+  <app-row mobileBreak>
     <app-col>
       <app-input [required]="true" (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
         label="조직기구">

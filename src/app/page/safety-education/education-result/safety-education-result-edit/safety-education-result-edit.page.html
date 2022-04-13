@@ -126,41 +126,8 @@
         </tbody>
       </app-table>
     </ng-container>
-    <app-row>
-      <app-col>
-        <h4>결재 의견</h4>
-      </app-col>
-    </app-row>
-    <app-table>
-      <thead>
-        <tr>
-          <th>구분</th>
-          <th>결재</th>
-          <th>성명</th>
-          <th>업체명</th>
-          <th>결재 일시</th>
-          <th>결재 의견</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>검토자</td>
-          <td>승인</td>
-          <td>정대현</td>
-          <td>지에스아이엘</td>
-          <td>21.04.23 17:26</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>승인자</td>
-          <td>승인</td>
-          <td>이은주</td>
-          <td>지에스아이엘</td>
-          <td>21.04.23 17:26</td>
-          <td>승인 합니다.</td>
-        </tr>
-      </tbody>
-    </app-table>
+    
+    <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
   </ng-container>
   <ng-container *mobileShow>
     <ion-toolbar color="white">
