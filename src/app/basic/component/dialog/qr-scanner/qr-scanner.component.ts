@@ -48,7 +48,6 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    console.log("asdfasdfasdf")
     await this.prepareQR();
     this.scanQR();
     const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 

@@ -135,6 +135,8 @@ export class MemberStandardSetPage implements OnInit {
 
   memberRoleCheck: boolean = true;
   editable:boolean = false;
+  superView:boolean = false;
+  initValue:number;
 
   constructor(
     private connect: ConnectService,
@@ -163,19 +165,26 @@ export class MemberStandardSetPage implements OnInit {
   }
 
   authority() {
-    if (this.user.userData.user_role === 'PARTNER_HEAD' ||
-    this.user.userData.user_role === 'MASTER_HEAD' ||
-    this.user.userData.user_role === 'LH_ADMIN' ||
-    this.user.userData.user_role === 'LH_HEAD') this.memberRoleCheck = false;
+    const { user_role } = this.user.userData;
+    if (user_role === 'PARTNER_HEAD' ||
+    user_role === 'MASTER_HEAD' ||
+    user_role === 'LH_ADMIN' ||
+    user_role === 'LH_HEAD') this.memberRoleCheck = false;
     
-    if(this.user.userData.user_role === 'PARTNER_HEAD' ||
+    if(user_role === 'PARTNER_HEAD' ||
     this.user.userData.user_role === 'MASTER_HEAD') {
       this.editable = true;
     }
-    if (this.user.userData.user_role === 'LH_HEAD') {
+    if(user_role === 'SUPER_HEAD') {
+      this.superView = true;
+      this.initValue = 5;
+    } 
+    if (user_role === 'LH_HEAD') {
       this.lhHeadCheck = false;
+      this.initValue = 2;
     } else if(this.lhHeadCheck) {
       this.menuCount = 2;
+      this.initValue = 1;
       this.menuCount2();
     }
   }

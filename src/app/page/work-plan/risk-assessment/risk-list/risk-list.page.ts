@@ -60,6 +60,8 @@ export class RiskListPage implements OnInit {
     get: null
   }
 
+  selectitemList = new RiskListItem;
+
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
@@ -95,8 +97,8 @@ export class RiskListPage implements OnInit {
 
     this.form.project_id = belong_data.project_id;
 
-    if(belong_data.company_contract_type === 'LH'
-    || belong_data.company_contract_type === '감리사') {
+    if(user_role === 'LH_HEAD'
+    || user_role === 'SUPER_HEAD') {
 
       this.permission.company_id = true;
       this.permission.add = false;

@@ -69,6 +69,7 @@ export class SearchSceneComponent implements OnInit {
     } 
     else if(this.type === 'SIGNUPLH') {
       this.res = await this.connect.run('/forSignUp/project/get', this.form, { loading: '현장 검색' });
+      console.log("rpoject",this.res);
     }
     else {
       this.res = await this.connect.run('/category/certify/search_my_project/get', this.form, { loading: '현장 검색' });

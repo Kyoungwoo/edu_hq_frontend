@@ -42,6 +42,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   public async get() {
+    console.log("this.value",this.value);
     if(this.isModalData) return;
     
     if(!this.value && !this.all) return;

@@ -66,7 +66,6 @@
             <p>최종 수정일 : {{ formBasic.update_date }}</p>
           </app-col>
         </app-row>
-      <h5>소속정보</h5>
       <app-row>
         <app-col>
           <app-input [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
@@ -88,7 +87,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_id"></app-input>
+          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
         </app-col>
         <app-col>
           <app-input-group label="현장 공사 기간">

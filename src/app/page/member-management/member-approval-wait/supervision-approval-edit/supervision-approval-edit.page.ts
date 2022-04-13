@@ -139,7 +139,7 @@ export class SupervisionApprovalEditPage implements OnInit {
   async getBelong() {
     const res = await this.connect.run('/usermanage/approval/super/belong/detail', this.form, {
     });
-
+    console.log("res",res);
     if (res.rsCode === 0) {
       this.formApproval = {
         ...this.formApproval,
