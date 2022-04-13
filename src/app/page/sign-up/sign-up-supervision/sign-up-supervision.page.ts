@@ -211,8 +211,8 @@ export class SignUpSupervisionPage implements OnInit {
     if(this.form.project_id == null) this.validator.project_id = { message: '현장을 입력해주세요.', valid: false };
     else this.validator.project_id = { valid: true };
 
-    if(this.form.ctgo_construction_id == null) this.validator.ctgo_construction_id = { message: '공종을 입력해주세요.', valid: false };
-    else this.validator.ctgo_construction_id = { valid: true };
+    /* if(this.form.ctgo_construction_id == null) this.validator.ctgo_construction_id = { message: '공종을 입력해주세요.', valid: false };
+    else this.validator.ctgo_construction_id = { valid: true }; */
 
     this.validator.file_preview = { valid: true };
     this.validator.file = { valid: true };

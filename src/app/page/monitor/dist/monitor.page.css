@@ -1,0 +1,443 @@
+app-img {
+  width: 30px;
+}
+
+ion-toolbar {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+.weather {
+  margin-right: 30px;
+}
+
+.weather-temp {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.ratio {
+  font-size: 15px;
+  color: var(--ion-color-primary);
+}
+
+.title {
+  font-size: 15px;
+}
+
+.colstyle {
+  margin-right: 15px;
+}
+
+.margin-card {
+  margin-top: 0;
+}
+
+.chip-back {
+  background-color: var(--ion-color-light);
+  border-radius: 15px;
+  font-size: 17px;
+}
+
+.donut-group {
+  position: relative;
+}
+.donut-group .donut-in-count {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: 600;
+}
+.donut-group .donut-in-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-h4);
+  color: #2F8D38;
+}
+.donut-group .dount-worker {
+  height: 10px;
+  width: 30%;
+  background-color: var(--ion-color-primary);
+  position: relative;
+}
+.donut-group .dount-worker-sub {
+  height: 10px;
+  width: 100%;
+  background-color: var(--ion-color-primary);
+  position: absolute;
+  opacity: 0.1;
+}
+.donut-group .dount-partner {
+  height: 10px;
+  width: 30%;
+  background-color: var(--ion-color-secondary-contrast);
+  position: relative;
+}
+.donut-group .dount-partner-sub {
+  height: 10px;
+  width: 100%;
+  background-color: var(--ion-color-secondary-contrast);
+  position: absolute;
+  opacity: 0.1;
+}
+
+.graph-box {
+  display: flex;
+  position: relative;
+  padding-left: 30px;
+  width: 100%;
+}
+
+.graph-count {
+  position: absolute;
+  top: 40px;
+  left: 3px;
+  text-align: left;
+  width: 25px;
+  text-align: end;
+}
+
+.grach-line {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border-bottom: 1px solid var(--ion-color-medium);
+}
+
+.middle-box {
+  border-left: 3px solid var(--ion-color-light);
+  border-right: 3px solid var(--ion-color-light);
+}
+
+.border-box {
+  border-right: 3px solid var(--ion-color-light);
+}
+
+.graph-rod-group {
+  display: flex;
+  position: absolute;
+  top: -96px;
+  left: 40px;
+  margin-right: 5px;
+  height: 100%;
+  width: calc(100% - 35px);
+}
+.graph-rod-group .graph-rod-main {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  flex: 1;
+  justify-content: center;
+}
+.graph-rod-group .graph-rod-main-2 {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  flex: 1;
+  justify-content: center;
+}
+.graph-rod-group .graph-rod-tow-worker {
+  position: absolute;
+  background-color: var(--ion-color-primary);
+  width: 60%;
+}
+.graph-rod-group .worker-name {
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-h5);
+  color: var(--ion-color-secondary-contrast);
+}
+.graph-rod-group .graph-rod-tow-risk {
+  position: absolute;
+  background-color: var(--ion-color-primary);
+  width: 60%;
+}
+.graph-rod-group .risk-name {
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-h5);
+  color: var(--ion-color-secondary-contrast);
+}
+
+.graph-rod-one {
+  width: 15px;
+  height: 25px;
+  background-color: #2F8D38;
+  margin-right: 5px;
+}
+
+.graph-rod-tow {
+  width: 15px;
+  height: 50px;
+  background-color: var(--ion-color-primary);
+}
+
+.rod-name {
+  color: var(--ion-color-secondary-contrast);
+  font-size: var(--font-size-h5);
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  text-align: center;
+}
+
+.graph-sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.graph-sub .count-contant {
+  font-weight: 800;
+  color: var(--ion-color-medium);
+  font-size: var(--font-size-h4);
+}
+.graph-sub .sub-info {
+  display: flex;
+  justify-content: center;
+}
+.graph-sub .circle1 {
+  background-color: var(--ion-color-primary);
+  width: 20px;
+  height: 20px;
+  border-radius: 75px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: var(--font-size-h6);
+  vertical-align: middle;
+  line-height: 150px;
+}
+.graph-sub .circlel-plan {
+  background-color: var(--ion-color-monitor-warning);
+  width: 20px;
+  height: 20px;
+  border-radius: 75px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: var(--font-size-h6);
+  vertical-align: middle;
+  line-height: 150px;
+}
+.graph-sub .circlel-per {
+  background-color: var(--ion-color-primary);
+  width: 20px;
+  height: 20px;
+  border-radius: 75px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: var(--font-size-h6);
+  vertical-align: middle;
+  line-height: 150px;
+}
+.graph-sub .sub-graph {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.table-text {
+  font-size: 18px;
+  color: var(--ion-color-primary-shade);
+}
+.table-text h5 {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.table-count {
+  width: 30px;
+  text-align: center;
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--ion-color-secondary-contrast);
+}
+
+.risk-type-name {
+  margin-left: 15px;
+  text-align: left;
+  font-size: var(--font-size-h4);
+  color: var(--ion-color-secondary-contrast);
+}
+
+.count-name {
+  padding-left: 8px;
+  font-size: var(--font-size-h4);
+  color: var(--ion-color-secondary-contrast);
+}
+
+app-card:last-child {
+  margin-bottom: var(--app-margin);
+}
+
+.smart-equip app-button {
+  min-height: 32px;
+}
+
+.toolbar-padding {
+  --padding-start: 12px!important;
+  --padding-end: 12px!important;
+}
+
+.graph-row-today-work {
+  height: 100%;
+}
+.graph-row-today-work .col-today-work {
+  height: calc(100% - 140px);
+  max-height: 500px;
+  bottom: -16px;
+}
+
+.blinder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-h2);
+}
+
+.graph-area {
+  height: 100%;
+  width: 100%;
+}
+.graph-area .graph-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.graph-area .graph-wrap .graph-line-wrap {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.graph-area .graph-wrap .bar-flex-box {
+  display: flex;
+  top: 0;
+  position: absolute;
+  height: calc(100% + 49px);
+  width: 100%;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-flex-theme {
+  flex: 0 30px;
+  width: 30px;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .bar {
+  width: 36px;
+  background: var(--ion-color-primary);
+  position: relative;
+  cursor: pointer;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .bar .bar-inner-text {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  text-align: center;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .text {
+  height: 50px;
+  padding-top: 26px;
+  font-size: var(--font-size-h6);
+  transform: rotate(-45deg);
+  white-space: nowrap;
+}
+.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item.theme {
+  width: 26px;
+}
+
+.graph-line-box {
+  flex: 1;
+  display: flex;
+  height: 100%;
+}
+.graph-line-box .graph-line {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid var(--ion-color-medium);
+  height: 100%;
+}
+.graph-line-box .graph-text {
+  flex: 0 24px;
+  text-align: right;
+  margin-right: 4px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: right;
+  position: relative;
+}
+.graph-line-box .graph-text .div-text-g {
+  position: absolute;
+  position: absolute;
+  top: -10px;
+}
+
+@media screen and (max-width: 1350px) {
+  app-row {
+    flex-direction: column !important;
+  }
+  app-row app-col {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .border-box {
+    border-right: none;
+  }
+
+  .table-text h5 {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .graph-row-today-work {
+    height: 300px;
+  }
+  .graph-row-today-work .col-today-work {
+    height: 215px;
+    max-height: 500px;
+  }
+
+  .bar-item {
+    width: 30px;
+  }
+
+  .bar-flex-box .bar-flex-theme {
+    flex: 0 22px !important;
+    width: 22px !important;
+  }
+}
+.worker-state {
+  height: 80px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+.danger-state {
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}

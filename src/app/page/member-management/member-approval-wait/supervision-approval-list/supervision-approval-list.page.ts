@@ -12,7 +12,7 @@ import { SecurityPasswordComponent } from '../security-password/security-passwor
 import { SupervisionApprovalEditPage } from '../supervision-approval-edit/supervision-approval-edit.page';
 
 class SupervisionApprovalInfo {
-  ctgo_construction_id: number;
+  // ctgo_construction_id: number;
   ctgo_job_position_name: string;
   company_id: number;
   user_id: number;
@@ -37,7 +37,7 @@ export class SupervisionApprovalListPage implements OnInit {
     approval_state: '전체',
     project_id: 0,
     company_id: 0,
-    ctgo_construction_ids: [],
+    // ctgo_construction_ids: [],
 
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
