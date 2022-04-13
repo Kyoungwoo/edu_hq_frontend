@@ -88,22 +88,21 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        console.log("item", this.item);
                         this.form.education_safe_id = (_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id;
                         if (!this.item) return [3 /*break*/, 2];
+                        this.form.education_safe_report_instructor = this.item.education_safe_instructor;
+                        this.form.education_safe_report_text = this.item.ctgo_education_safe_text;
                         return [4 /*yield*/, this.getDefaultItem()];
                     case 1:
                         _b.sent();
+                        this.newReportList();
                         _b.label = 2;
                     case 2:
-                        if (!this.education_safe_report_id) return [3 /*break*/, 4];
-                        return [4 /*yield*/, Promise.all([
-                                this.getItem(),
-                                this.reportList()
-                            ])];
-                    case 3:
-                        _b.sent();
-                        _b.label = 4;
-                    case 4:
+                        if (this.education_safe_report_id) {
+                            this.getItem();
+                            this.reportList();
+                        }
                         // 나머지 정보
                         this.form.ctgo_education_safe_type_text = this.getTypeText(this.form.ctgo_education_safe_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
@@ -186,8 +185,26 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                         return [4 /*yield*/, this.connect.run('/education/report/attendant/list', { education_safe_report_id: this.education_safe_report_id })];
                     case 1:
                         _a.res = _b.sent();
-                        if (this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
-                            this.toast.present({ message: this.res.rsMsg, color: 'warning' });
+                        if (this.res.rsCode === 0) {
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    SafetyEducationResultEditPage.prototype.newReportList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log("this.education_safe_report_id", this.item.education_safe_id);
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/education/attendant/list', { education_safe_id: this.item.education_safe_id, search_text: '' })];
+                    case 1:
+                        _a.res = _b.sent();
+                        console.log("this.res", this.res);
+                        if (this.res.rsCode === 0) {
                         }
                         return [2 /*return*/];
                 }
@@ -240,7 +257,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            this._modal.dismiss();
+                            this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
                         }
@@ -262,14 +279,8 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         approval_data = ev.approval_data;
-                        if (!this.form.education_safe_report_instructor) {
-                            this.toast.present({ color: 'warning', message: '강사명이 없습니다.' });
-                            return [2 /*return*/];
-                        }
-                        if (!this.form.education_safe_report_text) {
-                            this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' });
-                            return [2 /*return*/];
-                        }
+                        // if(!this.form.education_safe_report_instructor) { this.toast.present({ color: 'warning', message: '강사명이 없습니다.' }); return; }
+                        // if(!this.form.education_safe_report_text) { this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' }); return; }
                         this.form.approval_cnt_answer = '임시저장';
                         this.form.approval_default_data = approval_data;
                         url = '';
@@ -315,7 +326,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         if (!this.form.education_safe_report_text) {
-                            this.toast.present({ color: 'warning', message: '결과 보고를 작성해 주세요.' });
+                            this.toast.present({ color: 'warning', message: '교육 내용을 입력해주세요.' });
                             return [2 /*return*/];
                         }
                         this.form.approval_cnt_answer = '결재중';
@@ -326,7 +337,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                         res = _a.sent();
                         if (res.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this._modal.dismiss();
+                            this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
@@ -346,7 +357,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                         approvalRes = _a.sent();
                         if (approvalRes.rsCode === 0) {
                             this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-                            this._modal.dismiss();
+                            this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
                         }
@@ -415,6 +426,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
         else {
             this.permission.edit = false;
         }
+        this.approval_comment = ev.approval_comment;
     };
     __decorate([
         core_1.Input()
