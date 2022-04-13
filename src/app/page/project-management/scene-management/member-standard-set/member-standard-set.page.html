@@ -402,7 +402,7 @@
       <ion-toolbar *ngIf="!rolepass;" color="white">
         <app-row>
           <app-col>
-            <h5>직위 목록 (총{{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
+            <h5>직위 목록 (총 {{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="jobAddSave()">저장</app-button>
@@ -512,7 +512,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
+            <h5>안전직무 목록 (총 {{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
@@ -617,7 +617,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>직종 목록 (총{{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
+            <h5>직종 목록 (총 {{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="occupationSave()">저장</app-button>

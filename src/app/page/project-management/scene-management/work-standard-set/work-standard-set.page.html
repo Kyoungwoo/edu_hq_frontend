@@ -61,7 +61,7 @@
           <ion-toolbar color="white">
             <app-row>
               <app-col>
-                <h5>공종 목록 (총{{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
+                <h5>공종 목록 (총 {{resConstruction?.rsMap?.length ? resConstruction?.rsMap?.length :0}}건)</h5>
               </app-col>
               <app-col size="auto">
                 <app-button fill="translucent" (click)="constructionSave()">저장</app-button>
@@ -75,8 +75,8 @@
                   <th style="width: 40px;">
                     <app-check type="all"></app-check>
                   </th>
-                  <th>공종 목록</th>
-                  <th style="width: 180px;">사용 여부</th>
+                  <th>공종</th>
+                  <th style="width: 180px;">사용여부</th>
                 </tr>
               </thead>
               <tbody>
@@ -145,7 +145,7 @@
         <ion-toolbar color="white">
           <app-row>
             <app-col>
-              <h5>건설기계 목록 (총{{ resMachinery?.rsMap?.length ? resMachinery?.rsMap?.length: 0}}건)</h5>
+              <h5>건설기계 목록 (총 {{ resMachinery?.rsMap?.length ? resMachinery?.rsMap?.length: 0}}건)</h5>
             </app-col>
             <app-col size="auto">
               <app-button fill="translucent" (click)="machinerySave()">저장</app-button>
@@ -161,7 +161,7 @@
                 </th>
                 <th>건설기계</th>
                 <th style="width: 180px;">작업계획서 필수 첨부</th>
-                <th style="width: 180px;">사용 여부</th>
+                <th style="width: 180px;">사용여부</th>
               </tr>
             </thead>
             <tbody>
@@ -235,7 +235,7 @@
         <ion-toolbar color="white">
           <app-row>
             <app-col>
-              <h5>특수공도구 목록 (총{{resTool?.rsMap?.length || 0}}건)</h5>
+              <h5>특수공도구 목록 (총 {{resTool?.rsMap?.length || 0}}건)</h5>
             </app-col>
             <app-col size="auto">
               <app-button fill="translucent" (click)="toolSave()">저장</app-button>
@@ -249,8 +249,8 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>전기 공도구</th>
-                <th style="width: 180px;">사용 여부</th>
+                <th>특수공도구</th>
+                <th style="width: 180px;">사용여부</th>
               </tr>
             </thead>
             <tbody>
@@ -397,7 +397,7 @@
         <ion-toolbar color="white">
           <app-row>
             <app-col>
-              <h5>재해형태 목록 (총{{ resDisaster?.rsMap?.length ? resDisaster?.rsMap?.length:0}}건)</h5>
+              <h5>재해 형태 목록 (총 {{ resDisaster?.rsMap?.length ? resDisaster?.rsMap?.length:0}}건)</h5>
             </app-col>
             <app-col size="auto">
               <app-button fill="translucent" (click)="disasterSave()">저장</app-button>
@@ -411,8 +411,8 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>재해 형태 목록</th>
-                <th style="width: 180px;">사용 여부</th>
+                <th>재해 형태</th>
+                <th style="width: 180px;">사용여부</th>
               </tr>
             </thead>
             <tbody>
