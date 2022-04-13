@@ -257,7 +257,7 @@ export class MyPagePage implements OnInit {
         □ 회원 탈퇴를 원할 시 비밀번호를 입력해주세요.
       `,
       inputs: [
-        { name: 'account_token', placeholder: '비밀번호' }
+        { name: 'account_token', placeholder: '비밀번호', type: 'password' }
       ],
       buttons: [
         { text: '취소' },
