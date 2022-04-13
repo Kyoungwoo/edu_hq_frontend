@@ -112,7 +112,7 @@
                   <h4>알림함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">{{ form.alarm_count }}</ion-chip>
+                  <ion-badge color="medium">{{ form.alarm_count }}</ion-badge>
                 </app-col>
                 <app-col (click)="router('알림함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -121,7 +121,7 @@
             </ion-toolbar>
             <app-row *ngFor="let item of alarm_list">
               <app-col size="auto">
-                <ion-chip color="danger">{{ item.notify_head }}</ion-chip>
+                <ion-chip color="warning" class="chip-width">{{ item.notify_head }}</ion-chip>
               </app-col>
               <app-col>
                 <h5>{{ item.notify_text_kr }}</h5>
@@ -138,7 +138,7 @@
                   <h4>미결함</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">{{ form.approval_count }}</ion-chip>
+                  <ion-badge color="medium">{{ form.approval_count }}</ion-badge>
                 </app-col>
                 <app-col (click)="router('미결함')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -166,7 +166,7 @@
                   <h4>공지사항</h4>
                 </app-col>
                 <app-col>
-                  <ion-chip color="medium">{{ form.notice_count }}</ion-chip>
+                  <ion-badge color="medium">{{ form.notice_count }}</ion-badge>
                 </app-col>
                 <app-col (click)="router('공지사항')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -191,7 +191,7 @@
                   <h4>회의록</h4>
                 </ion-col>
                 <app-col>
-                  <ion-chip color="medium">{{ form.safetymeeting_count }}</ion-chip>
+                  <ion-badge color="medium">{{ form.safetymeeting_count }}</ion-badge>
                 </app-col>
                 <app-col (click)="router('회의록')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -218,7 +218,7 @@
                   <h4>MSDS</h4>
                 </ion-col>
                 <app-col>
-                  <!-- <ion-chip color="medium">{{ form.msds_count }}</ion-chip> -->
+                  <!-- <ion-badge color="medium">{{ form.msds_count }}</ion-badge> -->
                 </app-col>
                 <app-col (click)="router('MSDS')" size="auto">
                   <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -483,25 +483,18 @@
       </app-card>
     </app-col>
   </app-row>
-  <app-card>
-    <app-row class="pointer-class">
-      <app-col>
-        <h6><span (click)="router('')" style="font-weight: 800;">문의하기</span> | <span style="font-weight: 800;" (click)="router('사용자메뉴얼')">사용자 메뉴얼</span> | <span (click)="router('시스템이용약관')">시스템 이용약관</span> |
-          <span (click)="router('개인정보처리방침')">개인정보 처리방침</span> </h6>
-      </app-col>
-    </app-row>
-  </app-card>
 </ion-content>
-<app-card>
+<app-button-footer style="margin-top: 10px; margin-bottom: 15px;">
   <app-row>
-    <app-col>
+    <app-col  size="auto">
       <app-logo></app-logo>
     </app-col>
-    <app-col size="auto">
+    <app-col style="text-align: left;">
       2021 by LH Co.Ltd All rights reserved
     </app-col>
-    <app-col size="auto">
-      <app-logo></app-logo>
+    <app-col size="auto" class="pointer-class">
+      <h5><span (click)="router('')" style="font-weight: 800;">문의하기</span> | <span style="font-weight: 800;" (click)="router('사용자메뉴얼')">사용자 메뉴얼</span> | <span (click)="router('시스템이용약관')">시스템 이용약관</span> |
+        <span (click)="router('개인정보처리방침')">개인정보 처리방침</span> </h5>
     </app-col>
   </app-row>
-</app-card>
+</app-button-footer>
