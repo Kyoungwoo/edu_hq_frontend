@@ -17,6 +17,7 @@ import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 import { SortablejsModule } from 'ngx-sortablejs';
+import { EmergencyPopupComponentModule } from './page/main/user/emergency-popup/emergency-popup.module';
 
 const getConfig = () => {
   if(!isPlatform('ios')) {
@@ -73,6 +74,7 @@ const getConfig = () => {
     AppRoutingModule,
     ScrollingModule,
     SortablejsModule.forRoot({ animation: 150 }),
+    EmergencyPopupComponentModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
