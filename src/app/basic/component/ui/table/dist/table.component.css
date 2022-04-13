@@ -26,6 +26,7 @@
   border: 1px solid var(--ion-color-step-100);
   padding: 6px;
   vertical-align: middle;
+  text-align: center;
 }
 :host ::ng-deep th small {
   font-size: var(--font-size-h6-small);
@@ -36,6 +37,7 @@
   border: 1px solid var(--ion-color-step-100);
   padding: 8px 6px;
   vertical-align: middle;
+  text-align: center;
 }
 :host ::ng-deep td small {
   font-size: var(--font-size-h6-small);

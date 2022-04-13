@@ -16,7 +16,7 @@ export class SignUpSuperForm {
   sms_token:string = null; //문자 인증번호
   user_email:string = null; //이메일
   ctgo_job_position_id:number = null; //직위 ID
-  ctgo_construction_id:number = null; //공종 ID
+  // ctgo_construction_id:number = null; //공종 ID
   project_id:number = null; //소속 현장 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
@@ -36,7 +36,7 @@ export class SignUpSuperFormMock implements SignUpSuperForm, SignUpTerms {
   user_email:string = regex.random.email();; //이메일
   project_id:number = null; //소속 현장 ID
   ctgo_job_position_id:number = null; //직위 ID
-  ctgo_construction_id:number = null; //공종 ID
+  // ctgo_construction_id:number = null; //공종 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
   file_json:FileJson = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증

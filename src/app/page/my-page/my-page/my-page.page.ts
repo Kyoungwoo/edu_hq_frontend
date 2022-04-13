@@ -61,7 +61,7 @@ export class BelongForm {
   contract_start_date:string = null;
   contract_end_date:string = null;
   
-  /** 감리, 원청사, 협력사, 작업자 form */
+  /** 원청사, 협력사, 작업자 form */
   ctgo_construction_id:number = null;
   ctgo_construction_name:string = null;
 

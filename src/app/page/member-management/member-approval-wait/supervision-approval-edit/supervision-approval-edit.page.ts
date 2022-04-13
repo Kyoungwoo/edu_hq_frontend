@@ -32,13 +32,13 @@ export class BasicItem {
 //소속정보
 export class ApprovalItem {
   ctgo_job_position_name_kr: string;
-  ctgo_construction_id: number;
+  // ctgo_construction_id: number;
   company_id: number;
   user_id: number;
   project_id: number;
   ctgo_job_position_id: number;
+  // ctgo_construction_name: string;
   company_name: string;
-  ctgo_construction_name: string;
   project_name: string;
 }
 

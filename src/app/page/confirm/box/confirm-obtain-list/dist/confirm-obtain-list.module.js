@@ -17,6 +17,8 @@ var component_module_1 = require("src/app/component/component.module");
 var basic_component_module_1 = require("src/app/basic/component/basic.component.module");
 var confirm_obtain_detail_search_module_1 = require("../confirm-obtain-detail-search/confirm-obtain-detail-search.module");
 var worker_minutes_edit_module_1 = require("src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module");
+var safety_education_result_edit_module_1 = require("src/app/page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.module");
+var risk_evaluation_edit_module_1 = require("src/app/page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module");
 var ConfirmObtainListPageModule = /** @class */ (function () {
     function ConfirmObtainListPageModule() {
     }
@@ -30,7 +32,9 @@ var ConfirmObtainListPageModule = /** @class */ (function () {
                 basic_component_module_1.BasicComponentModule,
                 confirm_obtain_list_routing_module_1.ConfirmObtainListPageRoutingModule,
                 confirm_obtain_detail_search_module_1.ConfirmObtainDetailSearchPageModule,
-                worker_minutes_edit_module_1.WorkerMinutesEditPageModule
+                safety_education_result_edit_module_1.SafetyEducationResultEditPageModule,
+                risk_evaluation_edit_module_1.RiskEvaluationEditPageModule,
+                worker_minutes_edit_module_1.WorkerMinutesEditPageModule,
             ],
             declarations: [confirm_obtain_list_page_1.ConfirmObtainListPage]
         })
