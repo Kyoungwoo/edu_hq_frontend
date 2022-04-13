@@ -4,16 +4,15 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>나의 출입 현황</ion-title>
+    <ion-buttons slot="end">
+      <app-menu-button></app-menu-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-row>
-      <app-col>
-        <app-input-group>
-           <app-input label="현장" [readonly]="true"></app-input>
-          <app-button (click)="detailSearch()">상세검색</app-button>
-        </app-input-group>
-      </app-col>
-    </app-row>
+    <app-input-group>
+      <app-input label="현장" [readonly]="true"></app-input>
+      <app-button (click)="detailSearch()">상세검색</app-button>
+    </app-input-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -23,10 +22,12 @@
         <h4>{{ resgate?.rsObj?.area_risk_name }}</h4>
       </app-col>
       <app-col size="auto">
-        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_state }}</ion-chip>
+        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_state }}
+        </ion-chip>
       </app-col>
       <app-col size="auto">
-        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_time}}</ion-chip>
+        <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_time}}
+        </ion-chip>
       </app-col>
     </app-row>
   </app-card>
@@ -41,7 +42,7 @@
           <ion-chip color="primary">입장</ion-chip>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="primary">{{  item.inside_time }}</ion-chip>
+          <ion-chip color="primary">{{ item.inside_time }}</ion-chip>
         </app-col>
       </app-row>
 
@@ -75,7 +76,7 @@
       </app-row>
     </app-card>
     <app-card *ngIf="risk.checked">
-      <app-row *ngFor="let item of risk.inner_data" >
+      <app-row *ngFor="let item of risk.inner_data">
         <app-col size="auto">
         </app-col>
         <app-col>
@@ -84,7 +85,8 @@
           <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state }}</ion-chip>
         </app-col>
         <app-col size="auto">
-          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state ==='입장' ? item.inside_time : item.outside_time }}</ion-chip>
+          <ion-chip [color]="item.work_state === '입장' ? 'primary' : 'medium'">{{ item.work_state ==='입장' ?
+            item.inside_time : item.outside_time }}</ion-chip>
         </app-col>
       </app-row>
     </app-card>

@@ -27,10 +27,12 @@
     </app-row>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-select-scene name="project_id" [(ngModel)]="form.project_id" (ngModelChange)="getBoard()"></app-select-scene>
+    <app-input-group>
+      <app-select-scene name="project_id" [(ngModel)]="form.project_id" (ngModelChange)="getBoard()"></app-select-scene>
+    </app-input-group>
   </ion-toolbar>
 </ion-header>
-<ion-content> 
+<ion-content>
   <div class="main-button">
     <app-row>
       <app-col size="4">
@@ -93,47 +95,47 @@
       </app-col>
     </app-row>
   </div>
-    <ion-toolbar color="white" class="segment-border">
-      <ion-segment [(ngModel)]="menu" color="primary">
-        <ion-segment-button [value]="1" (click)="menu = 1;">공지사항</ion-segment-button>
-        <ion-segment-button [value]="2" (click)="menu = 2;">MSDS</ion-segment-button>
-        <ion-segment-button [value]="3" (click)="menu = 3;">회의록</ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-    <div [style.display]="menu === 1 ? 'block' : 'none'">
-      <app-row *ngFor="let item of notice_list;" style="margin-top: 15px;">
-        <app-col style="margin-left: 20px;">
-          <h5>{{ item.notice_title }}</h5>
-        </app-col>
-        <app-col></app-col>
-        <app-col>
-          <h6>{{ item.create_date }}</h6>
-        </app-col>
-      </app-row>
-      <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
-    </div>
-    <div [style.display]="menu === 2 ? 'block' : 'none'">
-      <app-row *ngFor="let item of msds_list;" style="margin-top: 15px;">
-        <app-col style="margin-left: 20px;">
-          <h5>[{{ item.company_name }}]<br>{{ item.msds_title }}</h5>
-        </app-col>
-        <app-col></app-col>
-        <app-col>
-          <h6>{{ item.create_date }}</h6>
-        </app-col>
-      </app-row>
-      <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
-    </div>
-    <div [style.display]="menu === 3 ? 'block' : 'none'">
-      <app-row *ngFor="let item of safetymeeting_list;" style="margin-top: 15px;">
-        <app-col style="margin-left: 20px;">
-          <h5>{{ item.safety_meeting_type }}</h5>
-        </app-col>
-        <app-col></app-col>
-        <app-col>
-          <h6>{{ item.create_date }}</h6>
-        </app-col>
-      </app-row>
-      <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
-    </div>
+  <ion-toolbar color="white" class="segment-border">
+    <ion-segment [(ngModel)]="menu" color="primary">
+      <ion-segment-button [value]="1" (click)="menu = 1;">공지사항</ion-segment-button>
+      <ion-segment-button [value]="2" (click)="menu = 2;">MSDS</ion-segment-button>
+      <ion-segment-button [value]="3" (click)="menu = 3;">회의록</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div [style.display]="menu === 1 ? 'block' : 'none'">
+    <app-row *ngFor="let item of notice_list;" style="margin-top: 15px;">
+      <app-col style="margin-left: 20px;">
+        <h5>{{ item.notice_title }}</h5>
+      </app-col>
+      <app-col></app-col>
+      <app-col>
+        <h6>{{ item.create_date }}</h6>
+      </app-col>
+    </app-row>
+    <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
+  </div>
+  <div [style.display]="menu === 2 ? 'block' : 'none'">
+    <app-row *ngFor="let item of msds_list;" style="margin-top: 15px;">
+      <app-col style="margin-left: 20px;">
+        <h5>[{{ item.company_name }}]<br>{{ item.msds_title }}</h5>
+      </app-col>
+      <app-col></app-col>
+      <app-col>
+        <h6>{{ item.create_date }}</h6>
+      </app-col>
+    </app-row>
+    <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
+  </div>
+  <div [style.display]="menu === 3 ? 'block' : 'none'">
+    <app-row *ngFor="let item of safetymeeting_list;" style="margin-top: 15px;">
+      <app-col style="margin-left: 20px;">
+        <h5>{{ item.safety_meeting_type }}</h5>
+      </app-col>
+      <app-col></app-col>
+      <app-col>
+        <h6>{{ item.create_date }}</h6>
+      </app-col>
+    </app-row>
+    <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
+  </div>
 </ion-content>
