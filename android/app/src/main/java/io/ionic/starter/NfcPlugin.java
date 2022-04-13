@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
@@ -37,12 +38,14 @@ public class NfcPlugin extends Plugin {
   @Override
   protected void handleOnNewIntent(Intent intent) {
     super.handleOnNewIntent(intent);
+
     if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
       Parcelable[] rawMessages =
         intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
       if (rawMessages != null) {
         NdefMessage ndefMessage = (NdefMessage) rawMessages[0];
         String msg = new String(ndefMessage.getRecords()[0].getPayload());
+
         if(msg.length() >= 3) {
           if(NfcPlugin.getNfcCall != null) {
             JSObject ret = new JSObject();
@@ -50,6 +53,7 @@ public class NfcPlugin extends Plugin {
             NfcPlugin.getNfcCall.resolve(ret);
           }
         }
+
       } else {
         JSObject ret = new JSObject();
         ret.put("message", null);
