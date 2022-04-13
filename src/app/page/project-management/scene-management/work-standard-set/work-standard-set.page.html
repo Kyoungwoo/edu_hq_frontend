@@ -1,7 +1,7 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <ion-toolbar color="white" *ngIf="!workRoleCheck">
+  <ion-toolbar color="white" *ngIf="!workRoleCheck" style="margin-bottom: 8px;">
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [(ngModel)]="segment" (ionChange)="segmentChange()">
@@ -321,7 +321,7 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea *ngIf="resMeeting?.rsObj.safety_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.safety_default"></app-textarea>
+                <app-textarea *ngIf="resMeeting?.rsCode === 0" name="safety_default" [rows]="7" [(ngModel)]="resMeeting.rsObj.safety_default"></app-textarea>
               </app-col>
             </app-row>
           </app-card>
@@ -332,19 +332,19 @@
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea *ngIf="resMeeting?.rsObj.union_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.union_default">
+                <app-textarea *ngIf="resMeeting?.rsCode === 0" name="safety_default" [rows]="7" [(ngModel)]="resMeeting.rsObj.union_default">
                 </app-textarea>
               </app-col>
             </app-row>
           </app-card>
 
           <app-card>
-            <ion-toolbar color="white">
+            <ion-toolbar slot="top" color="white">
               <h5>산업안전 보건 위원회</h5>
             </ion-toolbar>
             <app-row>
               <app-col>
-                <app-textarea *ngIf="resMeeting?.rsObj.health_default" name="safety_default" [rows]="7" [(ngModel)]="resMeeting?.rsObj.health_default">
+                <app-textarea *ngIf="resMeeting?.rsCode === 0" name="safety_default" [rows]="7" [(ngModel)]="resMeeting.rsObj.health_default">
                 </app-textarea>
               </app-col>
             </app-row>
