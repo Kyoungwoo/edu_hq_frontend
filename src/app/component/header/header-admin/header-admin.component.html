@@ -4,7 +4,7 @@
       <app-logo (click)="main()" style="cursor: pointer;"></app-logo>
       <app-button name="menu_button" color="white" fill="clear" (click)="openSideMenu()"><app-img name="menu-white"></app-img></app-button>
       <app-button color="white" fill="clear" class="menu" routerLink="/monitor" [class.active]="selectedMenu?.title === '통합관제'" (click)="selectedMenu = adminMenu.menuList[0]; selectedSubMenu = null; selectedThirdMenu = null;">통합관제</app-button>
-      <app-button color="white" fill="clear" class="menu" routerLink="/confirm-pending-list" [class.active]="selectedMenu?.title === '결재'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">결재</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/confirm-pending-list" [class.active]="selectedMenu?.title === '전자결재'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">전자결재</app-button>
       <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '안전교육'" (click)="selectedMenu = adminMenu.menuList[2]; selectedSubMenu = null; selectedThirdMenu = null;">안전교육</app-button>
       <app-button color="white" fill="clear" class="menu" routerLink="/risk-list" [class.active]="selectedMenu?.title === '작업계획'" (click)="selectedMenu = adminMenu.menuList[3]; selectedSubMenu = null; selectedThirdMenu = null;">작업계획</app-button>
       <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '작업관리'" (click)="selectedMenu = adminMenu.menuList[4]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">작업관리</app-button>
