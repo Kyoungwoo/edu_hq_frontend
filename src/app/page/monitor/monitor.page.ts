@@ -2,16 +2,15 @@ import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
 import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
+import { Subscription } from 'rxjs';
 
 /**
  * @class TodayConstructionItem
@@ -215,12 +214,10 @@ gps_log_data = new GpsCoordinateData();
     monitor:'통합관제'
   };
 
-  query:any;
+  $activedRoute:Subscription;
   constructor(
     private connect:ConnectService,
-    private qr:QrService,
     private toast:ToastService,
-    private nfc : NfcService,
     private modal : ModalController,
     private route: ActivatedRoute,
     public user: UserService,
@@ -228,26 +225,28 @@ gps_log_data = new GpsCoordinateData();
   ) { }
 
   ngOnInit() {
+    this.$activedRoute =  this.route.queryParams.subscribe(params => {
+      this.data = {
+        monitor: params.monitor
+      }
+    });
+
     this.intervalMethodController();
     this.methodContrroller();
-    // const modal = await this.modal.create({
-    //   component:RiskEvaluationPopupPage,
-    //   // cssClass:"confirm-modal"
-    // });
-    // modal.present();
-    // this.graphData()
-    // const modal = await this.modal.create({
-      //   component:ApprovalPopupComponent,
-      //   cssClass:"modal-7"
-      // });
-      // modal.present();
+  }
+
+  /**
+   * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
+   */
+   ngOnDestroy() {
+    clearInterval(this.intervalWeather_Dust);
+    this.$activedRoute.unsubscribe();
   }
 
   /**
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
-    this.monitorQuery();
     this.wokerInGetList();
     this.gpsGet();//근로자 gps
     this.getTodayWorker(); // 금일 출역 작업자
@@ -280,27 +279,12 @@ gps_log_data = new GpsCoordinateData();
   }
 
   /**
-   * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
-   */
-  ngOnDestroy() {
-    clearInterval(this.intervalWeather_Dust);
-    this.query.unsubscribe();
-  }
-
-  ngAfterViewInit() {
-    this.data = {
-      monitor:'통합관제'
-    };
-  }
-
-  /**
    * @function getTodayWorker(): 금일 출역 작업자 데이터를 가져오는 메서드
    */
   async getTodayWorker() {
     const res = await this.connect.run('/integrated/today_worker',this.form,{});
     switch(res.rsCode) {
       case 0 :
-        console.log(res);
         let total = 0;
         this.todayWork = res;
 
@@ -487,14 +471,6 @@ gps_log_data = new GpsCoordinateData();
   //   }
   //   this.graphArrCount.push(index);
   // }
-  monitorQuery(){
-   this.query =  this.route.queryParams.subscribe(params => {
-        this.data = {
-          monitor:params.monitor
-        }
-      }
-    );
-  }
 
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);

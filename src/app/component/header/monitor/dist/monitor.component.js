@@ -65,14 +65,13 @@ var MonitorComponent = /** @class */ (function () {
         this.tabActive = this.tabList[0];
     }
     MonitorComponent.prototype.ngOnInit = function () { };
+    MonitorComponent.prototype.ngAfterViewInit = function () {
+        this.tabActive = this.tabList[0];
+    };
     MonitorComponent.prototype.tabClick = function (tab, i) {
-        // console.log(tab);
         this.tabActive = tab;
     };
-    MonitorComponent.prototype.ngOnDestroy = function () {
-        var _a;
-        (_a = this.$router) === null || _a === void 0 ? void 0 : _a.unsubscribe();
-    };
+    MonitorComponent.prototype.ngOnDestroy = function () { };
     MonitorComponent.prototype.openSideMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;

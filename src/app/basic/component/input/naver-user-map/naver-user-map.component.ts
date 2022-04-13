@@ -54,7 +54,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
 
   ngAfterViewInit() {
     this.file.script(`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.naverMapId}`).then(() => {
-      this.init();
+      // this.init();
     });
   }
 

@@ -80,11 +80,9 @@ var SmartEquip = /** @class */ (function () {
 }());
 exports.SmartEquip = SmartEquip;
 var MonitorPage = /** @class */ (function () {
-    function MonitorPage(connect, qr, toast, nfc, modal, route, user, date) {
+    function MonitorPage(connect, toast, modal, route, user, date) {
         this.connect = connect;
-        this.qr = qr;
         this.toast = toast;
-        this.nfc = nfc;
         this.modal = modal;
         this.route = route;
         this.user = user;
@@ -200,25 +198,26 @@ var MonitorPage = /** @class */ (function () {
         };
     }
     MonitorPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
+            _this.data = {
+                monitor: params.monitor
+            };
+        });
         this.intervalMethodController();
         this.methodContrroller();
-        // const modal = await this.modal.create({
-        //   component:RiskEvaluationPopupPage,
-        //   // cssClass:"confirm-modal"
-        // });
-        // modal.present();
-        // this.graphData()
-        // const modal = await this.modal.create({
-        //   component:ApprovalPopupComponent,
-        //   cssClass:"modal-7"
-        // });
-        // modal.present();
+    };
+    /**
+     * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
+     */
+    MonitorPage.prototype.ngOnDestroy = function () {
+        clearInterval(this.intervalWeather_Dust);
+        this.$activedRoute.unsubscribe();
     };
     /**
      * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
      */
     MonitorPage.prototype.methodContrroller = function () {
-        this.monitorQuery();
         this.wokerInGetList();
         this.gpsGet(); //근로자 gps
         this.getTodayWorker(); // 금일 출역 작업자
@@ -249,18 +248,6 @@ var MonitorPage = /** @class */ (function () {
         }, 1800000);
     };
     /**
-     * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
-     */
-    MonitorPage.prototype.ngOnDestroy = function () {
-        clearInterval(this.intervalWeather_Dust);
-        this.query.unsubscribe();
-    };
-    MonitorPage.prototype.ngAfterViewInit = function () {
-        this.data = {
-            monitor: '통합관제'
-        };
-    };
-    /**
      * @function getTodayWorker(): 금일 출역 작업자 데이터를 가져오는 메서드
      */
     MonitorPage.prototype.getTodayWorker = function () {
@@ -273,7 +260,6 @@ var MonitorPage = /** @class */ (function () {
                         res = _a.sent();
                         switch (res.rsCode) {
                             case 0:
-                                console.log(res);
                                 total_1 = 0;
                                 this.todayWork = res;
                                 // theme
@@ -490,14 +476,6 @@ var MonitorPage = /** @class */ (function () {
     //   }
     //   this.graphArrCount.push(index);
     // }
-    MonitorPage.prototype.monitorQuery = function () {
-        var _this = this;
-        this.query = this.route.queryParams.subscribe(function (params) {
-            _this.data = {
-                monitor: params.monitor
-            };
-        });
-    };
     MonitorPage.prototype.wokerInGetList = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;

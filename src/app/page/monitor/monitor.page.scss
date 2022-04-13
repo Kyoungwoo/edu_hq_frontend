@@ -403,8 +403,8 @@ app-card:last-child{
 }
 
 
-@media screen and (max-width:1350px) {
-    app-row{
+@media screen and (max-width: 1350px) {
+    app-row {
         flex-direction: column !important;
         app-col{
             padding-left: 0;
@@ -431,10 +431,10 @@ app-card:last-child{
     .bar-item{
         width: 30px;
     }
-    .bar-flex-box{
-        .bar-flex-theme{
-            flex: 0 22px!important;
-            width: 22px!important;
+    .bar-flex-box {
+        .bar-flex-theme {
+            flex: 0 22px !important;
+            width: 22px !important;
         }
     }
 }

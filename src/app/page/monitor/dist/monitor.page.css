@@ -46,7 +46,7 @@ ion-toolbar {
 .donut-group .donut-in-count {
   position: absolute;
   top: 42%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
   font-size: 40px;
   font-weight: 600;
@@ -54,7 +54,7 @@ ion-toolbar {
 .donut-group .donut-in-text {
   position: absolute;
   top: 60%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
   font-size: var(--font-size-h4);
   color: #2F8D38;

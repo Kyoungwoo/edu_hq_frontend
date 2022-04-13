@@ -33,9 +33,6 @@ export class MonitorComponent implements OnInit {
   ]
 
   tabActive:Tab = this.tabList[0];
-
-  $router:Subscription;
-
   
   constructor(
     private animationCtrl: AnimationController,
@@ -54,9 +51,7 @@ export class MonitorComponent implements OnInit {
     this.tabActive = tab;
   }
 
-  ngOnDestroy(): void {
-    this.$router?.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   async openSideMenu(){
     const modal = await this.modal.create({
