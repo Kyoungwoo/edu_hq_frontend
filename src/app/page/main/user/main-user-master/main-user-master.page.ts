@@ -1,3 +1,4 @@
+import { PushService } from './../../../../service/push.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -48,7 +49,8 @@ export class MainUserMasterPage implements OnInit {
     private alert: AlertService,
     private connect: ConnectService,
     public user: UserService,
-    public date: DateService
+    public date: DateService,
+    private push: PushService
   ) { }
 
   ngOnInit() {
@@ -159,6 +161,7 @@ export class MainUserMasterPage implements OnInit {
   router(title: string) {
     switch (title) {
       case '':
+        this.push.EmergencyPop('test');
         this.alert.present({
           // message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
           message: '해당 기능은 아직 준비중인 기능입니다.',

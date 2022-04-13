@@ -1,8 +1,10 @@
+import { ModalController } from '@ionic/angular';
 import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Injectable } from '@angular/core';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { EmergencyPopupComponent } from '../page/main/user/emergency-popup/emergency-popup.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class PushService {
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
-    private device: DeviceService
+    private device: DeviceService,
+    private modal: ModalController
   ) {
     
   }
@@ -48,6 +51,23 @@ export class PushService {
     }
   }
 
+  /**
+   * @function EmergencyPop(): 긴급요청 팝업
+   */
+   async EmergencyPop(message) {
+    const _modal = await this.modal.create({
+      component:EmergencyPopupComponent,
+      backdropDismiss: false,
+      cssClass:"emergency-modal",
+      componentProps: {
+        message: message
+      }
+    });
+    _modal.present();
+  }
+
+
+
   addListeners = async () => {
     // registration token을 받는부분
     await PushNotifications.addListener('registration', token => {
@@ -63,6 +83,7 @@ export class PushService {
     // 푸시를 받았을경우
     await PushNotifications.addListener('pushNotificationReceived', notification => {
       console.log('Push notification received: ', notification);
+      this.EmergencyPop(notification.body);
     });
   
     await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
