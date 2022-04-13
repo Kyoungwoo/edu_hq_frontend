@@ -99,14 +99,11 @@ export class SafetyEducationResultEditPage implements OnInit {
       this.form.education_safe_report_instructor = this.item.education_safe_instructor;
       this.form.education_safe_report_text = this.item.ctgo_education_safe_text;
       await this.getDefaultItem();
-      this.reportList()
-
+      this.newReportList()
     }
     if(this.education_safe_report_id) {
-      await Promise.all([
-        this.getItem(),
-        this.reportList()
-      ]);
+        this.getItem();
+        this.reportList();
     }
 
     // 나머지 정보
@@ -169,10 +166,17 @@ export class SafetyEducationResultEditPage implements OnInit {
 
   //참석자 목록
   async reportList() {
-    console.log("this.education_safe_report_id",this.education_safe_report_id);
-    this.res = await this.connect.run('/education/report/attendant/list', { education_safe_report_id:this.item ?  this.item.education_safe_id : this.education_safe_report_id});
-    if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
-      this.toast.present({message:this.res.rsMsg, color:'warning'});
+    this.res = await this.connect.run('/education/report/attendant/list', { education_safe_report_id:this.education_safe_report_id});
+    if(this.res.rsCode === 0) {
+    }
+  }
+
+
+  async newReportList() {
+    console.log("this.education_safe_report_id",this.item.education_safe_id);
+    this.res = await this.connect.run('/education/attendant/list', { education_safe_id:this.item.education_safe_id,search_text:''});
+    console.log("this.res",this.res);
+    if(this.res.rsCode === 0) {
     }
   }
 
