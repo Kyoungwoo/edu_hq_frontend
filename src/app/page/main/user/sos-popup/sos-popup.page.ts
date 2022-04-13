@@ -5,7 +5,6 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
-import { EmergencyPopupComponent } from 'src/app/component/page/main/user/emergency-popup/emergency-popup.component';
 
 @Component({
   selector: 'app-sos-popup',
