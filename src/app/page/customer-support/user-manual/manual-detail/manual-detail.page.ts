@@ -113,8 +113,8 @@ export class ManualDetailPage implements OnInit {
 
   public async remove() {
     this.alert.present({
-      header: '사용자 메뉴얼 삭제',
-      message: '사용자 메뉴얼을 삭제하시겠습니까?',
+      header: '사용자 매뉴얼 삭제',
+      message: '사용자 매뉴얼을 삭제하시겠습니까?',
       buttons: [
         { text: '취소' },
         { text: '삭제', handler: async() => {

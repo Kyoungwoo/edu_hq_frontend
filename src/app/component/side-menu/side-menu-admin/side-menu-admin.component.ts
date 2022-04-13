@@ -91,7 +91,7 @@ export class  SideMenuAdminComponent implements OnInit {
       }
     ]},
     { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
-      { title: '교육현황', link: '/safety-education-list',
+      { title: '교육 현황', link: '/safety-education-list',
       permission: () => {
         const {  user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
@@ -101,7 +101,7 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
-      { title: '교육이력', thirdMenuList:[
+      { title: '교육 이력', thirdMenuList:[
         {title:'근로자 교육 이력', link:'/safety-education-history-list',
         permission: () => {
           const { user_type } = this.user.userData;
@@ -144,7 +144,7 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
       { title: 'TBM 일지', link: ''},
-      { title: '점검현황', link: ''},
+      { title: '점검 현황', link: ''},
       { title: '부적합 조치 현황', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg',
@@ -198,7 +198,7 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
-      { title: '시스템 이용 약관', link: '/use-terms',
+      { title: '시스템 이용약관', link: '/use-terms',
       permission: () => {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';

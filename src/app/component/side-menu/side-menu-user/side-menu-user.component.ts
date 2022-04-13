@@ -139,7 +139,7 @@ export class SideMenuUserComponent implements OnInit {
     ]},
     { img:'assets/img/menu/support.svg', title: '고객지원', subMenuList: [
       { title: '문의하기', link: '', params: {}, permission: () => { return true }},
-      { title: '사용자 메뉴얼', link: 'manual-list', params: {}, permission: () => { 
+      { title: '사용자 매뉴얼', link: 'manual-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
        }},

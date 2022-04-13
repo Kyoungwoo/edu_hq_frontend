@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>사용자 메뉴얼 {{ form.manual_id ? '수정' : '등록' }}</ion-title>
+    <ion-title>사용자 매뉴얼 {{ form.manual_id ? '수정' : '등록' }}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <h4>사용자 메뉴얼</h4>
+  <h4>사용자 매뉴얼</h4>
   <app-row mobileBreak>
     <app-col>
       <app-input label="업체" [value]="form.company_name" [disabled]="true"></app-input>

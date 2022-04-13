@@ -159,7 +159,7 @@ var SideMenuUserComponent = /** @class */ (function () {
                 ] },
             { img: 'assets/img/menu/support.svg', title: '고객지원', subMenuList: [
                     { title: '문의하기', link: '', params: {}, permission: function () { return true; } },
-                    { title: '사용자 메뉴얼', link: 'manual-list', params: {}, permission: function () {
+                    { title: '사용자 매뉴얼', link: 'manual-list', params: {}, permission: function () {
                             var user_type = _this.user.userData.user_type;
                             return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
                         } },
