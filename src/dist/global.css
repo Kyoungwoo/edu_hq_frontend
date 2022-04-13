@@ -374,6 +374,9 @@
   padding-top: 4px;
   padding-bottom: 4px;
 }
+:root ion-alert .alert-wrapper .alert-radio-group {
+  order: 3;
+}
 :root ion-alert .alert-wrapper .alert-button-group {
   order: 4;
   justify-content: stretch;
@@ -412,6 +415,9 @@
 :root ion-modal ion-content {
   --padding-top: 8px;
   --padding-bottom: 8px;
+}
+:root .no-margin app-input-template {
+  margin-bottom: 0 !important;
 }
 :root .basic-toast-bottom {
   --min-width: 100%;

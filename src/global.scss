@@ -439,6 +439,12 @@
   }
 
   /** devmonster basic tags / classes */
+  .no-margin {
+    app-input-template {
+        margin-bottom: 0 !important;
+    }
+  }
+
   .basic-toast-bottom {
     --min-width: 100%;
     --border-radius: 0;
