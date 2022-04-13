@@ -13,7 +13,7 @@
       <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">비상상황관리</app-button>
     </ion-buttons>
 
-    <ion-buttons slot="end" *ngIf="!url.includes('main-sub-admin') && !url.includes('main-admin')">
+    <ion-buttons slot="end" *ngIf="!url?.includes('main-sub-admin') && !url?.includes('main-admin')">
       <app-row class="profile-row">
         <app-col size="auto">
           <app-avatar class="profile" [src]="user.userData.user_profile"></app-avatar>
@@ -22,7 +22,7 @@
           <h5>{{ user.userData.user_name }}님</h5>
         </app-col>
         <app-col size="auto">
-          <app-button fill="translucent" size="small">로그아웃</app-button>
+          <app-button fill="translucent" size="small" (click)="logout()">로그아웃</app-button>
         </app-col>
       </app-row>
     </ion-buttons>

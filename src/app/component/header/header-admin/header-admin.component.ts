@@ -5,6 +5,7 @@ import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { MenuItem, SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-menu/side-menu-admin/side-menu-admin.component';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 @Component({
   selector: 'app-header-admin',
@@ -23,6 +24,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private animationCtrl: AnimationController,
+    private alert: AlertService,
     private modal:ModalController,
     private router: Router,
     public adminMenu: SideMenuAdminComponent,
@@ -129,5 +131,9 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
       }
     });
     modal.present();
+  }
+
+  async logout() {
+    // const alert = 
   }
 }

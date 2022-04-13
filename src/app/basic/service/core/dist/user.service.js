@@ -30,7 +30,8 @@ var UserData = /** @class */ (function () {
             hq_business_id: 0,
             hq_business_name: '',
             hq_regional_id: 0,
-            hq_regional_name: ''
+            hq_regional_name: '',
+            master_company_id: 0
         };
     }
     return UserData;
