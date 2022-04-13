@@ -244,6 +244,7 @@ var LoginPage = /** @class */ (function () {
                             })];
                     case 1:
                         res = _a.sent();
+                        console.log('test', this.res);
                         if (res.rsCode === 0) {
                             userData = res.rsObj;
                             if (userData.user_type === 'WORKER') {
@@ -252,10 +253,14 @@ var LoginPage = /** @class */ (function () {
                                 this.user.clear();
                                 return [2 /*return*/];
                             }
+                            else if (userData.user_type === 'COMPANY') {
+                                userData.user_main_page = '/main-sub-admin';
+                            }
+                            else {
+                                userData.user_main_page = '/main-admin';
+                            }
                             this.user.setUserData(userData, false);
-                            this.nav.navigateRoot('/main-admin', {
-                                animated: true
-                            });
+                            this.nav.navigateRoot(userData.user_main_page, { animated: true });
                         }
                         return [2 /*return*/];
                 }

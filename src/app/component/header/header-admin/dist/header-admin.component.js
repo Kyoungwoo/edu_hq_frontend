@@ -48,7 +48,7 @@ var router_1 = require("@angular/router");
 var basic_animation_1 = require("src/app/basic/basic.animation");
 var side_menu_admin_component_1 = require("../../side-menu/side-menu-admin/side-menu-admin.component");
 var HeaderAdminComponent = /** @class */ (function () {
-    function HeaderAdminComponent(animationCtrl, alert, modal, router, adminMenu, changeDetector, user) {
+    function HeaderAdminComponent(animationCtrl, alert, modal, router, adminMenu, changeDetector, user, nav) {
         var _this = this;
         this.animationCtrl = animationCtrl;
         this.alert = alert;
@@ -57,6 +57,7 @@ var HeaderAdminComponent = /** @class */ (function () {
         this.adminMenu = adminMenu;
         this.changeDetector = changeDetector;
         this.user = user;
+        this.nav = nav;
         this.$router = this.router.events.subscribe(function (nav) { return __awaiter(_this, void 0, void 0, function () {
             var selectedMenuIndex_1, newMenu, newSubMenu, newThirdMenu;
             var _this = this;
@@ -117,6 +118,15 @@ var HeaderAdminComponent = /** @class */ (function () {
     HeaderAdminComponent.prototype.ngOnDestroy = function () {
         this.$router.unsubscribe();
     };
+    HeaderAdminComponent.prototype.main = function () {
+        var userData = this.user.userData;
+        if (userData.user_type === 'COMPANY') {
+            this.nav.navigateRoot('/main-sub-admin');
+        }
+        else {
+            this.nav.navigateRoot('/main-admin');
+        }
+    };
     HeaderAdminComponent.prototype.openSideMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
@@ -162,13 +172,6 @@ var HeaderAdminComponent = /** @class */ (function () {
                         modal.present();
                         return [2 /*return*/];
                 }
-            });
-        });
-    };
-    HeaderAdminComponent.prototype.logout = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
             });
         });
     };

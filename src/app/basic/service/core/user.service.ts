@@ -1,5 +1,8 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { AlertService } from '../ionic/alert.service';
+import { NavService } from '../ionic/nav.service';
+import { DeviceService } from './device.service';
 
 enum TAG {
   Id = 'Devmonster@Id',
@@ -71,7 +74,10 @@ export class UserService {
   autoLogin:boolean = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId
+    @Inject(PLATFORM_ID) private platformId,
+    private alert: AlertService,
+    private nav: NavService,
+    private device: DeviceService
   ) {
     this.getId();
     this.getAuthToken();
@@ -160,7 +166,27 @@ export class UserService {
     window.sessionStorage.removeItem(TAG.UserData);
     window.localStorage.removeItem(TAG.UserData);
 
-    //this.get();
+    this.getAuthToken();
+    this.getUserData();
+  }
+
+  async logout() {
+    this.alert.present({
+      header: '로그아웃',
+      message: '로그아웃 하시겠습니까?',
+      buttons: [
+        { text: '취소' },
+        { text: '로그아웃', handler: async() => {
+          if(this.device.platform_type < 3) {
+            await this.nav.navigateRoot('/login-mobile', { animated: true, animation: 'fadeIn' });
+          }
+          else {
+            await this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
+          }
+          this.clear();
+        }}
+      ]
+    })
   }
 
   /** utils */
