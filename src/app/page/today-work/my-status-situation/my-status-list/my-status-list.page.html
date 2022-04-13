@@ -8,10 +8,10 @@
   <ion-toolbar color="white">
     <app-row>
       <app-col>
-        <app-select-scene [disabled]="true" [(ngModel)]="this.form.project_id"></app-select-scene>
-      </app-col>
-      <app-col size="auto">
-        <app-button (click)="detailSearch()">상세검색</app-button>
+        <app-input label="현장" [readonly]="true">
+          <span>상세검색</span>
+          <!-- <app-button (click)="detailSearch()">상세검색</app-button> -->
+        </app-input>
       </app-col>
     </app-row>
   </ion-toolbar>
