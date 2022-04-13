@@ -1,7 +1,7 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <ion-toolbar color="white" style="margin-bottom: 20px;">
+  <ion-toolbar color="white" style="margin-bottom: 8px;">
     <app-row>
       <app-col size="auto">
         <ion-segment class="sub-segment" color="primary" [value]="this.lhHeadCheck ? 2 : 1">
@@ -402,7 +402,7 @@
       <ion-toolbar *ngIf="!rolepass;" color="white">
         <app-row>
           <app-col>
-            <h5>직위 목록 (총{{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
+            <h5>직위 목록 (총 {{ resJobPosition?.rsMap?.length ? resJobPosition?.rsMap?.length: 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="jobAddSave()">저장</app-button>
@@ -417,7 +417,7 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th style="width:40px">No</th>
+                <th style="width:48px">No</th>
                 <th>직위명</th>
                 <th>영어</th>
                 <th>중국어</th>
@@ -512,7 +512,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>안전직무 목록 (총{{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
+            <h5>안전직무 목록 (총 {{ this.resSafeJob?.rsMap?.length ? this.resSafeJob?.rsMap?.length : 0 }}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="safeJobSave()">저장</app-button>
@@ -527,7 +527,7 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>No</th>
+                <th style="width: 48px;">No</th>
                 <th>안전 직무명</th>
                 <th>영어</th>
                 <th>중국어</th>
@@ -617,7 +617,7 @@
       <ion-toolbar *ngIf="!rolepass" color="white">
         <app-row>
           <app-col>
-            <h5>직종 목록 (총{{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
+            <h5>직종 목록 (총 {{resOccupation?.rsMap?.length ? resOccupation?.rsMap?.length : 0}}건)</h5>
           </app-col>
           <app-col size="auto">
             <app-button fill="translucent" (click)="occupationSave()">저장</app-button>
@@ -632,8 +632,8 @@
                 <th style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th>No</th>
-                <th>직종 명</th>
+                <th style="width: 48px;">No</th>
+                <th>직종명</th>
                 <th>영어</th>
                 <th>중국어</th>
                 <th>배트남어</th>

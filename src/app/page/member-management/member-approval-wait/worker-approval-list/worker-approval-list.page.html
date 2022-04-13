@@ -66,7 +66,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>작업자 가입 신청 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>작업자 가입 신청 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-check-group [(ngModel)]="selectedList">
           <app-table>
@@ -75,15 +75,15 @@
                 <th style="width: 40px;">
                   <app-check type="all" color="white" size="small" name="check"></app-check>
                 </th>
-                <th style="width: 40px;">NO</th>
+                <th style="width: 48px;">No</th>
                 <!-- <th>구분</th> -->
                 <th>공종</th>
                 <th>업체명</th>
-                <th>성명</th>
+                <th style="width: 160px;">성명</th>
                 <th>국적</th>
                 <th>건강 문진</th>
-                <th>신청일</th>
-                <th>승인현황</th>
+                <th style="width: 200px;">신청일</th>
+                <th style="width: 130px;">승인현황</th>
               </tr>
             </thead>
             <tbody>

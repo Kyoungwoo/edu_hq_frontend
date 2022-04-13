@@ -55,7 +55,7 @@
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white">
-      <h5>건설기계 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+      <h5>건설기계 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
     </ion-toolbar>
     <app-check-group [(ngModel)]="selectedList">
       <app-table>
@@ -67,7 +67,7 @@
             <th>원청사명</th>
             <th>업체명</th>
             <th>공종</th>
-            <th>등록일</th>
+            <th style="width: 200px;">등록일</th>
           </tr>
         </thead>
         <tbody>

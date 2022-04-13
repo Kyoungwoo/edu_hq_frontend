@@ -21,12 +21,13 @@ ion-toolbar {
   color: var(--ion-color-primary);
 }
 
-.title {
-  font-size: 15px;
-}
-
 .colstyle {
   margin-right: 15px;
+}
+
+.title {
+  font-size: 15px;
+  margin-bottom: 4px;
 }
 
 .margin-card {

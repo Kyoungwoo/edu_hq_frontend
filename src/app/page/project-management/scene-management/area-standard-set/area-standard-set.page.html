@@ -1,7 +1,7 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <ion-toolbar color="white" *ngIf="!areaRoleCheck">
+  <ion-toolbar color="white" *ngIf="!areaRoleCheck" style="margin-bottom: 8px;">
     <app-row>
       <app-col size="auto">
         <ion-segment color="primary" [value]="1">
@@ -211,7 +211,7 @@
         </ion-buttons>
       </ion-toolbar>
       <ion-toolbar *ngIf="!areaRoleCheck" color="white">
-        <h5>위험지역 목록 (총{{resRiskArea?.rsObj.row_count || 0}}건)</h5>
+        <h5>위험지역 목록 (총 {{resRiskArea?.rsObj.row_count || 0}}건)</h5>
         <ion-buttons slot="end">
           <app-button (click)="riskSave()" fill="translucent">저장</app-button>
         </ion-buttons>
