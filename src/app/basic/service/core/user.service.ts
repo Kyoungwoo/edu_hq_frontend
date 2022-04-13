@@ -22,7 +22,10 @@ export type UserRole =
 
 | 'PARTNER_HEAD' // 협력사 마스터
 | 'PARTNER_GENERAL' // 협력사 일반 관리자
-| 'PARTNER_WORKER'; // 협력사 작업자
+| 'PARTNER_WORKER' // 협력사 작업자
+
+| 'SUPER_HEAD'; //감리사
+
 
 export type UserGender = "남" | "여";
 export type RequestState = "승인" | "대기";
