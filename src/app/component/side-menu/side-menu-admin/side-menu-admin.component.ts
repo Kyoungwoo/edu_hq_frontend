@@ -292,21 +292,21 @@ export class  SideMenuAdminComponent implements OnInit {
         { title:'회원 정보 기준 설정',link:'/member-standard-set',
         permission: () => {
           const { user_role } = this.user.userData;
-          return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+          return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
         }},
-        { title:'교육 정보 기준 설정',link:'' },
+        // { title:'교육 정보 기준 설정',link:'' },
         { title:'장소 정보 기준 설정',link:'/area-standard-set',
         permission: () => {
           const {  user_role } = this.user.userData;
-          return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD';
+          return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
         }},
         { title:'작업 정보 기준 설정',link:'/work-standard-set' , 
         permission: () => {
           const {  user_role } = this.user.userData;
           return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD';
         }},
-        { title:'비상 관리 기준 설정',link:'' }, 
-        { title:'시스템 활용 기준 설정',link:'' }
+        // { title:'비상 관리 기준 설정',link:'' }, 
+        // { title:'시스템 활용 기준 설정',link:'' }
       ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [

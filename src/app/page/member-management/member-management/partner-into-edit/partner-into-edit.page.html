@@ -85,14 +85,12 @@
         <app-col>
           <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
         </app-col>
-      </app-row>
-      <app-row>
         <app-col>
-          <app-select label="시스템 권한" *ngIf="!system && user.userData.user_role === 'LH_HEAD'" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="!system && permission.approval" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="6">마스터 어드민</app-select-option>
             <app-select-option [value]="7">일반 관리자</app-select-option>
           </app-select>
-          <app-select label="시스템 권한" *ngIf="system && user.userData.user_role === 'LH_HEAD'"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="system && permission.approval"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="9">협력사 마스터 어드민</app-select-option>
             <app-select-option [value]="10">협력사 일반 관리자</app-select-option>
           </app-select>
@@ -100,7 +98,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_id"></app-input>
+          <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
         </app-col>
         <app-col>
           <app-select-construction name="ctgo_construction_id" [project_id]="formApproval.project_id" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_construction_id" [all]="true"></app-select-construction>

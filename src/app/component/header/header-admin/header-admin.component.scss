@@ -21,3 +21,10 @@ app-button {
 .third-menu::part(indicator) {
     display: none;
 }
+
+.profile-row {
+    .profile {
+        width: 40px;
+        height: 40px;
+    }
+}
