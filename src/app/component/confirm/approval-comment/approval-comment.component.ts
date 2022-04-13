@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 
 @Component({
   selector: 'app-approval-comment',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApprovalCommentComponent implements OnInit {
 
+  @Input() approval_comment:CommentObj[];
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.approval_comment);
+  }
 
 }

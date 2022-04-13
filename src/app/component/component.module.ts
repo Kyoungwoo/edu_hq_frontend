@@ -68,6 +68,7 @@ import { SelectPeopleAllComponent } from './select/select-people-all/select-peop
 import { SearchContractorCompanyComponent } from './modal/search-contractor-company/search-contractor-company.component';
 import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
 import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip-approval-answer.component';
+import { ApprovalCommentComponent } from './confirm/approval-comment/approval-comment.component';
 
 
 
@@ -75,6 +76,7 @@ import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip
   declarations: [
     // approval & confirm
     ApprovalComponent,
+    ApprovalCommentComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
@@ -152,6 +154,7 @@ import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip
   exports: [
     // approval & confirm 
     ApprovalComponent,
+    ApprovalCommentComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,

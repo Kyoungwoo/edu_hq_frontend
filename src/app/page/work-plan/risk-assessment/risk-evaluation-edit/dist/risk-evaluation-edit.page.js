@@ -448,6 +448,8 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             this.permission.edit = false;
             this.permission.tableEdit = false;
         }
+        /** 결재자 의견을 가지고 온다. */
+        this.approval_comment = ev.approval_comment;
     };
     RiskEvaluationEditPage.prototype.add = function () {
         return __awaiter(this, void 0, void 0, function () {

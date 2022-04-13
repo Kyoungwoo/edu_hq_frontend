@@ -1,4 +1,3 @@
-import { NumberSymbol } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -11,6 +10,7 @@ import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approv
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
+import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -101,6 +101,7 @@ export class RiskEvaluationEditPage implements OnInit {
   }
 
   riskTableList:RiskTableItem[] = [];
+  approval_comment:CommentObj[];
 
   constructor(
     public user: UserService,
@@ -379,6 +380,9 @@ export class RiskEvaluationEditPage implements OnInit {
       this.permission.edit = false;
       this.permission.tableEdit = false;
     }
+
+    /** 결재자 의견을 가지고 온다. */
+    this.approval_comment = ev.approval_comment;
   }
 
   public async add() {
