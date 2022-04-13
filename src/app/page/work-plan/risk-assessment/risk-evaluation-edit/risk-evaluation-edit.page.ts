@@ -1,4 +1,3 @@
-import { NumberSymbol } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -11,6 +10,7 @@ import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approv
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
+import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -101,6 +101,7 @@ export class RiskEvaluationEditPage implements OnInit {
   }
 
   riskTableList:RiskTableItem[] = [];
+  approval_comment:CommentObj[];
 
   constructor(
     public user: UserService,
@@ -356,8 +357,22 @@ export class RiskEvaluationEditPage implements OnInit {
    * 결재 버튼 클릭
    */
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
-    const res = await ev.approval();
-    if(res.rsCode === 0) {
+
+    /** 위험성평가는 결재 시, 테이블데이터 수정이 가능하다. */
+    /* this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+
+    this.form.approval_cnt_answer = '결재';
+    this.form.approval_default_data = ev.approval_data;
+
+    const res1 = await this.connect.run('/risk/assessment/update', this.form, { loading: true });
+
+    if(res1.rsCode) { this.toast.present({ color: 'warning', message: res1.rsMsg }); return; } */
+
+    /** 데이터 수정 후 결재 진행 */
+    const res2 = await ev.approval();
+    if(res2.rsCode === 0) {
+      this.toast.present({ color: 'success', message: '결재 되었습니다.' });
+      this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
     }
@@ -379,6 +394,9 @@ export class RiskEvaluationEditPage implements OnInit {
       this.permission.edit = false;
       this.permission.tableEdit = false;
     }
+
+    /** 결재자 의견을 가지고 온다. */
+    this.approval_comment = ev.approval_comment;
   }
 
   public async add() {

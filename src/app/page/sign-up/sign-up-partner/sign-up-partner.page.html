@@ -102,13 +102,14 @@
       <app-select-scene name="project_id" type="SIGNUP"
       [color]="validator.project_id?.valid === false && 'warning'"
       [company_id]="form.company_id"
-      [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+      [(ngModel)]="form.project_id" (change)="projectChange()" [required]="true"></app-select-scene>
       <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
 
-      <app-select-construction name="ctgo_construction_id" 
+      <app-select-construction name="ctgo_construction_id"
       [color]="validator.ctgo_construction_id?.valid === false && 'warning'"
       [project_id]="form.project_id"
-      [(ngModel)]="form.ctgo_construction_id" [disabled]="!form.project_id" [required]="true"></app-select-construction>
+      [master_company_id]="master_company_id"
+      [(ngModel)]="form.ctgo_construction_id" [disabled]="!form.project_id || !master_company_id" [required]="true"></app-select-construction>
       <app-input-caption *ngIf="validator.ctgo_construction_id?.valid === false" color="warning">{{ validator.ctgo_construction_id?.message }}</app-input-caption>
 
       <app-row mobileBreak>

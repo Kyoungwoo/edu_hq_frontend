@@ -73,7 +73,7 @@ export class MyPageTypePage implements OnInit {
         □ 회원 탈퇴를 원할 시 비밀번호를 입력해주세요.
       `,
       inputs: [
-        { name: 'account_token', placeholder: '비밀번호' }
+        { name: 'account_token', placeholder: '비밀번호', type: 'password' }
       ],
       buttons: [
         { text: '취소' },
@@ -100,7 +100,7 @@ export class MyPageTypePage implements OnInit {
         ]
       });
     } else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
+      this.toast.present({ color: 'warning', message: '비밀번호가 올바르지 않습니다.' });
     }
   }
   

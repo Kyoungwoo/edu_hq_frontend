@@ -23,7 +23,7 @@ export class SosPopupPage implements OnInit {
     private alert: AlertService,
     private connect: ConnectService,
     private toast: ToastService,
-    private user: UserService
+    public user: UserService
   ) { }
 
   ngOnInit() {

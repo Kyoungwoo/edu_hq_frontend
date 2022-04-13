@@ -409,6 +409,8 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         else {
             this.permission.edit = false;
         }
+        /** 결재자 의견을 가지고 온다. */
+        this.approval_comment = ev.approval_comment;
     };
     __decorate([
         core_1.Input()

@@ -1,3 +1,28 @@
-<p>
-  approval-comment works!
-</p>
+<h4>결재 의견</h4>
+<app-table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>결재</th>
+      <th>성명</th>
+      <th>회사명</th>
+      <th>결재 일시</th>
+      <th>결재 의견</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of approval_comment; let f = first; let l = last;">
+      <td>{{ 
+        f ? 
+          l ? '작성/승인' : '작성' 
+        : 
+          l ? '승인' : '검토' 
+      }}</td>
+      <td>{{ item.approval_answer }}</td>
+      <td>{{ item.user_name }}</td>
+      <td>{{ item.company_name }}</td>
+      <td>{{ item.approval_date }}</td>
+      <td>{{ item.approval_comment }}</td>
+    </tr>
+  </tbody>
+</app-table>

@@ -5,7 +5,8 @@
 [readonly]="readonly || !project_id" 
 [disabled]="disabled"
 [required]="required"
-[multiple]="multiple">
+[multiple]="multiple"
+[class.no-margin]="res && res.rsCode">
   <app-select-option *ngIf="all" type="all" [value]="multiple ? [] : 0">전체</app-select-option>
   <app-select-option *ngFor="let construction of res?.rsMap" [value]="construction.ctgo_construction_id">{{ construction.ctgo_construction_name }}</app-select-option>
 </app-select>

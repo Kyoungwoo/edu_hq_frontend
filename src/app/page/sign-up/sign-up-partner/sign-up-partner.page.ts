@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core'
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { Validator, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { environment } from 'src/environments/environment';
@@ -18,6 +19,7 @@ export class SignUpPartnerPage implements OnInit {
 
   companyInfo:SignUpCompanyInfo;
 
+  master_company_id:number = 0;
   form = new SignUpPartnerForm();
   validator = new Validator(new SignUpPartnerForm()).validator;
 
@@ -27,7 +29,8 @@ export class SignUpPartnerPage implements OnInit {
     private nav: NavService,
     public regex: RegexService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -163,6 +166,26 @@ export class SignUpPartnerPage implements OnInit {
     const { user_email } = this.form;
     const res = await this.connect.run('/forSignUp/overlap/email', { user_email });
     this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
+  }
+
+  public async projectChange() {
+    if(this.companyInfo.company_contract_type === '협력사') {
+      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+      const res = await this.connect.run('/forSignUp/company/master/get', {
+        project_id: this.form.project_id,
+        company_id: this.form.company_id
+      });
+      if(res.rsCode === 0) {
+        const contractor = res.rsMap[0];
+        this.master_company_id = contractor.master_company_id;
+      }
+      else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+    }
+    else {
+      this.master_company_id = this.form.company_id;
+    }
   }
 
   public findFile(view_type:SignUpViewType) {

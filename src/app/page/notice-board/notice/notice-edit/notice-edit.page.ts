@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SmarteditComponent } from 'src/app/basic/component/input/smartedit/smartedit.component';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
-import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { FileBlob, FileJson, FutItem, FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -60,7 +60,8 @@ export class NoticeEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private date: DateService,
-    private alert: AlertService
+    private alert: AlertService,
+    private file: FileService
   ) { }
 
   ngOnInit() {
@@ -100,6 +101,18 @@ export class NoticeEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       } 
+
+      if(this.form.notice_file_data.length){
+        this.form.notice_file_data.map((item) => {
+          // item.full_url.create
+          let testt = this.file.dataUrlToBlob(String(item));
+          // URL.createObjectURL(item);
+          
+          console.log(item.testt);
+        });
+      }
+
+      
       if(this.user.userData.user_id === this.form.create_user_id) {
         this.useNotice = true;
       }

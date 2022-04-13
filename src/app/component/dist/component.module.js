@@ -75,6 +75,7 @@ var select_people_all_component_1 = require("./select/select-people-all/select-p
 var search_contractor_company_component_1 = require("./modal/search-contractor-company/search-contractor-company.component");
 var select_contractor_company_component_1 = require("./select/select-contractor-company/select-contractor-company.component");
 var chip_approval_answer_component_1 = require("./confirm/chip-approval-answer/chip-approval-answer.component");
+var approval_comment_component_1 = require("./confirm/approval-comment/approval-comment.component");
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
@@ -83,6 +84,7 @@ var ComponentModule = /** @class */ (function () {
             declarations: [
                 // approval & confirm
                 approval_component_1.ApprovalComponent,
+                approval_comment_component_1.ApprovalCommentComponent,
                 chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,
@@ -159,6 +161,7 @@ var ComponentModule = /** @class */ (function () {
             exports: [
                 // approval & confirm 
                 approval_component_1.ApprovalComponent,
+                approval_comment_component_1.ApprovalCommentComponent,
                 chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,
