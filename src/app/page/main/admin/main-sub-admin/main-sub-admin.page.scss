@@ -1,58 +1,73 @@
-:host { 
-    ion-icon { 
+:host {
+    ion-icon {
         cursor: pointer;
     }
-    h5{
+
+    h5 {
         color: var(--ion-color-fourth);
     }
-    h6{
+
+    h6 {
         color: var(--ion-color-fourth);
         font-weight: bold;
     }
-	min-height: 960px;
+
+    min-height: 960px;
 }
-.button-edit{
+
+.button-edit {
     background-color: var(--ion-color-secondary);
     color: black;
 }
-.chip-color{
+
+.chip-color {
     background-color: var(--ion-color-danger-tint);
 }
+
 .wheather {
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100px;
 }
-.title { 
+
+.title {
     text-align: center;
 }
-.ratio{
+
+.ratio {
     text-align: center;
-    .ratio-col{
-        padding: 0; 
-        display: flex; 
+
+    .ratio-col {
+        padding: 0;
+        display: flex;
         justify-content: center;
     }
 }
-.card-flex { 
+
+.card-flex {
     height: 100%;
-    ion-card-content{
-        height: 100% ;
+
+    ion-card-content {
+        height: 100%;
         display: flex;
         flex-direction: column;
     }
 }
-.wheather-addr{
+
+.wheather-addr {
     color: var(--ion-color-primary);
 }
-.card-warning{
+
+.card-warning {
     background-color: var(--ion-color-warning-tint);
 }
 
-.pointer-class{
-    app-col{
-        cursor: pointer;
-    }
-    
+.pointer-class {
+    cursor: pointer;
+}
+
+.chip-width {
+    width: 100px;
+    justify-content: center;
 }
