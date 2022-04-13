@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content>
   <h4>회사 정보</h4>
-  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+  <app-row mobileBreak>
     <app-col>
       <app-input  [required]="true" [disabled]="true" label="업체명" name="input"
       [(ngModel)]="form.company_name"></app-input>
@@ -18,7 +18,7 @@
       [(ngModel)]="form.business_register_no"></app-input>
     </app-col>
   </app-row>
-  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+  <app-row mobileBreak>
     <app-col>
       <app-input [required]="true" [disabled]="true" name="input buisnessman"
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>

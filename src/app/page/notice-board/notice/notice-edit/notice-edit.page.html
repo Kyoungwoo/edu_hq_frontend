@@ -10,7 +10,7 @@
 <ng-container *mobileHidden>
   <ion-content>
     <h4>공지사항</h4>
-   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+   <app-row mobileBreak>
      <app-col>
         <app-select-scene label="현장명" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
      </app-col>
@@ -18,7 +18,7 @@
       <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
      </app-col>
    </app-row>
-   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+   <app-row mobileBreak>
     <app-col>
         <app-input label="작성자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
     </app-col>
@@ -26,7 +26,7 @@
       <app-input label="작성일" [(ngModel)]="form.create_date" [disabled]="true"></app-input>
     </app-col>
   </app-row>
-  <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
+  <app-row mobileBreak>
     <app-col>
       <app-select [disabled]="!update_state" label="구분" [(ngModel)]="form.notice_type" [required]="true">
         <app-select-option value="일반">일반</app-select-option>
