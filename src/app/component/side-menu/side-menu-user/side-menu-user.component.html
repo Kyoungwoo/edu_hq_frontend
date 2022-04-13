@@ -1,11 +1,12 @@
 <ion-header>
+
   <ion-toolbar color="white">
     <app-row class="profile-row">
       <app-col size="auto">
-        <app-avatar class="profile"></app-avatar>
+        <app-avatar class="profile" [src]="user.userData.user_profile"></app-avatar>
       </app-col>
       <app-col size="auto">
-        <h4>홍길동님</h4>
+        <h4>{{ user.userData.user_name }}님</h4>
       </app-col>
       <app-col size="auto">
         <app-button fill="translucent" size="small">로그아웃</app-button>
@@ -16,33 +17,33 @@
       </app-col>
     </app-row>
   </ion-toolbar>
+
   <div class="top-buttons">
     
       
-        <app-button class="top-button" shape="square" style="margin-left: 20px;">
-          <app-img slot="top" src="assets/img/menu/mypage-dark.svg"></app-img>
-          <h6>마이페이지</h6>
-        </app-button>
-    
+    <app-button class="top-button" shape="square" style="margin-left: 20px;">
+      <app-img slot="top" src="assets/img/menu/mypage-dark.svg"></app-img>
+      <h6>마이페이지</h6>
+    </app-button>
+
+
+    <app-button class="top-button" shape="square">
+      <app-img slot="top" src="assets/img/menu/qr.svg"></app-img>
+      <h6>NFC/QR</h6>
+    </app-button>
+
+
+    <app-button class="top-button" shape="square" (click)="languageChange()">
+      <app-img slot="top" src="assets/img/menu/language.svg"></app-img>
+      <h6>언어 변환</h6>
+    </app-button>
+
   
-        <app-button class="top-button" shape="square">
-          <app-img slot="top" src="assets/img/menu/qr.svg"></app-img>
-          <h6>NFC/QR</h6>
-        </app-button>
-   
-    
-        <app-button class="top-button" shape="square" (click)="languageChange()">
-          <app-img slot="top" src="assets/img/menu/language.svg"></app-img>
-          <h6>언어 변환</h6>
-        </app-button>
-  
+    <app-button class="top-button" shape="square" style="margin-right: 20px;" (click)="router('설정'); menuClose()">
+      <app-img slot="top" src="assets/img/menu/setting.svg"></app-img>
+      <h6>설정</h6>
+    </app-button>
      
-        <app-button class="top-button" shape="square" style="margin-right: 20px;" (click)="router('설정'); menuClose()">
-          <app-img slot="top" src="assets/img/menu/setting.svg"></app-img>
-          <h6>설정</h6>
-        </app-button>
-     
-   
   </div>
 </ion-header>
 

@@ -157,7 +157,7 @@ export class SideMenuUserComponent implements OnInit {
   constructor(
     private alert: AlertService,
     public _modal: ModalController,
-    private user: UserService,
+    public user: UserService,
     private nav: NavService,
     private alertController: AlertController,
     private connect: ConnectService
