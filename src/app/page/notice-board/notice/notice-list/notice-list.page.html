@@ -70,13 +70,13 @@
                 <tr>
                   <th style="width: 40px; text-align: center;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                   || user.userData.belong_data.company_contract_type === '원청사'">
-                    상단노출
+                    고정
                   </th>
-                  <th style="width: 80px;">구분</th>
+                  <th style="width: 130px;">구분</th>
                   <th>제목</th>
-                  <th style="width: 100px;">업체명</th>
-                  <th style="width: 80px;">작성자</th>
-                  <th style="width: 80px;">작성일</th>
+                  <th style="width: 200px;">업체명</th>
+                  <th style="width: 160px;">작성자</th>
+                  <th style="width: 200px;">작성일</th>
                   <th style="width: 50px;">조회수</th>
                 </tr>
               </thead>
@@ -90,7 +90,7 @@
                     </app-button>
                   </td>
                   <td>{{ item.notice_type }}</td>
-                  <td>{{ item.notice_title }}</td>
+                  <td style="text-align: left;">{{ item.notice_title }}</td>
                   <td>{{ item.company_name }}</td>
                   <td>{{ item.user_name }}</td>
                   <td>{{ item.create_date }}</td>

@@ -55,15 +55,15 @@
         <app-table>
           <thead>
             <tr>
-              <th>메뉴 그룹</th>
+              <th style="width: 130px;">메뉴 그룹</th>
               <th>메시지</th>
-              <th>알람일시</th>
+              <th style="width: 200px;">알람일시</th>
             </tr>
           </thead>
           <tbody>
             <tr class="button" [class.color]="!item.read_state" *ngFor="let item of res?.rsMap">
               <td>{{ item.notify_menu }}</td>
-              <td>{{ item.notify_text_kr }}</td>
+              <td style="text-align: left;">{{ item.notify_text_kr }}</td>
               <td>{{ item.create_date }}</td>
             </tr>
           </tbody>

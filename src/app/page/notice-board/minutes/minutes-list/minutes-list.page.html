@@ -51,42 +51,32 @@
 
       <app-col>
 
-        <ng-container *ngIf="res && res.rsCode === 0">
-
-          <ion-toolbar color="white">
-            <h5>회의록 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
-          </ion-toolbar>
-            <app-table>
-              <thead>
-                <tr>
-                  <th style="width:40px;">NO</th>
-                  <th>회의록 구분</th>
-                  <th>회의 일자</th>
-                  <th>업체명</th>
-                  <th>작성자</th>
-                  <th>작성일</th>
-                </tr>
-              </thead>
-                <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
-                  <td>{{ i+1 }}</td>
-                  <td>{{ item.safety_meeting_type }}</td>
-                  <td>{{ item.safety_meeting_date }}</td>
-                  <td>{{ item.company_name }}</td>
-                  <td>{{ item.user_name }}</td>
-                  <td>{{ item.create_date }}</td>
-                </tr>
-              <tbody>
-              </tbody>
-            </app-table>
-            <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
-
-        </ng-container>
-
-        <ng-container *ngIf="res && res.rsCode === 1008">
-
-          <app-card>검색된 목록이 없습니다.</app-card>
-
-        </ng-container>
+        <ion-toolbar color="white">
+          <h5>회의록 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 48px;">No</th>
+                <th>회의록 구분</th>
+                <th style="width: 200px;">회의 일자</th>
+                <th>업체명</th>
+                <th style="width: 160px;">작성자</th>
+                <th style="width: 200px;">작성일</th>
+              </tr>
+            </thead>
+              <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+                <td>{{ i+1 }}</td>
+                <td>{{ item.safety_meeting_type }}</td>
+                <td>{{ item.safety_meeting_date }}</td>
+                <td>{{ item.company_name }}</td>
+                <td>{{ item.user_name }}</td>
+                <td>{{ item.create_date }}</td>
+              </tr>
+            <tbody>
+            </tbody>
+          </app-table>
+          <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 
       </app-col>
 

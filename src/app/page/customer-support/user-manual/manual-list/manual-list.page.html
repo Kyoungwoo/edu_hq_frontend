@@ -102,15 +102,15 @@
           <app-table>
             <thead>
               <tr>
-                <th width="68px;">
-                  상단노출
+                <th width="40px;">
+                  고정
                 </th>
                 <th>구분</th>
-                <th width="35%;">제목</th>
+                <th>제목</th>
                 <th>업체명</th>
-                <th>작성자/수정자</th>
-                <th>작성일/수정일</th>
-                <th>조회수</th>
+                <th style="width: 160px;">작성자/수정자</th>
+                <th style="width: 200px;">작성일/수정일</th>
+                <th style="width: 50px;">조회수</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +132,7 @@
                     전체
                   </ng-template>
                 </td>
-                <td>{{ item.manual_title }}</td>
+                <td style="text-align: left;">{{ item.manual_title }}</td>
                 <td>{{ item.company_name }}</td>
                 <td>{{ item.create_user_name }}{{ item.create_date !== item.update_date ? ' / ' + item.update_user_name : '' }}</td>
                 <td>{{ item.create_date }}{{ item.create_date !== item.update_date ? ' / ' + item.update_date : '' }}</td>

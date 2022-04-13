@@ -51,45 +51,36 @@
       </app-col>
       <app-col>
 
-        <ng-container *ngIf="res && res.rsCode === 0">
+        <ion-toolbar color="white">
+          <h5>참조 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>서식명</th>
+              <th>업체명</th>
+              <th style="width: 160px;">작성자</th>
+              <th style="width: 200px;">작성일</th>
+              <th style="width: 200px;">결재일</th>
+              <th style="width: 130px;">결재상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.ctgo_approval_module_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.max_approval_date }}</td>
+              <td>{{ item.approval_cnt_answer }}</td>
+            </tr>
+          </tbody>
+        </app-table>
 
-          <ion-toolbar color="white">
-            <h5>참조 목록(총{{res?.rsObj?.row_count || 0 }}건)</h5>
-          </ion-toolbar>
-          <app-table>
-            <thead>
-              <tr>
-                <th style="width: 40px;">NO</th>
-                <th>서식명</th>
-                <th>업체명</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>결재일</th>
-                <th>결재상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="button" *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
-                <td>{{ item.index }}</td>
-                <td>{{ item.ctgo_approval_module_name }}</td>
-                <td>{{ item.company_name }}</td>
-                <td>{{ item.user_name }}</td>
-                <td>{{ item.create_date }}</td>
-                <td>{{ item.max_approval_date }}</td>
-                <td>{{ item.approval_cnt_answer }}</td>
-              </tr>
-            </tbody>
-          </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 
-          <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
-
-        </ng-container>
-
-        <ng-container *ngIf="res && res.rsCode === 1008">
-
-          <app-card>검색된 목록이 없습니다.</app-card>
-
-        </ng-container>
 
       </app-col>
     </app-row>

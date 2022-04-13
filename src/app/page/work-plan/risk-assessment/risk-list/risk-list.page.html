@@ -68,20 +68,20 @@
         </ion-toolbar>
 
         <ion-toolbar color="white">
-          <h5>수시 위험성평가 목록(총{{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>수시 위험성평가 목록 (총{{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
               <th style="width: 40px;"></th>
-              <th style="width: 40px;">No</th>
+              <th style="width: 48px;">No</th>
               <th>공종</th>
               <th>서식명</th>
               <th>업체명</th>
               <th>작업기간</th>
-              <th>작성자</th>
-              <th>작성일</th>
-              <th>결재현황</th>
+              <th style="width: 160px;">작성자</th>
+              <th style="width: 200px;">작성일</th>
+              <th style="width: 130px;">결재현황</th>
             </tr>
           </thead>
           <tbody>
