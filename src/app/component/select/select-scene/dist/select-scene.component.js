@@ -161,7 +161,6 @@ var SelectSceneComponent = /** @class */ (function () {
     SelectSceneComponent.prototype.valueChange = function (v) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log(v, this._value);
                 if (v !== this._value) {
                     this._value = v ? v : 0;
                     this.onChangeCallback(v);

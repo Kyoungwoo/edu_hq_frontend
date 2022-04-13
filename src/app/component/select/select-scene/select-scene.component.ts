@@ -111,7 +111,6 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   }
 
   async valueChange(v) {
-    console.log(v, this._value);
     if(v !== this._value) {
       this._value = v ? v : 0;
       this.onChangeCallback(v);
