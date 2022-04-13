@@ -68,7 +68,6 @@
           <thead>
             <tr>
               <th style="width: 40px;">NO</th>
-              <th>공종</th>
               <th>업체명</th>
               <th>성명</th>
               <th>생년월일</th>
@@ -80,7 +79,6 @@
           <tbody>
             <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ item.index }}</td>
-              <td>{{ item.ctgo_construction_name }}</td>
               <td>{{ item.company_name }}</td>
               <td>{{ item.user_name }}</td>
               <td>{{ item.user_birth }}</td>

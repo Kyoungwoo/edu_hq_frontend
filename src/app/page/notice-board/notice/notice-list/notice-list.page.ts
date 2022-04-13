@@ -45,6 +45,8 @@ export class NoticeListPage implements OnInit {
   res:ConnectResult<NoticeInfo>;
   resFavorite:ConnectResult;
 
+  editable:boolean = false;
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
@@ -55,7 +57,7 @@ export class NoticeListPage implements OnInit {
 
   async ngOnInit() {
     setTimeout(() => {this.get();}, 300);
-    
+    if(this.user.userData.user_role !== 'LH_ADMIN') this.editable = true;
   }
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;

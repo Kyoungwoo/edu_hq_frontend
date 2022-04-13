@@ -8,7 +8,7 @@
   <ion-toolbar color="white">
     <app-input-group>
       <app-select-scene name="project" [(ngModel)]="form.project_id" ></app-select-scene>
-      <app-select [disabled]="true" label="유형" name="select"  [(ngModel)]="form.user_type">
+      <app-select label="유형" name="select"  [(ngModel)]="form.user_type">
         <app-select-option value="관리자">관리자</app-select-option>
         <app-select-option value="작업자">작업자</app-select-option>
       </app-select>

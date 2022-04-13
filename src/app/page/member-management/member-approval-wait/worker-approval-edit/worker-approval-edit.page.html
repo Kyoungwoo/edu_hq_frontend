@@ -67,8 +67,8 @@
     </app-card>
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
-        <ion-segment color="primary" style="max-width: 400px">
-          <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
+        <ion-segment color="primary" style="max-width: 400px" [value]="1">
+          <ion-segment-button [value]="1" (click)="menu = 1">소속 정보</ion-segment-button>
           <ion-segment-button (click)="menu = 2">건강 문진</ion-segment-button>
           <ion-segment-button (click)="menu = 3">교육 이력</ion-segment-button>
           <!-- <ion-segment-button (click)="menu = 4">근로 이력</ion-segment-button> -->

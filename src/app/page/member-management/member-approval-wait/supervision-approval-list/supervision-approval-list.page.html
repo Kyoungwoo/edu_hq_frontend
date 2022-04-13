@@ -76,9 +76,7 @@
           <thead>
             <tr>
               <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
-              <th style="width: 40px;">NO</th>
-              <!-- <th>구분</th> -->
-              <th>공종</th>
+              <th style="width: 40px;">NO</th>              
               <th>업체명</th>
               <th>성명</th>
               <th>직위</th>
@@ -92,8 +90,6 @@
                 <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
               </td>
               <td>{{ item.index }}</td>
-              <!-- <td>신규가입</td> -->
-              <td>{{ item.ctgo_construction_name }}</td>
               <td>{{ item.company_name }}</td>
               <td>{{ item.user_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>

@@ -242,9 +242,9 @@ export class SceneEditPage implements OnInit {
       modal.present();
       const { data } = await modal.onDidDismiss();
       if (data) {
-        this.organization.name = data.regName + ', ' + data.busName;
-        this.form.hq_regional_id = data.regId;
-        this.form.hq_business_id = data.busId;
+        this.organization.name = data.level1selectedItem.hq_regional_name + ', ' + data.level2selectedItem.hq_business_name;
+        this.form.hq_regional_id = data.level1selectedItem.hq_regional_id;
+        this.form.hq_business_id = data.level2selectedItem.hq_business_id;
       }
     }
   }

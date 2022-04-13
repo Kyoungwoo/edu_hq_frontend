@@ -59,7 +59,8 @@ export class OrganizationSelectPage implements OnInit {
 
   submit(){
     this._modal.dismiss({
-      
+      level1selectedItem: this.level1selectedItem,
+      level2selectedItem: this.level2selectedItem
     });
   }
 }

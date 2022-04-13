@@ -64,8 +64,8 @@
     </app-card>
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
-        <ion-segment color="primary">
-          <ion-segment-button (click)="menu = 1">소속 정보</ion-segment-button>
+        <ion-segment color="primary" [value]="1">
+          <ion-segment-button [value]="1" (click)="menu = 1">소속 정보</ion-segment-button>
           <ion-segment-button (click)="menu = 2">교육 이력</ion-segment-button>
           <!-- <ion-segment-button (click)="menu = 3">근로 이력</ion-segment-button> -->
           <ion-segment-button (click)="menu = 4" *ngIf="formApproval.user_role === 9 || formApproval.user_role === 10">안전 마일리지</ion-segment-button>
@@ -73,7 +73,7 @@
       </ion-toolbar>
       <div [style.display]="menu === 1 ? 'block' : 'none'">
         <app-row>
-          <app-col><h5>소속정보</h5></app-col>
+          <app-col></app-col>
           <app-col size="auto">
             <p>최종 수정일 : {{ formBasic.update_date }}</p>
           </app-col>
@@ -88,16 +88,15 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select label="시스템 권한" *ngIf="!system || user.userData.user_role === 'LH_HEAD'" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="!system && user.userData.user_role === 'LH_HEAD'" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="6">마스터 어드민</app-select-option>
             <app-select-option [value]="7">일반 관리자</app-select-option>
           </app-select>
-          <app-select label="시스템 권한" *ngIf="system || user.userData.user_role === 'LH_HEAD'"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="system && user.userData.user_role === 'LH_HEAD'"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="9">협력사 마스터 어드민</app-select-option>
             <app-select-option [value]="10">협력사 일반 관리자</app-select-option>
           </app-select>
         </app-col>
-        <app-col></app-col>
       </app-row>
       <app-row>
         <app-col>
@@ -139,7 +138,6 @@
           <p>최종 수정일 : {{ formBasic.update_date }}</p>
         </app-col>
       </app-row>
-      <h5>교육 정보</h5>
       <app-row>
         <app-col>
           <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene>

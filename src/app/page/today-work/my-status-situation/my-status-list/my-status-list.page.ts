@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
+import { SearchSceneComponent } from 's-keeper/src/app/component/modal/search-scene/search-scene.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -21,7 +22,8 @@ export class MyStatusListPage implements OnInit {
 
   form = {
     master_company_id: 0,
-    project_id:0
+    project_id:0,
+    project_name:''
   }
 
   resgate:ConnectResult<{
@@ -179,7 +181,24 @@ export class MyStatusListPage implements OnInit {
       }
     });
   }
-ㅋ
+  // async projectName() {
+  //   const modal = await this.modal.create({
+  //     component:SearchSceneComponent,
+  //     componentProps: {
+  //       value:this.form.project_id,
+  //       form: {
+  //         company_id: this.form.master_company_id,
+  //         search_text: ''
+  //       }
+  //     }
+  //   });
+  //   modal.present();
+  //   const { data } = await modal.onDidDismiss();
+  //   console.log("data",data);
+  //   if(data) {
+  //   }
+  // }
+
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});

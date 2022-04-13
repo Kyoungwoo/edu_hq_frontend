@@ -9,15 +9,13 @@ import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/w
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
 
-export type SafteyMeetingtype = "전체" | "안전 및 보건에 관한 협의체 회의록" | "노사 협의체 회의록" | "산업안전보건위원회 회의록";
-
 export class SafetyMeetingInfo {
   company_id: number;
   company_name: string;
   create_date: string;
   safety_meeting_id: number;
   notice_title: string;
-  safety_meeting_type: SafteyMeetingtype;
+  safety_meeting_type: string;
   project_id: number;
   project_name: string;
   user_name: string;

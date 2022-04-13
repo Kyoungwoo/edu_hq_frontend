@@ -10,7 +10,7 @@
   <h4>MSDS</h4>
   <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100);">
     <app-col>
-      <app-select-scene label="현장명"  [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+      <app-select-scene label="현장명" [disabled]="true" [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
     </app-col>
     <app-col>
       <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>

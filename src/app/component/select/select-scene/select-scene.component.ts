@@ -18,13 +18,14 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
+    if(!this.disabled || this.readonly) this.openModal();
   }
 
   @Input() type:ProjectSearchType; // 'Signup'은 회원가입 시, 사용하는 현장 검색
   @Input() all:boolean = false; // 전체 현장 노출 여부
   @Input() color:Color;
   @Input() label:string = "현장";
+  @Input() readonly:boolean = false;
 
   @Input() company_id:number = 0;
 
@@ -57,7 +58,6 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       project_id: this.value
     });
     if(res.rsCode === 0) {
-      console.log("test - ", res.rsObj);
       this.text = res.rsObj.project_name;
       this.value = res.rsObj.project_id;
     }
