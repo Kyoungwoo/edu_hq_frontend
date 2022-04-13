@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { MenuItem, SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
 @Component({
   selector: 'app-header-admin',
@@ -29,7 +30,8 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
     private router: Router,
     public adminMenu: SideMenuAdminComponent,
     private changeDetector: ChangeDetectorRef,
-    public user: UserService
+    public user: UserService,
+    private nav: NavService
   ) {
     this.$router = this.router.events.subscribe(async(nav) => {
       if(nav instanceof NavigationEnd) {
@@ -91,6 +93,16 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
     this.$router.unsubscribe();
   }
 
+  main() {
+    const { userData } = this.user;
+    if(userData.user_type === 'COMPANY') {
+      this.nav.navigateRoot('/main-sub-admin');
+    }
+    else {
+      this.nav.navigateRoot('/main-admin');
+    }
+  }
+
   async openSideMenu(){
     const modal = await this.modal.create({
       component: SideMenuAdminComponent,
@@ -131,9 +143,5 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
       }
     });
     modal.present();
-  }
-
-  async logout() {
-    // const alert = 
   }
 }

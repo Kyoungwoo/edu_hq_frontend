@@ -136,21 +136,21 @@ export class LoginPage implements OnInit, ViewDidEnter {
     console.log('test',this.res);
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
-      console.log('userData', userData);
+      
       if(userData.user_type === 'WORKER') {
         this.res.rsCode = 500;
         this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
         this.user.clear();
         return;
       }
-
-      if(userData.user_type === 'COMPANY') userData.user_main_page = '/main-sub-admin';
-      else userData.user_main_page = '/main-admin';
+      else if(userData.user_type === 'COMPANY') {
+        userData.user_main_page = '/main-sub-admin';
+      }
+      else {
+        userData.user_main_page = '/main-admin';
+      }
       
       this.user.setUserData(userData, false);
-      // if(userData.user_type === 'COMPANY') this.nav.navigateRoot('/main-sub-admin', {animated: true});
-      // else this.nav.navigateRoot('/main-admin', {animated: true});
-
 
       this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }

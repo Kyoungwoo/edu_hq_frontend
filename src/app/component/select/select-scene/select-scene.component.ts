@@ -19,6 +19,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
     if(!this.disabled) this.openModal();
+    if(!this.disabled || !this.readonly) this.openModal();
   }
 
   @Input() type:ProjectSearchType; // 'Signup'은 회원가입 시, 사용하는 현장 검색
@@ -113,8 +114,11 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     if(v !== this._value) {
       this._value = v ? v : 0;
       this.onChangeCallback(v);
-      this.change.emit(v);
       this.get();
+      this.change.emit({
+        project_id: this.value,
+        proje_name: this.text
+      });
     }
   }
 

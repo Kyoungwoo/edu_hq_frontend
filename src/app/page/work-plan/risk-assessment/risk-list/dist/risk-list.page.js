@@ -79,6 +79,7 @@ var RiskListPage = /** @class */ (function () {
         this.nav = nav;
         this.form = {
             project_id: null,
+            project_name: '',
             company_id: null,
             ctgo_construction_id: 0,
             risk_asment_type: '수시',
@@ -95,6 +96,7 @@ var RiskListPage = /** @class */ (function () {
         this.event = {
             get: null
         };
+        this.selectitemList = new RiskListItem;
     }
     RiskListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -130,8 +132,9 @@ var RiskListPage = /** @class */ (function () {
                     case 0:
                         _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
                         this.form.project_id = belong_data.project_id;
-                        if (!(belong_data.company_contract_type === 'LH'
-                            || belong_data.company_contract_type === '감리사')) return [3 /*break*/, 1];
+                        this.form.project_name = belong_data.project_name;
+                        if (!(user_role === 'LH_HEAD'
+                            || user_role === 'SUPER_HEAD')) return [3 /*break*/, 1];
                         this.permission.company_id = true;
                         this.permission.add = false;
                         this.form.company_id = belong_data.company_id;
@@ -241,15 +244,25 @@ var RiskListPage = /** @class */ (function () {
     };
     RiskListPage.prototype.openDetailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var modal;
+            var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
-                            component: risk_detail_search_page_1.RiskDetailSearchPage
+                            component: risk_detail_search_page_1.RiskDetailSearchPage,
+                            componentProps: {
+                                form: this.form
+                            }
                         })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            this.form = data;
+                            this.get(0);
+                        }
                         return [2 /*return*/];
                 }
             });

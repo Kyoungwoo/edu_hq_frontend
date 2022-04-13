@@ -39,6 +39,7 @@ export class RiskListPage implements OnInit {
 
   form = { 
     project_id: null,
+    project_name: '',
     company_id: null,
     ctgo_construction_id: 0,
     risk_asment_type: '수시',
@@ -96,6 +97,7 @@ export class RiskListPage implements OnInit {
     const { user_role, belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
+    this.form.project_name = belong_data.project_name;
 
     if(user_role === 'LH_HEAD'
     || user_role === 'SUPER_HEAD') {
@@ -188,9 +190,18 @@ export class RiskListPage implements OnInit {
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: RiskDetailSearchPage,
-      
+      componentProps: {
+        form: this.form
+      }
     })
     modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if(data) {
+      this.form = data;
+      this.get(0);
+    }
   }
 
   async add() {
