@@ -100,7 +100,7 @@ export class MyPageTypePage implements OnInit {
         ]
       });
     } else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
+      this.toast.present({ color: 'warning', message: '비밀번호가 올바르지 않습니다.' });
     }
   }
   
