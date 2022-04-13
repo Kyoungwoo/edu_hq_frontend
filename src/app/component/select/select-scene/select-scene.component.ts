@@ -18,7 +18,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled || this.readonly) this.openModal();
+    if(!this.disabled) this.openModal();
   }
 
   @Input() type:ProjectSearchType; // 'Signup'은 회원가입 시, 사용하는 현장 검색
@@ -42,7 +42,6 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   public async get() {
-    console.log("this.value",this.value);
     if(this.isModalData) return;
     
     if(!this.value && !this.all) return;

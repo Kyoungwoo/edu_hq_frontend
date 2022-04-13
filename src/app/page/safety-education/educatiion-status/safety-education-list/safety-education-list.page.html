@@ -128,7 +128,8 @@
               /{{ item.education_safe_start_time }}~{{ item.education_safe_end_time }}</p>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="success" *ngIf="item.education_safe_state === '교윶 중'">{{ item.education_safe_state }} </ion-chip>
+            <ion-chip color="primary" *ngIf="item.education_safe_state === '교육 전'">{{ item.education_safe_state }} </ion-chip>
+            <ion-chip color="success" *ngIf="item.education_safe_state === '교육 중'">{{ item.education_safe_state }} </ion-chip>
             <ion-chip color="medium" *ngIf="item.education_safe_state === '교육 종료'">{{ item.education_safe_state }} </ion-chip>
           </app-col>
         </app-row>

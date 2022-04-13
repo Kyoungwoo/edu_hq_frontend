@@ -414,6 +414,7 @@ export class DangerAreaListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log("data",data);
     if(data) {
       let setItem = type == 'insert' ? this.res_insert[index] : this.res.rsMap[index];
       (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = '';

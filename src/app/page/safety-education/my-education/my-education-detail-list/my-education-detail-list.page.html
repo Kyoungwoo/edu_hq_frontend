@@ -86,7 +86,7 @@
           <h5>교육시간</h5>
         </app-col>
         <app-col>
-          <p>{{ form?.rsObj?.education_safe_start_time }} ~ {{ form?.rsObj?.education_safe_start_time }} ({{ form?.rsObj?.education_safe_time}}H)</p>
+          <p>{{ form?.rsObj?.education_safe_start_time }} ~ {{ form?.rsObj?.education_safe_end_time }} ({{ form?.rsObj?.education_safe_time}}H)</p>
         </app-col>
       </app-row>
       <app-row>
@@ -102,7 +102,7 @@
           <h5>강사</h5>
         </app-col>
         <app-col>
-          <p>이상범,구범수</p>
+          <p>{{ form?.rsObj?.education_safe_instructor }}</p>
         </app-col>
       </app-row>
     </app-card>

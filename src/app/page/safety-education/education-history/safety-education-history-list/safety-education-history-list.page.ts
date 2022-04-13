@@ -81,13 +81,10 @@ export class SafetyEducationHistoryListPage implements OnInit {
       this.res = res;
 
       this.res.rsMap.map((item, i) => {
-        // console.log(item);
         item.index = res.rsObj.row_count - this.form.limit_no - i;
         item.safe_job_name?.toString();
       });
-      // console.log(this.res);
     } else {
-      this.toast.present({message:res.rsMsg,color:'warning'});
       this.res = null;
     }
   }

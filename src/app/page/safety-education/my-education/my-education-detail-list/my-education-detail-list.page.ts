@@ -39,7 +39,8 @@ export class MyEducationDetailListPage implements OnInit {
     education_safe_end_time: string,
     company_name: string,
     education_safe_id: number,
-    create_date_week_day: string
+    create_date_week_day: string,
+    education_safe_instructor:string
   }>
   constructor(
     private connect: ConnectService,
@@ -50,7 +51,7 @@ export class MyEducationDetailListPage implements OnInit {
   ngOnInit() {
     this.getItem();
   }
-
+ 
   async getItem() {
     const res = await this.connect.run('/education/my/detail',{education_safe_id:this.education_safe_id},{
       parse:['education_safe_manager_names','education_safe_manager_ids']
@@ -62,8 +63,6 @@ export class MyEducationDetailListPage implements OnInit {
       }
       this.form.rsObj.education_safe_manager_names.toString();
       console.log("this.form",this.form.rsObj);
-    } else {
-      this.toast.present({message:res.rsMsg, color:'wanring'});
     }
   }
   dismiss() {

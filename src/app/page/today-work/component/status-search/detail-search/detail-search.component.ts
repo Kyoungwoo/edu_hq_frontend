@@ -13,8 +13,8 @@ export class DetailSearchComponent implements OnInit {
   @Input() type:string;
 
   form = {
-    project_id:0,
-    master_company_id:0
+    project_id:this.user.userData.belong_data.project_id,
+    master_company_id:this.user.userData.belong_data.master_company_id
   }
 
   disabled:boolean = false;
