@@ -162,7 +162,7 @@ export class SignUpLhPage implements OnInit {
   }
 
   private valid():boolean {
-    console.log("this.form.project_id",this.form.project_id);
+    console.log(this.form);
     if(!this.form.user_name) this.validator.user_name = { message: '이름을 입력해주세요.', valid: false };
     else this.validator.user_name = { valid: true };
 

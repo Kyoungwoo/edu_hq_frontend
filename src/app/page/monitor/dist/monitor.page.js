@@ -46,7 +46,9 @@ exports.MonitorPage = exports.SmartEquip = exports.TodayConstructionItem = expor
 var today_departure_status_list_page_1 = require("./../work-management/departure-status/today-departure-status-list/today-departure-status-list.page");
 var monitor_smart_equip_edit_page_1 = require("./monitor-smart-equip-edit/monitor-smart-equip-edit.page");
 var core_1 = require("@angular/core");
-var risk_evaluation_popup_page_1 = require("../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page");
+var connect_service_1 = require("src/app/basic/service/core/connect.service");
+var naver_map_component_1 = require("src/app/basic/component/input/naver-map/naver-map.component");
+var monitor_realtime_location_page_1 = require("./monitor-realtime-location/monitor-realtime-location.page");
 /**
  * @class TodayConstructionItem
  *  - 금일 출역 근로자 변수 class
@@ -87,14 +89,14 @@ var MonitorPage = /** @class */ (function () {
         this.route = route;
         this.user = user;
         this.date = date;
-        // theme_1 = [
-        //   {qwe_id:1, qwe_name:"test_1"},
-        //   {qwe_id:2, qwe_name:"test_2"},
-        //   {qwe_id:3, qwe_name:"test_3"},
-        // ]
+        this.menu = 1;
         this.form = {
             project_id: 1,
-            master_company_id: 4
+            master_company_id: 4,
+            company_id: 0,
+            ctgo_construction_id: 0,
+            search_text: '',
+            user_type: '전체' // 근로자 구분 관리자 OR 작업자 OR 전체
         };
         this.todayWork_totalCount = 0; // 금일 출역 근로자 총 수
         this.todayWork_graphLine = []; // 금일 출역 근로자 그래프 단위라인
@@ -157,80 +159,68 @@ var MonitorPage = /** @class */ (function () {
             },
             {
                 name: '작업중',
-                count: 2
+                count: 90
             },
             {
                 name: '작업종료',
-                count: 3
+                count: 50
             }
         ];
         this.graphArr4 = [
             {
-                name: '전기',
-                count: 10
+                name: '고소 작업(높이 2m 이상)',
+                count: 17
             },
             {
-                name: '토목',
-                count: 2
+                name: '굴착 가설(깊이 1.5m 이상)',
+                count: 8
             },
             {
-                name: '조경',
-                count: 3
+                name: '기설 구조물 설치 해제',
+                count: 80
             },
             {
-                name: '건축',
-                count: 4
+                name: '밀폐공간',
+                count: 35
             },
             {
-                name: '기계',
-                count: 5
+                name: '휴일작업',
+                count: 70
             },
         ];
-        // graph = [
-        //   { color: '#25A485', name: '작업대기', data: [
-        //     {value: 20, label: '8시'},
-        //     {value: 60, label: '9시'},
-        //     {value: 50, label: '10시'}
-        //   ]},
-        //   { color: '#78CE5C', name: '작업중', data: [
-        //     {value: 30, label: '8시'},
-        //     {value: 20, label: '9시'},
-        //     {value: 80, label: '10시'}
-        //   ]}
-        // ]
+        this.gpsData = new connect_service_1.ConnectResult();
+        this.gps_log_id = [];
+        this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
+        // testData = {
+        //   gps_latitude:[127.105399,127.2715984,127.1809612], // x, 위도
+        //   gps_longitude:[37.3595704,37.5398721,37.5660017]// y, 경도
+        // }
         this.data = {
-            monitor: ''
+            monitor: '통합관제'
         };
     }
     MonitorPage.prototype.ngOnInit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage
-                        })];
-                    case 1:
-                        modal = _a.sent();
-                        // modal.present();
-                        // this.graphData()
-                        // const modal = await this.modal.create({
-                        //   component:ApprovalPopupComponent,
-                        //   cssClass:"modal-7"
-                        // });
-                        // modal.present();
-                        this.intervalMethodController();
-                        this.methodContrroller();
-                        return [2 /*return*/];
-                }
-            });
-        });
+        this.intervalMethodController();
+        this.methodContrroller();
+        // const modal = await this.modal.create({
+        //   component:RiskEvaluationPopupPage,
+        //   // cssClass:"confirm-modal"
+        // });
+        // modal.present();
+        // this.graphData()
+        // const modal = await this.modal.create({
+        //   component:ApprovalPopupComponent,
+        //   cssClass:"modal-7"
+        // });
+        // modal.present();
     };
     /**
      * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
      */
     MonitorPage.prototype.methodContrroller = function () {
         this.monitorQuery();
+        this.wokerInGetList();
+        this.gpsGet(); //근로자 gps
         this.getTodayWorker(); // 금일 출역 작업자
         this.getTodayConstruction(); // 공종별 출역 작업자
         this.getSmartEquip(); // 스마트 안전장비 
@@ -333,7 +323,6 @@ var MonitorPage = /** @class */ (function () {
                         res = _a.sent();
                         switch (res.rsCode) {
                             case 0:
-                                console.log(res);
                                 total_2 = 0;
                                 this.todayConstruction = res;
                                 // theme
@@ -507,8 +496,89 @@ var MonitorPage = /** @class */ (function () {
             _this.data = {
                 monitor: params.monitor
             };
-            console.log(_this.data);
         });
+    };
+    MonitorPage.prototype.wokerInGetList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/integrated/worker/in/list', this.form)];
+                    case 1:
+                        _a.workerInRes = _b.sent();
+                        if (this.workerInRes.rsCode !== 0) {
+                            this.toast.present({ message: this.workerInRes.rsMsg, color: 'warning' });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MonitorPage.prototype.gpsGet = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/integrated/gps/log', this.form)];
+                    case 1:
+                        _a.gpsData = _b.sent();
+                        console.log("res", this.gpsData.rsMap);
+                        if (this.gpsData.rsCode === 0) {
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MonitorPage.prototype.realtimeedit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: monitor_realtime_location_page_1.MonitorRealtimeLocationPage
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MonitorPage.prototype.style = function (item) {
+        var style;
+        switch (item.name) {
+            case '작업전':
+                style = { 'background-color': 'var(--ion-color-monitor-yellow)' };
+                break;
+            case '작업중':
+                style = { 'background-color': 'var(--ion-color-primary)' };
+                break;
+            case '작업종료':
+                style = { 'background-color': 'var(--ion-color-tertiary)' };
+                break;
+            case '고소 작업(높이 2m 이상)':
+                style = { 'background-color': 'var(--ion-color-monitor-yellow)' };
+                break;
+            case '굴착 가설(깊이 1.5m 이상)':
+                style = { 'background-color': 'var(--ion-color-monitor-green)' };
+                break;
+            case '기설 구조물 설치 해제':
+                style = { 'background-color': 'var(--ion-color-primary)' };
+                break;
+            case '밀폐공간':
+                style = { 'background-color': 'var(--ion-color-tertiary)' };
+                break;
+            case '휴일작업':
+                style = { 'background-color': 'var(--ion-color-fourth)' };
+                break;
+        }
+        return style;
     };
     MonitorPage = __decorate([
         core_1.Component({

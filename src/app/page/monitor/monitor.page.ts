@@ -2,7 +2,7 @@ import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { QrService } from 'src/app/basic/service/util/qr.service';
@@ -202,7 +202,7 @@ workerInRes:ConnectResult<{
   row_count:number
 }>
 
-gpsData:ConnectResult<userData>;
+gpsData:ConnectResult<userData> = new ConnectResult();
 
 gps_log_id = [];
 gps_log_data = new GpsCoordinateData();

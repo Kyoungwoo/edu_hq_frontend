@@ -18,7 +18,6 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
     if(!this.disabled || !this.readonly) this.openModal();
   }
 
@@ -66,7 +65,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   public async openModal() {
     this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchSceneComponent,
+      component: SearchSceneComponent,
       componentProps: {
         type: this.type,
         all: this.all,
@@ -82,6 +81,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     if(data) {
       const allState = <Boolean>data.allState;
       const selectedItem = <ProjectItem>data.selectedItem;
+
       if(allState) {
         this.value = 0;
         this.text = '전체';
@@ -111,6 +111,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   }
 
   async valueChange(v) {
+    console.log(v, this._value);
     if(v !== this._value) {
       this._value = v ? v : 0;
       this.onChangeCallback(v);

@@ -67,7 +67,11 @@ export class MainAdminPage implements OnInit {
     private promise: PromiseService,
     private toast: ToastService,
     public user: UserService
-  ) { }
+  ) {
+    if(this.user.userData.user_type !== 'COMPANY') {
+      this.nav.navigateRoot('/main-sub-admin');
+    }
+  }
 
   ngOnInit() {
     if(this.user.userData.user_type === 'LH') this.getCtgo();
@@ -205,7 +209,7 @@ export class MainAdminPage implements OnInit {
     const res = await this.connect.run('/main/board/notify', this.form, {});
     switch (res.rsCode) {
       case 0:
-        this.alarm_list = res.rsMap;
+        this.alarm_list = res.rsMap.length > 4 ? res.rsMap.splice(0, 4) : res.rsMap;
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
