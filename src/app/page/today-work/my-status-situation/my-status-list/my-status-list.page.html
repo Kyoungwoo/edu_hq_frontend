@@ -8,10 +8,10 @@
   <ion-toolbar color="white">
     <app-row>
       <app-col>
-        <app-input label="현장" [readonly]="true">
-          <span>상세검색</span>
-          <!-- <app-button (click)="detailSearch()">상세검색</app-button> -->
-        </app-input>
+        <app-input-group>
+           <app-input label="현장" [readonly]="true"></app-input>
+          <app-button (click)="detailSearch()">상세검색</app-button>
+        </app-input-group>
       </app-col>
     </app-row>
   </ion-toolbar>
