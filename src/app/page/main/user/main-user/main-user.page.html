@@ -26,9 +26,9 @@
       </app-col>
     </app-row>
   </ion-toolbar>
-  
-  <app-select-scene name="project_id" [(ngModel)]="form.project_id" (ngModelChange)="getBoard()"></app-select-scene>
-  
+  <ion-toolbar color="white">
+    <app-select-scene name="project_id" [(ngModel)]="form.project_id" (ngModelChange)="getBoard()"></app-select-scene>
+  </ion-toolbar>
 </ion-header>
 <ion-content> 
   <div class="main-button">

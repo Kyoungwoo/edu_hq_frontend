@@ -29,7 +29,7 @@ export class SettingMenuPage implements OnInit {
         });
         break;
       case '알림설정':
-        this.nav.navigateRoot('/setting-sounds');
+        this.nav.navigateForward('/setting-sounds');
         break;
     }
   }
