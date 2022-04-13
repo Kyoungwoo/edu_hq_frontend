@@ -417,13 +417,15 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      */
     RiskEvaluationEditPage.prototype.onApprovalClick = function (ev) {
         return __awaiter(this, void 0, void 0, function () {
-            var res;
+            var res2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, ev.approval()];
                     case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
+                        res2 = _a.sent();
+                        if (res2.rsCode === 0) {
+                            this.toast.present({ color: 'success', message: '결재 되었습니다.' });
+                            this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('risk-list:get()'));
                         }

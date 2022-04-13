@@ -11,9 +11,7 @@ var core_1 = require("@angular/core");
 var ApprovalCommentComponent = /** @class */ (function () {
     function ApprovalCommentComponent() {
     }
-    ApprovalCommentComponent.prototype.ngOnInit = function () {
-        console.log(this.approval_comment);
-    };
+    ApprovalCommentComponent.prototype.ngOnInit = function () { };
     __decorate([
         core_1.Input()
     ], ApprovalCommentComponent.prototype, "approval_comment");

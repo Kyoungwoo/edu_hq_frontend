@@ -11,13 +11,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of approval_comment">
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr *ngFor="let item of approval_comment; let f = first; let l = last;">
+      <td>{{ 
+        f ? 
+          l ? '작성/승인' : '작성' 
+        : 
+          l ? '승인' : '검토' 
+      }}</td>
+      <td>{{ item.approval_answer }}</td>
+      <td>{{ item.user_name }}</td>
+      <td>{{ item.company_name }}</td>
+      <td>{{ item.approval_date }}</td>
+      <td>{{ item.approval_comment }}</td>
     </tr>
   </tbody>
 </app-table>

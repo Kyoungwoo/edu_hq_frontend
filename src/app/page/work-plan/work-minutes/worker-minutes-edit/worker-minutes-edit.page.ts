@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
+import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 
 @Component({
   selector: 'app-worker-minutes-edit',
@@ -56,6 +57,8 @@ export class WorkerMinutesEditPage implements OnInit {
   permission = {
     edit: false
   }
+
+  approval_comment:CommentObj[];
 
   constructor(
     public user: UserService,
@@ -307,5 +310,8 @@ export class WorkerMinutesEditPage implements OnInit {
     else {
       this.permission.edit = false;
     }
+
+    /** 결재자 의견을 가지고 온다. */
+    this.approval_comment = ev.approval_comment;
   }
 }

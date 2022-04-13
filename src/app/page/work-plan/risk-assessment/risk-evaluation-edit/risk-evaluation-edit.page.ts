@@ -357,8 +357,22 @@ export class RiskEvaluationEditPage implements OnInit {
    * 결재 버튼 클릭
    */
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
-    const res = await ev.approval();
-    if(res.rsCode === 0) {
+
+    /** 위험성평가는 결재 시, 테이블데이터 수정이 가능하다. */
+    /* this.form.evaluation_data = this.riskTableToList(this.riskTableList);
+
+    this.form.approval_cnt_answer = '결재';
+    this.form.approval_default_data = ev.approval_data;
+
+    const res1 = await this.connect.run('/risk/assessment/update', this.form, { loading: true });
+
+    if(res1.rsCode) { this.toast.present({ color: 'warning', message: res1.rsMsg }); return; } */
+
+    /** 데이터 수정 후 결재 진행 */
+    const res2 = await ev.approval();
+    if(res2.rsCode === 0) {
+      this.toast.present({ color: 'success', message: '결재 되었습니다.' });
+      this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
     }

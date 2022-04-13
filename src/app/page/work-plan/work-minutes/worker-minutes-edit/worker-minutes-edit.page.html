@@ -84,4 +84,7 @@
   </h5>
 
   <app-file-preview *ngFor="let item of form.file_data; let i = index;" [futItem]="item" (buttonClick)="form.file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview>
+
+  <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
+  
 </ion-content>
