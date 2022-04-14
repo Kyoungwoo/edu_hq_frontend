@@ -161,7 +161,6 @@ export class MainUserMasterPage implements OnInit {
   router(title: string) {
     switch (title) {
       case '':
-        this.push.EmergencyPop('test');
         this.alert.present({
           // message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
           message: '해당 기능은 아직 준비중인 기능입니다.',

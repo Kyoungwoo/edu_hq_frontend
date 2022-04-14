@@ -586,3 +586,8 @@
     
   }
 }
+
+// 모달 백그라운드 클릭시 안꺼지도록
+ion-backdrop{
+  pointer-events: none;
+}

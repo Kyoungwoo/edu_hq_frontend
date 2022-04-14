@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
@@ -8,6 +8,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
   styleUrls: ['./emergency-clear-popup.component.scss'],
 })
 export class EmergencyClearPopupComponent implements OnInit {
+  @Input() message:string;
 
   constructor(
     private _modal : ModalController,
@@ -18,7 +19,7 @@ export class EmergencyClearPopupComponent implements OnInit {
 
   async dismiss() {
     this._modal.dismiss().then(() => {
-      this.nav.navigateRoot('/sos-popup'); 
+      // this.nav.navigateRoot('/sos-popup'); 
     });
   }
 

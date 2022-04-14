@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -33,7 +34,7 @@ export class EmergencyPopupComponent implements OnInit {
   res:ConnectResult<MsdsInfo>;
 
   /** @param selectedList - 체크박스로 선택된 목록 */
-  selectedList = [];
+  // selectedList = [];
 
   constructor(
     private _modal_: ModalController,
@@ -71,24 +72,31 @@ export class EmergencyPopupComponent implements OnInit {
     let selected_items = this.res.rsMap.filter((item) => {return item.selected;});
     if(selected_items?.length) this.update(selected_items);
     else this.toast.present({ color: 'warning', message: '종료하실 상황을 먼저 선택해주세요.' });
-    
-    // const modal = await this._modal_.create({
-    //   component:EmergencyClearPopupComponent,
-    //   cssClass:"emergency-clear-modal"
-    // });
-    // modal.present();
   }
 
   async update(items){
-    const res = await this.connect.run('/main/sos/finish', { sos_user_datas: items }, {loading: true});
-    switch (res.rsCode) {
-      case 0:
-        this.toast.present({ color: 'success', message: '선택하신 SOS상황이 종료되었습니다.' });
-        break;
-      default:
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-        break;
-    }
+    this.alert.present({
+      header: '선택하신 비상상황을 종료하시겠습니까?',
+      buttons: [
+        {
+          text: '예',
+          handler: async() => {
+            const res = await this.connect.run('/main/sos/finish', { sos_user_datas: items }, {loading: true});
+            switch (res.rsCode) {
+              case 0:
+                if(this.all_state) this.all_state = false;
+                this.get();
+                this.toast.present({ color: 'success', message: '선택하신 SOS상황이 종료되었습니다.' });
+                break;
+              default:
+                this.toast.present({ color: 'warning', message: res.rsMsg });
+                break;
+            }
+          }
+        },
+        {text:'아니요',role:'cancel'}
+      ]
+    });
   }
 
   close(){

@@ -62,11 +62,11 @@
               <th *ngIf="btnPromise('delete_check')" style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
               <th>원청사명</th>
               <th>장비구분</th>
-              <th style="width: 180px;">시리얼 No</th>
-              <th style="width: 180px;">비콘 No</th>
-              <th style="width: 180px;">NFC No</th>
-              <th style="width: 180px;">기준값</th>
-              <th style="width: 130px;">사용여부</th>
+              <th>시리얼 No</th>
+              <th>비콘 No</th>
+              <th>NFC No</th>
+              <th>기준값</th>
+              <th>사용여부</th>
               <th>배정현황</th>
             </tr>
           </thead>
@@ -83,9 +83,9 @@
                 </app-select>
               </td>
               <td class="center-class"> - </td>
-              <td><app-input [(ngModel)]="item.serial_bicon"></app-input></td>
-              <td><app-input [(ngModel)]="item.serial_nfc"></app-input></td>
-              <td><app-input [(ngModel)]="item.serial_value"></app-input></td>
+              <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_bicon"></app-input></td>
+              <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_nfc"></app-input></td>
+              <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_value"></app-input></td>
               <td>
                 <app-select [(ngModel)]="item.serial_use_state">
                   <app-select-option [value]="1">Y</app-select-option>
