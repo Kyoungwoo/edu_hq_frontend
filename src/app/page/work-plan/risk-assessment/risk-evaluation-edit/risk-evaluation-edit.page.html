@@ -12,9 +12,10 @@
   <h2>{{ form.risk_asment_type_text }} 위험성 평가표</h2>
 
   <app-approval 
-  [project_id]="this.form.project_id"
-  [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
-  [approval_id]="this.form.approval_id"
+  [isDuplicate]="isDuplicate"
+  [project_id]="form.project_id"
+  [ctgo_approval_module_id]="form.ctgo_approval_module_id"
+  [approval_id]="form.approval_id"
   (deleteClick)="onDeleteClick($event)"
   (saveClick)="onSaveClick($event)"
   (sendClick)="onSendClick($event)"

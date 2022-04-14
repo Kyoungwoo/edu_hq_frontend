@@ -96,7 +96,6 @@ var RiskListPage = /** @class */ (function () {
         this.event = {
             get: null
         };
-        this.selectitemList = new RiskListItem;
     }
     RiskListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -182,6 +181,7 @@ var RiskListPage = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         this.form.limit_no = limit_no;
+                        this.selectitem = null;
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/risk/assessment/list/get', this.form, { loading: true })];
                     case 1:
@@ -213,6 +213,7 @@ var RiskListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
+                        this.selectitem = null;
                         return [4 /*yield*/, this.connect.run('/risk/assessment/list/get', this.form, {})];
                     case 1:
                         res = _a.sent();
@@ -278,6 +279,28 @@ var RiskListPage = /** @class */ (function () {
                             componentProps: {
                                 project_id: this.form.project_id,
                                 risk_asment_type: this.form.risk_asment_type
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RiskListPage.prototype.duplicate = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_evaluation_edit_page_1.RiskEvaluationEditPage,
+                            componentProps: {
+                                isDuplicate: true,
+                                project_id: this.form.project_id,
+                                risk_asment_type: this.form.risk_asment_type,
+                                risk_asment_id: this.selectitem.risk_asment_id
                             }
                         })];
                     case 1:

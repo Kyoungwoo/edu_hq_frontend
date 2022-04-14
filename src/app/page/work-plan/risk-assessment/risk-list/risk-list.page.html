@@ -55,7 +55,7 @@
         <ion-toolbar color="white">
           <ion-buttons slot="start">
             <app-button *ngIf="permission.add" fill="translucent" (click)="add()">신규 작성</app-button>
-            <app-button *ngIf="permission.add" fill="translucent">복사 작성</app-button>
+            <app-button *ngIf="permission.add" fill="translucent" (click)="duplicate()" [disabled]="!selectitem">복사 작성</app-button>
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
           <ion-buttons slot="end">
@@ -70,7 +70,7 @@
         <ion-toolbar color="white">
           <h5>수시 위험성평가 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
-        <app-radio-group [(ngModel)]="selectitemList">
+        <app-radio-group [(ngModel)]="selectitem">
           <app-table>
             <thead>
               <tr>
@@ -139,7 +139,7 @@
       </ion-segment>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content>
 
   <app-row>

@@ -24,6 +24,7 @@ export class AnswerObj {
   approval_last_state: 0|1; // 최종결재자 여부 1 최종 / 0 최종아님
 
   // 결재 진행 중 값
+  approval_id?:number;
   approval_answer?:string;
   approval_date?:string;
 }

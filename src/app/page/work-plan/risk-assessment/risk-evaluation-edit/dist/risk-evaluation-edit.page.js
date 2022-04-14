@@ -68,6 +68,8 @@ var RiskEvaluationEditPage = /** @class */ (function () {
         this._modal = _modal;
         this.loading = loading;
         this.date = date;
+        /** 복사 신규 작성 여부 */
+        this.isDuplicate = false;
         this.form = {
             project_id: null,
             master_company_id: null,
@@ -103,13 +105,14 @@ var RiskEvaluationEditPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        /**
-                         * 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 가지고 와야 함
-                         */
-                        this.getDefaultForm(); // 폼 채우기
                         if (!!this.risk_asment_id) return [3 /*break*/, 1];
-                        return [3 /*break*/, 4];
+                        // 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 폼을 채워줘야 함
+                        this.getDefaultForm();
+                        return [3 /*break*/, 7];
                     case 1:
+                        if (!!this.isDuplicate) return [3 /*break*/, 4];
+                        // 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 폼을 채워줘야 함
+                        this.getDefaultForm();
                         // 수정 시에는 정보를 가져와서 채워넣음
                         this.form.risk_asment_id = this.risk_asment_id;
                         return [4 /*yield*/, this.getDetail()];
@@ -118,8 +121,21 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         return [4 /*yield*/, this.getEvaluationDetail()];
                     case 3:
                         _a.sent();
-                        _a.label = 4;
+                        return [3 /*break*/, 7];
                     case 4:
+                        // 복사 작성 시에는 정보를 가져와서 채워넣은 다음
+                        this.form.risk_asment_id = this.risk_asment_id;
+                        return [4 /*yield*/, this.getDetail()];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, this.getEvaluationDetail()];
+                    case 6:
+                        _a.sent();
+                        // 해당 정보를 신규정보로 바꿔줌
+                        this.getDefaultForm();
+                        this.resetForDuplicate();
+                        _a.label = 7;
+                    case 7:
                         // 나머지 정보
                         this.form.risk_asment_type_text = this.getTypeText(this.form.risk_asment_type);
                         // 결재에는 ctgo_approval_module_id 가 반드시 필요하므로 유의
@@ -224,6 +240,12 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * 복사 시, 정보 리셋
+     */
+    RiskEvaluationEditPage.prototype.resetForDuplicate = function () {
+        this.form.approval_id = null;
     };
     /**
      * 위험성평가 텍스트 가져오기
@@ -724,6 +746,9 @@ var RiskEvaluationEditPage = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], RiskEvaluationEditPage.prototype, "risk_asment_type");
+    __decorate([
+        core_1.Input()
+    ], RiskEvaluationEditPage.prototype, "isDuplicate");
     RiskEvaluationEditPage = __decorate([
         core_1.Component({
             selector: 'app-risk-evaluation-edit',
