@@ -60,9 +60,9 @@ export class MainSubAdminPage implements OnInit {
   msds_list = []; // 회의록
 
   education = {
-    hire_data: {good:0,excess:0,necessary:0},
-    regular_data: {good:0,excess:0,necessary:0},
-    special_data: {good:0,excess:0,necessary:0}
+    hire_data: { good: 0, excess: 0, necessary: 0 },
+    regular_data: { good: 0, excess: 0, necessary: 0 },
+    special_data: { good: 0, excess: 0, necessary: 0 }
   }
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -119,7 +119,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getEtc(): 착공일/준공일, 가입대기
    */
-   async getEtc(){
+  async getEtc() {
     await this.getContractDate();
     await this.getWaiting();
     await this.getJobPosition();
@@ -128,7 +128,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getBoard(): 게시판 가져오기
    */
-   async getBoard(){
+  async getBoard() {
     await this.getAlarm();
     await this.getApproval();
     await this.getNotice();
@@ -139,24 +139,24 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getContractDate(): 현장 착공일/준공일 가져오기
    */
-   async getContractDate() {
-   const res = await this.connect.run('/category/certify/project/contract/date', this.form, {});
-   switch (res.rsCode) {
-     case 0:
-       this.form = {
-         ...this.form,
-         ...res.rsObj
-       }
-       break;
-     default:
-      //  this.toast.present({ color: 'warning', message: res.rsMsg });
-       break;
-   }
- }
+  async getContractDate() {
+    const res = await this.connect.run('/category/certify/project/contract/date', this.form, {});
+    switch (res.rsCode) {
+      case 0:
+        this.form = {
+          ...this.form,
+          ...res.rsObj
+        }
+        break;
+      default:
+        //  this.toast.present({ color: 'warning', message: res.rsMsg });
+        break;
+    }
+  }
   /**
    * @function getWaiting(): 가입대기 가져오기
    */
-   async getWaiting() {
+  async getWaiting() {
     const res = await this.connect.run('/main/etc/waiting_master', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -173,7 +173,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getAlarm(): 알림함 가져오기
    */
-   async getAlarm() {
+  async getAlarm() {
     const res = await this.connect.run('/main/board/notify', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -190,7 +190,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getApproval(): 미결함 가져오기
    */
-   async getApproval() {
+  async getApproval() {
     const res = await this.connect.run('/main/board/approval', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -207,7 +207,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getNotice(): 공지사항 가져오기
    */
-   async getNotice() {
+  async getNotice() {
     const res = await this.connect.run('/main/board/notice', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -224,7 +224,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getSafrtyMeeting(): 회의록 가져오기
    */
-   async getSafrtyMeeting() {
+  async getSafrtyMeeting() {
     const res = await this.connect.run('/main/board/safetymeeting', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -241,7 +241,7 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getMsds(): MSDS 가져오기
    */
-   async getMsds() {
+  async getMsds() {
     const res = await this.connect.run('/main/board/msds', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -257,10 +257,12 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getEducation(): 교육이수현황 가져오기
    */
-   async getEducation() {
-    const res = await this.connect.run('/main/board/education', this.form, {parse:[
-      'hire_data','regular_data','special_data'
-    ]});
+  async getEducation() {
+    const res = await this.connect.run('/main/board/education', this.form, {
+      parse: [
+        'hire_data', 'regular_data', 'special_data'
+      ]
+    });
     switch (res.rsCode) {
       case 0:
         this.education = res.rsObj;
@@ -273,8 +275,8 @@ export class MainSubAdminPage implements OnInit {
   /**
    * @function getJobPosition(): 내 직위 가져오기
    */
-   async getJobPosition() {
-    const res = await this.connect.run('/category/certify/my/jobposition', this.form,{});
+  async getJobPosition() {
+    const res = await this.connect.run('/category/certify/my/jobposition', this.form, {});
     switch (res.rsCode) {
       case 0:
         this.form.ctgo_job_position_name = res.rsObj.ctgo_job_position_name;
@@ -286,7 +288,7 @@ export class MainSubAdminPage implements OnInit {
   }
 
 
-  
+
   async getWeather() {
     //날씨
     const res = await this.connect.run('/weather/get', null, {});
@@ -347,6 +349,13 @@ export class MainSubAdminPage implements OnInit {
       case '마이페이지':
         this.nav.navigateRoot('/my-page');
         break;
+      case 'MSDS':
+        this.nav.navigateRoot('/msds-list');
+        break;
+      case '교육현황':
+        this.nav.navigateRoot('/safety-education-list');
+        break;
     }
+
   }
 }

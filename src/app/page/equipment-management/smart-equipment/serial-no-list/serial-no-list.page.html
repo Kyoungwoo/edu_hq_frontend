@@ -1,4 +1,77 @@
 <app-header-admin></app-header-admin>
+<<<<<<< HEAD
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button></app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+             <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="allState"></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select label="장비구분" [(ngModel)]="form.ctgo_machine_serial_id">
+                <app-select-option [value]="0">전체</app-select-option>
+                <app-select-option *ngFor="let item of searial_ctgo_list" [value]="item.ctgo_machine_serial_id">{{ item.ctgo_machine_serial_name }}</app-select-option>
+              </app-select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요." [(ngModel)]="this.form.search_text"></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button *ngIf="btnPromise('insert')" fill="translucent" (click)="addButton()">추가</app-button>
+          <app-button *ngIf="btnPromise('update')" [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
+          <app-button *ngIf="btnPromise('delete')" fill="translucent" color="danger" (click)="SearialDelete()">삭제</app-button>
+          <app-button *ngIf="btnPromise('update')" [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SearialSave()">저장</app-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-segment color="primary" [(ngModel)]="this.serial_type" (ngModelChange)="ChangeSearialType($event)">
+            <ion-segment-button value="개인">개인</ion-segment-button>
+            <ion-segment-button value="중장비">중장비</ion-segment-button>
+            <ion-segment-button value="위험지역">위험지역</ion-segment-button>
+          </ion-segment>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>장비 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+      </ion-toolbar>
+      <app-check-group [(ngModel)]="selectedList">
+        <app-table>
+          <thead>
+            <tr>
+              <th *ngIf="btnPromise('delete_check')" style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
+              <th>원청사명</th>
+              <th>장비구분</th>
+              <th style="width: 180px;">시리얼 NO</th>
+              <th style="width: 180px;">비콘 NO</th>
+              <th style="width: 180px;">NFC NO</th>
+              <th style="width: 180px;">기준값</th>
+              <th style="width: 130px;">사용여부</th>
+              <th>배정현황</th>
+            </tr>
+          </thead>
+=======
 
 <ion-content [scrollX]="true">
 
@@ -13,6 +86,7 @@
               <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList()">검색</app-button></app-col>
             </app-row>
           </ion-toolbar>
+>>>>>>> 726ae5d1f0cc5ade14b224fb1741aa47f52a7a06
           <tbody>
             <tr>
               <td>

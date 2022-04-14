@@ -295,7 +295,7 @@
         <app-table type="card">
           <thead>
             <tr>
-              <th>No</th>
+              <th>NO</th>
               <th>교육명</th>
               <th>이수일</th>
               <th>이수시간</th>
@@ -319,6 +319,76 @@
             <p>최종 수정일 : {{ formBasic.update_date }}</p>
           </app-col>
         </app-row>
+<<<<<<< HEAD
+        <h5>마일리지 현황</h5>
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th>총 적립 마일리지</th>
+              <th>총 사용 마일리지</th>
+              <th>잔여 마일리지</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ resTotalMileageList?.rsObj?.total_mileage }}</td>
+              <td>{{ resTotalMileageList?.rsObj?.minus_mileage }}</td>
+              <td>{{ resTotalMileageList?.rsObj?.plus_mileage }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <h5>안전 마일리지 적립 내역</h5>
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th style="width:40px">NO</th>
+              <th>마일리지 분류</th>
+              <th>지급자</th>
+              <th>적립일</th>
+              <th>적립 마일리지</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of resPlusMileageList?.rsMap let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.ctgo_safe_mileage }}</td>
+              <td>{{ item.payer_user_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.ctgo_safe_mileage_point }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <app-row>
+          <app-col></app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()" *ngIf="permission.mileage">
+              마일리지 지급</app-button>
+          </app-col>
+        </app-row>
+        <h5>안전 마일리지 사용 내역</h5>
+        <app-table type="card">
+          <thead>
+            <tr>
+              <th style="width:40px">NO</th>
+              <th>사용내역</th>
+              <th>사용자</th>
+              <th>사용일</th>
+              <th>사용 마일리지</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of resMinusMileageList?.rsMap let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.ctgo_safe_mileage }}</td>
+              <td>{{ item.payer_user_name }}</td>
+              <td>{{ item.create_date }}</td>
+              <td>{{ item.ctgo_safe_mileage_point }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <!-- <app-row>
+=======
+>>>>>>> 726ae5d1f0cc5ade14b224fb1741aa47f52a7a06
       <h5>마일리지 현황</h5>
       <app-table type="card">
         <thead>
@@ -383,7 +453,7 @@
             <td>{{ item.ctgo_safe_mileage_point }}</td>
           </tr>
         </tbody>
-      </app-table>
+      </app-table>-->
       <!-- <app-row>
         <app-col></app-col>
         <app-col size="auto">
