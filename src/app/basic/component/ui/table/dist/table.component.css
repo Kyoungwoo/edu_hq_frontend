@@ -64,6 +64,13 @@
   bottom: 0 !important;
   right: 0 !important;
 }
+:host ::ng-deep app-input app-input-template.input-no-label {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+:host ::ng-deep app-input app-input-template.input-no-label:not(.readonly):not(.disabled) {
+  background: var(--ion-color-step-50);
+}
 :host ::ng-deep .disabled app-input-template {
   border: 0 !important;
 }
