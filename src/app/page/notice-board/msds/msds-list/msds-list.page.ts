@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { MsdsEditPage } from '../msds-edit/msds-edit.page';
+import { MsdsEditPage, MsdsItem } from '../msds-edit/msds-edit.page';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 
@@ -126,11 +126,29 @@ export class MsdsListPage implements OnInit {
       this.get();
     }
   }
-  async edit(item?) {
+  // async edit(item?) {
+  //   const modal = await this.modal.create({
+  //     component:MsdsEditPage,
+  //     componentProps:{
+  //       item
+  //     }
+  //   });
+  //   modal.present();
+  //   const { data } = await modal.onDidDismiss();
+  //   if(data) {
+  //     this.get();
+  //   }
+  // }
+
+  async edit(item = null) {
     const modal = await this.modal.create({
       component:MsdsEditPage,
       componentProps:{
-        item
+        item:item,
+        form: {
+          ...new MsdsItem(),
+          ...item ? item : this.form,
+        }
       }
     });
     modal.present();

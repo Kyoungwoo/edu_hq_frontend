@@ -25,7 +25,7 @@ export class MsdsItem {
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
   create_user_id:number;
-
+  master_company_id: number;
 };
 
 @Component({
@@ -34,6 +34,8 @@ export class MsdsItem {
   styleUrls: ['./msds-edit.page.scss'],
 })
 export class MsdsEditPage implements OnInit {
+
+  update_state = false;
 
   permission = {
     edit: false
@@ -106,13 +108,20 @@ export class MsdsEditPage implements OnInit {
       
     }
   }
+  // public submit() {
+  //   this.msdsText.update();
+  //   if(this.form.msds_id) {
+  //     this.update();
+  //   } else {
+  //     this.MsdsInsert();
+  //   }
+  // }
+
   public submit() {
     this.msdsText.update();
-    if(this.form.msds_id) {
-      this.update();
-    } else {
-      this.MsdsInsert();
-    }
+    
+    if(this.form.msds_id) this.update();
+    else this.MsdsInsert();
   }
 
 
@@ -185,5 +194,10 @@ export class MsdsEditPage implements OnInit {
 
   dismiss() {
     this._modal.dismiss();
+  }
+
+  updateButton(){
+    if(this.update_state) this.submit();
+    else this.update_state = true;
   }
 }
