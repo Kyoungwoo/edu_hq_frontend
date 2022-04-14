@@ -205,7 +205,14 @@ export class HeavyDeviceListPage implements OnInit {
    * @function addButton(): "추가" 버튼 클릭시 목록에 ITEM ROW가 추가됩니다
    */
    addButton(){
-     this.res_insert.push(new SmartInfoInsertItem());
+     let add_item = new SmartInfoInsertItem();
+     if(this.user.userData.user_role === 'PARTNER_HEAD' || this.user.userData.user_role === 'PARTNER_GENERAL'){
+       add_item.partner_company_name = this.user.userData.belong_data.company_name;
+     } else {
+      add_item.master_company_name = this.user.userData.belong_data.company_name;
+      add_item.partner_company_name = this.user.userData.belong_data.company_name;
+     }
+     this.res_insert.push(add_item);
    }
 
   /**

@@ -5,6 +5,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Injectable } from '@angular/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { EmergencyPopupComponent } from '../page/main/user/emergency-popup/emergency-popup.component';
+import { EmergencyClearPopupComponent } from '../page/main/user/emergency-clear-popup/emergency-clear-popup.component';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,20 @@ export class PushService {
     _modal.present();
   }
 
-
+  /**
+   * @function EmergencyFinPop(): 긴급요청 상황종료 팝업
+   */
+   async EmergencyFinPop(message) {
+    const _modal = await this.modal.create({
+      component:EmergencyClearPopupComponent,
+      backdropDismiss: false,
+      cssClass:"emergency-clear-modal",
+      componentProps: {
+        message: message
+      }
+    });
+    _modal.present();
+  }
 
   addListeners = async () => {
     // registration token을 받는부분
@@ -83,7 +97,8 @@ export class PushService {
     // 푸시를 받았을경우
     await PushNotifications.addListener('pushNotificationReceived', notification => {
       console.log('Push notification received: ', notification);
-      this.EmergencyPop(notification.body);
+      if(notification.data.notify_kind === 'SOS') this.EmergencyPop(notification.body);
+      if(notification.data.notify_kind === 'SOSFIN') this.EmergencyFinPop(notification.body);
     });
   
     await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
