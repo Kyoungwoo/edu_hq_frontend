@@ -245,7 +245,11 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      * 복사 시, 정보 리셋
      */
     RiskEvaluationEditPage.prototype.resetForDuplicate = function () {
+        var _this = this;
         this.form.approval_id = null;
+        setTimeout(function () {
+            _this.isDuplicate = false;
+        }, 2000);
     };
     /**
      * 위험성평가 텍스트 가져오기

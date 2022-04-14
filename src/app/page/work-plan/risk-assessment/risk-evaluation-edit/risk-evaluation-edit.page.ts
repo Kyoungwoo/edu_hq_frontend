@@ -224,6 +224,9 @@ export class RiskEvaluationEditPage implements OnInit {
    */
   resetForDuplicate() {
     this.form.approval_id = null;
+    setTimeout(() => {
+      this.isDuplicate = false;
+    }, 2000);
   }
 
   /**
