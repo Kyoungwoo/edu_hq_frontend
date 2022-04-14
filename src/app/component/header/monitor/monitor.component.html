@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="ttet" color="tertiary">
     <ion-buttons slot="start">
-      <app-logo routerLink="/main-admin" style="cursor: pointer;"></app-logo>
+      <app-logo style="cursor: pointer;" (click)="main()"></app-logo>
       <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()"><app-img name="menu"></app-img></app-button>
       <app-row>
         <app-col size="auto">
@@ -13,6 +13,20 @@
               <span>{{ tab.text }}</span>
             </div>
           </app-row>
+        </app-col>
+      </app-row>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <app-row class="profile-row">
+        <app-col size="auto">
+          <app-avatar class="profile" [src]="user.userData.user_profile"></app-avatar>
+        </app-col>
+        <app-col size="auto">
+          <h5>{{ user.userData.user_name }}님</h5>
+        </app-col>
+        <app-col size="auto">
+          <app-button class="btn-logout" fill="translucent" size="small" (click)="user.logout()">로그아웃</app-button>
         </app-col>
       </app-row>
     </ion-buttons>

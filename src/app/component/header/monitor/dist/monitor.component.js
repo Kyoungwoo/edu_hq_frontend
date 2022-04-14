@@ -46,11 +46,13 @@ exports.MonitorComponent = void 0;
 var core_1 = require("@angular/core");
 var side_menu_admin_component_1 = require("../../side-menu/side-menu-admin/side-menu-admin.component");
 var MonitorComponent = /** @class */ (function () {
-    function MonitorComponent(animationCtrl, modal, nav, adminMenu) {
+    function MonitorComponent(animationCtrl, modal, nav, adminMenu, activedRoute, user) {
         this.animationCtrl = animationCtrl;
         this.modal = modal;
         this.nav = nav;
         this.adminMenu = adminMenu;
+        this.activedRoute = activedRoute;
+        this.user = user;
         this.tabList = [
             { text: '통합관제',
                 data: '통합관제'
@@ -64,14 +66,33 @@ var MonitorComponent = /** @class */ (function () {
         ];
         this.tabActive = this.tabList[0];
     }
-    MonitorComponent.prototype.ngOnInit = function () { };
-    MonitorComponent.prototype.ngAfterViewInit = function () {
-        this.tabActive = this.tabList[0];
+    MonitorComponent.prototype.ngOnInit = function () {
+        var monitor = this.activedRoute.snapshot.queryParams.monitor;
+        switch (monitor) {
+            case '통합관제':
+                this.tabActive = this.tabList[0];
+                break;
+            case 'CCTV 모니터링':
+                this.tabActive = this.tabList[1];
+                break;
+            case '근로자 실시간 위치 모니터링':
+                this.tabActive = this.tabList[2];
+                break;
+        }
     };
     MonitorComponent.prototype.tabClick = function (tab, i) {
         this.tabActive = tab;
     };
     MonitorComponent.prototype.ngOnDestroy = function () { };
+    MonitorComponent.prototype.main = function () {
+        var userData = this.user.userData;
+        if (userData.user_type === 'COMPANY') {
+            this.nav.navigateRoot('/main-sub-admin');
+        }
+        else {
+            this.nav.navigateRoot('/main-admin');
+        }
+    };
     MonitorComponent.prototype.openSideMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;

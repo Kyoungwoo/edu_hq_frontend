@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, Injectable, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
@@ -38,13 +40,24 @@ export class MonitorComponent implements OnInit {
     private animationCtrl: AnimationController,
     private modal:ModalController,
     private nav: NavService,
-    public adminMenu: SideMenuAdminComponent
+    public adminMenu: SideMenuAdminComponent,
+    private activedRoute: ActivatedRoute,
+    public user: UserService
   ) { }
   
-  ngOnInit() {}
-  
-  ngAfterViewInit() {
-    this.tabActive = this.tabList[0];
+  ngOnInit() {
+    const { monitor } = this.activedRoute.snapshot.queryParams;
+    switch(monitor) {
+      case '통합관제':
+        this.tabActive = this.tabList[0];
+        break;
+      case 'CCTV 모니터링':
+        this.tabActive = this.tabList[1];
+        break;
+      case '근로자 실시간 위치 모니터링':
+        this.tabActive = this.tabList[2];
+        break;
+    }
   }
 
   tabClick(tab, i) {
@@ -52,6 +65,16 @@ export class MonitorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {}
+
+  main() {
+    const { userData } = this.user;
+    if(userData.user_type === 'COMPANY') {
+      this.nav.navigateRoot('/main-sub-admin');
+    }
+    else {
+      this.nav.navigateRoot('/main-admin');
+    }
+  }
 
   async openSideMenu(){
     const modal = await this.modal.create({
