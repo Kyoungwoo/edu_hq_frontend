@@ -535,6 +535,6 @@
   margin-top: 0 !important;
 }
 
-ion-modal ion-backdrop {
+ion-modal:not(.side-menu-admin-modal) ion-backdrop {
   pointer-events: none;
 }
