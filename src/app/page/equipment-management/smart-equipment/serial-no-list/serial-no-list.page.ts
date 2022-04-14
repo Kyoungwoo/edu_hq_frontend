@@ -114,7 +114,7 @@ export class SerialNoListPage implements OnInit {
   }
   
   /**
-   * @function getList(): 중장비 시리얼 No 목록 가져오기
+   * @function getList(): 중장비 시리얼 NO 목록 가져오기
    */
    async getList() {
     let method = await this.TransMethodType();
@@ -165,7 +165,7 @@ export class SerialNoListPage implements OnInit {
   }
 
   /**
-   * @function getSearialCtgo(): 시리얼 No 장비구분 목록 가져오기
+   * @function getSearialCtgo(): 시리얼 NO 장비구분 목록 가져오기
    */
    async getSearialCtgo() {
     const res = await this.connect.run('/serial/ctgo/list', { serial_type: this.serial_type });

@@ -304,7 +304,7 @@ export class EachDeviceListPage implements OnInit {
               }
               if(case_2){
                 await loadingCus.dismiss();
-                return this.toast.present({ color: 'warning', message: '시리얼No를 선택해주세요.' });
+                return this.toast.present({ color: 'warning', message: '시리얼 NO를 선택해주세요.' });
               }
               if(case_3){
                 await loadingCus.dismiss();

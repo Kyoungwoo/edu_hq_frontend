@@ -3,7 +3,7 @@
 <ion-content>
   <app-row style="align-items: flex-start; height: 100%;">
     <app-col style="height: 100%;" size="3">
-      <app-card style="height: 100%; overflow: scroll;">
+      <app-card style="height: 475px;">
         <app-row>
           <app-col>
             <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
@@ -25,62 +25,63 @@
         </app-row>
 
         <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/main/emergency-manage.svg"></app-img>
             <h5>비상알림</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/ptw.svg"></app-img>
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/ptw.svg"></app-img>
             <h5>위험 작업 허가</h5>
           </app-col>
-          <app-col size="4" (click)="router('교육결과보고')">
-            <app-img style="width: 70%;" src="assets/img/menu/education-result-report.svg"></app-img>
+          <app-col size="3" (click)="router('교육결과보고')">
+            <app-img style="width: 60%;" src="assets/img/menu/education-result-report.svg"></app-img>
             <h5>교육 결과 보고</h5>
           </app-col>
-        </app-row>
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('위험성평가')">
-            <app-img style="width: 70%;" src="assets/img/menu/risk-evaluation-report.svg"></app-img>
+          <app-col size="3" (click)="router('위험성평가')">
+            <app-img style="width: 60%;" src="assets/img/menu/risk-evaluation-report.svg"></app-img>
             <h5>위험성 평가</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/mileage.svg"></app-img>
+        </app-row>
+        <app-row style="text-align: center;" class="pointer-class">
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/mileage.svg"></app-img>
             <h5>안전 마일리지</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/general-incongruity.svg"></app-img>
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/general-incongruity.svg"></app-img>
             <h5>부적합 관리</h5>
           </app-col>
-        </app-row>
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/equipment-management.svg"></app-img>
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/equipment-management.svg"></app-img>
             <h5>장비 관리</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/tbm record.svg"></app-img>           
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/tbm record.svg"></app-img>           
             <h5>TBM 일지</h5>
-          </app-col>
-          <app-col size="4" (click)="router('교육현황')">
-            <app-img style="width: 70%;" src="assets/img/menu/education-career.svg"></app-img>           
-            <h5>교육 현황</h5>
           </app-col>
         </app-row>
         <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/general-check.svg"></app-img>
+          <app-col size="3" (click)="router('교육현황')">
+            <app-img style="width: 60%;" src="assets/img/menu/education-career.svg"></app-img>           
+            <h5>교육 현황</h5>
+          </app-col>
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/menu/general-check.svg"></app-img>
             <h5>점검 현황</h5>
           </app-col>
-          <app-col size="4" (click)="router('출역현황')">
-            <app-img style="width: 70%;" src="assets/img/menu/output.svg"></app-img>           
+          <app-col size="3" (click)="router('출역현황')">
+            <app-img style="width: 60%;" src="assets/img/menu/output.svg"></app-img>           
             <h5>출역 현황</h5>
           </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/main/plus.svg"></app-img>           
+          <app-col size="3" (click)="router('')">
+            <app-img style="width: 60%;" src="assets/img/main/plus.svg"></app-img>           
             <h5>추가</h5>
           </app-col>
         </app-row>
-        <app-row style="height: 250px;">
+
+      </app-card>
+    
+        <app-row style="height: 235px;">
           <app-card style="height: 100%;">
             <ion-toolbar slot="top" color="white">
               <app-row>
@@ -99,7 +100,7 @@
             </app-row>
           </app-card>
         </app-row>
-      </app-card>
+     
     </app-col>
 
     <app-col style="height: 100%;">
@@ -269,7 +270,7 @@
               <app-col  style="width: 22%;"><h6>{{ education.special_data.excess ? education.special_data.excess : '-' }}</h6></app-col>
             </app-row>
             <app-row style="background-color: var(--ion-color-warning-translucent); border-radius: 5px; height:36px;">
-              <app-col  style="width: 30%; padding-left: 5px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
+              <app-col  style="width: 30%; padding-left: 5px; padding-bottom: 6px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.hire_data.necessary ? education.hire_data.necessary : '-' }}</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.regular_data.necessary ? education.regular_data.necessary : '-' }}</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.special_data.necessary ? education.special_data.necessary : '-' }}</h6></app-col>
@@ -279,7 +280,7 @@
       </app-row>
     </app-col>
     <app-col style="height: 100%;" size="3">
-      <app-card class="card-flex" style="height: 40%;">
+      <app-card class="card-flex" style="height: 41%;">
         <!-- <div>
           <app-row>
             <app-col style="display: flex; align-items: center;" routerLink="/my-page">
@@ -362,7 +363,7 @@
         </div>
         </app-card>
           <!-- //날씨 -->
-        <app-card class="card-flex" style="height: 58%;"> 
+        <app-card class="card-flex" style="height: 56%;"> 
         <div>
             <ion-toolbar slot="top" color="white">
               <app-row>
@@ -404,18 +405,18 @@
               <app-col style="border-right: 1px solid var(--ion-color-step-100);">
                 <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
                   <app-col>
+                    <h2>28&deg;C</h2>
+                  </app-col>
+                </app-row>
+                <app-row style="text-align: center;">
+                  <app-col>
                     <h5>최고기온</h5>
                   </app-col>
                   <app-col>
                     <h3>30&deg;C</h3>
                   </app-col>
                 </app-row>
-                <app-row style="text-align: center;">
-                  <app-col>
-                    <h2>28&deg;C</h2>
-                  </app-col>
-                </app-row>
-                <app-row style="text-align: center; text-align: center; border-top: 1px solid var(--ion-color-step-100);">
+                <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
                   <app-col>
                     <h5>최저기온</h5>
                   </app-col>
@@ -424,13 +425,13 @@
                   </app-col>
                 </app-row>
               </app-col>
-              <app-col>
+              <app-col style="text-align: center;">
                 <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
-                <app-img style="width: 100%;" src="assets/img/weather/01_day.svg"></app-img>
+                <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
               </app-col>
             </app-row>
             <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
-              <app-col>
+              <app-col style="padding-left: 0; padding-right: 0;">
                 <app-row class="title">
                   <app-col style="border-right: 1px solid var(--ion-color-step-100);">
                     <h5>강수량</h5>
@@ -442,7 +443,7 @@
                   </app-col>
                 </app-row>
               </app-col>
-              <app-col>
+              <app-col style="padding-left: 0; padding-right: 0;">
                 <app-row class="title">
                   <app-col style="border-right: 1px solid var(--ion-color-step-100);">
                     <h5>적설량</h5>
@@ -454,7 +455,7 @@
                   </app-col>
                 </app-row>
               </app-col>
-              <app-col>
+              <app-col style="padding-left: 0; padding-right: 0;">
                 <app-row class="title">
                   <app-col style="border-right: 1px solid var(--ion-color-step-100);">
                     <h5>최대풍속</h5>
@@ -466,7 +467,7 @@
                   </app-col>
                 </app-row>
               </app-col>
-              <app-col>
+              <app-col style="padding-left: 0; padding-right: 0;">
                 <app-row class="title">
                   <app-col>
                     <h5>미세먼지</h5>
