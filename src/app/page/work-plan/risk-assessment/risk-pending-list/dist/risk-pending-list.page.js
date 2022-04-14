@@ -45,8 +45,9 @@ exports.__esModule = true;
 exports.RiskPendingListPage = void 0;
 var core_1 = require("@angular/core");
 var RiskPendingListPage = /** @class */ (function () {
-    function RiskPendingListPage(connect) {
+    function RiskPendingListPage(connect, toast) {
         this.connect = connect;
+        this.toast = toast;
         this.form = {
             limit_no: 0
         };
@@ -58,6 +59,7 @@ var RiskPendingListPage = /** @class */ (function () {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
             var _a;
+            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -66,10 +68,16 @@ var RiskPendingListPage = /** @class */ (function () {
                         return [4 /*yield*/, this.connect.run('/risk/assessment/approval/req/get', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
-                        if (this.res.rsCode === 0 || this.res.rsCode === 1008) {
+                        if (this.res.rsCode === 0) {
+                            this.res.rsMap.forEach(function (item, i) {
+                                item.index = _this.res.rsObj.row_count - _this.form.limit_no - i;
+                            });
+                        }
+                        else if (this.res.rsCode === 1008) {
+                            // 암것도 안함
                         }
                         else {
-                            // this.
+                            this.toast.present({ color: 'warning', message: this.res.rsMsg });
                         }
                         return [2 /*return*/];
                 }
