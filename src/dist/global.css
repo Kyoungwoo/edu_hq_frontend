@@ -534,3 +534,7 @@
 :root app-select.use-state-class app-input-template {
   margin-top: 0 !important;
 }
+
+ion-modal ion-backdrop {
+  pointer-events: none;
+}
