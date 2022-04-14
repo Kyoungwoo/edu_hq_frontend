@@ -46,6 +46,7 @@ exports.WorkerMinutesListPage = exports.SafetyMeetingInfo = void 0;
 var core_1 = require("@angular/core");
 var worker_minutes_detail_search_page_1 = require("../worker-minutes-detail-search/worker-minutes-detail-search.page");
 var worker_minutes_edit_page_1 = require("../worker-minutes-edit/worker-minutes-edit.page");
+var worker_minutes_pending_list_page_1 = require("../worker-minutes-pending-list/worker-minutes-pending-list.page");
 var worker_minutes_select_type_page_1 = require("../worker-minutes-select-type/worker-minutes-select-type.page");
 var SafetyMeetingInfo = /** @class */ (function () {
     function SafetyMeetingInfo() {
@@ -300,9 +301,17 @@ var WorkerMinutesListPage = /** @class */ (function () {
      */
     WorkerMinutesListPage.prototype.pending = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var modal;
             return __generator(this, function (_a) {
-                this.nav.navigateForward('/confirm-pending-list');
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: worker_minutes_pending_list_page_1.WorkerMinutesPendingListPage
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
             });
         });
     };

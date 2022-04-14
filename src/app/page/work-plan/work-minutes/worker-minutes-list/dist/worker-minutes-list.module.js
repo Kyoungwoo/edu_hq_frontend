@@ -18,6 +18,7 @@ var basic_component_module_1 = require("src/app/basic/component/basic.component.
 var worker_minutes_detail_search_module_1 = require("../worker-minutes-detail-search/worker-minutes-detail-search.module");
 var worker_minutes_select_type_module_1 = require("../worker-minutes-select-type/worker-minutes-select-type.module");
 var worker_minutes_edit_module_1 = require("../worker-minutes-edit/worker-minutes-edit.module");
+var worker_minutes_pending_list_module_1 = require("../worker-minutes-pending-list/worker-minutes-pending-list.module");
 var WorkerMinutesListPageModule = /** @class */ (function () {
     function WorkerMinutesListPageModule() {
     }
@@ -35,7 +36,9 @@ var WorkerMinutesListPageModule = /** @class */ (function () {
                 // 신규작성 시, 타입 선택
                 worker_minutes_select_type_module_1.WorkerMinutesSelectTypePageModule,
                 // 수정 페이지
-                worker_minutes_edit_module_1.WorkerMinutesEditPageModule
+                worker_minutes_edit_module_1.WorkerMinutesEditPageModule,
+                // 미결함
+                worker_minutes_pending_list_module_1.WorkerMinutesPendingListPageModule
             ],
             declarations: [worker_minutes_list_page_1.WorkerMinutesListPage]
         })

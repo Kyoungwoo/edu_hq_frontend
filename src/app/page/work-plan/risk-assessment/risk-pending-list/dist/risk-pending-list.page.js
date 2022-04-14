@@ -44,10 +44,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.RiskPendingListPage = void 0;
 var core_1 = require("@angular/core");
+var risk_evaluation_edit_page_1 = require("../risk-evaluation-edit/risk-evaluation-edit.page");
 var RiskPendingListPage = /** @class */ (function () {
-    function RiskPendingListPage(connect, toast) {
+    function RiskPendingListPage(connect, toast, _modal) {
         this.connect = connect;
         this.toast = toast;
+        this._modal = _modal;
         this.form = {
             limit_no: 0
         };
@@ -119,6 +121,25 @@ var RiskPendingListPage = /** @class */ (function () {
                         setTimeout(function () {
                             $event.target.complete();
                         }, 50);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RiskPendingListPage.prototype.edit = function (item) {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: risk_evaluation_edit_page_1.RiskEvaluationEditPage,
+                            componentProps: {
+                                risk_asment_id: item.risk_asment_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
                         return [2 /*return*/];
                 }
             });

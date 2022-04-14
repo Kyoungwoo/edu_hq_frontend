@@ -145,10 +145,10 @@
   <app-row>
     <app-col></app-col>
     <app-col size="auto">
-      <app-button fill="translucent" (click)="add()">신규등록</app-button>
+      <app-button fill="translucent" (click)="pending()">미결문서</app-button>
     </app-col>
   </app-row>
-  <app-card *ngFor="let item of res?.rsMap">
+  <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
     <app-row>
       <app-col>
         <h5>{{ item.ctgo_approval_module_name }}</h5>

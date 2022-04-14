@@ -38,23 +38,3 @@
 .approval-group .approval-col .approval-date {
   font-size: 12px;
 }
-
-app-card {
-  border-radius: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  box-shadow: none;
-  border-bottom: 1px solid var(--ion-color-step-100);
-}
-
-.mobile-approval-type {
-  font-size: 12px;
-}
-
-.mobile-approval-name {
-  font-size: 13px;
-}
-
-.mobile-approval-date {
-  font-size: 11px;
-}

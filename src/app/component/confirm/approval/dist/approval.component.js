@@ -71,6 +71,7 @@ var ApprovalComponent = /** @class */ (function () {
             approval_id: null
         };
         this.btnList = [];
+        this.isApprovalHidden = true;
         /** 결재 버튼 클릭 */
         this.approvalForm = {
             approval_id: null,
@@ -524,6 +525,12 @@ var ApprovalComponent = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * 모바일 레이아웃에서 결재선을 토글한다.
+     */
+    ApprovalComponent.prototype.approvalToggle = function () {
+        this.isApprovalHidden = !this.isApprovalHidden;
     };
     __decorate([
         core_1.Input()

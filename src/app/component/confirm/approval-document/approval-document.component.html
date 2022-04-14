@@ -1,0 +1,14 @@
+<app-card *mobileShow [button]="true" class="document-toggle-button" (click)="documentToggle()">
+  <app-row>
+    <app-col>
+      <h5>결재문서</h5>
+    </app-col>
+    <app-col size="auto">
+      <ion-icon color="primary" name="chevron-down-circle"></ion-icon>
+    </app-col>
+  </app-row>
+</app-card>
+
+<div class="document-layout" [class.hidden]="isDocumentHidden">
+  <ng-content></ng-content>
+</div>

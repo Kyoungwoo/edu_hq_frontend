@@ -10,7 +10,7 @@ import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approv
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
-import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -104,6 +104,7 @@ export class RiskEvaluationEditPage implements OnInit {
   }
 
   riskTableList:RiskTableItem[] = [];
+  approval_answer:AnswerObj[];
   approval_comment:CommentObj[];
 
   constructor(
@@ -421,8 +422,13 @@ export class RiskEvaluationEditPage implements OnInit {
       this.permission.tableEdit = false;
     }
 
+    /** 결재자들을 가지고 온다.(모바일 화면 용) */
+    this.approval_answer = ev.approval_data[0].answer_datas;
     /** 결재자 의견을 가지고 온다. */
     this.approval_comment = ev.approval_comment;
+
+    /** 모바일 화면에서는 테이블 편집이 안된다. */
+    this.permission.tableEdit = false;
   }
 
   public async add() {

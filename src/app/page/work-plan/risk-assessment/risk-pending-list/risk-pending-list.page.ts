@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
+import { RiskEvaluationEditPage } from '../risk-evaluation-edit/risk-evaluation-edit.page';
 
 @Component({
   selector: 'app-risk-pending-list',
@@ -36,7 +38,8 @@ export class RiskPendingListPage implements OnInit {
 
   constructor(
     private connect: ConnectService,
-    private toast: ToastService
+    private toast: ToastService,
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {
@@ -87,5 +90,15 @@ export class RiskPendingListPage implements OnInit {
     setTimeout(() => {
       $event.target.complete();
     }, 50);
+  }
+
+  async edit(item) {
+    const modal = await this._modal.create({
+      component:RiskEvaluationEditPage,
+      componentProps: {
+        risk_asment_id: item.risk_asment_id
+      }
+    });
+    modal.present();
   }
 }

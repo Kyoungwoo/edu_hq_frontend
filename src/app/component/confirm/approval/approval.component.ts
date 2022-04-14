@@ -80,6 +80,8 @@ export class ApprovalComponent implements OnInit {
 
   btnList = [];
 
+  isApprovalHidden:boolean = true;
+
   constructor(
     private user: UserService,
     private connect: ConnectService,
@@ -393,5 +395,12 @@ export class ApprovalComponent implements OnInit {
     else  {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+  }
+
+  /**
+   * 모바일 레이아웃에서 결재선을 토글한다.
+   */
+  approvalToggle() {
+    this.isApprovalHidden = !this.isApprovalHidden;
   }
 }

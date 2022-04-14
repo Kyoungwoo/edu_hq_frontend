@@ -5,3 +5,10 @@
   display: flex;
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  ion-content {
+    --padding-start: 0;
+    --padding-end: 0;
+  }
+}

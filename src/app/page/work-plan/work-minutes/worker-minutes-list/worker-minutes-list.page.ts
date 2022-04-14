@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/worker-minutes-detail-search.page';
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
+import { WorkerMinutesPendingListPage } from '../worker-minutes-pending-list/worker-minutes-pending-list.page';
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
 
 export class SafetyMeetingInfo {
@@ -224,10 +225,9 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    * 미결함으로 이동
    */
    async pending() {
-    this.nav.navigateForward('/confirm-pending-list');
-    /* const modal = await this._modal.create({
-      component:EducationConfirmPendingListPage,
+    const modal = await this.modal.create({
+      component: WorkerMinutesPendingListPage,
     });
-    modal.present(); */
+    modal.present();
   }
 }
