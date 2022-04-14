@@ -224,9 +224,11 @@ export class RiskEvaluationEditPage implements OnInit {
    */
   resetForDuplicate() {
     this.form.approval_id = null;
+
+    // 복사 시, 이거 진짜 어케해야될 지 모르겠음. GG
     setTimeout(() => {
       this.isDuplicate = false;
-    }, 2000);
+    }, 3000);
   }
 
   /**

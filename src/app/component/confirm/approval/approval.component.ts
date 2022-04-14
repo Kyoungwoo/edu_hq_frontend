@@ -308,7 +308,7 @@ export class ApprovalComponent implements OnInit {
         item.approval_id = null;
         item.approval_answer = null;
         item.approval_date = null;
-      })
+      });
     }
 
     this.change.emit(this.getClickEvent());
