@@ -86,3 +86,26 @@ ion-header .ttet .toolbar-container .toolbar-content {
   border-radius: 5px;
   margin-right: 16px;
 }
+
+.form-weather-toolbar {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+.form-weather-toolbar .weather {
+  margin-right: 30px;
+}
+.form-weather-toolbar .weather-temp {
+  font-size: 25px;
+  font-weight: bold;
+}
+.form-weather-toolbar .ratio {
+  font-size: 15px;
+  color: var(--ion-color-primary);
+}
+.form-weather-toolbar .colstyle {
+  margin-right: 15px;
+}
+.form-weather-toolbar .title {
+  font-size: 15px;
+  margin-bottom: 4px;
+}

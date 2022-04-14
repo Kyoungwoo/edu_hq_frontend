@@ -46,13 +46,15 @@ exports.MonitorComponent = void 0;
 var core_1 = require("@angular/core");
 var side_menu_admin_component_1 = require("../../side-menu/side-menu-admin/side-menu-admin.component");
 var MonitorComponent = /** @class */ (function () {
-    function MonitorComponent(animationCtrl, modal, nav, adminMenu, activedRoute, user) {
+    function MonitorComponent(animationCtrl, modal, nav, adminMenu, activedRoute, user, connect, device) {
         this.animationCtrl = animationCtrl;
         this.modal = modal;
         this.nav = nav;
         this.adminMenu = adminMenu;
         this.activedRoute = activedRoute;
         this.user = user;
+        this.connect = connect;
+        this.device = device;
         this.tabList = [
             { text: '통합관제',
                 data: '통합관제'
@@ -65,32 +67,132 @@ var MonitorComponent = /** @class */ (function () {
             }
         ];
         this.tabActive = this.tabList[0];
+        this.weather = {
+            weather_speed: "",
+            weather_id: "",
+            weather_temp: "",
+            avg_temp: 0,
+            weather_icon: "",
+            create_date: "",
+            weather_main: "",
+            weather_humidity: "",
+            weather_rain: "",
+            weather_snow: "",
+            high_weather_temp: "",
+            low_weather_temp: "" // 최저 기온(온도),
+        };
+        this.dust = {
+            dataTime: "",
+            grade_name: "",
+            icon_url: "",
+            pm10Value: 0,
+            pm25Grade: 0
+        };
     }
     MonitorComponent.prototype.ngOnInit = function () {
-        var monitor = this.activedRoute.snapshot.queryParams.monitor;
-        switch (monitor) {
-            case '통합관제':
-                this.tabActive = this.tabList[0];
-                break;
-            case 'CCTV 모니터링':
-                this.tabActive = this.tabList[1];
-                break;
-            case '근로자 실시간 위치 모니터링':
-                this.tabActive = this.tabList[2];
-                break;
-        }
+        var _this = this;
+        this.$activedRoute = this.activedRoute.queryParams.subscribe(function (params) {
+            var monitor = params.monitor;
+            switch (monitor) {
+                case '통합관제':
+                    _this.tabActive = _this.tabList[0];
+                    break;
+                case 'CCTV 모니터링':
+                    _this.tabActive = _this.tabList[1];
+                    break;
+                case '근로자 실시간 위치 모니터링':
+                    _this.tabActive = _this.tabList[2];
+                    break;
+            }
+        });
+        this.IntervalWeather_Dust();
     };
-    MonitorComponent.prototype.tabClick = function (tab, i) {
-        this.tabActive = tab;
+    MonitorComponent.prototype.ngOnDestroy = function () {
+        this.$activedRoute.unsubscribe();
+        clearInterval(this.intervalWeather_Dust);
     };
-    MonitorComponent.prototype.ngOnDestroy = function () { };
+    /**
+     * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드
+     */
+    MonitorComponent.prototype.IntervalWeather_Dust = function () {
+        var _this = this;
+        this.intervalWeather_Dust = setInterval(function () {
+            _this.getWeather();
+            _this.getDust();
+        }, 1800000);
+        this.getWeather();
+        this.getDust();
+    };
+    /**
+     * @function getWeather(): 날씨 데이터를 가져오는 메서드
+     */
+    MonitorComponent.prototype.getWeather = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/weather/get')];
+                    case 1:
+                        res = _a.sent();
+                        switch (res.rsCode) {
+                            case 0:
+                                this.weather = res.rsObj;
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * @function getDust(): 미세먼지 데이터를 가져오는 메서드
+     */
+    MonitorComponent.prototype.getDust = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/dust/get')];
+                    case 1:
+                        res = _a.sent();
+                        switch (res.rsCode) {
+                            case 0:
+                                this.dust = res.rsObj;
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     MonitorComponent.prototype.main = function () {
         var userData = this.user.userData;
-        if (userData.user_type === 'COMPANY') {
-            this.nav.navigateRoot('/main-sub-admin');
+        if (this.device.platform_type < 3) {
+            if (userData.user_type === 'COMPANY') {
+                this.nav.navigateRoot('/main-sub-admin');
+            }
+            else {
+                this.nav.navigateRoot('/main-admin');
+            }
         }
         else {
-            this.nav.navigateRoot('/main-admin');
+            switch (userData.user_type) {
+                case 'LH':
+                case 'SUPER':
+                    this.nav.navigateRoot('/main-user');
+                    break;
+                case 'COMPANY':
+                    if (userData.user_role === 'MASTER_HEAD' || userData.user_role === 'MASTER_GENERAL') {
+                        this.nav.navigateRoot('/main-user-master');
+                    }
+                    else {
+                        this.nav.navigateRoot('/main-user-partner');
+                    }
+                    break;
+                case 'WORKER':
+                    this.nav.navigateRoot('/main-user-worker');
+                    break;
+            }
         }
     };
     MonitorComponent.prototype.openSideMenu = function () {
@@ -141,6 +243,9 @@ var MonitorComponent = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.Input()
+    ], MonitorComponent.prototype, "form");
     MonitorComponent = __decorate([
         core_1.Injectable({
             providedIn: 'root'

@@ -87,7 +87,6 @@ var MonitorPage = /** @class */ (function () {
         this.route = route;
         this.user = user;
         this.date = date;
-        this.menu = 1;
         this.form = {
             project_id: 1,
             master_company_id: 4,
@@ -125,28 +124,6 @@ var MonitorPage = /** @class */ (function () {
             ctgo_machine_serial_id: 0,
             machine_count: 0,
             mmachine_using_count: 0 // 사용중 스마트장비 수
-        };
-        this.menuCount = 1;
-        this.weather = {
-            weather_speed: "",
-            weather_id: "",
-            weather_temp: "",
-            avg_temp: 0,
-            weather_icon: "",
-            create_date: "",
-            weather_main: "",
-            weather_humidity: "",
-            weather_rain: "",
-            weather_snow: "",
-            high_weather_temp: "",
-            low_weather_temp: "" // 최저 기온(온도),
-        };
-        this.dust = {
-            dataTime: "",
-            grade_name: "",
-            icon_url: "",
-            pm10Value: 0,
-            pm25Grade: 0
         };
         this.scandata = "http://m.site.naver.com/0TGMk";
         this.maxIndex = 300;
@@ -189,10 +166,6 @@ var MonitorPage = /** @class */ (function () {
         this.gpsData = new connect_service_1.ConnectResult();
         this.gps_log_id = [];
         this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
-        // testData = {
-        //   gps_latitude:[127.105399,127.2715984,127.1809612], // x, 위도
-        //   gps_longitude:[37.3595704,37.5398721,37.5660017]// y, 경도
-        // }
         this.data = {
             monitor: '통합관제'
         };
@@ -200,18 +173,17 @@ var MonitorPage = /** @class */ (function () {
     MonitorPage.prototype.ngOnInit = function () {
         var _this = this;
         this.$activedRoute = this.route.queryParams.subscribe(function (params) {
+            var monitor = params.monitor;
             _this.data = {
-                monitor: params.monitor
+                monitor: monitor || '통합관제'
             };
         });
-        this.intervalMethodController();
         this.methodContrroller();
     };
     /**
      * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
      */
     MonitorPage.prototype.ngOnDestroy = function () {
-        clearInterval(this.intervalWeather_Dust);
         this.$activedRoute.unsubscribe();
     };
     /**
@@ -223,29 +195,6 @@ var MonitorPage = /** @class */ (function () {
         this.getTodayWorker(); // 금일 출역 작업자
         this.getTodayConstruction(); // 공종별 출역 작업자
         this.getSmartEquip(); // 스마트 안전장비 
-    };
-    /**
-     * @function intervalMethodController(): 인터벌이 포함되어있는 메서드를
-     */
-    MonitorPage.prototype.intervalMethodController = function () {
-        this.IntervalWeather_Dust(); // 날씨 및 미세먼지
-        /**
-         * 날씨와 미세먼지는 인터벌이있기때문에 처음에 한번은 불러와줘야합니다.
-         * @function this.getDust()
-         * @function this.getWeather()
-         */
-        this.getDust(); // 미세먼지
-        this.getWeather(); // 날씨
-    };
-    /**
-     * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드
-     */
-    MonitorPage.prototype.IntervalWeather_Dust = function () {
-        var _this = this;
-        this.intervalWeather_Dust = setInterval(function () {
-            _this.getDust();
-            _this.getWeather();
-        }, 1800000);
     };
     /**
      * @function getTodayWorker(): 금일 출역 작업자 데이터를 가져오는 메서드
@@ -262,21 +211,6 @@ var MonitorPage = /** @class */ (function () {
                             case 0:
                                 total_1 = 0;
                                 this.todayWork = res;
-                                // theme
-                                // this.todayWork.rsMap[0].company_worker = Number(300);
-                                // this.todayWork.rsMap[0].master_worker = Number(200);
-                                // this.todayWork.rsMap[1].company_worker = Number(43);
-                                // this.todayWork.rsMap[1].master_worker = Number(90);
-                                // this.todayWork.rsMap[2].company_worker = Number(111);
-                                // this.todayWork.rsMap[2].master_worker = Number(76);
-                                // this.todayWork.rsMap[3].company_worker = Number(172);
-                                // this.todayWork.rsMap[3].master_worker = Number(222);
-                                // this.todayWork.rsMap[4].company_worker = Number(95);
-                                // this.todayWork.rsMap[4].master_worker = Number(66);
-                                // this.todayWork.rsMap[5].company_worker = Number(1);
-                                // this.todayWork.rsMap[5].master_worker = Number(2);
-                                // this.todayWork.rsMap[6].company_worker = Number(7);
-                                // this.todayWork.rsMap[6].master_worker = Number(3);
                                 this.todayWork.rsMap.map(function (item) { total_1 = total_1 + item.master_worker + item.company_worker; });
                                 this.todayWork_totalCount = total_1;
                                 total_arr_1 = [];
@@ -311,16 +245,6 @@ var MonitorPage = /** @class */ (function () {
                             case 0:
                                 total_2 = 0;
                                 this.todayConstruction = res;
-                                // theme
-                                // this.todayConstruction.rsMap[0].cnt = Number(66);
-                                // this.todayConstruction.rsMap[1].cnt = Number(55);
-                                // this.todayConstruction.rsMap[2].cnt = Number(43);
-                                // this.todayConstruction.rsMap[3].cnt = Number(88);
-                                // this.todayConstruction.rsMap[4].cnt = Number(44);
-                                // this.todayConstruction.rsMap[5].cnt = Number(11);
-                                // this.todayConstruction.rsMap[6].cnt = Number(33);
-                                // this.todayConstruction.rsMap[7].cnt = Number(22);
-                                // this.todayConstruction.rsMap[8].cnt = Number(77);
                                 this.todayConstruction.rsMap.map(function (item) { total_2 = total_2 + item.cnt; });
                                 this.todayConstruction_totalCount = total_2;
                                 total_arr_2 = [];
@@ -424,58 +348,6 @@ var MonitorPage = /** @class */ (function () {
             });
         });
     };
-    /**
-     * @function getWeather(): 날씨 데이터를 가져오는 메서드
-     */
-    MonitorPage.prototype.getWeather = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/weather/get', null, {})];
-                    case 1:
-                        res = _a.sent();
-                        switch (res.rsCode) {
-                            case 0:
-                                this.weather = res.rsObj;
-                                break;
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * @function getDust(): 미세먼지 데이터를 가져오는 메서드
-     */
-    MonitorPage.prototype.getDust = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/dust/get', null, {})];
-                    case 1:
-                        res = _a.sent();
-                        switch (res.rsCode) {
-                            case 0:
-                                this.dust = res.rsObj;
-                                break;
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    // graphData() {
-    //   let index = Math.ceil(this.maxIndex/100);
-    //   console.log("index",index);
-    //   if(this.maxIndex/100 !== 0) {
-    //     for(let i= 0; i<index; i++){
-    //       this.graphArrCount.push(i);
-    //     }
-    //   }
-    //   this.graphArrCount.push(index);
-    // }
     MonitorPage.prototype.wokerInGetList = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
@@ -568,22 +440,3 @@ var MonitorPage = /** @class */ (function () {
     return MonitorPage;
 }());
 exports.MonitorPage = MonitorPage;
-// async getWeatherGroup() {
-// const resultDust = await Promise.all([    
-//   this.getDust()
-// ])
-// const resultWeather = await Promise.all([
-//   this.getWeather()
-// ])
-// const weatherResult = resultWeather[0];
-// const DustResult = resultDust[0];
-// console.log("DustResult",DustResult)
-// const timeDiffweather = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
-// const timeDiffDust = new Date().getTime() - new Date(DustResult.rsObj.dataTime).getTime();
-// this.timeoutWeather = setTimeout(async() => {
-//   this.getWeatherGroup();
-// }, (1000 * 60 * 60 * 3.1) - timeDiffweather);
-// this.timeoutDust = setTimeout(async() => {
-//   this.getWeatherGroup();
-// }, (1000 * 60 * 60 * 1.1) - timeDiffDust);
-// }

@@ -1,141 +1,9 @@
-<app-moniter-header *mobileHidden></app-moniter-header>
-
-<ion-toolbar *mobileHidden color="white">
-
-  <app-row>
-    <app-col>
-      <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id"
-        [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"
-        [(ngModel)]="form.master_company_id"></app-select-contractor>
-    </app-col>
-    <app-col></app-col>
-    <app-col></app-col>
-    <app-col size="auto">
-      <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
-        <app-img style="width: 55px;" src="assets/img/weather/01_day.svg"></app-img>
-      </app-button>
-    </app-col>
-    <app-col size="auto" class="weather">
-      <app-row class="weather-temp">
-        {{ weather.weather_temp + "&deg;C" }}
-      </app-row>
-      <app-row class="ratio">
-        {{ weather.high_weather_temp + "&deg;C" }}
-        {{ weather.low_weather_temp + "&deg;C" }}
-      </app-row>
-    </app-col>
-    <app-col class="colstyle" size="auto">
-      <app-row class="title">
-        강수량
-      </app-row>
-      <app-row class="ratio">
-        {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
-      </app-row>
-    </app-col>
-    <app-col class="colstyle" size="auto">
-      <app-row class="title">
-        적설량
-      </app-row>
-      <app-row class="ratio">
-        {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
-      </app-row>
-    </app-col>
-    <app-col class="colstyle" size="auto">
-      <app-row class="title">
-        최대풍속
-      </app-row>
-      <app-row class="ratio">
-        {{ weather.weather_speed + "m/s" }}
-      </app-row>
-    </app-col>
-    <app-col class="colstyle" size="auto">
-      <app-row class="title">
-        미세먼지
-      </app-row>
-      <app-row class="ratio">
-        <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
-        {{ dust.grade_name}}
-      </app-row>
-    </app-col>
-  </app-row>
-
-</ion-toolbar>
-
-<div *mobileHidden>
-  <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-    <app-col>
-      <app-select-company [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-company>
-    </app-col>
-    <app-col>
-      <app-select label="근로자 구분" [(ngModel)]="form.user_type">
-        <app-select-option value="전체">전체</app-select-option>
-        <app-select-option value="관리자">관리자</app-select-option>
-        <app-select-option value="작업자">작업자</app-select-option>
-      </app-select>
-    </app-col>
-    <app-col>
-      <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id"
-        [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
-    </app-col>
-  </app-row>
-  <ng-container *mobileShow>
-    <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-      <app-col>
-        <app-select [disabled]="true" label="위험공종">
-          <app-select-option>전체</app-select-option>
-        </app-select>
-      </app-col>
-      <app-col>
-        <app-select [disabled]="true" label="작업상태">
-          <app-select-option>전체</app-select-option>
-        </app-select>
-      </app-col>
-      <app-col>
-        <app-input label="검색" [(ngModel)]="form.search_text" (keyup.enter)="wokerInGetList()"
-          placeholder="검색어를 입력해 주세요.">
-          <app-img (click)="wokerInGetList()" name="search">검색</app-img>
-        </app-input>
-      </app-col>
-    </app-row>
-  </ng-container>
-
-  <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-    <app-col>
-      <app-select [disabled]="true" label="위험공종">
-        <app-select-option>전체</app-select-option>
-      </app-select>
-    </app-col>
-    <app-col>
-      <app-select [disabled]="true" label="작업상태">
-        <app-select-option>전체</app-select-option>
-      </app-select>
-    </app-col>
-    <app-col>
-      <app-input label="검색" [(ngModel)]="form.search_text" (keyup.enter)="wokerInGetList()" placeholder="검색어를 입력해 주세요.">
-        <app-img (click)="wokerInGetList()" name="search">검색</app-img>
-      </app-input>
-    </app-col>
-  </app-row>
-</div>
-
-<ion-toolbar color="white" *mobileShow>
-  <app-row>
-    <app-col>
-      <ion-segment color="primary" [value]="1">
-        <ion-segment-button (click)="menu = 1" [value]="1">통합관제</ion-segment-button>
-        <ion-segment-button (click)="menu = 2">CCTV모니터링</ion-segment-button>
-        <ion-segment-button (click)="menu = 3">근로자 실시간<br>위치 모니터링</ion-segment-button>
-      </ion-segment>
-    </app-col>
-  </app-row>
-</ion-toolbar>
+<app-moniter-header [form]="form"></app-moniter-header>
 
 <ion-content>
-  <div [style.display]="menu === 1 ? 'block' : 'none'">
-    <app-row style="align-items: flex-start;" *ngIf="data.monitor === '통합관제' || !data.monitor">
+
+  <div *ngIf="data.monitor === '통합관제'">
+    <app-row style="align-items: flex-start;">
       <app-col>
         <app-card color="white">
           <app-row style="align-items: stretch;">
@@ -654,175 +522,120 @@
     </app-row>
   </div>
 
-  <ng-container *mobileShow>
-    <div [style.display]="menu === 2 ? 'block' : 'none'">
-      <app-card>
-        <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
-        <ion-row style="align-items: flex-start;">
-          <app-col>
-            <h4>CCTV 설치장소1</h4>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent">수정</app-button>
-          </app-col>
-        </ion-row>
-        <app-row>
-          <app-col style="position: relative;">
-            <div style="border: 1px solid; height: 500px; position: relative;">
-            </div>
-          </app-col>
-        </app-row>
-      </app-card>
-    </div>
-  </ng-container>
+  <div *ngIf="data.monitor === 'CCTV 모니터링'">
 
-  <ng-container *mobileHidden>
-    <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
-      <app-col>
-        <app-card color="white">
-          <app-row style="align-items: stretch;">
-            <app-col class="donut-group">
-              <app-row>
-                <app-col>
-                  <h4>CCTV 설치 장소 1</h4>
-                </app-col>
-                <app-col></app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent">수정</app-button>
-                </app-col>
-              </app-row>
-              <app-row>
-                <app-col style="position: relative;">
-                  <div style="border: 1px solid; height: 500px; position: relative;">
-                  </div>
-                </app-col>
-              </app-row>
-            </app-col>
+    <app-card>
+      <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
+      <ion-row style="align-items: flex-start;">
+        <app-col>
+          <h4>CCTV 설치장소1</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">수정</app-button>
+        </app-col>
+      </ion-row>
+      <app-row>
+        <app-col style="position: relative;">
+          <div style="border: 1px solid; height: 500px; position: relative;">
+          </div>
+        </app-col>
+      </app-row>
+    </app-card>
 
-            <app-col class="donut-group">
-              <app-row>
-                <app-col>
-                  <h4>CCTV 설치 장소 2</h4>
-                </app-col>
-                <app-col></app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent">수정</app-button>
-                </app-col>
-              </app-row>
-              <app-row>
-                <app-col style="position: relative;">
-                  <div style="border: 1px solid; height: 500px; position: relative;">
-                  </div>
-                </app-col>
-              </app-row>
-            </app-col>
-          </app-row>
-        </app-card>
-      </app-col>
-    </app-row>
+    <ng-container *mobileHidden>
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <app-card color="white">
+            <app-row style="align-items: stretch;">
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>CCTV 설치 장소 1</h4>
+                  </app-col>
+                  <app-col></app-col>
+                  <app-col size="auto">
+                    <app-button fill="translucent">수정</app-button>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="position: relative;">
+                    <div style="border: 1px solid; height: 500px; position: relative;">
+                    </div>
+                  </app-col>
+                </app-row>
+              </app-col>
+  
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>CCTV 설치 장소 2</h4>
+                  </app-col>
+                  <app-col></app-col>
+                  <app-col size="auto">
+                    <app-button fill="translucent">수정</app-button>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="position: relative;">
+                    <div style="border: 1px solid; height: 500px; position: relative;">
+                    </div>
+                  </app-col>
+                </app-row>
+              </app-col>
+            </app-row>
+          </app-card>
+        </app-col>
+      </app-row>
+  
+  
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <app-card color="white">
+            <app-row style="align-items: stretch;">
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>CCTV 설치 장소 3</h4>
+                  </app-col>
+                  <app-col></app-col>
+                  <app-col size="auto">
+                    <app-button fill="translucent">수정</app-button>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="position: relative;">
+                    <div style="border: 1px solid; height: 500px; position: relative;">
+                    </div>
+                  </app-col>
+                </app-row>
+              </app-col>
+  
+              <app-col class="donut-group">
+                <app-row>
+                  <app-col>
+                    <h4>CCTV 설치 장소 4</h4>
+                  </app-col>
+                  <app-col></app-col>
+                  <app-col size="auto">
+                    <app-button fill="translucent">수정</app-button>
+                  </app-col>
+                </app-row>
+                <app-row>
+                  <app-col style="position: relative;">
+                    <div style="border: 1px solid; height: 500px; position: relative;">
+                    </div>
+                  </app-col>
+                </app-row>
+              </app-col>
+            </app-row>
+          </app-card>
+        </app-col>
+      </app-row>
+    </ng-container>
+  </div>
 
-
-    <app-row style="align-items: flex-start;" *ngIf="data.monitor === 'CCTV 모니터링'">
-      <app-col>
-        <app-card color="white">
-          <app-row style="align-items: stretch;">
-            <app-col class="donut-group">
-              <app-row>
-                <app-col>
-                  <h4>CCTV 설치 장소 3</h4>
-                </app-col>
-                <app-col></app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent">수정</app-button>
-                </app-col>
-              </app-row>
-              <app-row>
-                <app-col style="position: relative;">
-                  <div style="border: 1px solid; height: 500px; position: relative;">
-                  </div>
-                </app-col>
-              </app-row>
-            </app-col>
-
-            <app-col class="donut-group">
-              <app-row>
-                <app-col>
-                  <h4>CCTV 설치 장소 4</h4>
-                </app-col>
-                <app-col></app-col>
-                <app-col size="auto">
-                  <app-button fill="translucent">수정</app-button>
-                </app-col>
-              </app-row>
-              <app-row>
-                <app-col style="position: relative;">
-                  <div style="border: 1px solid; height: 500px; position: relative;">
-                  </div>
-                </app-col>
-              </app-row>
-            </app-col>
-          </app-row>
-        </app-card>
-      </app-col>
-    </app-row>
-  </ng-container>
-
-  <ng-container *mobileHidden>
-    <app-row *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-      <app-col>
-        <app-card>
-          <app-row style="align-items: flex-start;">
-            <app-col>
-              <app-naver-user-map [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
-            </app-col>
-            <app-col size="4">
-              <ion-toolbar color="light">
-                <h5>출역한 근로자 목록 (총 {{ workerInRes?.rsObj?.row_count || 0}}건)</h5>
-              </ion-toolbar>
-              <app-table>
-                <thead>
-                  <tr>
-                    <th>회사명</th>
-                    <th>성명</th>
-                    <th>공종</th>
-                    <th>근로자 구분</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of workerInRes?.rsMap">
-                    <td>{{ item.company_name }}</td>
-                    <td>{{ item.user_name }}</td>
-                    <td>{{ item.ctgo_construction_name }}</td>
-                    <td>{{ item.user_type }}</td>
-                  </tr>
-                </tbody>
-              </app-table>
-            </app-col>
-          </app-row>
-        </app-card>
-      </app-col>
-    </app-row>
-    <!-- <app-row *mobileShow>
-      <app-col>
-        <app-naver-user-map (change)="test($event)" [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
-      </app-col>
-    </app-row> -->
-  </ng-container>
-
-  <ng-container *mobileShow>
-    <div [style.display]="menu === 3 ? 'block' : 'none'">
-      <app-card>
-        <app-row>
-          <app-col>
-            <app-button fill="translucent" (click)="realtimeedit()">상세</app-button>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <app-naver-user-map [(ngModel)]="gpsData.rsMap"></app-naver-user-map>
-          </app-col>
-        </app-row>
-      </app-card>
-    </div>
-  </ng-container>
+  <div *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
+    
+  </div>
+  
 </ion-content>

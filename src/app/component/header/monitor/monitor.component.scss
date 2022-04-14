@@ -100,3 +100,30 @@ ion-header{
         margin-right: 16px;
     }
 }
+
+// form과 날짜, 미세먼지가 있는 row
+
+.form-weather-toolbar {
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    
+    .weather {
+        margin-right: 30px;
+    }
+    .weather-temp {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .ratio {
+        font-size: 15px;
+        color:var(--ion-color-primary);
+    }
+    
+    .colstyle{
+        margin-right: 15px;
+    }
+    .title { 
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+}
