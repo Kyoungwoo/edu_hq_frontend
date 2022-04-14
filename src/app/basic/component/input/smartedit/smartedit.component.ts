@@ -50,7 +50,7 @@ export class SmarteditComponent implements OnInit {
 
   smartEditor(){
     nhn.husky.EZCreator.createInIFrame({
-      // bUseBlocker: this._disabled,
+      bUseBlocker: this._disabled,
       oAppRef: this.oEditors,
       elPlaceHolder: "smartEditor",  //textarea ID 입력
       // sSkinURI: "/libs/smarteditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
@@ -65,7 +65,7 @@ export class SmarteditComponent implements OnInit {
         bUseModeChanger : false
       }
     });
-    console.log(nhn.husky.EZCreator);
+    // console.log(nhn.husky.EZCreator);
     // this.disabledChange();
   }
   private insert() {
@@ -101,6 +101,7 @@ export class SmarteditComponent implements OnInit {
     }
   }
   disabledChange(){
+    console.log('disabledChange',this._disabled);
     if(this._disabled) nhn.husky.EZCreator.showBlocker();
     else nhn.husky.EZCreator.hideBlocker();
   }

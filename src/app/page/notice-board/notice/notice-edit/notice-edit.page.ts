@@ -100,18 +100,6 @@ export class NoticeEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       } 
-
-      // if(this.form.notice_file_data.length){
-      //   this.form.notice_file_data.map((item) => {
-      //     // item.full_url.create
-      //     let testt = this.file.dataUrlToBlob(String(item));
-      //     // URL.createObjectURL(item);
-          
-      //     console.log(item.testt);
-      //   });
-      // }
-
-      
       if(this.user.userData.user_id === this.form.create_user_id) {
         this.useNotice = true;
       }
