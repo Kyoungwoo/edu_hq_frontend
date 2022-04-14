@@ -166,4 +166,9 @@
     <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge>
   </app-card>
 
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

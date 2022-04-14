@@ -58,4 +58,34 @@ export class RiskPendingListPage implements OnInit {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
+
+  /**
+   * 모바일 무한스크롤 시, 사용된다.
+   */
+   public async getMobile($event) {
+    this.form.limit_no = this.res.rsMap.length;
+
+    const res = await this.connect.run('/risk/assessment/approval/req/get', this.form, {
+    });
+    if(res.rsCode === 0 ) {
+      /**
+       * 모바일은 res를 대체하는 것이 아니라, 데이터를 스크롤 하단에 이어붙여야 함.
+       */
+      res.rsMap.forEach((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+        this.res.rsMap.push(item);
+      });
+
+    } else if(res.rsCode === 1008) {
+      /** 
+       * 더 로딩할 데이터가 없음. 게시판 형식과는 다르게, 데이터를 떼면, 데이터가 다 날아가기 때문에 데이터를 떼면 안됨.
+       * 아무것도 안하거나, 마지막 리스트라고 알려주기만 하면 됨.
+       */
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+    setTimeout(() => {
+      $event.target.complete();
+    }, 50);
+  }
 }
