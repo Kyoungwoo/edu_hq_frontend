@@ -57,7 +57,7 @@
           }}
         </app-col>
         <app-col size="60px">
-          <ion-chip color="primary">{{ item.approval_answer }}</ion-chip>
+          <ion-chip *ngIf="item.approval_answer" color="primary">{{ item.approval_answer }}</ion-chip>
         </app-col>
         <app-col class="mobile-approval-name">
           {{ item.answer_user_name }}
