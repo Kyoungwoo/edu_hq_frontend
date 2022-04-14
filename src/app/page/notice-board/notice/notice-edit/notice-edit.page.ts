@@ -73,7 +73,6 @@ export class NoticeEditPage implements OnInit {
       this.get();
     } else {
       this.update_state = true;
-      console.log("item",this.update_state);
       this.form.company_name = this.user.userData.belong_data.company_name;
       this.form.user_name = this.user.userData.user_name;
       this.form.create_date = this.date.today();
