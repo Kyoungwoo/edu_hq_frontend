@@ -78,7 +78,7 @@
       <app-col>
         <h4>평가표 정보</h4>
       </app-col>
-      <app-col size="auto" >
+      <app-col size="auto" *ngIf="permission.tableEdit">
         <app-button fill="translucent" (click)="add()">{{ riskTableList.length ? '수정' : '작성' }}</app-button>
       </app-col>
     </app-row>
