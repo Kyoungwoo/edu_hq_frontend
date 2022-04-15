@@ -73,6 +73,24 @@ export class SearchAreaComponent implements OnInit {
     if(this.area1.rsCode === 0) {};
   }
   
+  item1Click(item:Area1) {
+    this.area1selectedItem = item;
+    this.area2selectedItem = null;
+    this.area3selectedItem = null;
+    this.area2 = null;
+    this.area3 = null;
+    this.area2Get(item);
+  }
+  item2Click(item:Area2) {
+    this.area2selectedItem = item;
+    this.area3Get(item);
+  }
+  item3Click(item:Area3) {
+    this.area3selectedItem = item;
+    // this.addRiskItem();
+    // this.get4(); 현재 감소대책 입력은 직접입력 뿐
+  }
+
   area3Click(item:Area3) {
     
   }
@@ -90,14 +108,6 @@ export class SearchAreaComponent implements OnInit {
       component: SearchDangerousAreaComponent,
       componentProps: {
         project_id: this.project_id
-        // selectType: this.selectType
-        // form: {
-        //   project_id: this.project_id,
-        //   master_company_id: this.master_company_id,
-        //   company_id: this.company_id,
-        //   user_type: this.user_type,
-        //   search_text: ''
-        // }
       }
     });
     modal.present();

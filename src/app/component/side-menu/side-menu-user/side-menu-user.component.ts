@@ -93,7 +93,7 @@ export class SideMenuUserComponent implements OnInit {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' ||  user_type === 'COMPANY';
        }},
-      { title: '위험지역 디바이스', link: '/danger-area-list', params: {}, permission: () => { 
+      { title: '장소 디바이스', link: '/danger-area-list', params: {}, permission: () => { 
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' ||  user_type === 'COMPANY';
       }}

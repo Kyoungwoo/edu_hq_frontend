@@ -7,7 +7,7 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-select label="유형" name="select" [(ngModel)]="form.user_type">
+      <app-select label="유형" name="select" [(ngModel)]="form.user_type" *ngIf="canUserTypeChange">
         <app-select-option value="COMPANY">관리자</app-select-option>
         <app-select-option value="WORKER">작업자</app-select-option>
       </app-select>

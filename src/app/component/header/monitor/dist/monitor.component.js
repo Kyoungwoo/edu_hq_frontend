@@ -79,7 +79,8 @@ var MonitorComponent = /** @class */ (function () {
             weather_rain: "",
             weather_snow: "",
             high_weather_temp: "",
-            low_weather_temp: "" // 최저 기온(온도),
+            low_weather_temp: "",
+            weather_pty: ""
         };
         this.dust = {
             dataTime: "",
@@ -168,14 +169,6 @@ var MonitorComponent = /** @class */ (function () {
     MonitorComponent.prototype.main = function () {
         var userData = this.user.userData;
         if (this.device.platform_type < 3) {
-            if (userData.user_type === 'COMPANY') {
-                this.nav.navigateRoot('/main-sub-admin');
-            }
-            else {
-                this.nav.navigateRoot('/main-admin');
-            }
-        }
-        else {
             switch (userData.user_type) {
                 case 'LH':
                 case 'SUPER':
@@ -192,6 +185,14 @@ var MonitorComponent = /** @class */ (function () {
                 case 'WORKER':
                     this.nav.navigateRoot('/main-user-worker');
                     break;
+            }
+        }
+        else {
+            if (userData.user_type === 'COMPANY') {
+                this.nav.navigateRoot('/main-sub-admin');
+            }
+            else {
+                this.nav.navigateRoot('/main-admin');
             }
         }
     };
