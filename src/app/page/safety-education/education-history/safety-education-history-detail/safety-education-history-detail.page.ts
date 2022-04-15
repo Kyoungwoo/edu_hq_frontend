@@ -138,17 +138,30 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     } 
   }
 
-  special(state,item){
+  specialToday(state,item) {
     if(state) {
       let recommendedeWidth = 0;
-      const recommAllTiem = item.education_towercrane_state ? 12:16;
+      const recommAllTiem = item.education_towercrane_state ? 2:8;
       recommendedeWidth = (100 * item.education_recommended_time) / recommAllTiem;
       return `width:${recommendedeWidth}%`;
     } else {
       let completeWidth = 0;
-      const towercraneAllTiem = item.education_towercrane_state ? 12:16;
+      const towercraneAllTiem = item.education_towercrane_state ? 2:8;
         if(item.education_complete_time === 0) completeWidth = 0;
         else completeWidth = 100 * item.education_complete_time/towercraneAllTiem;
+        return `width:${completeWidth}%`;
+    }
+  }
+
+  specialPull(state,item) {
+    if(state) {
+      let recommendedeWidth = 0;
+      recommendedeWidth = (100 * item.education_recommended_time) / 16;
+      return `width:${recommendedeWidth}%`;
+    } else {
+      let completeWidth = 0;
+        if(item.education_complete_time === 0) completeWidth = 0;
+        else completeWidth = 100 * item.education_complete_time/16;
         return `width:${completeWidth}%`;
     }
   }

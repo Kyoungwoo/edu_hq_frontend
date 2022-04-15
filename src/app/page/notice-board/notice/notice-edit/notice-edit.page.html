@@ -47,11 +47,13 @@
     </app-row>
     <app-row>
       <app-col>
-        <!-- <app-textarea *ngIf="!useNotice || !update_state" label="내용" [rows]="10" [(ngModel)]="form.notice_content"></app-textarea> -->
-        <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
+        <app-textarea label="내용" 
+        [rows]="10"
+        [(ngModel)]="form.notice_content" [disabled]="!update_state"></app-textarea>
+        <!-- <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
         [disabled]="!update_state"
         [color]="validator.notice_title?.valid === false && 'warning'"
-        [(ngModel)]="form.notice_content"></app-smartedit>
+        [(ngModel)]="form.notice_content"></app-smartedit> -->
         <app-input-caption *ngIf="validator.notice_title?.valid === false">{{ validator.notice_title.message }}</app-input-caption>
       </app-col>
     </app-row>
@@ -65,12 +67,12 @@
         <app-col>
           첨부자료
         </app-col>
-        <app-col size="auto">
-          <app-button [disabled]="!update_state" fill="translucent">추가
-            <app-file name="input" view_type="NOTICE" 
+        <app-col size="auto" *ngIf="update_state">
+          <app-button fill="translucent">추가
+            <app-file name="input" view_type="NOTICE"
             [(ngModel)]="form.notice_file_data" 
             [file]="form.file" 
-            [file_json]="form.file_json"></app-file>
+            [file_json]="form.file_json" [multiple]="true"></app-file>
           </app-button>
         </app-col>
       </app-row>
@@ -81,9 +83,9 @@
 </ion-content>
 <app-button-footer>
   <!-- <app-button *ngIf="item && useNotice" fill="translucent" (click)="submit()">수정</app-button> -->
-  <app-button *ngIf="item && useNotice" fill="translucent" (click)="updateButton()">{{ update_state ? '저장' : '수정' }}</app-button>
-  <app-button *ngIf="item && useNotice"color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
-  <app-button *ngIf="!item" (click)="submit()">저장</app-button>
+  <app-button *ngIf="notice_id && useNotice" fill="translucent" (click)="updateButton()">{{ update_state ? '저장' : '수정' }}</app-button>
+  <app-button *ngIf="notice_id && useNotice"color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
+  <app-button *ngIf="!notice_id" (click)="submit()">저장</app-button>
 </app-button-footer>
 </ng-container>
 
@@ -158,32 +160,8 @@
         <h4>첨부자료</h4>
       </app-col>
     </app-row>
-    <app-table>
-      <tr *ngFor="let item of form.notice_file_data let i = index">
-        <td *ngIf="item.view_type==='NOTICE'">
-          <app-row>
-            <app-col>
-              <a [href]="item.full_url" target="_blank" [download]="item.file_name">
-                <ion-icon name="save-outline"></ion-icon>
-                {{ item.file_name }}
-              </a>
-            </app-col>
-            <app-col size="auto">
-              <app-button shape="circle" size="small" fill="translucent" color="danger" (click)="form.notice_file_data.splice(i,1)">
-                <app-img name="minus"></app-img>
-              </app-button>
-            </app-col> 
-          </app-row>
-          <ion-row
-          *ngIf="item.content_type.startsWith('image')">
-            <ion-col>
-              <div class="image-detail">이미지 미리보기</div>
-              <app-img class="image-class" [src]="item.full_url"></app-img>
-            </ion-col>
-          </ion-row>
-        </td>
-      </tr>
-    </app-table>
+    <app-file-preview [readonly]="!update_state"  *ngFor="let futItem of form.notice_file_data; let i = index" [futItem]="futItem"  
+    (buttonClick)="form.notice_file_data.splice(i,1)"></app-file-preview>
   </ion-content>
 </ng-container>
 <app-button-footer *mobileShow>

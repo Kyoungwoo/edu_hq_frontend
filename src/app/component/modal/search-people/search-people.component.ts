@@ -22,7 +22,7 @@ export class ctgoMemberItem {
 })
 export class SearchPeopleComponent implements OnInit {
 
-
+  @Input() canUserTypeChange:boolean = true;
   @Input() form = {
     company_id: 0,
     search_text: '',

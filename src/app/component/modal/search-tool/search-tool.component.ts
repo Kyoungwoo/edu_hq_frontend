@@ -3,6 +3,13 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
+export class ToolItem {
+  ctgo_tool_id: number;
+  ctgo_tool_name: string;
+  ctgo_tool_use_state:0|1;
+  master_company_id: number;
+  project_id: number;
+}
 @Component({
   selector: 'app-search-tool',
   templateUrl: './search-tool.component.html',
@@ -16,10 +23,9 @@ export class SearchToolComponent implements OnInit {
     search_text: ''
   }
   @Input() multiple:boolean = false;
+  @Input() selectedList:ToolItem[] = [];
 
-  res:ConnectResult;
-
-  selectedList = [];
+  res:ConnectResult<ToolItem>;
 
   constructor(
     private connect: ConnectService,
@@ -38,8 +44,8 @@ export class SearchToolComponent implements OnInit {
     }
   }
 
-  selectItem(item) {
-    const itemIndex = this.selectedList.indexOf(item);
+  selectItem(item:ToolItem) {
+    const itemIndex = this.selectedList.findIndex(selectedItem => selectedItem.ctgo_tool_id ===  item.ctgo_tool_id);
     if(!this.multiple) {
       if(itemIndex > -1) {
         // 있으면 암것도 암함
@@ -59,6 +65,9 @@ export class SearchToolComponent implements OnInit {
         this.selectedList.push(item);
       }
     }
+  }
+  isSelectedItem(item:ToolItem) {
+    return this.selectedList.some(selectedItem => selectedItem.ctgo_tool_id ===  item.ctgo_tool_id);
   }
 
   submit() {

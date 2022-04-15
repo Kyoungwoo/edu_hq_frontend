@@ -42,94 +42,66 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SearchToolComponent = exports.ToolItem = void 0;
+exports.SearchPeopleComponent = exports.ctgoMemberItem = void 0;
 var core_1 = require("@angular/core");
-var ToolItem = /** @class */ (function () {
-    function ToolItem() {
+var ctgoMemberItem = /** @class */ (function () {
+    function ctgoMemberItem() {
     }
-    return ToolItem;
+    return ctgoMemberItem;
 }());
-exports.ToolItem = ToolItem;
-var SearchToolComponent = /** @class */ (function () {
-    function SearchToolComponent(connect, toast, _modal) {
+exports.ctgoMemberItem = ctgoMemberItem;
+var SearchPeopleComponent = /** @class */ (function () {
+    function SearchPeopleComponent(connect, user, toast, _modal) {
         this.connect = connect;
+        this.user = user;
         this.toast = toast;
         this._modal = _modal;
+        this.canUserTypeChange = true;
         this.form = {
-            project_id: 0,
-            master_company_id: 0,
-            search_text: ''
+            company_id: 0,
+            search_text: '',
+            user_type: ''
         };
-        this.multiple = false;
-        this.selectedList = [];
     }
-    SearchToolComponent.prototype.ngOnInit = function () {
+    SearchPeopleComponent.prototype.ngOnInit = function () {
         this.get();
     };
-    SearchToolComponent.prototype.get = function () {
+    SearchPeopleComponent.prototype.get = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/category/certify/tool/get', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/category/certify/company/user/get', this.form)];
                     case 1:
                         _a.res = _b.sent();
-                        if (this.res.rsCode) {
-                            this.toast.present({ color: 'warning', message: this.res.rsMsg });
+                        if (this.res.rsCode !== 0) {
+                            this.toast.present({ message: this.res.rsMsg, color: 'warning' });
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    SearchToolComponent.prototype.selectItem = function (item) {
-        var itemIndex = this.selectedList.findIndex(function (selectedItem) { return selectedItem.ctgo_tool_id === item.ctgo_tool_id; });
-        if (!this.multiple) {
-            if (itemIndex > -1) {
-                // 있으면 암것도 암함
-            }
-            else {
-                // 없으면 추가
-                this.selectedList.push(item);
-            }
-        }
-        else {
-            if (itemIndex > -1) {
-                // 있으면 뺌
-                this.selectedList.splice(itemIndex, 1);
-            }
-            else {
-                // 없으면 추가
-                this.selectedList.push(item);
-            }
-        }
-    };
-    SearchToolComponent.prototype.isSelectedItem = function (item) {
-        return this.selectedList.some(function (selectedItem) { return selectedItem.ctgo_tool_id === item.ctgo_tool_id; });
-    };
-    SearchToolComponent.prototype.submit = function () {
+    SearchPeopleComponent.prototype.select = function () {
         this._modal.dismiss({
-            selectedList: this.selectedList
+            selectedItem: this.selectedItem
         });
     };
     __decorate([
         core_1.Input()
-    ], SearchToolComponent.prototype, "form");
+    ], SearchPeopleComponent.prototype, "canUserTypeChange");
     __decorate([
         core_1.Input()
-    ], SearchToolComponent.prototype, "multiple");
-    __decorate([
-        core_1.Input()
-    ], SearchToolComponent.prototype, "selectedList");
-    SearchToolComponent = __decorate([
+    ], SearchPeopleComponent.prototype, "form");
+    SearchPeopleComponent = __decorate([
         core_1.Component({
-            selector: 'app-search-tool',
-            templateUrl: './search-tool.component.html',
-            styleUrls: ['./search-tool.component.scss']
+            selector: 'app-search-people',
+            templateUrl: './search-people.component.html',
+            styleUrls: ['./search-people.component.scss']
         })
-    ], SearchToolComponent);
-    return SearchToolComponent;
+    ], SearchPeopleComponent);
+    return SearchPeopleComponent;
 }());
-exports.SearchToolComponent = SearchToolComponent;
+exports.SearchPeopleComponent = SearchPeopleComponent;

@@ -138,6 +138,17 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     this.res = await this.connect.run('/board/safety_meeting/list', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.forEach((item, i) => {
+        switch(item.safety_meeting_type){
+          case '노사':
+            item.safety_meeting_type = '노사 협의체';
+          break;
+          case '안전':
+            item.safety_meeting_type = '안전 및 보건의 관한 협의체';
+          break;
+          case '산업':
+            item.safety_meeting_type = '산업안전보건보건위원회';
+          break;
+        }
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
       });
     }

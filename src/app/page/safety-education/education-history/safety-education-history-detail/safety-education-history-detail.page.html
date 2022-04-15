@@ -102,7 +102,7 @@
             <h4>정기 교육</h4>
           </app-col>
           <app-col style="text-align: right;" size="5">
-            <p>*교육 관리 기준:1H / 분기</p>
+            <p>*교육 관리 기준:6H / 분기</p>
           </app-col>
         </app-row>
         <app-row class="education-row">
@@ -158,27 +158,22 @@
         <app-row>
           <app-col></app-col>
           <app-col>
-            <div class="grp-time">
-              <div class="first">
-                <div>0H</div>
-              </div>
-              <div class="second">
-                <div class="second-one">2H</div>
-                <div class="second-two">4H</div>
-              </div>
-              <div class="third">
-                <div class="third-one">6H</div>
-              </div>
-            </div>
+            <app-row class="grp-time">
+              <app-col size="auto">0H</app-col>
+              <app-col size="auto">2H</app-col>
+              <app-col size="auto">4H</app-col>
+              <app-col size="auto">6H</app-col>
+            </app-row>
           </app-col>
         </app-row>
-        <ng-container *ngIf="specialRes?.rsMap">
+        특별 교육 완료 되면 
+        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '일종직'">
           <app-row style="margin-top: 20px;">
             <app-col size="auto">
               <h4>특별 교육</h4>
             </app-col>
             <app-col style="text-align: right;" size="5">
-              <p>*교육 관리 기준:1H / 작업 투입 시(타워크레인 신호수 교육 / 8H)</p>
+              <p>*교육 관리 기준:2H / 작업 투입 시(타워크레인 신호수 교육 / 8H)</p>
             </app-col>
           </app-row>
           <app-row class="education-row">
@@ -218,10 +213,10 @@
                 </div>
 
                 <div class="grp-box" *ngFor="let item of specialRes?.rsMap">
-                  <div class="grp-item-bar three" [style]="special(1,item)">
+                  <div class="grp-item-bar three" [style]="specialToday(1,item)">
                     <p class="grp-item-time">{{ item.education_recommended_time ? item.education_recommended_time+'H' : ''}}</p>
                   </div>
-                  <div class="grp-item-bar four" [style]="special(0,item)">
+                  <div class="grp-item-bar four" [style]="specialToday(0,item)">
                     <p class="grp-item-time">{{ item.education_complete_time ? item.education_complete_time+'H' : ''}}</p>
                   </div>
                   <div class="grp-bottom-border"></div>
@@ -232,14 +227,82 @@
           <app-row>
             <app-col></app-col>
             <app-col>
-              <div class="grp-time">
-                <div class="first">
-                  <div>0H</div>
+               <app-row class="grp-time">
+              <app-col size="auto">0H</app-col>
+              <app-col size="auto">2H(8H)</app-col>
+            </app-row>
+            </app-col>
+          </app-row>
+        </ng-container>
+
+        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '상용직'">
+          <app-row style="margin-top: 20px;">
+            <app-col size="auto">
+              <h4>특별 교육</h4>
+            </app-col>
+            <app-col style="text-align: right;" size="5">
+              <p>*교육 관리 기준: 16H / 최초 교육 후 3개월</p>
+            </app-col>
+          </app-row>
+          <app-row class="education-row">
+            <app-col>
+              <app-table>
+                <thead>
+                  <tr class="education-head-tr">
+                    <th>교육명</th>
+                    <th>이수일</th>
+                    <th>잔여일</th>
+                    <th>이수시간</th>
+                    <th>잔여시간</th>
+                    <th>교육상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of specialRes?.rsMap" class="education-body-tr">
+                    <td>{{ item.ctgo_education_safe_name }}</td>
+                    <td>{{ item.create_date }}</td>
+                    <td>{{ item.education_remaining_date }}</td>
+                    <td>{{ item.education_complete_time }}H</td>
+                    <td>{{ item.education_remaining_time }}H</td>
+                    <td>
+                      <ion-chip color="primary">{{item.special_edu_state}}</ion-chip>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-col>
+            <app-col>
+              <div class="grp-group">
+                <div class="label">
+                  <div class="circle one"></div>
+                  <div class="label-inner">권장이수</div>
+                  <div class="circle two"></div>
+                  <div class="label-inner">실제이수</div>
                 </div>
-                <div class="third">
-                  <div class="third-one">12H(16H)</div>
+
+                <div class="grp-box" *ngFor="let item of specialRes?.rsMap">
+                  <div class="grp-item-bar three" [style]="specialPull(1,item)">
+                    <p class="grp-item-time">{{ item.education_recommended_time ? item.education_recommended_time+'H' : ''}}</p>
+                  </div>
+                  <div class="grp-item-bar four" [style]="specialPull(0,item)">
+                    <p class="grp-item-time">{{ item.education_complete_time ? item.education_complete_time+'H' : ''}}</p>
+                  </div>
+                  <div class="grp-bottom-border"></div>
                 </div>
               </div>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col></app-col>
+            <app-col>
+              <!-- <div class="grp-bottom-border"></div> -->
+              <app-row class="grp-time">
+                <app-col size="auto">0H</app-col>
+                <app-col size="auto">4H</app-col>
+                <app-col size="auto">8H</app-col>
+                <app-col size="auto">12H</app-col>
+                <app-col size="auto">16H</app-col>
+              </app-row>
             </app-col>
           </app-row>
         </ng-container>

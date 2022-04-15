@@ -166,7 +166,10 @@ export class ApprovalComponent implements OnInit {
     if(data) {
       this.res.rsObj.answer_datas = data.answer_datas;
       this.res.rsObj.refer_datas = data.refer_datas;
+      this.res.rsObj.approval_comment = data.comment_datas;
     }
+
+    this.change.emit(this.getClickEvent());
   }
   /** 결재 요청 버튼 클릭 */
   onSendClick() {
@@ -353,7 +356,18 @@ export class ApprovalComponent implements OnInit {
           answer_user_id: this.user.userData.user_id,
           answer_user_name: this.user.userData.user_name
         }],
-        refer_datas: []
+        refer_datas: [],
+        approval_comment: [{
+          approval_answer: '미결',
+          approval_comment: '',
+          approval_date: '',
+          approval_last_state: 1,
+          approval_order_no: 0,
+          company_id: this.user.userData.belong_data.company_id,
+          company_name: this.user.userData.belong_data.company_name,
+          user_id: this.user.userData.user_id,
+          user_name: this.user.userData.user_name
+        }]
       };
     }
     else {

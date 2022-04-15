@@ -21,7 +21,7 @@ export class MyStatusListPage implements OnInit {
 
   form = {
     master_company_id: 0,
-    project_id:0,
+    project_id: this.user.userData.belong_data.project_id,
     project_name:''
   }
 
@@ -112,6 +112,8 @@ export class MyStatusListPage implements OnInit {
 
     if(user_role === 'PARTNER_WORKER' ||
        user_type === 'WORKER') this.notWorker = false;
+
+       this.get();
   }
 
   async get() {

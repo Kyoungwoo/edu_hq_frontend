@@ -57,7 +57,7 @@ export class NoticeListPage implements OnInit {
 
   async ngOnInit() {
     setTimeout(() => {this.get();}, 300);
-    if(this.user.userData.user_role !== 'LH_ADMIN') this.editable = true;
+    if(this.user.userData.user_role !== 'LH_HEAD') this.editable = true;
   }
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
@@ -117,15 +117,11 @@ export class NoticeListPage implements OnInit {
     }
   }
 
-  async edit(item = null) {
+  async edit(notice_id?:number) {
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{
-        item:item,
-        form: {
-          ...new NoticeItem(),
-          ...item ? item : this.form,
-        }
+        notice_id: notice_id
       }
     });
     modal.present();

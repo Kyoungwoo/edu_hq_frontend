@@ -55,7 +55,7 @@
               </ion-chip>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary' ">{{ gate.outside_state ? gate.outside_time : gate.inside_time }}<br>{{ gate.inside_state ? '(수동)':''}}</ion-chip>
+              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary' "><div>{{ gate.outside_state ? gate.outside_time : gate.inside_time }}</div><div>{{ gate.outside_state ? (gate.outside_type === 'MANUAL' ? '(수동)':'') : (gate.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
             </app-col>
           </app-row>
         </app-card>
@@ -71,7 +71,7 @@
                 </ion-chip>
               </app-col>
               <app-col size="auto">
-                <ion-chip [color]="item.outside_state ? 'medium' : 'primary' ">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
+                <ion-chip [color]="item.outside_state ? 'medium' : 'primary' "><div>{{ item.outside_state ? item.outside_time :item.inside_time }}</div><div>{{ item.outside_state ? (item.outside_type === 'MANUAL' ? '(수동)':'') : (item.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
               </app-col>
             </app-row>
           </app-card>
@@ -93,7 +93,7 @@
               <ion-chip [color]="risk.outside_state ? 'primary' : 'medium'">{{ risk.outside_state ? '입장' :'퇴장'  }}</ion-chip>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="risk.outside_state ? 'primary' : 'medium'">{{ risk.outside_state ? risk.outside_time :risk.inside_time }}<br>{{ risk.inside_state ? '(수동)':''}}</ion-chip>
+              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary' "><div>{{ risk.outside_state ? risk.outside_time : risk.inside_time }}</div><div>{{ risk.outside_state ? (risk.outside_type === 'MANUAL' ? '(수동)':'') : (risk.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
             </app-col>
           </app-row>
         </app-card>
@@ -108,7 +108,7 @@
                 <ion-chip [color]="item.outside_state ? 'primary' : 'medium'">{{ item.outside_state ? '입장' :'퇴장'  }}</ion-chip>
               </app-col>
               <app-col size="auto">
-                <ion-chip [color]="item.outside_state ? 'primary' : 'medium'">{{ item.outside_state ? item.outside_time :item.inside_time }}</ion-chip>
+                <ion-chip [color]="item.outside_state ? 'medium' : 'primary' "><div>{{ item.outside_state ? item.outside_time :item.inside_time }}</div><div>{{ item.outside_state ? (item.outside_type === 'MANUAL' ? '(수동)':'') : (item.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
               </app-col>
             </app-row>
           </app-card>

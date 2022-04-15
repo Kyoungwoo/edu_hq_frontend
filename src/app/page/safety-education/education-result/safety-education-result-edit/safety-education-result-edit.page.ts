@@ -96,7 +96,6 @@ export class SafetyEducationResultEditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log("item",this.item);
     this.form.education_safe_id = this.item?.education_safe_id;
     if(this.item) {
       this.form.education_safe_report_instructor = this.item.education_safe_instructor;
