@@ -45,7 +45,9 @@ export class NoticeListPage implements OnInit {
   res:ConnectResult<NoticeInfo>;
   resFavorite:ConnectResult;
 
-  editable:boolean = false;
+  permission = {
+    company_id: false
+  }
 
   constructor(
     private modal: ModalController,
@@ -56,10 +58,68 @@ export class NoticeListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    setTimeout(() => {this.get();}, 300);
-    if(this.user.userData.user_role !== 'LH_HEAD') this.editable = true;
+    await this.getForm();
+    this.get();
   }
+
+  async getForm() {
+    const { user_role, belong_data } = this.user.userData;
+
+    if(user_role === 'LH_HEAD'
+    || user_role === 'SUPER_HEAD') {
+
+      this.permission.company_id = true;
+      this.form.master_company_id = belong_data.company_id;
+
+    }
+    else if(belong_data.company_contract_type === '원청사') {
+
+      this.permission.company_id = false;
+      // 원청사 관리자에게만 보이는 버튼. LH,감리,협력사의 경우 회의 진행 버튼이 없다.(회의록 기획서 9p)
+      this.form.master_company_id = belong_data.company_id;
+
+    }
+    else if(belong_data.company_contract_type === '협력사') {
+
+      this.permission.company_id = false;
+
+      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+        project_id: this.form.project_id,
+        search_text: ''
+      });
+      if(res.rsCode === 0) {
+        const contractor = res.rsMap[0];
+        this.form.master_company_id = contractor.master_company_id;
+      }
+      else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+
+    }
+  }
+
+  async get(limit_no = this.form.limit_no) {
+
+    this.form.limit_no = limit_no;
+
+    const res = await this.connect.run('/board/notice/list',this.form);
+    if(res.rsCode === 0 ) {
+      this.res = res;
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsObj.row_count - this.form.limit_no - i;
+      });
+    }
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
   public async getMobile($event) {
+    
     this.form.limit_no = this.res.rsMap.length;
 
     const res = await this.connect.run('/board/notice/list', this.form, {
@@ -78,27 +138,6 @@ export class NoticeListPage implements OnInit {
     setTimeout(() => {
       $event.target.complete();
     }, 50);
-  }
-
-  async get(limit_no = this.form.limit_no) {
-
-    this.form.limit_no = limit_no;
-
-    let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    const res = await this.connect.run('/board/notice/list',this.form);
-    if(res.rsCode === 0 ) {
-      this.res = res;
-      this.res.rsMap.map((item, i) => {
-        item.index = res.rsObj.row_count - this.form.limit_no - i;
-      });
-    }
-    else if (res.rsCode === 1008) {
-      this.res = null;
-    }
-    else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
-    }
   }
 
   async detailSearch() {

@@ -63,9 +63,6 @@ export class MsdsListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    if(this.user.userData.belong_data.company_contract_type === 'LH' || this.user.userData.belong_data.company_contract_type === '감리사') { 
-      this.form.project_id = 0;
-    }
     this.get();
   }
 
@@ -95,7 +92,7 @@ export class MsdsListPage implements OnInit {
 
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    const res = await this.connect.run('/board/msds/list',this.form);
+    const res = await this.connect.run('/board/msds/list', this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
       this.res.rsMap.map((item, i) => {
