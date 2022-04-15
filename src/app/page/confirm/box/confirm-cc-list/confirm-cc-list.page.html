@@ -3,6 +3,7 @@
   <app-header-admin></app-header-admin>
   <ion-content>
     <app-row style="align-items: flex-start;">
+
       <app-col size="280px">
         <app-table type="card">
           <ion-toolbar slot="top" color="white">
@@ -49,6 +50,7 @@
           </tbody>
         </app-table>
       </app-col>
+
       <app-col>
 
         <ion-toolbar color="white">
@@ -81,7 +83,6 @@
 
         <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 
-
       </app-col>
     </app-row>
   </ion-content>
@@ -106,6 +107,7 @@
       </app-input-group>
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
 
     <app-card *ngFor="let item of res?.rsMap; let i = index;">
@@ -132,6 +134,7 @@
     </ion-infinite-scroll>
 
   </ion-content>
-
+  
+</ng-container>
 
 
