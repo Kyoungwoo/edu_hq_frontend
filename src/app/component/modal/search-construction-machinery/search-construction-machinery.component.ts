@@ -51,7 +51,7 @@ export class SearchConstructionMachineryComponent implements OnInit {
 
   isSelectedItem(item:MachineryItem) {
     if(!this.multiple) {
-      return this.selectedItem.ctgo_machinery_id === item.ctgo_machinery_id;
+      return this.selectedItem?.ctgo_machinery_id === item.ctgo_machinery_id;
     }
     else {
       return this.selectedItemList.find(selectedItem => selectedItem.ctgo_machinery_id === item.ctgo_machinery_id);
@@ -60,7 +60,7 @@ export class SearchConstructionMachineryComponent implements OnInit {
   selectItem(item:MachineryItem) {
     this.allState = false;
     if(!this.multiple) {
-      this.selectedItem.ctgo_machinery_id = item.ctgo_machinery_id;
+      this.selectedItem = item;
     }
     else {
       const itemIndex = this.selectedItemList.findIndex(selectedItem => selectedItem.ctgo_machinery_id === item.ctgo_machinery_id);

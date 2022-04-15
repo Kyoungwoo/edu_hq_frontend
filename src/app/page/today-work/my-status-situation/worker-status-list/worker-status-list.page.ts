@@ -32,12 +32,16 @@ export class WorkerStatusListPage implements OnInit {
     user_id: number,
     outside_state: number,
     company_name: string,
+    inside_type: string,
+    outside_type: string,
     inner_data:{
       nb_log_id: number;
       inside_time: string;
       inside_state: number;
       outside_time: string;
       outside_state: number;
+      inside_type: string;
+      outside_type: string;
     }[],
     ctgo_safe_job_name: CtgoNative,
     inside_time: string,
@@ -79,6 +83,8 @@ export class WorkerStatusListPage implements OnInit {
       inside_state: number;
       outside_time: string;
       outside_state: number;
+      inside_type: string;
+      outside_type: string;
     }[],
     ctgo_safe_job_name: null,
     inside_time: null,
@@ -95,9 +101,11 @@ export class WorkerStatusListPage implements OnInit {
     private nfc: NfcService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.form.project_id = history.state.project_id;
     this.form.master_company_id = history.state.master_company_id;
+
+    await this.getGate();
   }
 
   async getGate() {

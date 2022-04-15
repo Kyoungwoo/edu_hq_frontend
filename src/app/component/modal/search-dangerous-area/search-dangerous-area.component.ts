@@ -43,8 +43,8 @@ export class SearchDangerousAreaComponent implements OnInit {
   selectList;
 
   ngOnInit() {
-    // if(this.project_id) this.form.project_id = this.project_id;
-    this.form.project_id = 58;
+    if(this.project_id) this.form.project_id = this.project_id;
+    // this.form.project_id = 58;
     this.CtgoriskAreaGet();
   }
 
