@@ -25,6 +25,7 @@ class SmartInfo {
   master_company_name:string;
   partner_company_id:number;
   project_id:number;
+  project_name:string;
   return_date:string;
   return_state:number;
   serial_id:number;
@@ -35,6 +36,10 @@ class SmartInfo {
   update_user_id:number;
   index:number;
   row_count:number;
+  rental_price:string;
+  rental_start_date:string;
+  rental_end_date:string;
+  rental_company_name:string;
 }
 
 class SmartInfoInsertItem {

@@ -309,7 +309,7 @@ export class MainSubAdminPage implements OnInit {
   }
   alram() {
   }
-  router(title: string) {
+  router(title: string, detail = null) {
     console.log("asdfasdf");
     switch (title) {
       case '':
@@ -326,7 +326,8 @@ export class MainSubAdminPage implements OnInit {
         this.nav.navigateRoot('/notify-list');
         break;
       case '공지사항':
-        this.nav.navigateRoot('/notice-list');
+        if(detail) this.nav.navigateRoot('/notice-list', {state: {notice_id: detail.notice_id}});
+        else this.nav.navigateRoot('/notice-list');
         break;
       case '회의록':
         this.nav.navigateRoot('/minutes-list');

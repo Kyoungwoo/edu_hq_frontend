@@ -224,6 +224,7 @@ export class ApprovalComponent implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      console.log("data",data);
       this.approvalForm = {
         approval_id: this.form.approval_id,
         approval_answer: data.approval_answer,
