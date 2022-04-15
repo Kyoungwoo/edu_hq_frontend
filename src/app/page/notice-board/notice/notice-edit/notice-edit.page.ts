@@ -42,13 +42,13 @@ export class NoticeEditPage implements OnInit {
     edit: false
   }
 
-  @ViewChild('noticeText') noticeText:SmarteditComponent;
+  // @ViewChild('noticeText') noticeText:SmarteditComponent;
 
-  @Input() item; //LIST 에서 가져오는 값
+  @Input() notice_id;
 
   title:string;
 
-  @Input() form:NoticeItem = new NoticeItem();
+  form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
 
   useNotice:boolean = false;
@@ -68,7 +68,7 @@ export class NoticeEditPage implements OnInit {
     //   this.form.project_id = 0;
     // }
     this.getPermission();
-    if(this.item) {
+    if(this.notice_id) {
       this.title = '상세';
       this.get();
     } else {
@@ -92,7 +92,7 @@ export class NoticeEditPage implements OnInit {
 
   async get() { //상세보기
     const res = await this.connect.run('/board/notice/detail', { 
-      notice_id: this.item.notice_id 
+      notice_id: this.notice_id 
     }, { loading: true, parse: ['notice_file_data'] });
     if(res.rsCode ===  0) {
       this.form = {
@@ -112,7 +112,7 @@ export class NoticeEditPage implements OnInit {
   }
 
   public submit() {
-    this.noticeText.update();
+    // this.noticeText.update();
     
     if(this.form.notice_id) this.update();
     else this.noticeInsert();
@@ -172,7 +172,7 @@ export class NoticeEditPage implements OnInit {
           text: '예',
           handler: async () => {
             const res = await this.connect.run('/board/notice/delete', {
-              notice_ids: [this.item.notice_id]
+              notice_ids: [this.notice_id]
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');

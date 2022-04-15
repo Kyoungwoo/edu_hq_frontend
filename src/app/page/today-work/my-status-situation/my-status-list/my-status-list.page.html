@@ -10,7 +10,7 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-input label="현장"  [readonly]="true"></app-input>
+      <app-select-scene name="project_id" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
       <app-button (click)="detailSearch()">상세검색</app-button>
     </app-input-group>
   </ion-toolbar>
@@ -19,7 +19,8 @@
   <app-card *ngIf="resgate?.rsCode === 0" (click)="gateOpen = !gateOpen">
     <app-row>
       <app-col>
-        <h4>{{ resgate?.rsObj?.area_risk_name }}</h4>
+        <!-- <h4>{{ resgate?.rsObj?.area_risk_name }}</h4> -->
+        <h4>게이트</h4>
       </app-col>
       <app-col size="auto">
         <ion-chip [color]="resgate?.rsObj?.last_state === '입장' ? 'primary' : 'medium'">{{ resgate?.rsObj?.last_state }}

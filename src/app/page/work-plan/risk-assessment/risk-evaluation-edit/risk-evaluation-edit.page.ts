@@ -8,8 +8,8 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
-import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
-import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
+import { MachineryItem, SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
+import { SearchToolComponent, ToolItem } from 'src/app/component/modal/search-tool/search-tool.component';
 import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
@@ -271,6 +271,7 @@ export class RiskEvaluationEditPage implements OnInit {
       this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -308,6 +309,7 @@ export class RiskEvaluationEditPage implements OnInit {
         this.form.risk_asment_id = res.rsObj.risk_asment_id;
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('risk-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
     }
     else {
@@ -337,6 +339,7 @@ export class RiskEvaluationEditPage implements OnInit {
         this._modal.dismiss();
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('risk-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
       else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -378,6 +381,7 @@ export class RiskEvaluationEditPage implements OnInit {
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
 
   }
@@ -403,6 +407,7 @@ export class RiskEvaluationEditPage implements OnInit {
       this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
   }
 
@@ -429,7 +434,10 @@ export class RiskEvaluationEditPage implements OnInit {
     this.approval_comment = ev.approval_comment;
 
     /** 모바일 화면에서는 테이블 편집이 안된다. */
-    this.permission.tableEdit = false;
+    if(window.innerWidth <= 768) {
+      this.permission.edit = false;
+      this.permission.tableEdit = false;
+    }
   }
 
   public async add() {
@@ -619,6 +627,21 @@ export class RiskEvaluationEditPage implements OnInit {
    * 건설기계 팝업
    */
    async openMachinery(unitItem) {
+
+    /** 현재 목록에 있는 건설기계 데이터를 search에 있는 형태로 변경 */
+    const selectedItemList:MachineryItem[] = [];
+    unitItem.ctgo_machinery_ids.forEach((id, i) => {
+      selectedItemList.push({
+        ctgo_machinery_id: id,
+        ctgo_machinery_name: unitItem.ctgo_machinery_names[i],
+        ctgo_machinery_doc_state: 1,
+        ctgo_machinery_use_state: 1,
+        company_id: this.form.company_id,
+        default_state: 1
+      })
+    });
+
+    /** 검색창 오픈 */
     const modal = await this._modal.create({
       component: SearchConstructionMachineryComponent,
       componentProps: {
@@ -627,7 +650,8 @@ export class RiskEvaluationEditPage implements OnInit {
           master_company_id: this.form.master_company_id,
           search_text: ''
         },
-        multiple: true
+        multiple: true,
+        selectedItemList
       }
     });
     modal.present();
@@ -653,6 +677,20 @@ export class RiskEvaluationEditPage implements OnInit {
    * 특수공도구 팝업
    */
    async openTool(unitItem) {
+
+    /** 현재 목록에 있는 건설기계 데이터를 search에 있는 형태로 변경 */
+    const selectedList:ToolItem[] = [];
+    unitItem.ctgo_tool_ids.forEach((id, i) => {
+      selectedList.push({
+        ctgo_tool_id: id,
+        ctgo_tool_name: unitItem.ctgo_tool_names[i],
+        project_id: this.form.project_id,
+        master_company_id: this.form.master_company_id,
+        ctgo_tool_use_state: 1
+      });
+    });
+
+    /** 검색창 오픈 */
     const modal = await this._modal.create({
       component: SearchToolComponent,
       componentProps: {
@@ -661,7 +699,8 @@ export class RiskEvaluationEditPage implements OnInit {
           master_company_id: this.form.master_company_id,
           search_text: ''
         },
-        multiple: true
+        multiple: true,
+        selectedList
       }
     });
     modal.present();

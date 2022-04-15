@@ -20,7 +20,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [disabled]="editable" [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="!permission.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
@@ -81,7 +81,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+                <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
                   <td style="text-align: center;" (click)="favoritesCheck($event, item)" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                   || user.userData.belong_data.company_contract_type === '원청사'">
                     <app-button size="small" shape="square" fill="translucent"

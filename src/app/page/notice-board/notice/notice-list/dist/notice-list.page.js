@@ -42,38 +42,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ConfirmCcListPage = void 0;
+exports.NoticeListPage = void 0;
 var core_1 = require("@angular/core");
-var confirm_cc_detail_search_page_1 = require("../confirm-cc-detail-search/confirm-cc-detail-search.page");
-var ConfirmCcItem = /** @class */ (function () {
-    function ConfirmCcItem() {
+var detail_search_page_1 = require("../../detail-search/detail-search.page");
+var notice_edit_page_1 = require("../notice-edit/notice-edit.page");
+var NoticeInfo = /** @class */ (function () {
+    function NoticeInfo() {
     }
-    return ConfirmCcItem;
+    return NoticeInfo;
 }());
-var ConfirmCcListPage = /** @class */ (function () {
-    function ConfirmCcListPage(_modal, user, connect, toast, date, loading, approval) {
-        this._modal = _modal;
-        this.user = user;
+var NoticeListPage = /** @class */ (function () {
+    function NoticeListPage(modal, connect, date, user, toast) {
+        this.modal = modal;
         this.connect = connect;
-        this.toast = toast;
         this.date = date;
-        this.loading = loading;
-        this.approval = approval;
+        this.user = user;
+        this.toast = toast;
         this.form = {
-            project_id: null,
-            master_company_id: null,
-            company_id: null,
-            start_date: null,
-            end_date: null,
-            approval_cnt_answer: '전체',
-            search_text: null,
-            limit_no: 0 // 20개씩 가져옵니다
+            project_id: this.user.userData.belong_data.project_id,
+            master_company_id: this.user.userData.belong_data.company_id,
+            end_date: this.date.today(),
+            notice_types: [],
+            // project_ids: [1],
+            search_text: '',
+            start_date: this.date.today({ month: -1 }),
+            limit_no: 0
         };
-        this.event = {
-            get: null
+        this.permission = {
+            company_id: false
         };
     }
-    ConfirmCcListPage.prototype.ngOnInit = function () {
+    NoticeListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -81,39 +80,38 @@ var ConfirmCcListPage = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.get();
-                        this.event.get = this.getEvent.bind(this);
-                        window.addEventListener('approval-list:get()', this.event.get);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    ConfirmCcListPage.prototype.ngOnDestroy = function () {
-        window.removeEventListener('approval-list:get()', this.event.get);
-    };
-    ConfirmCcListPage.prototype.getEvent = function () {
-        this.get();
-    };
-    ConfirmCcListPage.prototype.getForm = function () {
+    NoticeListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var belong_data, res, contractor;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, user_role, belong_data, res, contractor;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        belong_data = this.user.userData.belong_data;
-                        this.form.project_id = belong_data.project_id;
-                        this.form.company_id = belong_data.company_id;
-                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 1];
+                        _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
+                        if (!(user_role === 'LH_HEAD'
+                            || user_role === 'SUPER_HEAD')) return [3 /*break*/, 1];
+                        this.permission.company_id = true;
                         this.form.master_company_id = belong_data.company_id;
-                        return [3 /*break*/, 3];
+                        return [3 /*break*/, 4];
                     case 1:
-                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 3];
+                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
+                        this.permission.company_id = false;
+                        // 원청사 관리자에게만 보이는 버튼. LH,감리,협력사의 경우 회의 진행 버튼이 없다.(회의록 기획서 9p)
+                        this.form.master_company_id = belong_data.company_id;
+                        return [3 /*break*/, 4];
+                    case 2:
+                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 4];
+                        this.permission.company_id = false;
                         return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
                                 project_id: this.form.project_id,
                                 search_text: ''
                             })];
-                    case 2:
-                        res = _a.sent();
+                    case 3:
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             contractor = res.rsMap[0];
                             this.form.master_company_id = contractor.master_company_id;
@@ -121,56 +119,42 @@ var ConfirmCcListPage = /** @class */ (function () {
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
                         }
-                        _a.label = 3;
-                    case 3:
-                        this.form.start_date = this.date.today({ month: -1 });
-                        this.form.end_date = this.date.today();
-                        this.form.approval_cnt_answer = '전체';
-                        return [2 /*return*/];
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
-    /**
-     * web, mobile 둘다 검색 시작할 때는 이걸 쓴다.
-     * 이유는 limit_no를 초기화할 필요성이 있기 떄문 + 1008 예외처리가 다르다.
-     */
-    ConfirmCcListPage.prototype.get = function (limit_no) {
+    NoticeListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
-            var trans_form, _a;
+            var res;
             var _this = this;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         this.form.limit_no = limit_no;
-                        trans_form = JSON.parse(JSON.stringify(this.form));
-                        trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-                        _a = this;
-                        return [4 /*yield*/, this.connect.run('/approval/board/refer/get', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/board/notice/list', this.form)];
                     case 1:
-                        _a.res = _b.sent();
-                        if (this.res.rsCode === 0) {
-                            // 암것도 안함
-                            this.res.rsMap.forEach(function (item, i) {
-                                item.index = _this.res.rsObj.row_count - _this.form.limit_no - i;
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            this.res = res;
+                            this.res.rsMap.map(function (item, i) {
+                                item.index = res.rsObj.row_count - _this.form.limit_no - i;
                             });
                         }
-                        else if (this.res.rsCode === 1008) {
-                            // 암것도 안함.
+                        else if (res.rsCode === 1008) {
+                            this.res = null;
                         }
                         else {
-                            this.toast.present({ color: 'warning', message: this.res.rsMsg });
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    /**
-     * 모바일 무한스크롤 시, 사용된다.
-     */
-    ConfirmCcListPage.prototype.getMobile = function ($event) {
+    NoticeListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -178,23 +162,18 @@ var ConfirmCcListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/approval/board/refer/get', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/board/notice/list', this.form, {})];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            /**
-                             * 모바일은 res를 대체하는 것이 아니라, 데이터를 스크롤 하단에 이어붙여야 함.
-                             */
-                            res.rsMap.forEach(function (item, i) {
+                            this.res = res;
+                            this.res.rsMap.map(function (item, i) {
                                 item.index = res.rsObj.row_count - _this.form.limit_no - i;
-                                _this.res.rsMap.push(item);
                             });
                         }
                         else if (res.rsCode === 1008) {
-                            /**
-                             * 더 로딩할 데이터가 없음. 게시판 형식과는 다르게, 데이터를 떼면, 데이터가 다 날아가기 때문에 데이터를 떼면 안됨.
-                             * 아무것도 안하거나, 마지막 리스트라고 알려주기만 하면 됨.
-                             */
+                            this.res = null;
+                            // 더 로딩할 데이터가 없음
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -207,17 +186,15 @@ var ConfirmCcListPage = /** @class */ (function () {
             });
         });
     };
-    ConfirmCcListPage.prototype.detail = function (item) {
-        this.approval.getComponent(item.ctgo_approval_module_id, item.target_id);
-    };
-    ConfirmCcListPage.prototype.openDetailSearch = function () {
+    NoticeListPage.prototype.detailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._modal.create({
-                            component: confirm_cc_detail_search_page_1.ConfirmCcDetailSearchPage,
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: detail_search_page_1.DetailSearchPage,
                             componentProps: {
+                                type: '공지사항',
                                 form: this.form
                             }
                         })];
@@ -229,20 +206,65 @@ var ConfirmCcListPage = /** @class */ (function () {
                         data = (_a.sent()).data;
                         if (data) {
                             this.form = data;
-                            this.get(0);
+                            this.get();
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    ConfirmCcListPage = __decorate([
+    NoticeListPage.prototype.edit = function (notice_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: notice_edit_page_1.NoticeEditPage,
+                            componentProps: {
+                                notice_id: notice_id
+                            }
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 2:
+                        data = (_a.sent()).data;
+                        if (data) {
+                            this.get();
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NoticeListPage.prototype.favoritesCheck = function ($event, item) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        $event.stopPropagation();
+                        item.favorites_state = item.favorites_state ? 0 : 1;
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/board/notice/favorites', { notice_id: item.notice_id })];
+                    case 1:
+                        _a.resFavorite = _b.sent();
+                        if (this.resFavorite.rsCode === 0) {
+                            this.get();
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    NoticeListPage = __decorate([
         core_1.Component({
-            selector: 'app-confirm-cc-list',
-            templateUrl: './confirm-cc-list.page.html',
-            styleUrls: ['./confirm-cc-list.page.scss']
+            selector: 'app-notice-list',
+            templateUrl: './notice-list.page.html',
+            styleUrls: ['./notice-list.page.scss']
         })
-    ], ConfirmCcListPage);
-    return ConfirmCcListPage;
+    ], NoticeListPage);
+    return NoticeListPage;
 }());
-exports.ConfirmCcListPage = ConfirmCcListPage;
+exports.NoticeListPage = NoticeListPage;

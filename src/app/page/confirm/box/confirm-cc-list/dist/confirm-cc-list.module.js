@@ -6,23 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ConfirmPendingListPageModule = void 0;
+exports.ConfirmCcListPageModule = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var angular_1 = require("@ionic/angular");
-var confirm_pending_list_routing_module_1 = require("./confirm-pending-list-routing.module");
-var confirm_pending_list_page_1 = require("./confirm-pending-list.page");
+var confirm_cc_list_routing_module_1 = require("./confirm-cc-list-routing.module");
+var confirm_cc_list_page_1 = require("./confirm-cc-list.page");
 var component_module_1 = require("src/app/component/component.module");
 var basic_component_module_1 = require("src/app/basic/component/basic.component.module");
-var confirm_pending_detail_search_module_1 = require("../confirm-pending-detail-search/confirm-pending-detail-search.module");
-var worker_minutes_edit_module_1 = require("src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module");
+var confirm_cc_detail_search_module_1 = require("../confirm-cc-detail-search/confirm-cc-detail-search.module");
 var safety_education_result_edit_module_1 = require("src/app/page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.module");
 var risk_evaluation_edit_module_1 = require("src/app/page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module");
-var ConfirmPendingListPageModule = /** @class */ (function () {
-    function ConfirmPendingListPageModule() {
+var worker_minutes_edit_module_1 = require("src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module");
+var ConfirmCcListPageModule = /** @class */ (function () {
+    function ConfirmCcListPageModule() {
     }
-    ConfirmPendingListPageModule = __decorate([
+    ConfirmCcListPageModule = __decorate([
         core_1.NgModule({
             imports: [
                 common_1.CommonModule,
@@ -30,15 +30,15 @@ var ConfirmPendingListPageModule = /** @class */ (function () {
                 angular_1.IonicModule,
                 component_module_1.ComponentModule,
                 basic_component_module_1.BasicComponentModule,
-                confirm_pending_list_routing_module_1.ConfirmPendingListPageRoutingModule,
-                confirm_pending_detail_search_module_1.ConfirmPendingDetailSearchPageModule,
+                confirm_cc_list_routing_module_1.ConfirmCcListPageRoutingModule,
+                confirm_cc_detail_search_module_1.ConfirmCcDetailSearchPageModule,
                 safety_education_result_edit_module_1.SafetyEducationResultEditPageModule,
                 risk_evaluation_edit_module_1.RiskEvaluationEditPageModule,
                 worker_minutes_edit_module_1.WorkerMinutesEditPageModule
             ],
-            declarations: [confirm_pending_list_page_1.ConfirmPendingListPage]
+            declarations: [confirm_cc_list_page_1.ConfirmCcListPage]
         })
-    ], ConfirmPendingListPageModule);
-    return ConfirmPendingListPageModule;
+    ], ConfirmCcListPageModule);
+    return ConfirmCcListPageModule;
 }());
-exports.ConfirmPendingListPageModule = ConfirmPendingListPageModule;
+exports.ConfirmCcListPageModule = ConfirmCcListPageModule;

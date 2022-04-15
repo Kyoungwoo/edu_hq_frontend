@@ -22,13 +22,14 @@ export class SearchConstructionMachineryComponent implements OnInit {
   @Input() all:boolean = false;
   @Input() form:any;
   @Input() multiple:boolean = false;
+  
+  /** multiple에서 쓰는 녀셕 */
+  @Input() selectedItemList:MachineryItem[] = [];
+
   res:ConnectResult<MachineryItem>;
 
   allState: boolean = false;
   selectedItem: MachineryItem;
-
-  /** multiple에서 쓰는 녀셕 */
-  selectedItemList: MachineryItem[] = [];
 
   constructor(
     private connect: ConnectService,
@@ -48,21 +49,21 @@ export class SearchConstructionMachineryComponent implements OnInit {
     }
   }
 
-  isSelectedItem(item) {
+  isSelectedItem(item:MachineryItem) {
     if(!this.multiple) {
-      return this.selectedItem === item;
+      return this.selectedItem?.ctgo_machinery_id === item.ctgo_machinery_id;
     }
     else {
-      return this.selectedItemList.includes(item);
+      return this.selectedItemList.find(selectedItem => selectedItem.ctgo_machinery_id === item.ctgo_machinery_id);
     }
   }
-  selectItem(item) {
+  selectItem(item:MachineryItem) {
     this.allState = false;
     if(!this.multiple) {
       this.selectedItem = item;
     }
     else {
-      const itemIndex = this.selectedItemList.indexOf(item);
+      const itemIndex = this.selectedItemList.findIndex(selectedItem => selectedItem.ctgo_machinery_id === item.ctgo_machinery_id);
       if(itemIndex > -1) {
         this.selectedItemList.splice(itemIndex, 1);
       }

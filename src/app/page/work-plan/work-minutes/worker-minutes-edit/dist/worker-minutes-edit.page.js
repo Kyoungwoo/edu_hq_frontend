@@ -229,6 +229,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                             this.modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -280,6 +281,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                                 this.form.safety_meeting_id = res.rsObj.safety_meeting_id;
                                 // 목록을 새로고침 해줘야 함
                                 window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                                window.dispatchEvent(new CustomEvent('approval-list:get()'));
                             }
                         }
                         else {
@@ -323,6 +325,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                             this.modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -343,6 +346,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                             this.modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: approvalRes.rsMsg });
@@ -373,6 +377,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -393,6 +398,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }

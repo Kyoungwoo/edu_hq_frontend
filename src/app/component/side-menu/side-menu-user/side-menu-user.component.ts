@@ -179,6 +179,11 @@ export class SideMenuUserComponent implements OnInit {
     });
   }
 
+  navMypage() {
+    this._modal.dismiss();
+    this.nav.navigateForward('/my-page-type');
+  }
+
   router(title: string) {
     switch (title) {
       case '':

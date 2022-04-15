@@ -271,6 +271,20 @@ var RiskEvaluationPopupPage = /** @class */ (function () {
         this.riskList.unshift(__assign(__assign(__assign(__assign({}, new RiskItem()), this.selectItem1), this.selectItem2), this.selectItem3));
     };
     RiskEvaluationPopupPage.prototype.submit = function () {
+        var emptyRiskFactor = this.riskList.find(function (item) {
+            return !item.risk_factor_name;
+        });
+        if (emptyRiskFactor) {
+            this.toast.present({ color: 'warning', message: '위험요인을 입력해주세요.' });
+            return;
+        }
+        var emptyRiskPlan = this.riskList.find(function (item) {
+            return !item.risk_plan_name;
+        });
+        if (emptyRiskPlan) {
+            this.toast.present({ color: 'warning', message: '감소대책을 입력해주세요.' });
+            return;
+        }
         this._modal.dismiss({
             riskList: this.riskList
         });
