@@ -299,8 +299,8 @@
     min-width: auto;
     --indicator-box-shadow: none;
     --indicator-color: var(--ion-color-base);
-    /* --padding-start: 8px;
-    --padding-end: 8px; */
+    // /* --padding-start: 8px;
+    // --padding-end: 8px; */
   }
   ion-segment-button::before {
     content: none;
@@ -310,6 +310,7 @@
     top: auto;
     bottom: 0;
   }
+  
   ion-segment-button::part(indicator-background) {
     height: 4px;
     border-radius: 4px 4px 0 0;
@@ -584,5 +585,12 @@
       margin-top: 0!important;
     }
     
+  }
+}
+
+// 모달 백그라운드 클릭시 안꺼지도록
+ion-modal:not(.side-menu-admin-modal) {
+  ion-backdrop {
+    pointer-events: none;
   }
 }

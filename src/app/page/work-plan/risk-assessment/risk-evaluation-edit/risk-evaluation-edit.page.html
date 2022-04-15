@@ -9,12 +9,11 @@
 
 <ion-content>
 
-  <h2>{{ form.risk_asment_type_text }} 위험성 평가표</h2>
-
   <app-approval 
-  [project_id]="this.form.project_id"
-  [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
-  [approval_id]="this.form.approval_id"
+  [isDuplicate]="isDuplicate"
+  [project_id]="form.project_id"
+  [ctgo_approval_module_id]="form.ctgo_approval_module_id"
+  [approval_id]="form.approval_id"
   (deleteClick)="onDeleteClick($event)"
   (saveClick)="onSaveClick($event)"
   (sendClick)="onSendClick($event)"
@@ -22,185 +21,195 @@
   (approvalClick)="onApprovalClick($event)"
   (change)="onApprovalChange($event)"></app-approval>
 
-  <h4>기본정보</h4>
+  <app-approval-document>
 
-  <app-row mobileBreak>
-    <app-col>
-      <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-input-template label="회사명" [disabled]="true">
-        <p slot="input">{{ form.company_name }}</p>
-      </app-input-template>
-    </app-col>
-    <app-col>
-      <app-select-construction [project_id]="form.project_id" [master_company_id]="form.master_company_id" [(ngModel)]="form.ctgo_construction_id" [disabled]="!permission.edit"></app-select-construction>
-    </app-col>
-    <app-col>
-      <app-select label="평가표 구분" [(ngModel)]="form.risk_asment_type" [disabled]="!permission.edit" [required]="true" (change)="form.risk_asment_type_text = getTypeText(form.risk_asment_type)">
-        <app-select-option value="최초">최초</app-select-option>
-        <app-select-option value="정기">정기</app-select-option>
-        <app-select-option value="수시">수시</app-select-option>
-      </app-select>
-    </app-col>
-  </app-row>
-  <app-row>
-    <app-col>
-      <app-input-group label="작업기간" [disabled]="!permission.edit" [required]="true">
-        <app-calendar [(ngModel)]="form.risk_asment_start_date" [max]="form.risk_asment_end_date"></app-calendar>
-        ~
-        <app-calendar [(ngModel)]="form.risk_asment_start_date" [min]="form.risk_asment_start_date"></app-calendar>
-      </app-input-group>
-    </app-col>
-
-    <app-col>
-      <app-input-template label="작성일" [disabled]="true">
-        <p slot="input">{{ form.create_date }}</p>
-      </app-input-template>
-    </app-col>
-    <app-col>
-      <app-input-template label="작성자" [disabled]="true">
-        <p slot="input">{{ form.user_name }}</p>
-      </app-input-template>
-    </app-col>
-    <app-col>
-      
-    </app-col>
-  </app-row>
-
-  <app-row>
-    <app-col>
-      <h4>평가표 정보</h4>
-    </app-col>
-    <app-col size="auto" *ngIf="permission.tableEdit">
-      <app-button fill="translucent" (click)="add()">{{ riskTableList.length ? '수정' : '작성' }}</app-button>
-    </app-col>
-  </app-row>
-
-  <app-row>
-    <app-col>
-      <app-table>
-        <thead>
-          <tr>
-            <th rowspan="2">공사명</th>
-            <th rowspan="2" style="width: 100px;">단위작업</th>
-            <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">장소</th>
-            <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">건설기계</th>
-            <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">특수 공도구</th>
-            <th rowspan="2" style="width: 300px;">위험요인</th>
-            <th colspan="3">위험성</th>
-            <th rowspan="2" style="width: 300px;">감소대책</th>
-          </tr>
-          <tr>
-            <th>빈도</th>
-            <th>강도</th>
-            <th>위험도</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-          <ng-container *ngFor="let cunstructionItem of riskTableList">
-
-            <ng-container *ngFor="let unitItem of cunstructionItem.unitList; let unitStart = first;">
-
-              <ng-container *ngFor="let factorItem of unitItem.facterList; let factorStart = first;">
-
-                <tr *ngFor="let planItem of factorItem.planList; let planStart = first;">
-
-                  <td *ngIf="unitStart && factorStart && planStart" [attr.rowspan]="cunstructionItem.rowspan">{{ cunstructionItem.risk_construction_name }}</td>
-
-                  <ng-container *ngIf="factorStart && planStart">
-
-                    <td [attr.rowspan]="unitItem.rowspan">{{ unitItem.risk_unit_name }}</td>
-                    <td [attr.rowspan]="unitItem.rowspan">
-                      {{ unitItem.area_top_name }}
-                      {{ unitItem.area_middle_name }}
-                      {{ unitItem.area_bottom_name }}
-                    </td>
-                    <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
-                      <app-button fill="translucent" size="small" (click)="openArea(unitItem)">
-                        <app-img name="search"></app-img>
-                      </app-button>
-                    </td>
-                    <td [attr.rowspan]="unitItem.rowspan">
-                      <div class="chip-list" *ngFor="let ctgo_machinery_id of unitItem.ctgo_machinery_ids; let i = index;">
-                        <ion-chip color="primary" (click)="permission.tableEdit && removeMachinery(unitItem, ctgo_machinery_id)">
-                          {{ unitItem.ctgo_machinery_names[i] }}
-                          <ion-icon *ngIf="permission.tableEdit" name="close"></ion-icon>
-                        </ion-chip>
-                      </div>
-                    </td>
-                    <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
-                      <app-button fill="translucent" size="small" (click)="openMachinery(unitItem)">
-                        <app-img name="search"></app-img>
-                      </app-button>
-                    </td>
-                    <td [attr.rowspan]="unitItem.rowspan">
-                      <div class="chip-list" *ngFor="let ctgo_tool_id of unitItem.ctgo_tool_ids; let i = index;">
-                        <ion-chip color="primary" (click)="permission.tableEdit && removeTool(unitItem, ctgo_tool_id)">
-                          {{ unitItem.ctgo_tool_names[i] }}
-                          <ion-icon *ngIf="permission.tableEdit" name="close"></ion-icon>
-                        </ion-chip>
-                      </div>
-                    </td>
-                    <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
-                      <app-button fill="translucent" size="small" (click)="openTool(unitItem)">
-                        <app-img name="search"></app-img>
-                      </app-button>
-                    </td>
-
-                  </ng-container>
-
-                  <ng-container *ngIf="planStart">
-
-                    <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_factor_name }}</td>
-                    <td [attr.rowspan]="factorItem.rowspan">
-                      <app-select [(ngModel)]="factorItem.risk_frequency" (change)="riskFrequencyChange(factorItem)" [disabled]="!permission.tableEdit">
-                        <app-select-option [value]="1">1</app-select-option>
-                        <app-select-option [value]="2">2</app-select-option>
-                        <app-select-option [value]="3">3</app-select-option>
-                      </app-select>
-                    </td>
-                    <td [attr.rowspan]="factorItem.rowspan">
-                      <app-select [(ngModel)]="factorItem.risk_strength" (change)="riskStrengthChange(factorItem)" [disabled]="!permission.tableEdit">
-                        <app-select-option [value]="1">1</app-select-option>
-                        <app-select-option [value]="2">2</app-select-option>
-                        <app-select-option [value]="3">3</app-select-option>
-                      </app-select>
-                    </td>
-                    <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_danger_level }}</td>
-
-                  </ng-container>
-
-                  <td>{{ planItem.risk_plan_name }}</td>
-
-                </tr>
-                
+    <h2>{{ form.risk_asment_type_text }} 위험성 평가표</h2>
+  
+    <app-approval-template *mobileShow [approval_answer]="approval_answer">
+    </app-approval-template>
+  
+    <h4>기본정보</h4>
+  
+    <app-row>
+      <app-col>
+        <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+      </app-col>
+      <app-col>
+        <app-input-template label="회사명" [disabled]="true">
+          <p slot="input">{{ form.company_name }}</p>
+        </app-input-template>
+      </app-col>
+      <app-col>
+        <app-select-construction [project_id]="form.project_id" [master_company_id]="form.master_company_id" [(ngModel)]="form.ctgo_construction_id" [disabled]="!permission.edit"></app-select-construction>
+      </app-col>
+      <app-col>
+        <app-select label="평가표 구분" [(ngModel)]="form.risk_asment_type" [disabled]="!permission.edit" [required]="true" (change)="form.risk_asment_type_text = getTypeText(form.risk_asment_type)">
+          <app-select-option value="최초">최초</app-select-option>
+          <app-select-option value="정기">정기</app-select-option>
+          <app-select-option value="수시">수시</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input-group label="작업기간" [disabled]="!permission.edit" [required]="true">
+          <app-calendar [(ngModel)]="form.risk_asment_start_date" [max]="form.risk_asment_end_date"></app-calendar>
+          ~
+          <app-calendar [(ngModel)]="form.risk_asment_end_date" [min]="form.risk_asment_end_date"></app-calendar>
+        </app-input-group>
+      </app-col>
+  
+      <app-col>
+        <app-input-template label="작성일" [disabled]="true">
+          <p slot="input">{{ form.create_date }}</p>
+        </app-input-template>
+      </app-col>
+      <app-col>
+        <app-input-template label="작성자" [disabled]="true">
+          <p slot="input">{{ form.user_name }}</p>
+        </app-input-template>
+      </app-col>
+      <app-col>
+        
+      </app-col>
+    </app-row>
+  
+    <app-row>
+      <app-col>
+        <h4>평가표 정보</h4>
+      </app-col>
+      <app-col size="auto" >
+        <app-button fill="translucent" (click)="add()">{{ riskTableList.length ? '수정' : '작성' }}</app-button>
+      </app-col>
+    </app-row>
+  
+    <app-row>
+      <app-col>
+        <app-table>
+          <thead>
+            <tr>
+              <th rowspan="2">공사명</th>
+              <th rowspan="2" style="width: 100px;">단위작업</th>
+              <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">장소</th>
+              <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">건설기계</th>
+              <th rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">특수 공도구</th>
+              <th rowspan="2" style="width: 300px;">위험요인</th>
+              <th colspan="3">위험성</th>
+              <th rowspan="2" style="width: 300px;">감소대책</th>
+            </tr>
+            <tr>
+              <th>빈도</th>
+              <th>강도</th>
+              <th>위험도</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <ng-container *ngFor="let cunstructionItem of riskTableList">
+  
+              <ng-container *ngFor="let unitItem of cunstructionItem.unitList; let unitStart = first;">
+  
+                <ng-container *ngFor="let factorItem of unitItem.facterList; let factorStart = first;">
+  
+                  <tr *ngFor="let planItem of factorItem.planList; let planStart = first;">
+  
+                    <td *ngIf="unitStart && factorStart && planStart" [attr.rowspan]="cunstructionItem.rowspan">{{ cunstructionItem.risk_construction_name }}</td>
+  
+                    <ng-container *ngIf="factorStart && planStart">
+  
+                      <td [attr.rowspan]="unitItem.rowspan">{{ unitItem.risk_unit_name }}</td>
+                      <td [attr.rowspan]="unitItem.rowspan">
+                        {{ unitItem.area_top_name }}
+                        {{ unitItem.area_middle_name }}
+                        {{ unitItem.area_bottom_name }}
+                      </td>
+                      <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
+                        <app-button fill="translucent" size="small" (click)="openArea(unitItem)">
+                          <app-img name="search"></app-img>
+                        </app-button>
+                      </td>
+                      <td [attr.rowspan]="unitItem.rowspan">
+                        <div class="chip-list" *ngFor="let ctgo_machinery_id of unitItem.ctgo_machinery_ids; let i = index;">
+                          <ion-chip color="primary" (click)="permission.tableEdit && removeMachinery(unitItem, ctgo_machinery_id)">
+                            {{ unitItem.ctgo_machinery_names[i] }}
+                            <ion-icon *ngIf="permission.tableEdit" name="close"></ion-icon>
+                          </ion-chip>
+                        </div>
+                      </td>
+                      <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
+                        <app-button fill="translucent" size="small" (click)="openMachinery(unitItem)">
+                          <app-img name="search"></app-img>
+                        </app-button>
+                      </td>
+                      <td [attr.rowspan]="unitItem.rowspan">
+                        <div class="chip-list" *ngFor="let ctgo_tool_id of unitItem.ctgo_tool_ids; let i = index;">
+                          <ion-chip color="primary" (click)="permission.tableEdit && removeTool(unitItem, ctgo_tool_id)">
+                            {{ unitItem.ctgo_tool_names[i] }}
+                            <ion-icon *ngIf="permission.tableEdit" name="close"></ion-icon>
+                          </ion-chip>
+                        </div>
+                      </td>
+                      <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
+                        <app-button fill="translucent" size="small" (click)="openTool(unitItem)">
+                          <app-img name="search"></app-img>
+                        </app-button>
+                      </td>
+  
+                    </ng-container>
+  
+                    <ng-container *ngIf="planStart">
+  
+                      <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_factor_name }}</td>
+                      <td [attr.rowspan]="factorItem.rowspan">
+                        <app-select [(ngModel)]="factorItem.risk_frequency" (change)="riskFrequencyChange(factorItem)" [disabled]="!permission.tableEdit">
+                          <app-select-option [value]="1">1</app-select-option>
+                          <app-select-option [value]="2">2</app-select-option>
+                          <app-select-option [value]="3">3</app-select-option>
+                        </app-select>
+                      </td>
+                      <td [attr.rowspan]="factorItem.rowspan">
+                        <app-select [(ngModel)]="factorItem.risk_strength" (change)="riskStrengthChange(factorItem)" [disabled]="!permission.tableEdit">
+                          <app-select-option [value]="1">1</app-select-option>
+                          <app-select-option [value]="2">2</app-select-option>
+                          <app-select-option [value]="3">3</app-select-option>
+                        </app-select>
+                      </td>
+                      <td [attr.rowspan]="factorItem.rowspan">{{ factorItem.risk_danger_level }}</td>
+  
+                    </ng-container>
+  
+                    <td>{{ planItem.risk_plan_name }}</td>
+  
+                  </tr>
+                  
+                </ng-container>
+  
               </ng-container>
-
+  
             </ng-container>
+            
+          </tbody>
+        </app-table>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h4>근로자 참석 명부</h4>
+      </app-col>
+      <app-col size="auto" *ngIf="permission.edit">
+        <app-button fill="translucent" href="assets/xlsx/위험성평가참석자명단.xlsx" download target="_blank">양식다운</app-button>
+      </app-col>
+      <app-col size="auto" *ngIf="permission.edit">
+        <app-button fill="translucent">
+          첨부
+          <app-file [(ngModel)]="form.risk_file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-file-preview *ngFor="let futItem of form.risk_file_data" [futItem]="futItem" [readonly]="!permission.edit"></app-file-preview>
+  
+    <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
 
-          </ng-container>
-          
-        </tbody>
-      </app-table>
-    </app-col>
-  </app-row>
-  <app-row>
-    <app-col>
-      <h4>근로자 참석 명부</h4>
-    </app-col>
-    <app-col size="auto" *ngIf="permission.edit">
-      <app-button fill="translucent" href="assets/xlsx/위험성평가참석자명단.xlsx" download target="_blank">양식다운</app-button>
-    </app-col>
-    <app-col size="auto" *ngIf="permission.edit">
-      <app-button fill="translucent">
-        첨부
-        <app-file [(ngModel)]="form.risk_file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
-      </app-button>
-    </app-col>
-  </app-row>
-  <app-file-preview *ngFor="let futItem of form.risk_file_data" [futItem]="futItem" [readonly]="!permission.edit"></app-file-preview>
+  </app-approval-document>
 
-  <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
 </ion-content>

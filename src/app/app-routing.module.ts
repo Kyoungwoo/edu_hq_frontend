@@ -588,8 +588,10 @@ const routes: Routes = [
     path: 'risk-pending-list',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-pending-list/risk-pending-list.module').then( m => m.RiskPendingListPageModule)
   },
-
-
+  {
+    path: 'worker-minutes-pending-list',
+    loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-pending-list/worker-minutes-pending-list.module').then( m => m.WorkerMinutesPendingListPageModule)
+  }
 ];
 
 @NgModule({

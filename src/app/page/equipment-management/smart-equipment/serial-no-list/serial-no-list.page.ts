@@ -114,7 +114,7 @@ export class SerialNoListPage implements OnInit {
   }
   
   /**
-   * @function getList(): 중장비 시리얼 No 목록 가져오기
+   * @function getList(): 중장비 시리얼 NO 목록 가져오기
    */
    async getList() {
     let method = await this.TransMethodType();
@@ -165,7 +165,7 @@ export class SerialNoListPage implements OnInit {
   }
 
   /**
-   * @function getSearialCtgo(): 시리얼 No 장비구분 목록 가져오기
+   * @function getSearialCtgo(): 시리얼 NO 장비구분 목록 가져오기
    */
    async getSearialCtgo() {
     const res = await this.connect.run('/serial/ctgo/list', { serial_type: this.serial_type });
@@ -276,7 +276,7 @@ export class SerialNoListPage implements OnInit {
               insert_promise = await Promise.all(this.res_insert.map((item) => { return this.SearialSaveMethod(item, 'insert')}));
               
               // 추가할 아이템만 있을경우 실행
-              insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
+              // insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
             }
 
             // 수정된 아이템 찾기
@@ -301,9 +301,13 @@ export class SerialNoListPage implements OnInit {
               update_promise = await Promise.all(changeed_itemIndex.map((item) => { return this.SearialSaveMethod(item, 'update')}));
               
               // 모든 api를 호출 후 리스트 다시 갱신
-              update_promise.then(() => {this.getList();});
+              // update_promise.then(() => {this.getList();});
             }
+            const all_promise = Promise.all([insert_promise,update_promise]);
+            await all_promise.then(() => {if(changeed_itemIndex.length || this.res_insert.length) this.getList();});
+
             if(!changeed_itemIndex.length && !this.res_insert.length) this.resetState(); 
+
             await loadingCus.dismiss();
           }
         }

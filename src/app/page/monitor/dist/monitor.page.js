@@ -46,7 +46,9 @@ exports.MonitorPage = exports.SmartEquip = exports.TodayConstructionItem = expor
 var today_departure_status_list_page_1 = require("./../work-management/departure-status/today-departure-status-list/today-departure-status-list.page");
 var monitor_smart_equip_edit_page_1 = require("./monitor-smart-equip-edit/monitor-smart-equip-edit.page");
 var core_1 = require("@angular/core");
-var risk_evaluation_popup_page_1 = require("../work-plan/risk-assessment/risk-evaluation-popup/risk-evaluation-popup.page");
+var connect_service_1 = require("src/app/basic/service/core/connect.service");
+var naver_map_component_1 = require("src/app/basic/component/input/naver-map/naver-map.component");
+var monitor_realtime_location_page_1 = require("./monitor-realtime-location/monitor-realtime-location.page");
 /**
  * @class TodayConstructionItem
  *  - 금일 출역 근로자 변수 class
@@ -78,23 +80,20 @@ var SmartEquip = /** @class */ (function () {
 }());
 exports.SmartEquip = SmartEquip;
 var MonitorPage = /** @class */ (function () {
-    function MonitorPage(connect, qr, toast, nfc, modal, route, user, date) {
+    function MonitorPage(connect, toast, modal, route, user, date) {
         this.connect = connect;
-        this.qr = qr;
         this.toast = toast;
-        this.nfc = nfc;
         this.modal = modal;
         this.route = route;
         this.user = user;
         this.date = date;
-        // theme_1 = [
-        //   {qwe_id:1, qwe_name:"test_1"},
-        //   {qwe_id:2, qwe_name:"test_2"},
-        //   {qwe_id:3, qwe_name:"test_3"},
-        // ]
         this.form = {
             project_id: 1,
-            master_company_id: 4
+            master_company_id: 4,
+            company_id: 0,
+            ctgo_construction_id: 0,
+            search_text: '',
+            user_type: '전체' // 근로자 구분 관리자 OR 작업자 OR 전체
         };
         this.todayWork_totalCount = 0; // 금일 출역 근로자 총 수
         this.todayWork_graphLine = []; // 금일 출역 근로자 그래프 단위라인
@@ -126,28 +125,6 @@ var MonitorPage = /** @class */ (function () {
             machine_count: 0,
             mmachine_using_count: 0 // 사용중 스마트장비 수
         };
-        this.menuCount = 1;
-        this.weather = {
-            weather_speed: "",
-            weather_id: "",
-            weather_temp: "",
-            avg_temp: 0,
-            weather_icon: "",
-            create_date: "",
-            weather_main: "",
-            weather_humidity: "",
-            weather_rain: "",
-            weather_snow: "",
-            high_weather_temp: "",
-            low_weather_temp: "" // 최저 기온(온도),
-        };
-        this.dust = {
-            dataTime: "",
-            grade_name: "",
-            icon_url: "",
-            pm10Value: 0,
-            pm25Grade: 0
-        };
         this.scandata = "http://m.site.naver.com/0TGMk";
         this.maxIndex = 300;
         this.graphArr3 = [
@@ -157,118 +134,67 @@ var MonitorPage = /** @class */ (function () {
             },
             {
                 name: '작업중',
-                count: 2
+                count: 90
             },
             {
                 name: '작업종료',
-                count: 3
+                count: 50
             }
         ];
         this.graphArr4 = [
             {
-                name: '전기',
-                count: 10
+                name: '고소 작업(높이 2m 이상)',
+                count: 17
             },
             {
-                name: '토목',
-                count: 2
+                name: '굴착 가설(깊이 1.5m 이상)',
+                count: 8
             },
             {
-                name: '조경',
-                count: 3
+                name: '기설 구조물 설치 해제',
+                count: 80
             },
             {
-                name: '건축',
-                count: 4
+                name: '밀폐공간',
+                count: 35
             },
             {
-                name: '기계',
-                count: 5
+                name: '휴일작업',
+                count: 70
             },
         ];
-        // graph = [
-        //   { color: '#25A485', name: '작업대기', data: [
-        //     {value: 20, label: '8시'},
-        //     {value: 60, label: '9시'},
-        //     {value: 50, label: '10시'}
-        //   ]},
-        //   { color: '#78CE5C', name: '작업중', data: [
-        //     {value: 30, label: '8시'},
-        //     {value: 20, label: '9시'},
-        //     {value: 80, label: '10시'}
-        //   ]}
-        // ]
+        this.gpsData = new connect_service_1.ConnectResult();
+        this.gps_log_id = [];
+        this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
         this.data = {
-            monitor: ''
+            monitor: '통합관제'
         };
     }
     MonitorPage.prototype.ngOnInit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: risk_evaluation_popup_page_1.RiskEvaluationPopupPage
-                        })];
-                    case 1:
-                        modal = _a.sent();
-                        // modal.present();
-                        // this.graphData()
-                        // const modal = await this.modal.create({
-                        //   component:ApprovalPopupComponent,
-                        //   cssClass:"modal-7"
-                        // });
-                        // modal.present();
-                        this.intervalMethodController();
-                        this.methodContrroller();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
-     */
-    MonitorPage.prototype.methodContrroller = function () {
-        this.monitorQuery();
-        this.getTodayWorker(); // 금일 출역 작업자
-        this.getTodayConstruction(); // 공종별 출역 작업자
-        this.getSmartEquip(); // 스마트 안전장비 
-    };
-    /**
-     * @function intervalMethodController(): 인터벌이 포함되어있는 메서드를
-     */
-    MonitorPage.prototype.intervalMethodController = function () {
-        this.IntervalWeather_Dust(); // 날씨 및 미세먼지
-        /**
-         * 날씨와 미세먼지는 인터벌이있기때문에 처음에 한번은 불러와줘야합니다.
-         * @function this.getDust()
-         * @function this.getWeather()
-         */
-        this.getDust(); // 미세먼지
-        this.getWeather(); // 날씨
-    };
-    /**
-     * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드
-     */
-    MonitorPage.prototype.IntervalWeather_Dust = function () {
         var _this = this;
-        this.intervalWeather_Dust = setInterval(function () {
-            _this.getDust();
-            _this.getWeather();
-        }, 1800000);
+        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
+            var monitor = params.monitor;
+            _this.data = {
+                monitor: monitor || '통합관제'
+            };
+        });
+        this.methodContrroller();
     };
     /**
      * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
      */
     MonitorPage.prototype.ngOnDestroy = function () {
-        clearInterval(this.intervalWeather_Dust);
-        this.query.unsubscribe();
+        this.$activedRoute.unsubscribe();
     };
-    MonitorPage.prototype.ngAfterViewInit = function () {
-        this.data = {
-            monitor: '통합관제'
-        };
+    /**
+     * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
+     */
+    MonitorPage.prototype.methodContrroller = function () {
+        this.wokerInGetList();
+        this.gpsGet(); //근로자 gps
+        this.getTodayWorker(); // 금일 출역 작업자
+        this.getTodayConstruction(); // 공종별 출역 작업자
+        this.getSmartEquip(); // 스마트 안전장비 
     };
     /**
      * @function getTodayWorker(): 금일 출역 작업자 데이터를 가져오는 메서드
@@ -283,24 +209,8 @@ var MonitorPage = /** @class */ (function () {
                         res = _a.sent();
                         switch (res.rsCode) {
                             case 0:
-                                console.log(res);
                                 total_1 = 0;
                                 this.todayWork = res;
-                                // theme
-                                // this.todayWork.rsMap[0].company_worker = Number(300);
-                                // this.todayWork.rsMap[0].master_worker = Number(200);
-                                // this.todayWork.rsMap[1].company_worker = Number(43);
-                                // this.todayWork.rsMap[1].master_worker = Number(90);
-                                // this.todayWork.rsMap[2].company_worker = Number(111);
-                                // this.todayWork.rsMap[2].master_worker = Number(76);
-                                // this.todayWork.rsMap[3].company_worker = Number(172);
-                                // this.todayWork.rsMap[3].master_worker = Number(222);
-                                // this.todayWork.rsMap[4].company_worker = Number(95);
-                                // this.todayWork.rsMap[4].master_worker = Number(66);
-                                // this.todayWork.rsMap[5].company_worker = Number(1);
-                                // this.todayWork.rsMap[5].master_worker = Number(2);
-                                // this.todayWork.rsMap[6].company_worker = Number(7);
-                                // this.todayWork.rsMap[6].master_worker = Number(3);
                                 this.todayWork.rsMap.map(function (item) { total_1 = total_1 + item.master_worker + item.company_worker; });
                                 this.todayWork_totalCount = total_1;
                                 total_arr_1 = [];
@@ -333,19 +243,8 @@ var MonitorPage = /** @class */ (function () {
                         res = _a.sent();
                         switch (res.rsCode) {
                             case 0:
-                                console.log(res);
                                 total_2 = 0;
                                 this.todayConstruction = res;
-                                // theme
-                                // this.todayConstruction.rsMap[0].cnt = Number(66);
-                                // this.todayConstruction.rsMap[1].cnt = Number(55);
-                                // this.todayConstruction.rsMap[2].cnt = Number(43);
-                                // this.todayConstruction.rsMap[3].cnt = Number(88);
-                                // this.todayConstruction.rsMap[4].cnt = Number(44);
-                                // this.todayConstruction.rsMap[5].cnt = Number(11);
-                                // this.todayConstruction.rsMap[6].cnt = Number(33);
-                                // this.todayConstruction.rsMap[7].cnt = Number(22);
-                                // this.todayConstruction.rsMap[8].cnt = Number(77);
                                 this.todayConstruction.rsMap.map(function (item) { total_2 = total_2 + item.cnt; });
                                 this.todayConstruction_totalCount = total_2;
                                 total_arr_2 = [];
@@ -449,66 +348,87 @@ var MonitorPage = /** @class */ (function () {
             });
         });
     };
-    /**
-     * @function getWeather(): 날씨 데이터를 가져오는 메서드
-     */
-    MonitorPage.prototype.getWeather = function () {
+    MonitorPage.prototype.wokerInGetList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/weather/get', null, {})];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/integrated/worker/in/list', this.form)];
                     case 1:
-                        res = _a.sent();
-                        switch (res.rsCode) {
-                            case 0:
-                                this.weather = res.rsObj;
-                                break;
+                        _a.workerInRes = _b.sent();
+                        if (this.workerInRes.rsCode !== 0) {
+                            this.toast.present({ message: this.workerInRes.rsMsg, color: 'warning' });
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    /**
-     * @function getDust(): 미세먼지 데이터를 가져오는 메서드
-     */
-    MonitorPage.prototype.getDust = function () {
+    MonitorPage.prototype.gpsGet = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/dust/get', null, {})];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.connect.run('/integrated/gps/log', this.form)];
                     case 1:
-                        res = _a.sent();
-                        switch (res.rsCode) {
-                            case 0:
-                                this.dust = res.rsObj;
-                                break;
+                        _a.gpsData = _b.sent();
+                        console.log("res", this.gpsData.rsMap);
+                        if (this.gpsData.rsCode === 0) {
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    // graphData() {
-    //   let index = Math.ceil(this.maxIndex/100);
-    //   console.log("index",index);
-    //   if(this.maxIndex/100 !== 0) {
-    //     for(let i= 0; i<index; i++){
-    //       this.graphArrCount.push(i);
-    //     }
-    //   }
-    //   this.graphArrCount.push(index);
-    // }
-    MonitorPage.prototype.monitorQuery = function () {
-        var _this = this;
-        this.query = this.route.queryParams.subscribe(function (params) {
-            _this.data = {
-                monitor: params.monitor
-            };
-            console.log(_this.data);
+    MonitorPage.prototype.realtimeedit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var modal;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modal.create({
+                            component: monitor_realtime_location_page_1.MonitorRealtimeLocationPage
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        modal.present();
+                        return [2 /*return*/];
+                }
+            });
         });
+    };
+    MonitorPage.prototype.style = function (item) {
+        var style;
+        switch (item.name) {
+            case '작업전':
+                style = { 'background-color': 'var(--ion-color-monitor-yellow)' };
+                break;
+            case '작업중':
+                style = { 'background-color': 'var(--ion-color-primary)' };
+                break;
+            case '작업종료':
+                style = { 'background-color': 'var(--ion-color-tertiary)' };
+                break;
+            case '고소 작업(높이 2m 이상)':
+                style = { 'background-color': 'var(--ion-color-monitor-yellow)' };
+                break;
+            case '굴착 가설(깊이 1.5m 이상)':
+                style = { 'background-color': 'var(--ion-color-monitor-green)' };
+                break;
+            case '기설 구조물 설치 해제':
+                style = { 'background-color': 'var(--ion-color-primary)' };
+                break;
+            case '밀폐공간':
+                style = { 'background-color': 'var(--ion-color-tertiary)' };
+                break;
+            case '휴일작업':
+                style = { 'background-color': 'var(--ion-color-fourth)' };
+                break;
+        }
+        return style;
     };
     MonitorPage = __decorate([
         core_1.Component({
@@ -520,22 +440,3 @@ var MonitorPage = /** @class */ (function () {
     return MonitorPage;
 }());
 exports.MonitorPage = MonitorPage;
-// async getWeatherGroup() {
-// const resultDust = await Promise.all([    
-//   this.getDust()
-// ])
-// const resultWeather = await Promise.all([
-//   this.getWeather()
-// ])
-// const weatherResult = resultWeather[0];
-// const DustResult = resultDust[0];
-// console.log("DustResult",DustResult)
-// const timeDiffweather = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
-// const timeDiffDust = new Date().getTime() - new Date(DustResult.rsObj.dataTime).getTime();
-// this.timeoutWeather = setTimeout(async() => {
-//   this.getWeatherGroup();
-// }, (1000 * 60 * 60 * 3.1) - timeDiffweather);
-// this.timeoutDust = setTimeout(async() => {
-//   this.getWeatherGroup();
-// }, (1000 * 60 * 60 * 1.1) - timeDiffDust);
-// }

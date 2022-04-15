@@ -55,7 +55,7 @@
         <ion-toolbar color="white">
           <ion-buttons slot="start">
             <app-button *ngIf="permission.add" fill="translucent" (click)="add()">신규 작성</app-button>
-            <app-button *ngIf="permission.add" fill="translucent">복사 작성</app-button>
+            <app-button *ngIf="permission.add" fill="translucent" (click)="duplicate()" [disabled]="!selectitem">복사 작성</app-button>
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
           <ion-buttons slot="end">
@@ -70,7 +70,7 @@
         <ion-toolbar color="white">
           <h5>수시 위험성평가 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
-        <app-radio-group [(ngModel)]="selectitemList">
+        <app-radio-group [(ngModel)]="selectitem">
           <app-table>
             <thead>
               <tr>
@@ -139,30 +139,36 @@
       </ion-segment>
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
-    <ng-container>
-      <app-row>
-        <app-col></app-col>
-        <app-col size="auto">
-          <app-button fill="translucent" (click)="add()">신규등록</app-button>
-        </app-col>
-      </app-row>
-      <app-card *ngFor="let item of res?.rsMap">
-        <app-row>
-          <app-col>
-            <h5>{{ item.ctgo_approval_module_name }}</h5>
-          </app-col>
-          <app-col size="auto">
-            <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <p>{{ item.company_name }}</p>
-            <p>작업기간: {{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</p>
-          </app-col>
-        </app-row>
-        <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge>
-      </app-card>
-    </ng-container>
-    </ion-content>
+
+  <app-row>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-button fill="translucent" (click)="pending()">미결문서</app-button>
+    </app-col>
+  </app-row>
+  <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
+    <app-row>
+      <app-col>
+        <h5>{{ item.ctgo_approval_module_name }}</h5>
+      </app-col>
+      <app-col size="auto">
+        <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <p>{{ item.company_name }}</p>
+        <p>작업기간: {{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</p>
+      </app-col>
+    </app-row>
+    <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge>
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

@@ -183,6 +183,7 @@ export class RiskEvaluationPopupPage implements OnInit {
     });
   }
   submit() {
+    
     this._modal.dismiss({
       riskList: this.riskList
     });

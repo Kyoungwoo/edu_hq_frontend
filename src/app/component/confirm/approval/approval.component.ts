@@ -59,6 +59,10 @@ export class ApprovalComponent implements OnInit {
     }
   }
 
+  // 결재선 복사 작성시, 필요한 정보
+  @Input() isDuplicate:boolean = false;
+
+  // btn 아웃풋들
   @Output() deleteClick = new EventEmitter();
   @Output() saveClick = new EventEmitter();
   @Output() sendClick = new EventEmitter();
@@ -75,6 +79,8 @@ export class ApprovalComponent implements OnInit {
   res:ConnectResult<ApprovalObj>;
 
   btnList = [];
+
+  isApprovalHidden:boolean = true;
 
   constructor(
     private user: UserService,
@@ -278,14 +284,35 @@ export class ApprovalComponent implements OnInit {
    * 상황에 따라, 기본결재선, 혹은 문서에서 지정된 결재선을 가지고 온다.
    */
   async get() {
-    if(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id) {
-      await this.getDefaultButton();
-      await this.getDefaultApproval();
+    if(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id && !this.isDuplicate) {
+      // 결재선이 없을 경우, 디폴트를 넣어줌
+      await Promise.all([
+        this.getDefaultButton(),
+        this.getDefaultApproval()
+      ]);
     }
-    else if(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id) {
-      await this.getApprovalButton();
-      await this.getApproval();
+    else if(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id && !this.isDuplicate) {
+      // 결재선이 존재할 경우, 기존 결재선을 끌고 옴
+      await Promise.all([
+        this.getApprovalButton(),
+        this.getApproval()
+      ]);
     }
+    else if(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id && this.isDuplicate) {
+      // 복사작성일 경우, 버튼은 디폴트를 가져오고, 결재선은 끌고온 다음 초기화 시켜줌
+      await Promise.all([
+        this.getDefaultButton(),
+        this.getApproval()
+      ]);
+      this.approval_id = null;
+      this.form.approval_id = null;
+      this.res.rsObj.answer_datas.forEach(item => {
+        item.approval_id = null;
+        item.approval_answer = null;
+        item.approval_date = null;
+      });
+    }
+
     this.change.emit(this.getClickEvent());
   }
 
@@ -368,5 +395,12 @@ export class ApprovalComponent implements OnInit {
     else  {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+  }
+
+  /**
+   * 모바일 레이아웃에서 결재선을 토글한다.
+   */
+  approvalToggle() {
+    this.isApprovalHidden = !this.isApprovalHidden;
   }
 }

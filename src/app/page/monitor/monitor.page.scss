@@ -1,33 +1,7 @@
-app-img{
-    width: 30px;
-}
-ion-toolbar{
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-}
-.weather {
-    margin-right: 30px;
-}
-.weather-temp {
-    font-size: 25px;
-    font-weight: bold;
-}
-.ratio {
-    font-size: 15px;
-    color:var(--ion-color-primary);
-}
-
-.colstyle{
-    margin-right: 15px;
-}
-.title { 
-    font-size: 15px;
-    margin-bottom: 4px;
-}
 .margin-card {
     margin-top: 0;
 }
-.chip-back{
+.chip-back {
     background-color: var(--ion-color-light);
     border-radius: 15px;
     font-size: 17px;
@@ -403,8 +377,8 @@ app-card:last-child{
 }
 
 
-@media screen and (max-width:1350px) {
-    app-row{
+@media screen and (max-width: 1350px) {
+    app-row {
         flex-direction: column !important;
         app-col{
             padding-left: 0;
@@ -431,10 +405,10 @@ app-card:last-child{
     .bar-item{
         width: 30px;
     }
-    .bar-flex-box{
-        .bar-flex-theme{
-            flex: 0 22px!important;
-            width: 22px!important;
+    .bar-flex-box {
+        .bar-flex-theme {
+            flex: 0 22px !important;
+            width: 22px !important;
         }
     }
 }

@@ -1,3 +1,4 @@
+import { EmergencyClearPopupComponentModule } from './page/main/user/emergency-clear-popup/emergency-clear-popup.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +18,7 @@ import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 import { SortablejsModule } from 'ngx-sortablejs';
+import { EmergencyPopupComponentModule } from './page/main/user/emergency-popup/emergency-popup.module';
 
 const getConfig = () => {
   if(!isPlatform('ios')) {
@@ -73,6 +75,8 @@ const getConfig = () => {
     AppRoutingModule,
     ScrollingModule,
     SortablejsModule.forRoot({ animation: 150 }),
+    EmergencyPopupComponentModule,
+    EmergencyClearPopupComponentModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

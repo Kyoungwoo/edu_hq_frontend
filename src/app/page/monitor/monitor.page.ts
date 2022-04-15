@@ -2,16 +2,15 @@ import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NfcService } from 'src/app/basic/service/util/nfc.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
 import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
+import { Subscription } from 'rxjs';
 
 /**
  * @class TodayConstructionItem
@@ -56,8 +55,6 @@ export class TodayConstructionItem {
   styleUrls: ['./monitor.page.scss'],
 })
 export class MonitorPage implements OnInit, OnDestroy {
-
-  menu: number = 1;
   
   form = {
     project_id: 1,
@@ -106,121 +103,72 @@ export class MonitorPage implements OnInit, OnDestroy {
     mmachine_using_count: 0 // 사용중 스마트장비 수
   } 
 
-
-  menuCount:Number = 1;
-  
-  weather:any = {
-    weather_speed:"", // 풍속,
-    weather_id: "", // 아이디,
-    weather_temp:"", // 기온(온도),
-    avg_temp:0,// 어제와 오늘의 온도 평균에서 뺀 기온(온도)
-    weather_icon:"", // 아이콘,
-    create_date:"" ,// 날씨를 부른 시간 3시간 기준입니다,
-    weather_main:"", // 날씨 설명,
-    weather_humidity:"", // 습도,
-    weather_rain:"", // 강수량 :"", // 강수량
-    weather_snow:"", // 적설량},
-    high_weather_temp:"", // 최고 기온(온도),
-    low_weather_temp:"" // 최저 기온(온도),
-  }
-
-  dust:any = {
-    dataTime: "",
-    grade_name: "",
-    icon_url: "",
-    pm10Value: 0,
-    pm25Grade: 0
-  }
-
   scandata = "http://m.site.naver.com/0TGMk"
-
-  intervalWeather_Dust;
-
 
   maxIndex = 300;
 
 
-graphArr3 = [
-  {
-    name:'작업전',
-    count:10,
-  },
-  {
-    name:'작업중',
-    count:90,
-  },
-  {
-    name:'작업종료',
-    count:50,
-  }
-]
-graphArr4 = [
-  {
-    name:'고소 작업(높이 2m 이상)',
-    count:17
-  },
-  {
-    name:'굴착 가설(깊이 1.5m 이상)',
-    count:8
-  },
-  {
-    name:'기설 구조물 설치 해제',
-    count:80
-  },
-  {
-    name:'밀폐공간',
-    count:35
-  },
-  {
-    name:'휴일작업',
-    count:70
-  },
-]
+  graphArr3 = [
+    {
+      name:'작업전',
+      count:10,
+    },
+    {
+      name:'작업중',
+      count:90,
+    },
+    {
+      name:'작업종료',
+      count:50,
+    }
+  ]
+  graphArr4 = [
+    {
+      name:'고소 작업(높이 2m 이상)',
+      count:17
+    },
+    {
+      name:'굴착 가설(깊이 1.5m 이상)',
+      count:8
+    },
+    {
+      name:'기설 구조물 설치 해제',
+      count:80
+    },
+    {
+      name:'밀폐공간',
+      count:35
+    },
+    {
+      name:'휴일작업',
+      count:70
+    },
+  ]
 
+  workerInRes:ConnectResult<{
+    ctgo_construction_id: number,
+    user_type: string,
+    company_id: number,
+    user_id: number,
+    user_name: string,
+    company_name: string,
+    ctgo_construction_name: string,
+    row_count:number
+  }>
 
-// graph = [
-//   { color: '#25A485', name: '작업대기', data: [
-//     {value: 20, label: '8시'},
-//     {value: 60, label: '9시'},
-//     {value: 50, label: '10시'}
-//   ]},
-//   { color: '#78CE5C', name: '작업중', data: [
-//     {value: 30, label: '8시'},
-//     {value: 20, label: '9시'},
-//     {value: 80, label: '10시'}
-//   ]}
-// ]
+  gpsData:ConnectResult<userData> = new ConnectResult();
 
-workerInRes:ConnectResult<{
-  ctgo_construction_id: number,
-  user_type: string,
-  company_id: number,
-  user_id: number,
-  user_name: string,
-  company_name: string,
-  ctgo_construction_name: string,
-  row_count:number
-}>
-
-gpsData:ConnectResult<userData>;
-
-gps_log_id = [];
-gps_log_data = new GpsCoordinateData();
-// testData = {
-//   gps_latitude:[127.105399,127.2715984,127.1809612], // x, 위도
-//   gps_longitude:[37.3595704,37.5398721,37.5660017]// y, 경도
-// }
+  gps_log_id = [];
+  gps_log_data = new GpsCoordinateData();
 
   data = {
     monitor:'통합관제'
   };
 
-  query:any;
+  $activedRoute:Subscription;
   constructor(
     private connect:ConnectService,
-    private qr:QrService,
     private toast:ToastService,
-    private nfc : NfcService,
     private modal : ModalController,
     private route: ActivatedRoute,
     public user: UserService,
@@ -228,69 +176,31 @@ gps_log_data = new GpsCoordinateData();
   ) { }
 
   ngOnInit() {
-    this.intervalMethodController();
+    this.$activedRoute =  this.route.queryParams.subscribe(params => {
+      const { monitor } = params;
+      this.data = {
+        monitor: monitor || '통합관제'
+      }
+    });
     this.methodContrroller();
-    // const modal = await this.modal.create({
-    //   component:RiskEvaluationPopupPage,
-    //   // cssClass:"confirm-modal"
-    // });
-    // modal.present();
-    // this.graphData()
-    // const modal = await this.modal.create({
-      //   component:ApprovalPopupComponent,
-      //   cssClass:"modal-7"
-      // });
-      // modal.present();
+  }
+
+  /**
+   * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
+   */
+   ngOnDestroy() {
+    this.$activedRoute.unsubscribe();
   }
 
   /**
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
-    this.monitorQuery();
     this.wokerInGetList();
     this.gpsGet();//근로자 gps
     this.getTodayWorker(); // 금일 출역 작업자
     this.getTodayConstruction(); // 공종별 출역 작업자
     this.getSmartEquip() // 스마트 안전장비 
-  }
-
-  /**
-   * @function intervalMethodController(): 인터벌이 포함되어있는 메서드를
-   */
-  intervalMethodController(){
-    this.IntervalWeather_Dust(); // 날씨 및 미세먼지
-    /**
-     * 날씨와 미세먼지는 인터벌이있기때문에 처음에 한번은 불러와줘야합니다.
-     * @function this.getDust()
-     * @function this.getWeather()
-     */
-    this.getDust(); // 미세먼지
-    this.getWeather(); // 날씨
-  }
-
-  /**
-   * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드
-   */
-  IntervalWeather_Dust(){
-    this.intervalWeather_Dust = setInterval(() => {
-      this.getDust();
-      this.getWeather();
-    },1800000);
-  }
-
-  /**
-   * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
-   */
-  ngOnDestroy() {
-    clearInterval(this.intervalWeather_Dust);
-    this.query.unsubscribe();
-  }
-
-  ngAfterViewInit() {
-    this.data = {
-      monitor:'통합관제'
-    };
   }
 
   /**
@@ -300,33 +210,8 @@ gps_log_data = new GpsCoordinateData();
     const res = await this.connect.run('/integrated/today_worker',this.form,{});
     switch(res.rsCode) {
       case 0 :
-        console.log(res);
         let total = 0;
         this.todayWork = res;
-
-        // theme
-        // this.todayWork.rsMap[0].company_worker = Number(300);
-        // this.todayWork.rsMap[0].master_worker = Number(200);
-
-
-        // this.todayWork.rsMap[1].company_worker = Number(43);
-        // this.todayWork.rsMap[1].master_worker = Number(90);
-
-        // this.todayWork.rsMap[2].company_worker = Number(111);
-        // this.todayWork.rsMap[2].master_worker = Number(76);
-
-        // this.todayWork.rsMap[3].company_worker = Number(172);
-        // this.todayWork.rsMap[3].master_worker = Number(222);
-
-        // this.todayWork.rsMap[4].company_worker = Number(95);
-        // this.todayWork.rsMap[4].master_worker = Number(66);
-
-        // this.todayWork.rsMap[5].company_worker = Number(1);
-        // this.todayWork.rsMap[5].master_worker = Number(2);
-        
-        // this.todayWork.rsMap[6].company_worker = Number(7);
-        // this.todayWork.rsMap[6].master_worker = Number(3);
-
         
         this.todayWork.rsMap.map((item) => {total = total+item.master_worker+item.company_worker;});
         this.todayWork_totalCount = total;
@@ -359,18 +244,6 @@ gps_log_data = new GpsCoordinateData();
       case 0 :
         let total = 0;
         this.todayConstruction = res;
-
-        // theme
-        // this.todayConstruction.rsMap[0].cnt = Number(66);
-        // this.todayConstruction.rsMap[1].cnt = Number(55);
-        // this.todayConstruction.rsMap[2].cnt = Number(43);
-        // this.todayConstruction.rsMap[3].cnt = Number(88);
-        // this.todayConstruction.rsMap[4].cnt = Number(44);
-        // this.todayConstruction.rsMap[5].cnt = Number(11);
-        // this.todayConstruction.rsMap[6].cnt = Number(33);
-        // this.todayConstruction.rsMap[7].cnt = Number(22);
-        // this.todayConstruction.rsMap[8].cnt = Number(77);
-
         
         this.todayConstruction.rsMap.map((item) => {total = total+item.cnt;});
         this.todayConstruction_totalCount = total;
@@ -452,50 +325,6 @@ gps_log_data = new GpsCoordinateData();
     modal.present();
   }
 
-  /**
-   * @function getWeather(): 날씨 데이터를 가져오는 메서드
-   */
-  async getWeather() {
-    //날씨
-    const res = await this.connect.run('/weather/get',null,{});
-    switch(res.rsCode) {
-      case 0 :
-        this.weather = res.rsObj;
-        break;
-    }
-  }
-
-  /**
-   * @function getDust(): 미세먼지 데이터를 가져오는 메서드
-   */
-  async getDust() {
-    const res = await this.connect.run('/dust/get',null,{}); 
-    switch(res.rsCode) {
-      case 0 :
-        this.dust = res.rsObj;
-        break;
-    }
-  }
-
-  // graphData() {
-  //   let index = Math.ceil(this.maxIndex/100);
-  //   console.log("index",index);
-  //   if(this.maxIndex/100 !== 0) {
-  //     for(let i= 0; i<index; i++){
-  //       this.graphArrCount.push(i);
-  //     }
-  //   }
-  //   this.graphArrCount.push(index);
-  // }
-  monitorQuery(){
-   this.query =  this.route.queryParams.subscribe(params => {
-        this.data = {
-          monitor:params.monitor
-        }
-      }
-    );
-  }
-
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
     if(this.workerInRes.rsCode !== 0) {
@@ -550,28 +379,3 @@ gps_log_data = new GpsCoordinateData();
     return style
   }
 }
-
-  // async getWeatherGroup() {
-    // const resultDust = await Promise.all([    
-    //   this.getDust()
-    // ])
-    // const resultWeather = await Promise.all([
-    //   this.getWeather()
-    // ])
-
-
-    // const weatherResult = resultWeather[0];
-    // const DustResult = resultDust[0];
-    // console.log("DustResult",DustResult)
-
-    // const timeDiffweather = new Date().getTime() - new Date(weatherResult.rsObj.create_date).getTime();
-    // const timeDiffDust = new Date().getTime() - new Date(DustResult.rsObj.dataTime).getTime();
-
-    // this.timeoutWeather = setTimeout(async() => {
-    //   this.getWeatherGroup();
-    // }, (1000 * 60 * 60 * 3.1) - timeDiffweather);
-
-    // this.timeoutDust = setTimeout(async() => {
-    //   this.getWeatherGroup();
-    // }, (1000 * 60 * 60 * 1.1) - timeDiffDust);
-  // }

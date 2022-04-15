@@ -55,6 +55,9 @@ var ApprovalComponent = /** @class */ (function () {
         this.toast = toast;
         this._modal = _modal;
         this.alert = alert;
+        // 결재선 복사 작성시, 필요한 정보
+        this.isDuplicate = false;
+        // btn 아웃풋들
         this.deleteClick = new core_1.EventEmitter();
         this.saveClick = new core_1.EventEmitter();
         this.sendClick = new core_1.EventEmitter();
@@ -68,6 +71,7 @@ var ApprovalComponent = /** @class */ (function () {
             approval_id: null
         };
         this.btnList = [];
+        this.isApprovalHidden = true;
         /** 결재 버튼 클릭 */
         this.approvalForm = {
             approval_id: null,
@@ -371,22 +375,44 @@ var ApprovalComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.getDefaultButton()];
+                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && !this.form.approval_id && !this.isDuplicate)) return [3 /*break*/, 2];
+                        // 결재선이 없을 경우, 디폴트를 넣어줌
+                        return [4 /*yield*/, Promise.all([
+                                this.getDefaultButton(),
+                                this.getDefaultApproval()
+                            ])];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.getDefaultApproval()];
-                    case 2:
+                        // 결재선이 없을 경우, 디폴트를 넣어줌
                         _a.sent();
                         return [3 /*break*/, 6];
+                    case 2:
+                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id && !this.isDuplicate)) return [3 /*break*/, 4];
+                        // 결재선이 존재할 경우, 기존 결재선을 끌고 옴
+                        return [4 /*yield*/, Promise.all([
+                                this.getApprovalButton(),
+                                this.getApproval()
+                            ])];
                     case 3:
-                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id)) return [3 /*break*/, 6];
-                        return [4 /*yield*/, this.getApprovalButton()];
+                        // 결재선이 존재할 경우, 기존 결재선을 끌고 옴
+                        _a.sent();
+                        return [3 /*break*/, 6];
                     case 4:
-                        _a.sent();
-                        return [4 /*yield*/, this.getApproval()];
+                        if (!(this.form.project_id && this.form.ctgo_approval_module_id && this.form.approval_id && this.isDuplicate)) return [3 /*break*/, 6];
+                        // 복사작성일 경우, 버튼은 디폴트를 가져오고, 결재선은 끌고온 다음 초기화 시켜줌
+                        return [4 /*yield*/, Promise.all([
+                                this.getDefaultButton(),
+                                this.getApproval()
+                            ])];
                     case 5:
+                        // 복사작성일 경우, 버튼은 디폴트를 가져오고, 결재선은 끌고온 다음 초기화 시켜줌
                         _a.sent();
+                        this.approval_id = null;
+                        this.form.approval_id = null;
+                        this.res.rsObj.answer_datas.forEach(function (item) {
+                            item.approval_id = null;
+                            item.approval_answer = null;
+                            item.approval_date = null;
+                        });
                         _a.label = 6;
                     case 6:
                         this.change.emit(this.getClickEvent());
@@ -500,6 +526,12 @@ var ApprovalComponent = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 모바일 레이아웃에서 결재선을 토글한다.
+     */
+    ApprovalComponent.prototype.approvalToggle = function () {
+        this.isApprovalHidden = !this.isApprovalHidden;
+    };
     __decorate([
         core_1.Input()
     ], ApprovalComponent.prototype, "project_id");
@@ -509,6 +541,9 @@ var ApprovalComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], ApprovalComponent.prototype, "approval_id");
+    __decorate([
+        core_1.Input()
+    ], ApprovalComponent.prototype, "isDuplicate");
     __decorate([
         core_1.Output()
     ], ApprovalComponent.prototype, "deleteClick");

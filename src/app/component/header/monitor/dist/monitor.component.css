@@ -1,0 +1,111 @@
+app-logo {
+  margin-left: 22px;
+  margin-right: 22px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+app-button {
+  --app-border-radius: 0;
+  --height: 64px;
+}
+
+ion-header .ttet .toolbar-container .toolbar-content {
+  display: flex;
+}
+
+.tab-list {
+  position: relative;
+  top: -10px;
+  overflow: hidden;
+  padding-left: 28px;
+  padding-right: 20px;
+  padding-bottom: 8px;
+}
+
+.tab-item {
+  position: relative;
+  z-index: 3;
+  color: var(--ion-color-white);
+  user-select: none;
+  cursor: pointer;
+}
+.tab-item span, .tab-item::before, .tab-item::after {
+  background: var(--ion-color-primary);
+}
+.tab-item span {
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  position: relative;
+  z-index: 3;
+}
+.tab-item::before, .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  border-radius: 15px;
+  height: 80px;
+  width: 40px;
+  z-index: 1;
+  box-shadow: 0 1px 1px 1px var(--ion-color-tertiary);
+}
+.tab-item::before {
+  left: -20px;
+  transform: rotate(-20deg);
+}
+.tab-item::after {
+  right: -20px;
+  transform: rotate(20deg);
+}
+
+.tab-item.active {
+  z-index: 20 !important;
+  color: var(--ion-color-tertiary);
+  font-weight: 700;
+}
+.tab-item.active span, .tab-item.active::before, .tab-item.active::after {
+  background: var(--ion-color-white);
+  box-shadow: none;
+}
+.tab-item.active::before, .tab-item.active::after {
+  content: "";
+}
+
+.profile-row .profile {
+  width: 40px;
+  height: 40px;
+}
+.profile-row .btn-logout {
+  height: 28px;
+  border-radius: 5px;
+  margin-right: 16px;
+}
+
+.form-weather-toolbar {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+.form-weather-toolbar .weather {
+  margin-right: 30px;
+}
+.form-weather-toolbar .weather-temp {
+  font-size: 25px;
+  font-weight: bold;
+}
+.form-weather-toolbar .ratio {
+  font-size: 15px;
+  color: var(--ion-color-primary);
+}
+.form-weather-toolbar .colstyle {
+  margin-right: 15px;
+}
+.form-weather-toolbar .title {
+  font-size: 15px;
+  margin-bottom: 4px;
+}

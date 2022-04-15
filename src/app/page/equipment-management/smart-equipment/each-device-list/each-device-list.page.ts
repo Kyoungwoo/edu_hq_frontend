@@ -46,6 +46,8 @@ class SmartInfoInsertItem {
   assign_user_id: number = 0;
   assign_user_name:string = '';
   serial_no:string = '';
+  master_company_name:string;
+  partner_company_name:string;
 }
 
 class SmartCtgo {
@@ -227,7 +229,14 @@ export class EachDeviceListPage implements OnInit {
    * @function addButton(): "추가" 버튼 클릭시 목록에 ITEM ROW가 추가됩니다
    */
    addButton(){
-     this.res_insert.push(new SmartInfoInsertItem());
+    let add_item = new SmartInfoInsertItem();
+    if(this.user.userData.user_role === 'PARTNER_HEAD' || this.user.userData.user_role === 'PARTNER_GENERAL'){
+      add_item.partner_company_name = this.user.userData.belong_data.company_name;
+    } else {
+      add_item.master_company_name = this.user.userData.belong_data.company_name;
+      add_item.partner_company_name = this.user.userData.belong_data.company_name;
+    }
+    this.res_insert.push(add_item);
    }
 
   /**
@@ -304,7 +313,7 @@ export class EachDeviceListPage implements OnInit {
               }
               if(case_2){
                 await loadingCus.dismiss();
-                return this.toast.present({ color: 'warning', message: '시리얼No를 선택해주세요.' });
+                return this.toast.present({ color: 'warning', message: '시리얼 NO를 선택해주세요.' });
               }
               if(case_3){
                 await loadingCus.dismiss();

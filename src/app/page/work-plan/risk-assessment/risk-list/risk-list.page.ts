@@ -61,7 +61,7 @@ export class RiskListPage implements OnInit {
     get: null
   }
 
-  selectitemList = new RiskListItem;
+  selectitem:RiskListItem;
 
   constructor(
     private connect: ConnectService,
@@ -142,6 +142,7 @@ export class RiskListPage implements OnInit {
    */
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
+    this.selectitem = null;
     
     this.res = await this.connect.run('/risk/assessment/list/get', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
@@ -162,6 +163,7 @@ export class RiskListPage implements OnInit {
    */
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
+    this.selectitem = null;
 
     const res = await this.connect.run('/risk/assessment/list/get', this.form, {
     });
@@ -210,6 +212,19 @@ export class RiskListPage implements OnInit {
       componentProps: {
         project_id: this.form.project_id,
         risk_asment_type: this.form.risk_asment_type
+      }
+    });
+    modal.present();
+  }
+
+  async duplicate() {
+    const modal = await this._modal.create({
+      component:RiskEvaluationEditPage,
+      componentProps: {
+        isDuplicate: true,
+        project_id: this.form.project_id,
+        risk_asment_type: this.form.risk_asment_type,
+        risk_asment_id: this.selectitem.risk_asment_id
       }
     });
     modal.present();

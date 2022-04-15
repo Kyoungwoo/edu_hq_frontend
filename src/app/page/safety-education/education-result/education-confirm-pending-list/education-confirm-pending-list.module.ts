@@ -9,6 +9,7 @@ import { EducationConfirmPendingListPageRoutingModule } from './education-confir
 import { EducationConfirmPendingListPage } from './education-confirm-pending-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { SafetyEducationResultEditPageModule } from '../safety-education-result-edit/safety-education-result-edit.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
     IonicModule,
     ComponentModule,
     BasicComponentModule,
+    SafetyEducationResultEditPageModule,
     EducationConfirmPendingListPageRoutingModule
   ],
   declarations: [EducationConfirmPendingListPage]

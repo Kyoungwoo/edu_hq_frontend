@@ -9,40 +9,30 @@
 </ion-header>
 <ion-content>
 <h3>수원당수 공공주택지구 조성공사</h3>
-<h4>[]님이 SOS 요청하였습니다.</h4>
-<h5>2021.09.16 16:26:13</h5>
-<app-card>
+<h4>{{ message }}</h4>
+<!-- <h5>2021.09.16 16:26:13</h5> -->
+<app-card [color]="all_state ? 'secondary' : 'white'" (click)="allClick()">
   <app-row>
-    <app-col>
-      <p>근로자</p>
-    </app-col>
-    <app-col>
-      <p>(주)협력사</p>
-    </app-col>
-    <app-col>
-      <p>홍길동</p>
-    </app-col>
-    <app-col>
-      <p>010-2102-0102</p>
-    </app-col>
+    <app-col size="auto"><p>전체선택</p></app-col>
   </app-row>
+</app-card>
+
+<app-card *ngFor="let item of res?.rsMap" [color]="item.selected ? 'secondary' : 'white'" (click)="singleClick(item)">
   <app-row>
-    <app-col>
-      <p>관리자</p>
-    </app-col>
-    <app-col>
-      <p>(주)협력사</p>
-    </app-col>
-    <app-col>
-      <p>구범수</p>
-    </app-col>
-    <app-col>
-      <p>010-2102-0485</p>
-    </app-col>
+    <app-col size="auto"><p>{{ item.company_name }}</p></app-col>
+    <app-col size="auto"><p> / </p></app-col>
+    <app-col size="auto"><p>{{ item.user_type === 'WORKER' ? '근로자' : '관리자' }}</p></app-col>
+  </app-row>
+
+  <app-row>
+    <app-col size="auto"><p>{{ item.user_name }}</p></app-col>
+    <app-col size="auto"><p> / </p></app-col>
+    <app-col size="auto"><p>{{ item.user_phone }}</p></app-col>
   </app-row>
 </app-card>
 
 </ion-content>
 <app-button-footer>
   <app-button (click)="finish()">상황종료</app-button>
+  <app-button (click)="close()">확인</app-button>
 </app-button-footer>

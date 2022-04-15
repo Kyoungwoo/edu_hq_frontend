@@ -159,7 +159,7 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
       { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
-        { title: '시리얼 No', link: '/serial-no-list',
+        { title: '시리얼 NO', link: '/serial-no-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
           return user_role === 'LH_HEAD' || user_type === 'COMPANY';

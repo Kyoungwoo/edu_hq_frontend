@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/worker-minutes-detail-search.page';
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
+import { WorkerMinutesPendingListPage } from '../worker-minutes-pending-list/worker-minutes-pending-list.page';
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
 
 export class SafetyMeetingInfo {
@@ -137,6 +138,17 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     this.res = await this.connect.run('/board/safety_meeting/list', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.forEach((item, i) => {
+        switch(item.safety_meeting_type){
+          case '노사':
+            item.safety_meeting_type = '노사 협의체';
+          break;
+          case '안전':
+            item.safety_meeting_type = '안전 및 보건의 관한 협의체';
+          break;
+          case '산업':
+            item.safety_meeting_type = '산업안전보건보건위원회';
+          break;
+        }
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
       });
     }
@@ -224,10 +236,9 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    * 미결함으로 이동
    */
    async pending() {
-    this.nav.navigateForward('/confirm-pending-list');
-    /* const modal = await this._modal.create({
-      component:EducationConfirmPendingListPage,
+    const modal = await this.modal.create({
+      component: WorkerMinutesPendingListPage,
     });
-    modal.present(); */
+    modal.present();
   }
 }

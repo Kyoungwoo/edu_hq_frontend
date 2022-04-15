@@ -18,8 +18,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
-    if(!this.disabled || !this.readonly) this.openModal();
+    if(!this.disabled && !this.readonly) this.openModal();
   }
 
   @Input() type:ProjectSearchType; // 'Signup'은 회원가입 시, 사용하는 현장 검색
@@ -66,7 +65,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   public async openModal() {
     this.isModalData = true;
     const modal = await this._modal.create({
-      component:SearchSceneComponent,
+      component: SearchSceneComponent,
       componentProps: {
         type: this.type,
         all: this.all,
@@ -82,6 +81,7 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     if(data) {
       const allState = <Boolean>data.allState;
       const selectedItem = <ProjectItem>data.selectedItem;
+
       if(allState) {
         this.value = 0;
         this.text = '전체';

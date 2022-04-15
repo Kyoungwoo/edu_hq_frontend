@@ -19,7 +19,7 @@ export class SignUpLhForm {
   hq_business_id:number = null; //사업본부 ID
   hq_business_entire_state: 0|1;
   hq_department_id:number = null; //부서 ID
-  project_id:number = null; //소속 현장 ID
+  project_id:number = 0; //소속 현장 ID
   ctgo_job_position_id:number = null; //직위 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일

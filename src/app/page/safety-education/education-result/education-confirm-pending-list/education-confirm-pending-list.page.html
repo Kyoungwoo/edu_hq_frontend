@@ -10,7 +10,7 @@
   <app-table *mobileHidden>
     <thead>
       <tr>
-        <th style="width: 48px;">No</th>
+        <th style="width: 48px;">NO</th>
         <th>서식명</th>
         <th>업체명</th>
         <th>작성자</th>
@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="button" *ngFor="let item of res?.rsMap">
+      <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.education_safe_report_id)">
         <td>{{ item.index }}</td>
         <td>{{ item.ctgo_approval_module_name }}</td>
         <td>{{ item.master_company_name }}</td>

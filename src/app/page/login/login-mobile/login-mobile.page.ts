@@ -148,7 +148,7 @@ export class LoginMobilePage implements OnInit {
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
 
-      switch(userData.user_type){
+      switch(userData.user_type) {
         case 'LH':
         case 'SUPER':
           userData.user_main_page = '/main-user';

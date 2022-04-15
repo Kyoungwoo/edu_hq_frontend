@@ -10,7 +10,7 @@ import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approv
 import { SearchAreaComponent } from 'src/app/component/modal/search-area/search-area.component';
 import { SearchConstructionMachineryComponent } from 'src/app/component/modal/search-construction-machinery/search-construction-machinery.component';
 import { SearchToolComponent } from 'src/app/component/modal/search-tool/search-tool.component';
-import { CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
 
 export interface RiskTableItem {
@@ -66,6 +66,9 @@ export class RiskEvaluationEditPage implements OnInit {
   @Input() project_id;
   @Input() risk_asment_type;
 
+  /** 복사 신규 작성 여부 */
+  @Input() isDuplicate:boolean = false;
+
   form = {
     project_id: null, // 현장 ID
     master_company_id: null, // 원청사 ID
@@ -101,6 +104,7 @@ export class RiskEvaluationEditPage implements OnInit {
   }
 
   riskTableList:RiskTableItem[] = [];
+  approval_answer:AnswerObj[];
   approval_comment:CommentObj[];
 
   constructor(
@@ -113,18 +117,30 @@ export class RiskEvaluationEditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    /**
-     * 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 가지고 와야 함
-     */
-    this.getDefaultForm(); // 폼 채우기
     if(!this.risk_asment_id) {
+      this.permission.tableEdit = true;
+      // 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 폼을 채워줘야 함
+      this.getDefaultForm();
       // 신규 작성 시에는 가지고 온 디폴트 값을 건드리지 않음.
     }
-    else {
+    else if(!this.isDuplicate) {
+      // 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 폼을 채워줘야 함
+      this.getDefaultForm();
+
       // 수정 시에는 정보를 가져와서 채워넣음
       this.form.risk_asment_id = this.risk_asment_id;
       await this.getDetail();
       await this.getEvaluationDetail();
+    }
+    else {
+      // 복사 작성 시에는 정보를 가져와서 채워넣은 다음
+      this.form.risk_asment_id = this.risk_asment_id;
+      await this.getDetail();
+      await this.getEvaluationDetail();
+
+      // 해당 정보를 신규정보로 바꿔줌
+      this.getDefaultForm();
+      this.resetForDuplicate();
     }
 
     // 나머지 정보
@@ -203,6 +219,18 @@ export class RiskEvaluationEditPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
+  }
+
+  /**
+   * 복사 시, 정보 리셋
+   */
+  resetForDuplicate() {
+    this.form.approval_id = null;
+
+    // 복사 시, 이거 진짜 어케해야될 지 모르겠음. GG
+    setTimeout(() => {
+      this.isDuplicate = false;
+    }, 3000);
   }
 
   /**
@@ -395,8 +423,13 @@ export class RiskEvaluationEditPage implements OnInit {
       this.permission.tableEdit = false;
     }
 
+    /** 결재자들을 가지고 온다.(모바일 화면 용) */
+    this.approval_answer = ev.approval_data[0].answer_datas;
     /** 결재자 의견을 가지고 온다. */
     this.approval_comment = ev.approval_comment;
+
+    /** 모바일 화면에서는 테이블 편집이 안된다. */
+    this.permission.tableEdit = false;
   }
 
   public async add() {

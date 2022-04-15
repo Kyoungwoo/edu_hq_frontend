@@ -9,28 +9,27 @@
 
 <ion-content>
 
-  <ng-container *ngIf="res && res.rsCode === 0">
-
+  <ng-container *mobileHidden>
+    
     <app-table>
       <thead>
         <tr>
           <th style="width: 48px;">No</th>
           <th>서식명</th>
-          <th>회사명</th>
-          <th>작성자</th>
-          <th>작성일</th>
-          <th>결재 현황</th>
+          <th style="width: 100px;">회사명</th>
+          <th style="width: 100px;">작성자</th>
+          <th style="width: 100px;">작성일</th>
+          <th style="width: 100px;">결재 현황</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of res?.rsMap">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr class="button" *ngFor="let item of res?.rsMap;" (click)="edit(item)">
+          <td>{{ item.index }}</td>
+          <td>{{ item.ctgo_approval_module_name }} ({{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }})</td>
+          <td>{{ item.company_name }}</td>
+          <td>{{ item.user_name }}</td>
+          <td>{{ item.create_date }}</td>
+          <td>{{ item.approval_cnt_answer }}</td>
         </tr>
       </tbody>
     </app-table>
@@ -39,9 +38,30 @@
 
   </ng-container>
 
-  <ng-container *ngIf="res && res.rsCode === 1008">
+  <ng-container *mobileShow>
 
-    <app-card>검색된 목록이 없습니다.</app-card>
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
+      <app-row>
+        <app-col>
+          <h5>{{ item.ctgo_approval_module_name }}</h5>
+        </app-col>
+        <app-col size="auto">
+          <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <p>{{ item.company_name }}</p>
+          <p>작성일: {{ item.create_date }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
   </ng-container>
+
 </ion-content>

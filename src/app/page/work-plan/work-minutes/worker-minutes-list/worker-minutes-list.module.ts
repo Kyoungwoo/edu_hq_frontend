@@ -12,6 +12,7 @@ import { BasicComponentModule } from 'src/app/basic/component/basic.component.mo
 import { WorkerMinutesDetailSearchPageModule } from '../worker-minutes-detail-search/worker-minutes-detail-search.module';
 import { WorkerMinutesSelectTypePageModule } from '../worker-minutes-select-type/worker-minutes-select-type.module';
 import { WorkerMinutesEditPageModule } from '../worker-minutes-edit/worker-minutes-edit.module';
+import { WorkerMinutesPendingListPageModule } from '../worker-minutes-pending-list/worker-minutes-pending-list.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,9 @@ import { WorkerMinutesEditPageModule } from '../worker-minutes-edit/worker-minut
     // 신규작성 시, 타입 선택
     WorkerMinutesSelectTypePageModule,
     // 수정 페이지
-    WorkerMinutesEditPageModule
+    WorkerMinutesEditPageModule,
+    // 미결함
+    WorkerMinutesPendingListPageModule
   ],
   declarations: [WorkerMinutesListPage]
 })

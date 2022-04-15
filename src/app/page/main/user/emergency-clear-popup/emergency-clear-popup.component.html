@@ -9,8 +9,9 @@
 </ion-header>
 <ion-content>
   <h3>수원당수 공공주택지구 조성공사</h3>
-  <h4>안전이 확보되어 []에 대한<br>
-    비상 상황을 종료합니다.</h4>
-  <h5>2021.09.16 16:26:13</h5>
-
+  <h4>{{ message }}</h4>
 </ion-content>
+
+<app-button-footer>
+  <app-button (click)="dismiss()">확인</app-button>
+</app-button-footer>

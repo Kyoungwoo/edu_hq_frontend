@@ -14,6 +14,10 @@ const routes: Routes = [
   },  {
     path: 'monitor-realtime-location',
     loadChildren: () => import('./monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
+  },
+  {
+    path: 'monitor-worker-location',
+    loadChildren: () => import('./monitor-worker-location/monitor-worker-location.module').then( m => m.MonitorWorkerLocationPageModule)
   }
 
 ];

@@ -25,7 +25,7 @@ export class MsdsItem {
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
   create_user_id:number;
-
+  master_company_id: number;
 };
 
 @Component({
@@ -34,6 +34,8 @@ export class MsdsItem {
   styleUrls: ['./msds-edit.page.scss'],
 })
 export class MsdsEditPage implements OnInit {
+
+  update_state = false;
 
   permission = {
     edit: false
@@ -68,10 +70,11 @@ export class MsdsEditPage implements OnInit {
       this.form.project_id = 0;
     }
     this.getPermission();
-    if(this.item?.msds_id) {
+    if(this.item) {
       this.title = '상세';
       this.get();
     } else{
+      this.update_state = true;
       this.form.project_id = this.user.userData.belong_data.project_id;
       this.form.company_name = this.user.userData.user_role;
       this.form.user_name = this.user.userData.user_name;
@@ -100,19 +103,23 @@ export class MsdsEditPage implements OnInit {
         ...res.rsObj
       }
 
-        if(this.user.userData.user_id === this.form.create_user_id) {
-        this.useMsds = true;
-      }
-      
+      if(this.user.userData.user_id === this.form.create_user_id) this.useMsds = true;
     }
   }
+  // public submit() {
+  //   this.msdsText.update();
+  //   if(this.form.msds_id) {
+  //     this.update();
+  //   } else {
+  //     this.MsdsInsert();
+  //   }
+  // }
+
   public submit() {
     this.msdsText.update();
-    if(this.form.msds_id) {
-      this.update();
-    } else {
-      this.MsdsInsert();
-    }
+    
+    if(this.form.msds_id) this.update();
+    else this.MsdsInsert();
   }
 
 
@@ -152,6 +159,7 @@ export class MsdsEditPage implements OnInit {
           handler:async() => {
             const res = await this.connect.run('/board/msds/update', this.form);
             if(res.rsCode === 0) {
+              this.update_state = false;
               this._modal.dismiss('Y');
             } else {
               this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -185,5 +193,10 @@ export class MsdsEditPage implements OnInit {
 
   dismiss() {
     this._modal.dismiss();
+  }
+
+  updateButton(){
+    if(this.update_state) this.submit();
+    else this.update_state = true;
   }
 }

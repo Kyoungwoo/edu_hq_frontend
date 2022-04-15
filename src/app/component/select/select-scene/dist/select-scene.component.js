@@ -166,8 +166,8 @@ var SelectSceneComponent = /** @class */ (function () {
                     this.onChangeCallback(v);
                     this.get();
                     this.change.emit({
-                        value: this.value,
-                        text: this.text
+                        project_id: this.value,
+                        proje_name: this.text
                     });
                 }
                 return [2 /*return*/];
