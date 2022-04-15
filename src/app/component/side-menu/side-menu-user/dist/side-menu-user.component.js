@@ -113,7 +113,7 @@ var SideMenuUserComponent = /** @class */ (function () {
                             var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                             return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                         } },
-                    { title: '위험지역 디바이스', link: '/danger-area-list', params: {}, permission: function () {
+                    { title: '장소 디바이스', link: '/danger-area-list', params: {}, permission: function () {
                             var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                             return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                         } }
@@ -186,6 +186,10 @@ var SideMenuUserComponent = /** @class */ (function () {
             img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
             header: '준비중'
         });
+    };
+    SideMenuUserComponent.prototype.navMypage = function () {
+        this._modal.dismiss();
+        this.nav.navigateForward('/my-page-type');
     };
     SideMenuUserComponent.prototype.router = function (title) {
         switch (title) {
