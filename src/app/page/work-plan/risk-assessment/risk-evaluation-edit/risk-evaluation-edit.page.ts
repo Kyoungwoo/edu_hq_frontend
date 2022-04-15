@@ -271,6 +271,7 @@ export class RiskEvaluationEditPage implements OnInit {
       this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -308,6 +309,7 @@ export class RiskEvaluationEditPage implements OnInit {
         this.form.risk_asment_id = res.rsObj.risk_asment_id;
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('risk-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
     }
     else {
@@ -337,6 +339,7 @@ export class RiskEvaluationEditPage implements OnInit {
         this._modal.dismiss();
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('risk-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
       else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -404,6 +407,7 @@ export class RiskEvaluationEditPage implements OnInit {
       this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
   }
 
