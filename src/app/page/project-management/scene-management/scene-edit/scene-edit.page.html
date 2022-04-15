@@ -134,5 +134,5 @@
 </ion-content>
 <app-button-footer>
   <app-button slot="end" *ngIf="!project_id" (click)="sceneInsert()">저장</app-button>
-  <app-button slot="end" *ngIf="project_id && !roleCheck" (click)="sceneUpdate()">수정</app-button>
+  <app-button slot="end" *ngIf="project_id && !roleCheck" fill="translucent" (click)="sceneUpdate()">수정</app-button>
 </app-button-footer>
