@@ -133,9 +133,9 @@ export class MyEducationListPage implements OnInit {
         $qr.unsubscribe();
         this.getList();
         this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
-      } else {
+      } else if(res.rsCode === 1012) {
+        this.toast.present({message:'이미 출석 처리가 되었습니다.', color:'warning'});
         $qr.unsubscribe();
-        this.toast.present({message:res.rsMsg, color:'warning'});
       }
   });
   }

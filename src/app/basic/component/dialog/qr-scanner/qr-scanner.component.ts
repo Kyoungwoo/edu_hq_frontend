@@ -99,7 +99,6 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     // const ionApp = document.getElementsByTagName('ion-app')[0];
     // ionApp.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
-      console.log("data",data);
       let res = {
         type: 'QR_SCAN',
         nfcChangeed : this.nfcChangeed,

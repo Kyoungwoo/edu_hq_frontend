@@ -47,6 +47,7 @@ export class NewWriteTargetPage implements OnInit {
     this.form.limit_no = limit_no;
     this.res = await this.connect.run('/education/report/new/list',this.form);
     if(this.res.rsCode === 0) {
+      console.log("this.res",this.res);
       this.res.rsMap.map((item,i) => {
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
         item.education_safe_date = `${item.education_safe_date} (${this.date.day(item.education_safe_date)[0]})`;
