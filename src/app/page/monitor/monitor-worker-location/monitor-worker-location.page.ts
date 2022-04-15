@@ -19,10 +19,22 @@ export class MonitorWorkerLocationPage implements OnInit {
     user_type: '전체'
   }
 
-  gpsData:ConnectResult<userData> = new ConnectResult();
+  resGps:ConnectResult<userData> = new ConnectResult();
+
+  workerInRes:ConnectResult<{
+    ctgo_construction_id: number,
+    user_type: string,
+    company_id: number,
+    user_id: number,
+    user_name: string,
+    company_name: string,
+    ctgo_construction_name: string,
+    row_count:number
+  }>;
 
   gps_log_id = [];
   gps_log_data = new GpsCoordinateData();
+
 
   constructor(
     private connect: ConnectService,
@@ -30,12 +42,21 @@ export class MonitorWorkerLocationPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getGps();
   }
 
-  async get() {
-    this.gpsData = await this.connect.run('/integrated/gps/log',this.form);
-    if(this.gpsData.rsCode === 0) {
+  async getGps() {
+    const res = await this.connect.run('/integrated/gps/log',this.form);
+    if(res.rsCode === 0) {
+
     }
+  }
+
+  async wokerInGetList() {
+    this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
+    /* if(this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
+      this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
+    } */
   }
 
 }

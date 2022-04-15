@@ -37,6 +37,13 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    //capacitor custom Libraries
+    //Retrofit - A type-safe HTTP client for Android and Java
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gson"
+    //location
+    implementation "com.google.android.gms:play-services-location:$locationVersion"
 }
 
 apply from: 'capacitor.build.gradle'

@@ -216,18 +216,19 @@ var LoginMobilePage = /** @class */ (function () {
         });
     };
     LoginMobilePage.prototype.tokenLogin = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a = this;
+                        _b = this;
                         return [4 /*yield*/, this.connect.run('/token/refresh', {
                                 accountID: this.user.userData.account_id,
-                                refreshToken: this.user.authToken.refresh_token
+                                refreshToken: (_a = this.user.authToken) === null || _a === void 0 ? void 0 : _a.refresh_token
                             })];
                     case 1:
-                        _a.res = _b.sent();
+                        _b.res = _c.sent();
                         if (this.res.rsCode === 0) {
                             this.getWorkerInfo(this.res.rsObj, { animated: false });
                         }

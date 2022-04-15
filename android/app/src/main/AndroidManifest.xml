@@ -6,21 +6,45 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- nfc -->
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
-            <!--intent-filter>
+            <!-- nfc 앱 백그라운드 상태에서 접근 가능하게 하는 권한 -->
+            <!--
+            <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
-            </intent-filter-->
-            <!--meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/nfc_tech_filter" /-->
+            </intent-filter>
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/nfc_tech_filter" />
+            -->
         </activity>
         <provider android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:name="androidx.core.content.FileProvider">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
+
+        <!-- capacitor custom service, receiver & provider here -->
+        <service
+          android:name="io.ionic.starter.geolocation.updates.GeolocationUpdates"
+          android:enabled="true"
+          android:exported="true"
+          android:foregroundServiceType="location" />
+        <receiver
+          android:name="io.ionic.starter.geolocation.updates.GeolocationReceiver"
+          android:enabled="true"
+          android:exported="true">
+          <intent-filter>
+            <action android:name="restartservice" />
+          </intent-filter>
+        </receiver>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- capacitor custom permission here -->
+    <!-- nfc permission -->
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- gps permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

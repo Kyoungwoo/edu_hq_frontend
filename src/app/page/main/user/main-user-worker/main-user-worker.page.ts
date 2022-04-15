@@ -1,11 +1,12 @@
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
+import { GeolocationService } from 'src/app/service/geolocation.service';
 
 @Component({
   selector: 'app-main-user-worker',
@@ -48,12 +49,18 @@ export class MainUserWorkerPage implements OnInit {
     private alert: AlertService,
     private connect: ConnectService,
     public user: UserService,
-    public date: DateService
+    public date: DateService,
+    private gps: GeolocationService
   ) { }
 
   ngOnInit() {
     this.dayTrans();
     this.getBoard();
+    this.gps.stopLocationUpdates();
+    /** 버그는 안나는데, 혹시몰라서 */
+    setTimeout(() => {
+      this.gps.startLocationUpdates();
+    }, 2000);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,8 @@ export class MonitorComponent implements OnInit {
       data:'근로자 실시간 위치 모니터링'
     }
   ]
+
+  @Output() formChange = new EventEmitter();
 
   tabActive:Tab = this.tabList[0];
 

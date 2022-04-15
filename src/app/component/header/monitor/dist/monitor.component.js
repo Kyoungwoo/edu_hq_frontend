@@ -66,6 +66,7 @@ var MonitorComponent = /** @class */ (function () {
                 data: '근로자 실시간 위치 모니터링'
             }
         ];
+        this.formChange = new core_1.EventEmitter();
         this.tabActive = this.tabList[0];
         this.weather = {
             weather_speed: "",
@@ -247,6 +248,9 @@ var MonitorComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], MonitorComponent.prototype, "form");
+    __decorate([
+        core_1.Output()
+    ], MonitorComponent.prototype, "formChange");
     MonitorComponent = __decorate([
         core_1.Injectable({
             providedIn: 'root'

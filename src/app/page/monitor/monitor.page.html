@@ -1,4 +1,4 @@
-<app-moniter-header [form]="form"></app-moniter-header>
+<app-moniter-header [form]="form" (formChange)="formChange($event)"></app-moniter-header>
 
 <ion-content>
 
@@ -635,7 +635,7 @@
   </div>
 
   <div *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-    
+    <app-monitor-worker-location></app-monitor-worker-location>
   </div>
   
 </ion-content>

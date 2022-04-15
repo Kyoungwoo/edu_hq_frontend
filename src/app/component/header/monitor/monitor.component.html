@@ -41,13 +41,14 @@
   
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)"></app-select-scene>
         </app-col>
         <app-col>
           <app-select-contractor name="master_company_id"
           [allState]="true"
           [project_id]="form.project_id"
           [(ngModel)]="form.master_company_id"
+          (change)="formChange.emit(form)"
           [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
         </app-col>
         <app-col></app-col>

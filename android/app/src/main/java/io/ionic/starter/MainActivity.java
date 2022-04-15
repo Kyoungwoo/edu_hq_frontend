@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.getcapacitor.BridgeActivity;
 
+import io.ionic.starter.geolocation.GeolocationPlugin;
+
 public class MainActivity extends BridgeActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -12,5 +14,6 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(DarkModePlugin.class);
     registerPlugin(NfcPlugin.class);
     registerPlugin(QrPlugin.class);
+    registerPlugin(GeolocationPlugin.class);
   }
 }

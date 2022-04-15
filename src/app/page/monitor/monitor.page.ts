@@ -144,22 +144,6 @@ export class MonitorPage implements OnInit, OnDestroy {
     },
   ]
 
-  workerInRes:ConnectResult<{
-    ctgo_construction_id: number,
-    user_type: string,
-    company_id: number,
-    user_id: number,
-    user_name: string,
-    company_name: string,
-    ctgo_construction_name: string,
-    row_count:number
-  }>
-
-  
-
-  gps_log_id = [];
-  gps_log_data = new GpsCoordinateData();
-
   data = {
     monitor:'통합관제'
   };
@@ -228,12 +212,15 @@ export class MonitorPage implements OnInit, OnDestroy {
 
     }
   }
+  formChange(newForm) {
+    this.form.project_id = newForm.project_id;
+    this.form.master_company_id = newForm.master_company_id;
+  }
 
   /**
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
-   methodContrroller(){
-    this.wokerInGetList(); // 
+  methodContrroller() {
     this.getTodayWorker(); // 금일 출역 작업자
     this.getTodayConstruction(); // 공종별 출역 작업자
     this.getSmartEquip() // 스마트 안전장비 
@@ -359,13 +346,6 @@ export class MonitorPage implements OnInit, OnDestroy {
     });
 
     modal.present();
-  }
-
-  async wokerInGetList() {
-    this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
-    if(this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
-      this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
-    }
   }
 
   async realtimeedit() {

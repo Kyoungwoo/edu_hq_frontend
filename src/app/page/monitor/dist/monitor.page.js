@@ -46,7 +46,6 @@ exports.MonitorPage = exports.SmartEquip = exports.TodayConstructionItem = expor
 var today_departure_status_list_page_1 = require("./../work-management/departure-status/today-departure-status-list/today-departure-status-list.page");
 var monitor_smart_equip_edit_page_1 = require("./monitor-smart-equip-edit/monitor-smart-equip-edit.page");
 var core_1 = require("@angular/core");
-var naver_map_component_1 = require("src/app/basic/component/input/naver-map/naver-map.component");
 var monitor_realtime_location_page_1 = require("./monitor-realtime-location/monitor-realtime-location.page");
 /**
  * @class TodayConstructionItem
@@ -162,8 +161,6 @@ var MonitorPage = /** @class */ (function () {
                 count: 70
             },
         ];
-        this.gps_log_id = [];
-        this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
         this.data = {
             monitor: '통합관제'
         };
@@ -232,11 +229,14 @@ var MonitorPage = /** @class */ (function () {
             });
         });
     };
+    MonitorPage.prototype.formChange = function (newForm) {
+        this.form.project_id = newForm.project_id;
+        this.form.master_company_id = newForm.master_company_id;
+    };
     /**
      * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
      */
     MonitorPage.prototype.methodContrroller = function () {
-        this.wokerInGetList(); // 
         this.getTodayWorker(); // 금일 출역 작업자
         this.getTodayConstruction(); // 공종별 출역 작업자
         this.getSmartEquip(); // 스마트 안전장비 
@@ -388,24 +388,6 @@ var MonitorPage = /** @class */ (function () {
                     case 1:
                         modal = _a.sent();
                         modal.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MonitorPage.prototype.wokerInGetList = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.connect.run('/integrated/worker/in/list', this.form)];
-                    case 1:
-                        _a.workerInRes = _b.sent();
-                        if (this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
-                            this.toast.present({ message: this.workerInRes.rsMsg, color: 'warning' });
-                        }
                         return [2 /*return*/];
                 }
             });

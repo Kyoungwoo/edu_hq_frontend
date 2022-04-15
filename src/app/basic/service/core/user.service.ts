@@ -1,5 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { GeolocationService } from 'src/app/service/geolocation.service';
 import { AlertService } from '../ionic/alert.service';
 import { NavService } from '../ionic/nav.service';
 import { DeviceService } from './device.service';

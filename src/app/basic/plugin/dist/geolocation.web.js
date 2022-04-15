@@ -1,10 +1,17 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,24 +49,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.AppComponent = void 0;
-var core_1 = require("@angular/core");
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.selectedLibrary = 'home';
+exports.GeolocationWeb = void 0;
+var core_1 = require("@capacitor/core");
+var geolocation_definitions_1 = require("./geolocation.definitions");
+var GeolocationWeb = /** @class */ (function (_super) {
+    __extends(GeolocationWeb, _super);
+    function GeolocationWeb() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    AppComponent.prototype.ngOnInit = function () {
+    GeolocationWeb.prototype.requestPermission = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var state;
+            return __generator(this, function (_a) {
+                state = geolocation_definitions_1.GeolocationPermissionState.granted;
+                return [2 /*return*/, { state: state }];
+            });
+        });
+    };
+    GeolocationWeb.prototype.startLocationUpdates = function () {
         return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
             return [2 /*return*/];
         }); });
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'app-root',
-            templateUrl: 'app.component.html',
-            styleUrls: ['app.component.scss']
-        })
-    ], AppComponent);
-    return AppComponent;
-}());
-exports.AppComponent = AppComponent;
+    GeolocationWeb.prototype.stopLocationUpdates = function () {
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
+    };
+    return GeolocationWeb;
+}(core_1.WebPlugin));
+exports.GeolocationWeb = GeolocationWeb;

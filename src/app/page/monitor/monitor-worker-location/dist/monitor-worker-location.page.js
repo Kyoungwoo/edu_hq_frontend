@@ -57,24 +57,38 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
             search_text: '',
             user_type: '전체'
         };
-        this.gpsData = new connect_service_1.ConnectResult();
+        this.resGps = new connect_service_1.ConnectResult();
         this.gps_log_id = [];
         this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
     }
     MonitorWorkerLocationPage.prototype.ngOnInit = function () {
+        this.getGps();
     };
-    MonitorWorkerLocationPage.prototype.get = function () {
+    MonitorWorkerLocationPage.prototype.getGps = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.connect.run('/integrated/gps/log', this.form)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MonitorWorkerLocationPage.prototype.wokerInGetList = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/integrated/gps/log', this.form)];
+                        return [4 /*yield*/, this.connect.run('/integrated/worker/in/list', this.form)];
                     case 1:
-                        _a.gpsData = _b.sent();
-                        if (this.gpsData.rsCode === 0) {
-                        }
+                        _a.workerInRes = _b.sent();
                         return [2 /*return*/];
                 }
             });
