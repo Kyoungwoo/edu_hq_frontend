@@ -8,6 +8,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
 import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type NoticeType = "일반" | "안전관리" | "환경관리" | "공사관리" | "품질관리";
 
@@ -54,13 +55,18 @@ export class NoticeListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     public user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   async ngOnInit() {
     await this.getForm();
     this.get();
+    this.getNavData();
   }
+
+  async getNavData(){if(history.state?.notice_id) this.edit(history.state?.notice_id);}
 
   async getForm() {
     const { user_role, belong_data } = this.user.userData;
