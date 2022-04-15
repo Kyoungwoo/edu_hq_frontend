@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="button" *ngFor="let item of res?.rsMap">
+      <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.education_safe_report_id)">
         <td>{{ item.index }}</td>
         <td>{{ item.ctgo_approval_module_name }}</td>
         <td>{{ item.master_company_name }}</td>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem } from 'src/app/basic/service/core/file.service';
@@ -49,7 +49,8 @@ export class PeopleViewComponent implements OnInit {
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    private _popover: PopoverController
   ) { }
 
   ngOnInit() {
@@ -73,6 +74,6 @@ export class PeopleViewComponent implements OnInit {
   }
 
   dismiss() {
-    this._modal.dismiss();
+    this._popover.dismiss();
   }
 }

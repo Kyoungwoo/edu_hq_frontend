@@ -88,8 +88,9 @@ ion-header .ttet .toolbar-container .toolbar-content {
 }
 
 .form-weather-toolbar {
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --padding-start: var(--app-page-padding);
 }
 .form-weather-toolbar .weather {
   margin-right: 30px;

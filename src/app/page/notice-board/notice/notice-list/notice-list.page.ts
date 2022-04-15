@@ -57,7 +57,7 @@ export class NoticeListPage implements OnInit {
 
   async ngOnInit() {
     setTimeout(() => {this.get();}, 300);
-    if(this.user.userData.user_role !== 'LH_ADMIN') this.editable = true;
+    if(this.user.userData.user_role !== 'LH_HEAD') this.editable = true;
   }
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;

@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card *ngFor="let item of res?.rsMap" [color]="selectedList.includes(item) ? 'secondary' : 'white'" (click)="selectItem(item)">
+  <app-card *ngFor="let item of res?.rsMap" [color]="isSelectedItem(item) ? 'secondary' : 'white'" (click)="selectItem(item)">
     <app-row>
       <app-col size="auto">
         <h5>{{ item.ctgo_tool_name }}</h5>

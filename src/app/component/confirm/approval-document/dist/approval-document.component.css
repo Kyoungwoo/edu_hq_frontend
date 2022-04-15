@@ -13,14 +13,16 @@
     padding: var(--app-page-padding);
     zoom: 0.3;
     pointer-events: none;
-  }
-  .document-layout ::ng-deep app-input-template.input-label {
-    background: none;
-    border: 1px solid var(--ion-color-step-200);
-    box-shadow: none;
-  }
-  .document-layout ::ng-deep app-button {
-    display: none;
+    /* ::ng-deep {
+        app-input-template.input-label {
+            background: none;
+            border: 1px solid var(--ion-color-step-200);
+            box-shadow: none;
+        }
+        app-button {
+            display: none;
+        }
+    } */
   }
 
   .document-layout.hidden {

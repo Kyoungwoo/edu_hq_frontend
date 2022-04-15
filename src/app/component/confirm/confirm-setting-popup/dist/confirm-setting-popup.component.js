@@ -68,6 +68,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
         this.approvalObj.refer_datas = this.approvalObj.refer_datas || [];
         this.referObj = this.file.clone(this.approvalObj.refer_datas);
         this.referOrigin = this.file.clone(this.approvalObj.refer_datas);
+        this.commentObj = this.file.clone(this.approvalObj.approval_comment);
+        this.commentOrigin = this.file.clone(this.approvalObj.approval_comment);
     };
     /**
      * 결재자 초기화
@@ -95,7 +97,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
                                     company_id: this.user.userData.belong_data.company_id,
                                     search_text: '',
                                     user_type: 'COMPANY'
-                                }
+                                },
+                                canUserTypeChange: false
                             }
                         })];
                     case 1:
@@ -112,6 +115,17 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
                                 approval_order_no: 0,
                                 approval_last_state: 0
                             });
+                            this.commentObj.push({
+                                approval_answer: '미결',
+                                approval_comment: '',
+                                approval_date: '',
+                                approval_last_state: 0,
+                                approval_order_no: 0,
+                                company_id: item.company_id,
+                                company_name: item.company_name,
+                                user_id: item.user_id,
+                                user_name: item.user_name
+                            });
                         }
                         return [2 /*return*/];
                 }
@@ -125,6 +139,7 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.answerObj.splice(i, 1);
+                this.commentObj.splice(i, 1);
                 return [2 /*return*/];
             });
         });
@@ -155,7 +170,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
                                     company_id: this.user.userData.belong_data.company_id,
                                     search_text: '',
                                     user_type: 'COMPANY'
-                                }
+                                },
+                                canUserTypeChange: false
                             }
                         })];
                     case 1:
@@ -195,7 +211,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 this._modal.dismiss({
                     answer_datas: this.answerObj,
-                    refer_datas: this.referObj
+                    refer_datas: this.referObj,
+                    comment_datas: this.commentObj
                 });
                 return [2 /*return*/];
             });

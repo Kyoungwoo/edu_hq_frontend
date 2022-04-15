@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { SafetyEducationResultEditPage } from '../safety-education-result-edit/safety-education-result-edit.page';
 
 @Component({
   selector: 'app-education-confirm-pending-list',
@@ -28,11 +30,13 @@ export class EducationConfirmPendingListPage implements OnInit {
     company_name: string; // 회사명
     approval_cnt_answer: string; // 현재 결재상태
     create_date: string; // 작성일
+    education_safe_report_id:number;
     }>
   
   constructor(
     private connect: ConnectService,
-    private toast: ToastService
+    private toast: ToastService,
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {
@@ -52,4 +56,14 @@ export class EducationConfirmPendingListPage implements OnInit {
     }
   }
 
+  async edit(education_safe_report_id) {
+    console.log("item",education_safe_report_id)
+    const modal = await this._modal.create({
+      component: SafetyEducationResultEditPage,
+      componentProps:{
+        education_safe_report_id
+      }
+    });
+    modal.present();
+  }
 }

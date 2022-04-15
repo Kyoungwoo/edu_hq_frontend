@@ -98,7 +98,7 @@
       <td style="width: 40px;">{{ c - i }}</td>
       <td>{{ item.risk_construction_name }}</td>
       <td>{{ item.risk_unit_name }}</td>
-      <td [class.input]="!item.risk_factor_id">
+      <td>
         <ng-container *ngIf="item.risk_factor_id; else tempFactorEmpty">
           {{ item.risk_factor_name }}
         </ng-container>

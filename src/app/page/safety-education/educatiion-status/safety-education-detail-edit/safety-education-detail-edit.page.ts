@@ -142,10 +142,12 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
   
   async getItem() {
+    console.log("this.item.education_safe_id",this.item.education_safe_id);
     const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
       parse:['education_safe_manager_ids','education_safe_manager_names']
     });
     if(res.rsCode === 0) {
+      console.log("res.rsObj",res.rsObj);
       this.form = {
         ...this.form,
         ...res.rsObj
@@ -291,7 +293,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async educationText(ctgo_education_safe_id) {
-    if(!ctgo_education_safe_id) return;
+    if(!ctgo_education_safe_id || this.item) return;
     const res = await this.connect.run('/education/text/get',{ctgo_education_safe_id:ctgo_education_safe_id});
     if(res.rsCode === 0) {
       this.form.education_safe_text = res.rsObj.ctgo_education_safe_text;

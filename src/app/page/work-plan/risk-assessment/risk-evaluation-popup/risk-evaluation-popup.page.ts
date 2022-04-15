@@ -183,6 +183,17 @@ export class RiskEvaluationPopupPage implements OnInit {
     });
   }
   submit() {
+    
+    const emptyRiskFactor = this.riskList.find(item => {
+      return !item.risk_factor_name;
+    });
+    if(emptyRiskFactor) { this.toast.present({ color: 'warning', message: '위험요인을 입력해주세요.' }); return; }
+    
+    const emptyRiskPlan = this.riskList.find(item => {
+      return !item.risk_plan_name;
+    });
+    if(emptyRiskPlan) { this.toast.present({ color: 'warning', message: '감소대책을 입력해주세요.' }); return; }
+
     this._modal.dismiss({
       riskList: this.riskList
     });

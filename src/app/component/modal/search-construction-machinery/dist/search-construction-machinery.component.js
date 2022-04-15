@@ -57,9 +57,9 @@ var SearchConstructionMachineryComponent = /** @class */ (function () {
         this.toast = toast;
         this.all = false;
         this.multiple = false;
-        this.allState = false;
         /** multiple에서 쓰는 녀셕 */
         this.selectedItemList = [];
+        this.allState = false;
     }
     SearchConstructionMachineryComponent.prototype.ngOnInit = function () {
         this.getMachinery();
@@ -86,19 +86,19 @@ var SearchConstructionMachineryComponent = /** @class */ (function () {
     };
     SearchConstructionMachineryComponent.prototype.isSelectedItem = function (item) {
         if (!this.multiple) {
-            return this.selectedItem === item;
+            return this.selectedItem.ctgo_machinery_id === item.ctgo_machinery_id;
         }
         else {
-            return this.selectedItemList.includes(item);
+            return this.selectedItemList.find(function (selectedItem) { return selectedItem.ctgo_machinery_id === item.ctgo_machinery_id; });
         }
     };
     SearchConstructionMachineryComponent.prototype.selectItem = function (item) {
         this.allState = false;
         if (!this.multiple) {
-            this.selectedItem = item;
+            this.selectedItem.ctgo_machinery_id = item.ctgo_machinery_id;
         }
         else {
-            var itemIndex = this.selectedItemList.indexOf(item);
+            var itemIndex = this.selectedItemList.findIndex(function (selectedItem) { return selectedItem.ctgo_machinery_id === item.ctgo_machinery_id; });
             if (itemIndex > -1) {
                 this.selectedItemList.splice(itemIndex, 1);
             }
@@ -123,6 +123,9 @@ var SearchConstructionMachineryComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], SearchConstructionMachineryComponent.prototype, "multiple");
+    __decorate([
+        core_1.Input()
+    ], SearchConstructionMachineryComponent.prototype, "selectedItemList");
     SearchConstructionMachineryComponent = __decorate([
         core_1.Component({
             selector: 'app-search-construction-machinery',

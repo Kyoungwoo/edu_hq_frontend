@@ -44,9 +44,11 @@
           <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
         </app-col>
         <app-col>
-          <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id"
-            [(ngModel)]="form.master_company_id"
-            [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+          <app-select-contractor name="master_company_id"
+          [allState]="true"
+          [project_id]="form.project_id"
+          [(ngModel)]="form.master_company_id"
+          [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
         </app-col>
         <app-col></app-col>
         <app-col></app-col>

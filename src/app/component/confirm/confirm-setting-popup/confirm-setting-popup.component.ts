@@ -4,7 +4,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { AnswerObj, ApprovalObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { AnswerObj, ApprovalObj, CommentObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { SearchPeopleComponent } from '../../modal/search-people/search-people.component';
 
 @Component({
@@ -21,6 +21,9 @@ export class ConfirmSettingPopupComponent implements OnInit {
 
   referObj:ReferObj[];
   referOrigin:ReferObj[];
+
+  commentObj:CommentObj[];
+  commentOrigin:CommentObj[];
 
   answerSortableOption = {
     handle: '.answer-handle',
@@ -40,13 +43,16 @@ export class ConfirmSettingPopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-     // 초기화 기능 때문에 클론을 떠놔야 함
-     this.answerObj = this.file.clone(this.approvalObj.answer_datas);
-     this.answerOrigin = this.file.clone(this.approvalObj.answer_datas);
+    // 초기화 기능 때문에 클론을 떠놔야 함
+    this.answerObj = this.file.clone(this.approvalObj.answer_datas);
+    this.answerOrigin = this.file.clone(this.approvalObj.answer_datas);
 
-     this.approvalObj.refer_datas = this.approvalObj.refer_datas || [];
-     this.referObj = this.file.clone(this.approvalObj.refer_datas);
-     this.referOrigin = this.file.clone(this.approvalObj.refer_datas);
+    this.approvalObj.refer_datas = this.approvalObj.refer_datas || [];
+    this.referObj = this.file.clone(this.approvalObj.refer_datas);
+    this.referOrigin = this.file.clone(this.approvalObj.refer_datas);
+
+    this.commentObj = this.file.clone(this.approvalObj.approval_comment);
+    this.commentOrigin = this.file.clone(this.approvalObj.approval_comment);
   }
 
   /**
@@ -66,7 +72,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.user.userData.belong_data.company_id,
           search_text: '',
           user_type: 'COMPANY'
-        }
+        },
+        canUserTypeChange: false
       }
     });
     modal.present();
@@ -80,6 +87,17 @@ export class ConfirmSettingPopupComponent implements OnInit {
         approval_order_no: 0,
         approval_last_state: 0
       });
+      this.commentObj.push({
+        approval_answer: '미결',
+        approval_comment: '',
+        approval_date: '',
+        approval_last_state: 0,
+        approval_order_no: 0,
+        company_id: item.company_id,
+        company_name: item.company_name,
+        user_id: item.user_id,
+        user_name: item.user_name
+      })
     }
   }
   /**
@@ -87,6 +105,7 @@ export class ConfirmSettingPopupComponent implements OnInit {
    */
   async removeAnswer(i) {
     this.answerObj.splice(i, 1);
+    this.commentObj.splice(i, 1);
   }
   /**
    * 참조자 초기화
@@ -105,7 +124,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.user.userData.belong_data.company_id,
           search_text: '',
           user_type: 'COMPANY'
-        }
+        },
+        canUserTypeChange: false
       }
     });
     modal.present();
@@ -132,7 +152,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
   async submit() {
     this._modal.dismiss({
       answer_datas: this.answerObj,
-      refer_datas: this.referObj
+      refer_datas: this.referObj,
+      comment_datas: this.commentObj
     });
   }
 

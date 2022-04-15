@@ -94,9 +94,8 @@ export class MyEducationListPage implements OnInit {
       this.res.rsMap.join()
       this.res.rsMap.forEach(item => {
         if(item.education_safe_manager_names)
-        item.education_safe_manager_names.toString()
-        item.education_safe_date = `${item.education_safe_date} (${this.date.day(item.education_safe_date)[0]})`;
-      })
+        item.education_safe_manager_names.toString();
+      });
 
     } else {
       // this.toast.present({message:res.rsMsg,color:'warning'});

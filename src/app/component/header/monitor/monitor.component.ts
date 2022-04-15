@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -40,7 +40,7 @@ export class MonitorComponent implements OnInit {
 
   tabActive:Tab = this.tabList[0];
 
-  weather:any = {
+  weather = {
     weather_speed:"", // 풍속,
     weather_id: "", // 아이디,
     weather_temp:"", // 기온(온도),
@@ -52,10 +52,11 @@ export class MonitorComponent implements OnInit {
     weather_rain:"", // 강수량 :"", // 강수량
     weather_snow:"", // 적설량},
     high_weather_temp:"", // 최고 기온(온도),
-    low_weather_temp:"" // 최저 기온(온도),
+    low_weather_temp:"", // 최저 기온(온도),
+    weather_pty:""
   }
 
-  dust:any = {
+  dust = {
     dataTime: "",
     grade_name: "",
     icon_url: "",
@@ -144,14 +145,6 @@ export class MonitorComponent implements OnInit {
   main() {
     const { userData } = this.user;
     if(this.device.platform_type < 3) {
-      if(userData.user_type === 'COMPANY') {
-        this.nav.navigateRoot('/main-sub-admin');
-      }
-      else {
-        this.nav.navigateRoot('/main-admin');
-      }
-    }
-    else {
       switch(userData.user_type) {
         case 'LH':
         case 'SUPER':
@@ -168,6 +161,14 @@ export class MonitorComponent implements OnInit {
         case 'WORKER':
           this.nav.navigateRoot('/main-user-worker');
           break;
+      }
+    }
+    else {
+      if(userData.user_type === 'COMPANY') {
+        this.nav.navigateRoot('/main-sub-admin');
+      }
+      else {
+        this.nav.navigateRoot('/main-admin');
       }
     }
   }

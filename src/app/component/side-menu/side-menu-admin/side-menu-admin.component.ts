@@ -263,7 +263,7 @@ export class  SideMenuAdminComponent implements OnInit {
       {title:'안전마일리지',link:''}
     ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
-      { title: '현장 등록', link: '/scene-list',
+      { title: '현장 정보 관리', link: '/scene-list',
       permission: () => {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
