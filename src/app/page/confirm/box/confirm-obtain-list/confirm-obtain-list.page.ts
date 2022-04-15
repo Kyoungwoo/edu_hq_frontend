@@ -47,7 +47,9 @@ export class ConfirmObtainListPage implements OnInit {
 
   res:ConnectResult<ConfirmObtainItem>;
 
-  selectItem:ConfirmObtainItem;
+  event = {
+    get: null
+  }
 
   constructor(
     private _modal: ModalController,
@@ -61,6 +63,16 @@ export class ConfirmObtainListPage implements OnInit {
 
   async ngOnInit() {
     await this.getForm();
+    this.get();
+
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('approval-list:get()', this.event.get);
+  }
+  ngOnDestroy() {
+    window.removeEventListener('approval-list:get()', this.event.get);
+  }
+
+  getEvent() {
     this.get();
   }
 

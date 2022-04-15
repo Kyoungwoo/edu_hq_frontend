@@ -171,20 +171,37 @@ var MonitorPage = /** @class */ (function () {
         };
     }
     MonitorPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
-            var monitor = params.monitor;
-            _this.data = {
-                monitor: monitor || '통합관제'
-            };
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getForm()];
+                    case 1:
+                        _a.sent();
+                        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
+                            var monitor = params.monitor;
+                            _this.data = {
+                                monitor: monitor || '통합관제'
+                            };
+                        });
+                        this.methodContrroller();
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.methodContrroller();
     };
     /**
      * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
      */
     MonitorPage.prototype.ngOnDestroy = function () {
         this.$activedRoute.unsubscribe();
+    };
+    MonitorPage.prototype.getForm = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
     };
     /**
      * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)

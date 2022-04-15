@@ -175,7 +175,10 @@ export class MonitorPage implements OnInit, OnDestroy {
     public date: DateService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    await this.getForm();
+
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
       this.data = {
@@ -190,6 +193,10 @@ export class MonitorPage implements OnInit, OnDestroy {
    */
    ngOnDestroy() {
     this.$activedRoute.unsubscribe();
+  }
+
+  async getForm() {
+    
   }
 
   /**
