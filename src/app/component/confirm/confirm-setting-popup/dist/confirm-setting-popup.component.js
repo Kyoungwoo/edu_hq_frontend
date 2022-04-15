@@ -97,7 +97,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
                                     company_id: this.user.userData.belong_data.company_id,
                                     search_text: '',
                                     user_type: 'COMPANY'
-                                }
+                                },
+                                canUserTypeChange: false
                             }
                         })];
                     case 1:
@@ -169,7 +170,8 @@ var ConfirmSettingPopupComponent = /** @class */ (function () {
                                     company_id: this.user.userData.belong_data.company_id,
                                     search_text: '',
                                     user_type: 'COMPANY'
-                                }
+                                },
+                                canUserTypeChange: false
                             }
                         })];
                     case 1:

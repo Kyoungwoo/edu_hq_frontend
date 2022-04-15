@@ -72,7 +72,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.user.userData.belong_data.company_id,
           search_text: '',
           user_type: 'COMPANY'
-        }
+        },
+        canUserTypeChange: false
       }
     });
     modal.present();
@@ -123,7 +124,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.user.userData.belong_data.company_id,
           search_text: '',
           user_type: 'COMPANY'
-        }
+        },
+        canUserTypeChange: false
       }
     });
     modal.present();
