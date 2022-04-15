@@ -88,7 +88,6 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("item", this.item);
                         this.form.education_safe_id = (_a = this.item) === null || _a === void 0 ? void 0 : _a.education_safe_id;
                         if (!this.item) return [3 /*break*/, 2];
                         this.form.education_safe_report_instructor = this.item.education_safe_instructor;
@@ -260,6 +259,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                             this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -301,6 +301,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                                 this.form.education_safe_report_id = res.rsObj.education_safe_report_id;
                                 // 목록을 새로고침 해줘야 함
                                 window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+                                window.dispatchEvent(new CustomEvent('approval-list:get()'));
                             }
                         }
                         else {
@@ -340,6 +341,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                             this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -360,6 +362,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                             this._modal.dismiss(true);
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: approvalRes.rsMsg });
@@ -390,6 +393,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -410,6 +414,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -426,6 +431,7 @@ var SafetyEducationResultEditPage = /** @class */ (function () {
         else {
             this.permission.edit = false;
         }
+        /** 결재자 의견을 가지고 온다. */
         this.approval_comment = ev.approval_comment;
     };
     __decorate([

@@ -227,6 +227,7 @@ export class SafetyEducationResultEditPage implements OnInit {
       this._modal.dismiss(true);
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -262,6 +263,7 @@ export class SafetyEducationResultEditPage implements OnInit {
         this.form.education_safe_report_id = res.rsObj.education_safe_report_id;
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
     }
     else {
@@ -289,6 +291,7 @@ export class SafetyEducationResultEditPage implements OnInit {
         this._modal.dismiss(true);
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+        window.dispatchEvent(new CustomEvent('approval-list:get()'));
       }
       else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -310,6 +313,7 @@ export class SafetyEducationResultEditPage implements OnInit {
           this._modal.dismiss(true);
           // 목록을 새로고침 해줘야 함
           window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+          window.dispatchEvent(new CustomEvent('approval-list:get()'));
         }
         else {
           this.toast.present({ color: 'warning', message: approvalRes.rsMsg });  
@@ -330,6 +334,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
 
   }
@@ -341,6 +346,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
+      window.dispatchEvent(new CustomEvent('approval-list:get()'));
     }
   }
 
@@ -355,6 +361,7 @@ export class SafetyEducationResultEditPage implements OnInit {
       this.permission.edit = false;
     }
     
+    /** 결재자 의견을 가지고 온다. */
     this.approval_comment = ev.approval_comment;
   }
 }
