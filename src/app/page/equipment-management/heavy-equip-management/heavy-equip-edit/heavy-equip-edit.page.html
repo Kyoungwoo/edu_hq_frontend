@@ -60,40 +60,81 @@
     <app-col>
     </app-col>
   </app-row>
-  <h4>첨부서류</h4>
-  <app-input label="건설기계 등록증" [disabled]="updateStatus">
-      <app-file view_type='REGIST'
-      [(ngModel)]="form.regist_file_data"
-      [file]="form.regist_file"
-      [file_json]="form.regist_json "></app-file>
-      추가
-  </app-input>
-  <app-file-preview *ngFor="let futItem of form.regist_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.regist_file_data.splice(i,1)"></app-file-preview>
-  <app-input label="대여대금 지급보증서" [disabled]="updateStatus">
-    <app-file view_type="RENTAL"
-    [(ngModel)]="form.rental_file_data"
-    [file]="form.rental_file"
-    [file_json]="form.rental_json "></app-file>
-    추가
-  </app-input>
-  <app-file-preview *ngFor="let futItem of form.rental_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.rental_file_data.splice(i,1)"></app-file-preview>
-  <app-input label="장비 작업계획서" [disabled]="updateStatus">
-    <app-file view_type="PLAN"
-    [(ngModel)]="form.plan_file_data"
-    [file]="form.plan_file"
-    [file_json]="form.plan_json "></app-file>
-    추가
-  </app-input>
-  <app-file-preview *ngFor="let futItem of form.plan_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.plan_file_data.splice(i,1)"></app-file-preview>
-  <app-input label="기타" [disabled]="updateStatus">
-    <app-file view_type="ETC"
-    [(ngModel)]="form.etc_file_data"
-    [file]="form.etc_file"
-    [file_json]="form.etc_json "></app-file>
-    추가
-  </app-input>
-  <app-file-preview *ngFor="let futItem of form.etc_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.etc_file_data.splice(i,1)"></app-file-preview>
 
+  <h4>첨부서류</h4>
+
+  <app-card color="light" class="file-card">
+    <app-row>
+      <app-col>
+        <h5>건설기계 등록증</h5>
+      </app-col>
+      <app-col size="auto" *ngIf="!updateStatus">
+        <app-button fill="translucent">
+          추가
+          <app-file view_type='REGIST'
+          [(ngModel)]="form.regist_file_data"
+          [file]="form.regist_file"
+          [file_json]="form.regist_json"></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-file-preview *ngFor="let futItem of form.regist_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.regist_file_data.splice(i,1)"></app-file-preview>
+  </app-card>
+
+  <app-card color="light" class="file-card">
+    <app-row>
+      <app-col>
+        <h5>대여대금 지급보증서</h5>
+      </app-col>
+      <app-col size="auto" *ngIf="!updateStatus">
+        <app-button fill="translucent">
+          추가
+          <app-file view_type="RENTAL"
+        [(ngModel)]="form.rental_file_data"
+        [file]="form.rental_file"
+        [file_json]="form.rental_json"></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-file-preview *ngFor="let futItem of form.rental_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.rental_file_data.splice(i,1)"></app-file-preview>
+  </app-card>
+
+  <app-card color="light" class="file-card">
+    <app-row>
+      <app-col>
+        <h5>장비 작업계획서</h5>
+      </app-col>
+      <app-col size="auto" *ngIf="!updateStatus">
+        <app-button fill="translucent">
+          추가
+          <app-file view_type="PLAN"
+          [(ngModel)]="form.plan_file_data"
+          [file]="form.plan_file"
+          [file_json]="form.plan_json"></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-file-preview *ngFor="let futItem of form.plan_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.plan_file_data.splice(i,1)"></app-file-preview>
+  </app-card>
+
+  <app-card color="light" class="file-card">
+    <app-row>
+      <app-col>
+        <h5>기타</h5>
+      </app-col>
+      <app-col size="auto" *ngIf="!updateStatus">
+        <app-button fill="translucent">
+          추가
+          <app-file view_type="ETC"
+          [(ngModel)]="form.etc_file_data"
+          [file]="form.etc_file"
+          [file_json]="form.etc_json"></app-file>
+        </app-button>
+      </app-col>
+    </app-row>
+    <app-file-preview *ngFor="let futItem of form.etc_file_data let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.etc_file_data.splice(i,1)"></app-file-preview>
+  </app-card>
+  
 </ion-content>
 <app-button-footer *ngIf="machinery_id">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="Heavyedit()">수정</app-button>
