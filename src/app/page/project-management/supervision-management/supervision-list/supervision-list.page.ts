@@ -17,9 +17,11 @@ export class SupervisionListPage implements OnInit {
     hq_regional_id: this.user.userData.belong_data.hq_regional_id | 0,
     hq_business_id: this.user.userData.belong_data.hq_business_id | 0,
     limit_no: 0,
-    master_company_ids: [],
+    master_company_ids: '전체',
     search_text: '',
   }
+
+  master_company_id = this.user.userData.belong_data.master_company_id;
 
   res: ConnectResult <{
     contract_end_date: string, // ~ 공사기간

@@ -20,6 +20,7 @@ export class EducationItem {
   ctgo_education_safe_type_text: string; // 교육 유형 텍스트
 
   ctgo_education_safe_id: number;
+  create_user_name:string;
   ctgo_education_safe_name: string;
   ctgo_education_safe_text: string;
 
@@ -245,6 +246,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     this.form.approval_cnt_answer = '임시저장';
     this.form.approval_default_data = approval_data;
 
+    console.log("this.form",this.form);
     let url = '';
     if(!this.form.approval_id) {
       url = '/education/report/insert';
@@ -281,6 +283,8 @@ export class SafetyEducationResultEditPage implements OnInit {
 
     this.form.approval_cnt_answer = '결재중';
     this.form.approval_default_data = approval_data;
+
+    console.log("this.form",this.form);
 
     if(!this.form.approval_id) {
       // 임시저장도 안한 상태에서는 insert에서 결재 요청을 처리한다.
@@ -342,6 +346,7 @@ export class SafetyEducationResultEditPage implements OnInit {
    * 결재 버튼 클릭
    */
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
+     console.log("ev",ev);
     const res = await ev.approval();
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함
