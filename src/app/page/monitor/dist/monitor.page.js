@@ -46,7 +46,6 @@ exports.MonitorPage = exports.SmartEquip = exports.TodayConstructionItem = expor
 var today_departure_status_list_page_1 = require("./../work-management/departure-status/today-departure-status-list/today-departure-status-list.page");
 var monitor_smart_equip_edit_page_1 = require("./monitor-smart-equip-edit/monitor-smart-equip-edit.page");
 var core_1 = require("@angular/core");
-var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var naver_map_component_1 = require("src/app/basic/component/input/naver-map/naver-map.component");
 var monitor_realtime_location_page_1 = require("./monitor-realtime-location/monitor-realtime-location.page");
 /**
@@ -163,7 +162,6 @@ var MonitorPage = /** @class */ (function () {
                 count: 70
             },
         ];
-        this.gpsData = new connect_service_1.ConnectResult();
         this.gps_log_id = [];
         this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
         this.data = {
@@ -171,14 +169,24 @@ var MonitorPage = /** @class */ (function () {
         };
     }
     MonitorPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
-            var monitor = params.monitor;
-            _this.data = {
-                monitor: monitor || '통합관제'
-            };
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getForm()];
+                    case 1:
+                        _a.sent();
+                        this.$activedRoute = this.route.queryParams.subscribe(function (params) {
+                            var monitor = params.monitor;
+                            _this.data = {
+                                monitor: monitor || '통합관제'
+                            };
+                        });
+                        this.methodContrroller();
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.methodContrroller();
     };
     /**
      * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
@@ -186,12 +194,49 @@ var MonitorPage = /** @class */ (function () {
     MonitorPage.prototype.ngOnDestroy = function () {
         this.$activedRoute.unsubscribe();
     };
+    MonitorPage.prototype.getForm = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, user_role, belong_data, res, contractor;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
+                        this.form.project_id = belong_data.project_id;
+                        this.form.company_id = belong_data.company_id;
+                        if (!(user_role === 'LH_HEAD'
+                            || user_role === 'SUPER_HEAD')) return [3 /*break*/, 1];
+                        this.form.master_company_id = belong_data.company_id;
+                        return [3 /*break*/, 4];
+                    case 1:
+                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
+                        this.form.master_company_id = belong_data.company_id;
+                        return [3 /*break*/, 4];
+                    case 2:
+                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
+                                project_id: this.form.project_id,
+                                search_text: ''
+                            })];
+                    case 3:
+                        res = _b.sent();
+                        if (res.rsCode === 0) {
+                            contractor = res.rsMap[0];
+                            this.form.master_company_id = contractor.master_company_id;
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     /**
      * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
      */
     MonitorPage.prototype.methodContrroller = function () {
-        this.wokerInGetList();
-        this.gpsGet(); //근로자 gps
+        this.wokerInGetList(); // 
         this.getTodayWorker(); // 금일 출역 작업자
         this.getTodayConstruction(); // 공종별 출역 작업자
         this.getSmartEquip(); // 스마트 안전장비 
@@ -358,26 +403,8 @@ var MonitorPage = /** @class */ (function () {
                         return [4 /*yield*/, this.connect.run('/integrated/worker/in/list', this.form)];
                     case 1:
                         _a.workerInRes = _b.sent();
-                        if (this.workerInRes.rsCode !== 0) {
+                        if (this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
                             this.toast.present({ message: this.workerInRes.rsMsg, color: 'warning' });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MonitorPage.prototype.gpsGet = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.connect.run('/integrated/gps/log', this.form)];
-                    case 1:
-                        _a.gpsData = _b.sent();
-                        console.log("res", this.gpsData.rsMap);
-                        if (this.gpsData.rsCode === 0) {
                         }
                         return [2 /*return*/];
                 }

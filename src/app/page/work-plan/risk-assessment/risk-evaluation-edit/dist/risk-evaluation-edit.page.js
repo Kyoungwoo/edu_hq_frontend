@@ -294,6 +294,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                             this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('risk-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -343,6 +344,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                                 this.form.risk_asment_id = res.rsObj.risk_asment_id;
                                 // 목록을 새로고침 해줘야 함
                                 window.dispatchEvent(new CustomEvent('risk-list:get()'));
+                                window.dispatchEvent(new CustomEvent('approval-list:get()'));
                             }
                         }
                         else {
@@ -384,6 +386,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                             this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('risk-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         else {
                             this.toast.present({ color: 'warning', message: res.rsMsg });
@@ -434,6 +437,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                         if (res.rsCode === 0) {
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('risk-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }
@@ -456,6 +460,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                             this._modal.dismiss();
                             // 목록을 새로고침 해줘야 함
                             window.dispatchEvent(new CustomEvent('risk-list:get()'));
+                            window.dispatchEvent(new CustomEvent('approval-list:get()'));
                         }
                         return [2 /*return*/];
                 }

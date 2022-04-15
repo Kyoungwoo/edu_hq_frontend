@@ -11,6 +11,8 @@ import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ConfirmPendingDetailSearchPageModule } from '../confirm-pending-detail-search/confirm-pending-detail-search.module';
 import { WorkerMinutesEditPageModule } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.module';
+import { SafetyEducationResultEditPageModule } from 'src/app/page/safety-education/education-result/safety-education-result-edit/safety-education-result-edit.module';
+import { RiskEvaluationEditPageModule } from 'src/app/page/work-plan/risk-assessment/risk-evaluation-edit/risk-evaluation-edit.module';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { WorkerMinutesEditPageModule } from 'src/app/page/work-plan/work-minutes
     BasicComponentModule,
     ConfirmPendingListPageRoutingModule,
     ConfirmPendingDetailSearchPageModule,
+    SafetyEducationResultEditPageModule,
+    RiskEvaluationEditPageModule,
     WorkerMinutesEditPageModule
   ],
   declarations: [ConfirmPendingListPage]

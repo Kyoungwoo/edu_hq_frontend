@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -31,7 +31,7 @@ class ConfirmProgressItem {
   templateUrl: './confirm-progress-list.page.html',
   styleUrls: ['./confirm-progress-list.page.scss'],
 })
-export class ConfirmProgressListPage implements OnInit {
+export class ConfirmProgressListPage implements OnInit, OnDestroy {
 
   form = {
     project_id: 0, // 현장 ID
@@ -46,6 +46,10 @@ export class ConfirmProgressListPage implements OnInit {
 
   res:ConnectResult<ConfirmProgressItem>;
 
+  event = {
+    get: null
+  }
+
   constructor(
     private _modal: ModalController,
     private user: UserService,
@@ -58,7 +62,18 @@ export class ConfirmProgressListPage implements OnInit {
   async ngOnInit() {
     await this.getForm();
     this.get();
+
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('approval-list:get()', this.event.get);
   }
+  ngOnDestroy() {
+    window.removeEventListener('approval-list:get()', this.event.get);
+  }
+
+  getEvent() {
+    this.get();
+  }
+
   async getForm() {
     const { belong_data } = this.user.userData;
     this.form.project_id = belong_data.project_id;

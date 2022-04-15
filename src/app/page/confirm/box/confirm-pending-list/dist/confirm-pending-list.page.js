@@ -67,6 +67,9 @@ var ConfirmPendingListPage = /** @class */ (function () {
             search_text: '',
             limit_no: 0 // 20개씩 가져옵니다
         };
+        this.event = {
+            get: null
+        };
     }
     ConfirmPendingListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -76,10 +79,18 @@ var ConfirmPendingListPage = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.get();
+                        this.event.get = this.getEvent.bind(this);
+                        window.addEventListener('approval-list:get()', this.event.get);
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    ConfirmPendingListPage.prototype.ngOnDestroy = function () {
+        window.removeEventListener('approval-list:get()', this.event.get);
+    };
+    ConfirmPendingListPage.prototype.getEvent = function () {
+        this.get();
     };
     ConfirmPendingListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {

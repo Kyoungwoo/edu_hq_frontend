@@ -8,7 +8,6 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
-import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
 import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
 import { Subscription } from 'rxjs';
 
@@ -156,7 +155,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     row_count:number
   }>
 
-  gpsData:ConnectResult<userData> = new ConnectResult();
+  
 
   gps_log_id = [];
   gps_log_data = new GpsCoordinateData();
@@ -175,7 +174,10 @@ export class MonitorPage implements OnInit, OnDestroy {
     public date: DateService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    await this.getForm();
+
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
       this.data = {
@@ -192,12 +194,46 @@ export class MonitorPage implements OnInit, OnDestroy {
     this.$activedRoute.unsubscribe();
   }
 
+  async getForm() {
+    const { user_role, belong_data } = this.user.userData;
+
+    this.form.project_id = belong_data.project_id;
+    this.form.company_id = belong_data.company_id;
+
+    if(user_role === 'LH_HEAD'
+    || user_role === 'SUPER_HEAD') {
+
+      this.form.master_company_id = belong_data.company_id;
+
+    }
+    else if(belong_data.company_contract_type === '원청사') {
+
+      this.form.master_company_id = belong_data.company_id;
+
+    }
+    else if(belong_data.company_contract_type === '협력사') {
+
+      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+        project_id: this.form.project_id,
+        search_text: ''
+      });
+      if(res.rsCode === 0) {
+        const contractor = res.rsMap[0];
+        this.form.master_company_id = contractor.master_company_id;
+      }
+      else {
+        this.toast.present({ color: 'warning', message: res.rsMsg });
+      }
+
+    }
+  }
+
   /**
    * @function methodContrroller(): 통합관제 데이터를 모두 불러오는 메서드(인터벌이 들어가있는 메서드 제외)
    */
    methodContrroller(){
-    this.wokerInGetList();
-    this.gpsGet();//근로자 gps
+    this.wokerInGetList(); // 
     this.getTodayWorker(); // 금일 출역 작업자
     this.getTodayConstruction(); // 공종별 출역 작업자
     this.getSmartEquip() // 스마트 안전장비 
@@ -327,22 +363,14 @@ export class MonitorPage implements OnInit, OnDestroy {
 
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
-    if(this.workerInRes.rsCode !== 0) {
+    if(this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
       this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
-    }
-  }
-
-
-  async gpsGet() {
-    this.gpsData = await this.connect.run('/integrated/gps/log',this.form);
-    console.log("res",this.gpsData.rsMap);
-    if(this.gpsData.rsCode === 0) {
     }
   }
 
   async realtimeedit() {
     const modal = await this.modal.create({
-      component:MonitorRealtimeLocationPage
+      component: MonitorRealtimeLocationPage
     });
     modal.present();
   }

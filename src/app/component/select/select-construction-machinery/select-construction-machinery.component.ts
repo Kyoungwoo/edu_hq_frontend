@@ -106,7 +106,8 @@ export class SelectConstructionMachineryComponent implements OnInit, ControlValu
     }
 
     this.res = await this.connect.run('/category/certify/machinery/get', {
-      company_id: this.company_id,
+      master_company_id: this.company_id,
+      project_id: this.project_id,
       search_text: ''
     });
     if (this.res.rsCode === 0) {
