@@ -1,0 +1,23 @@
+<app-row>
+
+  <app-col></app-col>
+  <app-col size="auto">
+    <app-row class="approval-group">
+      <app-col size="24px" class="approval-title">결<br>재</app-col>
+      <app-col size="auto" class="approval-col" *ngFor="let item of approval_answer; let i = index; let f = first; let l = last;">
+        <div class="approval-type">{{ 
+          f ? 
+            l ? '작성/승인' : '작성' 
+          : 
+            l ? '승인' : '검토' 
+        }}</div>
+        <div class="approval-person">
+          <div class="approval-name">{{ item.answer_user_name }}</div>
+          <div class="approval-state">{{ item.approval_answer }}</div>
+          <div class="approval-date">{{ item.approval_date }}</div>
+        </div>
+      </app-col>
+    </app-row>
+  </app-col>
+
+</app-row>

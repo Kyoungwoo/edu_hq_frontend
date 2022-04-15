@@ -1,20 +1,120 @@
 <ion-header>
-  <ion-toolbar class="ttet" color="tertiary">
-    <ion-buttons slot="start">
-      <app-logo routerLink="/main-admin" style="cursor: pointer;"></app-logo>
-      <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()"><app-img name="menu"></app-img></app-button>
+
+  <ng-container *mobileHidden>
+
+    <ion-toolbar class="ttet" color="tertiary">
+  
+      <ion-buttons slot="start">
+        <app-logo style="cursor: pointer;" (click)="main()"></app-logo>
+        <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()"><app-img name="menu"></app-img></app-button>
+        <app-row>
+          <app-col size="auto">
+          </app-col>
+          <app-col>
+            <app-row class="tab-list">
+              <div *ngFor="let tab of tabList; let i = index;"
+              class="tab-item" [class.active]="tab === tabActive" routerLink="/monitor" [queryParams]="{ monitor: tab.data }" [style.z-index]="10 - i">
+                <span>{{ tab.text }}</span>
+              </div>
+            </app-row>
+          </app-col>
+        </app-row>
+      </ion-buttons>
+  
+      <ion-buttons slot="end">
+        <app-row class="profile-row">
+          <app-col size="auto">
+            <app-avatar class="profile" [src]="user.userData.user_profile"></app-avatar>
+          </app-col>
+          <app-col size="auto">
+            <h5>{{ user.userData.user_name }}님</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-button class="btn-logout" fill="translucent" size="small" (click)="user.logout()">로그아웃</app-button>
+          </app-col>
+        </app-row>
+      </ion-buttons>
+  
+    </ion-toolbar>
+  
+    <ion-toolbar class="form-weather-toolbar" color="white">
+  
       <app-row>
-        <app-col size="auto">
+        <app-col>
+          <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
         </app-col>
         <app-col>
-          <app-row class="tab-list">
-            <div *ngFor="let tab of tabList; let i = index;"
-            class="tab-item" [class.active]="tab === tabActive" routerLink="/monitor" [queryParams]="{monitor:tab.data}" [style.z-index]="10 - i" (click)="tabClick(tab, i)">
-              <span>{{ tab.text }}</span>
-            </div>
+          <app-select-contractor [allState]="true" name="master_company_id" [project_id]="form.project_id"
+            [(ngModel)]="form.master_company_id"
+            [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+        </app-col>
+        <app-col></app-col>
+        <app-col></app-col>
+        <app-col size="auto">
+          <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
+            <app-img style="width: 55px;" src="assets/img/weather/01_day.svg"></app-img>
+          </app-button>
+        </app-col>
+        <app-col size="auto" class="weather">
+          <app-row class="weather-temp">
+            {{ weather.weather_temp + "&deg;C" }}
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.high_weather_temp + "&deg;C" }}
+            {{ weather.low_weather_temp + "&deg;C" }}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            강수량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            적설량
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            최대풍속
+          </app-row>
+          <app-row class="ratio">
+            {{ weather.weather_speed + "m/s" }}
+          </app-row>
+        </app-col>
+        <app-col class="colstyle" size="auto">
+          <app-row class="title">
+            미세먼지
+          </app-row>
+          <app-row class="ratio">
+            <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
+            {{ dust.grade_name}}
           </app-row>
         </app-col>
       </app-row>
-    </ion-buttons>
-  </ion-toolbar>
+    
+    </ion-toolbar>
+
+  </ng-container>
+
+  <ng-container *mobileShow>
+
+    <ion-toolbar color="tertiary">
+      <ion-buttons slot="start">
+        <app-logo style="cursor: pointer;" (click)="main()"></app-logo>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <app-button fill="clear" (click)="main()">
+          <app-img name="close"></app-img>
+        </app-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+  </ng-container>
 </ion-header>

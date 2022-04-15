@@ -4,6 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { SearchPeopleComponent } from 'src/app/component/modal/search-people/search-people.component';
 
 export class ApprovalObj {
@@ -24,7 +25,8 @@ export class AnswerObj {
   approval_last_state: 0|1; // 최종결재자 여부 1 최종 / 0 최종아님
 
   // 결재 진행 중 값
-  approval_answer?:string;
+  approval_id?:number;
+  approval_answer?:ApprovalAnswerType;
   approval_date?:string;
 }
 export class CommentObj {

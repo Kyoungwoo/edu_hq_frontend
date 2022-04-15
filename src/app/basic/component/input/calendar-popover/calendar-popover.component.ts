@@ -106,7 +106,6 @@ export class CalendarPopoverComponent implements OnInit {
   }
   
   disableDate(index) {
-    console.log("this.dates[index]",this.dates[index],'   -----   ',this.min);
     if (this.dates[index] < this.min || this.dates[index] > this.max) {
       return true;
     } else return false;

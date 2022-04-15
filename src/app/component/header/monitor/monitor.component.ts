@@ -1,6 +1,10 @@
-import { ChangeDetectorRef, Component, Injectable, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AnimationController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { DeviceService } from 'src/app/basic/service/core/device.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
@@ -20,6 +24,8 @@ interface Tab {
 })
 export class MonitorComponent implements OnInit {
 
+  @Input() form;
+
   tabList:Tab[] = [
     { text: '통합관제',
       data:'통합관제'
@@ -33,25 +39,138 @@ export class MonitorComponent implements OnInit {
   ]
 
   tabActive:Tab = this.tabList[0];
+
+  weather:any = {
+    weather_speed:"", // 풍속,
+    weather_id: "", // 아이디,
+    weather_temp:"", // 기온(온도),
+    avg_temp:0,// 어제와 오늘의 온도 평균에서 뺀 기온(온도)
+    weather_icon:"", // 아이콘,
+    create_date:"" ,// 날씨를 부른 시간 3시간 기준입니다,
+    weather_main:"", // 날씨 설명,
+    weather_humidity:"", // 습도,
+    weather_rain:"", // 강수량 :"", // 강수량
+    weather_snow:"", // 적설량},
+    high_weather_temp:"", // 최고 기온(온도),
+    low_weather_temp:"" // 최저 기온(온도),
+  }
+
+  dust:any = {
+    dataTime: "",
+    grade_name: "",
+    icon_url: "",
+    pm10Value: 0,
+    pm25Grade: 0
+  }
+
+  $activedRoute:Subscription;
+  intervalWeather_Dust;
   
   constructor(
     private animationCtrl: AnimationController,
     private modal:ModalController,
     private nav: NavService,
-    public adminMenu: SideMenuAdminComponent
+    public adminMenu: SideMenuAdminComponent,
+    private activedRoute: ActivatedRoute,
+    public user: UserService,
+    private connect: ConnectService,
+    private device: DeviceService
   ) { }
   
-  ngOnInit() {}
-  
-  ngAfterViewInit() {
-    this.tabActive = this.tabList[0];
+  ngOnInit() {
+    this.$activedRoute = this.activedRoute.queryParams.subscribe(params => {
+
+      const { monitor } = params;
+      switch(monitor) {
+        case '통합관제':
+          this.tabActive = this.tabList[0];
+          break;
+        case 'CCTV 모니터링':
+          this.tabActive = this.tabList[1];
+          break;
+        case '근로자 실시간 위치 모니터링':
+          this.tabActive = this.tabList[2];
+          break;
+      }
+
+    });
+
+    this.IntervalWeather_Dust();
   }
 
-  tabClick(tab, i) {
-    this.tabActive = tab;
+  ngOnDestroy(): void {
+    this.$activedRoute.unsubscribe();
+    clearInterval(this.intervalWeather_Dust);
   }
 
-  ngOnDestroy(): void {}
+  /**
+   * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드
+   */
+  IntervalWeather_Dust(){
+    this.intervalWeather_Dust = setInterval(() => {
+      this.getWeather();
+      this.getDust();
+    }, 1800000);
+
+    this.getWeather();
+    this.getDust();
+  }
+
+  /**
+   * @function getWeather(): 날씨 데이터를 가져오는 메서드
+   */
+   async getWeather() {
+    //날씨
+    const res = await this.connect.run('/weather/get');
+    switch(res.rsCode) {
+      case 0 :
+        this.weather = res.rsObj;
+        break;
+    }
+  }
+
+  /**
+   * @function getDust(): 미세먼지 데이터를 가져오는 메서드
+   */
+   async getDust() {
+    const res = await this.connect.run('/dust/get'); 
+    switch(res.rsCode) {
+      case 0 :
+        this.dust = res.rsObj;
+        break;
+    }
+  }
+
+  main() {
+    const { userData } = this.user;
+    if(this.device.platform_type < 3) {
+      if(userData.user_type === 'COMPANY') {
+        this.nav.navigateRoot('/main-sub-admin');
+      }
+      else {
+        this.nav.navigateRoot('/main-admin');
+      }
+    }
+    else {
+      switch(userData.user_type) {
+        case 'LH':
+        case 'SUPER':
+          this.nav.navigateRoot('/main-user');
+          break;
+        case 'COMPANY':
+          if(userData.user_role === 'MASTER_HEAD' || userData.user_role === 'MASTER_GENERAL') {
+            this.nav.navigateRoot('/main-user-master');
+          }
+          else {
+            this.nav.navigateRoot('/main-user-partner');
+          }
+          break;
+        case 'WORKER':
+          this.nav.navigateRoot('/main-user-worker');
+          break;
+      }
+    }
+  }
 
   async openSideMenu(){
     const modal = await this.modal.create({

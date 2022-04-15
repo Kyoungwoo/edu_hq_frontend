@@ -57,7 +57,7 @@ class SmartInfoInsertItem {
   ctgo_area_risk_id: number = 0;
   ctgo_area_risk_name: string = '';
   // assign_user_id: number = 0;
-  // partner_company_name:string ;
+  partner_company_name:string ;
   master_company_name:string;
   // machinery_regist_no:string;
   ctgo_machine_serial_id: number = 0;
@@ -219,7 +219,14 @@ export class DangerAreaListPage implements OnInit {
    * @function addButton(): "추가" 버튼 클릭시 목록에 ITEM ROW가 추가됩니다
    */
    addButton(){
-     this.res_insert.push(new SmartInfoInsertItem());
+      let add_item = new SmartInfoInsertItem();
+      if(this.user.userData.user_role === 'PARTNER_HEAD' || this.user.userData.user_role === 'PARTNER_GENERAL'){
+        add_item.partner_company_name = this.user.userData.belong_data.company_name;
+      } else {
+        add_item.master_company_name = this.user.userData.belong_data.company_name;
+        add_item.partner_company_name = this.user.userData.belong_data.company_name;
+      }
+      this.res_insert.push(add_item);
    }
 
   /**

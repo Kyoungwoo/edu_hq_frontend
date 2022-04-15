@@ -49,7 +49,7 @@
       <app-col>
         <!-- <app-textarea *ngIf="!useNotice || !update_state" label="내용" [rows]="10" [(ngModel)]="form.notice_content"></app-textarea> -->
         <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
-        [disabled]="useNotice && !update_state"
+        [disabled]="!update_state"
         [color]="validator.notice_title?.valid === false && 'warning'"
         [(ngModel)]="form.notice_content"></app-smartedit>
         <app-input-caption *ngIf="validator.notice_title?.valid === false">{{ validator.notice_title.message }}</app-input-caption>
@@ -75,7 +75,7 @@
         </app-col>
       </app-row>
     </h4>
-    <app-file-preview *ngFor="let futItem of form.notice_file_data; let i = index" [futItem]="futItem"  
+    <app-file-preview [readonly]="!update_state"  *ngFor="let futItem of form.notice_file_data; let i = index" [futItem]="futItem"  
     (buttonClick)="form.notice_file_data.splice(i,1)"></app-file-preview>
 
 </ion-content>

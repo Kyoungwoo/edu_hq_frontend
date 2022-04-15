@@ -69,6 +69,8 @@ import { SearchContractorCompanyComponent } from './modal/search-contractor-comp
 import { SelectContractorCompanyComponent } from './select/select-contractor-company/select-contractor-company.component';
 import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip-approval-answer.component';
 import { ApprovalCommentComponent } from './confirm/approval-comment/approval-comment.component';
+import { ApprovalTemplateComponent } from './confirm/approval-template/approval-template.component';
+import { ApprovalDocumentComponent } from './confirm/approval-document/approval-document.component';
 
 
 
@@ -77,6 +79,8 @@ import { ApprovalCommentComponent } from './confirm/approval-comment/approval-co
     // approval & confirm
     ApprovalComponent,
     ApprovalCommentComponent,
+    ApprovalDocumentComponent,
+    ApprovalTemplateComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
@@ -155,6 +159,8 @@ import { ApprovalCommentComponent } from './confirm/approval-comment/approval-co
     // approval & confirm 
     ApprovalComponent,
     ApprovalCommentComponent,
+    ApprovalDocumentComponent,
+    ApprovalTemplateComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,

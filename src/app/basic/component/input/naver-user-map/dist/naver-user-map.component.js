@@ -82,8 +82,9 @@ var NaverUserMapComponent = /** @class */ (function () {
     NaverUserMapComponent.prototype.ngOnInit = function () {
     };
     NaverUserMapComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         this.file.script("https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=" + this.naverMapId).then(function () {
-            // this.init();
+            _this.init();
         });
     };
     NaverUserMapComponent.prototype.init = function () {
