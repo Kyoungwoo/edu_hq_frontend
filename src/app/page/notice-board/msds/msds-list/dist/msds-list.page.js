@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -42,119 +53,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.NoticeListPage = void 0;
+exports.MsdsListPage = void 0;
 var core_1 = require("@angular/core");
 var detail_search_page_1 = require("../../detail-search/detail-search.page");
-var notice_edit_page_1 = require("../notice-edit/notice-edit.page");
-var NoticeInfo = /** @class */ (function () {
-    function NoticeInfo() {
+var msds_edit_page_1 = require("../msds-edit/msds-edit.page");
+var MsdsInfo = /** @class */ (function () {
+    function MsdsInfo() {
     }
-    return NoticeInfo;
+    return MsdsInfo;
 }());
-var NoticeListPage = /** @class */ (function () {
-    function NoticeListPage(modal, connect, date, user, toast) {
+var MsdsListPage = /** @class */ (function () {
+    function MsdsListPage(modal, connect, date, toast, user) {
         this.modal = modal;
         this.connect = connect;
         this.date = date;
-        this.user = user;
         this.toast = toast;
+        this.user = user;
         this.form = {
             project_id: this.user.userData.belong_data.project_id,
-            master_company_id: this.user.userData.belong_data.company_id,
+            company_id: this.user.userData.belong_data.company_id,
             end_date: this.date.today(),
-            notice_types: [],
+            msds_types: [],
             // project_ids: [1],
             search_text: '',
             start_date: this.date.today({ month: -1 }),
             limit_no: 0
         };
-        this.permission = {
-            company_id: false
-        };
     }
-    NoticeListPage.prototype.ngOnInit = function () {
+    MsdsListPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getForm()];
-                    case 1:
-                        _a.sent();
-                        this.get();
-                        return [2 /*return*/];
-                }
+                this.get();
+                return [2 /*return*/];
             });
         });
     };
-    NoticeListPage.prototype.getForm = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, user_role, belong_data, res, contractor;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
-                        if (!(user_role === 'LH_HEAD'
-                            || user_role === 'SUPER_HEAD')) return [3 /*break*/, 1];
-                        this.permission.company_id = true;
-                        this.form.master_company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
-                    case 1:
-                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
-                        this.permission.company_id = false;
-                        // 원청사 관리자에게만 보이는 버튼. LH,감리,협력사의 경우 회의 진행 버튼이 없다.(회의록 기획서 9p)
-                        this.form.master_company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
-                    case 2:
-                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 4];
-                        this.permission.company_id = false;
-                        return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
-                                project_id: this.form.project_id,
-                                search_text: ''
-                            })];
-                    case 3:
-                        res = _b.sent();
-                        if (res.rsCode === 0) {
-                            contractor = res.rsMap[0];
-                            this.form.master_company_id = contractor.master_company_id;
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        _b.label = 4;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NoticeListPage.prototype.get = function (limit_no) {
-        if (limit_no === void 0) { limit_no = this.form.limit_no; }
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.form.limit_no = limit_no;
-                        return [4 /*yield*/, this.connect.run('/board/notice/list', this.form)];
-                    case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            this.res = res;
-                            this.res.rsMap.map(function (item, i) {
-                                item.index = res.rsObj.row_count - _this.form.limit_no - i;
-                            });
-                        }
-                        else if (res.rsCode === 1008) {
-                            this.res = null;
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    NoticeListPage.prototype.getMobile = function ($event) {
+    MsdsListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -162,7 +96,7 @@ var NoticeListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/notice/list', this.form, {})];
+                        return [4 /*yield*/, this.connect.run('/board/msds/list', this.form, {})];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -186,7 +120,38 @@ var NoticeListPage = /** @class */ (function () {
             });
         });
     };
-    NoticeListPage.prototype.detailSearch = function () {
+    MsdsListPage.prototype.get = function (limit_no) {
+        if (limit_no === void 0) { limit_no = this.form.limit_no; }
+        return __awaiter(this, void 0, void 0, function () {
+            var trans_form, res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.form.limit_no = limit_no;
+                        trans_form = JSON.parse(JSON.stringify(this.form));
+                        trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
+                        return [4 /*yield*/, this.connect.run('/board/msds/list', this.form)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.rsCode === 0) {
+                            this.res = res;
+                            this.res.rsMap.map(function (item, i) {
+                                item.index = res.rsObj.row_count - _this.form.limit_no - i;
+                            });
+                        }
+                        else if (res.rsCode === 1008) {
+                            this.res = null;
+                        }
+                        else {
+                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MsdsListPage.prototype.detailSearch = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
@@ -194,7 +159,7 @@ var NoticeListPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.modal.create({
                             component: detail_search_page_1.DetailSearchPage,
                             componentProps: {
-                                type: '공지사항',
+                                type: 'MSDS',
                                 form: this.form
                             }
                         })];
@@ -213,15 +178,30 @@ var NoticeListPage = /** @class */ (function () {
             });
         });
     };
-    NoticeListPage.prototype.edit = function (notice_id) {
+    // async edit(item?) {
+    //   const modal = await this.modal.create({
+    //     component:MsdsEditPage,
+    //     componentProps:{
+    //       item
+    //     }
+    //   });
+    //   modal.present();
+    //   const { data } = await modal.onDidDismiss();
+    //   if(data) {
+    //     this.get();
+    //   }
+    // }
+    MsdsListPage.prototype.edit = function (item) {
+        if (item === void 0) { item = null; }
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.modal.create({
-                            component: notice_edit_page_1.NoticeEditPage,
+                            component: msds_edit_page_1.MsdsEditPage,
                             componentProps: {
-                                notice_id: notice_id
+                                item: item,
+                                form: __assign(__assign({}, new msds_edit_page_1.MsdsItem()), item ? item : this.form)
                             }
                         })];
                     case 1:
@@ -238,7 +218,7 @@ var NoticeListPage = /** @class */ (function () {
             });
         });
     };
-    NoticeListPage.prototype.favoritesCheck = function ($event, item) {
+    MsdsListPage.prototype.favoritesCheck = function ($event, item) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
@@ -247,7 +227,7 @@ var NoticeListPage = /** @class */ (function () {
                         $event.stopPropagation();
                         item.favorites_state = item.favorites_state ? 0 : 1;
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/notice/favorites', { notice_id: item.notice_id })];
+                        return [4 /*yield*/, this.connect.run('/board/msds/favorites', { msds_id: item.msds_id })];
                     case 1:
                         _a.resFavorite = _b.sent();
                         if (this.resFavorite.rsCode === 0) {
@@ -258,13 +238,13 @@ var NoticeListPage = /** @class */ (function () {
             });
         });
     };
-    NoticeListPage = __decorate([
+    MsdsListPage = __decorate([
         core_1.Component({
-            selector: 'app-notice-list',
-            templateUrl: './notice-list.page.html',
-            styleUrls: ['./notice-list.page.scss']
+            selector: 'app-msds-list',
+            templateUrl: './msds-list.page.html',
+            styleUrls: ['./msds-list.page.scss']
         })
-    ], NoticeListPage);
-    return NoticeListPage;
+    ], MsdsListPage);
+    return MsdsListPage;
 }());
-exports.NoticeListPage = NoticeListPage;
+exports.MsdsListPage = MsdsListPage;
