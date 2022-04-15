@@ -42,8 +42,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SearchToolComponent = void 0;
+exports.SearchToolComponent = exports.ToolItem = void 0;
 var core_1 = require("@angular/core");
+var ToolItem = /** @class */ (function () {
+    function ToolItem() {
+    }
+    return ToolItem;
+}());
+exports.ToolItem = ToolItem;
 var SearchToolComponent = /** @class */ (function () {
     function SearchToolComponent(connect, toast, _modal) {
         this.connect = connect;
@@ -79,7 +85,7 @@ var SearchToolComponent = /** @class */ (function () {
         });
     };
     SearchToolComponent.prototype.selectItem = function (item) {
-        var itemIndex = this.selectedList.indexOf(item);
+        var itemIndex = this.selectedList.findIndex(function (selectedItem) { return selectedItem.ctgo_tool_id === item.ctgo_tool_id; });
         if (!this.multiple) {
             if (itemIndex > -1) {
                 // 있으면 암것도 암함
@@ -100,6 +106,9 @@ var SearchToolComponent = /** @class */ (function () {
             }
         }
     };
+    SearchToolComponent.prototype.isSelectedItem = function (item) {
+        return this.selectedList.some(function (selectedItem) { return selectedItem.ctgo_tool_id === item.ctgo_tool_id; });
+    };
     SearchToolComponent.prototype.submit = function () {
         this._modal.dismiss({
             selectedList: this.selectedList
@@ -111,6 +120,9 @@ var SearchToolComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], SearchToolComponent.prototype, "multiple");
+    __decorate([
+        core_1.Input()
+    ], SearchToolComponent.prototype, "selectedList");
     SearchToolComponent = __decorate([
         core_1.Component({
             selector: 'app-search-tool',

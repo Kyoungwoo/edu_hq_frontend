@@ -106,6 +106,7 @@ var RiskEvaluationEditPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!!this.risk_asment_id) return [3 /*break*/, 1];
+                        this.permission.tableEdit = true;
                         // 협력사의 원청사 검색 때문에, 신규작성시 뿐 아니라, 수정시에도 일단 폼을 채워줘야 함
                         this.getDefaultForm();
                         return [3 /*break*/, 7];
@@ -482,7 +483,10 @@ var RiskEvaluationEditPage = /** @class */ (function () {
         /** 결재자 의견을 가지고 온다. */
         this.approval_comment = ev.approval_comment;
         /** 모바일 화면에서는 테이블 편집이 안된다. */
-        this.permission.tableEdit = false;
+        if (window.innerWidth <= 768) {
+            this.permission.edit = false;
+            this.permission.tableEdit = false;
+        }
     };
     RiskEvaluationEditPage.prototype.add = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -665,20 +669,34 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      */
     RiskEvaluationEditPage.prototype.openMachinery = function (unitItem) {
         return __awaiter(this, void 0, void 0, function () {
-            var modal, data;
+            var selectedItemList, modal, data;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._modal.create({
-                            component: search_construction_machinery_component_1.SearchConstructionMachineryComponent,
-                            componentProps: {
-                                form: {
-                                    project_id: this.form.project_id,
-                                    master_company_id: this.form.master_company_id,
-                                    search_text: ''
-                                },
-                                multiple: true
-                            }
-                        })];
+                    case 0:
+                        selectedItemList = [];
+                        unitItem.ctgo_machinery_ids.forEach(function (id, i) {
+                            selectedItemList.push({
+                                ctgo_machinery_id: id,
+                                ctgo_machinery_name: unitItem.ctgo_machinery_names[i],
+                                ctgo_machinery_doc_state: 1,
+                                ctgo_machinery_use_state: 1,
+                                company_id: _this.form.company_id,
+                                default_state: 1
+                            });
+                        });
+                        return [4 /*yield*/, this._modal.create({
+                                component: search_construction_machinery_component_1.SearchConstructionMachineryComponent,
+                                componentProps: {
+                                    form: {
+                                        project_id: this.form.project_id,
+                                        master_company_id: this.form.master_company_id,
+                                        search_text: ''
+                                    },
+                                    multiple: true,
+                                    selectedItemList: selectedItemList
+                                }
+                            })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
@@ -708,20 +726,33 @@ var RiskEvaluationEditPage = /** @class */ (function () {
      */
     RiskEvaluationEditPage.prototype.openTool = function (unitItem) {
         return __awaiter(this, void 0, void 0, function () {
-            var modal, data;
+            var selectedList, modal, data;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._modal.create({
-                            component: search_tool_component_1.SearchToolComponent,
-                            componentProps: {
-                                form: {
-                                    project_id: this.form.project_id,
-                                    master_company_id: this.form.master_company_id,
-                                    search_text: ''
-                                },
-                                multiple: true
-                            }
-                        })];
+                    case 0:
+                        selectedList = [];
+                        unitItem.ctgo_tool_ids.forEach(function (id, i) {
+                            selectedList.push({
+                                ctgo_tool_id: id,
+                                ctgo_tool_name: unitItem.ctgo_tool_names[i],
+                                project_id: _this.form.project_id,
+                                master_company_id: _this.form.master_company_id,
+                                ctgo_tool_use_state: 1
+                            });
+                        });
+                        return [4 /*yield*/, this._modal.create({
+                                component: search_tool_component_1.SearchToolComponent,
+                                componentProps: {
+                                    form: {
+                                        project_id: this.form.project_id,
+                                        master_company_id: this.form.master_company_id,
+                                        search_text: ''
+                                    },
+                                    multiple: true,
+                                    selectedList: selectedList
+                                }
+                            })];
                     case 1:
                         modal = _a.sent();
                         modal.present();
