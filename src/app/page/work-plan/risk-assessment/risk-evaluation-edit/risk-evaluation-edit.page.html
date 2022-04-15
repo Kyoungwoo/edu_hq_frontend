@@ -202,11 +202,11 @@
       <app-col size="auto" *ngIf="permission.edit">
         <app-button fill="translucent">
           첨부
-          <app-file view_type="NONE" [(ngModel)]="form.risk_file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
+          <app-file view_type="NONE"  [(ngModel)]="form.risk_file_data" [file]="form.file" [file_json]="form.file_json"></app-file>
         </app-button>
       </app-col>
     </app-row>
-    <app-file-preview *ngFor="let futItem of form.risk_file_data; let i = index;" [futItem]="futItem" (buttonClick)="form.risk_file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview>
+    <app-file-preview *ngFor="let futItem of form.risk_file_data" [futItem]="futItem" [readonly]="!permission.edit"></app-file-preview>
   
     <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
 
