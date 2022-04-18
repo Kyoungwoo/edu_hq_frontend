@@ -42,17 +42,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.MainUserWorkerPage = void 0;
+exports.MainUserMasterPage = void 0;
 var core_1 = require("@angular/core");
 var side_menu_user_component_1 = require("src/app/component/side-menu/side-menu-user/side-menu-user.component");
-var MainUserWorkerPage = /** @class */ (function () {
-    function MainUserWorkerPage(modal, nav, alert, connect, user, date, gps) {
+var MainUserMasterPage = /** @class */ (function () {
+    function MainUserMasterPage(modal, nav, alert, connect, user, date, push, gps) {
         this.modal = modal;
         this.nav = nav;
         this.alert = alert;
         this.connect = connect;
         this.user = user;
         this.date = date;
+        this.push = push;
         this.gps = gps;
         this.form = {
             project_id: this.user.userData.belong_data.project_id,
@@ -80,12 +81,12 @@ var MainUserWorkerPage = /** @class */ (function () {
         this.menu = 1;
         this.locationTimeout = null;
     }
-    MainUserWorkerPage.prototype.ngOnInit = function () {
+    MainUserMasterPage.prototype.ngOnInit = function () {
         this.dayTrans();
         this.getBoard();
         this.locationUpdate();
     };
-    MainUserWorkerPage.prototype.locationUpdate = function () {
+    MainUserMasterPage.prototype.locationUpdate = function () {
         var _this = this;
         this.gps.stopLocationUpdates();
         /** 버그는 안나는데, 혹시몰라서 */
@@ -96,7 +97,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function dayTrans(): 오늘 날짜와 요일 가져오기
      */
-    MainUserWorkerPage.prototype.dayTrans = function () {
+    MainUserMasterPage.prototype.dayTrans = function () {
         return __awaiter(this, void 0, void 0, function () {
             var Todate;
             return __generator(this, function (_a) {
@@ -111,7 +112,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getBoard(): 게시판 가져오기
      */
-    MainUserWorkerPage.prototype.getBoard = function () {
+    MainUserMasterPage.prototype.getBoard = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -135,7 +136,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getNotice(): 공지사항 가져오기
      */
-    MainUserWorkerPage.prototype.getNotice = function () {
+    MainUserMasterPage.prototype.getNotice = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -162,7 +163,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getSafrtyMeeting(): 회의록 가져오기
      */
-    MainUserWorkerPage.prototype.getSafrtyMeeting = function () {
+    MainUserMasterPage.prototype.getSafrtyMeeting = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -189,7 +190,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getMsds(): MSDS 가져오기
      */
-    MainUserWorkerPage.prototype.getMsds = function () {
+    MainUserMasterPage.prototype.getMsds = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -216,7 +217,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getNotify(): 알림 가져오기
      */
-    MainUserWorkerPage.prototype.getNotify = function () {
+    MainUserMasterPage.prototype.getNotify = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -240,7 +241,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.navMypage = function () {
+    MainUserMasterPage.prototype.navMypage = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.nav.navigateForward('/my-page-type');
@@ -248,7 +249,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.openMenu = function () {
+    MainUserMasterPage.prototype.openMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
             return __generator(this, function (_a) {
@@ -264,7 +265,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.router = function (title) {
+    MainUserMasterPage.prototype.router = function (title) {
         switch (title) {
             case '':
                 this.alert.present({
@@ -273,17 +274,17 @@ var MainUserWorkerPage = /** @class */ (function () {
                     header: '준비중'
                 });
                 break;
-            case '마이페이지':
-                this.nav.navigateForward('/my-page-type');
+            case '미결함':
+                this.nav.navigateForward('/confirm-pending-list');
                 break;
-            case '나의교육':
-                this.nav.navigateForward('/my-education-list');
+            case '통합관제':
+                this.nav.navigateForward('/monitor');
                 break;
             case '나의출입현황':
                 this.nav.navigateForward('/my-status-list');
                 break;
-            case '스마트안전장비':
-                this.nav.navigateForward('/each-device-list');
+            case '위험성평가':
+                this.nav.navigateForward('/risk-list');
                 break;
             case '공지사항':
                 this.nav.navigateForward('/notice-list');
@@ -294,21 +295,18 @@ var MainUserWorkerPage = /** @class */ (function () {
             case '회의록':
                 this.nav.navigateForward('/minutes-list');
                 break;
-            case 'SOS':
-                this.nav.navigateForward('/sos-popup');
-                break;
             case '알림함':
                 this.nav.navigateForward('/notify-list');
                 break;
         }
     };
-    MainUserWorkerPage = __decorate([
+    MainUserMasterPage = __decorate([
         core_1.Component({
-            selector: 'app-main-user-worker',
-            templateUrl: './main-user-worker.page.html',
-            styleUrls: ['./main-user-worker.page.scss']
+            selector: 'app-main-user-master',
+            templateUrl: './main-user-master.page.html',
+            styleUrls: ['./main-user-master.page.scss']
         })
-    ], MainUserWorkerPage);
-    return MainUserWorkerPage;
+    ], MainUserMasterPage);
+    return MainUserMasterPage;
 }());
-exports.MainUserWorkerPage = MainUserWorkerPage;
+exports.MainUserMasterPage = MainUserMasterPage;

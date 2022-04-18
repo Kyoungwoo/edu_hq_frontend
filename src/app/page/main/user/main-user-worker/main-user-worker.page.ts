@@ -56,11 +56,16 @@ export class MainUserWorkerPage implements OnInit {
   ngOnInit() {
     this.dayTrans();
     this.getBoard();
+    this.locationUpdate();
+  }
+
+  locationTimeout = null;
+  locationUpdate() {
     this.gps.stopLocationUpdates();
     /** 버그는 안나는데, 혹시몰라서 */
-    setTimeout(() => {
+    this.locationTimeout = setTimeout(() => {
       this.gps.startLocationUpdates();
-    }, 2000);
+    }, 3000);
   }
 
   /**

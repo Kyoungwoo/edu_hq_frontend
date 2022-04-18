@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
+import { GeolocationService } from 'src/app/service/geolocation.service';
 
 @Component({
   selector: 'app-main-user-partner',
@@ -48,12 +49,23 @@ export class MainUserPartnerPage implements OnInit {
     private alert: AlertService,
     private connect: ConnectService,
     public user: UserService,
-    public date: DateService
+    public date: DateService,
+    private gps: GeolocationService
   ) { }
 
   ngOnInit() {
     this.dayTrans();
     this.getBoard();
+    this.locationUpdate();
+  }
+
+  locationTimeout = null;
+  locationUpdate() {
+    this.gps.stopLocationUpdates();
+    /** 버그는 안나는데, 혹시몰라서 */
+    this.locationTimeout = setTimeout(() => {
+      this.gps.startLocationUpdates();
+    }, 3000);
   }
 
   /**

@@ -42,11 +42,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.MainUserWorkerPage = void 0;
+exports.MainUserPartnerPage = void 0;
 var core_1 = require("@angular/core");
 var side_menu_user_component_1 = require("src/app/component/side-menu/side-menu-user/side-menu-user.component");
-var MainUserWorkerPage = /** @class */ (function () {
-    function MainUserWorkerPage(modal, nav, alert, connect, user, date, gps) {
+var MainUserPartnerPage = /** @class */ (function () {
+    function MainUserPartnerPage(modal, nav, alert, connect, user, date, gps) {
         this.modal = modal;
         this.nav = nav;
         this.alert = alert;
@@ -80,12 +80,12 @@ var MainUserWorkerPage = /** @class */ (function () {
         this.menu = 1;
         this.locationTimeout = null;
     }
-    MainUserWorkerPage.prototype.ngOnInit = function () {
+    MainUserPartnerPage.prototype.ngOnInit = function () {
         this.dayTrans();
         this.getBoard();
         this.locationUpdate();
     };
-    MainUserWorkerPage.prototype.locationUpdate = function () {
+    MainUserPartnerPage.prototype.locationUpdate = function () {
         var _this = this;
         this.gps.stopLocationUpdates();
         /** 버그는 안나는데, 혹시몰라서 */
@@ -96,7 +96,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function dayTrans(): 오늘 날짜와 요일 가져오기
      */
-    MainUserWorkerPage.prototype.dayTrans = function () {
+    MainUserPartnerPage.prototype.dayTrans = function () {
         return __awaiter(this, void 0, void 0, function () {
             var Todate;
             return __generator(this, function (_a) {
@@ -111,7 +111,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getBoard(): 게시판 가져오기
      */
-    MainUserWorkerPage.prototype.getBoard = function () {
+    MainUserPartnerPage.prototype.getBoard = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -135,7 +135,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getNotice(): 공지사항 가져오기
      */
-    MainUserWorkerPage.prototype.getNotice = function () {
+    MainUserPartnerPage.prototype.getNotice = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -162,7 +162,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getSafrtyMeeting(): 회의록 가져오기
      */
-    MainUserWorkerPage.prototype.getSafrtyMeeting = function () {
+    MainUserPartnerPage.prototype.getSafrtyMeeting = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -189,7 +189,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getMsds(): MSDS 가져오기
      */
-    MainUserWorkerPage.prototype.getMsds = function () {
+    MainUserPartnerPage.prototype.getMsds = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -216,7 +216,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     /**
      * @function getNotify(): 알림 가져오기
      */
-    MainUserWorkerPage.prototype.getNotify = function () {
+    MainUserPartnerPage.prototype.getNotify = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -240,7 +240,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.navMypage = function () {
+    MainUserPartnerPage.prototype.navMypage = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.nav.navigateForward('/my-page-type');
@@ -248,7 +248,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.openMenu = function () {
+    MainUserPartnerPage.prototype.openMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var modal;
             return __generator(this, function (_a) {
@@ -264,7 +264,7 @@ var MainUserWorkerPage = /** @class */ (function () {
             });
         });
     };
-    MainUserWorkerPage.prototype.router = function (title) {
+    MainUserPartnerPage.prototype.router = function (title) {
         switch (title) {
             case '':
                 this.alert.present({
@@ -273,8 +273,8 @@ var MainUserWorkerPage = /** @class */ (function () {
                     header: '준비중'
                 });
                 break;
-            case '마이페이지':
-                this.nav.navigateForward('/my-page-type');
+            case '미결함':
+                this.nav.navigateForward('/confirm-pending-list');
                 break;
             case '나의교육':
                 this.nav.navigateForward('/my-education-list');
@@ -282,8 +282,8 @@ var MainUserWorkerPage = /** @class */ (function () {
             case '나의출입현황':
                 this.nav.navigateForward('/my-status-list');
                 break;
-            case '스마트안전장비':
-                this.nav.navigateForward('/each-device-list');
+            case '위험성평가':
+                this.nav.navigateForward('/risk-list');
                 break;
             case '공지사항':
                 this.nav.navigateForward('/notice-list');
@@ -302,13 +302,13 @@ var MainUserWorkerPage = /** @class */ (function () {
                 break;
         }
     };
-    MainUserWorkerPage = __decorate([
+    MainUserPartnerPage = __decorate([
         core_1.Component({
-            selector: 'app-main-user-worker',
-            templateUrl: './main-user-worker.page.html',
-            styleUrls: ['./main-user-worker.page.scss']
+            selector: 'app-main-user-partner',
+            templateUrl: './main-user-partner.page.html',
+            styleUrls: ['./main-user-partner.page.scss']
         })
-    ], MainUserWorkerPage);
-    return MainUserWorkerPage;
+    ], MainUserPartnerPage);
+    return MainUserPartnerPage;
 }());
-exports.MainUserWorkerPage = MainUserWorkerPage;
+exports.MainUserPartnerPage = MainUserPartnerPage;
