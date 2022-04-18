@@ -351,7 +351,8 @@ export class MainSubAdminPage implements OnInit {
         this.nav.navigateRoot('/my-page');
         break;
       case 'MSDS':
-        this.nav.navigateRoot('/msds-list');
+        if(detail) this.nav.navigateRoot('/msds-list', {state: {msds_id: detail.msds_id}});
+        else this.nav.navigateRoot('/msds-list');
         break;
       case '교육현황':
         this.nav.navigateRoot('/safety-education-list');

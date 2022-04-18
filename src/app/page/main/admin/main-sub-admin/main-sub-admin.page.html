@@ -114,7 +114,7 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row button *ngFor="let item of alarm_list">
+            <app-row (click)="router('알림함')" button *ngFor="let item of alarm_list">
               <app-col size="auto">
                 <ion-chip color="warning" class="chip-width">{{ item.notify_head }}</ion-chip>
               </app-col>
@@ -140,7 +140,7 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row button *ngFor="let item of approval_list">
+            <app-row (click)="router('미결함')" button *ngFor="let item of approval_list">
               <app-col size="auto">
                 <h6>{{ item.master_company_name }}</h6>
               </app-col>
@@ -193,7 +193,7 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row button *ngFor="let item of safetymeeting_list">
+            <app-row button *ngFor="let item of safetymeeting_list" (click)="router('회의록')">
               <app-col size="auto">  
                 <h6>{{ item.create_date }}</h6>
               </app-col>
@@ -220,7 +220,7 @@
                 </app-col>
               </app-row>
             </ion-toolbar>
-            <app-row button *ngFor="let item of msds_list">
+            <app-row button *ngFor="let item of msds_list" (click)="router('MSDS', item)">
               <app-col size="auto">  
                 <h6>{{ item.create_date }}</h6>
               </app-col>

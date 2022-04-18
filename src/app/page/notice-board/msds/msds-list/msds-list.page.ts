@@ -64,7 +64,11 @@ export class MsdsListPage implements OnInit {
 
   async ngOnInit() {
     this.get();
+    console.log('history.state', history.state);
+    this.getNavData();
   }
+
+  async getNavData(){if(history.state?.msds_id) this.edit(history.state?.msds_id);}
 
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;

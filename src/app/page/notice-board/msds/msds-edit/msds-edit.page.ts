@@ -43,7 +43,8 @@ export class MsdsEditPage implements OnInit {
 
   @ViewChild('msdsText') msdsText:SmarteditComponent;
   
-  @Input() item;
+  // @Input() item;
+  @Input() msds_id;
   
   title:string;
   validator = new Validator(new MsdsItem()).validator;
@@ -70,13 +71,13 @@ export class MsdsEditPage implements OnInit {
       this.form.project_id = 0;
     }
     this.getPermission();
-    if(this.item) {
+    if(this.msds_id) {
       this.title = '상세';
       this.get();
     } else{
       this.update_state = true;
       this.form.project_id = this.user.userData.belong_data.project_id;
-      this.form.company_name = this.user.userData.user_role;
+      this.form.company_name = this.user.userData.belong_data.company_name;
       this.form.user_name = this.user.userData.user_name;
       this.form.create_date = this.date.today();
       this.title = '등록';
@@ -95,7 +96,7 @@ export class MsdsEditPage implements OnInit {
 
   async get() { //상세보기
     const res = await this.connect.run('/board/msds/detail', { 
-      msds_id: this.item.msds_id
+      msds_id: this.msds_id
      }, { parse: ['file_data'] });
     if(res.rsCode ===  0) {
       this.form = {
@@ -178,7 +179,7 @@ export class MsdsEditPage implements OnInit {
           text: '예',
           handler: async () => {
             const res = await this.connect.run('/board/msds/delete', {
-              msds_ids: [this.item.msds_id]
+              msds_ids: [this.msds_id]
             });
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
