@@ -274,6 +274,10 @@ var SideMenuUserComponent = /** @class */ (function () {
             });
         });
     };
+    SideMenuUserComponent.prototype.logout = function () {
+        this._modal.dismiss();
+        this.user.logout();
+    };
     SideMenuUserComponent = __decorate([
         core_1.Component({
             selector: 'app-side-menu-user',
