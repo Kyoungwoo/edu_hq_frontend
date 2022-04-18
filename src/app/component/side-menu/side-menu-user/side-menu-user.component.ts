@@ -271,4 +271,9 @@ export class SideMenuUserComponent implements OnInit {
         break;
     }
   }
+
+  logout() {
+    this._modal.dismiss();
+    this.user.logout();
+  }
 }
