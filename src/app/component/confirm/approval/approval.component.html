@@ -1,7 +1,7 @@
 <app-row>
   <app-col></app-col>
   <app-col size="auto" *ngFor="let btn of btnList">
-    <app-button fill="translucent" (click)="onBtnClick(btn)">{{ btn }}</app-button>
+    <app-button [color]="btn === '삭제' ? 'danger' : 'primary'" fill="translucent" (click)="onBtnClick(btn)">{{ btn }}</app-button>
   </app-col>
   <!-- <app-col size="auto">
     <app-button (click)="onPrintClick()">인쇄</app-button>
