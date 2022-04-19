@@ -1,7 +1,7 @@
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from './../../../../basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-heavy-qr-data',
@@ -41,6 +41,8 @@ export class HeavyQrDataPage implements OnInit {
     return_date: 0,
   }
 
+  @Input() device_id:number;
+
   constructor(
     private route: ActivatedRoute,
     private toast: ToastService,
@@ -51,7 +53,11 @@ export class HeavyQrDataPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params?.device_id) {
         this.get(params.device_id);
-      } else this.toast.present({message: '해당 장비의 데이터가 존재하지 않습니다.'});
+      } else {
+        if(this.device_id){
+          this.get(this.device_id)
+        } else this.toast.present({message: '해당 장비의 데이터가 존재하지 않습니다.'});
+      }
     });
   }
 

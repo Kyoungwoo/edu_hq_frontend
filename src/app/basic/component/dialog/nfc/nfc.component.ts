@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MediaObject } from '@ionic-native/media/ngx';
 import { ModalController } from '@ionic/angular';
@@ -31,7 +32,8 @@ export class NfcComponent implements OnInit {
   constructor(
     private alert:AlertService,
     private navCtrl: NavService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    public user: UserService
   ) { }
 
   async ngOnInit() {
@@ -82,7 +84,10 @@ export class NfcComponent implements OnInit {
   }
 
   async qrChange() {
-    this._modal.dismiss();
-    this.getNfcData({type:'QR_CHANGE'});
+    this._modal.dismiss({
+      state: 'QR_CHANGE'
+    });
+    // this._modal.dismiss();
+    // this.getNfcData({type:'QR_CHANGE'});
   }
 }

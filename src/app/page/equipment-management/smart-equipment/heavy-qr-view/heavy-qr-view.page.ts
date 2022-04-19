@@ -21,7 +21,7 @@ export class HeavyQrViewPage implements OnInit {
   }
   
   generatorQrcode() {
-    const value_text = 'https://devmonster-s-keeper.web.app/heavy-qr-data?device_id='+this.item.device_id;
+    const value_text = 'https://devmonster-s-keeper.web.app/heavy-qr-data?device_id='+this.item.device_id+'&tyoe=device';
 
     this.qr = new QRious({
       element: document.getElementById('qrious'),

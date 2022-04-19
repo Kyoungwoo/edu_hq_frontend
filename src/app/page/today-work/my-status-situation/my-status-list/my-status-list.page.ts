@@ -164,52 +164,54 @@ export class MyStatusListPage implements OnInit {
     });
   }
 
-  async nfcScan() {
-    const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
-      if(nfcData.type === 'QR_CHANGE') {
-        $nfc.unsubscribe();
-        this.inNfcQr();
-      } 
-      else { 
-        if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
-        this.nfcqrForm.serial_key = nfcData;
-        this.nfcqrForm.nb_log_state = 'NFC';
-        const res = await this.connect.run('/work_project/nfc_beacon/check_insup', this.nfcqrForm);
-        if(res.rsCode === 0) {
-          this.get();
-          $nfc.unsubscribe();
-        } 
-        else {
-          $nfc.unsubscribe();
-          this.nfcScan();
-          this.toast.present({message:res.rsMsg, color:'warning'});
-        }
-      }
-    });
-  }
+  // async nfcScan() {
+  //   const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
+  //     if(nfcData.type === 'QR_CHANGE') {
+  //       $nfc.unsubscribe();
+  //       this.inNfcQr();
+  //     } 
+  //     else { 
+  //       if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
+  //       this.nfcqrForm.serial_key = nfcData;
+  //       this.nfcqrForm.nb_log_state = 'NFC';
+  //       const res = await this.connect.run('/work_project/nfc_beacon/check_insup', this.nfcqrForm);
+  //       if(res.rsCode === 0) {
+  //         this.get();
+  //         $nfc.unsubscribe();
+  //       } 
+  //       else {
+  //         $nfc.unsubscribe();
+  //         this.nfcScan();
+  //         this.toast.present({message:res.rsMsg, color:'warning'});
+  //       }
+  //     }
+  //   });
+  // }
 
   async inNfcQr() {
-    this.nfcqrForm.project_id = this.form.project_id;
-    if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
-    const $qr = await this.qr.subscribe('worker',async (qrData) => {
-      if(qrData.type === 'NFC_CHANGE'){
-        $qr.unsubscribe();
-        this.nfcScan();
-      }
-      else {
-        if(!qrData) return this.toast.present({ message: 'NFC을 다시 스캔해주세요.' });
-        this.nfcqrForm.serial_key = qrData.qr_data;
-        this.nfcqrForm.nb_log_state = 'QR';
-        const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
-        if(res.rsCode === 0) {
-          $qr.unsubscribe();
-          this.get();
-        }
-        else {
-          $qr.unsubscribe();
-          this.toast.present({message:res.rsMsg, color:'warning'});
-        }
-      }
-    });
+    this.qr.open();
+
+    // this.nfcqrForm.project_id = this.form.project_id;
+    // if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
+    // const $qr = await this.qr.subscribe('worker',async (qrData) => {
+    //   if(qrData.type === 'NFC_CHANGE'){
+    //     $qr.unsubscribe();
+    //     this.nfcScan();
+    //   }
+    //   else {
+    //     if(!qrData) return this.toast.present({ message: 'NFC을 다시 스캔해주세요.' });
+    //     this.nfcqrForm.serial_key = qrData.qr_data;
+    //     this.nfcqrForm.nb_log_state = 'QR';
+    //     const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
+    //     if(res.rsCode === 0) {
+    //         $qr.unsubscribe();
+    //         this.get();
+    //       }
+    //       else {
+    //         $qr.unsubscribe();
+    //         this.toast.present({message:res.rsMsg, color:'warning'});
+    //     }
+    //   }
+    // });
   }
 }

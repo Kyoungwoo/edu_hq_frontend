@@ -127,16 +127,16 @@ export class MyEducationListPage implements OnInit {
   }
 
  async QRedcaution() {
-  const $qr = await this.qr.subscribe('dd',async (qrdata) => {
-      const res = await this.connect.run('/education/my/attendant/insert',{education_safe_id:qrdata.qr_data});
-      if(res.rsCode === 0) {
-        $qr.unsubscribe();
-        this.getList();
-        this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
-      } else if(res.rsCode === 1012) {
-        this.toast.present({message:'이미 출석 처리가 되었습니다.', color:'warning'});
-        $qr.unsubscribe();
-      }
-  });
+  // const $qr = await this.qr.subscribe('dd',async (qrdata) => {
+  //     const res = await this.connect.run('/education/my/attendant/insert',{education_safe_id:qrdata.qr_data});
+  //     if(res.rsCode === 0) {
+  //       $qr.unsubscribe();
+  //       this.getList();
+  //       this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
+  //     } else if(res.rsCode === 1012) {
+  //       this.toast.present({message:'이미 출석 처리가 되었습니다.', color:'warning'});
+  //       $qr.unsubscribe();
+  //     }
+  // });
   }
 }
