@@ -29,7 +29,7 @@ export class LoginMobilePage implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private device: DeviceService,
     private alert: AlertService,
-    private psuh: PushService
+    private push: PushService
   ) { }
 
   ngOnInit() {
@@ -101,13 +101,16 @@ export class LoginMobilePage implements OnInit {
     });
     if(this.res.rsCode === 0) {
       this.getWorkerInfo(this.res.rsObj, { animated: true });
-    } else if(this.res.rsCode === 500) {
+    } 
+    else if(this.res.rsCode === 500) {
       this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
-    } else if(this.res.rsCode === 3003) {
+    } 
+    else if(this.res.rsCode === 3003) {
       this.alert.present({
         message: this.res.rsMsg
       });
-    } else if(this.res.rsCode === 3004) {
+    } 
+    else if(this.res.rsCode === 3004) {
       this.alert.present({
         message: this.res.rsMsg,
         buttons: [
@@ -141,8 +144,9 @@ export class LoginMobilePage implements OnInit {
     }
   }
   private async getWorkerInfo(authToken:AuthToken, { animated }) {
-    console.log(authToken);
+
     this.user.setAuthToken(authToken, this.autoLogin);
+    
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
@@ -164,7 +168,7 @@ export class LoginMobilePage implements OnInit {
       }
 
       // 로그인이 완료되면 푸시, 유저데이터저장, 메인페이지 활성화
-      this.psuh.init();
+      this.push.init();
       this.user.setUserData(userData, this.autoLogin);
       this.nav.navigateRoot(userData.user_main_page, {animated});
     }

@@ -110,6 +110,7 @@ export class UserService {
       storage = window.localStorage;
       this.autoLogin = true;
     }
+    
     if(storage) { this.authToken = JSON.parse(storage.getItem(TAG.AuthToken)) }
     else this.authToken = null;
   }
@@ -143,7 +144,7 @@ export class UserService {
     let storage:Storage = autoLogin ? window.localStorage : window.sessionStorage;
     let deleteStorage:Storage = autoLogin ? window.sessionStorage : window.localStorage;
     storage.setItem(TAG.UserData, JSON.stringify(data));
-    deleteStorage.removeItem(TAG.AuthToken);
+    deleteStorage.removeItem(TAG.UserData);
     
     this.getUserData();
   }

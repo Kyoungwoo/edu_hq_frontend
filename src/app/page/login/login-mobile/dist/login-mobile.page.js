@@ -48,7 +48,7 @@ var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var environment_1 = require("src/environments/environment");
 var login_interface_1 = require("../login.interface");
 var LoginMobilePage = /** @class */ (function () {
-    function LoginMobilePage(el, connect, user, nav, promise, changeDetector, device, alert, psuh) {
+    function LoginMobilePage(el, connect, user, nav, promise, changeDetector, device, alert, push) {
         this.el = el;
         this.connect = connect;
         this.user = user;
@@ -57,7 +57,7 @@ var LoginMobilePage = /** @class */ (function () {
         this.changeDetector = changeDetector;
         this.device = device;
         this.alert = alert;
-        this.psuh = psuh;
+        this.push = push;
         this.form = new login_interface_1.LoginForm();
         this.autoLogin = false;
     }
@@ -261,7 +261,6 @@ var LoginMobilePage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log(authToken);
                         this.user.setAuthToken(authToken, this.autoLogin);
                         return [4 /*yield*/, this.connect.run('/user/basic/get', {}, {
                                 parse: ['belong_data']
@@ -286,7 +285,7 @@ var LoginMobilePage = /** @class */ (function () {
                                     break;
                             }
                             // 로그인이 완료되면 푸시, 유저데이터저장, 메인페이지 활성화
-                            this.psuh.init();
+                            this.push.init();
                             this.user.setUserData(userData, this.autoLogin);
                             this.nav.navigateRoot(userData.user_main_page, { animated: animated });
                         }
