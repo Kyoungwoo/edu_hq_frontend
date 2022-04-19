@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-declare var QRCode:any;
+import QRious from 'qrious';
 
 @Component({
   selector: 'app-heavy-qr-view',
@@ -21,8 +21,6 @@ export class HeavyQrViewPage implements OnInit {
   }
   
   generatorQrcode() {
-    console.log(QRCode);
-
     console.log("this.navParams",`${this.item.serial_no}`);
     const value_text = `현장명: ${this.item.project_name}
 원청사명: ${this.item.master_company_name}
@@ -34,20 +32,13 @@ export class HeavyQrViewPage implements OnInit {
 보증기간: ${this.item.rental_start_date} ~ ${this.item.rental_end_date}
 보증금액: ${this.item.rental_price}`;
 
-
-  let qrcode = new QRCode(document.getElementById('qrcode'),{
-    width: 150,
-    height: 150
-  })
-  console.log(qrcode);
-  qrcode.makeCode(value_text);
-    // const value_text_2 = "";
-    // console.log("this.value_text",value_text);
-    // this.qr = new QRious({
-    //   element: document.getElementById('qrious'),
-    //   size: 250,
-    //   value: encodeURI(value_text)
-    // });
+    const value_text_2 = "";
+    console.log("this.value_text",value_text);
+    this.qr = new QRious({
+      element: document.getElementById('qrious'),
+      size: 250,
+      value: encodeURI(value_text)
+    });
   }
 
   downloadQR(){
