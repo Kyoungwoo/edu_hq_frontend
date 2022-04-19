@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, EventEmitter, Injectable, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -45,6 +46,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private file: File,
     private media: Media,
     private _modal:ModalController,
+    public user: UserService
   ) { }
 
   async ngOnInit() {
@@ -94,24 +96,64 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     const routerEl = document.querySelector('ion-router-outlet');
     routerEl.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
-      let res = {
-        type: 'QR_SCAN',
-        nfcChangeed : this.nfcChangeed,
-        qr_qrScanner: this.qrScanner,
-        qr_modal: this._modal,
-        qr_subs : this.qr_subs,
-        qr_data: data,
-
-      };
-      this.getQrData(res);
+      // console.log("qr-scanner - ", data);
+      // let res = {
+      //   type: 'QR_SCAN',
+      //   nfcChangeed : this.nfcChangeed,
+      //   qr_qrScanner: this.qrScanner,
+      //   qr_modal: this._modal,
+      //   qr_subs : this.qr_subs,
+      //   qr_data: data
+      // };
+      // this.getQrData(res);
       if(!data){
         setTimeout(() => {
           this.scanQR();
         }, 1000);
+      } else {
+        let type = '';
+        let serial_key = null;
+        let education_safe_id = null;
+        let device_id = null;
+        if(data.indexOf('https://devmonster-s-keeper.web.app/heavy-qr-data?device_id=') != -1){
+          type = data.split('=')[data.split('=').length-1];
+          device_id = data.split('=')[data.split('=').length-2]?.split('&')[0];
+        } else {
+          if(data.indexOf('education_safe_id') != -1){
+            let data_set = JSON.parse(data);
+            type = data_set.type;
+            education_safe_id = data_set.education_safe_id;
+          }
+
+          if(data.indexOf('serial_key') != -1){
+            let data_set = JSON.parse(data);
+            type = data_set.type;
+            serial_key = data_set.serial_key;
+          }
+        }
+        this._modal.dismiss({
+          state: 'QR_SUCCESS',
+          item: {
+            type: type,
+            education_safe_id: education_safe_id,
+            serial_key: serial_key,
+            device_id: device_id
+          }
+        });
       }
     });
   }
-
+  // const $qr = await this.qr.subscribe('dd',async (qrdata) => {
+  //     const res = await this.connect.run('/education/my/attendant/insert',{education_safe_id:qrdata.qr_data});
+  //     if(res.rsCode === 0) {
+  //       $qr.unsubscribe();
+  //       this.getList();
+  //       this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
+  //     } else if(res.rsCode === 1012) {
+  //       this.toast.present({message:'이미 출석 처리가 되었습니다.', color:'warning'});
+  //       $qr.unsubscribe();
+  //     }
+  // });
   rotateCamera() {
     this.camera_rotate = this.camera_rotate ? 0 : 1;
     this.qrScanner.useCamera(this.camera_rotate).then(status => {
@@ -123,8 +165,12 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   async nfcChange() {
-    this._modal.dismiss();
-    this.getQrData({ type: 'NFC_CHANGE' });
+    this._modal.dismiss({state: 'NFC_CHANGE'});
+
+
+    // this._modal.dismiss().then(() => {
+    //   this.getQrData({ type: 'NFC_CHANGE' });
+    // });
   }
   
 
