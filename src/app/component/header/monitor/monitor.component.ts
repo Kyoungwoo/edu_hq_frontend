@@ -40,7 +40,7 @@ export class MonitorComponent implements OnInit {
 
   @Output() formChange = new EventEmitter();
 
-  tabActive:Tab = this.tabList[0];
+  tabActive:string = '통합관제';
 
   weather = {
     weather_speed:"", // 풍속,
@@ -86,13 +86,13 @@ export class MonitorComponent implements OnInit {
       const { monitor } = params;
       switch(monitor) {
         case '통합관제':
-          this.tabActive = this.tabList[0];
+          this.tabActive = this.tabList[0].data;
           break;
         case 'CCTV 모니터링':
-          this.tabActive = this.tabList[1];
+          this.tabActive = this.tabList[1].data;
           break;
         case '근로자 실시간 위치 모니터링':
-          this.tabActive = this.tabList[2];
+          this.tabActive = this.tabList[2].data;
           break;
       }
 
@@ -104,6 +104,14 @@ export class MonitorComponent implements OnInit {
   ngOnDestroy(): void {
     this.$activedRoute.unsubscribe();
     clearInterval(this.intervalWeather_Dust);
+  }
+
+  segmentChange() {
+    this.nav.navigateForward('/monitor', {
+      queryParams: {
+        monitor: this.tabActive
+      }
+    })
   }
 
   /**

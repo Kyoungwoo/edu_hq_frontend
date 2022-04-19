@@ -67,7 +67,7 @@ var MonitorComponent = /** @class */ (function () {
             }
         ];
         this.formChange = new core_1.EventEmitter();
-        this.tabActive = this.tabList[0];
+        this.tabActive = '통합관제';
         this.weather = {
             weather_speed: "",
             weather_id: "",
@@ -97,13 +97,13 @@ var MonitorComponent = /** @class */ (function () {
             var monitor = params.monitor;
             switch (monitor) {
                 case '통합관제':
-                    _this.tabActive = _this.tabList[0];
+                    _this.tabActive = _this.tabList[0].data;
                     break;
                 case 'CCTV 모니터링':
-                    _this.tabActive = _this.tabList[1];
+                    _this.tabActive = _this.tabList[1].data;
                     break;
                 case '근로자 실시간 위치 모니터링':
-                    _this.tabActive = _this.tabList[2];
+                    _this.tabActive = _this.tabList[2].data;
                     break;
             }
         });
@@ -112,6 +112,13 @@ var MonitorComponent = /** @class */ (function () {
     MonitorComponent.prototype.ngOnDestroy = function () {
         this.$activedRoute.unsubscribe();
         clearInterval(this.intervalWeather_Dust);
+    };
+    MonitorComponent.prototype.segmentChange = function () {
+        this.nav.navigateForward('/monitor', {
+            queryParams: {
+                monitor: this.tabActive
+            }
+        });
     };
     /**
      * @function IntervalWeather_Dust(): 날씨와 미세먼지 데이터를 인터벌 돌리는 메서드

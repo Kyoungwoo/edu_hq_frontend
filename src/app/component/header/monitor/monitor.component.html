@@ -13,7 +13,7 @@
           <app-col>
             <app-row class="tab-list">
               <div *ngFor="let tab of tabList; let i = index;"
-              class="tab-item" [class.active]="tab === tabActive" routerLink="/monitor" [queryParams]="{ monitor: tab.data }" [style.z-index]="10 - i">
+              class="tab-item" [class.active]="tab.data === tabActive" routerLink="/monitor" [queryParams]="{ monitor: tab.data }" [style.z-index]="10 - i">
                 <span>{{ tab.text }}</span>
               </div>
             </app-row>
@@ -118,6 +118,15 @@
         </app-button>
       </ion-buttons>
     </ion-toolbar>
+
+    <ion-toolbar>
+
+      <ion-segment color="primary" [(ngModel)]="tabActive" (ionChange)="segmentChange()">
+        <ion-segment-button *ngFor="let tab of tabList" [value]="tab.data">{{ tab.text }}</ion-segment-button>
+      </ion-segment>
+
+    </ion-toolbar>
+
 
   </ng-container>
 </ion-header>
