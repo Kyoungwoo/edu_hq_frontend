@@ -108,7 +108,7 @@ var MainAdminPage = /** @class */ (function () {
         this.approval_list = []; // 미결함
         this.notice_list = []; // 공지사항
         this.safetymeeting_list = []; // 회의록
-        if (this.user.userData.user_type !== 'COMPANY') {
+        if (this.user.userData.user_type === 'COMPANY') {
             this.nav.navigateRoot('/main-sub-admin');
         }
     }

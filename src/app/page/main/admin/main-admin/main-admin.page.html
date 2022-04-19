@@ -1,465 +1,467 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <app-row style="min-height: 724px; align-items: flex-start;" mobileBreak>
-    <app-col size="3">
-      <app-card>
-        <app-row>
-          <app-col>
-            <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="지역본부" [(ngModel)]="form.hq_regional_id">
-              <app-select-option *ngFor="let item of regional_list" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
-            </app-select>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="사업본부" [(ngModel)]="form.hq_business_id">
-              <app-select-option *ngFor="let item of business_list" [value]="item.hq_business_id">{{ item.hq_business_name }}</app-select-option>
-            </app-select>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-col>
-            <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
-          </app-col>
-        </app-row>
-        <app-row>
-          <app-card>
-            <app-row>
-              <app-col style="text-align: center;">
-                <h5>착공일</h5>
-                <p>{{ form.contract_start_date }}</p>
-              </app-col>
-              <app-col style="text-align: center;">
-                <h5>준공일</h5>
-                <p>{{ form.contract_end_date }}</p>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-row>
-
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
-            <h5>비상알림</h5>
-          </app-col>
-          <app-col size="4" (click)="router('교육이력')">
-            <app-img style="width: 70%;" src="assets/img/menu/education-career.svg"></app-img>
-            <h5>교육 이력</h5>
-          </app-col>
-          <app-col size="4" (click)="router('위험성평가')">
-            <app-img style="width: 70%;" src="assets/img/menu/risk-evaluation-report.svg"></app-img>
-            <h5>위험성 평가</h5>
-          </app-col>
-        </app-row>
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('회의록')">
-            <app-img style="width: 70%;" src="assets/img/menu/conference.svg"></app-img>
-            <h5>회의록</h5>
-          </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/ptw.svg"></app-img>
-            <h5>위험 작업 허가</h5>
-          </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/general-incongruity.svg"></app-img>
-            <h5>부적합 관리</h5>
-          </app-col>
-        </app-row>
-        <app-row style="text-align: center;" class="pointer-class">
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/menu/general-check.svg"></app-img>
-            <h5>점검</h5>
-          </app-col>
-          <app-col size="4" (click)="router('')">
-            <app-img style="width: 70%;" src="assets/img/main/plus.svg"></app-img>           
-            <h5>추가</h5>
-          </app-col>
-          <app-col size="4" (click)="router('')">
-          </app-col>
-        </app-row>
-        <!-- <app-row style="height: 200px;">
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col>
-                  <h4>금일 비상상황 알림</h4>
-                </app-col>
-                <app-col (click)="router('알림함')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row>
-              <app-col>
-                <h6>2021.09.12</h6>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-row> -->
-      </app-card>
-    </app-col>
-
-    <app-col>
-      <app-row style="height: 33%; align-items: stretch;">
-        <app-col>
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col size="auto">
-                  <h4>알림함</h4>
-                </app-col>
-                <app-col>
-                  <ion-badge color="medium">{{ form.alarm_count }}</ion-badge>
-                </app-col>
-                <app-col (click)="router('알림함')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row *ngFor="let item of alarm_list">
-              <app-col size="auto">
-                <ion-chip color="warning" class="chip-width">{{ item.notify_head }}</ion-chip>
-              </app-col>
-              <app-col>
-                <h5>{{ item.notify_text_kr }}</h5>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col> 
-
-        <app-col>
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col size="auto">
-                  <h4>미결함</h4>
-                </app-col>
-                <app-col>
-                  <ion-badge color="medium">{{ form.approval_count }}</ion-badge>
-                </app-col>
-                <app-col (click)="router('미결함')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row *ngFor="let item of approval_list">
-              <app-col size="auto">
-                <h6>{{ item.master_company_name }}</h6>
-              </app-col>
-              <app-col>
-                <h5>{{ item.ctgo_approval_module_name }}</h5>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-      </app-row>
-
-      <app-row style="height: 33%;  align-items: stretch;">
-        <app-col >
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col size="auto">
-                  <h4>공지사항</h4>
-                </app-col>
-                <app-col>
-                  <ion-badge color="medium">{{ form.notice_count }}</ion-badge>
-                </app-col>
-                <app-col (click)="router('공지사항')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row *ngFor="let item of notice_list">
-              <app-col size="auto">
-                <h6>{{ item.create_date }}</h6>
-              </app-col>
-              <app-col>
-                <h5>{{ item.notice_title }}</h5>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-        <app-col>
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <ion-col size="auto">
-                  <h4>회의록</h4>
-                </ion-col>
-                <app-col>
-                  <ion-badge color="medium">{{ form.safetymeeting_count }}</ion-badge>
-                </app-col>
-                <app-col (click)="router('회의록')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row *ngFor="let item of safetymeeting_list">
-              <app-col size="auto">  
-                <h6>{{ item.create_date }}</h6>
-              </app-col>
-              <app-col>
-                <h5>{{ item.safety_meeting_type }}</h5>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-      </app-row>
-
-      <app-row style="height: 34%;">
-        <app-col>
-          <app-card style="height: 100%;">
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col size="auto">
-                  <h4>진행중인 아차사고 신고</h4>
-                </app-col>
-                <app-col>
-                  <ion-badge color="medium">3</ion-badge>
-                </app-col>
-                <app-col (click)="router('')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row>
-              <app-col>
-                <app-table>
-                  <thead>
-                    <tr>
-                      <th>현장명</th>
-                      <th>소속</th>
-                      <th>공종</th>
-                      <th>제목</th>
-                      <th>작성자</th>
-                      <th>신고 시간</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="sub-content button">
-                      <td>수원당담 공공</td>
-                      <td>수원당담 아파트</td>
-                      <td>토목</td>
-                      <td>**사고가 발생했습니다.</td>
-                      <td>김준태</td>
-                      <td>10:56:23</td>
-                    </tr>
-                  </tbody>
-                </app-table>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-      </app-row>
-    </app-col>
-    <app-col size="3">
-      <app-card class="card-flex" style="height: calc(40% - 6px);">
-        <!-- <div>
+  <div class="container">
+    <app-row style="min-height: 724px; align-items: flex-start;" class="mobileBreak">
+      <app-col class="contaienr-left-col">
+        <app-card>
           <app-row>
-            <app-col style="display: flex; align-items: center;" routerLink="/my-page">
-              <app-img style="width: 20%;" src="assets/img/menu/mypage.svg"></app-img>
-              <h5>마이페이지</h5>
-            </app-col>
-            <app-col size="auto">
-              <ion-chip color="primary">로그아웃</ion-chip>
-            </app-col>
-          </app-row>
-        </div> -->
-        <!-- <div>
-          <app-row style="margin: 10px; align-items: flex-start;justify-content: center;">
-            <app-col size="auto">
-              <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg">
-              </app-avatar>
-            </app-col>
-          </app-row>
-          <app-row style="justify-content: center;">
-            <app-col size="auto" style="text-align: center;">
-              <h4 style="font-weight: 700;">홍길동</h4>
-              <p>구일종합건설(주)</p>
-              <p>대표이사</p>
-            </app-col>
-          </app-row>
-        </div> -->
-       <div>
-          <app-row>
-            <app-col size="auto" style="text-align: center;">
-              <app-avatar style="width: 100px; height: 100px;" [src]="user.userData.user_profile">
-              </app-avatar>
-            </app-col>
-            <app-col size="auto" style="text-align: left;">
-              <h3 style="font-weight: 700;">{{ user.userData.user_name }}</h3>
-              <p>{{ user.userData.belong_data.company_name }}</p>
-              <p>{{ form.ctgo_job_position_name }}</p>
-            </app-col>
-          </app-row>
-        
-        
-          <app-row>
-            <app-col size="auto" style="margin-left: 110px;">
-              <app-button color="secondary"  (click)="router('마이페이지')">마이페이지</app-button>
-            </app-col>
             <app-col>
-              <app-button color="secondary" (click)="user.logout()">로그아웃</app-button>
+              <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="지역본부" [(ngModel)]="form.hq_regional_id">
+                <app-select-option *ngFor="let item of regional_list" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
+              </app-select>
             </app-col>
           </app-row>
-        </div>
-        <div style="flex: 1; margin-top: 30px; border-top: 1px solid var(--ion-color-step-100);">
-          <app-card class="card-warning">
-            <app-row>
-                <app-img src="assets/img/main/helmet1.svg"></app-img>
-              <app-col>
-                <h6>LH관리자<br>가입 대기</h6>
-              </app-col>
-              <app-col size="auto">
-                <h3><b>{{ form.lh_count }}</b></h3>
-              </app-col>
-              <app-img src="assets/img/main/helmet2.svg" style="padding-left: 10px;"></app-img>
-              <app-col>
-                <h6>감리<br>가입 대기</h6>
-              </app-col>
-              <app-col size="auto">
-                <h3><b>{{ form.super_count }}</b></h3>
-              </app-col>
-            </app-row>
-          </app-card>
-          <!-- <app-card class="card-warning">
-            <app-row>
-              <app-img src="assets/img/main/helmet2.svg"></app-img>
-              <app-col>
-                <h6>감리 가입 대기</h6>
-              </app-col>
-              <app-col size="auto">
-                <h3>8</h3>
-              </app-col>
-            </app-row>
-          </app-card> -->
-        </div>
-        </app-card>
-          <!-- //날씨 -->
-        <app-card class="card-flex" style="height: 315px;"> 
-        <div>
-            <ion-toolbar slot="top" color="white">
+          <app-row>
+            <app-col>
+              <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="사업본부" [(ngModel)]="form.hq_business_id">
+                <app-select-option *ngFor="let item of business_list" [value]="item.hq_business_id">{{ item.hq_business_name }}</app-select-option>
+              </app-select>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-card>
               <app-row>
-                <app-col>
-                  <h4>경기도 성남시 분당구</h4>
+                <app-col style="text-align: center;">
+                  <h5>착공일</h5>
+                  <p>{{ form.contract_start_date }}</p>
+                </app-col>
+                <app-col style="text-align: center;">
+                  <h5>준공일</h5>
+                  <p>{{ form.contract_end_date }}</p>
                 </app-col>
               </app-row>
-            </ion-toolbar>
-            <!--            
+            </app-card>
+          </app-row>
+  
+          <app-row style="text-align: center;" class="pointer-class">
+            <app-col size="4" (click)="router('')">
+              <app-img style="width: 70%;" src="assets/img/main/emergency-manage.svg"></app-img>
+              <h5>비상알림</h5>
+            </app-col>
+            <app-col size="4" (click)="router('교육이력')">
+              <app-img style="width: 70%;" src="assets/img/menu/education-career.svg"></app-img>
+              <h5>교육 이력</h5>
+            </app-col>
+            <app-col size="4" (click)="router('위험성평가')">
+              <app-img style="width: 70%;" src="assets/img/menu/risk-evaluation-report.svg"></app-img>
+              <h5>위험성 평가</h5>
+            </app-col>
+          </app-row>
+          <app-row style="text-align: center;" class="pointer-class">
+            <app-col size="4" (click)="router('회의록')">
+              <app-img style="width: 70%;" src="assets/img/menu/conference.svg"></app-img>
+              <h5>회의록</h5>
+            </app-col>
+            <app-col size="4" (click)="router('')">
+              <app-img style="width: 70%;" src="assets/img/menu/ptw.svg"></app-img>
+              <h5>위험 작업 허가</h5>
+            </app-col>
+            <app-col size="4" (click)="router('')">
+              <app-img style="width: 70%;" src="assets/img/menu/general-incongruity.svg"></app-img>
+              <h5>부적합 관리</h5>
+            </app-col>
+          </app-row>
+          <app-row style="text-align: center;" class="pointer-class">
+            <app-col size="4" (click)="router('')">
+              <app-img style="width: 70%;" src="assets/img/menu/general-check.svg"></app-img>
+              <h5>점검</h5>
+            </app-col>
+            <app-col size="4" (click)="router('')">
+              <app-img style="width: 70%;" src="assets/img/main/plus.svg"></app-img>           
+              <h5>추가</h5>
+            </app-col>
+            <app-col size="4" (click)="router('')">
+            </app-col>
+          </app-row>
+          <!-- <app-row style="height: 200px;">
+            <app-card style="height: 100%;">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>금일 비상상황 알림</h4>
+                  </app-col>
+                  <app-col (click)="router('알림함')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
               <app-row>
                 <app-col>
-                  <app-row>
+                  <h6>2021.09.12</h6>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-row> -->
+        </app-card>
+      </app-col>
+  
+      <app-col>
+        <app-row style="height: 236px; align-items: stretch;">
+          <app-col size="6">
+            <app-card style="height: 100%;" class="alarm-card">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col size="auto">
+                    <h4>알림함</h4>
+                  </app-col>
+                  <app-col>
+                    <ion-badge color="medium">{{ form.alarm_count }}</ion-badge>
+                  </app-col>
+                  <app-col (click)="router('알림함')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <app-row *ngFor="let item of alarm_list">
+                <app-col class="card-category-col">
+                  <ion-chip color="warning" class="chip-width">{{ item.notify_head }}</ion-chip>
+                </app-col>
+                <app-col class="card-title-col">
+                  <h5>{{ item.notify_text_kr }}</h5>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-col> 
+  
+          <app-col size="6">
+            <app-card style="height: 100%;" class="approval-card">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col size="auto">
+                    <h4>미결함</h4>
+                  </app-col>
+                  <app-col>
+                    <ion-badge color="medium">{{ form.approval_count }}</ion-badge>
+                  </app-col>
+                  <app-col (click)="router('미결함')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <app-row *ngFor="let item of approval_list">
+                <app-col class="card-category-col">
+                  <h6>{{ item.master_company_name }}</h6>
+                </app-col>
+                <app-col class="card-title-col">
+                  <h5>{{ item.ctgo_approval_module_name }}</h5>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-col>
+        </app-row>
+  
+        <app-row style="height: 33%;  align-items: stretch;">
+          <app-col >
+            <app-card style="height: 100%;">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col size="auto">
+                    <h4>공지사항</h4>
+                  </app-col>
+                  <app-col>
+                    <ion-badge color="medium">{{ form.notice_count }}</ion-badge>
+                  </app-col>
+                  <app-col (click)="router('공지사항')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <app-row *ngFor="let item of notice_list">
+                <app-col size="auto">
+                  <h6>{{ item.create_date }}</h6>
+                </app-col>
+                <app-col>
+                  <h5>{{ item.notice_title }}</h5>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-col>
+          <app-col>
+            <app-card style="height: 100%;">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <ion-col size="auto">
+                    <h4>회의록</h4>
+                  </ion-col>
+                  <app-col>
+                    <ion-badge color="medium">{{ form.safetymeeting_count }}</ion-badge>
+                  </app-col>
+                  <app-col (click)="router('회의록')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <app-row *ngFor="let item of safetymeeting_list">
+                <app-col size="auto">  
+                  <h6>{{ item.create_date }}</h6>
+                </app-col>
+                <app-col>
+                  <h5>{{ item.safety_meeting_type }}</h5>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-col>
+        </app-row>
+  
+        <app-row style="height: 34%;">
+          <app-col>
+            <app-card style="height: 100%;">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col size="auto">
+                    <h4>진행중인 아차사고 신고</h4>
+                  </app-col>
+                  <app-col>
+                    <ion-badge color="medium">3</ion-badge>
+                  </app-col>
+                  <app-col (click)="router('')" size="auto">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <app-row>
+                <app-col>
+                  <app-table>
+                    <thead>
+                      <tr>
+                        <th>현장명</th>
+                        <th>소속</th>
+                        <th>공종</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>신고 시간</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="sub-content button">
+                        <td>수원당담 공공</td>
+                        <td>수원당담 아파트</td>
+                        <td>토목</td>
+                        <td>**사고가 발생했습니다.</td>
+                        <td>김준태</td>
+                        <td>10:56:23</td>
+                      </tr>
+                    </tbody>
+                  </app-table>
+                </app-col>
+              </app-row>
+            </app-card>
+          </app-col>
+        </app-row>
+      </app-col>
+      <app-col class="contaienr-right-col">
+        <app-card class="card-flex" style="height: calc(40% - 6px);">
+          <!-- <div>
+            <app-row>
+              <app-col style="display: flex; align-items: center;" routerLink="/my-page">
+                <app-img style="width: 20%;" src="assets/img/menu/mypage.svg"></app-img>
+                <h5>마이페이지</h5>
+              </app-col>
+              <app-col size="auto">
+                <ion-chip color="primary">로그아웃</ion-chip>
+              </app-col>
+            </app-row>
+          </div> -->
+          <!-- <div>
+            <app-row style="margin: 10px; align-items: flex-start;justify-content: center;">
+              <app-col size="auto">
+                <app-avatar style="width: 100px; height: 100px;" src="https://www.devmonster.co.kr/assets/img/logo.svg">
+                </app-avatar>
+              </app-col>
+            </app-row>
+            <app-row style="justify-content: center;">
+              <app-col size="auto" style="text-align: center;">
+                <h4 style="font-weight: 700;">홍길동</h4>
+                <p>구일종합건설(주)</p>
+                <p>대표이사</p>
+              </app-col>
+            </app-row>
+          </div> -->
+         <div>
+            <app-row>
+              <app-col size="auto" style="text-align: center;">
+                <app-avatar style="width: 100px; height: 100px;" [src]="user.userData.user_profile">
+                </app-avatar>
+              </app-col>
+              <app-col size="auto" style="text-align: left;">
+                <h3 style="font-weight: 700;">{{ user.userData.user_name }}</h3>
+                <p>{{ user.userData.belong_data.company_name }}</p>
+                <p>{{ form.ctgo_job_position_name }}</p>
+              </app-col>
+            </app-row>
+          
+          
+            <app-row>
+              <app-col size="auto" style="margin-left: 110px;">
+                <app-button color="secondary"  (click)="router('마이페이지')">마이페이지</app-button>
+              </app-col>
+              <app-col>
+                <app-button color="secondary" (click)="user.logout()">로그아웃</app-button>
+              </app-col>
+            </app-row>
+          </div>
+          <div style="flex: 1; margin-top: 30px; border-top: 1px solid var(--ion-color-step-100);">
+            <app-card class="card-warning">
+              <app-row>
+                  <app-img src="assets/img/main/helmet1.svg"></app-img>
+                <app-col>
+                  <h6>LH관리자<br>가입 대기</h6>
+                </app-col>
+                <app-col size="auto">
+                  <h3><b>{{ form.lh_count }}</b></h3>
+                </app-col>
+                <app-img src="assets/img/main/helmet2.svg" style="padding-left: 10px;"></app-img>
+                <app-col>
+                  <h6>감리<br>가입 대기</h6>
+                </app-col>
+                <app-col size="auto">
+                  <h3><b>{{ form.super_count }}</b></h3>
+                </app-col>
+              </app-row>
+            </app-card>
+            <!-- <app-card class="card-warning">
+              <app-row>
+                <app-img src="assets/img/main/helmet2.svg"></app-img>
+                <app-col>
+                  <h6>감리 가입 대기</h6>
+                </app-col>
+                <app-col size="auto">
+                  <h3>8</h3>
+                </app-col>
+              </app-row>
+            </app-card> -->
+          </div>
+          </app-card>
+            <!-- //날씨 -->
+          <app-card class="card-flex" style="height: 315px;"> 
+          <div>
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>경기도 성남시 분당구</h4>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <!--            
+                <app-row>
+                  <app-col>
+                    <app-row>
+                      <app-col>
+                        <h5>최고기온</h5>
+                      </app-col>
+                      <app-col>
+                        <h4>{{ weather.high_weather_temp + "&deg;C" }}</h4>
+                      </app-col>
+                    </app-row>
+                    <app-row >
+                      <app-col class="wheather" style="text-align: center;">
+                        <h2>{{ weather.weather_temp + "&deg;C" }}</h2>
+                      </app-col>
+                    </app-row>
+                    <app-row>
+                      <app-col>
+                        <h5>최저기온</h5>
+                      </app-col>
+                      <app-col>
+                        <h4>{{ weather.low_weather_temp + "&deg;C" }}</h4>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                  <app-col>
+                    <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img>
+                  </app-col>
+                </app-row> -->
+              <app-row>
+                <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                  <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
+                    <app-col>
+                      <h2>28&deg;C</h2>
+                    </app-col>
+                  </app-row>
+                  <app-row style="text-align: center;">
                     <app-col>
                       <h5>최고기온</h5>
                     </app-col>
                     <app-col>
-                      <h4>{{ weather.high_weather_temp + "&deg;C" }}</h4>
+                      <h3>30&deg;C</h3>
                     </app-col>
                   </app-row>
-                  <app-row >
-                    <app-col class="wheather" style="text-align: center;">
-                      <h2>{{ weather.weather_temp + "&deg;C" }}</h2>
-                    </app-col>
-                  </app-row>
-                  <app-row>
+                  <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
                     <app-col>
                       <h5>최저기온</h5>
                     </app-col>
                     <app-col>
-                      <h4>{{ weather.low_weather_temp + "&deg;C" }}</h4>
+                      <h3>12&deg;C</h3>
                     </app-col>
                   </app-row>
                 </app-col>
-                <app-col>
-                  <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img>
+                <app-col style="text-align: center;">
+                  <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
+                  <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
                 </app-col>
-              </app-row> -->
-            <app-row>
-              <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
-                  <app-col>
-                    <h2>28&deg;C</h2>
-                  </app-col>
-                </app-row>
-                <app-row style="text-align: center;">
-                  <app-col>
-                    <h5>최고기온</h5>
-                  </app-col>
-                  <app-col>
-                    <h3>30&deg;C</h3>
-                  </app-col>
-                </app-row>
-                <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
-                  <app-col>
-                    <h5>최저기온</h5>
-                  </app-col>
-                  <app-col>
-                    <h3>12&deg;C</h3>
-                  </app-col>
-                </app-row>
-              </app-col>
-              <app-col style="text-align: center;">
-                <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
-                <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
-              </app-col>
-            </app-row>
-            <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
-              <app-col style="padding-left: 0; padding-right: 0;">
-                <app-row class="title">
-                  <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                    <h5>강수량</h5>
-                  </app-col>
-                </app-row>
-                <app-row class="ratio">
-                  <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                    <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6>
-                  </app-col>
-                </app-row>
-              </app-col>
-              <app-col style="padding-left: 0; padding-right: 0;">
-                <app-row class="title">
-                  <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                    <h5>적설량</h5>
-                  </app-col>
-                </app-row>
-                <app-row class="ratio">
-                  <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                    <h6>{{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}</h6>
-                  </app-col>
-                </app-row>
-              </app-col>
-              <app-col style="padding-left: 0; padding-right: 0;">
-                <app-row class="title">
-                  <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                    <h5>최대풍속</h5>
-                  </app-col>
-                </app-row>
-                <app-row class="ratio">
-                  <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                    <h6>{{ weather.weather_speed + "m/s"}}</h6>
-                  </app-col>
-                </app-row>
-              </app-col>
-              <app-col style="padding-left: 0; padding-right: 0;">
-                <app-row class="title">
-                  <app-col>
-                    <h5>미세먼지</h5>
-                  </app-col>
-                </app-row>
-                <app-row class="ratio">
-                  <app-col class="ratio-col">
-                    <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
-                    <h6>{{ dust.grade_name}}</h6>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </app-row>
-        </div>
-      </app-card>
-    </app-col>
-  </app-row>
+              </app-row>
+              <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>강수량</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>적설량</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <h6>{{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>최대풍속</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <h6>{{ weather.weather_speed + "m/s"}}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col>
+                      <h5>미세먼지</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col class="ratio-col">
+                      <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
+                      <h6>{{ dust.grade_name}}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+              </app-row>
+          </div>
+        </app-card>
+      </app-col>
+    </app-row>
+  </div>
 </ion-content>
 <app-button-footer style="margin-top: 10px;">
     <app-row>

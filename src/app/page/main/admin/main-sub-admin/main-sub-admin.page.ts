@@ -73,9 +73,9 @@ export class MainSubAdminPage implements OnInit {
     private toast: ToastService,
     public user: UserService
   ) {
-    // if(this.user.userData.user_type !== 'COMPANY') {
-    //   this.nav.navigateRoot('/main-admin');
-    // }
+    if(this.user.userData.user_type !== 'COMPANY') {
+      this.nav.navigateRoot('/main-admin');
+    }
   }
 
   ngOnInit() {

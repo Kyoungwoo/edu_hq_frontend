@@ -409,9 +409,11 @@ var MainSubAdminPage = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/main/board/education', this.form, { parse: [
+                    case 0: return [4 /*yield*/, this.connect.run('/main/board/education', this.form, {
+                            parse: [
                                 'hire_data', 'regular_data', 'special_data'
-                            ] })];
+                            ]
+                        })];
                     case 1:
                         res = _a.sent();
                         switch (res.rsCode) {
@@ -489,7 +491,8 @@ var MainSubAdminPage = /** @class */ (function () {
     };
     MainSubAdminPage.prototype.alram = function () {
     };
-    MainSubAdminPage.prototype.router = function (title) {
+    MainSubAdminPage.prototype.router = function (title, detail) {
+        if (detail === void 0) { detail = null; }
         console.log("asdfasdf");
         switch (title) {
             case '':
@@ -505,7 +508,10 @@ var MainSubAdminPage = /** @class */ (function () {
                 this.nav.navigateRoot('/notify-list');
                 break;
             case '공지사항':
-                this.nav.navigateRoot('/notice-list');
+                if (detail)
+                    this.nav.navigateRoot('/notice-list', { state: { notice_id: detail.notice_id } });
+                else
+                    this.nav.navigateRoot('/notice-list');
                 break;
             case '회의록':
                 this.nav.navigateRoot('/minutes-list');
@@ -527,6 +533,15 @@ var MainSubAdminPage = /** @class */ (function () {
                 break;
             case '마이페이지':
                 this.nav.navigateRoot('/my-page');
+                break;
+            case 'MSDS':
+                if (detail)
+                    this.nav.navigateRoot('/msds-list', { state: { msds_id: detail.msds_id } });
+                else
+                    this.nav.navigateRoot('/msds-list');
+                break;
+            case '교육현황':
+                this.nav.navigateRoot('/safety-education-list');
                 break;
         }
     };
