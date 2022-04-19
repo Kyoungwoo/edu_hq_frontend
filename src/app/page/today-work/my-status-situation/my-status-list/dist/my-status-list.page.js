@@ -57,9 +57,9 @@ var MyStatusListPage = /** @class */ (function () {
         this.user = user;
         this.open = false;
         this.form = {
-            master_company_id: 0,
             project_id: this.user.userData.belong_data.project_id,
-            project_name: ''
+            project_name: '',
+            master_company_id: this.user.userData.belong_data.master_company_id
         };
         this.gateState = false;
         this.gateOpen = false;
@@ -77,21 +77,27 @@ var MyStatusListPage = /** @class */ (function () {
         this.roleCheck();
     };
     MyStatusListPage.prototype.roleCheck = function () {
-        var _a = this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
-        if (user_role === 'MASTER_HEAD' ||
-            user_role === 'LH_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'MASTER_GENERAL' ||
-            user_role === 'PARTNER_GENERAL')
-            this.notWorker = true;
-        if (user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD') {
-            this.form.master_company_id = this.user.userData.belong_data.company_id;
-        }
-        if (user_role === 'PARTNER_WORKER' ||
-            user_type === 'WORKER')
-            this.notWorker = false;
-        this.get();
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, user_role, user_type;
+            return __generator(this, function (_b) {
+                _a = this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                if (user_role === 'MASTER_HEAD' ||
+                    user_role === 'LH_HEAD' ||
+                    user_role === 'PARTNER_HEAD' ||
+                    user_role === 'MASTER_GENERAL' ||
+                    user_role === 'PARTNER_GENERAL')
+                    this.notWorker = true;
+                if (user_role === 'MASTER_HEAD' ||
+                    user_role === 'PARTNER_HEAD') {
+                    this.form.master_company_id = this.user.userData.belong_data.company_id;
+                }
+                if (user_role === 'PARTNER_WORKER' ||
+                    user_type === 'WORKER')
+                    this.notWorker = false;
+                this.get();
+                return [2 /*return*/];
+            });
+        });
     };
     MyStatusListPage.prototype.get = function () {
         return __awaiter(this, void 0, void 0, function () {

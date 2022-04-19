@@ -20,9 +20,9 @@ export class MyStatusListPage implements OnInit {
   open:boolean = false;
 
   form = {
-    master_company_id: 0,
     project_id: this.user.userData.belong_data.project_id,
-    project_name:''
+    project_name: '',
+    master_company_id: this.user.userData.belong_data.master_company_id
   }
 
   resgate:ConnectResult<{
@@ -98,7 +98,7 @@ export class MyStatusListPage implements OnInit {
     this.roleCheck();
   }
 
-  roleCheck() {
+  async roleCheck() {
     const { user_role, user_type } = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
        user_role === 'LH_HEAD'||
@@ -117,7 +117,7 @@ export class MyStatusListPage implements OnInit {
   }
 
   async get() {
-      this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list',this.form,{parse:['inner_data']});
+      this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list', this.form, {parse: ['inner_data']});
       if(this.resgate.rsCode === 0) {
       }
       else {

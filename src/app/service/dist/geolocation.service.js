@@ -51,10 +51,11 @@ var GeolocationService = /** @class */ (function () {
     }
     GeolocationService.prototype.startLocationUpdates = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var permissionOptions, promptAlert, deniedAlert, state, updatesOptions, background, notification, connect;
+            var permissionOptions, promptAlert, deniedAlert, state, updatesOptions, background, notification, connect, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        _a.trys.push([0, 2, , 3]);
                         permissionOptions = {
                             promptAlert: null,
                             deniedAlert: null
@@ -102,18 +103,24 @@ var GeolocationService = /** @class */ (function () {
                         updatesOptions.background = background;
                         updatesOptions.notification = notification;
                         updatesOptions.connect = connect;
-                        console.log(connect);
                         geolocation_plugin_1.Geolocation.startLocationUpdates(updatesOptions, function (_a) {
                             var latitude = _a.latitude, longitude = _a.longitude;
                             console.log(latitude, longitude);
                         });
-                        return [2 /*return*/];
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
     GeolocationService.prototype.stopLocationUpdates = function () {
-        geolocation_plugin_1.Geolocation.stopLocationUpdates();
+        try {
+            geolocation_plugin_1.Geolocation.stopLocationUpdates();
+        }
+        catch (e) { }
     };
     GeolocationService = __decorate([
         core_1.Injectable({
