@@ -15,10 +15,10 @@
 <ion-content>
   <app-row class="heavy-filter">
     <app-col>
-      <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+      <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
     </app-col>
     <app-col>
-      <app-select-construction-machinery [company_id]="form.company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
+      <app-select-construction-machinery [project_id]="form.project_id" [company_id]="form.master_company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
     </app-col>
     <app-col>
       <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.construction_id" [all]="true"></app-select-construction>

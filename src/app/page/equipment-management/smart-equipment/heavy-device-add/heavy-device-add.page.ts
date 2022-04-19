@@ -46,6 +46,7 @@ export class HeavyDeviceAddPage implements OnInit {
 
   ngOnInit() {
     // this.original_item = this.file.clone(this.list);
+    console.log('헤비 3 : ', this.item);
   }
 
   async get(id){
