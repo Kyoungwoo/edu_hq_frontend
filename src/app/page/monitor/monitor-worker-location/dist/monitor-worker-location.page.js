@@ -44,8 +44,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.MonitorWorkerLocationPage = void 0;
 var core_1 = require("@angular/core");
-var naver_map_component_1 = require("src/app/basic/component/input/naver-map/naver-map.component");
-var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var MonitorWorkerLocationPage = /** @class */ (function () {
     function MonitorWorkerLocationPage(connect) {
         this.connect = connect;
@@ -57,9 +55,7 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
             search_text: '',
             user_type: '전체'
         };
-        this.resGps = new connect_service_1.ConnectResult();
-        this.gps_log_id = [];
-        this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
+        this.gpsData = [];
     }
     Object.defineProperty(MonitorWorkerLocationPage.prototype, "project_id", {
         set: function (v) {
@@ -91,6 +87,10 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
+                            this.gpsData = res.rsMap;
+                        }
+                        else {
+                            this.gpsData = [];
                         }
                         return [2 /*return*/];
                 }

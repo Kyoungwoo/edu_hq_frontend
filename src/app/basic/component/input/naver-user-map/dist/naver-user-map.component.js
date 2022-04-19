@@ -61,29 +61,23 @@ var NaverUserMapComponent = /** @class */ (function () {
         this.file = file;
         this.el = el;
         this.connect = connect;
-        this._id = "naver-map-" + Math.random().toString().replace('.', '') + Math.random().toString().replace('.', '');
+        this.id = "naver-map-" + Math.random().toString().replace('.', '') + Math.random().toString().replace('.', '');
         this.marker = [];
         this.isAfterInit = false;
         this.readonly = false;
         this.disabled = false;
         this.required = false;
         this.change = new core_1.EventEmitter();
-        this._value = new userData();
+        this._value = [];
         this._onChangeCallback = function (v) { };
         this._onTouchedCallback = function (v) { };
     }
     NaverUserMapComponent_1 = NaverUserMapComponent;
-    Object.defineProperty(NaverUserMapComponent.prototype, "id", {
-        get: function () { return this._id; },
-        enumerable: false,
-        configurable: true
-    });
-    ;
     NaverUserMapComponent.prototype.ngOnInit = function () {
     };
     NaverUserMapComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.file.script("https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=" + this.naverMapId).then(function () {
+        this.file.script("https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=" + this.naverMapId + "&submodules=geocoder").then(function () {
             _this.init();
         });
     };
@@ -136,11 +130,12 @@ var NaverUserMapComponent = /** @class */ (function () {
         });
     };
     NaverUserMapComponent.prototype.userMarker = function (coord, item, i) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var marker, infoWindowElement, res, infowindow;
+            var marker, infoEl, res, addressArr, data, infowindow;
             var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         marker = new naver.maps.Marker({
                             map: this.map,
@@ -151,46 +146,26 @@ var NaverUserMapComponent = /** @class */ (function () {
                             }
                         });
                         this.marker.push(marker);
-                        return [4 /*yield*/, this.connect.run('/integrated/gps/detail', { gps_log_id: item.gps_log_id }, {
+                        infoEl = '';
+                        return [4 /*yield*/, this.connect.run('/integrated/gps/detail', {
+                                gps_log_id: item.gps_log_id
+                            }, {
                                 parse: ['safe_job_name']
                             })];
                     case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            // if(item.area_state === '일반') {
-                            //   infoWindowElement = (
-                            //     `<div style="padding:5px">
-                            //       <h5 style="text-align:center">${res.rsObj.user_name}</h5>
-                            //       <p>${res.rsObj.company_name}</p>
-                            //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-                            //       <p>안전직무 : ${res.rsObj.safe_job_name}</p>
-                            //      </div>
-                            //     `
-                            //   );
-                            // } else {
-                            //   infoWindowElement = (
-                            //     `<div style="padding:5px">
-                            //       <h5 style="text-align:center">SOS 요청</h5>
-                            //       <p>${res.rsObj.company_name}</p>
-                            //       <p>${res.rsObj.user_name}</p>
-                            //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-                            //       <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
-                            //      </div>
-                            //     `
-                            //   );
-                            // }     
-                        }
+                        res = _b.sent();
+                        if (!(res.rsCode === 0)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.getAddress(coord)];
+                    case 2:
+                        addressArr = _b.sent();
+                        data = res.rsObj;
+                        infoEl = "\n        <div style=\"padding: 8px;\">\n          <h5 style=\"margin-top: 0; text-align: center;\">" + data.user_name + "</h5>\n          \n          <h6 style=\"margin-top: 0; margin-bottom: 0;\">\uD68C\uC0AC</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.company_name + "</p>\n\n          " + (data.area_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC7A5\uC18C</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + (data.area_name || '-') + "</p>\n            " : '') + "\n\n          " + (data.area_risk_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC704\uD5D8\uC9C0\uC5ED \uBA85</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.area_risk_name + "</p>\n            " : '') + "\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC548\uC804\uC9C1\uBB34</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + (((_a = data.safe_job_name) === null || _a === void 0 ? void 0 : _a.join('\n')) || '없음') + "</p>\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC8FC\uC18C</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0; font-size: 11px;\">" + addressArr.join('\n') + "</p>\n        </div>\n        ";
+                        _b.label = 3;
+                    case 3:
                         infowindow = new naver.maps.InfoWindow({
-                            content: infoWindowElement,
-                            maxWidth: 120,
-                            maxHeight: 100
+                            content: infoEl,
+                            maxWidth: 300
                         });
-                        if (item.area_state !== '일반') {
-                            infowindow.open(this.map, this.marker[i]);
-                            setTimeout(function () {
-                                infowindow.close();
-                            }, 5000);
-                        }
                         naver.maps.Event.addListener(this.marker[i], 'click', function (e) {
                             if (infowindow.getMap()) {
                                 infowindow.close();
@@ -210,11 +185,10 @@ var NaverUserMapComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log("v - ", v);
-                        return [4 /*yield*/, this.afterInit()];
+                    case 0: return [4 /*yield*/, this.afterInit()];
                     case 1:
                         _a.sent();
+                        this.resetMarker();
                         if (v) {
                             length = v.length;
                             if (length) {
@@ -232,6 +206,41 @@ var NaverUserMapComponent = /** @class */ (function () {
                         ;
                         return [2 /*return*/];
                 }
+            });
+        });
+    };
+    NaverUserMapComponent.prototype.resetMarker = function () {
+        var length = this.marker.length;
+        for (var i = 0; i < length; i++) {
+            var marker = this.marker.pop();
+            marker.setMap(null);
+        }
+    };
+    NaverUserMapComponent.prototype.getAddress = function (coord) {
+        return new Promise(function (res) {
+            console.log(naver.maps);
+            naver.maps.Service.reverseGeocode({
+                coords: coord,
+                orders: [
+                    naver.maps.Service.OrderType.ADDR,
+                    naver.maps.Service.OrderType.ROAD_ADDR
+                ].join(',')
+            }, function (status, response) {
+                var _a;
+                var address = (_a = response === null || response === void 0 ? void 0 : response.v2) === null || _a === void 0 ? void 0 : _a.address;
+                var addressArr = [];
+                if (status === naver.maps.Service.Status.ERROR) {
+                    console.warn('check coords');
+                }
+                else {
+                    if (address.jibunAddress !== '') {
+                        addressArr.push('[지번 주소] ' + address.jibunAddress);
+                    }
+                    if (address.roadAddress !== '') {
+                        addressArr.push('[도로명 주소] ' + address.roadAddress);
+                    }
+                }
+                res(addressArr);
             });
         });
     };
@@ -271,9 +280,6 @@ var NaverUserMapComponent = /** @class */ (function () {
     NaverUserMapComponent.prototype.registerOnChange = function (fn) { this._onChangeCallback = fn; };
     NaverUserMapComponent.prototype.registerOnTouched = function (fn) { this._onTouchedCallback = fn; };
     var NaverUserMapComponent_1;
-    __decorate([
-        core_1.HostBinding('id')
-    ], NaverUserMapComponent.prototype, "id");
     __decorate([
         core_1.HostBinding('class.readonly')
     ], NaverUserMapComponent.prototype, "classReadonly");

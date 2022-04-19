@@ -193,39 +193,13 @@ var MonitorPage = /** @class */ (function () {
     };
     MonitorPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, user_role, belong_data, res, contractor;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this.user.userData, user_role = _a.user_role, belong_data = _a.belong_data;
-                        this.form.project_id = belong_data.project_id;
-                        this.form.company_id = belong_data.company_id;
-                        if (!(user_role === 'LH_HEAD'
-                            || user_role === 'SUPER_HEAD')) return [3 /*break*/, 1];
-                        this.form.master_company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
-                    case 1:
-                        if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
-                        this.form.master_company_id = belong_data.company_id;
-                        return [3 /*break*/, 4];
-                    case 2:
-                        if (!(belong_data.company_contract_type === '협력사')) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.connect.run('/category/certify/search_my_master_company/get', {
-                                project_id: this.form.project_id,
-                                search_text: ''
-                            })];
-                    case 3:
-                        res = _b.sent();
-                        if (res.rsCode === 0) {
-                            contractor = res.rsMap[0];
-                            this.form.master_company_id = contractor.master_company_id;
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        _b.label = 4;
-                    case 4: return [2 /*return*/];
-                }
+            var belong_data;
+            return __generator(this, function (_a) {
+                belong_data = this.user.userData.belong_data;
+                this.form.project_id = belong_data.project_id;
+                this.form.master_company_id = belong_data.master_company_id;
+                this.form.company_id = belong_data.company_id;
+                return [2 /*return*/];
             });
         });
     };

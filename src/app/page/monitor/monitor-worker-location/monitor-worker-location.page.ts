@@ -26,7 +26,7 @@ export class MonitorWorkerLocationPage implements OnInit {
     user_type: '전체'
   }
 
-  resGps:ConnectResult<userData> = new ConnectResult();
+  gpsData:userData[] = [];
 
   workerInRes:ConnectResult<{
     ctgo_construction_id: number,
@@ -38,10 +38,6 @@ export class MonitorWorkerLocationPage implements OnInit {
     ctgo_construction_name: string,
     row_count:number
   }>;
-
-  gps_log_id = [];
-  gps_log_data = new GpsCoordinateData();
-
 
   constructor(
     private connect: ConnectService
@@ -57,17 +53,17 @@ export class MonitorWorkerLocationPage implements OnInit {
   }
 
   async getGps() {
-    const res = await this.connect.run('/integrated/gps/log',this.form);
+    const res = await this.connect.run('/integrated/gps/log', this.form);
     if(res.rsCode === 0) {
-
+      this.gpsData = res.rsMap;
+    }
+    else {
+      this.gpsData = [];
     }
   }
 
   async wokerInGetList() {
-    this.workerInRes = await this.connect.run('/integrated/worker/in/list',this.form);
-    /* if(this.workerInRes.rsCode !== 0 && this.workerInRes.rsCode !== 1008) {
-      this.toast.present({message:this.workerInRes.rsMsg, color:'warning'});
-    } */
+    this.workerInRes = await this.connect.run('/integrated/worker/in/list', this.form);
   }
 
 }

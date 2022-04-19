@@ -179,38 +179,11 @@ export class MonitorPage implements OnInit, OnDestroy {
   }
 
   async getForm() {
-    const { user_role, belong_data } = this.user.userData;
+    const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
+    this.form.master_company_id = belong_data.master_company_id;
     this.form.company_id = belong_data.company_id;
-
-    if(user_role === 'LH_HEAD'
-    || user_role === 'SUPER_HEAD') {
-
-      this.form.master_company_id = belong_data.company_id;
-
-    }
-    else if(belong_data.company_contract_type === '원청사') {
-
-      this.form.master_company_id = belong_data.company_id;
-
-    }
-    else if(belong_data.company_contract_type === '협력사') {
-
-      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.master_company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
-
-    }
   }
   formChange(newForm) {
     this.form.project_id = newForm.project_id;

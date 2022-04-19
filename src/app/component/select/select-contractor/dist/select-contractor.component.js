@@ -222,6 +222,7 @@ var SelectContractorComponent = /** @class */ (function () {
     SelectContractorComponent.prototype.writeValue = function (v) {
         if (v !== this._value) {
             this.valueChange(v);
+            this.get();
         }
     };
     SelectContractorComponent.prototype.valueChange = function (v) {

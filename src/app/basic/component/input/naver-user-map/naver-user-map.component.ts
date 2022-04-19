@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, InjectionToken, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
-import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { NaverMapId } from '../naver-map/naver-map.component';
 
 declare const naver;
@@ -32,8 +31,7 @@ export class userData {
 })
 export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
 
-  @HostBinding('id') get id() { return this._id };
-  private _id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
+  id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
   map: any;
 
   marker: any[] = [];
@@ -53,7 +51,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   ngAfterViewInit() {
-    this.file.script(`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.naverMapId}`).then(() => {
+    this.file.script(`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${this.naverMapId}&submodules=geocoder`).then(() => {
       this.init();
     });
   }
@@ -102,6 +100,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async userMarker(coord, item, i) {
+
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -111,45 +110,53 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       }
     });
     this.marker.push(marker);
-    let infoWindowElement;
-    const res = await this.connect.run('/integrated/gps/detail',{gps_log_id:item.gps_log_id},{
-      parse:['safe_job_name']
+
+    let infoEl = '';
+    const res = await this.connect.run('/integrated/gps/detail', {
+      gps_log_id: item.gps_log_id
+    },{
+      parse:[ 'safe_job_name' ]
     });
     if(res.rsCode === 0) {
-      // if(item.area_state === '일반') {
-      //   infoWindowElement = (
-      //     `<div style="padding:5px">
-      //       <h5 style="text-align:center">${res.rsObj.user_name}</h5>
-      //       <p>${res.rsObj.company_name}</p>
-      //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-      //       <p>안전직무 : ${res.rsObj.safe_job_name}</p>
-      //      </div>
-      //     `
-      //   );
-      // } else {
-      //   infoWindowElement = (
-      //     `<div style="padding:5px">
-      //       <h5 style="text-align:center">SOS 요청</h5>
-      //       <p>${res.rsObj.company_name}</p>
-      //       <p>${res.rsObj.user_name}</p>
-      //       <p>장소 : ${res.rsObj.area_name ? item.area_name:''}</p>
-      //       <p>위험지역명${res.rsObj.area_risk_name?.toString()}</p>
-      //      </div>
-      //     `
-      //   );
-      // }     
+
+      /** 좌표로 주소 가져오기 */
+      const addressArr = await this.getAddress(coord);
+
+      const data = res.rsObj;
+        infoEl = `
+        <div style="padding: 8px;">
+          <h5 style="margin-top: 0; text-align: center;">${data.user_name}</h5>
+          
+          <h6 style="margin-top: 0; margin-bottom: 0;">회사</h6>
+          <p style="margin-top: 0; margin-bottom: 0;">${data.company_name}</p>
+
+          ${
+            data.area_name ? `
+              <h6 style="margin-top: 8px; margin-bottom: 0;">장소</h6>
+              <p style="margin-top: 0; margin-bottom: 0;">${data.area_name || '-'}</p>
+            ` : ''
+          }
+
+          ${
+            data.area_risk_name ? `
+              <h6 style="margin-top: 8px; margin-bottom: 0;">위험지역 명</h6>
+              <p style="margin-top: 0; margin-bottom: 0;">${data.area_risk_name}</p>
+            ` : ''
+          }
+
+          <h6 style="margin-top: 8px; margin-bottom: 0;">안전직무</h6>
+          <p style="margin-top: 0; margin-bottom: 0;">${data.safe_job_name?.join('\n') || '없음'}</p>
+
+          <h6 style="margin-top: 8px; margin-bottom: 0;">주소</h6>
+          <p style="margin-top: 0; margin-bottom: 0; font-size: 11px;">${addressArr.join('\n')}</p>
+        </div>
+        `;
     }
+
     let infowindow = new naver.maps.InfoWindow({
-      content: infoWindowElement,
-      maxWidth: 120,
-      maxHeight: 100,
+      content: infoEl,
+      maxWidth: 300
     });
-    if(item.area_state !== '일반') {
-      infowindow.open(this.map, this.marker[i]);
-      setTimeout(() => {
-        infowindow.close();
-      }, 5000);
-    }
     naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
       if (infowindow.getMap()) {
         infowindow.close();
@@ -160,8 +167,8 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async parseData(v) {
-    console.log("v - ",v)
     await this.afterInit();
+    this.resetMarker();
     if (v) {
       const length = v.length;
       if(length) {
@@ -174,6 +181,43 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     };
   }
 
+  private resetMarker() {
+    const length = this.marker.length;
+    for (let i = 0; i < length; i++) {
+      const marker = this.marker.pop();
+      marker.setMap(null);
+    }
+  }
+
+  getAddress(coord):Promise<any[]> {
+    return new Promise(res => {
+      console.log(naver.maps);
+      naver.maps.Service.reverseGeocode({
+        coords: coord,
+        orders: [
+          naver.maps.Service.OrderType.ADDR,
+          naver.maps.Service.OrderType.ROAD_ADDR
+        ].join(',')
+      }, function(status, response) {
+        const address = response?.v2?.address;
+        const addressArr = [];
+        if (status === naver.maps.Service.Status.ERROR) {
+          console.warn('check coords');
+        }
+        else {
+          if (address.jibunAddress !== '') {
+            addressArr.push('[지번 주소] ' + address.jibunAddress);
+          }
+      
+          if (address.roadAddress !== '') {
+            addressArr.push('[도로명 주소] ' + address.roadAddress);
+          }
+        }
+        res(addressArr);
+      });
+    })
+  }
+
   @HostBinding('class.readonly') get classReadonly() { return this.readonly }
   @HostBinding('class.disabled') get classDisabled() { return this.disabled }
   @Input() readonly: boolean = false;
@@ -181,8 +225,8 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   @Input() required: boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value = new userData();
-  @Input() set value(v: userData) {
+  private _value = [];
+  @Input() set value(v: userData[]) {
     if (!this.file.shallowEqual(v, this._value)) {
       this._value = v;
       this.parseData(v);
@@ -193,7 +237,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   get value() {
     return this._value;
   }
-  writeValue(v: userData): void {
+  writeValue(v: userData[]): void {
     if (!this.file.shallowEqual(v, this._value)) {
       this._value = v;
       this.parseData(v);

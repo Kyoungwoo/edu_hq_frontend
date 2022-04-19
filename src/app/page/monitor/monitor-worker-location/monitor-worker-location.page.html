@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <td>
-            <app-select-construction [project_id]="form.project_id" [master_company_id]="form.master_company_id" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
+            <app-select-construction [project_id]="form.project_id" [master_company_id]="form.master_company_id" [(ngModel)]="form.ctgo_construction_id" [all]="true"></app-select-construction>
           </td>
         </tr>
         <tr>
@@ -50,11 +50,11 @@
 
   <app-col>
 
-    <app-naver-user-map></app-naver-user-map>
+    <app-naver-user-map [(ngModel)]="gpsData"></app-naver-user-map>
 
   </app-col>
 
-  <app-col>
+  <app-col size="4">
 
     <app-table>
       <thead>
