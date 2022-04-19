@@ -1,15 +1,101 @@
-.margin-card {
-  margin-top: 0;
+ion-content {
+  --padding-top: 16px;
 }
 
-.chip-back {
-  background-color: var(--ion-color-light);
-  border-radius: 15px;
-  font-size: 17px;
+app-row {
+  align-items: stretch;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 768px;
+    margin: auto;
+  }
+
+  .mobileBreak {
+    display: block;
+  }
+  .mobileBreak > app-col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
+.graph-card {
+  height: 328px;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.graph-area {
+  display: flex;
+  flex-direction: column;
+  height: 192px;
+  position: relative;
+}
+.graph-area .graph-line-wrap {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.graph-area .bar-flex-box {
+  display: flex;
+  top: 0;
+  position: absolute;
+  height: calc(100% + 49px);
+  width: 100%;
+}
+.graph-area .bar-flex-box .bar-flex-theme {
+  flex: 0 30px;
+  width: 30px;
+}
+.graph-area .bar-flex-box .bar-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.graph-area .bar-flex-box .bar-wrap .bar-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+.graph-area .bar-flex-box .bar-wrap .bar-item .bar {
+  width: 36px;
+  background: var(--ion-color-primary);
+  position: relative;
+  cursor: pointer;
+}
+.graph-area .bar-flex-box .bar-wrap .bar-item .bar .bar-inner-text {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  text-align: center;
+}
+.graph-area .bar-flex-box .bar-wrap .bar-item .text {
+  height: 50px;
+  padding-top: 26px;
+  font-size: var(--font-size-h6);
+  transform: rotate(-45deg);
+  white-space: nowrap;
+}
+.graph-area .bar-flex-box .bar-wrap .bar-item.theme {
+  width: 26px;
 }
 
 .donut-group {
   position: relative;
+  height: 254px;
+  margin-left: 20px;
+}
+.donut-group .donut {
+  height: 100%;
 }
 .donut-group .donut-in-count {
   position: absolute;
@@ -27,152 +113,23 @@
   font-size: var(--font-size-h4);
   color: #2F8D38;
 }
-.donut-group .dount-worker {
-  height: 10px;
-  width: 30%;
-  background-color: var(--ion-color-primary);
-  position: relative;
-}
-.donut-group .dount-worker-sub {
-  height: 10px;
-  width: 100%;
-  background-color: var(--ion-color-primary);
-  position: absolute;
-  opacity: 0.1;
-}
-.donut-group .dount-partner {
-  height: 10px;
-  width: 30%;
-  background-color: var(--ion-color-secondary-contrast);
-  position: relative;
-}
-.donut-group .dount-partner-sub {
-  height: 10px;
-  width: 100%;
-  background-color: var(--ion-color-secondary-contrast);
-  position: absolute;
-  opacity: 0.1;
-}
 
-.graph-box {
-  display: flex;
-  position: relative;
-  padding-left: 30px;
-  width: 100%;
-}
-
-.graph-count {
-  position: absolute;
-  top: 40px;
-  left: 3px;
-  text-align: left;
-  width: 25px;
-  text-align: end;
-}
-
-.grach-line {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  border-bottom: 1px solid var(--ion-color-medium);
-}
-
-.middle-box {
-  border-left: 3px solid var(--ion-color-light);
-  border-right: 3px solid var(--ion-color-light);
-}
-
-.border-box {
-  border-right: 3px solid var(--ion-color-light);
-}
-
-.graph-rod-group {
-  display: flex;
-  position: absolute;
-  top: -96px;
-  left: 40px;
-  margin-right: 5px;
-  height: 100%;
-  width: calc(100% - 35px);
-}
-.graph-rod-group .graph-rod-main {
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-  flex: 1;
-  justify-content: center;
-}
-.graph-rod-group .graph-rod-main-2 {
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-  flex: 1;
-  justify-content: center;
-}
-.graph-rod-group .graph-rod-tow-worker {
-  position: absolute;
-  background-color: var(--ion-color-primary);
-  width: 60%;
-}
-.graph-rod-group .worker-name {
-  position: absolute;
-  bottom: -25px;
-  width: 100%;
-  text-align: center;
-  font-size: var(--font-size-h5);
-  color: var(--ion-color-secondary-contrast);
-}
-.graph-rod-group .graph-rod-tow-risk {
-  position: absolute;
-  background-color: var(--ion-color-primary);
-  width: 60%;
-}
-.graph-rod-group .risk-name {
-  position: absolute;
-  bottom: -25px;
-  width: 100%;
-  text-align: center;
-  font-size: var(--font-size-h5);
-  color: var(--ion-color-secondary-contrast);
-}
-
-.graph-rod-one {
-  width: 15px;
-  height: 25px;
-  background-color: #2F8D38;
-  margin-right: 5px;
-}
-
-.graph-rod-tow {
-  width: 15px;
-  height: 50px;
-  background-color: var(--ion-color-primary);
-}
-
-.rod-name {
-  color: var(--ion-color-secondary-contrast);
-  font-size: var(--font-size-h5);
-  position: absolute;
-  bottom: -25px;
-  width: 100%;
-  text-align: center;
-}
-
-.graph-sub {
+.donut-sub {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-right: 8px;
 }
-.graph-sub .count-contant {
+.donut-sub .count-contant {
   font-weight: 800;
   color: var(--ion-color-medium);
   font-size: var(--font-size-h4);
 }
-.graph-sub .sub-info {
+.donut-sub .sub-info {
   display: flex;
   justify-content: center;
 }
-.graph-sub .circle1 {
+.donut-sub .circle1 {
   background-color: var(--ion-color-primary);
   width: 20px;
   height: 20px;
@@ -183,7 +140,7 @@
   vertical-align: middle;
   line-height: 150px;
 }
-.graph-sub .circlel-plan {
+.donut-sub .circlel-plan {
   background-color: var(--ion-color-monitor-warning);
   width: 20px;
   height: 20px;
@@ -194,7 +151,7 @@
   vertical-align: middle;
   line-height: 150px;
 }
-.graph-sub .circlel-per {
+.donut-sub .circlel-per {
   background-color: var(--ion-color-primary);
   width: 20px;
   height: 20px;
@@ -205,7 +162,7 @@
   vertical-align: middle;
   line-height: 150px;
 }
-.graph-sub .sub-graph {
+.donut-sub .sub-graph {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -231,7 +188,7 @@
 .risk-type-name {
   margin-left: 15px;
   text-align: left;
-  font-size: var(--font-size-h4);
+  font-size: 16px;
   color: var(--ion-color-secondary-contrast);
 }
 
@@ -254,15 +211,6 @@ app-card:last-child {
   --padding-end: 12px!important;
 }
 
-.graph-row-today-work {
-  height: 100%;
-}
-.graph-row-today-work .col-today-work {
-  height: calc(100% - 140px);
-  max-height: 500px;
-  bottom: -16px;
-}
-
 .blinder {
   position: absolute;
   width: 100%;
@@ -272,69 +220,6 @@ app-card:last-child {
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-h2);
-}
-
-.graph-area {
-  height: 100%;
-  width: 100%;
-}
-.graph-area .graph-wrap {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-}
-.graph-area .graph-wrap .graph-line-wrap {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column-reverse;
-}
-.graph-area .graph-wrap .bar-flex-box {
-  display: flex;
-  top: 0;
-  position: absolute;
-  height: calc(100% + 49px);
-  width: 100%;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-flex-theme {
-  flex: 0 30px;
-  width: 30px;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .bar {
-  width: 36px;
-  background: var(--ion-color-primary);
-  position: relative;
-  cursor: pointer;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .bar .bar-inner-text {
-  position: absolute;
-  top: -20px;
-  width: 100%;
-  text-align: center;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item .text {
-  height: 50px;
-  padding-top: 26px;
-  font-size: var(--font-size-h6);
-  transform: rotate(-45deg);
-  white-space: nowrap;
-}
-.graph-area .graph-wrap .bar-flex-box .bar-wrap .bar-item.theme {
-  width: 26px;
 }
 
 .graph-line-box {
@@ -364,43 +249,12 @@ app-card:last-child {
   top: -10px;
 }
 
-@media screen and (max-width: 1350px) {
-  app-row {
-    flex-direction: column !important;
-  }
-  app-row app-col {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .border-box {
-    border-right: none;
-  }
-
-  .table-text h5 {
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  .graph-row-today-work {
-    height: 300px;
-  }
-  .graph-row-today-work .col-today-work {
-    height: 215px;
-    max-height: 500px;
-  }
-
-  .bar-item {
-    width: 30px;
-  }
-
-  .bar-flex-box .bar-flex-theme {
-    flex: 0 22px !important;
-    width: 22px !important;
-  }
+.worker-item {
+  align-items: center;
 }
+
 .worker-state {
-  height: 80px;
+  height: 70px;
   margin-right: 10px;
   border-radius: 2px;
 }

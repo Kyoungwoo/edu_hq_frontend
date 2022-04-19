@@ -11,7 +11,9 @@
         <app-select-option [value]="0">전체</app-select-option>
         <app-select-option *ngFor="let option of smart_option" [value]="option.ctgo_machine_serial_id">{{ option.text }}</app-select-option>
       </app-select>
-      <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
+      <app-select-contractor 
+      [project_id]="form.project_id" 
+      [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
         <app-img (click)="get()" name="search"></app-img>
       </app-input>

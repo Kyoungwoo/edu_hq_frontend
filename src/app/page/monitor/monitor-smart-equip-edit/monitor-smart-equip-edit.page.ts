@@ -69,14 +69,21 @@ export class MonitorSmartEquipEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getForm();
     this.get()
+  }
+
+  getForm() {
+    const { belong_data } = this.user.userData;
+    this.form.project_id = belong_data.project_id;
+    this.form.master_company_id = belong_data.master_company_id;
   }
   
   /**
    * @function get(): 개별현장 스마트 장비 리스트를 불러오는 메서드
    */
   async get() {
-    this.res = await this.connect.run('/integrated/smart_equip_list',this.form);
+    this.res = await this.connect.run('/integrated/smart_equip_list', this.form);
     if(this.res.rsCode === 0) {
       let total = 0;
       let using_total = 0;
@@ -91,7 +98,11 @@ export class MonitorSmartEquipEditPage implements OnInit {
 
       this.total_count = total;
       this.using_total_count = using_total;
-    } else {
+    } 
+    else if(this.res.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }

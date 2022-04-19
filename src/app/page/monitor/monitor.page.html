@@ -2,12 +2,13 @@
 
 <ion-content>
 
-  <div *ngIf="data.monitor === '통합관제'">
-    <app-row style="align-items: flex-start;">
+  <div *ngIf="data.monitor === '통합관제'" class="container">
+    <app-row class="mobileBreak">
       <app-col>
-        <app-card color="white">
-          <app-row style="align-items: stretch;">
-            <app-col class="border-box donut-group">
+        <app-row class="mobileBreak">
+          <app-col>
+
+            <app-card color="white" class="graph-card">
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
@@ -25,49 +26,44 @@
                   </app-col>
                 </app-row>
               </ion-toolbar>
-              <ion-row class="graph-row-today-work">
-                <ion-col class="col-today-work">
-                  <!-- <div *ngIf="!todayWork_totalCount" class="blinder">데이터가 없습니다.</div> -->
+              <div class="graph-area">
+                <div class="graph-line-wrap">
+                  <div *ngFor="let item of todayWork_graphLine" class="graph-line-box">
+                    <div class="graph-text">
+                      <div class="div-text-g">{{ item }}</div>
+                    </div>
+                    <div class="graph-line"></div>
+                  </div>
+                </div>
+                <div class="graph-line-box">
+                  <div class="graph-text">
+                    <div class="div-text-g">0</div>
+                  </div>
+                  <div class="graph-line"></div>
+                </div>
 
-                  <div class="graph-area">
-                    <div class="graph-wrap">
-                      <div class="graph-line-wrap">
-                        <div *ngFor="let item of todayWork_graphLine" class="graph-line-box">
-                          <div class="graph-text">
-                            <div class="div-text-g">{{ item }}</div>
-                          </div>
-                          <div class="graph-line"></div>
-                        </div>
+                <div class="bar-flex-box">
+
+                  <div class="bar-flex-theme"></div>
+                  <div class="bar-wrap">
+                    <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
+                      <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker"
+                        class="bar"
+                        [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
+                        <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
                       </div>
-                      <div class="graph-line-box">
-                        <div class="graph-text">
-                          <div class="div-text-g">0</div>
-                        </div>
-                        <div class="graph-line"></div>
-                      </div>
-
-                      <div class="bar-flex-box">
-
-                        <div class="bar-flex-theme"></div>
-                        <div class="bar-wrap">
-                          <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                            <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker"
-                              class="bar"
-                              [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
-                              <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
-                            </div>
-                            <div class="text">{{ item.work_date }}</div>
-                          </div>
-                        </div>
-                      </div>
-
+                      <div class="text">{{ item.work_date }}</div>
                     </div>
                   </div>
+                </div>
 
-                </ion-col>
-              </ion-row>
-            </app-col>
-            <app-col class="donut-group">
+              </div>
+            </app-card>
+
+          </app-col>
+          <app-col>
+
+            <app-card class="graph-card">
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
@@ -79,9 +75,9 @@
                 </app-row>
               </ion-toolbar>
               <app-row>
-                <app-col style="position: relative;" size="7">
-                  <div style="width: 75%; position: relative;">
-                    <svg class="donut-group" width="78%" height="78%" viewBox="0 0 42 42" style="margin-left: 30px;">
+                <app-col size="auto">
+                  <div class="donut-group">
+                    <svg class="donut" viewBox="0 0 42 42">
                       <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
                       <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFC876"
                         stroke-width="6">
@@ -97,7 +93,7 @@
                     </div>
                   </div>
                 </app-col>
-                <app-col class="graph-sub" size="4">
+                <app-col class="donut-sub">
                   <app-row style="justify-content: flex-end;">
                     <app-col size="auto" style="display: flex; align-items: center;">
                       <div class="circlel-plan"></div>
@@ -114,292 +110,91 @@
                   </app-row>
                 </app-col>
               </app-row>
-            </app-col>
-            <!-- <app-col class="donut-group">
-            <app-row>
-              <app-col class="donut-group">
-                <app-row>
-                  <app-col>
-                    <h4>공종별 출역 현황</h4>
-                  </app-col>
-                  <app-col size="auto">
-                    <ion-chip class="chip-back">총 113명</ion-chip>
-                  </app-col>
-                </app-row>
-                <app-row *ngFor="let item of graphArr4 let i = index">
-                  <app-col size="auto" class="risk-type-name">{{ item.name }}</app-col>
-                  <app-col style="display: flex; align-items: center;">
-                    <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                      [style.width]="item.count + '%'"></div>
-                    <h4>{{item.count}}</h4>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </app-row>
-          </app-col> -->
+            </app-card>
 
-
-            <!-- <app-col class="donut-group">
-            <ion-row>
-              <app-col>
-                <h4>작업자 상태</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 100명</ion-chip>
-              </app-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <app-graph-line style="width: 100%; height: 200px;">
-                  <app-graph-group [color]="graphItem.color" [name]="graphItem.name" *ngFor="let graphItem of graph">
-                    <app-graph-value *ngFor="let graphData of graphItem.data" [label]="graphData.label"
-                      [value]="graphData.value"></app-graph-value>
-                  </app-graph-group>
-                </app-graph-line>
-              </ion-col>
-              <app-col class="graph-sub" size="4">
-                <app-row>
-                  <app-col style="display: flex;">
-                    <p class="count-name">작업대기</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="position: relative;">
-                  <div class="dount-partner"></div>
-                  <div class="dount-partner-sub"></div>
-                </app-row>
-                <app-row>
-                  <app-col style="display: flex;">
-                    <p class="count-name">작업중</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="position: relative;">
-                  <div class="dount-partner"></div>
-                  <div class="dount-partner-sub"></div>
-                </app-row>
-                <app-row>
-                  <app-col style="display: flex;">
-                    <p class="count-name">작업종료</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row style="position: relative;">
-                  <div class="dount-partner"></div>
-                  <div class="dount-partner-sub"></div>
-                </app-row>
-              </app-col>
-            </ion-row>
-          </app-col> -->
-          </app-row>
-        </app-card>
-
-        <app-card color="white">
-          <app-row style="align-items: stretch;">
-            <app-col class="donut-group">
-              <!-- <div class="blinder">데이터가 없습니다.</div> -->
-              <app-row>
-                <app-col class="donut-group">
-                  <ion-toolbar slot="top" color="white">
-                    <app-row>
-                      <app-col>
-                        <h4>공종별 출역 작업자</h4>
-                      </app-col>
-                      <app-col size="auto">
-                        <ion-badge color="medium">총<b>{{ todayConstruction_totalCount }}</b>명</ion-badge>
-                      </app-col>
-                    </app-row>
-                  </ion-toolbar>
-                  <ion-row *ngFor="let item of todayConstruction?.rsMap">
-                    <app-col size="2" class="risk-type-name">{{ item.ctgo_construction_name }}</app-col>
-                    <app-col style="display: flex; align-items: center;">
-                      <div *ngIf="item.cnt"
-                        style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                        [style.width]="'calc((100% - 50.55px) * '+(item.cnt/todayConstruction_ceil_Total)+')'"></div>
-                      <h4 *ngIf="item.cnt" style="width: 36px;">{{item.cnt}}</h4>
-                    </app-col>
-                  </ion-row>
-                </app-col>
-              </app-row>
-            </app-col>
-
-            <app-col class="middle-box donut-group">
-              <app-row>
-                <app-col class="donut-group">
-                  <ion-toolbar slot="top" color="white">
-                    <app-row>
-                      <app-col>
-                        <h4>작업자 상태</h4>
-                      </app-col>
-                      <app-col size="auto">
-                        <ion-badge color="medium">총<b>80</b>명</ion-badge>
-                      </app-col>
-                    </app-row>
-                  </ion-toolbar>
-                  <ion-row *ngFor="let item of graphArr3 let i = index">
-                    <app-col size="2" class="risk-type-name">{{ item.name }}</app-col>
-                    <app-col style="display: flex; align-items: center;">
-                      <div [ngStyle]="style(item)" class="worker-state" [style.width]="item.count + '%'"></div>
-                      <h4>{{item.count}}</h4>
-                    </app-col>
-                  </ion-row>
-                </app-col>
-              </app-row>
-            </app-col>
-
-            <app-col class="donut-group">
-              <app-row>
-                <app-col class="donut-group">
-                  <ion-toolbar slot="top" color="white">
-                    <app-row>
-                      <app-col>
-                        <h4>위험공종별 작업 계획</h4>
-                      </app-col>
-                      <app-col size="auto">
-                        <ion-badge color="medium">총<b>70</b>명</ion-badge>
-                      </app-col>
-                    </app-row>
-                  </ion-toolbar>
-                  <ion-row *ngFor="let item of graphArr4 let i = index">
-                    <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
-                    <app-col style="display: flex; align-items: center;">
-                      <div [ngStyle]="style(item)" class="danger-state" [style.width]="item.count + '%'"></div>
-                      <h4>{{item.count}}</h4>
-                    </app-col>
-                  </ion-row>
-                </app-col>
-              </app-row>
-            </app-col>
-          </app-row>
-        </app-card>
-
-        <!-- <app-card>
-        <app-row style="align-items: stretch;">
-          <app-col class="donut-group">
-            <app-row>
-              <app-col>
-                <h4>부적합 관리</h4>
-              </app-col>
-              <app-col></app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 33명</ion-chip>
-              </app-col>
-            </app-row>
-            <app-row>
-              <app-col style="position: relative;" size="7">
-                <div style="width: 100%; position: relative;">
-                  <svg class="donut-group" width="100%" height="100%" viewBox="0 0 42 42">
-                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff9041" stroke-width="6"
-                      stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44C650" stroke-width="6"
-                      stroke-dasharray="20 80" stroke-dashoffset="75"></circle>
-                    <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2F8D38" stroke-width="6"
-                      stroke-dasharray="30 70" stroke-dashoffset="55"></circle>
-                  </svg>
-                  <div class="donut-in-count">
-                    33
-                  </div>
-                  <div class="donut-in-text">
-                    총 부적합
-                  </div>
-                </div>
-              </app-col>
-              <app-col class="graph-sub" size="4">
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-plan"></div>
-                    <p class="count-name">부적합 발생</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-per"></div>
-                    <p class="count-name">조치권고</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col size="auto" style="display: flex; align-items: center;">
-                    <div class="circlel-per"></div>
-                    <p class="count-name">조치완료</p>
-                  </app-col>
-                  <app-col size="auto">
-                    <p class="count-contant">50</p>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </app-row>
-          </app-col>
-          <app-col class="middle-box donut-group">
-            <ion-row>
-              <app-col>
-                <h4>위험등급별 작업 현황</h4>
-              </app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 113명</ion-chip>
-              </app-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <div style="position: relative;">
-                  <ng-container *ngFor="let item of graphArrCount let i = index">
-                    <div class="graph-box">
-                      <div class="graph-count">{{ (graphArrCount.length - (i+1)) * 100}}</div>
-                      <div class="grach-line"></div>
-                    </div>
-                  </ng-container>
-                </div>
-                <div class="graph-rod-group">
-                  <ng-container *ngFor="let item of graphArr3 let i = index">
-                    <div class="graph-rod-main-2">
-                      <div class="graph-rod-tow-risk" [style]="'height:'+item.count/2+'px;'"></div>
-                      <div class="risk-name">{{ item.name }}
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </ion-col>
-            </ion-row>
-          </app-col>
-          <app-col class="middle-box donut-group">
-            <app-row>
-              <app-col>
-                <h4>위험유혈별 작업 현황</h4>
-              </app-col>
-              <app-col size="auto">
-                <ion-chip class="chip-back">총 113명</ion-chip>
-              </app-col>
-            </app-row>
-            <app-row *ngFor="let item of graphArr4 let i = index">
-              <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
-              <app-col style="display: flex; align-items: center;">
-                <div class="" style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
-                  [style.width]="item.count + '%'"></div>
-                <h4>{{item.count}}</h4>
-              </app-col>
-            </app-row>
           </app-col>
         </app-row>
-      </app-card> -->
+        
+        <app-row class="mobileBreak">
+          <app-col>
+
+            <app-card class="graph-card">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>공종별 출역 작업자</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-badge color="medium">총<b>{{ todayConstruction_totalCount }}</b>명</ion-badge>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <ion-row *ngFor="let item of todayConstruction?.rsMap">
+                <app-col size="2" class="risk-type-name">{{ item.ctgo_construction_name }}</app-col>
+                <app-col style="display: flex; align-items: center;">
+                  <div *ngIf="item.cnt"
+                    style="height: 10px; background-color: red; margin-right: 10px; border-radius: 5px;"
+                    [style.width]="'calc((100% - 50.55px) * '+(item.cnt/todayConstruction_ceil_Total)+')'"></div>
+                  <h4 *ngIf="item.cnt" style="width: 36px;">{{item.cnt}}</h4>
+                </app-col>
+              </ion-row>
+            </app-card>
+
+          </app-col>
+          <app-col>
+
+            <app-card class="graph-card">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>작업자 상태</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-badge color="medium">총<b>80</b>명</ion-badge>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <ion-row *ngFor="let item of graphArr3 let i = index" class="worker-item">
+                <app-col size="78px" class="risk-type-name">{{ item.name }}</app-col>
+                <app-col style="display: flex; align-items: center;">
+                  <div [ngStyle]="style(item)" class="worker-state" [style.width]="item.count + '%'"></div>
+                  <h4>{{item.count}}</h4>
+                </app-col>
+              </ion-row>
+            </app-card>
+            
+          </app-col>
+
+          <app-col>
+
+            <app-card class="graph-card">
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>위험공종별 작업 계획</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <ion-badge color="medium">총<b>70</b>명</ion-badge>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <ion-row *ngFor="let item of graphArr4 let i = index">
+                <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
+                <app-col style="display: flex; align-items: center;">
+                  <div [ngStyle]="style(item)" class="danger-state" [style.width]="item.count + '%'"></div>
+                  <h4>{{item.count}}</h4>
+                </app-col>
+              </ion-row>
+            </app-card>
+
+          </app-col>
+        </app-row>
       </app-col>
 
       <app-col style="flex: 0 0 300px;">
         <app-card color="white">
           <ion-toolbar class="toolbar-padding" slot="top" color="white">
-            <app-row style="justify-content: space-between;">
+            <app-row style="align-items: center; justify-content: space-between;">
               <app-col>
                 <h4>스마트 안전 장비</h4>
               </app-col>
@@ -522,7 +317,7 @@
     </app-row>
   </div>
 
-  <div *ngIf="data.monitor === 'CCTV 모니터링'">
+  <div *ngIf="data.monitor === 'CCTV 모니터링'" class="container">
 
     <app-card>
       <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>

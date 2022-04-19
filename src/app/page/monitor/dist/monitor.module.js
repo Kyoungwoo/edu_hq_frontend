@@ -16,6 +16,7 @@ var monitor_routing_module_1 = require("./monitor-routing.module");
 var monitor_page_1 = require("./monitor.page");
 var component_module_1 = require("src/app/component/component.module");
 var monitor_worker_location_module_1 = require("./monitor-worker-location/monitor-worker-location.module");
+var today_departure_status_list_module_1 = require("../work-management/departure-status/today-departure-status-list/today-departure-status-list.module");
 var MonitorPageModule = /** @class */ (function () {
     function MonitorPageModule() {
     }
@@ -28,7 +29,8 @@ var MonitorPageModule = /** @class */ (function () {
                 component_module_1.ComponentModule,
                 monitor_routing_module_1.MonitorPageRoutingModule,
                 monitor_worker_location_module_1.MonitorWorkerLocationPageModule,
-                monitor_smart_equip_edit_module_1.MonitorSmartEquipEditPageModule
+                monitor_smart_equip_edit_module_1.MonitorSmartEquipEditPageModule,
+                today_departure_status_list_module_1.TodayDepartureStatusListPageModule
             ],
             declarations: [monitor_page_1.MonitorPage]
         })

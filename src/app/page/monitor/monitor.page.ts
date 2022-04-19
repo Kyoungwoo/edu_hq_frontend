@@ -201,7 +201,7 @@ export class MonitorPage implements OnInit, OnDestroy {
    * @function getTodayWorker(): 금일 출역 작업자 데이터를 가져오는 메서드
    */
   async getTodayWorker() {
-    const res = await this.connect.run('/integrated/today_worker',this.form,{});
+    const res = await this.connect.run('/integrated/today_worker', this.form, {});
     switch(res.rsCode) {
       case 0 :
         let total = 0;

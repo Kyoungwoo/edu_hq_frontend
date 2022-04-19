@@ -10,6 +10,7 @@ import { MonitorPageRoutingModule } from './monitor-routing.module';
 import { MonitorPage } from './monitor.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { MonitorWorkerLocationPageModule } from './monitor-worker-location/monitor-worker-location.module';
+import { TodayDepartureStatusListPageModule } from '../work-management/departure-status/today-departure-status-list/today-departure-status-list.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { MonitorWorkerLocationPageModule } from './monitor-worker-location/monit
     ComponentModule,
     MonitorPageRoutingModule,
     MonitorWorkerLocationPageModule,
-    MonitorSmartEquipEditPageModule
+    MonitorSmartEquipEditPageModule,
+    TodayDepartureStatusListPageModule
   ],
   declarations: [MonitorPage]
 })
