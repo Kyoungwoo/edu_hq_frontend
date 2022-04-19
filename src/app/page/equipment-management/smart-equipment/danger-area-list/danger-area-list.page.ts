@@ -360,6 +360,12 @@ export class DangerAreaListPage implements OnInit {
    * @returns resolve(true)
    */
   async SmartSaveMethod(item, type: 'insert' | 'update'){
+    if(!item.area_top_id) item.area_middle_id = null;
+    if(!item.area_middle_id) item.area_middle_id = null;
+    if(!item.area_bottom_id) item.area_bottom_id = null;
+    if(!item.area_risk_id) item.area_risk_id = null;
+
+    console.log('area item - ', item);
     return new Promise(async(resolve, reject) => {
       const res = await this.connect.run('/device/'+type, item);
       if (res.rsCode === 0) {

@@ -31,7 +31,10 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
     private _modal:ModalController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('헤비 1 : ',this.master_company_id);
+    console.log('헤비 2 : ',this.project_id);
+  }
 
   async heavy(){
     const modal = await this._modal.create({
