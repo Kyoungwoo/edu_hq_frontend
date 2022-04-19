@@ -4,7 +4,7 @@
   <div class="container">
     <app-row style="min-height: 724px; align-items: flex-start;" class="mobileBreak">
       <app-col class="contaienr-left-col">
-        <app-card>
+        <app-card style="height: 627px;">
           <app-row>
             <app-col>
               <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="지역본부" [(ngModel)]="form.hq_regional_id">
@@ -298,7 +298,7 @@
           
           
             <app-row>
-              <app-col size="auto" style="margin-left: 110px;">
+              <app-col size="auto" style="margin-left: 98px;">
                 <app-button color="secondary"  (click)="router('마이페이지')">마이페이지</app-button>
               </app-col>
               <app-col>
