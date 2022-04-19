@@ -634,8 +634,8 @@
     </ng-container>
   </div>
 
-  <div *ngIf="data.monitor === '근로자 실시간 위치 모니터링'">
-    <app-monitor-worker-location 
+  <div *ngIf="data.monitor === '근로자 실시간 위치 모니터링'" style="height: 100%">
+    <app-monitor-worker-location style="height: 100%"
     [project_id]="form.project_id"
     [master_company_id]="form.master_company_id"></app-monitor-worker-location>
   </div>

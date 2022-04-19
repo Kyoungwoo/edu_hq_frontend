@@ -7,8 +7,6 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
-import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
-import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
 import { Subscription } from 'rxjs';
 
 /**
@@ -318,13 +316,6 @@ export class MonitorPage implements OnInit, OnDestroy {
       }
     });
 
-    modal.present();
-  }
-
-  async realtimeedit() {
-    const modal = await this.modal.create({
-      component: MonitorRealtimeLocationPage
-    });
     modal.present();
   }
 

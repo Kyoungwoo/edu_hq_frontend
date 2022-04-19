@@ -1,4 +1,4 @@
-<app-row style="align-items: flex-start;">
+<app-row style="align-items: stretch; height: 100%;" *mobileHidden>
 
   <app-col size="200px">
     
@@ -50,7 +50,7 @@
 
   <app-col>
 
-    <app-naver-user-map [(ngModel)]="gpsData"></app-naver-user-map>
+    <app-naver-user-map style="height: 100%" [(ngModel)]="gpsData"></app-naver-user-map>
 
   </app-col>
 
@@ -81,3 +81,5 @@
   </app-col>
 
 </app-row>
+
+<app-naver-user-map style="height: 100%" [(ngModel)]="gpsData" *mobileShow></app-naver-user-map>

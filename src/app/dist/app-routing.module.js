@@ -589,16 +589,16 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/sos-popup/sos-popup.module'); }).then(function (m) { return m.SosPopupPageModule; }); }
     },
     {
-        path: 'monitor-realtime-location',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page//monitor/monitor-realtime-location/monitor-realtime-location.module'); }).then(function (m) { return m.MonitorRealtimeLocationPageModule; }); }
-    },
-    {
         path: 'risk-pending-list',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/risk-assessment/risk-pending-list/risk-pending-list.module'); }).then(function (m) { return m.RiskPendingListPageModule; }); }
     },
     {
         path: 'worker-minutes-pending-list',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-pending-list/worker-minutes-pending-list.module'); }).then(function (m) { return m.WorkerMinutesPendingListPageModule; }); }
+    },
+    {
+        path: 'heavy-qr-data',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.module'); }).then(function (m) { return m.HeavyQrDataPageModule; }); }
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

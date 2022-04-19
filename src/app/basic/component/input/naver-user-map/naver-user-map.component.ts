@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
 import { NaverMapId } from '../naver-map/naver-map.component';
@@ -44,7 +45,8 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     @Inject(NaverMapId) private naverMapId: string,
     private file: FileService,
     private el: ElementRef,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private _modal: ModalController
   ) { }
 
   ngOnInit() {
@@ -123,7 +125,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       const addressArr = await this.getAddress(coord);
 
       const data = res.rsObj;
-        infoEl = `
+      infoEl = `
         <div style="padding: 8px;">
           <h5 style="margin-top: 0; text-align: center;">${data.user_name}</h5>
           
@@ -150,20 +152,33 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
           <h6 style="margin-top: 8px; margin-bottom: 0;">주소</h6>
           <p style="margin-top: 0; margin-bottom: 0; font-size: 11px;">${addressArr.join('\n')}</p>
         </div>
-        `;
+      `;
+
+      let infowindow = new naver.maps.InfoWindow({
+        content: infoEl,
+        maxWidth: 300
+      });
+      naver.maps.Event.addListener(this.marker[i], 'click', async(e) => {
+        if (infowindow.getMap()) {
+          infowindow.close();
+        } else {
+          infowindow.open(this.map, this.marker[i]);
+          /* if(window.innerWidth < 768) {
+            const modal = await this._modal.create({
+              component: NaverUserMapComponent,
+              componentProps: {
+                data, addressArr
+              }
+            });
+            modal.present();
+          }
+          else {
+            
+          } */
+        }
+      });
     }
 
-    let infowindow = new naver.maps.InfoWindow({
-      content: infoEl,
-      maxWidth: 300
-    });
-    naver.maps.Event.addListener(this.marker[i], 'click', (e) => {
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(this.map, this.marker[i]);
-      }
-    });
   }
 
   private async parseData(v) {

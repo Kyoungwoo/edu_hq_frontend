@@ -46,7 +46,6 @@ exports.MonitorPage = exports.SmartEquip = exports.TodayConstructionItem = expor
 var today_departure_status_list_page_1 = require("./../work-management/departure-status/today-departure-status-list/today-departure-status-list.page");
 var monitor_smart_equip_edit_page_1 = require("./monitor-smart-equip-edit/monitor-smart-equip-edit.page");
 var core_1 = require("@angular/core");
-var monitor_realtime_location_page_1 = require("./monitor-realtime-location/monitor-realtime-location.page");
 /**
  * @class TodayConstructionItem
  *  - 금일 출역 근로자 변수 class
@@ -359,22 +358,6 @@ var MonitorPage = /** @class */ (function () {
                                     item: trnas_item
                                 }
                             })];
-                    case 1:
-                        modal = _a.sent();
-                        modal.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MonitorPage.prototype.realtimeedit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var modal;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modal.create({
-                            component: monitor_realtime_location_page_1.MonitorRealtimeLocationPage
-                        })];
                     case 1:
                         modal = _a.sent();
                         modal.present();

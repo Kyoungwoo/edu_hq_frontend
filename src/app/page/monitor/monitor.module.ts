@@ -9,8 +9,6 @@ import { MonitorPageRoutingModule } from './monitor-routing.module';
 
 import { MonitorPage } from './monitor.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { MonitorRealtimeLocationPage } from './monitor-realtime-location/monitor-realtime-location.page';
-import { MonitorRealtimeLocationPageModule } from './monitor-realtime-location/monitor-realtime-location.module';
 import { MonitorWorkerLocationPageModule } from './monitor-worker-location/monitor-worker-location.module';
 
 @NgModule({
@@ -21,8 +19,7 @@ import { MonitorWorkerLocationPageModule } from './monitor-worker-location/monit
     ComponentModule,
     MonitorPageRoutingModule,
     MonitorWorkerLocationPageModule,
-    MonitorSmartEquipEditPageModule,
-    MonitorRealtimeLocationPageModule,
+    MonitorSmartEquipEditPageModule
   ],
   declarations: [MonitorPage]
 })

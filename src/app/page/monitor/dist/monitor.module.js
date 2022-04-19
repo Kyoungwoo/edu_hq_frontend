@@ -15,7 +15,6 @@ var angular_1 = require("@ionic/angular");
 var monitor_routing_module_1 = require("./monitor-routing.module");
 var monitor_page_1 = require("./monitor.page");
 var component_module_1 = require("src/app/component/component.module");
-var monitor_realtime_location_module_1 = require("./monitor-realtime-location/monitor-realtime-location.module");
 var monitor_worker_location_module_1 = require("./monitor-worker-location/monitor-worker-location.module");
 var MonitorPageModule = /** @class */ (function () {
     function MonitorPageModule() {
@@ -29,8 +28,7 @@ var MonitorPageModule = /** @class */ (function () {
                 component_module_1.ComponentModule,
                 monitor_routing_module_1.MonitorPageRoutingModule,
                 monitor_worker_location_module_1.MonitorWorkerLocationPageModule,
-                monitor_smart_equip_edit_module_1.MonitorSmartEquipEditPageModule,
-                monitor_realtime_location_module_1.MonitorRealtimeLocationPageModule,
+                monitor_smart_equip_edit_module_1.MonitorSmartEquipEditPageModule
             ],
             declarations: [monitor_page_1.MonitorPage]
         })

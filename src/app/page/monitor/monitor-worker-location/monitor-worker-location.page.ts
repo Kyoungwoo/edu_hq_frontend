@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
 
@@ -39,13 +38,28 @@ export class MonitorWorkerLocationPage implements OnInit {
     row_count:number
   }>;
 
+  /* event = {
+    resize: null
+  }
+  mapSize = {
+    height: 0
+  } */
+
   constructor(
+    private el: ElementRef,
     private connect: ConnectService
   ) { }
 
   ngOnInit() {
     this.get();
   }
+  /* ngAfterViewInit() {
+    this.event.resize = this.resizeEvent.bind(this);
+    window.addEventListener('resize', this.event.resize);
+  }
+  resizeEvent() {
+    const el = this.el.nativeElement.getElementsByClassName('inner-scroll')[0];
+  } */
 
   get() {
     this.getGps();

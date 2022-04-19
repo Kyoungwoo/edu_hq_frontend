@@ -581,10 +581,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/main/user/sos-popup/sos-popup.module').then( m => m.SosPopupPageModule)
   },
   {
-    path: 'monitor-realtime-location',
-    loadChildren: () => import('./page//monitor/monitor-realtime-location/monitor-realtime-location.module').then( m => m.MonitorRealtimeLocationPageModule)
-  },
-  {
     path: 'risk-pending-list',
     loadChildren: () => import('./page/work-plan/risk-assessment/risk-pending-list/risk-pending-list.module').then( m => m.RiskPendingListPageModule)
   },

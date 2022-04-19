@@ -45,7 +45,14 @@ exports.__esModule = true;
 exports.MonitorWorkerLocationPage = void 0;
 var core_1 = require("@angular/core");
 var MonitorWorkerLocationPage = /** @class */ (function () {
-    function MonitorWorkerLocationPage(connect) {
+    /* event = {
+      resize: null
+    }
+    mapSize = {
+      height: 0
+    } */
+    function MonitorWorkerLocationPage(el, connect) {
+        this.el = el;
         this.connect = connect;
         this.form = {
             company_id: 0,
@@ -74,6 +81,13 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
     MonitorWorkerLocationPage.prototype.ngOnInit = function () {
         this.get();
     };
+    /* ngAfterViewInit() {
+      this.event.resize = this.resizeEvent.bind(this);
+      window.addEventListener('resize', this.event.resize);
+    }
+    resizeEvent() {
+      const el = this.el.nativeElement.getElementsByClassName('inner-scroll')[0];
+    } */
     MonitorWorkerLocationPage.prototype.get = function () {
         this.getGps();
         this.wokerInGetList();

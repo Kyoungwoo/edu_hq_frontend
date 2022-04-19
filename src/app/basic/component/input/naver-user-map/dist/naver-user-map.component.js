@@ -56,11 +56,12 @@ var userData = /** @class */ (function () {
 }());
 exports.userData = userData;
 var NaverUserMapComponent = /** @class */ (function () {
-    function NaverUserMapComponent(naverMapId, file, el, connect) {
+    function NaverUserMapComponent(naverMapId, file, el, connect, _modal) {
         this.naverMapId = naverMapId;
         this.file = file;
         this.el = el;
         this.connect = connect;
+        this._modal = _modal;
         this.id = "naver-map-" + Math.random().toString().replace('.', '') + Math.random().toString().replace('.', '');
         this.marker = [];
         this.isAfterInit = false;
@@ -132,7 +133,7 @@ var NaverUserMapComponent = /** @class */ (function () {
     NaverUserMapComponent.prototype.userMarker = function (coord, item, i) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var marker, infoEl, res, addressArr, data, infowindow;
+            var marker, infoEl, res, addressArr, data, infowindow_1;
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -159,22 +160,36 @@ var NaverUserMapComponent = /** @class */ (function () {
                     case 2:
                         addressArr = _b.sent();
                         data = res.rsObj;
-                        infoEl = "\n        <div style=\"padding: 8px;\">\n          <h5 style=\"margin-top: 0; text-align: center;\">" + data.user_name + "</h5>\n          \n          <h6 style=\"margin-top: 0; margin-bottom: 0;\">\uD68C\uC0AC</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.company_name + "</p>\n\n          " + (data.area_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC7A5\uC18C</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + (data.area_name || '-') + "</p>\n            " : '') + "\n\n          " + (data.area_risk_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC704\uD5D8\uC9C0\uC5ED \uBA85</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.area_risk_name + "</p>\n            " : '') + "\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC548\uC804\uC9C1\uBB34</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + (((_a = data.safe_job_name) === null || _a === void 0 ? void 0 : _a.join('\n')) || '없음') + "</p>\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC8FC\uC18C</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0; font-size: 11px;\">" + addressArr.join('\n') + "</p>\n        </div>\n        ";
-                        _b.label = 3;
-                    case 3:
-                        infowindow = new naver.maps.InfoWindow({
+                        infoEl = "\n        <div style=\"padding: 8px;\">\n          <h5 style=\"margin-top: 0; text-align: center;\">" + data.user_name + "</h5>\n          \n          <h6 style=\"margin-top: 0; margin-bottom: 0;\">\uD68C\uC0AC</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.company_name + "</p>\n\n          " + (data.area_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC7A5\uC18C</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + (data.area_name || '-') + "</p>\n            " : '') + "\n\n          " + (data.area_risk_name ? "\n              <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC704\uD5D8\uC9C0\uC5ED \uBA85</h6>\n              <p style=\"margin-top: 0; margin-bottom: 0;\">" + data.area_risk_name + "</p>\n            " : '') + "\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC548\uC804\uC9C1\uBB34</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0;\">" + (((_a = data.safe_job_name) === null || _a === void 0 ? void 0 : _a.join('\n')) || '없음') + "</p>\n\n          <h6 style=\"margin-top: 8px; margin-bottom: 0;\">\uC8FC\uC18C</h6>\n          <p style=\"margin-top: 0; margin-bottom: 0; font-size: 11px;\">" + addressArr.join('\n') + "</p>\n        </div>\n      ";
+                        infowindow_1 = new naver.maps.InfoWindow({
                             content: infoEl,
                             maxWidth: 300
                         });
-                        naver.maps.Event.addListener(this.marker[i], 'click', function (e) {
-                            if (infowindow.getMap()) {
-                                infowindow.close();
-                            }
-                            else {
-                                infowindow.open(_this.map, _this.marker[i]);
-                            }
-                        });
-                        return [2 /*return*/];
+                        naver.maps.Event.addListener(this.marker[i], 'click', function (e) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                if (infowindow_1.getMap()) {
+                                    infowindow_1.close();
+                                }
+                                else {
+                                    infowindow_1.open(this.map, this.marker[i]);
+                                    /* if(window.innerWidth < 768) {
+                                      const modal = await this._modal.create({
+                                        component: NaverUserMapComponent,
+                                        componentProps: {
+                                          data, addressArr
+                                        }
+                                      });
+                                      modal.present();
+                                    }
+                                    else {
+                                      
+                                    } */
+                                }
+                                return [2 /*return*/];
+                            });
+                        }); });
+                        _b.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
