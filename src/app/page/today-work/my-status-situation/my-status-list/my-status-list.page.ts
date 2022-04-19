@@ -202,12 +202,12 @@ export class MyStatusListPage implements OnInit {
         this.nfcqrForm.nb_log_state = 'QR';
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode === 0) {
-            $qr.unsubscribe();
-            this.get();
-          }
-          else {
-            $qr.unsubscribe();
-            this.toast.present({message:res.rsMsg, color:'warning'});
+          $qr.unsubscribe();
+          this.get();
+        }
+        else {
+          $qr.unsubscribe();
+          this.toast.present({message:res.rsMsg, color:'warning'});
         }
       }
     });
