@@ -46,7 +46,42 @@ app-row {
         flex-direction: column-reverse;
     }
 
-    .bar-flex-box{
+    .graph-line-box {
+        flex: 1;
+        display: flex;
+        height: 100%;
+    
+        .graph-line{
+            position: relative;
+            height: 50px;
+            width: 100%; 
+            border-top: 1px solid var(--ion-color-medium);
+            height: 100%;
+        }
+        .graph-text{
+            // position: absolute;
+            // top: 40px;
+            // left: 3px;
+            // text-align: left;
+            // width: 25px;
+            // text-align: end;
+            flex: 0 24px;
+            text-align: right;
+            margin-right: 4px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: right;
+            position: relative;
+    
+            .div-text-g{
+                position: absolute;
+                position: absolute;
+                top: -10px;
+            }
+        }
+    }
+
+    .bar-flex-box {
         display: flex;
         top: 0;
         position: absolute;
@@ -98,7 +133,6 @@ app-row {
             }
         }
     }
-
 }
 
 .donut-group {
@@ -131,27 +165,7 @@ app-row {
     flex-direction: column;
     justify-content: center;
     margin-right: 8px;
-    .count-contant {
-        font-weight: 800;
-        color: var(--ion-color-medium);
-        font-size: var(--font-size-h4);
-    }
-    .sub-info {
-        display: flex; 
-        justify-content: center;
-    }
-    .circle1 {
-        background-color: var(--ion-color-primary);
-        width: 20px;
-        height: 20px;
-        border-radius: 75px;
-        text-align: center;
-        margin: 0 auto;
-        font-size: var(--font-size-h6);
-        vertical-align: middle;
-        line-height: 150px;
-    }
-    .circlel-plan{
+    .circle-plan {
         background-color:var(--ion-color-monitor-warning);
         width: 20px;
         height: 20px;
@@ -162,7 +176,7 @@ app-row {
         vertical-align: middle;
         line-height: 150px;
     }
-    .circlel-per{
+    .circle-per {
         background-color: var(--ion-color-primary);
         width: 20px;
         height: 20px;
@@ -173,27 +187,16 @@ app-row {
         vertical-align: middle;
         line-height: 150px;
     }
-    .sub-graph{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+    .count-name{
+        padding-left: 8px; 
+        font-size: var(--font-size-h4);
+        color: var(--ion-color-secondary-contrast);
     }
-}
-
-.table-text{
-    font-size: 18px;
-    color: var(--ion-color-primary-shade);
-    h5{
-        margin-top: 10px;
-        text-align: left;
+    .count-contant {
+        font-weight: 800;
+        color: var(--ion-color-medium);
+        font-size: var(--font-size-h4);
     }
-}
-.table-count{
-    width: 30px;
-    text-align: center;
-    font-size: var( --font-size-h3);
-    font-weight: 700;
-    color: var(--ion-color-secondary-contrast);
 }
 
 .risk-type-name {
@@ -201,75 +204,6 @@ app-row {
     text-align: left;
     font-size: 16px;
     color: var(--ion-color-secondary-contrast);
-}
-.count-name{
-    padding-left: 8px; 
-    font-size: var(--font-size-h4);
-    color: var(--ion-color-secondary-contrast);
-}
-
-app-card:last-child{
-    margin-bottom: var(--app-margin);
-}
-
-.smart-equip{
-    // padding: 12px 12px;
-
-    app-button{
-        min-height: 32px;
-    }
-}
-
-.toolbar-padding{
-    --padding-start: 12px!important;
-    --padding-end: 12px!important;
-}
-.blinder {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    // background: rgb(128 128 128 / 22%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-h2);
-}
-
-
-.graph-line-box {
-    flex: 1;
-    display: flex;
-    height: 100%;
-
-    .graph-line{
-        position: relative;
-        height: 50px;
-        width: 100%; 
-        border-top: 1px solid var(--ion-color-medium);
-        height: 100%;
-    }
-    .graph-text{
-        // position: absolute;
-        // top: 40px;
-        // left: 3px;
-        // text-align: left;
-        // width: 25px;
-        // text-align: end;
-        flex: 0 24px;
-        text-align: right;
-        margin-right: 4px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: right;
-        position: relative;
-
-        .div-text-g{
-            position: absolute;
-            position: absolute;
-            top: -10px;
-        }
-    }
 }
 
 .worker-item {
@@ -284,4 +218,18 @@ app-card:last-child{
     height: 10px; 
     margin-right: 10px;
     border-radius: 5px;
+}
+
+.toolbar-padding {
+    --padding-start: 12px !important;
+    --padding-end: 12px !important;
+}
+
+.table-text {
+    font-size: 18px;
+    color: var(--ion-color-primary-shade);
+    h5 {
+        margin-top: 10px;
+        text-align: left;
+    }
 }
