@@ -10,8 +10,12 @@ import { userData } from 'src/app/basic/component/input/naver-user-map/naver-use
 })
 export class MonitorWorkerLocationPage implements OnInit {
 
-  @Input() project_id:number;
-  @Input() master_company_id:number;
+  @Input() set project_id(v) {
+    this.form.project_id = v;
+  }
+  @Input() set master_company_id(v) {
+    this.form.master_company_id = v;
+  }
 
   form = {
     company_id: 0,
@@ -40,12 +44,11 @@ export class MonitorWorkerLocationPage implements OnInit {
 
 
   constructor(
-    private connect: ConnectService,
-
+    private connect: ConnectService
   ) { }
 
   ngOnInit() {
-    
+    this.get();
   }
 
   get() {

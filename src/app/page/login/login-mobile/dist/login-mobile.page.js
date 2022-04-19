@@ -261,6 +261,7 @@ var LoginMobilePage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        console.log(authToken);
                         this.user.setAuthToken(authToken, this.autoLogin);
                         return [4 /*yield*/, this.connect.run('/user/basic/get', {}, {
                                 parse: ['belong_data']

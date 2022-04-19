@@ -141,6 +141,7 @@ export class LoginMobilePage implements OnInit {
     }
   }
   private async getWorkerInfo(authToken:AuthToken, { animated }) {
+    console.log(authToken);
     this.user.setAuthToken(authToken, this.autoLogin);
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
