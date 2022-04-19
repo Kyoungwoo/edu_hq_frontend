@@ -62,7 +62,10 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
         this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
     }
     MonitorWorkerLocationPage.prototype.ngOnInit = function () {
+    };
+    MonitorWorkerLocationPage.prototype.get = function () {
         this.getGps();
+        this.wokerInGetList();
     };
     MonitorWorkerLocationPage.prototype.getGps = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -94,6 +97,12 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.Input()
+    ], MonitorWorkerLocationPage.prototype, "project_id");
+    __decorate([
+        core_1.Input()
+    ], MonitorWorkerLocationPage.prototype, "master_company_id");
     MonitorWorkerLocationPage = __decorate([
         core_1.Component({
             selector: 'app-monitor-worker-location',

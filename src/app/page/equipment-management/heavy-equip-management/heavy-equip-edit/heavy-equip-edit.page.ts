@@ -137,6 +137,7 @@ export class HeavyEquipEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
+            await this.TransFileData();
             const res = await this.connect.run('/machinery/insert', this.form, {});
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
@@ -220,23 +221,23 @@ export class HeavyEquipEditPage implements OnInit {
     // 초기화
     this.form.machinery_json.insert = [];
 
-    await this.form.plan_file.map(async(item) => { await this.form.machinery_file.push(item) });
-    await this.form.plan_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
-    await this.form.plan_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+    await this.form.plan_file.forEach(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.plan_json.insert.forEach(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.plan_json.delete.forEach(async(item) => { await this.form.machinery_json.delete.push(item) });
 
-    await this.form.regist_file.map(async(item) => { await this.form.machinery_file.push(item) });
-    await this.form.regist_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
-    await this.form.regist_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+    await this.form.regist_file.forEach(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.regist_json.insert.forEach(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.regist_json.delete.forEach(async(item) => { await this.form.machinery_json.delete.push(item) });
 
-    await this.form.rental_file.map(async(item) => { await this.form.machinery_file.push(item) });
-    await this.form.rental_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
-    await this.form.rental_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+    await this.form.rental_file.forEach(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.rental_json.insert.forEach(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.rental_json.delete.forEach(async(item) => { await this.form.machinery_json.delete.push(item) });
 
-    await this.form.etc_file.map(async(item) => { await this.form.machinery_file.push(item) });
-    await this.form.etc_json.insert.map(async(item) => { await this.form.machinery_json.insert.push(item) });
-    await this.form.etc_json.delete.map(async(item) => { await this.form.machinery_json.delete.push(item) });
+    await this.form.etc_file.forEach(async(item) => { await this.form.machinery_file.push(item) });
+    await this.form.etc_json.insert.forEach(async(item) => { await this.form.machinery_json.insert.push(item) });
+    await this.form.etc_json.delete.forEach(async(item) => { await this.form.machinery_json.delete.push(item) });
 
-    this.form.machinery_json.insert.map((item, index) => {item.order_no = index+1});
+    this.form.machinery_json.insert.forEach((item, index) => {item.order_no = index+1});
   }
 
   /**

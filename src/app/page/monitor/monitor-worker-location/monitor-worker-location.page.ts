@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { userData } from 'src/app/basic/component/input/naver-user-map/naver-user-map.component';
@@ -9,6 +9,9 @@ import { userData } from 'src/app/basic/component/input/naver-user-map/naver-use
   styleUrls: ['./monitor-worker-location.page.scss'],
 })
 export class MonitorWorkerLocationPage implements OnInit {
+
+  @Input() project_id:number;
+  @Input() master_company_id:number;
 
   form = {
     company_id: 0,
@@ -42,7 +45,12 @@ export class MonitorWorkerLocationPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+  }
+
+  get() {
     this.getGps();
+    this.wokerInGetList();
   }
 
   async getGps() {
