@@ -56,7 +56,7 @@ constructor(
       if(data?.state === 'QR_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계
-        
+        console.log('qr_data - ', data);
         switch(data?.item?.type){
           case 'WORK':
             return_state = await this.insert('/work_project/nfc_beacon/check_insup', {
