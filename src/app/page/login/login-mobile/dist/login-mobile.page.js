@@ -48,7 +48,7 @@ var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var environment_1 = require("src/environments/environment");
 var login_interface_1 = require("../login.interface");
 var LoginMobilePage = /** @class */ (function () {
-    function LoginMobilePage(el, connect, user, nav, promise, changeDetector, device, alert, psuh) {
+    function LoginMobilePage(el, connect, user, nav, promise, changeDetector, device, alert, push) {
         this.el = el;
         this.connect = connect;
         this.user = user;
@@ -57,7 +57,7 @@ var LoginMobilePage = /** @class */ (function () {
         this.changeDetector = changeDetector;
         this.device = device;
         this.alert = alert;
-        this.psuh = psuh;
+        this.push = push;
         this.form = new login_interface_1.LoginForm();
         this.autoLogin = false;
     }
@@ -186,7 +186,7 @@ var LoginMobilePage = /** @class */ (function () {
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/token/get', this.form, {
                                 contentType: connect_service_1.ContentType.ApplicationJson,
-                                loading: '로그인'
+                                loading: true
                             })];
                     case 1:
                         _a.res = _b.sent();
@@ -226,6 +226,9 @@ var LoginMobilePage = /** @class */ (function () {
                         return [4 /*yield*/, this.connect.run('/token/refresh', {
                                 accountID: this.user.userData.account_id,
                                 refreshToken: (_a = this.user.authToken) === null || _a === void 0 ? void 0 : _a.refresh_token
+                            }, {
+                                contentType: connect_service_1.ContentType.ApplicationJson,
+                                loading: true
                             })];
                     case 1:
                         _b.res = _c.sent();
@@ -233,7 +236,6 @@ var LoginMobilePage = /** @class */ (function () {
                             this.getWorkerInfo(this.res.rsObj, { animated: false });
                         }
                         else if (this.res.rsCode === 500) {
-                            this.res.rsMsg = '인증 토큰이 만료되었습니다. 다시 로그인해주세요.';
                         }
                         else if (this.res.rsCode === 3003) {
                             this.alert.present({
@@ -269,6 +271,7 @@ var LoginMobilePage = /** @class */ (function () {
                         res = _b.sent();
                         if (res.rsCode === 0) {
                             userData = res.rsObj;
+                            this.user.setUserData(userData, this.autoLogin);
                             switch (userData.user_type) {
                                 case 'LH':
                                 case 'SUPER':
@@ -285,8 +288,7 @@ var LoginMobilePage = /** @class */ (function () {
                                     break;
                             }
                             // 로그인이 완료되면 푸시, 유저데이터저장, 메인페이지 활성화
-                            this.psuh.init();
-                            this.user.setUserData(userData, this.autoLogin);
+                            this.push.init();
                             this.nav.navigateRoot(userData.user_main_page, { animated: animated });
                         }
                         return [2 /*return*/];

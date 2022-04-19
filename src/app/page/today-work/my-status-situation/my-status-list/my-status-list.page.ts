@@ -119,12 +119,14 @@ export class MyStatusListPage implements OnInit {
   async get() {
       this.resgate = await this.connect.run('/work_project/nfc_beacon/my_gate/list',this.form,{parse:['inner_data']});
       if(this.resgate.rsCode === 0) {
-      } else {
+      }
+      else {
         // this.toast.present({message:'게이트 출역 기록이 없습니다.', color:'warning'});
       }
       this.resrisk = await this.connect.run('/work_project/nfc_beacon/my_risk/list',this.form,{parse:['inner_data']});
       if(this.resrisk.rsCode === 0) {
-      } else {
+      } 
+      else {
         if(!this.resgate) {
           // this.toast.present({message:'게이트 먼저 입장해주세요.', color:'warning'});
         }
@@ -164,17 +166,20 @@ export class MyStatusListPage implements OnInit {
 
   async nfcScan() {
     const $nfc = await this.nfc.subscribe('worker',async (nfcData) => {
-      this.nfcqrForm.serial_key = nfcData;
-      this.nfcqrForm.nb_log_state = 'NFC';
       if(nfcData.type === 'QR_CHANGE') {
+        $nfc.unsubscribe();
         this.inNfcQr();
-      } else { 
+      } 
+      else { 
         if(!nfcData) return this.toast.present({ message: 'nfc을 다시 스캔해주세요.' });
+        this.nfcqrForm.serial_key = nfcData;
+        this.nfcqrForm.nb_log_state = 'NFC';
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup', this.nfcqrForm);
         if(res.rsCode === 0) {
           this.get();
           $nfc.unsubscribe();
-        } else {
+        } 
+        else {
           $nfc.unsubscribe();
           this.nfcScan();
           this.toast.present({message:res.rsMsg, color:'warning'});
@@ -182,43 +187,27 @@ export class MyStatusListPage implements OnInit {
       }
     });
   }
-  // async projectName() {
-  //   const modal = await this.modal.create({
-  //     component:SearchSceneComponent,
-  //     componentProps: {
-  //       value:this.form.project_id,
-  //       form: {
-  //         company_id: this.form.master_company_id,
-  //         search_text: ''
-  //       }
-  //     }
-  //   });
-  //   modal.present();
-  //   const { data } = await modal.onDidDismiss();
-  //   console.log("data",data);
-  //   if(data) {
-  //   }
-  // }
 
   async inNfcQr() {
     this.nfcqrForm.project_id = this.form.project_id;
     if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     const $qr = await this.qr.subscribe('worker',async (qrData) => {
-      // this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.serial_key = qrData.qr_data;
-      this.nfcqrForm.nb_log_state = 'QR'
       if(qrData.type === 'NFC_CHANGE'){
+        $qr.unsubscribe();
         this.nfcScan();
       }
       else {
         if(!qrData) return this.toast.present({ message: 'NFC을 다시 스캔해주세요.' });
+        this.nfcqrForm.serial_key = qrData.qr_data;
+        this.nfcqrForm.nb_log_state = 'QR';
         const res = await this.connect.run('/work_project/nfc_beacon/check_insup',this.nfcqrForm);
         if(res.rsCode === 0) {
           $qr.unsubscribe();
           this.get();
-          } else {
-            $qr.unsubscribe();
-            this.toast.present({message:res.rsMsg, color:'warning'});
+        }
+        else {
+          $qr.unsubscribe();
+          this.toast.present({message:res.rsMsg, color:'warning'});
         }
       }
     });

@@ -61,8 +61,26 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
         this.gps_log_id = [];
         this.gps_log_data = new naver_map_component_1.GpsCoordinateData();
     }
+    Object.defineProperty(MonitorWorkerLocationPage.prototype, "project_id", {
+        set: function (v) {
+            this.form.project_id = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(MonitorWorkerLocationPage.prototype, "master_company_id", {
+        set: function (v) {
+            this.form.master_company_id = v;
+        },
+        enumerable: false,
+        configurable: true
+    });
     MonitorWorkerLocationPage.prototype.ngOnInit = function () {
+        this.get();
+    };
+    MonitorWorkerLocationPage.prototype.get = function () {
         this.getGps();
+        this.wokerInGetList();
     };
     MonitorWorkerLocationPage.prototype.getGps = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -94,6 +112,12 @@ var MonitorWorkerLocationPage = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.Input()
+    ], MonitorWorkerLocationPage.prototype, "project_id");
+    __decorate([
+        core_1.Input()
+    ], MonitorWorkerLocationPage.prototype, "master_company_id");
     MonitorWorkerLocationPage = __decorate([
         core_1.Component({
             selector: 'app-monitor-worker-location',

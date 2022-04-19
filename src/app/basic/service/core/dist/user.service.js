@@ -151,7 +151,7 @@ var UserService = /** @class */ (function () {
         var storage = autoLogin ? window.localStorage : window.sessionStorage;
         var deleteStorage = autoLogin ? window.sessionStorage : window.localStorage;
         storage.setItem(TAG.UserData, JSON.stringify(data));
-        deleteStorage.removeItem(TAG.AuthToken);
+        deleteStorage.removeItem(TAG.UserData);
         this.getUserData();
     };
     UserService.prototype.getMemberAuthToken = function () {

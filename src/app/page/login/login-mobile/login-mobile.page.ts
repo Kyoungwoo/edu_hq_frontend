@@ -29,7 +29,7 @@ export class LoginMobilePage implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private device: DeviceService,
     private alert: AlertService,
-    private psuh: PushService
+    private push: PushService
   ) { }
 
   ngOnInit() {
@@ -97,17 +97,20 @@ export class LoginMobilePage implements OnInit {
   public async login() {
     this.res = await this.connect.run('/token/get', this.form, {
       contentType: ContentType.ApplicationJson,
-      loading: '로그인'
+      loading: true
     });
     if(this.res.rsCode === 0) {
       this.getWorkerInfo(this.res.rsObj, { animated: true });
-    } else if(this.res.rsCode === 500) {
+    } 
+    else if(this.res.rsCode === 500) {
       this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
-    } else if(this.res.rsCode === 3003) {
+    } 
+    else if(this.res.rsCode === 3003) {
       this.alert.present({
         message: this.res.rsMsg
       });
-    } else if(this.res.rsCode === 3004) {
+    } 
+    else if(this.res.rsCode === 3004) {
       this.alert.present({
         message: this.res.rsMsg,
         buttons: [
@@ -121,11 +124,14 @@ export class LoginMobilePage implements OnInit {
     this.res = await this.connect.run('/token/refresh', {
       accountID: this.user.userData.account_id,
       refreshToken: this.user.authToken?.refresh_token
+    }, {
+      contentType: ContentType.ApplicationJson,
+      loading: true
     });
     if(this.res.rsCode === 0) {
       this.getWorkerInfo(this.res.rsObj, { animated: false });
     } else if(this.res.rsCode === 500) {
-      this.res.rsMsg = '인증 토큰이 만료되었습니다. 다시 로그인해주세요.';
+      
     } else if(this.res.rsCode === 3003) {
       this.alert.present({
         message: this.res.rsMsg
@@ -141,12 +147,16 @@ export class LoginMobilePage implements OnInit {
     }
   }
   private async getWorkerInfo(authToken:AuthToken, { animated }) {
+
     this.user.setAuthToken(authToken, this.autoLogin);
+    
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
+
+      this.user.setUserData(userData, this.autoLogin);
 
       switch(userData.user_type) {
         case 'LH':
@@ -163,8 +173,8 @@ export class LoginMobilePage implements OnInit {
       }
 
       // 로그인이 완료되면 푸시, 유저데이터저장, 메인페이지 활성화
-      this.psuh.init();
-      this.user.setUserData(userData, this.autoLogin);
+      this.push.init();
+      
       this.nav.navigateRoot(userData.user_main_page, {animated});
     }
   }

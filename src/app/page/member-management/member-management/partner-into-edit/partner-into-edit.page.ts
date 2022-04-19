@@ -44,7 +44,10 @@ export class ApprovalItem {
   //   safe_job_start_date: string;
   //   ctgo_safe_job_name_kr: string;
   // }
+  master_company_id: number;
+  master_company_name: string;
   company_id: number;
+  company_name: string;
   ctgo_job_position_id: number;
   project_state: string;
   ctgo_construction_name: string;
@@ -54,7 +57,6 @@ export class ApprovalItem {
   user_id: number;
   project_id: number;
   construction_end_date: string;
-  company_name: string;
 
   safe_job_data:SafeJobItem[] = [];
 }

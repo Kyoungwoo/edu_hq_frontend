@@ -160,10 +160,11 @@ var SelectCompanyComponent = /** @class */ (function () {
         });
     };
     SelectCompanyComponent.prototype.openModal = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var modal, data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this._modal.create({
                             component: search_company_component_1.SearchCompanyComponent,
                             componentProps: {
@@ -177,13 +178,13 @@ var SelectCompanyComponent = /** @class */ (function () {
                             }
                         })];
                     case 1:
-                        modal = _a.sent();
+                        modal = _b.sent();
                         modal.present();
                         return [4 /*yield*/, modal.onDidDismiss()];
                     case 2:
-                        data = (_a.sent()).data;
+                        data = (_b.sent()).data;
                         if (data) {
-                            this.value = data.selectItem.company_id;
+                            this.value = ((_a = data.selectItem) === null || _a === void 0 ? void 0 : _a.company_id) || 0;
                         }
                         return [2 /*return*/];
                 }
@@ -205,6 +206,7 @@ var SelectCompanyComponent = /** @class */ (function () {
     SelectCompanyComponent.prototype.writeValue = function (v) {
         if (v !== this._value) {
             this.valueChange(v);
+            this.get();
         }
     };
     SelectCompanyComponent.prototype.valueChange = function (v) {

@@ -591,6 +591,10 @@ const routes: Routes = [
   {
     path: 'worker-minutes-pending-list',
     loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-pending-list/worker-minutes-pending-list.module').then( m => m.WorkerMinutesPendingListPageModule)
+  },
+  {
+    path: 'heavy-qr-data',
+    loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.module').then( m => m.HeavyQrDataPageModule)
   }
 ];
 

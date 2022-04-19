@@ -100,7 +100,7 @@
   </ion-header>
   <ion-content>
     
-    <app-card *ngFor="let item of res?.rsMap; let i = index;">
+    <app-card *ngFor="let item of res?.rsMap; let i = index;" (click)="detail(item)">
       <app-row style="align-items: flex-start;">
         <app-col>
           <h5>{{ item.ctgo_approval_module_name }}</h5>

@@ -101,7 +101,10 @@
           <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
         </app-col>
         <app-col>
-          <app-select-construction name="ctgo_construction_id" [project_id]="formApproval.project_id" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_construction_id" [all]="true"></app-select-construction>
+          <app-select-construction name="ctgo_construction_id" 
+          [project_id]="formApproval.project_id" 
+          [master_company_id]="formApproval.master_company_id"
+          [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>
         </app-col>
       </app-row>
       <app-row>

@@ -29,8 +29,13 @@ public class API {
         apiInterface.run(url, authHeader, params).enqueue(new Callback<APIResponse>() {
             @Override
             public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
-                Log.d(TAG, "run.onResponse: " + response.body().rsCode + " / " + response.body().rsMsg + " / " + response.body().rsObj);
-                responseCallback.run(response.body());
+                try {
+                  Log.d(TAG, "run.onResponse: " + response.body().rsCode + " / " + response.body().rsMsg + " / " + response.body().rsObj);
+                  responseCallback.run(response.body());
+                }
+                catch(Exception e) {
+                  Log.d(TAG, "run.onResponse: FAIL");
+                }
             }
 
             @Override
