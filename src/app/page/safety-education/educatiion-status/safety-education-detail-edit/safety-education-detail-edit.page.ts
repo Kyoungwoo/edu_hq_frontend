@@ -6,7 +6,6 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
 import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
 import { SearchAttendanceComponent } from 'src/app/component/modal/search-attendance/search-attendance.component';
 import { QrEducationInPage } from '../qr-education-in/qr-education-in.page';
@@ -100,7 +99,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private alert: AlertService,
-    private qr: QrService
   ) { }
 
 

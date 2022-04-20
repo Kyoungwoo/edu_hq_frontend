@@ -11,7 +11,8 @@ export class DangerQrViewPage implements OnInit {
   @Input() item;
   qr = null;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     console.log(this.item);
@@ -21,11 +22,10 @@ export class DangerQrViewPage implements OnInit {
   }
   
   generatorQrcode() {
-    console.log("this.navParams",`${this.item.serial_no}`)
     this.qr = new QRious({
       element: document.getElementById('qrious'),
       size: 250,
-      value: `${this.item.serial_no}`
+      value: '{"serial_key":"'+this.item.serial_no+'", "type": "WORK"}'
     });
   }
 

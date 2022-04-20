@@ -191,7 +191,10 @@ export class WorkerStatusListPage implements OnInit {
   // }
 
   async inNfcQr() {
-    this.qr.open();
+    this.qr.open().then((data) => {
+      console.log("NFC then - ", data);
+      this.getGate()
+    });
     // this.nfcqrForm.project_id = this.form.project_id;
     // // if(!this.nfcqrForm.project_id) return this.toast.present({message:'현장을 선택해주세요.',color:'warning'});
     // const $qr = await this.qr.subscribe('worker',async (qrData) => {

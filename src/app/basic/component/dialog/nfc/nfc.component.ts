@@ -74,7 +74,44 @@ export class NfcComponent implements OnInit {
   async nfcScan() {
     const { message } = await Nfc.getData();
     console.log("message",message);
-    this.getNfcData(message);
+    // this.getNfcData(message);
+
+    let type = '';
+    let serial_key = null;
+    let education_safe_id = null;
+    let device_id = null;
+
+    if(message.indexOf('https://devmonster-s-keeper.web.app/heavy-qr-data?device_id=') != -1){
+      type = message.split('=')[message.split('=').length-1];
+      device_id = message.split('=')[message.split('=').length-2]?.split('&')[0];
+    } else {
+      console.log('not Equip - ', message);
+      console.log('not Equip - ', typeof message);
+      let data_set = JSON.parse(message);
+      console.log('data_set  - ', data_set);
+      if(message.indexOf('education_safe_id') != -1){
+        console.log('innet education_safe_id');
+        type = data_set.type;
+        education_safe_id = data_set.education_safe_id;
+      }
+
+      if(message.indexOf('serial_key') != -1){
+        console.log('innet serial_key');
+        type = data_set.type;
+        serial_key = data_set.serial_key;
+      }
+
+      this._modal.dismiss({
+        state: 'NFC_SUCCESS',
+        item: {
+          type: type,
+          education_safe_id: education_safe_id,
+          serial_key: serial_key,
+          device_id: device_id
+        }
+      });
+    }
+
     if(!this.pageAlive) {
       this.nfcTimeout = setTimeout(() => {
         this.nfcScan();

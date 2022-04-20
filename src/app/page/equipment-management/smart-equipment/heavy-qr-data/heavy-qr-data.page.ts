@@ -42,6 +42,7 @@ export class HeavyQrDataPage implements OnInit {
   }
 
   @Input() device_id:number;
+  @Input() backbutton_state:boolean = false;
 
   constructor(
     private route: ActivatedRoute,

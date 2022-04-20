@@ -1,3 +1,4 @@
+import { ConnectService } from './../core/connect.service';
 import { ToastService } from './../ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ModalController } from '@ionic/angular';
@@ -12,35 +13,19 @@ import { HeavyQrDataPage } from 'src/app/page/equipment-management/smart-equipme
 })
 
 export class QrService {
-  qr_subs:Subscription;
-  qr_value = null;
-  qr_response = {
-    qr_data: '',
-    qr_qrScanner: null,
-    qr_modal: null,
-    qr_subs: null
-  }
-  @Input() item;
  
 constructor(
     private _modal : ModalController,
     private scanner: ScannerService,
     private user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private connect: ConnectService
     ) { }
-    qrCallback;
     
   async open() {
-    // this.qrCallback = callback;
     const modal = await this._modal.create({
       component:QrScannerComponent,
-      cssClass:'scan-modal',
-      // componentProps: {
-      //   type,
-      //   getQrData: (value) => {
-      //     this.getQrData(value);
-      //   }
-      // }
+      cssClass:'scan-modal'
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
@@ -48,11 +33,7 @@ constructor(
     let ACC_state = false;
 
     if(data) {
-      if(data?.state === 'NFC_CHANGE') this.scanner.open_nfc();
-    }
-
-    if(data) {
-      if(data?.state === 'NFC_CHANGE') this.scanner.open_qr();
+      if(data?.state === 'NFC_CHANGE') return_state = await this.scanner.open_nfc();
       if(data?.state === 'QR_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계
@@ -69,7 +50,6 @@ constructor(
             return_state = await this.insert('/education/my/attendant/insert', {education_safe_id: data?.item?.education_safe_id});
             break;
           case 'ACC':
-            // data?.item?.key
             ACC_state = true;
             return_state = true;
             break;
@@ -80,20 +60,13 @@ constructor(
       }
     }
 
-      // return {
-      //   unsubscribe: () => {
-          const routerEl = document.querySelector('ion-router-outlet');
-          routerEl.style.display = 'flex';
-          const ionApp = document.getElementsByTagName('ion-app')[0];
-          ionApp.style.backgroundColor = 'transparent';
-          // this.qr_response.qr_modal.dismiss();
-          // this.qr_response.qr_subs.unsubscribe();
-          // this.qrCallback = null;
-          modal.dismiss().then(() => {
-            if(ACC_state) this.modal_ACC(data?.item?.device_id);
-          });
-        // }
-      // };
+      const routerEl = document.querySelector('ion-router-outlet');
+      routerEl.style.display = 'flex';
+      const ionApp = document.getElementsByTagName('ion-app')[0];
+      ionApp.style.backgroundColor = 'transparent';
+      modal.dismiss().then(() => {
+        if(ACC_state) this.modal_ACC(data?.item?.device_id);
+      });
 
       return return_state;
   };
@@ -105,7 +78,8 @@ constructor(
     const modal = await this._modal.create({
       component:HeavyQrDataPage,
       componentProps: {
-        device_id: id
+        device_id: id,
+        backbutton_state: true
       }
     });
     modal.present();
@@ -113,12 +87,13 @@ constructor(
 
   async insert(method:string,item){
     let state = false;
+    const res = await this.connect.run(method, item);
+    if (res.rsCode === 0) {
+      state = true;
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
 
     return state;
   }
-  
-  // async getQrData(value) {
-  //   this.qr_response = {...value};
-  //   return this.qrCallback(value);
-  // }
 }

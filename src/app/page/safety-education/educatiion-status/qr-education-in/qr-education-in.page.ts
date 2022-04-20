@@ -28,7 +28,7 @@ export class QrEducationInPage implements OnInit {
     this.qr = new QRious({
       element: document.getElementById('qrious'),
       size: 250,
-      value: `${this.navParams.data.item.education_safe_id}`
+      value: '{"education_safe_id":"'+this.navParams.data.item.education_safe_id+'","type":"EDU"}' // `${this.navParams.data.item.education_safe_id}`
     });
   }
 

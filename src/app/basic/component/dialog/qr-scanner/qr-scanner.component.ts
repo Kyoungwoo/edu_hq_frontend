@@ -119,14 +119,18 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           type = data.split('=')[data.split('=').length-1];
           device_id = data.split('=')[data.split('=').length-2]?.split('&')[0];
         } else {
+          console.log('not Equip - ', data);
+          console.log('not Equip - ', typeof data);
+          let data_set = JSON.parse(data);
+          console.log('data_set  - ', data_set);
           if(data.indexOf('education_safe_id') != -1){
-            let data_set = JSON.parse(data);
+            console.log('innet education_safe_id');
             type = data_set.type;
             education_safe_id = data_set.education_safe_id;
           }
 
           if(data.indexOf('serial_key') != -1){
-            let data_set = JSON.parse(data);
+            console.log('innet serial_key');
             type = data_set.type;
             serial_key = data_set.serial_key;
           }

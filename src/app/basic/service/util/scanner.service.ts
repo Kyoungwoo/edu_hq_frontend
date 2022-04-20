@@ -21,9 +21,9 @@ export class ScannerService {
     return return_state;
   }
 
-  open_nfc(){
+  async open_nfc(){
     let return_state = false;
-    this.nfc.open().then((item) => {
+    await this.nfc.open().then((item) => {
       if(item) return_state = true;
     });
     return return_state;
