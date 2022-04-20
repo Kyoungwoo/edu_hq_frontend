@@ -1,9 +1,10 @@
 <app-header-admin></app-header-admin>
 
 <ion-content>
-  <app-row style="min-height: 724px; align-items: stretch;">
-    <app-col size="3">
-      <app-card style="height:65%;  align-items: stretch;">
+  <div class="container">
+  <app-row style="min-height: 724px; align-items: stretch;" class="mobileBreak">
+    <app-col class="contaienr-left-col">
+      <app-card style="height:467px;  align-items: stretch;">
         <app-row>
           <app-col>
             <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
@@ -24,7 +25,7 @@
           </app-card>
         </app-row>
 
-        <app-row style="text-align: center;" class="pointer-class">
+        <app-row style="text-align: center;" class="pointer-class;">
           <app-col size="3" (click)="router('')">
             <app-img style="width: 60%;" src="assets/img/main/emergency-manage.svg"></app-img>
             <h5>비상알림</h5>
@@ -79,7 +80,7 @@
           </app-col>
         </app-row>
       </app-card>
-          <app-card style="height: 32.5%; align-items: stretch;" >
+          <app-card style="height: 228px; align-items: stretch;" >
             <ion-toolbar slot="top" color="white">
               <app-row>
                 <app-col>
@@ -98,9 +99,9 @@
           </app-card>
     </app-col>
     <app-col>
-      <app-row style="height: 33%; align-items: stretch;">
+      <app-row style="height: 236px; align-items: stretch;">
         <app-col>
-          <app-card style="height: 100%;">
+          <app-card style="height: 100%;" class="alarm-card">
             <ion-toolbar slot="top" color="white">
               <app-row>
                 <app-col size="auto">
@@ -126,7 +127,7 @@
         </app-col> 
 
         <app-col>
-          <app-card  style="height: 100%;">
+          <app-card  style="height: 100%;" class="alarm-card">
             <ion-toolbar slot="top" color="white">
               <app-row>
                 <app-col size="auto">
@@ -152,7 +153,7 @@
         </app-col>
       </app-row>
 
-      <app-row style="height: 33%;">
+      <app-row style="height: 236px; align-items: stretch;" >
         <app-col  style="height: 100%;">
           <app-card  style="height: 100%;">
             <ion-toolbar slot="top" color="white">
@@ -204,7 +205,7 @@
           </app-card>
         </app-col>
       </app-row>
-      <app-row style="height: 33%;">
+      <app-row style="height: 236px; align-items: stretch;">
         <app-col style="height: 100%;">
           <app-card  style="height: 100%;">
             <ion-toolbar slot="top" color="white">
@@ -273,8 +274,8 @@
         </app-col>
       </app-row>
     </app-col>
-    <app-col size="3">
-      <app-card class="card-flex" style="height: 41%;">
+    <app-col class="contaienr-right-col">
+      <app-card class="card-flex"  style="height: calc(42% - 6px);">
         <!-- <div>
           <app-row>
             <app-col style="display: flex; align-items: center;" routerLink="/my-page">
@@ -357,7 +358,7 @@
         </div>
         </app-card>
           <!-- //날씨 -->
-        <app-card class="card-flex" style="height: 56%;"> 
+        <app-card class="card-flex" style="height: 398px;"> 
         <div>
             <ion-toolbar slot="top" color="white">
               <app-row>
@@ -478,6 +479,7 @@
       </app-card>
     </app-col>
   </app-row>
+</div>
 </ion-content>
 <app-button-footer style="margin-top: 10px;">
   <app-row>

@@ -3,6 +3,61 @@ ion-content {
     --padding-bottom: 16px;
 }
 
+.container {
+    max-width: 1920px;
+    width: 100%;
+    margin: auto;
+    .contaienr-left-col {
+        width: 420px;
+        flex: 0 0 420px;
+    }
+    .contaienr-right-col {
+        width: 420px;
+        flex: 0 0 420px;
+    }
+}
+
+
+@media screen and (max-width: 1199px) {
+    .container {
+        max-width: 768px;
+    }
+    .mobileBreak {
+        display: block;
+        >app-col {
+            width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+        app-card {
+            height: 100% !important;
+        }
+    }
+}
+
+.alarm-card {
+    .card-category-col {
+        width: 80px;
+        flex: 0 0 80px;
+    }
+    .card-title-col {
+        width: calc(100% - 80px);
+        flex: 0 0 calc(100% - 80px);
+    }
+}
+.approval-card {
+    .card-category-col {
+        width: 80px;
+        flex: 0 0 80px;
+    }
+    .card-title-col {
+        width: calc(100% - 80px);
+        flex: 0 0 calc(100% - 80px);
+    }
+}
+
 :host {
     ion-icon {
         cursor: pointer;
@@ -10,11 +65,17 @@ ion-content {
 
     h5 {
         color: var(--ion-color-fourth);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     h6 {
         color: var(--ion-color-fourth);
         font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 

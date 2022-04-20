@@ -28,6 +28,10 @@ ion-content {
             margin-top: 12px;
             margin-bottom: 12px;
         }
+
+        app-card {
+            height: 100% !important;
+        }
     }
 }
 
