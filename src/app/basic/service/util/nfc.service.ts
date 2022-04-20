@@ -20,28 +20,31 @@ export class NfcService {
     private connect: ConnectService
   ) { }
 
-  async open() {
+  async open(info_state:boolean = false) {
     const modal = await this.modal.create({
       component:NfcComponent,
       cssClass:'scan-modal'
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    let return_state = false;
+    let return_state = {
+      state: false,
+      data: null
+    };
 
     if(data) {
-      if(data?.state === 'QR_CHANGE') return_state = await this.scanner.open_qr();
+      if(data?.state === 'QR_CHANGE') return_state = await this.scanner.open_qr(info_state);
       if(data?.state === 'NFC_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계
         console.log('nfc_data - ', data);
         switch(data?.item?.type){
           case 'WORK':
-            this.insert('/work_project/nfc_beacon/check_insup', {
+            return_state = await this.insert(info_state ? '/work_project/nfc_beacon/risk_area/get' : '/work_project/nfc_beacon/check_insup', {
               nb_log_state: 'NFC',
               project_id: this.user.userData.belong_data.project_id,
               serial_key: data?.item?.serial_key
-            });
+            },info_state);
             break;
           // case 'EDU':
           //   this.insert('/work_project/nfc_beacon/check_insup', {
@@ -62,24 +65,26 @@ export class NfcService {
             break;
         }
 
-        return_state = true;
+        return_state.state = true;
       }
     }
 
     return return_state;
   };
 
-  async insert(method:string,item){
-    let state = false;
+  async insert(method:string,item,info_state:boolean = false){
+    let data_obj = {
+      state: false,
+      data: null
+    };
     const res = await this.connect.run(method, item);
     if (res.rsCode === 0) {
-      state = true;
-      // resolve(true);
+      data_obj.state = true;
+      if(info_state) data_obj.data = res.rsObj.area_risk_id;
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
-      // resolve(true);
     }
 
-    return state;
+    return data_obj;
   }
 }

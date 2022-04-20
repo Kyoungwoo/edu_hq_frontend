@@ -1,3 +1,4 @@
+import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -50,7 +51,8 @@ export class MainUserWorkerPage implements OnInit {
     private connect: ConnectService,
     public user: UserService,
     public date: DateService,
-    private gps: GeolocationService
+    private gps: GeolocationService,
+    private qr: QrService
   ) { }
 
   ngOnInit() {
@@ -205,5 +207,9 @@ export class MainUserWorkerPage implements OnInit {
         this.nav.navigateForward('/notify-list');
         break;
     }
+  }
+
+  QRscanner(){
+    this.qr.open();
   }
 }

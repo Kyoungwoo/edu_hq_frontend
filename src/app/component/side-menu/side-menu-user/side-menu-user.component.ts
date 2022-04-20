@@ -1,3 +1,4 @@
+import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { async } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
@@ -160,7 +161,8 @@ export class SideMenuUserComponent implements OnInit {
     public user: UserService,
     private nav: NavService,
     private alertController: AlertController,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private qr: QrService
   ) { 
     this.menuSelected = this.menuList[0];
   }
@@ -177,6 +179,9 @@ export class SideMenuUserComponent implements OnInit {
       img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
       header: '준비중'
     });
+  }
+  QRscanner(){
+    this.qr.open();
   }
 
   navMypage() {

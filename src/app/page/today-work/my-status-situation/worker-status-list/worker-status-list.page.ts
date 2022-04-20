@@ -171,6 +171,11 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async inNfcQr() {
-    this.qr.open().then((data) => {this.getGate();});
+    this.qr.open(true).then((data) => {
+      console.log("NFC QR get data - ",data);
+      this.form.area_risk_id = data.data;
+      this.areadata.area_risk_id = data.data;
+      this.getRiskArea();
+    });
   }
 }
