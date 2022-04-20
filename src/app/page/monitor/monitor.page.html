@@ -319,7 +319,7 @@
 
   <div *ngIf="data.monitor === 'CCTV 모니터링'" class="container">
 
-    <app-card>
+    <app-card *mobileShow>
       <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
       <ion-row style="align-items: flex-start;">
         <app-col>
@@ -342,7 +342,7 @@
         <app-col>
           <app-card color="white">
             <app-row style="align-items: stretch;">
-              <app-col class="donut-group">
+              <app-col class="cctv-box">
                 <app-row>
                   <app-col>
                     <h4>CCTV 설치 장소 1</h4>
@@ -360,7 +360,7 @@
                 </app-row>
               </app-col>
   
-              <app-col class="donut-group">
+              <app-col class="cctv-box">
                 <app-row>
                   <app-col>
                     <h4>CCTV 설치 장소 2</h4>
@@ -387,7 +387,7 @@
         <app-col>
           <app-card color="white">
             <app-row style="align-items: stretch;">
-              <app-col class="donut-group">
+              <app-col class="cctv-box">
                 <app-row>
                   <app-col>
                     <h4>CCTV 설치 장소 3</h4>
@@ -405,7 +405,7 @@
                 </app-row>
               </app-col>
   
-              <app-col class="donut-group">
+              <app-col class="cctv-box">
                 <app-row>
                   <app-col>
                     <h4>CCTV 설치 장소 4</h4>
