@@ -119,8 +119,21 @@
       </ion-buttons>
     </ion-toolbar>
 
-    <ion-toolbar>
-
+    <ion-toolbar  class="form-weather-toolbar" color="white">
+      <app-row>
+        <app-col>
+          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)"></app-select-scene>
+        </app-col>
+        <app-col>
+          <app-select-contractor name="master_company_id"
+          [allState]="true"
+          [project_id]="form.project_id"
+          [(ngModel)]="form.master_company_id"
+          (change)="formChange.emit(form)"
+          [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+        </app-col>
+       
+      </app-row>
       <ion-segment color="primary" [(ngModel)]="tabActive" (ionChange)="segmentChange()">
         <ion-segment-button *ngFor="let tab of tabList" [value]="tab.data">{{ tab.text }}</ion-segment-button>
       </ion-segment>

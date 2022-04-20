@@ -6,8 +6,7 @@
     <app-row class="mobileBreak">
       <app-col>
         <app-row class="mobileBreak">
-          <app-col>
-
+          <app-col style="height: 350px;">
             <app-card color="white" class="graph-card">
               <ion-toolbar slot="top" color="white">
                 <app-row>
@@ -314,6 +313,131 @@
 
         </app-card>
       </app-col>
+      <ng-container *mobileShow>
+        <app-col>
+          <app-card class="card-flex" style="height: 315px;"> 
+            <div>
+                <ion-toolbar slot="top" color="white">
+                  <app-row>
+                    <app-col>
+                      <h4>경기도 성남시 분당구</h4>
+                    </app-col>
+                  </app-row>
+                </ion-toolbar>
+                <!--            
+                  <app-row>
+                    <app-col>
+                      <app-row>
+                        <app-col>
+                          <h5>최고기온</h5>
+                        </app-col>
+                        <app-col>
+                          <h4>{{ weather.high_weather_temp + "&deg;C" }}</h4>
+                        </app-col>
+                      </app-row>
+                      <app-row >
+                        <app-col class="wheather" style="text-align: center;">
+                          <h2>{{ weather.weather_temp + "&deg;C" }}</h2>
+                        </app-col>
+                      </app-row>
+                      <app-row>
+                        <app-col>
+                          <h5>최저기온</h5>
+                        </app-col>
+                        <app-col>
+                          <h4>{{ weather.low_weather_temp + "&deg;C" }}</h4>
+                        </app-col>
+                      </app-row>
+                    </app-col>
+                    <app-col>
+                      <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img>
+                    </app-col>
+                  </app-row> -->
+                <app-row>
+                  <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                    <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
+                      <app-col>
+                        <h2>28&deg;C</h2>
+                      </app-col>
+                    </app-row>
+                    <app-row style="text-align: center;">
+                      <app-col>
+                        <h5>최고기온</h5>
+                      </app-col>
+                      <app-col>
+                        <h3>30&deg;C</h3>
+                      </app-col>
+                    </app-row>
+                    <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
+                      <app-col>
+                        <h5>최저기온</h5>
+                      </app-col>
+                      <app-col>
+                        <h3>12&deg;C</h3>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                  <app-col style="text-align: center;">
+                    <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
+                    <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
+                  </app-col>
+                </app-row>
+                <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
+                  <app-col style="padding-left: 0; padding-right: 0;">
+                    <app-row class="title">
+                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                        <h5>강수량</h5>
+                      </app-col>
+                    </app-row>
+                    <app-row class="ratio">
+                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                        <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                  <app-col style="padding-left: 0; padding-right: 0;">
+                    <app-row class="title">
+                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                        <h5>적설량</h5>
+                      </app-col>
+                    </app-row>
+                    <app-row class="ratio">
+                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                        <h6>{{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}</h6>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                  <app-col style="padding-left: 0; padding-right: 0;">
+                    <app-row class="title">
+                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                        <h5>최대풍속</h5>
+                      </app-col>
+                    </app-row>
+                    <app-row class="ratio">
+                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                        <h6>{{ weather.weather_speed + "m/s"}}</h6>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                  <app-col style="padding-left: 0; padding-right: 0;">
+                    <app-row class="title">
+                      <app-col>
+                        <h5>미세먼지</h5>
+                      </app-col>
+                    </app-row>
+                    <app-row class="ratio">
+                      <app-col class="ratio-col">
+                        <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
+                        <h6>{{ dust.grade_name}}</h6>
+                      </app-col>
+                    </app-row>
+                  </app-col>
+                </app-row>
+            </div>
+          </app-card>
+        </app-col>
+      </ng-container>
+
     </app-row>
   </div>
 

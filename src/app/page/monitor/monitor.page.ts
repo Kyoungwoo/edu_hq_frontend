@@ -100,6 +100,27 @@ export class MonitorPage implements OnInit, OnDestroy {
     mmachine_using_count: 0 // 사용중 스마트장비 수
   } 
 
+  weather: any = {
+    weather_speed: "", // 풍속,
+    weather_id: "", // 아이디,
+    weather_temp: "", // 기온(온도),
+    avg_temp: 0,// 어제와 오늘의 온도 평균에서 뺀 기온(온도)
+    weather_icon: "", // 아이콘,
+    create_date: "",// 날씨를 부른 시간 3시간 기준입니다,
+    weather_main: "", // 날씨 설명,
+    weather_humidity: "", // 습도,
+    weather_rain: "", // 강수량 :"", // 강수량
+    weather_snow: "", // 적설량},
+    high_weather_temp: "", // 최고 기온(온도),
+    low_weather_temp: "" // 최저 기온(온도),
+  }
+  dust: any = {
+    dataTime: "",
+    grade_name: "",
+    icon_url: "",
+    pm10Value: 0,
+    pm25Grade: 0
+  }
   scandata = "http://m.site.naver.com/0TGMk"
 
   maxIndex = 300;
