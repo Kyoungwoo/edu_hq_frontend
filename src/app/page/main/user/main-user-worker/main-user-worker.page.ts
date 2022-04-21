@@ -1,8 +1,9 @@
-import { QrService } from 'src/app/basic/service/util/qr.service';
+import { ScannerService } from './../../../../basic/service/util/scanner.service';
+// import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -52,13 +53,15 @@ export class MainUserWorkerPage implements OnInit {
     public user: UserService,
     public date: DateService,
     private gps: GeolocationService,
-    private qr: QrService
+    private scanner: ScannerService
+    // private qr: QrService
   ) { }
 
   ngOnInit() {
     this.dayTrans();
     this.getBoard();
     this.locationUpdate();
+
   }
 
   locationTimeout = null;
@@ -210,6 +213,7 @@ export class MainUserWorkerPage implements OnInit {
   }
 
   QRscanner(){
-    this.qr.open();
+    // this.scanner.open_qr();
+    // this.qr.open();
   }
 }

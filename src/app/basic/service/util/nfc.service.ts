@@ -1,7 +1,6 @@
 import { ConnectService } from './../core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NfcComponent } from '../../component/dialog/nfc/nfc.component';

@@ -3,8 +3,7 @@ import { ToastService } from './../ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ModalController } from '@ionic/angular';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
-import { Subscription } from 'rxjs';
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ScannerService } from './scanner.service';
 import { HeavyQrDataPage } from 'src/app/page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.page';
 
