@@ -114,8 +114,7 @@ var AreaStandardSetPage = /** @class */ (function () {
         this.riskAreaData = [];
         this.area_risk_use_state_data = [];
         this.gps_coordinate_data = new naver_map_component_1.GpsCoordinateData();
-        this.selectedGPSItem = null;
-        this.gpsselected = new SelectItem();
+        this.gpsSelected = null;
         this.naverMapSetting = true;
         this.areaRoleCheck = true;
         this.updateEdit = false;
@@ -769,17 +768,20 @@ var AreaStandardSetPage = /** @class */ (function () {
         });
     };
     AreaStandardSetPage.prototype.areaGPS = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         this.menuCount = 3;
-                        _a = this;
+                        _b = this;
                         return [4 /*yield*/, this.connect.run('/project/area/risk/gps/get', this.riskProjectForm)];
                     case 1:
-                        _a.resGPS = _b.sent();
-                        if (this.resGPS.rsCode === 0) { }
+                        _b.resGPS = _c.sent();
+                        if (this.resGPS.rsCode === 0) {
+                            this.getGpsCoodrinate((_a = this.resGPS.rsMap) === null || _a === void 0 ? void 0 : _a[0]);
+                        }
                         ;
                         return [2 /*return*/];
                 }
@@ -792,10 +794,12 @@ var AreaStandardSetPage = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        this.gpsselected = item;
+                        if (!item)
+                            return [2 /*return*/];
+                        this.gpsSelected = item;
                         this.naverMapSetting = false;
                         if (!item.gps_id)
-                            return [2 /*return*/, this.toast.present({ message: '위험지역을 설정해 주세요.', color: 'warning' })];
+                            return [2 /*return*/];
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id })];
                     case 1:
@@ -824,12 +828,12 @@ var AreaStandardSetPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!!this.gpsselected.gps_id) return [3 /*break*/, 2];
-                        if (!this.gpsselected.area_risk_id)
+                        if (!!this.gpsSelected.gps_id) return [3 /*break*/, 2];
+                        if (!this.gpsSelected.area_risk_id)
                             return [2 /*return*/, this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' })];
-                        this.gpsselected.gps_coordinate_data = this.gps_coordinate_data;
-                        console.log(this.gpsselected);
-                        return [4 /*yield*/, this.connect.run('/project/area/risk/gps/insert', this.gpsselected, {})];
+                        this.gpsSelected.gps_coordinate_data = this.gps_coordinate_data;
+                        console.log(this.gpsSelected);
+                        return [4 /*yield*/, this.connect.run('/project/area/risk/gps/insert', this.gpsSelected, {})];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {

@@ -413,7 +413,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="button" *ngFor="let item of resGPS?.rsMap" (click)="getGpsCoodrinate(item)">
+              <tr class="button" *ngFor="let item of resGPS?.rsMap" [class.selected]="gpsSelected === item" (click)="getGpsCoodrinate(item)">
                 <td>
                   {{
                   (item.area_top_name ? item.area_top_name : '') + ' '

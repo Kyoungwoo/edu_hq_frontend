@@ -95,7 +95,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     }
   }
 
-  private addMarker(coord?: LatLng, parse = false) {
+  private addMarker(coord?: LatLng) {
     console.log(coord, this.disabled);
     if (this.disabled) return;
     // 좌표 생성
@@ -106,11 +106,9 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
     this.marker.push(marker);
     this.path.push(coord);
-    if (!parse) {
-      // _value 셋팅. parse를 하는 상황에서는 value가 변했기 때문에 parse를 함
-      this._value.gps_latitude.push(coord.x);
-      this._value.gps_longitude.push(coord.y);
-    }
+
+    this._value.gps_latitude.push(coord.x);
+    this._value.gps_longitude.push(coord.y);
 
     // 좌표 움직임 셋팅
     naver.maps.Event.addListener(marker, "dragend", (e) => {
@@ -166,13 +164,15 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
   private async parseData(v) {
     await this.afterInit();
+    const insertV = this.file.clone(v);
     this.resetMarker();
-    if (v) {
-        const length = v.gps_latitude.length;
+    
+    if (insertV) {
+        const length = insertV.gps_latitude.length;
         for (let i = 0; i < length; i++) {
-          const x = v.gps_latitude[i];
-          const y = v.gps_longitude[i];
-          this.addMarker({ x, y }, true);
+          const x = insertV.gps_latitude[i];
+          const y = insertV.gps_longitude[i];
+          this.addMarker({ x, y });
         }
     }
   }
@@ -199,6 +199,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     return this._value;
   }
   writeValue(v: GpsCoordinateData): void {
+    console.log(this._value);
+    console.log(v);
     if (!this.file.shallowEqual(v, this._value)) {
       this._value = v;
       this.parseData(v);

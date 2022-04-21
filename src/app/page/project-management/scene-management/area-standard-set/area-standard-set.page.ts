@@ -123,7 +123,6 @@ export class AreaStandardSetPage implements OnInit {
   area_risk_use_state_data = [];
   gps_coordinate_data = new GpsCoordinateData();
 
-  selectedGPSItem = null;
   resGPS: ConnectResult<{
     area_bottom_name: string,
     area_risk_id: number,
@@ -145,7 +144,7 @@ export class AreaStandardSetPage implements OnInit {
     gps_latitude: number,
     gps_longitude: number
   }>
-  gpsselected: SelectItem = new SelectItem();
+  gpsSelected = null;
 
   naverMapSetting: boolean = true;
   areaRoleCheck: boolean = true;
@@ -538,13 +537,16 @@ export class AreaStandardSetPage implements OnInit {
   async areaGPS() {
     this.menuCount = 3;
     this.resGPS = await this.connect.run('/project/area/risk/gps/get', this.riskProjectForm);
-    if (this.resGPS.rsCode === 0) { };
+    if (this.resGPS.rsCode === 0) {
+      this.getGpsCoodrinate(this.resGPS.rsMap?.[0]);
+    };
   }
 
   async getGpsCoodrinate(item) {
-    this.gpsselected = item;
+    if(!item) return;
+    this.gpsSelected = item;
     this.naverMapSetting = false;
-    if (!item.gps_id) return this.toast.present({ message: '위험지역을 설정해 주세요.', color: 'warning' });
+    if (!item.gps_id) return;
     
     this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
     if (this.resGPScood.rsCode === 0) {
@@ -556,17 +558,17 @@ export class AreaStandardSetPage implements OnInit {
         }
       });
       this.gps_coordinate_data = gps_coordinate_data;
-    } 
+    }
     else {
       this.gps_coordinate_data = new GpsCoordinateData();
     }
   }
   async gpsSave() {
-    if (!this.gpsselected.gps_id) {
-      if (!this.gpsselected.area_risk_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
-      this.gpsselected.gps_coordinate_data = this.gps_coordinate_data;
-      console.log(this.gpsselected);
-      const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsselected, {});
+    if (!this.gpsSelected.gps_id) {
+      if (!this.gpsSelected.area_risk_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
+      this.gpsSelected.gps_coordinate_data = this.gps_coordinate_data;
+      console.log(this.gpsSelected);
+      const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsSelected, {});
       if (res.rsCode === 0) {
         this.toast.present({ message: '등록되었습니다.', color:'primary' });
 
@@ -591,7 +593,8 @@ export class AreaStandardSetPage implements OnInit {
     if (resUpdate.rsCode === 0) {
       this.getRiskArea();
       this.toast.present({ message: '저장되었습니다.', color: 'primary' });
-    } else {
+    } 
+    else {
       this.toast.present({ message: resUpdate.rsMsg, color: 'warning' });
     }
   }

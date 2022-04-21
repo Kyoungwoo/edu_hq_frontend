@@ -147,9 +147,8 @@ var NaverMapComponent = /** @class */ (function () {
             });
         }
     };
-    NaverMapComponent.prototype.addMarker = function (coord, parse) {
+    NaverMapComponent.prototype.addMarker = function (coord) {
         var _this = this;
-        if (parse === void 0) { parse = false; }
         console.log(coord, this.disabled);
         if (this.disabled)
             return;
@@ -161,11 +160,8 @@ var NaverMapComponent = /** @class */ (function () {
         });
         this.marker.push(marker);
         this.path.push(coord);
-        if (!parse) {
-            // _value 셋팅. parse를 하는 상황에서는 value가 변했기 때문에 parse를 함
-            this._value.gps_latitude.push(coord.x);
-            this._value.gps_longitude.push(coord.y);
-        }
+        this._value.gps_latitude.push(coord.x);
+        this._value.gps_longitude.push(coord.y);
         // 좌표 움직임 셋팅
         naver.maps.Event.addListener(marker, "dragend", function (e) {
             var point = e.coord;
@@ -212,19 +208,20 @@ var NaverMapComponent = /** @class */ (function () {
     };
     NaverMapComponent.prototype.parseData = function (v) {
         return __awaiter(this, void 0, void 0, function () {
-            var length, i, x, y;
+            var insertV, length, i, x, y;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.afterInit()];
                     case 1:
                         _a.sent();
+                        insertV = this.file.clone(v);
                         this.resetMarker();
-                        if (v) {
-                            length = v.gps_latitude.length;
+                        if (insertV) {
+                            length = insertV.gps_latitude.length;
                             for (i = 0; i < length; i++) {
-                                x = v.gps_latitude[i];
-                                y = v.gps_longitude[i];
-                                this.addMarker({ x: x, y: y }, true);
+                                x = insertV.gps_latitude[i];
+                                y = insertV.gps_longitude[i];
+                                this.addMarker({ x: x, y: y });
                             }
                         }
                         return [2 /*return*/];
@@ -259,6 +256,8 @@ var NaverMapComponent = /** @class */ (function () {
         configurable: true
     });
     NaverMapComponent.prototype.writeValue = function (v) {
+        console.log(this._value);
+        console.log(v);
         if (!this.file.shallowEqual(v, this._value)) {
             this._value = v;
             this.parseData(v);

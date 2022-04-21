@@ -1,0 +1,15 @@
+:host app-button {
+  margin-bottom: 0;
+}
+:host .edit {
+  height: 230px;
+  overflow: scroll;
+}
+:host .edit th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+:host .selected td {
+  background: var(--ion-color-secondary);
+}
