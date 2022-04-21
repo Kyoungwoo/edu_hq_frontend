@@ -63,7 +63,9 @@ constructor(
     }
 
       const routerEl = document.querySelector('ion-router-outlet');
+      const routerEl_2:any = document.getElementsByClassName('side-menu-class-user')[0];
       routerEl.style.display = 'flex';
+      if(routerEl_2?.style?.display) routerEl_2.style.display = 'flex';
       const ionApp = document.getElementsByTagName('ion-app')[0];
       ionApp.style.backgroundColor = 'transparent';
       modal.dismiss().then(() => {

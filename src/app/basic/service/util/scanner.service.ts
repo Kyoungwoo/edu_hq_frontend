@@ -34,4 +34,6 @@ export class ScannerService {
     });
     return return_state;
   }
+
+  
 }
