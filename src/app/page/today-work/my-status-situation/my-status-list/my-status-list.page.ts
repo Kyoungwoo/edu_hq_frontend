@@ -1,3 +1,4 @@
+import { ScannerService } from './../../../../basic/service/util/scanner.service';
 import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
@@ -6,8 +7,8 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
+// import { NfcService } from 'src/app/basic/service/util/nfc.service';
+// import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 
 @Component({
@@ -87,11 +88,12 @@ export class MyStatusListPage implements OnInit {
     private nav: NavService,
     private modal: ModalController,
     private connect: ConnectService,
-    private qr: QrService,
-    private nfc: NfcService,
+    // private qr: QrService,
+    // private nfc: NfcService,
     private alert: AlertService,
     private toast: ToastService,
-    public user: UserService
+    public user: UserService,
+    private scanner: ScannerService
   ) { }
 
   ngOnInit() {
@@ -165,6 +167,6 @@ export class MyStatusListPage implements OnInit {
   }
 
   async inNfcQr() {
-    this.qr.open().then((data) => {this.get();});
+    this.scanner.init().then((data) => {this.get();});
   }
 }

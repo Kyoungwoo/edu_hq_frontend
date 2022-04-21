@@ -35,7 +35,7 @@ constructor(
     let ACC_state = false;
 
     if(data) {
-      if(data?.state === 'NFC_CHANGE') return_state = await this.scanner.open_nfc(info_state);
+      // if(data?.state === 'NFC_CHANGE') return_state = await this.scanner.open_nfc(info_state);
       if(data?.state === 'QR_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계

@@ -97,7 +97,10 @@
   </div>
     <ion-toolbar color="white" class="segment-border">
       <ion-segment [(ngModel)]="menu" color="primary">
-        <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">공지사항</ion-segment-button>
+        <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">
+          공지사항
+          <ion-badge>1</ion-badge>
+        </ion-segment-button>
         <ion-segment-button [value]="2" (click)="menu = 2;" class="segment-font segment-width">MSDS</ion-segment-button>
         <ion-segment-button [value]="3" (click)="menu = 3;" class="segment-font segment-width">회의록</ion-segment-button>
       </ion-segment>

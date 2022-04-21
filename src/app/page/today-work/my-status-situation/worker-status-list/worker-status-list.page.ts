@@ -1,10 +1,8 @@
-import { Component, Injectable, OnInit, Output } from '@angular/core';
+import { ScannerService } from './../../../../basic/service/util/scanner.service';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { NfcService } from 'src/app/basic/service/util/nfc.service';
-import { PromiseService } from 'src/app/basic/service/util/promise.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
 import { AreaDate } from 'src/app/component/select/select-dangerous-area/select-dangerous-area.component';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
@@ -97,8 +95,7 @@ export class WorkerStatusListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     private toast: ToastService,
-    private qr: QrService,
-    private nfc: NfcService
+    private scanner: ScannerService
   ) { }
 
   async ngOnInit() {
@@ -171,8 +168,7 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   async inNfcQr() {
-    this.qr.open(true).then((data) => {
-      console.log("NFC QR get data - ",data);
+    this.scanner.init(true).then((data) => {
       this.form.area_risk_id = data.data;
       this.areadata.area_risk_id = data.data;
       this.getRiskArea();
