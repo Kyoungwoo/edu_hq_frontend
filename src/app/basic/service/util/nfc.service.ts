@@ -80,7 +80,10 @@ export class NfcService {
     const res = await this.connect.run(method, item);
     if (res.rsCode === 0) {
       data_obj.state = true;
-      if(info_state) data_obj.data = res.rsObj.area_risk_id;
+      if(info_state) {
+        console.log("info_state - ",info_state);
+        data_obj.data = res.rsObj.area_risk_id;
+      }
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }

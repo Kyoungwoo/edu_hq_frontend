@@ -107,7 +107,7 @@ export class MyStatusListPage implements OnInit {
        user_role === 'PARTNER_GENERAL') this.notWorker = true;
     if(user_role === 'MASTER_HEAD' ||
        user_role === 'PARTNER_HEAD') {
-         this.form.master_company_id = this.user.userData.belong_data.company_id;
+        //  this.form.master_company_id = this.user.userData.belong_data.company_id;
        }
 
     if(user_role === 'PARTNER_WORKER' ||

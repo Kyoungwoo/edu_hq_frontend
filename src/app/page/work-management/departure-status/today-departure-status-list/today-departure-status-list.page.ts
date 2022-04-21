@@ -172,7 +172,7 @@ export class TodayDepartureStatusListPage implements OnInit {
       componentProps: {
         type,
         project_id: this.form.project_id,
-        company_id: this.form.master_company_id,
+        company_id: this.user.userData.belong_data.company_id,
         inout_date: this.form.cnt_date
       }
     });
