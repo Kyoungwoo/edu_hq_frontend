@@ -35,7 +35,7 @@ constructor(
     let ACC_state = false;
 
     if(data) {
-      if(data?.state === 'NFC_CHANGE') return_state = await this.scanner.open_nfc(info_state);
+      // if(data?.state === 'NFC_CHANGE') return_state = await this.scanner.open_nfc(info_state);
       if(data?.state === 'QR_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계
@@ -63,7 +63,9 @@ constructor(
     }
 
       const routerEl = document.querySelector('ion-router-outlet');
+      const routerEl_2:any = document.getElementsByClassName('side-menu-class-user')[0];
       routerEl.style.display = 'flex';
+      if(routerEl_2?.style?.display) routerEl_2.style.display = 'flex';
       const ionApp = document.getElementsByTagName('ion-app')[0];
       ionApp.style.backgroundColor = 'transparent';
       modal.dismiss().then(() => {

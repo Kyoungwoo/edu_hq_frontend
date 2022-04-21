@@ -17,7 +17,8 @@ export class MenuButtonComponent implements OnInit {
 
   async openMenu() {
     const modal = await this._modal.create({
-      component: SideMenuUserComponent
+      component: SideMenuUserComponent,
+      cssClass: 'side-menu-class-user'
     });
     modal.present();
   }

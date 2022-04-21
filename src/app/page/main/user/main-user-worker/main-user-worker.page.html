@@ -82,7 +82,7 @@
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square" (click)="router('')">
+        <app-button class="square" shape="square" (click)="QRscanner()">
           <app-img src="assets/img/menu/nfc-dark.svg"></app-img>
           <p>NFC/QR</p>
         </app-button>
@@ -97,7 +97,10 @@
   </div>
     <ion-toolbar color="white" class="segment-border">
       <ion-segment [(ngModel)]="menu" color="primary">
-        <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">공지사항</ion-segment-button>
+        <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">
+          공지사항
+          <ion-badge>1</ion-badge>
+        </ion-segment-button>
         <ion-segment-button [value]="2" (click)="menu = 2;" class="segment-font segment-width">MSDS</ion-segment-button>
         <ion-segment-button [value]="3" (click)="menu = 3;" class="segment-font segment-width">회의록</ion-segment-button>
       </ion-segment>

@@ -68,7 +68,7 @@
             <app-input name="contract_name" label="계약명" [(ngModel)]="item.contract_name"></app-input>
           </td>
           <td>
-            <app-select-construction [master_company_id]="user.userData.belong_data.master_company_id" label="" name="ctgo_construction_id" [project_id]="user.userData.belong_data.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
+            <app-select-construction [master_company_id]="item.master_company_id" label="" name="ctgo_construction_id" [project_id]="item.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
           </td>
           <td>
             <app-input name="contract_amount" label="계약금액" [(ngModel)]="item.contract_amount"></app-input>

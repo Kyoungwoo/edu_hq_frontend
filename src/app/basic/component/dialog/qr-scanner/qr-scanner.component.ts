@@ -64,7 +64,9 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     clearTimeout(this.qr_timeout);
     this.qr_subs.unsubscribe();
     const routerEl = document.querySelector('ion-router-outlet');
+    const routerEl_2:any = document.getElementsByClassName('side-menu-class-user')[0];
     routerEl.style.display = 'flex';
+    if(routerEl_2?.style?.display) routerEl_2.style.display = 'flex';
     this.qrScanner.destroy();
   }
   prepareQR() {
@@ -94,10 +96,9 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     await this.qrScanner.show();
     if(Qr) Qr.transparent();
     const routerEl_1 = document.querySelector('ion-router-outlet');
-    const routerEl_2 = document.querySelector('ion-modal');
+    const routerEl_2:any = document.getElementsByClassName('side-menu-class-user')[0];
     routerEl_1.style.display = 'none';
-    // routerEl_2.style.display = 'none';
-    console.log('routerEl_2 - ',routerEl_2);
+    if(routerEl_2 !== undefined) routerEl_2.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
       // console.log("qr-scanner - ", data);
       // let res = {
@@ -122,18 +123,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           type = data.split('=')[data.split('=').length-1];
           device_id = data.split('=')[data.split('=').length-2]?.split('&')[0];
         } else {
-          console.log('not Equip - ', data);
-          console.log('not Equip - ', typeof data);
           let data_set = JSON.parse(data);
-          console.log('data_set  - ', data_set);
           if(data.indexOf('education_safe_id') != -1){
-            console.log('innet education_safe_id');
             type = data_set.type;
             education_safe_id = data_set.education_safe_id;
           }
 
           if(data.indexOf('serial_key') != -1){
-            console.log('innet serial_key');
             type = data_set.type;
             serial_key = data_set.serial_key;
           }

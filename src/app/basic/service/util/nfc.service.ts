@@ -32,7 +32,7 @@ export class NfcService {
     };
 
     if(data) {
-      if(data?.state === 'QR_CHANGE') return_state = await this.scanner.open_qr(info_state);
+      // if(data?.state === 'QR_CHANGE') return_state = await this.scanner.open_qr(info_state);
       if(data?.state === 'NFC_SUCCESS'){
         // NFC 태깅 완료
         // 'WORK' - 오늘의작업, 'EDU' - 교육, 'ACC' - 건설기계

@@ -213,7 +213,7 @@ export class MainUserWorkerPage implements OnInit {
   }
 
   QRscanner(){
-    // this.scanner.open_qr();
+    this.scanner.init();
     // this.qr.open();
   }
 }
