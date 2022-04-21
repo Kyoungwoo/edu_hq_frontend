@@ -162,12 +162,11 @@ export class UserService {
   clear() {
     if(isPlatformServer(this.platformId)) return;
 
-    window.localStorage.removeItem(TAG.Id);
-    window.sessionStorage.removeItem(TAG.AuthToken);
-    window.localStorage.removeItem(TAG.AuthToken);
-    window.sessionStorage.removeItem(TAG.UserData);
-    window.localStorage.removeItem(TAG.UserData);
+    window.localStorage.clear();
+    window.sessionStorage.clear();
 
+    this.getId();
+    this.getMemberAuthToken();
     this.getAuthToken();
     this.getUserData();
   }

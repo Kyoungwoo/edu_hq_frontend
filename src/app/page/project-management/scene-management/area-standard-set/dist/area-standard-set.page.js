@@ -114,6 +114,7 @@ var AreaStandardSetPage = /** @class */ (function () {
         this.riskAreaData = [];
         this.area_risk_use_state_data = [];
         this.gps_coordinate_data = new naver_map_component_1.GpsCoordinateData();
+        this.selectedGPSItem = null;
         this.gpsselected = new SelectItem();
         this.naverMapSetting = true;
         this.areaRoleCheck = true;
@@ -518,7 +519,6 @@ var AreaStandardSetPage = /** @class */ (function () {
     };
     AreaStandardSetPage.prototype.addRiskArea = function () {
         var _a;
-        console.log('asdfasdtest', this.resRiskArea.rsMap);
         if ((_a = this.resRiskArea) === null || _a === void 0 ? void 0 : _a.rsMap) {
             this.resRiskArea.rsMap.unshift({
                 second_user_id: 0,
@@ -595,18 +595,17 @@ var AreaStandardSetPage = /** @class */ (function () {
                             case 0:
                                 if (!item.area_top_id)
                                     return [2 /*return*/, this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })];
-                                if (!item.area_middle_id)
-                                    return [2 /*return*/, this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })];
-                                if (!item.area_bottom_id)
-                                    return [2 /*return*/, this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })];
+                                item.area_middle_id = item.area_middle_id || 0;
+                                item.area_bottom_id = item.area_middle_id || 0;
+                                // if (!item.area_middle_id) return this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })
+                                // if (!item.area_bottom_id) return this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })
                                 if (!item.area_risk_name)
                                     return [2 /*return*/, this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' })];
                                 if (!item.area_risk_type)
-                                    return [2 /*return*/, this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })];
-                                if (!item.manager_user_id)
-                                    return [2 /*return*/, this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })];
-                                if (!item.second_user_id)
-                                    return [2 /*return*/, this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })];
+                                    return [2 /*return*/, this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })
+                                        // if (!item.manager_user_id) return this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })
+                                        // if (!item.second_user_id) return this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })
+                                    ];
                                 if (!!item.area_risk_id) return [3 /*break*/, 2];
                                 item.project_id = this.riskProjectForm.project_id;
                                 return [4 /*yield*/, this.connect.run('/project/risk_area/insert', item)];
@@ -852,7 +851,9 @@ var AreaStandardSetPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (this.updateEdit)
-                            return [2 /*return*/];
+                            return [2 /*return*/]; // 업데이트 권한? 나중에 확인
+                        if (!item.area_risk_id)
+                            return [2 /*return*/]; // 신규 등록일 시, id가 없으면 업데이트를 하면 안됨.
                         area_risk_use_state_data = [];
                         area_risk_use_state_data.push({
                             area_risk_id: item.area_risk_id,

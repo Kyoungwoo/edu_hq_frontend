@@ -40,6 +40,8 @@ export class BelongForm {
   user_role:number = null;
   project_id:number = null;
   project_name:string = null;
+  master_company_id:number = null;
+  master_company_name:string = null;
   company_id:number = null;
   company_name:string = null;
   ctgo_job_position_id:number = null;

@@ -16,57 +16,127 @@ var SideMenuAdminComponent = /** @class */ (function () {
         this._modal = _modal;
         this.user = user;
         this.menuList = [
-            { title: '통합관제', img: 'assets/img/menu/control-center.svg',
+            { title: '통합관제', img: 'assets/img/menu/control-center.svg', permission: function () {
+                    var _a = _this.user.userData, user_type = _a.user_type, user_role = _a.user_role;
+                    return user_type === 'LH' || user_type === 'SUPER' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+                },
                 subMenuList: [
-                    { title: '통합관제', link: '/monitor' }
+                    { title: '통합관제', link: '/monitor', permission: function () {
+                            var _a = _this.user.userData, user_type = _a.user_type, user_role = _a.user_role;
+                            return user_type === 'LH' || user_type === 'SUPER' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+                        } },
                 ] },
-            { title: '전자결재', img: 'assets/img/menu/sign.svg', subMenuList: [
+            { title: '전자결재', img: 'assets/img/menu/sign.svg', permission: function () {
+                    var user_type = _this.user.userData.user_type;
+                    return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                },
+                subMenuList: [
                     { title: '기안/임시저장함', link: '/confirm-obtain-list', permission: function () {
                             var user_type = _this.user.userData.user_type;
                             return user_type === 'COMPANY';
                         }
                     },
-                    { title: '미결함', link: '/confirm-pending-list' },
-                    { title: '진행/완료/반려', link: '/confirm-progress-list' },
-                    { title: '참조함', link: '/confirm-cc-list' },
+                    { title: '미결함', link: '/confirm-pending-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        }
+                    },
+                    { title: '진행/완료/반려', link: '/confirm-progress-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
+                    { title: '참조함', link: '/confirm-cc-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
                     { title: '전자결재 설정', permission: function () {
                             var user_type = _this.user.userData.user_type;
                             return user_type === 'COMPANY';
-                        }, thirdMenuList: [
-                            { title: '기본 전자결재선 지정', link: '/approval-edit' },
+                        },
+                        thirdMenuList: [
+                            { title: '기본 전자결재선 지정', link: '/approval-edit', permission: function () {
+                                    var user_type = _this.user.userData.user_type;
+                                    return user_type === 'COMPANY';
+                                } },
                             { title: '위임 관리', link: '' }
-                        ] }
+                        ]
+                    }
                 ] },
             { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
-                    { title: '교육현황', link: '/safety-education-list' },
-                    { title: '교육 결과 보고', link: '/safety-education-result-list' },
-                    { title: '교육이력', thirdMenuList: [
-                            { title: '근로자 교육 이력', link: '/safety-education-history-list' },
+                    { title: '교육 현황', link: '/safety-education-list', permission: function () {
+                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                        } },
+                    { title: '교육 결과 보고', link: '/safety-education-result-list', permission: function () {
+                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                        } },
+                    { title: '교육 이력', thirdMenuList: [
+                            { title: '근로자 교육 이력', link: '/safety-education-history-list', permission: function () {
+                                    var user_type = _this.user.userData.user_type;
+                                    return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                                } },
                             { title: '정기 교육 이력', link: '' },
                             { title: '특별 교육 이력', link: '' }
                         ] }
                 ] },
-            { title: '작업계획', img: 'assets/img/menu/work-plan.svg', subMenuList: [
+            { title: '작업계획', img: 'assets/img/menu/work-plan.svg', permission: function () {
+                    var user_type = _this.user.userData.user_type;
+                    return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                },
+                subMenuList: [
                     { title: '위험성 평가', thirdMenuList: [
-                            { title: '위험성평가 작성', link: '/risk-list' },
+                            { title: '위험성평가 작성', link: '/risk-list', permission: function () {
+                                    var user_type = _this.user.userData.user_type;
+                                    return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                                } },
                             { title: '평가표 정보 추가 요청', link: '' }
                         ] },
                     { title: '위험 작업 허가', link: '' },
-                    { title: '회의록', link: '/worker-minutes-list' }
+                    { title: '회의록', link: '/worker-minutes-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } }
                 ] },
-            { title: '작업관리', img: 'assets/img/menu/work-management.svg', subMenuList: [
-                    { title: '출역 현황', link: '/departure-status-list' },
+            { title: '작업관리', img: 'assets/img/menu/work-management.svg', permission: function () {
+                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                    return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
+                },
+                subMenuList: [
+                    { title: '출역 현황', link: '/departure-status-list', permission: function () {
+                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                            return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
                     { title: 'TBM 일지', link: '' },
-                    { title: '점검현황', link: '' },
+                    { title: '점검 현황', link: '' },
                     { title: '부적합 조치 현황', link: '' }
                 ] },
-            { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', subMenuList: [
-                    { title: '중장비 관리', link: '/heavy-equip-list' },
+            { title: '장비관리', img: 'assets/img/menu/equipment-management.svg', permission: function () {
+                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                    return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                },
+                subMenuList: [
+                    { title: '중장비 관리', link: '/heavy-equip-list', permission: function () {
+                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                        } },
                     { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
-                            { title: '시리얼 NO', link: '/serial-no-list' },
-                            { title: '개인 디바이스', link: '/each-device-list' },
-                            { title: '중장비 디바이스', link: '/heavy-device-list' },
-                            { title: '위험지역 디바이스', link: '/danger-area-list' }
+                            { title: '시리얼 NO', link: '/serial-no-list', permission: function () {
+                                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                                    return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                                } },
+                            { title: '개인 디바이스', link: '/each-device-list', permission: function () {
+                                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                                    return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                                } },
+                            { title: '중장비 디바이스', link: '/heavy-device-list', permission: function () {
+                                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                                    return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                                } },
+                            { title: '장소 디바이스', link: '/danger-area-list', permission: function () {
+                                    var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
+                                    return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                                } }
                         ] }
                 ] },
             { title: '위험작업관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
@@ -81,52 +151,101 @@ var SideMenuAdminComponent = /** @class */ (function () {
                 ] },
             { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
                     { title: '문의하기', link: '' },
-                    { title: '사용자 매뉴얼', link: '/manual-list' },
-                    { title: '시스템 이용 약관', link: '/use-terms' },
-                    { title: '개인정보처리방침', link: '/privacy' }
+                    { title: '사용자 매뉴얼', link: '/manual-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
+                    { title: '시스템 이용약관', link: '/use-terms', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
+                    { title: '개인정보처리방침', link: '/privacy', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } }
                 ] },
             { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
-                    { title: '작업자 가입승인', link: '/worker-approval-list' },
-                    { title: '관리자 가입승인', thirdMenuList: [
+                    { title: '작업자 가입승인', link: '/worker-approval-list', permission: function () {
+                            var user_role = _this.user.userData.user_role;
+                            return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                        } },
+                    { title: '관리자 가입승인', permission: function () {
+                            var user_role = _this.user.userData.user_role;
+                            return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                        },
+                        thirdMenuList: [
                             { title: 'LH 관리자 가입 승인', link: '/lh-approval-list', permission: function () {
-                                    var user_type = _this.user.userData.user_type;
-                                    return user_type === 'LH';
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD';
                                 } },
                             { title: '감리 가입승인', link: '/supervision-approval-list', permission: function () {
-                                    var user_type = _this.user.userData.user_type;
-                                    return user_type === 'LH' || user_type === 'SUPER';
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD';
                                 } },
-                            { title: '원청사/협력사 관리자 가입승인', link: '/partner-approval-list' }
+                            { title: '원청사/협력사 관리자 가입승인', link: '/partner-approval-list', permission: function () {
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                                } }
                         ] },
-                    { title: '작업자 정보', link: '/worker-info-list' },
-                    { title: '관리자 정보', thirdMenuList: [
+                    { title: '작업자 정보', link: '/worker-info-list', permission: function () {
+                            var user_role = _this.user.userData.user_role;
+                            return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                        } },
+                    { title: '관리자 정보', permission: function () {
+                            var user_role = _this.user.userData.user_role;
+                            return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                        },
+                        thirdMenuList: [
                             { title: 'LH 관리자 정보', link: '/lh-info-list', permission: function () {
-                                    var user_type = _this.user.userData.user_type;
-                                    return user_type === 'LH';
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD';
                                 } },
                             { title: '감리 정보', link: '/supervision-info-list', permission: function () {
-                                    var user_type = _this.user.userData.user_type;
-                                    return user_type === 'LH' || user_type === 'SUPER';
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD';
                                 } },
-                            { title: '원청사/협력사 관리자 정보', link: '/partner-info-list' },
+                            { title: '원청사/협력사 관리자 정보', link: '/partner-info-list', permission: function () {
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                                } },
                         ] },
                     { title: '안전마일리지', link: '' }
                 ] },
             { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
-                    { title: '현장 등록', link: '/scene-list' },
-                    { title: '감리사 관리', link: '/supervision-list' },
-                    { title: '원청사 관리', link: '/contractor-list' },
-                    { title: '협력사 관리', link: '/partner-list' },
-                    { title: '기준 정보 관리', thirdMenuList: [
-                            { title: '회원 정보 기준 설정', link: '/member-standard-set' },
-                            { title: '교육 정보 기준 설정', link: '' },
-                            { title: '장소 정보 기준 설정', link: '/area-standard-set' },
-                            { title: '작업 정보 기준 설정', link: '/work-standard-set', permission: function () {
-                                    var user_type = _this.user.userData.user_type;
-                                    return user_type === 'COMPANY';
+                    { title: '현장 정보 관리', link: '/scene-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+                        } },
+                    { title: '감리사 관리', link: '/supervision-list', permission: function () {
+                            var user_type = _this.user.userData.user_type;
+                            return user_type === 'LH' || user_type === 'SUPER';
+                        } },
+                    { title: '원청사 관리', link: '/contractor-list', permission: function () {
+                            var _a = _this.user.userData, user_type = _a.user_type, user_role = _a.user_role;
+                            return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL' || user_type === 'SUPER';
+                        } },
+                    { title: '협력사 관리', link: '/partner-list', permission: function () {
+                            var _a = _this.user.userData, user_type = _a.user_type, user_role = _a.user_role;
+                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+                        } },
+                    { title: '기준 정보 관리', permission: function () {
+                            var _a = _this.user.userData, user_type = _a.user_type, user_role = _a.user_role;
+                            return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+                        },
+                        thirdMenuList: [
+                            { title: '회원 정보 기준 설정', link: '/member-standard-set', permission: function () {
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
                                 } },
-                            { title: '비상 관리 기준 설정', link: '' },
-                            { title: '시스템 활용 기준 설정', link: '' }
+                            // { title:'교육 정보 기준 설정',link:'' },
+                            { title: '장소 정보 기준 설정', link: '/area-standard-set', permission: function () {
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+                                } },
+                            { title: '작업 정보 기준 설정', link: '/work-standard-set', permission: function () {
+                                    var user_role = _this.user.userData.user_role;
+                                    return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+                                } },
                         ] }
                 ] },
             { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [

@@ -12,8 +12,6 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 })
 export class MemberStandardSetPage implements OnInit {
 
-  menuCount: Number = 1;
-
   //lh 조직관리 시작
 
 
@@ -60,8 +58,6 @@ export class MemberStandardSetPage implements OnInit {
   //lh 조직관리 끝
 
   //정보 접근 비밀번호
-
-  rolepass: boolean = true;
   form = {
     company_id: this.user.userData.belong_data.company_id,
     company_password: ''
@@ -132,11 +128,18 @@ export class MemberStandardSetPage implements OnInit {
   occupationSelected = [];
   //직종 끝
 
-
-  memberRoleCheck: boolean = true;
-  editable:boolean = false;
-  superView:boolean = false;
-  initValue:number;
+  segmenet:string = 'LH조직관리';
+  
+  contractType = '';
+  permission = {
+    'LH조직관리': false,
+    '정보접근비밀번호': false,
+    '안전마일리지적립': false,
+    '안전마일리지사용': false,
+    '직위': false,
+    '안전직무': false,
+    '직종': false
+  }
 
   constructor(
     private connect: ConnectService,
@@ -147,84 +150,73 @@ export class MemberStandardSetPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authority();
-
-    //lh조직기구
-
-    this.level1();
-    this.getJobPosition();
-    this.getSafeJob();
-    this.getOccupation();
+    this.getForm();
   }
-
-  async menuCount1() {
-    this.menuCount = 1;
-    if (!this.lhHeadCheck) {
-      this.level1();
+  segmentChange() {
+    switch(this.segmenet) {
+      case 'LH조직관리':
+        this.level1();
+        break;
+      case '정보접근비밀번호':
+        break;
+      case '안전마일리지적립':
+        break;
+      case '안전마일리지사용':
+        break;
+      case '직위':
+        this.getJobPosition();
+        break;
+      case '안전직무':
+        this.getSafeJob();
+        break;
+      case '직종':
+        this.getOccupation();
+        break;
     }
   }
 
-  authority() {
-    const { user_role } = this.user.userData;
-    if (user_role === 'PARTNER_HEAD' ||
-    user_role === 'MASTER_HEAD' ||
-    user_role === 'LH_ADMIN' ||
-    user_role === 'LH_HEAD') this.memberRoleCheck = false;
+  getForm() {
+    const { belong_data } = this.user.userData;
+    this.contractType = belong_data.company_contract_type;
     
-    if(user_role === 'PARTNER_HEAD' ||
-    this.user.userData.user_role === 'MASTER_HEAD') {
-      this.editable = true;
+    if(this.contractType === 'LH') {
+      this.segmenet = 'LH조직관리';
+      this.permission.LH조직관리 = true;
+      this.permission.정보접근비밀번호 = true;
+      this.permission.안전마일리지적립 = false;
+      this.permission.안전마일리지사용 = false;
+      this.permission.직위 = true;
+      this.permission.안전직무 = false;
+      this.permission.직종 = false;
     }
-    if(user_role === 'SUPER_HEAD') {
-      this.superView = true;
-      this.initValue = 5;
-    } 
-    if (user_role === 'LH_HEAD') {
-      this.lhHeadCheck = false;
-      this.initValue = 2;
-    } else if(this.lhHeadCheck) {
-      this.menuCount = 2;
-      this.initValue = 1;
-      this.menuCount2();
+    else if(this.contractType === '감리사') {
+      // 감리 접근 불가
+      this.segmenet = '정보접근비밀번호';
+      this.permission.LH조직관리 = false;
+      this.permission.정보접근비밀번호 = true;
+      this.permission.안전마일리지적립 = false;
+      this.permission.안전마일리지사용 = false;
+      this.permission.직위 = false;
+      this.permission.안전직무 = false;
+      this.permission.직종 = false;
     }
-  }
-
-  async menuCount2() {
-    if(this.user.userData.user_role === 'MASTER_HEAD') {
-      this.form.company_id = this.user.userData.belong_data.company_id;
-    }
-    this.menuCount = 2;
-  }
-
-  async menuCount5() {
-    this.menuCount = 5;
-    if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.rolepass = false;
-    }
-  }
-
-  async menuCount6() {
-    this.menuCount = 6;
-    if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.rolepass = false;
+    else if(this.contractType === '원청사' || this.contractType === '협력사') {
+      this.segmenet = '정보접근비밀번호';
+      this.permission.LH조직관리 = false;
+      this.permission.정보접근비밀번호 = true;
+      this.permission.안전마일리지적립 = true;
+      this.permission.안전마일리지사용 = true;
+      this.permission.직위 = true;
+      this.permission.안전직무 = true;
+      this.permission.직종 = true;
     }
   }
 
-  async menuCount7() {
-    this.menuCount = 7;
-    if (!this.lhHeadCheck || !this.memberRoleCheck) {
-      this.rolepass = false;
-    }
-
-  }
   //-->  lh조직관리 시작
 
   //본부, 지역본부
   async level1() {
-    if (!this.lhHeadCheck) {
-      this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
-      if (this.resLevel1.rsCode === 0) { }
-    }
+    this.resLevel1 = await this.connect.run('/project/organization/regional/get', {}, {});
   }
 
   // //지역본부, 사업본부
@@ -483,10 +475,11 @@ export class MemberStandardSetPage implements OnInit {
     }
   }
   async memberPasswordUdpate() {
-    if(!this.rolepass) return this.toast.present({ message: '권한이 없습니다.' , color:'warning'});
     if(!this.passchkck) return this.toast.present({ message: '비밀번호 양식이 맞지 않습니다.' , color:'warning'});
     if(this.form.company_password !== this.subpassword) return this.toast.present({ message: '비밀번호를 확인해 주세요.', color: "warning" });
+
     const res = await this.connect.run('/project/company/pass/update', this.form, {});
+
     if (res.rsCode === 0) {
       this.toast.present({ message: '비밀번호가 변경 되었습니다.',color:'primary' });
       this.form.company_password = null;
@@ -503,7 +496,7 @@ export class MemberStandardSetPage implements OnInit {
     } else {
       this.toast.present({message:this.resJobPosition.rsMsg});
     }
-  } 
+  }
 
   async addJobPosstion() {
     if (!this.jobForm.company_id) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
@@ -598,7 +591,6 @@ export class MemberStandardSetPage implements OnInit {
   async getSafeJob() {
     if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
       this.safeJobForm.company_id = this.user.userData.belong_data.company_id;
-      this.safeJobForm.user_type = 'COMPANY';
     }
     this.resSafeJob = await this.connect.run('/project/safe_job/get', this.safeJobForm);
     if (this.resSafeJob.rsCode === 0) { };

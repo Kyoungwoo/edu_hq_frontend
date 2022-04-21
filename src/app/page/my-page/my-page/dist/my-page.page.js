@@ -86,6 +86,8 @@ var BelongForm = /** @class */ (function () {
         this.user_role = null;
         this.project_id = null;
         this.project_name = null;
+        this.master_company_id = null;
+        this.master_company_name = null;
         this.company_id = null;
         this.company_name = null;
         this.ctgo_job_position_id = null;
@@ -317,7 +319,7 @@ var MyPagePage = /** @class */ (function () {
                     header: '회원탈퇴를 진행합니다.',
                     message: "\n        \u25A1 \uD68C\uC6D0 \uD0C8\uD1F4 \uC2DC \uC2DC\uC2A4\uD15C \uC774\uC6A9\uC774 \uBD88\uAC00\uB2A5 \uD558\uBA70 \uCDE8\uC18C\uAC00 \uBD88\uAC00\uB2A5 \uD569\uB2C8\uB2E4.\n\n        \u25A1 \uD68C\uC6D0 \uD0C8\uD1F4 \uD6C4 \uB9C8\uC9C0\uB9C9 \uCD9C\uC5ED \uD604\uC7A5\uC758 \uC900\uACF5\uC77C\uB85C \uBD80\uD130 3\uB144 \uD6C4 \uAE4C\uC9C0 \uC815\uBCF4 \uBCF4\uAD00 \uD6C4 \uC790\uB3D9 \uC0AD\uC81C \uB429\uB2C8\uB2E4.\n\n        \u25A1 \uD68C\uC6D0 \uD0C8\uD1F4\uB97C \uC6D0\uD560 \uC2DC \uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.\n      ",
                     inputs: [
-                        { name: 'account_token', placeholder: '비밀번호' }
+                        { name: 'account_token', placeholder: '비밀번호', type: 'password' }
                     ],
                     buttons: [
                         { text: '취소' },
@@ -356,7 +358,7 @@ var MyPagePage = /** @class */ (function () {
                             });
                         }
                         else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
+                            this.toast.present({ color: 'warning', message: '비밀번호가 올바르지 않습니다.' });
                         }
                         return [2 /*return*/];
                 }
