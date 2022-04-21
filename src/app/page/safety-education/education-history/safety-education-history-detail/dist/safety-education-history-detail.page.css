@@ -75,6 +75,7 @@ h4 {
   left: 0;
   width: 100%;
   height: 100%;
+  white-space: nowrap;
 }
 .grp-group .grp-bottom-border {
   background: var(--ion-color-medium);
@@ -86,27 +87,37 @@ h4 {
 .grp-time {
   width: 100%;
   height: 30%;
+  justify-content: space-between;
+}
+
+.grp-time-pull {
+  width: 100%;
+  height: 30%;
   display: flex;
 }
-.grp-time .first {
+.grp-time-pull .first {
   flex: 1;
 }
-.grp-time .second {
+.grp-time-pull .second {
   display: flex;
   position: relative;
   flex: 1;
 }
-.grp-time .second-one {
+.grp-time-pull .second-one {
   position: absolute;
   left: -10px;
 }
-.grp-time .second-two {
+.grp-time-pull .second-two {
+  position: absolute;
+  left: -10px;
+}
+.grp-time-pull .second-three {
   position: absolute;
   right: -10px;
 }
-.grp-time .third {
+.grp-time-pull .third {
   flex: 1;
 }
-.grp-time .third-one {
+.grp-time-pull .third-one {
   text-align: right;
 }

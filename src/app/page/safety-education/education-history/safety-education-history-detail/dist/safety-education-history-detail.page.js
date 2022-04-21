@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -42,7 +55,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SafetyEducationHistoryDetailPage = exports.RoutineItem = exports.HireItem = exports.HistoryItem = void 0;
+exports.SafetyEducationHistoryDetailPage = exports.RoutineEducationItem = exports.EducationItem = exports.HireItem = exports.HistoryItem = void 0;
 var core_1 = require("@angular/core");
 var HistoryItem = /** @class */ (function () {
     function HistoryItem() {
@@ -57,12 +70,20 @@ var HireItem = /** @class */ (function () {
     return HireItem;
 }());
 exports.HireItem = HireItem;
-var RoutineItem = /** @class */ (function () {
-    function RoutineItem() {
+var EducationItem = /** @class */ (function () {
+    function EducationItem() {
     }
-    return RoutineItem;
+    return EducationItem;
 }());
-exports.RoutineItem = RoutineItem;
+exports.EducationItem = EducationItem;
+var RoutineEducationItem = /** @class */ (function (_super) {
+    __extends(RoutineEducationItem, _super);
+    function RoutineEducationItem() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return RoutineEducationItem;
+}(EducationItem));
+exports.RoutineEducationItem = RoutineEducationItem;
 var SafetyEducationHistoryDetailPage = /** @class */ (function () {
     function SafetyEducationHistoryDetailPage(connect, toast) {
         this.connect = connect;
@@ -74,8 +95,8 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
             search_text: ''
         };
         this.res = new HistoryItem();
-        this.hireRes = new HireItem();
-        this.routineRes = new RoutineItem();
+        this.hire = new HireItem();
+        this.routine = new RoutineEducationItem();
     }
     SafetyEducationHistoryDetailPage.prototype.ngOnInit = function () {
         this.getItem();
@@ -112,9 +133,9 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.connect.run('/education/report/hire/get', { approval_user_id: this.user_id })];
                     case 1:
                         res = _a.sent();
-                        console.log("this.hireRes : ", this.hireRes);
+                        console.log("this.hire : ", this.hire);
                         if (res.rsCode === 0) {
-                            this.hireRes = res.rsObj;
+                            this.hire = res.rsObj;
                         }
                         return [2 /*return*/];
                 }
@@ -130,7 +151,8 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
-                            this.routineRes = res.rsObj;
+                            this.routine = res.rsObj;
+                            this.parseEducationHours(this.routine);
                         }
                         return [2 /*return*/];
                 }
@@ -138,37 +160,30 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
         });
     };
     SafetyEducationHistoryDetailPage.prototype.specialItem = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this.connect.run('/education/report/special/get', { approval_user_id: this.user_id })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         if (res.rsCode === 0) {
                             this.specialRes = res;
+                            (_a = this.specialRes.rsMap) === null || _a === void 0 ? void 0 : _a.forEach(function (item) { return _this.parseEducationHours(item); });
                         }
                         return [2 /*return*/];
                 }
             });
         });
     };
-    SafetyEducationHistoryDetailPage.prototype.special = function (state, item) {
-        if (state) {
-            var recommendedeWidth = 0;
-            var recommAllTiem = item.education_towercrane_state ? 12 : 16;
-            recommendedeWidth = (100 * item.education_recommended_time) / recommAllTiem;
-            return "width:" + recommendedeWidth + "%";
-        }
-        else {
-            var completeWidth = 0;
-            var towercraneAllTiem = item.education_towercrane_state ? 12 : 16;
-            if (item.education_complete_time === 0)
-                completeWidth = 0;
-            else
-                completeWidth = 100 * item.education_complete_time / towercraneAllTiem;
-            return "width:" + completeWidth + "%";
-        }
+    SafetyEducationHistoryDetailPage.prototype.parseEducationHours = function (item) {
+        var _a;
+        var completeHourArr = ((_a = item.education_complete_time) === null || _a === void 0 ? void 0 : _a.split(':')) || ['00', '00'];
+        item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1]) / 60);
+        var recommendHourArr = item.education_recommended_time.split(':') || ['00', '00'];
+        item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1]) / 60);
     };
     SafetyEducationHistoryDetailPage.prototype.useItem = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.useForm.limit_no; }

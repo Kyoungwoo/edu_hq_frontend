@@ -32,18 +32,32 @@ export class HireItem {
   user_id: number
 }
 
-export class RoutineItem {
-  education_complete_time: number;
+export class EducationItem {
   ctgo_education_safe_name: string;
-  education_remaining_date: number;
-  routine_edu_state: string;
   user_id: number;
-  education_remaining_time: number;
-  education_start_term: string;
-  education_end_term: string;
-  education_recommended_time:number;
-}
+  special_edu_state: string;
+  create_date: string;
+  
+  education_remaining_date: number;
 
+  education_complete_time: string; // 이수한 시간
+  education_complete_hours: number;
+
+  education_remaining_time: string; // 총 시간(권장시간X) 중 남은 시간
+  // education_remaining_hours: number; // 안쓰임
+
+  education_recommended_complete_time: string; // 잔여 시간
+
+  education_recommended_time: string; // 권장시간
+  education_recommended_hours: number;
+
+  education_towercrane_state: number;
+}
+export class RoutineEducationItem extends EducationItem {
+  education_start_term:string;
+  education_end_term:string;
+  routine_edu_state:'양호' | '필요' | '기한초과';
+}
 @Component({
   selector: 'app-safety-education-history-detail',
   templateUrl: './safety-education-history-detail.page.html',
@@ -63,21 +77,11 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   res:HistoryItem = new HistoryItem();
 
-  hireRes:HireItem = new HireItem();
+  hire:HireItem = new HireItem();
 
-  routineRes:RoutineItem = new RoutineItem();
+  routine:RoutineEducationItem = new RoutineEducationItem();
 
-  specialRes:ConnectResult<{
-    education_complete_time: number,
-    ctgo_education_safe_name: string,
-    education_remaining_date: number,
-    user_id: number,
-    special_edu_state: string,
-    education_remaining_time: number,
-    create_date: string,
-    education_recommended_time: number,
-    education_towercrane_state: number
-  }>;
+  specialRes:ConnectResult<EducationItem>;
 
   useRes:ConnectResult<{
     index:number,
@@ -118,16 +122,17 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   async hireItem() {
     const res = await this.connect.run('/education/report/hire/get',{approval_user_id:this.user_id});
-    console.log("this.hireRes : ",this.hireRes);
+    console.log("this.hire : ",this.hire);
     if(res.rsCode === 0) {
-      this.hireRes = res.rsObj;
+      this.hire = res.rsObj;
     }
   }
 
   async routineItem() {
     const res = await this.connect.run('/education/report/routine/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
-      this.routineRes = res.rsObj;
+      this.routine = res.rsObj;
+      this.parseEducationHours(this.routine);
     } 
   }
 
@@ -135,35 +140,15 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     const res = await this.connect.run('/education/report/special/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.specialRes = res;
-    } 
-  }
-
-  specialToday(state,item) {
-    if(state) {
-      let recommendedeWidth = 0;
-      const recommAllTiem = item.education_towercrane_state ? 2:8;
-      recommendedeWidth = (100 * item.education_recommended_time) / recommAllTiem;
-      return `width:${recommendedeWidth}%`;
-    } else {
-      let completeWidth = 0;
-      const towercraneAllTiem = item.education_towercrane_state ? 2:8;
-        if(item.education_complete_time === 0) completeWidth = 0;
-        else completeWidth = 100 * item.education_complete_time/towercraneAllTiem;
-        return `width:${completeWidth}%`;
+      this.specialRes.rsMap?.forEach(item => this.parseEducationHours(item));
     }
   }
-
-  specialPull(state,item) {
-    if(state) {
-      let recommendedeWidth = 0;
-      recommendedeWidth = (100 * item.education_recommended_time) / 16;
-      return `width:${recommendedeWidth}%`;
-    } else {
-      let completeWidth = 0;
-        if(item.education_complete_time === 0) completeWidth = 0;
-        else completeWidth = 100 * item.education_complete_time/16;
-        return `width:${completeWidth}%`;
-    }
+  parseEducationHours(item:EducationItem) {
+    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
+    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
+    
+    const recommendHourArr = item.education_recommended_time.split(':') || ['00','00'];
+    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   async useItem(limit_no = this.useForm.limit_no) {
