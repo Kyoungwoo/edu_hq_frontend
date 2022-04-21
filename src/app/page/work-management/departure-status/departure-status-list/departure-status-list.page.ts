@@ -16,7 +16,7 @@ export class DepartureStatusListPage implements OnInit {
 
   form:DepartureStatusListForm = {
     project_id: this.user.userData.belong_data.project_id, // 현장 ID
-    master_company_id: 0, // 원청사 ID
+    master_company_id: this.user.userData.belong_data.master_company_id, // 원청사 ID
     ctgo_construction_ids: [], // 공종 ID
     start_date: this.date.today({ month: -1 }), // 검색 시작일
     end_date: this.date.today(), // 검색 종료일
@@ -40,7 +40,7 @@ export class DepartureStatusListPage implements OnInit {
 
   ngOnInit() {
     this.getPromission();
-    this.getForm();
+    // this.getForm();
     this.getList();
   }
 
@@ -53,14 +53,14 @@ export class DepartureStatusListPage implements OnInit {
       this.permission.contractor = false;
     }
   }
-  getForm() {
-    const { user_type, belong_data } = this.user.userData;
-    if(user_type === 'LH') {
-      this.form.master_company_id = 0;
-    } else {
-      this.form.master_company_id = belong_data.company_id;
-    }
-  }
+  // getForm() {
+  //   const { user_type, belong_data } = this.user.userData;
+  //   if(user_type === 'LH') {
+  //     this.form.master_company_id = 0;
+  //   } else {
+  //     this.form.master_company_id = belong_data.company_id;
+  //   }
+  // }
 
   async getList(limit_no = this.form.limit_no) {
     await this.promise.wait(() => this.form.master_company_id);
@@ -73,6 +73,7 @@ export class DepartureStatusListPage implements OnInit {
   }
 
   async detail(item) {
+    console.log("detail - ", this.form);
     const modal = await this.modal.create({
       component: TodayDepartureStatusListPage,
       cssClass: 'today-departure-status-list-modal',

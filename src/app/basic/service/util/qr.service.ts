@@ -3,8 +3,7 @@ import { ToastService } from './../ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ModalController } from '@ionic/angular';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
-import { Subscription } from 'rxjs';
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ScannerService } from './scanner.service';
 import { HeavyQrDataPage } from 'src/app/page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.page';
 
@@ -96,7 +95,10 @@ constructor(
     const res = await this.connect.run(method, item);
     if (res.rsCode === 0) {
       data_obj.state = true;
-      if(info_state) data_obj.data = res.rsObj.area_risk_id;
+      if(info_state) {
+        console.log("info_state - ",info_state);
+        data_obj.data = res.rsObj.area_risk_id;
+      }
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }

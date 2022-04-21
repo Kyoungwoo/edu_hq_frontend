@@ -1,7 +1,6 @@
 import { ConnectService } from './../core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NfcComponent } from '../../component/dialog/nfc/nfc.component';
@@ -80,7 +79,10 @@ export class NfcService {
     const res = await this.connect.run(method, item);
     if (res.rsCode === 0) {
       data_obj.state = true;
-      if(info_state) data_obj.data = res.rsObj.area_risk_id;
+      if(info_state) {
+        console.log("info_state - ",info_state);
+        data_obj.data = res.rsObj.area_risk_id;
+      }
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }

@@ -93,8 +93,11 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   async scanQR() {
     await this.qrScanner.show();
     if(Qr) Qr.transparent();
-    const routerEl = document.querySelector('ion-router-outlet');
-    routerEl.style.display = 'none';
+    const routerEl_1 = document.querySelector('ion-router-outlet');
+    const routerEl_2 = document.querySelector('ion-modal');
+    routerEl_1.style.display = 'none';
+    // routerEl_2.style.display = 'none';
+    console.log('routerEl_2 - ',routerEl_2);
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
       // console.log("qr-scanner - ", data);
       // let res = {
