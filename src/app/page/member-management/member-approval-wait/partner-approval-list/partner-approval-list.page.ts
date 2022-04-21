@@ -93,7 +93,7 @@ export class PartnerApprovalListPage implements OnInit {
     }
     else if(user_role === 'MASTER_HEAD') {
       this.form.project_id = belong_data.project_id;
-      this.form.company_id = belong_data.company_id;
+      this.form.company_id = 0;
 
       this.permission.companyChange = false;
       this.permission.approval = true;

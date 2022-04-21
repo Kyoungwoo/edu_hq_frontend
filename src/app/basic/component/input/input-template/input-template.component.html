@@ -5,7 +5,7 @@
   </div>
 </div>
 <app-button class="button ion-activatable ripple-parent" 
-[class.empty]="!slot.childNodes.length" 
+[class.empty]="isButtonEmpty()"
 [fill]="buttonFill"
 [disabled]="disabled || readonly" (click)="onButtonClick()">
   <slot #slot><ng-content></ng-content></slot>

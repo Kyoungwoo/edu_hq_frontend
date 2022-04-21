@@ -115,8 +115,10 @@
       <app-row mobileBreak>
         <app-col>
           <app-select-safetymanager name="ctgo_safe_job_id"
+          [color]="validator.ctgo_safe_job_id?.valid === false && 'warning'"
           [company_id]="form.company_id" user_type="COMPANY"
           [(ngModel)]="form.ctgo_safe_job_id" [required]="true"></app-select-safetymanager>
+          <app-input-caption *ngIf="validator.ctgo_safe_job_id?.valid === false" color="warning">{{ validator.ctgo_safe_job_id?.message }}</app-input-caption>
         </app-col>
         <app-col>
           <app-calendar name="safe_job_start_date" label="안전 직무 지정일" [(ngModel)]="form.safe_job_start_date"></app-calendar>

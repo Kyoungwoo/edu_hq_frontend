@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { MsdsEditPage, MsdsItem } from '../msds-edit/msds-edit.page';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
+import { MsdsSearchPage } from '../msds-search/msds-search.page';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -114,9 +114,8 @@ export class MsdsListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:DetailSearchPage,
+      component:MsdsSearchPage,
       componentProps:{
-        type:'MSDS',
         form: this.form
       }
     });
@@ -127,19 +126,6 @@ export class MsdsListPage implements OnInit {
       this.get();
     }
   }
-  // async edit(item?) {
-  //   const modal = await this.modal.create({
-  //     component:MsdsEditPage,
-  //     componentProps:{
-  //       item
-  //     }
-  //   });
-  //   modal.present();
-  //   const { data } = await modal.onDidDismiss();
-  //   if(data) {
-  //     this.get();
-  //   }
-  // }
 
   async edit(item = null) {
     const modal = await this.modal.create({

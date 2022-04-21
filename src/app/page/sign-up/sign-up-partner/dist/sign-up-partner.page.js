@@ -136,8 +136,6 @@ var SignUpPartnerPage = /** @class */ (function () {
                         _a.sent();
                         // 다음 페이지로
                         el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-                        console.log(this.form);
-                        console.log(this.validator);
                         return [2 /*return*/];
                 }
             });
@@ -203,6 +201,8 @@ var SignUpPartnerPage = /** @class */ (function () {
     SignUpPartnerPage.prototype.next = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                console.log(this.form);
+                console.log(this.validator);
                 if (!this.valid())
                     return [2 /*return*/];
                 this.nav.navigateForward('/sign-up-terms', {
@@ -298,6 +298,8 @@ var SignUpPartnerPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(this.companyInfo.company_contract_type === '협력사')) return [3 /*break*/, 2];
+                        if (!this.form.project_id)
+                            return [2 /*return*/];
                         return [4 /*yield*/, this.connect.run('/forSignUp/company/master/get', {
                                 project_id: this.form.project_id,
                                 company_id: this.form.company_id

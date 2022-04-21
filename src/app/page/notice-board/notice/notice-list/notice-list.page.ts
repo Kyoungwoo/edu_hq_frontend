@@ -1,16 +1,11 @@
-import { NoticeItem } from './../notice-edit/notice-edit.page';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { DetailSearchComponent } from 'src/app/component/modal/detail-search/detail-search.component';
-import { DetailSearchPage } from '../../detail-search/detail-search.page';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
-import { ActivatedRoute, Router } from '@angular/router';
-
-type NoticeType = "일반" | "안전관리" | "환경관리" | "공사관리" | "품질관리";
+import { NoticeSearchPage } from '../notice-search/notice-search.page';
 
 class NoticeInfo {
   notice_title: string;
@@ -38,7 +33,6 @@ export class NoticeListPage implements OnInit {
     master_company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     notice_types: [],
-    // project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0
@@ -55,9 +49,7 @@ export class NoticeListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     public user: UserService,
-    private toast: ToastService,
-    private route: ActivatedRoute,
-    private router: Router
+    private toast: ToastService
   ) { }
 
   async ngOnInit() {
@@ -148,9 +140,8 @@ export class NoticeListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:DetailSearchPage,
+      component: NoticeSearchPage,
       componentProps:{
-        type:'공지사항',
         form: this.form
       }
     });
@@ -158,7 +149,7 @@ export class NoticeListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.form = data;
-      this.get();
+      this.get(0);
     }
   }
 
@@ -172,6 +163,7 @@ export class NoticeListPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      // 모바일은 편집이 없어서 이렇게해도 충분함. 있으면 추가 코드 작성을 해야함.
       this.get();
     }
   }

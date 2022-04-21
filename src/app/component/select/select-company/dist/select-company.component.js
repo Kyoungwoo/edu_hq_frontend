@@ -184,7 +184,12 @@ var SelectCompanyComponent = /** @class */ (function () {
                     case 2:
                         data = (_b.sent()).data;
                         if (data) {
-                            this.value = ((_a = data.selectItem) === null || _a === void 0 ? void 0 : _a.company_id) || 0;
+                            if (!this.multiple) {
+                                this.value = ((_a = data.selectItem) === null || _a === void 0 ? void 0 : _a.company_id) || 0;
+                            }
+                            else {
+                                alert('multiple is not allowed!');
+                            }
                         }
                         return [2 /*return*/];
                 }

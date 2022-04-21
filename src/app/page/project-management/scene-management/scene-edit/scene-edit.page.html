@@ -98,7 +98,7 @@
       </ion-toolbar>
       <ng-container *ngFor="let futItem of form.project_file_data let i = index">
         <app-file-preview *ngIf="futItem.view_type === 'BIRDSEYE'" [futItem]="futItem"
-          (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
+          (buttonClick)="form.project_file_data.splice(i,1)" [readonly]="roleCheck"></app-file-preview>
       </ng-container>
     </app-col>
     <app-col>
@@ -117,7 +117,7 @@
       </ion-toolbar>
       <ng-container *ngFor="let futItem of form.project_file_data let i = index">
         <app-file-preview *ngIf="futItem.view_type === 'FLOOR'" [futItem]="futItem"
-          (buttonClick)="form.project_file_data.splice(i,1)"></app-file-preview>
+          (buttonClick)="form.project_file_data.splice(i,1)" [readonly]="roleCheck"></app-file-preview>
       </ng-container>
     </app-col>
   </app-row>

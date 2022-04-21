@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetailSearchPageRoutingModule } from './detail-search-routing.module';
+import { MsdsSearchPageRoutingModule } from './msds-search-routing.module';
 
-import { DetailSearchPage } from './detail-search.page';
+import { MsdsSearchPage } from './msds-search.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    DetailSearchPageRoutingModule
+    MsdsSearchPageRoutingModule
   ],
-  declarations: [DetailSearchPage]
+  declarations: [MsdsSearchPage]
 })
-export class DetailSearchPageModule {}
+export class MsdsSearchPageModule {}

@@ -67,7 +67,7 @@ var SelectSceneComponent = /** @class */ (function () {
     }
     SelectSceneComponent_1 = SelectSceneComponent;
     SelectSceneComponent.prototype.onClick = function () {
-        if (!this.disabled || !this.readonly)
+        if (!this.disabled && !this.readonly)
             this.openModal();
     };
     SelectSceneComponent.prototype.ngOnInit = function () { };

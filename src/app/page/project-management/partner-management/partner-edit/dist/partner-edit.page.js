@@ -378,6 +378,7 @@ var PartnerEditPage = /** @class */ (function () {
         });
     };
     PartnerEditPage.prototype.valid = function () {
+        var _a;
         if (this.permission.agree) {
             if (!this.form.consignee_consent_date) {
                 this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.', color: 'warning' });
@@ -400,6 +401,10 @@ var PartnerEditPage = /** @class */ (function () {
             return false;
         }
         ;
+        if (!((_a = this.form.company_contract_data) === null || _a === void 0 ? void 0 : _a.length)) {
+            this.toast.present({ message: '계약정보를 입력해주세요.', color: 'warning' });
+            return false;
+        }
         for (var i = 0; i < this.form.company_contract_data.length; i++) {
             var company_contract_data = this.form.company_contract_data[i];
             if (!company_contract_data.project_id) {

@@ -42,39 +42,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.DetailSearchPage = void 0;
+exports.NoticeSearchPage = void 0;
 var core_1 = require("@angular/core");
-var DetailSearchPage = /** @class */ (function () {
-    function DetailSearchPage(connect, _modal, user, date, file) {
-        this.connect = connect;
+var NoticeSearchPage = /** @class */ (function () {
+    function NoticeSearchPage(_modal, user, file) {
         this._modal = _modal;
         this.user = user;
-        this.date = date;
         this.file = file;
         this.form = {
-            company_ids: [1],
-            end_date: this.date.today(),
+            project_id: null,
+            company_id: null,
             notice_types: [],
-            msds_types: [],
-            safety_meeting_types: [],
-            project_ids: [1],
+            start_date: '',
+            end_date: '',
             search_text: '',
-            start_date: this.date.today({ month: -1 }),
             limit_no: 0
         };
         this.temptForm = {
-            company_ids: [1],
-            end_date: this.date.today(),
+            project_id: null,
+            company_id: null,
             notice_types: [],
-            msds_types: [],
-            safety_meeting_types: [],
-            project_ids: [1],
+            start_date: '',
+            end_date: '',
             search_text: '',
-            start_date: this.date.today({ month: -1 }),
             limit_no: 0
         };
     }
-    DetailSearchPage.prototype.ngOnInit = function () {
+    NoticeSearchPage.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.temptForm = this.file.clone(this.form);
@@ -82,39 +76,23 @@ var DetailSearchPage = /** @class */ (function () {
             });
         });
     };
-    DetailSearchPage.prototype.dismiss = function () {
-        this._modal.dismiss();
+    NoticeSearchPage.prototype.reset = function () {
+        this.temptForm = this.file.clone(this.form);
     };
-    DetailSearchPage.prototype.remove = function () {
-        this.temptForm = {
-            company_ids: [1],
-            end_date: this.date.today(),
-            notice_types: [],
-            msds_types: [],
-            safety_meeting_types: [],
-            project_ids: [1],
-            search_text: '',
-            start_date: this.date.today({ month: -1 }),
-            limit_no: 0
-        };
-    };
-    DetailSearchPage.prototype.search = function () {
+    NoticeSearchPage.prototype.search = function () {
         var form = this.file.clone(this.temptForm);
         this._modal.dismiss(form);
     };
     __decorate([
         core_1.Input()
-    ], DetailSearchPage.prototype, "type");
-    __decorate([
-        core_1.Input()
-    ], DetailSearchPage.prototype, "form");
-    DetailSearchPage = __decorate([
+    ], NoticeSearchPage.prototype, "form");
+    NoticeSearchPage = __decorate([
         core_1.Component({
-            selector: 'app-detail-search',
-            templateUrl: './detail-search.page.html',
-            styleUrls: ['./detail-search.page.scss']
+            selector: 'app-notice-search',
+            templateUrl: './notice-search.page.html',
+            styleUrls: ['./notice-search.page.scss']
         })
-    ], DetailSearchPage);
-    return DetailSearchPage;
+    ], NoticeSearchPage);
+    return NoticeSearchPage;
 }());
-exports.DetailSearchPage = DetailSearchPage;
+exports.NoticeSearchPage = NoticeSearchPage;

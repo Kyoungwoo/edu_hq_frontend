@@ -6,9 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { PartnerApprovalEditPage } from '../../member-approval-wait/partner-approval-edit/partner-approval-edit.page';
 import { SecurityPasswordComponent } from '../../member-approval-wait/security-password/security-password.component';
-import { PartnerIntoEditPageModule } from '../partner-into-edit/partner-into-edit.module';
 import { PartnerIntoEditPage } from '../partner-into-edit/partner-into-edit.page';
 
 
@@ -95,7 +93,7 @@ export class PartnerInfoListPage implements OnInit {
     }
     else if(user_role === 'MASTER_HEAD') {
       this.form.project_id = belong_data.project_id;
-      this.form.company_id = belong_data.company_id;
+      this.form.company_id = 0;
 
       this.permission.companyChange = false;
       return true;

@@ -176,12 +176,8 @@ const routes: Routes = [
     loadChildren: () => import('./page/today-work/my-status-situation/worker-status-list/worker-status-list.module').then( m => m.WorkerStatusListPageModule)
   },
   {
-    path: 'detail-search',
-    loadChildren: () => import('./page/notice-board/detail-search/detail-search.module').then( m => m.DetailSearchPageModule)
-  },
-  {
     path: 'notice-open-range',
-    loadChildren: () => import('./page/notice-board/notice-open-range/notice-open-range.module').then( m => m.NoticeOpenRangePageModule)
+    loadChildren: () => import('./page/notice-board/notice/notice-open-range/notice-open-range.module').then( m => m.NoticeOpenRangePageModule)
   },
   {
     path: 'heavy-device-add',
@@ -591,6 +587,14 @@ const routes: Routes = [
   {
     path: 'heavy-qr-data',
     loadChildren: () => import('./page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.module').then( m => m.HeavyQrDataPageModule)
+  },
+  {
+    path: 'notice-search',
+    loadChildren: () => import('./page/notice-board/notice/notice-search/notice-search.module').then( m => m.NoticeSearchPageModule)
+  },
+  {
+    path: 'msds-search',
+    loadChildren: () => import('./page/notice-board/msds/msds-search/msds-search.module').then( m => m.MsdsSearchPageModule)
   }
 ];
 

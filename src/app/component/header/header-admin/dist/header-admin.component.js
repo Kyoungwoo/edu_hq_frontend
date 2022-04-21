@@ -48,10 +48,9 @@ var router_1 = require("@angular/router");
 var basic_animation_1 = require("src/app/basic/basic.animation");
 var side_menu_admin_component_1 = require("../../side-menu/side-menu-admin/side-menu-admin.component");
 var HeaderAdminComponent = /** @class */ (function () {
-    function HeaderAdminComponent(animationCtrl, alert, modal, router, adminMenu, changeDetector, user, nav) {
+    function HeaderAdminComponent(animationCtrl, modal, router, adminMenu, changeDetector, user, nav) {
         var _this = this;
         this.animationCtrl = animationCtrl;
-        this.alert = alert;
         this.modal = modal;
         this.router = router;
         this.adminMenu = adminMenu;

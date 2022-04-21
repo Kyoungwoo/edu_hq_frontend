@@ -140,7 +140,12 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      this.value = data.selectItem.company_id;
+      if(!this.multiple) {
+        this.value = data.selectItem?.company_id || 0;
+      }
+      else {
+        alert('multiple is not allowed!');
+      }
     }
   }
 

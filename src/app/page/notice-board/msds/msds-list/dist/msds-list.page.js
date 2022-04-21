@@ -55,8 +55,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.MsdsListPage = void 0;
 var core_1 = require("@angular/core");
-var detail_search_page_1 = require("../../detail-search/detail-search.page");
 var msds_edit_page_1 = require("../msds-edit/msds-edit.page");
+var msds_search_page_1 = require("../msds-search/msds-search.page");
 var MsdsInfo = /** @class */ (function () {
     function MsdsInfo() {
     }
@@ -84,9 +84,19 @@ var MsdsListPage = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 this.get();
+                console.log('history.state', history.state);
+                this.getNavData();
                 return [2 /*return*/];
             });
         });
+    };
+    MsdsListPage.prototype.getNavData = function () {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_c) {
+            if ((_a = history.state) === null || _a === void 0 ? void 0 : _a.msds_id)
+                this.edit((_b = history.state) === null || _b === void 0 ? void 0 : _b.msds_id);
+            return [2 /*return*/];
+        }); });
     };
     MsdsListPage.prototype.getMobile = function ($event) {
         return __awaiter(this, void 0, void 0, function () {
@@ -157,9 +167,8 @@ var MsdsListPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.modal.create({
-                            component: detail_search_page_1.DetailSearchPage,
+                            component: msds_search_page_1.MsdsSearchPage,
                             componentProps: {
-                                type: 'MSDS',
                                 form: this.form
                             }
                         })];
@@ -178,19 +187,6 @@ var MsdsListPage = /** @class */ (function () {
             });
         });
     };
-    // async edit(item?) {
-    //   const modal = await this.modal.create({
-    //     component:MsdsEditPage,
-    //     componentProps:{
-    //       item
-    //     }
-    //   });
-    //   modal.present();
-    //   const { data } = await modal.onDidDismiss();
-    //   if(data) {
-    //     this.get();
-    //   }
-    // }
     MsdsListPage.prototype.edit = function (item) {
         if (item === void 0) { item = null; }
         return __awaiter(this, void 0, void 0, function () {

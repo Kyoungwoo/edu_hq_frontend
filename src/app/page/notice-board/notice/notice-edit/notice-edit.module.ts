@@ -9,8 +9,8 @@ import { NoticeEditPageRoutingModule } from './notice-edit-routing.module';
 import { NoticeEditPage } from './notice-edit.page';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
 import { ComponentModule } from 'src/app/component/component.module';
-import { NoticeOpenRangePageModule } from '../../notice-open-range/notice-open-range.module';
-import { NoticeOpenRangePage } from '../../notice-open-range/notice-open-range.page';
+import { NoticeOpenRangePageModule } from '../notice-open-range/notice-open-range.module';
+import { NoticeOpenRangePage } from '../notice-open-range/notice-open-range.page';
 
 @NgModule({
   imports: [

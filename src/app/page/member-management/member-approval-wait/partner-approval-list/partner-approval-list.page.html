@@ -75,7 +75,7 @@
         <app-table>
           <thead>
             <tr>
-              <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
+              <th *ngIf="permission.approval" style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
               <th style="width: 48px;">No</th>
               <!-- <th>구분</th> -->
               <th>공종</th>
@@ -88,8 +88,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button"  *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
-              <td>
+            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+              <td *ngIf="permission.approval">
                 <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
               </td>
               <td>{{ item.index }}</td>
@@ -105,7 +105,7 @@
           </tbody>
         </app-table>
       </app-check-group>
-      <app-pager [totalCount]="" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+      <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
       </app-col>
     </app-row>
   </ion-content>

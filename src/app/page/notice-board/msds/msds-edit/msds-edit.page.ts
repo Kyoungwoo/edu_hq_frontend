@@ -7,7 +7,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { NoticeOpenRangePage } from '../../notice-open-range/notice-open-range.page';
+import { NoticeOpenRangePage } from '../../notice/notice-open-range/notice-open-range.page';
 
 export class MsdsItem {
   msds_title: string;

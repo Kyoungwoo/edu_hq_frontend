@@ -92,9 +92,6 @@ export class SignUpPartnerPage implements OnInit {
     
     // 다음 페이지로
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
-
-    console.log(this.form);
-    console.log(this.validator);
   }
 
   private checkParams() {
@@ -128,6 +125,8 @@ export class SignUpPartnerPage implements OnInit {
     this.nav.navigateBack('/sign-up-type');
   }
   public async next() {
+    console.log(this.form);
+    console.log(this.validator);
     if(!this.valid()) return;
 
     this.nav.navigateForward('/sign-up-terms', {
@@ -170,6 +169,7 @@ export class SignUpPartnerPage implements OnInit {
 
   public async projectChange() {
     if(this.companyInfo.company_contract_type === '협력사') {
+      if(!this.form.project_id) return;
       // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
       const res = await this.connect.run('/forSignUp/company/master/get', {
         project_id: this.form.project_id,

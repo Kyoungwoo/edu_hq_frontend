@@ -289,6 +289,7 @@ export class PartnerEditPage implements OnInit {
     if(!this.form.business_register_no) { this.toast.present({ message: '사업자등록번호 10자리를 입력해주세요.',color:'warning'}); return false; };
     if(!this.form.company_ceo) { this.toast.present({ message: '대표명을 입력해주세요.',color:'warning'}); return false; };
 
+    if(!this.form.company_contract_data?.length) { this.toast.present({ message: '계약정보를 입력해주세요.',color:'warning'}); return false; }
     for(let i = 0; i < this.form.company_contract_data.length; i++) {
       const company_contract_data = this.form.company_contract_data[i];
       

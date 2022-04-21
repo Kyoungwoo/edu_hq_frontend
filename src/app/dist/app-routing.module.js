@@ -184,12 +184,8 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/today-work/my-status-situation/worker-status-list/worker-status-list.module'); }).then(function (m) { return m.WorkerStatusListPageModule; }); }
     },
     {
-        path: 'detail-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/detail-search/detail-search.module'); }).then(function (m) { return m.DetailSearchPageModule; }); }
-    },
-    {
         path: 'notice-open-range',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/notice-open-range/notice-open-range.module'); }).then(function (m) { return m.NoticeOpenRangePageModule; }); }
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/notice/notice-open-range/notice-open-range.module'); }).then(function (m) { return m.NoticeOpenRangePageModule; }); }
     },
     {
         path: 'heavy-device-add',
@@ -599,6 +595,14 @@ var routes = [
     {
         path: 'heavy-qr-data',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.module'); }).then(function (m) { return m.HeavyQrDataPageModule; }); }
+    },
+    {
+        path: 'notice-search',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/notice/notice-search/notice-search.module'); }).then(function (m) { return m.NoticeSearchPageModule; }); }
+    },
+    {
+        path: 'msds-search',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/msds/msds-search/msds-search.module'); }).then(function (m) { return m.MsdsSearchPageModule; }); }
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

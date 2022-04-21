@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>상세검색</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-row>
+      <app-col>
+        <app-select-scene [(ngModel)]="temptForm.project_id"></app-select-scene>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.company_id"></app-select-contractor>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-select label="공지사항 구분" [(ngModel)]="temptForm.notice_types" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
+          <app-select-option value="안전관리">안전관리</app-select-option>
+          <app-select-option value="환경관리">환경관리</app-select-option>
+          <app-select-option value="공사관리">공사관리</app-select-option>
+          <app-select-option value="품질관리">품질관리</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input-group label="작성일">
+          <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
+          ~
+          <app-calendar [(ngModel)]="temptForm.end_date" [min]="temptForm.start_date"></app-calendar>
+        </app-input-group>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input [(ngModel)]="temptForm.search_text" label="검색어"></app-input>
+      </app-col>
+    </app-row>
+</ion-content>
+
+<app-button-footer>
+  <app-button (click)="reset()">초기화</app-button>
+  <app-button (click)="search()">검색</app-button>
+</app-button-footer>

@@ -44,8 +44,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.NoticeListPage = void 0;
 var core_1 = require("@angular/core");
-var detail_search_page_1 = require("../../detail-search/detail-search.page");
 var notice_edit_page_1 = require("../notice-edit/notice-edit.page");
+var notice_search_page_1 = require("../notice-search/notice-search.page");
 var NoticeInfo = /** @class */ (function () {
     function NoticeInfo() {
     }
@@ -63,7 +63,6 @@ var NoticeListPage = /** @class */ (function () {
             master_company_id: this.user.userData.belong_data.company_id,
             end_date: this.date.today(),
             notice_types: [],
-            // project_ids: [1],
             search_text: '',
             start_date: this.date.today({ month: -1 }),
             limit_no: 0
@@ -80,10 +79,19 @@ var NoticeListPage = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.get();
+                        this.getNavData();
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    NoticeListPage.prototype.getNavData = function () {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_c) {
+            if ((_a = history.state) === null || _a === void 0 ? void 0 : _a.notice_id)
+                this.edit((_b = history.state) === null || _b === void 0 ? void 0 : _b.notice_id);
+            return [2 /*return*/];
+        }); });
     };
     NoticeListPage.prototype.getForm = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -192,9 +200,8 @@ var NoticeListPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.modal.create({
-                            component: detail_search_page_1.DetailSearchPage,
+                            component: notice_search_page_1.NoticeSearchPage,
                             componentProps: {
-                                type: '공지사항',
                                 form: this.form
                             }
                         })];
@@ -206,7 +213,7 @@ var NoticeListPage = /** @class */ (function () {
                         data = (_a.sent()).data;
                         if (data) {
                             this.form = data;
-                            this.get();
+                            this.get(0);
                         }
                         return [2 /*return*/];
                 }
@@ -231,6 +238,7 @@ var NoticeListPage = /** @class */ (function () {
                     case 2:
                         data = (_a.sent()).data;
                         if (data) {
+                            // 모바일은 편집이 없어서 이렇게해도 충분함. 있으면 추가 코드 작성을 해야함.
                             this.get();
                         }
                         return [2 /*return*/];

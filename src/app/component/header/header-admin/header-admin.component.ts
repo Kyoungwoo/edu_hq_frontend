@@ -25,7 +25,6 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private animationCtrl: AnimationController,
-    private alert: AlertService,
     private modal:ModalController,
     private router: Router,
     public adminMenu: SideMenuAdminComponent,

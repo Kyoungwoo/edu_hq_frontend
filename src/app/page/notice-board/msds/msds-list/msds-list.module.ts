@@ -9,8 +9,8 @@ import { MsdsListPageRoutingModule } from './msds-list-routing.module';
 import { MsdsListPage } from './msds-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
 import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
-import { DetailSearchPageModule } from '../../detail-search/detail-search.module';
 import { MsdsEditPageModule } from '../msds-edit/msds-edit.module';
+import { MsdsSearchPageModule } from '../msds-search/msds-search.module';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { MsdsEditPageModule } from '../msds-edit/msds-edit.module';
     ComponentModule,
     BasicComponentModule,
     MsdsListPageRoutingModule,
-    DetailSearchPageModule,
+    MsdsSearchPageModule,
     MsdsEditPageModule
   ],
   declarations: [MsdsListPage]
