@@ -90,8 +90,8 @@ export class ContractorListPage implements OnInit {
     this.form.limit_no = limit_no;
     this.form.master_company_ids = [];
 
-    this.form.master_company_ids.push(this.master_compnay_id);
-    console.log(this.form.master_company_ids)
+    if(this.master_compnay_id) this.form.master_company_ids.push(this.master_compnay_id);
+    
     const res = await this.connect.run('/project/company/masters/list',this.form);
     if(res.rsCode === 0 ) {
       this.res = res;

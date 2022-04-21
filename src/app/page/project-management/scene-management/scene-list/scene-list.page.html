@@ -46,7 +46,7 @@
             <app-button fill="translucent">엑셀 다운로드</app-button>
           </app-col>
         </ion-buttons>
-        <app-col style="text-align: right;">
+        <app-col style="text-align: right;" *ngIf="user.userData.user_role === 'LH_HEAD'">
           <app-button fill="translucent" (click)="use_submit()">저장</app-button>
         </app-col>
       </ion-toolbar>
@@ -58,7 +58,7 @@
         <app-table *ngIf="res?.rsCode === 0 else emptyList">
           <thead>
             <tr>
-              <th style="width: 40px;">
+              <th style="width: 40px;" *ngIf="user.userData.user_role === 'LH_HEAD'">
                 <app-check type="all" color="white" size="small" name="check"></app-check>
               </th>
               <th style="width: 48px;">No</th>
@@ -69,12 +69,12 @@
               <th>감리사</th>
               <th>공사기간</th>
               <th>최근 업데이트</th>
-              <th>사용여부</th>
+              <th *ngIf="user.userData.user_role === 'LH_HEAD'">사용여부</th>
             </tr>
           </thead>
           <tbody>
             <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.project_id)">
-              <td>
+              <td *ngIf="user.userData.user_role === 'LH_HEAD'">
                 <app-check color="white" size="small" name="check"></app-check>
               </td>
               <td>{{ item.index }}</td>
@@ -85,7 +85,7 @@
               <td>{{ item.super_company_list }}</td>
               <td>{{ item.contract_start_date}} ~ {{ item.contract_end_date}}</td>
               <td>{{ item.update_date }}</td>
-              <td>
+              <td *ngIf="user.userData.user_role === 'LH_HEAD'">
                 <app-select (change)="changeUse(item)" (click)="$event.stopPropagation()" [(ngModel)]="item.project_use_state">
                   <app-select-option [value]="1">Y</app-select-option>
                   <app-select-option [value]="0">N</app-select-option>

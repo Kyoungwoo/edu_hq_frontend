@@ -18,7 +18,7 @@ export class SupervisionListPage implements OnInit {
     hq_business_id: this.user.userData.belong_data.hq_business_id | 0,
     limit_no: 0,
     master_company_ids: '전체',
-    search_text: '',
+    search_text: ''
   }
 
   master_company_id = this.user.userData.belong_data.master_company_id;
@@ -69,15 +69,6 @@ export class SupervisionListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // const condition = null; // null false 0 '' undefined
-    // const x = condition || 'no';
-    // console.log('answer', condition);
-
-    /* const condition = 'hello';
-    const x = condition ? 'yes' : 'no';
-    console.log('answer', x); */
-    
-
     this.ctgoBusiness = {
       errorStatus: null,
       rsCode: null,
@@ -93,8 +84,8 @@ export class SupervisionListPage implements OnInit {
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    const res = await this.connect.run('/project/company/masters/list', this.form, {
-    });
+
+    const res = await this.connect.run('/project/company/masters/list', this.form, { loading: true });
     if(res.rsCode === 0 ) {
       this.res = res;
       this.res.rsMap.map((item, i) => {
@@ -128,7 +119,7 @@ export class SupervisionListPage implements OnInit {
     if(this.ctgoRegional.rsCode === 0) {
     }
   }
-    async getCtgoBusiness(ev?) {
+  async getCtgoBusiness(ev?) {
     if(!ev) this.form.hq_business_id = 0;
     this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
     {
