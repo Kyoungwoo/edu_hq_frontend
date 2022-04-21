@@ -17,7 +17,7 @@ export class SupervisionListPage implements OnInit {
     hq_regional_id: this.user.userData.belong_data.hq_regional_id | 0,
     hq_business_id: this.user.userData.belong_data.hq_business_id | 0,
     limit_no: 0,
-    master_company_ids: '전체',
+    master_company_ids: [],
     search_text: ''
   }
 
@@ -93,7 +93,6 @@ export class SupervisionListPage implements OnInit {
       });
     }
     else if (res.rsCode === 1008) {
-      this.toast.present({message:res.rsMsg, color:'warning'});
       this.res = null;
     }
     else {

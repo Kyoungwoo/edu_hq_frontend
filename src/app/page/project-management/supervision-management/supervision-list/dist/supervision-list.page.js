@@ -56,7 +56,7 @@ var SupervisionListPage = /** @class */ (function () {
             hq_regional_id: this.user.userData.belong_data.hq_regional_id | 0,
             hq_business_id: this.user.userData.belong_data.hq_business_id | 0,
             limit_no: 0,
-            master_company_ids: '전체',
+            master_company_ids: [],
             search_text: ''
         };
         this.master_company_id = this.user.userData.belong_data.master_company_id;
@@ -94,7 +94,6 @@ var SupervisionListPage = /** @class */ (function () {
                             });
                         }
                         else if (res.rsCode === 1008) {
-                            this.toast.present({ message: res.rsMsg, color: 'warning' });
                             this.res = null;
                         }
                         else {

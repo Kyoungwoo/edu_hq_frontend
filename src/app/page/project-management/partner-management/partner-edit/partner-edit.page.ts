@@ -88,7 +88,6 @@ export class PartnerEditPage implements OnInit {
     } else {
       this.viewMode = false;
       this.isNew = true;
-      this.permission.agree = true;
     }
 
     this.test();
