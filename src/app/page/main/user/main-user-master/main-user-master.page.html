@@ -18,8 +18,9 @@
           </app-col>
         </app-row>
       </app-col>
-      <app-col style="text-align: right;">
+      <app-col style="text-align: right;position: relative;">
         <app-img (click)="router('알림함')" class="alarm" src="assets/img/main/bell.svg"></app-img>
+        <ion-badge *ngIf="form.alarm_count" class="badge-class alarm">{{ form.alarm_count }}</ion-badge>
       </app-col>
       <app-col size="auto">
         <app-menu-button></app-menu-button>
@@ -97,9 +98,15 @@
   </div>
   <ion-toolbar color="white" class="segment-border">
     <ion-segment [(ngModel)]="menu" color="primary">
-      <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">공지사항</ion-segment-button>
+      <ion-segment-button [value]="1" (click)="menu = 1;" class="segment-font segment-width">
+        공지사항
+        <ion-badge *ngIf="form.notice_count" class="badge-class notice">{{ form.notice_count }}</ion-badge>
+      </ion-segment-button>
       <ion-segment-button [value]="2" (click)="menu = 2;" class="segment-font segment-width">MSDS</ion-segment-button>
-      <ion-segment-button [value]="3" (click)="menu = 3;" class="segment-font segment-width">회의록</ion-segment-button>
+      <ion-segment-button [value]="3" (click)="menu = 3;" class="segment-font segment-width">
+        회의록
+        <ion-badge *ngIf="form.safetymeeting_count" class="badge-class notice">{{ form.safetymeeting_count }}</ion-badge>
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [style.display]="menu === 1 ? 'block' : 'none'">
