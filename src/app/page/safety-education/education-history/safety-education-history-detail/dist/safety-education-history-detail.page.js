@@ -133,7 +133,6 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.connect.run('/education/report/hire/get', { approval_user_id: this.user_id })];
                     case 1:
                         res = _a.sent();
-                        console.log("this.hire : ", this.hire);
                         if (res.rsCode === 0) {
                             this.hire = res.rsObj;
                         }

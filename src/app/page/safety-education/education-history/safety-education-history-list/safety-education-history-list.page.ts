@@ -40,8 +40,8 @@ export class SafetyEducationHistoryListPage implements OnInit {
     company_name:string
   }>
 
-  editable = {
-    company_id:false
+  permission = {
+    company_id: false
   }
   constructor(
     private modal : ModalController,
@@ -53,28 +53,28 @@ export class SafetyEducationHistoryListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.projectRolechekc();
-    await this.promise.wait(() => this.form.company_id);
+    this.getForm();
     this.getList();
   }
 
-  projectRolechekc() {
+  getForm() {
     const { user_role , belong_data} = this.user.userData;
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
-        this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {
+        this.permission.company_id = true;
         this.form.project_id = belong_data.project_id;
       }
   }
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    const res = await this.connect.run('/education/state/record/list',this.form,{
+
+    const res = await this.connect.run('/education/state/record/list', this.form, {
       parse:['safe_job_name']
     });
     if(res.rsCode === 0) {

@@ -18,10 +18,9 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id || 0" 
-                [(ngModel)]="form.company_id" 
-                [disabled]="editable.company_id" 
-                [allState]="true"></app-select-contractor>
+                <app-select-company [project_id]="form.project_id || 0"
+                [(ngModel)]="form.company_id"
+                [all]="true"></app-select-company>
               </td>
             </tr>
             <tr>
