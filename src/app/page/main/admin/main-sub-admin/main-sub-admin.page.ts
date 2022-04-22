@@ -357,6 +357,12 @@ export class MainSubAdminPage implements OnInit {
       case '교육현황':
         this.nav.navigateRoot('/safety-education-list');
         break;
+      case '관리자가입대기':
+        this.nav.navigateRoot('/partner-approval-list');
+        break;
+      case '작업자가입대기':
+        this.nav.navigateRoot('/worker-approval-list');
+        break;
     }
 
   }

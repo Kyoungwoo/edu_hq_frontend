@@ -111,7 +111,7 @@
           <ng-container *ngIf="userType !== 'WORKER'">
 
             <app-select-position name="ctgo_job_position_id" 
-            [company_id]="1"
+            [company_id]="belongForm.company_id"
             [(ngModel)]="belongForm.ctgo_job_position_id" [disabled]="!belongEditable" [required]="true"></app-select-position>
             <app-input-caption *ngIf="belongValidator.ctgo_job_position_id?.valid === false" color="warning">{{ belongValidator.ctgo_job_position_id?.message }}</app-input-caption>
 

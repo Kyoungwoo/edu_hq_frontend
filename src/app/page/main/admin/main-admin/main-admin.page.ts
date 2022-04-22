@@ -347,6 +347,12 @@ export class MainAdminPage implements OnInit {
       case '마이페이지':
         this.nav.navigateRoot('/my-page');
         break;
+      case 'LH가입대기':
+        this.nav.navigateRoot('/lh-approval-list');
+        break;
+      case '감리가입대기':
+        this.nav.navigateRoot('/supervision-approval-list');
+        break;
     }
   }
 }

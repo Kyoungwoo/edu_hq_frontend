@@ -313,14 +313,14 @@
                 <app-col>
                   <h6>LH관리자<br>가입 대기</h6>
                 </app-col>
-                <app-col size="auto">
+                <app-col size="auto" style="cursor: pointer;" (click)="router('LH가입대기')">
                   <h3><b>{{ form.lh_count }}</b></h3>
                 </app-col>
                 <app-img src="assets/img/main/helmet2.svg" style="padding-left: 10px;"></app-img>
                 <app-col>
                   <h6>감리<br>가입 대기</h6>
                 </app-col>
-                <app-col size="auto">
+                <app-col size="auto" style="cursor: pointer;" (click)="router('감리가입대기')">
                   <h3><b>{{ form.super_count }}</b></h3>
                 </app-col>
               </app-row>
