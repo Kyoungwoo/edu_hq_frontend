@@ -159,6 +159,9 @@ export class PartnerEditPage implements OnInit {
     } 
     else if(user_role === 'MASTER_HEAD') {
       this.permission.edit = true;
+      this.permission.agree = false;
+    } else if(user_role === 'PARTNER_HEAD'){
+      this.permission.edit = true;
       this.permission.agree = true;
     } else {
       this.permission.edit = false;

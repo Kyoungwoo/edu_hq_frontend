@@ -50,6 +50,7 @@ export class ApprovalItem {
   //   ctgo_safe_job_name_vi: string;
   // }
   company_id:number;
+  master_company_id:number;
   ctgo_job_position_id:number;
   ctgo_occupation_name:string;
   ctgo_construction_name:string;

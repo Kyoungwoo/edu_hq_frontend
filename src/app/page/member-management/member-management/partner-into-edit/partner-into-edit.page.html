@@ -16,8 +16,8 @@
       <form>
         <app-avatar 
       name="input-profile"
-      view_type="PROFILE" 
-      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="editable"></app-avatar>
+      view_type="PROFILE"
+      [(ngModel)]="formBasic.user_profile_file_data" [file]="formBasic.file" [file_json]="formBasic.file_json" [readonly]="!permission.approval"></app-avatar>
         <app-row>
           <app-col>
             <app-input name="input disabled" label="아이디" value="input disabled" [(ngModel)]="formBasic.account_id" [disabled]="true" [required]="true"></app-input>
