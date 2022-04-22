@@ -166,6 +166,9 @@ export class MyPageInfoPage implements OnInit {
 
   /** 전체 입력 */
   public async submit() {
+    console.log('submit 들어옵 --- ');
+    console.log(this.basicValid());
+    console.log(this.belongValid());
     if(!this.basicValid()) return;
     if(!this.belongValid()) return;
 
@@ -213,7 +216,8 @@ export class MyPageInfoPage implements OnInit {
       api = '/mypage/company/belong/update';
     }
     else {
-      api = '/mypage/worker/belong/update';
+      // api = '/mypage/worker/belong/update';
+      return true;
     }
 
     const res = await this.connect.run(api, this.belongForm);
@@ -259,8 +263,10 @@ export class MyPageInfoPage implements OnInit {
 
   private belongValid() {
     /** 공통 validation */
-    if(!this.belongForm.ctgo_job_position_id) this.belongValidator.ctgo_job_position_id = { message: '직위를 선택해주세요.', valid: false };
-    else this.belongValidator.ctgo_job_position_id = { valid: true };
+    if(this.userType !== 'WORKER'){
+      if(!this.belongForm.ctgo_job_position_id) this.belongValidator.ctgo_job_position_id = { message: '직위를 선택해주세요.', valid: false };
+      else this.belongValidator.ctgo_job_position_id = { valid: true };
+    }
 
     /** lh validation */
     if(this.userType === 'LH') {
@@ -292,6 +298,7 @@ export class MyPageInfoPage implements OnInit {
     }
 
     for(let key in this.belongValidator) {
+      console.log(this.belongValidator[key]);
       if(this.belongValidator[key]?.valid === false) return false;
     }
     return true;

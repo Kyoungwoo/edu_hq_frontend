@@ -385,6 +385,7 @@ export class MyPagePage implements OnInit {
 
   /** 전체 입력 */
   public async submit() {
+    console.log('submit 들어옵 --- ');
     if(!this.basicValid()) return;
     if(!this.belongValid()) {
       this.segment = 'belong';
