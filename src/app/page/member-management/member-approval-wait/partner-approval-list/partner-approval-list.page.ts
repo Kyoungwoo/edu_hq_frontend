@@ -88,7 +88,7 @@ export class PartnerApprovalListPage implements OnInit {
       this.form.company_id = 0;
       
       this.permission.companyChange = true;
-      this.permission.approval = false;
+      this.permission.approval = true;
       return true;
     }
     else if(user_role === 'MASTER_HEAD') {
@@ -157,6 +157,12 @@ export class PartnerApprovalListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      await this.get();
+
+      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
+    }
   }
 
   async approval() {
@@ -173,7 +179,9 @@ export class PartnerApprovalListPage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.get();
+      await this.get();
+
+      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
     }
   }
 }

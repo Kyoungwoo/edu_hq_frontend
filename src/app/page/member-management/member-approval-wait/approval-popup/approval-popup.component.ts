@@ -67,9 +67,7 @@ export class ApprovalPopupComponent implements OnInit {
         break;
     }
     const res = await this.connect.run(method, this.form);
-    if (res.rsCode === 0) {
-      this._modal_2.dismiss('Y');
-    }
+    if (res.rsCode === 0) this._modal_2.dismiss({state: 'reject',page_name: null});
   }
 
 
@@ -95,13 +93,9 @@ export class ApprovalPopupComponent implements OnInit {
         page_name = '/partner-info-list';
         break;
     }
-    this._modal_2.dismiss(true);
+    
 
     const res = await this.connect.run(method, this.form);
-    if (res.rsCode === 0) {
-      this.nav.navigateForward(page_name, {
-        force: true
-      });
-    }
+    if (res.rsCode === 0) this._modal_2.dismiss({state: 'approval',page_name: page_name});
   }
 }

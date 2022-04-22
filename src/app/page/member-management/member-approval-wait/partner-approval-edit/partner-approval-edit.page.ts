@@ -100,7 +100,7 @@ export class PartnerApprovalEditPage implements OnInit {
 
   //권한
   getPermission() {
-    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD') {
+    if (this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'PARTNER_HEAD' || this.user.userData.user_type === 'LH') {
       this.permission.approval = true;
     } else {
       this.permission.approval = false;
@@ -233,7 +233,7 @@ export class PartnerApprovalEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data) {
       setTimeout(() => {
-        this._modal.dismiss('Y');
+        this._modal.dismiss(data);
       }, 0);
     }
   }
@@ -250,13 +250,13 @@ export class PartnerApprovalEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            await Promise.all([
+            const tt = await Promise.all([
               this.BasicSubmit(),
               this.inputSafeJob?.submit(),
               this.BelongSubmit()
             ]);
 
-
+            if(!tt.includes(false)) this._modal.dismiss(true);
           }
         }
       ]
@@ -270,8 +270,10 @@ export class PartnerApprovalEditPage implements OnInit {
       ...this.formBasic
     }, {});
     if (res.rsCode === 0) {
+      return true;
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+      return false;
     }
   }
 
@@ -282,9 +284,10 @@ export class PartnerApprovalEditPage implements OnInit {
       ...this.formApproval
     }, {});
     if (res.rsCode === 0) {
-      this._modal.dismiss('Y');
+      return true;
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+      return false;
     }
   }
 }
