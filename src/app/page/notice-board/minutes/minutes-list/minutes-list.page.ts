@@ -50,7 +50,6 @@ export class MinutesListPage implements OnInit {
    * permission 과 form 을 가져옴.
    */
   async getForm() {
-    console.log(this.user.userData);
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
@@ -59,7 +58,7 @@ export class MinutesListPage implements OnInit {
     || belong_data.company_contract_type === '감리사') {
 
       this.permission.company_id = true;
-      this.form.company_id = belong_data.company_id;
+      this.form.company_id = 0;
 
     }
     else if(belong_data.company_contract_type === '원청사') {
@@ -94,11 +93,9 @@ export class MinutesListPage implements OnInit {
    */
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
+
     this.res = await this.connect.run('/board/safety_meeting/list', this.form);
     if(this.res.rsCode === 0 ) {
-      console.log("this.res",this.res);
       this.res.rsMap.map((item, i) => {
         switch(item.safety_meeting_type){
           case '노사':

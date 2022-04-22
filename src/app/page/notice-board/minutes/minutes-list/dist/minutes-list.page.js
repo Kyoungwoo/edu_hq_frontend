@@ -89,13 +89,12 @@ var MinutesListPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(this.user.userData);
                         belong_data = this.user.userData.belong_data;
                         this.form.project_id = belong_data.project_id;
                         if (!(belong_data.company_contract_type === 'LH'
                             || belong_data.company_contract_type === '감리사')) return [3 /*break*/, 1];
                         this.permission.company_id = true;
-                        this.form.company_id = belong_data.company_id;
+                        this.form.company_id = 0;
                         return [3 /*break*/, 4];
                     case 1:
                         if (!(belong_data.company_contract_type === '원청사')) return [3 /*break*/, 2];
@@ -131,20 +130,29 @@ var MinutesListPage = /** @class */ (function () {
     MinutesListPage.prototype.get = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.form.limit_no; }
         return __awaiter(this, void 0, void 0, function () {
-            var trans_form, _a;
+            var _a;
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         this.form.limit_no = limit_no;
-                        trans_form = JSON.parse(JSON.stringify(this.form));
-                        trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
                         return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form)];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
                             this.res.rsMap.map(function (item, i) {
+                                switch (item.safety_meeting_type) {
+                                    case '노사':
+                                        item.safety_meeting_type = '노사 협의체';
+                                        break;
+                                    case '안전':
+                                        item.safety_meeting_type = '안전 및 보건의 관한 협의체';
+                                        break;
+                                    case '산업':
+                                        item.safety_meeting_type = '산업안전보건보건위원회';
+                                        break;
+                                }
                                 item.index = _this.res.rsObj.row_count - _this.form.limit_no - i;
                             });
                         }

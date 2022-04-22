@@ -415,8 +415,14 @@ var WorkerMinutesEditPage = /** @class */ (function () {
         else {
             this.permission.edit = false;
         }
+        /** 결재자들을 가지고 온다.(모바일 화면 용) */
+        this.approval_answer = ev.approval_data[0].answer_datas;
         /** 결재자 의견을 가지고 온다. */
         this.approval_comment = ev.approval_comment;
+        /** 모바일 화면에서는 테이블 편집이 안된다. */
+        if (window.innerWidth <= 768) {
+            this.permission.edit = false;
+        }
     };
     __decorate([
         core_1.Input()

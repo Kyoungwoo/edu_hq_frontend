@@ -9,8 +9,6 @@
 
 <ion-content>
 
-  <h2>{{ form.safety_meeting_type_text }}</h2>
-
   <app-approval 
   [project_id]="this.form.project_id"
   [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
@@ -21,70 +19,78 @@
   (recoveryClick)="onRecoveryClick($event)"
   (approvalClick)="onApprovalClick($event)"
   (change)="onApprovalChange($event)"></app-approval>
-  
-  <h4>기본 정보</h4>
 
-  <app-row mobileBreak>
-    <app-col>
-      <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-    </app-col>
-    <app-col>
-      <app-calendar label="회의 일자" [(ngModel)]="form.safety_meeting_date" [disabled]="!permission.edit"></app-calendar>
-    </app-col>
-    <app-col>
-      <app-input label="회의 장소" [(ngModel)]="form.safety_meeting_place" [disabled]="!permission.edit"></app-input>
-    </app-col>
-  </app-row>
+  <app-approval-document>
 
-  <app-row mobileBreak>
-    <app-col>
-      <app-input-template label="회사명" [disabled]="true">
-        <p slot="input">{{ form.company_name }}</p>
-      </app-input-template>
-    </app-col>
-    <app-col>
-      <app-input-template label="작성자" [disabled]="true">
-        <p slot="input">{{ form.user_name }}</p>
-      </app-input-template>
-    </app-col>
-    <app-col>
-      <app-input-template label="회의 유형" [disabled]="true">
-        <p slot="input">{{ form.safety_meeting_type_text }}</p>
-      </app-input-template>
-    </app-col>
-  </app-row>
+    <h2>{{ form.safety_meeting_type_text }}</h2>
 
-  <h4>회의 내용</h4>
+    <app-approval-template *mobileShow [approval_answer]="approval_answer"></app-approval-template>
 
-  <app-row mobileBreak>
-    <app-col>
+    <h4>기본 정보</h4>
 
-      <app-textarea label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [disabled]="!permission.edit"></app-textarea>
-
-    </app-col>
-    <app-col>
-
-      <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [disabled]="!permission.edit"></app-textarea>
-
-    </app-col>
-  </app-row>
-
-  <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [disabled]="!permission.edit"></app-textarea>
-
-  <h5>
     <app-row>
-      <app-col>첨부 자료</app-col>
-      <app-col size="auto" *ngIf="permission.edit">
-        <app-button>
-          첨부
-          <app-file view_type="SAFETY_MEETING" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json" [multiple]="true"></app-file>
-        </app-button>
+      <app-col>
+        <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+      </app-col>
+      <app-col>
+        <app-calendar label="회의 일자" [(ngModel)]="form.safety_meeting_date" [disabled]="!permission.edit"></app-calendar>
+      </app-col>
+      <app-col>
+        <app-input label="회의 장소" [(ngModel)]="form.safety_meeting_place" [disabled]="!permission.edit"></app-input>
       </app-col>
     </app-row>
-  </h5>
 
-  <app-file-preview *ngFor="let item of form.file_data; let i = index;" [futItem]="item" (buttonClick)="form.file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview>
+    <app-row>
+      <app-col>
+        <app-input-template label="회사명" [disabled]="true">
+          <p slot="input">{{ form.company_name }}</p>
+        </app-input-template>
+      </app-col>
+      <app-col>
+        <app-input-template label="작성자" [disabled]="true">
+          <p slot="input">{{ form.user_name }}</p>
+        </app-input-template>
+      </app-col>
+      <app-col>
+        <app-input-template label="회의 유형" [disabled]="true">
+          <p slot="input">{{ form.safety_meeting_type_text }}</p>
+        </app-input-template>
+      </app-col>
+    </app-row>
+  
+    <h4>회의 내용</h4>
+  
+    <app-row>
+      <app-col>
+  
+        <app-textarea label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [disabled]="!permission.edit"></app-textarea>
+  
+      </app-col>
+      <app-col>
+  
+        <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [disabled]="!permission.edit"></app-textarea>
+  
+      </app-col>
+    </app-row>
+  
+    <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [disabled]="!permission.edit"></app-textarea>
+  
+    <h5>
+      <app-row>
+        <app-col>첨부 자료</app-col>
+        <app-col size="auto" *ngIf="permission.edit">
+          <app-button>
+            첨부
+            <app-file view_type="SAFETY_MEETING" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json" [multiple]="true"></app-file>
+          </app-button>
+        </app-col>
+      </app-row>
+    </h5>
+  
+    <app-file-preview *ngFor="let item of form.file_data; let i = index;" [futItem]="item" (buttonClick)="form.file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview>
+  
+    <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
 
-  <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
+  </app-approval-document>
   
 </ion-content>
