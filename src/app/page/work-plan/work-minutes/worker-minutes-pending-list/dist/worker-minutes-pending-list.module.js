@@ -14,6 +14,7 @@ var angular_1 = require("@ionic/angular");
 var worker_minutes_pending_list_routing_module_1 = require("./worker-minutes-pending-list-routing.module");
 var worker_minutes_pending_list_page_1 = require("./worker-minutes-pending-list.page");
 var component_module_1 = require("src/app/component/component.module");
+var worker_minutes_edit_module_1 = require("../worker-minutes-edit/worker-minutes-edit.module");
 var WorkerMinutesPendingListPageModule = /** @class */ (function () {
     function WorkerMinutesPendingListPageModule() {
     }
@@ -24,7 +25,8 @@ var WorkerMinutesPendingListPageModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 angular_1.IonicModule,
                 component_module_1.ComponentModule,
-                worker_minutes_pending_list_routing_module_1.WorkerMinutesPendingListPageRoutingModule
+                worker_minutes_pending_list_routing_module_1.WorkerMinutesPendingListPageRoutingModule,
+                worker_minutes_edit_module_1.WorkerMinutesEditPageModule
             ],
             declarations: [worker_minutes_pending_list_page_1.WorkerMinutesPendingListPage]
         })

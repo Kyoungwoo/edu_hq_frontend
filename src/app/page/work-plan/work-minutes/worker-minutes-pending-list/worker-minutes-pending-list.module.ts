@@ -8,6 +8,7 @@ import { WorkerMinutesPendingListPageRoutingModule } from './worker-minutes-pend
 
 import { WorkerMinutesPendingListPage } from './worker-minutes-pending-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { WorkerMinutesEditPageModule } from '../worker-minutes-edit/worker-minutes-edit.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    WorkerMinutesPendingListPageRoutingModule
+    WorkerMinutesPendingListPageRoutingModule,
+    WorkerMinutesEditPageModule
   ],
   declarations: [WorkerMinutesPendingListPage]
 })
