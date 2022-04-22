@@ -54,8 +54,6 @@ var MemberStandardSetPage = /** @class */ (function () {
         this.area1SelectCheck = false;
         this.hq_regional_id = 0;
         this.hq_business_id = 0;
-        this.lhHeadCheck = true;
-        //lh 조직관리 끝
         //정보 접근 비밀번호
         this.form = {
             company_id: this.user.userData.belong_data.company_id,
@@ -97,6 +95,7 @@ var MemberStandardSetPage = /** @class */ (function () {
     }
     MemberStandardSetPage.prototype.ngOnInit = function () {
         this.getForm();
+        this.segmentChange();
     };
     MemberStandardSetPage.prototype.segmentChange = function () {
         switch (this.segmenet) {

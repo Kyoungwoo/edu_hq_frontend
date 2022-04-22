@@ -51,7 +51,11 @@ export class EducationConfirmPendingListPage implements OnInit {
         item.index = item.row_count - this.form.limit_no - i;
       });
       
-    } else {
+    } 
+    else if(this.res.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else {
       this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }

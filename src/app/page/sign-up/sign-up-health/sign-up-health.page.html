@@ -76,7 +76,7 @@
     </app-radio-input>
     <app-input-caption *ngIf="validator.pain_head_state?.valid === false" color="warning">{{ validator.pain_head_state.message }}</app-input-caption>
 
-    <app-input @fadeInAnimation *ngIf="form.pain_head_content" 
+    <app-input @fadeInAnimation *ngIf="form.pain_head_state" 
     [color]="validator.pain_head_content?.valid === false && 'warning'"
     name="pain_head_content" placeholder="증상을 적어주세요." 
     [(ngModel)]="form.pain_head_content"></app-input>

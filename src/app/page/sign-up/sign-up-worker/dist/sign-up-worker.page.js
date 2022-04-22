@@ -42,36 +42,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SignUpPartnerPage = void 0;
+exports.SignUpWorkerPage = void 0;
 var core_1 = require("@angular/core");
 var basic_animation_1 = require("src/app/basic/basic.animation");
 var connect_service_1 = require("src/app/basic/service/core/connect.service");
 var environment_1 = require("src/environments/environment");
-var sign_up_partner_inerface_1 = require("./sign-up-partner.inerface");
-var SignUpPartnerPage = /** @class */ (function () {
-    function SignUpPartnerPage(el, connect, nav, regex, promise, changeDetector, toast) {
+var sign_up_worker_interface_1 = require("./sign-up-worker.interface");
+var SignUpWorkerPage = /** @class */ (function () {
+    function SignUpWorkerPage(el, connect, nav, regex, promise, changeDetector) {
         this.el = el;
         this.connect = connect;
         this.nav = nav;
         this.regex = regex;
         this.promise = promise;
         this.changeDetector = changeDetector;
-        this.toast = toast;
-        this.master_company_id = 0;
-        this.form = new sign_up_partner_inerface_1.SignUpPartnerForm();
-        this.validator = new connect_service_1.Validator(new sign_up_partner_inerface_1.SignUpPartnerForm()).validator;
+        this.form = new sign_up_worker_interface_1.signUpWorkerInfo();
+        this.validator = new connect_service_1.Validator(new sign_up_worker_interface_1.signUpWorkerInfo()).validator;
     }
-    SignUpPartnerPage.prototype.ngOnInit = function () {
+    SignUpWorkerPage.prototype.ngOnInit = function () {
         if (!this.checkParams())
-            return this.nav.navigateBack('/sign-up-company', { queryParams: { userType: 'COMPANY' } });
+            return this.nav.navigateBack('/sign-up-company', { queryParams: { userType: 'WORKER' } });
         this.companyInfo = history.state.companyInfo;
         this.form.company_id = this.companyInfo.company_id;
-        if (environment_1.environment.test)
-            this.test();
+        this.test();
     };
-    SignUpPartnerPage.prototype.test = function () {
+    SignUpWorkerPage.prototype.test = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var el, form, key, value, input, user_phone, res;
+            var el, user_phone, res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -83,56 +80,41 @@ var SignUpPartnerPage = /** @class */ (function () {
                         return [4 /*yield*/, this.promise.wait()];
                     case 1:
                         _a.sent();
-                        form = new sign_up_partner_inerface_1.SignUpPartnerFormMock();
-                        for (key in form) {
-                            value = form[key];
-                            input = el.querySelector("[name=" + key + "]");
-                            if (input && value)
-                                input.dispatchEvent(new CustomEvent('setValue', { detail: value }));
-                        }
-                        // 핸드폰 중복 체크
-                        el.querySelector('[name=user_phone]').dispatchEvent(new Event('delayKeyup'));
-                        return [4 /*yield*/, this.promise.wait()];
-                    case 2:
-                        _a.sent();
+                        // 가짜 데이터 삽입
+                        this.form = new sign_up_worker_interface_1.signUpWorkerInfoMock();
+                        this.form.company_id = this.companyInfo.company_id;
+                        // 프로필 사진 넣기
+                        // el.querySelector('')
                         // 문자 인증 전송
                         el.querySelector('[name=user_phone]').dispatchEvent(new Event('buttonClick'));
                         return [4 /*yield*/, this.promise.wait(1500)];
-                    case 3:
+                    case 2:
                         _a.sent();
                         user_phone = this.form.user_phone;
                         return [4 /*yield*/, this.connect.run('/test/sms/get', { user_phone: user_phone })];
-                    case 4:
+                    case 3:
                         res = _a.sent();
                         this.form.sms_token = res.rsObj.sms_token;
                         return [4 /*yield*/, this.promise.wait()];
-                    case 5:
+                    case 4:
                         _a.sent();
                         // 문자 인증
                         this.changeDetector.detectChanges();
                         el.querySelector('[name=sms_token]').dispatchEvent(new Event('buttonClick'));
                         return [4 /*yield*/, this.promise.wait()];
+                    case 5:
+                        _a.sent();
+                        // 국가 가져오기
+                        this.changeDetector.detectChanges();
+                        el.querySelector('[name=ctgo_country_id]').dispatchEvent(new Event('click'));
+                        return [4 /*yield*/, this.promise.wait()];
                     case 6:
                         _a.sent();
-                        // 직위 가져오기
-                        el.querySelector('[name=ctgo_job_position_id]').dispatchEvent(new Event('click'));
-                        return [4 /*yield*/, this.promise.wait(1000)];
-                    case 7:
-                        _a.sent();
                         // 현장 가져오기
+                        this.changeDetector.detectChanges();
                         el.querySelector('[name=project_id]').dispatchEvent(new Event('click'));
-                        return [4 /*yield*/, this.promise.wait(2500)];
-                    case 8:
-                        _a.sent();
-                        // 공종 가져오기
-                        el.querySelector('[name=ctgo_construction_id]').dispatchEvent(new Event('click'));
-                        return [4 /*yield*/, this.promise.wait(1000)];
-                    case 9:
-                        _a.sent();
-                        // 안전직무 가져오기
-                        el.querySelector('[name=ctgo_safe_job_id]').dispatchEvent(new Event('click'));
-                        return [4 /*yield*/, this.promise.wait(1000)];
-                    case 10:
+                        return [4 /*yield*/, this.promise.wait(3000)];
+                    case 7:
                         _a.sent();
                         // 다음 페이지로
                         el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
@@ -141,14 +123,35 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.checkParams = function () {
+    SignUpWorkerPage.prototype.checkParams = function () {
         var _a;
         if ((_a = history.state) === null || _a === void 0 ? void 0 : _a.companyInfo)
             return true;
         else
             return false;
     };
-    SignUpPartnerPage.prototype.overlapId = function () {
+    SignUpWorkerPage.prototype.prev = function () {
+        this.nav.back();
+    };
+    SignUpWorkerPage.prototype.next = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log(this.form);
+                console.log(this.validator);
+                if (!this.valid())
+                    return [2 /*return*/];
+                console.log("asdfasdfsdaf");
+                this.nav.navigateForward('/sign-up-health', {
+                    state: {
+                        companyInfo: this.companyInfo,
+                        signUpWorkerInfo: this.form
+                    }
+                });
+                return [2 /*return*/];
+            });
+        });
+    };
+    SignUpWorkerPage.prototype.overlapId = function () {
         return __awaiter(this, void 0, void 0, function () {
             var account_id, res;
             return __generator(this, function (_a) {
@@ -168,7 +171,7 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.checkPass = function () {
+    SignUpWorkerPage.prototype.checkPass = function () {
         return __awaiter(this, void 0, void 0, function () {
             var account_token, res;
             return __generator(this, function (_a) {
@@ -188,34 +191,15 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.checkPassConfirm = function () {
+    SignUpWorkerPage.prototype.checkPassConfirm = function () {
         var _a = this.form, account_token = _a.account_token, account_token_conform = _a.account_token_conform;
         if (account_token !== account_token_conform)
             return this.validator.account_token_conform = { valid: false, message: '비밀번호와 비밀번호 확인이 다릅니다.' };
         else
             return this.validator.account_token_conform = { valid: true };
     };
-    SignUpPartnerPage.prototype.prev = function () {
-        this.nav.navigateBack('/sign-up-type');
-    };
-    SignUpPartnerPage.prototype.next = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log(this.form);
-                console.log(this.validator);
-                if (!this.valid())
-                    return [2 /*return*/];
-                this.nav.navigateForward('/sign-up-terms', {
-                    state: {
-                        signUpPartnerForm: this.form
-                    }
-                });
-                return [2 /*return*/];
-            });
-        });
-    };
     // user_phone은 overlapPhone 과 aligoSend 두개를 모두 실행해야 valid 된다.
-    SignUpPartnerPage.prototype.overlapPhone = function () {
+    SignUpWorkerPage.prototype.overlapPhone = function () {
         return __awaiter(this, void 0, void 0, function () {
             var user_phone, res;
             return __generator(this, function (_a) {
@@ -236,30 +220,33 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.aligoSend = function () {
+    SignUpWorkerPage.prototype.aligoSend = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var user_phone, res, res2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         user_phone = this.form.user_phone;
+                        if (((_a = this.validator.user_phone) === null || _a === void 0 ? void 0 : _a.valid) === false)
+                            return [2 /*return*/];
                         return [4 /*yield*/, this.connect.run('/aligo/send', { user_phone: user_phone })];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         this.validator.user_phone = { valid: res.rsCode === 0, message: res.rsMsg };
                         return [4 /*yield*/, this.connect.run('/test/sms/get', { user_phone: user_phone })];
                     case 2:
-                        res2 = _a.sent();
+                        res2 = _b.sent();
                         this.form.sms_token = res2.rsObj.sms_token;
                         return [4 /*yield*/, this.promise.wait()];
                     case 3:
-                        _a.sent();
+                        _b.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    SignUpPartnerPage.prototype.aligoCheck = function () {
+    SignUpWorkerPage.prototype.aligoCheck = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, user_phone, sms_token, res;
             return __generator(this, function (_b) {
@@ -275,7 +262,7 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.overlapEmail = function () {
+    SignUpWorkerPage.prototype.overlapEmail = function () {
         return __awaiter(this, void 0, void 0, function () {
             var user_email, res;
             return __generator(this, function (_a) {
@@ -295,41 +282,10 @@ var SignUpPartnerPage = /** @class */ (function () {
             });
         });
     };
-    SignUpPartnerPage.prototype.projectChange = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, contractor;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(this.companyInfo.company_contract_type === '협력사')) return [3 /*break*/, 2];
-                        if (!this.form.project_id)
-                            return [2 /*return*/];
-                        return [4 /*yield*/, this.connect.run('/forSignUp/company/master/get', {
-                                project_id: this.form.project_id,
-                                company_id: this.form.company_id
-                            })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.rsCode === 0) {
-                            contractor = res.rsMap[0];
-                            this.master_company_id = contractor.master_company_id;
-                        }
-                        else {
-                            this.toast.present({ color: 'warning', message: res.rsMsg });
-                        }
-                        return [3 /*break*/, 3];
-                    case 2:
-                        this.master_company_id = this.form.company_id;
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    SignUpPartnerPage.prototype.findFile = function (view_type) {
+    SignUpWorkerPage.prototype.findFile = function (view_type) {
         return this.form.file_preview.find(function (futItem) { return futItem.view_type === view_type; });
     };
-    SignUpPartnerPage.prototype.valid = function () {
+    SignUpWorkerPage.prototype.valid = function () {
         var _a, _b, _c, _d, _e, _f, _g;
         if (!this.form.user_name)
             this.validator.user_name = { message: '이름을 입력해주세요.', valid: false };
@@ -347,14 +303,6 @@ var SignUpPartnerPage = /** @class */ (function () {
             this.validator.account_token_conform = { message: '비밀번호 확인을 입력해주세요.', valid: false };
         else if ((_c = this.validator.account_token_conform) === null || _c === void 0 ? void 0 : _c.valid)
             this.validator.account_token_conform = { valid: true };
-        if (!this.form.user_birth)
-            this.validator.user_birth = { message: '생년월일을 입력해주세요.', valid: false };
-        else
-            this.validator.user_birth = { valid: true };
-        if (!this.form.user_gender)
-            this.validator.user_gender = { message: '성별을 선택해주세요.', valid: false };
-        else
-            this.validator.user_gender = { valid: true };
         if (!this.form.user_phone)
             this.validator.user_phone = { message: '휴대폰번호를 입력해주세요.', valid: false };
         else if ((_d = this.validator.user_phone) === null || _d === void 0 ? void 0 : _d.valid)
@@ -365,31 +313,35 @@ var SignUpPartnerPage = /** @class */ (function () {
             this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
         else
             this.validator.sms_token = { valid: true };
+        if (!this.form.user_birth)
+            this.validator.user_birth = { message: '생년월일을 입력해주세요.', valid: false };
+        else
+            this.validator.user_birth = { valid: true };
         if ((_f = this.validator.user_email) === null || _f === void 0 ? void 0 : _f.valid)
             this.validator.user_email = { valid: true };
-        if (this.form.ctgo_job_position_id == null)
-            this.validator.ctgo_job_position_id = { message: '직위를 입력해주세요.', valid: false };
+        if (!this.form.user_gender)
+            this.validator.user_gender = { message: '성별을 선택해주세요.', valid: false };
         else
-            this.validator.ctgo_job_position_id = { valid: true };
+            this.validator.user_gender = { valid: true };
+        if (!this.form.ctgo_country_id)
+            this.validator.ctgo_country_id = { message: '국가를 선택해주세요.', valid: false };
+        else
+            this.validator.ctgo_country_id = { valid: true };
         if (!this.form.company_id)
             this.validator.company_id = { message: '회사를 입력해주세요.', valid: false };
         else
             this.validator.company_id = { valid: true };
-        if (this.form.project_id == null)
+        if (!this.form.project_id)
             this.validator.project_id = { message: '현장을 입력해주세요.', valid: false };
         else
             this.validator.project_id = { valid: true };
-        if (this.form.ctgo_construction_id == null)
-            this.validator.ctgo_construction_id = { message: '공종을 입력해주세요.', valid: false };
-        else
-            this.validator.ctgo_construction_id = { valid: true };
-        if (this.form.ctgo_safe_job_id == null)
-            this.validator.ctgo_safe_job_id = { message: '안전직무를 입력해주세요.', valid: false };
-        else
-            this.validator.ctgo_safe_job_id = { valid: true };
-        this.validator.safe_job_start_date = { valid: true };
+        // if(!this.form.basic_safe_edu_date) this.validator.basic_safe_edu_date = { message: '기초안전보건교육 이수날짜를 입력해주세요.', valid: false };
+        this.validator.basic_safe_edu_date = { valid: true };
+        //
         this.validator.file_preview = { valid: true };
+        // if(!this.form.file) this.validator.file = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
         this.validator.file = { valid: true };
+        // if(!this.form.file_json) this.validator.file_json = {message: '기초안전보건교육 파일을 업로드해주세요.', valid: false};
         this.validator.file_json = { valid: true };
         for (var key in this.validator) {
             if (!((_g = this.validator[key]) === null || _g === void 0 ? void 0 : _g.valid))
@@ -397,14 +349,14 @@ var SignUpPartnerPage = /** @class */ (function () {
         }
         return true;
     };
-    SignUpPartnerPage = __decorate([
+    SignUpWorkerPage = __decorate([
         core_1.Component({
-            selector: 'app-sign-up-partner',
-            templateUrl: './sign-up-partner.page.html',
-            styleUrls: ['./sign-up-partner.page.scss'],
+            selector: 'app-sign-up-worker',
+            templateUrl: './sign-up-worker.page.html',
+            styleUrls: ['./sign-up-worker.page.scss'],
             animations: [basic_animation_1.fadeAnimation]
         })
-    ], SignUpPartnerPage);
-    return SignUpPartnerPage;
+    ], SignUpWorkerPage);
+    return SignUpWorkerPage;
 }());
-exports.SignUpPartnerPage = SignUpPartnerPage;
+exports.SignUpWorkerPage = SignUpWorkerPage;

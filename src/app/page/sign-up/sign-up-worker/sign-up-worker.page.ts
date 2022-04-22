@@ -153,6 +153,7 @@ export class SignUpWorkerPage implements OnInit {
 
   public async overlapEmail() {
     const { user_email } = this.form;
+    if(!user_email) { this.validator.user_email =  null; return; }
     const res = await this.connect.run('/forSignUp/overlap/email', { user_email });
     this.validator.user_email = { valid: res.rsCode === 0, message: res.rsMsg };
   }

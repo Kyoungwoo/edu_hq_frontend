@@ -54,9 +54,6 @@ export class MemberStandardSetPage implements OnInit {
   hq_regional_id = 0
   hq_business_id = 0
 
-  lhHeadCheck: boolean = true;
-  //lh 조직관리 끝
-
   //정보 접근 비밀번호
   form = {
     company_id: this.user.userData.belong_data.company_id,
@@ -151,6 +148,7 @@ export class MemberStandardSetPage implements OnInit {
 
   ngOnInit() {
     this.getForm();
+    this.segmentChange();
   }
   segmentChange() {
     switch(this.segmenet) {
