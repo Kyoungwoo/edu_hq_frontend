@@ -91,14 +91,12 @@ var EducationConfirmPendingListPage = /** @class */ (function () {
             var modal;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log("item", education_safe_report_id);
-                        return [4 /*yield*/, this._modal.create({
-                                component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
-                                componentProps: {
-                                    education_safe_report_id: education_safe_report_id
-                                }
-                            })];
+                    case 0: return [4 /*yield*/, this._modal.create({
+                            component: safety_education_result_edit_page_1.SafetyEducationResultEditPage,
+                            componentProps: {
+                                education_safe_report_id: education_safe_report_id
+                            }
+                        })];
                     case 1:
                         modal = _a.sent();
                         modal.present();

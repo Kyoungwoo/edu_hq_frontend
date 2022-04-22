@@ -50,7 +50,6 @@ export class EducationConfirmPendingListPage implements OnInit {
       this.res.rsMap.map((item, i) => {
         item.index = item.row_count - this.form.limit_no - i;
       });
-      
     } 
     else if(this.res.rsCode === 1008) {
       // 암것도 안함
@@ -61,10 +60,9 @@ export class EducationConfirmPendingListPage implements OnInit {
   }
 
   async edit(education_safe_report_id) {
-    console.log("item",education_safe_report_id)
     const modal = await this._modal.create({
       component: SafetyEducationResultEditPage,
-      componentProps:{
+      componentProps: {
         education_safe_report_id
       }
     });
