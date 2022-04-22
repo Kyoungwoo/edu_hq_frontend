@@ -27,7 +27,7 @@
     <ion-item *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
     routerLink="/my-page-education" detail="true">교육 이력</ion-item>
     
-    <ion-item *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
+    <ion-item *ngIf="userType === 'WORKER'"
     routerLink="/my-page-mileage" detail="true">안전 마일리지</ion-item>
 
     <ion-item button (click)="withdrawal()">회원 탈퇴</ion-item>
