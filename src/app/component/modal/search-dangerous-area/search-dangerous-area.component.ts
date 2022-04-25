@@ -42,10 +42,11 @@ export class SearchDangerousAreaComponent implements OnInit {
 
   selectList;
 
-  ngOnInit() {
+  async ngOnInit() {
     if(this.project_id) this.form.project_id = this.project_id;
     // this.form.project_id = 58;
-    this.CtgoriskAreaGet();
+    await this.CtgoriskAreaGet();
+    await this.riskTypeGet();
   }
 
   async CtgoriskAreaGet() {
@@ -57,7 +58,7 @@ export class SearchDangerousAreaComponent implements OnInit {
   }
 
   async riskTypeGet() {
-    if(!this.form.ctgo_area_risk_id) return await this.toast.present({message:'위험지역유형을 선택해주세요', color:'warning'});
+    // if(!this.form.ctgo_area_risk_id) return await this.toast.present({message:'위험지역유형을 선택해주세요', color:'warning'});
     this.resRiskArea = await this.connect.run('/work_project/nfc_beacon/search_risk_area/list',this.form);
     if(this.resRiskArea.rsCode === 0) {
     } else {
