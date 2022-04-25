@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <app-button (click)="qrChange()">QR전환</app-button>
+  <app-button (click)="qrChange()" *ngIf="!single_state">QR전환</app-button>
   <app-card style="background-color: var(--ion-color-medium-translucent);">
     <app-row>
       <app-col>
