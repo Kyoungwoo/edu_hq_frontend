@@ -12,7 +12,6 @@ import { MachineryItem, SearchConstructionMachineryComponent } from 'src/app/com
 import { SearchToolComponent, ToolItem } from 'src/app/component/modal/search-tool/search-tool.component';
 import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { RiskEvaluationPopupPage, RiskItem } from '../risk-evaluation-popup/risk-evaluation-popup.page';
-
 export interface RiskTableItem {
   seq_no:number,
   rowspan:number,

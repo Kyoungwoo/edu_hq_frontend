@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ApprovalZoomComponent } from '../approval-zoom/approval-zoom.component';
 @Component({
   selector: 'app-approval-document',
   templateUrl: './approval-document.component.html',
@@ -9,7 +10,11 @@ export class ApprovalDocumentComponent implements OnInit {
 
   isDocumentHidden:boolean = false;
 
-  constructor() { }
+  @ViewChild('documentLayout') documentLayout:ElementRef<HTMLElement>;
+
+  constructor(
+    private _modal: ModalController
+  ) { }
 
   ngOnInit() {}
 
@@ -18,4 +23,17 @@ export class ApprovalDocumentComponent implements OnInit {
     this.isDocumentHidden = !this.isDocumentHidden;
   }
 
+  async mobilePopup() {
+    if(window.innerWidth <= 768) {
+      const cloneEl = this.documentLayout.nativeElement.cloneNode(true);
+  
+      const modal = await this._modal.create({
+        component: ApprovalZoomComponent,
+        componentProps: {
+          zoomEl: cloneEl
+        }
+      });
+      modal.present();
+    }
+  }
 }

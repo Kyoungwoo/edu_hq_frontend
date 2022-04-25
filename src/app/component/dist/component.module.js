@@ -78,6 +78,7 @@ var chip_approval_answer_component_1 = require("./confirm/chip-approval-answer/c
 var approval_comment_component_1 = require("./confirm/approval-comment/approval-comment.component");
 var approval_template_component_1 = require("./confirm/approval-template/approval-template.component");
 var approval_document_component_1 = require("./confirm/approval-document/approval-document.component");
+var approval_zoom_component_1 = require("./confirm/approval-zoom/approval-zoom.component");
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
@@ -89,6 +90,7 @@ var ComponentModule = /** @class */ (function () {
                 approval_comment_component_1.ApprovalCommentComponent,
                 approval_document_component_1.ApprovalDocumentComponent,
                 approval_template_component_1.ApprovalTemplateComponent,
+                approval_zoom_component_1.ApprovalZoomComponent,
                 chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,
@@ -168,6 +170,7 @@ var ComponentModule = /** @class */ (function () {
                 approval_comment_component_1.ApprovalCommentComponent,
                 approval_document_component_1.ApprovalDocumentComponent,
                 approval_template_component_1.ApprovalTemplateComponent,
+                approval_zoom_component_1.ApprovalZoomComponent,
                 chip_approval_answer_component_1.ChipApprovalAnswerComponent,
                 confirm_setting_popup_component_1.ConfirmSettingPopupComponent,
                 confirm_process_popup_component_1.ConfirmProcessPopupComponent,

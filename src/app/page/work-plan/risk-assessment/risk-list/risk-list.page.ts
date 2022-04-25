@@ -45,7 +45,7 @@ export class RiskListPage implements OnInit {
     risk_asment_type: '수시',
     approval_cnt_answer: '전체',
     risk_asment_start_date: this.date.today({ month: -1 }),
-    risk_asment_end_date: this.date.today(),
+    risk_asment_end_date: this.date.today({ date: 1 }),
     search_text: '',
     limit_no: 0
   }

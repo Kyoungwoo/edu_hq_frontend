@@ -9,6 +9,8 @@
   </app-row>
 </app-card>
 
-<div class="document-layout" [class.hidden]="isDocumentHidden">
-  <ng-content></ng-content>
+<div (click)="mobilePopup()">
+  <div class="document-layout" [class.hidden]="isDocumentHidden" #documentLayout>
+    <ng-content></ng-content>
+  </div>
 </div>

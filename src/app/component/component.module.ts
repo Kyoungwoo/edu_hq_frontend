@@ -71,6 +71,7 @@ import { ChipApprovalAnswerComponent } from './confirm/chip-approval-answer/chip
 import { ApprovalCommentComponent } from './confirm/approval-comment/approval-comment.component';
 import { ApprovalTemplateComponent } from './confirm/approval-template/approval-template.component';
 import { ApprovalDocumentComponent } from './confirm/approval-document/approval-document.component';
+import { ApprovalZoomComponent } from './confirm/approval-zoom/approval-zoom.component';
 
 
 
@@ -81,6 +82,7 @@ import { ApprovalDocumentComponent } from './confirm/approval-document/approval-
     ApprovalCommentComponent,
     ApprovalDocumentComponent,
     ApprovalTemplateComponent,
+    ApprovalZoomComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
@@ -161,6 +163,7 @@ import { ApprovalDocumentComponent } from './confirm/approval-document/approval-
     ApprovalCommentComponent,
     ApprovalDocumentComponent,
     ApprovalTemplateComponent,
+    ApprovalZoomComponent,
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
