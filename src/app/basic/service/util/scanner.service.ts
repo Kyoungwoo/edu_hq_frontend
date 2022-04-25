@@ -19,10 +19,10 @@ export class ScannerService {
     private connect: ConnectService
   ) { }
 
-  async init(info_state:boolean = false){
+  async init(info_state:boolean = false, single_state:boolean = false){
     let return_state = {state: false,data: null};
 
-    await this.qr_open(info_state).then((item) => {if(item) return_state.state = true;});
+    await this.qr_open(info_state, single_state).then((item) => {if(item) return_state.state = true;});
 
     return return_state;
   }
@@ -32,10 +32,13 @@ export class ScannerService {
    * @param info_state 
    * @returns 
    */
-  async nfc_open(info_state:boolean = false) {
+  async nfc_open(info_state:boolean = false, single_state:boolean = false) {
     const modal = await this.modal.create({
       component:NfcComponent,
-      cssClass:'scan-modal'
+      cssClass:'scan-modal',
+      componentProps: {
+        single_state: single_state
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
@@ -84,10 +87,13 @@ export class ScannerService {
     return return_state;
   };
 
-  async qr_open(info_state:boolean = false) {
+  async qr_open(info_state:boolean = false, single_state:boolean = false) {
     const modal = await this.modal.create({
       component:QrScannerComponent,
-      cssClass:'scan-modal'
+      cssClass:'scan-modal',
+      componentProps: {
+        single_state: single_state
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();

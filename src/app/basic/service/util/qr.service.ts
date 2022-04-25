@@ -56,7 +56,7 @@ constructor(
             return_state.state = true;
             break;
           default:
-            this.toast.present({message: '해당 NFC는 지원대상에 없습니다.', color: 'warning'});
+            this.toast.present({message: '해당 QR은 지원대상에 없습니다.', color: 'warning'});
             break;
         }
       }

@@ -1,10 +1,10 @@
+import { ScannerService } from './../../../../basic/service/util/scanner.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { QrService } from 'src/app/basic/service/util/qr.service';
 import { MyDetailSearchPage } from '../my-detail-search/my-detail-search.page';
 import { MyEducationDetailListPage } from '../my-education-detail-list/my-education-detail-list.page';
 
@@ -58,8 +58,8 @@ export class MyEducationListPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     public date: DateService,
-    private qr: QrService,
-    private user: UserService
+    private user: UserService,
+    private scanner: ScannerService
   ) { }
 
   ngOnInit() {
@@ -127,16 +127,6 @@ export class MyEducationListPage implements OnInit {
   }
 
  async QRedcaution() {
-  // const $qr = await this.qr.subscribe('dd',async (qrdata) => {
-  //     const res = await this.connect.run('/education/my/attendant/insert',{education_safe_id:qrdata.qr_data});
-  //     if(res.rsCode === 0) {
-  //       $qr.unsubscribe();
-  //       this.getList();
-  //       this.toast.present({message:'참석등록이 완료 되었습니다.',color:'primary'});
-  //     } else if(res.rsCode === 1012) {
-  //       this.toast.present({message:'이미 출석 처리가 되었습니다.', color:'warning'});
-  //       $qr.unsubscribe();
-  //     }
-  // });
+    this.scanner.init(true,true).then(async(data) => {this.getList();});
   }
 }

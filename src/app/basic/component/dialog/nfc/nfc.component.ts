@@ -22,6 +22,7 @@ export class NfcComponent implements OnInit {
   @Input() getNfcData;
   @Output() scan = new EventEmitter();
   @Input() type:string;
+  @Input() single_state:boolean = false;
 
   pageAlive:boolean = true;
   nfcTimeout; 
