@@ -291,8 +291,11 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async educationText(ctgo_education_safe_id) {
-    if(!ctgo_education_safe_id || !this.item) return;
-    const res = await this.connect.run('/education/text/get',{ctgo_education_safe_id:ctgo_education_safe_id});
+    if(!ctgo_education_safe_id) return;
+    const res = await this.connect.run('/education/text/get',{
+      ctgo_education_safe_id
+    });
+    
     if(res.rsCode === 0) {
       this.form.education_safe_text = res.rsObj.ctgo_education_safe_text;
     }

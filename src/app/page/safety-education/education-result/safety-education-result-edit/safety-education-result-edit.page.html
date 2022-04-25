@@ -7,27 +7,26 @@
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar color="white" *mobileShow>
-    <ion-title>교육 결과 보고</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <app-approval 
-    [project_id]="this.form.project_id"
-    [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
-    [approval_id]="this.form.approval_id"
-    (deleteClick)="onDeleteClick($event)"
-    (saveClick)="onSaveClick($event)"
-    (sendClick)="onSendClick($event)"
-    (recoveryClick)="onRecoveryClick($event)"
-    (approvalClick)="onApprovalClick($event)"
-    (change)="onApprovalChange($event)"></app-approval>
+  [project_id]="this.form.project_id"
+  [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
+  [approval_id]="this.form.approval_id"
+  (deleteClick)="onDeleteClick($event)"
+  (saveClick)="onSaveClick($event)"
+  (sendClick)="onSendClick($event)"
+  (recoveryClick)="onRecoveryClick($event)"
+  (approvalClick)="onApprovalClick($event)"
+  (change)="onApprovalChange($event)"></app-approval>
 
-  <ng-container *mobileHidden>
+  <app-approval-document>
+
+    <h2>교육 결과 보고</h2>
+
+    <app-approval-template *mobileShow [approval_answer]="approval_answer"></app-approval-template>
+
     <app-row>
       <app-col>
         <h4>기본 정보</h4>
@@ -101,148 +100,32 @@
     [readonly]="!permission.edit"
     (buttonClick)="form.education_safe_report_file_data.splice(i,1)"></app-file-preview>
 
-    <ng-container>
-      <app-row>
-        <app-col>
-          <h4>참석자 명단</h4>
-        </app-col>
-      </app-row>
-      <app-table>
-        <thead>
-          <tr>
-            <th style="width: 48px;">No</th>
-            <th>업체명</th>
-            <th>성명</th>
-            <th style="width: 200px;">서명일시</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of res?.rsMap let i = index">
-            <td>{{ i + 1}}</td>
-            <td>{{ item.company_name }}</td>
-            <td>{{ item.user_name }}</td>
-            <td>{{ item.create_date}}</td>
-          </tr>
-        </tbody>
-      </app-table>
-    </ng-container>
-    
+    <app-row>
+      <app-col>
+        <h4>참석자 명단</h4>
+      </app-col>
+    </app-row>
+    <app-table>
+      <thead>
+        <tr>
+          <th style="width: 48px;">No</th>
+          <th>업체명</th>
+          <th>성명</th>
+          <th style="width: 200px;">서명일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of res?.rsMap let i = index">
+          <td>{{ i + 1}}</td>
+          <td>{{ item.company_name }}</td>
+          <td>{{ item.user_name }}</td>
+          <td>{{ item.create_date}}</td>
+        </tr>
+      </tbody>
+    </app-table>
+  
     <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment>
-  </ng-container>
-  <ng-container *mobileShow>
-    <ion-toolbar color="white">
-      <app-row (click)="approvalDocument = !approvalDocument">
-        <app-col>
-          <h5>결재문서</h5>
-        </app-col>
-        <app-col size="auto">
-          <app-img style="width: 30px;" @fadeInAnimation *ngIf="!approvalDocument;"
-            (click)="approvalDocument = !approvalDocument; $event.stopPropagation()" slot="end"
-            src="assets/img/menu/list-tab.svg"></app-img>
-          <app-img style="width: 30px;" @fadeInAnimation slot="end" *ngIf="approvalDocument"
-            (click)="approvalDocument = !approvalDocument; $event.stopPropagation()"
-            src="assets/img/menu/list-tab-hide.svg"></app-img>
-        </app-col>
-      </app-row>
-    </ion-toolbar>
-    <app-card style="margin-top: 0; zoom: 0.5;" @fadeInAnimation *ngIf="approvalDocument">
-        <ng-container *mobileShow>
-          <app-row>
-            <app-col style="text-align: center;">
-              <h3>정기 교육 결과 보고서</h3>
-            </app-col>
-          </app-row>
 
-          <app-row>
-            <app-col>
-              <h4>기본 정보</h4>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col>
-              <app-input [disabled]="true" [(ngModel)]="form.project_name" label="현장명"></app-input>
-            </app-col>
-            <app-col>
-              <app-input [disabled]="true" label="업체명" [(ngModel)]="form.company_name"></app-input>
-            </app-col>
-            <app-col>
-              <app-input-template label="작성일" [disabled]="true">
-                <p slot="input">{{ form.create_date }} ({{ date.day(form.create_date) }})</p>
-              </app-input-template>
-            </app-col>
-            <app-col>
-              <app-input-template label="작성자" [disabled]="true">
-                <p slot="input">{{ form.user_name }}</p>
-              </app-input-template>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col size="9">
-              <app-input [disabled]="true" [(ngModel)]="form.ctgo_education_safe_name" label="교육명"></app-input>
-            </app-col>
-            <app-col>
-              <app-input [disabled]="true" label="교육대상" [(ngModel)]="form.education_safe_target"></app-input>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col>
-              <app-input [disabled]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
-            </app-col>
-            <app-col>
-              <app-input-template label="교육일" [disabled]="true">
-                <p slot="input">{{ form.education_safe_date }} ({{ date.day(form.education_safe_date) }})</p>
-              </app-input-template>
-            </app-col>
-            <app-col>
-              <app-input-template label="교육시간" [disabled]="true">
-                <p slot="input">{{ form.education_safe_start_time }} ~ {{ form.education_safe_end_time }} ({{ form.education_safe_time }}H)</p>
-              </app-input-template>
-            </app-col>
-            <app-col>
-              <app-input label="강사" [(ngModel)]="form.education_safe_report_instructor"></app-input>
-            </app-col>
-          </app-row>
-          <app-row>
-            <app-col>
-              <h4>교육 내용</h4>
-              <app-textarea [rows]="10" [(ngModel)]="form.education_safe_report_text"></app-textarea>
-            </app-col>
-          </app-row>
-          <ng-container>
-            <app-row>
-              <app-col>
-                <h4>참석자 명단</h4>
-              </app-col>
-              <!-- <app-col size="auto">
-            <app-button color="danger" fill="translucent">출석삭제</app-button>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent">출석등록(검색)</app-button>
-          </app-col>
-          <app-col size="auto">
-            <app-button fill="translucent">출석등록(QR)</app-button>
-          </app-col> -->
-            </app-row>
-            <app-table>
-              <thead>
-                <tr>
-                  <th style="width: 48px;">No</th>
-                  <th>업체명</th>
-                  <th>성명</th>
-                  <th style="width: 200px;">서명일시</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of res?.rsMap let i = index">
-                  <td>{{ i + 1}}</td>
-                  <td>{{ item.company_name }}</td>
-                  <td>{{ item.user_name }}</td>
-                  <td>{{ item.create_date}}</td>
-                </tr>
-              </tbody>
-            </app-table>
-          </ng-container>
-        </ng-container>
-      </app-card>
-  </ng-container>
+  </app-approval-document>
+
 </ion-content>

@@ -67,12 +67,11 @@ export class ConfirmSettingPopupComponent implements OnInit {
    */
   async addAnswer() {
     const modal = await this._modal.create({
-      component: SearchPeopleComponent,
+      component: ApprovalPeopleComponent,
       componentProps: {
         form: {
-          company_id: this.user.userData.belong_data.company_id,
-          search_text: '',
-          user_type: 'COMPANY'
+          project_id: this.user.userData.belong_data.project_id,
+          search_text: ''
         },
         canUserTypeChange: false
       }
@@ -122,7 +121,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
       component: ApprovalPeopleComponent,
       componentProps: {
         form: {
-          company_id: this.user.userData.belong_data.company_id
+          project_id: this.user.userData.belong_data.project_id,
+          search_text: ''
         },
         canUserTypeChange: false
       }

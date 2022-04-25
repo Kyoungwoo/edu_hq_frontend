@@ -32,7 +32,7 @@ export class ApprovalPeopleComponent implements OnInit {
   async get() {
     this.res = await this.connect.run('/category/certify/approval/user/get', this.form);
     if(this.res.rsCode !== 0) {
-      this.toast.present({message:this.res.rsMsg,color:'warning'});
+      this.toast.present({ message: this.res.rsMsg, color: 'warning' });
     }
   }
   select() {

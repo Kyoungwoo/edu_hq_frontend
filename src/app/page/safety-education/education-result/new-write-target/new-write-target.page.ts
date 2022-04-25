@@ -45,19 +45,25 @@ export class NewWriteTargetPage implements OnInit {
 
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    this.res = await this.connect.run('/education/report/new/list',this.form);
+    this.res = await this.connect.run('/education/report/new/list', this.form);
     if(this.res.rsCode === 0) {
       console.log("this.res",this.res);
       this.res.rsMap.map((item,i) => {
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;
         item.education_safe_date = `${item.education_safe_date} (${this.date.day(item.education_safe_date)[0]})`;
       });
-    } else { 
+    } 
+    else if(this.res.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else { 
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
   
   async edit(item) {
+    await this._modal.dismiss();
+    
     const modal = await this._modal.create({
       component: SafetyEducationResultEditPage,
       componentProps:{
@@ -66,7 +72,6 @@ export class NewWriteTargetPage implements OnInit {
     })
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log(data);
     if(data) {
       this.get();
     }
