@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-splash',
@@ -11,8 +13,16 @@ export class SplashPage implements OnInit, AfterViewInit {
 
   constructor(
     private nav: NavService,
-    private device: DeviceService
-  ) { }
+    private device: DeviceService,
+    private plt: Platform,
+    private routerOutlet: IonRouterOutlet
+  ) {
+    this.plt.backButton.subscribeWithPriority(-1, (processNextHandler) => {
+      if (!this.routerOutlet.canGoBack()) {
+        App.exitApp();
+      }
+    });
+  }
 
   ngOnInit() {
   }
