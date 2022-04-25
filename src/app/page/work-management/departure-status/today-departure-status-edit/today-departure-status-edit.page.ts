@@ -94,7 +94,13 @@ export class TodayDepartureStatusEditPage implements OnInit {
 
     /** api 호출 */
     this.res = await this.connect.run(url, this.form);
-    if(this.res.rsCode) {
+    if(this.res.rsCode === 0) {
+      // 암것도 안함
+    }
+    else if(this.res.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }

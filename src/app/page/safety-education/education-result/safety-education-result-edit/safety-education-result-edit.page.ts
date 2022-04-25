@@ -138,6 +138,7 @@ export class SafetyEducationResultEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      this.form.education_safe_report_text = res.rsObj.education_safe_text;
 
       // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
     } 

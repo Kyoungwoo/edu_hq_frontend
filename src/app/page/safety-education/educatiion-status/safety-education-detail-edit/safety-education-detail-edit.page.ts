@@ -145,12 +145,11 @@ export class SafetyEducationDetailEditPage implements OnInit {
       parse:['education_safe_manager_ids','education_safe_manager_names']
     });
     if(res.rsCode === 0) {
-      console.log("res.rsObj",res.rsObj);
       this.form = {
         ...this.form,
         ...res.rsObj
       }
-      console.log("this.form--get",this.form);
+
       this.form.education_safe_manager_ids.forEach(item => {
         if(item === this.user.userData.user_id || 
           this.form.create_user_id === this.user.userData.user_id) {
@@ -175,8 +174,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
           handler: async() => {
             const res = await this.connect.run('/education/update', this.form);
             if(res.rsCode === 0) {
-            console.log("this.form--update",this.form);
-
               this._modal.dismiss(true);
               this.toast.present({message:'수정되었습니다.',color:'primary'});
             } else {
@@ -291,8 +288,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
 
   async educationText(ctgo_education_safe_id) {
-    if(!ctgo_education_safe_id) return;
-    const res = await this.connect.run('/education/text/get',{
+    if(!ctgo_education_safe_id || this.item) return;
+    const res = await this.connect.run('/education/text/get', {
       ctgo_education_safe_id
     });
     
