@@ -14,16 +14,26 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectedItem === item ? 'secondary' : 'white'" (click)="selectedItem = item">
-    <app-row>
-      <app-col size="auto">
-      </app-col>
-      <app-col>
-        <h5>{{ item.user_name }}</h5>
-        <p>{{ item.company_name }}</p>
-      </app-col>
-    </app-row>
-  </app-card>
+
+  <app-table>
+    <thead>
+      <tr>
+        <th width="200px">회사명</th>
+        <th width="100px">성명</th>
+        <th width="100px">직위</th>
+        <th width="200px">안전직무</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of res?.rsMap let i = index" [class.selected]="selectedItem === item" (click)="selectedItem = item">
+        <td>{{ item.company_name }}</td>
+        <td>{{ item.user_name }}</td>
+        <td>{{ item.ctgo_safe_job_name || '' }}</td>
+        <td>{{ item.ctgo_job_position_name || '' }}</td>
+      </tr>
+    </tbody>
+  </app-table>
+  
 </ion-content>
 <app-button-footer>
   <app-button (click)="select()">적용</app-button>

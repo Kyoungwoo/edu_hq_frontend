@@ -101,21 +101,17 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     routerEl_1.style.display = 'none';
     if(routerEl_2 !== undefined) routerEl_2.style.display = 'none';
     this.qr_subs = this.qrScanner.scan().subscribe(async(data) => {
-      // console.log("qr-scanner - ", data);
-      // let res = {
-      //   type: 'QR_SCAN',
-      //   nfcChangeed : this.nfcChangeed,
-      //   qr_qrScanner: this.qrScanner,
-      //   qr_modal: this._modal,
-      //   qr_subs : this.qr_subs,
-      //   qr_data: data
-      // };
-      // this.getQrData(res);
+      console.log(data);
+      this.qr_subs.unsubscribe();
+      
       if(!data){
+
         setTimeout(() => {
           this.scanQR();
         }, 1000);
+
       } else {
+
         let type = '';
         let serial_key = null;
         let education_safe_id = null;
@@ -144,6 +140,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             device_id: device_id
           }
         });
+
       }
     });
   }
