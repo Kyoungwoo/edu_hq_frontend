@@ -146,14 +146,14 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
     item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
     
-    const recommendHourArr = item.education_recommended_time.split(':') || ['00','00'];
+    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
     item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   async useItem(limit_no = this.useForm.limit_no) {
     this.useForm.limit_no = limit_no;
     this.useForm.attendant_user_id = this.user_id
-    const res = await this.connect.run('/education/state/user/list',this.useForm);
+    const res = await this.connect.run('/education/state/user/list', this.useForm);
     if(res.rsCode === 0) {
       this.useRes = res;
       this.useRes.rsMap.forEach((item,i) => {

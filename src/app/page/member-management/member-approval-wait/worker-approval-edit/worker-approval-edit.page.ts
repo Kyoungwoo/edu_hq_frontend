@@ -258,7 +258,8 @@ export class WorkerApprovalEditPage implements OnInit {
       if (res.rsCode === 0) {
         this.formApproval = {
           ...this.formApproval,
-          ...res.rsObj
+          ...res.rsObj,
+          work_contract_type: res.rsObj.work_contract_type || '일용직'
         }
       } else if(res.rsCode === 3008) {
          // 비밀번호 없거나 틀렸음
@@ -306,7 +307,7 @@ export class WorkerApprovalEditPage implements OnInit {
     } 
   }
 
-//가입승인
+  //가입승인
   async approval() { 
     const modal = await this._modal_.create({
       component:ApprovalPopupComponent,
@@ -320,17 +321,23 @@ export class WorkerApprovalEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      // setTimeout(() => {
-      //   this._modal_.dismiss('Y');
-      // }, 0);
+      setTimeout(async() => {
+        this.form.session_company_id = this.user.userData.belong_data.company_id;
+        this.form.user_manage_session = this.user.memberAuthToken;
+        this.form.approval_user_id = this.form.user_id;
 
-      setTimeout(() => {
+        await this.BasicSubmit();
+        await this.inputSafeJob.submit();
+        await this.inputCertify.submit();
+        await this.BelongSubmit();
+        await this.SafeEduSubmit();
+        
         this._modal_.dismiss(data);
       }, 0);
-    } 
+    }
   }
 
-// 저장(수정)
+  // 저장(수정)
   async submit() { 
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;

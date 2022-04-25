@@ -8,7 +8,15 @@
 <ion-content>
   <app-row>
     <app-col size="auto">
-      <h4>{{ form.user_name }}님 가입을 승인하시겠습니까?</h4>
+      <h4>{{ form.user_name.join() }}님 가입을 승인하시겠습니까?</h4>
+    </app-col>
+  </app-row>
+  <app-row *ngIf="state === 'worker'">
+    <app-col>
+      <app-radio-input name="계약유형" label="계약유형" [(ngModel)]="form.work_contract_type">
+        <app-radio value="상용직">상용직</app-radio>
+        <app-radio value="일용직">일용직</app-radio>
+      </app-radio-input>
     </app-col>
   </app-row>
   <app-row>

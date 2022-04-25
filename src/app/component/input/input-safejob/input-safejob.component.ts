@@ -32,6 +32,8 @@ export class InputSafejobComponent implements OnInit, ControlValueAccessor {
 
   @Input() project_id;
   @Input() company_id;
+  @Input() user_type = 'COMPANY';
+
   @Input() insert_url:string = null;
   @Input() update_url:string = null;
   @Input() delete_url:string = null;
