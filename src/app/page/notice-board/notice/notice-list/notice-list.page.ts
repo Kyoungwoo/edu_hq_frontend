@@ -157,6 +157,7 @@ export class NoticeListPage implements OnInit {
   async edit(item = null) {
     let item_trans = item;
     if(!item){
+      item_trans = new NoticeItem();
       item_trans.project_id = this.form.project_id;
       item_trans.master_company_id = this.form.master_company_id;
     }
@@ -164,11 +165,8 @@ export class NoticeListPage implements OnInit {
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{
-        notice_id: item.notice_id,
-        form: {
-          ...new NoticeItem(),
-          ...item_trans,
-        }
+        notice_id: item?.notice_id ? item.notice_id : 0,
+        form: item_trans
       }
     });
     modal.present();

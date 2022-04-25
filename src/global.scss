@@ -568,6 +568,8 @@
         margin-top: calc(64px + var(--ion-safe-area-top));
       }
     }
+
+
   }
 
 //sos
@@ -584,8 +586,11 @@
     app-input-template{
       margin-top: 0!important;
     }
-    
   }
+}
+
+.risk-evaluation-class{
+  --max-width: 2000px!important;
 }
 
 // 모달 백그라운드 클릭시 안꺼지도록
