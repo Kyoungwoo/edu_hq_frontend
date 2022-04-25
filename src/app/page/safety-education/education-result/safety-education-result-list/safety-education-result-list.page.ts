@@ -97,11 +97,11 @@ export class SafetyEducationResultListPage implements OnInit {
       user_role === 'PARTNER_HEAD' ||
       user_role === 'MASTER_GENERAL') {
         this.editable.company_id = true;
-        this.editable.add = true;
         this.form.project_id = belong_data.project_id;
         this.form.company_id = belong_data.company_id;
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
+        this.editable.add = true;
       }
   }
 

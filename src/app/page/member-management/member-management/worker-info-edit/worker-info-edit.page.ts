@@ -215,7 +215,6 @@ export class WorkerInfoEditPage implements OnInit {
   resPlusMileageList: ConnectResult<PlusMileageList>;
 
   validator = new Validator(new BasicItem()).validator;
-  original_phone = '';
 
   permission = {
     mileage: false, //마일리지 적립 권한
@@ -306,7 +305,6 @@ export class WorkerInfoEditPage implements OnInit {
         ...this.formBasic,
         ...res.rsObj
       }
-      this.original_phone = JSON.parse(JSON.stringify(this.formBasic.user_phone));
     } else if (res.rsCode === 3008) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
@@ -369,6 +367,9 @@ export class WorkerInfoEditPage implements OnInit {
 
   // 저장(수정)
   async submit() {
+    if(this.validator.user_phone){
+      if(!this.validator.user_phone.valid) return this.toast.present({message:  this.validator.user_phone.message, color: 'warning'});
+    }
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;
     this.form.approval_user_id = this.form.user_id;
@@ -394,10 +395,6 @@ export class WorkerInfoEditPage implements OnInit {
 
   //기본정보 수정
   async BasicSubmit() {
-    if(this.formBasic.user_phone !== this.original_phone){
-      if(!(await this.overlapPhone()).valid) return this.toast.present({message: (await this.overlapPhone()).message});
-    }
-
     const res = await this.connect.run('/usermanage/info/worker/basic/update', {
       ...this.form,
       ...this.formBasic
