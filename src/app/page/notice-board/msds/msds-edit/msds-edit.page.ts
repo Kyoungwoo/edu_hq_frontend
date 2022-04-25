@@ -76,7 +76,7 @@ export class MsdsEditPage implements OnInit {
       this.get();
     } else{
       this.update_state = true;
-      this.form.project_id = this.user.userData.belong_data.project_id;
+      // this.form.project_id = this.user.userData.belong_data.project_id;
       this.form.company_name = this.user.userData.belong_data.company_name;
       this.form.user_name = this.user.userData.user_name;
       this.form.create_date = this.date.today();
