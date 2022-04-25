@@ -8,6 +8,7 @@
   <ion-toolbar color="white">
     <app-input-group>
       <app-select label="위험지역유형" name="select" [(ngModel)]="form.ctgo_area_risk_id">
+        <app-select-option [value]="0">전체</app-select-option>
         <app-select-option *ngFor="let opt of ctgoAreaType?.rsMap" [value]="opt.ctgo_area_risk_id">{{ opt.ctgo_area_risk_name }}</app-select-option>
       </app-select>
       <app-input name="with img" label="검색어" [(ngModel)]="this.form.search_text" placeholder="검색어를 입력하세요">

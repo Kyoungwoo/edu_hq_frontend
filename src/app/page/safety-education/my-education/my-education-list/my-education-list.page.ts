@@ -21,7 +21,7 @@ export class MyEducationListPage implements OnInit {
     ctgo_education_safe_id:0, // 교육명 ID
     education_safe_state:'전체',// 교육상태
     end_date:this.date.today({date:+4}), // 검색 신청 종료일
-    project_id:0, // 현장 ID
+    project_id: this.user.userData.belong_data.project_id, // 현장 ID
     search_text:'', // 검색어
     start_date:this.date.today({date:-3}) // 검색 신청 시작일
   }

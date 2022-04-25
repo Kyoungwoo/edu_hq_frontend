@@ -137,9 +137,11 @@ export class SupervisionEditPage implements OnInit {
     this.form.consignee_consent_date = this.date.today({},'SECOND');
   }
   superupdate() {
-    let spliteamil = this.form.manager_email.split('@');
-    this.email = spliteamil[0];
-    this.emailaddress = spliteamil[1];
+    if(this.form.manager_email){
+      let spliteamil = this.form.manager_email.split('@');
+      this.email = spliteamil[0];
+      this.emailaddress = spliteamil[1];
+    }
     this.updateStatus = false;
   }
   async getTerms() {

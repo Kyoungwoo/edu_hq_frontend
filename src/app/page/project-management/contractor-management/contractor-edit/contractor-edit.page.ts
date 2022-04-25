@@ -148,9 +148,11 @@ export class ContractorEditPage implements OnInit {
   
   contUpdate() {
     //나중에 정규식으로 고침
-    let spliteamil = this.form.manager_email.split('@');
-    this.email = spliteamil[0];
-    this.emailaddress = spliteamil[1];
+    if(this.form.manager_email){
+      let spliteamil = this.form.manager_email.split('@');
+      this.email = spliteamil[0];
+      this.emailaddress = spliteamil[1];
+    }
     this.updateStatus = false;
   }
 
