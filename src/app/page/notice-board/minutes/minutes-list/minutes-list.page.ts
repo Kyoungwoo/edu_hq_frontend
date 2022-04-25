@@ -16,7 +16,7 @@ import { MinutesSearchPage } from '../minutes-search/minutes-search.page';
 export class MinutesListPage implements OnInit {
 
   form = { 
-    project_id: null,
+    project_id: this.user.userData.belong_data.project_id,
     company_id: null,
     safety_meeting_types: [],
     start_date: this.date.today({ month: -1 }),
