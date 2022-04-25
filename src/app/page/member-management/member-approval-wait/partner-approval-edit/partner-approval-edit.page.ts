@@ -80,6 +80,8 @@ export class PartnerApprovalEditPage implements OnInit {
 
   validator = new Validator(new BasicItem()).validator;
 
+  original_phone = '';
+
   permission = {
     approval: false
   }
@@ -177,7 +179,7 @@ export class PartnerApprovalEditPage implements OnInit {
         ...res.rsObj
       }
       this.formBasic.user_name = res.rsObj.user_name;
-
+      this.original_phone = JSON.parse(JSON.stringify(this.formBasic.user_phone));
     } else if (res.rsCode === 3008) {
       // 비밀번호 없거나 틀렸음
       this.getPassword();
@@ -265,6 +267,9 @@ export class PartnerApprovalEditPage implements OnInit {
 
   //기본정보 수정
   async BasicSubmit() {
+    if(this.formBasic.user_phone !== this.original_phone){
+      if(!(await this.overlapPhone()).valid) return this.toast.present({message: (await this.overlapPhone()).message});
+    }
     const res = await this.connect.run('/usermanage/approval/company/basic/update', {
       ...this.form,
       ...this.formBasic
