@@ -72,6 +72,7 @@ import { ApprovalCommentComponent } from './confirm/approval-comment/approval-co
 import { ApprovalTemplateComponent } from './confirm/approval-template/approval-template.component';
 import { ApprovalDocumentComponent } from './confirm/approval-document/approval-document.component';
 import { ApprovalZoomComponent } from './confirm/approval-zoom/approval-zoom.component';
+import { ApprovalPeopleComponent } from './confirm/approval-people/approval-people.component';
 
 
 
@@ -81,6 +82,7 @@ import { ApprovalZoomComponent } from './confirm/approval-zoom/approval-zoom.com
     ApprovalComponent,
     ApprovalCommentComponent,
     ApprovalDocumentComponent,
+    ApprovalPeopleComponent,
     ApprovalTemplateComponent,
     ApprovalZoomComponent,
     ChipApprovalAnswerComponent,
@@ -162,6 +164,7 @@ import { ApprovalZoomComponent } from './confirm/approval-zoom/approval-zoom.com
     ApprovalComponent,
     ApprovalCommentComponent,
     ApprovalDocumentComponent,
+    ApprovalPeopleComponent,
     ApprovalTemplateComponent,
     ApprovalZoomComponent,
     ChipApprovalAnswerComponent,

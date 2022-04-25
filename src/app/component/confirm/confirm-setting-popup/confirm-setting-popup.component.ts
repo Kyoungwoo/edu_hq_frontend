@@ -6,6 +6,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { AnswerObj, ApprovalObj, CommentObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { SearchPeopleComponent } from '../../modal/search-people/search-people.component';
+import { ApprovalPeopleComponent } from '../approval-people/approval-people.component';
 
 @Component({
   selector: 'app-confirm-setting-popup',
@@ -118,12 +119,10 @@ export class ConfirmSettingPopupComponent implements OnInit {
    */
   async addRefer() {
     const modal = await this._modal.create({
-      component: SearchPeopleComponent,
+      component: ApprovalPeopleComponent,
       componentProps: {
         form: {
-          company_id: this.user.userData.belong_data.company_id,
-          search_text: '',
-          user_type: 'COMPANY'
+          company_id: this.user.userData.belong_data.company_id
         },
         canUserTypeChange: false
       }
