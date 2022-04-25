@@ -13,6 +13,7 @@ export class ApprovalPeopleComponent implements OnInit {
 
   @Input() form = {
     project_id: 0,
+    company_id: 0,
     search_text: ''
   }
   res:ConnectResult<any>

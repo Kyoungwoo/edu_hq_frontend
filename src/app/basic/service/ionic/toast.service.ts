@@ -30,7 +30,7 @@ export class ToastService {
       cssClass: opts?.cssClass || "basic-toast-bottom",
       buttons: opts?.buttons,
       duration: opts?.duration || 2800,
-      enterAnimation: (baseEl:ShadowRoot) => {
+      /* enterAnimation: (baseEl:ShadowRoot) => {
         const wrapperEl = <HTMLElement>baseEl.childNodes[0];
         wrapperEl.style.bottom = '0';
         wrapperEl.style.paddingBottom = 'calc(var(--ion-safe-area-bottom, 0px))';
@@ -42,7 +42,7 @@ export class ToastService {
         .fromTo('transform', 'translateY(10px)', 'translateY(0)');
 
         return wrapperAnimation;
-      }
+      } */
     });
     toast.present();
     return toast;

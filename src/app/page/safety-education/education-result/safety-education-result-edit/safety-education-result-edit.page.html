@@ -11,9 +11,10 @@
 
 <ion-content>
   <app-approval 
-  [project_id]="this.form.project_id"
-  [ctgo_approval_module_id]="this.form.ctgo_approval_module_id"
-  [approval_id]="this.form.approval_id"
+  [project_id]="form.project_id"
+  [company_id]="form.company_id"
+  [ctgo_approval_module_id]="form.ctgo_approval_module_id"
+  [approval_id]="form.approval_id"
   (deleteClick)="onDeleteClick($event)"
   (saveClick)="onSaveClick($event)"
   (sendClick)="onSendClick($event)"

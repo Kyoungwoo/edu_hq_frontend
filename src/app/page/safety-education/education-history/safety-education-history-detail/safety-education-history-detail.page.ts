@@ -16,7 +16,7 @@ export class HistoryItem {
   company_name:string;
   project_work_state:number;
   ctgo_country_id:number;
-  work_contract_type:string;
+  work_contract_type:'일용직' | '상용직';
   ctgo_country_name:string;
   ctgo_safe_job_id:number;
   safe_job_name:string;

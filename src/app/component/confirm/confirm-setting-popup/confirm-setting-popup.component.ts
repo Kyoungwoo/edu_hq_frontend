@@ -5,7 +5,6 @@ import { FileService } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { AnswerObj, ApprovalObj, CommentObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
-import { SearchPeopleComponent } from '../../modal/search-people/search-people.component';
 import { ApprovalPeopleComponent } from '../approval-people/approval-people.component';
 
 @Component({
@@ -15,6 +14,8 @@ import { ApprovalPeopleComponent } from '../approval-people/approval-people.comp
 })
 export class ConfirmSettingPopupComponent implements OnInit {
 
+  @Input() project_id:number;
+  @Input() company_id:number;
   @Input() approvalObj:ApprovalObj;
 
   answerObj:AnswerObj[];
@@ -70,7 +71,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
       component: ApprovalPeopleComponent,
       componentProps: {
         form: {
-          project_id: this.user.userData.belong_data.project_id,
+          project_id: this.project_id,
+          company_id: this.company_id,
           search_text: ''
         },
         canUserTypeChange: false
@@ -121,7 +123,8 @@ export class ConfirmSettingPopupComponent implements OnInit {
       component: ApprovalPeopleComponent,
       componentProps: {
         form: {
-          project_id: this.user.userData.belong_data.project_id,
+          project_id: this.project_id,
+          company_id: this.company_id,
           search_text: ''
         },
         canUserTypeChange: false

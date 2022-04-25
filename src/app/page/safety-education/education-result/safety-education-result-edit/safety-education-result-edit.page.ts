@@ -346,7 +346,6 @@ export class SafetyEducationResultEditPage implements OnInit {
    * 결재 버튼 클릭
    */
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
-     console.log("ev",ev);
     const res = await ev.approval();
     if(res.rsCode === 0) {
       // 목록을 새로고침 해줘야 함

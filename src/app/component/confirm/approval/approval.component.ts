@@ -59,6 +59,9 @@ export class ApprovalComponent implements OnInit {
     }
   }
 
+  // 결재자 불러올 때, 필요한 정보
+  @Input() company_id:number;
+
   // 결재선 복사 작성시, 필요한 정보
   @Input() isDuplicate:boolean = false;
 
@@ -156,6 +159,8 @@ export class ApprovalComponent implements OnInit {
     const modal = await this._modal.create({
       component: ConfirmSettingPopupComponent,
       componentProps: {
+        project_id: this.form.project_id,
+        company_id: this.company_id,
         approvalObj: this.res.rsObj
       }
     });
@@ -370,6 +375,9 @@ export class ApprovalComponent implements OnInit {
         }]
       };
     }
+    else if(res.rsCode === 1004 || res.rsCode === 1008) {
+      // 암것도 안함
+    }
     else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
@@ -386,7 +394,10 @@ export class ApprovalComponent implements OnInit {
     if(res.rsCode === 0) {
       this.btnList = res.rsObj.btn_data;
     }
-    else  {
+    else if(res.rsCode === 1008) {
+      this.btnList = [];
+    }
+    else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }

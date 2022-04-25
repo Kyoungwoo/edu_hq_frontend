@@ -166,7 +166,7 @@
             </app-row>
           </app-col>
         </app-row>
-        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '일종직'">
+        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '일용직'">
           <app-row style="margin-top: 20px;">
             <app-col size="auto">
               <h4>특별 교육</h4>
@@ -193,10 +193,12 @@
                     <td>{{ item.ctgo_education_safe_name }}</td>
                     <td>{{ item.create_date }}</td>
                     <td>{{ item.education_remaining_date }}</td>
-                    <td>{{ item.education_complete_time }}H</td>
-                    <td>{{ item.education_remaining_time }}H</td>
+                    <td>{{ item.education_complete_time }}</td>
+                    <td>{{ item.education_remaining_time }}</td>
                     <td>
-                      <ion-chip color="primary">{{item.special_edu_state}}</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '양호'" color="primary">양호</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '필요'" color="warning">필요</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '기한초과'" color="danger">기한초과</ion-chip>
                     </td>
                   </tr>
                 </tbody>
@@ -264,7 +266,9 @@
                     <td>{{ item.education_complete_time }}</td>
                     <td>{{ item.education_remaining_time }}</td>
                     <td>
-                      <ion-chip color="primary">{{item.special_edu_state}}</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '양호'" color="primary">양호</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '필요'" color="warning">필요</ion-chip>
+                      <ion-chip *ngIf="item.special_edu_state === '기한초과'" color="danger">기한초과</ion-chip>
                     </td>
                   </tr>
                 </tbody>

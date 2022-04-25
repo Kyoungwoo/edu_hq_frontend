@@ -229,7 +229,7 @@ export class RiskEvaluationEditPage implements OnInit {
     // 복사 시, 이거 진짜 어케해야될 지 모르겠음. GG
     setTimeout(() => {
       this.isDuplicate = false;
-    }, 3000);
+    }, 2000);
   }
 
   /**
@@ -378,6 +378,11 @@ export class RiskEvaluationEditPage implements OnInit {
   async onRecoveryClick(ev:ApprovalBtnClickEvent) {
     const res = await ev.recovery();
     if(res.rsCode === 0) {
+      this.isDuplicate = true;
+      this.form.approval_id = null;
+      setTimeout(() => {
+        this.isDuplicate = false;
+      }, 2000);
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('risk-list:get()'));
       window.dispatchEvent(new CustomEvent('approval-list:get()'));
