@@ -118,7 +118,7 @@ export class RiskListPage implements OnInit {
     else if(belong_data.company_contract_type === '협력사') {
 
       this.permission.company_id = false;
-      this.permission.add = false;
+      this.permission.add = true;
 
       // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
       const res = await this.connect.run('/category/certify/search_my_master_company/get', {
@@ -209,6 +209,7 @@ export class RiskListPage implements OnInit {
   async add() {
     const modal = await this._modal.create({
       component:RiskEvaluationEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         project_id: this.form.project_id,
         risk_asment_type: this.form.risk_asment_type
@@ -220,6 +221,7 @@ export class RiskListPage implements OnInit {
   async duplicate() {
     const modal = await this._modal.create({
       component:RiskEvaluationEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         isDuplicate: true,
         project_id: this.form.project_id,
@@ -233,6 +235,7 @@ export class RiskListPage implements OnInit {
   async edit(item) {
     const modal = await this._modal.create({
       component:RiskEvaluationEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         risk_asment_id: item.risk_asment_id
       }
