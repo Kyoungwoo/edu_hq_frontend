@@ -67,7 +67,8 @@ export class SearchDangerousAreaComponent implements OnInit {
   }
  
   submit() {
-    if(!this.form.ctgo_area_risk_id) return this.toast.present({message:'위험지역 유형을 선택해주세요.',color:'warning'});
+    console.log(this.form);
+    // if(!this.form.ctgo_area_risk_id) return this.toast.present({message:'위험지역 유형을 선택해주세요.',color:'warning'});
     if(!this.selectList) return this.toast.present({message:'선택한 목록이 없습니다.',color:'warning'});
     this._modal.dismiss(this.selectList);
     
