@@ -165,6 +165,7 @@ export class WorkerApprovalListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.get();
+      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
     }
   }
 

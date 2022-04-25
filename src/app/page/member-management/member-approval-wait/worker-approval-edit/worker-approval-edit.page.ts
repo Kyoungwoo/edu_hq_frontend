@@ -320,8 +320,12 @@ export class WorkerApprovalEditPage implements OnInit {
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      // setTimeout(() => {
+      //   this._modal_.dismiss('Y');
+      // }, 0);
+
       setTimeout(() => {
-        this._modal_.dismiss('Y');
+        this._modal_.dismiss(data);
       }, 0);
     } 
   }

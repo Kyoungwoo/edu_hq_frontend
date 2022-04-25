@@ -46,7 +46,7 @@ export class NoticeEditPage implements OnInit {
 
   title:string;
 
-  form:NoticeItem = new NoticeItem();
+  @Input() form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
 
   useNotice:boolean = false;
@@ -66,6 +66,7 @@ export class NoticeEditPage implements OnInit {
     //   this.form.project_id = 0;
     // }
     this.getPermission();
+    console.log(this.form);
     if(this.notice_id) {
       this.title = '상세';
       this.get();

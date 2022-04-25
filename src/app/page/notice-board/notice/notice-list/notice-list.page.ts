@@ -1,3 +1,4 @@
+import { NoticeItem } from './../notice-edit/notice-edit.page';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -30,7 +31,7 @@ export class NoticeListPage implements OnInit {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    master_company_id: this.user.userData.belong_data.company_id,
+    master_company_id: this.user.userData.belong_data.master_company_id,
     end_date: this.date.today(),
     notice_types: [],
     search_text: '',
@@ -153,11 +154,21 @@ export class NoticeListPage implements OnInit {
     }
   }
 
-  async edit(notice_id?:number) {
+  async edit(item = null) {
+    let item_trans = item;
+    if(!item){
+      item_trans.project_id = this.form.project_id;
+      item_trans.master_company_id = this.form.master_company_id;
+    }
+
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps:{
-        notice_id: notice_id
+        notice_id: item.notice_id,
+        form: {
+          ...new NoticeItem(),
+          ...item_trans,
+        }
       }
     });
     modal.present();
@@ -167,6 +178,14 @@ export class NoticeListPage implements OnInit {
       this.get();
     }
   }
+
+  // project_id: this.user.userData.belong_data.project_id,
+  // master_company_id: this.user.userData.belong_data.company_id,
+  // end_date: this.date.today(),
+  // notice_types: [],
+  // search_text: '',
+  // start_date: this.date.today({ month: -1 }),
+  // limit_no: 0
 
   async favoritesCheck($event:MouseEvent, item:NoticeInfo) {
     $event.stopPropagation();

@@ -81,9 +81,9 @@ export class SearchProjectContractorComponent implements OnInit {
 
   async addCompany() {
     this.business_register_no_check = true;
-    this.filteritem = this.res.rsMap.filter((data, i) => {
-      return data.checked === true;
-    })
+    if(this.res.rsMap) this.filteritem = this.res.rsMap.filter((data, i) => {return data.checked === true;});
+    else this.filteritem = [];
+    
     if (this.filteritem.length + this.submitArr.length >= 5 || this.submitArr.length > 5) {
       const toast = await this.toast.present({
         message: '최대 선택 개수는 5개입니다.',
