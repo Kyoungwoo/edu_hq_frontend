@@ -325,17 +325,18 @@ var MainSubAdminPage = /** @class */ (function () {
      * @function getNotice(): 공지사항 가져오기
      */
     MainSubAdminPage.prototype.getNotice = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this.connect.run('/main/board/notice', this.form, {})];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         switch (res.rsCode) {
                             case 0:
                                 this.notice_list = res.rsMap;
-                                this.form.notice_count = res.rsObj.read_count;
+                                this.form.notice_count = ((_a = res.rsObj) === null || _a === void 0 ? void 0 : _a.read_count) || 0;
                                 break;
                             default:
                                 this.notice_list = [];
@@ -352,17 +353,18 @@ var MainSubAdminPage = /** @class */ (function () {
      * @function getSafrtyMeeting(): 회의록 가져오기
      */
     MainSubAdminPage.prototype.getSafrtyMeeting = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this.connect.run('/main/board/safetymeeting', this.form, {})];
                     case 1:
-                        res = _a.sent();
+                        res = _b.sent();
                         switch (res.rsCode) {
                             case 0:
                                 this.safetymeeting_list = res.rsMap;
-                                this.form.safetymeeting_count = res.rsObj.read_count;
+                                this.form.safetymeeting_count = ((_a = res.rsObj) === null || _a === void 0 ? void 0 : _a.read_count) || 0;
                                 break;
                             default:
                                 this.safetymeeting_list = [];
@@ -542,6 +544,12 @@ var MainSubAdminPage = /** @class */ (function () {
                 break;
             case '교육현황':
                 this.nav.navigateRoot('/safety-education-list');
+                break;
+            case '관리자가입대기':
+                this.nav.navigateRoot('/partner-approval-list');
+                break;
+            case '작업자가입대기':
+                this.nav.navigateRoot('/worker-approval-list');
                 break;
         }
     };

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-declare var panzoom;
+import panZoom from 'panzoom';
 
 @Component({
   selector: 'app-approval-zoom',
@@ -20,7 +20,7 @@ export class ApprovalZoomComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
   ngAfterViewInit() {
     this.zoomContainer.nativeElement.appendChild(this.zoomEl);
-    panzoom(this.zoomEl, {
+    panZoom(this.zoomEl, {
       maxZoom: 5,
       minZoom: 1
     });

@@ -212,7 +212,7 @@ export class MainSubAdminPage implements OnInit {
     switch (res.rsCode) {
       case 0:
         this.notice_list = res.rsMap;
-        this.form.notice_count = res.rsObj.read_count;
+        this.form.notice_count = res.rsObj?.read_count || 0;
         break;
       default:
         this.notice_list = [];
@@ -229,7 +229,7 @@ export class MainSubAdminPage implements OnInit {
     switch (res.rsCode) {
       case 0:
         this.safetymeeting_list = res.rsMap;
-        this.form.safetymeeting_count = res.rsObj.read_count;
+        this.form.safetymeeting_count = res.rsObj?.read_count || 0;
         break;
       default:
         this.safetymeeting_list = [];
