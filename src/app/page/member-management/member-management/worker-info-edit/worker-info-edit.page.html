@@ -135,7 +135,7 @@
             </app-radio-input>
           </app-col>
           <app-col>
-            <app-input-group label="현장 출역 기간" [disabled]="!permission.approval" [disabled]="true">
+            <app-input-group label="현장 출역 기간" [disabled]="!permission.approval">
               <app-calendar [(ngModel)]="formApproval.construction_start_date"
                 [max]="formApproval.construction_end_date"></app-calendar>
               ~
