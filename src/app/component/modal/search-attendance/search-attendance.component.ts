@@ -23,9 +23,8 @@ export class Education {
 })
 export class SearchAttendanceComponent implements OnInit {
 
-  @Input() set project_id(_project_id: number) {
-    this.form.project_id = _project_id;
-  }
+  @Input() project_id:number;
+  @Input() company_id:number;
   @Input() allState: boolean = false;
   @Input() editable: boolean = false;
   @Input() multiple: boolean = false;
@@ -35,6 +34,7 @@ export class SearchAttendanceComponent implements OnInit {
   form = {
     user_type: '',
     project_id: 0,
+    company_id: 0,
     search_text: ''
   }
 
@@ -55,7 +55,9 @@ export class SearchAttendanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.value);
+    this.form.project_id = this.project_id;
+    this.form.company_id = this.company_id;
+    
     if (this.educationType) {
       this.form.user_type = '관리자';
     }
@@ -66,9 +68,8 @@ export class SearchAttendanceComponent implements OnInit {
 
 
   async get() {
-    this.res = await this.connect.run('/category/education/manager/get', this.form);
+    this.res = await this.connect.run('/category/certify/education/manager/get', this.form);
     if (this.res.rsCode === 0) {
-      console.log("this.value",this.value);
       if (this.value) {
         this.res?.rsMap?.filter(item => {
           if (this.value.indexOf(item.user_id) > -1) {
@@ -76,7 +77,11 @@ export class SearchAttendanceComponent implements OnInit {
           }
         });
       }
-    } else {
+    } 
+    else if(this.res.rsCode === 1008) {
+      // 아무것도 안함
+    }
+    else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }

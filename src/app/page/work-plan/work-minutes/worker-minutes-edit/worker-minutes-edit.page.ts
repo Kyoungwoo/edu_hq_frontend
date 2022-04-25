@@ -65,7 +65,7 @@ export class WorkerMinutesEditPage implements OnInit {
     public user: UserService,
     private connect: ConnectService,
     private toast: ToastService,
-    private modal: ModalController,
+    private _modal: ModalController,
     private loading: LoadingService,
     private date: DateService
   ) { }
@@ -179,7 +179,7 @@ export class WorkerMinutesEditPage implements OnInit {
     // 여기서는 딱히 처리할게 없음. 그냥 삭제 후 닫기.
     const res = await ev.delete();
     if(res.rsCode  === 0) {
-      this.modal.dismiss();
+      this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
       window.dispatchEvent(new CustomEvent('approval-list:get()'));
@@ -245,7 +245,7 @@ export class WorkerMinutesEditPage implements OnInit {
 
       if(res.rsCode === 0) {
         this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-        this.modal.dismiss();
+        this._modal.dismiss();
         // 목록을 새로고침 해줘야 함
         window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
         window.dispatchEvent(new CustomEvent('approval-list:get()'));
@@ -267,7 +267,7 @@ export class WorkerMinutesEditPage implements OnInit {
         const approvalRes = await ev.send();
         if(approvalRes.rsCode === 0) {
           this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
-          this.modal.dismiss();
+          this._modal.dismiss();
           // 목록을 새로고침 해줘야 함
           window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
           window.dispatchEvent(new CustomEvent('approval-list:get()'));
@@ -301,6 +301,9 @@ export class WorkerMinutesEditPage implements OnInit {
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
     const res = await ev.approval();
     if(res.rsCode === 0) {
+      this.toast.present({ color: 'success', message: '결재 되었습니다.' });
+      this._modal.dismiss();
+
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('worker-minutes-list:get()'));
       window.dispatchEvent(new CustomEvent('approval-list:get()'));

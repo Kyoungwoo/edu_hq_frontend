@@ -41,6 +41,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
   @Input() educationType:boolean = false;
+
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
@@ -49,10 +50,20 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
       this.valueChange(this._value);
     }
   }
+  get project_id() { return this._project_id }
+
+  private _company_id:number = 0;
+  @Input() set company_id(v:number) {
+    if(this._company_id !== v) {
+      this._company_id = v;
+      this._value = this.multiple ? [] : 0;
+      this.valueChange(this._value);
+    }
+  }
+  get company_id() { return this._company_id }
 
   loading:boolean = false;
 
-  get project_id() { return this._project_id }
 
   res:ConnectResult<Education>
 
@@ -66,7 +77,8 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     const { user_type } = this.user.userData;
-    if(!this.project_id || !this.value) {
+
+    if(!this.project_id || !this.company_id || !this.value) {
       if(this.allState) this.text = '전체';
       else this.text = '';
 
@@ -75,8 +87,12 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
         return;
       }
     }
-    this.res = await this.connect.run('/category/education/manager/get', {
+
+    if(!this.project_id || !this.company_id) return;
+    
+    this.res = await this.connect.run('/category/certify/education/manager/get', {
       project_id: this.project_id,
+      company_id: this.company_id,
       user_type: '관리자',
       search_text: ''
     });
@@ -97,6 +113,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
       componentProps: {
         allState: this.allState,
         project_id: this.project_id,
+        company_id: this.company_id,
         multiple: this.multiple,
         editable: this.editable,
         educationType: this.educationType,

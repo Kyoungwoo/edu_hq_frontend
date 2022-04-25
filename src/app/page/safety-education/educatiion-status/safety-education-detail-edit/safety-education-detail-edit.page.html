@@ -12,13 +12,17 @@
       <app-col>
         <h4>교육 정보</h4>
       </app-col>
-      <app-col *ngIf="item" size="auto">
-        <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
-      </app-col>
-      <app-col *ngIf="item" size="auto">
-        <app-button *ngIf="editable.update && !eduUpdate" (click)="editable.update = false" fill="translucent">수정</app-button>
-        <app-button *ngIf="!editable.update && !eduUpdate" (click)="updateItem()" fill="translucent">저장</app-button>
-      </app-col>
+      <ng-container *ngIf="item">
+        <app-col size="auto" *ngIf="editable.update && !eduUpdate">
+          <app-button (click)="editable.update = false" fill="translucent">수정</app-button>
+        </app-col>
+        <app-col size="auto" *ngIf="!editable.update && !eduUpdate">
+          <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
+        </app-col>
+        <app-col size="auto" *ngIf="!editable.update && !eduUpdate">
+          <app-button (click)="updateItem()" fill="translucent">저장</app-button>
+        </app-col>
+      </ng-container>
       <app-col size="auto" *ngIf="!item">
         <app-button  (click)="submit()">저장</app-button>
       </app-col>
@@ -70,7 +74,10 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-attendance [required]="true" [disabled]="editable.update" [educationType]="true" name="attendance" [project_id]="form.project_id || user.userData.belong_data.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+          <app-select-attendance [required]="true" [disabled]="editable.update" [educationType]="true" name="attendance" 
+          [project_id]="user.userData.belong_data.project_id" 
+          [company_id]="user.userData.belong_data.company_id"
+          [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
         </app-col>
         <app-col>
           <app-input name="education_safe_instructor" [disabled]="editable.update" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
@@ -87,10 +94,13 @@
           <app-col>
             <h4>출석 현황 : {{ res?.rsObj?.row_count || 0 }}명</h4>
           </app-col>
-          <app-col size="3">
+          <app-col size="auto">
             <app-input (keyup.enter)="eduGetList()" [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다">
               <app-img (click)="eduGetList()" name="search"></app-img>
             </app-input>
+          </app-col>
+          <app-col size="auto">
+            <app-button (click)="qrAdd()">QR</app-button>
           </app-col>
           <!-- <app-col size="auto">
             <app-button color="danger" fill="translucent" (click)="notReady()">출석삭제</app-button>
@@ -233,7 +243,10 @@
       <app-card>
         <app-row>
           <app-col>
-          <app-select-attendance [required]="true" [educationType]="true" name="attendance" [project_id]="form.project_id || user.userData.belong_data.project_id" [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
+          <app-select-attendance [required]="true" [educationType]="true" name="attendance" 
+          [project_id]="user.userData.belong_data.project_id" 
+          [company_id]="user.userData.belong_data.company_id"
+          [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
           </app-col>
         </app-row>
       </app-card>

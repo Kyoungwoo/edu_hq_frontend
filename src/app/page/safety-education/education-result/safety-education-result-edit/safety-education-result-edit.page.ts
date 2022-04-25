@@ -348,6 +348,7 @@ export class SafetyEducationResultEditPage implements OnInit {
    async onApprovalClick(ev:ApprovalBtnClickEvent) {
     const res = await ev.approval();
     if(res.rsCode === 0) {
+      this._modal.dismiss();
       // 목록을 새로고침 해줘야 함
       window.dispatchEvent(new CustomEvent('safety-education-result-list:get()'));
       window.dispatchEvent(new CustomEvent('approval-list:get()'));

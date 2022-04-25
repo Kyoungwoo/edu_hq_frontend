@@ -20,15 +20,19 @@ export class EditItem {
   education_safe_start_time:string;
   education_safe_target:string;
   education_safe_text:string;
+
   project_id:number;
+  project_name: string;
+
+  company_id:number;
+  company_name: string;
+
   create_user_id: number;
   ctgo_education_safe_name: string
   user_name: string;
   education_safe_state: string;
   ctgo_education_safe_type: string;
-  project_name: string;
   ctgo_education_safe_title: string;
-  company_name: string;
   education_safe_id: number;
   create_date: string;
   education_safe_manager_names:string;
@@ -68,11 +72,9 @@ export class SafetyEducationDetailEditPage implements OnInit {
     account_id:string;
     row_count:number;
     ctgo_occupation_name:string;
-
   }>
 
-  attendantRes:ConnectResult<attendantRes>
-
+  attendantRes:ConnectResult<attendantRes>;
   
   attentForm = {
     education_safe_id:0,
@@ -102,14 +104,20 @@ export class SafetyEducationDetailEditPage implements OnInit {
   ) { }
 
 
-  ngOnInit() {
+  async ngOnInit() {
     if(this.item) {
+      await this.getItem();
       this.eduGetList();
-      this.getItem();
     } else {
+      const { belong_data } = this.user.userData;
       this.form.education_safe_date = this.date.today();
-      this.form.project_name = this.user.userData.belong_data.project_name;
-      this.form.project_id = this.user.userData.belong_data.project_id;
+
+      this.form.project_id = belong_data.project_id;
+      this.form.project_name = belong_data.project_name;
+
+      this.form.company_id = belong_data.company_id;
+      this.form.company_name = belong_data.company_name;
+
       this.form.education_safe_state = '교육 전'
       this.form.create_date = this.date.today();
     }
@@ -132,7 +140,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
     });
     if(this.res.rsCode === 0) {
       this.eduUpdate = true;
-      console.log("this.editable.update)",this.editable.update);
     }
   }
   notReady() {
@@ -140,7 +147,6 @@ export class SafetyEducationDetailEditPage implements OnInit {
   }
   
   async getItem() {
-    console.log("this.item.education_safe_id",this.item.education_safe_id);
     const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
       parse:['education_safe_manager_ids','education_safe_manager_names']
     });
@@ -237,8 +243,9 @@ export class SafetyEducationDetailEditPage implements OnInit {
     const modal = await this._modal.create({
       component:SearchAttendanceComponent,
       componentProps:{
-        project_id:this.user.userData.belong_data.project_id,
-        educationType:false
+        project_id: this.user.userData.belong_data.project_id,
+        company_id: this.user.userData.belong_data.company_id,
+        educationType: false
       }
     });
     modal.present();

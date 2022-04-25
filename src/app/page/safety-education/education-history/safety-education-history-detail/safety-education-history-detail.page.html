@@ -182,9 +182,8 @@
                   <tr class="education-head-tr">
                     <th>교육명</th>
                     <th>이수일</th>
-                    <th>잔여일</th>
                     <th>이수시간</th>
-                    <th>잔여시간</th>
+                    <th>필요시간</th>
                     <th>교육상태</th>
                   </tr>
                 </thead>
@@ -192,13 +191,11 @@
                   <tr *ngFor="let item of specialRes?.rsMap" class="education-body-tr">
                     <td>{{ item.ctgo_education_safe_name }}</td>
                     <td>{{ item.create_date }}</td>
-                    <td>{{ item.education_remaining_date }}</td>
                     <td>{{ item.education_complete_time }}</td>
-                    <td>{{ item.education_remaining_time }}</td>
+                    <td>{{ item.education_towercrane_state ? '08:00' : '02:00' }}</td>
                     <td>
-                      <ion-chip *ngIf="item.special_edu_state === '양호'" color="primary">양호</ion-chip>
-                      <ion-chip *ngIf="item.special_edu_state === '필요'" color="warning">필요</ion-chip>
-                      <ion-chip *ngIf="item.special_edu_state === '기한초과'" color="danger">기한초과</ion-chip>
+                      <ion-chip *ngIf="item.education_complete_hours < (item.education_towercrane_state ? 8: 2)" color="warning">필요</ion-chip>
+                      <ion-chip *ngIf="item.education_complete_hours >= (item.education_towercrane_state ? 8: 2)" color="primary">양호</ion-chip>
                     </td>
                   </tr>
                 </tbody>
@@ -214,10 +211,10 @@
                 </div>
 
                 <div class="grp-box" *ngFor="let item of specialRes?.rsMap">
-                  <div class="grp-item-bar three" [style.width]="(item.education_recommended_hours/8 * 100) + '%'">
-                    <p class="grp-item-time">{{ item.education_recommended_time ? item.education_recommended_time : ''}}</p>
+                  <div class="grp-item-bar three" [style.width]="'100%'">
+                    <p class="grp-item-time">{{ item.education_towercrane_state ? '08:00' : '02:00' }}</p>
                   </div>
-                  <div class="grp-item-bar four" [style.width]="(item.education_complete_hours/8 * 100) + '%'">
+                  <div class="grp-item-bar four" [style.width]="(item.education_complete_hours/(item.education_towercrane_state ? 8 : 2) * 100) + '%'">
                     <p class="grp-item-time">{{ item.education_complete_time ? item.education_complete_time : ''}}</p>
                   </div>
                   <div class="grp-bottom-border"></div>
@@ -335,7 +332,7 @@
                   <td>{{ item.index }}</td>
                   <td>{{ item.ctgo_education_safe_name }}</td>
                   <td>{{ item.create_date }}</td>
-                  <td>{{ item.education_safe_time }}H</td>
+                  <td>{{ item.education_safe_time }}</td>
                 </tr>
               </tbody>
             </app-table>
