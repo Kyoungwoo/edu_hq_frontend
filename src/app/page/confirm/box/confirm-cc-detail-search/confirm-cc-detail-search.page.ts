@@ -10,6 +10,7 @@ import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.
 })
 export class ConfirmCcDetailSearchPage implements OnInit {
 
+  @Input() permission = { master_company_all: false }
   @Input() form = {
     project_id: null, // 현장 ID
     master_company_id: null, // 원청사 ID / 전체 = 0

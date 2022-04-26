@@ -47,6 +47,10 @@ export class ConfirmCcListPage implements OnInit {
 
   res:ConnectResult<ConfirmCcItem>;
 
+  permission = {
+    master_company_all: false
+  }
+
   event = {
     get: null
   }
@@ -80,7 +84,15 @@ export class ConfirmCcListPage implements OnInit {
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.company_id;
+    if(belong_data.company_contract_type === 'LH'
+    || belong_data.company_contract_type === '감리사') {
+      this.permission.master_company_all = true;
+      this.form.company_id = 0;
+    }
+    else {
+      this.permission.master_company_all = false;
+      this.form.company_id = belong_data.company_id;
+    }
     this.form.master_company_id = belong_data.master_company_id || 0;
 
     this.form.start_date = this.date.today({ month: -1 });
@@ -149,7 +161,8 @@ export class ConfirmCcListPage implements OnInit {
     const modal = await this._modal.create({
       component: ConfirmCcDetailSearchPage,
       componentProps: {
-        form: this.form
+        form: this.form,
+        permission: this.permission
       }
     });
     modal.present();

@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
   <app-select-scene [(ngModel)]="temptForm.project_id"></app-select-scene>
-  <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.master_company_id"></app-select-contractor>
-  <app-select-contractor-company [project_id]="temptForm.project_id" [master_company_id]="temptForm.master_company_id" [(ngModel)]="temptForm.company_id"></app-select-contractor-company>
+  <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.master_company_id" [allState]="permission.master_company_all"></app-select-contractor>
+  <app-select-contractor-company [project_id]="temptForm.project_id" [master_company_id]="temptForm.master_company_id" [(ngModel)]="temptForm.company_id" [all]="permission.master_company_all"></app-select-contractor-company>
   <app-input-group label="작성일">
     <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
     ~

@@ -46,6 +46,9 @@ export class ConfirmProgressListPage implements OnInit, OnDestroy {
 
   res:ConnectResult<ConfirmProgressItem>;
 
+  permission = {
+    master_company_all: false
+  }
   event = {
     get: null
   }
@@ -78,7 +81,15 @@ export class ConfirmProgressListPage implements OnInit, OnDestroy {
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.company_id;
+    if(belong_data.company_contract_type === 'LH'
+    || belong_data.company_contract_type === '감리사') {
+      this.permission.master_company_all = true;
+      this.form.company_id = 0;
+    }
+    else {
+      this.permission.master_company_all = false;
+      this.form.company_id = belong_data.company_id;
+    }
     this.form.master_company_id = belong_data.master_company_id || 0;
 
     this.form.start_date = this.date.today({ month: -1 });
@@ -92,8 +103,6 @@ export class ConfirmProgressListPage implements OnInit, OnDestroy {
    async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     
-    let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     this.res = await this.connect.run('/approval/board/fin/get', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       // 암것도 안함
@@ -146,7 +155,8 @@ export class ConfirmProgressListPage implements OnInit, OnDestroy {
     const modal = await this._modal.create({
       component: ConfirmProgressDetailSearchPage,
       componentProps: {
-        form: this.form
+        form: this.form,
+        permission: this.permission
       }
     });
     modal.present();

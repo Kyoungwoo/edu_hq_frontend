@@ -9,6 +9,7 @@ import { FileService } from 'src/app/basic/service/core/file.service';
 })
 export class ConfirmPendingDetailSearchPage implements OnInit {
 
+  @Input() permission = { master_company_all: false }
   @Input() form = {
     project_id: null, // 현장 ID
     master_company_id: null, // 원청사 ID / 전체 = 0

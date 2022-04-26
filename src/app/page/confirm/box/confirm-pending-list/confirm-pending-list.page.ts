@@ -47,6 +47,10 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
 
   res:ConnectResult<ConfirmObtainItem>;
 
+  permission = {
+    master_company_all: false
+  }
+
   event = {
     get: null
   }
@@ -77,26 +81,18 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
 
   async getForm() {
     const { belong_data } = this.user.userData;
+
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.company_id;
-    
-    if(belong_data.company_contract_type === '원청사') {
-      this.form.master_company_id = belong_data.company_id;
+    if(belong_data.company_contract_type === 'LH'
+    || belong_data.company_contract_type === '감리사') {
+      this.permission.master_company_all = true;
+      this.form.company_id = 0;
     }
-    else if(belong_data.company_contract_type === '협력사') {
-      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.master_company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
+    else {
+      this.permission.master_company_all = false;
+      this.form.company_id = belong_data.company_id;
     }
+    this.form.master_company_id = belong_data.master_company_id || 0;
 
     this.form.start_date = this.date.today({ month: -1 });
     this.form.end_date = this.date.today();
@@ -163,7 +159,8 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
     const modal = await this._modal.create({
       component: ConfirmPendingDetailSearchPage,
       componentProps: {
-        form: this.form
+        form: this.form,
+        permission: this.permission
       }
     });
     modal.present();
