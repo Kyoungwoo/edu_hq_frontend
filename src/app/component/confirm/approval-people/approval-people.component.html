@@ -25,7 +25,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of res?.rsMap let i = index" [class.selected]="selectedItem === item" (click)="selectedItem = item">
+      <tr *ngFor="let item of res?.rsMap let i = index" 
+      [class.pre-selected]="isPreSelected(item)" 
+      [class.selected]="selectedItem === item" 
+      (click)="selectedItem = item">
         <td>{{ item.company_name }}</td>
         <td>{{ item.user_name }}</td>
         <td>{{ item.ctgo_safe_job_name || '' }}</td>

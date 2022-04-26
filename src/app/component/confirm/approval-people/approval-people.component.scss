@@ -1,3 +1,10 @@
+tr.pre-selected {
+    td {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
 tr.selected {
     td {
         background: var(--ion-color-secondary);

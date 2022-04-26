@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -10,7 +10,7 @@ import { RiskEvaluationEditPage } from '../risk-evaluation-edit/risk-evaluation-
   templateUrl: './risk-pending-list.page.html',
   styleUrls: ['./risk-pending-list.page.scss'],
 })
-export class RiskPendingListPage implements OnInit {
+export class RiskPendingListPage implements OnInit, OnDestroy {
 
   form = {
     limit_no: 0
@@ -36,6 +36,10 @@ export class RiskPendingListPage implements OnInit {
     row_count:number
   }>;
 
+  event = {
+    get: null
+  }
+
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
@@ -44,6 +48,16 @@ export class RiskPendingListPage implements OnInit {
 
   ngOnInit() {
     this.get();
+
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('approval-list:get()', this.event.get);
+  }
+  ngOnDestroy() {
+    window.removeEventListener('approval-list:get()', this.event.get);
+  }
+
+  getEvent() {
+    this.get(0);
   }
 
   async get(limit_no = this.form.limit_no) {

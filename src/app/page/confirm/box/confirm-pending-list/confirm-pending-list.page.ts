@@ -72,7 +72,7 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
   }
 
   getEvent() {
-    this.get();
+    this.get(0);
   }
 
   async getForm() {

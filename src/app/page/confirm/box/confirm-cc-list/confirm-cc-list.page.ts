@@ -73,7 +73,7 @@ export class ConfirmCcListPage implements OnInit {
   }
 
   getEvent() {
-    this.get();
+    this.get(0);
   }
 
   async getForm() {

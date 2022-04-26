@@ -29,6 +29,10 @@ export class WorkerMinutesPendingListPage implements OnInit {
     row_count:number
   }>;
 
+  event = {
+    get: null
+  }
+
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
@@ -37,6 +41,16 @@ export class WorkerMinutesPendingListPage implements OnInit {
 
   ngOnInit() {
     this.get();
+
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('approval-list:get()', this.event.get);
+  }
+  ngOnDestroy() {
+    window.removeEventListener('approval-list:get()', this.event.get);
+  }
+
+  getEvent() {
+    this.get(0);
   }
 
   async get(limit_no = this.form.limit_no) {

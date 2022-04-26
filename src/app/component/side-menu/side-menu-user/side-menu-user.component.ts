@@ -103,21 +103,21 @@ export class SideMenuUserComponent implements OnInit {
     { img:'assets/img/menu/sign.svg', title: '전자 결재', subMenuList: [
       { title: '기안/임시저장함', link: '/confirm-obtain-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY';
+        return user_type === 'COMPANY';
        }},
       { title: '미결함', link:'/confirm-pending-list', params: {}, permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY';
+        return user_type === 'LH' || user_type === 'SUPER' || user_type === 'COMPANY';
        }},
-      { title: '기결함', link: '/confirm-progress-list', params: {}, permission: () => { 
+      { title: '진행/완료/반려', link: '/confirm-progress-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY';
+        return user_type === 'LH' || user_type === 'SUPER' || user_type === 'COMPANY';
       }},
       { title: '참조함', link: '/confirm-cc-list', params: {}, permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY';
+        return user_type === 'LH' || user_type === 'SUPER' || user_type === 'COMPANY';
        }},
-      { title: '위임관리', link: '', params: {}, permission: () => { return true }}
+      { title: '위임관리', link: '', params: {}, permission: () => { return false }}
     ]},
     { img:'assets/img/menu/board.svg', title: '게시판', subMenuList: [
       { title: '공지사항', link: '/notice-list', params: {}, permission: () => { 

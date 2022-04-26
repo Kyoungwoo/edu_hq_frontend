@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { AnswerObj, ApprovalObj, CommentObj, ReferObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
 import { ApprovalPeopleComponent } from '../approval-people/approval-people.component';
 
@@ -37,9 +34,6 @@ export class ConfirmSettingPopupComponent implements OnInit {
   }
 
   constructor(
-    private user: UserService,
-    private connect: ConnectService,
-    private toast: ToastService,
     private _modal: ModalController,
     private file: FileService
   ) { }
@@ -75,7 +69,7 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.company_id,
           search_text: ''
         },
-        canUserTypeChange: false
+        preSelected: this.answerObj
       }
     });
     modal.present();
@@ -127,7 +121,7 @@ export class ConfirmSettingPopupComponent implements OnInit {
           company_id: this.company_id,
           search_text: ''
         },
-        canUserTypeChange: false
+        preSelected: this.answerObj
       }
     });
     modal.present();

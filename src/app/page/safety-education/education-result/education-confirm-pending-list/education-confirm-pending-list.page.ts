@@ -31,7 +31,11 @@ export class EducationConfirmPendingListPage implements OnInit {
     approval_cnt_answer: string; // 현재 결재상태
     create_date: string; // 작성일
     education_safe_report_id:number;
-    }>
+  }>;
+
+  event = {
+    get: null
+  }
   
   constructor(
     private connect: ConnectService,
@@ -40,7 +44,17 @@ export class EducationConfirmPendingListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.get()
+    this.get();
+
+    this.event.get = this.getEvent.bind(this);
+    window.addEventListener('approval-list:get()', this.event.get);
+  }
+  ngOnDestroy() {
+    window.removeEventListener('approval-list:get()', this.event.get);
+  }
+
+  getEvent() {
+    this.get(0);
   }
   
   async get(limit_no = this.form.limit_no) {
