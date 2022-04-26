@@ -23,7 +23,7 @@
     <app-col>
       <app-row>
         <app-col>
-          <app-select-project-contractor [required]="true" [disabled]="roleCheck" [(ngModel)]="contractor_id">
+          <app-select-project-contractor *ngIf="contractor_id !== null" [required]="true" [disabled]="roleCheck" [(ngModel)]="contractor_id">
           </app-select-project-contractor>
         </app-col>
       </app-row>
@@ -31,7 +31,7 @@
     <app-col>
       <app-row>
         <app-col>
-          <app-select-supervision [required]="true" [disabled]="roleCheck" [(ngModel)]="supervision_id"></app-select-supervision>
+          <app-select-supervision *ngIf="supervision_id !== null" [required]="true" [disabled]="roleCheck" [(ngModel)]="supervision_id"></app-select-supervision>
         </app-col>
       </app-row>
     </app-col>

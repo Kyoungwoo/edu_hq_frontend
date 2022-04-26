@@ -56,8 +56,8 @@ export class SceneEditPage implements OnInit {
 
   @Input() project_id;
 
-  contractor_id = [];
-  supervision_id = [];
+  contractor_id = null;
+  supervision_id = null;
 
   organization_data = {
     company_type: '',
@@ -105,6 +105,9 @@ export class SceneEditPage implements OnInit {
     } else {
       this.title = '등록';
       this.roleCheck = false;
+
+      this.contractor_id = [];
+      this.supervision_id = [];
     }
   }
 
@@ -124,6 +127,8 @@ export class SceneEditPage implements OnInit {
         this.roleCheck = false;
       }
       if (res.rsObj.company_data) {
+        this.contractor_id = [];
+        this.supervision_id = [];
         let josncompany = res.rsObj.company_data ? JSON.parse(res.rsObj.company_data) : [];
         for (let i = 0; i < josncompany.length; i++) {
           if (josncompany[i].company_contract_type === '원청사') {
