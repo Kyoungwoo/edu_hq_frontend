@@ -139,6 +139,10 @@ export class SafetyEducationDetailEditPage implements OnInit {
       search_text:this.attentForm.search_text
     });
     if(this.res.rsCode === 0) {
+      this.user_id = [];
+      this.res?.rsMap.map((data) => {
+        this.user_id.push(data.user_id);
+      });
       this.eduUpdate = true;
     }
   }
@@ -245,12 +249,15 @@ export class SafetyEducationDetailEditPage implements OnInit {
       componentProps:{
         project_id: this.user.userData.belong_data.project_id,
         company_id: this.user.userData.belong_data.company_id,
-        educationType: false
+        educationType: false,
+        value: this.user_id,
+        title: '근로자'
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      this.user_id = [];
       data.forEach(item => {
         if(!this.user_id.includes(item.user_id)) this.user_id.push(item.user_id)
       });
