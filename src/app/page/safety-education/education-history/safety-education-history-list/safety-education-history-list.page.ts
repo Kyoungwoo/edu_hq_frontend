@@ -5,6 +5,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
+import { EducationService } from 'src/app/service/education.service';
 import { SafetyEducationHistoryDetailPage } from '../safety-education-history-detail/safety-education-history-detail.page';
 
 @Component({
@@ -35,7 +36,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
     project_id:number,
     special_edu_state:string, //특별
     hire_edu_state:string,
-    work_contract_type:string,
+    work_contract_type:'일용직' | '상용직',
     row_count:number,
     company_name:string,
     special_edu_state_result:string
@@ -48,9 +49,8 @@ export class SafetyEducationHistoryListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     private user: UserService,
-    private toast: ToastService,
     private popover: PopoverController,
-    private promise: PromiseService
+    private education: EducationService
   ) { }
 
   async ngOnInit() {
@@ -90,17 +90,11 @@ export class SafetyEducationHistoryListPage implements OnInit {
             /** 일용직은 양호, 필요값이 다른애들과 다르다. */
             const specialList = await this.specialItem(item);
             if(specialList) {
-              const special_edu_state_result = specialList.find(specialItem => {
-                if(specialItem.education_complete_hours < (specialItem.education_towercrane_state ? 8 : 2)) {
-                  /** 필요 */
-                  return false;
-                }
-                else {
-                  /** 양호 */
-                  return true;
-                }
+              const notPass = specialList.find(specialItem => {
+                const state = this.education.getEducationSpecialResult(item.work_contract_type, specialItem);
+                return '양호' !== state;
               });
-              item.special_edu_state_result = special_edu_state_result ? '양호' : '필요';
+              item.special_edu_state_result = notPass ? '필요' : '양호';
             }
           }
           else {
@@ -117,19 +111,12 @@ export class SafetyEducationHistoryListPage implements OnInit {
       approval_user_id: item.user_id
     });
     if(res.rsCode === 0) {
-      res.rsMap?.forEach(specialItem => this.parseEducationHours(specialItem));
+      res.rsMap?.forEach(specialItem => this.education.parseEducationHours(specialItem));
       return res.rsMap;
     }
     else {
       return null;
     }
-  }
-  private parseEducationHours(item) {
-    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
-    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
-    
-    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
-    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   async edit(user_id) {

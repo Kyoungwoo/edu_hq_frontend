@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem } from 'src/app/basic/service/core/file.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
+import { EducationService } from 'src/app/service/education.service';
 
 export class HistoryItem {
   company_id:number;
@@ -99,7 +100,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   constructor(
     private connect: ConnectService,
-    private toast: ToastService
+    public education: EducationService
   ) { }
 
   ngOnInit() {
@@ -131,7 +132,7 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     const res = await this.connect.run('/education/report/routine/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.routine = res.rsObj;
-      this.parseEducationHours(this.routine);
+      this.education.parseEducationHours(this.routine);
     } 
   }
 
@@ -139,15 +140,8 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     const res = await this.connect.run('/education/report/special/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.specialRes = res;
-      this.specialRes.rsMap?.forEach(item => this.parseEducationHours(item));
+      this.specialRes.rsMap?.forEach(item => this.education.parseEducationHours(item));
     }
-  }
-  private parseEducationHours(item:EducationItem) {
-    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
-    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
-    
-    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
-    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   async useItem(limit_no = this.useForm.limit_no) {

@@ -8,6 +8,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
+import { EducationService } from 'src/app/service/education.service';
 import { MyPageEducationSearchPage } from '../my-page-education-search/my-page-education-search.page';
 import { EducationGetForm, EducationRes } from '../my-page/my-page.page';
 
@@ -69,17 +70,13 @@ export class MyPageEducationPage implements OnInit {
   }>;
 
   constructor(
-    private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
     private _modal: ModalController,
-    private nav: NavService,
     public regex: RegexService,
     public user: UserService,
     private toast: ToastService,
-    private alert: AlertService,
     private loading: LoadingService,
-    private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    public education: EducationService
   ) { }
 
   ngOnInit() {
@@ -157,7 +154,7 @@ export class MyPageEducationPage implements OnInit {
   private async getEducationSpecial() {
     this.educationSpecialRes = await this.connect.run('/mypage/safeeducation/special/list', this.educationGetForm);
     if(this.educationSpecialRes.rsCode === 0) {
-      this.educationSpecialRes.rsMap?.forEach(item => this.parseEducationHours(item));
+      this.educationSpecialRes.rsMap?.forEach(item => this.education.parseEducationHours(item));
     }
     else if(this.educationSpecialRes.rsCode === 1008) {
       // 암것도 안함
@@ -165,14 +162,6 @@ export class MyPageEducationPage implements OnInit {
     else {
       this.toast.present({ color: 'warning', message: this.educationSpecialRes.rsMsg });
     }
-  }
-
-  parseEducationHours(item) {
-    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
-    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
-    
-    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
-    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   /** 전체 교육 이력 가져오기 */

@@ -194,8 +194,8 @@
                     <td>{{ item.education_complete_time }}</td>
                     <td>{{ item.education_towercrane_state ? '08:00' : '02:00' }}</td>
                     <td>
-                      <ion-chip *ngIf="item.education_complete_hours < (item.education_towercrane_state ? 8 : 2)" color="warning">필요</ion-chip>
-                      <ion-chip *ngIf="item.education_complete_hours >= (item.education_towercrane_state ? 8 : 2)" color="primary">양호</ion-chip>
+                      <ion-chip *ngIf="education.getEducationSpecialResult('일용직', item) === '필요'" color="warning">필요</ion-chip>
+                      <ion-chip *ngIf="education.getEducationSpecialResult('일용직', item) === '양호'" color="primary">양호</ion-chip>
                     </td>
                   </tr>
                 </tbody>

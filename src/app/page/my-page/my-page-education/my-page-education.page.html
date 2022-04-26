@@ -98,11 +98,11 @@
               <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
               <td>{{ item.education_towercrane_state ? '08:00' : '02:00' }}</td>
               <td>
-                <ng-container *ngIf="item.education_complete_hours < (item.education_towercrane_state ? 8: 2)">
+                <ng-container *ngIf="education.getEducationSpecialResult('일용직', item) === '필요'">
                   <div class="round red"></div>
                   필요
                 </ng-container>
-                <ng-container *ngIf="item.education_complete_hours >= (item.education_towercrane_state ? 8: 2)">
+                <ng-container *ngIf="education.getEducationSpecialResult('일용직', item) === '양호'">
                   <div class="round"></div>
                   양호
                 </ng-container>
