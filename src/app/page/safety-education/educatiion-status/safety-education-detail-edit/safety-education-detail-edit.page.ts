@@ -177,7 +177,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
     let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    if(start_time >= end_time) return this.toast.present({message:'교육시간을 확인해주세요.', color:'warning'});
+    if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'수정하시겠습니까?',
       buttons:[
@@ -207,7 +207,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
     let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    if(start_time >= end_time) return this.toast.present({message:'교육시간을 확인해주세요.', color:'warning'});
+    if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[
