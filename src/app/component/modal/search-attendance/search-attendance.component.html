@@ -29,19 +29,19 @@
     <app-row>
       <app-col size="3">
         <h5>업체명</h5>
-        <p>{{ item.company_name }}</p>
+        <p>{{ item.company_name ? item.company_name : ' - ' }}</p>
       </app-col>
       <app-col>
         <h5>성명</h5>
-        <p>{{ item.user_name }}</p>
+        <p>{{ item.user_name ? item.user_name : ' - ' }}</p>
       </app-col>
       <app-col>
         <h5>직위</h5>
-        <p> {{ item.ctgo_job_position_name_kr }}</p>
+        <p> {{ item.ctgo_job_position_name ? item.ctgo_job_position_name : ' - ' }}</p>
       </app-col>
       <app-col>
         <h5>안전직무</h5>
-        <p>{{ item.ctgo_safe_job_name_kr }}</p>
+        <p>{{ item.ctgo_safe_job_name ? item.ctgo_safe_job_name : ' - ' }}</p>
       </app-col>
     </app-row>
   </app-card>

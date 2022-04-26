@@ -82,6 +82,7 @@ export class AreaStandardSetPage implements OnInit {
 
   area_top_id: number;
   area_middle_id: number;
+  area_bottom_id: number;
 
   testtttt = 0;
   //장소 끝
@@ -151,6 +152,12 @@ export class AreaStandardSetPage implements OnInit {
 
   updateEdit: boolean = false;
 
+  // active_items = {
+  //   area_1: 0,
+  //   area_2: 0,
+  //   area_3: 0
+  // }
+
   constructor(
     private modal: ModalController,
     private connect: ConnectService,
@@ -216,6 +223,8 @@ export class AreaStandardSetPage implements OnInit {
 
   async areaTow(area_top_id) {
     this.area_top_id = area_top_id;
+    this.area_middle_id = 0;
+    this.area_bottom_id = 0;
     this.resAreaThree = null;
     this.resAreaTwo = await this.connect.run('/project/area/middle/get', { area_top_id: area_top_id }, {});
     if (this.resAreaTwo.rsCode === 0) {
@@ -225,6 +234,7 @@ export class AreaStandardSetPage implements OnInit {
 
   async areaThree(area_middle_id) {
     this.area_middle_id = area_middle_id
+    this.area_bottom_id = 0;
     this.resAreaThree = await this.connect.run('/project/area/bottom/get', {
       area_middle_id: area_middle_id,
       area_top_id: this.area_top_id

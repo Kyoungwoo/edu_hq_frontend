@@ -99,10 +99,10 @@
                   </thead>
                   <tbody>
                     <tr class="button" *ngFor="let item of resAreaOne?.rsMap" (click)="areaTow(item.area_top_id)">
-                      <td>
+                      <td [style]="area_top_id === item.area_top_id ? 'background-color: var(--ion-color-secondary)' : ''">
                         <app-check (click)="$event.stopPropagation()" [on]="item"></app-check>
                       </td>
-                      <td>{{ item.area_top_name }}</td>
+                      <td [style]="area_top_id === item.area_top_id ? 'background-color: var(--ion-color-secondary)' : ''">{{ item.area_top_name }}</td>
                     </tr>
                   </tbody>
                 </app-table>
@@ -128,10 +128,10 @@
                   <tbody>
                     <tr class="button" *ngFor="let areaTwo of resAreaTwo?.rsMap"
                       (click)="areaThree(areaTwo.area_middle_id)">
-                      <td>
+                      <td [style]="area_middle_id === areaTwo.area_middle_id ? 'background-color: var(--ion-color-secondary)' : ''">
                         <app-check [on]="areaTwo" (click)="$event.stopPropagation()"></app-check>
                       </td>
-                      <td>{{ areaTwo.area_middle_name}}</td>
+                      <td [style]="area_middle_id === areaTwo.area_middle_id ? 'background-color: var(--ion-color-secondary)' : ''">{{ areaTwo.area_middle_name}}</td>
                     </tr>
                   </tbody>
                 </app-table>

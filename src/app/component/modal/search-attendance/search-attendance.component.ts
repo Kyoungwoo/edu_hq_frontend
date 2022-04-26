@@ -5,9 +5,9 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
 export class Education {
-  ctgo_job_position_name_kr: "";
+  ctgo_job_position_name: "";
   company_id: 0;
-  ctgo_safe_job_name_kr: "";
+  ctgo_safe_job_name: "";
   user_id: 0;
   ctgo_job_position_id: 0;
   user_name: "";
