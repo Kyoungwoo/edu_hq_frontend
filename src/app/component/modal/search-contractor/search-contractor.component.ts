@@ -76,9 +76,11 @@ export class SearchContractorComponent implements OnInit {
     this.form.project_id = this.project_id;
     // 현장에 관계 없이, 원청사 전체를 검색을 할 수 있어야 되는 상황이 있는건지?
     console.log("this.project_id-------",this.project_id);
+    this.value = [];
     this.res = await this.connect.run('/category/certify/search_my_master_company/get', this.form);
     if(this.res.rsCode === 0) {
       console.log(this.value);
+      
       this.res.rsMap.filter(item => {
         if(this.value === item.company_id) this.values.push(item);
       });

@@ -67,8 +67,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 현의사항
   meetingForm = {
-    company_id:0,
-    project_id:0
+    project_id:this.user.userData.belong_data.project_id,
+    company_id:this.user.userData.belong_data.master_company_id
   }
 
   resMeeting:ConnectResult<{
@@ -470,8 +470,8 @@ export class WorkStandardSetPage implements OnInit {
 
   //회의록 협의체
   async getMeeting() {
-    await this.promise.wait(() => this.meetingForm.project_id = this.user.userData.belong_data.project_id);
-    await this.promise.wait(() => this.meetingForm.company_id = this.user.userData.belong_data.company_id);
+    // await this.promise.wait(() => this.meetingForm.project_id = this.user.userData.belong_data.project_id);
+    // await this.promise.wait(() => this.meetingForm.company_id = this.user.userData.belong_data.company_id);
     const res = await this.connect.run('/project/safety_meeting/get',this.meetingForm,{});
     if(res.rsCode === 0) {
       this.resMeeting = {
@@ -480,7 +480,7 @@ export class WorkStandardSetPage implements OnInit {
       }
     };
   }
-
+  // constructionForm.master_company_id
   async meetingUpdate() {
     const res = await this.connect.run('/project/safety_meeting/update',this.resMeeting.rsObj,{});
     if(res.rsCode === 0) {
