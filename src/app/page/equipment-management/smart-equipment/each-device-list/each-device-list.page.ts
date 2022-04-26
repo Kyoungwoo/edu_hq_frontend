@@ -71,7 +71,7 @@ export class EachDeviceListPage implements OnInit {
   update_state = false;
 
   /** @param list_state - '전체' or '내 장비' */
-  list_state = '전체';
+  list_state = this.user.userData.user_type === 'WORKER' ? '내 장비' : '전체';
 
   /** @param update_state - 현재 업데이트중인지 여부 */
   // method_type = '';

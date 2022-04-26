@@ -38,10 +38,17 @@ export class SideMenuUserComponent implements OnInit {
   menuSelected:MenuItem = null;
 
   menuList:MenuItem[] = [
-    { img:'assets/img/menu/member-management.svg', title: '회원관리', subMenuList: [
+    { img:'assets/img/menu/member-management.svg', title: '회원관리', permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER' 
+    }, subMenuList: [
       { title: '안전 마일리지', link: '', params: {}, permission: () => { return true }}
     ]},
-    { img:'assets/img/menu/work-plan.svg', title: '작업계획', subMenuList: [
+    { img:'assets/img/menu/work-plan.svg', title: '작업계획', permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER' 
+    },
+    subMenuList: [
       { title: '위험성평가', link: '/risk-list', params: {}, permission: () => { 
         const { user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY';
@@ -100,7 +107,11 @@ export class SideMenuUserComponent implements OnInit {
         return user_role === 'LH_HEAD' ||  user_type === 'COMPANY';
       }}
     ]},
-    { img:'assets/img/menu/sign.svg', title: '전자 결재', subMenuList: [
+    { img:'assets/img/menu/sign.svg', title: '전자 결재', permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER' 
+    },
+    subMenuList: [
       { title: '기안/임시저장함', link: '/confirm-obtain-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'COMPANY';
@@ -134,10 +145,7 @@ export class SideMenuUserComponent implements OnInit {
        }}
     ]},
     { img:'assets/img/menu/notification-box.svg',title: '알림함', subMenuList: [
-      { title: '알림함', link: '/notify-list', params: {}, permission: () => { 
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
-       }},
+      { title: '알림함', link: '/notify-list', params: {}, permission: () => {return true;}},
     ]},
     { img:'assets/img/menu/support.svg', title: '고객지원', subMenuList: [
       { title: '문의하기', link: '', params: {}, permission: () => { return true }},
@@ -166,7 +174,7 @@ export class SideMenuUserComponent implements OnInit {
     // private qr: QrService
     private scanner: ScannerService
   ) { 
-    this.menuSelected = this.menuList[0];
+    this.menuSelected = this.user.userData.user_type === 'WORKER' ? this.menuList[2] : this.menuList[0];
   }
 
   ngOnInit() {

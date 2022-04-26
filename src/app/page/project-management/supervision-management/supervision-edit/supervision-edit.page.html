@@ -48,16 +48,14 @@
       <app-input name="fiduciary" [disabled]="updateStatus" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
     </app-col>
     <app-col>
-      <app-input name="consent" [disabled]="updateStatus" [(ngModel)]="form.consignee_consent_date" label="동의현황"
-        [type]="'email'"></app-input>
+      <app-input name="consignee_consent_date_val" [(ngModel)]="form.consignee_consent_date" label="동의현황" [disabled]="true"></app-input>
     </app-col>
   </app-row>
   <app-row>
     <app-col>
       <h4>개인정보 처리 위탁 동의서</h4>
-      <app-textarea *ngIf="termsRes" name="terms_text" [disabled]="updateStatus" [rows]="10"
-        [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
-      <app-button style="width:100%" *ngIf="!updateStatus" (click)="agreement()">동의합니다</app-button>
+      <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10" [disabled]="viewMode" [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
+      <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button>
     </app-col>
   </app-row>
 </ion-content>

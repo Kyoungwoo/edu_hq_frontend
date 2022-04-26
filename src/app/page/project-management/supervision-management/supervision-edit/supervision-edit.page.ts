@@ -30,8 +30,10 @@ export class SupervisionEdit {
 export class SupervisionEditPage implements OnInit {
 
   permission = {
-    edit: false
+    edit: false,
+    agree: false
   }
+  viewMode:boolean = false;
 
   @Input() company_id;
   @Input() project_id;
@@ -59,11 +61,37 @@ export class SupervisionEditPage implements OnInit {
   ngOnInit() {
     this.getPermission();
     this.form.project_id = this.project_id;
-    this.getItem();
     this.getTerms();
+    if(this.company_id) {
+      this.viewMode = true;
+      this.getItem();
+    } else {
+      this.viewMode = false;
+    }
   }
 
+  // getPermission() {
+  //   const company_contract_type = this.user.userData.belong_data.company_contract_type;
+  //   if(company_contract_type === 'LH' || company_contract_type === '감리사') {
+  //     this.permission.edit = true;
+  //   } else {
+  //     this.permission.edit = false;
+  //   }
+  // }
+
   getPermission() {
+    const { user_role } = this.user.userData;
+    if(user_role === 'LH_HEAD') {
+      this.permission.agree = false;
+    } 
+    else if(user_role === 'MASTER_HEAD') {
+      this.permission.agree = false;
+    } else if(user_role === 'PARTNER_HEAD'){
+      this.permission.agree = true;
+    } else {
+      this.permission.agree = false;
+    }
+
     const company_contract_type = this.user.userData.belong_data.company_contract_type;
     if(company_contract_type === 'LH' || company_contract_type === '감리사') {
       this.permission.edit = true;

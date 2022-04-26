@@ -3,7 +3,7 @@ import { ScannerService } from './../../../../basic/service/util/scanner.service
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -15,7 +15,7 @@ import { GeolocationService } from 'src/app/service/geolocation.service';
   templateUrl: './main-user-worker.page.html',
   styleUrls: ['./main-user-worker.page.scss'],
 })
-export class MainUserWorkerPage implements OnInit {
+export class MainUserWorkerPage implements OnInit, OnDestroy {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
@@ -44,6 +44,10 @@ export class MainUserWorkerPage implements OnInit {
   notify_list = []; // 알림
 
   menu: number = 1;
+
+  event = {
+    getNotify: null
+  }
   
   constructor(
     private modal: ModalController,
@@ -61,7 +65,9 @@ export class MainUserWorkerPage implements OnInit {
     this.dayTrans();
     this.getBoard();
     this.locationUpdate();
-
+  }
+  ngOnDestroy() {
+    window.removeEventListener('getNotify', this.event.getNotify);
   }
 
   locationTimeout = null;
@@ -91,7 +97,11 @@ export class MainUserWorkerPage implements OnInit {
     await this.getSafrtyMeeting();
     await this.getMsds();
     await this.getNotify();
+
+    this.event.getNotify = this.getNotify.bind(this);
+    window.addEventListener('getNotify', this.event.getNotify);
   }
+
 
   /**
    * @function getNotice(): 공지사항 가져오기
@@ -151,7 +161,10 @@ export class MainUserWorkerPage implements OnInit {
     const res = await this.connect.run('/main/board/notify', this.form, {});
     switch (res.rsCode) {
       case 0:
-        this.notify_list = res.rsMap;
+        this.notify_list = {
+          ...this.notify_list,
+          ...res.rsMap
+        };
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:
