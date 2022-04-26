@@ -51,7 +51,7 @@ export class ApprovalItem {
   company_name: string;
   ctgo_construction_name: string;
   project_name: string;
-
+  master_company_id:number;
   safe_job_data: SafeJobItem[] = [];
 }
 

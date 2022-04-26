@@ -237,7 +237,7 @@
           </app-col>
         </app-row>
         <h5>교육 정보</h5>
-        <app-row>
+        <!-- <app-row>
           <app-col>
               <app-calendar label="기초 안전 보건 교육 이수일" [disabled]="!permission.approval" [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
           </app-col>
@@ -250,7 +250,26 @@
               <app-file name="input-basic_safe_edu" [(ngModel)]="formSafeEdu.file_preview" view_type="BASIC_SAFE_EDU" [file]="formSafeEdu.file" [file_json]="formSafeEdu.file_json"></app-file>
             </app-input-template>
           </app-col>
+        </app-row> -->
+        <app-row>
+          <app-col>
+            <app-calendar label="기초 안전 보건 교육 이수일" [disabled]="!permission.approval"
+              [(ngModel)]="formSafeEdu.basic_safe_edu_date"></app-calendar>
+          </app-col>
+          <app-col>
+            <app-input-template label="기초안전보건교육 이수증" [disabled]="!permission.approval">
+              <p *ngIf="!formSafeEdu.user_safe_edu_file_data?.[0] else tempBasicSafeEduValue" slot="input">기초안전보건교육 이수증</p>
+              <ng-template #tempBasicSafeEduValue>
+                <ion-text color="dark" slot="input">{{ formSafeEdu.user_safe_edu_file_data[0].file_name }}</ion-text>
+              </ng-template>
+              파일찾기
+              <app-file name="input-basic_safe_edu" [(ngModel)]="formSafeEdu.user_safe_edu_file_data" view_type="BASIC_SAFE_EDU"
+                [file]="formSafeEdu.file" [file_json]="formSafeEdu.file_json"></app-file>
+            </app-input-template>
+          </app-col>
         </app-row>
+        <app-file-preview *ngFor="let futItem of formSafeEdu.user_safe_edu_file_data; let i = index;" [futItem]="futItem" (buttonClick)="formSafeEdu.user_safe_edu_file_data.splice(i, 1)"></app-file-preview>
+
         <app-row>
           <app-col>
             <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene>
