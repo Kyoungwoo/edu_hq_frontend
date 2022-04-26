@@ -100,14 +100,16 @@
           <app-input-caption *ngIf="validator.ctgo_job_position_id?.valid === false" color="warning">{{ validator.ctgo_job_position_id?.message }}</app-input-caption>
         </app-col>
       </app-row>
-      <app-select-scene name="project_id" type="SIGNUPLH" [all]="true"
-      [color]="validator.project_id?.valid === false && 'warning'"
-      [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
+      
       <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
       <app-select-organization name="hq" [(ngModel)]="form" [required]="true"></app-select-organization>
       <app-input-caption *ngIf="validator.hq_regional_id?.valid === false" color="warning">{{ validator.hq_regional_id?.message }}</app-input-caption>
       <app-input-caption *ngIf="validator.hq_business_id?.valid === false" color="warning">{{ validator.hq_business_id?.message }}</app-input-caption>
       <app-input-caption *ngIf="validator.hq_department_id?.valid === false" color="warning">{{ validator.hq_department_id?.message }}</app-input-caption>
+
+      <app-select-scene name="project_id" type="SIGNUPLH" [all]="true"
+      [color]="validator.project_id?.valid === false && 'warning'"
+      [(ngModel)]="form.project_id" [required]="true"></app-select-scene>
     </form>
   </app-container>
 </ion-content>

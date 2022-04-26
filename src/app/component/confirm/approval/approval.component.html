@@ -48,7 +48,7 @@
   <div *ngIf="!isApprovalHidden">
     <app-card *ngFor="let item of res?.rsObj?.answer_datas; let i = index; let f = first; let l = last;">
       <app-row>
-        <app-col size="30px" class="mobile-approval-type">
+        <app-col size="80px" class="mobile-approval-type">
           {{ 
             f ? 
               l ? '작성/승인' : '작성' 
