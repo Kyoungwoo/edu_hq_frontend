@@ -87,7 +87,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   editable = {
     update:false,
-    educationMenu:true
+    educationMenu:true,
+    educationMenu_state: false
   };
 
   eduUpdate:boolean = false;
@@ -158,15 +159,13 @@ export class SafetyEducationDetailEditPage implements OnInit {
       this.form = {
         ...this.form,
         ...res.rsObj
-      }
+      };
 
       this.form.education_safe_manager_ids.forEach(item => {
-        if(item === this.user.userData.user_id || 
-          this.form.create_user_id === this.user.userData.user_id) {
-            this.editable.update = true;
-            this.eduUpdate = false;
-          }
-      })
+        if(Number(item) === this.user.userData.user_id) this.editable.educationMenu_state = true;
+      });
+
+      if(this.form.create_user_id === this.user.userData.user_id) this.editable.update = true;
     }
   }
   async updateItem() {
