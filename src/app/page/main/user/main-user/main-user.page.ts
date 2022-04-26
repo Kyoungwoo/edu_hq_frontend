@@ -2,7 +2,7 @@ import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -13,7 +13,7 @@ import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-use
   templateUrl: './main-user.page.html',
   styleUrls: ['./main-user.page.scss'],
 })
-export class MainUserPage implements OnInit {
+export class MainUserPage implements OnInit, OnDestroy {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
@@ -43,6 +43,10 @@ export class MainUserPage implements OnInit {
 
   menu: number = 1;
 
+  event = {
+    getNotify: null
+  }
+
   constructor(
     private modal: ModalController,
     private nav: NavService,
@@ -56,6 +60,10 @@ export class MainUserPage implements OnInit {
   ngOnInit() {
     this.dayTrans();
     this.getBoard();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('getNotify', this.event.getNotify);
   }
 
   /**
@@ -76,6 +84,8 @@ export class MainUserPage implements OnInit {
     await this.getSafrtyMeeting();
     await this.getMsds();
     await this.getNotify();
+    this.event.getNotify = this.getNotify.bind(this);
+    window.addEventListener('getNotify', this.event.getNotify);
   }
 
   /**
@@ -136,7 +146,10 @@ export class MainUserPage implements OnInit {
     const res = await this.connect.run('/main/board/notify', this.form, {});
     switch (res.rsCode) {
       case 0:
-        this.notify_list = res.rsMap;
+        this.notify_list = {
+          ...this.notify_list,
+          ...res.rsMap
+        };
         this.form.alarm_count = res.rsObj.read_count;
         break;
       default:

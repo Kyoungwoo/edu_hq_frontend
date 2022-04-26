@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -11,7 +11,7 @@ import { OpenDetailSearchPage } from '../open-detail-search/open-detail-search.p
   templateUrl: './notify-list.page.html',
   styleUrls: ['./notify-list.page.scss'],
 })
-export class NotifyListPage implements OnInit {
+export class NotifyListPage implements OnInit, OnDestroy {
 
   form = {
     create_date:this.date.today({year:-2,month:-1}),
@@ -48,6 +48,10 @@ export class NotifyListPage implements OnInit {
 
   ngOnInit() {
     this.get();
+  }
+
+  ngOnDestroy() {
+    window.dispatchEvent(new CustomEvent('getNotify'));
   }
 
   async get() {
