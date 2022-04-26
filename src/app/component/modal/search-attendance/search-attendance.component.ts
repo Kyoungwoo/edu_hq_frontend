@@ -30,6 +30,7 @@ export class SearchAttendanceComponent implements OnInit {
   @Input() multiple: boolean = false;
   @Input() educationType: boolean = false;
   @Input() value;
+  @Input() title = '출석진행자';
 
   form = {
     user_type: '',

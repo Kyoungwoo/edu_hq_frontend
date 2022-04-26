@@ -15,8 +15,8 @@ export class ContractorListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id || 0,
-    hq_business_id: this.user.userData.belong_data.hq_business_id || 0,
+    hq_regional_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_regional_id | 0),
+    hq_business_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_business_id | 0),
     limit_no: 0,
     master_company_ids: [],
     search_text: ''

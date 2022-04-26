@@ -87,7 +87,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   editable = {
     update:false,
-    educationMenu:true
+    educationMenu:true,
+    educationMenu_state: false
   };
 
   eduUpdate:boolean = false;
@@ -139,6 +140,10 @@ export class SafetyEducationDetailEditPage implements OnInit {
       search_text:this.attentForm.search_text
     });
     if(this.res.rsCode === 0) {
+      this.user_id = [];
+      this.res?.rsMap.map((data) => {
+        this.user_id.push(data.user_id);
+      });
       this.eduUpdate = true;
     }
   }
@@ -154,15 +159,13 @@ export class SafetyEducationDetailEditPage implements OnInit {
       this.form = {
         ...this.form,
         ...res.rsObj
-      }
+      };
 
       this.form.education_safe_manager_ids.forEach(item => {
-        if(item === this.user.userData.user_id || 
-          this.form.create_user_id === this.user.userData.user_id) {
-            this.editable.update = true;
-            this.eduUpdate = false;
-          }
-      })
+        if(Number(item) === this.user.userData.user_id) this.editable.educationMenu_state = true;
+      });
+
+      if(this.form.create_user_id === this.user.userData.user_id) this.editable.update = true;
     }
   }
   async updateItem() {
@@ -174,7 +177,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
     let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    if(start_time >= end_time) return this.toast.present({message:'교육시작 시간은 교육종료 시간보다 크거나 같을수 없습니다.', color:'warning'});
+    if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'수정하시겠습니까?',
       buttons:[
@@ -204,7 +207,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
     let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
     let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    if(start_time >= end_time) return this.toast.present({message:'교육시작 시간은 교육종료 시간보다 크거나 같을수 없습니다.', color:'warning'});
+    if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[
@@ -245,12 +248,15 @@ export class SafetyEducationDetailEditPage implements OnInit {
       componentProps:{
         project_id: this.user.userData.belong_data.project_id,
         company_id: this.user.userData.belong_data.company_id,
-        educationType: false
+        educationType: false,
+        value: this.user_id,
+        title: '근로자'
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      this.user_id = [];
       data.forEach(item => {
         if(!this.user_id.includes(item.user_id)) this.user_id.push(item.user_id)
       });
