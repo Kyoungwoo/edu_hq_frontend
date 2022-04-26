@@ -233,7 +233,7 @@ export class AreaStandardSetPage implements OnInit {
   }
 
   async areaThree(area_middle_id) {
-    this.area_middle_id = area_middle_id
+    this.area_middle_id = area_middle_id;
     this.area_bottom_id = 0;
     this.resAreaThree = await this.connect.run('/project/area/bottom/get', {
       area_middle_id: area_middle_id,
@@ -242,6 +242,10 @@ export class AreaStandardSetPage implements OnInit {
     if (this.resAreaThree.rsCode === 0) {
 
     }
+  }
+
+  async areaFour(area_bottom_id){
+    this.area_bottom_id = area_bottom_id;
   }
 
   async areaOneEdit(area, update?) {

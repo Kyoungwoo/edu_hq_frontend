@@ -158,11 +158,11 @@
                         <th>Area3</th>
                       </thead>
                       <tbody>
-                        <tr class="button" *ngFor="let areathree of resAreaThree?.rsMap">
-                          <td>
+                        <tr (click)="areaFour(areathree.area_bottom_id)" class="button" *ngFor="let areathree of resAreaThree?.rsMap">
+                          <td [style]="area_bottom_id === areathree.area_bottom_id ? 'background-color: var(--ion-color-secondary)' : ''">
                             <app-check [on]="areathree"></app-check>
                           </td>
-                          <td>{{ areathree.area_bottom_name }}</td>
+                          <td [style]="area_bottom_id === areathree.area_bottom_id ? 'background-color: var(--ion-color-secondary)' : ''">{{ areathree.area_bottom_name }}</td>
                         </tr>
                       </tbody>
                     </app-table>
