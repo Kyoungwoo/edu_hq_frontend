@@ -95,6 +95,7 @@ export class EducationRes {
   education_safe_time:number = null;
   project_id:number = null;
   project_name:string = null;
+  education_safe_date:string;
 }
 @Component({
   selector: 'app-my-page',

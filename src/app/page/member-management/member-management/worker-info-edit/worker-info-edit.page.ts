@@ -95,11 +95,10 @@ export class HealthItem {
 export class SafeEduItem {
   user_id: number;
   basic_safe_edu_date: string;
-  user_safe_edu_file_data: FutItem[] = [];
   approval_user_id: number;
   session_company_id: number;
   user_manage_session: string;
-  file_preview:FutItem<SignUpViewType>[] = []; // 파일 미리보기
+  user_safe_edu_file_data: FutItem[] = [];
   file:(File | FileBlob)[] = []; // 파일
   file_json:FileJson<SignUpViewType> = new FileJson(); //첨부파일 Json 정보 / PROFILE - 프로필 // BASIC_SAFE_EDU - 안전교육수료 // CERTIFY - 자격증
 
@@ -115,6 +114,7 @@ export class SafeEduList {
   ctgo_education_safe_title: string;
   ctgo_education_safe_text: string;
   education_safe_id: number;
+  education_safe_date: string;
   education_safe_time: number;
   create_date: string;
   project_name: string;
@@ -275,7 +275,7 @@ export class WorkerInfoEditPage implements OnInit {
 
     //교육이수증
     public findFile(view_type:SignUpViewType) {
-      return this.formSafeEdu.file_preview.find(futItem => futItem.view_type === view_type);
+      return this.formSafeEdu.user_safe_edu_file_data.find(futItem => futItem.view_type === view_type);
     }
 
   async get() {

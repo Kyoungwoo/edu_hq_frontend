@@ -25,6 +25,19 @@ export class MyPageEducationPage implements OnInit {
 
   /** 교육이력 res */
   educationRes:ConnectResult<EducationRes>;
+
+  /** 고용형태 res */
+  res:ConnectResult<{ work_contract_type: '일용직' | '상용직' }>;
+  /** 채용시 교육 res */
+  educationHireRes:ConnectResult<{
+    create_date: string,
+    ctgo_education_safe_name: string,
+    ctgo_education_safe_title: string,
+    education_credit_date: number,
+    education_credit_time: string,
+    hire_edu_state: string,
+    user_id: number
+  }>;
   /** 정기교육 res */
   educationRoutineRes:ConnectResult<{
     ctgo_education_safe_name:string
@@ -38,13 +51,20 @@ export class MyPageEducationPage implements OnInit {
   }>;
 
   educationSpecialRes:ConnectResult<{
-    ctgo_education_safe_name:string
-    education_complete_time:number
-    education_end_term:string
-    education_remaining_date:number
-    education_remaining_time:number
-    education_start_term:string
-    routine_edu_state:string
+    ctgo_education_safe_name:string,
+
+    education_complete_time:string,
+    education_complete_hours:number,
+    
+    education_remaining_time:string,
+    education_recommended_hours:number,
+
+    education_towercrane_state:0|1,
+
+    education_start_term:string,
+    education_end_term:string,
+    education_remaining_date:number,
+    special_edu_state:string,
     user_id:number
   }>;
 
@@ -84,6 +104,8 @@ export class MyPageEducationPage implements OnInit {
      * 하나의 loading 으로 처리하기 위해서 만들었습니다.
      */
     await Promise.all([
+      this.getWorkContract(),
+      this.getEducationHire(),
       this.getEducationRoutine(),
       this.getEducationSpecial(),
       this.getEducation()
@@ -107,6 +129,20 @@ export class MyPageEducationPage implements OnInit {
       this.get();
     }
   }
+  /** 고용형태 가져오기 */
+  private async getWorkContract() {
+    this.res = await this.connect.run('/mypage/workcontract');
+  }
+  /** 채용시 교육 가져오기 */
+  private async getEducationHire() {
+    this.educationHireRes = await this.connect.run('/mypage/safeeducation/hire/list', this.educationGetForm);
+    if(this.educationHireRes.rsCode === 1008) {
+      // 암것도 안함
+    }
+    else if(this.educationHireRes.rsCode) {
+      this.toast.present({ color: 'warning', message: this.educationHireRes.rsMsg });
+    }
+  }
   /** 정기교육 가져오기 */
   private async getEducationRoutine() {
     this.educationRoutineRes = await this.connect.run('/mypage/safeeducation/routine/list', this.educationGetForm);
@@ -120,13 +156,25 @@ export class MyPageEducationPage implements OnInit {
   /** 특별교육 가져오기 */
   private async getEducationSpecial() {
     this.educationSpecialRes = await this.connect.run('/mypage/safeeducation/special/list', this.educationGetForm);
-    if(this.educationSpecialRes.rsCode === 1008) {
+    if(this.educationSpecialRes.rsCode === 0) {
+      this.educationSpecialRes.rsMap?.forEach(item => this.parseEducationHours(item));
+    }
+    else if(this.educationSpecialRes.rsCode === 1008) {
       // 암것도 안함
     }
-    else if(this.educationSpecialRes.rsCode) {
+    else {
       this.toast.present({ color: 'warning', message: this.educationSpecialRes.rsMsg });
     }
   }
+
+  parseEducationHours(item) {
+    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
+    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
+    
+    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
+    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
+  }
+
   /** 전체 교육 이력 가져오기 */
   private async getEducation() {
     this.educationRes = await this.connect.run('/mypage/education/list', this.educationGetForm);

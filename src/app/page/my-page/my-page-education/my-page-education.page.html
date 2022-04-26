@@ -25,6 +25,33 @@
 
     <div *ngIf="segment === 'ONE'">
 
+      <h4>채용시 교육</h4>
+
+      <app-table>
+        <thead>
+          <tr>
+            <th>교육명</th>
+            <th>이수일</th>
+            <th>이수시간</th>
+            <th>교육상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ educationHireRes?.rsObj?.ctgo_education_safe_name }}</td>
+            <td>{{ educationHireRes?.rsObj?.create_date }}</td>
+            <td>{{ educationHireRes?.rsObj?.education_credit_time }}</td>
+            <td>
+              <ng-container *ngIf="educationHireRes?.rsObj?.hire_edu_state">
+                <div class="round"
+                [class.red]="educationHireRes?.rsObj?.hire_edu_state !== '양호'"></div>
+                {{ educationHireRes?.rsObj?.hire_edu_state }}
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+
       <h4>정기 교육</h4>
       
       <app-table>
@@ -42,38 +69,87 @@
             <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
             <td>{{ item.education_remaining_date }}</td>
             <td>
-              <div class="round"
-              [class.red]="item.routine_edu_state === '필요'"></div>
-              {{ item.routine_edu_state }}
+              <ng-container *ngIf="item.routine_edu_state">
+                <div class="round"
+                [class.red]="item.routine_edu_state !== '양호'"></div>
+                {{ item.routine_edu_state }}
+              </ng-container>
             </td>
           </tr>
         </tbody>
       </app-table>
 
-      <h4>특별 교육</h4>
+      <ng-container *ngIf="educationSpecialRes?.rsMap && res?.rsObj?.work_contract_type === '일용직'">
+  
+        <h4>특별 교육</h4>
+  
+        <app-table>
+          <thead>
+            <tr>
+              <th>교육명</th>
+              <th>이수기간</th>
+              <th>필요시간</th>
+              <th>교육 상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of educationSpecialRes?.rsMap">
+              <td>{{ item.ctgo_education_safe_name }}</td>
+              <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
+              <td>{{ item.education_towercrane_state ? '08:00' : '02:00' }}</td>
+              <td>
+                <ng-container *ngIf="item.education_complete_hours < (item.education_towercrane_state ? 8: 2)">
+                  <div class="round red"></div>
+                  필요
+                </ng-container>
+                <ng-container *ngIf="item.education_complete_hours >= (item.education_towercrane_state ? 8: 2)">
+                  <div class="round"></div>
+                  양호
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
 
-      <app-table>
-        <thead>
-          <tr>
-            <th>교육명</th>
-            <th>이수기간</th>
-            <th>잔여일</th>
-            <th>교육 상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of educationSpecialRes?.rsMap">
-            <td>{{ item.ctgo_education_safe_name }}</td>
-            <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
-            <td>{{ item.education_remaining_date }}</td>
-            <td>
-              <div class="round"
-              [class.red]="item.routine_edu_state === '필요'"></div>
-              {{ item.routine_edu_state }}
-            </td>
-          </tr>
-        </tbody>
-      </app-table>
+      </ng-container>
+
+      <ng-container *ngIf="educationSpecialRes?.rsMap && res?.rsObj?.work_contract_type === '상용직'">
+
+        <h4>특별 교육</h4>
+  
+        <app-table>
+          <thead>
+            <tr>
+              <th>교육명</th>
+              <th>이수기간</th>
+              <th>잔여일</th>
+              <th>교육 상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of educationSpecialRes?.rsMap">
+              <td>{{ item.ctgo_education_safe_name }}</td>
+              <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
+              <td>{{ item.education_remaining_date }}</td>
+              <td>
+                <ng-container *ngIf="item.special_edu_state === '양호'">
+                  <div class="round"></div>
+                  양호
+                </ng-container>
+                <ng-container *ngIf="item.special_edu_state === '필요'">
+                  <div class="round red"></div>
+                  필요
+                </ng-container>
+                <ng-container *ngIf="item.special_edu_state === '기한초과'">
+                  <div class="round red"></div>
+                  기한초과
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+
+      </ng-container>
 
     </div>
 
@@ -94,7 +170,7 @@
             <td>{{ i+1 }}</td>
             <td>{{ item.ctgo_education_safe_type }}</td>
             <td>{{ item.ctgo_education_safe_title }}</td>
-            <td>{{ item.education_safe_time }}h</td>
+            <td>{{ item.education_safe_date }}</td>
           </tr>
         </tbody>
       </app-table>
