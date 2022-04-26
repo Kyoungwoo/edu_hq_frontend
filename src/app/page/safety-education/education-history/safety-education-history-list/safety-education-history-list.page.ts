@@ -37,7 +37,8 @@ export class SafetyEducationHistoryListPage implements OnInit {
     hire_edu_state:string,
     work_contract_type:string,
     row_count:number,
-    company_name:string
+    company_name:string,
+    special_edu_state_result:string
   }>
 
   permission = {
@@ -80,13 +81,55 @@ export class SafetyEducationHistoryListPage implements OnInit {
     if(res.rsCode === 0) {
       this.res = res;
 
-      this.res.rsMap.map((item, i) => {
+      this.res.rsMap.forEach(async(item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i; //  - (this.form.limit_no - i);
         item.safe_job_name?.toString();
+        
+        if(item) {
+          if(item.work_contract_type === '일용직') {
+            /** 일용직은 양호, 필요값이 다른애들과 다르다. */
+            const specialList = await this.specialItem(item);
+            if(specialList) {
+              const special_edu_state_result = specialList.find(specialItem => {
+                if(specialItem.education_complete_hours < (specialItem.education_towercrane_state ? 8 : 2)) {
+                  /** 필요 */
+                  return false;
+                }
+                else {
+                  /** 양호 */
+                  return true;
+                }
+              });
+              item.special_edu_state_result = special_edu_state_result ? '양호' : '필요';
+            }
+          }
+          else {
+            item.special_edu_state_result = item.special_edu_state;
+          }
+        }
       });
     } else {
       this.res = null;
     }
+  }
+  async specialItem(item) {
+    const res = await this.connect.run('/education/report/special/get', {
+      approval_user_id: item.user_id
+    });
+    if(res.rsCode === 0) {
+      res.rsMap?.forEach(specialItem => this.parseEducationHours(specialItem));
+      return res.rsMap;
+    }
+    else {
+      return null;
+    }
+  }
+  private parseEducationHours(item) {
+    const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
+    item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
+    
+    const recommendHourArr = item.education_recommended_time?.split(':') || ['00','00'];
+    item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 
   async edit(user_id) {

@@ -135,14 +135,14 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
     } 
   }
 
-  async specialItem() {
+  private async specialItem() {
     const res = await this.connect.run('/education/report/special/get',{approval_user_id:this.user_id});
     if(res.rsCode === 0) {
       this.specialRes = res;
       this.specialRes.rsMap?.forEach(item => this.parseEducationHours(item));
     }
   }
-  parseEducationHours(item:EducationItem) {
+  private parseEducationHours(item:EducationItem) {
     const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
     item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
     
