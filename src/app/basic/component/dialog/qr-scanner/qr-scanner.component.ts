@@ -64,7 +64,6 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       })
     }
     else {
-      console.log(res);
       this.alert.present({
         header: '카메라권한을 허용해주세요',
         message: '카메라 권한이 필요합니다. 허용해주세요.'
@@ -84,24 +83,23 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
   prepareQR() {
     return new Promise((res, rej) => {
-      // this.showCamera();
       this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
 
           // camera permission was granted
           // start scanning
-          res('authorized');
+          res(true);
         } else if (status.denied) {
           // camera permission was permanently denied
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
           this.qrScanner.openSettings();
-          res('denied');
+          res(false);
         }
         else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
-          res('prompt');
+          res(false);
         }
       })
       .catch((e: any) => () => {
