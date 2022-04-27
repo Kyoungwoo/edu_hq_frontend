@@ -119,19 +119,19 @@ export class RiskListPage implements OnInit {
 
       this.permission.company_id = false;
       this.permission.add = true;
-
+      this.form.company_id = belong_data.master_company_id;
       // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
+      // const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+      //   project_id: this.form.project_id,
+      //   search_text: ''
+      // });
+      // if(res.rsCode === 0) {
+      //   const contractor = res.rsMap[0];
+      //   this.form.company_id = contractor.master_company_id;
+      // }
+      // else {
+      //   this.toast.present({ color: 'warning', message: res.rsMsg });
+      // }
 
     }
   }
