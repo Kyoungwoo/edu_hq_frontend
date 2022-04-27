@@ -51,14 +51,16 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    await this.prepareQR();
-    this.scanQR();
-    const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
-    this.qr_sound = this.media.create(url);
-    this.qr_sound.onSuccess.subscribe(e => {
-    });
-    this.qr_sound.onError.subscribe(e => {
-    })
+    const res = await this.prepareQR();
+    if(res) {
+      this.scanQR();
+      const url = this.file.applicationDirectory.replace(/^file:\/\//, '') + 'public/assets/sound/qr.mp3'; 
+      this.qr_sound = this.media.create(url);
+      this.qr_sound.onSuccess.subscribe(e => {
+      });
+      this.qr_sound.onError.subscribe(e => {
+      })
+    }
   }
   
   ngOnDestroy() {
@@ -85,11 +87,11 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
           this.qrScanner.openSettings();
-          rej();
+          res(false);
         }
         else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
-          rej();
+          res(false);
         }
       })
       .catch((e: any) => () => {
