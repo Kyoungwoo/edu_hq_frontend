@@ -67,6 +67,7 @@ export class MsdsEditPage implements OnInit {
       this.form.project_id = 0;
     }
     this.getPermission();
+    console.log('ngOnInit - ', this.msds_id);
     if(this.msds_id) {
       this.title = '상세';
       this.get();

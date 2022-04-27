@@ -130,7 +130,7 @@ export class MsdsListPage implements OnInit {
     const modal = await this.modal.create({
       component: MsdsEditPage,
       componentProps:{
-        msds_id
+        msds_id:msds_id
       }
     });
     modal.present();
