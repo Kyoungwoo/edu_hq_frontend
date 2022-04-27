@@ -10,6 +10,7 @@
 <ion-content>
 
   <app-approval 
+  *ngIf="user.userData.user_type !== 'WORKER'"
   [project_id]="form.project_id"
   [company_id]="form.company_id"
   [ctgo_approval_module_id]="form.ctgo_approval_module_id"

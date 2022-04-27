@@ -1,0 +1,30 @@
+.segment-border {
+    border-top: 1px solid var(--ion-color-step-100);
+    border-bottom: 1px solid var(--ion-color-step-100);
+    --padding-start: 0;
+    --padding-end: 0;
+}
+
+.segment-font {
+    font-size: 15px;
+}
+.segment-width {
+    width: 33.3333%;
+    flex: 0 0 33.3333%;
+}
+
+.badge-class {
+    position: absolute;
+    top: 12px;
+    width: auto;
+    min-width: 24px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+
+    &.notice{right: -10px;}
+    &.safety{right: -3px;}
+}

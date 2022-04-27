@@ -6,6 +6,7 @@ import { MsdsEditPage, MsdsItem } from '../msds-edit/msds-edit.page';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { MsdsSearchPage } from '../msds-search/msds-search.page';
+import { FileService } from 'src/app/basic/service/core/file.service';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -58,13 +59,13 @@ export class MsdsListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     private toast: ToastService,
-    public user: UserService
+    public user: UserService,
+    private file: FileService
 
   ) { }
 
   async ngOnInit() {
     this.get();
-    console.log('history.state', history.state);
     this.getNavData();
   }
 
@@ -115,7 +116,7 @@ export class MsdsListPage implements OnInit {
 
   async detailSearch() {
     const modal = await this.modal.create({
-      component:MsdsSearchPage,
+      component: MsdsSearchPage,
       componentProps:{
         form: this.form
       }
@@ -128,15 +129,11 @@ export class MsdsListPage implements OnInit {
     }
   }
 
-  async edit(item = null) {
+  async edit(msds_id = null) {
     const modal = await this.modal.create({
-      component:MsdsEditPage,
+      component: MsdsEditPage,
       componentProps:{
-        item:item,
-        form: {
-          ...new MsdsItem(),
-          ...item ? item : this.form,
-        }
+        msds_id
       }
     });
     modal.present();

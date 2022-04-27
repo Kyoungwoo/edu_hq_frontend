@@ -595,6 +595,10 @@ const routes: Routes = [
   {
     path: 'msds-search',
     loadChildren: () => import('./page/notice-board/msds/msds-search/msds-search.module').then( m => m.MsdsSearchPageModule)
+  },
+  {
+    path: 'main-user-bottom-menu',
+    loadChildren: () => import('./page/main/user/main-user-bottom-menu/main-user-bottom-menu.module').then( m => m.MainUserBottomMenuPageModule)
   }
 ];
 

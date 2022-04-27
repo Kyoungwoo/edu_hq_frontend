@@ -83,8 +83,8 @@
       <app-col>
         첨부자료
       </app-col>
-      <app-col size="auto">
-        <app-button [disabled]="!update_state" fill="translucent">추가
+      <app-col size="auto" *ngIf="update_state">
+        <app-button fill="translucent">추가
           <app-file name="input" view_type="NOTICE" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json" [multiple]="true"></app-file>
         </app-button>
       </app-col>

@@ -19,7 +19,7 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
 
   form = {
     project_id: this.user.userData.belong_data.project_id,
-    master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
+    master_company_id: this.user.userData.belong_data.master_company_id,
     company_id: this.user.userData.belong_data.company_id,
     ctgo_job_position_name: '',
     contract_end_date: '-', // 준공일
@@ -39,9 +39,6 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
     week: ''
   }
 
-  notice_list = []; // 공지사항
-  safetymeeting_list = []; // 회의록
-  msds_list = []; // 회의록
   notify_list = []; // 알림
 
   event = {
@@ -91,69 +88,15 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
    * @function getBoard(): 게시판 가져오기
    */
    async getBoard(){
-    await this.getNotice();
-    await this.getSafrtyMeeting();
-    await this.getMsds();
     await this.getNotify();
     this.event.getNotify = this.getNotify.bind(this);
     window.addEventListener('getNotify', this.event.getNotify);
   }
 
   /**
-   * @function getNotice(): 공지사항 가져오기
-   */
-   async getNotice() {
-    const res = await this.connect.run('/main/board/notice', this.form, {});
-    switch (res.rsCode) {
-      case 0:
-        this.notice_list = res.rsMap;
-        this.form.notice_count = res.rsObj.read_count;
-        break;
-      default:
-        this.notice_list = [];
-        this.form.notice_count = 0;
-        // this.toast.present({ color: 'warning', message: res.rsMsg });
-        break;
-    }
-  }
-  /**
-   * @function getSafrtyMeeting(): 회의록 가져오기
-   */
-   async getSafrtyMeeting() {
-    const res = await this.connect.run('/main/board/safetymeeting', this.form, {});
-    switch (res.rsCode) {
-      case 0:
-        this.safetymeeting_list = res.rsMap;
-        this.form.safetymeeting_count = res.rsObj.read_count;
-        break;
-      default:
-        this.safetymeeting_list = [];
-        this.form.safetymeeting_count = 0;
-        // this.toast.present({ color: 'warning', message: res.rsMsg });
-        break;
-    }
-  }
-  /**
-   * @function getMsds(): MSDS 가져오기
-   */
-   async getMsds() {
-    const res = await this.connect.run('/main/board/msds', this.form, {});
-    switch (res.rsCode) {
-      case 0:
-        this.msds_list = res.rsMap;
-        // this.form.msds_count = res.rsObj.read_count;
-        break;
-      default:
-        this.msds_list = [];
-        this.form.notice_count = 0;
-        // this.toast.present({ color: 'warning', message: res.rsMsg });
-        break;
-    }
-  }
-  /**
    * @function getNotify(): 알림 가져오기
    */
-   async getNotify() {
+  async getNotify() {
     const res = await this.connect.run('/main/board/notify', this.form, {});
     switch (res.rsCode) {
       case 0:
@@ -183,21 +126,7 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
     modal.present();
   }
 
-  /** 
-   * 하단 공지사항 리스트의 변화가 생기면서 위에 버튼이 클릭되는 현상!! 이 발생해서 딜레이를 줘야 한다.
-   */
-  routerTimeout = null;
-  routerPrevent = false;
-  segmentChange() {
-    clearTimeout(this.routerTimeout);
-    this.routerTimeout = setTimeout(() => {
-      this.routerPrevent = false;
-    }, 100);
-    this.routerPrevent = true;
-  }
   router(title: string) {
-    if(this.routerPrevent) return;
-
     switch (title) {
       case '미결함':
         this.nav.navigateForward('/confirm-pending-list');
@@ -210,15 +139,6 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
         break;
       case '위험성평가':
         this.nav.navigateForward('/risk-list');
-        break;
-      case '공지사항':
-        this.nav.navigateForward('/notice-list');
-        break;
-      case 'MSDS':
-        this.nav.navigateForward('/msds-list');
-        break;
-      case '회의록':
-        this.nav.navigateForward('/minutes-list');
         break;
       case 'SOS':
         this.nav.navigateForward('/sos-popup');

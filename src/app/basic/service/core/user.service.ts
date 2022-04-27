@@ -48,7 +48,8 @@ export class UserData {
     hq_business_name: '',
     hq_regional_id: 0,
     hq_regional_name: '',
-    master_company_id:0
+    master_company_id:0,
+    master_company_name: ''
   };
   old_token_state:boolean; // false
   user_birth:string; // "1987-07-26"

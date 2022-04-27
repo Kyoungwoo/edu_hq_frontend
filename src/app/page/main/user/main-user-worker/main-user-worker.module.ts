@@ -8,6 +8,7 @@ import { MainUserWorkerPageRoutingModule } from './main-user-worker-routing.modu
 
 import { MainUserWorkerPage } from './main-user-worker.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { MainUserBottomMenuPageModule } from '../main-user-bottom-menu/main-user-bottom-menu.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    MainUserWorkerPageRoutingModule
+    MainUserWorkerPageRoutingModule,
+    MainUserBottomMenuPageModule
   ],
   declarations: [MainUserWorkerPage]
 })

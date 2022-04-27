@@ -97,54 +97,9 @@
     </app-row>
   </div>
 
-  <ion-toolbar color="white" class="segment-border">
-    <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChange()">
-      <ion-segment-button value="1" class="segment-font segment-width">
-        공지사항
-        <ion-badge *ngIf="form.notice_count" class="badge-class notice">{{ form.notice_count }}</ion-badge>
-      </ion-segment-button>
-      <ion-segment-button value="2" class="segment-font segment-width">MSDS</ion-segment-button>
-      <ion-segment-button value="3" class="segment-font segment-width">
-        회의록
-        <ion-badge *ngIf="form.safetymeeting_count" class="badge-class notice">{{ form.safetymeeting_count }}</ion-badge>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+  <app-main-user-bottom-menu
+  [project_id]="form.project_id"
+  [master_company_id]="form.master_company_id"
+  ></app-main-user-bottom-menu>
 
-  <div [style.display]="segment === '1' ? 'block' : 'none'">
-    <app-row *ngFor="let item of notice_list;" style="margin-top: 15px;">
-      <app-col style="margin-left: 20px;">
-        <h5>{{ item.notice_title }}</h5>
-      </app-col>
-      <app-col></app-col>
-      <app-col>
-        <h6>{{ item.create_date }}</h6>
-      </app-col>
-    </app-row>
-    <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
-  </div>
-  <div [style.display]="segment === '2' ? 'block' : 'none'">
-    <app-row *ngFor="let item of msds_list;" style="margin-top: 15px;">
-      <app-col style="margin-left: 20px;">
-        <h5>[{{ item.company_name }}]<br>{{ item.msds_title }}</h5>
-      </app-col>
-      <app-col></app-col>
-      <app-col>
-        <h6>{{ item.create_date }}</h6>
-      </app-col>
-    </app-row>
-    <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
-  </div>
-  <div [style.display]="segment === '3' ? 'block' : 'none'">
-    <app-row *ngFor="let item of safetymeeting_list;" style="margin-top: 15px;">
-      <app-col style="margin-left: 20px;">
-        <h5>{{ item.safety_meeting_type }}</h5>
-      </app-col>
-      <app-col></app-col>
-      <app-col>
-        <h6>{{ item.create_date }}</h6>
-      </app-col>
-    </app-row>
-    <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
-  </div>
 </ion-content>

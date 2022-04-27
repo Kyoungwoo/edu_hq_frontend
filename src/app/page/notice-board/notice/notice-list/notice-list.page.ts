@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 import { NoticeSearchPage } from '../notice-search/notice-search.page';
+import { FileService } from 'src/app/basic/service/core/file.service';
 
 class NoticeInfo {
   notice_title: string;
@@ -32,6 +33,7 @@ export class NoticeListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.belong_data.master_company_id,
+    master_company_name: this.user.userData.belong_data.master_company_name,
     end_date: this.date.today(),
     notice_types: [],
     search_text: '',
@@ -50,7 +52,8 @@ export class NoticeListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     public user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    private file: FileService
   ) { }
 
   async ngOnInit() {
@@ -85,7 +88,7 @@ export class NoticeListPage implements OnInit {
 
     this.form.limit_no = limit_no;
 
-    const res = await this.connect.run('/board/notice/list',this.form);
+    const res = await this.connect.run('/board/notice/list', this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
       this.res.rsMap.map((item, i) => {
@@ -138,11 +141,11 @@ export class NoticeListPage implements OnInit {
   }
 
   async edit(notice_id = null) {
-
     const modal = await this.modal.create({
       component:NoticeEditPage,
       componentProps: {
-        notice_id: notice_id || 0
+        notice_id: notice_id || 0,
+        searchForm: this.file.clone(this.form) // 검색 데이터를 끌고 가야함
       }
     });
     modal.present();

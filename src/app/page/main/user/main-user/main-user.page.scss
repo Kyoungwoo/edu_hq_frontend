@@ -40,22 +40,7 @@ ion-content {
     }
     app-row {
         align-items: stretch;
-    }
-   
-}
-.segment-border {
-border-top: 1px solid var(--ion-color-step-100);
-border-bottom: 1px solid var(--ion-color-step-100);
---padding-start: 0;
---padding-end: 0;
-}
-
-.segment-font {
-    font-size: 15px;
-}
-.segment-width {
-    width: 33.3333%;
-    flex: 0 0 33.3333%;
+    }  
 }
 
 .badge-class{
@@ -69,9 +54,6 @@ border-bottom: 1px solid var(--ion-color-step-100);
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-
-    &.notice{right: -10px;}
-    &.safety{right: -3px;}
     &.alarm{
         min-width: 16px;
         height: 16px;

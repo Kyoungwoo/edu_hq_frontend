@@ -43,10 +43,12 @@ export class NoticeEditPage implements OnInit {
   // @ViewChild('noticeText') noticeText:SmarteditComponent;
 
   @Input() notice_id;
+  @Input() searchForm;
+
+  form:NoticeItem = new NoticeItem();
 
   title:string;
 
-  form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
 
   useNotice:boolean = false;
@@ -87,8 +89,16 @@ export class NoticeEditPage implements OnInit {
   }
   getForm() {
     const { user_name, belong_data } = this.user.userData;
-    this.form.project_id = belong_data.project_id;
-    this.form.master_company_id = belong_data.master_company_id;
+
+    if(this.searchForm) {
+      this.form.project_id = this.searchForm.project_id;
+      this.form.master_company_id = this.searchForm.master_company_id;
+    }
+    else {
+      this.form.project_id = belong_data.project_id;
+      this.form.master_company_id = belong_data.master_company_id;
+    }
+    
     this.form.company_name = belong_data.company_name;
     this.form.user_name = user_name;
     this.form.create_date = this.date.today();

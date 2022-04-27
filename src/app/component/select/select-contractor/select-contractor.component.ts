@@ -188,7 +188,17 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   valueChange(v) {
     this._value = v ? v : this.multiple ? [] : 0;
     this.onChangeCallback(v);
-    this.change.emit(v);
+    let master_company_names = [];
+    try {
+      master_company_names = this.text.split(',');
+    }
+    catch(e) {}
+    this.change.emit({
+      master_company_id: this.multiple ? 0 : v,
+      master_company_name: this.text,
+      master_company_ids: this.multiple ? v : [],
+      master_company_names
+    });
     this.get();
   }
 

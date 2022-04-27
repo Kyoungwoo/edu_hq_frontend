@@ -8,6 +8,7 @@ import { MainUserPartnerPageRoutingModule } from './main-user-partner-routing.mo
 
 import { MainUserPartnerPage } from './main-user-partner.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { MainUserBottomMenuPageModule } from '../main-user-bottom-menu/main-user-bottom-menu.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    MainUserPartnerPageRoutingModule
+    MainUserPartnerPageRoutingModule,
+    MainUserBottomMenuPageModule
   ],
   declarations: [MainUserPartnerPage]
 })

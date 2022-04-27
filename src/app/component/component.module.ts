@@ -34,7 +34,6 @@ import { SelectOccupationComponent } from './select/select-occupation/select-occ
 import { SelectPositionComponent } from './select/select-position/select-position.component';
 import { SelectOrganizationComponent } from './select/select-organization/select-organization.component';
 import { SelectCountryComponent } from './select/select-country/select-country.component';
-import { DetailSearchComponent } from './modal/detail-search/detail-search.component';
 import { SelectContractorComponent } from './select/select-contractor/select-contractor.component';
 import { SearchContractorComponent } from './modal/search-contractor/search-contractor.component';
 import { SelectConstructionMachineryComponent } from './select/select-construction-machinery/select-construction-machinery.component';
@@ -129,7 +128,6 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SelectRegionalComponent,
     SelectOrganizationComponent,
     SelectOccupationComponent,
-    DetailSearchComponent,
     SelectContractorComponent,
     SearchContractorComponent,
     SelectConstructionMachineryComponent,
@@ -209,7 +207,6 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SelectOrganizationComponent,
     SelectCountryComponent,
     SelectOccupationComponent,
-    DetailSearchComponent,
     SelectContractorComponent,
     SearchContractorComponent,
     SelectConstructionMachineryComponent,
