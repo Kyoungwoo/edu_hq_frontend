@@ -30,7 +30,7 @@ export class SosPopupPage implements OnInit {
   }
 
   async cancel() {
-    this.nav.navigateRoot(this.user.userData.user_main_page); 
+    this.nav.back(); 
   }
 
   async submit() {
