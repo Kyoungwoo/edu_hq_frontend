@@ -51,6 +51,9 @@ export class RoutineEducationItem {
 
   education_towercrane_state: number;
 
+  recommend_time:string;
+  recommend_hours:number;
+
   education_start_term:string;
   education_end_term:string;
   require_state:'양호' | '필요' | '기한초과';
@@ -62,13 +65,16 @@ export class SpecialEducationItem {
   education_date: string;
   education_need_hours: number;
   education_need_time: string;
-  recommend_time: string;
   remaining_date: string;
   remaining_time: string;
+  recommend_time: string;
+  recommend_hours:number;
+  
   special_state: string;
 
   education_start_term?:string;
   education_end_term?:string;
+
 }
 @Component({
   selector: 'app-safety-education-history-detail',

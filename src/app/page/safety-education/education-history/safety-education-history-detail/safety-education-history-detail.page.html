@@ -146,8 +146,8 @@
                 </div>
   
                 <div class="grp-box">
-                  <div class="grp-item-bar one" [style.width]="routine.education_need_hours/routine.education_need_hours*100 + '%'">
-                    <p class="grp-item-time">{{ routine.education_need_time ? routine.education_need_time : ''}}</p>
+                  <div class="grp-item-bar one" [style.width]="routine.recommend_hours/routine.education_need_hours*100 + '%'">
+                    <p class="grp-item-time">{{ routine.recommend_time ? routine.recommend_time : ''}}</p>
                   </div>
                   <div class="grp-item-bar two" [style.width]="routine.education_complete_hours/routine.education_need_hours*100 + '%'">
                     <p class="grp-item-time">{{ routine.education_complete_time ? routine.education_complete_time : ''}}</p>
@@ -218,7 +218,7 @@
                 </div>
 
                 <div class="grp-box" *ngFor="let item of specialRes?.rsMap">
-                  <div class="grp-item-bar three" [style.width]="'100%'">
+                  <div class="grp-item-bar three" [style.width]="(item.recommend_hours/item.education_need_hours * 100) + '%'">
                     <p class="grp-item-time">{{ item.recommend_time }}</p>
                   </div>
                   <div class="grp-item-bar four" [style.width]="(item.education_complete_hours/item.education_need_hours * 100) + '%'">
@@ -288,8 +288,8 @@
                 </div>
 
                 <div class="grp-box" *ngFor="let item of specialRes?.rsMap">
-                  <div class="grp-item-bar three" [style.width]="(item.education_need_hours/item.education_need_hours * 100) + '%'">
-                    <p class="grp-item-time">{{ item.education_need_time ? item.education_need_time : ''}}</p>
+                  <div class="grp-item-bar three" [style.width]="(item.recommend_hours/item.education_need_hours * 100) + '%'">
+                    <p class="grp-item-time">{{ item.recommend_time ? item.recommend_time : ''}}</p>
                   </div>
                   <div class="grp-item-bar four" [style.width]="(item.education_complete_hours/item.education_need_hours * 100) + '%'">
                     <p class="grp-item-time">{{ item.education_complete_time ? item.education_complete_time : ''}}</p>

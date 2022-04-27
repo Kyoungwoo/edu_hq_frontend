@@ -12,7 +12,10 @@ export class EducationService {
     const completeHourArr = item.education_complete_time?.split(':') || ['00','00'];
     item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1])/60);
     
-    const recommendHourArr = item.education_need_time?.split(':') || ['00','00'];
-    item.education_need_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
+    const needHourArr = item.education_need_time?.split(':') || ['00','00'];
+    item.education_need_hours = parseInt(needHourArr[0]) + (parseInt(needHourArr[1])/60);
+
+    const recommendHourArr = item.recommend_time?.split(':') || ['00','00'];
+    item.recommend_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1])/60);
   }
 }
