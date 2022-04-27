@@ -96,7 +96,7 @@ export class MinutesListPage implements OnInit {
             item.safety_meeting_type = '산업안전보건보건위원회';
           break;
         }
-        item.index = this.res.rsObj.row_count - this.form.limit_no - i;
+        item.index = this.res.rsObj.row_count - (this.form.limit_no + i);
       });
     }
     else if (this.res.rsCode === 1008) {
