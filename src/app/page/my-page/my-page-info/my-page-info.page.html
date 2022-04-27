@@ -165,7 +165,7 @@
       <app-row mobileBreak>
         <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'">
           
-          <app-select-construction [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!belongEditable"></app-select-construction>
+          <app-select-construction [master_company_id]="belongForm.master_company_id" [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!belongEditable"></app-select-construction>
           <app-input-caption *ngIf="belongValidator.ctgo_construction_id?.valid === false" color="warning">{{ belongValidator.ctgo_construction_id?.message }}</app-input-caption>
 
         </app-col>
