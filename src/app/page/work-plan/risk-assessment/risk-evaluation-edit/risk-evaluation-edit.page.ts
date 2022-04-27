@@ -163,17 +163,18 @@ export class RiskEvaluationEditPage implements OnInit {
     }
     else if(belong_data.company_contract_type === '협력사') {
       // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.master_company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
+      this.form.master_company_id = belong_data.master_company_id;
+      // const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+      //   project_id: this.form.project_id,
+      //   search_text: ''
+      // });
+      // if(res.rsCode === 0) {
+      //   const contractor = res.rsMap[0];
+      //   this.form.master_company_id = contractor.master_company_id;
+      // }
+      // else {
+      //   this.toast.present({ color: 'warning', message: res.rsMsg });
+      // }
     }
   }
 
