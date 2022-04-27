@@ -29,6 +29,7 @@ export class SearchContractorComponent implements OnInit {
   @Input() allState:boolean = false;
   @Input() editable:boolean = false;
   @Input() multiple:boolean = false;
+  @Input() only_state:boolean = false;
 
   form = {
     company_contract_type: '원청사',
@@ -37,7 +38,7 @@ export class SearchContractorComponent implements OnInit {
   }
   res:ConnectResult<Constractor>;
 
-  selectAll:boolean;
+  selectAll:boolean = false;
   values:Constractor[] = [];
   newValues:Constractor[] = [];
   
@@ -73,18 +74,20 @@ export class SearchContractorComponent implements OnInit {
   }
 
   async get() {
+    
     this.form.project_id = this.project_id;
     // 현장에 관계 없이, 원청사 전체를 검색을 할 수 있어야 되는 상황이 있는건지?
-    console.log("this.project_id-------",this.project_id);
-    this.value = [];
-    this.res = await this.connect.run('/category/certify/search_my_master_company/get', this.form);
+    // this.value = [];
+    let method = '/category/certify/search_my_master_company/get';
+    if(this.only_state) method = '/category/certify/company/get';
+    this.res = await this.connect.run(method, this.form);
     if(this.res.rsCode === 0) {
       console.log(this.value);
       
       this.res.rsMap.filter(item => {
         if(this.value === item.company_id) this.values.push(item);
       });
-      if(!this.value) this.selectAll = true;
+      if(!this.value && !this.value.length) this.selectAll = true;
     } else {
       this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }

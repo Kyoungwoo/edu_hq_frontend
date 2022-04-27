@@ -27,14 +27,15 @@
               </app-select>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>
-              <app-select-contractor [project_id]="form.project_id" [multiple]="false" [(ngModel)]="master_compnay_id" [allState]="true"></app-select-contractor>
+              <app-select-contractor [only_state]="true" [project_id]="form.project_id" [multiple]="false" [(ngModel)]="master_compnay_id" [allState]="true"></app-select-contractor>
+              <!-- <app-select-contractor [allState]="editable.add" [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor> -->
             </td>
           </tr>
           <tr>
