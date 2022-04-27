@@ -1,11 +1,11 @@
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
+import { LogoutService } from 'src/app/service/logout.service';
 
 @Component({
   selector: 'app-main-sub-admin',
@@ -70,7 +70,7 @@ export class MainSubAdminPage implements OnInit {
     private alert: AlertService,
     private nav: NavService,
     private promise: PromiseService,
-    private toast: ToastService,
+    public logout: LogoutService,
     public user: UserService
   ) {
     if(this.user.userData.user_type !== 'COMPANY') {

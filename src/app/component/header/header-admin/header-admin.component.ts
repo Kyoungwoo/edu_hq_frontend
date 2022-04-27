@@ -7,6 +7,7 @@ import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { MenuItem, SideMenuAdminComponent, SubMenuItem, ThirdMenuItem } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { LogoutService } from 'src/app/service/logout.service';
 
 @Component({
   selector: 'app-header-admin',
@@ -30,7 +31,8 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
     public adminMenu: SideMenuAdminComponent,
     private changeDetector: ChangeDetectorRef,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    public logout: LogoutService
   ) {
     this.$router = this.router.events.subscribe(async(nav) => {
       if(nav instanceof NavigationEnd) {

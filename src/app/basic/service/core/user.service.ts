@@ -1,6 +1,5 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { GeolocationService } from 'src/app/service/geolocation.service';
 import { AlertService } from '../ionic/alert.service';
 import { NavService } from '../ionic/nav.service';
 import { DeviceService } from './device.service';
@@ -169,25 +168,6 @@ export class UserService {
     this.getMemberAuthToken();
     this.getAuthToken();
     this.getUserData();
-  }
-
-  async logout() {
-    this.alert.present({
-      header: '로그아웃',
-      message: '로그아웃 하시겠습니까?',
-      buttons: [
-        { text: '취소' },
-        { text: '로그아웃', handler: async() => {
-          if(this.device.platform_type < 3) {
-            await this.nav.navigateRoot('/login-mobile', { animated: true, animation: 'fadeIn' });
-          }
-          else {
-            await this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
-          }
-          this.clear();
-        }}
-      ]
-    })
   }
 
   /** utils */

@@ -1,5 +1,4 @@
 import { ScannerService } from './../../../../basic/service/util/scanner.service';
-// import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -58,7 +57,6 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
     public date: DateService,
     private gps: GeolocationService,
     private scanner: ScannerService
-    // private qr: QrService
   ) { }
 
   ngOnInit() {

@@ -34,12 +34,14 @@ ion-content::part(scroll) {
 .sub-buttons-row {
     max-width: 300px;
     width: 100%;
+    flex-wrap: wrap;
     app-col {
         text-align: center;
     }
     app-button {
         --padding-start: 0;
         --padding-end: 0;
+        white-space: nowrap;
     }
     span {
         display: block;

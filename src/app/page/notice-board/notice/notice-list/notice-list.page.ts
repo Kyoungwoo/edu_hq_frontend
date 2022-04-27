@@ -62,38 +62,21 @@ export class NoticeListPage implements OnInit {
   async getNavData(){if(history.state?.notice_id) this.edit(history.state?.notice_id);}
 
   async getForm() {
-    const { user_role, belong_data } = this.user.userData;
+    const { belong_data } = this.user.userData;
 
-    if(user_role === 'LH_HEAD'
-    || user_role === 'SUPER_HEAD') {
+    this.form.project_id = belong_data.project_id;
+
+    if(belong_data.company_contract_type === 'LH'
+    || belong_data.company_contract_type === '감리사') {
 
       this.permission.company_id = true;
-      this.form.master_company_id = belong_data.company_id;
+      this.form.master_company_id = 0;
 
     }
-    else if(belong_data.company_contract_type === '원청사') {
+    else {
 
       this.permission.company_id = false;
-      // 원청사 관리자에게만 보이는 버튼. LH,감리,협력사의 경우 회의 진행 버튼이 없다.(회의록 기획서 9p)
-      this.form.master_company_id = belong_data.company_id;
-
-    }
-    else if(belong_data.company_contract_type === '협력사') {
-
-      this.permission.company_id = false;
-
-      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.master_company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
+      this.form.master_company_id = belong_data.master_company_id;
 
     }
   }
@@ -154,19 +137,12 @@ export class NoticeListPage implements OnInit {
     }
   }
 
-  async edit(item = null) {
-    let item_trans = item;
-    if(!item){
-      item_trans = new NoticeItem();
-      item_trans.project_id = this.form.project_id;
-      item_trans.master_company_id = this.form.master_company_id;
-    }
+  async edit(notice_id = null) {
 
     const modal = await this.modal.create({
       component:NoticeEditPage,
-      componentProps:{
-        notice_id: item?.notice_id ? item.notice_id : 0,
-        form: item_trans
+      componentProps: {
+        notice_id: notice_id || 0
       }
     });
     modal.present();
@@ -176,14 +152,6 @@ export class NoticeListPage implements OnInit {
       this.get();
     }
   }
-
-  // project_id: this.user.userData.belong_data.project_id,
-  // master_company_id: this.user.userData.belong_data.company_id,
-  // end_date: this.date.today(),
-  // notice_types: [],
-  // search_text: '',
-  // start_date: this.date.today({ month: -1 }),
-  // limit_no: 0
 
   async favoritesCheck($event:MouseEvent, item:NoticeInfo) {
     $event.stopPropagation();
