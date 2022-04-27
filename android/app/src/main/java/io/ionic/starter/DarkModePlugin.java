@@ -15,15 +15,18 @@ public class DarkModePlugin extends Plugin {
   @Override
   protected void handleOnResume() {
     super.handleOnResume();
-    int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    WebSettings webSettings = this.bridge.getWebView().getSettings();
+    try {
+      int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+      WebSettings webSettings = this.bridge.getWebView().getSettings();
 
-    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        webSettings.setForceDark(WebSettings.FORCE_DARK_ON);
+      if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+          webSettings.setForceDark(WebSettings.FORCE_DARK_ON);
+        }
+      } else {
+        webSettings.setForceDark(WebSettings.FORCE_DARK_OFF);
       }
-    } else {
-      webSettings.setForceDark(WebSettings.FORCE_DARK_OFF);
-    }
+    } catch(Exception e) {}
+
   }
 }
