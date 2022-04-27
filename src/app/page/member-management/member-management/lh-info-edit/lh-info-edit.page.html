@@ -63,7 +63,7 @@
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
-            <p>최종 수정일 : {{ formBasic.update_date }}</p>
+            <p>최종 수정일 : {{ formBasic.delete_state ? formBasic.delete_date : formBasic.update_date }}</p>
           </app-col>
         </app-row>
       <app-row>

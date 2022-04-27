@@ -27,6 +27,8 @@ export class BasicItem {
   file: (File | FileBlob)[] = [];
   file_json: FileJson = new FileJson();
   user_profile_file_data: FutItem[] = [];
+  delete_state:number;
+  delete_date:string;
 }
 
 //소속정보

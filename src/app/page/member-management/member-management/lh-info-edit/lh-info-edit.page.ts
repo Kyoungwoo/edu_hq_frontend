@@ -26,6 +26,8 @@ export class BasicItem {
   user_phone: string;
   personal_terms: number;
   sensitive_terms: number;
+  delete_state:number;
+  delete_date:string;
 }
 
 //소속정보

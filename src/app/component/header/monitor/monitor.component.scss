@@ -6,6 +6,7 @@ app-logo {
     background: white;
     padding: 8px;
     border-radius: 5px;
+    width: 56px;
 }
 app-button {
     --app-border-radius: 0;
@@ -20,6 +21,12 @@ ion-header{
                 display: flex;
             }
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    app-logo {
+        width: 48px;
     }
 }
 
