@@ -24,6 +24,12 @@ ion-header{
     }
 }
 
+@media screen and (max-width: 768px) {
+    app-logo {
+        width: 48px;
+    }
+}
+
 .tab-list {
     position: relative;
     top: -10px;
