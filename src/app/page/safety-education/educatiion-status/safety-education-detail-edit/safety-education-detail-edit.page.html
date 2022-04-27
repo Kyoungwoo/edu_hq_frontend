@@ -322,7 +322,7 @@
       </ion-row>
     </ng-container>
   </ion-content>
-  <app-button-footer *ngIf="(item && editable.educationMenu) && editable.update">
+  <app-button-footer *ngIf="(item && editable.educationMenu) && editable.update && !eduUpdate">
     <app-button (click)="updateItem()" fill="translucent">수정</app-button>
     <app-button (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
     <app-button *ngIf="!item" (click)="submit()">저장</app-button>
