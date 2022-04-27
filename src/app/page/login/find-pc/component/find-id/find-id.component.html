@@ -1,9 +1,13 @@
 <app-card color="light" [class.warning]="res && res.rsCode">
-  <ion-toolbar slot="top" color="white">
-    <ion-segment color="primary" [(ngModel)]="type" (ionChange)="changeType.emit(type)">
-      <ion-segment-button value="find-id">아이디 찾기</ion-segment-button>
-      <ion-segment-button value="find-password">비밀번호 찾기</ion-segment-button>
-    </ion-segment>
+  <ion-toolbar slot="top" color="white" class="segment-toolbar">
+    <app-row class="segment">
+      <app-col>
+        <app-button fill="clear" class="segment-button active">아이디 찾기</app-button>
+      </app-col>
+      <app-col>
+        <app-button fill="clear" class="segment-button" (click)="changeType.emit('find-password')">비밀번호 찾기</app-button>
+      </app-col>
+    </app-row>
   </ion-toolbar>
   <h4>아이디를 잊으셨나요?</h4>
   <app-radio-group value="phone">

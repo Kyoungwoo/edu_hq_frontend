@@ -18,8 +18,6 @@ export class FindIdComponent implements OnInit {
 
   @Output() changeType = new EventEmitter();
   @Output() changeRes = new EventEmitter();
-  
-  type:'find-id'|'find-password' = 'find-id';
 
   form = new FindIdForm();
   validator = new Validator(new FindIdForm()).validator;
@@ -37,7 +35,6 @@ export class FindIdComponent implements OnInit {
 
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/login');
-
     this.test();
   }
 

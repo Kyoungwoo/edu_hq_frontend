@@ -21,9 +21,6 @@ export class FindPasswordComponent implements OnInit {
   @Output() changeType = new EventEmitter();
   @Output() changeRes = new EventEmitter();
   @Output() changeForm = new EventEmitter();
-  
-
-  type:'find-id'|'find-password' = 'find-password';
 
   form = new FindPasswordForm();
   validator = new Validator(new FindPasswordForm()).validator;
@@ -41,9 +38,6 @@ export class FindPasswordComponent implements OnInit {
 
   ngOnInit() {
     if(!this.checkParams()) return this.nav.navigateBack('/login');
-    const { type } = this.activedRoute.snapshot.queryParams;
-    this.type = type;
-
     this.test();
   }
 
