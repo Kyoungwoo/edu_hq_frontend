@@ -19,7 +19,7 @@ export class ScannerService {
     private connect: ConnectService
   ) { }
 
-  async init(info_state:boolean = false, single_state:boolean = false){
+  async init(info_state:boolean = false, single_state:boolean = false) {
     let return_state = {state: false,data: null};
 
     await this.qr_open(info_state, single_state).then((item) => {if(item) return_state.state = true;});
