@@ -30,7 +30,7 @@ export class SosPopupPage implements OnInit {
   }
 
   async cancel() {
-    this.nav.back(); 
+    this._modal.dismiss();
   }
 
   async submit() {

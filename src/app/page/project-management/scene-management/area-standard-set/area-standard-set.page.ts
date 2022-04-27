@@ -211,7 +211,7 @@ export class AreaStandardSetPage implements OnInit {
           }
         }
       ]
-    })
+    });
   }
 
   async AreaOne() {
@@ -578,7 +578,8 @@ export class AreaStandardSetPage implements OnInit {
     }
   }
   async gpsSave() {
-    if (!this.gpsSelected.gps_id) {
+    console.log(this.gpsSelected.gps_id);
+    // if (!this.gpsSelected.gps_id) {
       if (!this.gpsSelected.area_risk_id) return this.toast.present({ message: '위험지역을 선택해주세요.', color: 'warning' });
       this.gpsSelected.gps_coordinate_data = this.gps_coordinate_data;
       console.log(this.gpsSelected);
@@ -589,7 +590,7 @@ export class AreaStandardSetPage implements OnInit {
       } else {
         this.toast.present({ message: res.rsMsg, color:'warning' });
       }
-    }
+    // }
   }
 
   async updateState(item) {
