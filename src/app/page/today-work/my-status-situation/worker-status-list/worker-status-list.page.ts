@@ -100,7 +100,7 @@ export class WorkerStatusListPage implements OnInit {
 
   async ngOnInit() {
     this.form.project_id = history.state.project_id;
-    this.form.master_company_id = history.state.master_company_id;
+    this.form.master_company_id = history.state.master_company_id | 0;
 
     await this.getGate();
   }
