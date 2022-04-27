@@ -8,7 +8,7 @@ import { MainUserPageRoutingModule } from './main-user-routing.module';
 
 import { MainUserPage } from './main-user.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { MainUserBottomMenuPageModule } from '../main-user-bottom-menu/main-user-bottom-menu.module';
+import { MainUserBottomMenuPageModule } from '../user/main-user-bottom-menu/main-user-bottom-menu.module';
 
 @NgModule({
   imports: [

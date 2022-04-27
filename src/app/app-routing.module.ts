@@ -100,10 +100,6 @@ const routes: Routes = [
     loadChildren: () => import('./page/project-management/scene-management/scene-edit/scene-edit.module').then(m => m.SceneEditPageModule)
   },
   {
-    path: 'scene-area-set',
-    loadChildren: () => import('./page/project-management/scene-management/scene-area-set/scene-area-set.module').then(m => m.SceneAreaSetPageModule)
-  },
-  {
     path: 'member-standard-set',
     loadChildren: () => import('./page/project-management/scene-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
   },
@@ -598,7 +594,7 @@ const routes: Routes = [
   },
   {
     path: 'main-user-bottom-menu',
-    loadChildren: () => import('./page/main/user/main-user-bottom-menu/main-user-bottom-menu.module').then( m => m.MainUserBottomMenuPageModule)
+    loadChildren: () => import('./page/main/user/user/main-user-bottom-menu/main-user-bottom-menu.module').then( m => m.MainUserBottomMenuPageModule)
   }
 ];
 

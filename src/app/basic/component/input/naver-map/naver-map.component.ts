@@ -96,7 +96,6 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private addMarker(coord?: LatLng) {
-    console.log(coord, this.disabled);
     if (this.disabled) return;
     // 좌표 생성
     const marker = new naver.maps.Marker({
@@ -123,7 +122,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     });
 
     // 좌표 삭제 셋팅
-    naver.maps.Event.addListener(marker, "dblclick", (e) => {
+    naver.maps.Event.addListener(marker, "rightclick", (e) => {
       const index = this.marker.indexOf(marker);
 
       this.marker.splice(index, 1);
@@ -142,6 +141,9 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       const marker = this.marker.pop();
       marker.setMap(null);
       this.path.splice(0, 1);
+    }
+    const valueLength = this._value.gps_latitude?.length;
+    for(let i = 0; i < valueLength; i++) {
       this._value.gps_latitude.splice(0, 1);
       this._value.gps_longitude.splice(0, 1);
     }

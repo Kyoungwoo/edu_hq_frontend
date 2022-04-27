@@ -122,9 +122,9 @@ export class ContractorEditPage implements OnInit {
   }
   
   async contSave() {
-    if(!this.form.consignee_consent_date){
+    /* if(!this.form.consignee_consent_date){
       if(this.user.userData.user_type !== 'LH') return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' });
-    }
+    } */
     if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
     if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
     if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
