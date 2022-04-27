@@ -78,8 +78,8 @@
     </app-row>
     <h4>개인정보 처리 위탁 동의서</h4>
     <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10" [disabled]="viewMode" [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
-    <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button>
-</ion-content> -->
+    <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button> -->
+</ion-content>
 <app-button-footer *ngIf="permission.edit">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>
   <!-- <app-button fill="translucent" *ngIf="!updateStatus" (click)="contDelete()" color="danger">삭제</app-button> -->

@@ -134,3 +134,14 @@ ion-header{
         margin-bottom: 4px;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .mobile-toolbar {
+        --padding-start: 8px;
+        --padding-end: 8px;
+    }
+    .segment-toolbar {
+        --padding-start: 8px;
+        --padding-end: 8px;
+    }
+}
