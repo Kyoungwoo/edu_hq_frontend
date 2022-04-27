@@ -33,8 +33,8 @@ export class BasicItem {
   sensitive_terms: number;
   file: (File | FileBlob)[] = [];
   file_json: FileJson = new FileJson();
-
-  
+  delete_state:number;
+  delete_date:string;
 }
 
 //소속정보

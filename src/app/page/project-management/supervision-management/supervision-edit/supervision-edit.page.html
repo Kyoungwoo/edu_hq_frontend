@@ -8,22 +8,20 @@
 </ion-header>
 <ion-content>
   <h4>회사정보</h4>
-  <form>
-    <app-row>
-      <app-col>
-        <app-input [disabled]="true" [required]="true" label="업체명" name="input" [(ngModel)]="form.company_name"
-          placeholder=""></app-input>
-      </app-col>
-      <app-col>
-        <app-input [disabled]="true" [required]="true" label="사업자등록번호" [(ngModel)]="form.business_register_no"
-          name="input buisnessman" placeholder=""></app-input>
-      </app-col>
-      <app-col>
-        <app-input [readonly]="updateStatus ? false:true" [disabled]="true" [required]="true" name="input buisnessman"
-          [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
-      </app-col>
-    </app-row>
-  </form>
+  <app-row>
+    <app-col>
+      <app-input [disabled]="true" [required]="true" label="업체명" name="input" [(ngModel)]="form.company_name"
+        placeholder=""></app-input>
+    </app-col>
+    <app-col>
+      <app-input [disabled]="true" [required]="true" label="사업자등록번호" [(ngModel)]="form.business_register_no"
+        name="input buisnessman" placeholder=""></app-input>
+    </app-col>
+    <app-col>
+      <app-input [readonly]="updateStatus ? false:true" [disabled]="true" [required]="true" name="input buisnessman"
+        [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
+    </app-col>
+  </app-row>
 
   <h4>담당자 정보</h4>
   <app-row>
