@@ -99,7 +99,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+              <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
                 <td (click)="favoritesCheck($event, item)"  *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                 || user.userData.belong_data.company_contract_type === '원청사'">
                   <app-button size="small" shape="square" fill="translucent"
@@ -144,7 +144,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
       <app-row style="align-items: flex-start;">
         <app-col>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>

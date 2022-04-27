@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { MsdsEditPage, MsdsItem } from '../msds-edit/msds-edit.page';
+import { MsdsEditPage } from '../msds-edit/msds-edit.page';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { MsdsSearchPage } from '../msds-search/msds-search.page';
-import { FileService } from 'src/app/basic/service/core/file.service';
+import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -46,7 +46,6 @@ export class MsdsListPage implements OnInit {
     company_id: this.user.userData.belong_data.company_id,
     end_date: this.date.today(),
     msds_types : [],
-    // project_ids: [1],
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     limit_no: 0
@@ -60,8 +59,7 @@ export class MsdsListPage implements OnInit {
     private date: DateService,
     private toast: ToastService,
     public user: UserService,
-    private file: FileService
-
+    private promise: PromiseService
   ) { }
 
   async ngOnInit() {
@@ -94,10 +92,9 @@ export class MsdsListPage implements OnInit {
   }
 
   async get(limit_no = this.form.limit_no) {
+    await this.promise.wait(() => { return this.form.company_id > 1 });
     this.form.limit_no = limit_no;
 
-    let trans_form = JSON.parse(JSON.stringify(this.form));
-    trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
     const res = await this.connect.run('/board/msds/list', this.form);
     if(res.rsCode === 0 ) {
       this.res = res;
