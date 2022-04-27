@@ -7,6 +7,7 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { LogoutService } from 'src/app/service/logout.service';
 
 export interface MenuItem {
   title: string,
@@ -169,10 +170,9 @@ export class SideMenuUserComponent implements OnInit {
     public _modal: ModalController,
     public user: UserService,
     private nav: NavService,
-    private alertController: AlertController,
     private connect: ConnectService,
-    // private qr: QrService
-    private scanner: ScannerService
+    private scanner: ScannerService,
+    private logout: LogoutService
   ) { 
     this.menuSelected = this.user.userData.user_type === 'WORKER' ? this.menuList[2] : this.menuList[0];
   }
@@ -244,33 +244,6 @@ export class SideMenuUserComponent implements OnInit {
         }
       ]
     });
-    // const alert_lang = await this.alertController.create({
-    //   header: 'Language',
-    //   inputs: [
-    //     {type:'radio', value: 'kr', label: '한국어(Korean)', checked: this.language_type === 'kr' ? true : false},
-    //     {type:'radio', value: 'en', label: '영어(English)', checked: this.language_type === 'en' ? true : false},
-    //     {type:'radio', value: 'ch', label: '중국어(Chinese)', checked: this.language_type === 'ch' ? true : false},
-    //     {type:'radio', value: 'vi', label: '베트남(Vietnamese)', checked: this.language_type === 'vi' ? true : false}
-    //   ],
-    //   buttons: [
-    //     {
-    //       text: '확인', 
-    //       handler: async(item) => {
-    //         this.language_type = item;
-    //         const res = await this.connect.run('/main/etc/language/update', {language_type: this.language_type}, {});
-    //         switch (res.rsCode) {
-    //           case 0:
-    //             this.getMyLanguage();
-    //             break;
-    //           default:
-    //             // this.toast.present({ color: 'warning', message: res.rsMsg });
-    //             break;
-    //         }
-    //       }
-    //     }
-    //   ]
-    // });
-    // await alert_lang.present();
   }
 
   /**
@@ -288,8 +261,8 @@ export class SideMenuUserComponent implements OnInit {
     }
   }
 
-  logout() {
+  userLogout() {
     this._modal.dismiss();
-    this.user.logout();
+    this.logout.logout();
   }
 }

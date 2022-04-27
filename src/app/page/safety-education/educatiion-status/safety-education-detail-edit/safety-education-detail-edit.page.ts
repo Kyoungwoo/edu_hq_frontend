@@ -93,7 +93,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   eduUpdate:boolean = false;
 
-
+  input_active:boolean = false;
 
   constructor(
     private connect: ConnectService,
@@ -121,6 +121,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
       this.form.education_safe_state = '교육 전'
       this.form.create_date = this.date.today();
+      this.input_active = true;
     }
   }
 
@@ -160,13 +161,16 @@ export class SafetyEducationDetailEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       };
-
+      console.log('this.form - ', this.form);
+      
       this.form.education_safe_manager_ids.forEach(item => {
         if(Number(item) === this.user.userData.user_id) this.editable.educationMenu_state = true;
       });
 
       if(this.form.create_user_id === this.user.userData.user_id) this.editable.update = true;
+      
     }
+    this.input_active = true;
   }
   async updateItem() {
     if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});

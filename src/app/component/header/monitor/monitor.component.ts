@@ -6,6 +6,7 @@ import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { LogoutService } from 'src/app/service/logout.service';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
 
 
@@ -77,7 +78,8 @@ export class MonitorComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     public user: UserService,
     private connect: ConnectService,
-    private device: DeviceService
+    private device: DeviceService,
+    public logout: LogoutService
   ) { }
   
   ngOnInit() {

@@ -14,8 +14,6 @@ export class FindIdResultComponent implements OnInit {
   @Input() res:ConnectResult<{ account_id: string }>;
   @Output() changeType = new EventEmitter();
 
-  type:'find-id'|'find-password' = 'find-id';
-
   constructor(
     private el: ElementRef<HTMLElement>,
     private nav: NavService,
@@ -37,7 +35,7 @@ export class FindIdResultComponent implements OnInit {
   }
 
   public navFindPassword() {
-    this.type = 'find-password';
+    this.changeType.emit('find-password');
   }
   public navLogin() {
     this.nav.navigateBack('/login');

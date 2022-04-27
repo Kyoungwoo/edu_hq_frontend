@@ -77,12 +77,13 @@ export class MsdsListPage implements OnInit {
     });
     if(res.rsCode === 0 ) {
       this.res = res;
-      this.res.rsMap.map((item, i) => {
+      this.res.rsMap.forEach((item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i;
       });
     } else if(res.rsCode === 1008) {
-      this.res = null;
-      // 더 로딩할 데이터가 없음
+      /**
+       * 모바일은 그냥 암것도 안하면 됨
+       */
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }

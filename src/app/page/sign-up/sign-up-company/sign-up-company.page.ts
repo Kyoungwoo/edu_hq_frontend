@@ -12,7 +12,7 @@ import { SignUpCompanyInfo } from '../sign-up.interface';
   selector: 'app-sign-up-company',
   templateUrl: './sign-up-company.page.html',
   styleUrls: ['./sign-up-company.page.scss'],
-  animations: [fadeInAnimation]
+  animations: [ fadeInAnimation ]
 })
 export class SignUpCompanyPage implements OnInit {
 

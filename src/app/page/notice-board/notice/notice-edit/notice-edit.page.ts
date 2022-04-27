@@ -46,7 +46,7 @@ export class NoticeEditPage implements OnInit {
 
   title:string;
 
-  @Input() form:NoticeItem = new NoticeItem();
+  form:NoticeItem = new NoticeItem();
   validator = new Validator(new NoticeItem()).validator;
 
   useNotice:boolean = false;
@@ -66,15 +66,12 @@ export class NoticeEditPage implements OnInit {
     //   this.form.project_id = 0;
     // }
     this.getPermission();
-    console.log(this.form);
     if(this.notice_id) {
       this.title = '상세';
       this.get();
     } else {
       this.update_state = true;
-      this.form.company_name = this.user.userData.belong_data.company_name;
-      this.form.user_name = this.user.userData.user_name;
-      this.form.create_date = this.date.today();
+      this.getForm();
       this.title = '등록';
     }
   }
@@ -87,6 +84,14 @@ export class NoticeEditPage implements OnInit {
     } else {
       this.permission.edit = false;
     }
+  }
+  getForm() {
+    const { user_name, belong_data } = this.user.userData;
+    this.form.project_id = belong_data.project_id;
+    this.form.master_company_id = belong_data.master_company_id;
+    this.form.company_name = belong_data.company_name;
+    this.form.user_name = user_name;
+    this.form.create_date = this.date.today();
   }
 
   async get() { //상세보기

@@ -16,8 +16,6 @@ export class FindPasswordResultComponent implements OnInit {
   @Input() form:UpdatePasswordForm;
   @Output() changeType = new EventEmitter();
 
-  type:'find-id'|'find-password' = 'find-password';
-
   validator = new Validator(new UpdatePasswordForm()).validator;
   res:ConnectResult;
 
