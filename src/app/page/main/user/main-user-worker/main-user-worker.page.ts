@@ -15,6 +15,9 @@ import { GeolocationService } from 'src/app/service/geolocation.service';
   styleUrls: ['./main-user-worker.page.scss'],
 })
 export class MainUserWorkerPage implements OnInit, OnDestroy {
+
+  segment:string = '1';
+  
   form = {
     project_id: this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
@@ -184,15 +187,22 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
     modal.present();
   }
 
+  /** 
+   * 하단 공지사항 리스트의 변화가 생기면서 위에 버튼이 클릭되는 현상!! 이 발생해서 딜레이를 줘야 한다.
+   */
+  routerTimeout = null;
+  routerPrevent = false;
+  segmentChange() {
+    clearTimeout(this.routerTimeout);
+    this.routerTimeout = setTimeout(() => {
+      this.routerPrevent = false;
+    }, 100);
+    this.routerPrevent = true;
+  }
   router(title: string) {
+    if(this.routerPrevent) return;
+
     switch (title) {
-      case '':
-        this.alert.present({
-          // message: '<img src="https://www.devmonster.co.kr/assets/img/logo.svg">',
-          message: '해당 기능은 아직 준비중인 기능입니다.',
-          header: '준비중'
-        });
-        break;
       case '마이페이지':
         this.nav.navigateForward('/my-page-type');
         break;
@@ -219,6 +229,12 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
         break;
       case '알림함':
         this.nav.navigateForward('/notify-list');
+        break;
+      case '':
+        this.alert.present({
+          header: '준비중',
+          message: '해당 기능은 아직 준비중인 기능입니다.'
+        });
         break;
     }
   }
