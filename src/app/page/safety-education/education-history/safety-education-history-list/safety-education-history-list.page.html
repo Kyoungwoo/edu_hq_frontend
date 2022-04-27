@@ -82,19 +82,22 @@
               <td>{{ item.safe_job_name}}</td>
               <td>{{ item.work_contract_type }}</td>
               <td>
-                <ion-chip *ngIf="item.hire_edu_state === '양호'" outline color="primary">양호</ion-chip>
-                <ion-chip *ngIf="item.hire_edu_state === '필요'" outline color="warning">필요</ion-chip>
-                <ion-chip *ngIf="item.hire_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <ion-chip *ngIf="item.recruitement_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.recruitement_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.recruitement_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <span *ngIf="item.recruitement_state === '-'">-</span>
               </td>
               <td>
-                <ion-chip *ngIf="item.routine_edu_state === '양호'" outline color="primary">양호</ion-chip>
-                <ion-chip *ngIf="item.routine_edu_state === '필요'" outline color="warning">필요</ion-chip>
-                <ion-chip *ngIf="item.routine_edu_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <ion-chip *ngIf="item.require_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.require_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.require_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <span *ngIf="item.require_state === '-'">-</span>
               </td>
               <td>
-                <ion-chip *ngIf="item.special_edu_state_result === '양호'" outline color="primary">양호</ion-chip>
-                <ion-chip *ngIf="item.special_edu_state_result === '필요'" outline color="warning">필요</ion-chip>
-                <ion-chip *ngIf="item.special_edu_state_result === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <ion-chip *ngIf="item.special_state === '양호'" outline color="primary">양호</ion-chip>
+                <ion-chip *ngIf="item.special_state === '필요'" outline color="warning">필요</ion-chip>
+                <ion-chip *ngIf="item.special_state === '기한초과'" outline color="danger">기한초과</ion-chip>
+                <span *ngIf="item.special_state === '-'">-</span>
               </td>
               <td>출역중</td>
             </tr>

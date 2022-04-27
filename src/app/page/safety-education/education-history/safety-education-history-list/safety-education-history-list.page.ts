@@ -25,7 +25,6 @@ export class SafetyEducationHistoryListPage implements OnInit {
   res:ConnectResult<{
     index:number,
     safe_job_name:string,
-    routine_edu_state:string, //정기
     ctgo_job_position_id:number,
     user_name:string,
     ctgo_occupation_name:string,
@@ -34,8 +33,9 @@ export class SafetyEducationHistoryListPage implements OnInit {
     ctgo_occupation_id:number,
     user_id:number,
     project_id:number,
-    special_edu_state:string, //특별
-    hire_edu_state:string,
+    recruitement_state:string,
+    require_state:string, //정기
+    special_state:string, //특별
     work_contract_type:'일용직' | '상용직',
     row_count:number,
     company_name:string,
@@ -85,9 +85,9 @@ export class SafetyEducationHistoryListPage implements OnInit {
         item.index = res.rsObj.row_count - this.form.limit_no - i; //  - (this.form.limit_no - i);
         item.safe_job_name?.toString();
         
-        if(item) {
+        /* if(item) {
           if(item.work_contract_type === '일용직') {
-            /** 일용직은 양호, 필요값이 다른애들과 다르다. */
+            // 일용직은 양호, 필요값이 다른애들과 다르다.
             const specialList = await this.specialItem(item);
             if(specialList) {
               const notPass = specialList.find(specialItem => {
@@ -100,13 +100,13 @@ export class SafetyEducationHistoryListPage implements OnInit {
           else {
             item.special_edu_state_result = item.special_edu_state;
           }
-        }
+        } */
       });
     } else {
       this.res = null;
     }
   }
-  async specialItem(item) {
+  /* async specialItem(item) {
     const res = await this.connect.run('/education/report/special/get', {
       approval_user_id: item.user_id
     });
@@ -117,7 +117,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
     else {
       return null;
     }
-  }
+  } */
 
   async edit(user_id) {
     const modal = await this.modal.create({
