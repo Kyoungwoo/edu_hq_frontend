@@ -322,15 +322,15 @@ export class WorkerApprovalEditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       setTimeout(async() => {
-        this.form.session_company_id = this.user.userData.belong_data.company_id;
-        this.form.user_manage_session = this.user.memberAuthToken;
-        this.form.approval_user_id = this.form.user_id;
+        // this.form.session_company_id = this.user.userData.belong_data.company_id;
+        // this.form.user_manage_session = this.user.memberAuthToken;
+        // this.form.approval_user_id = this.form.user_id;
 
-        await this.BasicSubmit();
-        await this.inputSafeJob.submit();
-        await this.inputCertify.submit();
-        await this.BelongSubmit();
-        await this.SafeEduSubmit();
+        // await this.BasicSubmit();
+        // await this.inputSafeJob.submit();
+        // await this.inputCertify.submit();
+        // await this.BelongSubmit();
+        // await this.SafeEduSubmit();
         
         this._modal_.dismiss(data);
       }, 0);
