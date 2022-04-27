@@ -398,7 +398,9 @@
           <h5 style="color: black;">&#8251; 영역 설정 방법</h5>
           <h5 style="color: black;">지도에서 현장 외각을 마우스 클릭을 통해 N개의 점을 선택하여 설정합니다.(점 3개 이상 클릭 필요)</h5>
           <h6 style="color: black;">좌클릭: 추가 / 우클릭: 삭제 / 드래그: 이동</h6>
-          <app-naver-map [disabled]="naverMapSetting" [(ngModel)]="gps_coordinate_data" style="height: 400px;"></app-naver-map>
+          <div class="map-container">
+            <app-naver-map *ngIf="initMap" [disabled]="naverMapSetting" [(ngModel)]="gps_coordinate_data"></app-naver-map>
+          </div>
         </app-card>
         <app-card>
           <ion-toolbar slot="top" color="white">

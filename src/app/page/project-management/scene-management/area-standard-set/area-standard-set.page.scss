@@ -1,5 +1,12 @@
 :host{
-    app-button{
+    .map-container {
+        height: 400px;
+        background: var(--ion-color-step-50);
+        app-naver-map {
+            height: 100%;
+        }
+    }
+    app-button {
         margin-bottom: 0;
     }
     .edit {
