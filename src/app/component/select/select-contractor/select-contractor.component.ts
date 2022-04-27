@@ -22,9 +22,13 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       if(this.project_id) {
         this.openModal();
       } else {
-        this.res = new ConnectResult();
-        this.res.rsCode = 1008;
-        this.res.rsMsg = '현장을 선택해주세요.';
+        if(this.only_state){
+          this.openModal();
+        } else {
+          this.res = new ConnectResult();
+          this.res.rsCode = 1008;
+          this.res.rsMsg = '현장을 선택해주세요.';
+        }
       }
     }
   }
@@ -38,6 +42,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   @Input() multiple:boolean = false;
   @Input() readonly:boolean = false;
   @Input() disabled:boolean = false;
+  @Input() only_state:boolean = false;
 
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
@@ -82,8 +87,12 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       }
     }
 
-    this.res = await this.connect.run('/category/certify/search_my_master_company/get', {
+    let method = '/category/certify/search_my_master_company/get';
+    if(this.only_state) method = '/category/certify/company/get';
+
+    this.res = await this.connect.run(method, {
       project_id: this.project_id,
+      company_contract_type: '원청사',
       search_text: ''
     });
     if(this.res.rsCode === 0) {
@@ -133,18 +142,27 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         allState: this.allState,
         project_id: this.project_id,
         multiple: this.multiple,
-        editable: this.editable
+        editable: this.editable,
+        only_state: this.only_state
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
+      console.log(data);
       if(this.multiple) {
         const values:Constractor[] = data.values;
         this.value = values?.map(constractor => constractor.company_id);
       } else {
+        
         const value:Constractor = data.values;
         this.value = value?.company_id || 0;
+        this._value = value?.company_id || 0;
+        this.text = value.company_name;
+        // console.log('else - ', value?.company_id);
+        // console.log('else - ', this.value);
+        // console.log('else - ', this._value);
+        // this.valueChange(this.value);
       }
     }
   }
@@ -163,7 +181,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   writeValue(v:[]): void { 
     if(v !== this._value) {
       this.valueChange(v);
-      this.get();
+      // this.get();
 
     }
   }

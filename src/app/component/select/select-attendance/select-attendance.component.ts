@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -70,7 +70,8 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
   constructor(
     private _modal: ModalController,
     private connect:ConnectService,
-    private user: UserService
+    private user: UserService,
+    private changeRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {}
@@ -89,7 +90,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
     }
 
     if(!this.project_id || !this.company_id) return;
-    
+
     this.res = await this.connect.run('/category/certify/education/manager/get', {
       project_id: this.project_id,
       company_id: this.company_id,
@@ -101,7 +102,6 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
         this.text = rsMap
         .filter(education => (this.value as number[]).indexOf(education.user_id) !== -1)
         .map(education => education.user_name).join();
-        // for(let i = 0; i < rsMap.length; i++) if((this.value as number[]).indexOf(rsMap[i].user_id) != -1) aaaaaa.push(rsMap[i].user_id);
       }
     this.loading = false;
   }
@@ -122,8 +122,6 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    console.log(data);
-    console.log(this.multiple);
     if(data) {
       if(this.multiple) {
         const values:Education[] = data;
@@ -131,7 +129,7 @@ export class SelectAttendanceComponent implements OnInit, ControlValueAccessor {
         this.text = values?.map(education => education.user_name).join();
       } else {
         const value:Education = data;
-        this.value = value?.user_id || 0;
+        this._value = value?.user_id || 0;
         this.text = value?.user_name;
       }
     }

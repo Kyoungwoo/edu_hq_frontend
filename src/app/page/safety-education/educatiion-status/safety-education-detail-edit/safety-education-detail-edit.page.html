@@ -54,7 +54,7 @@
           <app-input label="교육대상" [disabled]="editable.update" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
         </app-col>
           <app-col>
-            <app-input name="education_safe_place" [disabled]="editable.update" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+            <app-input placeholder="교육장소를 입력해주세요" name="education_safe_place" [disabled]="editable.update" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
         </app-col>
       </app-row>
       <app-row>
@@ -74,18 +74,18 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-attendance [required]="true" [disabled]="editable.update" [educationType]="true" name="attendance" 
-          [project_id]="user.userData.belong_data.project_id" 
-          [company_id]="user.userData.belong_data.company_id"
+          <app-select-attendance *ngIf="input_active" [required]="true" [disabled]="editable.update" [educationType]="true" name="attendance" 
+          [project_id]="form.education_safe_id ? form.project_id : user.userData.belong_data.project_id" 
+          [company_id]="form.education_safe_id ? form.company_id : user.userData.belong_data.company_id"
           [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
         </app-col>
         <app-col>
-          <app-input name="education_safe_instructor" [disabled]="editable.update" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+          <app-input placeholder="강사를 입력해주세요" name="education_safe_instructor" [disabled]="editable.update" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-textarea label="교육내용" [disabled]="editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [disabled]="editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
     </form>
@@ -209,7 +209,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input name="education_safe_place" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+            <app-input placeholder="교육장소를 입력해주세요" name="education_safe_place" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -243,9 +243,9 @@
       <app-card>
         <app-row>
           <app-col>
-          <app-select-attendance [required]="true" [educationType]="true" name="attendance" 
-          [project_id]="user.userData.belong_data.project_id" 
-          [company_id]="user.userData.belong_data.company_id"
+          <app-select-attendance *ngIf="input_active" [required]="true" [educationType]="true" name="attendance" 
+          [project_id]="form.education_safe_id ? form.project_id : user.userData.belong_data.project_id" 
+          [company_id]="form.education_safe_id ? form.company_id : user.userData.belong_data.company_id"
           [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
           </app-col>
         </app-row>
@@ -254,7 +254,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+            <app-input placeholder="강사를 입력해주세요" name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -262,7 +262,7 @@
     <app-card>
       <app-row>
         <app-col>
-          <app-textarea label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
     </app-card>
