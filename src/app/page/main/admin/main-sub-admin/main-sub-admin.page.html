@@ -260,15 +260,15 @@
             </app-row>
             <app-row style="background-color: var(--ion-color-primary-translucent); border-radius: 5px; margin-bottom: 10px; height:36px;">
               <app-col  style="width: 30%; padding-left: 5px;"><h6>필요</h6></app-col>
-              <app-col  style="width: 22%;"><h6>{{ education.hire_data.excess ? education.hire_data.excess : '-' }}</h6></app-col>
-              <app-col  style="width: 22%;"><h6>{{ education.regular_data.excess ? education.regular_data.excess : '-' }}</h6></app-col>
-              <app-col  style="width: 22%;"><h6>{{ education.special_data.excess ? education.special_data.excess : '-' }}</h6></app-col>
-            </app-row>
-            <app-row style="background-color: var(--ion-color-warning-translucent); border-radius: 5px; height:36px;">
-              <app-col  style="width: 30%; padding-left: 5px; padding-bottom: 6px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.hire_data.necessary ? education.hire_data.necessary : '-' }}</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.regular_data.necessary ? education.regular_data.necessary : '-' }}</h6></app-col>
               <app-col  style="width: 22%;"><h6>{{ education.special_data.necessary ? education.special_data.necessary : '-' }}</h6></app-col>
+            </app-row>
+            <app-row style="background-color: var(--ion-color-warning-translucent); border-radius: 5px; height:36px;">
+              <app-col  style="width: 30%; padding-left: 5px; padding-bottom: 6px;"><h6 style="color:var(--ion-color-danger)">기한초과</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.hire_data.excess ? education.hire_data.excess : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.regular_data.excess ? education.regular_data.excess : '-' }}</h6></app-col>
+              <app-col  style="width: 22%;"><h6>{{ education.special_data.excess ? education.special_data.excess : '-' }}</h6></app-col>
             </app-row>
           </app-card>
         </app-col>

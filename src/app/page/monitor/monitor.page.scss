@@ -1,14 +1,11 @@
 ion-content {
     --padding-top: 16px;
 }
-// .container {
-//     // min-height: 724px;
-// }
 app-row {
     align-items: stretch;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1199px) {
     .container {
         max-width: 768px;
         margin: auto;
@@ -63,18 +60,12 @@ app-row {
             height: 100%;
         }
         .graph-text{
-            // position: absolute;
-            // top: 40px;
-            // left: 3px;
-            // text-align: left;
-            // width: 25px;
-            // text-align: end;
             flex: 0 24px;
             text-align: right;
             margin-right: 4px;
             display: flex;
             align-items: flex-start;
-            justify-content: right;
+            justify-content: flex-end;
             position: relative;
     
             .div-text-g{
@@ -109,7 +100,7 @@ app-row {
             .bar-item{
                 display: flex;
                 flex-direction: column;
-                justify-content: end;
+                justify-content: flex-end;
                 align-items: center;
 
                 .bar{

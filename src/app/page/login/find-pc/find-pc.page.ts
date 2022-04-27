@@ -22,13 +22,9 @@ export class FindPcPage implements OnInit {
   formUpdatePassword:UpdatePasswordForm;
 
   constructor(
-    private el: ElementRef<HTMLElement>,
-    private connect: ConnectService,
     private activedRoute: ActivatedRoute,
     private nav: NavService,
-    public regex: RegexService,
-    private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    public regex: RegexService
   ) { }
 
   ngOnInit() {

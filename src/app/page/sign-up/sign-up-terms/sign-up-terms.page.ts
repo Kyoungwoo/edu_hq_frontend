@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -33,7 +34,8 @@ export class SignUpTermsPage implements OnInit {
     private modal: ModalController,
     private toast: ToastService,
     private nav: NavService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    private device: DeviceService
   ) {}
 
   ngOnInit() {
@@ -138,9 +140,16 @@ export class SignUpTermsPage implements OnInit {
         component: SignUpDonePage
       });
       modal.present();
-      this.nav.navigateRoot('/login', {
-        force: true
-      });
+      if(this.device.platform_type < 3) {
+        this.nav.navigateRoot('/login-mobile', {
+          force: true
+        });
+      }
+      else {
+        this.nav.navigateRoot('/login', {
+          force: true
+        });
+      }
     }
   }
 

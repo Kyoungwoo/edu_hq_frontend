@@ -11,11 +11,10 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 @CapacitorPlugin(name = "DarkMode")
 public class DarkModePlugin extends Plugin {
-  @RequiresApi(api = Build.VERSION_CODES.Q)
   @Override
   protected void handleOnResume() {
     super.handleOnResume();
-    try {
+
       int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
       WebSettings webSettings = this.bridge.getWebView().getSettings();
 
@@ -24,9 +23,10 @@ public class DarkModePlugin extends Plugin {
           webSettings.setForceDark(WebSettings.FORCE_DARK_ON);
         }
       } else {
-        webSettings.setForceDark(WebSettings.FORCE_DARK_OFF);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+          webSettings.setForceDark(WebSettings.FORCE_DARK_OFF);
+        }
       }
-    } catch(Exception e) {}
 
   }
 }
