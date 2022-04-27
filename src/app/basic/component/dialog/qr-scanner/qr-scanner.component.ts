@@ -1,11 +1,12 @@
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, EventEmitter, Injectable, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Subscription } from 'rxjs';
 import { File } from "@ionic-native/file/ngx";
 import Qr from "src/app/basic/plugin/qr-plugin";
 import { ModalController } from '@ionic/angular';
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
 
 
@@ -47,7 +48,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private file: File,
     private media: Media,
     private _modal:ModalController,
-    public user: UserService
+    public user: UserService,
+    private alert: AlertService
   ) { }
 
   async ngOnInit() {
@@ -61,16 +63,24 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       this.qr_sound.onError.subscribe(e => {
       })
     }
+    else {
+      console.log(res);
+      this.alert.present({
+        header: '카메라권한을 허용해주세요',
+        message: '카메라 권한이 필요합니다. 허용해주세요.'
+      });
+      this._modal.dismiss();
+    }
   }
   
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
-    this.qr_subs.unsubscribe();
+    this.qr_subs?.unsubscribe();
     const routerEl = document.querySelector('ion-router-outlet');
     const routerEl_2:any = document.getElementsByClassName('side-menu-class-user')[0];
     routerEl.style.display = 'flex';
     if(routerEl_2?.style?.display) routerEl_2.style.display = 'flex';
-    this.qrScanner.destroy();
+    this.qrScanner?.destroy();
   }
   prepareQR() {
     return new Promise((res, rej) => {
@@ -81,17 +91,17 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
           // camera permission was granted
           // start scanning
-          res(true);
+          res('authorized');
         } else if (status.denied) {
           // camera permission was permanently denied
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
           this.qrScanner.openSettings();
-          res(false);
+          res('denied');
         }
         else {
           // permission was denied, but not permanently. You can ask for permission again at a later time.
-          res(false);
+          res('prompt');
         }
       })
       .catch((e: any) => () => {

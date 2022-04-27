@@ -24,7 +24,6 @@ export class ProjectAreaSetComponent implements OnInit {
   }
   
   submit() {
-    console.log("this.mapData : ",this.mapData);
     if(this.mapData.gps_latitude.length < 3) {
       this.toast.present({message:'점을 3개 이상 설정해주세요.',color:'danger'});
     } else {
