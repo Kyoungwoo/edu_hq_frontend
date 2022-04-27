@@ -37,7 +37,7 @@
       <app-email label="이메일" [disabled]="updateStatus" [(ngModel)]="form.manager_email"></app-email>
     </app-col>
   </app-row>
-  <h4>개인정보 처리 위탁 동의</h4>
+  <!-- <h4>개인정보 처리 위탁 동의</h4>
   <app-row>
     <app-col>
       <app-input name="consigner" [disabled]="updateStatus" [(ngModel)]="form.company_name" label="위탁자"></app-input>
@@ -55,7 +55,7 @@
       <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10" [disabled]="viewMode" [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
       <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button>
     </app-col>
-  </app-row>
+  </app-row> -->
 </ion-content>
 <app-button-footer *ngIf="permission.edit">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="superupdate()">수정</app-button>
