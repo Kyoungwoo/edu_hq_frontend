@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
-import { EducationService } from 'src/app/service/education.service';
 import { SafetyEducationHistoryDetailPage } from '../safety-education-history-detail/safety-education-history-detail.page';
 
 @Component({
@@ -49,8 +46,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
     private modal : ModalController,
     private connect: ConnectService,
     private user: UserService,
-    private popover: PopoverController,
-    private education: EducationService
+    private popover: PopoverController
   ) { }
 
   async ngOnInit() {
@@ -84,40 +80,11 @@ export class SafetyEducationHistoryListPage implements OnInit {
       this.res.rsMap.forEach(async(item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i; //  - (this.form.limit_no - i);
         item.safe_job_name?.toString();
-        
-        /* if(item) {
-          if(item.work_contract_type === '일용직') {
-            // 일용직은 양호, 필요값이 다른애들과 다르다.
-            const specialList = await this.specialItem(item);
-            if(specialList) {
-              const notPass = specialList.find(specialItem => {
-                const state = this.education.getEducationSpecialResult(item.work_contract_type, specialItem);
-                return '양호' !== state;
-              });
-              item.special_edu_state_result = notPass ? '필요' : '양호';
-            }
-          }
-          else {
-            item.special_edu_state_result = item.special_edu_state;
-          }
-        } */
       });
     } else {
       this.res = null;
     }
   }
-  /* async specialItem(item) {
-    const res = await this.connect.run('/education/report/special/get', {
-      approval_user_id: item.user_id
-    });
-    if(res.rsCode === 0) {
-      res.rsMap?.forEach(specialItem => this.education.parseEducationHours(specialItem));
-      return res.rsMap;
-    }
-    else {
-      return null;
-    }
-  } */
 
   async edit(user_id) {
     const modal = await this.modal.create({

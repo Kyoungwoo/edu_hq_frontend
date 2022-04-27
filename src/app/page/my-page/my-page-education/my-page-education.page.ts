@@ -1,14 +1,12 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
-import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
-import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
 import { EducationService } from 'src/app/service/education.service';
+import { HireEducationItem, RoutineEducationItem, SpecialEducationItem } from '../../safety-education/education-history/safety-education-history-detail/safety-education-history-detail.page';
 import { MyPageEducationSearchPage } from '../my-page-education-search/my-page-education-search.page';
 import { EducationGetForm, EducationRes } from '../my-page/my-page.page';
 
@@ -30,44 +28,11 @@ export class MyPageEducationPage implements OnInit {
   /** 고용형태 res */
   res:ConnectResult<{ work_contract_type: '일용직' | '상용직' }>;
   /** 채용시 교육 res */
-  educationHireRes:ConnectResult<{
-    create_date: string,
-    ctgo_education_safe_name: string,
-    ctgo_education_safe_title: string,
-    education_credit_date: number,
-    education_credit_time: string,
-    hire_edu_state: string,
-    user_id: number
-  }>;
+  educationHireRes:ConnectResult<HireEducationItem>;
   /** 정기교육 res */
-  educationRoutineRes:ConnectResult<{
-    ctgo_education_safe_name:string
-    education_complete_time:number
-    education_end_term:string
-    education_remaining_date:number
-    education_remaining_time:number
-    education_start_term:string
-    routine_edu_state:string
-    user_id:number
-  }>;
-
-  educationSpecialRes:ConnectResult<{
-    ctgo_education_safe_name:string,
-
-    education_complete_time:string,
-    education_complete_hours:number,
-    
-    education_remaining_time:string,
-    education_recommended_hours:number,
-
-    education_towercrane_state:0|1,
-
-    education_start_term:string,
-    education_end_term:string,
-    education_remaining_date:number,
-    special_edu_state:string,
-    user_id:number
-  }>;
+  educationRoutineRes:ConnectResult<RoutineEducationItem>;
+  /** 특별교육 res */
+  educationSpecialRes:ConnectResult<SpecialEducationItem>;
 
   constructor(
     private connect: ConnectService,

@@ -181,8 +181,8 @@ var SafetyEducationHistoryDetailPage = /** @class */ (function () {
         var _a;
         var completeHourArr = ((_a = item.education_complete_time) === null || _a === void 0 ? void 0 : _a.split(':')) || ['00', '00'];
         item.education_complete_hours = parseInt(completeHourArr[0]) + (parseInt(completeHourArr[1]) / 60);
-        var recommendHourArr = item.education_recommended_time.split(':') || ['00', '00'];
-        item.education_recommended_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1]) / 60);
+        var recommendHourArr = item.education_need_time.split(':') || ['00', '00'];
+        item.education_need_hours = parseInt(recommendHourArr[0]) + (parseInt(recommendHourArr[1]) / 60);
     };
     SafetyEducationHistoryDetailPage.prototype.useItem = function (limit_no) {
         if (limit_no === void 0) { limit_no = this.useForm.limit_no; }

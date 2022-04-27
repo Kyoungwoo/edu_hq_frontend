@@ -15,7 +15,7 @@ export class HistoryItem {
   user_id:number;
   project_id:number;
   company_name:string;
-  project_work_state:number;
+  project_state:number;
   ctgo_country_id:number;
   work_contract_type:'일용직' | '상용직';
   ctgo_country_name:string;
@@ -24,40 +24,51 @@ export class HistoryItem {
   user_profile_file_data:FutItem[] = [];
 }
 
-export class HireItem {
-  education_credit_time: number;
-  hire_edu_state: string;
-  ctgo_education_safe_title: string;
-  education_credit_date: number;
-  create_date: string;
-  user_id: number
+export class HireEducationItem {
+  ctgo_education_safe_name:string;
+  education_complete_time: number;
+  education_date: string;
+  elapse_date: number;
+  recruitment_state: string;
 }
 
-export class EducationItem {
+export class RoutineEducationItem {
   ctgo_education_safe_name: string;
   user_id: number;
   special_edu_state: string;
   create_date: string;
-  
-  education_remaining_date: number;
 
   education_complete_time: string; // 이수한 시간
   education_complete_hours: number;
 
-  education_remaining_time: string; // 총 시간(권장시간X) 중 남은 시간
-  // education_remaining_hours: number; // 안쓰임
+  remaining_date: string; // 총 시간(권장시간X) 중 남은 시간
+  remaining_time: string; // 잔여 시간
 
-  education_recommended_complete_time: string; // 잔여 시간
+  education_need_time: string; // 권장시간
+  education_need_hours: number;
 
-  education_recommended_time: string; // 권장시간
-  education_recommended_hours: number;
+  special_state: string;
 
   education_towercrane_state: number;
-}
-export class RoutineEducationItem extends EducationItem {
+
   education_start_term:string;
   education_end_term:string;
-  routine_edu_state:'양호' | '필요' | '기한초과';
+  require_state:'양호' | '필요' | '기한초과';
+}
+export class SpecialEducationItem {
+  ctgo_education_safe_name: string;
+  education_complete_hours: number;
+  education_complete_time: string;
+  education_date: string;
+  education_need_hours: number;
+  education_need_time: string;
+  recommend_time: string;
+  remaining_date: string;
+  remaining_time: string;
+  special_state: string;
+
+  education_start_term?:string;
+  education_end_term?:string;
 }
 @Component({
   selector: 'app-safety-education-history-detail',
@@ -78,11 +89,11 @@ export class SafetyEducationHistoryDetailPage implements OnInit {
 
   res:HistoryItem = new HistoryItem();
 
-  hire:HireItem = new HireItem();
+  hire:HireEducationItem = new HireEducationItem();
 
   routine:RoutineEducationItem = new RoutineEducationItem();
 
-  specialRes:ConnectResult<EducationItem>;
+  specialRes:ConnectResult<SpecialEducationItem>;
 
   useRes:ConnectResult<{
     index:number,

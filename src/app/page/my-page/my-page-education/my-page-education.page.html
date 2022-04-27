@@ -39,13 +39,13 @@
         <tbody>
           <tr>
             <td>{{ educationHireRes?.rsObj?.ctgo_education_safe_name }}</td>
-            <td>{{ educationHireRes?.rsObj?.create_date }}</td>
-            <td>{{ educationHireRes?.rsObj?.education_credit_time }}</td>
+            <td>{{ educationHireRes?.rsObj?.education_date }}</td>
+            <td>{{ educationHireRes?.rsObj?.education_complete_time }}</td>
             <td>
-              <ng-container *ngIf="educationHireRes?.rsObj?.hire_edu_state">
+              <ng-container *ngIf="educationHireRes?.rsObj?.recruitment_state">
                 <div class="round"
-                [class.red]="educationHireRes?.rsObj?.hire_edu_state !== '양호'"></div>
-                {{ educationHireRes?.rsObj?.hire_edu_state }}
+                [class.red]="educationHireRes?.rsObj?.recruitment_state !== '양호'"></div>
+                {{ educationHireRes?.rsObj?.recruitment_state }}
               </ng-container>
             </td>
           </tr>
@@ -64,15 +64,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of educationRoutineRes?.rsMap">
-            <td>{{ item.ctgo_education_safe_name }}</td>
-            <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
-            <td>{{ item.education_remaining_date }}</td>
+          <tr>
+            <td>{{ educationRoutineRes?.rsObj?.ctgo_education_safe_name }}</td>
+            <td>{{ educationRoutineRes?.rsObj?.education_start_term }} ~ {{ educationRoutineRes?.rsObj?.education_end_term }}</td>
+            <td>{{ educationRoutineRes?.rsObj?.remaining_date }}</td>
             <td>
-              <ng-container *ngIf="item.routine_edu_state">
+              <ng-container *ngIf="educationRoutineRes?.rsObj?.require_state">
                 <div class="round"
-                [class.red]="item.routine_edu_state !== '양호'"></div>
-                {{ item.routine_edu_state }}
+                [class.red]="educationRoutineRes.rsObj.require_state !== '양호'"></div>
+                {{ educationRoutineRes.rsObj.require_state }}
               </ng-container>
             </td>
           </tr>
@@ -87,7 +87,7 @@
           <thead>
             <tr>
               <th>교육명</th>
-              <th>이수기간</th>
+              <th>이수일</th>
               <th>필요시간</th>
               <th>교육 상태</th>
             </tr>
@@ -95,14 +95,14 @@
           <tbody>
             <tr *ngFor="let item of educationSpecialRes?.rsMap">
               <td>{{ item.ctgo_education_safe_name }}</td>
-              <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
-              <td>{{ item.education_towercrane_state ? '08:00' : '02:00' }}</td>
+              <td>{{ item.education_date }}</td>
+              <td>{{ item.education_need_time }}</td>
               <td>
-                <ng-container *ngIf="education.getEducationSpecialResult('일용직', item) === '필요'">
+                <ng-container *ngIf="item.special_state === '필요'">
                   <div class="round red"></div>
                   필요
                 </ng-container>
-                <ng-container *ngIf="education.getEducationSpecialResult('일용직', item) === '양호'">
+                <ng-container *ngIf="item.special_state === '양호'">
                   <div class="round"></div>
                   양호
                 </ng-container>
@@ -130,17 +130,17 @@
             <tr *ngFor="let item of educationSpecialRes?.rsMap">
               <td>{{ item.ctgo_education_safe_name }}</td>
               <td>{{ item.education_start_term }} ~ {{ item.education_end_term }}</td>
-              <td>{{ item.education_remaining_date }}</td>
+              <td>{{ item.remaining_date }}</td>
               <td>
-                <ng-container *ngIf="item.special_edu_state === '양호'">
+                <ng-container *ngIf="item.special_state === '양호'">
                   <div class="round"></div>
                   양호
                 </ng-container>
-                <ng-container *ngIf="item.special_edu_state === '필요'">
+                <ng-container *ngIf="item.special_state === '필요'">
                   <div class="round red"></div>
                   필요
                 </ng-container>
-                <ng-container *ngIf="item.special_edu_state === '기한초과'">
+                <ng-container *ngIf="item.special_state === '기한초과'">
                   <div class="round red"></div>
                   기한초과
                 </ng-container>

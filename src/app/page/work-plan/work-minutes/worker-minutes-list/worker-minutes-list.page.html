@@ -18,7 +18,7 @@
             </tr>
             <tr>
               <td>
-                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [disabled]="!permission.company_id"></app-select-contractor>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [disabled]="!permission.company_id" [allState]="permission.company_id"></app-select-contractor>
               </td>
             </tr>
             <tr>
