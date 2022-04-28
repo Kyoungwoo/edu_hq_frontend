@@ -1,3 +1,4 @@
+import { UserService } from './../../../basic/service/core/user.service';
 import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
@@ -36,19 +37,27 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
   constructor(
     private connect: ConnectService,
     private _modal:ModalController,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private user: UserService
   ) { }
 
   ngOnInit() {}
 
   public async get() {
     if(this.isModalData) return;
-    
-    if(!this.value && !this.all) return;
+    console.log('this.value - ', this.value);
+    console.log('this.all - ', this.all);
+    if(!this.value && !this.all && this.user.userData.user_type !== 'LH') return;
     
     if(this.value === 0 && this.all) {
       this.text = '전체';
       this.changeDetector.detectChanges();
+      return;
+    }
+
+    if(this.value === 0 && !this.all && this.user.userData.user_type === 'LH') {
+      console.log('this.all - 들어옴');
+      this.getProjectList();
       return;
     }
 
@@ -60,6 +69,18 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     if(res.rsCode === 0) {
       this.text = res.rsObj.project_name;
       this.value = res.rsObj.project_id;
+    }
+  }
+  async getProjectList(){
+    let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
+    if (res.rsCode === 0) {
+      if(res?.rsMap?.length){
+        this.value = res.rsMap[0].project_id;
+        this.text = res.rsMap[0].project_name;
+        this.changeDetector.detectChanges();
+      }
+    } else {
+      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
   public async openModal() {

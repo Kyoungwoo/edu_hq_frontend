@@ -91,12 +91,14 @@ export class NoticeEditPage implements OnInit {
     const { user_name, belong_data } = this.user.userData;
 
     if(this.searchForm) {
+      console.log('if - ', this.form);
       this.form.project_id = this.searchForm.project_id;
       this.form.master_company_id = this.searchForm.master_company_id;
     }
     else {
+      console.log('else - ', this.form);
       this.form.project_id = belong_data.project_id;
-      this.form.master_company_id = belong_data.master_company_id;
+      this.form.master_company_id = belong_data.master_company_id ? belong_data.master_company_id : belong_data.company_id;
     }
     
     this.form.company_name = belong_data.company_name;

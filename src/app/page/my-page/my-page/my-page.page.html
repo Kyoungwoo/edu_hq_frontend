@@ -155,7 +155,7 @@
         <app-row mobileBreak>
           <app-col>
   
-            <app-select-scene [(ngModel)]="belongForm.project_id" [disabled]="true"></app-select-scene>
+            <app-select-scene [all]="true" [(ngModel)]="belongForm.project_id" [disabled]="true"></app-select-scene>
   
           </app-col>
           <app-col *ngIf="userType === 'LH'">
