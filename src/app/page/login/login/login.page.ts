@@ -1,3 +1,4 @@
+import { LogoutService } from 'src/app/service/logout.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit, ViewDidEnter {
     private user: UserService,
     private nav: NavService,
     private promise: PromiseService,
-    private alert: AlertService
+    private alert: AlertService,
+    private logout: LogoutService
   ) { }
 
   ngOnInit() {
@@ -149,8 +151,10 @@ export class LoginPage implements OnInit, ViewDidEnter {
       else {
         userData.user_main_page = '/main-admin';
       }
+      if(this.user.userData.user_type === 'LH') await this.logout.getProjectList(userData);
+      await this.user.setUserData(userData, false);
+
       
-      this.user.setUserData(userData, false);
 
       this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }
