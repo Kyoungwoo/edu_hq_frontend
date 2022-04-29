@@ -1,7 +1,7 @@
+import { LogoutService } from 'src/app/service/logout.service';
 import { PushService } from './../../../service/push.service';
-import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
-import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { UserService, AuthToken, UserData } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -26,10 +26,9 @@ export class LoginMobilePage implements OnInit {
     private user: UserService,
     private nav: NavService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef,
-    private device: DeviceService,
     private alert: AlertService,
-    private push: PushService
+    private push: PushService,
+    private logout: LogoutService
   ) { }
 
   ngOnInit() {
@@ -155,8 +154,8 @@ export class LoginMobilePage implements OnInit {
     });
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
-
-      this.user.setUserData(userData, this.autoLogin);
+      if(this.user.userData.user_type === 'LH') await this.logout.getProjectList(userData);
+      await this.user.setUserData(userData, this.autoLogin);
 
       switch(userData.user_type) {
         case 'LH':
