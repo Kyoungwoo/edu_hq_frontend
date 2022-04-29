@@ -42,6 +42,7 @@ export class WorkerStatusAddPage implements OnInit {
     insert_state:'', //입퇴장 타입(IN - 입장등록 / OUT - 퇴장등록) 유저리스트 메소드
     select_type:'', //입퇴장 타입(IN - 입장등록 / OUT - 퇴장등록) 입장퇴장 메소드
     inout_datetime:'',
+    inout_date: '', // Date 형태의 
     serial_type:'',
     user_ids:[]
   }
@@ -98,13 +99,16 @@ export class WorkerStatusAddPage implements OnInit {
   async workerIn() {
     this.form.user_ids = [];
     this.selectData.forEach(item => this.form.user_ids.push(item.user_id));
+
     if(!this.form.user_ids.length) return this.toast.present({message:'입장할 근로자를 선택해주세요.',color:'warning'});
-    if(!this.form.inout_datetime) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
-    const { area_top_id,area_middle_id,area_bottom_id } = this.areadata;
+    if(!this.form.inout_date) return this.toast.present({message:'입장시간을 지정해주세요.',color:'warning'});
+
+    const { area_top_id, area_middle_id, area_bottom_id } = this.areadata;
+
     this.form.area_top_id = area_top_id || 0;
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
     this.form.area_bottom_id = area_bottom_id ? area_bottom_id : 0;
-    this.form.inout_datetime = this.date.today() +' '+ this.form.inout_datetime;
+    this.form.inout_datetime = this.date.today() +' '+ this.form.inout_date;
     const alert = await this.alert.present({
       message: `선택한 인원을 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리하시겠습니까?`,
       buttons:[
@@ -113,7 +117,7 @@ export class WorkerStatusAddPage implements OnInit {
           handler:async() => {
             const res = await this.connect.run('/work_project/nfc_beacon/manual/insups',this.form);
             if(res.rsCode === 0) {
-              this.toast.present({message:`${this.selectData.length}명이 입장 처리되엇습니다.`,color:'primary'});
+              this.toast.present({message:`${this.selectData.length}명이 입장 처리되었습니다.`,color:'primary'});
               this._modal.dismiss(this.form.area_risk_id);
             }
           }
