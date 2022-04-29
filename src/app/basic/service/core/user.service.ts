@@ -1,8 +1,5 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { AlertService } from '../ionic/alert.service';
-import { NavService } from '../ionic/nav.service';
-import { DeviceService } from './device.service';
 
 enum TAG {
   Id = 'Devmonster@Id',
@@ -44,6 +41,8 @@ export class UserData {
     company_name: '',
     project_id: 0,
     project_name: '',
+    project_original_id: 0,
+    project_original_name: '',
     hq_business_id: 0,
     hq_business_name: '',
     hq_regional_id: 0,
@@ -75,10 +74,7 @@ export class UserService {
   autoLogin:boolean = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId,
-    private alert: AlertService,
-    private nav: NavService,
-    private device: DeviceService
+    @Inject(PLATFORM_ID) private platformId
   ) {
     this.getId();
     this.getAuthToken();
@@ -138,9 +134,18 @@ export class UserService {
     if(storage) { this.userData = JSON.parse(storage.getItem(TAG.UserData)) }
     else this.userData = new UserData();
   }
-  setUserData(data:UserData, autoLogin:boolean = true) {
+  async setUserData(data:UserData, autoLogin:boolean = true) {
     if(isPlatformServer(this.platformId)) return;
 
+    // data.belong_data.project_original_id = JSON.parse(JSON.stringify(data.belong_data.project_id));
+    // data.belong_data.project_original_name = JSON.parse(JSON.stringify(data.belong_data.project_name));
+
+    // if(data.user_type === 'LH' && !data.belong_data.project_id) {
+    //   let pro_data = await this.approval.getProjectList();
+    //   data.belong_data.project_id = pro_data.project_id;
+    //   data.belong_data.project_name = pro_data.project_name;
+    // }
+    
     let storage:Storage = autoLogin ? window.localStorage : window.sessionStorage;
     let deleteStorage:Storage = autoLogin ? window.sessionStorage : window.localStorage;
     storage.setItem(TAG.UserData, JSON.stringify(data));

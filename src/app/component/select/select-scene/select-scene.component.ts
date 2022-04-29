@@ -55,11 +55,10 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
       return;
     }
 
-    if(this.value === 0 && !this.all && this.user.userData.user_type === 'LH') {
-      console.log('this.all - 들어옴');
-      this.getProjectList();
-      return;
-    }
+    // if(this.value === 0 && !this.all && this.user.userData.user_type === 'LH') {
+    //   this.getProjectList();
+    //   return;
+    // }
 
     if(!this.value) return;
     
