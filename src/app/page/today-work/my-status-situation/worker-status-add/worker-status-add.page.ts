@@ -117,7 +117,7 @@ export class WorkerStatusAddPage implements OnInit {
           handler:async() => {
             const res = await this.connect.run('/work_project/nfc_beacon/manual/insups',this.form);
             if(res.rsCode === 0) {
-              this.toast.present({message:`${this.selectData.length}명이 입장 처리되었습니다.`,color:'primary'});
+              this.toast.present({message:`${this.selectData.length}명이 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리되었습니다.`,color:'primary'});
               this._modal.dismiss(this.form.area_risk_id);
             }
           }
