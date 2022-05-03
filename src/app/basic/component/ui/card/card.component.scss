@@ -82,3 +82,22 @@
     color: var(--ion-color-shade);
   }
 }
+
+.ready-class{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000080;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 32px;
+}
+
+.blind{
+  height: calc(100% - 53px);
+}

@@ -23,6 +23,7 @@ export class CardComponent implements OnInit {
   @Input() href:string | SafeUrl;
   @Input() download:string;
   @Input() target:string = '_blank';
+  @Input() blind:boolean = false;
 
   @Input() set padding(_padding:string | number) {
     this.el.nativeElement.style.setProperty('--padding', _padding);

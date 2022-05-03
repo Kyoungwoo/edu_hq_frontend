@@ -163,9 +163,8 @@
       </app-row>
 
       <app-row mobileBreak>
-        <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'">
-          
-          <app-select-construction [master_company_id]="belongForm.master_company_id" [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!belongEditable"></app-select-construction>
+        <app-col *ngIf="(userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER')">
+          <app-select-construction [master_company_id]="user.userData.belong_data.master_company_id" [project_id]="belongForm.project_id" [(ngModel)]="belongForm.ctgo_construction_id" [disabled]="!belongEditable"></app-select-construction>
           <app-input-caption *ngIf="belongValidator.ctgo_construction_id?.valid === false" color="warning">{{ belongValidator.ctgo_construction_id?.message }}</app-input-caption>
 
         </app-col>
@@ -194,9 +193,10 @@
         </app-col>
       </app-row>
 
-      <app-input-safejob #inputSafeJob *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
-      [project_id]="belongForm.project_id"
-      [company_id]="belongForm.company_id"
+      <app-input-safejob #inputSafeJob *ngIf="(userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER') && belongForm.project_id"
+      [project_id]="user.userData.belong_data.project_id"
+      [company_id]="user.userData.belong_data.master_company_id"
+      [user_type]="userType"
       insert_url="/mypage/company/safejob/insert"
       update_url="/mypage/company/safejob/update"
       delete_url="/mypage/company/safejob/delete"

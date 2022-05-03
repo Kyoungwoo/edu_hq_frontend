@@ -165,11 +165,15 @@ export class PartnerIntoEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.item.company_contract_type === '협력사' && 
-      this.user.userData.user_role === 'MASTER_HEAD') this.system = true
-      else {
-        this.system = false;
-      }
+    // if(this.item.company_contract_type === '협력사' && 
+    //   this.user.userData.user_role === 'MASTER_HEAD') this.system = true
+    //   else {
+    //     this.system = false;
+    //   }
+
+    console.log('this.item.company_contract_type - ',this.item.company_contract_type);
+    if(this.item.company_contract_type === '협력사' || this.item.company_contract_type === '원청사') this.system = true;
+    else this.system = false;
     this.getPermission();
     this.get();
   }

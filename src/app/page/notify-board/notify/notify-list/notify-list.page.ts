@@ -16,7 +16,7 @@ export class NotifyListPage implements OnInit, OnDestroy {
   form = {
     create_date:this.date.today({year:-2,month:-1}),
     end_date:this.date.today(),
-    notify_menu:'',
+    notify_menu:'전체',
     project_id: this.user.userData.belong_data.project_id,
     search_text:''
   }

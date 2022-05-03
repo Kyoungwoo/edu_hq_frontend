@@ -54,6 +54,7 @@ export class ApprovalItem {
   ctgo_construction_name: string;
   ctgo_job_position_name: string;
   project_name: string;
+  master_company_id:number;
   certify_data: {
     user_id: number;
     user_certify_id: number;
@@ -248,6 +249,7 @@ export class WorkerInfoEditPage implements OnInit {
       this.permission.approval = false;
     }
     this.form.user_id = this.item.user_id;
+    this.form
     this.form.approval_user_id = this.item.user_id;
     this.form.session_company_id = this.user.userData.belong_data.company_id;
     this.form.user_manage_session = this.user.memberAuthToken;

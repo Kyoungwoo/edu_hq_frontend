@@ -5,7 +5,7 @@
         <app-logo></app-logo>
       </app-col>
       <app-col size="auto">
-        <app-avatar class="profile"></app-avatar>
+        <app-avatar [src]="user.userData.user_profile"></app-avatar>
       </app-col>
       <app-col size="auto" (click)="navMypage()">
         <h4>{{ user.userData.user_name }}님</h4>

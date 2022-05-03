@@ -74,8 +74,9 @@
       <div [style.display]="menu === 1 ? 'block' : 'none'">
         <app-row>
           <app-col></app-col>
-          <app-col size="auto">
+          <app-col size="auto" style="text-align: right;">
             <p>최종 수정일 : {{ formBasic.update_date }}</p>
+            <p *ngIf="formBasic.delete_state">탈퇴일 : {{ formBasic.delete_date }}</p>
           </app-col>
         </app-row>
       <app-row>
@@ -86,11 +87,11 @@
           <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
         </app-col>
         <app-col>
-          <app-select label="시스템 권한" *ngIf="!system && permission.approval" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="!system" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="6">마스터 어드민</app-select-option>
             <app-select-option [value]="7">일반 관리자</app-select-option>
           </app-select>
-          <app-select label="시스템 권한" *ngIf="system && permission.approval"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
+          <app-select label="시스템 권한" *ngIf="system"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="9">협력사 마스터 어드민</app-select-option>
             <app-select-option [value]="10">협력사 일반 관리자</app-select-option>
           </app-select>
@@ -135,8 +136,9 @@
       <!-- 교육이력 -->
       <app-row>
         <app-col></app-col>
-        <app-col size="auto">
-          <p>최종 수정일 : {{ formBasic.delete_state ? formBasic.delete_date : formBasic.update_date }}</p>
+        <app-col size="auto" style="text-align: right;">
+          <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          <p *ngIf="formBasic.delete_state">탈퇴일 : {{ formBasic.delete_date }}</p>
         </app-col>
       </app-row>
       <app-row>
@@ -172,8 +174,9 @@
       <!-- 안전마일리지 -->
       <app-row>
         <app-col></app-col>
-        <app-col size="auto">
+        <app-col size="auto" style="text-align: right;">
           <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          <p *ngIf="formBasic.delete_state">탈퇴일 : {{ formBasic.delete_date }}</p>
         </app-col>
       </app-row>
       <h5>마일리지 현황</h5>

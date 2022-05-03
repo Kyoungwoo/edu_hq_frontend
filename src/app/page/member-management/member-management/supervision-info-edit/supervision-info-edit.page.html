@@ -67,8 +67,9 @@
       <ng-container *ngIf="menu === 1">
       <app-row>
         <app-col></app-col>
-        <app-col size="auto">
-          <p>최종 수정일 : {{ formBasic.delete_state ? formBasic.delete_date : formBasic.update_date }}</p>
+        <app-col size="auto" style="text-align: right;">
+          <p>최종 수정일 : {{ formBasic.update_date }}</p>
+          <p *ngIf="formBasic.delete_state">탈퇴일 : {{ formBasic.delete_date }}</p>
         </app-col>
       </app-row>
       <app-row>
