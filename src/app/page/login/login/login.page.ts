@@ -135,9 +135,10 @@ export class LoginPage implements OnInit, ViewDidEnter {
     const res = await this.connect.run('/user/basic/get', {}, {
       parse: ['belong_data']
     });
-    console.log('test',this.res);
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
+      if(userData.user_type === 'LH') await this.logout.getProjectList(userData);
+      else await this.user.setUserData(userData, false);
       
       if(userData.user_type === 'WORKER') {
         this.res.rsCode = 500;
@@ -151,8 +152,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
       else {
         userData.user_main_page = '/main-admin';
       }
-      if(this.user.userData.user_type === 'LH') await this.logout.getProjectList(userData);
-      await this.user.setUserData(userData, false);
+
 
       
 

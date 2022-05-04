@@ -131,6 +131,7 @@
     <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
       <app-row style="align-items: flex-start;">
         <app-col>
+          <p>{{ item.notice_title }}</p>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
           <p>작성일: {{ item.create_date }}</p>
         </app-col>

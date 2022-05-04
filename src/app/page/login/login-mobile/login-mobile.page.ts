@@ -154,7 +154,7 @@ export class LoginMobilePage implements OnInit {
     });
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
-      if(this.user.userData.user_type === 'LH') await this.logout.getProjectList(userData);
+      if(userData.user_type === 'LH') await this.logout.getProjectList(userData);
       await this.user.setUserData(userData, this.autoLogin);
 
       switch(userData.user_type) {

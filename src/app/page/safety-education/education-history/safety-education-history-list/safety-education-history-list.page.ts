@@ -42,6 +42,10 @@ export class SafetyEducationHistoryListPage implements OnInit {
   permission = {
     company_id: false
   }
+  editable = {
+    company_id:false,
+    add: false
+  }
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
@@ -50,8 +54,24 @@ export class SafetyEducationHistoryListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    await this.projectRolechekc();
     this.getForm();
     this.getList();
+  }
+
+  projectRolechekc() {
+    const { user_role , belong_data} = this.user.userData;
+    if(user_role === 'MASTER_HEAD' ||
+      user_role === 'PARTNER_GENERAL'||
+      user_role === 'PARTNER_HEAD' ||
+      user_role === 'MASTER_GENERAL') {
+        this.editable.company_id = true;
+        this.form.project_id = belong_data.project_id;
+        this.form.company_id = belong_data.company_id;
+      } else if(user_role === 'LH_HEAD') {
+        this.form.project_id = belong_data.project_id;
+        this.editable.add = true;
+      }
   }
 
   getForm() {

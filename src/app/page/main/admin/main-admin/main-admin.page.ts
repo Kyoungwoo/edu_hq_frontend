@@ -89,6 +89,14 @@ export class MainAdminPage implements OnInit {
     this.test();
   }
 
+  async adminReset(){
+    if(this.user.userData.user_type === 'LH') this.getCtgo();
+    this.getEtc();
+    this.getBoard();
+    this.getDust();
+    this.getWeather();
+  }
+
   private async test() {
     if (!environment.test.core.test) return;
     if (!await this.testUserManual()) return;

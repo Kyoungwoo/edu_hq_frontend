@@ -51,6 +51,7 @@ export class LogoutService {
         data.belong_data.project_id = res.rsMap[0].project_id;
         data.belong_data.project_name = res.rsMap[0].project_name;
         console.log('getProjectList - ', data);
+        this.user.setUserData(data, false);
       }
     }
 

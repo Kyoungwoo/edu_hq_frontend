@@ -44,6 +44,8 @@ export class MsdsListPage implements OnInit {
   form = {
     project_id: this.user.userData.belong_data.project_id,
     company_id: this.user.userData.belong_data.company_id,
+    master_company_id: this.user.userData.belong_data.master_company_id,
+    master_company_name: this.user.userData.belong_data.master_company_name,
     end_date: this.date.today(),
     msds_types : [],
     search_text: '',
@@ -52,6 +54,10 @@ export class MsdsListPage implements OnInit {
   }
   res:ConnectResult<MsdsInfo>;
   resFavorite:ConnectResult;
+
+  permission = {
+    company_id: false
+  }
 
   constructor(
     private modal : ModalController,
@@ -63,8 +69,29 @@ export class MsdsListPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    await this.getForm();
     this.get();
     this.getNavData();
+  }
+
+  async getForm() {
+    const { belong_data } = this.user.userData;
+
+    this.form.project_id = belong_data.project_id;
+
+    if(belong_data.company_contract_type === 'LH'
+    || belong_data.company_contract_type === '감리사') {
+
+      this.permission.company_id = true;
+      this.form.master_company_id = 0;
+
+    }
+    else {
+
+      this.permission.company_id = false;
+      this.form.master_company_id = belong_data.master_company_id;
+
+    }
   }
 
   async getNavData(){if(history.state?.msds_id) this.edit(history.state?.msds_id);}
