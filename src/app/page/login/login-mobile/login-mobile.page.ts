@@ -113,8 +113,14 @@ export class LoginMobilePage implements OnInit {
       this.alert.present({
         message: this.res.rsMsg,
         buttons: [
-          { text: '예, 재가입 신청하겠습니다.' },
-          { text: '아니오, 가입하지 않겠습니다.' }
+          { text: '닫기' },
+          { 
+            text: '재가입',
+            handler: async() => {
+              let method = await this.connect.run('/sign/delete/userinfo', {user_id: this.res.rsObj.user_id}, {loading: true});
+              this.nav.navigateForward('/sign-up-type');
+            }
+          }
         ]
       });
     }
@@ -139,8 +145,8 @@ export class LoginMobilePage implements OnInit {
       this.alert.present({
         message: this.res.rsMsg,
         buttons: [
-          { text: '예, 재가입 신청하겠습니다.' },
-          { text: '아니오, 가입하지 않겠습니다.' }
+          { text: '닫기' },
+          { text: '재가입' }
         ]
       });
     }
