@@ -306,7 +306,7 @@
               </app-col>
             </app-row>
           </div>
-          <div style="flex: 1; margin-top: 30px; border-top: 1px solid var(--ion-color-step-100);">
+          <div *ngIf="user.userData.user_type === 'LH'" style="flex: 1; margin-top: 30px; border-top: 1px solid var(--ion-color-step-100);">
             <app-card class="card-warning">
               <app-row>
                   <app-img src="assets/img/main/helmet1.svg"></app-img>
