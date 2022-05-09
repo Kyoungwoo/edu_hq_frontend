@@ -199,7 +199,7 @@ export class MonitorPage implements OnInit, OnDestroy {
 
   async getForm() {
     const { belong_data } = this.user.userData;
-
+    console.log('getForm = ',belong_data.master_company_id);
     this.form.project_id = belong_data.project_id;
     this.form.master_company_id = belong_data.master_company_id;
     this.form.company_id = belong_data.company_id;
@@ -277,7 +277,7 @@ export class MonitorPage implements OnInit, OnDestroy {
    */
    async getSmartEquip() {
      // this.form
-    const res = await this.connect.run('/integrated/smart_equip',{project_id:1, master_company_id:1},{});
+    const res = await this.connect.run('/integrated/smart_equip',this.form,{});
     switch(res.rsCode) {
       case 0 :
         this.smartEquip = res;
