@@ -118,7 +118,8 @@ export class LoginMobilePage implements OnInit {
             text: '재가입',
             handler: async() => {
               let method = await this.connect.run('/sign/delete/userinfo', {user_id: this.res.rsObj.user_id}, {loading: true});
-              this.nav.navigateForward('/sign-up-type');
+              if(method.rsCode === 0) this.nav.navigateForward('/sign-up-type');
+              else this.alert.present({message: this.res.rsMsg });
             }
           }
         ]
