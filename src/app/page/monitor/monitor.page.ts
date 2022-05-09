@@ -313,6 +313,8 @@ export class MonitorPage implements OnInit, OnDestroy {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    this.getSmartEquip();
   }
 
   /**
