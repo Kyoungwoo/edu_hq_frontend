@@ -201,12 +201,13 @@ export class MonitorPage implements OnInit, OnDestroy {
     const { belong_data } = this.user.userData;
     console.log('getForm = ',belong_data.master_company_id);
     this.form.project_id = belong_data.project_id;
-    this.form.master_company_id = belong_data.master_company_id;
+    this.form.master_company_id = belong_data.master_company_id | 0;
     this.form.company_id = belong_data.company_id;
   }
   formChange(newForm) {
     this.form.project_id = newForm.project_id;
-    this.form.master_company_id = newForm.master_company_id;
+    this.form.master_company_id = newForm.master_company_id | 0;
+    this.methodContrroller();
   }
 
   /**
@@ -277,6 +278,7 @@ export class MonitorPage implements OnInit, OnDestroy {
    */
    async getSmartEquip() {
      // this.form
+     
     const res = await this.connect.run('/integrated/smart_equip',this.form,{});
     switch(res.rsCode) {
       case 0 :
@@ -299,6 +301,19 @@ export class MonitorPage implements OnInit, OnDestroy {
           }
         });
         break;
+      default:
+        this.smartEquip_structure.not_using_count = 0;
+        this.smartEquip_structure.machine_count = 0;
+        this.smartEquip_structure.mmachine_using_count = 0;
+
+        this.smartEquip_closeness.not_using_count = 0;
+        this.smartEquip_closeness.machine_count = 0;
+        this.smartEquip_closeness.mmachine_using_count = 0;
+
+        this.smartEquip_crane.not_using_count = 0;
+        this.smartEquip_crane.machine_count = 0;
+        this.smartEquip_crane.mmachine_using_count = 0;
+        break;
     }
   }
 
@@ -309,7 +324,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     const modal = await this.modal.create({
       component:MonitorSmartEquipEditPage,
       componentProps:{
-
+        item: this.form
       }
     });
     modal.present();

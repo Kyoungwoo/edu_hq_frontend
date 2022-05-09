@@ -2,7 +2,7 @@ import { async } from '@angular/core/testing';
 import { UserService } from './../../../basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-monitor-smart-equip-edit',
@@ -40,7 +40,7 @@ export class MonitorSmartEquipEditPage implements OnInit {
    */
   form = {
     project_id: 1,
-    master_company_id: 1,
+    master_company_id: 0,
     ctgo_machine_serial_id: 0
   }
 
@@ -61,6 +61,8 @@ export class MonitorSmartEquipEditPage implements OnInit {
    * @var original_items - 원본 데이터 저장용
    */
   original_items = [];
+
+  @Input() item:any;
   
   constructor(
     private connect: ConnectService,
@@ -69,7 +71,8 @@ export class MonitorSmartEquipEditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getForm();
+    this.form = {...this.form,...this.item};
+    // this.getForm();
     this.get()
   }
 
