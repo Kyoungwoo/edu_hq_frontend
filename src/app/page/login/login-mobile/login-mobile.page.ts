@@ -1,3 +1,4 @@
+import { Platform } from '@ionic/angular';
 import { LogoutService } from 'src/app/service/logout.service';
 import { PushService } from './../../../service/push.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
@@ -126,6 +127,7 @@ export class LoginMobilePage implements OnInit {
       });
     }
   }
+
   public async tokenLogin() {
     this.res = await this.connect.run('/token/refresh', {
       accountID: this.user.userData.account_id,

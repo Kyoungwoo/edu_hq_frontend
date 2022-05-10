@@ -3,3 +3,16 @@
     overflow-y: auto;
     border: 1px solid var(--ion-color-step-100);
 }
+
+.term-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.view-btn{
+    height: 25px;
+    margin: 0;
+    font-size: 12px;
+    margin-inline: 0;
+    --box-shadow: none;
+}

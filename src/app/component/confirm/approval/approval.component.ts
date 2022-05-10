@@ -86,7 +86,7 @@ export class ApprovalComponent implements OnInit {
   isApprovalHidden:boolean = true;
 
   constructor(
-    private user: UserService,
+    public user: UserService,
     private connect: ConnectService,
     private toast: ToastService,
     private _modal: ModalController,

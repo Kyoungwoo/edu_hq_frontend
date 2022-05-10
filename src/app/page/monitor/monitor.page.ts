@@ -217,6 +217,8 @@ export class MonitorPage implements OnInit, OnDestroy {
     this.getTodayWorker(); // 금일 출역 작업자
     this.getTodayConstruction(); // 공종별 출역 작업자
     this.getSmartEquip() // 스마트 안전장비 
+    this.getWeather(); // 날씨정보
+    this.getDust(); // 미세먼지 정보
   }
 
   /**
@@ -355,6 +357,25 @@ export class MonitorPage implements OnInit, OnDestroy {
     });
 
     modal.present();
+  }
+
+  async getWeather() {
+    //날씨
+    const res = await this.connect.run('/weather/get', null, {});
+    switch (res.rsCode) {
+      case 0:
+        this.weather = res.rsObj;
+        break;
+    }
+  }
+  
+  async getDust() {
+    const res = await this.connect.run('/dust/get', null, {});
+    switch (res.rsCode) {
+      case 0:
+        this.dust = res.rsObj;
+        break;
+    }
   }
 
   style(item) {

@@ -44,6 +44,28 @@ export class HeavyEquipDetail {
     etc_json : FileJson = new FileJson();
 }
 
+export class HeavyEquipDetail_Theme {
+  ctgo_construction_id: number = 0;
+  partner_company_name: string = '';
+  rental_start_date: string = '';
+  ctgo_construction_name: string = '';
+  ctgo_machinery_id: number = 0;
+  master_company_id: number = 0;
+  machinery_id: number = 0;
+  project_name: string = '';
+  master_company_name: string = '';
+  rental_end_date: string = '';
+  project_id: number = 0;
+  partner_company_id: number = 0;
+  rental_price: number = 0;
+  machinery_regist_no: string = '';
+  rental_company_name: string = '';
+  ctgo_machinery_name: string = '';
+  machinery_file: (File | Blob)[] = [];
+  machinery_json : FileJson = new FileJson();
+  create_user_id:number = 0;
+}
+
 @Component({
   selector: 'app-heavy-equip-edit',
   templateUrl: './heavy-equip-edit.page.html',
@@ -138,7 +160,11 @@ export class HeavyEquipEditPage implements OnInit {
           text: '예',
           handler: async () => {
             await this.TransFileData();
-            const res = await this.connect.run('/machinery/insert', this.form, {});
+            let json_obj = new HeavyEquipDetail_Theme();
+
+            for(let key in json_obj){json_obj[key] = this.form[key];}
+
+            const res = await this.connect.run('/machinery/insert', json_obj, {});
             if (res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
@@ -161,7 +187,11 @@ export class HeavyEquipEditPage implements OnInit {
           text:'예',
           handler: async() => {
             await this.TransFileData();
-            const res = await this.connect.run('/machinery/update', this.form);
+            let json_obj = new HeavyEquipDetail_Theme();
+
+            for(let key in json_obj){json_obj[key] = this.form[key];}
+
+            const res = await this.connect.run('/machinery/update', json_obj);
             if(res.rsCode === 0) {
               this._modal.dismiss('Y');
             } else {
@@ -174,44 +204,43 @@ export class HeavyEquipEditPage implements OnInit {
   }
 
   async UpdateValidation(){
-    let state = false;
     if(!this.form.project_id){
-      state = true;
       this.toast.present({message:'현장명을 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.partner_company_id){
-      state = true;
       this.toast.present({message:'업체명을 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.ctgo_machinery_id){
-      state = true;
       this.toast.present({message:'중장비를 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.machinery_regist_no){
-      state = true;
       this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.ctgo_construction_id){
-      state = true;
       this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.rental_company_name){
-      state = true;
       this.toast.present({message:'대여업체를 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.rental_start_date){
-      state = true;
       this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.rental_end_date){
-      state = true;
       this.toast.present({message:'보증기간을 입력해주세요.',color:'warning'});
+      return true;
     }
     if(!this.form.rental_price){
-      state = true;
       this.toast.present({message:'보증금액을 입력해주세요.',color:'warning'});
+      return true;
     }
-    return state;
+    return false;
   }
 
   /**

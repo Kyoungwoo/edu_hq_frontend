@@ -161,7 +161,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       };
-      console.log('this.form - ', this.form);
+      // console.log('this.form - ', this.form);
       
       this.form.education_safe_manager_ids.forEach(item => {
         if(Number(item) === this.user.userData.user_id) this.editable.educationMenu_state = true;

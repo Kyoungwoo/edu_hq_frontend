@@ -180,4 +180,8 @@ export class SignUpTermsPage implements OnInit {
 
     return true;
   }
+
+  termPage(url:string){
+    window.open('assets/terms/'+url,'_blank');
+  }
 }

@@ -360,7 +360,7 @@
                   <app-col style="border-right: 1px solid var(--ion-color-step-100);">
                     <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
                       <app-col>
-                        <h2>28&deg;C</h2>
+                        <h2>{{ weather.weather_temp }}&deg;C</h2>
                       </app-col>
                     </app-row>
                     <app-row style="text-align: center;">
@@ -368,7 +368,7 @@
                         <h5>최고기온</h5>
                       </app-col>
                       <app-col>
-                        <h3>30&deg;C</h3>
+                        <h3>{{ weather.high_weather_temp }}&deg;C</h3>
                       </app-col>
                     </app-row>
                     <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
@@ -376,7 +376,7 @@
                         <h5>최저기온</h5>
                       </app-col>
                       <app-col>
-                        <h3>12&deg;C</h3>
+                        <h3>{{ weather.low_weather_temp }}&deg;C</h3>
                       </app-col>
                     </app-row>
                   </app-col>

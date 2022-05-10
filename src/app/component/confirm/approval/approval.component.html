@@ -1,4 +1,4 @@
-<app-row>
+<app-row *ngIf="user.userData.user_type !== 'WORKER'">
   <app-col></app-col>
   <app-col size="auto" *ngFor="let btn of btnList">
     <app-button [color]="btn === '삭제' ? 'danger' : 'primary'" fill="translucent" (click)="onBtnClick(btn)">{{ btn }}</app-button>
