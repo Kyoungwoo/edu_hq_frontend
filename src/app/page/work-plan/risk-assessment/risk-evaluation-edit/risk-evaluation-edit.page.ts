@@ -1,3 +1,4 @@
+import { ExcelService, Sheet, SheetStyle } from './../../../../basic/service/util/excel.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -112,7 +113,9 @@ export class RiskEvaluationEditPage implements OnInit {
     private toast: ToastService,
     private _modal: ModalController,
     private loading: LoadingService,
-    private date: DateService
+    private date: DateService,
+    private excel: ExcelService,
+    private dateService: DateService
   ) { }
 
   async ngOnInit() {
@@ -725,5 +728,114 @@ export class RiskEvaluationEditPage implements OnInit {
     const index = unitItem.ctgo_tool_ids.indexOf(ctgo_tool_id);
     unitItem.ctgo_tool_ids.splice(index, 1);
     unitItem.ctgo_tool_names.splice(index, 1);
+  }
+
+  async excel_download(){
+    const print_date = this.dateService.today();
+    const headerBorder = '1px solid #000000';
+    const backgroundColor = '#d9d9d9';
+    const excelData:Sheet[] = [];
+
+    const logo:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      height:60,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const logo_theme:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      height:30,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const title_1:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      width: 45,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_1:SheetStyle = {
+      border: headerBorder,
+      width: 100,
+      whiteSpace: 'normal'
+    }
+
+    const approval_1:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      fontSize:12,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    let logo_theme_arr = [];
+    for(let i = 0; i < 21; i++) logo_theme_arr.push({code: logo_theme});
+
+    console.log(logo_theme_arr);
+
+    const sheetData:Sheet = {
+      name: '위험성평가',
+      data: [
+        [
+          {colspan: 4, rowspan: 2},
+          {colspan:10, rowspan: 2},
+          {rowspan: 4, text: '결재'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '승인'}
+        ],
+        [
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3}
+        ]
+      ],
+      style: [
+        [
+          {code: logo},
+          {code: logo},
+          {code: logo},
+          {code: logo},
+          {code: title_1},
+          {code: title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1},
+          {code: approval_1}
+        ],
+        logo_theme_arr
+      ]
+    }
+
+    excelData.push(sheetData);
+    this.excel.make(excelData, '위험성평가');
   }
 }

@@ -208,19 +208,19 @@
                     </td>
 
                     <td *ngIf="item.checked">
-                      <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                      <app-select [disabled]="false" [(ngModel)]="item.hq_business_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
                         <app-select-option [value]="0">미사용</app-select-option>
                       </app-select>
                     </td>
                     <td *ngIf="!item.checked && item.hq_business_id">
-                      <app-select [disabled]="true" [(ngModel)]="item.hq_business_entire_state">
+                      <app-select [disabled]="true" [(ngModel)]="item.hq_business_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
                         <app-select-option [value]="0">미사용</app-select-option>
                       </app-select>
                     </td>
                     <td *ngIf="!item.checked && !item.hq_business_id">
-                      <app-select [disabled]="false" [(ngModel)]="item.hq_business_entire_state">
+                      <app-select [disabled]="false" [(ngModel)]="item.hq_business_use_state">
                         <app-select-option [value]="1">사용</app-select-option>
                         <app-select-option [value]="0">미사용</app-select-option>
                       </app-select>
