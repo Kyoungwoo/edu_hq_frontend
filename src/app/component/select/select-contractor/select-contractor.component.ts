@@ -67,8 +67,7 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     const { user_type } = this.user.userData;
-    
-    if(!this.project_id || !this.value) {
+    if((!this.project_id || !this.value) && !this.only_state) {
       if(this.multiple) {
         this.value = [];
       }
@@ -86,10 +85,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
         if(user_type !== 'LH') return;
       }
     }
-
     let method = '/category/certify/search_my_master_company/get';
     if(this.only_state) method = '/category/certify/company/get';
-
     this.res = await this.connect.run(method, {
       project_id: this.project_id,
       company_contract_type: '원청사',
@@ -156,13 +153,9 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
       } else {
         
         const value:Constractor = data.values;
-        this.value = value?.company_id || 0;
-        this._value = value?.company_id || 0;
+        this.value = value?.company_id || 0
         this.text = value.company_name;
-        // console.log('else - ', value?.company_id);
-        // console.log('else - ', this.value);
-        // console.log('else - ', this._value);
-        // this.valueChange(this.value);
+        // this.get();
       }
     }
   }

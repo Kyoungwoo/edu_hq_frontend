@@ -158,8 +158,8 @@ export class SceneEditPage implements OnInit {
     if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.', color:'warning'});
     if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.', color:'warning'});
     if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.', color:'warning'});
-    if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.', color:'warning'});
-    if(!this.supervision_id.length) return this.toast.present({message:'원청사를 선택해 주세요.', color:'warning'});
+    // if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.', color:'warning'});
+    // if(!this.supervision_id.length) return this.toast.present({message:'감리사를 선택해 주세요.', color:'warning'});
     if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.', color:'warning'});
     if(!this.form.contract_end_date) return this.toast.present({message:'공사종료를 설정해 주세요.', color:'warning'});
     if(!this.form.construction_amount) return this.toast.present({message:'공사금액를 설정해 주세요.', color:'warning'});
@@ -201,8 +201,8 @@ export class SceneEditPage implements OnInit {
     if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.',color:'warning'});
     if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.',color:'warning'});
     if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.',color:'warning'});
-    if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.',color:'warning'});
-    if(!this.supervision_id.length) return this.toast.present({message:'원청사를 선택해 주세요.',color:'warning'});
+    // if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.',color:'warning'});
+    // if(!this.supervision_id.length) return this.toast.present({message:'감리사를 선택해 주세요.',color:'warning'});
     if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.',color:'warning'});
     if(!this.form.contract_end_date) return this.toast.present({message:'공사종료를 설정해 주세요.',color:'warning'});
     if(!this.form.construction_amount) return this.toast.present({message:'공사금액를 설정해 주세요.',color:'warning'});
@@ -240,7 +240,7 @@ export class SceneEditPage implements OnInit {
   }
 
   async organizationSel() {
-    if(!this.roleCheck){
+    // if(!this.roleCheck){
       const modal = await this._modal.create({
         component: OrganizationSelectPage
       });
@@ -251,7 +251,7 @@ export class SceneEditPage implements OnInit {
         this.form.hq_regional_id = data.level1selectedItem.hq_regional_id;
         this.form.hq_business_id = data.level2selectedItem.hq_business_id;
       }
-    }
+    // }
   }
 
   address() {
@@ -264,7 +264,7 @@ export class SceneEditPage implements OnInit {
   }
 
   async project_area_set() {
-    if(!this.roleCheck) {
+    // if(!this.roleCheck) {
       const modal = await this._modal.create({
         component: ProjectAreaSetComponent,
         componentProps:{ 
@@ -279,7 +279,7 @@ export class SceneEditPage implements OnInit {
         }
         this.form.gps_coordinate_data = data;
       }
-    }
+    // }
   }
 
   async ctgoBusiness() {

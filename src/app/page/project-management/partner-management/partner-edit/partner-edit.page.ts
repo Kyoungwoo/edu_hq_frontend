@@ -16,12 +16,14 @@ export class CompanyContractData {
   contract_start_date:string = ''; //계약기간~
   contract_end_date:string = ''; //~계약기간
   contract_amount:string = ''; //계약금액
-  manager_user_id:number = 0; //협력사소장
-  manager_user_name:string = '';
+  // manager_user_id:number = 0; //협력사소장
+  // manager_user_name:string = '';
   master_company_id:number = 0; //원청사ID
   master_company_name:string = '';
   project_id:number = 0; //현장ID
   project_name:string = ''; //현장 이름
+  manager_name: string; // 담당자 이름
+  manager_phone: string; // 담당자 전화번호
 } 
 
 export class PartnerDetail {
@@ -30,11 +32,8 @@ export class PartnerDetail {
   company_file_data: null;
   company_id: number;
   company_name: string;
-  company_phone: string;
   consignee_consent_date: string;
   manager_email: string;
-  manager_name: string;
-  manager_phone: string;
   company_contract_data: CompanyContractData[] = [];
 }
 @Component({
@@ -45,12 +44,12 @@ export class PartnerDetail {
 export class PartnerEditPage implements OnInit {
   
   @Input() company_id;
+  @Input() master_company_id;
   @Input() project_id;
   @Input() type?:boolean = false;
 
   permission = {
-    edit: false,
-    agree: false
+    edit: false
   }
 
   viewMode:boolean = false;
@@ -123,8 +122,8 @@ export class PartnerEditPage implements OnInit {
   
         el.querySelector('[name=project_id]').dispatchEvent(new CustomEvent('click'));
         await this.promise.wait(2500);
-        el.querySelector('[name=master_company_id]').dispatchEvent(new CustomEvent('click'));
-        await this.promise.wait(1500);
+        // el.querySelector('[name=master_company_id]').dispatchEvent(new CustomEvent('click'));
+        // await this.promise.wait(1500);
         el.querySelector('[name=contract_name]').dispatchEvent(new CustomEvent('setValue', { detail: `계약_${this.regex.random.id(5)}` }));
         el.querySelector('[name=ctgo_construction_id]').dispatchEvent(new CustomEvent('click'));
         await this.promise.wait(1000);
@@ -134,11 +133,11 @@ export class PartnerEditPage implements OnInit {
         el.querySelector('[name=manager_user_id]').dispatchEvent(new CustomEvent('click'));
         await this.promise.wait(1500);
   
-        el.querySelector('[name=manager_name]').dispatchEvent(new CustomEvent('setValue', { detail: `고한솔_${this.regex.random.id(5)}` }));
-        el.querySelector('[name=manager_phone]').dispatchEvent(new CustomEvent('setValue', { detail: `고한솔_${this.regex.random.id(5)}` }));
-        el.querySelector('[name=manager_email]').dispatchEvent(new CustomEvent('setValue', { detail: `${this.regex.random.id(5)}@naver.com` }));
+        // el.querySelector('[name=manager_name]').dispatchEvent(new CustomEvent('setValue', { detail: `고한솔_${this.regex.random.id(5)}` }));
+        // el.querySelector('[name=manager_phone]').dispatchEvent(new CustomEvent('setValue', { detail: `고한솔_${this.regex.random.id(5)}` }));
+        // el.querySelector('[name=manager_email]').dispatchEvent(new CustomEvent('setValue', { detail: `${this.regex.random.id(5)}@naver.com` }));
   
-        if(this.permission.agree) el.querySelector('[name=consignee_consent_date]').dispatchEvent(new CustomEvent('click'));
+        // if(this.permission.agree) el.querySelector('[name=consignee_consent_date]').dispatchEvent(new CustomEvent('click'));
   
         el.querySelector('[name=submit]').dispatchEvent(new CustomEvent('click'));
         await this.promise.wait();
@@ -153,20 +152,7 @@ export class PartnerEditPage implements OnInit {
 
   getPermission() {
     const { user_role } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.permission.edit = true;
-      this.permission.agree = false;
-    } 
-    else if(user_role === 'MASTER_HEAD') {
-      this.permission.edit = true;
-      this.permission.agree = false;
-    } else if(user_role === 'PARTNER_HEAD'){
-      this.permission.edit = true;
-      this.permission.agree = true;
-    } else {
-      this.permission.edit = false;
-      this.permission.agree = false;
-    }
+    if(user_role === 'MASTER_HEAD') this.permission.edit = true;
   }
 
   async getItem() {
@@ -195,7 +181,7 @@ export class PartnerEditPage implements OnInit {
       this.form.company_contract_data.push({
         ...new CompanyContractData(),
         project_id: belong_data.project_id,
-        master_company_id: belong_data.company_id
+        master_company_id: this.master_company_id
       });
     }
   }
@@ -284,9 +270,9 @@ export class PartnerEditPage implements OnInit {
   }
 
   private valid():boolean {
-    if(this.permission.agree) {
-      if(!this.form.consignee_consent_date) { this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning' }); return false };
-    }
+    // if(this.permission.agree) {
+    //   if(!this.form.consignee_consent_date) { this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning' }); return false };
+    // }
     if(!this.form.company_name) { this.toast.present({ message: '업체명을 입력해주세요.',color:'warning'}); return false };
     if(!this.form.business_register_no) { this.toast.present({ message: '사업자등록번호 10자리를 입력해주세요.',color:'warning'}); return false; };
     if(!this.form.company_ceo) { this.toast.present({ message: '대표명을 입력해주세요.',color:'warning'}); return false; };
@@ -297,7 +283,7 @@ export class PartnerEditPage implements OnInit {
       
       if(!company_contract_data.project_id) { this.toast.present({ message: '현장을 입력해주세요.',color:'warning'}); return false; };
       
-      if(!company_contract_data.master_company_id) { this.toast.present({ message: '원청사를 입력해주세요.',color:'warning'}); return false; };
+      // if(!company_contract_data.master_company_id) { this.toast.present({ message: '원청사를 입력해주세요.',color:'warning'}); return false; };
 
       if(!company_contract_data.ctgo_construction_id) { this.toast.present({ message: '계약공종을 입력해주세요.',color:'warning'}); return false; };
 
@@ -310,8 +296,12 @@ export class PartnerEditPage implements OnInit {
       if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
       else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
 
-      if(!this.form.manager_name) this.form.manager_name = '';
-      if(!this.form.manager_phone) this.form.manager_phone = '';
+      if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 담당자를 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.manager_phone) { this.toast.present({ message: '담당자 전화번호를 입력해주세요.',color:'warning'}); return false; };
+
+      // if(!this.form.manager_name) this.form.manager_name = '';
+      // if(!this.form.manager_phone) this.form.manager_phone = '';
       // if(!company_contract_data.manager_user_id) { this.toast.present({ message: '협력사 소장을 입력해주세요.',color:'warning'}); return false; };
     }
 

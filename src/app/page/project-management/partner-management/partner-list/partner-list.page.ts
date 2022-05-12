@@ -13,7 +13,7 @@ import { PartnerEditPage } from '../partner-edit/partner-edit.page';
 export class PartnerListPage implements OnInit {
 
   form = {
-    project_id: this.user.userData.belong_data.project_id,
+    project_id: (this.user.userData.user_type === 'LH' || this.user.userData.user_type === 'SUPER') ? 0 : this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.belong_data.master_company_id,
     search_text: '',
     limit_no: 0
@@ -57,14 +57,7 @@ export class PartnerListPage implements OnInit {
   getPromission() {
     console.log("this.form.master_company_id",this.form.master_company_id);
     const { user_role, belong_data } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.permission.edit = true;
-    } 
-    else if(user_role === 'MASTER_HEAD' && belong_data.company_contract_type === '원청사') {
-      this.permission.edit = true;
-    } else {
-      this.permission.edit = false;
-    }
+    if(user_role === 'MASTER_HEAD' && belong_data.company_contract_type === '원청사') this.permission.edit = true;
   }
   getForm() {
     const { user_type, belong_data } = this.user.userData;
@@ -93,11 +86,13 @@ export class PartnerListPage implements OnInit {
   }
 
   async edit(item?) {
+    console.log('item - ',item ? 1: 2);
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
         company_id: item?.company_id,
-        project_id: item?.project_id
+        project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
+        master_company_id: item ? (item.master_company_id ? item.master_company_id : this.form.master_company_id) : this.form.master_company_id
       }
     });
     modal.present();

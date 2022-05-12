@@ -17,14 +17,9 @@
       <app-input  [required]="true" [disabled]="true" label="사업자등록번호"
       [(ngModel)]="form.business_register_no"></app-input>
     </app-col>
-  </app-row>
-  <app-row mobileBreak>
     <app-col>
       <app-input [required]="true" [disabled]="true" name="input buisnessman"
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
-    </app-col>
-    <app-col>
-      <app-input label="현장 전화번호" [disabled]="updateStatus" [(ngModel)]="form.company_phone"></app-input>
     </app-col>
   </app-row>
   <app-row>
@@ -50,38 +45,220 @@
     </app-row>
   </app-card>
 
-  <h4>담당자 정보</h4>
-    <app-row>
-      <app-col>
-        <app-input name="name" [disabled]="updateStatus" [(ngModel)]="form.manager_name" label="성명">
-        </app-input>
-      </app-col>
-      <app-col>
-        <app-input  name="phoneNumber" [disabled]="updateStatus" [(ngModel)]="form.manager_phone"
-          [type]="'tel'" label="연락처"></app-input>
-      </app-col>
-      <app-col>
-        <app-email label="이메일" [disabled]="updateStatus" [(ngModel)]="form.manager_email"></app-email>
-      </app-col>
-    </app-row>
-  <!-- <h4>개인정보 처리 위탁 동의</h4>
-    <app-row>
-      <app-col>
-        <app-input name="consigner" [disabled]="updateStatus" [(ngModel)]="form.company_name" label="위탁자"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="fiduciary" [disabled]="updateStatus" [readonly]="true" value="한국토지주택공사" label="수탁자"></app-input>
-      </app-col>
-      <app-col>
-        <app-input name="consignee_consent_date_val" [(ngModel)]="form.consignee_consent_date" label="동의현황" [disabled]="true"></app-input>
-      </app-col>
-    </app-row>
-    <h4>개인정보 처리 위탁 동의서</h4>
-    <app-textarea *ngIf="termsRes" name="terms_text" [rows]="10" [disabled]="viewMode" [(ngModel)]="termsRes?.rsObj.terms_text"></app-textarea>
-    <app-button name="consignee_consent_date" style="width:100%" *ngIf="permission.agree && !viewMode" (click)="agreement()">동의합니다</app-button> -->
+  <app-row>
+    <app-col>
+      <h4>계약 정보</h4>
+    </app-col>
+    <app-col size="auto" *ngIf="permission.edit && !viewMode">
+      <app-button name="add_contract" style="margin-bottom: 0;" (click)="addCompanyContractData()" fill="translucent">추가</app-button>
+      <app-button name="remove_contract" style="margin-top: 0;" (click)="removeCompanyContractData()" color="danger" fill="translucent">삭제</app-button>
+    </app-col>
+  </app-row>
+  <app-check-group [(ngModel)]="selectList">
+    <app-table>
+      <thead>
+        <tr>
+          <th *ngIf="!viewMode" style="width: 40px;">
+            <app-check *ngIf="permission.edit && !viewMode" type="all"></app-check>
+          </th>
+          <th>현장명</th>
+          <th>계약명</th>
+          <th>계약금액<br>(원/VAT 별도)</th>
+          <th style="width: 280px;">계약기간</th>
+          <th>현장 소장</th>
+          <th style="width: 130px;">현장 전화번호</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!viewMode; else tempView">
+          <tr *ngFor="let item of form.company_contract_data; let i = index">
+            <td>
+              <app-check [on]="item"></app-check>
+            </td>
+            <td>
+              <app-select-scene label="" name="project_id" [(ngModel)]="item.project_id"></app-select-scene>
+            </td>
+            <td>
+              <app-input name="contract_name" [(ngModel)]="item.contract_name"></app-input>
+            </td>
+            <td>
+              <app-input name="contract_amount" [(ngModel)]="item.contract_amount"></app-input>
+            </td>
+            <td>
+              <app-input-group>
+                <app-calendar name="contract_start_date" [(ngModel)]="item.contract_start_date" [max]="item.contract_end_date"></app-calendar>
+                ~
+                <app-calendar name="contract_end_date" [(ngModel)]="item.contract_end_date" [min]="item.contract_start_date"></app-calendar>
+              </app-input-group>
+            </td>
+            <td>
+              <app-input name="manager_name" [(ngModel)]="item.manager_name"></app-input>
+            </td>
+            <td>
+              <app-input name="manager_phone" [(ngModel)]="item.manager_phone"></app-input>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #tempView>
+          <tr *ngFor="let item of form.company_contract_data; let i = index">
+            <td>
+              {{ item.project_name }}
+            </td>
+            <td>
+              {{ item.contract_name }}
+            </td>
+            <td>
+              {{ item.ctgo_construction_name }}
+            </td>
+            <td>
+              {{ item.contract_amount }}
+            </td>
+            <td>
+              {{ item.contract_start_date }}
+              ~
+              {{ item.contract_end_date }}
+            </td>
+            <td>
+              {{ item.manager_name }}
+            </td>
+            <td>
+              {{ item.manager_phone }}
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </app-table>
+  </app-check-group>
 </ion-content>
 <app-button-footer *ngIf="permission.edit">
   <app-button fill="translucent" *ngIf="updateStatus" (click)="contUpdate()">수정</app-button>
-  <!-- <app-button fill="translucent" *ngIf="!updateStatus" (click)="contDelete()" color="danger">삭제</app-button> -->
   <app-button fill="translucent" *ngIf="!updateStatus" (click)="contSave()">저장</app-button>
 </app-button-footer>
+
+
+
+
+<!-- <ion-header>
+  <ion-toolbar color="white">
+    <ion-title>협력사 정보</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button name="dismiss"></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>협력사 정보</h4>
+  <form>
+    <app-row>
+      <app-col>
+        <app-input name="company_name" label="업체명" [disabled]="viewMode || !isNew" [(ngModel)]="form.company_name" placeholder="업체명"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="business_register_no" [disabled]="viewMode || !isNew" label="사업자등록번호" [(ngModel)]="form.business_register_no" placeholder="사업자등록번호" [maxlength]="10"></app-input>
+      </app-col>
+      <app-col>
+        <app-input name="company_ceo" [disabled]="viewMode || !isNew" label="대표자" [(ngModel)]="form.company_ceo"  placeholder="대표자"></app-input>
+      </app-col>
+    </app-row>
+    <app-row>
+    </app-row>
+  </form>
+<app-row>
+  <app-col>
+    <h4>계약 정보</h4>
+  </app-col>
+  <app-col size="auto" *ngIf="permission.edit && !viewMode">
+    <app-button name="add_contract" style="margin-bottom: 0;" (click)="addCompanyContractData()" fill="translucent">추가</app-button>
+    <app-button name="remove_contract" style="margin-top: 0;" (click)="removeCompanyContractData()" color="danger" fill="translucent">삭제</app-button>
+  </app-col>
+</app-row>
+<app-check-group [(ngModel)]="selectList">
+  <app-table>
+    <thead>
+      <tr>
+        <th *ngIf="!viewMode" style="width: 40px;">
+          <app-check *ngIf="permission.edit && !viewMode" type="all"></app-check>
+        </th>
+        <th>현장명</th>
+        <th>계약명</th>
+        <th>계약공종</th>
+        <th>계약금액<br>(원/VAT 별도)</th>
+        <th style="width: 280px;">계약기간</th>
+        <th>현장 담당자</th>
+        <th style="width: 130px;">담당자 전화번호</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="!viewMode; else tempView">
+        <tr *ngFor="let item of form.company_contract_data; let i = index">
+          <td>
+            <app-check [on]="item"></app-check>
+          </td>
+          <td>
+            <app-select-scene label="" name="project_id" [(ngModel)]="item.project_id"></app-select-scene>
+          </td>
+          <td>
+            <app-input name="contract_name" [(ngModel)]="item.contract_name"></app-input>
+          </td>
+          <td>
+            <app-select-construction [master_company_id]="item.master_company_id || master_company_id" label="" name="ctgo_construction_id" [project_id]="item.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
+          </td>
+          <td>
+            <app-input name="contract_amount" [(ngModel)]="item.contract_amount"></app-input>
+          </td>
+          <td>
+            <app-input-group>
+              <app-calendar name="contract_start_date" [(ngModel)]="item.contract_start_date" [max]="item.contract_end_date"></app-calendar>
+              ~
+              <app-calendar name="contract_end_date" [(ngModel)]="item.contract_end_date" [min]="item.contract_start_date"></app-calendar>
+            </app-input-group>
+          </td>
+          <td>
+            <app-input name="manager_name" [(ngModel)]="item.manager_name"></app-input>
+          </td>
+          <td>
+            <app-input name="manager_phone" [(ngModel)]="item.manager_phone"></app-input>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #tempView>
+        <tr *ngFor="let item of form.company_contract_data; let i = index">
+          <td>
+            {{ item.project_name }}
+          </td>
+          <td>
+            {{ item.contract_name }}
+          </td>
+          <td>
+            {{ item.ctgo_construction_name }}
+          </td>
+          <td>
+            {{ item.contract_amount }}
+          </td>
+          <td>
+            {{ item.contract_start_date }}
+            ~
+            {{ item.contract_end_date }}
+          </td>
+          <td>
+            {{ item.manager_name }}
+          </td>
+          <td>
+            {{ item.manager_phone }}
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </app-table>
+</app-check-group>
+</ion-content>
+<ng-container *ngIf="permission.edit">
+  <app-button-footer *ngIf="company_id">
+    <app-button name="edit" fill="translucent" *ngIf="viewMode" (click)="contEdit()">수정</app-button>
+    <app-button fill="translucent" color="danger" *ngIf="!viewMode" (click)="contDelete()" >삭제</app-button>
+    <app-button name="submit" *ngIf="!viewMode" (click)="contUpdate()">저장</app-button>
+  </app-button-footer>
+  <app-button-footer *ngIf="!company_id">
+    <app-button name="submit" *ngIf="!viewMode" (click)="contSave()">저장</app-button>
+  </app-button-footer>
+</ng-container> -->

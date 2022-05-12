@@ -778,6 +778,15 @@ export class RiskEvaluationEditPage implements OnInit {
       whiteSpace: 'normal'
     }
 
+    const sub_title_1:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      height:60,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
     let logo_theme_arr = [];
     for(let i = 0; i < 21; i++) logo_theme_arr.push({code: logo_theme});
 

@@ -13,14 +13,14 @@
           </app-row>
         </ion-toolbar>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>
               <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>
-              <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
+              <app-select-contractor [only_state]="true" [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
             </td>
           </tr>
           <tr>
@@ -46,26 +46,26 @@
         <thead>
           <tr>
             <th style="width: 48px;">No</th>
-            <th>현장명</th>
+            <!-- <th>현장명</th> -->
             <th>원청사명</th>
             <th>협력사명</th>
             <th>사업자등록번호</th>
             <th>대표자</th>
-            <th>공종</th>
-            <th>전화번호</th>
+            <!-- <th>공종</th> -->
+            <!-- <th>전화번호</th> -->
             <th>최근 업데이트</th>
             <th>작성자</th>
           </tr>
         </thead>
           <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
             <td>{{ item.index }}</td>
-            <td>{{ item.project_name }}</td>
+            <!-- <td>{{ item.project_name }}</td> -->
             <td>{{ item.master_company_name }}</td>
             <td>{{ item.company_name }}</td>
             <td>{{ item.business_register_no }}</td>
             <td>{{ item.company_ceo}}</td>
-            <td>{{ item.ctgo_construction_name }}</td>
-            <td>{{ item.company_phone }}</td>
+            <!-- <td>{{ item.ctgo_construction_name }}</td>
+            <td>{{ item.company_phone }}</td> -->
             <td>{{ item.update_date }}</td>
             <td>{{ item.create_user_name}}</td>
           </tr>

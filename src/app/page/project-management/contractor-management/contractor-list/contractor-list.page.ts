@@ -109,18 +109,35 @@ export class ContractorListPage implements OnInit {
     }
   }
 
-  async edit(item) {
+  async edit(item?) {
     const modal = await this.modal.create({
       component:ContractorEditPage,
       componentProps:{
-        company_id:item.company_id,
-        project_id:item.project_id
+        company_id: item?.company_id,
+        project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.getList();
   }
+
+  // async edit(item?) {
+  //   console.log('item - ',item ? 1: 2);
+  //   const modal = await this.modal.create({
+  //     component:PartnerEditPage,
+  //     componentProps:{
+  //       company_id: item?.company_id,
+  //       project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
+  //       master_company_id: item ? (item.master_company_id ? item.master_company_id : this.form.master_company_id) : this.form.master_company_id
+  //     }
+  //   });
+  //   modal.present();
+  //   const { data } = await modal.onDidDismiss();
+  //   if(data) {
+  //     this.getList();
+  //   }
+  // }
 
   async getCtgoRegional() {
     this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});

@@ -10,6 +10,7 @@ export class FilePreviewComponent implements OnInit {
 
   @Input() futItem:FutItem;
   @Input() readonly:boolean = false;
+  @Input() type:'auto' | 'full' = 'auto';
 
   @Output() buttonClick = new EventEmitter();
 
