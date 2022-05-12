@@ -90,7 +90,7 @@ export class PartnerListPage implements OnInit {
     const modal = await this.modal.create({
       component:PartnerEditPage,
       componentProps:{
-        company_id: item?.company_id,
+        company_id: item?.company_id || 0,
         project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
         master_company_id: item ? (item.master_company_id ? item.master_company_id : this.form.master_company_id) : this.form.master_company_id
       }

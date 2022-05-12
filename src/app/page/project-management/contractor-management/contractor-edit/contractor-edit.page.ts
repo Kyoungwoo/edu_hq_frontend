@@ -1,3 +1,4 @@
+import { RegexService } from './../../../../basic/service/util/regex.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -65,6 +66,7 @@ export class ContractorEditPage implements OnInit {
     agree: false
   }
   viewMode:boolean = false;
+  isNew:boolean = false;
 
   @Input() company_id;
   @Input() project_id;
@@ -94,17 +96,21 @@ export class ContractorEditPage implements OnInit {
     private toast: ToastService,
     private _modal: ModalController,
     public user: UserService,
+    private regex: RegexService
   ) { }
 
   ngOnInit() {
     this.getPermission();
     // this.form.project_id = this.project_id;
     this.getTerms();
+    console.log("company - ",this.company_id);
     if(this.company_id) {
       this.viewMode = true;
+      this.isNew = false;
       this.getItem();
     } else {
       this.viewMode = false;
+      this.isNew = true;
     }
   }
   // getPermission() {
@@ -119,16 +125,16 @@ export class ContractorEditPage implements OnInit {
 
   getPermission() {
     const { user_role } = this.user.userData;
-    if(user_role === 'LH_HEAD') {
-      this.permission.agree = false;
-    } 
-    else if(user_role === 'MASTER_HEAD') {
-      this.permission.agree = false;
-    } else if(user_role === 'PARTNER_HEAD'){
-      this.permission.agree = true;
-    } else {
-      this.permission.agree = false;
-    }
+    // if(user_role === 'LH_HEAD') {
+    //   this.permission.agree = false;
+    // } 
+    // else if(user_role === 'MASTER_HEAD') {
+    //   this.permission.agree = false;
+    // } else if(user_role === 'PARTNER_HEAD'){
+    //   this.permission.agree = true;
+    // } else {
+    //   this.permission.agree = false;
+    // }
 
     if(user_role === 'LH_HEAD') this.permission.edit = true;
   }
@@ -204,12 +210,13 @@ export class ContractorEditPage implements OnInit {
   
   contUpdate() {
     //나중에 정규식으로 고침
-    if(this.form.manager_email){
-      let spliteamil = this.form.manager_email.split('@');
-      this.email = spliteamil[0];
-      this.emailaddress = spliteamil[1];
-    }
-    this.updateStatus = false;
+    // if(this.form.manager_email){
+    //   let spliteamil = this.form.manager_email.split('@');
+    //   this.email = spliteamil[0];
+    //   this.emailaddress = spliteamil[1];
+    // }
+    // this.updateStatus = false;
+    this.viewMode = false;
   }
 
   async getTerms() {
@@ -241,5 +248,44 @@ export class ContractorEditPage implements OnInit {
       this.form.company_contract_data.splice(index, 1);
     });
     this.selectList = [];
+  }
+
+  private valid():boolean {
+    // if(this.permission.agree) {
+    //   if(!this.form.consignee_consent_date) { this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'warning' }); return false };
+    // }
+    if(!this.form.company_name) { this.toast.present({ message: '업체명을 입력해주세요.',color:'warning'}); return false };
+    if(!this.form.business_register_no) { this.toast.present({ message: '사업자등록번호 10자리를 입력해주세요.',color:'warning'}); return false; };
+    if(!this.form.company_ceo) { this.toast.present({ message: '대표명을 입력해주세요.',color:'warning'}); return false; };
+
+    if(!this.form.company_contract_data?.length) { this.toast.present({ message: '계약정보를 입력해주세요.',color:'warning'}); return false; }
+    for(let i = 0; i < this.form.company_contract_data.length; i++) {
+      const company_contract_data = this.form.company_contract_data[i];
+      
+      if(!company_contract_data.project_id) { this.toast.present({ message: '현장을 입력해주세요.',color:'warning'}); return false; };
+      
+      // if(!company_contract_data.master_company_id) { this.toast.present({ message: '원청사를 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.ctgo_construction_id) { this.toast.present({ message: '계약공종을 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.contract_name) { this.toast.present({ message: '계약명을 입력해주세요.',color:'warning'}); return false; };
+      
+      if(!company_contract_data.contract_start_date) { this.toast.present({ message: '계약기간을 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.contract_end_date) { this.toast.present({ message: '계약기간을 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
+      else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
+
+      if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 담당자를 입력해주세요.',color:'warning'}); return false; };
+
+      if(!company_contract_data.manager_phone) { this.toast.present({ message: '담당자 전화번호를 입력해주세요.',color:'warning'}); return false; };
+
+      // if(!this.form.manager_name) this.form.manager_name = '';
+      // if(!this.form.manager_phone) this.form.manager_phone = '';
+      // if(!company_contract_data.manager_user_id) { this.toast.present({ message: '협력사 소장을 입력해주세요.',color:'warning'}); return false; };
+    }
+
+    return true;
   }
 }

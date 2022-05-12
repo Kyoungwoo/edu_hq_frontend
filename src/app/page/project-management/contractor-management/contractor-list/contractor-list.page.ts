@@ -113,7 +113,7 @@ export class ContractorListPage implements OnInit {
     const modal = await this.modal.create({
       component:ContractorEditPage,
       componentProps:{
-        company_id: item?.company_id,
+        company_id: item?.company_id || 0,
         project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
       }
     });

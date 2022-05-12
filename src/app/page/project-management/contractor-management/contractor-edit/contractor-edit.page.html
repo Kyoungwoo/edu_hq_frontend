@@ -10,15 +10,15 @@
   <h4>회사 정보</h4>
   <app-row mobileBreak>
     <app-col>
-      <app-input  [required]="true" [disabled]="true" label="업체명" name="input"
+      <app-input  [required]="true" [disabled]="viewMode || !isNew" label="업체명" name="input"
       [(ngModel)]="form.company_name"></app-input>
     </app-col>
     <app-col>
-      <app-input  [required]="true" [disabled]="true" label="사업자등록번호"
+      <app-input  [required]="true" [disabled]="viewMode || !isNew" label="사업자등록번호"
       [(ngModel)]="form.business_register_no"></app-input>
     </app-col>
     <app-col>
-      <app-input [required]="true" [disabled]="true" name="input buisnessman"
+      <app-input [required]="true" [disabled]="viewMode || !isNew" name="input buisnessman"
         [(ngModel)]="form.company_ceo" label="대표자" placeholder=""></app-input>
     </app-col>
   </app-row>
@@ -27,7 +27,7 @@
       <h4>회사 로고</h4>
     </app-col>
     <app-col size="auto">
-      <app-button *ngIf="!updateStatus" fill="translucent">
+      <app-button *ngIf="permission.edit && !viewMode" fill="translucent">
         <app-file view_type="LOGO"
         [(ngModel)]="form.company_file_data"
         [file]="form.file"
@@ -36,7 +36,7 @@
       </app-button>
     </app-col>
   </app-row>
-  <app-file-preview *ngFor="let futItem of form.company_file_data  let i = index" [futItem]="futItem" [readonly]="updateStatus" (buttonClick)="form.company_file_data.splice(i,1)"></app-file-preview>
+  <app-file-preview *ngFor="let futItem of form.company_file_data  let i = index" [futItem]="futItem" [readonly]="!permission.edit && viewMode" (buttonClick)="form.company_file_data.splice(i,1)"></app-file-preview>
   <app-card *ngIf="!form.company_file_data">
     <app-row>
       <app-col>
