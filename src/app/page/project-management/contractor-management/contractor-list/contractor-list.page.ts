@@ -15,8 +15,8 @@ export class ContractorListPage implements OnInit {
   form = {
     project_id: (this.user.userData.user_type === 'LH' || this.user.userData.user_type === 'SUPER') ? 0 : this.user.userData.belong_data.project_id,
     company_contract_type: '원청사',
-    hq_regional_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_regional_id | 0),
-    hq_business_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_business_id | 0),
+    // hq_regional_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_regional_id | 0),
+    // hq_business_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_business_id | 0),
     limit_no: 0,
     master_company_ids: [],
     search_text: '',
@@ -83,8 +83,8 @@ export class ContractorListPage implements OnInit {
     }
     
     this.getList();
-    this.getCtgoBusiness();
-    this.getCtgoRegional();
+    // this.getCtgoBusiness();
+    // this.getCtgoRegional();
   }
 
   async getList(limit_no = this.form.limit_no) {
@@ -139,18 +139,18 @@ export class ContractorListPage implements OnInit {
   //   }
   // }
 
-  async getCtgoRegional() {
-    this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
-    if(this.ctgoRegional.rsCode === 0) {
-    }
-  }
-  async getCtgoBusiness(ev?) {
-    if(!ev) this.form.hq_business_id = 0;
-    this.businessState = false;
-    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
-    {
-      hq_regional_id:this.form.hq_regional_id
-    },{});
-    if(this.ctgoBusiness.rsCode === 0) {}
-  }
+  // async getCtgoRegional() {
+  //   this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
+  //   if(this.ctgoRegional.rsCode === 0) {
+  //   }
+  // }
+  // async getCtgoBusiness(ev?) {
+  //   if(!ev) this.form.hq_business_id = 0;
+  //   this.businessState = false;
+  //   this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
+  //   {
+  //     hq_regional_id:this.form.hq_regional_id
+  //   },{});
+  //   if(this.ctgoBusiness.rsCode === 0) {}
+  // }
 }

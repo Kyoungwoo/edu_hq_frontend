@@ -8,22 +8,6 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
-// export class SupervisionEdit {
-//   company_phone: string;
-//   manager_name: string;
-//   consignee_consent_date: string;
-//   manager_phone: string;
-//   company_id: number;
-//   business_register_no: string;
-//   company_name: string;
-//   company_file_data: FutItem[] = [];
-//   file: (File | Blob)[] = [];
-//   file_json: FileJson = new FileJson();
-//   company_ceo: string;
-//   project_id:number;
-//   manager_email: string;
-// }
-
 export class CompanyContractData {
   ctgo_construction_id:number = 0; //계약공종
   ctgo_construction_name:string = '';
@@ -31,8 +15,6 @@ export class CompanyContractData {
   contract_start_date:string = ''; //계약기간~
   contract_end_date:string = ''; //~계약기간
   contract_amount:string = ''; //계약금액
-  // manager_user_id:number = 0; //협력사소장
-  // manager_user_name:string = '';
   master_company_id:number = 0; //원청사ID
   master_company_name:string = '';
   project_id:number = 0; //현장ID
@@ -46,6 +28,7 @@ export class SupervisionEdit {
   company_ceo: string;
   company_id: number;
   company_name: string;
+  company_contract_type: string = '원청사';
   consignee_consent_date: string;
   manager_email: string;
   company_contract_data: CompanyContractData[] = [];
@@ -146,23 +129,13 @@ export class ContractorEditPage implements OnInit {
       parse: ['company_file_data']
     });
     if (res.rsCode === 0) {
-      this.form = {
-        ...this.form,
-        ...res.rsObj
-      }
+      this.form = res.rsObj;
+      this.form.company_contract_data = res.rsMap;
     }
   }
   
   async contSave() {
-    /* if(!this.form.consignee_consent_date){
-      if(this.user.userData.user_type !== 'LH') return this.toast.present({ message: '개인정보 처리 위탁 동의를 해주시기 바랍니다.',color:'danger' });
-    } */
-    if(!this.form.company_name) return this.toast.present({ message: '회사명을 입력해주세요.'});
-    if(!this.form.business_register_no) return this.toast.present({ message: '사업자등록번호를 입력해주세요.'});
-    if(!this.form.company_ceo) return this.toast.present({ message: '대표명을 입력해주세요.'});
-    // if(!this.form.company_file_data.length) return this.toast.present({ message: '파일을 입력해주세요.'});
- 
-    
+    if(!this.valid()) return;
     this.alert.present({
       message: '저장하시겠습니까?',
       buttons: [
@@ -170,16 +143,20 @@ export class ContractorEditPage implements OnInit {
         {
           text: '예',
           handler: async () => {
-            const res = await this.connect.run('/project/company/masters/update', this.form, {});
+            const res = await this.connect.run('/project/company/masters/insert', this.form, {});
             if (res.rsCode === 0) {
-              this._modal.dismiss();
+              this._modal.dismiss('Y');
             } else {
               this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           }
         }
       ]
-    })
+    });
+  }
+  
+  contEdit() {
+    this.viewMode = false;
   }
   
   async contDelete() {
@@ -208,15 +185,26 @@ export class ContractorEditPage implements OnInit {
     this.form.consignee_consent_date = this.date.today({},'SECOND');
   }
   
-  contUpdate() {
-    //나중에 정규식으로 고침
-    // if(this.form.manager_email){
-    //   let spliteamil = this.form.manager_email.split('@');
-    //   this.email = spliteamil[0];
-    //   this.emailaddress = spliteamil[1];
-    // }
-    // this.updateStatus = false;
-    this.viewMode = false;
+  async contUpdate() { //수정
+    if(!this.valid()) return;
+
+    this.alert.present({
+      message:'수정 하시겠습니까?',
+      buttons:[
+        { text:'아니요' },
+        {
+          text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/project/company/masters/update', this.form);
+            if(res.rsCode === 0) {
+              this._modal.dismiss('Y');
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
+    });
   }
 
   async getTerms() {
@@ -266,7 +254,7 @@ export class ContractorEditPage implements OnInit {
       
       // if(!company_contract_data.master_company_id) { this.toast.present({ message: '원청사를 입력해주세요.',color:'warning'}); return false; };
 
-      if(!company_contract_data.ctgo_construction_id) { this.toast.present({ message: '계약공종을 입력해주세요.',color:'warning'}); return false; };
+      // if(!company_contract_data.ctgo_construction_id) { this.toast.present({ message: '계약공종을 입력해주세요.',color:'warning'}); return false; };
 
       if(!company_contract_data.contract_name) { this.toast.present({ message: '계약명을 입력해주세요.',color:'warning'}); return false; };
       
@@ -277,9 +265,9 @@ export class ContractorEditPage implements OnInit {
       if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
       else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
 
-      if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 담당자를 입력해주세요.',color:'warning'}); return false; };
+      if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 소장을 입력해주세요.',color:'warning'}); return false; };
 
-      if(!company_contract_data.manager_phone) { this.toast.present({ message: '담당자 전화번호를 입력해주세요.',color:'warning'}); return false; };
+      if(!company_contract_data.manager_phone) { this.toast.present({ message: '현장 전화번호를 입력해주세요.',color:'warning'}); return false; };
 
       // if(!this.form.manager_name) this.form.manager_name = '';
       // if(!this.form.manager_phone) this.form.manager_phone = '';

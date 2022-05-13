@@ -13,9 +13,10 @@ import { SupervisionEditPage } from '../supervision-edit/supervision-edit.page';
 export class SupervisionListPage implements OnInit {
 
   form = {
+    project_id: (this.user.userData.user_type === 'LH' || this.user.userData.user_type === 'SUPER') ? 0 : this.user.userData.belong_data.project_id,
     company_contract_type: '감리사',
-    hq_regional_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_regional_id | 0),
-    hq_business_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_business_id | 0),
+    // hq_regional_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_regional_id | 0),
+    // hq_business_id: this.user.userData.user_type === 'LH' ? 0 : (this.user.userData.belong_data.hq_business_id | 0),
     limit_no: 0,
     master_company_ids: [],
     search_text: ''
@@ -78,8 +79,8 @@ export class SupervisionListPage implements OnInit {
       rqMethod: ''
     }
     this.getList(0);
-    this.getCtgoBusiness();
-    this.getCtgoRegional();
+    // this.getCtgoBusiness();
+    // this.getCtgoRegional();
   }
 
   async getList(limit_no = this.form.limit_no) {
@@ -101,30 +102,43 @@ export class SupervisionListPage implements OnInit {
   }
 
 
-  async edit(item) {
+  async edit(item?) {
     const modal = await this.modal.create({
       component: SupervisionEditPage,
       componentProps:{
-        company_id:item.company_id,
-        project_id:item.project_id
+        company_id: item?.company_id || 0,
+        project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) this.getList();
   }
-  async getCtgoRegional() {
-    this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
-    if(this.ctgoRegional.rsCode === 0) {
-    }
-  }
-  async getCtgoBusiness(ev?) {
-    if(!ev) this.form.hq_business_id = 0;
-    this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
-    {
-      hq_regional_id:this.form.hq_regional_id
-    },{});
-    if(this.ctgoBusiness.rsCode === 0) {}
-  }
+
+  // async edit(item?) {
+  //   const modal = await this.modal.create({
+  //     component:ContractorEditPage,
+  //     componentProps:{
+  //       company_id: item?.company_id || 0,
+  //       project_id: item ? (item.project_id ? item.project_id : this.form.project_id) : this.form.project_id,
+  //     }
+  //   });
+  //   modal.present();
+  //   const { data } = await modal.onDidDismiss();
+  //   if(data) this.getList();
+  // }
+  // async getCtgoRegional() {
+  //   this.ctgoRegional  = await this.connect.run('/category/organization/regional/get',{},{});
+  //   if(this.ctgoRegional.rsCode === 0) {
+  //   }
+  // }
+  // async getCtgoBusiness(ev?) {
+  //   if(!ev) this.form.hq_business_id = 0;
+  //   this.ctgoBusiness  = await this.connect.run('/category/organization/business/get',
+  //   {
+  //     hq_regional_id:this.form.hq_regional_id
+  //   },{});
+  //   if(this.ctgoBusiness.rsCode === 0) {}
+  // }
 
 }

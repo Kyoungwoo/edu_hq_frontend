@@ -11,7 +11,7 @@
           </app-row>
         </ion-toolbar>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>
               <app-select label="지역본부" [(ngModel)]="form.hq_regional_id" (change)="getCtgoBusiness($event)">
                 <app-select-option [value]="0">전체</app-select-option>
@@ -26,7 +26,7 @@
                 <app-select-option *ngFor="let opt of ctgoBusiness?.rsMap" [value]="opt.hq_business_id">{{ opt.hq_business_name }}</app-select-option>
               </app-select>
             </td>
-          </tr>
+          </tr> -->
           <!-- <tr>
             <td>
               <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
@@ -61,9 +61,6 @@
           <thead>
             <tr>
               <th style="width: 48px;">No</th>
-              <th>지역본부</th>
-              <th>사업본부</th>
-              <th>현장명</th>
               <th>원청사</th>
               <th>사업자등록번호</th>
               <th>대표자</th>
@@ -74,9 +71,6 @@
           <tbody>
             <tr class="button" class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ item.index }}</td>
-              <td>{{ item.hq_regional_name }}</td>
-              <td>{{ item.hq_business_name }}</td>
-              <td>{{ item.project_name }}</td>
               <td>{{ item.company_name }}</td>
               <td>{{ item.business_register_no }}</td>
               <td>{{ item.company_ceo }}</td>
