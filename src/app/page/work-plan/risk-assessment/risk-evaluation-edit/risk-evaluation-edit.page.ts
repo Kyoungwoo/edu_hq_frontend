@@ -71,10 +71,12 @@ export class RiskEvaluationEditPage implements OnInit {
 
   form = {
     project_id: null, // 현장 ID
+    project_name: '',
     master_company_id: null, // 원청사 ID
     company_id: null, // 업체 ID
     company_name: null,
     ctgo_construction_id: null, // 공종 ID
+    ctgo_construction_name: '',
 
     risk_asment_type: '수시', // 위험성평가 타입 / 최초, 정기, 수시
     risk_asment_type_text: '수시',
@@ -766,6 +768,17 @@ export class RiskEvaluationEditPage implements OnInit {
     const border_1:SheetStyle = {
       border: headerBorder,
       width: 100,
+      textAlign:'center',
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_2:SheetStyle = {
+      border: headerBorder,
+      width: 100,
+      height: 65,
+      textAlign:'center',
+      verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
@@ -780,9 +793,28 @@ export class RiskEvaluationEditPage implements OnInit {
 
     const sub_title_1:SheetStyle = {
       border: headerBorder,
+      backgroundColor,
       textAlign:'center',
-      fontSize:16,
-      height:60,
+      fontSize:12,
+      height:52,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_2:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      fontSize:12,
+      height:32,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_3:SheetStyle = {
+      textAlign:'center',
+      fontSize:12,
+      height:48,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
@@ -790,16 +822,19 @@ export class RiskEvaluationEditPage implements OnInit {
     let logo_theme_arr = [];
     for(let i = 0; i < 21; i++) logo_theme_arr.push({code: logo_theme});
 
-    console.log(logo_theme_arr);
+    let sub_title_theme_arr = [];
+    for(let i = 0; i < 21; i++) sub_title_theme_arr.push({code: sub_title_2});
 
-    const sheetData:Sheet = {
+    let border_theme_arr = [];
+    for(let i = 0; i < 21; i++) border_theme_arr.push({code: border_2});
+
+    let sheetData:Sheet = {
       name: '위험성평가',
       data: [
         [
           {colspan: 4, rowspan: 2},
-          {colspan:10, rowspan: 2},
+          {text: this.form.risk_asment_type_text+ ' 위험성 평가표', colspan:10, rowspan: 2},
           {rowspan: 4, text: '결재'},
-          {text: '검토'},
           {text: '검토'},
           {text: '검토'},
           {text: '검토'},
@@ -814,7 +849,43 @@ export class RiskEvaluationEditPage implements OnInit {
           {rowspan: 3},
           {rowspan: 3},
           {rowspan: 3}
-        ]
+        ],
+        [
+          {text: '현장명'},
+          {text: this.form.project_name, colspan: 3},
+          {text: '회사명', colspan: 2},
+          {text: this.form.company_name, colspan: 3},
+          {text: '공종'},
+          {text: this.form.ctgo_construction_name || '', colspan: 4}
+        ],
+        [
+          {text: '작업기간'},
+          {text: this.form.risk_asment_start_date+' ~ '+this.form.risk_asment_end_date, colspan: 3},
+          {text: '작성일', colspan: 2},
+          {text: this.form.create_date, colspan: 3},
+          {text: '작성자'},
+          {text: this.form.user_name, colspan: 4},
+        ],
+        [
+          {text: '공사명', colspan: 2, rowspan: 2},
+          {text: '단위작업', colspan: 2, rowspan: 2},
+          {text: '장소', colspan: 2, rowspan: 2},
+          {text: '건설기계', rowspan: 2},
+          {text: '특수공도구', rowspan: 2},
+          {text: '위험요인', colspan: 5, rowspan: 2},
+          {text: '위험성', colspan: 3},
+          {text: '감소대책', colspan: 5, rowspan: 2},
+        ],
+        [
+          {text: '빈도'},
+          {text: '감도'},
+          {text: '등급'},
+        ],
+        // 평가표 리스트 들어가는곳
+
+
+        // 결재 의견 들어가는곳
+
       ],
       style: [
         [
@@ -840,11 +911,129 @@ export class RiskEvaluationEditPage implements OnInit {
           {code: approval_1},
           {code: approval_1}
         ],
-        logo_theme_arr
+        logo_theme_arr,
+        [
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1}
+        ],
+        [
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1}
+        ],
+        sub_title_theme_arr,
+        sub_title_theme_arr,
+        // 평가표 리스트 들어가는곳
+
+        // 결재 의견 들어가는곳
       ]
     }
 
+    // 평가표 데이터 가공
+    // let table_theme_arr = [];
+    const table_data = this.riskTableList;
+
+    const regex_01 = /,/gi;
+    // rowspan 셋팅
+    if(table_data.length){
+      let rowspan_deps_1 = 0;
+      let rowspan_deps_2 = 6;
+      let rowspan_deps_3 = 6;
+      
+      table_data.map((item_1) => {
+        // 데이터 deps_01
+        sheetData.data.push([{text: item_1.risk_construction_name, rowspan: item_1.rowspan, colspan: 2}]);
+
+        // 스타일 deps_01
+        sheetData.style.push(border_theme_arr);
+        
+        // rowspan
+        if(item_1.rowspan > 1){
+          for(let i = 0; i < item_1.rowspan-1; i++){
+            sheetData.data.push([]);
+            sheetData.style.push(border_theme_arr);
+          }
+        }
+
+        // 데이터 deps_02
+        if(item_1.unitList.length){
+          item_1.unitList.map((item_2) => {
+            sheetData.data[rowspan_deps_2].push({text: item_2.risk_unit_name, rowspan: item_2.rowspan, colspan: 2});
+            sheetData.data[rowspan_deps_2].push({text: (item_2.area_top_name || '')+(item_2.area_middle_name ? ' / '+item_2.area_middle_name : '')+(item_2.area_bottom_name ? ' / '+item_2.area_bottom_name : ''), rowspan: item_2.rowspan, colspan: 2});
+            sheetData.data[rowspan_deps_2].push({text: item_2.ctgo_machinery_names.toString().replace(regex_01, " / "), rowspan: item_2.rowspan});
+            sheetData.data[rowspan_deps_2].push({text: item_2.ctgo_tool_names.toString().replace(regex_01, ' / '), rowspan: item_2.rowspan});
+
+            rowspan_deps_2 = rowspan_deps_2+item_2.rowspan;
+
+            // 데이터 deps_03
+            if(item_2.facterList.length){
+              item_2.facterList.map((item_3) => {
+                sheetData.data[rowspan_deps_3].push({text: item_3.risk_factor_name, rowspan: item_3.rowspan, colspan: 5});
+                sheetData.data[rowspan_deps_3].push({text: item_3.risk_frequency, rowspan: item_3.rowspan});
+                sheetData.data[rowspan_deps_3].push({text: item_3.risk_strength, rowspan: item_3.rowspan});
+                sheetData.data[rowspan_deps_3].push({text: item_3.risk_danger_level, rowspan: item_3.rowspan});
+                for(let i = rowspan_deps_3; i < rowspan_deps_3+item_3.rowspan; i++) sheetData.data[i].push({text: item_3.risk_factor_name, colspan: 5});
+
+                rowspan_deps_3 = rowspan_deps_3+item_3.rowspan;
+              });
+            }
+          });
+        }
+
+
+      });
+    }
+
+    // 평가표와 결재의경사이의 공백
+    for(let i = 0; i < 4; i++){
+      sheetData.data.push([]);
+      sheetData.style.push([]);
+    }
+    sheetData.data.push([{text: '결재 의견', colspan: 2}]);
+    sheetData.data.push([{text: '구분', colspan: 2},{text: '결재', colspan: 2},{text: '성명', colspan: 3},{text: '회사명', colspan: 2},{text: '결재일시', colspan: 2},{text: '결재의견', colspan: 10}]);
+    sheetData.style.push([{code: sub_title_3}]);
+    sheetData.style.push(sub_title_theme_arr);
+
+
     excelData.push(sheetData);
+    console.log(this.riskTableList);
     this.excel.make(excelData, '위험성평가');
   }
 }
