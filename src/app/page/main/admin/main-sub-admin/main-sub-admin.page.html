@@ -80,23 +80,23 @@
           </app-col>
         </app-row>
       </app-card>
-          <app-card style="height: 228px; align-items: stretch;" >
-            <ion-toolbar slot="top" color="white">
-              <app-row>
-                <app-col>
-                  <h4>금일 비상상황 알림</h4>
-                </app-col>
-                <app-col (click)="router('')" size="auto">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
-                </app-col>
-              </app-row>
-            </ion-toolbar>
-            <app-row>
-              <app-col>
-                <h5><b>[사고전파]</b> 사망사고 발생으로 작업을 중지</h5>
-              </app-col>
-            </app-row>
-          </app-card>
+      <app-card style="height: 228px; align-items: stretch;" [blind]="true">
+        <ion-toolbar slot="top" color="white">
+          <app-row>
+            <app-col>
+              <h4>금일 비상상황 알림</h4>
+            </app-col>
+            <app-col (click)="router('')" size="auto">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <app-row>
+          <app-col>
+            <h5><b>[사고전파]</b> 사망사고 발생으로 작업을 중지</h5>
+          </app-col>
+        </app-row>
+      </app-card>
     </app-col>
     <app-col>
       <app-row style="height: 236px; align-items: stretch;">

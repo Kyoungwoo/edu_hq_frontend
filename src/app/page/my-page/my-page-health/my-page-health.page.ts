@@ -23,6 +23,8 @@ class WorkerHealth {
   covid_nineteen_content:string = null; //코로나 증상내용
   covid_vaccine_state:0|1 = null; //코로나 백신접종 여부
   health_terms_state:0|1 = null; //문진표 작성동의 여부
+  create_date:string = '';
+  update_date:string = '';
 }
 @Component({
   selector: 'app-my-page-health',

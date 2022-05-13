@@ -9,7 +9,13 @@
 
 <ion-content>
   <app-container size="small">
-
+    <div class="update-date-class">
+      <div>작성일: {{healthForm.create_date}}</div>
+      <ng-container *ngIf="healthForm.update_date">
+        <div style="margin: 0 6px;"> / </div>
+        <div>최종수정일: {{healthForm.update_date}}</div>
+      </ng-container>
+    </div>
     <h4>1. 현재 복용하고 있는 약물이 있습니까?</h4>
     <app-radio-input name="use_drugs_state" 
     [color]="healthValidator.use_drugs_state?.valid === false && 'warning'"

@@ -62,7 +62,7 @@ export class EducationConfirmPendingListPage implements OnInit {
     this.res = await this.connect.run('/education/report/approval/req/get',this.form);
     if(this.res.rsCode === 0) {
       this.res.rsMap.map((item, i) => {
-        item.index = item.row_count - this.form.limit_no - i;
+        item.index = this.res.rsObj.row_count - this.form.limit_no - i;
       });
     } 
     else if(this.res.rsCode === 1008) {

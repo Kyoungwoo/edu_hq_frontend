@@ -131,6 +131,9 @@ export class SafetyEducationListPage implements OnInit {
   public async openDetailSearch() {
     const modal = await this._modal.create({
       component: SafetyEducationDetailSearchPage,
+      componentProps: {
+        form: this.form
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();

@@ -26,6 +26,7 @@
   @include generateColor('monitor-yellow', #FCE640, #ffffff);
   @include generateColor('monitor-green', #B9DC3D, #ffffff);
 
+  @include generateColor('main-btn-grey', #969696, #ffffff);
 }
 @include generateColorClass('primary');
 @include generateColorClass('secondary');
@@ -39,6 +40,8 @@
 
 @include generateColorClass('white');
 @include generateColorClass('star');
+
+@include generateColorClass('main-btn-grey');
 
 @media (prefers-color-scheme: dark) {
   body {

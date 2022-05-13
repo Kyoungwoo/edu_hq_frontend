@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -10,7 +10,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 })
 export class SafetyEducationDetailSearchPage implements OnInit {
 
-  form = {
+  @Input() form = {
     company_id: 0,
     ctgo_education_safe_id: 0,
     education_safe_state: '전체',
