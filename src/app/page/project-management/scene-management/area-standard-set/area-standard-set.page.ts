@@ -558,26 +558,32 @@ export class AreaStandardSetPage implements OnInit {
 
   initMap:boolean = false;
   async getGpsCoodrinate(item) {
+    console.log(item);
     if(!item) return;
     this.gpsSelected = item;
     this.naverMapSetting = false;
-    if (!item.gps_id) return;
+    
     
     this.initMap = false;
-    this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
-    if (this.resGPScood.rsCode === 0) {
-      const gps_coordinate_data = new GpsCoordinateData();
-      this.resGPScood.rsMap.forEach(data => {
-        if(item.gps_id === data.gps_id) {
-          gps_coordinate_data.gps_latitude.push(data.gps_latitude);
-          gps_coordinate_data.gps_longitude.push(data.gps_longitude);
-        }
-      });
-      this.gps_coordinate_data = gps_coordinate_data;
-    }
-    else {
+    if (item.gps_id){
+      this.resGPScood = await this.connect.run('/project/area/risk/gps_coodrinate/get', { gps_id: item.gps_id });
+      if (this.resGPScood.rsCode === 0) {
+        const gps_coordinate_data = new GpsCoordinateData();
+        this.resGPScood.rsMap.forEach(data => {
+          if(item.gps_id === data.gps_id) {
+            gps_coordinate_data.gps_latitude.push(data.gps_latitude);
+            gps_coordinate_data.gps_longitude.push(data.gps_longitude);
+          }
+        });
+        this.gps_coordinate_data = gps_coordinate_data;
+      }
+      else {
+        this.gps_coordinate_data = new GpsCoordinateData();
+      }
+    } else {
       this.gps_coordinate_data = new GpsCoordinateData();
     }
+
     setTimeout(() => {
       this.initMap = true;
     }, 0);

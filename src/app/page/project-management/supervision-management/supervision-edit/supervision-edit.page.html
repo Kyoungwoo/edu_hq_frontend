@@ -14,8 +14,7 @@
       [(ngModel)]="form.company_name"></app-input>
     </app-col>
     <app-col>
-      <app-input  [required]="true" [disabled]="viewMode || !isNew" label="사업자등록번호"
-      [(ngModel)]="form.business_register_no"></app-input>
+      <app-input  [required]="true" [disabled]="viewMode || !isNew" label="사업자등록번호" [(ngModel)]="form.business_register_no" [maxlength]="12"></app-input>
     </app-col>
     <app-col>
       <app-input [required]="true" [disabled]="viewMode || !isNew" name="input buisnessman"
