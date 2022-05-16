@@ -59,6 +59,8 @@ export class MainSubAdminPage implements OnInit {
   safetymeeting_list = []; // 회의록
   msds_list = []; // 회의록
 
+  project_address = ''; // 현장 주소
+
   education = {
     hire_data: { good: 0, excess: 0, necessary: 0 },
     regular_data: { good: 0, excess: 0, necessary: 0 },
@@ -83,6 +85,7 @@ export class MainSubAdminPage implements OnInit {
     this.getBoard();
     this.getDust();
     this.getWeather();
+    this.getProjectAddress();
 
 
     setInterval(() => {
@@ -123,6 +126,7 @@ export class MainSubAdminPage implements OnInit {
     await this.getContractDate();
     await this.getWaiting();
     await this.getJobPosition();
+    await this.getProjectAddress();
   }
 
   /**
@@ -287,6 +291,20 @@ export class MainSubAdminPage implements OnInit {
     }
   }
 
+  /**
+   * @function getProjectAddress(): 현장 주소 가져오기
+   */
+   async getProjectAddress() {
+    const res = await this.connect.run('/project/detail', this.form);
+    switch (res.rsCode) {
+      case 0:
+        this.project_address = res.rsObj.project_address;
+        break;  
+      default:
+        // this.toast.present({ color: 'warning', message: res.rsMsg });
+        break;
+    }
+  }
 
 
   async getWeather() {

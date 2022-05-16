@@ -18,6 +18,7 @@ export class ApprovalService {
       case 1: { // 교육 결과 보고서 (채용시)
         const modal = await this._modal.create({
           component: SafetyEducationResultEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             education_safe_report_id: target_id
           }
@@ -28,6 +29,7 @@ export class ApprovalService {
       case 2: { // 교육 결과 보고서 (작업자 정기)
         const modal = await this._modal.create({
           component: SafetyEducationResultEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             education_safe_report_id: target_id
           }
@@ -38,6 +40,7 @@ export class ApprovalService {
       case 3: { // 교육 결과 보고서 (관리감독자 정기) - 1차에 안함
         const modal = await this._modal.create({
           component: SafetyEducationResultEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             education_safe_report_id: target_id
           }
@@ -48,6 +51,7 @@ export class ApprovalService {
       case 4: { // 교육 결과 보고서 (작업 내용 변경 시)
         const modal = await this._modal.create({
           component: SafetyEducationResultEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             education_safe_report_id: target_id
           }
@@ -58,6 +62,7 @@ export class ApprovalService {
       case 5: { // 교육 결과 보고서 (특별 교육)
         const modal = await this._modal.create({
           component: SafetyEducationResultEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             education_safe_report_id: target_id
           }
@@ -68,6 +73,7 @@ export class ApprovalService {
       case 6: { // 최초 위험성 평가서
         const modal = await this._modal.create({
           component: RiskEvaluationEditPage,
+          cssClass: 'risk-evaluation-class',
           componentProps:{
             risk_asment_id: target_id
           }
@@ -78,6 +84,7 @@ export class ApprovalService {
       case 7: { // 정기 위험성 평가서
         const modal = await this._modal.create({
           component: RiskEvaluationEditPage,
+          cssClass: 'risk-evaluation-class',
           componentProps:{
             risk_asment_id: target_id
           }
@@ -88,6 +95,7 @@ export class ApprovalService {
       case 8: { // 수시 위험성 평가서
         const modal = await this._modal.create({
           component: RiskEvaluationEditPage,
+          cssClass: 'risk-evaluation-class',
           componentProps:{
             risk_asment_id: target_id
           }
@@ -98,6 +106,7 @@ export class ApprovalService {
       case 9:  { // 산업안전보건위원회 회의록
         const modal = await this._modal.create({
           component: WorkerMinutesEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             safety_meeting_id: target_id
           }
@@ -108,6 +117,7 @@ export class ApprovalService {
       case 10: { // 노사협의체 회의록
         const modal = await this._modal.create({
           component: WorkerMinutesEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             safety_meeting_id: target_id
           }
@@ -118,6 +128,7 @@ export class ApprovalService {
       case 11: { // 안전 및 보건에 관한 협의체 회의록
         const modal = await this._modal.create({
           component: WorkerMinutesEditPage,
+          cssClass: 'safety-meeting-class',
           componentProps:{
             safety_meeting_id: target_id
           }
