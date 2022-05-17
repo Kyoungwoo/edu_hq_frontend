@@ -2,12 +2,12 @@
   <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChange()">
     <ion-segment-button value="1" class="segment-font segment-width">
       공지사항
-      <ion-badge *ngIf="notice_count" class="badge-class notice">{{ notice_count }}</ion-badge>
+      <!-- <ion-badge *ngIf="notice_count" class="badge-class notice">{{ notice_count }}</ion-badge> -->
     </ion-segment-button>
     <ion-segment-button value="2" class="segment-font segment-width">MSDS</ion-segment-button>
     <ion-segment-button value="3" class="segment-font segment-width">
       회의록
-      <ion-badge *ngIf="safetymeeting_count" class="badge-class notice">{{ safetymeeting_count }}</ion-badge>
+      <!-- <ion-badge *ngIf="safetymeeting_count" class="badge-class notice">{{ safetymeeting_count }}</ion-badge> -->
     </ion-segment-button>
   </ion-segment>
 </ion-toolbar>

@@ -263,7 +263,7 @@ export class ContractorEditPage implements OnInit {
       if(!company_contract_data.contract_end_date) { this.toast.present({ message: '계약기간을 입력해주세요.',color:'warning'}); return false; };
 
       if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
-      else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
+      // else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
 
       if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 소장을 입력해주세요.',color:'warning'}); return false; };
 

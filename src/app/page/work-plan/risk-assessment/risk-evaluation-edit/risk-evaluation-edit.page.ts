@@ -819,11 +819,23 @@ export class RiskEvaluationEditPage implements OnInit {
       whiteSpace: 'normal'
     }
 
+    const sub_title_4:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:12,
+      height:32,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
     let logo_theme_arr = [];
     for(let i = 0; i < 21; i++) logo_theme_arr.push({code: logo_theme});
 
     let sub_title_theme_arr = [];
     for(let i = 0; i < 21; i++) sub_title_theme_arr.push({code: sub_title_2});
+
+    let sub_title_theme_arr_2 = [];
+    for(let i = 0; i < 21; i++) sub_title_theme_arr_2.push({code: sub_title_4});
 
     let border_theme_arr = [];
     for(let i = 0; i < 21; i++) border_theme_arr.push({code: border_2});
@@ -1009,7 +1021,12 @@ export class RiskEvaluationEditPage implements OnInit {
                 sheetData.data[rowspan_deps_3].push({text: item_3.risk_frequency, rowspan: item_3.rowspan});
                 sheetData.data[rowspan_deps_3].push({text: item_3.risk_strength, rowspan: item_3.rowspan});
                 sheetData.data[rowspan_deps_3].push({text: item_3.risk_danger_level, rowspan: item_3.rowspan});
-                for(let i = rowspan_deps_3; i < rowspan_deps_3+item_3.rowspan; i++) sheetData.data[i].push({text: item_3.risk_factor_name, colspan: 5});
+                
+                let plan_num = 0;
+                for(let i = rowspan_deps_3; i < rowspan_deps_3+item_3.rowspan; i++){
+                  sheetData.data[i].push({text: item_3.planList[plan_num].risk_plan_name, colspan: 5});
+                  plan_num++;
+                }
 
                 rowspan_deps_3 = rowspan_deps_3+item_3.rowspan;
               });
@@ -1031,7 +1048,30 @@ export class RiskEvaluationEditPage implements OnInit {
     sheetData.style.push([{code: sub_title_3}]);
     sheetData.style.push(sub_title_theme_arr);
 
+    // 결재 의견 리스트
+    let cmt_min = 0;
+    let cmt_max = 0;
+    let order_arr = [];
+    const aprv_cmt = this.approval_comment;
+    aprv_cmt.map((item) => {order_arr.push(item.approval_order_no);});
+    cmt_min = Math.min.apply(null, order_arr);
+    cmt_max = Math.max(...order_arr);
 
+    aprv_cmt.map((item) => {
+      sheetData.data.push([{
+        text: item.approval_order_no === cmt_min ? (item.approval_order_no === cmt_max ? '작성/승인' : '작성') : (item.approval_order_no === cmt_max ? '승인' : '검토'), colspan: 2},
+        {text: item.approval_answer, colspan: 2},
+        {text: item.user_name, colspan: 3},
+        {text: item.company_name, colspan: 2},
+        {text: item.approval_date, colspan: 2},
+        {text: item.approval_comment || '', colspan: 10
+      }]);
+
+      sheetData.style.push(sub_title_theme_arr_2);
+    });
+    
+
+    // let item of approval_comment; let f = first; let l = last
     excelData.push(sheetData);
     console.log(this.riskTableList);
     this.excel.make(excelData, '위험성평가');
