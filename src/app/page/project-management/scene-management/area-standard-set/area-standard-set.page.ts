@@ -595,7 +595,7 @@ export class AreaStandardSetPage implements OnInit {
     const res = await this.connect.run('/project/area/risk/gps/insert', this.gpsSelected, {});
     if (res.rsCode === 0) {
       this.toast.present({ message: '등록되었습니다.', color:'primary' });
-
+      this.areaGPS();
     } else {
       this.toast.present({ message: res.rsMsg, color:'warning' });
     }

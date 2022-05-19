@@ -100,8 +100,8 @@
                 <td>{{ item.ctgo_job_position_name }}</td>
                 <td>{{ item.ctgo_safe_job_name }}</td>
                 <td>{{ item.ctgo_occupation_name }}</td>
-                <td>{{ item.inside_time || '-' }}</td>
-                <td>{{ item.outside_time || '-' }}</td>
+                <td>{{ item.inside_time ? item.inside_time+(item.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
+                <td>{{ item.outside_time ? item.outside_time+(item.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
               </tr>
               <ng-container *ngFor="let detail of detailList[i]">
                 <tr class="detail">
@@ -113,8 +113,8 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>{{ detail.inside_time || '-' }}</td>
-                  <td>{{ detail.outside_time || '-' }}</td>
+                  <td>{{ detail.inside_time ? detail.inside_time+(detail.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
+                  <td>{{ detail.outside_time ? detail.outside_time+(detail.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
                 </tr>
               </ng-container>
             </ng-container>
