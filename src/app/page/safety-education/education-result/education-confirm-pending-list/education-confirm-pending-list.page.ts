@@ -76,6 +76,7 @@ export class EducationConfirmPendingListPage implements OnInit {
   async edit(education_safe_report_id) {
     const modal = await this._modal.create({
       component: SafetyEducationResultEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         education_safe_report_id
       }

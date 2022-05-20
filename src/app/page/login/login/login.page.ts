@@ -167,4 +167,28 @@ export class LoginPage implements OnInit, ViewDidEnter {
       this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }
   }
+
+  testyyy(){
+    let asd = '{“serial_key”:”E003”,”type”:”WORK”}';
+    let dsa = JSON.stringify({ serial_key: 'E003', type: 'WORK' });
+    // asd = asd.replace(/\\n/g, "\\n")  
+    // .replace(/\\'/g, "\\'")
+    // .replace(/\\"/g, '\\"')
+    // .replace(/\\&/g, "\\&")
+    // .replace(/\\r/g, "\\r")
+    // .replace(/\\t/g, "\\t")
+    // .replace(/\\b/g, "\\b")
+    // .replace(/\\f/g, "\\f");
+    // asd = asd.replace(/[\u0000-\u0019]+/g,"");
+
+    // console.log(asd);
+    // console.log(JSON.parse(String(asd).toString()));
+    console.log('dsa - ', dsa);
+    console.log('asd - ', asd);
+    console.log(JSON.parse(dsa));
+    console.log(JSON.parse(asd));
+    // console.log(JSON.stringify(asd));
+    // console.log(JSON.parse(JSON.stringify(asd)));
+    // console.log(JSON.parse(asd.toString()));
+  }
 } 

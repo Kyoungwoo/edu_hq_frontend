@@ -212,6 +212,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   async edit(item:SafetyMeetingInfo) {
     const modal = await this.modal.create({
       component: WorkerMinutesEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         safety_meeting_id: item.safety_meeting_id
       }

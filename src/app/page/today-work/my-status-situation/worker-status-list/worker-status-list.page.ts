@@ -139,6 +139,7 @@ export class WorkerStatusListPage implements OnInit {
 
   dataChange(ev)  {
     this.areadata = ev.data;
+    this.getRiskArea();
   }
 
   async work_edit(type) {

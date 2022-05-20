@@ -138,6 +138,7 @@ export class SafetyEducationResultListPage implements OnInit {
   async edit(item) {
     const modal = await this._modal.create({
       component: SafetyEducationResultEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps:{
         education_safe_report_id: item.education_safe_report_id
       }

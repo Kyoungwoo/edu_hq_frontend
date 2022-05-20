@@ -34,7 +34,7 @@ export class WorkerStatusAddPage implements OnInit {
     master_company_id: 0,
     project_id: 0,
     search_text:'',
-    user_type:'',
+    user_type:'WORKER',
     area_risk_id:0,
     area_bottom_id:0,
     area_middle_id:0,
@@ -65,6 +65,7 @@ export class WorkerStatusAddPage implements OnInit {
     this.form.master_company_id = this.master_company_id;
     this.form.insert_state = this.select_type;
     this.form.area_risk_id = this.areadata.area_risk_id ? this.areadata.area_risk_id : 0;
+    this.gateGet();
   }
   async gateGet() {
     this.selectData = [];
