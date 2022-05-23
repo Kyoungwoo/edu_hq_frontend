@@ -7,7 +7,7 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요" (buttonClick)="get()">
+      <app-input name="with img" label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력하세요" (buttonClick)="get()">
         <app-img name="search"></app-img>
       </app-input>
     </app-input-group>

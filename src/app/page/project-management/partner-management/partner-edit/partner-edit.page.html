@@ -12,13 +12,13 @@
   <form>
     <app-row>
       <app-col>
-        <app-input name="company_name" label="업체명" [disabled]="viewMode || !isNew" [(ngModel)]="form.company_name" placeholder="업체명"></app-input>
+        <app-input name="company_name" label="업체명" [disabled]="viewMode" [(ngModel)]="form.company_name" placeholder="업체명"></app-input>
       </app-col>
       <app-col>
-        <app-input name="business_register_no" [disabled]="viewMode || !isNew" label="사업자등록번호" [(ngModel)]="form.business_register_no" placeholder="사업자등록번호" [maxlength]="12"></app-input>
+        <app-input name="business_register_no" [disabled]="viewMode" label="사업자등록번호" [(ngModel)]="form.business_register_no" placeholder="사업자등록번호" [maxlength]="12"></app-input>
       </app-col>
       <app-col>
-        <app-input name="company_ceo" [disabled]="viewMode || !isNew" label="대표자" [(ngModel)]="form.company_ceo"  placeholder="대표자"></app-input>
+        <app-input name="company_ceo" [disabled]="viewMode" label="대표자" [(ngModel)]="form.company_ceo"  placeholder="대표자"></app-input>
       </app-col>
       <!-- <app-col>
         <app-input name="company_phone" label="회사전화" [disabled]="viewMode" [(ngModel)]="form.company_phone" placeholder="회사전화"></app-input>
@@ -31,7 +31,7 @@
   <app-col>
     <h4>계약 정보</h4>
   </app-col>
-  <app-col size="auto" *ngIf="permission.edit && !viewMode">
+  <app-col size="auto" *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'">
     <app-button name="add_contract" style="margin-bottom: 0;" (click)="addCompanyContractData()" fill="translucent">추가</app-button>
     <app-button name="remove_contract" style="margin-top: 0;" (click)="removeCompanyContractData()" color="danger" fill="translucent">삭제</app-button>
   </app-col>
@@ -40,8 +40,8 @@
   <app-table>
     <thead>
       <tr>
-        <th *ngIf="!viewMode" style="width: 40px;">
-          <app-check *ngIf="permission.edit && !viewMode" type="all"></app-check>
+        <th *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'" style="width: 40px;">
+          <app-check type="all"></app-check>
         </th>
         <th>현장명</th>
         <th>계약명</th>
@@ -55,29 +55,29 @@
     <tbody>
       <ng-container *ngIf="!viewMode; else tempView">
         <tr *ngFor="let item of form.company_contract_data; let i = index">
-          <td>
+          <td *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'">
             <app-check [on]="item"></app-check>
           </td>
           <td>
-            <app-select-scene label="" name="project_id" [(ngModel)]="item.project_id"></app-select-scene>
+            <app-select-scene [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" label="" name="project_id" [(ngModel)]="item.project_id"></app-select-scene>
           </td>
           <!-- <td>
             <app-select-contractor name="master_company_id" [project_id]="item.project_id" [(ngModel)]="item.master_company_id"></app-select-contractor>
           </td> -->
           <td>
-            <app-input name="contract_name" [(ngModel)]="item.contract_name"></app-input>
+            <app-input [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" name="contract_name" [(ngModel)]="item.contract_name"></app-input>
           </td>
           <td>
-            <app-select-construction [master_company_id]="item.master_company_id || master_company_id" label="" name="ctgo_construction_id" [project_id]="item.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
+            <app-select-construction [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" [master_company_id]="item.master_company_id || master_company_id" label="" name="ctgo_construction_id" [project_id]="item.project_id" [(ngModel)]="item.ctgo_construction_id"></app-select-construction>
           </td>
           <td>
-            <app-input name="contract_amount" [(ngModel)]="item.contract_amount"></app-input>
+            <app-input [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" name="contract_amount" [(ngModel)]="item.contract_amount"></app-input>
           </td>
           <td>
             <app-input-group>
-              <app-calendar name="contract_start_date" [(ngModel)]="item.contract_start_date" [max]="item.contract_end_date"></app-calendar>
+              <app-calendar [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" name="contract_start_date" [(ngModel)]="item.contract_start_date" [max]="item.contract_end_date"></app-calendar>
               ~
-              <app-calendar name="contract_end_date" [(ngModel)]="item.contract_end_date" [min]="item.contract_start_date"></app-calendar>
+              <app-calendar [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" name="contract_end_date" [(ngModel)]="item.contract_end_date" [min]="item.contract_start_date"></app-calendar>
             </app-input-group>
           </td>
           <td>
@@ -160,7 +160,7 @@
 <ng-container *ngIf="permission.edit">
   <app-button-footer *ngIf="company_id">
     <app-button name="edit" fill="translucent" *ngIf="viewMode" (click)="contEdit()">수정</app-button>
-    <app-button fill="translucent" color="danger" *ngIf="!viewMode" (click)="contDelete()" >삭제</app-button>
+    <app-button fill="translucent" color="danger" *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'" (click)="contDelete()" >삭제</app-button>
     <app-button name="submit" *ngIf="!viewMode" (click)="contUpdate()">저장</app-button>
   </app-button-footer>
   <app-button-footer *ngIf="!company_id">

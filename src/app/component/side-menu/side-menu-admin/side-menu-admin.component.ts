@@ -337,8 +337,8 @@ export class  SideMenuAdminComponent implements OnInit {
   }
   notReady() {
     this.alert.present({
-      img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
-      header: '준비중'
+      // img: 'https://www.devmonster.co.kr/assets/img/logo.svg',
+      header: '해당 메뉴는 준비중입니다.'
     });
   }
 

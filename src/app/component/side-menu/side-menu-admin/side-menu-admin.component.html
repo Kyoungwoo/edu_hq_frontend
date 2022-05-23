@@ -9,7 +9,7 @@
           <ng-container *ngFor="let subMenu of menu.subMenuList">
 
             <li *ngIf="!subMenu.permission || subMenu.permission()">
-              <app-button [attr.name]="'button_' + subMenu.link?.replace('/', '')" fill="clear" color="dark" [routerLink]="subMenu.link || null" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? menuClose() : notReady()">
+              <app-button [attr.name]="'button_' + subMenu.link?.replace('/', '')" fill="clear" color="dark" [routerLink]="subMenu.link || null" (click)="subMenu.thirdMenuList ? subMenu.toggle = !subMenu.toggle : subMenu.link ? menuClose() : notReady()" [style.opacity]="subMenu.link ? 1 : (subMenu.thirdMenuList?.length ? 1 : 0.5)">
                 {{ subMenu.title }}
                 <app-img slot="end" *ngIf="subMenu.thirdMenuList" [src]="subMenu.toggle ? 'assets/img/menu/list-tab-hide.svg' : 'assets/img/menu/list-tab.svg'"></app-img>
               </app-button>

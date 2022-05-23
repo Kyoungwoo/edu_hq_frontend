@@ -109,6 +109,7 @@ export class RiskPendingListPage implements OnInit, OnDestroy {
   async edit(item) {
     const modal = await this._modal.create({
       component:RiskEvaluationEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         risk_asment_id: item.risk_asment_id
       }

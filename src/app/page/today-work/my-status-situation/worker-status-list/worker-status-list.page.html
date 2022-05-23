@@ -104,7 +104,7 @@
               <p>{{ risk.company_name }} | {{ risk.ctgo_job_position_name }} | {{ risk.inside_time }}</p>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="risk.outside_state ? 'primary' : 'medium'">{{ risk.outside_state ? '입장' :'퇴장'  }}</ion-chip>
+              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ risk.outside_state ? '퇴장' :'입장'  }}</ion-chip>
             </app-col>
             <app-col size="auto">
               <ion-chip [color]="risk.outside_state ? 'medium' : 'primary' "><div>{{ risk.outside_state ? risk.outside_time : risk.inside_time }}</div><div>{{ risk.outside_state ? (risk.outside_type === 'MANUAL' ? '(수동)':'') : (risk.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
@@ -127,7 +127,7 @@
                 </app-col>
               </app-row>
   
-              <app-row>
+              <app-row *ngIf="item.outside_state">
                 <app-col size="auto">
                 </app-col>
                 <app-col>

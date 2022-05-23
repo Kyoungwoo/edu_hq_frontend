@@ -82,11 +82,11 @@ export class PartnerEditPage implements OnInit {
     this.getPermission();
     if(this.company_id) {
       this.viewMode = true;
-      this.isNew = false;
+      // this.isNew = false;
       this.getItem();
     } else {
       this.viewMode = false;
-      this.isNew = true;
+      // this.isNew = true;
     }
 
     this.test();
@@ -153,6 +153,7 @@ export class PartnerEditPage implements OnInit {
   getPermission() {
     const { user_role } = this.user.userData;
     if(user_role === 'MASTER_HEAD') this.permission.edit = true;
+    if(user_role === 'PARTNER_HEAD') this.permission.edit = true;
   }
 
   async getItem() {
@@ -296,9 +297,9 @@ export class PartnerEditPage implements OnInit {
       if(!company_contract_data.contract_amount) { this.toast.present({ message: '계약금액을 입력해주세요.',color:'warning'}); return false; }
       // else if(!this.regex.number.test(company_contract_data.contract_amount)) { this.toast.present({ message: '계약금액은 숫자만 입력 가능합니다.',color:'warning'}); return false; };
 
-      if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 담당자를 입력해주세요.',color:'warning'}); return false; };
+      // if(!company_contract_data.manager_name) { this.toast.present({ message: '현장 담당자를 입력해주세요.',color:'warning'}); return false; };
 
-      if(!company_contract_data.manager_phone) { this.toast.present({ message: '담당자 전화번호를 입력해주세요.',color:'warning'}); return false; };
+      // if(!company_contract_data.manager_phone) { this.toast.present({ message: '담당자 전화번호를 입력해주세요.',color:'warning'}); return false; };
 
       // if(!this.form.manager_name) this.form.manager_name = '';
       // if(!this.form.manager_phone) this.form.manager_phone = '';
