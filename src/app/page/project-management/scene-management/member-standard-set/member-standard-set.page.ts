@@ -287,7 +287,7 @@ export class MemberStandardSetPage implements OnInit {
           hq_regional_id: 0, // id
           hq_regional_code: '', // 코드
           hq_regional_name: '', // 지역본부명
-          hq_regional_use_state: 0, // 사용 = 1
+          hq_regional_use_state: 1, // 사용 = 1
           checked: false
         });
         break;
@@ -299,7 +299,7 @@ export class MemberStandardSetPage implements OnInit {
             this.resLevel2.rsMap.unshift({
               hq_business_name: '',
               hq_business_entire_state: 0,
-              hq_business_use_state: 0,
+              hq_business_use_state: 1,
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
@@ -310,7 +310,7 @@ export class MemberStandardSetPage implements OnInit {
             this.resLevel2.rsMap.push({
               hq_business_name: '',
               hq_business_entire_state: 0,
-              hq_business_use_state: 0,
+              hq_business_use_state: 1,
               hq_regional_id: 0,
               hq_business_code: '',
               hq_business_id: 0,
@@ -325,7 +325,7 @@ export class MemberStandardSetPage implements OnInit {
         } else {
           if (this.resLevel3?.rsMap?.length) {
             this.resLevel3.rsMap.unshift({
-              hq_department_use_state: 0, // 사용 = 1
+              hq_department_use_state: 1, // 사용 = 1
               hq_department_id: 0, // 부서 ID
               hq_department_name: '', // 부서명
               hq_regional_id: 0, // 지역본부 ID
@@ -336,7 +336,7 @@ export class MemberStandardSetPage implements OnInit {
           } else {
             this.resLevel3.rsMap = [];
             this.resLevel3.rsMap.push({
-              hq_department_use_state: 0, // 사용 = 1
+              hq_department_use_state: 1, // 사용 = 1
               hq_department_id: 0, // 부서 ID
               hq_department_name: '', // 부서명
               hq_regional_id: 0, // 지역본부 ID
@@ -501,7 +501,7 @@ export class MemberStandardSetPage implements OnInit {
     if (this.resJobPosition?.rsMap?.length) {
       this.resJobPosition?.rsMap?.unshift({
         ctgo_job_position_name_kr: '',
-        ctgo_job_position_use_state: 0,
+        ctgo_job_position_use_state: 1,
         ctgo_job_position_name_en: '',
         company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
@@ -512,7 +512,7 @@ export class MemberStandardSetPage implements OnInit {
       this.resJobPosition.rsMap = [];
       this.resJobPosition?.rsMap?.push({
         ctgo_job_position_name_kr: '',
-        ctgo_job_position_use_state: 0,
+        ctgo_job_position_use_state: 1,
         ctgo_job_position_name_en: '',
         company_id: this.jobForm.company_id,
         ctgo_job_position_name_vi: '',
@@ -603,7 +603,7 @@ export class MemberStandardSetPage implements OnInit {
       this.resSafeJob?.rsMap?.unshift({
         ctgo_safe_job_name_vi: '',
         ctgo_safe_job_name_ch: '',
-        ctgo_safe_job_use_state: 0,
+        ctgo_safe_job_use_state: 1,
         company_id: this.safeJobForm.company_id,
         ctgo_safe_job_name_kr: '',
         ctgo_safe_job_name_en: '',
@@ -616,7 +616,7 @@ export class MemberStandardSetPage implements OnInit {
       this.resSafeJob?.rsMap?.push({
         ctgo_safe_job_name_vi: '',
         ctgo_safe_job_name_ch: '',
-        ctgo_safe_job_use_state: 0,
+        ctgo_safe_job_use_state: 1,
         company_id: this.safeJobForm.company_id,
         ctgo_safe_job_name_kr: '',
         ctgo_safe_job_name_en: '',
@@ -704,7 +704,7 @@ export class MemberStandardSetPage implements OnInit {
     if (!this.occupationForm) return await this.toast.present({ message: '업체를 선택해 주세요.', color: 'warning' });
     if (this.resOccupation?.rsMap?.length) {
       this.resOccupation?.rsMap.unshift({
-        ctgo_occupation_use_state: 0,
+        ctgo_occupation_use_state: 1,
         ctgo_occupation_id: 0,
         company_id: this.occupationForm,
         ctgo_occupation_role: 'BASIC',
@@ -716,7 +716,7 @@ export class MemberStandardSetPage implements OnInit {
     } else {
       this.resOccupation.rsMap = [];
       this.resOccupation?.rsMap.push({
-        ctgo_occupation_use_state: 0,
+        ctgo_occupation_use_state: 1,
         ctgo_occupation_id: 0,
         company_id: this.occupationForm,
         ctgo_occupation_role: 'BASIC',

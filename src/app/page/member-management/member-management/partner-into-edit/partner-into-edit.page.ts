@@ -172,7 +172,7 @@ export class PartnerIntoEditPage implements OnInit {
     //   }
 
     console.log('this.item.company_contract_type - ',this.item.company_contract_type);
-    if(this.item.company_contract_type === '협력사' || this.item.company_contract_type === '원청사') this.system = true;
+    if(this.item.company_contract_type === '협력사') this.system = true;
     else this.system = false;
     this.getPermission();
     this.get();

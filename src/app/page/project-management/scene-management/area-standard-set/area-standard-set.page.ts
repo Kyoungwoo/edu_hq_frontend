@@ -401,7 +401,7 @@ export class AreaStandardSetPage implements OnInit {
         project_id: 0, // 현장 ID
         area_top_id: 0, // 장소1 ID
         area_bottom_id: 0, // 장소3 ID
-        area_risk_use_state: 0, // 사용여부
+        area_risk_use_state: 1, // 사용여부
         area_top_name: '', // 장소1
         gps_state: 0, // GPS 등록여부 / 1 등록, 0 미등록
         row_count: 0
@@ -423,7 +423,7 @@ export class AreaStandardSetPage implements OnInit {
         project_id: 0, // 현장 ID
         area_top_id: 0, // 장소1 ID
         area_bottom_id: 0, // 장소3 ID
-        area_risk_use_state: 0, // 사용여부
+        area_risk_use_state: 1, // 사용여부
         area_top_name: '', // 장소1
         gps_state: 0, // GPS 등록여부 / 1 등록, 0 미등록
         row_count: 0

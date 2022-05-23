@@ -188,7 +188,7 @@ export class WorkStandardSetPage implements OnInit {
         ctgo_construction_name: '', // 공종명
         master_company_id:this.constructionForm.master_company_id,
         project_id: this.constructionForm.project_id, // 현장 ID
-        ctgo_construction_use_state: 0// 1 사용 / 0 미사용
+        ctgo_construction_use_state: 1// 1 사용 / 0 미사용
       });
     } else {
       this.resConstruction.rsMap = [];
@@ -197,7 +197,7 @@ export class WorkStandardSetPage implements OnInit {
         ctgo_construction_name: '', // 공종명
         master_company_id:this.constructionForm.master_company_id,
         project_id: this.constructionForm.project_id, // 현장 ID
-        ctgo_construction_use_state: 0// 1 사용 / 0 미사용
+        ctgo_construction_use_state: 1// 1 사용 / 0 미사용
       });
     }
   }
@@ -284,7 +284,7 @@ export class WorkStandardSetPage implements OnInit {
         project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
-        ctgo_machinery_use_state: 0,
+        ctgo_machinery_use_state: 1,
         ctgo_machinery_doc:false
       });
     } else {
@@ -295,7 +295,7 @@ export class WorkStandardSetPage implements OnInit {
         project_id: this.machineryFrom.project_id,
         ctgo_machinery_name: '',
         ctgo_machinery_doc_state: 0,
-        ctgo_machinery_use_state: 0,
+        ctgo_machinery_use_state: 1,
         ctgo_machinery_doc:false
       });
     }
@@ -387,7 +387,7 @@ export class WorkStandardSetPage implements OnInit {
         master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
-        ctgo_tool_use_state: 0
+        ctgo_tool_use_state: 1
       });
     } else {
       this.resTool.rsMap = [];
@@ -396,7 +396,7 @@ export class WorkStandardSetPage implements OnInit {
         master_company_id: this.toolForm.master_company_id,
         project_id: this.toolForm.project_id,
         ctgo_tool_name: '',
-        ctgo_tool_use_state: 0
+        ctgo_tool_use_state: 1
       });
     }
   }
@@ -501,7 +501,7 @@ export class WorkStandardSetPage implements OnInit {
     if (this.resDisaster?.rsMap?.length) {
       this.resDisaster?.rsMap.unshift({
         ctgo_disaster_name:'',
-        ctgo_disaster_use_state: 0,
+        ctgo_disaster_use_state: 1,
         project_id:this.disasterForm.project_id,
         master_company_id: this.disasterForm.master_company_id,
         default_state: 0,
@@ -511,7 +511,7 @@ export class WorkStandardSetPage implements OnInit {
       this.resDisaster.rsMap = [];
       this.resDisaster?.rsMap.push({
         ctgo_disaster_name:'',
-        ctgo_disaster_use_state: 0,
+        ctgo_disaster_use_state: 1,
         project_id:this.disasterForm.project_id,
         master_company_id: this.disasterForm.master_company_id,
         default_state: 0,

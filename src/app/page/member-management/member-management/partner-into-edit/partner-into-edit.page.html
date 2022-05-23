@@ -88,8 +88,8 @@
         </app-col>
         <app-col>
           <app-select label="시스템 권한" *ngIf="!system" [disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
-            <app-select-option [value]="6">마스터 어드민</app-select-option>
-            <app-select-option [value]="7">일반 관리자</app-select-option>
+            <app-select-option [value]="6">원청사 마스터 어드민</app-select-option>
+            <app-select-option [value]="7">원청사 일반 관리자</app-select-option>
           </app-select>
           <app-select label="시스템 권한" *ngIf="system"[disabled]="!permission.approval" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="9">협력사 마스터 어드민</app-select-option>
