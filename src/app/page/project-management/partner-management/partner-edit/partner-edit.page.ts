@@ -74,7 +74,7 @@ export class PartnerEditPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private _modal: ModalController,
-    private regex: RegexService,
+    public regex: RegexService,
     private promise: PromiseService
   ) { }
 

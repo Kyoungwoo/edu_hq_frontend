@@ -14,7 +14,7 @@
       [(ngModel)]="form.company_name"></app-input>
     </app-col>
     <app-col>
-      <app-input  [required]="true" [disabled]="viewMode" label="사업자등록번호" [(ngModel)]="form.business_register_no" [maxlength]="12"></app-input>
+      <app-input  [required]="true" [disabled]="viewMode" label="사업자등록번호(-포함)" [(ngModel)]="form.business_register_no" [maxlength]="12"></app-input>
     </app-col>
     <app-col>
       <app-input [required]="true" [disabled]="viewMode" name="input buisnessman"
@@ -43,7 +43,7 @@
           <th>계약금액<br>(원/VAT 별도)</th>
           <th style="width: 280px;">계약기간</th>
           <th>현장 담당자</th>
-          <th style="width: 130px;">현장 전화번호</th>
+          <th style="width: 130px;">현장 전화번호(-포함)</th>
         </tr>
       </thead>
       <tbody>
