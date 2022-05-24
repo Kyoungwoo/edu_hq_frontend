@@ -49,7 +49,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
-    private user: UserService,
+    public user: UserService,
     private popover: PopoverController
   ) { }
 
@@ -61,6 +61,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   projectRolechekc() {
     const { user_role , belong_data} = this.user.userData;
+    console.log("belong_data.company_id",belong_data.company_id);
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
@@ -90,7 +91,6 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-
     const res = await this.connect.run('/education/state/record/list', this.form, {
       parse:['safe_job_name']
     });

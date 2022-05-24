@@ -16,7 +16,7 @@
                 <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="user.userData.user_role !== 'PARTNER_GENERAL' && user.userData.user_role !== 'PARTNER_HEAD'">
               <td>
                 <app-select-contractor [allState]="editable.add" [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
                 <!-- <app-select-company [project_id]="form.project_id || 0"
