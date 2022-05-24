@@ -52,6 +52,7 @@ export class RegexService {
     price: (number:string | number) => {
       let sNumber = String(number);
       let sNumber_2 = [];
+      console.log(sNumber.indexOf('.'));
       if(sNumber.indexOf('.') != -1){
         sNumber_2 = sNumber.split('.');
         let str = sNumber_2[0].replace(/[^0-9]/g, '');

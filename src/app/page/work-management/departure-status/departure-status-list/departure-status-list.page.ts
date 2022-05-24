@@ -16,7 +16,7 @@ export class DepartureStatusListPage implements OnInit {
 
   form:DepartureStatusListForm = {
     project_id: this.user.userData.belong_data.project_id, // 현장 ID
-    master_company_id: this.user.userData.belong_data.master_company_id, // 원청사 ID
+    master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : this.user.userData.belong_data.company_id, // 원청사 ID
     ctgo_construction_ids: [], // 공종 ID
     start_date: this.date.today({ month: -1 }), // 검색 시작일
     end_date: this.date.today(), // 검색 종료일

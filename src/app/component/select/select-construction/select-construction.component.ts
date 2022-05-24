@@ -63,7 +63,6 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
 
   private async get() {
-    console.log(this.project_id, this.master_company_id);
     if(!this.project_id || !this.master_company_id) {
       this.res = null;
       return;
@@ -97,9 +96,7 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   private _value:any = 0;
   @Input() set value(v:any) {
     if(v !== this._value) {
-      this._value = v;
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
   }
   get value() {
@@ -107,10 +104,15 @@ export class SelectConstructionComponent implements OnInit, ControlValueAccessor
   }
   writeValue(v:any): void { 
     if(v !== this._value) {
-      this._value = v;
-      this.onChangeCallback(v);
-      this.change.emit(v);
+      this.valueChange(v);
     }
+  }
+
+  valueChange(v) {
+    this._value = v ? v : this.multiple ? [] : 0;
+    this.onChangeCallback(v);
+    this.change.emit(v);
+    this.get();
   }
 
   private onChangeCallback = (v) => {};
