@@ -89,8 +89,9 @@
           <app-table>
             <thead>
               <tr>
-                <th style="width: 40px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
-                || user.userData.belong_data.company_contract_type === '원청사'">고정</th>
+                <!-- <th style="width: 40px;" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                || user.userData.belong_data.company_contract_type === '원청사'">고정</th> -->
+                <th style="width: 48px;">No</th>
                 <th>MSDS 구분</th>
                 <th>제목</th>
                 <th>업체명</th>
@@ -101,13 +102,14 @@
             </thead>
             <tbody>
               <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.msds_id)">
-                <td (click)="favoritesCheck($event, item)"  *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+                <!-- <td (click)="favoritesCheck($event, item)"  *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
                 || user.userData.belong_data.company_contract_type === '원청사'">
                   <app-button size="small" shape="square" fill="translucent"
                     [color]="item.favorites_state ? 'star' : 'medium'">
                     <ion-icon name="star"></ion-icon>
                   </app-button>
-                </td>
+                </td> -->
+                <td>{{ item.index }}</td>
                 <td>{{ item.msds_type }}</td>
                 <td style="text-align: left;">{{ item.msds_title }}</td>
                 <td>{{ item.company_name }}</td>

@@ -35,9 +35,9 @@ class ConfirmCcItem {
 export class ConfirmCcListPage implements OnInit {
 
   form = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     approval_cnt_answer: '전체' as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
@@ -84,17 +84,19 @@ export class ConfirmCcListPage implements OnInit {
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    if(belong_data.company_contract_type === 'LH'
-    || belong_data.company_contract_type === '감리사') {
-      this.permission.master_company_all = true;
-      this.form.company_id = 0;
-    }
-    else {
-      this.permission.master_company_all = false;
-      this.form.company_id = belong_data.company_id;
-    }
+    // if(belong_data.company_contract_type === 'LH'
+    // || belong_data.company_contract_type === '감리사') {
+    //   this.permission.master_company_all = true;
+    //   this.form.company_id = 0;
+    // }
+    // else {
+    //   this.permission.master_company_all = false;
+    //   this.form.company_id = belong_data.company_id;
+    // }
     this.form.master_company_id = belong_data.master_company_id || 0;
-
+    // if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'MASTER_GENERAL'){
+    //   this.form.company_id = 0;
+    // }
     this.form.start_date = this.date.today({ month: -1 });
     this.form.end_date = this.date.today();
     this.form.approval_cnt_answer = '전체';

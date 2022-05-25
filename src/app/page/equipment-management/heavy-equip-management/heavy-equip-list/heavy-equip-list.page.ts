@@ -33,7 +33,7 @@ export class HeavyEquipListPage implements OnInit {
   form = {
     ctgo_machinery_id: 0,
     end_date: this.date.today(),
-    master_company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.company_id,
+    master_company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.master_company_id,
     partner_company_id: 0,
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
@@ -56,6 +56,8 @@ export class HeavyEquipListPage implements OnInit {
 
 
   ngOnInit() {
+    if(this.user.userData.user_role === 'PARTNER_HEAD' || this.user.userData.user_role === 'PARTNER_GENERAL') this.form.partner_company_id = this.user.userData.belong_data.company_id;
+
     setTimeout(() => {
       this.getList();
     }, 300);

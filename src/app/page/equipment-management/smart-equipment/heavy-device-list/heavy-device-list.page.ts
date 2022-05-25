@@ -75,7 +75,7 @@ export class HeavyDeviceListPage implements OnInit {
   /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
   allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
   
-  /** @param serial_type - 시리얼 타입입니다. ('개인' | '중장비' | '위험지역') */
+  /** @param serial_type - 등록 타입입니다. ('개인' | '중장비' | '위험지역') */
   serial_type: '개인' | '중장비' | '위험지역' = '중장비';
 
   /** @param update_state - 현재 업데이트중인지 여부 */
@@ -99,13 +99,13 @@ export class HeavyDeviceListPage implements OnInit {
   /** @param res_original - 원본 데이터(비교용) */
   res_original:SmartInfo[] = [];
 
-  /** @param res - 서버에서 받아온 시리얼 NO 리스트 */
+  /** @param res - 서버에서 받아온 등록 NO 리스트 */
   res:ConnectResult<SmartInfo>;
 
   /** @param res_insert - 추가할 리스트 */
   res_insert:SmartInfoInsertItem[] = [];
 
-  /** @param res_my - 서버에서 받아온 나의 시리얼 NO 리스트 */
+  /** @param res_my - 서버에서 받아온 나의 등록 NO 리스트 */
   res_my:ConnectResult<SmartInfo>;
 
   /** @param searial_ctgo_list - 스마트장비 카테고리 */
@@ -294,7 +294,7 @@ export class HeavyDeviceListPage implements OnInit {
               }
               if(case_2){
                 await loadingCus.dismiss();
-                return this.toast.present({ color: 'warning', message: '시리얼 NO를 선택해주세요.' });
+                return this.toast.present({ color: 'warning', message: '등록 NO를 선택해주세요.' });
               }
               if(case_3){
                 await loadingCus.dismiss();

@@ -194,6 +194,8 @@ export class SignUpPartnerPage implements OnInit {
   }
 
   private valid():boolean {
+    this.validator.user_email = { valid: true };
+
     if(!this.form.user_name) this.validator.user_name = { message: '이름을 입력해주세요.', valid: false };
     else this.validator.user_name = { valid: true };
 
@@ -224,8 +226,8 @@ export class SignUpPartnerPage implements OnInit {
     else
     this.validator.sms_token = { valid: true };
 
-    if(this.validator.user_email?.valid)
-    this.validator.user_email = { valid: true };
+    // if(this.validator.user_email?.valid)
+    // this.validator.user_email = { valid: true };
 
     if(this.form.ctgo_job_position_id == null) this.validator.ctgo_job_position_id = { message: '직위를 입력해주세요.', valid: false };
     else this.validator.ctgo_job_position_id = { valid: true };

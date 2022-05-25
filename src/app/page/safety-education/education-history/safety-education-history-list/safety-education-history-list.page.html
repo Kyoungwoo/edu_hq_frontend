@@ -80,7 +80,7 @@
               <td (click)="userInfo(item.user_id,$event)">{{ item.user_name}}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
               <td>{{ item.ctgo_occupation_name }}</td>
-              <td>{{ item.safe_job_name}}</td>
+              <td>{{ item.ctgo_safe_job_name}}</td>
               <td>{{ item.work_contract_type }}</td>
               <td>
                 <ion-chip *ngIf="item.recruitement_state === '양호'" outline color="primary">양호</ion-chip>

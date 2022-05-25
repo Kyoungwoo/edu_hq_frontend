@@ -5,9 +5,9 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 export class TodayDeparturePersionItem {
-  ctgo_job_position_name_kr: string;
+  ctgo_job_position_name: string;
   company_id: number;
-  ctgo_safe_job_name_kr: string;
+  ctgo_safe_job_name: string;
   user_id: number;
   ctgo_job_position_id: number;
   user_name: string;

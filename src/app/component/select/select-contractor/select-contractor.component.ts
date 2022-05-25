@@ -63,6 +63,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
+    const { user_type } = this.user.userData;
+    if(user_type === 'COMPANY') this.disabled = true;
   }
 
   public async get() {

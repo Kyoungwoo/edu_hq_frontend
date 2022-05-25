@@ -11,9 +11,9 @@ export class ConfirmPendingDetailSearchPage implements OnInit {
 
   @Input() permission = { master_company_all: false }
   @Input() form = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     search_text: null, // 검색어
@@ -21,9 +21,9 @@ export class ConfirmPendingDetailSearchPage implements OnInit {
   }
 
   temptForm = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     search_text: null, // 검색어

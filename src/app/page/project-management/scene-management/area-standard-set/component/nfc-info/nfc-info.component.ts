@@ -12,8 +12,8 @@ export class NfcInfoComponent implements OnInit {
   
   nfcData:ConnectResult <{
     device_id: number, // 장비 ID
-    serial_no: string, // 시리얼넘버
-    serial_id: number // 시리얼 ID
+    serial_no: string, // 등록넘버
+    serial_id: number // 등록 ID
   }>
   constructor(
     private connect: ConnectService

@@ -36,7 +36,7 @@ export class DangerAreaAddPage implements OnInit {
   @Input() ctgo; // 카테고리 리스트
   @Input() serial_type; // 개인 / 중장비 / 위험지역
 
-  /** @param res - 서버에서 받아온 시리얼 NO 리스트 */
+  /** @param res - 서버에서 받아온 등록 NO 리스트 */
   res:ConnectResult<SmartInfoInsertItem>;
 
   original_item:SmartInfoInsertItem[] = [];
@@ -116,7 +116,7 @@ export class DangerAreaAddPage implements OnInit {
   }
 
   /**
-   * @function openModal_SerialMobile(): 시리얼을 가져오는 모달(앱일경우에만 사용)
+   * @function openModal_SerialMobile(): 등록을 가져오는 모달(앱일경우에만 사용)
    */
    public async openModal_SerialMobile() {
      if(!this.item.area_risk_id) return this.toast.present({ message: '위험지역을 먼저 선택해주세요.', color: 'warning' });

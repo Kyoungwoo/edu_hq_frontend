@@ -121,19 +121,19 @@ var SideMenuAdminComponent = /** @class */ (function () {
                             return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                         } },
                     { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
-                            { title: '시리얼 NO', link: '/serial-no-list', permission: function () {
+                            { title: '등록 NO', link: '/serial-no-list', permission: function () {
                                     var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                                     return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                                 } },
-                            { title: '개인 디바이스', link: '/each-device-list', permission: function () {
+                            { title: '개인용 디바이스', link: '/each-device-list', permission: function () {
                                     var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                                     return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                                 } },
-                            { title: '중장비 디바이스', link: '/heavy-device-list', permission: function () {
+                            { title: '중장비용 디바이스', link: '/heavy-device-list', permission: function () {
                                     var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                                     return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                                 } },
-                            { title: '장소 디바이스', link: '/danger-area-list', permission: function () {
+                            { title: '장소용 디바이스', link: '/danger-area-list', permission: function () {
                                     var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
                                     return user_role === 'LH_HEAD' || user_type === 'COMPANY';
                                 } }

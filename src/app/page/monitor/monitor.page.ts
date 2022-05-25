@@ -231,11 +231,11 @@ export class MonitorPage implements OnInit, OnDestroy {
         let total = 0;
         this.todayWork = res;
         
-        this.todayWork.rsMap.map((item) => {total = total+item.master_worker+item.company_worker;});
+        this.todayWork.rsMap.map((item) => {total = total+item.total_cnt;});
         this.todayWork_totalCount = total;
 
         let total_arr = [];
-        this.todayWork.rsMap.map((item) => {total_arr.push(item.master_worker+item.company_worker);});
+        this.todayWork.rsMap.map((item) => {total_arr.push(item.total_cnt);});
         let max_today = Math.max.apply(null,total_arr);
 
         let lineCount = (Math.ceil(max_today / 100) * 100) * 0.01;

@@ -70,12 +70,14 @@ export class RiskListPage implements OnInit {
     private _modal: ModalController,
     public user: UserService,
     private nav: NavService
-
   ) { }
 
   async ngOnInit() {
     await this.getForm();
-    this.get();
+    setTimeout(() => {
+      this.get();
+    },300);
+    
 
     // event 물리기
     this.event.get = this.getEvent.bind(this);

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>개인 디바이스 등록</ion-title>
+    <ion-title>개인용 디바이스 등록</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -15,7 +15,7 @@
 </ion-header>
 <ion-content>
   <app-select-people-all (ngModelChange)="changePeople($event)" label="성명" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
-  <!-- <app-select-serial-number label="시리얼No" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number> -->
+  <!-- <app-select-serial-number label="등록No" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number> -->
   <ng-container>
     <div class="serial-add-class">
       <h5>디바이스 등록 현황</h5>
@@ -32,8 +32,8 @@
         <app-row>
           <app-col>
             <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
-            <p>시리얼 NO : {{ data.serial_no }}</p>
-            <p>시리얼 타입 : {{ data.serial_type }}</p>
+            <p>등록 NO : {{ data.serial_no }}</p>
+            <p>등록 타입 : {{ data.serial_type }}</p>
           </app-col>
 
           <app-col size="3">
@@ -52,8 +52,8 @@
       <app-row>
         <app-col>
           <p>디바이스 구분 : {{ data.ctgo_machine_serial_name }}</p>
-          <p>시리얼 NO : {{ data.serial_no }}</p>
-          <p>시리얼 타입 : {{ data.serial_type }}</p>
+          <p>등록 NO : {{ data.serial_no }}</p>
+          <p>등록 타입 : {{ data.serial_type }}</p>
         </app-col>
 
         <app-col size="3">

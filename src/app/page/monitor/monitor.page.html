@@ -46,10 +46,10 @@
                   <div class="bar-flex-theme"></div>
                   <div class="bar-wrap">
                     <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                      <div (click)="todayWorkDetail(item)" *ngIf="item.master_worker || item.company_worker"
+                      <div (click)="todayWorkDetail(item)" *ngIf="item.total_cnt"
                         class="bar"
-                        [style.height]="'calc((100% - 50.55px) * '+((item.master_worker+item.company_worker) / todayWork_ceil_Total)+')'">
-                        <div class="bar-inner-text">{{ item.company_worker+item.master_worker }}</div>
+                        [style.height]="'calc((100% - 50.55px) * '+(item.total_cnt / todayWork_ceil_Total)+')'">
+                        <div class="bar-inner-text">{{ item.total_cnt }}</div>
                       </div>
                       <div class="text">{{ item.work_date }}</div>
                     </div>
@@ -303,7 +303,7 @@
                     <app-row>
                       <app-col style="text-align: left;">미가동</app-col>
                       <app-col style="text-align: right;">
-                        <h4>{{ smartEquip_closeness.mmachine_using_count }}</h4>
+                        <h4>{{ smartEquip_closeness.not_using_count }}</h4>
                       </app-col>
                     </app-row>
                   </p>

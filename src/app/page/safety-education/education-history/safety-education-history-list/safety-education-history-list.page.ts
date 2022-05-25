@@ -21,7 +21,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
   }
   res:ConnectResult<{
     index:number,
-    safe_job_name:string,
+    ctgo_safe_job_name:string,
     ctgo_job_position_id:number,
     user_name:string,
     ctgo_occupation_name:string,
@@ -99,7 +99,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
       this.res.rsMap.forEach(async(item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i; //  - (this.form.limit_no - i);
-        item.safe_job_name?.toString();
+        item.ctgo_safe_job_name?.toString();
       });
     } else {
       this.res = null;
