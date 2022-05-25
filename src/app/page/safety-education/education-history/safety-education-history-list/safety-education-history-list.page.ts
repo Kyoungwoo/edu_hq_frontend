@@ -14,7 +14,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   form = {
     company_id: 0, // 업체 ID
-    education_safe_state: '필요', // 양호 필요 기한초과
+    education_safe_state: '전체', // 양호 필요 기한초과
     limit_no: 0,// 20개씩
     project_id: 0, // 현장 ID
     search_text:'' // 검색어
