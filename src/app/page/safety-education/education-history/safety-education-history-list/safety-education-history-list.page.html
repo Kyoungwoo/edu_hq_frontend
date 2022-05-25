@@ -16,7 +16,7 @@
                 <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="user.userData.user_role !== 'PARTNER_GENERAL' && user.userData.user_role !== 'PARTNER_HEAD'">
               <td>
                 <app-select-contractor [allState]="editable.add" [project_id]="form.project_id || 0" [(ngModel)]="form.company_id" [disabled]="editable.company_id"></app-select-contractor>
                 <!-- <app-select-company [project_id]="form.project_id || 0"
@@ -26,11 +26,12 @@
             </tr>
             <tr>
               <td>
-                <app-radio-input name="user_gender" label="교육상태" value="양호" [(ngModel)]="form.education_safe_state">
-                  <app-radio value="양호">양호</app-radio>
-                  <app-radio value="필요">필요</app-radio>
-                  <app-radio value="기한초과">기한초과</app-radio>
-                </app-radio-input>
+                <app-select label="교육상태" value="전체" [(ngModel)]="form.education_safe_state">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="양호">양호</app-select-option>
+                  <app-select-option value="필요">필요</app-select-option>
+                  <app-select-option value="기한초과">기한초과</app-select-option>
+                </app-select>
               </td>
             </tr>
             <tr>
@@ -80,7 +81,7 @@
               <td (click)="userInfo(item.user_id,$event)">{{ item.user_name}}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
               <td>{{ item.ctgo_occupation_name }}</td>
-              <td>{{ item.safe_job_name}}</td>
+              <td>{{ item.ctgo_safe_job_name}}</td>
               <td>{{ item.work_contract_type }}</td>
               <td>
                 <ion-chip *ngIf="item.recruitement_state === '양호'" outline color="primary">양호</ion-chip>

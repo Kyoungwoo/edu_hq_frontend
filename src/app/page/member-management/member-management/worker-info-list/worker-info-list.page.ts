@@ -84,7 +84,7 @@ export class WorkerInfoListPage implements OnInit {
     }
     else if(user_role === 'MASTER_HEAD') {
       this.form.project_id = belong_data.project_id;
-      this.form.company_id = belong_data.company_id;
+      // this.form.company_id = belong_data.company_id;
 
       this.permission.companyChange = false;
       this.permission.approval = true;
@@ -92,7 +92,7 @@ export class WorkerInfoListPage implements OnInit {
     }
     else if(user_role === 'PARTNER_HEAD') {
       this.form.project_id = belong_data.project_id;
-      this.form.company_id = belong_data.company_id;
+      // this.form.company_id = belong_data.company_id;
 
       this.permission.companyChange = false;
       this.permission.approval = true;

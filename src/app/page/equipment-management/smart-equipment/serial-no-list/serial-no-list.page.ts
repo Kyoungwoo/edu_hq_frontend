@@ -55,7 +55,7 @@ export class SerialNoListPage implements OnInit {
   /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
   allState:boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
 
-  /** @param serial_type - 시리얼 타입입니다. ('개인' | '중장비' | '위험지역') */
+  /** @param serial_type - 등록 타입입니다. ('개인' | '중장비' | '위험지역') */
   serial_type: '개인' | '중장비' | '위험지역' = '개인';
 
   /** @param update_state - 현재 업데이트중인지 여부 */
@@ -74,13 +74,13 @@ export class SerialNoListPage implements OnInit {
   /** @param res_original - 원본 데이터(비교용) */
   res_original:SearialInfo[] = [];
 
-  /** @param res - 서버에서 받아온 시리얼 NO 리스트 */
+  /** @param res - 서버에서 받아온 등록 NO 리스트 */
   res:ConnectResult<SearialInfo>;
 
   /** @param res_insert - 추가할 리스트 */
   res_insert:SearialInfoInsertItem[] = [];
 
-  /** @param searial_ctgo_list - 시리얼 타입별 장비구분 카테고리 */
+  /** @param searial_ctgo_list - 등록 타입별 장비구분 카테고리 */
   searial_ctgo_list:SearialCtgo[] = [];
 
   /** @param selectedList - 체크박스로 선택된 목록 */
@@ -114,7 +114,7 @@ export class SerialNoListPage implements OnInit {
   }
   
   /**
-   * @function getList(): 중장비 시리얼 NO 목록 가져오기
+   * @function getList(): 중장비 등록 NO 목록 가져오기
    */
    async getList() {
     let method = await this.TransMethodType();
@@ -165,7 +165,7 @@ export class SerialNoListPage implements OnInit {
   }
 
   /**
-   * @function getSearialCtgo(): 시리얼 NO 장비구분 목록 가져오기
+   * @function getSearialCtgo(): 등록 NO 장비구분 목록 가져오기
    */
    async getSearialCtgo() {
     const res = await this.connect.run('/serial/ctgo/list', { serial_type: this.serial_type });

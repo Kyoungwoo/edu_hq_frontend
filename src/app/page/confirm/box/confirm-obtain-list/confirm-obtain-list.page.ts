@@ -35,9 +35,9 @@ class ConfirmObtainItem {
 export class ConfirmObtainListPage implements OnInit {
 
   form = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     approval_cnt_answer: '전체' as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
@@ -80,25 +80,26 @@ export class ConfirmObtainListPage implements OnInit {
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.company_id;
+    // this.form.company_id = belong_data.company_id;
+    this.form.master_company_id = belong_data.master_company_id;
 
-    if(belong_data.company_contract_type === '원청사') {
-      this.form.master_company_id = belong_data.company_id;
-    }
-    else if(belong_data.company_contract_type === '협력사') {
-      // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
-      const res = await this.connect.run('/category/certify/search_my_master_company/get', {
-        project_id: this.form.project_id,
-        search_text: ''
-      });
-      if(res.rsCode === 0) {
-        const contractor = res.rsMap[0];
-        this.form.master_company_id = contractor.master_company_id;
-      }
-      else {
-        this.toast.present({ color: 'warning', message: res.rsMsg });
-      }
-    }
+    // if(belong_data.company_contract_type === '원청사') {
+    //   this.form.master_company_id = belong_data.master_company_id;
+    // }
+    // else if(belong_data.company_contract_type === '협력사') {
+    //   // 협력사는 내 회사가 아니라, 내 원청사를 company_id에 넣어줘야 함
+    //   const res = await this.connect.run('/category/certify/search_my_master_company/get', {
+    //     project_id: this.form.project_id,
+    //     search_text: ''
+    //   });
+    //   if(res.rsCode === 0) {
+    //     const contractor = res.rsMap[0];
+    //     this.form.master_company_id = contractor.master_company_id;
+    //   }
+    //   else {
+    //     this.toast.present({ color: 'warning', message: res.rsMsg });
+    //   }
+    // }
 
     this.form.start_date = this.date.today({ month: -1 });
     this.form.end_date = this.date.today();

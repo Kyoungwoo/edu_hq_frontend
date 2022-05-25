@@ -163,6 +163,8 @@ export class SignUpWorkerPage implements OnInit {
   }
 
   private valid():boolean {
+    this.validator.user_email = { valid: true };
+    
     if(!this.form.user_name) this.validator.user_name = { message: '이름을 입력해주세요.', valid: false };
     else this.validator.user_name = { valid: true };
 
@@ -190,8 +192,8 @@ export class SignUpWorkerPage implements OnInit {
     if(!this.form.user_birth) this.validator.user_birth = { message: '생년월일을 입력해주세요.', valid: false };
     else this.validator.user_birth = { valid: true };
 
-    if(this.validator.user_email?.valid)
-    this.validator.user_email = { valid: true };
+    // if(this.validator.user_email?.valid)
+    // this.validator.user_email = { valid: true };
 
     if(!this.form.user_gender) this.validator.user_gender = { message: '성별을 선택해주세요.', valid: false };
     else this.validator.user_gender = { valid: true };

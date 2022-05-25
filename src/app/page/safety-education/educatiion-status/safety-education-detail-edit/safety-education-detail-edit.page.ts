@@ -88,7 +88,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
   editable = {
     update:false,
     educationMenu:true,
-    educationMenu_state: false
+    educationMenu_state: false,
+    my_state: false
   };
 
   eduUpdate:boolean = false;
@@ -146,6 +147,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
         this.user_id.push(data.user_id);
       });
       this.eduUpdate = true;
+      console.log("this.eduUpdate - ",this.eduUpdate);
     }
   }
   notReady() {
@@ -167,7 +169,9 @@ export class SafetyEducationDetailEditPage implements OnInit {
         if(Number(item) === this.user.userData.user_id) this.editable.educationMenu_state = true;
       });
 
-      if(this.form.create_user_id === this.user.userData.user_id) this.editable.update = true;
+      // if(this.form.create_user_id !== this.user.userData.user_id) this.editable.update = true;
+
+      if(this.form.create_user_id === this.user.userData.user_id) this.editable.my_state = true;
       
     }
     this.input_active = true;

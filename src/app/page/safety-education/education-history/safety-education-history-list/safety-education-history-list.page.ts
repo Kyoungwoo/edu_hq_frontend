@@ -14,14 +14,14 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   form = {
     company_id: 0, // 업체 ID
-    education_safe_state: '필요', // 양호 필요 기한초과
+    education_safe_state: '전체', // 양호 필요 기한초과
     limit_no: 0,// 20개씩
     project_id: 0, // 현장 ID
     search_text:'' // 검색어
   }
   res:ConnectResult<{
     index:number,
-    safe_job_name:string,
+    ctgo_safe_job_name:string,
     ctgo_job_position_id:number,
     user_name:string,
     ctgo_occupation_name:string,
@@ -49,7 +49,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
   constructor(
     private modal : ModalController,
     private connect: ConnectService,
-    private user: UserService,
+    public user: UserService,
     private popover: PopoverController
   ) { }
 
@@ -61,6 +61,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   projectRolechekc() {
     const { user_role , belong_data} = this.user.userData;
+    console.log("belong_data.company_id",belong_data.company_id);
     if(user_role === 'MASTER_HEAD' ||
       user_role === 'PARTNER_GENERAL'||
       user_role === 'PARTNER_HEAD' ||
@@ -90,7 +91,6 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-
     const res = await this.connect.run('/education/state/record/list', this.form, {
       parse:['safe_job_name']
     });
@@ -99,7 +99,7 @@ export class SafetyEducationHistoryListPage implements OnInit {
 
       this.res.rsMap.forEach(async(item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i; //  - (this.form.limit_no - i);
-        item.safe_job_name?.toString();
+        item.ctgo_safe_job_name?.toString();
       });
     } else {
       this.res = null;

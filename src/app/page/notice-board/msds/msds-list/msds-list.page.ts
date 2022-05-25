@@ -119,7 +119,7 @@ export class MsdsListPage implements OnInit {
   }
 
   async get(limit_no = this.form.limit_no) {
-    await this.promise.wait(() => { return this.form.company_id > 1 });
+    // await this.promise.wait(() => { return this.form.company_id > 1 });
     this.form.limit_no = limit_no;
 
     const res = await this.connect.run('/board/msds/list', this.form);

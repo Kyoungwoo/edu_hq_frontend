@@ -92,7 +92,7 @@
           <app-email name="user_email" label="이메일" 
           [color]="validator.user_email?.valid === false && 'warning'"
           (delayKeyup)="overlapEmail()"
-          [(ngModel)]="form.user_email" [required]="true"></app-email>
+          [(ngModel)]="form.user_email"></app-email>
           <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
         </app-col>
         <app-col>

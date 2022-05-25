@@ -41,7 +41,9 @@ export class DepartureStatusListPage implements OnInit {
   ngOnInit() {
     this.getPromission();
     // this.getForm();
-    this.getList();
+    setTimeout(() => {
+      this.getList();
+    },300);
   }
 
   getPromission() {

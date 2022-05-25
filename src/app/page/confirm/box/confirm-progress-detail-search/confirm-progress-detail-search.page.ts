@@ -12,9 +12,9 @@ export class ConfirmProgressDetailSearchPage implements OnInit {
 
   @Input() permission = { master_company_all: false }
   @Input() form = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     approval_cnt_answer: null as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려
@@ -23,9 +23,9 @@ export class ConfirmProgressDetailSearchPage implements OnInit {
   }
 
   temptForm = {
-    project_id: null, // 현장 ID
-    master_company_id: null, // 원청사 ID / 전체 = 0
-    company_id: null, // 협력사 ID / 전체 = 0
+    project_id: 0, // 현장 ID
+    master_company_id: 0, // 원청사 ID / 전체 = 0
+    company_id: 0, // 협력사 ID / 전체 = 0
     start_date: null, // 검색 시작일
     end_date: null, // 검색 종료일
     approval_cnt_answer: null as ApprovalAnswerType, // 결재상태 / 전체, 임시저장, 결재중, 결재완료, 반려

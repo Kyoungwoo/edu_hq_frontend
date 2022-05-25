@@ -67,8 +67,8 @@ export class EmailComponent implements OnInit, ControlValueAccessor {
       this.form.id = emailArr[0];
       this.form.domain = emailArr[1];
     } else {
-      this.form.id = '';
-      this.form.domain = '';
+      // this.form.id = '';
+      // this.form.domain = '';
     }
     this.changeDetector.detectChanges();
   }

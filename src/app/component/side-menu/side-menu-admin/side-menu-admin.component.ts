@@ -78,7 +78,7 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '전자결재 설정', 
       permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'COMPANY';
+        return false; // user_type === 'COMPANY';
       },
         thirdMenuList: [
           { title: '기본 전자결재선 지정', link: '/approval-edit',
@@ -158,26 +158,31 @@ export class  SideMenuAdminComponent implements OnInit {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
-      { title: '스마트 안전 장비\n등록/관리', thirdMenuList: [
-        { title: '시리얼 NO', link: '/serial-no-list',
+      { title: '스마트 안전 장비\n등록/관리', 
+      permission: () => {
+        const { user_role, user_type } = this.user.userData;
+        return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+      },
+      thirdMenuList: [
+        { title: '등록 NO', link: '/serial-no-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
         }},
-        { title: '개인 디바이스', link: '/each-device-list',
+        { title: '개인용 디바이스', link: '/each-device-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
         }},
-        { title: '중장비 디바이스', link: '/heavy-device-list',
+        { title: '중장비용 디바이스', link: '/heavy-device-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
         }},
-        { title: '장소 디바이스', link: '/danger-area-list',
+        { title: '장소용 디바이스', link: '/danger-area-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_type === 'COMPANY';
+          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
         }}
       ]}
     ]},

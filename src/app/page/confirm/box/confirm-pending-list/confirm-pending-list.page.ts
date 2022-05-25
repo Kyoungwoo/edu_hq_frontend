@@ -83,16 +83,20 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
     const { belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    if(belong_data.company_contract_type === 'LH'
-    || belong_data.company_contract_type === '감리사') {
-      this.permission.master_company_all = true;
-      this.form.company_id = 0;
-    }
-    else {
-      this.permission.master_company_all = false;
-      this.form.company_id = belong_data.company_id;
-    }
+    // if(belong_data.company_contract_type === 'LH'
+    // || belong_data.company_contract_type === '감리사') {
+    //   this.permission.master_company_all = true;
+    //   this.form.company_id = 0;
+    // }
+    // else {
+    //   this.permission.master_company_all = false;
+    //   this.form.company_id = belong_data.company_id;
+    // }
     this.form.master_company_id = belong_data.master_company_id || 0;
+
+    // if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'MASTER_GENERAL'){
+    //   this.form.company_id = 0;
+    // }
 
     this.form.start_date = this.date.today({ month: -1 });
     this.form.end_date = this.date.today();
