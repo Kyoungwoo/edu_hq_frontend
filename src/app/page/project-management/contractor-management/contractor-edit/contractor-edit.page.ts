@@ -134,6 +134,15 @@ export class ContractorEditPage implements OnInit {
       this.form.company_contract_data = res.rsMap;
     }
   }
+
+  async getItem_Map() {
+    const res = await this.connect.run('/project/company/masters/detail', {
+      company_id: this.company_id
+    });
+    if (res.rsCode === 0) {
+      this.form.company_contract_data = res.rsMap;
+    }
+  }
   
   async contSave() {
     if(!this.valid()) return;
@@ -231,12 +240,29 @@ export class ContractorEditPage implements OnInit {
       });
     }
   }
-  removeCompanyContractData() {
-    this.selectList.forEach(item => {
-      const index = this.form.company_contract_data.indexOf(item);
-      this.form.company_contract_data.splice(index, 1);
+  removeCompanyContractData(item) {
+    let dataSet = {
+      project_id: item.project_id,
+      company_id:this.company_id
+    }
+
+    this.alert.present({
+      message:'삭제 하시겠습니까?',
+      buttons:[
+        { text:'아니요' },
+        {
+          text:'예',
+          handler: async() => {
+            const res = await this.connect.run('/project/company/contract/delete', dataSet);
+            if(res.rsCode === 0) {
+              this.getItem_Map();
+            } else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
+          }
+        }
+      ]
     });
-    this.selectList = [];
   }
 
   private valid():boolean {

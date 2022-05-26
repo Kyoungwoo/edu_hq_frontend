@@ -74,6 +74,8 @@ export class WorkerInfoListPage implements OnInit {
 
   getPermission() {
     const { user_role, user_type, belong_data } = this.user.userData;
+    if(user_role === 'PARTNER_HEAD' || user_role === 'PARTNER_GENERAL') this.form.company_id = belong_data.company_id;
+
     if(user_type === 'LH') {
       this.form.project_id = 0;
       this.form.company_id = 0;

@@ -89,6 +89,6 @@
   </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="attendantDelete()">출석제외</app-button>
+  <app-button *ngIf="educationMenu_state || my_state" (click)="attendantDelete()">출석제외</app-button>
   <app-button (click)="dismiss()">확인</app-button>
 </app-button-footer>

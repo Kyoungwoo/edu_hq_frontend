@@ -33,16 +33,16 @@
   </app-col>
   <app-col size="auto" *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'">
     <app-button name="add_contract" style="margin-bottom: 0;" (click)="addCompanyContractData()" fill="translucent">추가</app-button>
-    <app-button name="remove_contract" style="margin-top: 0;" (click)="removeCompanyContractData()" color="danger" fill="translucent">삭제</app-button>
+    <!-- <app-button name="remove_contract" style="margin-top: 0;" (click)="removeCompanyContractData()" color="danger" fill="translucent">삭제</app-button> -->
   </app-col>
 </app-row>
 <app-check-group [(ngModel)]="selectList">
   <app-table>
     <thead>
       <tr>
-        <th *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'" style="width: 40px;">
+        <!-- <th *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'" style="width: 40px;">
           <app-check type="all"></app-check>
-        </th>
+        </th> -->
         <th>현장명</th>
         <th>계약명</th>
         <th>계약공종</th>
@@ -50,14 +50,15 @@
         <th style="width: 280px;">계약기간</th>
         <th>현장 담당자</th>
         <th style="width: 150px;">담당자 전화번호(-포함)</th>
+        <th style="width: 80px;" *ngIf="!viewMode"></th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngIf="!viewMode; else tempView">
         <tr *ngFor="let item of form.company_contract_data; let i = index">
-          <td *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'">
+          <!-- <td *ngIf="!viewMode && user.userData.user_role === 'MASTER_HEAD'">
             <app-check [on]="item"></app-check>
-          </td>
+          </td> -->
           <td>
             <app-select-scene [disabled]="!viewMode && user.userData.user_role !== 'MASTER_HEAD'" label="" name="project_id" [(ngModel)]="item.project_id"></app-select-scene>
           </td>
@@ -85,6 +86,9 @@
           </td>
           <td>
             <app-input name="manager_phone" [(ngModel)]="item.manager_phone"></app-input>
+          </td>
+          <td>
+            <app-button (click)="removeCompanyContractData(item)" *ngIf="!viewMode">삭제</app-button>
           </td>
           <!-- <td>
             <app-select-people name="manager_user_id"

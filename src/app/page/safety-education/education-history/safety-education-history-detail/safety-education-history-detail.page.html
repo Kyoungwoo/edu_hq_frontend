@@ -97,7 +97,7 @@
             </app-table>
           </app-col>
         </app-row>
-        <ng-container *ngIf="hire?.recruitment_state === '양호'">
+        <ng-container>
 
           <app-row style="margin-top: 20px;">
             <app-col size="auto">
@@ -172,7 +172,7 @@
         </ng-container>
 
 
-        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '일용직'">
+        <ng-container *ngIf="res.work_contract_type === '일용직'">
           <app-row style="margin-top: 20px;">
             <app-col size="auto">
               <h4>특별 교육</h4>
@@ -205,6 +205,13 @@
                       <ion-chip *ngIf="item.special_state === '기한초과'" color="danger">기한초과</ion-chip>
                     </td>
                   </tr>
+                  <tr *ngIf="!specialRes?.rsMap" class="education-body-tr">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </app-table>
             </app-col>
@@ -226,6 +233,10 @@
                   </div>
                   <div class="grp-bottom-border"></div>
                 </div>
+                
+                <div *ngIf="!specialRes?.rsMap" class="grp-box">
+                  <div class="grp-bottom-border"></div>
+                </div>
               </div>
             </app-col>
           </app-row>
@@ -240,7 +251,7 @@
           </app-row>
         </ng-container>
 
-        <ng-container *ngIf="specialRes?.rsMap && res.work_contract_type === '상용직'">
+        <ng-container *ngIf="res.work_contract_type === '상용직'">
           <app-row style="margin-top: 20px;">
             <app-col size="auto">
               <h4>특별 교육</h4>
@@ -275,6 +286,14 @@
                       <ion-chip *ngIf="item.special_state === '기한초과'" color="danger">기한초과</ion-chip>
                     </td>
                   </tr>
+
+                  <tr *ngIf="!specialRes?.rsMap" class="education-body-tr">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </app-table>
             </app-col>
@@ -294,6 +313,10 @@
                   <div class="grp-item-bar four" [style.width]="(item.education_complete_hours/item.education_need_hours * 100) + '%'">
                     <p class="grp-item-time">{{ item.education_complete_time ? item.education_complete_time : ''}}</p>
                   </div>
+                  <div class="grp-bottom-border"></div>
+                </div>
+                
+                <div *ngIf="!specialRes?.rsMap" class="grp-box">
                   <div class="grp-bottom-border"></div>
                 </div>
               </div>

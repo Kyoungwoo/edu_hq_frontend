@@ -59,6 +59,7 @@ export class UserData {
   user_phone:string; // "01000249857"
   user_profile:string; // "null"
   user_main_page:string; // "null"
+  theme_project_id:number = 0;
   user_role:UserRole; // "COMPANY_WORKER" | "COMPANY_GENERAL" | ""
   user_type:UserType; // "WORKER"
 }

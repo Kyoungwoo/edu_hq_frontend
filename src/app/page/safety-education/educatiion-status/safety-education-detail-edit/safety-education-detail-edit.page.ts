@@ -123,6 +123,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
       this.form.education_safe_state = '교육 전'
       this.form.create_date = this.date.today();
       this.input_active = true;
+
+      this.editable.update = true;
     }
   }
 
@@ -240,7 +242,8 @@ export class SafetyEducationDetailEditPage implements OnInit {
     const modal = await this._modal.create({
        component:PeopleDeleteComponent,
        componentProps:{
-        item
+        item,
+        ...{educationMenu_state:this.editable.educationMenu_state,my_state:this.editable.my_state}
        }
     });
     modal.present();

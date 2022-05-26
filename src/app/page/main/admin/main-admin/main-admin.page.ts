@@ -74,6 +74,7 @@ export class MainAdminPage implements OnInit {
   }
 
   ngOnInit() {
+    this.user.userData.theme_project_id = this.form.project_id;
     if(this.user.userData.user_type === 'LH') this.getCtgo();
     this.getEtc();
     this.getBoard();
@@ -95,6 +96,7 @@ export class MainAdminPage implements OnInit {
     this.getBoard();
     this.getDust();
     this.getWeather();
+    this.user.userData.theme_project_id = this.form.project_id;
   }
 
   private async test() {

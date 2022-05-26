@@ -77,11 +77,14 @@ export class ConfirmObtainListPage implements OnInit {
   }
 
   async getForm() {
-    const { belong_data } = this.user.userData;
+    const { user_role,belong_data } = this.user.userData;
+    if(user_role === 'PARTNER_HEAD' || user_role === 'PARTNER_GENERAL') this.form.company_id = belong_data.company_id;
 
     this.form.project_id = belong_data.project_id;
     // this.form.company_id = belong_data.company_id;
     this.form.master_company_id = belong_data.master_company_id;
+
+
 
     // if(belong_data.company_contract_type === '원청사') {
     //   this.form.master_company_id = belong_data.master_company_id;

@@ -81,7 +81,8 @@ export class ConfirmCcListPage implements OnInit {
   }
 
   async getForm() {
-    const { belong_data } = this.user.userData;
+    const { user_role,belong_data } = this.user.userData;
+    if(user_role === 'PARTNER_HEAD' || user_role === 'PARTNER_GENERAL') this.form.company_id = belong_data.company_id;
 
     this.form.project_id = belong_data.project_id;
     // if(belong_data.company_contract_type === 'LH'

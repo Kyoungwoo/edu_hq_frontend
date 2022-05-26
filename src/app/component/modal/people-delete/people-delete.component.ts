@@ -32,6 +32,8 @@ class userInfo {
 export class PeopleDeleteComponent implements OnInit {
 
   @Input() item;
+  @Input() educationMenu_state;
+  @Input() my_state;
 
   form = new userInfo();
 

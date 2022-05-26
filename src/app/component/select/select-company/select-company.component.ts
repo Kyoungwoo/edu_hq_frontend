@@ -73,8 +73,9 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {}
 
   public async get() {
-    const { user_type } = this.user.userData;
-    
+    const { user_type, user_role } = this.user.userData;
+    if(user_role === 'PARTNER_HEAD' || user_role === 'PARTNER_GENERAL') this.disabled = true;
+
     if(!this.project_id || !this.value) {
       if(this.multiple) {
         this.value = [];
