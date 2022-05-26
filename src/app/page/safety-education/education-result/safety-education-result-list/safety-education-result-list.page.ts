@@ -98,7 +98,9 @@ export class SafetyEducationResultListPage implements OnInit {
       user_role === 'MASTER_GENERAL') {
         this.editable.company_id = true;
         this.form.project_id = belong_data.project_id;
-        this.form.company_id = belong_data.company_id;
+        this.form.company_id = belong_data.master_company_id;
+        console.log("belong_data.company_id - ", belong_data.company_id);
+        console.log("belong_data.company_id - ", this.form.company_id);
       } else if(user_role === 'LH_HEAD') {
         this.form.project_id = belong_data.project_id;
         this.editable.add = true;
