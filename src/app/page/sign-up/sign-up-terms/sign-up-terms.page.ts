@@ -182,6 +182,6 @@ export class SignUpTermsPage implements OnInit {
   }
 
   termPage(url:string){
-    window.open('assets/terms/'+url,'_blank');
+    window.open('https://cdn.lh-skeeper.or.kr/terms/'+url,'_blank');
   }
 }

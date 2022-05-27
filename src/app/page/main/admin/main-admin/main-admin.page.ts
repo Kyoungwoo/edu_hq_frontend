@@ -59,6 +59,8 @@ export class MainAdminPage implements OnInit {
   notice_list = []; // 공지사항
   safetymeeting_list = []; // 회의록
 
+  interval_state;
+
   constructor(
     private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
@@ -82,10 +84,10 @@ export class MainAdminPage implements OnInit {
     this.getWeather();
 
 
-    setInterval(() => {
-      this.getDust();
-      this.getWeather();
-    }, 1800000);
+    // this.interval_state = setInterval(() => {
+    //   this.getDust();
+    //   this.getWeather();
+    // }, 1800000);
 
     this.test();
   }
@@ -96,7 +98,7 @@ export class MainAdminPage implements OnInit {
     this.getBoard();
     this.getDust();
     this.getWeather();
-    this.user.userData.theme_project_id = this.form.project_id;
+    this.user.userData.belong_data.project_id = this.form.project_id;
   }
 
   private async test() {

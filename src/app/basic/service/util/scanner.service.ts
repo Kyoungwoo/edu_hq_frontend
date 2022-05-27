@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { HeavyQrDataPage } from 'src/app/page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.page';
 import { QrScannerComponent } from 'src/app/basic/component/dialog/qr-scanner/qr-scanner.component';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -16,7 +17,8 @@ export class ScannerService {
     private modal: ModalController,
     private user: UserService,
     private toast: ToastService,
-    private connect: ConnectService
+    private connect: ConnectService,
+    private alert: AlertService
   ) { }
 
   async init(info_state:boolean = false, single_state:boolean = false) {
@@ -170,6 +172,8 @@ export class ScannerService {
       if(info_state) {
         data_obj.data = res.rsObj.area_risk_id;
       }
+
+      this.alert.present({message: '등록 되었습니다'});
     } else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }

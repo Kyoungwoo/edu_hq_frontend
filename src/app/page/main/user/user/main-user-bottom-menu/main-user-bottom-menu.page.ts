@@ -15,8 +15,25 @@ export class MainUserBottomMenuPage implements OnInit {
 
   segment:string = '1';
 
-  @Input() project_id:number;
-  @Input() master_company_id:number;
+  // @Input() project_id:number;
+  // @Input() master_company_id:number;
+  private _project_id:number = 0;
+  @Input() set project_id(v:number) {
+    if(this._project_id !== v) {
+      this._project_id = v;
+      this.getBoard();
+    }
+  }
+  get project_id() { return this._project_id }
+
+  private _master_company_id:number = 0;
+  @Input() set master_company_id(v:number) {
+    if(this._master_company_id !== v) {
+      this._master_company_id = v;
+      this.getBoard();
+    }
+  }
+  get master_company_id() { return this._master_company_id }
 
   notice_count = 0; // 안읽은 공지사항
   msds_count: 0; // 안읽은 MSDS
@@ -33,6 +50,10 @@ export class MainUserBottomMenuPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.getBoard();
+  }
+
+  getBoard(){
     this.getNotice();
     this.getMsds();
     this.getSafrtyMeeting();

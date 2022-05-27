@@ -88,10 +88,10 @@ export class MainSubAdminPage implements OnInit {
     this.getProjectAddress();
 
 
-    setInterval(() => {
-      this.getDust();
-      this.getWeather();
-    }, 1800000);
+    // setInterval(() => {
+    //   this.getDust();
+    //   this.getWeather();
+    // }, 1800000);
 
     this.test();
   }
@@ -117,6 +117,15 @@ export class MainSubAdminPage implements OnInit {
 
     document.querySelector('[name=button_manual-list]').dispatchEvent(new Event('click'));
     return true;
+  }
+
+  async adminReset(){
+    // if(this.user.userData.user_type === 'LH') this.getCtgo();
+    this.getEtc();
+    this.getBoard();
+    this.getDust();
+    this.getWeather();
+    this.user.userData.belong_data.project_id = this.form.project_id;
   }
 
   /**

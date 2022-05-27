@@ -186,4 +186,12 @@ export class LoginMobilePage implements OnInit {
       this.nav.navigateRoot(userData.user_main_page, {animated});
     }
   }
+
+  testyyy(){
+    // window.open('https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf','_blank');
+    let a = document.createElement('a');
+    // a.title = "my title text";
+    a.href = "https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf";
+    a.click();
+  }
 }

@@ -91,6 +91,8 @@ export class MainUserPartnerPage implements OnInit, OnDestroy {
     await this.getNotify();
     this.event.getNotify = this.getNotify.bind(this);
     window.addEventListener('getNotify', this.event.getNotify);
+
+    this.user.userData.belong_data.project_id = this.form.project_id;
   }
 
   /**

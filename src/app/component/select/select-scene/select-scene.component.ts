@@ -45,10 +45,11 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
 
   public async get() {
     if(this.isModalData) return;
-    console.log('this.value - ', this.value);
-    console.log('this.all - ', this.all);
+    // console.log('this.value - ', this.value);
+    // console.log('this.all - ', this.all);
+    
     // 메인화면에서 선택된 현장이 있을 경우
-    if(this.user.userData.theme_project_id) this.value = this.user.userData.theme_project_id;
+    // if(this.user.userData.theme_project_id) this.value = this.user.userData.theme_project_id;
 
     if(!this.value && !this.all && this.user.userData.user_type !== 'LH') return;
     

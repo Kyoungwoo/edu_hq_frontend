@@ -7,7 +7,7 @@
       <app-card style="height:467px;  align-items: stretch;">
         <app-row>
           <app-col>
-            <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+            <app-select-scene name="project_id" [(ngModel)]="form.project_id" (change)="adminReset()"></app-select-scene>
           </app-col>
         </app-row>
         <app-row>

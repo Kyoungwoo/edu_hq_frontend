@@ -15,7 +15,7 @@
       <app-check type="all">시스템 이용 약관, 개인정보, 민감정보 및 위치정보 수집, 이용, 제3자 제공에 모두 동의합니다.</app-check>
       <div class="term-box">
         <app-check name="system_terms" [on]="1" [off]="0" [(ngModel)]="form.system_terms">시스템 이용약관 동의<ion-text color="red"> (필수)</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('system Terms and Conditions.pdf')">전문보기</ion-button>
+        <ion-button class="view-btn" (click)="termPage('system_Terms_and_Conditions.pdf')">전문보기</ion-button>
       </div>
 
       <!-- <app-card class="term" 
@@ -26,7 +26,7 @@
 
       <div class="term-box">
         <app-check name="personal_terms" [on]="1" [off]="0" [(ngModel)]="form.personal_terms">개인정보 수집 및 이용 동의 <ion-text color="red">(필수)</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('use personal information.pdf')">전문보기</ion-button>
+        <ion-button class="view-btn" (click)="termPage('use_personal_information.pdf')">전문보기</ion-button>
       </div>
       
       <!-- <app-card class="term"
@@ -38,7 +38,7 @@
       <ng-container *ngIf="userType === 'WORKER'">
         <div class="term-box">
           <app-check name="sensitive_terms" [on]="1" [off]="0" [(ngModel)]="form.sensitive_terms">민감정보 제공 및 이용동의 <ion-text color="red">(필수)</ion-text></app-check>
-          <ion-button class="view-btn" (click)="termPage('sensitive information.pdf')">전문보기</ion-button>
+          <ion-button class="view-btn" (click)="termPage('sensitive_information.pdf')">전문보기</ion-button>
         </div>
         
         <!-- <app-card class="term"
@@ -50,7 +50,7 @@
       
       <div class="term-box">
         <app-check name="gps_terms" [on]="1" [off]="0" [(ngModel)]="form.gps_terms">위치정보 시스템 이용약관 동의 <ion-text color="red">(필수)</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('location Information.pdf')">전문보기</ion-button>
+        <ion-button class="view-btn" (click)="termPage('location_Information.pdf')">전문보기</ion-button>
       </div>
       
       <!-- <app-card class="term"
@@ -61,7 +61,7 @@
       
       <div class="term-box">
         <app-check name="sharing_terms" [on]="1" [off]="0" [(ngModel)]="form.sharing_terms">제3자 정보제공 동의 <ion-text color="red">(필수)</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('third-party information.pdf')">전문보기</ion-button>
+        <ion-button class="view-btn" (click)="termPage('third-party_information.pdf')">전문보기</ion-button>
       </div>
       
       <!-- <app-card class="term"
