@@ -5,12 +5,12 @@ import { Color } from '@ionic/core';
 import { SearchDangerousAreaComponent } from '../../modal/search-dangerous-area/search-dangerous-area.component';
 
 export class AreaDate {
-  area_top_name:string;
-  area_middle_name:string;
-  area_bottom_name:string;
-  ctgo_area_risk_name:string;
-  area_risk_name:string;
-  area_risk_id:number;
+  area_top_name:string = '';
+  area_middle_name:string = '';
+  area_bottom_name:string = '';
+  ctgo_area_risk_name:string = '';
+  area_risk_name:string = '';
+  area_risk_id:number = 0;
 }
 @Component({
   selector: 'app-select-dangerous-area',
@@ -33,18 +33,18 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   @Input() label:string = "위험지역";
   @Input() text:string;
   @Input() disabled:boolean = false;
-
+  @Input() area_data:AreaDate = new AreaDate();
 
   private _project_id:number = 0;
   @Input() set project_id(v:number) {
     if(this._project_id !== v) {
       this._project_id = v;
-      this.value = this.multiple ? [] : 0;
+      this.value = new AreaDate();
     }
   }
   get project_id() { return this._project_id }
 
-  data:AreaDate = new AreaDate();
+  // data:AreaDate = new AreaDate();
 
   constructor(
     private _modal:ModalController
@@ -53,7 +53,17 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   ngOnInit() {}
 
   get() {
+    console.log('get() ---- ', this.value);
+    console.log('_get() ---- ', this._value);
+    if(this.value){
+      this.text = (this.value.area_top_name ? this.value.area_top_name: '')+ ' ' +
+      (this.value.area_middle_name ? this.value.area_middle_name : '') + ' ' +
+      (this.value.area_bottom_name ? this.value.area_bottom_name + '/' : '') +
+      (this.value.ctgo_area_risk_name ? this.value.ctgo_area_risk_name +  '/' : '')  +
+      (this.value.area_risk_name ? this.value.area_risk_name : '');
+    }
 
+    console.log('_get() text ---- ', this.text);
   }
 
   async dangerous(){
@@ -66,47 +76,42 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      this.data = data;
+      // console.log('dangerous 1 - ',data);
+      // console.log('dangerous 2 - ',this.area_data);
+      // this.area_data = data;
       this.text = (data.area_top_name ? data.area_top_name: '')+ ' ' +
                   (data.area_middle_name ? data.area_middle_name : '') + ' ' +
                   (data.area_bottom_name ? data.area_bottom_name : '') + '/' +
                   (data.ctgo_area_risk_name ? data.ctgo_area_risk_name : '') +  '/'  +
-                  (data.area_risk_name ? data.area_risk_name : '')
-      this.value = data.area_risk_id;
-      this.data = data;
+                  (data.area_risk_name ? data.area_risk_name : '');
+      this.value = data;
+      this.area_data = data;
       
     }
   }
 
   @Output() change = new EventEmitter();
 
-  private _value:number[] | number;
-  @Input() set value(v:number[] | number) {
+  private _value:AreaDate;
+  @Input() set value(v:AreaDate) {
     if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
+      this._value = v;
       this.get();
-      this.onChangeCallback({v});
-      console.log('========================Input',this.data);
-      this.change.emit({
-        v,
-        data:this.data
-      });
+      this.onChangeCallback(v);
+      // console.log('========================Input',this.data);
+      this.change.emit(v);
     }
   }
   get value() {
     return this._value;
   }
-  writeValue(v:[]): void { 
-    if(v !== this._value) {
-      this._value = v ? v : this.multiple ? [] : 0;
+  writeValue(v:AreaDate): void { 
+      this._value = v;
       this.get();
-      this.onChangeCallback({v});
-      console.log('========================writeValue',this.data);
-      this.change.emit({
-        v,
-        data:this.data
-      });
-    }
+      this.onChangeCallback(v);
+
+      // console.log('========================writeValue',this.data);
+      this.change.emit(v);
   }
 
   private onChangeCallback = (v) => {};

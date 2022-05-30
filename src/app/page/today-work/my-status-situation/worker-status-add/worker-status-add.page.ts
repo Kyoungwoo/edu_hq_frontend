@@ -28,6 +28,7 @@ export class WorkerStatusAddPage implements OnInit {
   @Input() area_risk_id:number;
   @Input() master_company_id:number;
   @Input() areadata:any;
+  @Input() method:string;
   
   form = {
     // master_company_id: this.user.userData.belong_data.company_id,
@@ -65,7 +66,9 @@ export class WorkerStatusAddPage implements OnInit {
     this.form.master_company_id = this.master_company_id;
     this.form.insert_state = this.select_type;
     this.form.area_risk_id = this.areadata.area_risk_id ? this.areadata.area_risk_id : 0;
-    this.gateGet();
+    console.log(this.method);
+    if(this.method === 'gate') this.gateGet(); 
+    else this.riskGet();
   }
   async gateGet() {
     this.selectData = [];

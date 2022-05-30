@@ -17,7 +17,7 @@ export type CtgoNative = 'ch' | 'en' | 'kr' | 'vi';
 })
 export class WorkerStatusListPage implements OnInit {
 
-  menuCount:Number = 1;
+  menuCount:'gate' | 'risk' = 'gate';
 
   gateList:ConnectResult<{
     outside_time: string,
@@ -48,6 +48,13 @@ export class WorkerStatusListPage implements OnInit {
 
   areadata = new AreaDate();
   form = {
+    master_company_id:0,
+    project_id:history.state.project_id,
+    search_text:'',
+    area_risk_id:0,
+  }
+
+  form_risk = {
     master_company_id:0,
     project_id:history.state.project_id,
     search_text:'',
@@ -101,6 +108,8 @@ export class WorkerStatusListPage implements OnInit {
   async ngOnInit() {
     this.form.project_id = history.state.project_id;
     this.form.master_company_id = history.state.master_company_id | 0;
+    this.form_risk.project_id = history.state.project_id;
+    this.form_risk.master_company_id = history.state.master_company_id | 0;
 
     await this.getGate();
   }
@@ -120,10 +129,11 @@ export class WorkerStatusListPage implements OnInit {
   }
   
   async getRiskArea() {
+    console.log('getRiskArea()', this.form_risk);
     this.nfcIn = false;
-    if(!this.form.area_risk_id) return await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
-    this.form.area_risk_id = this.areadata.area_risk_id;
-    const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.form,{
+    if(!this.form_risk.area_risk_id) return;  // await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
+    // this.form.area_risk_id = this.areadata.area_risk_id;
+    const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.form_risk,{
       parse:['inner_data']
     });
     if(res.rsCode === 0) {
@@ -138,25 +148,36 @@ export class WorkerStatusListPage implements OnInit {
   }
 
   dataChange(ev)  {
-    this.areadata = ev.data;
+    // this.areadata = ev.data;
+    console.log('dataChange_1',ev);
+    if(ev?.area_risk_id) this.form_risk.area_risk_id = ev.area_risk_id;
+    this.areadata = {
+      ...this.areadata,
+      ...ev
+    };
+    console.log('this.areadata - ',this.areadata);
     this.getRiskArea();
   }
 
   async work_edit(type) {
+    let method = '';
+    if(this.menuCount === 'gate') method = 'gate';
+    else method = 'risk';
     const modal = await this.modal.create({
       component:WorkerStatusAddPage,
       componentProps: {
-        project_id: this.form.project_id,
+        project_id: this.menuCount === 'gate' ? this.form.project_id : this.form_risk.project_id,
         select_type:type,
-        area_risk_id:this.form.area_risk_id,
+        area_risk_id: this.menuCount === 'gate' ? this.form.area_risk_id : this.form_risk.area_risk_id,
         areadata:this.areadata,
-        master_company_id: this.form.master_company_id
+        master_company_id: this.menuCount === 'gate' ? this.form.master_company_id : this.form_risk.master_company_id,
+        method: method
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data?.area_risk_id) this.getRiskArea();
-    else this.getGate();
+    if(method === 'gate') this.getGate();
+    else this.getRiskArea();
   }
 
   async detailSearch() {
