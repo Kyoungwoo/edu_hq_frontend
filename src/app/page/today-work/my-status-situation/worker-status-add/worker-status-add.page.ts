@@ -76,7 +76,7 @@ export class WorkerStatusAddPage implements OnInit {
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_gate/list',this.form);
     if(this.res.rsCode === 0) {
     } else {
-      this.toast.present({message:this.res.rsMsg, color:'warning'});
+      // this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
   }
   async riskGet() {
@@ -85,7 +85,7 @@ export class WorkerStatusAddPage implements OnInit {
     this.res = await this.connect.run('/work_project/nfc_beacon/search_work_inout_risk/list',this.form);
     if(this.res.rsCode === 0) {
     } else {
-      this.toast.present({message:this.res.rsMsg, color:'warning'});
+      // this.toast.present({message:this.res.rsMsg, color:'warning'});
     }
 
   }
@@ -113,6 +113,14 @@ export class WorkerStatusAddPage implements OnInit {
     this.form.area_middle_id = area_middle_id ? area_middle_id : 0;
     this.form.area_bottom_id = area_bottom_id ? area_bottom_id : 0;
     this.form.inout_datetime = this.date.today() +' '+ this.form.inout_date;
+    
+    console.log('this.method - ',this.method);
+    if(this.method === 'gate'){
+      this.form.area_risk_id = 0;
+      this.form.area_top_id = 0;
+      this.form.area_middle_id = 0;
+      this.form.area_bottom_id = 0;
+    }
     const alert = await this.alert.present({
       message: `선택한 인원을 ${this.form.insert_state === 'IN'? '입장':'퇴장' } 처리하시겠습니까?`,
       buttons:[

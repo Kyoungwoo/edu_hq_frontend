@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
@@ -47,14 +47,13 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
   // data:AreaDate = new AreaDate();
 
   constructor(
-    private _modal:ModalController
+    private _modal:ModalController,
+    private changeDetector:ChangeDetectorRef
   ) { }
 
   ngOnInit() {}
 
   get() {
-    console.log('get() ---- ', this.value);
-    console.log('_get() ---- ', this._value);
     if(this.value){
       this.text = (this.value.area_top_name ? this.value.area_top_name: '')+ ' ' +
       (this.value.area_middle_name ? this.value.area_middle_name : '') + ' ' +
@@ -62,8 +61,7 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
       (this.value.ctgo_area_risk_name ? this.value.ctgo_area_risk_name +  '/' : '')  +
       (this.value.area_risk_name ? this.value.area_risk_name : '');
     }
-
-    console.log('_get() text ---- ', this.text);
+    this.changeDetector.detectChanges();
   }
 
   async dangerous(){
@@ -76,9 +74,6 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
     modal.present();
     const { data } = await modal.onDidDismiss();
     if(data) {
-      // console.log('dangerous 1 - ',data);
-      // console.log('dangerous 2 - ',this.area_data);
-      // this.area_data = data;
       this.text = (data.area_top_name ? data.area_top_name: '')+ ' ' +
                   (data.area_middle_name ? data.area_middle_name : '') + ' ' +
                   (data.area_bottom_name ? data.area_bottom_name : '') + '/' +
@@ -98,7 +93,6 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
       this._value = v;
       this.get();
       this.onChangeCallback(v);
-      // console.log('========================Input',this.data);
       this.change.emit(v);
     }
   }
@@ -109,8 +103,6 @@ export class SelectDangerousAreaComponent implements OnInit, ControlValueAccesso
       this._value = v;
       this.get();
       this.onChangeCallback(v);
-
-      // console.log('========================writeValue',this.data);
       this.change.emit(v);
   }
 

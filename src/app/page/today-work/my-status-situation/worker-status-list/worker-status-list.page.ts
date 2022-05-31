@@ -1,5 +1,5 @@
 import { ScannerService } from './../../../../basic/service/util/scanner.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -102,7 +102,8 @@ export class WorkerStatusListPage implements OnInit {
     private modal: ModalController,
     private connect: ConnectService,
     private toast: ToastService,
-    private scanner: ScannerService
+    private scanner: ScannerService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   async ngOnInit() {
@@ -120,18 +121,19 @@ export class WorkerStatusListPage implements OnInit {
     });
     if(res.rsCode === 0) {
       this.gateList = {
-        ...res,
-        ...this.gateList
+        ...this.gateList,
+        ...res
       }
     } else {
-      this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
+      // this.toast.present({ color: 'warning', message: this.gateList.rsMsg }); 
     }
   }
   
   async getRiskArea() {
     console.log('getRiskArea()', this.form_risk);
+    console.log('getRiskArea()', this.areadata);
     this.nfcIn = false;
-    if(!this.form_risk.area_risk_id) return;  // await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
+    // if(!this.form_risk.area_risk_id) return;  // await this.toast.present({message:'위험지역을 선택해 주세요.', color:'warning'});
     // this.form.area_risk_id = this.areadata.area_risk_id;
     const res = await this.connect.run('/work_project/nfc_beacon/risk/list',this.form_risk,{
       parse:['inner_data']
@@ -139,11 +141,11 @@ export class WorkerStatusListPage implements OnInit {
     if(res.rsCode === 0) {
 
       this.riskAreaList = {
-        ...res,
-        ...this.riskAreaList
+        ...this.riskAreaList,
+        ...res
       }
     } else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
+      // this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
@@ -176,8 +178,13 @@ export class WorkerStatusListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(method === 'gate') this.getGate();
-    else this.getRiskArea();
+    if(data){
+      if(method === 'gate') this.getGate();
+      else {
+        this.areadata.area_risk_id = data.data;
+        this.getRiskArea();
+      }
+    }
   }
 
   async detailSearch() {
@@ -191,7 +198,7 @@ export class WorkerStatusListPage implements OnInit {
 
   async inNfcQr() {
     this.scanner.init(true).then((data) => {
-      this.form.area_risk_id = data.data;
+      // this.form.area_risk_id = data.data;
       this.areadata.area_risk_id = data.data;
       this.getRiskArea();
     });
