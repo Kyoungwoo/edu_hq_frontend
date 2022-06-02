@@ -30,6 +30,8 @@ export interface RiskTableItem {
     area_bottom_id:number,
     area_bottom_name:string,
 
+    area_name:string,
+
     ctgo_machinery_ids:number[],
     ctgo_machinery_names:string[],
 
@@ -517,6 +519,8 @@ export class RiskEvaluationEditPage implements OnInit {
           area_bottom_id: riskItem.area_bottom_id,
           area_bottom_name: riskItem.area_bottom_name,
 
+          area_name: riskItem.area_name,
+
           ctgo_machinery_ids: riskItem.ctgo_machinery_ids,
           ctgo_machinery_names: riskItem.ctgo_machinery_names,
 
@@ -585,6 +589,8 @@ export class RiskEvaluationEditPage implements OnInit {
               area_middle_name: unitItem.area_middle_name, // 장소 두번째
               area_bottom_id: unitItem.area_bottom_id, // 장소 세번째 ID null 이면 안고른거
               area_bottom_name: unitItem.area_bottom_name, // 장소 세번째
+
+              area_name: unitItem.area_name,
 
               ctgo_machinery_ids: unitItem.ctgo_machinery_ids, // 건설기계 ID들
               ctgo_machinery_names: unitItem.ctgo_machinery_names, // 건설기계명들
