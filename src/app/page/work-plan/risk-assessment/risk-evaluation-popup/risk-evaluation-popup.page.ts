@@ -38,6 +38,8 @@ export class RiskItem {
   area_bottom_id:number = null; // 장소 세번째 ID null 이면 안고른거
   area_bottom_name:string = null; // 장소 세번째
 
+  area_name:string = null;
+
   ctgo_machinery_ids:number[] = []; // 건설기계 ID들
   ctgo_machinery_names:string[] = []; // 건설기계명들
 

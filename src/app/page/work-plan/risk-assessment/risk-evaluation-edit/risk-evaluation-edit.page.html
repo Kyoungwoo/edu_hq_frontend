@@ -91,7 +91,8 @@
             <tr>
               <th style="width: 100px;" rowspan="2">공사명</th>
               <th rowspan="2" style="width: 100px;">단위작업</th>
-              <th style="width:260px;" rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">장소</th>
+              <!-- <th style="width:260px;" rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">장소</th> -->
+              <th style="width:260px;" rowspan="2">장소</th>
               <th style="width:220px;" rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">건설기계</th>
               <th style="width:220px;" rowspan="2" [attr.colspan]="permission.tableEdit ? 2 : 1">특수 공도구</th>
               <th rowspan="2" style="width: 400px;">위험요인</th>
@@ -120,15 +121,16 @@
   
                       <td [attr.rowspan]="unitItem.rowspan">{{ unitItem.risk_unit_name }}</td>
                       <td [attr.rowspan]="unitItem.rowspan">
-                        {{ unitItem.area_top_name }}
+                        <!-- {{ unitItem.area_top_name }}
                         {{ unitItem.area_middle_name }}
-                        {{ unitItem.area_bottom_name }}
+                        {{ unitItem.area_bottom_name }} -->
+                        <app-input [disabled]="!permission.tableEdit" [(ngModel)]="unitItem.area_name"></app-input>
                       </td>
-                      <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
+                      <!-- <td *ngIf="permission.tableEdit" [attr.rowspan]="unitItem.rowspan" [style.width.px]="40">
                         <app-button fill="translucent" size="small" (click)="openArea(unitItem)">
                           <app-img name="search"></app-img>
                         </app-button>
-                      </td>
+                      </td> -->
                       <td [attr.rowspan]="unitItem.rowspan">
                         <div class="chip-list" *ngFor="let ctgo_machinery_id of unitItem.ctgo_machinery_ids; let i = index;">
                           <ion-chip color="primary" (click)="permission.tableEdit && removeMachinery(unitItem, ctgo_machinery_id)">
