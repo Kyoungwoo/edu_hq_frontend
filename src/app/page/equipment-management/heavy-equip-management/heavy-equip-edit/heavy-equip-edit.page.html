@@ -11,7 +11,8 @@
     <h4>기본정보</h4>
    <app-row mobileBreak>
      <app-col>
-      <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene>
+      <app-select-scene name="project_id"  [required]="true" [disabled]="true" [(ngModel)]="form.project_id"></app-select-scene>
+      <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
      </app-col>
      <app-col>
       <app-select-contractor [multiple]="false" name="master_company_id"
