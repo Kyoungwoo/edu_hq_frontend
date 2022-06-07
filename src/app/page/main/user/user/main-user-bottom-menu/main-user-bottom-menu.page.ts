@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { UserService } from 'src/app/basic/service/core/user.service';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -46,29 +47,37 @@ export class MainUserBottomMenuPage implements OnInit {
   constructor(
     private connect: ConnectService,
     private nav: NavService,
-    private modal: ModalController
+    private modal: ModalController,
+    private changeRef: ChangeDetectorRef,
+    private user: UserService
   ) { }
 
   ngOnInit() {
     // this.getBoard();
   }
 
-  getBoard(){
-    this.getNotice();
-    this.getMsds();
-    this.getSafrtyMeeting();
+  async getBoard(){
+    await this.getNotice();
+    await this.getMsds();
+    await this.getSafrtyMeeting();
+    this.changeRef.detectChanges();
   }
 
   /**
    * @function getNotice(): 공지사항 가져오기
    */
    async getNotice() {
+     const { user_type } = this.user.userData;
+     if(user_type !== 'LH'){
+       if(!this._master_company_id) return false;
+     }
     const res = await this.connect.run('/main/board/notice', {
       project_id: this.project_id,
       master_company_id: this.master_company_id
     });
     switch (res.rsCode) {
       case 0:
+        console.log('res - ',res);
         this.notice_list = res.rsMap;
         this.notice_count = res.rsObj.read_count;
         break;
