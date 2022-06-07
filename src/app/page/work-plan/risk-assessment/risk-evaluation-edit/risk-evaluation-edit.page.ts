@@ -79,6 +79,7 @@ export class RiskEvaluationEditPage implements OnInit {
     company_name: null,
     ctgo_construction_id: null, // 공종 ID
     ctgo_construction_name: '',
+    company_file_data: [] as FutItem[],
 
     risk_asment_type: '수시', // 위험성평가 타입 / 최초, 정기, 수시
     risk_asment_type_text: '수시',
@@ -191,7 +192,7 @@ export class RiskEvaluationEditPage implements OnInit {
    async getDetail() {
     const res = await this.connect.run('/risk/assessment/detail/get', {
       risk_asment_id: this.form.risk_asment_id
-    }, { parse: ['risk_file_data'] });
+    }, { parse: ['risk_file_data','company_file_data'] });
     if(res.rsCode === 0) {
       this.form = {
         ...this.form,
@@ -1014,7 +1015,8 @@ export class RiskEvaluationEditPage implements OnInit {
         if(item_1.unitList.length){
           item_1.unitList.map((item_2) => {
             sheetData.data[rowspan_deps_2].push({text: item_2.risk_unit_name, rowspan: item_2.rowspan, colspan: 2});
-            sheetData.data[rowspan_deps_2].push({text: (item_2.area_top_name || '')+(item_2.area_middle_name ? ' / '+item_2.area_middle_name : '')+(item_2.area_bottom_name ? ' / '+item_2.area_bottom_name : ''), rowspan: item_2.rowspan, colspan: 2});
+            // sheetData.data[rowspan_deps_2].push({text: (item_2.area_top_name || '')+(item_2.area_middle_name ? ' / '+item_2.area_middle_name : '')+(item_2.area_bottom_name ? ' / '+item_2.area_bottom_name : ''), rowspan: item_2.rowspan, colspan: 2});
+            sheetData.data[rowspan_deps_2].push({text: item_2.area_name, rowspan: item_2.rowspan, colspan: 2});
             sheetData.data[rowspan_deps_2].push({text: item_2.ctgo_machinery_names.toString().replace(regex_01, " / "), rowspan: item_2.rowspan});
             sheetData.data[rowspan_deps_2].push({text: item_2.ctgo_tool_names.toString().replace(regex_01, ' / '), rowspan: item_2.rowspan});
 
@@ -1044,6 +1046,13 @@ export class RiskEvaluationEditPage implements OnInit {
       });
     }
 
+    // 결재 데이터
+    const reverse_comment = this.approval_comment.reverse();
+    let approval_max_num = 5;
+    reverse_comment.map((item,index) => {
+      sheetData.data[1][approval_max_num - index] = {text: item.user_name+'\n'+item.approval_answer+(item.approval_date ? '\n'+item.approval_date : ''), rowspan: 3};
+    });
+
     // 평가표와 결재의경사이의 공백
     for(let i = 0; i < 4; i++){
       sheetData.data.push([]);
@@ -1053,6 +1062,8 @@ export class RiskEvaluationEditPage implements OnInit {
     sheetData.data.push([{text: '구분', colspan: 2},{text: '결재', colspan: 2},{text: '성명', colspan: 3},{text: '회사명', colspan: 2},{text: '결재일시', colspan: 2},{text: '결재의견', colspan: 10}]);
     sheetData.style.push([{code: sub_title_3}]);
     sheetData.style.push(sub_title_theme_arr);
+
+
 
     // 결재 의견 리스트
     let cmt_min = 0;
@@ -1076,6 +1087,18 @@ export class RiskEvaluationEditPage implements OnInit {
       sheetData.style.push(sub_title_theme_arr_2);
     });
     
+    // 회사 로고 이미지데이터
+    if(this.form.company_file_data.length){
+      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 76, width: 450, left: 8, top: 8}, rowspan: 2, colspan: 4};
+    }
+
+    // img?: {
+    //   src:string,
+    //   left?:number,
+    //   top?:number,
+    //   width?:number,
+    //   height?:number
+    // }
 
     // let item of approval_comment; let f = first; let l = last
     excelData.push(sheetData);
