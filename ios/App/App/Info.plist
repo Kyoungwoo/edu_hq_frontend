@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This function is necessary to save field data.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -32,9 +30,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
+	<string>By accessing the camera, the app can scan the QR-code attached to the construction site and store data, and share photos of the construction site directly to other users.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This function is necessary to save field data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This function is necessary to save field data.</string>
+	<string>By accessing the camera, the app can scan the QR-code attached to the construction site and store data, and share photos of the construction site directly to other users.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
