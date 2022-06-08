@@ -68,6 +68,8 @@ export class RiskEvaluationEditPage implements OnInit {
   @Input() project_id;
   @Input() risk_asment_type;
 
+  @Input() btn_type:string = '';
+
   /** 복사 신규 작성 여부 */
   @Input() isDuplicate:boolean = false;
 
@@ -1088,7 +1090,7 @@ export class RiskEvaluationEditPage implements OnInit {
     });
     
     // 회사 로고 이미지데이터
-    if(this.form.company_file_data.length){
+    if(this.form.company_file_data && this.form.company_file_data.length){
       sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 76, width: 450, left: 8, top: 8}, rowspan: 2, colspan: 4};
     }
 
