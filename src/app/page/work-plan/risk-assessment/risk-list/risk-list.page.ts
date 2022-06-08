@@ -214,7 +214,8 @@ export class RiskListPage implements OnInit {
       cssClass: 'risk-evaluation-class',
       componentProps: {
         project_id: this.form.project_id,
-        risk_asment_type: this.form.risk_asment_type
+        risk_asment_type: this.form.risk_asment_type,
+        btn_type: 'add'
       }
     });
     modal.present();

@@ -32,7 +32,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>By accessing the camera, the app can scan the QR-code attached to the construction site and store data, and share photos of the construction site directly to other users.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This function is necessary to save field data.</string>
+	<string>By accessing the camera, the app can scan the QR-code attached to the construction site and store data, and share photos of the construction site directly to other users.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>By accessing the camera, the app can scan the QR-code attached to the construction site and store data, and share photos of the construction site directly to other users.</string>
 	<key>UILaunchStoryboardName</key>
