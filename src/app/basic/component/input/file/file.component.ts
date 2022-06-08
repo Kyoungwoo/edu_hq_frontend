@@ -1,3 +1,4 @@
+import { ToastService } from './../../../service/ionic/toast.service';
 import { Component, DoCheck, EventEmitter, forwardRef, HostBinding, Input, IterableDiffer, IterableDiffers, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
@@ -20,6 +21,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   @Input() view_type:string;
   @Input() accept:string;
   @Input() multiple:boolean = false;
+  @Input() limit:number = null;
 
   @Input() file:(File | FileBlob)[] = [];
   @Input() file_json:FileJson = {
@@ -33,7 +35,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     private differs: IterableDiffers,
     private fileService: FileService,
     private camera: CameraService,
-    private popover: PopoverController
+    private popover: PopoverController,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -52,12 +55,18 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
   }
 
   changeInputFile($event) {
+    if(this.limit){
+      if(this.file.length >= this.limit) return this.toast.present({message: this.limit+'개 이상 등록하실수 없습니다.', color: 'warning'});
+    }
     const fileList:File[] = Array.from($event.target.files);
     if(!fileList.length) return;
     this.fileAdd(fileList);
     $event.target.value = null;
   }
   async getPhoto($event) {
+    if(this.limit){
+      if(this.file.length >= this.limit) return this.toast.present({message: this.limit+'개 이상 등록하실수 없습니다.', color: 'warning'});
+    }
     const fileIndex = this.value.findIndex(file => file.view_type === this.view_type);
 
     if(fileIndex > -1) {

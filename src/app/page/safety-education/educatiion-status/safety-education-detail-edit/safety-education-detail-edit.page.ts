@@ -1,3 +1,4 @@
+import { FutItem, FileJson, FileBlob } from './../../../../basic/service/core/file.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular'
@@ -36,6 +37,10 @@ export class EditItem {
   education_safe_id: number;
   create_date: string;
   education_safe_manager_names:string;
+
+  education_safe_file_data: FutItem[] = [];
+  file: (File|FileBlob)[] = [];
+  file_json: FileJson = new FileJson();
 }
 
 class attendantRes {

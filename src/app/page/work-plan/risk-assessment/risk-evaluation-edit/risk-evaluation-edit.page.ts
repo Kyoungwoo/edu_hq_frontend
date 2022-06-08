@@ -1071,7 +1071,7 @@ export class RiskEvaluationEditPage implements OnInit {
     let cmt_min = 0;
     let cmt_max = 0;
     let order_arr = [];
-    const aprv_cmt = this.approval_comment;
+    const aprv_cmt = this.approval_comment.reverse();
     aprv_cmt.map((item) => {order_arr.push(item.approval_order_no);});
     cmt_min = Math.min.apply(null, order_arr);
     cmt_max = Math.max(...order_arr);

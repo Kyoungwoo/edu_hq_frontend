@@ -88,6 +88,24 @@
           <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [disabled]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
+
+      <h4>
+        <app-row>
+          <app-col>
+            첨부자료
+          </app-col>
+          <app-col size="auto" *ngIf="editable.update">
+            <app-button fill="translucent">추가
+              <app-file [limit]="2" name="input" view_type="EDUCATION"
+              [(ngModel)]="form.education_safe_file_data" 
+              [file]="form.file" 
+              [file_json]="form.file_json" [multiple]="true"></app-file>
+            </app-button>
+          </app-col>
+        </app-row>
+      </h4>
+      <app-file-preview type="full" [readonly]="!editable.update"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
     </form>
       <ng-container *ngIf="form.education_safe_state !== '교육 전'">
         <app-row style="margin-top: 10px;">
