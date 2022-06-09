@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar *mobileHidden>
     <ion-title>
-      <h4>원청사 로고</h4>
+      <h4>교육 결과 보고</h4>
     </ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
@@ -89,17 +89,17 @@
       </app-col>
       <app-col size="auto" *ngIf="permission.edit">
         <app-button fill="translucent">
-          <app-file view_type="REPORT" [multiple]="true" [(ngModel)]="form.education_safe_report_file_data"
+          <app-file view_type="EDU" [multiple]="true" [(ngModel)]="form.education_safe_file_data"
             [file]="form.file" [file_json]="form.file_json">
           </app-file>
           첨부
         </app-button>
       </app-col>
     </app-row>
-    <app-file-preview *ngFor="let futItem of form.education_safe_report_file_data; let i = index" 
+    <app-file-preview type="full" *ngFor="let futItem of form.education_safe_file_data; let i = index" 
     [futItem]="futItem" 
     [readonly]="!permission.edit"
-    (buttonClick)="form.education_safe_report_file_data.splice(i,1)"></app-file-preview>
+    (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
 
     <app-row>
       <app-col>
