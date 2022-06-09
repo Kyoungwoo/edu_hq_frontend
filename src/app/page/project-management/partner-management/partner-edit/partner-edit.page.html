@@ -50,7 +50,7 @@
         <th style="width: 280px;">계약기간</th>
         <th>현장 담당자</th>
         <th style="width: 150px;">담당자 전화번호(-포함)</th>
-        <th style="width: 80px;" *ngIf="!viewMode"></th>
+        <th style="width: 80px;" *ngIf="!viewMode && (user.userData.user_role !== 'PARTNER_GENERAL' && user.userData.user_role !== 'PARTNER_HEAD')"></th>
       </tr>
     </thead>
     <tbody>
@@ -88,7 +88,7 @@
             <app-input name="manager_phone" [(ngModel)]="item.manager_phone"></app-input>
           </td>
           <td>
-            <app-button (click)="removeCompanyContractData(item)" *ngIf="!viewMode">삭제</app-button>
+            <app-button (click)="removeCompanyContractData(item)" *ngIf="!viewMode && (user.userData.user_role !== 'PARTNER_GENERAL' && user.userData.user_role !== 'PARTNER_HEAD')">삭제</app-button>
           </td>
           <!-- <td>
             <app-select-people name="manager_user_id"
