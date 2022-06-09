@@ -89,7 +89,7 @@
         </app-col>
       </app-row>
 
-      <h4>
+      <!-- <h4>
         <app-row>
           <app-col>
             첨부자료
@@ -105,7 +105,7 @@
         </app-row>
       </h4>
       <app-file-preview type="full" [readonly]="!editable.update"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
-      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
     </form>
       <ng-container *ngIf="form.education_safe_state !== '교육 전'">
         <app-row style="margin-top: 10px;">
