@@ -29,13 +29,15 @@
           android:name="io.ionic.starter.geolocation.updates.GeolocationUpdates"
           android:enabled="true"
           android:exported="true"
+          android:stopWithTask="true"
           android:foregroundServiceType="location" />
         <receiver
           android:name="io.ionic.starter.geolocation.updates.GeolocationReceiver"
           android:enabled="true"
+          android:stopWithTask="true"
           android:exported="true">
           <intent-filter>
-            <action android:name="restartservice" />
+            <action android:name="restartservice" android:stopWithTask="true" />
           </intent-filter>
         </receiver>
     </application>
