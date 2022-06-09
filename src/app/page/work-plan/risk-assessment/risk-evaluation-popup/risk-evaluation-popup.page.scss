@@ -50,3 +50,9 @@
 .selected {
 	background-color: var(--ion-color-primary-translucent);
 }
+
+ion-textarea{
+	background: var(--ion-color-step-50);
+	margin: 0;
+	text-align: left;
+}

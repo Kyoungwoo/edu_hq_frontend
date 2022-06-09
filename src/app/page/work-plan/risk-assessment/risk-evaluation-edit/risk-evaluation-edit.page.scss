@@ -6,6 +6,13 @@
     }
 }
 
+.lefr-class{
+    td{
+        text-align: left;
+        white-space: pre-wrap;
+    }
+}
+
 @media screen and (max-width: 768px) {
     ion-content {
         --padding-start: 0;

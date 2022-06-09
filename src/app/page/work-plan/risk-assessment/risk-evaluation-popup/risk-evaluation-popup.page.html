@@ -103,11 +103,13 @@
           {{ item.risk_factor_name }}
         </ng-container>
         <ng-template #tempFactorEmpty>
-          <app-input [(ngModel)]="item.risk_factor_name"></app-input>
+          <!-- <app-input [(ngModel)]="item.risk_factor_name"></app-input> -->
+          <ion-textarea [(ngModel)]="item.risk_factor_name"></ion-textarea>
         </ng-template>
       </td>
       <td>
-        <app-input [(ngModel)]="item.risk_plan_name"></app-input>
+        <!-- <app-input [(ngModel)]="item.risk_plan_name"></app-input> -->
+        <ion-textarea [(ngModel)]="item.risk_plan_name"></ion-textarea>
       </td>
       <td style="width: 40px;">
         <app-button color="danger" fill="translucent" (click)="riskList.splice(i, 1)">
