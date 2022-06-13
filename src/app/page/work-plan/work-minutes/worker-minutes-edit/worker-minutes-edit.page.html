@@ -65,17 +65,17 @@
     <app-row>
       <app-col>
   
-        <app-textarea label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [disabled]="!permission.edit"></app-textarea>
+        <app-textarea label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [readonly]="!permission.edit"></app-textarea>
   
       </app-col>
       <app-col>
   
-        <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [disabled]="!permission.edit"></app-textarea>
+        <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [readonly]="!permission.edit"></app-textarea>
   
       </app-col>
     </app-row>
   
-    <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [disabled]="!permission.edit"></app-textarea>
+    <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [readonly]="!permission.edit"></app-textarea>
   
     <h5>
       <app-row>
