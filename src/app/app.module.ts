@@ -16,6 +16,7 @@ import { ConnectStrategy } from './basic/service/core/connect.service';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { Media } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 import { SortablejsModule } from 'ngx-sortablejs';
 import { EmergencyPopupComponentModule } from './page/main/user/emergency-popup/emergency-popup.module';
@@ -87,6 +88,7 @@ const getConfig = () => {
       exceptLogUrls: []
     }},
     QRScanner,
+    BarcodeScanner,
     File,
     Media
   ],
