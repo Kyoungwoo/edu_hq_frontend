@@ -73,7 +73,7 @@ export class NfcComponent implements OnInit {
   }
   
   async nfcScan() {
-    const { message } = await Nfc.getData();
+    let { message } = await Nfc.getData();
     console.log("message",message);
     // this.getNfcData(message);
 
@@ -82,7 +82,9 @@ export class NfcComponent implements OnInit {
     let education_safe_id = null;
     let device_id = null;
 
-    if(message.indexOf('https://devmonster-s-keeper.web.app/heavy-qr-data?device_id=') != -1){
+    if(this.ios) message = message.slice(3);
+
+    if(message.indexOf('https://lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
       type = message.split('=')[message.split('=').length-1];
       device_id = message.split('=')[message.split('=').length-2]?.split('&')[0];
     } else {

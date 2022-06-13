@@ -5,5 +5,12 @@ div.full{
 }
 app-img.full{
     width: 100%!important;
-    max-height: 100%!important;
+    max-height: unset!important;
+}
+
+@media screen and (max-width: 768px) {
+    .flex-box-class{
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -17,4 +17,10 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(QrPlugin.class);
     registerPlugin(GeolocationPlugin.class);
   }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+
+  }
 }
