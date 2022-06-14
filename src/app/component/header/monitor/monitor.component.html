@@ -51,7 +51,9 @@
           (change)="formChange.emit(form)"
           [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
         </app-col>
-        <app-col></app-col>
+        <app-col>
+          <app-button (click)="monitorCctvList()" *ngIf="tabActive === 'CCTV 모니터링'">CCTV 목록</app-button>
+        </app-col>
         <app-col></app-col>
         <app-col size="auto">
           <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
