@@ -73,7 +73,7 @@ export class NfcComponent implements OnInit {
   }
   
   async nfcScan() {
-    const { message } = await Nfc.getData();
+    let { message } = await Nfc.getData();
     console.log("message",message);
     // this.getNfcData(message);
 
@@ -81,6 +81,8 @@ export class NfcComponent implements OnInit {
     let serial_key = null;
     let education_safe_id = null;
     let device_id = null;
+
+    if(this.ios) message = message.slice(3);
 
     if(message.indexOf('https://devmonster-s-keeper.web.app/heavy-qr-data?device_id=') != -1){
       type = message.split('=')[message.split('=').length-1];
