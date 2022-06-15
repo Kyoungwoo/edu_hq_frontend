@@ -1,3 +1,5 @@
+import { MonitorCctvEditPageModule } from './monitor-cctv-edit/monitor-cctv-edit.module';
+import { MonitorCctvListPageModule } from './monitor-cctv-list/monitor-cctv-list.module';
 import { MonitorSmartEquipEditPageModule } from './monitor-smart-equip-edit/monitor-smart-equip-edit.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +23,8 @@ import { TodayDepartureStatusListPageModule } from '../work-management/departure
     MonitorPageRoutingModule,
     MonitorWorkerLocationPageModule,
     MonitorSmartEquipEditPageModule,
+    MonitorCctvListPageModule,
+    MonitorCctvEditPageModule,
     TodayDepartureStatusListPageModule
   ],
   declarations: [MonitorPage]

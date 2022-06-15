@@ -232,12 +232,14 @@ export class MonitorComponent implements OnInit {
    * @function monitorCctvList(): CCTV 목록 리스트 모달
    */
    async monitorCctvList() {
-    const modal = await this.modal.create({
-      // component:MonitorSmartEquipEditPage,
-      component:MonitorCctvListPage,
-      // cssClass: 'risk-evaluation-class'
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
+    // const modal = await this.modal.create({
+    //   // component:MonitorSmartEquipEditPage,
+    //   component:MonitorCctvListPage,
+    //   // cssClass: 'risk-evaluation-class'
+    // });
+    // modal.present();
+    // const { data } = await modal.onDidDismiss();
+
+    window.dispatchEvent(new CustomEvent('cctvList:get()'));
   }
 }

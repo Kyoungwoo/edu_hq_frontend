@@ -1,3 +1,4 @@
+import { MonitorCctvListPage } from './monitor-cctv-list/monitor-cctv-list.page';
 import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
@@ -168,6 +169,12 @@ export class MonitorPage implements OnInit, OnDestroy {
   };
 
   $activedRoute:Subscription;
+
+  event = {
+    get: null
+  }
+
+  test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
     private toast:ToastService,
@@ -187,6 +194,10 @@ export class MonitorPage implements OnInit, OnDestroy {
         monitor: monitor || '통합관제'
       }
     });
+
+    // event 물리기
+    this.event.get = this.monitorCctvList.bind(this);
+    window.addEventListener('cctvList:get()', this.event.get);
     this.methodContrroller();
   }
 
@@ -195,6 +206,7 @@ export class MonitorPage implements OnInit, OnDestroy {
    */
    ngOnDestroy() {
     this.$activedRoute.unsubscribe();
+    window.removeEventListener('cctvList:get()', this.event.get);
   }
 
   async getForm() {
@@ -408,5 +420,18 @@ export class MonitorPage implements OnInit, OnDestroy {
       
     }
     return style
+  }
+
+  /**
+   * @function monitorCctvList(): CCTV 목록 리스트 모달
+   */
+   async monitorCctvList() {
+    const modal = await this.modal.create({
+      // component:MonitorSmartEquipEditPage,
+      component:MonitorCctvListPage,
+      // cssClass: 'risk-evaluation-class'
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
   }
 }

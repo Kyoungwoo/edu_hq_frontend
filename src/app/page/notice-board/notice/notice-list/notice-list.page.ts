@@ -71,16 +71,11 @@ export class NoticeListPage implements OnInit {
 
     if(belong_data.company_contract_type === 'LH'
     || belong_data.company_contract_type === '감리사') {
-
       this.permission.company_id = true;
       this.form.master_company_id = 0;
-
-    }
-    else {
-
+    } else {
       this.permission.company_id = false;
       this.form.master_company_id = belong_data.master_company_id;
-
     }
   }
 
