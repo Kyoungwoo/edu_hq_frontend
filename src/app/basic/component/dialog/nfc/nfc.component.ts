@@ -84,7 +84,7 @@ export class NfcComponent implements OnInit {
 
     if(this.ios) message = message.slice(3);
 
-    if(message.indexOf('https://lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
+    if(message.indexOf('https://dev.lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
       type = message.split('=')[message.split('=').length-1];
       device_id = message.split('=')[message.split('=').length-2]?.split('&')[0];
     } else {

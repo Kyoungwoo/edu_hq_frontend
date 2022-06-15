@@ -65,7 +65,7 @@
     <app-col>
       <app-textarea label="내용" 
         [rows]="10"
-        [(ngModel)]="form.msds_content" [disabled]="!update_state"></app-textarea>
+        [(ngModel)]="form.msds_content" [readonly="!update_state"></app-textarea>
       <!-- <app-smartedit #msdsText name="msds_text" placeholder="내용을 입력하세요." 
         [disabled]="!update_state"
         [color]="validator.msds_title?.valid === false && 'warning'"
