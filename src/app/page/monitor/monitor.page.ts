@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+declare var Flashphoner:any;
+
 /**
  * @class TodayConstructionItem
  *  - 금일 출역 근로자 변수 class
@@ -185,7 +187,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-
+    console.log("Flashphoner ----- ", Flashphoner);
     await this.getForm();
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
@@ -433,5 +435,21 @@ export class MonitorPage implements OnInit, OnDestroy {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+  }
+
+  SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+  STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+  session;
+  PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
+  init_api() {
+    Flashphoner.init({});
+    //Connect to WCS server over websockets
+    this.session = Flashphoner.createSession({
+        urlServer: "wss://demo.flashphoner.com:8443" //specify the address of your WCS
+    }).on(this.SESSION_STATUS.ESTABLISHED, (session) => {
+        console.log("ESTABLISHED");
+    });
+ 
+    // playBtn.onclick = playClick;
   }
 }
