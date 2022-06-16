@@ -369,7 +369,6 @@ export class MainAdminPage implements OnInit {
         this.nav.navigateRoot('/supervision-approval-list');
         break;
       case '문의하기':
-        // this.nav.navigateRoot('/supervision-approval-list');
         this.edit(54);
         break;
     }
@@ -380,14 +379,8 @@ export class MainAdminPage implements OnInit {
       component:NoticeEditPage,
       componentProps: {
         notice_id: notice_id || 0
-        // searchForm: this.file.clone(this.form) // 검색 데이터를 끌고 가야함
       }
     });
     modal.present();
-    // const { data } = await modal.onDidDismiss();
-    // if(data) {
-    //   // 모바일은 편집이 없어서 이렇게해도 충분함. 있으면 추가 코드 작성을 해야함.
-    //   // this.get();
-    // }
   }
 }
