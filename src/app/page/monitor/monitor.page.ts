@@ -10,7 +10,9 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-declare var Flashphoner:any;
+// import * as rtsp from 'rtsp_player';
+// import * as streamedian from 'streamedian/player.js';
+// declare var Streamedian:any;
 
 /**
  * @class TodayConstructionItem
@@ -55,6 +57,40 @@ export class TodayConstructionItem {
   styleUrls: ['./monitor.page.scss'],
 })
 export class MonitorPage implements OnInit, OnDestroy {
+  // mediaElement = rtsp.attach(document.getElementById('test_video'));
+  // player = new streamedian.WSPlayer(mediaElement, {
+  //     // url: `${STREAM_URL}`,      // overrides mediaElement's sources
+  //     modules: [
+  //         {
+  //             // client module constructor. Should be subclass or BaseClient. RTSPClient by default
+  //             // client: RTSPClient,
+  //             transport: {
+  //                // client module constructor. Should be subclass or BaseTransport. WebsocketTransport by default
+  //                // constructor: WebsocketTransport,
+  //                options: {
+  //                    // address of websocket proxy described below. ws${location.protocol=='https:'?'s':''}://${location.host}/ws/ by default
+  //                    socket: "ws://websocket_proxy_address/ws",
+  //                    // function called player exceptions
+  //                    errorHandler (e) {
+  //                        alert(`Failed to start player: ${e.message}`);
+  //                    },
+  //                    // function to get credentials for protected streams
+  //                    queryCredentials() {
+  //                        return new Promise((resolve, reject)=>{
+  //                            let c = prompt('input credentials in format user:password');
+  //                            if (c) {
+  //                                this.setCredentials.apply(this, c.split(':'));
+  //                                resolve();
+  //                            } else {
+  //                                reject();
+  //                            }
+  //                        });
+  //                    }
+  //                }
+  //            }
+  //         },
+  //     ]
+  // });
   
   form = {
     project_id: 1,
@@ -184,10 +220,16 @@ export class MonitorPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public user: UserService,
     public date: DateService
-  ) { }
+  ) {}
 
   async ngOnInit() {
-    console.log("Flashphoner ----- ", Flashphoner);
+    // let mediaElement = streamedian.rtsp.attach(document.getElementById('test_video'));
+    // streamedian.player(document.getElementById('test_video'));
+    // console.log();
+    // console.log("mediaElement ----- ", mediaElement);
+    // setTimeout(() => {
+    //   this.init_api();
+    // },2000);
     await this.getForm();
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
@@ -437,19 +479,45 @@ export class MonitorPage implements OnInit, OnDestroy {
     const { data } = await modal.onDidDismiss();
   }
 
-  SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
-  STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
-  session;
-  PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
-  init_api() {
-    Flashphoner.init({});
-    //Connect to WCS server over websockets
-    this.session = Flashphoner.createSession({
-        urlServer: "wss://demo.flashphoner.com:8443" //specify the address of your WCS
-    }).on(this.SESSION_STATUS.ESTABLISHED, (session) => {
-        console.log("ESTABLISHED");
-    });
+  // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+  // STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+  // session;
+  // PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
+  // init_api() {
+  //   Flashphoner.init({});
+  //   //Connect to WCS server over websockets
+  //   this.session = Flashphoner.createSession({
+  //       urlServer: "wss://demo.flashphoner.com:8443" //specify the address of your WCS
+  //   }).on(this.SESSION_STATUS.ESTABLISHED, (session) => {
+  //       console.log("ESTABLISHED");
+  //   });
+  // }
+
+  // Browser = {
+  //   isSafari: () => {
+  //       return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  //   },
+  // }
  
-    // playBtn.onclick = playClick;
-  }
+  // playClick() {
+  //   console.log('stream 1 -----');
+  //   if (this.Browser.isSafari()) {
+  //     console.log('stream 2 -----');
+  //       Flashphoner.playFirstVideo(document.getElementById("play"), true, this.PRELOADER_URL).then(() => {
+  //         console.log('stream 3 -----');
+  //           this.playStream();
+  //       });
+  //   } else {
+  //     console.log('stream 4 -----');
+  //       this.playStream();
+  //   }
+  // }
+
+  // playStream() {
+  //   console.log('stream 5 -----');
+  //   this.session.createStream({
+  //       name: "rtsp://admin:qwert12@61.83.219.219:554/main/ch1", //specify the RTSP stream address
+  //       display: document.getElementById("play"),
+  //   }).play();
+  // }
 }
