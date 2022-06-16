@@ -1,3 +1,5 @@
+import { ModalController } from '@ionic/angular';
+import { NoticeEditPage } from './../../../notice-board/notice/notice-edit/notice-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -68,7 +70,8 @@ export class MainAdminPage implements OnInit {
     private nav: NavService,
     private promise: PromiseService,
     public logout: LogoutService,
-    public user: UserService
+    public user: UserService,
+    private modal: ModalController
   ) {
     if(this.user.userData.user_type === 'COMPANY') {
       this.nav.navigateRoot('/main-sub-admin');
@@ -365,6 +368,26 @@ export class MainAdminPage implements OnInit {
       case '감리가입대기':
         this.nav.navigateRoot('/supervision-approval-list');
         break;
+      case '문의하기':
+        // this.nav.navigateRoot('/supervision-approval-list');
+        this.edit(54);
+        break;
     }
+  }
+
+  async edit(notice_id = null) {
+    const modal = await this.modal.create({
+      component:NoticeEditPage,
+      componentProps: {
+        notice_id: notice_id || 0
+        // searchForm: this.file.clone(this.form) // 검색 데이터를 끌고 가야함
+      }
+    });
+    modal.present();
+    // const { data } = await modal.onDidDismiss();
+    // if(data) {
+    //   // 모바일은 편집이 없어서 이렇게해도 충분함. 있으면 추가 코드 작성을 해야함.
+    //   // this.get();
+    // }
   }
 }
