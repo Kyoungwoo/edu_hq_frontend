@@ -31,6 +31,8 @@
                 {{ menual_ctgo.ctgo_manual_name }}
                 <span *ngIf="!l">/</span>
               </span>
+
+              <span *ngIf="!form.manual_ctgo_data">전체</span>
             </dd>
           </app-col>
         </app-row>
