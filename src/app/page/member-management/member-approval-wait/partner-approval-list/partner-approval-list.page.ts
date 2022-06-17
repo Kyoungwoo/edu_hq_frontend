@@ -180,8 +180,6 @@ export class PartnerApprovalListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       await this.get();
-
-      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
     }
   }
 }
