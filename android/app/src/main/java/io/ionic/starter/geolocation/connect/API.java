@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class API {
     private static String TAG = "aldegad.geolocation.connect.api";
-    public static String baseUrl = "https://api.lh-skeeper.or.kr/work_project/gps/call/"; // default URL
+    public static String baseUrl = "https://dev-api.lh-skeeper.or.kr/work_project/gps/call/"; // default URL
     private static APIInterface apiInterface = null;
     private static void init() {
         Retrofit retrofit = new Retrofit.Builder()

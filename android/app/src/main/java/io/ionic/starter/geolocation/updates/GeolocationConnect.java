@@ -40,7 +40,7 @@ public class GeolocationConnect {
             }
             API.run(options.url, options.authorization, params,
                     response -> {
-
+                      Log.d(TAG, "uploadUpdates - success!!");
                     });
 
         }
