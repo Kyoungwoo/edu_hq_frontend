@@ -32,7 +32,8 @@ export enum ContentType {
 export interface ConnectOptions {
   contentType?:ContentType,
   loading?:string | boolean,
-  parse?:string[]
+  parse?:string[],
+  cctv?:boolean
 }
 /* export type Valid<T> = {
   [P in keyof T]?: { message:string, valid:boolean }
@@ -67,7 +68,7 @@ export class ConnectService {
   async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions):Promise<ConnectResult> {
     data = data || {};
     
-    const url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
+    const url = options?.cctv ? endPoint : ((environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint);
 
     if(!environment.production && !this.connectStrategy.exceptLogUrls.includes(url)) {
       console.log(data, url);

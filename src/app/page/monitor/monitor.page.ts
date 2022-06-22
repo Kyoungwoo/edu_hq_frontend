@@ -230,6 +230,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     // setTimeout(() => {
     //   this.init_api();
     // },2000);
+    await this.testMethod();
     await this.getForm();
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
@@ -477,6 +478,15 @@ export class MonitorPage implements OnInit, OnDestroy {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+  }
+
+  async testMethod(){
+    const res = await this.connect.run('https://ipcamlive.com/api/v2/getcamerastate?apisecret=62b26420869b3&alias=namgwang1', null, {cctv:true});
+    switch (res.rsCode) {
+      case 0:
+        // this.dust = res.rsObj;
+        break;
+    }
   }
 
   // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
