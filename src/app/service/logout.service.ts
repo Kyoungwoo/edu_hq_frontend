@@ -28,13 +28,14 @@ export class LogoutService {
         { text: '취소' },
         { text: '로그아웃', handler: async() => {
           if(this.device.platform_type < 3) {
+            await this.user.clear();
             this.gps.stopLocationUpdates();
             await this.nav.navigateRoot('/login-mobile', { animated: true, animation: 'fadeIn' });
           }
           else {
+            await this.user.clear();
             await this.nav.navigateRoot('/login', { animated: true, animation: 'fadeIn' });
           }
-          this.user.clear();
         }}
       ]
     })
