@@ -481,7 +481,8 @@ export class MonitorPage implements OnInit, OnDestroy {
   }
 
   async testMethod(){
-    const res = await this.connect.run('https://ipcamlive.com/api/v2/getcamerastate?apisecret=62b26420869b3&alias=namgwang1', null, {cctv:true});
+    // https://ipcamlive.com/api/v2/getstreamhlsurl?apisecret=62b2d166929f4&alias=namgwang1
+    const res = await this.connect.run('https://ipcamlive.com/api/v2/getstreamhlsurl', {apisecret:'62b2d166929f4',alias:'namgwang1'}, {cctv:true});
     switch (res.rsCode) {
       case 0:
         // this.dust = res.rsObj;
@@ -489,6 +490,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     }
   }
 
+  
   // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
   // STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
   // session;
