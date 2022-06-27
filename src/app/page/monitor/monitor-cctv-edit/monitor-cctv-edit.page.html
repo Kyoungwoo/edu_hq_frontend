@@ -15,7 +15,8 @@
       <app-select-scene [required]="true" label="현장명" [(ngModel)]="form.project_id" [disabled]="!permission.input_disabled"></app-select-scene>
     </app-col>
     <app-col>
-      <app-select-contractor [required]="true" label="원청사명" [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="true"></app-select-contractor>
+      <app-select-contractor *ngIf="!cctv_id" [required]="true" label="원청사명" [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="true"></app-select-contractor>
+      <app-input *ngIf="cctv_id" [required]="true" label="원청사명" [(ngModel)]="form.master_company_name" [disabled]="true"></app-input>
     </app-col>
   </app-row>
 

@@ -464,61 +464,34 @@
       </app-row>
     </app-card>
 
+    <!-- <iframe src= "https://g3.ipcamlive.com/player/player.php?alias=namgwang1&autoplay=1" width="800px" height="450px" frameborder="0" allowfullscreen> </iframe>
+    <iframe src= "https://g3.ipcamlive.com/player/player.php?alias=namgwang2&autoplay=1" width="800px" height="600px" frameborder="0" allowfullscreen> </iframe> -->
+
     <ng-container *mobileHidden>
       <app-row style="align-items: flex-start;">
         <app-col>
-          <app-card color="white">
+          <app-card *ngFor="let res_1 of cctv" color="white">
             <app-row style="align-items: stretch;">
+
               <app-col class="cctv-box">
                 <app-row>
                   <app-col>
-                    <h4>CCTV 설치 장소 1</h4>
+                    <h4>{{ res_1.project_name }}</h4>
                   </app-col>
                   <app-col></app-col>
-                  <app-col size="auto">
+                  <!-- <app-col size="auto">
                     <app-button fill="translucent">수정</app-button>
-                  </app-col>
+                  </app-col> -->
                 </app-row>
-                <app-row>
-                  <app-col style="position: relative;">
-                    <div style="border: 1px solid; height: 500px; position: relative;">
-                      <!-- <iframe src="rtsp://admin:qwert12@61.83.219.219:554/main/ch1"></iframe> -->
-                      <!-- <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" autoplay="yes" loop="no" width="300" height="200" target="rtsp://admin:qwert12@61.83.219.219:554/main/ch1" />
-                      <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/macosx/vlc-3.0.17.3-arm64.dmg" style="display:none;"></object> -->
-                      
-                      <!-- <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" style="display:none;">
-                        <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" autoplay="yes" loop="no" width="300" height="200" target="rtsp://admin:qwert12@61.83.219.219:554/main/ch1" />
-                      </object> -->
-
-                      <!-- <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-                      codebase="http://download.videolan.org/pub/videolan/vlc/2.2.4/win32/vlc-2.2.4-win32.exe"
-                      width="100%" height="100%" id="vlc" events="True">
-                          <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" name="vlc" />
-                          <param name="src" value="rtsp://admin:qwert12@61.83.219.219:554/main/ch1" />
-                          <param name="autostart" value="true" />
-                          <param name="ShowDisplay" value="false" />
-                          <param name="AutoLoop" value="false" />
-                          <param name="AutoPlay" value="true" />
-                      </object> -->
-
-                      <!-- <iframe src="http://ipcamlive.com/player/player.php?alias=szekesfehervar" width="800px" height="600px"></iframe> -->
-
-                      <!-- <video id="test_video" controls autoplay>
-                        <source src="rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov">
-                        <source src="rtsp://admin:.qwert12@61.83.219.219:554/main/ch1">
-                      </video> -->
-                      <!-- <video id="test_video" controls autoplay src="rtsp://admin:.qwert12@61.83.219.219:554/main/ch1"></video> -->
-                      <!-- http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab -->
-                      <!-- <video [src]="test_url">
-                        <source [src]="test_url" />
-                        test
-                      </video> -->
-                    </div>
+                <app-row class="cctv-box">
+                  <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
+                    <div>[{{ res_2.cctv_area_name }}]</div>
+                    <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe>
                   </app-col>
                 </app-row>
               </app-col>
   
-              <app-col class="cctv-box">
+              <!-- <app-col class="cctv-box">
                 <app-row>
                   <app-col>
                     <h4>CCTV 설치 장소 2</h4>
@@ -531,17 +504,20 @@
                 <app-row>
                   <app-col style="position: relative;">
                     <div style="border: 1px solid; height: 500px; position: relative;">
+                      
                     </div>
                   </app-col>
                 </app-row>
-              </app-col>
+              </app-col> -->
+
+              
             </app-row>
           </app-card>
         </app-col>
       </app-row>
   
   
-      <app-row style="align-items: flex-start;">
+      <!-- <app-row style="align-items: flex-start;">
         <app-col>
           <app-card color="white">
             <app-row style="align-items: stretch;">
@@ -583,7 +559,7 @@
             </app-row>
           </app-card>
         </app-col>
-      </app-row>
+      </app-row> -->
     </ng-container>
   </div>
 

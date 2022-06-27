@@ -1,4 +1,4 @@
-import { MonitorCctvListPage } from './monitor-cctv-list/monitor-cctv-list.page';
+import { MonitorCctvListPage, CCTVInfo } from './monitor-cctv-list/monitor-cctv-list.page';
 import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
@@ -212,6 +212,13 @@ export class MonitorPage implements OnInit, OnDestroy {
     get: null
   }
 
+  // cctv_form = {
+  //   project_id: this.user.userData.belong_data.project_id,
+  //   master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+  //   search_text: '',
+  //   limit_no: 0
+  // }
+  cctv = [];// :ConnectResult<CCTVInfo>;
   test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
@@ -230,8 +237,10 @@ export class MonitorPage implements OnInit, OnDestroy {
     // setTimeout(() => {
     //   this.init_api();
     // },2000);
-    await this.testMethod();
+    // await this.testMethod();
     await this.getForm();
+    await this.getSence();
+    
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
@@ -480,15 +489,71 @@ export class MonitorPage implements OnInit, OnDestroy {
     const { data } = await modal.onDidDismiss();
   }
 
-  async testMethod(){
-    // https://ipcamlive.com/api/v2/getstreamhlsurl?apisecret=62b2d166929f4&alias=namgwang1
-    const res = await this.connect.run('https://ipcamlive.com/api/v2/getstreamhlsurl', {apisecret:'62b2d166929f4',alias:'namgwang1'}, {cctv:true});
-    switch (res.rsCode) {
-      case 0:
-        // this.dust = res.rsObj;
-        break;
+  // async testMethod(){
+  //   // https://ipcamlive.com/api/v2/getstreamhlsurl?apisecret=62b2d166929f4&alias=namgwang1
+  //   const res = await this.connect.run('https://ipcamlive.com/api/v2/getstreamhlsurl', {apisecret:'62b2d166929f4',alias:'namgwang1'}, {cctv:true});
+  //   switch (res.rsCode) {
+  //     case 0:
+  //       // this.dust = res.rsObj;
+  //       break;
+  //   }
+  // }
+
+  /**
+   * @function getCCTV(): CCTV목록정보를 가져옵니다.
+   */
+   async getCCTV(item, index) {
+    let cctv_form = {
+      project_id: item.project_id,
+      master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+      search_text: '',
+      limit_no: 0
+    }
+
+    const res = await this.connect.run('/cctv/list', cctv_form);
+    if(res.rsCode === 0 ) {
+      if(res?.rsMap?.length){
+        this.cctv.push({
+          project_id: item.project_id,
+          project_name: item.project_name,
+          cctv_list: []
+        });
+
+        console.log('cctv_info - ', this.cctv);
+        res.rsMap.map((data_arr) => {
+          console.log('cctv_index - ', res?.rsMap?.length);
+          if(data_arr.cctv_use_state) this.cctv[this.cctv?.length-1]['cctv_list'].push(data_arr);
+        });
+      }
+      // this.cctv = res;
+    }
+    else if (res.rsCode === 1008) {
+      // this.cctv = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
+
+
+  /**
+   * @function getSence(): 현장목록정보를 가져옵니다.
+   */
+   async getSence() {
+    this.cctv = [];
+    let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
+    if (res.rsCode === 0) {
+      if(res?.rsMap?.length){
+        res.rsMap.map(async(item, index) => {
+          await this.getCCTV(item, index);
+        });
+      }
+      console.log('cctv_list - ', this.cctv);
+    } else {
+      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    }
+  }
+
 
   
   // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;

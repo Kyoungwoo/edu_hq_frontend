@@ -65,7 +65,7 @@ export class MonitorCctvListPage implements OnInit {
   }
 
   /**
-   * @function get(): CCTV살세정보 OR 수정하기
+   * @function edit(): CCTV살세정보 OR 수정하기
    */
   async edit(method = '', cctv_id = null) {
     const modal = await this._modal.create({

@@ -1,3 +1,4 @@
+import { PipesModule } from './../../basic/pipes/pipes.module';
 import { MonitorCctvEditPageModule } from './monitor-cctv-edit/monitor-cctv-edit.module';
 import { MonitorCctvListPageModule } from './monitor-cctv-list/monitor-cctv-list.module';
 import { MonitorSmartEquipEditPageModule } from './monitor-smart-equip-edit/monitor-smart-equip-edit.module';
@@ -19,6 +20,7 @@ import { TodayDepartureStatusListPageModule } from '../work-management/departure
     CommonModule,
     FormsModule,
     IonicModule,
+    PipesModule,
     ComponentModule,
     MonitorPageRoutingModule,
     MonitorWorkerLocationPageModule,
