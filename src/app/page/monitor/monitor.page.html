@@ -394,7 +394,8 @@
                     </app-row>
                     <app-row class="ratio">
                       <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                        <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6>
+                        <!-- <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6> -->
+                        <h6>{{ weather.weather_rain }}</h6>
                       </app-col>
                     </app-row>
                   </app-col>
@@ -446,14 +447,11 @@
 
   <div *ngIf="data.monitor === 'CCTV 모니터링'" class="container">
 
-    <app-card *mobileShow>
+    <!-- <app-card *mobileShow>
       <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
       <ion-row style="align-items: flex-start;">
         <app-col>
           <h4>CCTV 설치장소1</h4>
-        </app-col>
-        <app-col size="auto">
-          <app-button fill="translucent">수정</app-button>
         </app-col>
       </ion-row>
       <app-row>
@@ -462,12 +460,9 @@
           </div>
         </app-col>
       </app-row>
-    </app-card>
+    </app-card> -->
 
-    <!-- <iframe src= "https://g3.ipcamlive.com/player/player.php?alias=namgwang1&autoplay=1" width="800px" height="450px" frameborder="0" allowfullscreen> </iframe>
-    <iframe src= "https://g3.ipcamlive.com/player/player.php?alias=namgwang2&autoplay=1" width="800px" height="600px" frameborder="0" allowfullscreen> </iframe> -->
-
-    <ng-container *mobileHidden>
+    <ng-container>
       <app-row style="align-items: flex-start;">
         <app-col>
           <app-card *ngFor="let res_1 of cctv" color="white">
@@ -478,88 +473,41 @@
                   <app-col>
                     <h4>{{ res_1.project_name }}</h4>
                   </app-col>
-                  <app-col></app-col>
-                  <!-- <app-col size="auto">
-                    <app-button fill="translucent">수정</app-button>
-                  </app-col> -->
+                  <app-col size="auto"></app-col>
                 </app-row>
                 <app-row class="cctv-box">
-                  <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
-                    <div>[{{ res_2.cctv_area_name }}]</div>
-                    <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe>
-                  </app-col>
+                  <ng-container *mobileHidden>
+                    <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
+                      <div>[{{ res_2.cctv_area_name }}]</div>
+                      <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen> </iframe>
+                      
+                      <!-- <iframe [src]="'http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe> -->
+  
+                      <!-- http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8 -->
+                    </app-col>
+                  </ng-container>
+
+
+                  <ng-container *mobileShow>
+                    <app-col size="12" *ngFor="let res_2 of res_1?.cctv_list">
+                      <div>[{{ res_2.cctv_area_name }}]</div>
+                      <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="100%" height="210px" frameborder="0" allowfullscreen> </iframe>
+                    </app-col>
+                  </ng-container>
                 </app-row>
               </app-col>
-  
-              <!-- <app-col class="cctv-box">
-                <app-row>
-                  <app-col>
-                    <h4>CCTV 설치 장소 2</h4>
-                  </app-col>
-                  <app-col></app-col>
-                  <app-col size="auto">
-                    <app-button fill="translucent">수정</app-button>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col style="position: relative;">
-                    <div style="border: 1px solid; height: 500px; position: relative;">
-                      
-                    </div>
-                  </app-col>
-                </app-row>
-              </app-col> -->
-
-              
+            
             </app-row>
           </app-card>
         </app-col>
+
+        <!-- <app-col>
+          <video #videoItem id="videoItem" width="500px" height="280px" controls autoplay>
+            <source type="application/x-mpegURL" src="http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8" />
+          </video>
+        </app-col> -->
       </app-row>
   
-  
-      <!-- <app-row style="align-items: flex-start;">
-        <app-col>
-          <app-card color="white">
-            <app-row style="align-items: stretch;">
-              <app-col class="cctv-box">
-                <app-row>
-                  <app-col>
-                    <h4>CCTV 설치 장소 3</h4>
-                  </app-col>
-                  <app-col></app-col>
-                  <app-col size="auto">
-                    <app-button fill="translucent">수정</app-button>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col style="position: relative;">
-                    <div style="border: 1px solid; height: 500px; position: relative;">
-                    </div>
-                  </app-col>
-                </app-row>
-              </app-col>
-  
-              <app-col class="cctv-box">
-                <app-row>
-                  <app-col>
-                    <h4>CCTV 설치 장소 4</h4>
-                  </app-col>
-                  <app-col></app-col>
-                  <app-col size="auto">
-                    <app-button fill="translucent">수정</app-button>
-                  </app-col>
-                </app-row>
-                <app-row>
-                  <app-col style="position: relative;">
-                    <div style="border: 1px solid; height: 500px; position: relative;">
-                    </div>
-                  </app-col>
-                </app-row>
-              </app-col>
-            </app-row>
-          </app-card>
-        </app-col>
-      </app-row> -->
     </ng-container>
   </div>
 

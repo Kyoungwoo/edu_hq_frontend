@@ -3,12 +3,14 @@ import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController, ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+declare var Hls:any;
 
 // import * as rtsp from 'rtsp_player';
 // import * as streamedian from 'streamedian/player.js';
@@ -219,6 +221,8 @@ export class MonitorPage implements OnInit, OnDestroy {
   //   limit_no: 0
   // }
   cctv = [];// :ConnectResult<CCTVInfo>;
+  // @ViewChild('video', {static: true}) video_list: ElementRef;
+
   test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
@@ -239,7 +243,10 @@ export class MonitorPage implements OnInit, OnDestroy {
     // },2000);
     // await this.testMethod();
     await this.getForm();
-    await this.getSence();
+    setTimeout(() => {
+      this.getSence();
+    }, 1000);
+    
     
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
@@ -261,6 +268,10 @@ export class MonitorPage implements OnInit, OnDestroy {
    ngOnDestroy() {
     this.$activedRoute.unsubscribe();
     window.removeEventListener('cctvList:get()', this.event.get);
+  }
+
+  ViewDidEnter(){
+    
   }
 
   async getForm() {
@@ -544,15 +555,49 @@ export class MonitorPage implements OnInit, OnDestroy {
     let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
     if (res.rsCode === 0) {
       if(res?.rsMap?.length){
-        res.rsMap.map(async(item, index) => {
+        await res.rsMap.map(async(item, index) => {
           await this.getCCTV(item, index);
         });
+        // let video_list:any = document.getElementById('videoItem');
+        // if(Hls.isSupported()) {
+        //   let hls = new Hls();
+        //   console.log('video hls - ',hls);
+          
+        //   console.log('video List - ',video_list);
+        //   hls.loadSource('http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'); // 동영상경로
+        //   hls.attachMedia(video_list);
+        //   hls.on(Hls.Events.MANIFEST_PARSED,() => {
+        //     video_list.play();
+        //   });
+        // } else if (video_list.canPlayType('application/vnd.apple.mpegurl')) {
+        //   video_list.src = 'http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'; // 동영상경로
+        //   video_list.addEventListener('canplay',function() {
+        //     video_list.play();
+        //   });
+        // }
+
       }
       console.log('cctv_list - ', this.cctv);
     } else {
       // this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
+
+  // test_qwe(){
+  //   var video = document.getElementById('video');
+  //   var videoSrc = 'https://test.dev/tmp/index.m3u8';
+
+  //   // HLS를 지원하는지 체크
+  //   if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  //     video.src = videoSrc;
+      
+  //   // HLS를 지원하지 않는다면 hls.js 사용 
+  //   } else if (Hls.isSupported()) {
+  //     var hls = new Hls();
+  //     hls.loadSource(videoSrc);
+  //     hls.attachMedia(video);
+  //   }
+  // }
 
 
   
