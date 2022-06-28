@@ -59,40 +59,6 @@ export class TodayConstructionItem {
   styleUrls: ['./monitor.page.scss'],
 })
 export class MonitorPage implements OnInit, OnDestroy {
-  // mediaElement = rtsp.attach(document.getElementById('test_video'));
-  // player = new streamedian.WSPlayer(mediaElement, {
-  //     // url: `${STREAM_URL}`,      // overrides mediaElement's sources
-  //     modules: [
-  //         {
-  //             // client module constructor. Should be subclass or BaseClient. RTSPClient by default
-  //             // client: RTSPClient,
-  //             transport: {
-  //                // client module constructor. Should be subclass or BaseTransport. WebsocketTransport by default
-  //                // constructor: WebsocketTransport,
-  //                options: {
-  //                    // address of websocket proxy described below. ws${location.protocol=='https:'?'s':''}://${location.host}/ws/ by default
-  //                    socket: "ws://websocket_proxy_address/ws",
-  //                    // function called player exceptions
-  //                    errorHandler (e) {
-  //                        alert(`Failed to start player: ${e.message}`);
-  //                    },
-  //                    // function to get credentials for protected streams
-  //                    queryCredentials() {
-  //                        return new Promise((resolve, reject)=>{
-  //                            let c = prompt('input credentials in format user:password');
-  //                            if (c) {
-  //                                this.setCredentials.apply(this, c.split(':'));
-  //                                resolve();
-  //                            } else {
-  //                                reject();
-  //                            }
-  //                        });
-  //                    }
-  //                }
-  //            }
-  //         },
-  //     ]
-  // });
   
   form = {
     project_id: 1,
@@ -162,9 +128,9 @@ export class MonitorPage implements OnInit, OnDestroy {
     pm10Value: 0,
     pm25Grade: 0
   }
-  scandata = "http://m.site.naver.com/0TGMk"
+  // scandata = "http://m.site.naver.com/0TGMk"
 
-  maxIndex = 300;
+  // maxIndex = 300;
 
 
   graphArr3 = [
@@ -223,7 +189,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   cctv = [];// :ConnectResult<CCTVInfo>;
   // @ViewChild('video', {static: true}) video_list: ElementRef;
 
-  test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
+  // test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
     private toast:ToastService,
@@ -243,9 +209,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     // },2000);
     // await this.testMethod();
     await this.getForm();
-    setTimeout(() => {
-      this.getSence();
-    }, 1000);
+    await this.getSence();
     
     
 
@@ -268,10 +232,6 @@ export class MonitorPage implements OnInit, OnDestroy {
    ngOnDestroy() {
     this.$activedRoute.unsubscribe();
     window.removeEventListener('cctvList:get()', this.event.get);
-  }
-
-  ViewDidEnter(){
-    
   }
 
   async getForm() {
