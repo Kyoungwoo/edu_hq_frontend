@@ -117,6 +117,11 @@ export class SupervisionApprovalListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.get();
+      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
+    }
   }
 
   async approval() {

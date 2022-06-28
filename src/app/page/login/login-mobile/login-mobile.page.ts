@@ -137,6 +137,7 @@ export class LoginMobilePage implements OnInit {
       loading: true
     });
     if(this.res.rsCode === 0) {
+      this.autoLogin = true;
       this.getWorkerInfo(this.res.rsObj, { animated: false });
     } else if(this.res.rsCode === 500) {
       

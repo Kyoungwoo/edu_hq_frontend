@@ -152,9 +152,7 @@ export class PartnerInfoListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) {
-      this.get();
-    }
+    if(data) this.get();
   }
 
 }
