@@ -45,13 +45,24 @@ export class MonitorWorkerLocationPage implements OnInit {
     height: 0
   } */
 
+  gps_interval = null;
+
   constructor(
     private el: ElementRef,
     private connect: ConnectService
   ) { }
 
   ngOnInit() {
-    this.get();
+    
+    setInterval(() => {
+      this.get();
+    }, 3000);
+  }
+  /**
+   * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
+   */
+  ngOnDestroy() {
+    if(this.gps_interval) clearInterval(this.gps_interval);
   }
   /* ngAfterViewInit() {
     this.event.resize = this.resizeEvent.bind(this);

@@ -1,3 +1,4 @@
+import { ApprovalPeopleComponent } from './../../../../component/confirm/approval-people/approval-people.component';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -96,6 +97,10 @@ export class ApprovalEditPage implements OnInit {
       parse: ['answer_datas', 'refer_datas']
     });
     if(this.res.rsCode === 0) {
+      // 순서 반대로
+      this.res.rsObj.answer_datas = this.res.rsObj.answer_datas.reverse();
+      this.res.rsObj.refer_datas = this.res.rsObj.refer_datas.reverse();
+      
       // 초기화 기능 때문에 클론을 떠놔야 함
       this.answerOrigin = this.file.clone(this.res.rsObj.answer_datas);
       this.res.rsObj.refer_datas = this.res.rsObj.refer_datas || [];
@@ -119,6 +124,7 @@ export class ApprovalEditPage implements OnInit {
         }],
         refer_datas: []
       };
+
       // 초기화 기능 때문에 클론을 떠놔야 함
       this.answerOrigin = this.file.clone(this.res.rsObj.answer_datas);
       this.referOrigin = this.file.clone(this.res.rsObj.refer_datas);
@@ -138,19 +144,20 @@ export class ApprovalEditPage implements OnInit {
   async resetAnswer() {
     this.res.rsObj.answer_datas = this.file.clone(this.answerOrigin);
   }
+
   /** 
    * 결재자 추가
    */
-  async addAnswer() {
+   async addAnswer() {
     const modal = await this.modal.create({
-      component: SearchPeopleComponent,
+      component: ApprovalPeopleComponent,
       componentProps: {
-        canUserTypeChange: false,
         form: {
+          project_id: this.form.project_id,
           company_id: this.user.userData.belong_data.company_id,
-          search_text: '',
-          user_type: 'COMPANY'
-        }
+          search_text: ''
+        },
+        preSelected: this.res.rsObj.answer_datas
       }
     });
     modal.present();
@@ -183,12 +190,12 @@ export class ApprovalEditPage implements OnInit {
    */
   async addRefer() {
     const modal = await this.modal.create({
-      component: SearchPeopleComponent,
+      component: ApprovalPeopleComponent,
       componentProps: {
         form: {
+          project_id: this.form.project_id,
           company_id: this.user.userData.belong_data.company_id,
-          search_text: '',
-          user_type: 'WORKER'
+          search_text: ''
         }
       }
     });

@@ -44,6 +44,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson"
     //location
     implementation "com.google.android.gms:play-services-location:$locationVersion"
+    implementation "com.google.android.gms:play-services-tasks:16.0.1"
 }
 
 apply from: 'capacitor.build.gradle'

@@ -78,7 +78,7 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '전자결재 설정', 
       permission: () => {
         const {  user_type } = this.user.userData;
-        return false; // user_type === 'COMPANY';
+        return user_type === 'COMPANY';
       },
         thirdMenuList: [
           { title: '기본 전자결재선 지정', link: '/approval-edit',

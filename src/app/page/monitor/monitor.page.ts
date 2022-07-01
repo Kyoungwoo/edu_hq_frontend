@@ -229,7 +229,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   /**
    * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
    */
-   ngOnDestroy() {
+  ngOnDestroy() {
     this.$activedRoute.unsubscribe();
     window.removeEventListener('cctvList:get()', this.event.get);
   }
