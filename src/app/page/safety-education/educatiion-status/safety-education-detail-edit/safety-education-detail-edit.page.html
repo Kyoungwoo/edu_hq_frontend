@@ -85,7 +85,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [disabled]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [readonly]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
 
