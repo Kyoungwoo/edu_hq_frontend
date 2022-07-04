@@ -92,7 +92,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
   editable = {
     update:false,
-    educationMenu:true,
+    educationMenu:1,
     educationMenu_state: false,
     my_state: false
   };
@@ -184,6 +184,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
     this.input_active = true;
   }
   async updateItem() {
+    console.log("update - ", this.form);
     if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});
     if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
     if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});

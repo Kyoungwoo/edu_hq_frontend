@@ -465,42 +465,45 @@
     <ng-container>
       <app-row style="align-items: flex-start;">
         <app-col>
-          <app-card *ngFor="let res_1 of cctv" color="white">
-            <app-row style="align-items: stretch;">
-
-              <app-col class="cctv-box">
-                <app-row>
-                  <app-col>
-                    <h4>{{ res_1.project_name }}</h4>
-                  </app-col>
-                  <app-col size="auto"></app-col>
-                </app-row>
-                <app-row class="cctv-box">
-                  <ng-container *mobileHidden>
-                    <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
-                      <div>[{{ res_2.cctv_area_name }}]</div>
-                      <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen> </iframe>
-                      <!-- <video width="352" height="198" controls autoplay>
-                        <source src="http://s40.ipcamlive.com/streams/28iqfxocuhl7vy58z/stream.m3u8" type="application/x-mpegURL">
-                      </video> -->
-                      <!-- <iframe [src]="'http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe> -->
+          <ng-container *ngFor="let res_1 of cctv">
+            <app-card *ngIf="res_1.cctv_list.length" color="white">
+              <app-row style="align-items: stretch;">
   
-                      <!-- http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8 -->
+                <app-col class="cctv-box">
+                  <app-row>
+                    <app-col>
+                      <!-- <h4>{{ res_1.project_name }}</h4> -->
+                      <h4>수원당수 A-1BL 아파트 건설공사 1공구</h4>
                     </app-col>
-                  </ng-container>
-
-
-                  <ng-container *mobileShow>
-                    <app-col size="12" *ngFor="let res_2 of res_1?.cctv_list">
-                      <div>[{{ res_2.cctv_area_name }}]</div>
-                      <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="100%" height="210px" frameborder="0" allowfullscreen> </iframe>
-                    </app-col>
-                  </ng-container>
-                </app-row>
-              </app-col>
-            
-            </app-row>
-          </app-card>
+                    <app-col size="auto"></app-col>
+                  </app-row>
+                  <app-row class="cctv-box">
+                    <ng-container *mobileHidden>
+                      <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
+                        <div>[{{ res_2.cctv_area_name }}]</div>
+                        <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen> </iframe>
+                        <!-- <video width="352" height="198" controls autoplay>
+                          <source src="http://s40.ipcamlive.com/streams/28iqfxocuhl7vy58z/stream.m3u8" type="application/x-mpegURL">
+                        </video> -->
+                        <!-- <iframe [src]="'http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe> -->
+    
+                        <!-- http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8 -->
+                      </app-col>
+                    </ng-container>
+  
+  
+                    <ng-container *mobileShow>
+                      <app-col size="12" *ngFor="let res_2 of res_1?.cctv_list">
+                        <div>[{{ res_2.cctv_area_name }}]</div>
+                        <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="100%" height="210px" frameborder="0" allowfullscreen> </iframe>
+                      </app-col>
+                    </ng-container>
+                  </app-row>
+                </app-col>
+              
+              </app-row>
+            </app-card>
+          </ng-container>
         </app-col>
 
         <!-- <app-col>

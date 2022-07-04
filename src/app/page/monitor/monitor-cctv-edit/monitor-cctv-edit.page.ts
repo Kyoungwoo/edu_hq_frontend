@@ -85,17 +85,17 @@ export class MonitorCctvEditPage implements OnInit {
         {text:'아니요'},
         {text:'예',
           handler:async() => {
-            console.log(this.form);
-            // const res = await this.connect.run(`/cctv/${this.type}`, this.form);
-            // if(res.rsCode === 0 ) {
-            //   this._modal.dismiss(true);
-            // }
-            // else if (res.rsCode === 1008) {
-            //   // this.res = null;
-            // }
-            // else {
-            //   this.toast.present({ color: 'warning', message: res.rsMsg });
-            // }
+            // console.log(this.form);
+            const res = await this.connect.run(`/cctv/${this.type}`, this.form);
+            if(res.rsCode === 0 ) {
+              this._modal.dismiss(true);
+            }
+            else if (res.rsCode === 1008) {
+              // this.res = null;
+            }
+            else {
+              this.toast.present({ color: 'warning', message: res.rsMsg });
+            }
           }
         }
       ]
