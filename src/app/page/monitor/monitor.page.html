@@ -480,7 +480,9 @@
                     <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
                       <div>[{{ res_2.cctv_area_name }}]</div>
                       <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen> </iframe>
-                      
+                      <!-- <video width="352" height="198" controls autoplay>
+                        <source src="http://s40.ipcamlive.com/streams/28iqfxocuhl7vy58z/stream.m3u8" type="application/x-mpegURL">
+                      </video> -->
                       <!-- <iframe [src]="'http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe> -->
   
                       <!-- http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8 -->
