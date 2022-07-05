@@ -1,13 +1,20 @@
+import { MonitorCctvListPage, CCTVInfo } from './monitor-cctv-list/monitor-cctv-list.page';
 import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController, ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+declare var Hls:any;
+
+// import * as rtsp from 'rtsp_player';
+// import * as streamedian from 'streamedian/player.js';
+// declare var Streamedian:any;
 
 /**
  * @class TodayConstructionItem
@@ -121,9 +128,9 @@ export class MonitorPage implements OnInit, OnDestroy {
     pm10Value: 0,
     pm25Grade: 0
   }
-  scandata = "http://m.site.naver.com/0TGMk"
+  // scandata = "http://m.site.naver.com/0TGMk"
 
-  maxIndex = 300;
+  // maxIndex = 300;
 
 
   graphArr3 = [
@@ -168,6 +175,21 @@ export class MonitorPage implements OnInit, OnDestroy {
   };
 
   $activedRoute:Subscription;
+
+  event = {
+    get: null
+  }
+
+  // cctv_form = {
+  //   project_id: this.user.userData.belong_data.project_id,
+  //   master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+  //   search_text: '',
+  //   limit_no: 0
+  // }
+  cctv = [];// :ConnectResult<CCTVInfo>;
+  // @ViewChild('video', {static: true}) video_list: ElementRef;
+
+  // test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
     private toast:ToastService,
@@ -175,11 +197,21 @@ export class MonitorPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public user: UserService,
     public date: DateService
-  ) { }
+  ) {}
 
   async ngOnInit() {
-
+    // let mediaElement = streamedian.rtsp.attach(document.getElementById('test_video'));
+    // streamedian.player(document.getElementById('test_video'));
+    // console.log();
+    // console.log("mediaElement ----- ", mediaElement);
+    // setTimeout(() => {
+    //   this.init_api();
+    // },2000);
+    // await this.testMethod();
     await this.getForm();
+    await this.getSence();
+    
+    
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
@@ -187,14 +219,19 @@ export class MonitorPage implements OnInit, OnDestroy {
         monitor: monitor || '통합관제'
       }
     });
+
+    // event 물리기
+    this.event.get = this.monitorCctvList.bind(this);
+    window.addEventListener('cctvList:get()', this.event.get);
     this.methodContrroller();
   }
 
   /**
    * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
    */
-   ngOnDestroy() {
+  ngOnDestroy() {
     this.$activedRoute.unsubscribe();
+    window.removeEventListener('cctvList:get()', this.event.get);
   }
 
   async getForm() {
@@ -409,4 +446,160 @@ export class MonitorPage implements OnInit, OnDestroy {
     }
     return style
   }
+
+  /**
+   * @function monitorCctvList(): CCTV 목록 리스트 모달
+   */
+   async monitorCctvList() {
+    const modal = await this.modal.create({
+      // component:MonitorSmartEquipEditPage,
+      component:MonitorCctvListPage,
+      // cssClass: 'risk-evaluation-class'
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+  }
+
+  // async testMethod(){
+  //   // https://ipcamlive.com/api/v2/getstreamhlsurl?apisecret=62b2d166929f4&alias=namgwang1
+  //   const res = await this.connect.run('https://ipcamlive.com/api/v2/getstreamhlsurl', {apisecret:'62b2d166929f4',alias:'namgwang1'}, {cctv:true});
+  //   switch (res.rsCode) {
+  //     case 0:
+  //       // this.dust = res.rsObj;
+  //       break;
+  //   }
+  // }
+
+  /**
+   * @function getCCTV(): CCTV목록정보를 가져옵니다.
+   */
+   async getCCTV(item, index) {
+    let cctv_form = {
+      project_id: item.project_id,
+      master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+      search_text: '',
+      limit_no: 0
+    }
+
+    const res = await this.connect.run('/cctv/list', cctv_form);
+    if(res.rsCode === 0 ) {
+      if(res?.rsMap?.length){
+        this.cctv.push({
+          project_id: item.project_id,
+          project_name: item.project_name,
+          cctv_list: []
+        });
+
+        console.log('cctv_info - ', this.cctv);
+        res.rsMap.map((data_arr) => {
+          console.log('cctv_index - ', res?.rsMap?.length);
+          if(data_arr.cctv_use_state) this.cctv[this.cctv?.length-1]['cctv_list'].push(data_arr);
+        });
+      }
+      // this.cctv = res;
+    }
+    else if (res.rsCode === 1008) {
+      // this.cctv = null;
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+
+  /**
+   * @function getSence(): 현장목록정보를 가져옵니다.
+   */
+   async getSence() {
+    this.cctv = [];
+    let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
+    if (res.rsCode === 0) {
+      if(res?.rsMap?.length){
+        await res.rsMap.map(async(item, index) => {
+          await this.getCCTV(item, index);
+        });
+        // let video_list:any = document.getElementById('videoItem');
+        // if(Hls.isSupported()) {
+        //   let hls = new Hls();
+        //   console.log('video hls - ',hls);
+          
+        //   console.log('video List - ',video_list);
+        //   hls.loadSource('http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'); // 동영상경로
+        //   hls.attachMedia(video_list);
+        //   hls.on(Hls.Events.MANIFEST_PARSED,() => {
+        //     video_list.play();
+        //   });
+        // } else if (video_list.canPlayType('application/vnd.apple.mpegurl')) {
+        //   video_list.src = 'http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'; // 동영상경로
+        //   video_list.addEventListener('canplay',function() {
+        //     video_list.play();
+        //   });
+        // }
+
+      }
+      console.log('cctv_list - ', this.cctv);
+    } else {
+      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    }
+  }
+
+  // test_qwe(){
+  //   var video = document.getElementById('video');
+  //   var videoSrc = 'https://test.dev/tmp/index.m3u8';
+
+  //   // HLS를 지원하는지 체크
+  //   if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  //     video.src = videoSrc;
+      
+  //   // HLS를 지원하지 않는다면 hls.js 사용 
+  //   } else if (Hls.isSupported()) {
+  //     var hls = new Hls();
+  //     hls.loadSource(videoSrc);
+  //     hls.attachMedia(video);
+  //   }
+  // }
+
+
+  
+  // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+  // STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+  // session;
+  // PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
+  // init_api() {
+  //   Flashphoner.init({});
+  //   //Connect to WCS server over websockets
+  //   this.session = Flashphoner.createSession({
+  //       urlServer: "wss://demo.flashphoner.com:8443" //specify the address of your WCS
+  //   }).on(this.SESSION_STATUS.ESTABLISHED, (session) => {
+  //       console.log("ESTABLISHED");
+  //   });
+  // }
+
+  // Browser = {
+  //   isSafari: () => {
+  //       return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  //   },
+  // }
+ 
+  // playClick() {
+  //   console.log('stream 1 -----');
+  //   if (this.Browser.isSafari()) {
+  //     console.log('stream 2 -----');
+  //       Flashphoner.playFirstVideo(document.getElementById("play"), true, this.PRELOADER_URL).then(() => {
+  //         console.log('stream 3 -----');
+  //           this.playStream();
+  //       });
+  //   } else {
+  //     console.log('stream 4 -----');
+  //       this.playStream();
+  //   }
+  // }
+
+  // playStream() {
+  //   console.log('stream 5 -----');
+  //   this.session.createStream({
+  //       name: "rtsp://admin:qwert12@61.83.219.219:554/main/ch1", //specify the RTSP stream address
+  //       display: document.getElementById("play"),
+  //   }).play();
+  // }
 }

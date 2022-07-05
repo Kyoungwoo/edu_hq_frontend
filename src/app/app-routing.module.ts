@@ -595,6 +595,14 @@ const routes: Routes = [
   {
     path: 'main-user-bottom-menu',
     loadChildren: () => import('./page/main/user/user/main-user-bottom-menu/main-user-bottom-menu.module').then( m => m.MainUserBottomMenuPageModule)
+  },
+  {
+    path: 'monitor-cctv-list',
+    loadChildren: () => import('./page/monitor/monitor-cctv-list/monitor-cctv-list.module').then( m => m.MonitorCctvListPageModule)
+  },
+  {
+    path: 'monitor-cctv-edit',
+    loadChildren: () => import('./page/monitor/monitor-cctv-edit/monitor-cctv-edit.module').then( m => m.MonitorCctvEditPageModule)
   }
 ];
 

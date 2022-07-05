@@ -118,7 +118,7 @@ public class GeolocationUpdates extends Service {
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
+      Log.d(TAG, "_startUpdates 1");
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -155,9 +155,28 @@ public class GeolocationUpdates extends Service {
             }
         };
 
+      Log.d(TAG, "_startUpdates 2");
+      try {
         fusedLocationClient.requestLocationUpdates(locationRequest,
-                locationCallback,
-                Looper.getMainLooper());
+          locationCallback,
+          Looper.getMainLooper())
+          .addOnFailureListener(e -> {
+            Log.d("addOnFailureListener", e.getMessage());
+          })
+          .addOnSuccessListener(e -> {
+            Log.d("addOnSuccessListener", "-");
+          })
+          .addOnCanceledListener(() -> {
+            Log.d("addOnCanceledListener", "-");
+          })
+          .addOnCompleteListener(e -> {
+            Log.d("addOnCompleteListener", "-");
+          });
+      } catch (SecurityException ignore){
+        Log.e("AppLocationService", "SecurityException - " + ignore.toString(), ignore);
+      }
+
+      Log.d(TAG, "_startUpdates 3");
     }
     private void _stopUpdates() {
       try {

@@ -67,12 +67,63 @@ export class MainUserMasterPage implements OnInit, OnDestroy {
 
   locationTimeout = null;
   locationUpdate() {
-    this.gps.stopLocationUpdates();
+    // this.gps.stopLocationUpdates();
     /** 버그는 안나는데, 혹시몰라서 */
     this.locationTimeout = setTimeout(() => {
       this.gps.startLocationUpdates();
     }, 3000);
+
+    // console.log("BackgroundGeolocation - ",BackgroundGeolocation);
+    // this.testGeolo();
   }
+
+  // testGeolo(){
+  //   let last_location;
+  //   BackgroundGeolocation.addWatcher(
+  //       {
+  //         stale: true
+  //       },
+  //       (location,error) => {
+  //         console.log("last_location - ", location);
+  //         // last_location = location || undefined;
+
+  //         if (error) {
+  //           if (error.code === "NOT_AUTHORIZED") {
+  //               if (window.confirm(
+  //                   "This app needs your location, " +
+  //                   "but does not have permission.\n\n" +
+  //                   "Open settings now?"
+  //               )) {
+  //                   // It can be useful to direct the user to their device's
+  //                   // settings when location permissions have been denied. The
+  //                   // plugin provides the 'openSettings' method to do exactly
+  //                   // this.
+  //                   BackgroundGeolocation.openSettings();
+  //               }
+  //           }
+  //           return console.error(error);
+  //         }
+  //         this.GPS_CALL(location);
+  //         // return console.log(location);
+  //       }
+  //   );
+  // }
+
+  // async GPS_CALL(data = null){
+  //   console.log('location - ', data);
+  //   if(data){
+  //     // console.log('location 2 - ', data);
+  //     const res = await this.connect.run('/work_project/gps/call', {latitude: data.longitude, longitude: data.latitude}, {});
+  //     switch (res.rsCode) {
+  //       case 0:
+  //         console.log('location 3 - ', res);
+  //         break;
+  //       default:
+  //         console.log('location 4 - ', data);
+  //         break;
+  //     }
+  //   }
+  // }
 
   /**
    * @function dayTrans(): 오늘 날짜와 요일 가져오기

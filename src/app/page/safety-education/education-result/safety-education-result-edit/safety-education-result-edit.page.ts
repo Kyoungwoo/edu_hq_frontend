@@ -39,7 +39,7 @@ export class EducationItem {
   education_safe_manager_ids: string
   education_safe_time:string;
   
-  education_safe_report_file_data: FutItem[] = [];
+  education_safe_file_data: FutItem[] = [];
   file:(File|FileBlob)[] = []; // FILE
   file_json:FileJson = new FileJson(); // JSON
   
