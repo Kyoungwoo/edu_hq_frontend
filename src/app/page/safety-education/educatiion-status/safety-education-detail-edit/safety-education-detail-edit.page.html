@@ -330,7 +330,7 @@
         </app-row>
       </app-card>
       
-      <app-row>
+      <!-- <app-row>
         <app-col>
           첨부자료
         </app-col>
@@ -344,7 +344,7 @@
         </app-col>
       </app-row>
       <app-file-preview type="full" [readonly]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
-      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
     </ng-container>
 
     <ng-container *ngIf="editable.educationMenu === 2">
