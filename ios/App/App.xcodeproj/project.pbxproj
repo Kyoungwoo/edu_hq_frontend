@@ -12,6 +12,8 @@
 		11516F15286BF24D007A359E /* GeolocationPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0E286BF24D007A359E /* GeolocationPlugin.m */; };
 		11516F16286BF24D007A359E /* GeolocationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0F286BF24D007A359E /* GeolocationPlugin.swift */; };
 		11516F18286BF24D007A359E /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F12286BF24D007A359E /* MultipartFormDataRequest.swift */; };
+		118B97652874196C001D8227 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B97632874196C001D8227 /* Data+Helpers.swift */; };
+		118B97662874196C001D8227 /* MultipartForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B97642874196C001D8227 /* MultipartForm.swift */; };
 		24B0E21A27675F8A00CA7C82 /* scanPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21927675F8A00CA7C82 /* scanPlugin.m */; };
 		24B0E21C27675FF200CA7C82 /* NfcPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21B27675FF200CA7C82 /* NfcPlugin.swift */; };
 		24B0E21E2767602F00CA7C82 /* NfcComtroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21D2767602F00CA7C82 /* NfcComtroller.swift */; };
@@ -34,6 +36,8 @@
 		11516F10286BF24D007A359E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/Info.plist"; sourceTree = "<group>"; };
 		11516F11286BF24D007A359E /* GeolocationPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeolocationPlugin.h; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/GeolocationPlugin.h"; sourceTree = "<group>"; };
 		11516F12286BF24D007A359E /* MultipartFormDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipartFormDataRequest.swift; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/MultipartFormDataRequest.swift"; sourceTree = "<group>"; };
+		118B97632874196C001D8227 /* Data+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Data+Helpers.swift"; path = "../../../../../../../../Downloads/MultipartForm-master/Sources/MultipartForm/Data+Helpers.swift"; sourceTree = "<group>"; };
+		118B97642874196C001D8227 /* MultipartForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipartForm.swift; path = "../../../../../../../../Downloads/MultipartForm-master/Sources/MultipartForm/MultipartForm.swift"; sourceTree = "<group>"; };
 		24B0E21827675F8A00CA7C82 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
 		24B0E21927675F8A00CA7C82 /* scanPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanPlugin.m; sourceTree = "<group>"; };
 		24B0E21B27675FF200CA7C82 /* NfcPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcPlugin.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 		11516F0B286BF224007A359E /* GeolocationPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				118B97632874196C001D8227 /* Data+Helpers.swift */,
+				118B97642874196C001D8227 /* MultipartForm.swift */,
 				11516F0C286BF24D007A359E /* Geolocation.swift */,
 				11516F11286BF24D007A359E /* GeolocationPlugin.h */,
 				11516F0E286BF24D007A359E /* GeolocationPlugin.m */,
@@ -256,10 +262,12 @@
 				11516F13286BF24D007A359E /* Geolocation.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				24B0E21C27675FF200CA7C82 /* NfcPlugin.swift in Sources */,
+				118B97652874196C001D8227 /* Data+Helpers.swift in Sources */,
 				11516F16286BF24D007A359E /* GeolocationPlugin.swift in Sources */,
 				11516F15286BF24D007A359E /* GeolocationPlugin.m in Sources */,
 				24B0E21A27675F8A00CA7C82 /* scanPlugin.m in Sources */,
 				11516F18286BF24D007A359E /* MultipartFormDataRequest.swift in Sources */,
+				118B97662874196C001D8227 /* MultipartForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +418,7 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devmonster.gsil.lh.skeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -434,7 +442,7 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devmonster.gsil.lh.skeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
