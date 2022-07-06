@@ -137,7 +137,7 @@ var MinutesListPage = /** @class */ (function () {
                     case 0:
                         this.form.limit_no = limit_no;
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form)];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/list', this.form)];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
@@ -178,7 +178,7 @@ var MinutesListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/list', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {

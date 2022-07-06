@@ -136,7 +136,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/default/get', {
+                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/default/get', {
                             project_id: this.form.project_id,
                             company_id: this.form.company_id
                         })];
@@ -171,7 +171,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting/detail', {
+                    case 0: return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/detail', {
                             safety_meeting_id: this.form.safety_meeting_id
                         }, { parse: ['file_data'] })];
                     case 1:
@@ -265,10 +265,10 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         this.form.approval_default_data = approval_data;
                         url = '';
                         if (!this.form.approval_id) {
-                            url = '/board/safety_meeting/insert';
+                            url = '/board/safety_meetin_old/insert';
                         }
                         else {
-                            url = '/board/safety_meeting/update';
+                            url = '/board/safety_meeting_old/update';
                         }
                         return [4 /*yield*/, this.connect.run(url, this.form, { loading: true })];
                     case 1:
@@ -317,7 +317,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                         this.form.approval_cnt_answer = '결재중';
                         this.form.approval_default_data = approval_data;
                         if (!!this.form.approval_id) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/insert', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/insert', this.form, { loading: true })];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {
@@ -334,7 +334,7 @@ var WorkerMinutesEditPage = /** @class */ (function () {
                     case 2: return [4 /*yield*/, this.loading.present()];
                     case 3:
                         loading = _a.sent();
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/update', this.form)];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/update', this.form)];
                     case 4:
                         res = _a.sent();
                         if (!(res.rsCode === 0)) return [3 /*break*/, 6];

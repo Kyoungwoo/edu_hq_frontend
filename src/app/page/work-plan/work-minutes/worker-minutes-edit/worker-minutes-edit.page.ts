@@ -104,7 +104,7 @@ export class WorkerMinutesEditPage implements OnInit {
    * 기본 회의록 협의사항 가져오기
    */
    async getDefaultContent() {
-    const res = await this.connect.run('/board/safety_meeting/default/get', {
+    const res = await this.connect.run('/board/safety_meeting_old/default/get', {
       project_id: this.form.project_id,
       company_id: this.form.company_id
     });
@@ -130,7 +130,7 @@ export class WorkerMinutesEditPage implements OnInit {
    * 회의록 정보 가져오기
    */
   async getDetail() {
-    const res = await this.connect.run('/board/safety_meeting/detail', {
+    const res = await this.connect.run('/board/safety_meeting_old/detail', {
       safety_meeting_id: this.form.safety_meeting_id
     }, { parse: ['file_data'] });
     if(res.rsCode === 0) {
@@ -203,10 +203,10 @@ export class WorkerMinutesEditPage implements OnInit {
 
     let url = '';
     if(!this.form.approval_id) {
-      url = '/board/safety_meeting/insert';
+      url = '/board/safety_meeting_old/insert';
     }
     else {
-      url = '/board/safety_meeting/update';
+      url = '/board/safety_meeting_old/update';
     }
 
     const res = await this.connect.run(url, this.form, { loading: true });
@@ -241,7 +241,7 @@ export class WorkerMinutesEditPage implements OnInit {
 
     if(!this.form.approval_id) {
       // 임시저장도 안한 상태에서는 insert에서 결재 요청을 처리한다.
-      const res = await this.connect.run('/board/safety_meeting/insert', this.form, { loading: true });
+      const res = await this.connect.run('/board/safety_meeting_old/insert', this.form, { loading: true });
 
       if(res.rsCode === 0) {
         this.toast.present({ color: 'success', message: '결재요청 되었습니다.' });
@@ -261,7 +261,7 @@ export class WorkerMinutesEditPage implements OnInit {
        */
       const loading = await this.loading.present();
       
-      const res = await this.connect.run('/board/safety_meeting/update', this.form);
+      const res = await this.connect.run('/board/safety_meeting_old/update', this.form);
 
       if(res.rsCode === 0) {
         const approvalRes = await ev.send();

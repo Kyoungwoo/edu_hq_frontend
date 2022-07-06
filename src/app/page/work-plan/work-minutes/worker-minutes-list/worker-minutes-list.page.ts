@@ -122,7 +122,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     
     let trans_form = JSON.parse(JSON.stringify(this.form));
     trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
-    this.res = await this.connect.run('/board/safety_meeting/list', this.form, { loading: true });
+    this.res = await this.connect.run('/board/safety_meeting_old/list', this.form, { loading: true });
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.forEach((item, i) => {
         switch(item.safety_meeting_type){
@@ -153,7 +153,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
 
-    const res = await this.connect.run('/board/safety_meeting/list', this.form, {
+    const res = await this.connect.run('/board/safety_meeting_old/list', this.form, {
     });
     if(res.rsCode === 0 ) {
       /**

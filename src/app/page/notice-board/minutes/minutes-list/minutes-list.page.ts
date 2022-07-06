@@ -82,7 +82,7 @@ export class MinutesListPage implements OnInit {
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
 
-    this.res = await this.connect.run('/board/safety_meeting/list', this.form);
+    this.res = await this.connect.run('/board/safety_meeting_old/list', this.form);
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.map((item, i) => {
         switch(item.safety_meeting_type){
@@ -113,7 +113,7 @@ export class MinutesListPage implements OnInit {
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
 
-    const res = await this.connect.run('/board/safety_meeting/list', this.form, { loading: true });
+    const res = await this.connect.run('/board/safety_meeting_old/list', this.form, { loading: true });
     if(res.rsCode === 0 ) {
       /**
        * 모바일은 res를 대체하는 것이 아니라, 데이터를 스크롤 하단에 이어붙여야 함.
