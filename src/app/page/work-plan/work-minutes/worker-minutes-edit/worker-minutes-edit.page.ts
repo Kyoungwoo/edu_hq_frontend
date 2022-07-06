@@ -26,11 +26,13 @@ export class WorkerMinutesEditPage implements OnInit {
   form = {
     project_id: null, // 현장ID
     project_name: null,
-    company_id: null, // 회사ID
-    company_name: null, // 회사 이름
+    company_id: null,
+    master_company_id: null, // 회사ID
+    master_company_name: null, // 회사 이름
+    user_id: null, // 작성자 아이디
 
-    safety_meeting_type: null, // 회의록 유형
-    safety_meeting_type_text: null, // 회의록 유형 장문
+    safety_meeting_type: '직접입력', // 회의록 유형
+    safety_meeting_type_text: '직접입력', // 회의록 유형 장문
 
     safety_meeting_date: null, // 회의록 일자
     safety_meeting_place: null, // 회의록 장소
@@ -38,6 +40,8 @@ export class WorkerMinutesEditPage implements OnInit {
     safety_meeting_content: null, // 회의록 협의내용
     safety_meeting_resolve: null, // 회의록 의결내용
     safety_meeting_etc: '', // 회의록 기타내용
+
+    safety_meeting_state: '회의 전', // 회의 상태
     
     file_data: [] as FutItem[], //FUT
     file: [] as (File|FileBlob)[], // FILE
@@ -51,12 +55,77 @@ export class WorkerMinutesEditPage implements OnInit {
     // 수정시 정보
     approval_id: null, // 결재 ID
     safety_meeting_id: null, // 회의록 ID
-    user_name: null
+    user_name: null,
+
+    create_date: null,
+    create_date_week_day: null,
+
+    safety_meeting_start_time: null, // 회의록 시작시간
+    safety_meeting_end_time: null, // 회의록 종료시간
+
+
+    // safety_meeting_content: null, // 회의록 협의내용
+    // safety_meeting_date: null, // 회의록 일자
+    // safety_meeting_end_time: null, // 회의록 종료시간
+    // safety_meeting_start_time: null, // 회의록 시작시간
+    // safety_meeting_etc: '', // 회의록 기타내용
+    // safety_meeting_place: null, // 회의록 장소
+    // safety_meeting_resolve: null, // 회의록 의결내용
+    // safety_meeting_type: null, // 회의록 유형
+
+    // file_data: [] as FutItem[], //FUT
+    // file: [] as (File|FileBlob)[], // FILE
+    // file_json: new FileJson(), // JSON
+
+    // // 수정시 정보
+    // safety_meeting_id: null, // 회의록 ID
+
+
+
+
+
+    // file
+    // file_json *
+    // safety_meeting_content * // 회의록 협의내용
+    // safety_meeting_date * // 회의록 일자
+    // safety_meeting_end_time * // 회의록 종료시간
+    // safety_meeting_etc * // 회의록 기타내용
+    // safety_meeting_id * // 현장ID
+    // safety_meeting_place * // 회의록 장소
+    // safety_meeting_resolve * // 회의록 의결내용
+    // safety_meeting_start_time * // 회의록 시작시간
+    // safety_meeting_type * // (query)
+    
+    
+    // education_safe_file_data: null
+    // master_company_id: 142
+    // master_company_name: "(주)상범건설"
+    // project_id: 136
+    // project_name: "수원당수 A-1BL 아파트 건설공사 1공구"
+    // safety_meeting_content: "고양이 집에서 어떻게 살까"
+    // safety_meeting_date: "2022-06-15"
+    // safety_meeting_end_time: "06:00"
+    // safety_meeting_etc: "야옹"
+    // safety_meeting_id: 1
+    // safety_meeting_place: "고양이집"
+    // safety_meeting_resolve: "고양이 집에서 잘 삼"
+    // safety_meeting_start_time: "03:00"
+    // safety_meeting_state: "회의 종료"
+    // safety_meeting_type: "안전 및 보건에 관한 협의체 회의록"
+    // user_id: 1131532788
+    // user_name: "LH"
   }
 
   permission = {
     edit: false
   }
+
+  editable = {
+    update:false,
+    educationMenu:1,
+    educationMenu_state: false,
+    my_state: false
+  };
 
   approval_answer:AnswerObj[];
   approval_comment:CommentObj[];
@@ -73,6 +142,7 @@ export class WorkerMinutesEditPage implements OnInit {
   async ngOnInit() {
     if(!this.safety_meeting_id) {
       // 신규 작성 시, 디폴트 값을 가져옴
+      this.editable.update = true;
       this.getDefaultForm(); // 폼으로 채우고
       this.getDefaultContent(); // 기본 정보를 가지고 온다.
     }
@@ -91,13 +161,16 @@ export class WorkerMinutesEditPage implements OnInit {
   getDefaultForm() {
     const { user_name, belong_data } = this.user.userData;
     this.form.project_id = this.project_id;
+    this.form.master_company_id = belong_data.master_company_id;
+    this.form.master_company_name = belong_data.master_company_name;
     this.form.company_id = belong_data.company_id;
-    this.form.company_name = belong_data.company_name;
 
     this.form.safety_meeting_type = this.safety_meeting_type;
 
     this.form.safety_meeting_date = this.date.today();
-    this.form.user_name = user_name;
+    this.form.create_date = this.date.today();
+    
+    this.form.user_name = user_name + ' / ' + belong_data.company_name;
   }
 
   /**
@@ -106,7 +179,7 @@ export class WorkerMinutesEditPage implements OnInit {
    async getDefaultContent() {
     const res = await this.connect.run('/board/safety_meeting/default/get', {
       project_id: this.form.project_id,
-      company_id: this.form.company_id
+      company_id: this.form.master_company_id
     });
     if(res.rsCode === 0) {
       switch(this.form.safety_meeting_type) {
@@ -138,6 +211,12 @@ export class WorkerMinutesEditPage implements OnInit {
         ...this.form,
         ...res.rsObj
       }
+      if(this.form.user_id === this.user.userData.user_id) this.editable.my_state = true;
+      this.form.user_name = this.form.user_name+' / '+this.form.master_company_name;
+      this.form.safety_meeting_type_text = this.form.safety_meeting_type;
+      console.log(this.form.safety_meeting_type);
+      console.log('this.form - ', this.form);
+      // console.log(this.form);
       // 정보를 가져온 후, 결재 정보를 가져와야 한다! => app-approval component가 알아서 자동으로 가져온다!
     }
     else {
@@ -328,6 +407,20 @@ export class WorkerMinutesEditPage implements OnInit {
     /** 모바일 화면에서는 테이블 편집이 안된다. */
     if(window.innerWidth <= 768) {
       this.permission.edit = false;
+    }
+  }
+
+  changeType(item){
+    console.log(item);
+    switch(item) {
+      case '안전':
+      case '노사':
+      case '산업':
+        this.form.safety_meeting_type = item;
+        break;
+      case '직접입력':
+        this.form.safety_meeting_type = '';
+        break;
     }
   }
 }

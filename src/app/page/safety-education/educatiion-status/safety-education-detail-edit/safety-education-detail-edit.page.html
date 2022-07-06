@@ -325,7 +325,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-textarea [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+            <app-textarea [readonly]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
           </app-col>
         </app-row>
       </app-card>

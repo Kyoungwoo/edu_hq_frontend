@@ -11,8 +11,8 @@ import { WorkerMinutesPendingListPage } from '../worker-minutes-pending-list/wor
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
 
 export class SafetyMeetingInfo {
-  company_id: number;
-  company_name: string;
+  master_company_id: number;
+  master_company_name: string;
   create_date: string;
   safety_meeting_id: number;
   notice_title: string;
@@ -23,7 +23,9 @@ export class SafetyMeetingInfo {
   row_count: number;
   safety_meeting_date: string;
   index: number;
-  approval_cnt_answer:string;
+  safety_meeting_state:string
+  safety_meeting_time:string
+  // approval_cnt_answer:string;
 }
 @Component({
   selector: 'app-worker-minutes-list',
@@ -34,13 +36,14 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
 
   form = { 
     project_id: null,
-    company_id: null,
-    safety_meeting_types: [],
+    master_company_id: null,
+    safety_meeting_type: '전체',
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    approval_cnt_answer: '전체',
-    limit_no: 0
+    // approval_cnt_answer: '전체',
+    limit_no: 0,
+    safety_meeting_state: '전체'
   }
 
   res:ConnectResult<SafetyMeetingInfo>;
@@ -88,14 +91,14 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     const { user_role, belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.master_company_id;
+    this.form.master_company_id = belong_data.master_company_id;
 
     if(belong_data.company_contract_type === 'LH'
     || belong_data.company_contract_type === '감리사') {
 
       this.permission.company_id = true;
       this.permission.add = false;
-      this.form.company_id = 0;
+      this.form.master_company_id = 0;
 
     }
     else if(belong_data.company_contract_type === '원청사') {
@@ -153,7 +156,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
 
-    const res = await this.connect.run('/board/safety_meeting/list', this.form, {
+    const res = await this.connect.run('/board/safety_meeting_old/list', this.form, {
     });
     if(res.rsCode === 0 ) {
       /**
@@ -199,14 +202,31 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    * 회의록 추가
    */
   async add() {
+    // const modal = await this.modal.create({
+    //   component: WorkerMinutesSelectTypePage,
+    //   cssClass: 'worker-minutes-select-type-modal',
+    //   componentProps: {
+    //     project_id: this.form.project_id
+    //   }
+    // });
+    // modal.present();
     const modal = await this.modal.create({
-      component: WorkerMinutesSelectTypePage,
-      cssClass: 'worker-minutes-select-type-modal',
+      component: WorkerMinutesEditPage,
       componentProps: {
         project_id: this.form.project_id
       }
     });
     modal.present();
+
+    // await this._modal.dismiss();
+    // const modal = await this._modal.create({
+    //   component: WorkerMinutesEditPage,
+    //   componentProps: {
+    //     project_id: this.project_id,
+    //     safety_meeting_type: this.form.safety_meeting_type
+    //   }
+    // });
+    // modal.present();
   }
 
   async edit(item:SafetyMeetingInfo) {
