@@ -24,7 +24,8 @@
 
   <!-- <app-approval-document> -->
 
-    <h2>{{ form.safety_meeting_type_text }}</h2>
+    <!-- <h2>{{ form.safety_meeting_type_text }}</h2> -->
+    <h2>회의 현황</h2>
 
     <!-- <app-approval-template *mobileShow [approval_answer]="approval_answer"></app-approval-template> -->
 
@@ -32,7 +33,7 @@
 
     <app-row>
       <app-col>
-        <h4>기본 정보</h4>
+        <h4>회의 정보</h4>
       </app-col>
       <ng-container *ngIf="safety_meeting_id">
         <app-col size="auto" *ngIf="editable.my_state && !editable.update">
@@ -40,16 +41,16 @@
         </app-col>
         <app-col size="auto" *ngIf="editable.my_state && editable.update">
           <!--  (click)="deleteItem()" -->
-          <app-button fill="translucent" color="danger">삭제</app-button>
+          <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
         </app-col>
         <app-col size="auto" *ngIf="editable.my_state && editable.update">
           <!--  (click)="updateItem()" -->
-          <app-button fill="translucent">저장</app-button>
+          <app-button (click)="updateItem()" fill="translucent">저장</app-button>
         </app-col>
       </ng-container>
       <app-col size="auto" *ngIf="!safety_meeting_id">
         <!--  (click)="submit()" -->
-        <app-button>저장</app-button>
+        <app-button (click)="submit()">저장</app-button>
       </app-col>
     </app-row>
 
@@ -73,7 +74,6 @@
     </app-row>
 
     <app-row>
-      {{ form.safety_meeting_type_text }}
       <app-col>
         <app-row>
           <app-col>
@@ -86,7 +86,7 @@
           </app-col>
 
           <app-col>
-            <app-input label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="editable.update ? false : form.safety_meeting_type !== '직접입력'"></app-input>
+            <app-input [required]="true" label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="editable.update ? form.safety_meeting_type_text !== '직접입력' : form.safety_meeting_type_text !== '직접입력'"></app-input>
           </app-col>
         </app-row>
 
@@ -132,6 +132,46 @@
   
     <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
   
+    <app-row *ngIf="form.safety_meeting_id" style="align-items: flex-start;">
+      <app-col>
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>회의사진</h5>
+            </app-col>
+            <app-col *ngIf="editable.update" size="auto">
+              <app-button>추가
+                <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                  [file_json]="form.file_json"></app-file>
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+          <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_ONE'" [futItem]="futItem"
+            (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+        </ng-container>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5></h5>
+            </app-col>
+            <app-col *ngIf="editable.update" size="auto">
+              <app-button>추가
+                <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                  [file_json]="form.file_json"></app-file>
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+          <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_TWO'" [futItem]="futItem"
+            (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+        </ng-container>
+      </app-col>
+    </app-row>
     <!-- <h5>
       <app-row>
         <app-col>첨부 자료</app-col>
