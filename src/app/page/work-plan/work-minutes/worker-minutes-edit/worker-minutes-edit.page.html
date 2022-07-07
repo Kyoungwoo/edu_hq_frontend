@@ -86,7 +86,7 @@
           </app-col>
 
           <app-col>
-            <app-input [required]="true" label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="editable.update ? form.safety_meeting_type_text !== '직접입력' : form.safety_meeting_type_text !== '직접입력'"></app-input>
+            <app-input [required]="true" label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="safety_meeting_id ? (editable.update ? form.safety_meeting_type_text !== '직접입력' : true) : form.safety_meeting_type_text !== '직접입력'"></app-input>
           </app-col>
         </app-row>
 
@@ -132,7 +132,7 @@
   
     <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
   
-    <app-row *ngIf="form.safety_meeting_id" style="align-items: flex-start;">
+    <app-row *ngIf="safety_meeting_id" style="align-items: flex-start;">
       <app-col>
         <ion-toolbar color="white">
           <app-row>
@@ -141,7 +141,7 @@
             </app-col>
             <app-col *ngIf="editable.update" size="auto">
               <app-button>추가
-                <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                <app-file name="input" view_type="SAFETY_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
                   [file_json]="form.file_json"></app-file>
               </app-button>
             </app-col>
@@ -160,7 +160,7 @@
             </app-col>
             <app-col *ngIf="editable.update" size="auto">
               <app-button>추가
-                <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                <app-file name="input" view_type="SAFETY_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
                   [file_json]="form.file_json"></app-file>
               </app-button>
             </app-col>
@@ -172,6 +172,43 @@
         </ng-container>
       </app-col>
     </app-row>
+
+    <ng-container *ngIf="safety_meeting_id && form.safety_meeting_state !== '회의 전'">
+      <app-row style="margin-top: 10px;">
+        <app-col>
+          <h4>출석 현황 : {{ res?.rsObj?.row_count || 0 }}명</h4>
+        </app-col>
+        <app-col size="3">
+          <app-input (keyup.enter)="getAttendList()" [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다">
+            <app-img (click)="getAttendList()" name="search"></app-img>
+          </app-input>
+        </app-col>
+        <app-col size="auto" *ngIf="editable.educationMenu_state || editable.my_state">
+          <app-button (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+        </app-col>
+        <app-col size="auto" *ngIf="editable.educationMenu_state || editable.my_state" >
+          <app-button (click)="qrAdd()">출석등록QR)</app-button> 
+        </app-col>
+      </app-row>
+      <app-table style="margin-top: 0;">
+        <thead>
+          <tr>
+            <th style="width: 48px;">No</th>
+            <th>업체명</th>
+            <th>성명</th>
+            <th>서명일시</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of res?.rsMap let i = index">
+          <tr class="button" (click)="userInfo(item)">
+            <td>{{ i+1 }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.user_name }}({{ item.account_id }})</td>
+            <td>{{ item.create_date }}</td>
+          </tr>
+        </tbody>
+      </app-table>
+    </ng-container>
     <!-- <h5>
       <app-row>
         <app-col>첨부 자료</app-col>

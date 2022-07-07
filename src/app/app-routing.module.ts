@@ -603,6 +603,10 @@ const routes: Routes = [
   {
     path: 'monitor-cctv-edit',
     loadChildren: () => import('./page/monitor/monitor-cctv-edit/monitor-cctv-edit.module').then( m => m.MonitorCctvEditPageModule)
+  },
+  {
+    path: 'qr-safety-in',
+    loadChildren: () => import('./page/work-plan/work-minutes/qr-safety-in/qr-safety-in.module').then( m => m.QrSafetyInPageModule)
   }
 ];
 

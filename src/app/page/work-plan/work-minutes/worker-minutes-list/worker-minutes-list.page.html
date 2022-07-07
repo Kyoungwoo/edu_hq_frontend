@@ -65,8 +65,8 @@
         <ion-toolbar color="white">
 
           <ion-buttons slot="start">
-            <app-button *ngIf="permission.add" fill="translucent" (click)="add()">신규작성</app-button>
-            <app-button fill="translucent" (click)="pending()">미결문서</app-button>
+            <app-button *ngIf="permission.add" fill="translucent" (click)="add()">회의 개설</app-button>
+            <!-- <app-button fill="translucent" (click)="pending()">미결문서</app-button> -->
           </ion-buttons>
 
         </ion-toolbar>
@@ -92,7 +92,7 @@
                 <td>{{ item.safety_meeting_type }}</td>
                 <td>{{ item.safety_meeting_date }}</td>
                 <td>{{ item.safety_meeting_time }}</td>
-                <td>{{ item.user_name }}</td>
+                <td (click)="userInfo(item.user_id,$event)">{{ item.user_name }}</td>
                 <td>{{ item.safety_meeting_state }}</td>
               </tr>
             <tbody>

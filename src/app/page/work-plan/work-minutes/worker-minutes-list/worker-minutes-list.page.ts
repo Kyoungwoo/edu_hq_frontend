@@ -1,5 +1,6 @@
+import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -20,6 +21,7 @@ export class SafetyMeetingInfo {
   project_id: number;
   project_name: string;
   user_name: string;
+  user_id:number;
   row_count: number;
   safety_meeting_date: string;
   index: number;
@@ -64,7 +66,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     private toast: ToastService,
     private date: DateService,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    private popover: PopoverController
   ) { }
 
   async ngOnInit() {
@@ -156,7 +159,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
   public async getMobile($event) {
     this.form.limit_no = this.res.rsMap.length;
 
-    const res = await this.connect.run('/board/safety_meeting_old/list', this.form, {
+    const res = await this.connect.run('/board/safety_meeting/list', this.form, {
     });
     if(res.rsCode === 0 ) {
       /**
@@ -202,31 +205,16 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    * 회의록 추가
    */
   async add() {
-    // const modal = await this.modal.create({
-    //   component: WorkerMinutesSelectTypePage,
-    //   cssClass: 'worker-minutes-select-type-modal',
-    //   componentProps: {
-    //     project_id: this.form.project_id
-    //   }
-    // });
-    // modal.present();
     const modal = await this.modal.create({
       component: WorkerMinutesEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         project_id: this.form.project_id
       }
     });
     modal.present();
-
-    // await this._modal.dismiss();
-    // const modal = await this._modal.create({
-    //   component: WorkerMinutesEditPage,
-    //   componentProps: {
-    //     project_id: this.project_id,
-    //     safety_meeting_type: this.form.safety_meeting_type
-    //   }
-    // });
-    // modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 
   async edit(item:SafetyMeetingInfo) {
@@ -238,6 +226,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 
   /**
@@ -248,5 +238,19 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
       component: WorkerMinutesPendingListPage,
     });
     modal.present();
+  }
+
+  async userInfo(education_safe_manager_id,ev) {
+    ev.stopPropagation();
+    const popover = await this.popover.create({
+      component:PeopleViewComponent,
+      componentProps:{
+        type:'관리자',
+        education_safe_manager_id
+      },
+      cssClass:'education-info',
+      event:ev
+    });
+    popover.present();
   }
 }

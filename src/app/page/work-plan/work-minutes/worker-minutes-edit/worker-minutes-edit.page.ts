@@ -1,3 +1,6 @@
+import { QrSafetyInPage } from './../qr-safety-in/qr-safety-in.page';
+import { PeopleDeleteComponent } from 'src/app/component/modal/people-delete/people-delete.component';
+import { SearchAttendanceComponent } from 'src/app/component/modal/search-attendance/search-attendance.component';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -143,6 +146,8 @@ export class WorkerMinutesEditPage implements OnInit {
   approval_answer:AnswerObj[];
   approval_comment:CommentObj[];
 
+  safety_defualt = null;
+
   constructor(
     public user: UserService,
     private connect: ConnectService,
@@ -160,14 +165,14 @@ export class WorkerMinutesEditPage implements OnInit {
       this.form.safety_meeting_state = '회의 전';
       this.form.safety_meeting_type_text = '직접입력';
       this.getDefaultForm(); // 폼으로 채우고
-      this.getDefaultContent(); // 기본 정보를 가지고 온다.
     }
     else {
       // 수정 시에는 정보를 가져와서 채워넣음
       this.form.safety_meeting_id = this.safety_meeting_id;
       await this.getDetail();
+      this.getAttendList();
     }
-
+    this.getDefaultContent(); // 기본 정보를 가지고 온다.
     // 나머지 정보
     // this.form.safety_meeting_type_text = this.getTypeText(this.form.safety_meeting_type);
 
@@ -199,20 +204,30 @@ export class WorkerMinutesEditPage implements OnInit {
       company_id: this.form.master_company_id
     });
     if(res.rsCode === 0) {
-      switch(this.form.safety_meeting_type) {
-        case '안전':
-          this.form.safety_meeting_content = res.rsObj.safety_default;
-          break;
-        case '노사':
-          this.form.safety_meeting_content = res.rsObj.union_default;
-          break;
-        case '산업':
-          this.form.safety_meeting_content = res.rsObj.health_default;
-          break;
-      }
+      this.safety_defualt = res.rsObj;
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  }
+
+  /**
+   * 기본 회의록 협의사항 적용하기
+   */
+  async changeDefault(item) {
+    switch(item) {
+      case '안전':
+        this.form.safety_meeting_content = this.safety_defualt.safety_default;
+        break;
+      case '노사':
+        this.form.safety_meeting_content = this.safety_defualt.union_default;
+        break;
+      case '산업':
+        this.form.safety_meeting_content = this.safety_defualt.health_default;
+        break;
+      case '직접입력':
+        this.form.safety_meeting_content = '';
+        break;
     }
   }
 
@@ -222,7 +237,7 @@ export class WorkerMinutesEditPage implements OnInit {
   async getDetail() {
     const res = await this.connect.run('/board/safety_meeting/detail', {
       safety_meeting_id: this.form.safety_meeting_id
-    }, { parse: ['file_data'] });
+    }, { parse: ['safety_meeting_file_data'] });
     if(res.rsCode === 0) {
       this.form = {
         ...this.form,
@@ -231,6 +246,17 @@ export class WorkerMinutesEditPage implements OnInit {
       if(this.form.user_id === this.user.userData.user_id) this.editable.my_state = true;
       this.form.user_name = this.form.user_name+' / '+this.form.master_company_name;
       this.form.safety_meeting_type_text = this.form.safety_meeting_type;
+      if(this.form.safety_meeting_type_text !== '안전' &&
+         this.form.safety_meeting_type_text !== '노사' &&
+         this.form.safety_meeting_type_text !== '산업'){
+          let theme_text_1 = this.form.safety_meeting_type_text;
+          let theme_text_2 = this.form.safety_meeting_content;
+          this.form.safety_meeting_type_text = '직접입력';
+          setTimeout(() => {
+            this.form.safety_meeting_type = theme_text_1;
+            this.form.safety_meeting_content = theme_text_2;
+          },100);
+         }
       // console.log(this.form.safety_meeting_type);
       // console.log('this.form - ', this.form);
       // console.log(this.form);
@@ -241,7 +267,7 @@ export class WorkerMinutesEditPage implements OnInit {
     }
   }
 
-  async eduGetList() {
+  async getAttendList() {
     this.res = await this.connect.run('/board/safety_meeting/attendant/list',{
       safety_meeting_id:this.safety_meeting_id,
       search_text:this.attentForm.search_text
@@ -302,6 +328,7 @@ export class WorkerMinutesEditPage implements OnInit {
 
   async updateItem() {
     console.log("update - ", this.form);
+    console.log("update - 1");
     if(this.form.safety_meeting_type_text === '직접입력'){
       if(!this.form.safety_meeting_type) return this.toast.present({message:'회의유형을 입력해 주세요.', color:'warning'});
     }
@@ -313,22 +340,13 @@ export class WorkerMinutesEditPage implements OnInit {
     let start_time = Number(this.form.safety_meeting_start_time.split(':')[0]+this.form.safety_meeting_start_time.split(':')[1]);
     let end_time = Number(this.form.safety_meeting_end_time.split(':')[0]+this.form.safety_meeting_end_time.split(':')[1]);
     if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
-
-    // if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    // let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
-    // let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    // if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'수정하시겠습니까?',
       buttons:[
         {text:'아니요'},
         {text:'예',
           handler: async() => {
-            const res = await this.connect.run('/education/update', this.form);
+            const res = await this.connect.run('/board/safety_meeting/update', this.form);
             if(res.rsCode === 0) {
               this._modal.dismiss(true);
               this.toast.present({message:'수정되었습니다.',color:'primary'});
@@ -354,23 +372,13 @@ export class WorkerMinutesEditPage implements OnInit {
     let start_time = Number(this.form.safety_meeting_start_time.split(':')[0]+this.form.safety_meeting_start_time.split(':')[1]);
     let end_time = Number(this.form.safety_meeting_end_time.split(':')[0]+this.form.safety_meeting_end_time.split(':')[1]);
     if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
-    
-    // if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_date) return this.toast.present({message:'교육일을 설정해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    // if(!this.form.education_safe_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    // let start_time = Number(this.form.education_safe_start_time.split(':')[0]+this.form.education_safe_start_time.split(':')[1]);
-    // let end_time = Number(this.form.education_safe_end_time.split(':')[0]+this.form.education_safe_end_time.split(':')[1]);
-    // if(start_time >= end_time) return this.toast.present({message:'교육종료시간을 교육시작시간보다 나중으로 해주세요.', color:'warning'});
     const alert = await this.alert.present({
       message:'저장하시겠습니까?',
       buttons:[
         {text:'아니요'},
         {text:'예',
           handler: async() => {
-            const res = await this.connect.run('/education/insert',this.form);
+            const res = await this.connect.run('/board/safety_meeting/insert',this.form);
             if(res.rsCode === 0) {
               this._modal.dismiss(true);
               this.toast.present({message:'저장되었습니다.',color:'primary'});
@@ -391,7 +399,7 @@ export class WorkerMinutesEditPage implements OnInit {
         {text:'아니요'},
         {text:'예',
           handler:async() => {
-            const res = await this.connect.run('/education/delete',{safety_meeting_id:this.safety_meeting_id});
+            const res = await this.connect.run('/board/safety_meeting/delete',{safety_meeting_ids:[this.safety_meeting_id]});
             if(res.rsCode === 0) {
               this.toast.present({message:'삭제되었습니다.',color:'primary'});
               this._modal.dismiss(true);
@@ -556,6 +564,67 @@ export class WorkerMinutesEditPage implements OnInit {
       case '직접입력':
         this.form.safety_meeting_type = '';
         break;
+    }
+    this.changeDefault(item);
+  }
+
+  async userInfo(item) {
+    const modal = await this._modal.create({
+       component:PeopleDeleteComponent,
+       componentProps:{
+        item,
+        ...{educationMenu_state:this.editable.educationMenu_state,my_state:this.editable.my_state}
+       }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getAttendList();
+    }
+  }
+
+  async eduAdd() {
+    const modal = await this._modal.create({
+      component:SearchAttendanceComponent,
+      componentProps:{
+        project_id: this.user.userData.belong_data.project_id,
+        company_id: this.user.userData.belong_data.company_id,
+        educationType: false,
+        value: this.user_id,
+        title: '근로자'
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.user_id = [];
+      data.forEach(item => {
+        if(!this.user_id.includes(item.user_id)) this.user_id.push(item.user_id)
+      });
+      const res = await this.connect.run('/education/attendant/insert',{
+        attendant_user_ids:this.user_id,
+        education_safe_id:this.safety_meeting_id
+      });
+      if(res.rsCode === 0) {
+        this.toast.present({message:'선택하신 인원이 출석되었습니다.',color:'primary'});
+        this.getAttendList();
+      } else {
+        this.toast.present({message:res.rsMsg,color:'warning'});
+      }
+    }
+  }
+
+  async qrAdd() {
+    const modal = await this._modal.create({
+      component:QrSafetyInPage,
+      componentProps: {
+        item:this.form
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.getAttendList();
     }
   }
 }
