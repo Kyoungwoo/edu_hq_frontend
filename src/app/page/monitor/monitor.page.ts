@@ -470,12 +470,45 @@ export class MonitorPage implements OnInit, OnDestroy {
   //   }
   // }
 
+  // /**
+  //  * @function getCCTV(): CCTV목록정보를 가져옵니다.
+  //  */
+  //  async getCCTV(item, index) {
+  //     let cctv_form = {
+  //       project_id: item.project_id,
+  //       master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+  //       search_text: '',
+  //       limit_no: 0
+  //     }
+  
+  //     const res = await this.connect.run('/cctv/list', cctv_form);
+  //     if(res.rsCode === 0 ) {
+  //       if(res?.rsMap?.length){
+  //         let cctv_item = {
+  //           project_id: item.project_id,
+  //           project_name: item.project_name,
+  //           cctv_list: []
+  //         };
+  //         this.cctv.push(cctv_item);
+  //         res.rsMap.map((data_arr) => {if(data_arr.cctv_use_state) this.cctv[index]['cctv_list'].push(data_arr);});
+  //       }
+  //       // this.cctv = res;
+        
+  //     }
+  //     else if (res.rsCode === 1008) {
+  //       // this.cctv = null;
+  //     }
+  //     else {
+  //       this.toast.present({ color: 'warning', message: res.rsMsg });
+  //     }
+  // }
+
   /**
    * @function getCCTV(): CCTV목록정보를 가져옵니다.
    */
-   async getCCTV(item, index) {
+   async getCCTV(item) {
     let cctv_form = {
-      project_id: item.project_id,
+      project_id: item[this.sence_cur].project_id,
       master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
       search_text: '',
       limit_no: 0
@@ -484,122 +517,61 @@ export class MonitorPage implements OnInit, OnDestroy {
     const res = await this.connect.run('/cctv/list', cctv_form);
     if(res.rsCode === 0 ) {
       if(res?.rsMap?.length){
-        this.cctv.push({
-          project_id: item.project_id,
-          project_name: item.project_name,
+        let cctv_item = {
+          project_id: item[this.sence_cur].project_id,
+          project_name: item[this.sence_cur].project_name,
           cctv_list: []
-        });
+        };
+        this.cctv.push(cctv_item);
+        res.rsMap.map((data_arr) => {if(data_arr.cctv_use_state) this.cctv[this.sence_cur]['cctv_list'].push(data_arr);});
 
-        console.log('cctv_info - ', this.cctv);
-        res.rsMap.map((data_arr) => {
-          console.log('cctv_index - ', res?.rsMap?.length);
-          if(data_arr.cctv_use_state) this.cctv[this.cctv?.length-1]['cctv_list'].push(data_arr);
-        });
+        if(this.sence_index-1 > this.sence_cur){
+          console.log("들어옴!!!!! - ", this.sence_cur);
+          this.sence_cur++;
+          this.getCCTV(item);
+        }
       }
-      // this.cctv = res;
     }
     else if (res.rsCode === 1008) {
       // this.cctv = null;
+      let cctv_item = {
+        project_id: item[this.sence_cur].project_id,
+        project_name: item[this.sence_cur].project_name,
+        cctv_list: []
+      };
+      this.cctv.push(cctv_item);
+
+      this.sence_cur++;
+      this.getCCTV(item);
     }
     else {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
-  }
+}
 
 
   /**
    * @function getSence(): 현장목록정보를 가져옵니다.
    */
+  sence_index = 0;
+  sence_cur = 0;
+
    async getSence() {
     this.cctv = [];
+    this.sence_cur = 0;
     let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
     if (res.rsCode === 0) {
       if(res?.rsMap?.length){
-        await res.rsMap.map(async(item, index) => {
-          await this.getCCTV(item, index);
-        });
-        // let video_list:any = document.getElementById('videoItem');
-        // if(Hls.isSupported()) {
-        //   let hls = new Hls();
-        //   console.log('video hls - ',hls);
-          
-        //   console.log('video List - ',video_list);
-        //   hls.loadSource('http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'); // 동영상경로
-        //   hls.attachMedia(video_list);
-        //   hls.on(Hls.Events.MANIFEST_PARSED,() => {
-        //     video_list.play();
-        //   });
-        // } else if (video_list.canPlayType('application/vnd.apple.mpegurl')) {
-        //   video_list.src = 'http://s40.ipcamlive.com/streams/28atxw0mvoe391rqu/stream.m3u8'; // 동영상경로
-        //   video_list.addEventListener('canplay',function() {
-        //     video_list.play();
-        //   });
-        // }
+        this.sence_index = res.rsMap.length;
+        // res.rsMap.map(async(item, index) => {
+        //   console.log('index', index);
+        //   await this.getCCTV(item, index);
+        // });
 
+        await this.getCCTV(res.rsMap);
       }
-      console.log('cctv_list - ', this.cctv);
     } else {
       // this.toast.present({ color: 'warning', message: this.res.rsMsg });
     }
   }
-
-  // test_qwe(){
-  //   var video = document.getElementById('video');
-  //   var videoSrc = 'https://test.dev/tmp/index.m3u8';
-
-  //   // HLS를 지원하는지 체크
-  //   if (video.canPlayType('application/vnd.apple.mpegurl')) {
-  //     video.src = videoSrc;
-      
-  //   // HLS를 지원하지 않는다면 hls.js 사용 
-  //   } else if (Hls.isSupported()) {
-  //     var hls = new Hls();
-  //     hls.loadSource(videoSrc);
-  //     hls.attachMedia(video);
-  //   }
-  // }
-
-
-  
-  // SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
-  // STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
-  // session;
-  // PRELOADER_URL = "https://github.com/flashphoner/flashphoner_client/raw/wcs_api-2.0/examples/demo/dependencies/media/preloader.mp4";
-  // init_api() {
-  //   Flashphoner.init({});
-  //   //Connect to WCS server over websockets
-  //   this.session = Flashphoner.createSession({
-  //       urlServer: "wss://demo.flashphoner.com:8443" //specify the address of your WCS
-  //   }).on(this.SESSION_STATUS.ESTABLISHED, (session) => {
-  //       console.log("ESTABLISHED");
-  //   });
-  // }
-
-  // Browser = {
-  //   isSafari: () => {
-  //       return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  //   },
-  // }
- 
-  // playClick() {
-  //   console.log('stream 1 -----');
-  //   if (this.Browser.isSafari()) {
-  //     console.log('stream 2 -----');
-  //       Flashphoner.playFirstVideo(document.getElementById("play"), true, this.PRELOADER_URL).then(() => {
-  //         console.log('stream 3 -----');
-  //           this.playStream();
-  //       });
-  //   } else {
-  //     console.log('stream 4 -----');
-  //       this.playStream();
-  //   }
-  // }
-
-  // playStream() {
-  //   console.log('stream 5 -----');
-  //   this.session.createStream({
-  //       name: "rtsp://admin:qwert12@61.83.219.219:554/main/ch1", //specify the RTSP stream address
-  //       display: document.getElementById("play"),
-  //   }).play();
-  // }
 }
