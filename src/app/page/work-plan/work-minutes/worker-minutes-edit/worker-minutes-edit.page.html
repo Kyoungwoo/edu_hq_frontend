@@ -120,7 +120,7 @@
     <app-row>
       <app-col>
   
-        <app-textarea label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
+        <app-textarea [required]="true" label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
   
       </app-col>
       <app-col>
