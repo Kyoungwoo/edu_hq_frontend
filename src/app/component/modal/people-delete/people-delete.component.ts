@@ -32,10 +32,13 @@ class userInfo {
 export class PeopleDeleteComponent implements OnInit {
 
   @Input() item;
-  @Input() educationMenu_state;
+  @Input() menu_state;
   @Input() my_state;
+  @Input() type: 'EDU' | 'SAFE';
 
   form = new userInfo();
+  method:string = '';
+  params:any = null;
 
   constructor(
     private connect: ConnectService,
@@ -46,6 +49,17 @@ export class PeopleDeleteComponent implements OnInit {
 
   ngOnInit() {
     this.get();
+
+    switch(this.type){
+      case 'EDU':
+        this.method = '/education/attendant/delete';
+        this.params = {attendant_user_id:this.item.user_id,education_safe_id:this.item.education_safe_id};
+        break;
+      case 'SAFE':
+        this.method = '/board/safety_meeting/attendant/delete';
+        this.params = {attendant_user_id:this.item.user_id,safety_meeting_id:this.item.safety_meeting_id};
+        break;
+    }
   }
 
   async get() {
@@ -71,10 +85,7 @@ export class PeopleDeleteComponent implements OnInit {
         {text: '아니요'},
         {text: '예',
           handler: async() => {
-            const res = await this.connect.run('/education/attendant/delete', {
-              attendant_user_id:this.item.user_id,
-              education_safe_id:this.item.education_safe_id
-            });
+            const res = await this.connect.run(this.method, this.params);
             if(res.rsCode == 0) {
               this.toast.present({message:`${this.form.user_name}님이 출석에서 제외 되엇습니다.`,color:'primary'});
               this._modal_.dismiss(true);

@@ -22,7 +22,7 @@ export class QrSafetyInPage implements OnInit {
     console.log('QrSafetyInPage - ', this.item);
     this.meet_time = `${this.item.safety_meeting_start_time} ~ ${this.item.safety_meeting_end_time}`;
     
-    this.meet_date = `${this.item.safety_meeting_date}(${this.item.create_date_week_day})`;
+    this.meet_date = `${this.item.safety_meeting_date}(${this.item.safety_meeting_date_week_day})`;
     this.generatorQrcode();
   }
   

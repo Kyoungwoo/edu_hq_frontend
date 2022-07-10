@@ -93,7 +93,9 @@ export class ApprovalComponent implements OnInit {
     private alert: AlertService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('approval form data - ',this.form);
+  }
 
   /**
    * 버튼 클릭

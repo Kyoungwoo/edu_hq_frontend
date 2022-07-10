@@ -607,6 +607,18 @@ const routes: Routes = [
   {
     path: 'qr-safety-in',
     loadChildren: () => import('./page/work-plan/work-minutes/qr-safety-in/qr-safety-in.module').then( m => m.QrSafetyInPageModule)
+  },
+  {
+    path: 'work-write-list',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-write-list/work-write-list.module').then( m => m.WorkWriteListPageModule)
+  },
+  {
+    path: 'work-write-target',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-write-target/work-write-target.module').then( m => m.WorkWriteTargetPageModule)
+  },
+  {
+    path: 'work-write-edit',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-write-edit/work-write-edit.module').then( m => m.WorkWriteEditPageModule)
   }
 ];
 

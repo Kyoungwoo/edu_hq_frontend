@@ -61,7 +61,6 @@
       <app-col>
         <app-input label="회의 상태" [(ngModel)]="form.safety_meeting_state" [disabled]="true"></app-input>
       </app-col>
-
     </app-row>
 
     <app-row>
@@ -183,10 +182,10 @@
             <app-img (click)="getAttendList()" name="search"></app-img>
           </app-input>
         </app-col>
-        <app-col size="auto" *ngIf="editable.educationMenu_state || editable.my_state">
-          <app-button (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+        <app-col size="auto" *ngIf="editable.menu_state || editable.my_state">
+          <app-button (click)="safeAdd()" fill="translucent" >출석등록(검색)</app-button>
         </app-col>
-        <app-col size="auto" *ngIf="editable.educationMenu_state || editable.my_state" >
+        <app-col size="auto" *ngIf="editable.menu_state || editable.my_state" >
           <app-button (click)="qrAdd()">출석등록QR)</app-button> 
         </app-col>
       </app-row>

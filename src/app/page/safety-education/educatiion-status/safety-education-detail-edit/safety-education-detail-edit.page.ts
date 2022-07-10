@@ -249,7 +249,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
        component:PeopleDeleteComponent,
        componentProps:{
         item,
-        ...{educationMenu_state:this.editable.educationMenu_state,my_state:this.editable.my_state}
+        ...{menu_state:this.editable.educationMenu_state,my_state:this.editable.my_state, type: 'EDU'}
        }
     });
     modal.present();

@@ -25,6 +25,7 @@ export class EditItem {
 
   safety_meeting_id:number;
   safety_meeting_type: string;
+  safety_meeting_type_full:string;
   safety_meeting_type_text: string;
   safety_meeting_date: string;
   safety_meeting_place: string;
@@ -139,7 +140,7 @@ export class WorkerMinutesEditPage implements OnInit {
   editable = {
     update:false,
     educationMenu:1,
-    educationMenu_state: false,
+    menu_state: false,
     my_state: false
   };
 
@@ -257,6 +258,8 @@ export class WorkerMinutesEditPage implements OnInit {
             this.form.safety_meeting_content = theme_text_2;
           },100);
          }
+        
+      if(this.user.userData.user_id === this.form.user_id) this.editable.menu_state = true;
       // console.log(this.form.safety_meeting_type);
       // console.log('this.form - ', this.form);
       // console.log(this.form);
@@ -279,6 +282,8 @@ export class WorkerMinutesEditPage implements OnInit {
       });
       this.eduUpdate = true;
       console.log("this.eduUpdate - ",this.eduUpdate);
+    } else if(this.res.rsCode === 1008){
+      this.user_id = [];
     }
   }
 
@@ -573,17 +578,19 @@ export class WorkerMinutesEditPage implements OnInit {
        component:PeopleDeleteComponent,
        componentProps:{
         item,
-        ...{educationMenu_state:this.editable.educationMenu_state,my_state:this.editable.my_state}
+        ...{menu_state:this.editable.menu_state,my_state:this.editable.my_state, type: 'SAFE'}
        }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
+    console.log('userInfo outer - ', data);
     if(data) {
+      console.log('userInfo inner - ', data);
       this.getAttendList();
     }
   }
 
-  async eduAdd() {
+  async safeAdd() {
     const modal = await this._modal.create({
       component:SearchAttendanceComponent,
       componentProps:{
@@ -601,9 +608,9 @@ export class WorkerMinutesEditPage implements OnInit {
       data.forEach(item => {
         if(!this.user_id.includes(item.user_id)) this.user_id.push(item.user_id)
       });
-      const res = await this.connect.run('/education/attendant/insert',{
+      const res = await this.connect.run('/board/safety_meeting/attendant/insert',{
         attendant_user_ids:this.user_id,
-        education_safe_id:this.safety_meeting_id
+        safety_meeting_id:this.safety_meeting_id
       });
       if(res.rsCode === 0) {
         this.toast.present({message:'선택하신 인원이 출석되었습니다.',color:'primary'});

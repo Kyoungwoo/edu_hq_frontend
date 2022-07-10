@@ -132,7 +132,7 @@ export class  SideMenuAdminComponent implements OnInit {
           const { user_type } = this.user.userData;
           return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
         }},
-        { title: '회의록 작성', link: '/worker-minutes-list',
+        { title: '회의록 작성', link: '/work-write-list',
         permission: () => {
           const { user_type } = this.user.userData;
           return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
