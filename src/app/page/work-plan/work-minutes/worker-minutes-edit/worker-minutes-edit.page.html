@@ -1,229 +1,492 @@
-<ion-header>
-  <ion-toolbar color="white">
-    <ion-title>회의록</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-  <!-- *ngIf="user.userData.user_type !== 'WORKER'" -->
-  <!-- <app-approval 
-  [project_id]="form.project_id"
-  [company_id]="form.company_id"
-  [ctgo_approval_module_id]="form.ctgo_approval_module_id"
-  [approval_id]="form.approval_id"
-  (deleteClick)="onDeleteClick($event)"
-  (saveClick)="onSaveClick($event)"
-  (sendClick)="onSendClick($event)"
-  (recoveryClick)="onRecoveryClick($event)"
-  (approvalClick)="onApprovalClick($event)"
-  (change)="onApprovalChange($event)"></app-approval> -->
-
-  <!-- <app-approval-document> -->
-
-    <!-- <h2>{{ form.safety_meeting_type_text }}</h2> -->
-    <h2>회의 현황</h2>
-
-    <!-- <app-approval-template *mobileShow [approval_answer]="approval_answer"></app-approval-template> -->
-
-    <!-- <h4>기본 정보</h4> -->
-
-    <app-row>
-      <app-col>
-        <h4>회의 정보</h4>
-      </app-col>
-      <ng-container *ngIf="safety_meeting_id">
-        <app-col size="auto" *ngIf="editable.my_state && !editable.update">
-          <app-button (click)="editable.update = true" fill="translucent">수정</app-button>
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>회의록</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  
+    <!-- *ngIf="user.userData.user_type !== 'WORKER'" -->
+    <!-- <app-approval 
+    [project_id]="form.project_id"
+    [company_id]="form.company_id"
+    [ctgo_approval_module_id]="form.ctgo_approval_module_id"
+    [approval_id]="form.approval_id"
+    (deleteClick)="onDeleteClick($event)"
+    (saveClick)="onSaveClick($event)"
+    (sendClick)="onSendClick($event)"
+    (recoveryClick)="onRecoveryClick($event)"
+    (approvalClick)="onApprovalClick($event)"
+    (change)="onApprovalChange($event)"></app-approval> -->
+  
+    <!-- <app-approval-document> -->
+  
+      <!-- <h2>{{ form.safety_meeting_type_text }}</h2> -->
+      <h2>회의 현황</h2>
+  
+      <!-- <app-approval-template *mobileShow [approval_answer]="approval_answer"></app-approval-template> -->
+  
+      <!-- <h4>기본 정보</h4> -->
+  
+      <app-row>
+        <app-col>
+          <h4>회의 정보</h4>
         </app-col>
-        <app-col size="auto" *ngIf="editable.my_state && editable.update">
-          <!--  (click)="deleteItem()" -->
-          <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
+        <ng-container *ngIf="safety_meeting_id">
+          <app-col size="auto" *ngIf="editable.my_state && !editable.update">
+            <app-button (click)="editable.update = true" fill="translucent">수정</app-button>
+          </app-col>
+          <app-col size="auto" *ngIf="editable.my_state && editable.update">
+            <!--  (click)="deleteItem()" -->
+            <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
+          </app-col>
+          <app-col size="auto" *ngIf="editable.my_state && editable.update">
+            <!--  (click)="updateItem()" -->
+            <app-button (click)="updateItem()" fill="translucent">저장</app-button>
+          </app-col>
+        </ng-container>
+        <app-col size="auto" *ngIf="!safety_meeting_id">
+          <!--  (click)="submit()" -->
+          <app-button (click)="submit()">저장</app-button>
         </app-col>
-        <app-col size="auto" *ngIf="editable.my_state && editable.update">
-          <!--  (click)="updateItem()" -->
-          <app-button (click)="updateItem()" fill="translucent">저장</app-button>
+      </app-row>
+  
+      <app-row>
+        <app-col>
+          <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
         </app-col>
+        <app-col>
+          <app-input label="회의 상태" [(ngModel)]="form.safety_meeting_state" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+  
+      <app-row>
+        <app-col>
+          <app-input label="개설자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-calendar label="개설일" [(ngModel)]="form.create_date" [disabled]="true"></app-calendar>
+        </app-col>
+      </app-row>
+  
+      <app-row>
+        <app-col>
+          <app-row>
+            <app-col>
+              <app-select (ngModelChange)="changeType($event)" [required]="true" label="회의유형" [(ngModel)]="form.safety_meeting_type_text" [disabled]="!editable.update">
+                <app-select-option value="직접입력">직접입력</app-select-option>
+                <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
+                <app-select-option value="노사">노사 협의체 회의록</app-select-option>
+                <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
+              </app-select>
+            </app-col>
+  
+            <app-col>
+              <app-input [required]="true" label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="safety_meeting_id ? (editable.update ? form.safety_meeting_type_text !== '직접입력' : true) : form.safety_meeting_type_text !== '직접입력'"></app-input>
+            </app-col>
+          </app-row>
+  
+        </app-col>
+        <app-col>
+          <app-calendar [required]="true" label="회의일" [(ngModel)]="form.safety_meeting_date" [disabled]="!editable.update"></app-calendar>
+        </app-col>
+      </app-row>
+  
+      <app-row>
+        <app-col>
+          <app-input [required]="true" label="회의장소" [(ngModel)]="form.safety_meeting_place" [disabled]="!editable.update"></app-input>
+        </app-col>
+        <app-col>
+          <app-row>
+            <app-col size="6">
+              <app-datetime [required]="true" [disabled]="!editable.update" name="safety_meeting_start_time" label="회의시작시간"
+              [(ngModel)]="form.safety_meeting_start_time">
+              </app-datetime>
+            </app-col>
+            <app-col size="6">
+              <app-datetime [required]="true" [disabled]="!editable.update" name="safety_meeting_end_time" label="회의종료시간"
+              [(ngModel)]="form.safety_meeting_end_time">
+              </app-datetime>
+            </app-col>
+          </app-row>
+        </app-col>
+      </app-row>
+    
+      <h4>회의 내용</h4>
+      <app-row>
+        <app-col>
+    
+          <app-textarea [required]="true" label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
+    
+        </app-col>
+        <app-col>
+    
+          <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
+    
+        </app-col>
+      </app-row>
+    
+      <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
+    
+      <app-row *ngIf="safety_meeting_id" style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>회의사진</h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="SAFETY_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_ONE'" [futItem]="futItem"
+              (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5></h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="SAFETY_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_TWO'" [futItem]="futItem"
+              (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+  
+      <ng-container *ngIf="safety_meeting_id && form.safety_meeting_state !== '회의 전'">
+        <app-row style="margin-top: 10px;">
+          <app-col>
+            <h4>출석 현황 : {{ res?.rsObj?.row_count || 0 }}명</h4>
+          </app-col>
+          <app-col size="3">
+            <app-input (keyup.enter)="getAttendList()" [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="getAttendList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+          <app-col size="auto" *ngIf="editable.menu_state || editable.my_state">
+            <app-button (click)="safeAdd()" fill="translucent" >출석등록(검색)</app-button>
+          </app-col>
+          <app-col size="auto" *ngIf="editable.menu_state || editable.my_state" >
+            <app-button (click)="qrAdd()">출석등록QR)</app-button> 
+          </app-col>
+        </app-row>
+        <app-table style="margin-top: 0;">
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>업체명</th>
+              <th>성명</th>
+              <th>서명일시</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of res?.rsMap let i = index">
+            <tr class="button" (click)="userInfo(item)">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.user_name }}({{ item.account_id }})</td>
+              <td>{{ item.create_date }}</td>
+            </tr>
+          </tbody>
+        </app-table>
       </ng-container>
-      <app-col size="auto" *ngIf="!safety_meeting_id">
-        <!--  (click)="submit()" -->
-        <app-button (click)="submit()">저장</app-button>
-      </app-col>
-    </app-row>
+      <!-- <h5>
+        <app-row>
+          <app-col>첨부 자료</app-col>
+          <app-col size="auto" *ngIf="permission.edit">
+            <app-button>
+              첨부
+              <app-file view_type="SAFETY_MEETING" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json" [multiple]="true"></app-file>
+            </app-button>
+          </app-col>
+        </app-row>
+      </h5>
+    
+      <app-file-preview *ngFor="let item of form.file_data; let i = index;" [futItem]="item" (buttonClick)="form.file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview> -->
+    
+      <!-- <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment> -->
+  
+    <!-- </app-approval-document> -->
+    
+  </ion-content>
+</ng-container>
 
-    <app-row>
-      <app-col>
-        <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-      </app-col>
-      <app-col>
-        <app-input label="회의 상태" [(ngModel)]="form.safety_meeting_state" [disabled]="true"></app-input>
-      </app-col>
-    </app-row>
 
-    <app-row>
-      <app-col>
-        <app-input label="개설자" [(ngModel)]="form.user_name" [disabled]="true"></app-input>
-      </app-col>
-      <app-col>
-        <app-calendar label="개설일" [(ngModel)]="form.create_date" [disabled]="true"></app-calendar>
-      </app-col>
-    </app-row>
 
-    <app-row>
-      <app-col>
+<!-- 모바일 교육정보/출석현황 탭 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white" *ngIf="safety_meeting_id">
+      <ion-segment color="primary" [value]="1" >
+        <ion-segment-button (click)="editable.safetyMenu = 1" [value]="1">회의정보</ion-segment-button>
+        <ion-segment-button (click)="editable.safetyMenu = 2" [value]="2">회의사진</ion-segment-button>
+        <ion-segment-button (click)="editable.safetyMenu = 3" [value]="3">출석현황</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container *ngIf="editable.safetyMenu === 1">
+      <app-row>
+        <app-col>
+          <h4>기본정보</h4>
+        </app-col>
+      </app-row>
+
+      <app-card>
         <app-row>
           <app-col>
-            <app-select (ngModelChange)="changeType($event)" [required]="true" label="회의유형" [(ngModel)]="form.safety_meeting_type_text" [disabled]="!editable.update">
+            <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input [disabled]="true" name="edustate" label="회의상태" [(ngModel)]="form.safety_meeting_type_full"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-input name="create" [disabled]="true" label="개설자" [value]="form.safety_meeting_id ? (form.user_name) : (user.userData.user_name + ' / ' + user.userData.belong_data.company_name)"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+              <app-input [disabled]="true" label="개설일" name="createdata" [(ngModel)]="form.create_date"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <!-- <app-select-education [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" [required]="true" (change)="educationText($event)" name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education> -->
+            <app-select (ngModelChange)="changeType($event)" [required]="true" label="회의유형" [(ngModel)]="form.safety_meeting_type_text" [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)">
               <app-select-option value="직접입력">직접입력</app-select-option>
               <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
               <app-select-option value="노사">노사 협의체 회의록</app-select-option>
               <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
             </app-select>
           </app-col>
+        </app-row>
+      </app-card>
 
+      <app-card>
+        <app-row>
           <app-col>
-            <app-input [required]="true" label="직접 입력란" [(ngModel)]="form.safety_meeting_type" [disabled]="safety_meeting_id ? (editable.update ? form.safety_meeting_type_text !== '직접입력' : true) : form.safety_meeting_type_text !== '직접입력'"></app-input>
+            <app-calendar [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" name="create_date" label="회의일" [required]="true" [required]="true" [(ngModel)]="form.safety_meeting_date"></app-calendar>
           </app-col>
         </app-row>
+      </app-card>
 
-      </app-col>
-      <app-col>
-        <app-calendar [required]="true" label="회의일" [(ngModel)]="form.safety_meeting_date" [disabled]="!editable.update"></app-calendar>
-      </app-col>
-    </app-row>
-
-    <app-row>
-      <app-col>
-        <app-input [required]="true" label="회의장소" [(ngModel)]="form.safety_meeting_place" [disabled]="!editable.update"></app-input>
-      </app-col>
-      <app-col>
+      <app-card>
         <app-row>
-          <app-col size="6">
-            <app-datetime [required]="true" [disabled]="!editable.update" name="safety_meeting_start_time" label="회의시작시간"
+          <app-col>
+            <app-input [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="교육장소를 입력해주세요" name="education_safe_place" [required]="true" label="회의장소" [(ngModel)]="form.safety_meeting_place"></app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-datetime [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" [required]="true" name="education_safe_start_time" label="회의시작시간" 
             [(ngModel)]="form.safety_meeting_start_time">
             </app-datetime>
           </app-col>
-          <app-col size="6">
-            <app-datetime [required]="true" [disabled]="!editable.update" name="safety_meeting_end_time" label="회의종료시간"
+        </app-row>
+
+        <app-row>
+          <app-col>
+            <app-datetime [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" [required]="true" name="education_safe_end_time" label="회의종료시간" 
             [(ngModel)]="form.safety_meeting_end_time">
             </app-datetime>
           </app-col>
         </app-row>
-      </app-col>
-    </app-row>
-  
-    <h4>회의 내용</h4>
-    <app-row>
-      <app-col>
-  
-        <app-textarea [required]="true" label="협의 사항" [(ngModel)]="form.safety_meeting_content" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
-  
-      </app-col>
-      <app-col>
-  
-        <app-textarea label="의결 사항" [(ngModel)]="form.safety_meeting_resolve" [rows]="10" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
-  
-      </app-col>
-    </app-row>
-  
-    <app-textarea label="기타 사항" [(ngModel)]="form.safety_meeting_etc" [readonly]="editable.update ? false : (editable.my_state ? true : false)"></app-textarea>
-  
-    <app-row *ngIf="safety_meeting_id" style="align-items: flex-start;">
-      <app-col>
-        <ion-toolbar color="white">
-          <app-row>
-            <app-col>
-              <h5>회의사진</h5>
-            </app-col>
-            <app-col *ngIf="editable.update" size="auto">
-              <app-button>추가
-                <app-file name="input" view_type="SAFETY_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
-                  [file_json]="form.file_json"></app-file>
-              </app-button>
-            </app-col>
-          </app-row>
-        </ion-toolbar>
-        <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
-          <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_ONE'" [futItem]="futItem"
-            (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
-        </ng-container>
-      </app-col>
-      <app-col>
-        <ion-toolbar color="white">
-          <app-row>
-            <app-col>
-              <h5></h5>
-            </app-col>
-            <app-col *ngIf="editable.update" size="auto">
-              <app-button>추가
-                <app-file name="input" view_type="SAFETY_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
-                  [file_json]="form.file_json"></app-file>
-              </app-button>
-            </app-col>
-          </app-row>
-        </ion-toolbar>
-        <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
-          <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_TWO'" [futItem]="futItem"
-            (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
-        </ng-container>
-      </app-col>
-    </app-row>
+      </app-card>
 
-    <ng-container *ngIf="safety_meeting_id && form.safety_meeting_state !== '회의 전'">
-      <app-row style="margin-top: 10px;">
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-textarea [required]="true" [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="협의내용을 입력해주세요" label="협의내용" name="safety_meeting_content" [rows]="10" [(ngModel)]="form.safety_meeting_content"></app-textarea>
+          </app-col>
+        </app-row>
+      </app-card>
+
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-textarea [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="의결사항을 입력해주세요" label="의결사항" name="safety_meeting_resolve" [rows]="10" [(ngModel)]="form.safety_meeting_resolve"></app-textarea>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <app-card>
+        <app-row>
+          <app-col>
+            <app-textarea [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="기타사항을 입력해주세요" label="기타사항" name="safety_meeting_etc" [rows]="10" [(ngModel)]="form.safety_meeting_etc"></app-textarea>
+          </app-col>
+        </app-row>
+      </app-card>
+      
+      <!-- <app-row>
         <app-col>
-          <h4>출석 현황 : {{ res?.rsObj?.row_count || 0 }}명</h4>
+          첨부자료
         </app-col>
-        <app-col size="3">
-          <app-input (keyup.enter)="getAttendList()" [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다">
-            <app-img (click)="getAttendList()" name="search"></app-img>
-          </app-input>
-        </app-col>
-        <app-col size="auto" *ngIf="editable.menu_state || editable.my_state">
-          <app-button (click)="safeAdd()" fill="translucent" >출석등록(검색)</app-button>
-        </app-col>
-        <app-col size="auto" *ngIf="editable.menu_state || editable.my_state" >
-          <app-button (click)="qrAdd()">출석등록QR)</app-button> 
-        </app-col>
-      </app-row>
-      <app-table style="margin-top: 0;">
-        <thead>
-          <tr>
-            <th style="width: 48px;">No</th>
-            <th>업체명</th>
-            <th>성명</th>
-            <th>서명일시</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let item of res?.rsMap let i = index">
-          <tr class="button" (click)="userInfo(item)">
-            <td>{{ i+1 }}</td>
-            <td>{{ item.company_name }}</td>
-            <td>{{ item.user_name }}({{ item.account_id }})</td>
-            <td>{{ item.create_date }}</td>
-          </tr>
-        </tbody>
-      </app-table>
-    </ng-container>
-    <!-- <h5>
-      <app-row>
-        <app-col>첨부 자료</app-col>
-        <app-col size="auto" *ngIf="permission.edit">
-          <app-button>
-            첨부
-            <app-file view_type="SAFETY_MEETING" [(ngModel)]="form.file_data" [file]="form.file" [file_json]="form.file_json" [multiple]="true"></app-file>
+        <app-col size="auto" *ngIf="editable.update ? true : (editable.menu_state || editable.my_state)">
+          <app-button fill="translucent">추가
+            <app-file [limit]="2" name="input" view_type="EDU"
+            [(ngModel)]="form.education_safe_file_data" 
+            [file]="form.file" 
+            [file_json]="form.file_json" [multiple]="true"></app-file>
           </app-button>
         </app-col>
       </app-row>
-    </h5>
-  
-    <app-file-preview *ngFor="let item of form.file_data; let i = index;" [futItem]="item" (buttonClick)="form.file_data.splice(i, 1)" [readonly]="!permission.edit"></app-file-preview> -->
-  
-    <!-- <app-approval-comment [approval_comment]="approval_comment"></app-approval-comment> -->
+      <app-file-preview type="full" [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
+    </ng-container>
 
-  <!-- </app-approval-document> -->
-  
-</ion-content>
+    <ng-container *ngIf="editable.safetyMenu === 2">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>회의사진</h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="SAFETY_ONE" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_ONE'" [futItem]="futItem"
+              (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5></h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="SAFETY_TWO" [(ngModel)]="form.safety_meeting_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'SAFETY_TWO'" [futItem]="futItem"
+              (buttonClick)="form.safety_meeting_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+    </ng-container>
+
+    <ng-container *ngIf="editable.safetyMenu === 3">
+      <app-card>
+        <app-row>
+          <app-col>
+            <h4>현황 : 총 {{ res?.rsObj?.row_count || 0 }}명</h4>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <app-input [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="getAttendList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      <ion-row>
+        <ion-col *ngFor="let item of res?.rsMap" size="6">
+          <app-card [button]="true" (click)="userInfo(item)" style="height: 85%;">
+            <app-row>
+              <app-col>
+                <h5>{{ item.user_name }}({{ item.account_id }})</h5>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col>
+                <h6>업체명</h6>
+                <h5>{{ item.company_name }}</h5>
+                <h6>직종</h6>
+                <h5>{{ item.ctgo_occupation_name }}</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+        <ion-col size="6">
+          <app-card *ngIf="editable.menu_state || editable.my_state" style="background-color: var(--ion-color-medium-translucent); height: 85%;" (click)="qrAdd()">
+            <app-row>
+              <app-col size="auto">
+                <app-img name="tag"></app-img>
+              </app-col>
+              <app-col>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col style="text-align: center;">
+                <h5>QR코드를 근로자에게<br> 인식 시켜주세요</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-content>
+  <app-button-footer *ngIf="safety_meeting_id && (editable.safetyMenu === 1 || editable.safetyMenu === 2)">
+    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="updateItem()" fill="translucent">수정</app-button>
+    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
+  </app-button-footer>
+  <app-button-footer *ngIf="!safety_meeting_id">
+    <app-button (click)="submit()">저장</app-button>
+  </app-button-footer>
+  <app-button-footer *ngIf="editable.menu_state && editable.safetyMenu === 3">
+    <app-button *ngIf="editable.safetyMenu === 3" (click)="safeAdd()" fill="translucent" >출석등록(검색)</app-button>
+    <app-button *ngIf="editable.safetyMenu === 3" (click)="qrAdd()">출석등록QR)</app-button>
+  </app-button-footer>
+</ng-container>

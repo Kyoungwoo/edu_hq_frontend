@@ -139,7 +139,7 @@ export class WorkerMinutesEditPage implements OnInit {
 
   editable = {
     update:false,
-    educationMenu:1,
+    safetyMenu:1,
     menu_state: false,
     my_state: false
   };
@@ -260,6 +260,8 @@ export class WorkerMinutesEditPage implements OnInit {
          }
         
       if(this.user.userData.user_id === this.form.user_id) this.editable.menu_state = true;
+
+      if(this.form.user_id === this.user.userData.user_id) this.editable.my_state = true;
       // console.log(this.form.safety_meeting_type);
       // console.log('this.form - ', this.form);
       // console.log(this.form);

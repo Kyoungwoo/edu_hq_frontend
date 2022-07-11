@@ -91,18 +91,19 @@
             <app-col>
               <h5>회의사진</h5>
             </app-col>
-            <app-col *ngIf="permission.edit" size="auto">
+            <!-- <app-col *ngIf="permission.edit" size="auto">
               <app-button>추가
                 <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
                   [file_json]="form.file_json"></app-file>
               </app-button>
-            </app-col>
+            </app-col> -->
           </app-row>
         </ion-toolbar>
         <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
           <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
-            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!permission.edit"></app-file-preview>
+            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="true"></app-file-preview>
         </ng-container>
+        <!-- !permission.edit -->
       </app-col>
       <app-col>
         <ion-toolbar color="white">
@@ -110,17 +111,17 @@
             <app-col>
               <h5></h5>
             </app-col>
-            <app-col *ngIf="permission.edit" size="auto">
+            <!-- <app-col *ngIf="permission.edit" size="auto">
               <app-button>추가
                 <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
                   [file_json]="form.file_json"></app-file>
               </app-button>
-            </app-col>
+            </app-col> -->
           </app-row>
         </ion-toolbar>
         <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
           <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
-            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!permission.edit"></app-file-preview>
+            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="true"></app-file-preview>
         </ng-container>
       </app-col>
     </app-row>

@@ -51,6 +51,10 @@ ion-content::part(scroll) {
     }
 }
 
+.setting-btn{
+    color: var(--ion-text-color)!important;
+}
+
 @media screen and (max-width: 768px) {
     .login-card {
         padding: 16px;

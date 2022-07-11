@@ -183,7 +183,7 @@ export class WorkWriteEditPage implements OnInit {
    */
   async getItem() {
     const res = await this.connect.run('/board/safety_meeting/report/detail', { safety_meeting_report_id: this.safety_meeting_report_id },{
-      parse:[ 'company_file_data','safety_meeting_report_file_data' ]
+      parse:[ 'company_file_data','safety_meeting_report_file_data', 'safety_meeting_file_data' ]
     })
     if(res.rsCode === 0) {
       this.form = {

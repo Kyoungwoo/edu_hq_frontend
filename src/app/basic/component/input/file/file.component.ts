@@ -104,6 +104,10 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     const existLength = this.value.filter(item => item.seq_no).length;
     if(!this.multiple) {
       const file = fileList[0];
+      // let existValueIndex = null;
+      // if(this.view_type === 'EDU_ONE' || this.view_type === 'EDU_TWO') existValueIndex = this.value.findIndex(item => item.view_type === 'EDU_ONE' || 'EDU_TWO');
+      // else if(this.view_type === 'SAFETY_ONE' || this.view_type === 'SAFETY_TWO') existValueIndex = this.value.findIndex(item => item.view_type === 'SAFETY_ONE' || 'SAFETY_TWO');
+      // else 
       const existValueIndex = this.value.findIndex(item => item.view_type === this.view_type);
       if(existValueIndex > -1) this.value.splice(existValueIndex, 1);
       this.fileItemAdd(file, this.view_type, existLength + 1);
@@ -116,6 +120,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
     console.log(this.file_json);
   }
   private fileItemAdd(file:File|FileBlob, view_type, order_no) {
+    if(view_type === 'EDU_ONE' || view_type === 'SAFETY_ONE') order_no = 1;
+    if(view_type === 'EDU_TWO' || view_type === 'SAFETY_TWO') order_no = 2;
     this.value.push({
       content_type: file.type,
       file_name: file.name,
@@ -152,6 +158,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       this.file.splice(deleteFileIndex, 1);
     }
     const reorderedList = this.value.map((_item, i) => {
+      if(_item.view_type === 'EDU_ONE' || _item.view_type === 'SAFETY_ONE') _item.order_no = 1;
+      if(_item.view_type === 'EDU_TWO' || _item.view_type === 'SAFETY_TWO') _item.order_no = 2;
       return {
         seq_no: _item.seq_no,
         order_no: i + 1,

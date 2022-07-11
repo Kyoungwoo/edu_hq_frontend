@@ -141,8 +141,8 @@
       <app-row style="align-items: flex-start;">
         <app-col>
           <h5>안전 및 보건에 관한 협의체 회의록</h5>
-          <p>{{ item.master_company_name }}/{{ item.user_name }}</p>
-          <p>작성일: {{ item.create_date }}</p>
+          <p>{{ item.master_company_name }} / {{ item.safety_meeting_place }} / {{ item.user_name }}</p>
+          <p>회의일: {{ item.safety_meeting_date }} / {{ item.safety_meeting_time+'('+item.safety_meeting_date_week_day+')' }}</p>
         </app-col>
       </app-row>
       <app-row>

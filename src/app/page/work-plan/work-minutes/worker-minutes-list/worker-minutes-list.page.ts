@@ -14,6 +14,8 @@ import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worke
 export class SafetyMeetingInfo {
   master_company_id: number;
   master_company_name: string;
+  company_id: number;
+  company_name: string;
   create_date: string;
   safety_meeting_id: number;
   notice_title: string;
@@ -25,8 +27,10 @@ export class SafetyMeetingInfo {
   row_count: number;
   safety_meeting_date: string;
   index: number;
-  safety_meeting_state:string
-  safety_meeting_time:string
+  safety_meeting_state:string;
+  safety_meeting_time:string;
+  safety_meeting_date_week_day:string;
+  safety_meeting_place: string;
   // approval_cnt_answer:string;
 }
 @Component({

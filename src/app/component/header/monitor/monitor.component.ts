@@ -35,8 +35,8 @@ export class MonitorComponent implements OnInit {
     { text: 'CCTV 모니터링',
       data:'CCTV 모니터링'
     },
-    { text: '근로자 실시간 위치 모니터링',
-      data:'근로자 실시간 위치 모니터링'
+    { text: '위험작업 실시간 위치 모니터링',
+      data:'위험작업 실시간 위치 모니터링'
     }
   ]
 
@@ -94,7 +94,7 @@ export class MonitorComponent implements OnInit {
         case 'CCTV 모니터링':
           this.tabActive = this.tabList[1].data;
           break;
-        case '근로자 실시간 위치 모니터링':
+        case '위험작업 실시간 위치 모니터링':
           this.tabActive = this.tabList[2].data;
           break;
       }
