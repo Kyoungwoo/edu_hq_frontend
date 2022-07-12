@@ -137,6 +137,7 @@ export class LoginMobilePage implements OnInit {
       loading: true
     });
     if(this.res.rsCode === 0) {
+      this.autoLogin = true;
       this.getWorkerInfo(this.res.rsObj, { animated: false });
     } else if(this.res.rsCode === 500) {
       
@@ -187,11 +188,29 @@ export class LoginMobilePage implements OnInit {
     }
   }
 
-  testyyy(){
-    // window.open('https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf','_blank');
-    let a = document.createElement('a');
-    // a.title = "my title text";
-    a.href = "https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf";
-    a.click();
-  }
+  // testyyy(){
+  //   // // window.open('https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf','_blank');
+  //   // let a = document.createElement('a');
+  //   // // a.title = "my title text";
+  //   // a.href = "https://cdn.lh-skeeper.or.kr/terms/system_Terms_and_Conditions.pdf";
+  //   // a.click();
+
+  //   this.barcodeScanner.scan({
+  //     // preferFrontCamera : true, // iOS and Android
+  //     showFlipCameraButton : true, // iOS and Android
+  //     showTorchButton : true, // iOS and Android
+  //     torchOn: true, // Android, launch with the torch switched on (if available)
+  //     saveHistory: true, // Android, save scan history (default false)
+  //     prompt : "Place a barcode inside the scan area", // Android
+  //     resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+  //     formats : "QR_CODE", // default: all but PDF_417 and RSS_EXPANDED
+  //     orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+  //     disableAnimations : true, // iOS
+  //     disableSuccessBeep: false // iOS and Android
+  //   }).then(barcodeData => {
+  //     console.log('Barcode data', barcodeData);
+  //    }).catch(err => {
+  //        console.log('Error', err);
+  //    });
+  // }
 }

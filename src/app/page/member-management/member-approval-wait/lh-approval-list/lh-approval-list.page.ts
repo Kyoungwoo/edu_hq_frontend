@@ -1,3 +1,4 @@
+import { NavService } from './../../../../basic/service/ionic/nav.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -53,6 +54,7 @@ export class LhApprovalListPage implements OnInit {
     private connect: ConnectService,
     private date: DateService,
     private toast: ToastService,
+    private nav: NavService,
   ) { }
 
   ngOnInit() {
@@ -98,6 +100,7 @@ export class LhApprovalListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data) {
       this.get();
+      if(data.state === 'approval') this.nav.navigateForward(data.page_name, {force: true});
     }
   }
 

@@ -131,7 +131,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     });
     
     const res = await this.connect.run('/education/detail', {education_safe_id: this.item.education_safe_id },{
-      parse:[ 'education_safe_manager_names', 'education_safe_manager_ids' ]
+      parse:[ 'education_safe_manager_names', 'education_safe_manager_ids', 'education_safe_file_data' ]
     });
     if(res.rsCode === 0) {
       this.form = {
@@ -152,7 +152,7 @@ export class SafetyEducationResultEditPage implements OnInit {
    */
   async getItem() {
     const res = await this.connect.run('/education/report/get', { education_safe_report_id: this.education_safe_report_id },{
-      parse:[ 'education_safe_report_file_data' ]
+      parse:[ 'education_safe_report_file_data', 'education_safe_file_data', 'company_file_data' ]
     })
     if(res.rsCode === 0) {
       this.form = {

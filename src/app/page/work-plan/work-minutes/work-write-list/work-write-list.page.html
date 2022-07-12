@@ -1,0 +1,149 @@
+<!-- pc -->
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto"><app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button></app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="!editable.company_id" [allState]="editable.company_id"></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="회의유형" [(ngModel)]="form.safety_meeting_type">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
+                  <app-select-option value="노사">노사 협의체 회의록</app-select-option>
+                  <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="회의일">
+                  <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-approval-type [(ngModel)]="form.approval_cnt_answer"></app-select-approval-type>
+                <!-- <app-select label="회의 상태" [(ngModel)]="form.safety_meeting_state">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="회의 전">회의 전</app-select-option>
+                  <app-select-option value="회의 중">회의 중</app-select-option>
+                  <app-select-option value="회의 종료">회의 종료</app-select-option>
+                </app-select> -->
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+
+        <ion-toolbar color="white">
+          <ion-buttons slot="start">
+            <app-button *ngIf="!editable.add" fill="translucent" (click)="add()">신규 작성</app-button>
+            <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+          <ion-toolbar color="white">
+            <h5>회의록 작성 목록 (총 {{ res?.rsObj?.row_count || 0 }}건)</h5>
+          </ion-toolbar>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 48px;">No</th>
+                <th>원청사명</th>
+                <th>회의유형</th>
+                <th>회의일</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>결재 현황</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+                <td>{{ item.index}}</td>
+                <td>{{ item.master_company_name }}</td>
+                <td>{{ item.safety_meeting_type }}</td>
+                <td>{{ item.safety_meeting_date }}</td>
+                <td>{{ item.create_user_name }}</td>
+                <td>{{ item.create_date }}</td>
+                <td>{{ item.approval_cnt_answer }}</td>
+              </tr>
+            </tbody>
+          </app-table>
+          <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>회의록 작성</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-select-scene name="project_id" [all]="true" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-row>
+      <app-col></app-col>
+      <app-col size="auto">
+        <app-button fill="translucent" (click)="pending()">미결문서</app-button>
+      </app-col>
+    </app-row>
+    <ng-container>
+      <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <h5>{{ item.safety_meeting_type }}</h5>
+          </app-col>
+          <app-col size="auto">
+            <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
+          </app-col>
+        </app-row>
+        <p>{{ item.master_company_name }} / 작성일: {{ item.create_date }}</p>
+        <!-- <app-row>
+          <app-col>
+            <ion-badge color="success">{{ item.ctgo_education_safe_type }}</ion-badge>
+          </app-col>
+        </app-row> -->
+      </app-card>
+    </ng-container>
+  </ion-content>
+</ng-container>

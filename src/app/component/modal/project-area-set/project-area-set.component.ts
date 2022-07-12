@@ -20,11 +20,12 @@ export class ProjectAreaSetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mapData = this.file.clone(this.gps_coordinate_data);
+    if(this.gps_coordinate_data) this.mapData = this.file.clone(this.gps_coordinate_data);
   }
   
   submit() {
-    if(this.mapData.gps_latitude.length < 3) {
+    console.log(this.mapData);
+    if(this.mapData?.gps_latitude.length < 3) {
       this.toast.present({message:'점을 3개 이상 설정해주세요.',color:'danger'});
     } else {
       this._modal.dismiss(this.mapData);

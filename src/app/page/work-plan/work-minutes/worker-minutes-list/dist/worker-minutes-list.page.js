@@ -166,7 +166,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                         trans_form = JSON.parse(JSON.stringify(this.form));
                         trans_form.project_id = trans_form.project_id ? [trans_form.project_id] : [];
                         _a = this;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, { loading: true })];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/list', this.form, { loading: true })];
                     case 1:
                         _a.res = _b.sent();
                         if (this.res.rsCode === 0) {
@@ -196,7 +196,7 @@ var WorkerMinutesListPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.form.limit_no = this.res.rsMap.length;
-                        return [4 /*yield*/, this.connect.run('/board/safety_meeting/list', this.form, {})];
+                        return [4 /*yield*/, this.connect.run('/board/safety_meeting_old/list', this.form, {})];
                     case 1:
                         res = _a.sent();
                         if (res.rsCode === 0) {

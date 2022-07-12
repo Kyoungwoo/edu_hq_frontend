@@ -131,7 +131,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         let serial_key = null;
         let education_safe_id = null;
         let device_id = null;
-        if(data.indexOf('https://lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
+        if(data.indexOf('https://dev.lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
           type = data.split('=')[data.split('=').length-1];
           device_id = data.split('=')[data.split('=').length-2]?.split('&')[0];
         } else {

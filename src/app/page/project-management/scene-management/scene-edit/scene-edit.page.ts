@@ -209,6 +209,7 @@ export class SceneEditPage implements OnInit {
     if(!this.form.ctgo_business_field_id) return this.toast.present({message:'공사분야를 설정해 주세요.',color:'warning'});
     if(!this.form.project_address) return this.toast.present({message:'주소를 설정해 주세요.',color:'warning'});
     if(!this.form.gps_coordinate_data) return this.toast.present({message:'현장영역를 설정해 주세요.',color:'warning'});
+    // console.log(this.form.gps_coordinate_data);
     const alert = await this.alert.present({
       message: '수정 하시겠습니까?',
       buttons: [

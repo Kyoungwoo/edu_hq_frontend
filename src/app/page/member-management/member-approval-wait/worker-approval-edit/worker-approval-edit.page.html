@@ -94,7 +94,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_id"></app-input>
+            <app-input name="input disabled" label="현장명" [disabled]="true" [(ngModel)]="formApproval.project_name"></app-input>
           </app-col>
           <app-col>
             <app-select-construction [master_company_id]="formApproval.master_company_id" [project_id]="formApproval.project_id" name="공종" label="공종" [disabled]="!permission.approval" [(ngModel)]="formApproval.ctgo_construction_id"></app-select-construction>

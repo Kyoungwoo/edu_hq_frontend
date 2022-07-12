@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <app-row>
+      <app-col>
+        <ion-title>출석등록 QR</ion-title>
+      </app-col>
+      <app-col size="auto">
+        <app-button (click)="dismiss()" fill="clear">
+          <app-img name="close"></app-img>
+        </app-button>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div  style="display: flex; justify-content: center; height:calc(100% - 60%); align-items: center;">
+    <img (click)="downloadQR()" id="qrious"/>
+  </div>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="date" label="회의일" [value]="meet_date"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="name" label="회의유형" [value]="item.safety_meeting_type_full"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="time" label="회의시간" [value]="meet_time"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-card>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" name="time" label="출석진행자" [value]="item.user_name"></app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+</ion-content>

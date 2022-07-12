@@ -17,7 +17,19 @@
       <app-input-caption color="warning" name="caption-invalid" *ngIf="res?.rsCode === 500">{{ res.rsMsg }}</app-input-caption>
 
       <app-button name="button-login" style="width: 100%" (click)="login()">로그인</app-button>
-      <app-check name="auto_login" [(ngModel)]="autoLogin">자동로그인</app-check>
+      <app-row>
+        <app-col>
+          <app-check name="auto_login" [(ngModel)]="autoLogin">자동로그인</app-check>
+        </app-col>
+
+        <app-col>
+          <app-button class="setting-btn" fill="clear" color="dark" style="width: 100%">
+            <app-img src="assets/img/menu/setting.svg"></app-img>
+            환경설정
+          </app-button>
+        </app-col>
+      </app-row>
+      
     </form>
   </app-card>
   <app-row class="sub-buttons-row">

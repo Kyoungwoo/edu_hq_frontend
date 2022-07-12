@@ -1,13 +1,20 @@
+import { MonitorCctvListPage, CCTVInfo } from './monitor-cctv-list/monitor-cctv-list.page';
 import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
 import { MonitorSmartEquipEditPage } from './monitor-smart-equip-edit/monitor-smart-equip-edit.page';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModalController, ViewDidEnter } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+declare var Hls:any;
+
+// import * as rtsp from 'rtsp_player';
+// import * as streamedian from 'streamedian/player.js';
+// declare var Streamedian:any;
 
 /**
  * @class TodayConstructionItem
@@ -121,9 +128,9 @@ export class MonitorPage implements OnInit, OnDestroy {
     pm10Value: 0,
     pm25Grade: 0
   }
-  scandata = "http://m.site.naver.com/0TGMk"
+  // scandata = "http://m.site.naver.com/0TGMk"
 
-  maxIndex = 300;
+  // maxIndex = 300;
 
 
   graphArr3 = [
@@ -168,6 +175,21 @@ export class MonitorPage implements OnInit, OnDestroy {
   };
 
   $activedRoute:Subscription;
+
+  event = {
+    get: null
+  }
+
+  // cctv_form = {
+  //   project_id: this.user.userData.belong_data.project_id,
+  //   master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+  //   search_text: '',
+  //   limit_no: 0
+  // }
+  cctv = [];// :ConnectResult<CCTVInfo>;
+  // @ViewChild('video', {static: true}) video_list: ElementRef;
+
+  // test_url = encodeURIComponent('rtsp://admin:qwert12@61.83.219.219:554/main/ch1');
   constructor(
     private connect:ConnectService,
     private toast:ToastService,
@@ -175,11 +197,21 @@ export class MonitorPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public user: UserService,
     public date: DateService
-  ) { }
+  ) {}
 
   async ngOnInit() {
-
+    // let mediaElement = streamedian.rtsp.attach(document.getElementById('test_video'));
+    // streamedian.player(document.getElementById('test_video'));
+    // console.log();
+    // console.log("mediaElement ----- ", mediaElement);
+    // setTimeout(() => {
+    //   this.init_api();
+    // },2000);
+    // await this.testMethod();
     await this.getForm();
+    await this.getSence();
+    
+    
 
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
@@ -187,14 +219,19 @@ export class MonitorPage implements OnInit, OnDestroy {
         monitor: monitor || '통합관제'
       }
     });
+
+    // event 물리기
+    this.event.get = this.monitorCctvList.bind(this);
+    window.addEventListener('cctvList:get()', this.event.get);
     this.methodContrroller();
   }
 
   /**
    * @function ngOnDestroy(): 해당 페이지가 없어지면 걸려있던 subscribe 및 interval을 해제해줍니다.
    */
-   ngOnDestroy() {
+  ngOnDestroy() {
     this.$activedRoute.unsubscribe();
+    window.removeEventListener('cctvList:get()', this.event.get);
   }
 
   async getForm() {
@@ -408,5 +445,133 @@ export class MonitorPage implements OnInit, OnDestroy {
       
     }
     return style
+  }
+
+  /**
+   * @function monitorCctvList(): CCTV 목록 리스트 모달
+   */
+   async monitorCctvList() {
+    const modal = await this.modal.create({
+      // component:MonitorSmartEquipEditPage,
+      component:MonitorCctvListPage,
+      // cssClass: 'risk-evaluation-class'
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+  }
+
+  // async testMethod(){
+  //   // https://ipcamlive.com/api/v2/getstreamhlsurl?apisecret=62b2d166929f4&alias=namgwang1
+  //   const res = await this.connect.run('https://ipcamlive.com/api/v2/getstreamhlsurl', {apisecret:'62b2d166929f4',alias:'namgwang1'}, {cctv:true});
+  //   switch (res.rsCode) {
+  //     case 0:
+  //       // this.dust = res.rsObj;
+  //       break;
+  //   }
+  // }
+
+  // /**
+  //  * @function getCCTV(): CCTV목록정보를 가져옵니다.
+  //  */
+  //  async getCCTV(item, index) {
+  //     let cctv_form = {
+  //       project_id: item.project_id,
+  //       master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+  //       search_text: '',
+  //       limit_no: 0
+  //     }
+  
+  //     const res = await this.connect.run('/cctv/list', cctv_form);
+  //     if(res.rsCode === 0 ) {
+  //       if(res?.rsMap?.length){
+  //         let cctv_item = {
+  //           project_id: item.project_id,
+  //           project_name: item.project_name,
+  //           cctv_list: []
+  //         };
+  //         this.cctv.push(cctv_item);
+  //         res.rsMap.map((data_arr) => {if(data_arr.cctv_use_state) this.cctv[index]['cctv_list'].push(data_arr);});
+  //       }
+  //       // this.cctv = res;
+        
+  //     }
+  //     else if (res.rsCode === 1008) {
+  //       // this.cctv = null;
+  //     }
+  //     else {
+  //       this.toast.present({ color: 'warning', message: res.rsMsg });
+  //     }
+  // }
+
+  /**
+   * @function getCCTV(): CCTV목록정보를 가져옵니다.
+   */
+   async getCCTV(item) {
+    let cctv_form = {
+      project_id: item[this.sence_cur].project_id,
+      master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : 0,
+      search_text: '',
+      limit_no: 0
+    }
+
+    const res = await this.connect.run('/cctv/list', cctv_form);
+    if(res.rsCode === 0 ) {
+      if(res?.rsMap?.length){
+        let cctv_item = {
+          project_id: item[this.sence_cur].project_id,
+          project_name: item[this.sence_cur].project_name,
+          cctv_list: []
+        };
+        this.cctv.push(cctv_item);
+        res.rsMap.map((data_arr) => {if(data_arr.cctv_use_state) this.cctv[this.sence_cur]['cctv_list'].push(data_arr);});
+
+        if(this.sence_index-1 > this.sence_cur){
+          console.log("들어옴!!!!! - ", this.sence_cur);
+          this.sence_cur++;
+          this.getCCTV(item);
+        }
+      }
+    }
+    else if (res.rsCode === 1008) {
+      // this.cctv = null;
+      let cctv_item = {
+        project_id: item[this.sence_cur].project_id,
+        project_name: item[this.sence_cur].project_name,
+        cctv_list: []
+      };
+      this.cctv.push(cctv_item);
+
+      this.sence_cur++;
+      this.getCCTV(item);
+    }
+    else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+}
+
+
+  /**
+   * @function getSence(): 현장목록정보를 가져옵니다.
+   */
+  sence_index = 0;
+  sence_cur = 0;
+
+   async getSence() {
+    this.cctv = [];
+    this.sence_cur = 0;
+    let res = await this.connect.run('/category/certify/search_my_project/get', {search_text: ''});
+    if (res.rsCode === 0) {
+      if(res?.rsMap?.length){
+        this.sence_index = res.rsMap.length;
+        // res.rsMap.map(async(item, index) => {
+        //   console.log('index', index);
+        //   await this.getCCTV(item, index);
+        // });
+
+        await this.getCCTV(res.rsMap);
+      }
+    } else {
+      // this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    }
   }
 }

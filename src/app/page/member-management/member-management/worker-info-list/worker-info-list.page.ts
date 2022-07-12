@@ -137,6 +137,8 @@ export class WorkerInfoListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 
   async getPassword() {
@@ -147,8 +149,6 @@ export class WorkerInfoListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) {
-      this.get();
-    }
+    if(data) this.get();
   }
 }

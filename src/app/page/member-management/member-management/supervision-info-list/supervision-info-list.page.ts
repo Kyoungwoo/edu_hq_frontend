@@ -111,5 +111,7 @@ export class SupervisionInfoListPage implements OnInit {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 }

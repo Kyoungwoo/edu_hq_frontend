@@ -15,6 +15,14 @@ const routes: Routes = [
   {
     path: 'monitor-worker-location',
     loadChildren: () => import('./monitor-worker-location/monitor-worker-location.module').then( m => m.MonitorWorkerLocationPageModule)
+  },
+  {
+    path: 'monitor-cctv-list',
+    loadChildren: () => import('./monitor-cctv-list/monitor-cctv-list.module').then( m => m.MonitorCctvListPageModule)
+  },
+  {
+    path: 'monitor-cctv-edit',
+    loadChildren: () => import('./monitor-cctv-edit/monitor-cctv-edit.module').then( m => m.MonitorCctvEditPageModule)
   }
 
 ];

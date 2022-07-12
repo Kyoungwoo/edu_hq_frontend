@@ -1,5 +1,6 @@
+import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -11,6 +12,8 @@ import { WorkerMinutesPendingListPage } from '../worker-minutes-pending-list/wor
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
 
 export class SafetyMeetingInfo {
+  master_company_id: number;
+  master_company_name: string;
   company_id: number;
   company_name: string;
   create_date: string;
@@ -20,10 +23,15 @@ export class SafetyMeetingInfo {
   project_id: number;
   project_name: string;
   user_name: string;
+  user_id:number;
   row_count: number;
   safety_meeting_date: string;
   index: number;
-  approval_cnt_answer:string;
+  safety_meeting_state:string;
+  safety_meeting_time:string;
+  safety_meeting_date_week_day:string;
+  safety_meeting_place: string;
+  // approval_cnt_answer:string;
 }
 @Component({
   selector: 'app-worker-minutes-list',
@@ -34,13 +42,14 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
 
   form = { 
     project_id: null,
-    company_id: null,
-    safety_meeting_types: [],
+    master_company_id: null,
+    safety_meeting_type: '전체',
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    approval_cnt_answer: '전체',
-    limit_no: 0
+    // approval_cnt_answer: '전체',
+    limit_no: 0,
+    safety_meeting_state: '전체'
   }
 
   res:ConnectResult<SafetyMeetingInfo>;
@@ -61,7 +70,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     private toast: ToastService,
     private date: DateService,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    private popover: PopoverController
   ) { }
 
   async ngOnInit() {
@@ -88,14 +98,14 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     const { user_role, belong_data } = this.user.userData;
 
     this.form.project_id = belong_data.project_id;
-    this.form.company_id = belong_data.master_company_id;
+    this.form.master_company_id = belong_data.master_company_id;
 
     if(belong_data.company_contract_type === 'LH'
     || belong_data.company_contract_type === '감리사') {
 
       this.permission.company_id = true;
       this.permission.add = false;
-      this.form.company_id = 0;
+      this.form.master_company_id = 0;
 
     }
     else if(belong_data.company_contract_type === '원청사') {
@@ -200,13 +210,15 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
    */
   async add() {
     const modal = await this.modal.create({
-      component: WorkerMinutesSelectTypePage,
-      cssClass: 'worker-minutes-select-type-modal',
+      component: WorkerMinutesEditPage,
+      cssClass: 'risk-evaluation-class',
       componentProps: {
         project_id: this.form.project_id
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 
   async edit(item:SafetyMeetingInfo) {
@@ -218,6 +230,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
       }
     });
     modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) this.get();
   }
 
   /**
@@ -228,5 +242,19 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
       component: WorkerMinutesPendingListPage,
     });
     modal.present();
+  }
+
+  async userInfo(education_safe_manager_id,ev) {
+    ev.stopPropagation();
+    const popover = await this.popover.create({
+      component:PeopleViewComponent,
+      componentProps:{
+        type:'관리자',
+        education_safe_manager_id
+      },
+      cssClass:'education-info',
+      event:ev
+    });
+    popover.present();
   }
 }

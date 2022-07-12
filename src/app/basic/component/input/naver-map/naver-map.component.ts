@@ -106,8 +106,18 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     this.marker.push(marker);
     this.path.push(coord);
 
-    this._value.gps_latitude.push(coord.x);
-    this._value.gps_longitude.push(coord.y);
+    if(!this._value){
+      this._value = new GpsCoordinateData();
+
+      this._value.gps_latitude.push(coord.y);
+      this._value.gps_longitude.push(coord.x);
+    } else {
+      this._value.gps_latitude.push(coord.y);
+      this._value.gps_longitude.push(coord.x);
+    }
+    console.log(this._value);
+    console.log(this.value);
+
 
     // 좌표 움직임 셋팅
     naver.maps.Event.addListener(marker, "dragend", (e) => {
@@ -117,8 +127,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
       this.marker.splice(index, 1, marker);
       this.path.splice(index, 1, point);
 
-      this._value.gps_latitude.splice(index, 1, point.x);
-      this._value.gps_longitude.splice(index, 1, point.y);
+      this._value.gps_latitude.splice(index, 1, point.y);
+      this._value.gps_longitude.splice(index, 1, point.x);
     });
 
     // 좌표 삭제 셋팅
@@ -172,8 +182,8 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     if (insertV) {
         const length = insertV.gps_latitude.length;
         for (let i = 0; i < length; i++) {
-          const x = insertV.gps_latitude[i];
-          const y = insertV.gps_longitude[i];
+          const y = insertV.gps_latitude[i];
+          const x = insertV.gps_longitude[i];
           this.addMarker({ x, y });
         }
     }
@@ -189,32 +199,27 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
   private _value = new GpsCoordinateData();
   @Input() set value(v: GpsCoordinateData) {
-    if (!this.file.shallowEqual(v, this._value)) {
-      this._value = v;
-      this.parseData(v);
-      this._onChangeCallback(v);
-      this.change.emit(v);
-    }
+if (!this.file.shallowEqual(v, this._value)) this.valueChange(v);
   }
 
   get value() {
     return this._value;
   }
   writeValue(v: GpsCoordinateData): void {
-    console.log(this._value);
-    console.log(v);
-    if (!this.file.shallowEqual(v, this._value)) {
-      this._value = v;
-      this.parseData(v);
-      this._onChangeCallback(v);
-      this.change.emit(v);
-    }
+    if (!this.file.shallowEqual(v, this._value)) this.valueChange(v);
   }
 
-  private _onChangeCallback = (v) => { };
-  private _onTouchedCallback = (v) => { };
-  registerOnChange(fn: any): void { this._onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this._onTouchedCallback = fn; }
+  valueChange(v) {
+    this._value = v;
+    this.onChangeCallback(v);
+    this.change.emit(v);
+    this.parseData(v);
+  }
+
+  private onChangeCallback = (v) => { };
+  private onTouchedCallback = (v) => { };
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 }
 
 

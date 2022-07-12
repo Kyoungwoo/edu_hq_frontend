@@ -1,6 +1,7 @@
 <app-select name="select"
 [color]="res && res.rsCode ? 'warning' : color"
 [label]="label" [placeholder]="placeholder" [(ngModel)]="value" [button]="button" [readonly]="readonly" [disabled]="disabled" [multiple]="multiple" [required]="required">
+
   <app-select-option type="all" [value]="[]">전체</app-select-option>
   <app-select-option *ngFor="let country of res?.rsMap" [value]="country.ctgo_manual_id">{{ country.ctgo_manual_name }}</app-select-option>
 </app-select>

@@ -51,6 +51,7 @@
     "sass": "^1.50.0",
     "smarteditor2": "^2.10.0-alpha.8",
     "sortablejs": "^1.15.0",
+    "streamedian": "github:Streamedian/html5_rtsp_player",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },

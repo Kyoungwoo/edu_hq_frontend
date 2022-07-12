@@ -6,8 +6,8 @@ android {
         applicationId "com.devmonster.gsil.lh.skeeper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "0.0.2"
+        versionCode 6
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -44,6 +44,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson"
     //location
     implementation "com.google.android.gms:play-services-location:$locationVersion"
+    implementation "com.google.android.gms:play-services-tasks:16.0.1"
 }
 
 apply from: 'capacitor.build.gradle'

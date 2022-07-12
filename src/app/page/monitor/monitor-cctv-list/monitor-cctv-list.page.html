@@ -1,0 +1,148 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>CCTV 목록</ion-title>
+    <ion-buttons slot="end">
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *mobileHidden>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="get()">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="!permission.company_id" [allState]="permission.company_id"></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+        || user.userData.belong_data.company_contract_type === '원청사'">   
+          <ion-buttons slot="start">
+            <app-button *ngIf="user.userData.user_type !== 'LH' && user.userData.user_type !== 'SUPER'" fill="translucent" (click)="edit('insert')">등록</app-button>
+            <app-button fill="translucent" (click)="delete()" color="warning">삭제</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>CCTV 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <ng-container *ngIf="res">
+          <ng-container *ngIf="res.rsCode === 0 else tempFail">
+            <app-check-group [(ngModel)]="selectedList">
+              <app-table>
+                <thead>
+                  <tr>
+                    <th style="width: 40px;">
+                      <app-check type="all" color="white" size="small" name="check"></app-check>
+                    </th>
+                    <th>CCTV ID</th>
+                    <th>원청사명</th>
+                    <th>설치장소명</th>
+                    <th>CCTV IP</th>
+                    <th>Port</th>
+                    <th>Channel No.</th>
+                    <th>NVR ID</th>
+                    <th>NVR PW</th>
+                    <th>통합관제 표출</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit('update', item.cctv_id)">
+                    <td>
+                      <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
+                    </td>
+                    <td>{{ item.cctv_id }}</td>
+                    <td>{{ item.master_company_name }}</td>
+                    <td>{{ item.cctv_area_name }}</td>
+                    <td>{{ item.cctv_ip }}</td>
+                    <td>{{ item.cctv_port }}</td>
+                    <td>{{ item.cctv_channel_no }}</td>
+                    <td>{{ item.cctv_nvr_id }}</td>
+                    <td>{{ item.cctv_nvr_password }}</td>
+                    <td *ngIf="user.userData.user_role === 'MASTER_HEAD' || user.userData.user_role === 'MASTER_GENERAL' || user.userData.user_type === 'LH'">
+                      <app-select (change)="changeUse(item)" (click)="$event.stopPropagation()" [(ngModel)]="item.cctv_use_state">
+                        <app-select-option [value]="1">Y</app-select-option>
+                        <app-select-option [value]="0">N</app-select-option>
+                      </app-select>
+                    </td>
+                    <td *ngIf="user.userData.user_role === 'SUPER_HEAD'">
+                      {{ item.cctv_use_state ? 'Y' : 'N' }}
+                    </td>
+                  </tr>
+                </tbody>
+              </app-table>
+            </app-check-group>
+
+            <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager> -->
+          </ng-container>
+          <ng-template #tempFail>
+            <app-card>{{ res.rsMsg }}</app-card>
+          </ng-template>
+        </ng-container>
+      </app-col>
+    </app-row>
+  </ng-container>
+  
+  <!-- <ng-container *mobileShow>
+    <ion-header>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>공지사항</ion-title>
+        <ion-buttons slot="end">
+          <app-menu-button></app-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <app-input-group>
+          <app-select-scene name="project_id" [(ngModel)]="form.project_id" [readonly]="true"></app-select-scene>
+          <app-button (click)="detailSearch()">상세검색</app-button>
+        </app-input-group>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.notice_id)">
+        <app-row style="align-items: flex-start;">
+          <app-col>
+            <p>{{ item.notice_title }}</p>
+            <p>{{ item.company_name }}/{{ item.user_name }}</p>
+            <p>작성일: {{ item.create_date }}</p>
+          </app-col>
+        </app-row>
+        <ion-badge color="success">{{ item.notice_type }}</ion-badge>
+      </app-card>
+  
+      <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+        <ion-infinite-scroll-content loading-spinner="dots">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>
+  </ng-container> -->
+</ion-content>

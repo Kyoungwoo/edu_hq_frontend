@@ -1,5 +1,4 @@
 import { HeavyQrViewPageModule } from './../heavy-qr-view/heavy-qr-view.module';
-import { QrEducationInPageModule } from './../../../safety-education/educatiion-status/qr-education-in/qr-education-in.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

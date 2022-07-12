@@ -8,6 +8,7 @@ import { WorkerMinutesEditPageRoutingModule } from './worker-minutes-edit-routin
 
 import { WorkerMinutesEditPage } from './worker-minutes-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
+import { QrSafetyInPageModule } from '../qr-safety-in/qr-safety-in.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
+    QrSafetyInPageModule,
     WorkerMinutesEditPageRoutingModule
   ],
   declarations: [WorkerMinutesEditPage]

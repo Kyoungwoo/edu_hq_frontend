@@ -49,7 +49,7 @@
       <app-col>
         <app-textarea label="내용" 
         [rows]="10"
-        [(ngModel)]="form.notice_content" [disabled]="!update_state"></app-textarea>
+        [(ngModel)]="form.notice_content" [readonly]="!update_state"></app-textarea>
         <!-- <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
         [disabled]="!update_state"
         [color]="validator.notice_title?.valid === false && 'warning'"

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11516F13286BF24D007A359E /* Geolocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0C286BF24D007A359E /* Geolocation.swift */; };
+		11516F14286BF24D007A359E /* GeolocationUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0D286BF24D007A359E /* GeolocationUpdates.swift */; };
+		11516F15286BF24D007A359E /* GeolocationPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0E286BF24D007A359E /* GeolocationPlugin.m */; };
+		11516F16286BF24D007A359E /* GeolocationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F0F286BF24D007A359E /* GeolocationPlugin.swift */; };
+		11516F18286BF24D007A359E /* MultipartFormDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11516F12286BF24D007A359E /* MultipartFormDataRequest.swift */; };
+		118B97652874196C001D8227 /* Data+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B97632874196C001D8227 /* Data+Helpers.swift */; };
+		118B97662874196C001D8227 /* MultipartForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118B97642874196C001D8227 /* MultipartForm.swift */; };
 		24B0E21A27675F8A00CA7C82 /* scanPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21927675F8A00CA7C82 /* scanPlugin.m */; };
 		24B0E21C27675FF200CA7C82 /* NfcPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21B27675FF200CA7C82 /* NfcPlugin.swift */; };
 		24B0E21E2767602F00CA7C82 /* NfcComtroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0E21D2767602F00CA7C82 /* NfcComtroller.swift */; };
@@ -22,6 +29,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11516F0C286BF24D007A359E /* Geolocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Geolocation.swift; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/Geolocation.swift"; sourceTree = "<group>"; };
+		11516F0D286BF24D007A359E /* GeolocationUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeolocationUpdates.swift; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/GeolocationUpdates.swift"; sourceTree = "<group>"; };
+		11516F0E286BF24D007A359E /* GeolocationPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeolocationPlugin.m; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/GeolocationPlugin.m"; sourceTree = "<group>"; };
+		11516F0F286BF24D007A359E /* GeolocationPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeolocationPlugin.swift; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/GeolocationPlugin.swift"; sourceTree = "<group>"; };
+		11516F10286BF24D007A359E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/Info.plist"; sourceTree = "<group>"; };
+		11516F11286BF24D007A359E /* GeolocationPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeolocationPlugin.h; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/GeolocationPlugin.h"; sourceTree = "<group>"; };
+		11516F12286BF24D007A359E /* MultipartFormDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipartFormDataRequest.swift; path = "../../../../../../../../Downloads/capacitor-geolocation-master/ios/Plugin/MultipartFormDataRequest.swift"; sourceTree = "<group>"; };
+		118B97632874196C001D8227 /* Data+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Data+Helpers.swift"; path = "../../../../../../../../Downloads/MultipartForm-master/Sources/MultipartForm/Data+Helpers.swift"; sourceTree = "<group>"; };
+		118B97642874196C001D8227 /* MultipartForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipartForm.swift; path = "../../../../../../../../Downloads/MultipartForm-master/Sources/MultipartForm/MultipartForm.swift"; sourceTree = "<group>"; };
 		24B0E21827675F8A00CA7C82 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
 		24B0E21927675F8A00CA7C82 /* scanPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanPlugin.m; sourceTree = "<group>"; };
 		24B0E21B27675FF200CA7C82 /* NfcPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcPlugin.swift; sourceTree = "<group>"; };
@@ -54,6 +70,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11516F0B286BF224007A359E /* GeolocationPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				118B97632874196C001D8227 /* Data+Helpers.swift */,
+				118B97642874196C001D8227 /* MultipartForm.swift */,
+				11516F0C286BF24D007A359E /* Geolocation.swift */,
+				11516F11286BF24D007A359E /* GeolocationPlugin.h */,
+				11516F0E286BF24D007A359E /* GeolocationPlugin.m */,
+				11516F0F286BF24D007A359E /* GeolocationPlugin.swift */,
+				11516F0D286BF24D007A359E /* GeolocationUpdates.swift */,
+				11516F10286BF24D007A359E /* Info.plist */,
+				11516F12286BF24D007A359E /* MultipartFormDataRequest.swift */,
+			);
+			name = GeolocationPlugin;
+			sourceTree = "<group>";
+		};
 		27E2DDA53C4D2A4D1A88CE4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +115,7 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				11516F0B286BF224007A359E /* GeolocationPlugin */,
 				CA6FEC4727FC36C8000472F5 /* GoogleService-Info.plist */,
 				24B0E21F276760E000CA7C82 /* App.entitlements */,
 				24B0E21D2767602F00CA7C82 /* NfcComtroller.swift */,
@@ -139,7 +172,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
@@ -225,9 +258,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				24B0E21E2767602F00CA7C82 /* NfcComtroller.swift in Sources */,
+				11516F14286BF24D007A359E /* GeolocationUpdates.swift in Sources */,
+				118B97612874170E001D8227 /* MultipartForm.swift in Sources */,
+				11516F13286BF24D007A359E /* Geolocation.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				24B0E21C27675FF200CA7C82 /* NfcPlugin.swift in Sources */,
+				118B97652874196C001D8227 /* Data+Helpers.swift in Sources */,
+				11516F16286BF24D007A359E /* GeolocationPlugin.swift in Sources */,
+				11516F15286BF24D007A359E /* GeolocationPlugin.m in Sources */,
 				24B0E21A27675F8A00CA7C82 /* scanPlugin.m in Sources */,
+				118B97622874170E001D8227 /* Data+Helpers.swift in Sources */,
+				11516F18286BF24D007A359E /* MultipartFormDataRequest.swift in Sources */,
+				118B97662874196C001D8227 /* MultipartForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +309,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -274,8 +317,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -324,6 +369,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -331,8 +377,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -372,7 +420,7 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.6;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.devmonster.gsil.lh.skeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -380,7 +428,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -396,13 +444,13 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devmonster.gsil.lh.skeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

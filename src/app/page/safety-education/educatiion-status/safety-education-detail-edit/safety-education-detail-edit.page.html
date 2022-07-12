@@ -85,27 +85,51 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [disabled]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [readonly]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
 
-      <h4>
-        <app-row>
-          <app-col>
-            첨부자료
-          </app-col>
-          <app-col size="auto" *ngIf="editable.update">
-            <app-button fill="translucent">추가
-              <app-file [limit]="2" name="input" view_type="EDU"
-              [(ngModel)]="form.education_safe_file_data" 
-              [file]="form.file" 
-              [file_json]="form.file_json" [multiple]="true"></app-file>
-            </app-button>
-          </app-col>
-        </app-row>
-      </h4>
-      <app-file-preview type="full" [readonly]="!editable.update"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
-      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>교육사진</h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
+              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5></h5>
+              </app-col>
+              <app-col *ngIf="editable.update" size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
+              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+      
     </form>
       <ng-container *ngIf="form.education_safe_state !== '교육 전'">
         <app-row style="margin-top: 10px;">
@@ -121,7 +145,7 @@
             <app-button (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
           </app-col>
           <app-col size="auto" *ngIf="editable.educationMenu_state || editable.my_state" >
-            <app-button (click)="qrAdd()">출석등록QR)</app-button>
+            <app-button (click)="qrAdd()">출석등록QR)</app-button> 
           </app-col>
           <!-- <app-col size="auto">
             <app-button color="danger" fill="translucent" (click)="notReady()">출석삭제</app-button>
@@ -153,7 +177,7 @@
       </app-table>
     </ng-container>
   </ion-content>
-  </ng-container>
+</ng-container>
 
 <!-- 모바일 교육정보/출석현황 탭 -->
 <ng-container *mobileShow>
@@ -165,14 +189,15 @@
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar color="white" *ngIf="item">
-      <ion-segment color="primary" [value]="true" >
-        <ion-segment-button (click)="editable.educationMenu = true" [value]="true">교육정보</ion-segment-button>
-        <ion-segment-button (click)="editable.educationMenu = false">출석현황</ion-segment-button>
+      <ion-segment color="primary" [value]="1" >
+        <ion-segment-button (click)="editable.educationMenu = 1" [value]="1">교육정보</ion-segment-button>
+        <ion-segment-button (click)="editable.educationMenu = 2" [value]="2">교육사진</ion-segment-button>
+        <ion-segment-button (click)="editable.educationMenu = 3" [value]="3">출석현황</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container *ngIf="editable.educationMenu">
+    <ng-container *ngIf="editable.educationMenu === 1">
       <app-row>
         <app-col>
           <h4>기본정보</h4>
@@ -283,12 +308,12 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-textarea [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+            <app-textarea [readonly]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
           </app-col>
         </app-row>
       </app-card>
       
-      <app-row>
+      <!-- <app-row>
         <app-col>
           첨부자료
         </app-col>
@@ -302,10 +327,56 @@
         </app-col>
       </app-row>
       <app-file-preview type="full" [readonly]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)"  *ngFor="let futItem of form.education_safe_file_data; let i = index" [futItem]="futItem"  
-      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
     </ng-container>
 
-    <ng-container *ngIf="!editable.educationMenu">
+    <ng-container *ngIf="editable.educationMenu === 2">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>사진</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
+              (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>사진</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button>추가
+                  <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                    [file_json]="form.file_json"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
+              (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+          </ng-container>
+        </app-col>
+      </app-row>
+    </ng-container>
+
+    <ng-container *ngIf="editable.educationMenu === 3">
       <app-card>
         <app-row>
           <app-col>
@@ -359,15 +430,15 @@
       </ion-row>
     </ng-container>
   </ion-content>
-  <app-button-footer *ngIf="item && editable.educationMenu">
+  <app-button-footer *ngIf="item && (editable.educationMenu === 1 || editable.educationMenu === 2)">
     <app-button *ngIf="editable.my_state || this.editable.educationMenu_state" (click)="updateItem()" fill="translucent">수정</app-button>
     <app-button *ngIf="editable.my_state || this.editable.educationMenu_state" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
   </app-button-footer>
   <app-button-footer *ngIf="!item">
     <app-button (click)="submit()">저장</app-button>
   </app-button-footer>
-  <app-button-footer *ngIf="editable.educationMenu_state && !editable.educationMenu">
-    <app-button *ngIf="!editable.educationMenu" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
-    <app-button *ngIf="!editable.educationMenu" (click)="qrAdd()">출석등록QR)</app-button>
+  <app-button-footer *ngIf="editable.educationMenu_state && editable.educationMenu === 3">
+    <app-button *ngIf="editable.educationMenu === 3" (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+    <app-button *ngIf="editable.educationMenu === 3" (click)="qrAdd()">출석등록QR)</app-button>
   </app-button-footer>
 </ng-container>
