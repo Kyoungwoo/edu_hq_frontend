@@ -1,3 +1,4 @@
+import { SettingModifyComponent } from './modal/setting-modify/setting-modify.component';
 import { SelectRiskAreaComponent } from './select/select-risk-area/select-risk-area.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -146,7 +147,9 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SelectProjectContractorComponent,
     SelectContractorCompanyComponent,
     SelectPeopleAllComponent,
-    SelectRiskAreaComponent
+    SelectRiskAreaComponent,
+
+    SettingModifyComponent
   ],
   imports: [
     CommonModule,
@@ -227,7 +230,9 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SearchProjectContractorComponent,
     SelectContractorCompanyComponent,
     SelectPeopleAllComponent,
-    SelectRiskAreaComponent
+    SelectRiskAreaComponent,
+
+    SettingModifyComponent
   ],
   providers:[
     SelectCompanyComponent
