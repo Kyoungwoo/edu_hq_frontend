@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export class ManualListForm {
   ctgo_manual_ids:number[] = []; // 사용자 매뉴얼 구분 ID
@@ -22,7 +23,8 @@ export class ManualDetailSearchPage implements OnInit {
 
   constructor(
     private file: FileService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

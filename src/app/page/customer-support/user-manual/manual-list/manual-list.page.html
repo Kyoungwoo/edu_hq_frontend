@@ -6,7 +6,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>사용자 매뉴얼</ion-title>
+      <ion-title>{{ languagePack.getText('사용자 매뉴얼') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -14,7 +14,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-manual [(ngModel)]="form.ctgo_manual_ids" [multiple]="true" (change)="get(0)"></app-select-manual>
-        <app-button (click)="openDetailSearch()">상세검색</app-button>
+        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -24,7 +24,7 @@
         <app-col>
           <h5>{{ item.manual_title }}</h5>
           <p>{{ item.company_name }}/{{ item.update_user_name }}</p>
-          <p>작성/수정일: {{ item.update_date }}</p>
+          <p>{{ languagePack.getText('작성일') }} : {{ item.update_date }}</p>
         </app-col>
       </app-row>
       <app-row>
