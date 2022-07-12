@@ -1,3 +1,4 @@
+import { SafetyStateType } from './../../../../component/confirm/chip-safety-state/chip-safety-state.component';
 import { PeopleViewComponent } from 'src/app/component/modal/people-view/people-view.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
@@ -28,7 +29,7 @@ export class SafetyMeetingInfo {
   row_count: number;
   safety_meeting_date: string;
   index: number;
-  safety_meeting_state:string;
+  safety_meeting_state:SafetyStateType;
   safety_meeting_time:string;
   safety_meeting_date_week_day:string;
   safety_meeting_place: string;
@@ -50,7 +51,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     search_text: '',
     // approval_cnt_answer: '전체',
     limit_no: 0,
-    safety_meeting_state: '전체'
+    safety_meeting_state: '전체' as SafetyStateType
   }
 
   res:ConnectResult<SafetyMeetingInfo>;

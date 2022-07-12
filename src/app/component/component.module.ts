@@ -1,3 +1,4 @@
+import { ChipSafetyStateComponent } from './confirm/chip-safety-state/chip-safety-state.component';
 import { SettingModifyComponent } from './modal/setting-modify/setting-modify.component';
 import { SelectRiskAreaComponent } from './select/select-risk-area/select-risk-area.component';
 import { NgModule } from '@angular/core';
@@ -88,6 +89,7 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
+    ChipSafetyStateComponent,
 
     HeaderAdminComponent,
     SideMenuUserComponent,
@@ -171,6 +173,7 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     ChipApprovalAnswerComponent,
     ConfirmSettingPopupComponent,
     ConfirmProcessPopupComponent,
+    ChipSafetyStateComponent,
 
     BasicComponentModule,
     HeaderAdminComponent,
