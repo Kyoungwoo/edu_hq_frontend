@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>상세검색</ion-title>
+    <ion-title>{{ languagePack.getText('상세검색') }}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -11,14 +11,14 @@
   <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.master_company_id" [allState]="permission.master_company_all"></app-select-contractor>
   <app-select-contractor-company [project_id]="temptForm.project_id" [master_company_id]="temptForm.master_company_id" [(ngModel)]="temptForm.company_id" [all]="true"></app-select-contractor-company>
   <app-select-approval-type [(ngModel)]="temptForm.approval_cnt_answer"></app-select-approval-type>
-  <app-input-group label="작성일">
+  <app-input-group label="{{ languagePack.getText('작성일') }}">
     <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
     ~
     <app-calendar [(ngModel)]="temptForm.end_date" [max]="temptForm.start_date"></app-calendar>
   </app-input-group>
-  <app-input label="검색어" placeholder="검색어를 입력해 주세요." [(ngModel)]="temptForm.search_text"></app-input>
+  <app-input [label]="languagePack.getText('검색어')" [placeholder]="languagePack.getText('검색어를 입력해 주세요')" [(ngModel)]="temptForm.search_text"></app-input>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="reset()">초기화</app-button>
-  <app-button (click)="search()">검색</app-button>
+  <app-button (click)="reset()">{{ languagePack.getText('초기화') }}</app-button>
+  <app-button (click)="search()">{{ languagePack.getText('검색') }}</app-button>
 </app-button-footer>

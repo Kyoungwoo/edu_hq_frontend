@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
@@ -59,7 +60,8 @@ export class ConfirmProgressListPage implements OnInit, OnDestroy {
     private connect: ConnectService,
     private toast: ToastService,
     private date: DateService,
-    private approval: ApprovalService
+    private approval: ApprovalService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {
