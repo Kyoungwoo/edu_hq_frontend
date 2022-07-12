@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="safety_meeting_state">
+  <ion-chip *ngSwitchCase="'회의 전'" color="success" color="success">{{ safety_meeting_state }}</ion-chip>
+  <ion-chip *ngSwitchCase="'회의 중'" color="success" color="primary">{{ safety_meeting_state }}</ion-chip>
+  <ion-chip *ngSwitchCase="'회의 종료'" color="success" color="dark">{{ safety_meeting_state }}</ion-chip>
+</ng-container>

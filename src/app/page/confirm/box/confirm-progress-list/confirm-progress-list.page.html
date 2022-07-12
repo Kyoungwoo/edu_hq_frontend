@@ -101,7 +101,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene [readonly]="true" [(ngModel)]="form.project_id"></app-select-scene>
-        <app-button (click)="openDetailSearch()">상세검색</app-button>
+        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -119,7 +119,7 @@
       <app-row>
         <app-col>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
-          <p>작성일: {{ item.create_date }}</p>
+          <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
         </app-col>
       </app-row>
     </app-card>

@@ -27,11 +27,11 @@ export class QrSafetyInPage implements OnInit {
   }
   
   generatorQrcode() {
-    console.log("this.navParams",`${this.navParams.data.item.education_safe_id}`)
+    console.log("this.navParams",`${this.navParams.data.item.safety_meeting_id}`)
     this.qr = new QRious({
       element: document.getElementById('qrious'),
       size: 250,
-      value: '{"education_safe_id":"'+this.navParams.data.item.education_safe_id+'","type":"SAFE"}' // `${this.navParams.data.item.education_safe_id}`
+      value: '{"safety_meeting_id":"'+this.navParams.data.item.safety_meeting_id+'","type":"SAFE"}' // `${this.navParams.data.item.education_safe_id}`
     });
   }
 
