@@ -1,4 +1,6 @@
-import { Platform } from '@ionic/angular';
+import { LanguagePackService } from './../../../basic/service/core/language-pack.service';
+import { SettingModifyComponent } from './../../../component/modal/setting-modify/setting-modify.component';
+import { Platform, ModalController } from '@ionic/angular';
 import { LogoutService } from 'src/app/service/logout.service';
 import { PushService } from './../../../service/push.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
@@ -29,7 +31,9 @@ export class LoginMobilePage implements OnInit {
     private promise: PromiseService,
     private alert: AlertService,
     private push: PushService,
-    private logout: LogoutService
+    private logout: LogoutService,
+    private modal: ModalController,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
@@ -186,6 +190,15 @@ export class LoginMobilePage implements OnInit {
       
       this.nav.navigateRoot(userData.user_main_page, {animated});
     }
+  }
+
+  async setting() {
+    const modal = await this.modal.create({
+      component: SettingModifyComponent
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    // if(data) this.get();
   }
 
   // testyyy(){

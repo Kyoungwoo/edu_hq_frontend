@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>환경설정</ion-title>
+    <app-button slot="end" (click)="dismiss()" fill="clear">
+      <app-img name="close"></app-img>
+    </app-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-input [readonly]="true" name="search" label="사업 지구" [(ngModel)]="theme_text" placeholder="사업지구를 선택해주세요.">
+    <app-img name="search"></app-img>
+  </app-input>
+
+  <app-select name="language" [(ngModel)]="language" label="언어 설정">
+    <app-select-option value="korean">한국어 (Korean)</app-select-option>
+    <app-select-option value="english">영어 (English)</app-select-option>
+    <app-select-option value="chinese">중국어 (Chinese)</app-select-option>
+    <app-select-option value="vietnamese">베트남어 (Vietnamese)</app-select-option>
+    <app-select-option value="thai">태국어 (Thai)</app-select-option>
+  </app-select>
+</ion-content>
+
+<app-button-footer>
+  <app-button (click)="dismiss()">이전</app-button>
+  <app-button (click)="changeLanguage()">설정</app-button>
+</app-button-footer>
