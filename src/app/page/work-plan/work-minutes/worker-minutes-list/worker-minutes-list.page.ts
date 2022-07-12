@@ -10,6 +10,7 @@ import { WorkerMinutesDetailSearchPage } from '../worker-minutes-detail-search/w
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
 import { WorkerMinutesPendingListPage } from '../worker-minutes-pending-list/worker-minutes-pending-list.page';
 import { WorkerMinutesSelectTypePage } from '../worker-minutes-select-type/worker-minutes-select-type.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export class SafetyMeetingInfo {
   master_company_id: number;
@@ -71,7 +72,8 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     private date: DateService,
     public user: UserService,
     private nav: NavService,
-    private popover: PopoverController
+    private popover: PopoverController,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

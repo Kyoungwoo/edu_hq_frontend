@@ -12,7 +12,7 @@
       <tr>
         <th style="width: 48px;">No</th>
         <th>회의유형</th>
-        <th>회의 장소</th>
+        <th>회의장소</th>
         <th>회의일</th>
         <th>출석 인원</th>
       </tr>
@@ -30,5 +30,5 @@
   <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>
-  <app-button>적용</app-button>
+  <app-button>{{ languagePack.getText('적용') }}</app-button>
 </app-button-footer>

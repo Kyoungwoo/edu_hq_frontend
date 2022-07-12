@@ -8,6 +8,7 @@ import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/ap
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem, FileJson, FileBlob } from 'src/app/basic/service/core/file.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 export class EducationItem {
   // project_id: number;
   // project_name: string;
@@ -120,7 +121,8 @@ export class WorkWriteEditPage implements OnInit {
     public date: DateService,
     private user: UserService,
     private _modal: ModalController,
-    private loading: LoadingService
+    private loading: LoadingService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

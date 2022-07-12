@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Component, OnInit } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-work-write-list',
@@ -82,7 +83,8 @@ export class WorkWriteListPage implements OnInit {
     private user: UserService,
     private toast: ToastService,
     private promise: PromiseService,
-    private nav: NavService
+    private nav: NavService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() { 

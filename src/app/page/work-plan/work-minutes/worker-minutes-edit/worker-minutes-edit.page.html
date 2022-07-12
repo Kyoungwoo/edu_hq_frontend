@@ -236,7 +236,7 @@
 <ng-container *mobileShow>
   <ion-header>
     <ion-toolbar color="white">
-      <ion-title>교육 현황</ion-title>
+      <ion-title>회의 현황</ion-title>
       <ion-buttons slot="end">
         <app-dismiss-button></app-dismiss-button>
       </ion-buttons>
@@ -260,7 +260,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="true" name="edustate" label="현장명" [value]="form.project_name"></app-input>
+            <app-input [disabled]="true" name="edustate" label="languagePack.getText('현장명')" [value]="form.project_name"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -295,9 +295,9 @@
             <!-- <app-select-education [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" [required]="true" (change)="educationText($event)" name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education> -->
             <app-select (ngModelChange)="changeType($event)" [required]="true" label="회의유형" [(ngModel)]="form.safety_meeting_type_text" [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)">
               <app-select-option value="직접입력">직접입력</app-select-option>
-              <app-select-option value="안전">안전 및 보건에 관한 협의체 회의록</app-select-option>
-              <app-select-option value="노사">노사 협의체 회의록</app-select-option>
-              <app-select-option value="산업">산업안전보건위원회 회의록</app-select-option>
+              <app-select-option value="안전">{{ languagePack.getText('안전 및 보건에 관한 협의체 회의록') }}</app-select-option>
+              <app-select-option value="노사">{{ languagePack.getText('노사 협의체 회의록') }}</app-select-option>
+              <app-select-option value="산업">{{ languagePack.getText('산업안전보건위원회 회의록') }}</app-select-option>
             </app-select>
           </app-col>
         </app-row>
@@ -314,7 +314,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="교육장소를 입력해주세요" name="education_safe_place" [required]="true" label="회의장소" [(ngModel)]="form.safety_meeting_place"></app-input>
+            <app-input [disabled]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="회의장소를 입력해주세요" name="education_safe_place" [required]="true" label="회의장소" [(ngModel)]="form.safety_meeting_place"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -450,9 +450,9 @@
             <app-line></app-line>
             <app-row>
               <app-col>
-                <h6>업체명</h6>
+                <h6>{{ languagePack.getText('업체명') }}</h6>
                 <h5>{{ item.company_name }}</h5>
-                <h6>직종</h6>
+                <h6>{{ languagePack.getText('직종') }}</h6>
                 <h5>{{ item.ctgo_occupation_name }}</h5>
               </app-col>
             </app-row>
@@ -479,8 +479,8 @@
     </ng-container>
   </ion-content>
   <app-button-footer *ngIf="safety_meeting_id && (editable.safetyMenu === 1 || editable.safetyMenu === 2)">
-    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="updateItem()" fill="translucent">수정</app-button>
-    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
+    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="updateItem()" fill="translucent">{{ languagePack.getText('수정') }}</app-button>
+    <app-button *ngIf="editable.my_state || this.editable.menu_state" (click)="deleteItem()" color="danger" fill="translucent">{{ languagePack.getText('삭제') }}</app-button>
   </app-button-footer>
   <app-button-footer *ngIf="!safety_meeting_id">
     <app-button (click)="submit()">저장</app-button>

@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
 import { AnswerObj, CommentObj } from 'src/app/page/confirm/box/approval-edit/approval-edit.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export class EditItem {
   project_id:number;
@@ -156,7 +157,8 @@ export class WorkerMinutesEditPage implements OnInit {
     private _modal: ModalController,
     private loading: LoadingService,
     private date: DateService,
-    private alert: AlertService
+    private alert: AlertService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

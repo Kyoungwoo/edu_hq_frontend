@@ -4,6 +4,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Component, OnInit } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-work-write-target',
@@ -31,7 +32,8 @@ export class WorkWriteTargetPage implements OnInit {
     private _modal: ModalController,
     private connect: ConnectService,
     private toast: ToastService,
-    private date:DateService
+    private date:DateService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

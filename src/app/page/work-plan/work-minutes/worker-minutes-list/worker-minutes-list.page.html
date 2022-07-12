@@ -117,7 +117,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>회의록</ion-title>
+      <ion-title>{{ languagePack.getText('회의록') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -125,7 +125,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-input label="현장" value="수원 당수 현장" [readonly]="true"></app-input>
-        <app-button (click)="detailSearch()">상세검색</app-button>
+        <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>

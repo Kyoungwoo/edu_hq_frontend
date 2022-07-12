@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
 import { RiskEvaluationEditPage } from '../../risk-assessment/risk-evaluation-edit/risk-evaluation-edit.page';
@@ -36,7 +37,8 @@ export class WorkerMinutesPendingListPage implements OnInit {
   constructor(
     private connect: ConnectService,
     private toast: ToastService,
-    private _modal: ModalController
+    private _modal: ModalController,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
