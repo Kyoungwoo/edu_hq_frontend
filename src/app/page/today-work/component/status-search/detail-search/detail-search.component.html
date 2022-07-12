@@ -2,7 +2,7 @@
   <ion-toolbar color="white">
     <app-row>
       <app-col>
-        <ion-title>상세검색</ion-title>
+        <ion-title>{{ languagePack.getText('상세검색') }}</ion-title>
       </app-col>
       <app-col size="auto">
         <app-dismiss-button></app-dismiss-button>
@@ -26,5 +26,5 @@
   </app-row>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="search()">검색</app-button>
+  <app-button (click)="search()">{{ languagePack.getText('검색') }}</app-button>
 </app-button-footer>

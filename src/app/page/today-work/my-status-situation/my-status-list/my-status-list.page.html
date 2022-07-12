@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>나의 출입 현황</ion-title>
+    <ion-title>{{ languagePack.getText('나의 출입 현황') }}</ion-title>
     <ion-buttons slot="end">
       <app-menu-button></app-menu-button>
     </ion-buttons>
@@ -11,7 +11,7 @@
   <ion-toolbar color="white">
     <app-input-group>
       <app-select-scene name="project_id" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-      <app-button (click)="detailSearch()">상세검색</app-button>
+      <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
     </app-input-group>
   </ion-toolbar>
 </ion-header>
@@ -40,7 +40,7 @@
         <app-col>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="primary">입장</ion-chip>
+          <ion-chip color="primary">{{ languagePack.getText('입장') }}</ion-chip>
         </app-col>
         <app-col size="auto">
           <ion-chip color="primary">{{ item.inside_time }}</ion-chip>
@@ -53,7 +53,7 @@
         <app-col>
         </app-col>
         <app-col size="auto">
-          <ion-chip color="medium">퇴장</ion-chip>
+          <ion-chip color="medium">{{ languagePack.getText('퇴장') }}</ion-chip>
         </app-col>
         <app-col size="auto">
           <ion-chip color="medium">{{ item.outside_time }}</ion-chip>
@@ -84,7 +84,7 @@
           <app-col>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="primary">입장</ion-chip>
+            <ion-chip color="primary">{{ languagePack.getText('입장') }}</ion-chip>
           </app-col>
           <app-col size="auto">
             <ion-chip color="primary">{{ item.inside_time }}</ion-chip>
@@ -97,7 +97,7 @@
           <app-col>
           </app-col>
           <app-col size="auto">
-            <ion-chip color="medium">퇴장</ion-chip>
+            <ion-chip color="medium">{{ languagePack.getText('퇴장') }}</ion-chip>
           </app-col>
           <app-col size="auto">
             <ion-chip color="medium">{{ item.outside_time }}</ion-chip>

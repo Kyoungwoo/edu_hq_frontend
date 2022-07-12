@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -57,7 +58,8 @@ export class WorkerStatusAddPage implements OnInit {
     private user: UserService,
     private alert: AlertService,
     private toast: ToastService,
-    private date: DateService
+    private date: DateService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

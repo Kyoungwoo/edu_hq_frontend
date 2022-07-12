@@ -18,10 +18,10 @@
 </ion-toolbar>
 <app-row *ngIf="menuCount === 'gate'">
   <app-col>
-    <app-input label="" placeholder="검색어를 입력하세요" [(ngModel)]="form.search_text"></app-input>
+    <app-input label="" [placeholder]="languagePack.getText('검색어를 입력해 주세요')" [(ngModel)]="form.search_text"></app-input>
   </app-col>
   <app-col size="auto">
-    <app-button (click)="getGate()">검색</app-button>
+    <app-button (click)="getGate()">{{ languagePack.getText('검색') }}</app-button>
   </app-col>
 </app-row>
 <ng-container *ngIf="menuCount === 'risk'">
@@ -32,10 +32,10 @@
   </app-row>
   <app-row>
     <app-col>
-      <app-input label="" placeholder="검색어를 입력하세요" [(ngModel)]="form_risk.search_text"></app-input>
+      <app-input label="" [placeholder]="languagePack.getText('검색어를 입력해 주세요')" [(ngModel)]="form_risk.search_text"></app-input>
     </app-col>
     <app-col size="auto">
-      <app-button (click)="getRiskArea()">검색</app-button>
+      <app-button (click)="getRiskArea()">{{ languagePack.getText('검색') }}</app-button>
     </app-col>
   </app-row>
 </ng-container>
@@ -51,7 +51,7 @@
               <p>{{ gate.company_name }} | {{ gate.ctgo_job_position_name }} | {{ gate.outside_state ? gate.outside_time : gate.inside_time }}</p>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary'">{{ gate.outside_state ? '퇴장' : '입장' }}
+              <ion-chip [color]="gate.outside_state ? 'medium' : 'primary'">{{ gate.outside_state ? languagePack.getText('퇴장') : languagePack.getText('입장') }}
               </ion-chip>
             </app-col>
             <app-col size="auto">
@@ -68,7 +68,7 @@
                 <app-col>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip color="primary">입장</ion-chip>
+                  <ion-chip color="primary">{{ languagePack.getText('입장') }}</ion-chip>
                 </app-col>
                 <app-col size="auto">
                   <ion-chip color="primary"><div>{{ item.inside_time }}</div><div>{{ item.inside_type === 'MANUAL' ? '(수동)':'' }}</div></ion-chip>
@@ -81,7 +81,7 @@
                 <app-col>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip color="medium">퇴장</ion-chip>
+                  <ion-chip color="medium">{{ languagePack.getText('퇴장') }}</ion-chip>
                 </app-col>
                 <app-col size="auto">
                   <ion-chip color="medium"><div>{{ item.outside_time }}</div><div>{{ item.outside_type === 'MANUAL' ? '(수동)':''}}</div></ion-chip>
@@ -104,7 +104,7 @@
               <p>{{ risk.company_name }} | {{ risk.ctgo_job_position_name }} | {{ risk.inside_time }}</p>
             </app-col>
             <app-col size="auto">
-              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ risk.outside_state ? '퇴장' :'입장'  }}</ion-chip>
+              <ion-chip [color]="risk.outside_state ? 'medium' : 'primary'">{{ risk.outside_state ? languagePack.getText('퇴장') : languagePack.getText('입장') }}</ion-chip>
             </app-col>
             <app-col size="auto">
               <ion-chip [color]="risk.outside_state ? 'medium' : 'primary' "><div>{{ risk.outside_state ? risk.outside_time : risk.inside_time }}</div><div>{{ risk.outside_state ? (risk.outside_type === 'MANUAL' ? '(수동)':'') : (risk.inside_type === 'MANUAL' ? '(수동)':'')}}</div></ion-chip>
@@ -120,7 +120,7 @@
                 <app-col>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip color="primary">입장</ion-chip>
+                  <ion-chip color="primary">{{ languagePack.getText('입장') }}</ion-chip>
                 </app-col>
                 <app-col size="auto">
                   <ion-chip color="primary"><div>{{ item.inside_time }}</div><div>{{ item.inside_type === 'MANUAL' ? '(수동)':'' }}</div></ion-chip>
@@ -133,7 +133,7 @@
                 <app-col>
                 </app-col>
                 <app-col size="auto">
-                  <ion-chip color="medium">퇴장</ion-chip>
+                  <ion-chip color="medium">{{ languagePack.getText('퇴장') }}</ion-chip>
                 </app-col>
                 <app-col size="auto">
                   <ion-chip color="medium"><div>{{ item.outside_time }}</div><div>{{ item.outside_type === 'MANUAL' ? '(수동)':''}}</div></ion-chip>

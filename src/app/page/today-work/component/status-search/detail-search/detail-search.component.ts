@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
@@ -22,7 +23,8 @@ export class DetailSearchComponent implements OnInit {
   constructor(
     private _modal: ModalController,
     private user: UserService,
-    private toast: ToastService
+    private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

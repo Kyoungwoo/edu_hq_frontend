@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 // import { NfcService } from 'src/app/basic/service/util/nfc.service';
 // import { QrService } from 'src/app/basic/service/util/qr.service';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-my-status-list',
@@ -93,7 +94,8 @@ export class MyStatusListPage implements OnInit {
     private alert: AlertService,
     private toast: ToastService,
     public user: UserService,
-    private scanner: ScannerService
+    private scanner: ScannerService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

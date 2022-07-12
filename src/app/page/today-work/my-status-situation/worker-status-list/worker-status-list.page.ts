@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { AreaDate } from 'src/app/component/select/select-dangerous-area/select-dangerous-area.component';
 import { DetailSearchComponent } from '../../component/status-search/detail-search/detail-search.component';
 import { WorkerStatusAddPage } from '../worker-status-add/worker-status-add.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 
 export type CtgoNative = 'ch' | 'en' | 'kr' | 'vi';
@@ -103,7 +104,8 @@ export class WorkerStatusListPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private scanner: ScannerService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {
