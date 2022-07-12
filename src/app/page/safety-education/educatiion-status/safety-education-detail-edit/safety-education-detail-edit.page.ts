@@ -214,7 +214,13 @@ export class SafetyEducationDetailEditPage implements OnInit {
     alert.present();
   }
 
-  async submit() {
+  async submit() { 
+    // if(this.form.file_json.insert.length){
+    //   this.form.file_json.insert.map((item) => {
+    //     if(item.view_type === 'EDU_ONE') item.order_no = 1;
+    //     if(item.view_type === 'EDU_TWO') item.order_no = 2;
+    //   });
+    // }
     if(!this.form.ctgo_education_safe_id) return this.toast.present({message:'교육명을 설정해 주세요.', color:'warning'});
     if(!this.form.education_safe_target) return this.toast.present({message:'교육대상을 입력해 주세요.', color:'warning'});
     if(!this.form.education_safe_place) return this.toast.present({message:'교육장소를 입력해 주세요.', color:'warning'});
@@ -249,7 +255,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
        component:PeopleDeleteComponent,
        componentProps:{
         item,
-        ...{educationMenu_state:this.editable.educationMenu_state,my_state:this.editable.my_state}
+        ...{menu_state:this.editable.educationMenu_state,my_state:this.editable.my_state, type: 'EDU'}
        }
     });
     modal.present();

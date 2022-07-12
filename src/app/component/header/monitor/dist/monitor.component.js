@@ -62,8 +62,8 @@ var MonitorComponent = /** @class */ (function () {
             { text: 'CCTV 모니터링',
                 data: 'CCTV 모니터링'
             },
-            { text: '근로자 실시간 위치 모니터링',
-                data: '근로자 실시간 위치 모니터링'
+            { text: '위험작업 실시간 위치 모니터링',
+                data: '위험작업 실시간 위치 모니터링'
             }
         ];
         this.formChange = new core_1.EventEmitter();
@@ -102,7 +102,7 @@ var MonitorComponent = /** @class */ (function () {
                 case 'CCTV 모니터링':
                     _this.tabActive = _this.tabList[1].data;
                     break;
-                case '근로자 실시간 위치 모니터링':
+                case '위험작업 실시간 위치 모니터링':
                     _this.tabActive = _this.tabList[2].data;
                     break;
             }

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>신규 작성 대상</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-table>
+    <thead>
+      <tr>
+        <th style="width: 48px;">No</th>
+        <th>회의유형</th>
+        <th>회의 장소</th>
+        <th>회의일</th>
+        <th>출석 인원</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+        <td>{{ item.index }}</td>
+        <td>{{ item.safety_meeting_type }}</td>
+        <td>{{ item.safety_meeting_place }}</td>
+        <td>{{ item.safety_meeting_date }}</td>
+        <td>{{ item.attendant_count}}명</td>
+      </tr>
+    </tbody>
+  </app-table>
+  <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+</ion-content>
+<app-button-footer>
+  <app-button>적용</app-button>
+</app-button-footer>

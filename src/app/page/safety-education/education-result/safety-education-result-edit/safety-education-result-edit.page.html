@@ -47,7 +47,7 @@
       </app-col>
       <app-col>
         <app-input-template label="작성자" [disabled]="true">
-          <p slot="input">{{ form.create_user_name }}</p>
+          <p slot="input">{{ form.user_name }}</p>
         </app-input-template>
       </app-col>
     </app-row>
@@ -83,7 +83,50 @@
         <app-textarea [rows]="10" [(ngModel)]="form.education_safe_report_text" [disabled]="!permission.edit"></app-textarea>
       </app-col>
     </app-row>
-    <app-row>
+
+    <app-row style="align-items: flex-start;">
+      <app-col>
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>회의사진</h5>
+            </app-col>
+            <!-- <app-col *ngIf="permission.edit" size="auto">
+              <app-button>추가
+                <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                  [file_json]="form.file_json"></app-file>
+              </app-button>
+            </app-col> -->
+          </app-row>
+        </ion-toolbar>
+        <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+          <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
+            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="true"></app-file-preview>
+        </ng-container>
+        <!-- !permission.edit -->
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5></h5>
+            </app-col>
+            <!-- <app-col *ngIf="permission.edit" size="auto">
+              <app-button>추가
+                <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
+                  [file_json]="form.file_json"></app-file>
+              </app-button>
+            </app-col> -->
+          </app-row>
+        </ion-toolbar>
+        <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
+          <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
+            (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="true"></app-file-preview>
+        </ng-container>
+      </app-col>
+    </app-row>
+
+    <!-- <app-row>
       <app-col>
         <h4>교육 자료</h4>
       </app-col>
@@ -99,7 +142,7 @@
     <app-file-preview type="full" *ngFor="let futItem of form.education_safe_file_data; let i = index" 
     [futItem]="futItem" 
     [readonly]="!permission.edit"
-    (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+    (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
 
     <app-row>
       <app-col>

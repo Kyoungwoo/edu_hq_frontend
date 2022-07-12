@@ -6,23 +6,35 @@
    
       <app-input
       [color]="res && res.rsCode !== 0 && 'warning'"
-      name="input-id" label="아이디" placeholder="아이디" 
+      name="input-id" [label]="languagePack.getText('아이디')" [placeholder]="languagePack.getText('아이디')" 
       [(ngModel)]="form.accountID"></app-input>
       <app-input 
       [color]="res && res.rsCode !== 0 && 'warning'" 
-      name="input-password" label="비밀번호" type="password" placeholder="비밀번호"
+      name="input-password" [label]="languagePack.getText('비밀번호')" type="password" [placeholder]="languagePack.getText('비밀번호')"
       [(ngModel)]="form.accountToken" 
       (keyup.enter)="login()"></app-input>
 
       <app-input-caption color="warning" name="caption-invalid" *ngIf="res?.rsCode === 500">{{ res.rsMsg }}</app-input-caption>
 
-      <app-button name="button-login" style="width: 100%" (click)="login()">로그인</app-button>
-      <app-check name="auto_login" [(ngModel)]="autoLogin">자동로그인</app-check>
+      <app-button name="button-login" style="width: 100%" (click)="login()">{{ languagePack.getText('로그인') }}</app-button>
+      <app-row>
+        <app-col>
+          <app-check name="auto_login" [(ngModel)]="autoLogin">{{ languagePack.getText('자동로그인') }}</app-check>
+        </app-col>
+
+        <app-col>
+          <app-button class="setting-btn" fill="clear" color="dark" style="width: 100%" (click)="setting()">
+            <app-img src="assets/img/menu/setting.svg"></app-img>
+            {{ languagePack.getText('환경설정') }}
+          </app-button>
+        </app-col>
+      </app-row>
+      
     </form>
   </app-card>
   <app-row class="sub-buttons-row">
-    <app-col><app-button name="button_sign_up" color="dark" fill="clear" size="small" routerLink="/sign-up-type">회원가입</app-button></app-col><span></span>
-    <app-col><app-button name="button_find_id" color="dark" fill="clear" size="small" routerLink="/find-id-mobile-type" [queryParams]="{ type: 'find-id' }">아이디 찾기</app-button></app-col><span></span>
-    <app-col><app-button name="button_find_password" color="dark" fill="clear" size="small" routerLink="/find-password-mobile-type" [queryParams]="{ type: 'find-password' }">비밀번호 찾기</app-button></app-col>
+    <app-col><app-button name="button_sign_up" color="dark" fill="clear" size="small" routerLink="/sign-up-type">{{ languagePack.getText('회원가입') }}</app-button></app-col><span></span>
+    <app-col><app-button name="button_find_id" color="dark" fill="clear" size="small" routerLink="/find-id-mobile-type" [queryParams]="{ type: 'find-id' }">{{ languagePack.getText('아이디 찾기') }}</app-button></app-col><span></span>
+    <app-col><app-button name="button_find_password" color="dark" fill="clear" size="small" routerLink="/find-password-mobile-type" [queryParams]="{ type: 'find-password' }">{{ languagePack.getText('비밀번호 찾기') }}</app-button></app-col>
   </app-row>
 </ion-content>

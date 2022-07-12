@@ -590,12 +590,16 @@
 }
 
 .risk-evaluation-class{
-  --max-width: 2000px!important;
-  --max-height: 90%!important;
+  @media screen and (min-width: 768px) {
+    --max-width: 2000px!important;
+    --max-height: 90%!important;
+  }
 }
 
 .safety-meeting-class{
-  --max-height: 90%!important;
+  @media screen and (min-width: 768px) {
+    --max-height: 90%!important;
+  }
 }
 
 // 모달 백그라운드 클릭시 안꺼지도록

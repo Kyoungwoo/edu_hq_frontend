@@ -1,3 +1,4 @@
+import { LanguagePackService } from './basic/service/core/language-pack.service';
 import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
@@ -8,8 +9,10 @@ export class AppComponent {
 
   public selectedLibrary:'home' | 'animation' | 'component' | 'pipe' | 'service' = 'home';
 
-  constructor() {}
+  constructor(private languagePack: LanguagePackService) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.languagePack.getLanguageAPI();
+  }
   
 }
