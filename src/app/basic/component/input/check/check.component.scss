@@ -44,6 +44,10 @@
         margin-bottom: 0;
         padding-top: 0.2em;
         cursor: inherit;
+
+        &.login{
+            padding: 0.35em!important;
+        }
     }
     label:empty {
         display: none;

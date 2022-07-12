@@ -31,6 +31,7 @@ export class CheckComponent implements OnInit, ControlValueAccessor {
   @Input() on:any = true;
   @Input() off:any = false;
   @Input() size:'small' | 'default' = 'default';
+  @Input() addClass:string = '';
 
   constructor() { }
 

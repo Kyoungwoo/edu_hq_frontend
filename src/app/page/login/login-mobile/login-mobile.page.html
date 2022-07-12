@@ -19,13 +19,17 @@
       <app-button name="button-login" style="width: 100%" (click)="login()">{{ languagePack.getText('로그인') }}</app-button>
       <app-row>
         <app-col>
-          <app-check name="auto_login" [(ngModel)]="autoLogin">{{ languagePack.getText('자동로그인') }}</app-check>
+          <app-check addClass="login" name="auto_login" [(ngModel)]="autoLogin">
+            <!-- {{ languagePack.getText('자동로그인') }} -->
+            자동로그인
+          </app-check>
         </app-col>
 
         <app-col>
-          <app-button class="setting-btn" fill="clear" color="dark" style="width: 100%" (click)="setting()">
-            <app-img src="assets/img/menu/setting.svg"></app-img>
-            {{ languagePack.getText('환경설정') }}
+          <app-button class="setting-btn" fill="clear" style="width: 100%;color:black;" (click)="setting()">
+            <app-img style="width: 2em;margin-right: 3px;" src="assets/img/menu/setting-outline.svg"></app-img>
+            환경설정
+            <!-- {{ languagePack.getText('환경설정') }} -->
           </app-button>
         </app-col>
       </app-row>

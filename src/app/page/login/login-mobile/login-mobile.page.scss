@@ -52,7 +52,9 @@ ion-content::part(scroll) {
 }
 
 .setting-btn{
-    color: var(--ion-text-color)!important;
+    // color: var(--ion-text-color)!important;
+    text-align: left;
+    padding: 0;
 }
 
 @media screen and (max-width: 768px) {
