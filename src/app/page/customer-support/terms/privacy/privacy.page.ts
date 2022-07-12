@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class PrivacyPage implements OnInit {
   }>;
   constructor(
     private connect: ConnectService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

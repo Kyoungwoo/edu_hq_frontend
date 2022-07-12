@@ -53,10 +53,10 @@
   <ion-content>
     <app-row mobileBreak style="border-bottom: 1px solid var(--ion-color-step-100); margin-bottom: 50px;">
       <app-col>
-        <h5>S-Keeper 플랫폼 서비스의 이용과 관련하여 필요한 사항을 규정합니다.</h5>
+        <h5>S-Keeper {{ languagePack.getText('플랫폼 서비스의 이용과 관련하여 필요한 사항을 규정합니다.') }}</h5>
       </app-col>
       <app-col size="auto">
-        <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
+        <p>{{ languagePack.getText('시행일자') }} : {{ res?.rsObj?.create_date}}</p>
       </app-col>
     </app-row>
         <app-textarea [rows]="20" name="플랫폼 이용약관" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea>
