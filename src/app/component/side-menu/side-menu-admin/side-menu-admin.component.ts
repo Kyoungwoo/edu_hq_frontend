@@ -111,6 +111,22 @@ export class  SideMenuAdminComponent implements OnInit {
         {title:'특별 교육 이력', link:''}
       ]}
     ]},
+    { img:'assets/img/menu/conference.svg', title: '안전 회의', permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER' 
+    },
+    subMenuList: [
+      { title: '회의 현황', link: '/worker-minutes-list',
+      permission: () => {
+        const { user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+      }},
+      { title: '회의록', link: '/work-write-list',
+      permission: () => {
+        const { user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+      }}
+    ]},
     { title: '작업계획', img: 'assets/img/menu/work-plan.svg', 
     permission: () => {
       const { user_type } = this.user.userData;
@@ -125,19 +141,7 @@ export class  SideMenuAdminComponent implements OnInit {
         }},
         { title: '평가표 정보 추가 요청', link: '' }
       ]},
-      { title: '위험 작업 허가', link: ''},
-      { title: '안전회의', thirdMenuList: [
-        { title: '회의 현황', link: '/worker-minutes-list',
-        permission: () => {
-          const { user_type } = this.user.userData;
-          return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-        }},
-        { title: '회의록 작성', link: '/work-write-list',
-        permission: () => {
-          const { user_type } = this.user.userData;
-          return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-        }}
-      ]}
+      { title: '위험 작업 허가', link: ''}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-management.svg', 
     permission: () => {

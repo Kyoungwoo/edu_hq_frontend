@@ -37,7 +37,7 @@
         <h5>S-Keeper 플랫폼은 이용자 개인정보 보호를 최우선의 가치로 두고 있습니다.</h5>
       </app-col>
       <app-col size="auto">
-        <p>시행일자 : {{ res?.rsObj?.create_date}}</p>
+        <p>{{ languagePack.getText('시행일자') }} : {{ res?.rsObj?.create_date}}</p>
       </app-col>
     </app-row>
         <app-textarea [rows]="20" name="플랫폼 이용약관" [readonly]="true" [value]="res?.rsObj.terms_text"></app-textarea>

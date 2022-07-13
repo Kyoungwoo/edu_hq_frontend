@@ -158,7 +158,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>개인 디바이스</ion-title>
+      <ion-title>{{ languagePack.getText('개인 디바이스') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -166,7 +166,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene [disabled]="true" name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
-        <app-button (click)="openDetailSearch()">상세검색</app-button>
+        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
     <ion-toolbar color="white">
@@ -182,7 +182,7 @@
         <app-row style="align-items: flex-start;">
           <app-col>
             <p>{{ item.partner_company_name }}/{{ item.assign_user_name }}/{{ item.serial_no }}</p>
-            <p>배정일: {{ item.create_date }}</p>
+            <p>{{ languagePack.getText('배정일') }}: {{ item.create_date }}</p>
           </app-col>
           <app-col size="auto">
             <ion-chip [color]="item.return_state ? 'primary' : 'danger'">{{ item.return_state ? '반납' : '사용 중' }}</ion-chip>

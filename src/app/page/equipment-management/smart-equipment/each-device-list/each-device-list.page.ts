@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { EachDeviceAddPage } from '../each-device-add/each-device-add.page';
 import { EachDeviceDetailSearchPage } from '../each-device-detail-search/each-device-detail-search.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 class SmartInfo {
   serial_use_state:number;
@@ -111,7 +112,8 @@ export class EachDeviceListPage implements OnInit {
     private date: DateService,
     public user: UserService,
     private alert: AlertService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    public languagePack: LanguagePackService
   ) { }
 
 

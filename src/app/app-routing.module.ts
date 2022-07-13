@@ -619,6 +619,10 @@ const routes: Routes = [
   {
     path: 'work-write-edit',
     loadChildren: () => import('./page/work-plan/work-minutes/work-write-edit/work-write-edit.module').then( m => m.WorkWriteEditPageModule)
+  },
+  {
+    path: 'work-my-list',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-my-list/work-my-list.module').then( m => m.WorkMyListPageModule)
   }
 ];
 
