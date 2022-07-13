@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>나의 교육</ion-title>
+      <ion-title>{{ languagePack.getText('나의 교육') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -16,7 +16,7 @@
       </app-input-group> -->
       <app-input-group>
         <app-select-scene  name="project_id" [(ngModel)]="form.project_id" [readonly]="true"></app-select-scene>
-        <app-button (click)="openDetailSearch()">상세검색</app-button>
+        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -43,5 +43,5 @@
   </ion-content>
   <app-button-footer>
     교육 출석을 위해 출석진행자와<br>QR코드 인식을 진행해주세요
-    <app-button (click)="QRedcaution()">교육출석(QR)</app-button>
+    <app-button (click)="QRedcaution()">{{ languagePack.getText('교육 출석') }}(QR)</app-button>
   </app-button-footer>

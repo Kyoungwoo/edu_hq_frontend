@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
@@ -30,7 +31,8 @@ export class SafetyEducationResultDetailSearchPage implements OnInit {
   constructor(
     private _modal: ModalController,
     private date: DateService,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

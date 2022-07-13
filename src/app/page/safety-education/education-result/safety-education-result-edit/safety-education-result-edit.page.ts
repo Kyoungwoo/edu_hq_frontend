@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -92,7 +93,8 @@ export class SafetyEducationResultEditPage implements OnInit {
     public date: DateService,
     private user: UserService,
     private _modal: ModalController,
-    private loading: LoadingService
+    private loading: LoadingService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

@@ -107,7 +107,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene name="project_id" [all]="true" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-        <app-button (click)="openDetailSearch()">상세검색</app-button>
+        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -128,7 +128,7 @@
             <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer>
           </app-col>
         </app-row>
-        <p>{{ item.company_name }} / 교육일:{{ item.education_safe_date }}</p>
+        <p>{{ item.company_name }} / {{ languagePack.getText('교육일') }}:{{ item.education_safe_date }}</p>
         <app-row>
           <app-col>
             <ion-badge color="success">{{ item.ctgo_education_safe_type }}</ion-badge>

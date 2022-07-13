@@ -35,7 +35,7 @@
         <app-col>
           <h5>{{ item.ctgo_approval_module_name }}</h5>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
-          <h5>작성일:{{ item.create_date }}</h5>
+          <h5>{{ languagePack.getText('작성일') }}:{{ item.create_date }}</h5>
         </app-col>
         <app-col size="auto">
           <ion-chip color="success" color="success" *ngIf="item.approval_cnt_answer === '임시저장'">{{ item.approval_cnt_answer }}</ion-chip>
@@ -54,6 +54,6 @@
   <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>
-  <app-button>적용</app-button>
+  <app-button>{{ languagePack.getText('적용') }}</app-button>
 </app-button-footer>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -69,7 +70,8 @@ export class SafetyEducationResultListPage implements OnInit {
     private user: UserService,
     private toast: ToastService,
     private promise: PromiseService,
-    private nav: NavService
+    private nav: NavService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() { 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { SafetyEducationResultEditPage } from '../safety-education-result-edit/safety-education-result-edit.page';
@@ -36,7 +37,8 @@ export class NewWriteTargetPage implements OnInit {
     private _modal: ModalController,
     private connect: ConnectService,
     private toast: ToastService,
-    private date:DateService
+    private date:DateService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

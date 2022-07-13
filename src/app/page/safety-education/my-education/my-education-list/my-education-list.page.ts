@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { MyDetailSearchPage } from '../my-detail-search/my-detail-search.page';
 import { MyEducationDetailListPage } from '../my-education-detail-list/my-education-detail-list.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-my-education-list',
@@ -59,7 +60,8 @@ export class MyEducationListPage implements OnInit {
     private toast: ToastService,
     public date: DateService,
     private user: UserService,
-    private scanner: ScannerService
+    private scanner: ScannerService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

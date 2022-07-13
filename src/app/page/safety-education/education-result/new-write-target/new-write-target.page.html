@@ -11,11 +11,11 @@
     <thead>
       <tr>
         <th style="width: 48px;">No</th>
-        <th>교육명</th>
-        <th>교육대상</th>
-        <th>교육장소</th>
-        <th>교육일</th>
-        <th>강사</th>
+        <th>{{ languagePack.getText('교육명') }}</th>
+        <th>{{ languagePack.getText('교육 대상') }}</th>
+        <th>{{ languagePack.getText('교육 장소') }}</th>
+        <th>{{ languagePack.getText('교육일') }}</th>
+        <th>{{ languagePack.getText('강사') }}</th>
         <th>이수인원</th>
       </tr>
     </thead>
@@ -34,5 +34,5 @@
   <app-pager [totalCount]="res?.rsObj?.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
 </ion-content>
 <app-button-footer>
-  <app-button>적용</app-button>
+  <app-button>{{ languagePack.getText('적용') }}</app-button>
 </app-button-footer>
