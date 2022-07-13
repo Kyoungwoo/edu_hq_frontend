@@ -71,7 +71,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       this._modal.dismiss();
     }
   }
-  
+   
   ngOnDestroy() {
     clearTimeout(this.qr_timeout);
     this.qr_subs?.unsubscribe();
@@ -130,6 +130,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         let type = '';
         let serial_key = null;
         let education_safe_id = null;
+        let safety_meeting_id = null;
         let device_id = null;
         if(data.indexOf('https://dev.lh-skeeper.or.kr/heavy-qr-data?device_id=') != -1){
           type = data.split('=')[data.split('=').length-1];
@@ -139,6 +140,11 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           if(data.indexOf('education_safe_id') != -1){
             type = data_set.type;
             education_safe_id = data_set.education_safe_id;
+          }
+
+          if(data.indexOf('safety_meeting_id') != -1){
+            type = data_set.type;
+            safety_meeting_id = data_set.safety_meeting_id;
           }
 
           if(data.indexOf('serial_key') != -1){
@@ -151,6 +157,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           item: {
             type: type,
             education_safe_id: education_safe_id,
+            safety_meeting_id: safety_meeting_id,
             serial_key: serial_key,
             device_id: device_id
           }

@@ -116,7 +116,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene name="project_id" [all]="true" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-        <app-button (click)="openDetailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
+        <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>

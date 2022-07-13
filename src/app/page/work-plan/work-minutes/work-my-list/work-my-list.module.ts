@@ -1,3 +1,6 @@
+import { WorkMyDetailPageModule } from './../work-my-detail/work-my-detail.module';
+import { BasicComponentModule } from 'src/app/basic/component/basic.component.module';
+import { ComponentModule } from 'src/app/component/component.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +16,10 @@ import { WorkMyListPage } from './work-my-list.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    WorkMyListPageRoutingModule
+    ComponentModule,
+    BasicComponentModule,
+    WorkMyListPageRoutingModule,
+    WorkMyDetailPageModule
   ],
   declarations: [WorkMyListPage]
 })

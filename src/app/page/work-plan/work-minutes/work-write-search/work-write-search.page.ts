@@ -1,18 +1,16 @@
-import { SafetyStateType } from './../../../../component/confirm/chip-safety-state/chip-safety-state.component';
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { FileService } from 'src/app/basic/service/core/file.service';
 import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
-import { UserService } from 'src/app/basic/service/core/user.service';
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { UserService } from 'src/app/basic/service/core/user.service';
+import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-worker-minutes-detail-search',
-  templateUrl: './worker-minutes-detail-search.page.html',
-  styleUrls: ['./worker-minutes-detail-search.page.scss'],
+  selector: 'app-work-write-search',
+  templateUrl: './work-write-search.page.html',
+  styleUrls: ['./work-write-search.page.scss'],
 })
-export class WorkerMinutesDetailSearchPage implements OnInit {
-
+export class WorkWriteSearchPage implements OnInit {
   @Input() form = {
     project_id: null,
     master_company_id: null,
@@ -20,9 +18,9 @@ export class WorkerMinutesDetailSearchPage implements OnInit {
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    // approval_cnt_answer: '전체',
+    approval_cnt_answer: '전체',
     limit_no: 0,
-    safety_meeting_state: '전체' as SafetyStateType
+    // safety_meeting_state: '전체' as SafetyStateType
   }
 
   temptForm = {
@@ -32,9 +30,9 @@ export class WorkerMinutesDetailSearchPage implements OnInit {
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    // approval_cnt_answer: '전체',
+    approval_cnt_answer: '전체',
     limit_no: 0,
-    safety_meeting_state: '전체' as SafetyStateType
+    // safety_meeting_state: '전체' as SafetyStateType
   }
 
   constructor(

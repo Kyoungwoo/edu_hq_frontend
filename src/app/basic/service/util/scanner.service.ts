@@ -121,12 +121,15 @@ export class ScannerService {
           case 'EDU':
             return_state = await this.insert('/education/my/attendant/insert', {education_safe_id: data?.item?.education_safe_id},info_state);
             break;
+          case 'SAFE':
+            return_state = await this.insert('/board/safety_meeting/attendant/qr/insert', {safety_meeting_id: data?.item?.safety_meeting_id},info_state);
+            break;
           case 'ACC':
             ACC_state = true;
             return_state.state = true;
             break;
           default:
-            this.toast.present({message: '해당 NFC는 지원대상에 없습니다.', color: 'warning'});
+            this.toast.present({message: '해당 QR코드는 지원대상에 없습니다.', color: 'warning'});
             break;
         }
       }

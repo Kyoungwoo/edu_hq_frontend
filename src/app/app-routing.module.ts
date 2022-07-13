@@ -623,6 +623,14 @@ const routes: Routes = [
   {
     path: 'work-my-list',
     loadChildren: () => import('./page/work-plan/work-minutes/work-my-list/work-my-list.module').then( m => m.WorkMyListPageModule)
+  },
+  {
+    path: 'work-write-search',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-write-search/work-write-search.module').then( m => m.WorkWriteSearchPageModule)
+  },
+  {
+    path: 'work-my-detail',
+    loadChildren: () => import('./page/work-plan/work-minutes/work-my-detail/work-my-detail.module').then( m => m.WorkMyDetailPageModule)
   }
 ];
 

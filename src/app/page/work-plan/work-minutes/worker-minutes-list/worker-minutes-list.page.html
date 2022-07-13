@@ -134,7 +134,8 @@
     <app-row>
       <app-col></app-col>
       <app-col size="auto">
-        <app-button fill="translucent" (click)="pending()">미결문서</app-button>
+        <app-button *ngIf="permission.add" fill="translucent" (click)="add()">회의 개설</app-button>
+        <!-- <app-button fill="translucent" (click)="pending()">미결문서</app-button> -->
       </app-col>
     </app-row>
     

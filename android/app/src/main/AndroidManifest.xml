@@ -37,15 +37,7 @@
           android:stopWithTask="true"
           android:exported="true">
           <intent-filter>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <action android:name="restartservice" android:stopWithTask="true" />
-=======
-            <action android:name="restartservice" android:stopWithTask="true"/>
->>>>>>> 5048cd253b8a84f264552eb40edc2145de7edcf4
-=======
-            <action android:name="restartservice" android:stopWithTask="true" />
->>>>>>> 2159fe33cd689edf31af38a5321fe0b6067f52a7
           </intent-filter>
         </receiver>
     </application>
