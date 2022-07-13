@@ -39,13 +39,22 @@ export class SideMenuUserComponent implements OnInit {
   menuSelected:MenuItem = null;
 
   menuList:MenuItem[] = [
-    { img:'assets/img/menu/member-management.svg', title: '회원관리', permission: () => {
-      const { user_type } = this.user.userData;
-      return user_type !== 'WORKER' 
-    }, subMenuList: [
-      { title: '안전 마일리지', link: '', params: {}, permission: () => { return true }}
+    // { img:'assets/img/menu/member-management.svg', title: '회원 관리', permission: () => {
+    //   const { user_type } = this.user.userData;
+    //   return user_type !== 'WORKER' 
+    // }, subMenuList: [
+    //   { title: '안전 마일리지', link: '', params: {}, permission: () => { return true }}
+    // ]},
+    { img:'assets/img/menu/today-work.svg', title: '오늘의 작업', subMenuList: [
+      { title: '나의 출입 현황', link: '/my-status-list', params: {}, permission: () => {
+        const { user_role, user_type } = this.user.userData;
+        return user_role === 'LH_HEAD' ||  user_type === 'COMPANY' ||  user_type === 'WORKER';
+       }},
+      { title: 'TBM', link: '', params: {}, permission: () =>  { return true }},
+      { title: '점검', link: '', params: {}, permission: () => { return true }},
+      { title: '부적합 조치', link: '', params: {}, permission: () => { return true}}
     ]},
-    { img:'assets/img/menu/work-plan.svg', title: '작업계획', permission: () => {
+    { img:'assets/img/menu/work-plan.svg', title: '작업 계획', permission: () => {
       const { user_type } = this.user.userData;
       return user_type !== 'WORKER' 
     },
@@ -60,7 +69,7 @@ export class SideMenuUserComponent implements OnInit {
         return user_type === 'LH' || user_type === 'COMPANY';
        }}
     ]},
-    { img:'assets/img/menu/safety-education.svg', title: '안전교육', subMenuList: [
+    { img:'assets/img/menu/safety-education.svg', title: '안전 교육', subMenuList: [
       { title: '교육현황', link: '/safety-education-list', params: {}, permission: () => {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
@@ -74,14 +83,20 @@ export class SideMenuUserComponent implements OnInit {
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
        }}
     ]},
-    { img:'assets/img/menu/today-work.svg', title: '오늘의 작업', subMenuList: [
-      { title: '나의 출입 현황', link: '/my-status-list', params: {}, permission: () => {
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' ||  user_type === 'COMPANY' ||  user_type === 'WORKER';
+    { img:'assets/img/menu/conference.svg', title: '안전 회의',
+    subMenuList: [
+      { title: '회의 현황', link: '/worker-minutes-list', params: {}, permission: () => { 
+        const {  user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY';
        }},
-      { title: 'TBM', link: '', params: {}, permission: () =>  { return true }},
-      { title: '점검', link: '', params: {}, permission: () => { return true }},
-      { title: '부적합 조치', link: '', params: {}, permission: () => { return true}}
+       { title: '나의 회의', link: '/work-my-list', params: {}, permission: () => { 
+        const {  user_type } = this.user.userData;
+        return user_type !== 'SUPER' 
+       }},
+       { title: '회의록', link: '/work-write-list', params: {}, permission: () => { 
+        const {  user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+       }}
     ]},
     { img:'assets/img/menu/emergency-management.svg', title: '비상상황 관리', subMenuList: [
       { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
