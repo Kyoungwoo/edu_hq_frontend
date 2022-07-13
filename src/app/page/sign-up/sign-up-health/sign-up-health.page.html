@@ -3,48 +3,48 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/sign-up-company?userType=WORKER"></ion-back-button>
     </ion-buttons>
-    <ion-title>건강 문진 작성</ion-title>
+    <ion-title>{{ languagePack.getText('건강 문진 작성') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 <app-container size="small">
   <app-sign-up-segment step="step3" type="WORKER"></app-sign-up-segment>
   <form>
-    <h4>1. 현재 복용하고 있는 약물이 있습니까?</h4>
+    <h4>1. {{ languagePack.getText('현재 복용하고 있는 약물이 있습니까?') }}</h4>
     <app-radio-input name="use_drugs_state" 
     [color]="validator.use_drugs_state?.valid === false && 'warning'"
     [(ngModel)]="form.use_drugs_state" (change)="form.use_drugs_content = ''">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.use_drugs_state?.valid === false" color="warning">{{ validator.use_drugs_state.message }}</app-input-caption>
 
     <app-input @fadeInAnimation *ngIf="form.use_drugs_state"
     [color]="validator.use_drugs_content?.valid === false && 'warning'"
-    name="use_drugs_content" placeholder="약물명을 입력해주세요."
+    name="use_drugs_content" [placeholder]="languagePack.getText('약물명을 입력해주세요.')"
     [(ngModel)]="form.use_drugs_content"></app-input>
     <app-input-caption *ngIf="validator.use_drugs_content?.valid === false" color="warning">{{ validator.use_drugs_content.message }}</app-input-caption>
     
 
-    <h4>2. 과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?</h4>
+    <h4>2. {{ languagePack.getText('과거나 현재 뇌, 심혈관질환으로 치료를 받았거나 받고 있습니까?') }}</h4>
     <app-radio-input name="brain_cure_state"
     [color]="validator.brain_cure_state?.valid === false && 'warning'"
     [(ngModel)]="form.brain_cure_state" (change)="!form.brain_cure_state && form.brain_cure_content = []">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.brain_cure_state?.valid === false" color="warning">{{ validator.brain_cure_state.message }}</app-input-caption>
 
     <div @fadeInAnimation *ngIf="form.brain_cure_state">
-      * 해당하는 항목에 체크해주세요
+      {{ languagePack.getText('* 해당하는 항목에 체크해주세요') }}
       <app-input-template [color]="validator.brain_cure_content?.valid === false && 'warning'">
         <app-check-group slot="input" name="brain_cure_content" 
         [(ngModel)]="form.brain_cure_content">
-          <app-check on="뇌졸중">뇌졸중</app-check>
-          <app-check on="뇌출혈">뇌출혈</app-check>
-          <app-check on="협심증">협심증</app-check>
-          <app-check on="심근경색">심근경색</app-check>
-          <app-check on="간질발작">간질발작</app-check>
+          <app-check on="뇌졸중">{{ languagePack.getText('뇌졸중') }}</app-check>
+          <app-check on="뇌출혈">{{ languagePack.getText('뇌출혈') }}</app-check>
+          <app-check on="협심증">{{ languagePack.getText('협심증') }}</app-check>
+          <app-check on="심근경색">{{ languagePack.getText('심근경색') }}</app-check>
+          <app-check on="간질발작">{{ languagePack.getText('간질발작') }}</app-check>
         </app-check-group>
       </app-input-template>
     </div>
@@ -55,69 +55,68 @@
     <app-radio-input name="vomiting_state" 
     [color]="validator.vomiting_state?.valid === false && 'warning'"
     [(ngModel)]="form.vomiting_state" (change)="form.vomiting_content = ''">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.vomiting_state?.valid === false" color="warning">{{ validator.vomiting_state.message }}</app-input-caption>
 
     <app-input @fadeInAnimation *ngIf="form.vomiting_state" 
     [color]="validator.vomiting_content?.valid === false && 'warning'"
-    name="vomiting_content" placeholder="증상을 적어주세요." 
+    name="vomiting_content" [placeholder]="languagePack.getText('증상을 적어주세요.')" 
     [(ngModel)]="form.vomiting_content"></app-input>
     <app-input-caption *ngIf="validator.vomiting_content?.valid === false" color="warning">{{ validator.vomiting_content.message }}</app-input-caption>
 
 
-    <h4>4. 최근 갑자기 한쪽 팔,다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통,어지러운 증상을 겪은적이 있습니까?</h4>
+    <h4>4. {{ languagePack.getText('최근 갑자기 한쪽 팔, 다리에 힘이 빠지거나 말이 어눌하게 나오거나 두통, 어지러운 증상을 겪은 적이 있습니까?') }}</h4>
     <app-radio-input name="pain_head_state" 
     [color]="validator.pain_head_state?.valid === false && 'warning'"
     [(ngModel)]="form.pain_head_state" (change)="form.pain_head_content = ''">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.pain_head_state?.valid === false" color="warning">{{ validator.pain_head_state.message }}</app-input-caption>
 
     <app-input @fadeInAnimation *ngIf="form.pain_head_state" 
     [color]="validator.pain_head_content?.valid === false && 'warning'"
-    name="pain_head_content" placeholder="증상을 적어주세요." 
+    name="pain_head_content" [placeholder]="languagePack.getText('증상을 적어주세요.')" 
     [(ngModel)]="form.pain_head_content"></app-input>
     <app-input-caption *ngIf="validator.pain_head_content?.valid === false" color="warning">{{ validator.pain_head_content.message }}</app-input-caption>
 
 
-    <h4>5. 현재 기타질병(당뇨,간장질환,폐질환 등)으로 치료를 받고 있습니까?</h4>
+    <h4>5. {{ languagePack.getText('현재 기타 질병(당뇨, 간장질환, 폐질환 등) 으로 치료를 받고 있습니까?') }}</h4>
     <app-radio-input name="etc_disease_state" 
     [color]="validator.etc_disease_state?.valid === false && 'warning'"
     [(ngModel)]="form.etc_disease_state" (change)="form.etc_disease_content = ''">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.etc_disease_state?.valid === false" color="warning">{{ validator.etc_disease_state.message }}</app-input-caption>
 
     <app-input @fadeInAnimation *ngIf="form.etc_disease_state" 
     [color]="validator.etc_disease_content?.valid === false && 'warning'"
-    name="etc_disease_content" placeholder="증상을 적어주세요."
+    name="etc_disease_content" [placeholder]="languagePack.getText('증상을 적어주세요.')"
     [(ngModel)]="form.etc_disease_content"></app-input>
     <app-input-caption *ngIf="validator.etc_disease_content?.valid === false" color="warning">{{ validator.etc_disease_content.message }}</app-input-caption>
 
 
-    <h4>6. 본인이 코로나19가 의심되는 아래의 임상증상이 있습니까?(*주요 임상증상)체온 37.5도 이상,기침,호흡곤란,오한,근육통,두통,인후통,후각미각 소실 또는 폐렴
-      (단,코로나19와 관계없이 평소의 기저질환으로 인한 증상인 경우는 제외)
+    <h4>6. {{ languagePack.getText('본인이 코로나19가 의심되는 아래의 임상 증상이 있습니까? (*주요 임상증상)체온 37.5℃ 이상, 기침, 호흡곤란, 오한, 근육통, 두통, 인후통,  후각미각 소실 또는 폐렴 (단, 코로나19와 관게없이  평소의 기저질환으로 인한 증상인 경우는 제외))') }}
     </h4>
     <app-radio-input name="covid_nineteen_state" 
     [color]="validator.covid_nineteen_state?.valid === false && 'warning'"
     [(ngModel)]="form.covid_nineteen_state" (change)="form.covid_nineteen_content = ''">
-      <app-radio [value]="0">없다</app-radio>
-      <app-radio [value]="1">있다</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('없다') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.covid_nineteen_state?.valid === false" color="warning">{{ validator.covid_nineteen_state.message }}</app-input-caption>
 
     <app-input @fadeInAnimation *ngIf="form.covid_nineteen_state" 
     [color]="validator.covid_nineteen_state?.valid === false && 'warning'"
-    name="covid_nineteen_content" placeholder="증상을 적어주세요."
+    name="covid_nineteen_content" [placeholder]="languagePack.getText('증상을 적어주세요.')"
     [(ngModel)]="form.covid_nineteen_content"></app-input>
     <app-input-caption *ngIf="validator.covid_nineteen_content?.valid === false" color="warning">{{ validator.covid_nineteen_content.message }}</app-input-caption>
 
 
-    <h4>7. 코로나 백신 접종을 하셨습니까?</h4>
+    <h4>7. {{ languagePack.getText('코로나 백신 접종을 하셨습니까?') }}</h4>
     <app-radio-input name="covid_vaccine_state" 
     [color]="validator.covid_vaccine_state?.valid === false && 'warning'"
     [(ngModel)]="form.covid_vaccine_state">
@@ -134,6 +133,6 @@
 </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="prev()">이전</app-button>
-  <app-button name="button_next" (click)="next()">다음</app-button>
+  <app-button (click)="prev()">{{ languagePack.getText('이전') }}</app-button>
+  <app-button name="button_next" (click)="next()">{{ languagePack.getText('다음') }}</app-button>
 </app-button-footer>

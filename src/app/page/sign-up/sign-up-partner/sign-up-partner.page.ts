@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { Validator, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -30,7 +31,8 @@ export class SignUpPartnerPage implements OnInit {
     public regex: RegexService,
     private promise: PromiseService,
     private changeDetector: ChangeDetectorRef,
-    private toast: ToastService
+    private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

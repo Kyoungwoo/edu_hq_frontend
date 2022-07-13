@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
   <app-container size="small">
-    <h4>업체 검색을 위해<br><b>사업자 등록번호</b> 또는 <b>업체명</b>을 입력해주세요.</h4>
-    <app-input name="search_text" label="사업자등록번호(-제외) 또는 업체명" [(ngModel)]="form.search_text" (keyup.enter)="searchCompany()" (buttonClick)="searchCompany()">
+    <h4>업체 검색을 위해<br><b>{{ languagePack.getText('사업자 등록번호') }}</b> 또는 <b>업체명</b>을 입력해주세요.</h4>
+    <app-input name="search_text" [label]="languagePack.getText('사업자등록번호(-제외) 또는 업체명')" [(ngModel)]="form.search_text" (keyup.enter)="searchCompany()" (buttonClick)="searchCompany()">
       <app-img style="margin-right: 4px" name="search"></app-img> 조회
     </app-input>
     <ng-container *ngIf="!res; else tempRes">
@@ -30,6 +30,6 @@
   </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button fill="translucent" routerLink="/sign-up-type" routerDirection="back">이전</app-button>
-  <app-button name="button_next" *ngIf="selectedCompany" @fadeInAnimation (click)="next()">다음</app-button>
+  <app-button fill="translucent" routerLink="/sign-up-type" routerDirection="back">{{ languagePack.getText('이전') }}</app-button>
+  <app-button name="button_next" *ngIf="selectedCompany" @fadeInAnimation (click)="next()">{{ languagePack.getText('다음') }}</app-button>
 </app-button-footer>

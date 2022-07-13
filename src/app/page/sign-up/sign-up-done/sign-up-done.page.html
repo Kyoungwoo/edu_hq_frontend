@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>가입완료</ion-title>
+    <ion-title>{{ languagePack.getText('가입 완료') }}</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -12,10 +12,10 @@
     <div class="circle-check">
       <app-img name="check"></app-img>
     </div>
-    <h4>회원 가입 완료</h4>
+    <h4>{{ languagePack.getText('회원 가입 완료') }}</h4>
     <p>로그인 페이지에서 로그인 해주세요.</p>
     <div style="text-align: center; margin-top: 28px;">
-      <app-button style="width: 148px" (click)="dismiss()">확인</app-button>
+      <app-button style="width: 148px" (click)="dismiss()">{{ languagePack.getText('확인') }}</app-button>
     </div>
   </app-container>
 </ion-content>

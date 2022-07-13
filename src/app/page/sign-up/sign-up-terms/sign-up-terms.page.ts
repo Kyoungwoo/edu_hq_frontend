@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { DeviceService } from 'src/app/basic/service/core/device.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -35,7 +36,8 @@ export class SignUpTermsPage implements OnInit {
     private toast: ToastService,
     private nav: NavService,
     private promise: PromiseService,
-    private device: DeviceService
+    private device: DeviceService,
+    public languagePack: LanguagePackService
   ) {}
 
   ngOnInit() {

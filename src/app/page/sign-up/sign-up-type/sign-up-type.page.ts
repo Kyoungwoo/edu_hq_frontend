@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { slideUpInAnimation } from 'src/app/basic/basic.animation';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserType } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -21,7 +22,8 @@ export class SignUpTypePage implements OnInit {
     private nav: NavService,
     public regex: RegexService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

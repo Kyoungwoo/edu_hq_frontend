@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { Validator, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
@@ -27,7 +28,8 @@ export class SignUpSupervisionPage implements OnInit {
     private nav: NavService,
     public regex: RegexService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
