@@ -639,4 +639,8 @@ export class WorkerMinutesEditPage implements OnInit {
       this.getAttendList();
     }
   }
+
+  async excel_download(){
+    
+  }
 }
