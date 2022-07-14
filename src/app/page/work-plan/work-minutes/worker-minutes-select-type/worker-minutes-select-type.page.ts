@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
 
@@ -18,7 +19,8 @@ export class WorkerMinutesSelectTypePage implements OnInit {
 
   constructor(
     private _modal: ModalController,
-    private toast: ToastService
+    private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
