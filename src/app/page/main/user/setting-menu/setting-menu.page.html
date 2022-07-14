@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>설정</ion-title>
+    <ion-title>{{ languagePack.getText('설정') }}</ion-title>
     <ion-buttons slot="end">
       <app-menu-button></app-menu-button>
     </ion-buttons>
@@ -13,7 +13,7 @@
   <app-card name="setting-sound" [button]="true" (click)="router('알림설정')">
     <app-row class="card-inner">
       <app-col>
-        <h4>알림 설정</h4>
+        <h4>{{ languagePack.getText('알림 설정') }}</h4>
       </app-col>
       <app-col size="auto">
         <app-img class="arrow-right" src="assets/img/sign-up/arrow-right.svg"></app-img>
@@ -23,7 +23,7 @@
   <app-card name="setting-sound" [button]="true" (click)="router('')">
     <app-row class="card-inner">
       <app-col>
-        <h4>바로가기 메뉴</h4>
+        <h4>{{ languagePack.getText('바로가기 메뉴') }}</h4>
       </app-col>
       <app-col size="auto">
         <app-img class="arrow-right" src="assets/img/sign-up/arrow-right.svg"></app-img>

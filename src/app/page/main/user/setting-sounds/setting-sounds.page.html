@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>알림 설정</ion-title>
+    <ion-title>{{ languagePack.getText('알림 설정') }}</ion-title>
     <ion-buttons slot="end">
       <app-menu-button></app-menu-button>
     </ion-buttons>
@@ -19,6 +19,7 @@
         </app-col>
         <app-col size="auto">
           <h4> 소리+진동</h4>
+           <!-- {{ languagePack.getText('로그인') }}  -->
         </app-col>
       </app-row>
     </app-card>
@@ -28,7 +29,7 @@
           <app-radio size="small" [value]="1"></app-radio>
         </app-col>
         <app-col size="auto">
-          <h4>소리</h4>
+          <h4>{{ languagePack.getText('소리') }}</h4>
         </app-col>
       </app-row>
     </app-card>
@@ -38,7 +39,7 @@
           <app-radio size="small" [value]="2"></app-radio>
         </app-col>
         <app-col size="auto">
-          <h4>진동</h4>
+          <h4>{{ languagePack.getText('진동') }}</h4>
         </app-col>
       </app-row>
     </app-card>

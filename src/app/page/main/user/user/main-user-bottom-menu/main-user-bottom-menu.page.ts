@@ -6,6 +6,7 @@ import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { MsdsEditPage } from 'src/app/page/notice-board/msds/msds-edit/msds-edit.page';
 import { NoticeEditPage } from 'src/app/page/notice-board/notice/notice-edit/notice-edit.page';
 import { WorkerMinutesEditPage } from 'src/app/page/work-plan/work-minutes/worker-minutes-edit/worker-minutes-edit.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-main-user-bottom-menu',
@@ -49,7 +50,8 @@ export class MainUserBottomMenuPage implements OnInit {
     private nav: NavService,
     private modal: ModalController,
     private changeRef: ChangeDetectorRef,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

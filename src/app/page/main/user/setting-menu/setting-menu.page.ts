@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 
@@ -13,7 +14,8 @@ export class SettingMenuPage implements OnInit {
   constructor(
     private modal: ModalController,
     private nav: NavService,
-    private alert: AlertService
+    private alert: AlertService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
