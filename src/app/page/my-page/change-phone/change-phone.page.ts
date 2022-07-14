@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular';
 import { fadeAnimation } from 'src/app/basic/basic.animation';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -32,7 +33,8 @@ export class ChangePhonePage implements OnInit {
     private promise: PromiseService,
     private regex: RegexService,
     private toast: ToastService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

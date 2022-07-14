@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -31,7 +32,8 @@ export class ChangePasswordPage implements OnInit {
     private nav: NavService,
     private promise: PromiseService,
     private toast: ToastService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
