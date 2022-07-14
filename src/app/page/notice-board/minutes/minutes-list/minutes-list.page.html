@@ -108,7 +108,7 @@
     <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
       <app-row style="align-items: flex-start;">
         <app-col>
-          <h5>{{ languagePack.getText('안전 및 보건에 관한 협의체 회의록') }}</h5>
+          <h5>{{ languagePack.getText(item.safety_meeting_type) }}</h5>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
           <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
         </app-col>

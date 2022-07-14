@@ -89,13 +89,13 @@ export class MinutesListPage implements OnInit {
       this.res.rsMap.map((item, i) => {
         switch(item.safety_meeting_type){
           case '노사':
-            item.safety_meeting_type = '노사 협의체';
+            item.safety_meeting_type = '노사 협의체 회의록';
           break;
           case '안전':
-            item.safety_meeting_type = '안전 및 보건의 관한 협의체';
+            item.safety_meeting_type = '안전 및 보건에 관한 협의체 회의록';
           break;
           case '산업':
-            item.safety_meeting_type = '산업안전보건보건위원회';
+            item.safety_meeting_type = '산업안전보건위원회 회의록';
           break;
         }
         item.index = this.res.rsObj.row_count - (this.form.limit_no + i);
