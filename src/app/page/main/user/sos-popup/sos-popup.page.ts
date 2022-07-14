@@ -5,6 +5,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-sos-popup',
@@ -23,7 +24,8 @@ export class SosPopupPage implements OnInit {
     private alert: AlertService,
     private connect: ConnectService,
     private toast: ToastService,
-    public user: UserService
+    public user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

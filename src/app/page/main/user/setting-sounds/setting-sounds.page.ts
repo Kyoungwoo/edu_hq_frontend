@@ -1,5 +1,6 @@
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { Component, OnInit } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-setting-sounds',
@@ -10,7 +11,8 @@ export class SettingSoundsPage implements OnInit {
   notify_type = 1;
 
   constructor(
-    private connect: ConnectService
+    private connect: ConnectService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

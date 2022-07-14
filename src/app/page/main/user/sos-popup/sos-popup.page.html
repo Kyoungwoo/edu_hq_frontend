@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>SOS 요청</ion-title>
+    <ion-title>{{ languagePack.getText('SOS 요청') }}</ion-title>
     <ion-buttons slot="end">
       <app-menu-button></app-menu-button>
     </ion-buttons>
@@ -16,6 +16,6 @@
   <br><br>전송 하시겠습니까?</h3>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="cancel()">취소</app-button>
-  <app-button (click)="submit()">전송</app-button>
+  <app-button (click)="cancel()">{{ languagePack.getText('취소') }}</app-button>
+  <app-button (click)="submit()">{{ languagePack.getText('전송') }}</app-button>
 </app-button-footer>

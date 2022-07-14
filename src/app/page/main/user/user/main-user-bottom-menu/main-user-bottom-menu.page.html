@@ -1,12 +1,12 @@
 <ion-toolbar color="white" class="segment-border">
   <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChange()">
     <ion-segment-button value="1" class="segment-font segment-width">
-      공지사항
+      {{ languagePack.getText('공지사항') }}
       <!-- <ion-badge *ngIf="notice_count" class="badge-class notice">{{ notice_count }}</ion-badge> -->
     </ion-segment-button>
     <ion-segment-button value="2" class="segment-font segment-width">MSDS</ion-segment-button>
     <ion-segment-button value="3" class="segment-font segment-width">
-      회의록
+      {{ languagePack.getText('회의록') }}
       <!-- <ion-badge *ngIf="safetymeeting_count" class="badge-class notice">{{ safetymeeting_count }}</ion-badge> -->
     </ion-segment-button>
   </ion-segment>
@@ -47,4 +47,5 @@
     </app-col>
   </app-row>
   <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
+  <!-- {{ languagePack.getText('더보기') }} -->
 </div>
