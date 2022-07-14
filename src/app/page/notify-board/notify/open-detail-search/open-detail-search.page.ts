@@ -2,6 +2,7 @@ import { FileService } from 'src/app/basic/service/core/file.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DateService } from 'src/app/basic/service/util/date.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-open-detail-search',
@@ -24,7 +25,8 @@ export class OpenDetailSearchPage implements OnInit {
   constructor(
     private date: DateService,
     private _modal: ModalController,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

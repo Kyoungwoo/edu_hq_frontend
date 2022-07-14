@@ -80,7 +80,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>알림함</ion-title>
+      <ion-title>{{ languagePack.getText('알림함') }}</ion-title>
       <!-- <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons> -->
@@ -88,7 +88,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
-        <app-button (click)="openDetail()">상세검색</app-button>
+        <app-button (click)="openDetail()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -106,7 +106,7 @@
         <app-row>
           <app-col>
             <p>{{ item.notify_text_kr }}</p>
-            <p>작성일: {{ item.create_date }}</p>
+            <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
           </app-col>
         </app-row>
       </app-card>

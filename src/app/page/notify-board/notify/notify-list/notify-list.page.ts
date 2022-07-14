@@ -5,6 +5,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { OpenDetailSearchPage } from '../open-detail-search/open-detail-search.page';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-notify-list',
@@ -43,7 +44,8 @@ export class NotifyListPage implements OnInit, OnDestroy {
     private connect:ConnectService,
     private toast: ToastService,
     private date: DateService,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
