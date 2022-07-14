@@ -11,7 +11,7 @@
         <h4>{{ user.userData.user_name }}님</h4>
         <app-row>
           <app-col size="auto">
-            <p style="margin-right: 5px;">{{ Top_Today.month }}월 {{ Top_Today.day }}일</p>
+            <p style="margin-right: 5px;">{{ Top_Today.month }}{{ languagePack.getText('월') }} {{ Top_Today.day }}{{ languagePack.getText('일') }}</p>
           </app-col>
           <app-col size="auto">
             <p>{{ Top_Today.week }}</p>
@@ -39,19 +39,19 @@
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('나의출입현황')">
           <app-img src="assets/img/menu/output-dark.svg"></app-img>
-          <p>나의 출입현황</p>
+          <p>{{ languagePack.getText('나의 출입 현황') }}</p>
         </app-button>
       </app-col>
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('나의교육')">
           <app-img src="assets/img/menu/my-education-dark.svg"></app-img>
-          <p>나의 교육</p>
+          <p>{{ languagePack.getText('나의 교육') }}</p>
         </app-button>
       </app-col>
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('스마트안전장비')">
           <app-img src="assets/img/menu/smart-equipment-dark.svg"></app-img>
-          <p>스마트안전장비</p>
+          <p>{{ languagePack.getText('스마트 안전 장비 관리') }}</p>
         </app-button>
       </app-col>
     </app-row>
@@ -59,7 +59,7 @@
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('마이페이지')">
           <app-img src="assets/img/menu/mypage-dark.svg"></app-img>
-          <p>마이페이지</p>
+          <p>{{ languagePack.getText('마이페이지') }}</p>
         </app-button>
       </app-col>
       <app-col size="4">
@@ -71,7 +71,7 @@
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('')" color="main-btn-grey">
           <app-img src="assets/img/menu/general-incongruity-dark.svg"></app-img>
-          <p>부적합 조치</p>
+          <p>{{ languagePack.getText('부적합 조치') }}</p>
         </app-button>
       </app-col>
     </app-row>
@@ -79,7 +79,7 @@
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('')" color="main-btn-grey">
           <app-img src="assets/img/menu/accident-dark.svg"></app-img>
-          <p>아차사고신고</p>
+          <p>{{ languagePack.getText('아차사고 신고') }}</p>
         </app-button>
       </app-col>
       <app-col size="4">
