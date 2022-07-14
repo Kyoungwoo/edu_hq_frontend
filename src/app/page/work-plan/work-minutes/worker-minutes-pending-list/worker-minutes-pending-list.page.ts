@@ -4,7 +4,6 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { ApprovalAnswerType } from 'src/app/component/confirm/approval/approval.component';
-import { RiskEvaluationEditPage } from '../../risk-assessment/risk-evaluation-edit/risk-evaluation-edit.page';
 import { WorkerMinutesEditPage } from '../worker-minutes-edit/worker-minutes-edit.page';
 
 @Component({

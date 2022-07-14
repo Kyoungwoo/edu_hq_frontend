@@ -39,12 +39,13 @@
   </app-row>
   <app-row>
     <app-col>
-      <app-select label="회의 상태" [(ngModel)]="form.safety_meeting_state">
+      <app-select-approval-type [(ngModel)]="form.approval_cnt_answer"></app-select-approval-type>
+      <!-- <app-select label="회의 상태" [(ngModel)]="form.safety_meeting_state">
         <app-select-option value="전체">전체</app-select-option>
         <app-select-option value="회의 전">회의 전</app-select-option>
         <app-select-option value="회의 중">회의 중</app-select-option>
         <app-select-option value="회의 종료">회의 종료</app-select-option>
-      </app-select>
+      </app-select> -->
     </app-col>
   </app-row>
   <app-row>

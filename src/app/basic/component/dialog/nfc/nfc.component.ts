@@ -80,6 +80,7 @@ export class NfcComponent implements OnInit {
     let type = '';
     let serial_key = null;
     let education_safe_id = null;
+    let safety_meeting_id = null;
     let device_id = null;
 
     if(this.ios) message = message.slice(3);
@@ -90,12 +91,17 @@ export class NfcComponent implements OnInit {
     } else {
       console.log('not Equip - ', message);
       console.log('not Equip - ', typeof message);
-      let data_set = JSON.parse(message);
+      let data_set = JSON.parse(message); 
       console.log('data_set  - ', data_set);
       if(message.indexOf('education_safe_id') != -1){
         console.log('innet education_safe_id');
         type = data_set.type;
         education_safe_id = data_set.education_safe_id;
+      }
+
+      if(message.indexOf('safety_meeting_id') != -1){
+        type = data_set.type;
+        safety_meeting_id = data_set.safety_meeting_id;
       }
 
       if(message.indexOf('serial_key') != -1){
@@ -109,6 +115,7 @@ export class NfcComponent implements OnInit {
         item: {
           type: type,
           education_safe_id: education_safe_id,
+          safety_meeting_id: safety_meeting_id,
           serial_key: serial_key,
           device_id: device_id
         }

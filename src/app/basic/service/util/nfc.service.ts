@@ -60,6 +60,7 @@ export class NfcService {
           //   });
           //   break;
           default:
+            console.log('nfc data - ',data);
             this.toast.present({message: '해당 NFC는 지원대상에 없습니다.', color: 'warning'});
             break;
         }

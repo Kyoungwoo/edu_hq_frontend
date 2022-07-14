@@ -186,6 +186,7 @@ export class WorkerMinutesEditPage implements OnInit {
   getDefaultForm() {
     const { user_name, belong_data } = this.user.userData;
     this.form.project_id = this.project_id;
+    this.form.project_name = belong_data.project_name;
     this.form.master_company_id = belong_data.master_company_id;
     this.form.master_company_name = belong_data.master_company_name;
     this.form.company_id = belong_data.company_id;
@@ -343,8 +344,8 @@ export class WorkerMinutesEditPage implements OnInit {
     }
     if(!this.form.safety_meeting_date) return this.toast.present({message:'회의일을 선택해 주세요.', color:'warning'});
     if(!this.form.safety_meeting_place) return this.toast.present({message:'회의장소를 입력해 주세요.', color:'warning'});
-    if(!this.form.safety_meeting_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    if(!this.form.safety_meeting_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.safety_meeting_start_time) return this.toast.present({message:'회의시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.safety_meeting_end_time) return this.toast.present({message:'회의시간을 설정해 주세요.', color:'warning'});
     if(!this.form.safety_meeting_content) return this.toast.present({message:'협의사항을 입력해 주세요.', color:'warning'});
     let start_time = Number(this.form.safety_meeting_start_time.split(':')[0]+this.form.safety_meeting_start_time.split(':')[1]);
     let end_time = Number(this.form.safety_meeting_end_time.split(':')[0]+this.form.safety_meeting_end_time.split(':')[1]);
@@ -375,8 +376,8 @@ export class WorkerMinutesEditPage implements OnInit {
     }
     if(!this.form.safety_meeting_place) return this.toast.present({message:'회의장소를 입력해 주세요.', color:'warning'});
     if(!this.form.safety_meeting_place) return this.toast.present({message:'회의장소를 입력해 주세요.', color:'warning'});
-    if(!this.form.safety_meeting_start_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
-    if(!this.form.safety_meeting_end_time) return this.toast.present({message:'교육시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.safety_meeting_start_time) return this.toast.present({message:'회의시간을 설정해 주세요.', color:'warning'});
+    if(!this.form.safety_meeting_end_time) return this.toast.present({message:'회의시간을 설정해 주세요.', color:'warning'});
     if(!this.form.safety_meeting_content) return this.toast.present({message:'협의사항을 입력해 주세요.', color:'warning'});
     let start_time = Number(this.form.safety_meeting_start_time.split(':')[0]+this.form.safety_meeting_start_time.split(':')[1]);
     let end_time = Number(this.form.safety_meeting_end_time.split(':')[0]+this.form.safety_meeting_end_time.split(':')[1]);
@@ -637,5 +638,9 @@ export class WorkerMinutesEditPage implements OnInit {
     if(data) {
       this.getAttendList();
     }
+  }
+
+  async excel_download(){
+    
   }
 }

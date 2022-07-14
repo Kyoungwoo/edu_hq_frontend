@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login-mobile"></ion-back-button>
     </ion-buttons>
-    <ion-title>아이디 찾기</ion-title>
+    <ion-title>{{ languagePack.getText('아이디 찾기') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <app-container size="small">
-    <h4>아래 방법 중 한가지를 선택해주세요.</h4>
+    <h4>{{ languagePack.getText('아래 방법중 한가지를 선택해주세요.') }}</h4>
     <app-card name="card_type_PHONE" [button]="true" [color]="type === 'PHONE' ? 'secondary' : 'white'" (click)="type = 'PHONE'">
       <app-row class="card-inner">
         <app-col size="auto">
@@ -19,7 +19,7 @@
         </app-col>
         <app-col>
           <h4>등록한 휴대폰</h4>
-          <p>회원정보에 등록된 휴대폰 정보를 입력해서 아이디 찾기</p>
+          <p>{{ languagePack.getText('회원정보에 등록된 휴대폰 정보를 입력해서 아이디 찾기') }}</p>
         </app-col>
         <app-col size="auto">
           <app-img class="arrow-right" src="assets/img/sign-up/arrow-right.svg"></app-img>
@@ -27,13 +27,14 @@
       </app-row>
     </app-card>
     <p>
-      * 본인 인증시 제공되는 정보는 인증 이외의 용도로 이용 또는 저장하지 않습니다.
+      {{ languagePack.getText('본인 인증시 제공되는 정보는 인증 이외의 용도로 이용 또는 저장하지 않습니다.') }}
     </p>
     <p>
-      * 위 방법으로 확인이 안될 시 관리자에게 문의해주세요. 개인정보보호를 위해 바로 안내해드리기 어려운 점 양해 부탁드립니다.    
+      {{ languagePack.getText('위 방법으로 확인이 안될 시 관리자에게 문의해주세요. 개인정보보호를 위해 
+      바로 안내해드리기 어려운 점 양해 부탁드립니다.') }}
     </p>
   </app-container>
 </ion-content>
 <app-button-footer name="button-footer" *ngIf="type" @slideUpInAnimation>
-  <app-button name="button_next" (click)="next()">다음</app-button>
+  <app-button name="button_next" (click)="next()">{{ languagePack.getText('다음') }}</app-button>
 </app-button-footer>

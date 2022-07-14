@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { slideUpInAnimation } from 'src/app/basic/basic.animation';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
@@ -18,7 +19,8 @@ export class FindIdMobileTypePage implements OnInit {
     private el: ElementRef<HTMLElement>,
     private nav: NavService,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

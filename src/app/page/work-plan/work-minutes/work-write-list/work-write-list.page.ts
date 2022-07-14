@@ -1,3 +1,5 @@
+import { WorkerMinutesPendingListPage } from './../worker-minutes-pending-list/worker-minutes-pending-list.page';
+import { WorkWriteSearchPage } from './../work-write-search/work-write-search.page';
 import { WorkWriteTargetPage } from './../work-write-target/work-write-target.page';
 import { WorkWriteEditPage } from './../work-write-edit/work-write-edit.page';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -183,9 +185,27 @@ export class WorkWriteListPage implements OnInit {
    * 미결함으로 이동
    */
   async pending() {
-    // const modal = await this._modal.create({
-    //   component:EducationConfirmPendingListPage,
-    // });
-    // modal.present(); 
+    const modal = await this._modal.create({
+      component:WorkerMinutesPendingListPage,
+    });
+    modal.present(); 
+  }
+
+  /**
+   * 모바일 상세검색 팝업. PC에서는 안씀
+   */
+   async detailSearch() {
+    const modal = await this._modal.create({
+      component: WorkWriteSearchPage,
+      componentProps:{
+        form: this.form
+      }
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if(data) {
+      this.form = data;
+      this.getList(0);
+    }
   }
 }

@@ -8,6 +8,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
 import { GeolocationService } from 'src/app/service/geolocation.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-main-user-worker',
@@ -52,7 +53,8 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
     public user: UserService,
     public date: DateService,
     private gps: GeolocationService,
-    private scanner: ScannerService
+    private scanner: ScannerService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

@@ -260,7 +260,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="true" name="edustate" label="languagePack.getText('현장명')" [value]="form.project_name"></app-input>
+            <app-input [disabled]="true" name="edustate" [label]="languagePack.getText('현장명')" [value]="form.project_name"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -268,7 +268,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="true" name="edustate" label="회의상태" [(ngModel)]="form.safety_meeting_type_full"></app-input>
+            <app-input [disabled]="true" name="edustate" label="회의상태" [(ngModel)]="form.safety_meeting_state"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -340,7 +340,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-textarea [required]="true" [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="협의내용을 입력해주세요" label="협의내용" name="safety_meeting_content" [rows]="10" [(ngModel)]="form.safety_meeting_content"></app-textarea>
+            <app-textarea [required]="true" [readonly]="editable.update ? false : (!editable.menu_state && !editable.my_state)" placeholder="협의사항을 입력해주세요" label="협의내용" name="safety_meeting_content" [rows]="10" [(ngModel)]="form.safety_meeting_content"></app-textarea>
           </app-col>
         </app-row>
       </app-card>

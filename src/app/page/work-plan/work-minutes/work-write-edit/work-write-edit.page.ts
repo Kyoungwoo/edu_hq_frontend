@@ -409,4 +409,8 @@ export class WorkWriteEditPage implements OnInit {
       this.permission.edit = false;
     }
   }
+
+  async excel_download(){
+    
+  }
 }
