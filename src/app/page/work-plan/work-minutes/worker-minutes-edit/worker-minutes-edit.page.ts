@@ -7,7 +7,6 @@ import { ModalController } from '@ionic/angular';
 import { ConnectService, ConnectResult } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
-import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { ApprovalBtnClickEvent } from 'src/app/component/confirm/approval/approval.component';
@@ -155,7 +154,6 @@ export class WorkerMinutesEditPage implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private _modal: ModalController,
-    private loading: LoadingService,
     private date: DateService,
     private alert: AlertService,
     public languagePack: LanguagePackService
@@ -638,9 +636,5 @@ export class WorkerMinutesEditPage implements OnInit {
     if(data) {
       this.getAttendList();
     }
-  }
-
-  async excel_download(){
-    
   }
 }

@@ -19,17 +19,25 @@
 </ion-header>
 
 <ion-content>
-  <app-approval 
-  [project_id]="form.project_id"
-  [company_id]="form.company_id"
-  [ctgo_approval_module_id]="form.ctgo_approval_module_id"
-  [approval_id]="form.approval_id"
-  (deleteClick)="onDeleteClick($event)"
-  (saveClick)="onSaveClick($event)"
-  (sendClick)="onSendClick($event)"
-  (recoveryClick)="onRecoveryClick($event)"
-  (approvalClick)="onApprovalClick($event)"
-  (change)="onApprovalChange($event)"></app-approval>
+
+  <app-row>
+    <app-col size="auto" style="display: flex; align-self: flex-start;" size="auto"><app-button (click)="excel_download()">엑셀 다운로드</app-button></app-col>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-approval 
+      [project_id]="form.project_id"
+      [company_id]="form.company_id"
+      [ctgo_approval_module_id]="form.ctgo_approval_module_id"
+      [approval_id]="form.approval_id"
+      (deleteClick)="onDeleteClick($event)"
+      (saveClick)="onSaveClick($event)"
+      (sendClick)="onSendClick($event)"
+      (recoveryClick)="onRecoveryClick($event)"
+      (approvalClick)="onApprovalClick($event)"
+      (change)="onApprovalChange($event)"></app-approval>
+    </app-col>
+  </app-row>
+
 
   <app-approval-document>
 

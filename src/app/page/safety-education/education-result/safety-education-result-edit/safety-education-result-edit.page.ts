@@ -1,3 +1,4 @@
+import { ExcelService, Sheet, SheetStyle } from './../../../../basic/service/util/excel.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
@@ -40,6 +41,7 @@ export class EducationItem {
   education_safe_manager_ids: string
   education_safe_time:string;
   
+  company_file_data: FutItem[] = [];
   education_safe_file_data: FutItem[] = [];
   file:(File|FileBlob)[] = []; // FILE
   file_json:FileJson = new FileJson(); // JSON
@@ -94,7 +96,8 @@ export class SafetyEducationResultEditPage implements OnInit {
     private user: UserService,
     private _modal: ModalController,
     private loading: LoadingService,
-    public languagePack: LanguagePackService
+    public languagePack: LanguagePackService,
+    private excel: ExcelService
   ) { }
 
   async ngOnInit() {
@@ -377,5 +380,393 @@ export class SafetyEducationResultEditPage implements OnInit {
     if(window.innerWidth <= 768) {
       this.permission.edit = false;
     }
+  }
+
+  async excel_download(){
+    // const print_date = this.dateService.today();
+    const headerBorder = '1px solid #000000';
+    const backgroundColor = '#d9d9d9';
+    const excelData:Sheet[] = [];
+
+    const logo:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      width: 80,
+      height:30,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const logo_theme:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:16,
+      height:30,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const title_1:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      width: 80,
+      fontSize:16,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const title_2:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      width: 40,
+      fontSize:16,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const title_3:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      width: 200,
+      fontSize:16,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const title_4:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      width: 60,
+      fontSize:16,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_1:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_2:SheetStyle = {
+      border: headerBorder,
+      height: 65,
+      textAlign:'center',
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const approval_1:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      // width: 80,
+      fontSize:12,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const approval_2:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      // width: 80,
+      height: 40,
+      fontSize:11,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_1:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      fontSize:12,
+      height:52,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_2:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      fontSize:12,
+      height:32,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_1_user:SheetStyle = {
+      border: headerBorder,
+      backgroundColor,
+      textAlign:'center',
+      fontSize:12,
+      height:48,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_2_user:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:12,
+      height:48,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_4:SheetStyle = {
+      border: headerBorder,
+      textAlign:'center',
+      fontSize:12,
+      height:32,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    let logo_theme_arr = [];
+    for(let i = 0; i < 18; i++) logo_theme_arr.push({code: logo_theme});
+
+    let logo_theme_arr_2 = [];
+    for(let i = 0; i < 14; i++) logo_theme_arr_2.push({code: logo_theme});
+    for(let i = 0; i < 4; i++) logo_theme_arr_2.push({code: approval_2});
+
+    let sub_title_theme_arr = [];
+    for(let i = 0; i < 18; i++) sub_title_theme_arr.push({code: sub_title_2});
+
+    let sub_title_theme_arr_2 = [];
+    for(let i = 0; i < 18; i++) sub_title_theme_arr_2.push({code: sub_title_4});
+
+    let border_theme_arr = [];
+    for(let i = 0; i < 18; i++) border_theme_arr.push({code: border_2});
+
+    // let sheetData:Sheet = {
+
+    // };
+    // 45
+    let sheetData:Sheet = {
+      name: '교육 결과 보고서',
+      data: [
+        [
+          {colspan: 4, rowspan: 4},
+          {text: '교육결과보고서', colspan: 9, rowspan: 4},
+          {rowspan: 4, text: '결재'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '검토'},
+          {text: '승인'}
+        ],
+        [
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3},
+          {rowspan: 3}
+        ],
+        [],
+        [],
+        [
+          {text: '현장명'},
+          {text: this.form.project_name, colspan: 4},
+          {text: '회사명'},
+          {text: this.form.company_name, colspan: 4},
+          {text: '작성일'},
+          {text: this.form.create_date, colspan: 3},
+          {text: '작성자'},
+          {text: this.form.create_user_name, colspan: 3}
+        ],
+        [
+          {text: '교육명'},
+          {text: this.form.ctgo_education_safe_name, colspan: 13},
+          {text: '교육대상'},
+          {text: this.form.education_safe_target, colspan: 3},
+        ],
+        [
+          {text: '교육장소'},
+          {text: this.form.education_safe_place, colspan: 4},
+          {text: '교육일'},
+          {text: this.form.education_safe_date, colspan: 4},
+          {text: '교육시간'},
+          {text: this.form.education_safe_start_time+' ~ '+this.form.education_safe_end_time+'('+this.form.education_safe_time+'H)', colspan: 3},
+          {text: '강사'},
+          {text: this.form.education_safe_report_instructor, colspan: 3}
+        ],
+        [
+          {text: '교육내용', colspan: 18},
+        ],
+        [
+          {text: this.form.education_safe_text, colspan: 18, rowspan: 45},
+        ],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],
+        [
+          {text: '사진', colspan: 9},
+          {text: '사진', colspan: 9},
+        ],
+        [
+          {colspan: 9, rowspan: 18},
+          {colspan: 9, rowspan: 18},
+        ]
+
+      ],
+      style: [
+        [{code: logo},{code: logo},{code: logo},{code: logo},{code: title_1},{code: title_1},{code: title_1},{code: title_1},{code: title_2},{code: title_2},{code: title_1},{code: title_1},{code: title_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1}],
+        logo_theme_arr_2,logo_theme_arr_2,logo_theme_arr_2,
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
+        sub_title_theme_arr,
+        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+
+        sub_title_theme_arr,
+        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+      ]
+    }
+
+    let sheetData_user_list:Sheet = {
+      name: '참석자명단',
+      data: [
+        [
+          {text: '참석자 명단', colspan: 6},
+          {text: '교육일: '+this.form.education_safe_date, colspan: 2}
+        ],
+        [
+          {text: 'No'},
+          {text: '회사명'},
+          {text: '성명'},
+          {text: '서명일시'},
+          {text: 'No'},
+          {text: '회사명'},
+          {text: '성명'},
+          {text: '서명일시'},
+        ],
+      ],
+      style: [
+        [
+          {code: Object.assign(title_4, {height: 80})},
+          {code: title_3},
+          {code: title_3},
+          {code: title_3},
+          {code: title_4},
+          {code: title_3},
+          {code: title_3},
+          {code: title_3}
+        ],
+        [
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+          {code: sub_title_2},
+        ],
+        // 리스트 들어가는곳
+      ]
+    }
+
+    // 결재 데이터
+    const reverse_comment = this.approval_comment.reverse();
+    let approval_max_num = 3;
+    reverse_comment.map((item,index) => {
+      sheetData.data[1][approval_max_num - index] = {text: item.user_name+'\n'+item.approval_answer+(item.approval_date ? '\n'+item.approval_date : ''), rowspan: 3};
+    });
+
+    // 참석자명단 리스트 데이터
+    let change_cnt = 0;
+    let list_theme_arr_num = Math.ceil((this.res.rsMap.length / 2));
+    for(let i = 0; i < list_theme_arr_num; i++){
+      let item_arr = [];
+      for(let x = 0; x < 1; x++){
+        if(change_cnt%2 === 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        change_cnt++;
+        if(change_cnt%2 !== 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        change_cnt++;
+      }
+      sheetData_user_list.data.push(item_arr);
+      sheetData_user_list.style.push([
+        {code: sub_title_1_user},
+        {code: sub_title_2_user},
+        {code: sub_title_2_user},
+        {code: sub_title_2_user},
+        {code: sub_title_1_user},
+        {code: sub_title_2_user},
+        {code: sub_title_2_user},
+        {code: sub_title_2_user}
+      ]);
+    }
+    // sheetData_user_list.data.push(list_theme_arr);
+    // console.log('sheetData_user_list - ',sheetData_user_list);
+
+    // 참석자명단 리스트 데이터
+    // const user_list = this.approval_comment.reverse();
+    
+    // reverse_comment.map((item,index) => {
+    //   sheetData.data[1][approval_max_num - index] = {text: item.user_name+'\n'+item.approval_answer+(item.approval_date ? '\n'+item.approval_date : ''), rowspan: 3};
+    // });
+
+    // 평가표와 결재의경사이의 공백
+    // for(let i = 0; i < 4; i++){
+    //   sheetData.data.push([]);
+    //   sheetData.style.push([]);
+    // }
+    // sheetData.data.push([{text: '결재 의견', colspan: 2}]);
+    // sheetData.data.push([{text: '구분', colspan: 2},{text: '결재', colspan: 2},{text: '성명', colspan: 3},{text: '회사명', colspan: 2},{text: '결재일시', colspan: 2},{text: '결재의견', colspan: 10}]);
+    // sheetData.style.push([{code: sub_title_3}]);
+    // sheetData.style.push(sub_title_theme_arr);
+
+
+
+    // 결재 의견 리스트
+    // let cmt_min = 0;
+    // let cmt_max = 0;
+    // let order_arr = [];
+    // const aprv_cmt = this.approval_comment.reverse();
+    // aprv_cmt.map((item) => {order_arr.push(item.approval_order_no);});
+    // cmt_min = Math.min.apply(null, order_arr);
+    // cmt_max = Math.max(...order_arr);
+
+    // aprv_cmt.map((item) => {
+    //   sheetData.data.push([{
+    //     text: item.approval_order_no === cmt_min ? (item.approval_order_no === cmt_max ? '작성/승인' : '작성') : (item.approval_order_no === cmt_max ? '승인' : '검토'), colspan: 2},
+    //     {text: item.approval_answer, colspan: 2},
+    //     {text: item.user_name, colspan: 3},
+    //     {text: item.company_name, colspan: 2},
+    //     {text: item.approval_date, colspan: 2},
+    //     {text: item.approval_comment || '', colspan: 10
+    //   }]);
+
+    //   sheetData.style.push(sub_title_theme_arr_2);
+    // });
+    
+    // 회사 로고 이미지데이터
+    if(this.form.company_file_data && this.form.company_file_data.length){
+      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 135, width: 350, left: 8, top: 8}, rowspan: 4, colspan: 4};
+    }
+
+    // 회의 사진 데이터
+    if(this.form.education_safe_file_data && this.form.education_safe_file_data.length){
+      sheetData.data[54][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 500, width: 760, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[54][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 500, width: 790, left: 8, top: 8}, rowspan: 18, colspan: 9};
+    }
+
+    // img?: {
+    //   src:string,
+    //   left?:number,
+    //   top?:number,
+    //   width?:number,
+    //   height?:number
+    // }
+
+    // let item of approval_comment; let f = first; let l = last
+    excelData.push(sheetData);
+    excelData.push(sheetData_user_list);
+    // console.log(this.riskTableList);
+    this.excel.make(excelData, '교육 결과 보고서');
   }
 }
