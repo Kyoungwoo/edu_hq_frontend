@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { SmarteditComponent } from 'src/app/basic/component/input/smartedit/smartedit.component';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
@@ -59,6 +60,7 @@ export class MsdsEditPage implements OnInit {
     public user: UserService,
     private date: DateService,
     private alert:AlertService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

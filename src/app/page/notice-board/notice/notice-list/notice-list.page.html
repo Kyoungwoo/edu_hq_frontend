@@ -115,7 +115,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>공지사항</ion-title>
+      <ion-title>{{ languagePack.getText('공지사항') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -123,7 +123,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene name="project_id" [(ngModel)]="form.project_id" [readonly]="true"></app-select-scene>
-        <app-button (click)="detailSearch()">상세검색</app-button>
+        <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -133,7 +133,7 @@
         <app-col>
           <p>{{ item.notice_title }}</p>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
-          <p>작성일: {{ item.create_date }}</p>
+          <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
         </app-col>
       </app-row>
       <ion-badge color="success">{{ item.notice_type }}</ion-badge>

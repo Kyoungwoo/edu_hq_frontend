@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
@@ -34,7 +35,8 @@ export class NoticeSearchPage implements OnInit {
   constructor(
     private _modal: ModalController,
     public user: UserService,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

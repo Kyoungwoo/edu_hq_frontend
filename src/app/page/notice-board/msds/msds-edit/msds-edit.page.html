@@ -121,7 +121,7 @@
     <app-card>
       <app-row>
         <app-col>
-          <h5>현장명</h5>
+          <h5>{{ languagePack.getText('현장명') }}</h5>
         </app-col>
         <app-col>
           <p>{{ form.project_name}}</p>
@@ -129,7 +129,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <h5>원청사명</h5>
+          <h5>{{ languagePack.getText('원청사명') }}</h5>
         </app-col>
         <app-col >
           <p>{{ form.company_name }}</p>
@@ -137,7 +137,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <h5>작성자</h5>
+          <h5>{{ languagePack.getText('작성자') }}</h5>
         </app-col>
         <app-col>
           <p>{{ form.user_name }}</p>
@@ -145,7 +145,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <h5>작성일</h5>
+          <h5>{{ languagePack.getText('작성일') }}</h5>
         </app-col>
         <app-col >
           <p>{{ form.create_date }}</p>
@@ -153,7 +153,7 @@
       </app-row>
       <app-row>
         <app-col>
-          <h5>구분</h5>
+          <h5>{{ languagePack.getText('구분') }}</h5>
         </app-col>
         <app-col>
           <p>{{ form.msds_type }}</p>
@@ -178,7 +178,7 @@
     </app-card>
     <app-row>
       <app-col>
-        <h4>첨부자료</h4>
+        <h4>{{ languagePack.getText('첨부자료') }}</h4>
       </app-col>
     </app-row>
 
@@ -187,5 +187,5 @@
   </ion-content>
 </ng-container>
 <app-button-footer *mobileShow>
-  <app-button (click)="dismiss()">확인</app-button>
+  <app-button (click)="dismiss()">{{ languagePack.getText('확인') }}</app-button>
 </app-button-footer>

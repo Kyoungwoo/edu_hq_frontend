@@ -92,7 +92,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>회의록</ion-title>
+      <ion-title>{{ languagePack.getText('회의록') }}</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -100,7 +100,7 @@
     <ion-toolbar color="white">
       <app-input-group>
         <app-select-scene name="project_id" [(ngModel)]="form.project_id" [readonly]="true"></app-select-scene>
-        <app-button (click)="detailSearch()">상세검색</app-button>
+        <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
       </app-input-group>
     </ion-toolbar>
   </ion-header>
@@ -108,9 +108,9 @@
     <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)">
       <app-row style="align-items: flex-start;">
         <app-col>
-          <h5>안전 및 보건에 관한 협의체 회의록</h5>
+          <h5>{{ languagePack.getText('안전 및 보건에 관한 협의체 회의록') }}</h5>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
-          <p>작성일: {{ item.create_date }}</p>
+          <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
         </app-col>
       </app-row>
       <app-row>

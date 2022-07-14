@@ -8,6 +8,7 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { NoticeEditPage } from '../notice-edit/notice-edit.page';
 import { NoticeSearchPage } from '../notice-search/notice-search.page';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 class NoticeInfo {
   notice_title: string;
@@ -53,7 +54,8 @@ export class NoticeListPage implements OnInit {
     private date: DateService,
     public user: UserService,
     private toast: ToastService,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

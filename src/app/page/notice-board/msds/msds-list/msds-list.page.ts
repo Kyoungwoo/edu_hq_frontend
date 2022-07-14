@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { MsdsSearchPage } from '../msds-search/msds-search.page';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 type MsdsType = "폭발성 물질" | "인화성 가스" | "인화성 액체" | "인화성 고체" | "에어로졸"
 | "물반응성 물질" | "산화성 가스" | "산화성 액체" | "산화성 고체" | "고압가스" | "자기반응성 물질" | "자연발화성 액체" | "자연발화성 고체" 
@@ -65,7 +66,8 @@ export class MsdsListPage implements OnInit {
     private date: DateService,
     private toast: ToastService,
     public user: UserService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {
