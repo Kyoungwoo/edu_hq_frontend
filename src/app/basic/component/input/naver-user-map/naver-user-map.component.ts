@@ -32,6 +32,10 @@ export class userData {
   }]
 })
 export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+  @Input() set LineGpsData(v) {
+    this.LineGps = v;
+    this.polygonSet();
+  }
 
   id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
   map: any;
@@ -42,7 +46,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
 
   afteInitRes;
 
-  @Input() LineGps:GpsCoordinateData;
+  LineGps:GpsCoordinateData;
   path: LatLng[] = [];
 
   constructor(
@@ -82,6 +86,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   polygonSet(){
+    this.resetLine();
     const polygon = new naver.maps.Polygon({
       map: this.map,
       paths: [[]],
@@ -93,7 +98,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
       clickable: true
     });
     this.path = polygon.getPaths().getAt(0);
-
+  
     if(this.LineGps){
         const length = this.LineGps.gps_latitude.length;
         for (let i = 0; i < length; i++) {
@@ -103,7 +108,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
         }
     }
   }
-
+  
   afterInit() {
     if(this.isAfterInit) {
       return new Promise(res => res(true));
@@ -229,6 +234,13 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     for (let i = 0; i < length; i++) {
       const marker = this.marker.pop();
       marker.setMap(null);
+    }
+  }
+
+  private resetLine() {
+    const length = this.path.length;
+    if(length){
+      for (let i = 0; i < length; i++) {this.path.splice(0, 1);}
     }
   }
 

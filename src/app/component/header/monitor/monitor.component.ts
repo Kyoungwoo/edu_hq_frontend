@@ -9,6 +9,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { LogoutService } from 'src/app/service/logout.service';
 import { SideMenuAdminComponent } from '../../side-menu/side-menu-admin/side-menu-admin.component';
+import { timingSafeEqual } from 'crypto';
 
 
 interface Tab {
@@ -241,5 +242,11 @@ export class MonitorComponent implements OnInit {
     // const { data } = await modal.onDidDismiss();
 
     window.dispatchEvent(new CustomEvent('cctvList:get()'));
+  }
+
+  changeProjectPosition(){
+    console.log('changeProjectPosition - ', this.form.project_id);
+    const res = new CustomEvent('change_project:get()', {detail: {project_id: this.form.project_id}});
+    window.dispatchEvent(res);
   }
 }

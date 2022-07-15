@@ -1,3 +1,4 @@
+import { LanguagePackService } from './../../../basic/service/core/language-pack.service';
 import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
@@ -14,7 +15,8 @@ export class SignUpDonePage implements OnInit {
     private el: ElementRef<HTMLElement>,
     private _modal: ModalController,
     private promise: PromiseService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

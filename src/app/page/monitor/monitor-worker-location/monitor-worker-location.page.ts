@@ -11,6 +11,7 @@ export class MonitorWorkerLocationPage implements OnInit {
 
   @Input() set project_id(v) {
     this.form.project_id = v;
+    this.getProjectGps();
   }
   @Input() set master_company_id(v) {
     this.form.master_company_id = v;
@@ -55,7 +56,6 @@ export class MonitorWorkerLocationPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.getProjectGps();
     setInterval(() => {
       this.get();
     }, 3000);
