@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>NO</th>
-      <th>면허 번호</th>
+      <th>{{ languagePack.getText('면허 번호') }}</th>
       <th>면허증</th>
       <th></th>
     </tr>
@@ -11,8 +11,8 @@
     <tr *ngFor="let item of value; let i = index;">
       <td>{{ i + 1 }}</td>
       <td>
-        <app-input name="면허번호" 
-        [(ngModel)]="item.user_certify_no" placedholder="면허번호" [disabled]="disabled"></app-input>
+        <app-input [name]="languagePack.getText('면허 번호')"
+        [(ngModel)]="item.user_certify_no" [placedholder]="languagePack.getText('면허 번호')" [disabled]="disabled"></app-input>
       </td>
       <td style="position: relative;">
         {{ item.fut_item?.[0]?.file_name }}
