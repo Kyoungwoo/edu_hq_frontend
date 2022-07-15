@@ -6,6 +6,7 @@ import { Constractor, SearchContractorComponent } from '../../modal/search-contr
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 @Component({
   selector: 'app-select-contractor',
   templateUrl: './select-contractor.component.html',
@@ -59,7 +60,8 @@ export class SelectContractorComponent implements OnInit, ControlValueAccessor {
     private _modal:ModalController,
     private connect:ConnectService,
     private user: UserService,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

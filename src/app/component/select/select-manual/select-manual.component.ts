@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListe
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 
 export interface Menual {
@@ -35,7 +36,8 @@ export class SelectManualComponent implements OnInit, ControlValueAccessor {
   constructor(
     private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

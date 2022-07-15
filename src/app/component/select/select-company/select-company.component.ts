@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { SearchCompanyComponent, SelectItem } from '../../modal/search-company/search-company.component';
 
@@ -67,7 +68,8 @@ export class SelectCompanyComponent implements OnInit, ControlValueAccessor {
   constructor(
     private _modal: ModalController,
     private connect: ConnectService,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}

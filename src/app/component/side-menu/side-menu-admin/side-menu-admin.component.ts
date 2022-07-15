@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { listAnimation } from 'src/app/basic/basic.animation';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 
@@ -343,7 +344,8 @@ export class  SideMenuAdminComponent implements OnInit {
   constructor(
     private alert: AlertService,
     private _modal: ModalController,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}

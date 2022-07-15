@@ -8,6 +8,7 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { LogoutService } from 'src/app/service/logout.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export interface MenuItem {
   title: string,
@@ -187,7 +188,8 @@ export class SideMenuUserComponent implements OnInit {
     private nav: NavService,
     private connect: ConnectService,
     private scanner: ScannerService,
-    private logout: LogoutService
+    private logout: LogoutService,
+    public languagePack: LanguagePackService
   ) { 
     this.menuSelected = this.user.userData.user_type === 'WORKER' ? this.menuList[2] : this.menuList[0];
   }

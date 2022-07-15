@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from './../../../basic/service/core/connect.service';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-select-contractor-company',
@@ -80,7 +81,8 @@ export class SelectContractorCompanyComponent implements OnInit, ControlValueAcc
   constructor(
     private _modal: ModalController,
     private connect: ConnectService,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}

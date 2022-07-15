@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { Color } from '@ionic/core';
 import { ApprovalAnswerType } from '../../confirm/approval/approval.component';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-select-approval-type',
@@ -25,7 +26,8 @@ export class SelectApprovalTypeComponent implements OnInit, ControlValueAccessor
 
   constructor(
     private el: ElementRef<HTMLElement>,
-    private promise: PromiseService
+    private promise: PromiseService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}
