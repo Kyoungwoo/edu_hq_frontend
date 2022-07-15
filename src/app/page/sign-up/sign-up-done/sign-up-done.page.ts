@@ -16,7 +16,7 @@ export class SignUpDonePage implements OnInit {
     private _modal: ModalController,
     private promise: PromiseService,
     private changeDetector: ChangeDetectorRef,
-    private languagePack: LanguagePackService
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
