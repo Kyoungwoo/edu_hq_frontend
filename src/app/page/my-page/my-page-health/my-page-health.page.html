@@ -97,15 +97,13 @@
       <app-radio [value]="1">{{ languagePack.getText('있다') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="healthValidator.etc_disease_state?.valid === false" color="warning">{{ healthValidator.etc_disease_state.message }}</app-input-caption>
-
     <app-input @fadeInAnimation *ngIf="healthForm.etc_disease_state" 
     [color]="healthValidator.etc_disease_content?.valid === false && 'warning'"
     name="etc_disease_content" placeholder="증상을 적어주세요."
     [(ngModel)]="healthForm.etc_disease_content" [disabled]="!editable"></app-input>
     <app-input-caption *ngIf="healthValidator.etc_disease_content?.valid === false" color="warning">{{ healthValidator.etc_disease_content.message }}</app-input-caption>
 
-
-    <h4>6. {{ languagePack.getText('본인이 코로나19가 의심되는 아래의 임상 증상이 있습니까? (*주요 임상증상)체온 37.5℃ 이상, 기침, 호흡곤란, 오한, 근육통, 두통, 인후통,  후각미각 소실 또는 폐렴 (단, 코로나19와 관게없이  평소의 기저질환으로 인한 증상인 경우는 제외)') }}
+    <h4>6. {{ languagePack.getText('본인이 코로나19가 의심되는 아래의 임상 증상이 있습니까? (*주요 임상증상)체온 37.5℃ 이상, 기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각미각 소실 또는 폐렴 (단, 코로나19와 관게없이 평소의 기저질환으로 인한 증상인 경우는 제외)') }}
     </h4>
     <app-radio-input name="covid_nineteen_state" 
     [color]="healthValidator.covid_nineteen_state?.valid === false && 'warning'"
