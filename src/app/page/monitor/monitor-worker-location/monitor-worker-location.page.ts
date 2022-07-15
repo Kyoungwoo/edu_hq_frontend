@@ -38,6 +38,8 @@ export class MonitorWorkerLocationPage implements OnInit {
     row_count:number
   }>;
 
+  gps_coordinate_data = null;
+
   /* event = {
     resize: null
   }
@@ -52,8 +54,8 @@ export class MonitorWorkerLocationPage implements OnInit {
     private connect: ConnectService
   ) { }
 
-  ngOnInit() {
-    
+  async ngOnInit() {
+    await this.getProjectGps();
     setInterval(() => {
       this.get();
     }, 3000);
@@ -81,14 +83,19 @@ export class MonitorWorkerLocationPage implements OnInit {
     const res = await this.connect.run('/integrated/gps/log', this.form);
     if(res.rsCode === 0) {
       this.gpsData = res.rsMap;
-    }
+    } 
     else {
       this.gpsData = [];
     }
   }
 
+  async getProjectGps() {
+    const res = await this.connect.run('/project/detail', this.form, {parse: ['gps_coordinate_data']});
+    if(res.rsCode === 0) this.gps_coordinate_data = res.rsObj.gps_coordinate_data;
+    
+  }
+
   async wokerInGetList() {
     this.workerInRes = await this.connect.run('/integrated/worker/in/list', this.form);
   }
-
 }
