@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
@@ -39,7 +40,8 @@ export class MyPageInfoPage implements OnInit {
     private alert: AlertService,
     private loading: LoadingService,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

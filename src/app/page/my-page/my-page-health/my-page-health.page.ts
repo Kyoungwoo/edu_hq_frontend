@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
@@ -46,7 +47,8 @@ export class MyPageHealthPage implements OnInit {
     private alert: AlertService,
     private loading: LoadingService,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button [defaultHref]="user.userData.user_main_page"></ion-back-button>
     </ion-buttons>
-    <ion-title>나의 정보</ion-title>
+    <ion-title>{{ languagePack.getText('나의 정보') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
         <app-col>
           
           <app-input-template
-          name="account_id" label="아이디" [disabled]="true">
+          name="account_id" [label]="languagePack.getText('아이디')" [disabled]="true">
             <p slot="input">{{ basicForm.account_id }}</p>
           </app-input-template>
 
@@ -34,7 +34,7 @@
         <app-col>
 
           <app-input
-          name="user_name" label="성명"
+          name="user_name" [label]="languagePack.getText('성명')"
           placeholder="이름을 입력해주세요."
           [color]="basicValidator.user_name?.valid === false && 'warning'"
           [(ngModel)]="basicForm.user_name" [disabled]="!editable" [required]="true"></app-input>
@@ -46,7 +46,7 @@
       <app-row mobileBreak>
         <app-col>
 
-          <app-calendar name="user_birth" label="생년월일" 
+          <app-calendar name="user_birth" [label]="languagePack.getText('생년월일')" 
           [color]="basicValidator.user_birth?.valid === false && 'warning'"
           [(ngModel)]="basicForm.user_birth" [disabled]="!editable" [required]="true"></app-calendar>
           <app-input-caption *ngIf="basicValidator.user_birth?.valid === false" color="warning">{{ basicValidator.user_birth?.message }}</app-input-caption>
@@ -54,11 +54,11 @@
         </app-col>
         <app-col>
 
-          <app-radio-input name="user_gender" label="성별" 
+          <app-radio-input name="user_gender" [label]="languagePack.getText('성별')"
           [color]="basicValidator.user_gender?.valid === false && 'warning'"
           [(ngModel)]="basicForm.user_gender" [disabled]="!editable" [required]="true">
-            <app-radio value="남">남</app-radio>
-            <app-radio value="여">여</app-radio>
+            <app-radio value="남">{{ languagePack.getText('남자') }}</app-radio>
+            <app-radio value="여">{{ languagePack.getText('여자') }}</app-radio>
           </app-radio-input>
           <app-input-caption *ngIf="basicValidator.user_gender?.valid === false" color="warning">{{ basicValidator.user_gender?.message }}</app-input-caption>
 
@@ -73,12 +73,13 @@
           [disabled]="!editable" [required]="true" (buttonClick)="changePhone()">
             <p slot="input">{{ basicForm.user_phone }}</p>
             변경
+            <!-- {{ languagePack.getText('변경') }} -->
           </app-input-template>
 
         </app-col>
         <app-col>
 
-          <app-email name="user_email" label="이메일" 
+          <app-email name="user_email" [label]="languagePack.getText('이메일 (선택)')"
           [color]="basicValidator.user_email?.valid === false && 'warning'"
           (delayKeyup)="overlapEmail()"
           [(ngModel)]="basicForm.user_email" [disabled]="!editable" [required]="true"></app-email>
@@ -89,10 +90,10 @@
 
       <ion-toolbar *ngIf="editable" slot="bottom" color="white">
         <ion-buttons slot="start">
-          <app-button name="button_withdrawal" color="medium" fill="translucent" (click)="withdrawal()">회원 탈퇴</app-button>
+          <app-button name="button_withdrawal" color="medium" fill="translucent" (click)="withdrawal()">{{ languagePack.getText('회원 탈퇴') }}</app-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <app-button name="button_changePassword" fill="translucent" (click)="changePassword()">비밀번호 변경</app-button>
+          <app-button name="button_changePassword" fill="translucent" (click)="changePassword()">{{ languagePack.getText('비밀번호 변경하기') }}</app-button>
         </ion-buttons>
       </ion-toolbar>
     </app-card>
@@ -104,9 +105,9 @@
       <ion-toolbar slot="top" color="white">
         <ion-buttons slot="start">
           <ion-segment color="primary" [(ngModel)]="segment">
-            <ion-segment-button value="belong">소속 정보</ion-segment-button>
-            <ion-segment-button *ngIf="userType === 'MASTER' || userType === 'PARTNER'" value="education">교육 이력</ion-segment-button>
-            <ion-segment-button *ngIf="userType === 'PARTNER'" value="mileage">안전 마일리지</ion-segment-button>
+            <ion-segment-button value="belong">{{ languagePack.getText('소속 정보') }}</ion-segment-button>
+            <ion-segment-button *ngIf="userType === 'MASTER' || userType === 'PARTNER'" value="education">{{ languagePack.getText('교육 이력') }}</ion-segment-button>
+            <ion-segment-button *ngIf="userType === 'PARTNER'" value="mileage">{{ languagePack.getText('안전 마일리지') }}</ion-segment-button>
           </ion-segment>
         </ion-buttons>
       </ion-toolbar>

@@ -1,9 +1,10 @@
+import { GpsCoordinateData } from './../naver-map/naver-map.component';
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FileService } from 'src/app/basic/service/core/file.service';
-import { NaverMapId } from '../naver-map/naver-map.component';
+import { LatLng, NaverMapId } from '../naver-map/naver-map.component';
 
 declare const naver;
 
@@ -31,6 +32,10 @@ export class userData {
   }]
 })
 export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+  @Input() set LineGpsData(v) {
+    this.LineGps = v;
+    this.polygonSet();
+  }
 
   id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
   map: any;
@@ -40,6 +45,9 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   isAfterInit:boolean = false;
 
   afteInitRes;
+
+  LineGps:GpsCoordinateData;
+  path: LatLng[] = [];
 
   constructor(
     @Inject(NaverMapId) private naverMapId: string,
@@ -63,19 +71,44 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
     // 디폴트값을 어디로??
-    const position = new naver.maps.LatLng(37.5795423, 126.8897844);
+    const position = new naver.maps.LatLng(this.LineGps.gps_latitude[0], this.LineGps.gps_longitude[0]);
 
     this.map = new naver.maps.Map(this.id, {
       center: position,
-      zoom: 10
+      zoom: 16
     });
     this.map.setSize(size);
 
     this.afteInitRes();
     this.isAfterInit = true;
 
+    this.polygonSet();
   }
 
+  polygonSet(){
+    this.resetLine();
+    const polygon = new naver.maps.Polygon({
+      map: this.map,
+      paths: [[]],
+      fillColor: '#ff0000',
+      fillOpacity: 0.3,
+      strokeColor: '#ff0000',
+      strokeOpacity: 0.6,
+      strokeWeight: 3,
+      clickable: true
+    });
+    this.path = polygon.getPaths().getAt(0);
+  
+    if(this.LineGps){
+        const length = this.LineGps.gps_latitude.length;
+        for (let i = 0; i < length; i++) {
+          const y = this.LineGps.gps_latitude[i];
+          const x = this.LineGps.gps_longitude[i];
+          this.path.push({ x, y });
+        }
+    }
+  }
+  
   afterInit() {
     if(this.isAfterInit) {
       return new Promise(res => res(true));
@@ -102,7 +135,6 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
   }
 
   private async userMarker(coord, item, i) {
-
     const marker = new naver.maps.Marker({
       map: this.map,
       position: coord,
@@ -154,29 +186,30 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
         </div>
       `;
 
-      let infowindow = new naver.maps.InfoWindow({
-        content: infoEl,
-        maxWidth: 300
-      });
-      naver.maps.Event.addListener(this.marker[i], 'click', async(e) => {
-        if (infowindow.getMap()) {
-          infowindow.close();
-        } else {
-          infowindow.open(this.map, this.marker[i]);
-          /* if(window.innerWidth < 768) {
-            const modal = await this._modal.create({
-              component: NaverUserMapComponent,
-              componentProps: {
-                data, addressArr
-              }
-            });
-            modal.present();
-          }
-          else {
+      // 사용시 주석 해제
+      // let infowindow = new naver.maps.InfoWindow({
+      //   content: infoEl,
+      //   maxWidth: 300
+      // });
+      // naver.maps.Event.addListener(this.marker[i], 'click', async(e) => {
+      //   if (infowindow.getMap()) {
+      //     infowindow.close();
+      //   } else {
+      //     infowindow.open(this.map, this.marker[i]);
+      //     /* if(window.innerWidth < 768) {
+      //       const modal = await this._modal.create({
+      //         component: NaverUserMapComponent,
+      //         componentProps: {
+      //           data, addressArr
+      //         }
+      //       });
+      //       modal.present();
+      //     }
+      //     else {
             
-          } */
-        }
-      });
+      //     } */
+      //   }
+      // });
     }
 
   }
@@ -201,6 +234,13 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     for (let i = 0; i < length; i++) {
       const marker = this.marker.pop();
       marker.setMap(null);
+    }
+  }
+
+  private resetLine() {
+    const length = this.path.length;
+    if(length){
+      for (let i = 0; i < length; i++) {this.path.splice(0, 1);}
     }
   }
 

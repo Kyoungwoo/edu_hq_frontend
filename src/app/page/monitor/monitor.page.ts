@@ -177,7 +177,8 @@ export class MonitorPage implements OnInit, OnDestroy {
   $activedRoute:Subscription;
 
   event = {
-    get: null
+    get: null,
+    change_project: null
   }
 
   // cctv_form = {
@@ -224,6 +225,12 @@ export class MonitorPage implements OnInit, OnDestroy {
     this.event.get = this.monitorCctvList.bind(this);
     window.addEventListener('cctvList:get()', this.event.get);
     this.methodContrroller();
+
+    
+    this.event.change_project = window.addEventListener('change_project:get()', (ev:CustomEvent<{project_id:number}>) => {
+      console.log('addEventListener - ',ev);
+      this.form.project_id = ev.detail.project_id;
+    });
   }
 
   /**
@@ -232,6 +239,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.$activedRoute.unsubscribe();
     window.removeEventListener('cctvList:get()', this.event.get);
+    window.removeEventListener('change_project:get()', this.event.change_project);
   }
 
   async getForm() {

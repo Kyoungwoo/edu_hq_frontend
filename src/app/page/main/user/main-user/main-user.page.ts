@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { SideMenuUserComponent } from 'src/app/component/side-menu/side-menu-user/side-menu-user.component';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-main-user',
@@ -49,7 +50,8 @@ export class MainUserPage implements OnInit, OnDestroy {
     private connect: ConnectService,
     public user: UserService,
     public date: DateService,
-    private qr: QrService
+    private qr: QrService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

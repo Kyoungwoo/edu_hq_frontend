@@ -3,18 +3,18 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/my-page-type"></ion-back-button>
     </ion-buttons>
-    <ion-title>교육 이력</ion-title>
+    <ion-title>{{ languagePack.getText('교육 이력') }}</ion-title>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input-template label="현장명" (buttonClick)="getEducationSearch()">
+    <app-input-template [label]="languagePack.getText('현장명')" (buttonClick)="getEducationSearch()">
       <p slot="input">{{ educationGetForm.project_name }}</p>
-      상세검색
+      {{ languagePack.getText('상세검색') }}
     </app-input-template>
   </ion-toolbar>
   <ion-toolbar color="white">
     <ion-segment color="primary" [(ngModel)]="segment">
-      <ion-segment-button value="ONE">주요 교육 현황</ion-segment-button>
-      <ion-segment-button value="TWO">전체 교육 이력</ion-segment-button>
+      <ion-segment-button value="ONE">{{ languagePack.getText('주요 교육 현황') }}</ion-segment-button>
+      <ion-segment-button value="TWO">{{ languagePack.getText('전체 교육 이력') }}</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -25,15 +25,15 @@
 
     <div *ngIf="segment === 'ONE'">
 
-      <h4>채용시 교육</h4>
+      <h4>{{ languagePack.getText('채용 시') }}</h4>
 
       <app-table>
         <thead>
           <tr>
-            <th>교육명</th>
-            <th>이수일</th>
-            <th>이수시간</th>
-            <th>교육상태</th>
+            <th>{{ languagePack.getText('교육명') }}</th>
+            <th>{{ languagePack.getText('이수일') }}</th>
+            <th>{{ languagePack.getText('시간') }}</th>
+            <th>{{ languagePack.getText('교육 상태') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -52,15 +52,15 @@
         </tbody>
       </app-table>
 
-      <h4>정기 교육</h4>
+      <h4>{{ languagePack.getText('정기 교육') }}</h4>
       
       <app-table>
         <thead>
           <tr>
-            <th>교육명</th>
-            <th>이수기간</th>
-            <th>잔여일</th>
-            <th>교육 상태</th>
+            <th>{{ languagePack.getText('교육명') }}</th>
+            <th>{{ languagePack.getText('이수기간') }}</th>
+            <th>{{ languagePack.getText('잔여일') }}</th>
+            <th>{{ languagePack.getText('교육 상태') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -81,15 +81,15 @@
 
       <ng-container *ngIf="educationSpecialRes?.rsMap && res?.rsObj?.work_contract_type === '일용직'">
   
-        <h4>특별 교육</h4>
+        <h4>{{ languagePack.getText('특별 교육') }}</h4>
   
         <app-table>
           <thead>
             <tr>
-              <th>교육명</th>
-              <th>이수일</th>
+              <th>{{ languagePack.getText('교육명') }}</th>
+              <th>{{ languagePack.getText('이수일') }}</th>
               <th>필요시간</th>
-              <th>교육 상태</th>
+              <th>{{ languagePack.getText('교육 상태') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -115,15 +115,15 @@
 
       <ng-container *ngIf="educationSpecialRes?.rsMap && res?.rsObj?.work_contract_type === '상용직'">
 
-        <h4>특별 교육</h4>
+        <h4>{{ languagePack.getText('특별 교육') }}</h4>
   
         <app-table>
           <thead>
             <tr>
-              <th>교육명</th>
-              <th>이수기간</th>
-              <th>잔여일</th>
-              <th>교육 상태</th>
+              <th>{{ languagePack.getText('교육명') }}</th>
+              <th>{{ languagePack.getText('이수기간') }}</th>
+              <th>{{ languagePack.getText('잔여일') }}</th>
+              <th>{{ languagePack.getText('교육 상태') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -160,9 +160,9 @@
         <thead>
           <tr>
             <th>NO</th>
-            <th>교육 구분</th>
-            <th>교육명</th>
-            <th>이수일</th>
+            <th>{{ languagePack.getText('교육 구분') }}</th>
+            <th>{{ languagePack.getText('교육명') }}</th>
+            <th>{{ languagePack.getText('이수일') }}</th>
           </tr>
         </thead>
         <tbody>

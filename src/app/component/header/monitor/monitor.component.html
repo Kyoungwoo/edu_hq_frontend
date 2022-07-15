@@ -41,7 +41,7 @@
   
       <app-row>
         <app-col>
-          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)"></app-select-scene>
+          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)" (ngModelChange)="changeProjectPosition()"></app-select-scene>
         </app-col>
         <app-col>
           <app-select-contractor name="master_company_id"

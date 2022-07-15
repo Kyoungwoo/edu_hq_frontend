@@ -2,6 +2,7 @@ import { Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem, FileBlob, FileJson, FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { LoadingService } from 'src/app/basic/service/ionic/loading.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
@@ -41,7 +42,8 @@ export class InputCertifyComponent implements OnInit, ControlValueAccessor {
     private file: FileService,
     private connect: ConnectService,
     private loading: LoadingService,
-    private toast: ToastService
+    private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}

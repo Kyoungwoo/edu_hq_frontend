@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { EducationGetForm } from '../my-page/my-page.page';
 
@@ -18,7 +19,8 @@ export class MyPageEducationSearchPage implements OnInit {
   constructor(
     private user: UserService,
     private _modal: ModalController,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

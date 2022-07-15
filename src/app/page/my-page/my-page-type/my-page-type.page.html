@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/main-user"></ion-back-button>
     </ion-buttons>
-    <ion-title>마이페이지</ion-title>
+    <ion-title>{{ languagePack.getText('마이페이지') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,18 +19,18 @@
   </app-row>
 
   <ion-list lines="full">
-    <ion-item routerLink="/my-page-info" detail="true">나의 정보</ion-item>
+    <ion-item routerLink="/my-page-info" detail="true">{{ languagePack.getText('나의 정보') }}</ion-item>
 
     <ion-item *ngIf="userType === 'WORKER'" 
-    routerLink="/my-page-health" detail="true">건강 문진</ion-item>
+    routerLink="/my-page-health" detail="true">{{ languagePack.getText('건강 문진') }}</ion-item>
     
     <ion-item *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
-    routerLink="/my-page-education" detail="true">교육 이력</ion-item>
+    routerLink="/my-page-education" detail="true">{{ languagePack.getText('교육 이력') }}</ion-item>
     
     <ion-item *ngIf="userType === 'WORKER' || user.userData.user_role === 'PARTNER_HEAD' || user.userData.user_role === 'PARTNER_GENERAL'"
-    routerLink="/my-page-mileage" detail="true">안전 마일리지</ion-item>
+    routerLink="/my-page-mileage" detail="true">{{ languagePack.getText('안전 마일리지') }}</ion-item>
 
-    <ion-item button (click)="withdrawal()">회원 탈퇴</ion-item>
+    <ion-item button (click)="withdrawal()">{{ languagePack.getText('회원 탈퇴') }}</ion-item>
   </ion-list> 
 </ion-content>
 
