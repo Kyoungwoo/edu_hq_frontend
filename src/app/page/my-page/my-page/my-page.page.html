@@ -68,7 +68,7 @@
       <app-row mobileBreak>
         <app-col>
 
-          <app-input-template name="user_phone" [label]="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
+          <app-input-template name="user_phone" label="휴대폰" placeholder="-없이 숫자만 입력해주세요." type="tel" 
           [color]="basicValidator.user_phone?.valid === false && 'warning'"
           [disabled]="!editable" [required]="true" (buttonClick)="changePhone()">
             <p slot="input">{{ basicForm.user_phone }}</p>
