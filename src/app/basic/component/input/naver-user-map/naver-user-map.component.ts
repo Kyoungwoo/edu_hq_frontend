@@ -34,7 +34,9 @@ export class userData {
 export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   @Input() set LineGpsData(v) {
     this.LineGps = v;
-    this.polygonSet();
+    setTimeout(async() => {
+      await this.polygonSet();
+    },150);
   }
 
   id = `naver-map-${Math.random().toString().replace('.', '')}${Math.random().toString().replace('.', '')}`;
@@ -82,11 +84,14 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     this.afteInitRes();
     this.isAfterInit = true;
 
-    this.polygonSet();
+    // setTimeout(async() => {
+    //   await this.polygonSet();
+    // },150);
+    
   }
 
-  polygonSet(){
-    this.resetLine();
+  async polygonSet(){
+    await this.resetLine();
     const polygon = new naver.maps.Polygon({
       map: this.map,
       paths: [[]],
@@ -237,7 +242,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     }
   }
 
-  private resetLine() {
+  private async resetLine() {
     const length = this.path.length;
     if(length){
       for (let i = 0; i < length; i++) {this.path.splice(0, 1);}

@@ -56,7 +56,7 @@ export class MonitorWorkerLocationPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    setInterval(() => {
+    this.gps_interval = setInterval(() => {
       this.get();
     }, 3000);
   }

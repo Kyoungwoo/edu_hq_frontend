@@ -55,14 +55,19 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   async init() {
+    console.log('init - ', this._value);
+    const insertV = this.file.clone(this._value);
+    let length = 0;
+    if(insertV) length = insertV.gps_latitude.length;
+
     const rect = await this.getMapSize();
     const size = new naver.maps.Size(rect.width, rect.height);
     // 디폴트값을 어디로??
-    const position = new naver.maps.LatLng(37.5795423, 126.8897844);
+    const position = new naver.maps.LatLng(length ? insertV.gps_latitude[0] : 37.5795423, length ? insertV.gps_longitude[0] : 126.8897844);
 
     this.map = new naver.maps.Map(this.id, {
       center: position,
-      zoom: 10
+      zoom: length ? 16 : 10
     });
     this.map.setSize(size);
 
