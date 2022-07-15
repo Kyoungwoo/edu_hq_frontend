@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/my-page-type"></ion-back-button>
     </ion-buttons>
-    <ion-title>안전 마일리지</ion-title>
+    <ion-title>{{ languagePack.getText('안전 마일리지') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,14 +13,14 @@
     <!-- 안전 마일리지 -->
     <div>
 
-      <h4>마일리지 현황</h4>
+      <h4>{{ languagePack.getText('안전 마일리지') }}</h4>
 
       <app-table>
         <thead>
           <tr>
-            <th>총 적립 마일리지</th>
-            <th>총 사용 마일리지</th>
-            <th>잔여 마일리지</th>
+            <th>{{ languagePack.getText('총 적립 마일리지') }}</th>
+            <th>{{ languagePack.getText('총 사용 마일리지') }}</th>
+            <th>{{ languagePack.getText('잔여 마일리지') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -32,16 +32,16 @@
         </tbody>
       </app-table>
       
-      <h4>안전 마일리지 적립 내역</h4>
+      <h4>{{ languagePack.getText('안전 마일리지 적립 내역') }}</h4>
 
       <app-table>
         <thead>
           <tr>
             <th>NO</th>
-            <th>마일리지 분류</th>
-            <th>지급자</th>
-            <th>작립일</th>
-            <th>적립 마일리지</th>
+            <th>{{ languagePack.getText('마일리지 분류') }}</th>
+            <th>{{ languagePack.getText('지급자') }}</th>
+            <th>{{ languagePack.getText('적립일') }}</th>
+            <th>{{ languagePack.getText('적립 마일리지') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -58,17 +58,17 @@
         </tbody>
       </app-table>
 
-      <h4>안전 마일리지 사용 내역</h4>
+      <h4>{{ languagePack.getText('안전 마일리지 사용 내역') }}</h4>
 
       <app-table>
         <thead>
           <tr>
             <th>NO</th>
-            <th>사용 내역</th>
-            <th>사용자</th>
-            <th>사용일</th>
-            <th>사용 마일리지</th>
-            <th>지급 상태</th>
+            <th>{{ languagePack.getText('안전 마일리지 사용 내역') }}</th>
+            <th>{{ languagePack.getText('사용자') }}</th>
+            <th>{{ languagePack.getText('사용일') }}</th>
+            <th>{{ languagePack.getText('사용 마일리지') }}</th>
+            <th>{{ languagePack.getText('지급 상태') }}</th>
           </tr>
         </thead>
         <tbody>

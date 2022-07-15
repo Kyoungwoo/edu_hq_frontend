@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem, FileBlob, FileJson } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
@@ -37,7 +38,8 @@ export class MyPageTypePage implements OnInit {
     private toast: ToastService,
     private alert: AlertService,
     public user: UserService,
-    private nav: NavService
+    private nav: NavService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {
