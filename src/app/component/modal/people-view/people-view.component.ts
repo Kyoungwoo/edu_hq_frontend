@@ -3,6 +3,7 @@ import { ModalController, PopoverController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
 import { FutItem } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
 export class userInfo {
@@ -50,7 +51,8 @@ export class PeopleViewComponent implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private _modal: ModalController,
-    private _popover: PopoverController
+    private _popover: PopoverController,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

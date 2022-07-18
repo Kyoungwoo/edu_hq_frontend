@@ -15,27 +15,27 @@
   <app-card *ngIf="all" name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.selectItem = null">
     <app-row>
       <app-col>
-        <h5>전체</h5>
+        <h5>{{ languagePack.getText('전체') }}</h5>
       </app-col>
     </app-row>
   </app-card>
     <app-card *ngFor="let item of res?.rsMap let i = index" (click)="selectItem = item; allState = false;" [color]="selectItem === item ? 'secondary':'white'">
       <app-row>
         <app-col size="4">
-          <h5>업체명</h5>
+          <h5>{{ languagePack.getText('업체명') }}</h5>
           <p>{{ item.company_name}}</p>
         </app-col>
         <app-col size="4">
-          <h5>사업자번호</h5>
+          <h5>{{ languagePack.getText('사업자 등록번호') }}</h5>
           <p>{{ item.business_register_no }}</p>
         </app-col>
         <app-col size="4">
-          <h5>대표명</h5>
+          <h5>{{ languagePack.getText('대표자') }}</h5>
           <p>{{ item.company_ceo }}</p>
         </app-col>
       </app-row>
     </app-card>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="select()">적용</app-button>
+  <app-button (click)="select()">{{ languagePack.getText('적용') }}</app-button>
 </app-button-footer>

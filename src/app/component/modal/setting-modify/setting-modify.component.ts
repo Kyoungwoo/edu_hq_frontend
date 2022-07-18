@@ -18,7 +18,7 @@ export class SettingModifyComponent implements OnInit {
     private connect: ConnectService,
     private languagePack: LanguagePackService,
     private toast: ToastService,
-    private _modal: ModalController
+    private _modal: ModalController,
   ) { }
 
   ngOnInit() {

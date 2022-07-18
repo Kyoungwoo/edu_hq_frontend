@@ -4,6 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export type ProjectSearchType = 'SIGNUP' | 'SIGNUPLH' | null;
 export class ProjectItem {
@@ -35,7 +36,8 @@ export class SearchSceneComponent implements OnInit {
     private connect: ConnectService,
     private _modal : ModalController,
     private promise: PromiseService,
-    private toast: ToastService
+    private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

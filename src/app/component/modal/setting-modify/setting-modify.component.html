@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>환경설정</ion-title>
+    <ion-title>{{ languagePack.getText('설정') }}</ion-title>
     <app-button slot="end" (click)="dismiss()" fill="clear">
       <app-img name="close"></app-img>
     </app-button>
@@ -12,7 +12,7 @@
     <app-img name="search"></app-img>
   </app-input>
 
-  <app-select name="language" [(ngModel)]="language" label="언어 설정">
+  <app-select name="language" [(ngModel)]="language" [label]="languagePack.getText('언어 변환')">
     <app-select-option value="korean">한국어 (Korean)</app-select-option>
     <app-select-option value="english">영어 (English)</app-select-option>
     <app-select-option value="chinese">중국어 (Chinese)</app-select-option>
@@ -22,6 +22,6 @@
 </ion-content>
 
 <app-button-footer>
-  <app-button (click)="dismiss()">이전</app-button>
-  <app-button (click)="changeLanguage()">설정</app-button>
+  <app-button (click)="dismiss()">{{ languagePack.getText('이전') }}</app-button>
+  <app-button (click)="changeLanguage()">{{ languagePack.getText('설정') }}</app-button>
 </app-button-footer>

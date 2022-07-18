@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-    <app-input label="검색" name="with img" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요." (buttonClick)="get()">
+    <app-input [label]="languagePack.getText('검색')" name="with img" [(ngModel)]="form.search_text" [placeholder]="languagePack.getText('검색어를 입력하세요')" (buttonClick)="get()">
       <app-img name="search"></app-img>
     </app-input>
   </ion-toolbar>
@@ -23,22 +23,22 @@
   <app-card *ngIf="allState" [class.active]="selectAll" (click)="selectAllConstractor()">
     <app-row>
       <app-col>
-        <h5>전체</h5>
+        <h5>{{ languagePack.getText('전체') }}</h5>
       </app-col>
     </app-row>
   </app-card>
   <app-card name="item" *ngFor="let item of res?.rsMap let i = index" [class.active]="getActive(item)" [button]="true" (click)="selectConstractor(item)">
     <app-row>
       <app-col size="4">
-        <h5>원청사명</h5>
+        <h5>{{ languagePack.getText('원청사 명') }}</h5>
         <p>{{ item.company_name }}</p>
       </app-col>
       <app-col size="4">
-        <h5>사업자번호</h5>
+        <h5>{{ languagePack.getText('사업자 등록번호') }}</h5>
         <p>{{ item.business_register_no }}</p>
       </app-col>
       <app-col size="4">
-        <h5>대표명</h5>
+        <h5>{{ languagePack.getText('대표자') }}</h5>
         <p>{{ item.company_ceo }}</p>
       </app-col>
     </app-row>
@@ -50,7 +50,7 @@
     <ion-toolbar>
       <app-row>
         <app-col>
-          <h5>추가 리스트</h5>
+          <h5>{{ languagePack.getText('추가 리스트') }}</h5>
         </app-col>
       </app-row>
     </ion-toolbar>
@@ -58,10 +58,10 @@
       <app-table class="button">
         <thead>
           <tr>
-            <th>회사명</th>
-            <th>사업자등록번호</th>
-            <th>대표자</th>
-            <th>삭제</th>
+            <th>{{ languagePack.getText('업체명') }}</th>
+            <th>{{ languagePack.getText('사업자 등록번호') }}</th>
+            <th>{{ languagePack.getText('대표자') }}</th>
+            <th>{{ languagePack.getText('삭제') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -92,6 +92,6 @@
       </app-table>
     </ion-toolbar>
   </div>
-  <app-button name="submit" (click)="submit()">적용</app-button>
+  <app-button name="submit" (click)="submit()">{{ languagePack.getText('적용') }}</app-button>
 </app-button-footer>
 

@@ -2,6 +2,7 @@ import { ToastService } from './../../../basic/service/ionic/toast.service';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from './../../../basic/service/core/connect.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 export class SelectItem {
   company_id: number;
@@ -41,6 +42,7 @@ export class SearchContractorCompanyComponent implements OnInit {
     private connect: ConnectService,
     private _modal: ModalController,
     private toast: ToastService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { GpsCoordinateData } from 'src/app/basic/component/input/naver-map/naver-map.component';
 import { FileService } from 'src/app/basic/service/core/file.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 @Component({
   selector: 'app-project-area-set',
@@ -16,7 +17,8 @@ export class ProjectAreaSetComponent implements OnInit {
   constructor(
     private _modal:ModalController,
     private toast:ToastService,
-    private file: FileService
+    private file: FileService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

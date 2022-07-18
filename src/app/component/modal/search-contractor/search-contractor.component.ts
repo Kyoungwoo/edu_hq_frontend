@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { environment } from 'src/environments/environment';
@@ -49,7 +50,8 @@ export class SearchContractorComponent implements OnInit {
     private connect: ConnectService,
     private _modal_: ModalController,
     private toast: ToastService,
-    private promise: PromiseService
+    private promise: PromiseService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

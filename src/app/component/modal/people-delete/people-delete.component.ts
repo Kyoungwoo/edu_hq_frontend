@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
@@ -44,7 +45,8 @@ export class PeopleDeleteComponent implements OnInit {
     private connect: ConnectService,
     private toast: ToastService,
     private alert: AlertService,
-    public _modal_: ModalController
+    public _modal_: ModalController,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

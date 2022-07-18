@@ -16,7 +16,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>아이디</h5>
+        <h5>{{ languagePack.getText('아이디') }}</h5>
       </app-col>
       <app-col>
         <p>{{ form.account_id }}</p>
@@ -24,7 +24,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>국적</h5>
+        <h5>{{ languagePack.getText('국적') }}</h5>
       </app-col>
       <app-col >
         <p>{{ form.ctgo_country_name }}</p>
@@ -32,7 +32,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>업체명</h5>
+        <h5>{{ languagePack.getText('업체명') }}</h5>
       </app-col>
       <app-col >
         <p>{{ form.company_name }}</p>
@@ -40,7 +40,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>직위</h5>
+        <h5>{{ languagePack.getText('직위') }}</h5>
       </app-col>
       <app-col>
         <p>{{ form.ctgo_job_position_name }}</p>
@@ -48,7 +48,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>현장명</h5>
+        <h5>{{ languagePack.getText('현장명') }}</h5>
       </app-col>
       <app-col >
         <p>{{ form.project_name }}</p>
@@ -56,7 +56,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>공종</h5>
+        <h5>{{ languagePack.getText('공종') }}</h5>
       </app-col>
       <app-col>
         <p>{{ form.ctgo_construction_name }}</p>
@@ -64,7 +64,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>계약유형</h5>
+        <h5>{{ languagePack.getText('계약 유형') }}</h5>
       </app-col>
       <app-col >
         <p>{{ form.work_contract_type }}</p>
@@ -72,7 +72,7 @@
     </app-row>
     <app-row>
       <app-col>
-        <h5>직종</h5>
+        <h5>{{ languagePack.getText('직종') }}</h5>
       </app-col>
       <app-col>
         <p>{{ form.ctgo_occupation_name }}</p>
@@ -80,7 +80,7 @@
     </app-row>
     <app-row style="border-bottom: none;">
       <app-col>
-        <h5>안전직무</h5>
+        <h5>{{ languagePack.getText('안전 직무') }}</h5>
       </app-col>
       <app-col>
         <p>{{ form.safe_job_name }}</p>
@@ -90,5 +90,5 @@
 </ion-content>
 <app-button-footer>
   <app-button *ngIf="menu_state || my_state" (click)="attendantDelete()">출석제외</app-button>
-  <app-button (click)="dismiss()">확인</app-button>
+  <app-button (click)="dismiss()">{{ languagePack.getText('확인') }}</app-button>
 </app-button-footer>

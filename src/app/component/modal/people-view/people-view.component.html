@@ -17,13 +17,13 @@
       <app-card style="width: 400px;">
         <app-row>
           <app-col>
-            <h5>성 명</h5>
+            <h5>{{ languagePack.getText('성명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.user_name }}</p>
           </app-col>
           <app-col>
-            <h5>아이디</h5>
+            <h5>{{ languagePack.getText('아이디') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.account_id }}</p>
@@ -32,13 +32,13 @@
 
         <app-row>
           <app-col>
-            <h5>현장명</h5>
+            <h5>{{ languagePack.getText('현장명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.project_name }}</p>
           </app-col>
           <app-col>
-            <h5>업체명</h5>
+            <h5>{{ languagePack.getText('업체명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.company_name}}</p>
@@ -48,13 +48,13 @@
         <app-row>
 
           <app-col>
-            <h5>직위</h5>
+            <h5>{{ languagePack.getText('직위') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.ctgo_job_position_name_kr }}</p>
           </app-col>
           <app-col>
-            <h5>공종</h5>
+            <h5>{{ languagePack.getText('공종') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.ctgo_construction_name }}</p>
@@ -62,7 +62,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <h5>안전직무</h5>
+            <h5>{{ languagePack.getText('안전 직무') }}</h5>
           </app-col>
           <app-col size="10">
             <p>{{ res.safe_job_name_kr }}</p>
@@ -82,13 +82,13 @@
       <app-card style="width: 400px;">
         <app-row style="height: 30px;">
           <app-col>
-            <h5>성 명</h5>
+            <h5>{{ languagePack.getText('성명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.user_name }}</p>
           </app-col>
           <app-col>
-            <h5>아이디</h5>
+            <h5>{{ languagePack.getText('아이디') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.account_id }}</p>
@@ -97,13 +97,13 @@
 
         <app-row style="height: 30px;">
           <app-col>
-            <h5>국적</h5>
+            <h5>{{ languagePack.getText('국적') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.ctgo_country_name }}</p>
           </app-col>
           <app-col>
-            <h5>업체명</h5>
+            <h5>{{ languagePack.getText('업체명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.company_name}}</p>
@@ -112,13 +112,13 @@
 
         <app-row style="height: 30px;">
           <app-col>
-            <h5>직위</h5>
+            <h5>{{ languagePack.getText('직위') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.ctgo_job_position_name_kr }}</p>
           </app-col>
           <app-col>
-            <h5>현장명</h5>
+            <h5>{{ languagePack.getText('현장명') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.project_name }}</p>
@@ -126,13 +126,13 @@
         </app-row>
         <app-row style="height: 10px;">
           <app-col>
-            <h5>직종</h5>
+            <h5>{{ languagePack.getText('직종') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.ctgo_job_position_name_kr }}</p>
           </app-col>
           <app-col>
-            <h5>안전직무</h5>
+            <h5>{{ languagePack.getText('안전 직무') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.safe_job_name_kr }}</p>
@@ -140,7 +140,7 @@
         </app-row>
         <app-row style="height: 30px;">
           <app-col>
-            <h5>계약유형</h5>
+            <h5>{{ languagePack.getText('계약 유형') }}</h5>
           </app-col>
           <app-col size="4">
             <p>{{ res.work_contract_type }}</p>
@@ -151,5 +151,5 @@
   </app-row>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="dismiss()">확인</app-button>
+  <app-button (click)="dismiss()">{{ languagePack.getText('확인') }}</app-button>
 </app-button-footer>
