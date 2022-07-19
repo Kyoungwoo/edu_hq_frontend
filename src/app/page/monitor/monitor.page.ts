@@ -136,37 +136,37 @@ export class MonitorPage implements OnInit, OnDestroy {
   graphArr3 = [
     {
       name:'작업전',
-      count:10,
+      count:0,
     },
     {
       name:'작업중',
-      count:90,
+      count:0,
     },
     {
       name:'작업종료',
-      count:50,
+      count:0,
     }
   ]
   graphArr4 = [
     {
       name:'고소 작업(높이 2m 이상)',
-      count:17
+      count:0
     },
     {
       name:'굴착 가설(깊이 1.5m 이상)',
-      count:8
+      count:0
     },
     {
       name:'기설 구조물 설치 해제',
-      count:80
+      count:0
     },
     {
       name:'밀폐공간',
-      count:35
+      count:0
     },
     {
       name:'휴일작업',
-      count:70
+      count:0
     },
   ]
 
