@@ -12,7 +12,7 @@
       <td>{{ i + 1 }}</td>
       <td>
         <app-input [name]="languagePack.getText('면허 번호')"
-        [(ngModel)]="item.user_certify_no" [placedholder]="languagePack.getText('면허 번호')" [disabled]="disabled"></app-input>
+        [(ngModel)]="item.user_certify_no" [placeholder]="languagePack.getText('면허 번호')" [disabled]="disabled"></app-input>
       </td>
       <td style="position: relative;">
         {{ item.fut_item?.[0]?.file_name }}

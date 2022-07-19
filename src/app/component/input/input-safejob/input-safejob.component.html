@@ -15,11 +15,11 @@
         <app-select-safetymanager [name]="languagePack.getText('안전 직무')"
         [label]="null"
         [company_id]="company_id" [user_type]="user_type"
-        [(ngModel)]="item.ctgo_safe_job_id" [placedholder]="languagePack.getText('안전 직무')" [disabled]="disabled"></app-select-safetymanager>
+        [(ngModel)]="item.ctgo_safe_job_id" [placeholder]="languagePack.getText('안전 직무')" [disabled]="disabled"></app-select-safetymanager>
       </td>
       <td>
         <app-calendar [name]="languagePack.getText('안전 직무 지정일')"
-        [(ngModel)]="item.safe_job_start_date" [placedholder]="languagePack.getText('안전 직무 지정일')" [disabled]="disabled"></app-calendar>
+        [(ngModel)]="item.safe_job_start_date" [disabled]="disabled"></app-calendar>
       </td>
       <td style="position: relative;">
         {{ item.fut_item?.[0]?.file_name }}

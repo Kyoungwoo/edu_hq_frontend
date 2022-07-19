@@ -19,7 +19,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-card [button]="true" *ngFor="let item of res?.rsMap" (click)="edit(item)">
+    <app-card [button]="true" *ngFor="let item of res?.rsMap" (click)="detail(item)">
       <app-row style="align-items: flex-start;">
         <app-col>
           <h5>{{ item.manual_title }}</h5>

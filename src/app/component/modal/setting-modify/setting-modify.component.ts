@@ -16,7 +16,7 @@ export class SettingModifyComponent implements OnInit {
 
   constructor(
     private connect: ConnectService,
-    private languagePack: LanguagePackService,
+    public languagePack: LanguagePackService,
     private toast: ToastService,
     private _modal: ModalController,
   ) { }

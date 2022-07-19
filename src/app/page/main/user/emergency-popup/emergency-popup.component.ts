@@ -105,7 +105,8 @@ export class EmergencyPopupComponent implements OnInit {
 
   allClick(){
     this.all_state = !this.all_state;
-    if(this.all_state) this.res.rsMap.map((item) => {if(item.selected) item.selected = false;});
+    if(this.all_state) this.res.rsMap.map((item) => {if(!item.selected) item.selected = true;});
+    else this.res.rsMap.map((item) => {if(item.selected) item.selected = false;});
   }
 
   singleClick(item){
