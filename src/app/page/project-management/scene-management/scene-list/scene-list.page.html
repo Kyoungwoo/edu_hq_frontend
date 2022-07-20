@@ -43,7 +43,7 @@
         <ion-buttons slot="start">
           <app-col>
             <app-button fill="translucent" *ngIf="user.userData.user_role === 'LH_HEAD'" (click)="edit()">신규 등록</app-button>
-            <app-button fill="translucent">엑셀 다운로드</app-button>
+            <!-- <app-button fill="translucent">엑셀 다운로드</app-button> -->
           </app-col>
         </ion-buttons>
         <app-col style="text-align: right;" *ngIf="user.userData.user_role === 'LH_HEAD'">

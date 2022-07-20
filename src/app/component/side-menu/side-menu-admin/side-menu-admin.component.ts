@@ -198,18 +198,20 @@ export class  SideMenuAdminComponent implements OnInit {
         }}
       ]}
     ]},
-    { title: '위험작업관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
-      { title: '중장비 접근', link: ''},
+    { title: '위험관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
+      { title: '위험지역 출입', link: ''},
+      { title: '중장비 접근감지', link: ''},
       { title: '안전고리 체결', link: ''},
-      { title: '밀폐 환경 정보', link: ''}
+      { title: '밀폐 환경 정보', link: ''},
+      { title: '변위 감지', link: ''}
     ]},
-    { title: '비상상황관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
-      { title: '아차사고 신고', link: ''},
+    { title: '사고관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
+      // { title: '아차사고 신고', link: ''},
       { title: '비상 알림 관리', link: ''},
       { title: '안전사고 발생보고', link: ''}
     ]},
     { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
-      { title: '문의하기', link: ''},
+      // { title: '문의하기', link: ''},
       { title: '사용자 매뉴얼', link: '/manual-list',
       permission: () => {
         const {  user_type } = this.user.userData;
@@ -277,7 +279,12 @@ export class  SideMenuAdminComponent implements OnInit {
           return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
         }},
       ]},
-      {title:'안전마일리지',link:''}
+      // {title:'안전마일리지',link:''},
+      { title: '회원 정보 기준 설정', link:'/member-standard-set',
+      permission: () => {
+        const {  user_role } = this.user.userData;
+        return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+      }},
     ]},
     { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
       { title: '현장 정보 관리', link: '/scene-list',
@@ -306,11 +313,11 @@ export class  SideMenuAdminComponent implements OnInit {
           return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
         },
       thirdMenuList: [
-        { title:'회원 정보 기준 설정', link:'/member-standard-set',
-        permission: () => {
-          const { user_role } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-        }},
+        // { title:'회원 정보 기준 설정', link:'/member-standard-set',
+        // permission: () => {
+        //   const { user_role } = this.user.userData;
+        //   return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+        // }},
         // { title:'교육 정보 기준 설정',link:'' },
         { title:'장소 정보 기준 설정',link:'/area-standard-set',
         permission: () => {

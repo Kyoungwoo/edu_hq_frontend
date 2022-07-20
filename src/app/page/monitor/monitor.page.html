@@ -14,14 +14,15 @@
                     <h4>금일 출역 근로자</h4>
                   </app-col>
                   <app-col size="auto">
-                    <ion-badge color="medium" (click)="todayWorkDetail({
+                    <!-- <ion-badge color="medium" (click)="todayWorkDetail({
                       company_admin: 0,
                       company_worker: 0,
                       master_admin: 0,
                       master_worker: 0,
                       total_cnt: 0,
                       work_date: this.date.today()
-                  })"><b>{{ todayWork_totalCount }}</b>명</ion-badge>
+                  })"><b>{{ todayWork_totalCount }}</b>명</ion-badge> -->
+                  <ion-badge color="medium"><b>{{ todayWork_totalCount }}</b>명</ion-badge>
                   </app-col>
                 </app-row>
               </ion-toolbar>
@@ -46,7 +47,8 @@
                   <div class="bar-flex-theme"></div>
                   <div class="bar-wrap">
                     <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
-                      <div (click)="todayWorkDetail(item)" *ngIf="item.total_cnt"
+                      <!-- (click)="todayWorkDetail(item)" -->
+                      <div *ngIf="item.total_cnt"
                         class="bar"
                         [style.height]="'calc((100% - 50.55px) * '+(item.total_cnt / todayWork_ceil_Total)+')'">
                         <div class="bar-inner-text">{{ item.total_cnt }}</div>

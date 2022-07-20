@@ -22,8 +22,8 @@
 
   <app-row>
     <app-col *mobileHidden size="auto" style="display: flex; align-self: flex-start;" size="auto"><app-button (click)="excel_download()">엑셀 다운로드</app-button></app-col>
-    <app-col></app-col>
-    <app-col size="auto">
+    <app-col *mobileHidden></app-col>
+    <app-col>
       <app-approval 
       [project_id]="form.project_id"
       [company_id]="form.company_id"

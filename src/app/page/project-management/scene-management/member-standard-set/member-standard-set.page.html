@@ -7,8 +7,8 @@
         <ion-segment class="sub-segment" color="primary" [(ngModel)]="segmenet" (ionChange)="segmentChange()">
           <ion-segment-button *ngIf="permission['LH조직관리']" value="LH조직관리">LH 조직관리</ion-segment-button>
           <ion-segment-button *ngIf="permission['정보접근비밀번호']" value="정보접근비밀번호">정보 접근<br>비밀번호</ion-segment-button>
-          <ion-segment-button *ngIf="permission['안전마일리지적립']" value="안전마일리지적립" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
-          <ion-segment-button *ngIf="permission['안전마일리지사용']" value="안전마일리지사용" [disabled]="true">안전 마일리지<br>사용</ion-segment-button>
+          <!-- <ion-segment-button *ngIf="permission['안전마일리지적립']" value="안전마일리지적립" [disabled]="true">안전 마일리지<br>적립</ion-segment-button>
+          <ion-segment-button *ngIf="permission['안전마일리지사용']" value="안전마일리지사용" [disabled]="true">안전 마일리지<br>사용</ion-segment-button> -->
           <ion-segment-button *ngIf="permission['직위']" value="직위">직위</ion-segment-button>
           <ion-segment-button *ngIf="permission['안전직무']" value="안전직무">안전직무</ion-segment-button>
           <ion-segment-button *ngIf="permission['직종']" value="직종">직종</ion-segment-button>
@@ -580,8 +580,8 @@
           <app-button fill="translucent" (click)="addOccupation()">추가</app-button>
           <app-button fill="translucent" (click)="deleteOccupation()" color="danger">삭제
           </app-button>
-          <app-button fill="translucent">엑셀 다운로드</app-button>
-          <app-button fill="translucent">엑셀 업로드</app-button>
+          <!-- <app-button fill="translucent">엑셀 다운로드</app-button>
+          <app-button fill="translucent">엑셀 업로드</app-button> -->
           <app-button fill="translucent" (click)="occupationState(1)">천세 사용</app-button>
           <app-button fill="translucent" (click)="occupationState(0)">전체 미사용</app-button>
         </ion-buttons>

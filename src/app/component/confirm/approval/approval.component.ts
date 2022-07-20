@@ -418,6 +418,7 @@ export class ApprovalComponent implements OnInit {
       this.res.rsObj = new ApprovalObj();
       this.res.rsObj.answer_datas = answer_datas;
       this.res.rsObj.approval_comment = approval_comment;
+      this.form.approval_id = res.rsObj.approval_default_data.approval_id;
     }
     else  {
       this.toast.present({ color: 'warning', message: res.rsMsg });

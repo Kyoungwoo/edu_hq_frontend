@@ -71,7 +71,7 @@
           </app-row>
         </h4>
         <ng-container *ngIf="form.file_data">
-          <app-file-preview *ngFor="let futItem of form.file_data" [futItem]="futItem"></app-file-preview>
+          <app-file-preview *ngFor="let futItem of form.file_data; let i = index" (buttonClick)="form.file_data.splice(i,1)" [futItem]="futItem"></app-file-preview>
         </ng-container>
         <app-card>
           <ion-toolbar color="white" slot="top">
@@ -205,7 +205,7 @@
           <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="addRiskArea()">추가</app-button>
           <app-button [disabled]="areaRoleCheck" color="danger" fill="translucent" (click)="deleteRisk()">삭제
           </app-button>
-          <app-button [disabled]="areaRoleCheck" fill="translucent">엑셀 다운로드</app-button>
+          <!-- <app-button [disabled]="areaRoleCheck" fill="translucent">엑셀 다운로드</app-button> -->
           <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="allStatus(true)">전체 사용</app-button>
           <app-button [disabled]="areaRoleCheck" fill="translucent" (click)="allStatus(false)">전체 미사용</app-button>
         </ion-buttons>

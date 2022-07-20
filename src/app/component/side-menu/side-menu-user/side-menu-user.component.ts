@@ -99,8 +99,8 @@ export class SideMenuUserComponent implements OnInit {
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
        }}
     ]},
-    { img:'assets/img/menu/emergency-management.svg', title: '비상상황 관리', subMenuList: [
-      { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
+    { img:'assets/img/menu/emergency-management.svg', title: '사고관리', subMenuList: [
+      // { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
       { title: '비상 알림 관리', link: '', params: {}, permission: () => { return true }}
     ]},
     { img:'assets/img/menu/control-center.svg', title: '통합관제', subMenuList: [
@@ -165,7 +165,7 @@ export class SideMenuUserComponent implements OnInit {
       { title: '알림함', link: '/notify-list', params: {}, permission: () => {return true;}},
     ]},
     { img:'assets/img/menu/support.svg', title: '고객지원', subMenuList: [
-      { title: '문의하기', link: '', params: {}, permission: () => { return true }},
+      // { title: '문의하기', link: '', params: {}, permission: () => { return true }},
       { title: '사용자 매뉴얼', link: 'manual-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
