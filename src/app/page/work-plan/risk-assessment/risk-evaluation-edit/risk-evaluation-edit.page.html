@@ -9,7 +9,7 @@
 
 <ion-content>
   <app-row>
-    <app-col style="display: flex; align-self: flex-start;" size="auto">
+    <app-col *mobileHidden style="display: flex; align-self: flex-start;" size="auto">
       <app-button *ngIf="btn_type !== 'add'" (click)="excel_download()">엑셀 다운로드</app-button>
     </app-col>
     <app-col></app-col>

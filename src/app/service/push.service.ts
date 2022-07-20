@@ -96,7 +96,6 @@ export class PushService {
   
     // 푸시를 받았을경우
     await PushNotifications.addListener('pushNotificationReceived', notification => {
-      console.log('Push notification received: ', notification);
       if(notification.data.notify_kind === 'SOS') this.EmergencyPop(notification.body);
       if(notification.data.notify_kind === 'SOSFIN') this.EmergencyFinPop(notification.body);
     });

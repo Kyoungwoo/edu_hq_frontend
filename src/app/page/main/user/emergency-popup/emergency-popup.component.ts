@@ -8,7 +8,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { EmergencyClearPopupComponent } from '../emergency-clear-popup/emergency-clear-popup.component';
 
-class MsdsInfo {
+class SOSInfo {
   seq_no:number;
   user_type:string;
   company_id:number;
@@ -31,7 +31,7 @@ export class EmergencyPopupComponent implements OnInit {
 
   all_state = false;
 
-  res:ConnectResult<MsdsInfo>;
+  res:ConnectResult<SOSInfo>;
 
   /** @param selectedList - 체크박스로 선택된 목록 */
   // selectedList = [];
@@ -85,6 +85,7 @@ export class EmergencyPopupComponent implements OnInit {
             switch (res.rsCode) {
               case 0:
                 if(this.all_state) this.all_state = false;
+                this.res = null;
                 this.get();
                 this.toast.present({ color: 'success', message: '선택하신 SOS상황이 종료되었습니다.' });
                 break;

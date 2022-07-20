@@ -75,10 +75,7 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
     // 디폴트값을 어디로??
     const position = new naver.maps.LatLng(this.LineGps.gps_latitude[0], this.LineGps.gps_longitude[0]);
 
-    this.map = new naver.maps.Map(this.id, {
-      center: position,
-      zoom: 16
-    });
+    this.map = new naver.maps.Map(this.id);
     this.map.setSize(size);
 
     this.afteInitRes();
@@ -112,6 +109,15 @@ export class NaverUserMapComponent implements OnInit, AfterViewInit, ControlValu
           this.path.push({ x, y });
         }
     }
+    const position = new naver.maps.LatLng(this.LineGps.gps_latitude[0], this.LineGps.gps_longitude[0]);
+    this.map.setCenter(position);
+    this.map.setZoom(16);
+    // console.log('map - ',this.map);
+    // const position = new naver.maps.LatLng(this.LineGps.gps_latitude[0], this.LineGps.gps_longitude[0]);
+    // this.map = new naver.maps.Map(this.id, {
+    //   center: position,
+    //   zoom: 16
+    // });
   }
   
   afterInit() {
