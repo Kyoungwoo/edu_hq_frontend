@@ -134,14 +134,7 @@ export class  SideMenuAdminComponent implements OnInit {
       return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
     },
     subMenuList: [
-      { title: '위험성 평가', thirdMenuList: [
-        { title: '위험성평가 작성', link: '/risk-list',
-        permission: () => {
-          const { user_type } = this.user.userData;
-          return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-        }},
-        { title: '평가표 정보 추가 요청', link: '' }
-      ]},
+      { title: '위험성 평가', link: '/risk-list'},
       { title: '위험 작업 허가', link: ''}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-management.svg', 
@@ -157,7 +150,7 @@ export class  SideMenuAdminComponent implements OnInit {
       }},
       { title: 'TBM 일지', link: ''},
       { title: '점검 현황', link: ''},
-      { title: '부적합 조치 현황', link: ''}
+      { title: '부적합(아차사고) 관리', link: ''}
     ]},
     { title: '장비관리', img: 'assets/img/menu/equipment-management.svg',
       permission: () => {

@@ -2,6 +2,18 @@
 <ng-container *mobileHidden>
   <app-header-admin></app-header-admin>
   <ion-content>
+    <ion-toolbar color="white" style="margin-bottom: 8px;">
+      <app-row>
+        <app-col size="auto">
+          <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)">
+            <ion-segment-button value="최초">최초</ion-segment-button>
+            <ion-segment-button value="정기">정기</ion-segment-button>
+            <ion-segment-button value="수시">수시</ion-segment-button>
+          </ion-segment>
+        </app-col>
+      </app-row>
+    </ion-toolbar>
+
     <app-row style="align-items: flex-start;">
       <app-col size="280px">
         <app-table type="card">
@@ -58,13 +70,13 @@
             <app-button *ngIf="permission.add" fill="translucent" (click)="duplicate()" [disabled]="!selectitem">복사 작성</app-button>
             <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
           </ion-buttons>
-          <ion-buttons slot="end">
+          <!-- <ion-buttons slot="end">
             <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)">
               <ion-segment-button value="최초">최초</ion-segment-button>
               <ion-segment-button value="정기">정기</ion-segment-button>
               <ion-segment-button value="수시">수시</ion-segment-button>
             </ion-segment>
-          </ion-buttons>
+          </ion-buttons> -->
         </ion-toolbar>
 
         <ion-toolbar color="white">
