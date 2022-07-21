@@ -117,3 +117,11 @@
     .hpa {margin:0;border:0 black none;box-shadow:none;}
     }
 }
+
+.term-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid gainsboro;
+    padding: 0 8px;
+}

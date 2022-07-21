@@ -40,7 +40,26 @@
         <p>{{ languagePack.getText('시행일자') }} : {{ res?.rsObj?.create_date}}</p>
       </app-col>
     </app-row>
-        <app-textarea [rows]="20" name="플랫폼 이용약관" [readonly]="true" [value]="res?.rsObj.terms_text"></app-textarea>
+    <div class="term-box">
+      <div>{{ languagePack.getText('개인정보 수집 및 이용 동의') }}</div>
+      <ion-button class="view-btn" (click)="termPage('use_personal_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+    </div>
+
+    <div class="term-box">
+      <div>{{ languagePack.getText('민감정보 제공 및 이용동의') }}</div>
+      <ion-button class="view-btn" (click)="termPage('sensitive_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+    </div>
+
+    <div class="term-box">
+      <div>{{ languagePack.getText('위치정보 시스템 이용약관 동의') }}</div>
+      <ion-button class="view-btn" (click)="termPage('location_Information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+    </div>
+
+    <div class="term-box">
+      <div>{{ languagePack.getText('제3자 정보 제공 동의') }}</div>
+      <ion-button class="view-btn" (click)="termPage('third-party_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+    </div>
+
   </ion-content>
 </ng-container>
 

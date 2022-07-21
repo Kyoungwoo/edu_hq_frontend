@@ -59,6 +59,10 @@
         <p>{{ languagePack.getText('시행일자') }} : {{ res?.rsObj?.create_date}}</p>
       </app-col>
     </app-row>
-        <app-textarea [rows]="20" name="플랫폼 이용약관" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea>
+    <div class="term-box">
+      <div>{{ languagePack.getText('시스템 이용약관 동의') }}</div>
+      <ion-button class="view-btn" (click)="termPage('system_Terms_and_Conditions.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+    </div>
+        <!-- <app-textarea [rows]="20" name="플랫폼 이용약관" [value]="res?.rsObj.terms_text" [readonly]="true"></app-textarea> -->
   </ion-content>
 </ng-container>

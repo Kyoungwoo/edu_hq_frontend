@@ -32,4 +32,8 @@ export class PrivacyPage implements OnInit {
   async get() {
     this.res = await this.connect.run('/support/terms/get', this.form, {});
   }
+
+  termPage(url:string){
+    window.open('https://cdn.lh-skeeper.or.kr/terms/'+url,'_blank');
+  }
 }

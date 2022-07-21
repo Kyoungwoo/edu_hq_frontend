@@ -104,7 +104,12 @@ export class SideMenuUserComponent implements OnInit {
       // { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
       { title: '비상 알림 관리', link: '', params: {}, permission: () => { return true }}
     ]},
-    { img:'assets/img/menu/control-center.svg', title: '통합관제', subMenuList: [
+    { img:'assets/img/menu/control-center.svg', title: '통합관제', 
+    permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER';
+    },
+    subMenuList: [
       { title: '지역본부 모니터링', link: '', params: {}, permission: () => { return true }},
       { title: '현장 모니터링', link:'/monitor' , params: {}, permission: () => { 
         const {  user_type, user_role } = this.user.userData;
