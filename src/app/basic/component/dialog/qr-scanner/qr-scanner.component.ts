@@ -7,6 +7,7 @@ import { File } from "@ionic-native/file/ngx";
 import Qr from "src/app/basic/plugin/qr-plugin";
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 
 
@@ -49,7 +50,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private media: Media,
     private _modal:ModalController,
     public user: UserService,
-    private alert: AlertService
+    private alert: AlertService,
+    public languagePack: LanguagePackService
   ) { }
 
   async ngOnInit() {

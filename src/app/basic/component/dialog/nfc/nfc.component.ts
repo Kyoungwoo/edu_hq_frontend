@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import Nfc from 'src/app/basic/plugin/nfc.plugin';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-nfc',
@@ -34,7 +35,9 @@ export class NfcComponent implements OnInit {
     private alert:AlertService,
     private navCtrl: NavService,
     private _modal: ModalController,
-    public user: UserService
+    public user: UserService,
+    public languagePack: LanguagePackService
+    
   ) { }
 
   async ngOnInit() {
