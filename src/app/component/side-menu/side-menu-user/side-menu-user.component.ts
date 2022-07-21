@@ -1,3 +1,4 @@
+import { SettingModifyComponent } from './../../modal/setting-modify/setting-modify.component';
 import { ScannerService } from './../../../basic/service/util/scanner.service';
 // import { QrService } from 'src/app/basic/service/util/qr.service';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -217,7 +218,7 @@ export class SideMenuUserComponent implements OnInit {
     this.nav.navigateForward('/my-page-type');
   }
 
-  router(title: string) {
+  async router(title: string) {
     switch (title) {
       case '':
         this.alert.present({
@@ -226,7 +227,12 @@ export class SideMenuUserComponent implements OnInit {
         });
         break;
       case '설정':
-        this.nav.navigateForward('/setting-menu');
+        // this.nav.navigateForward('/setting-menu');
+        const modal = await this._modal.create({
+          component: SettingModifyComponent
+        });
+        modal.present();
+        const { data } = await modal.onDidDismiss();
         break;
     }
   }
