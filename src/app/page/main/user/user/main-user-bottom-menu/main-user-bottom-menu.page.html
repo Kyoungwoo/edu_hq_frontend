@@ -22,7 +22,7 @@
       <h6>{{ item.create_date }}</h6>
     </app-col>
   </app-row>
-  <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">더보기</app-button>
+  <app-button color="secondary" style="width: 100%;" (click)="router('공지사항')">{{ languagePack.getText('더보기') }}</app-button>
 </div>
 <div [style.display]="segment === '2' ? 'block' : 'none'">
   <app-row *ngFor="let item of msds_list;" style="margin-top: 15px;" (click)="openMsds(item.msds_id)">
@@ -34,7 +34,7 @@
       <h6>{{ item.create_date }}</h6>
     </app-col>
   </app-row>
-  <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">더보기</app-button>
+  <app-button color="secondary" style="width: 100%;" (click)="router('MSDS')">{{ languagePack.getText('더보기') }}</app-button>
 </div>
 <div [style.display]="segment === '3' ? 'block' : 'none'">
   <app-row *ngFor="let item of safetymeeting_list;" style="margin-top: 15px;" (click)="openMeeting(item.safety_meeting_id)">
@@ -46,6 +46,6 @@
       <h6>{{ item.create_date }}</h6>
     </app-col>
   </app-row>
-  <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">더보기</app-button>
-  <!-- {{ languagePack.getText('더보기') }} -->
+  <app-button color="secondary" style="width: 100%;" (click)="router('회의록')">{{ languagePack.getText('더보기') }}</app-button>
+  
 </div>

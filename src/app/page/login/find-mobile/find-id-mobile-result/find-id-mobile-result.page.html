@@ -10,8 +10,8 @@
   <app-container size="small">
     <h4>{{ languagePack.getText('아이디 찾기 결과') }}</h4>
     <app-card>
-      <h4><ion-text color="primary">{{ result.user_name }}</ion-text> 님의 아이디는</h4>
-      <h4><ion-text color="primary">{{ result.account_id }}</ion-text> 입니다.</h4>
+      <h4><ion-text color="primary">{{ result.user_name }}</ion-text> {{ languagePack.getText('님의 아이디는') }}</h4>
+      <h4><ion-text color="primary">{{ result.account_id }}</ion-text>{{ languagePack.getText('입니다') }}.</h4>
     </app-card>
   </app-container>
 </ion-content>

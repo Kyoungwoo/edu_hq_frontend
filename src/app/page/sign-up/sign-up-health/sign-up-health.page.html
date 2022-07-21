@@ -51,7 +51,7 @@
     <app-input-caption *ngIf="validator.brain_cure_content?.valid === false" color="warning">{{ validator.brain_cure_content.message }}</app-input-caption>
 
 
-    <h4>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h4>
+    <h4>3. {{ languagePack.getText('최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?') }}</h4>
     <app-radio-input name="vomiting_state" 
     [color]="validator.vomiting_state?.valid === false && 'warning'"
     [(ngModel)]="form.vomiting_state" (change)="form.vomiting_content = ''">
@@ -99,7 +99,7 @@
     <app-input-caption *ngIf="validator.etc_disease_content?.valid === false" color="warning">{{ validator.etc_disease_content.message }}</app-input-caption>
 
 
-    <h4>6. {{ languagePack.getText('본인이 코로나19가 의심되는 아래의 임상 증상이 있습니까? (*주요 임상증상)체온 37.5℃ 이상, 기침, 호흡곤란, 오한, 근육통, 두통, 인후통,  후각미각 소실 또는 폐렴 (단, 코로나19와 관게없이  평소의 기저질환으로 인한 증상인 경우는 제외))') }}
+    <h4> 6. {{ languagePack.getText('본인이 코로나19가 의심되는 아래의 임상 증상이 있습니까? (*주요 임상증상)체온 37.5℃ 이상, 기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각미각 소실 또는 폐렴 (단, 코로나19와 관게없이 평소의 기저질환으로 인한 증상인 경우는 제외)') }}
     </h4>
     <app-radio-input name="covid_nineteen_state" 
     [color]="validator.covid_nineteen_state?.valid === false && 'warning'"
@@ -120,13 +120,13 @@
     <app-radio-input name="covid_vaccine_state" 
     [color]="validator.covid_vaccine_state?.valid === false && 'warning'"
     [(ngModel)]="form.covid_vaccine_state">
-      <app-radio [value]="0">미접종</app-radio>
-      <app-radio [value]="1">접종</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('미접종') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('접종') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="validator.covid_vaccine_state?.valid === false" color="warning">{{ validator.covid_vaccine_state.message }}</app-input-caption>
 
 
-    <app-check name="health_terms_state" [on]="1" [off]="0" [(ngModel)]="form.health_terms_state">본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.</app-check>
+    <app-check name="health_terms_state" [on]="1" [off]="0" [(ngModel)]="form.health_terms_state">{{ languagePack.getText('본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.') }}</app-check>
     <app-input-caption *ngIf="validator.health_terms_state?.valid === false" color="warning">{{ validator.health_terms_state.message }}</app-input-caption>
     
   </form>

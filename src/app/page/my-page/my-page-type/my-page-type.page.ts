@@ -68,18 +68,18 @@ export class MyPageTypePage implements OnInit {
   /** 회원 탈퇴 */
   async withdrawal() {
     this.alert.present({
-      header: '회원탈퇴를 진행합니다.',
+      header: this.languagePack.getText('회원탈퇴를 진행합니다.'),
       message: `
-        □ 회원 탈퇴 시 시스템 이용이 불가능 하며 취소가 불가능 합니다.\n
-        □ 회원 탈퇴 후 마지막 출역 현장의 준공일로 부터 3년 후 까지 정보 보관 후 자동 삭제 됩니다.\n
-        □ 회원 탈퇴를 원할 시 비밀번호를 입력해주세요.
+        □ ${this.languagePack.getText('회원 탈퇴 시 시스템 이용이 불가능 하며 취소가 불가능 합니다.')}\n
+        □ ${this.languagePack.getText('회원 탈퇴 후 마지막 출역 현장의 준공일로 부터 3년 후 까지 정보 보관 후 자동 삭제 됩니다.')}\n
+        □ ${this.languagePack.getText('회원 탈퇴를 원할 시 비밀번호를 입력해주세요.')}
       `,
       inputs: [
-        { name: 'account_token', placeholder: '비밀번호', type: 'password' }
+        { name: 'account_token', placeholder: this.languagePack.getText('비밀번호'), type: 'password' }
       ],
       buttons: [
-        { text: '취소' },
-        { text: '탈퇴하기', handler: this.withdrawalHandler.bind(this) }
+        { text: this.languagePack.getText('취소') },
+        { text: this.languagePack.getText('회원 탈퇴'), handler: this.withdrawalHandler.bind(this) }
       ]
     });
   }
@@ -95,10 +95,10 @@ export class MyPageTypePage implements OnInit {
       });
 
       this.alert.present({
-        header: '회원 탈퇴가 완료되었습니다.',
-        message: '그동안 이용해주셔서 감사합니다.',
+        header: this.languagePack.getText('회원 탈퇴가 완료되었습니다.'),
+        message: this.languagePack.getText('그동안 이용해주셔서 감사합니다.'),
         buttons: [
-          { text: '확인' }
+          { text: this.languagePack.getText('확인') }
         ]
       });
     } else {

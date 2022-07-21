@@ -3,6 +3,7 @@ import { UserService } from './../../../../basic/service/core/user.service';
 import { ModalController } from '@ionic/angular';
 import { FileService } from './../../../../basic/service/core/file.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-each-device-detail-search',
@@ -30,7 +31,8 @@ export class EachDeviceDetailSearchPage implements OnInit {
     private file:FileService,
     private _modal:ModalController,
     private user:UserService,
-    private date:DateService
+    private date:DateService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {

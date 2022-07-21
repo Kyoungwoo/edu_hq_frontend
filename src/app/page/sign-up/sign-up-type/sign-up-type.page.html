@@ -10,8 +10,8 @@
 <ion-content>
   <app-container size="small">
     <app-sign-up-segment step="step1"></app-sign-up-segment>
-    <h4><b>회원유형</b> 을 선택해주세요.</h4>
-    <p>회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.</p>
+    <h4><b>{{ languagePack.getText('회원유형 선택') }}</b> </h4>
+    <!-- <p>회원유형에 따라 가입절차가 차이가 있으니, 올바르게 선택해 주시기 바랍니다.</p> -->
     <app-card name="card_type_WORKER" [button]="true" [color]="userType === 'WORKER' ? 'secondary' : 'white'" (click)="userType = 'WORKER'">
       <app-row class="card-inner">
         <app-col size="auto">
@@ -67,5 +67,5 @@
   </app-container>
 </ion-content>
 <app-button-footer name="button-footer" *ngIf="userType" @slideUpInAnimation>
-  <app-button name="button_next" (click)="next()">다음</app-button>
+  <app-button name="button_next" (click)="next()">{{ languagePack.getText('다음') }}</app-button>
 </app-button-footer>

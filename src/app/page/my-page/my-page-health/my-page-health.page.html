@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/my-page-type"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ languagePack.getText('건강 문진') }}</ion-title>
+    <ion-title>{{ languagePack.getText('건강 문진 작성') }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -57,7 +57,7 @@
     <app-input-caption *ngIf="healthValidator.brain_cure_content?.valid === false" color="warning">{{ healthValidator.brain_cure_content.message }}</app-input-caption>
 
 
-    <h4>3. 최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?</h4>
+    <h4>3. {{ languagePack.getText('최근 가슴을 쥐어짜는 통증,오심,구토 증상을 겪은 적이 있습니까?') }}</h4>
     <app-radio-input name="vomiting_state" 
     [color]="healthValidator.vomiting_state?.valid === false && 'warning'"
     [(ngModel)]="healthForm.vomiting_state" (change)="healthForm.vomiting_content = ''" [disabled]="!editable">
@@ -68,7 +68,7 @@
 
     <app-input @fadeInAnimation *ngIf="healthForm.vomiting_state" 
     [color]="healthValidator.vomiting_content?.valid === false && 'warning'"
-    name="vomiting_content" placeholder="증상을 적어주세요." 
+    name="vomiting_content" [placeholder]="languagePack.getText('증상을 적어주세요.')"
     [(ngModel)]="healthForm.vomiting_content" [disabled]="!editable"></app-input>
     <app-input-caption *ngIf="healthValidator.vomiting_content?.valid === false" color="warning">{{ healthValidator.vomiting_content.message }}</app-input-caption>
 
@@ -84,7 +84,7 @@
 
     <app-input @fadeInAnimation *ngIf="healthForm.pain_head_content" 
     [color]="healthValidator.pain_head_content?.valid === false && 'warning'"
-    name="pain_head_content" placeholder="증상을 적어주세요." 
+    name="pain_head_content" [placeholder]="languagePack.getText('증상을 적어주세요.')" 
     [(ngModel)]="healthForm.pain_head_content" [disabled]="!editable"></app-input>
     <app-input-caption *ngIf="healthValidator.pain_head_content?.valid === false" color="warning">{{ healthValidator.pain_head_content.message }}</app-input-caption>
 
@@ -99,7 +99,7 @@
     <app-input-caption *ngIf="healthValidator.etc_disease_state?.valid === false" color="warning">{{ healthValidator.etc_disease_state.message }}</app-input-caption>
     <app-input @fadeInAnimation *ngIf="healthForm.etc_disease_state" 
     [color]="healthValidator.etc_disease_content?.valid === false && 'warning'"
-    name="etc_disease_content" placeholder="증상을 적어주세요."
+    name="etc_disease_content" [placeholder]="languagePack.getText('증상을 적어주세요.')"
     [(ngModel)]="healthForm.etc_disease_content" [disabled]="!editable"></app-input>
     <app-input-caption *ngIf="healthValidator.etc_disease_content?.valid === false" color="warning">{{ healthValidator.etc_disease_content.message }}</app-input-caption>
 
@@ -115,7 +115,7 @@
 
     <app-input @fadeInAnimation *ngIf="healthForm.covid_nineteen_state" 
     [color]="healthValidator.covid_nineteen_state?.valid === false && 'warning'"
-    name="covid_nineteen_content" placeholder="증상을 적어주세요."
+    name="covid_nineteen_content" [placeholder]="languagePack.getText('증상을 적어주세요.')"
     [(ngModel)]="healthForm.covid_nineteen_content" [disabled]="!editable"></app-input>
     <app-input-caption *ngIf="healthValidator.covid_nineteen_content?.valid === false" color="warning">{{ healthValidator.covid_nineteen_content.message }}</app-input-caption>
 
@@ -124,13 +124,13 @@
     <app-radio-input name="covid_vaccine_state" 
     [color]="healthValidator.covid_vaccine_state?.valid === false && 'warning'"
     [(ngModel)]="healthForm.covid_vaccine_state" [disabled]="!editable">
-      <app-radio [value]="0">미접종</app-radio>
-      <app-radio [value]="1">접종</app-radio>
+      <app-radio [value]="0">{{ languagePack.getText('미접종') }}</app-radio>
+      <app-radio [value]="1">{{ languagePack.getText('접종') }}</app-radio>
     </app-radio-input>
     <app-input-caption *ngIf="healthValidator.covid_vaccine_state?.valid === false" color="warning">{{ healthValidator.covid_vaccine_state.message }}</app-input-caption>
 
 
-    <app-check name="health_terms_state" [on]="1" [off]="0" [(ngModel)]="healthForm.health_terms_state" [disabled]="!editable">본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.</app-check>
+    <app-check name="health_terms_state" [on]="1" [off]="0" [(ngModel)]="healthForm.health_terms_state" [disabled]="!editable">{{ languagePack.getText('본인은 질병예방과 안전한 작업을 위하여 문진자료를 사업창에 제공하는것에 동의합니다.') }}</app-check>
     <app-input-caption *ngIf="healthValidator.health_terms_state?.valid === false" color="warning">{{ healthValidator.health_terms_state.message }}</app-input-caption> 
 
   </app-container>

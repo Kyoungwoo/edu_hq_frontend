@@ -109,6 +109,6 @@
 </ion-content>
 
 <app-button-footer>
-  <app-button *ngIf="notWorker" (click)="workerSatus()">근로자 출입 관리</app-button>
-  <app-button (click)="inNfcQr()">출입(QR / NFC)</app-button>
+  <app-button *ngIf="notWorker" (click)="workerSatus()">{{ languagePack.getText('근로자 출입 관리') }}</app-button>
+  <app-button (click)="inNfcQr()">{{ languagePack.getText('출입(QR / NFC)') }}</app-button>
 </app-button-footer>

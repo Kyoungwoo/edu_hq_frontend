@@ -62,7 +62,7 @@
       <ul>
         <ion-list-header>
           <app-img [src]="menuSelected.img"></app-img>
-          {{ menuSelected.title }}
+          {{ languagePack.getText(menuSelected.title) }}
         </ion-list-header>
 
         <ng-container *ngFor="let subMenu of menuSelected?.subMenuList">
@@ -72,7 +72,7 @@
             [routerLink]="subMenu.link"
             [queryParams]="subMenu.params" 
             [style.opacity]="subMenu.link ? 1 : 0.5"
-            (click)="subMenu.toggle = !subMenu.toggle; subMenu.link ? menuClose() : notReady()">{{ subMenu.title }}</ion-item>
+            (click)="subMenu.toggle = !subMenu.toggle; subMenu.link ? menuClose() : notReady()">{{ languagePack.getText(subMenu.title) }}</ion-item>
 
             <!-- 현재 third menu list -->
             <!-- <ng-container *ngIf="subMenu.toggle">

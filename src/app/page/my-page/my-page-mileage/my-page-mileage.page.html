@@ -53,7 +53,7 @@
             <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
           </tr>
           <tr *ngIf="mileagePlusRes && mileagePlusRes.rsCode === 1008">
-            <td colspan="5">안전마일리지 적립 내역이 없습니다.</td>
+            <td colspan="5">{{ languagePack.getText('안전마일리지 적립 내역이 없습니다.') }}</td>
           </tr>
         </tbody>
       </app-table>
@@ -81,7 +81,7 @@
             <td>지급완료</td>
           </tr>
           <tr *ngIf="mileageMinusRes && mileageMinusRes.rsCode === 1008">
-            <td colspan="6">안전마일리지 사용 내역이 없습니다.</td>
+            <td colspan="6">{{ languagePack.getText('안전마일리지 사용 내역이 없습니다.') }}</td>
           </tr>
         </tbody>
       </app-table>

@@ -17,7 +17,7 @@
         <app-col>
           <app-input
           name="user_name" [label]="languagePack.getText('성명')"
-          placeholder="이름을 입력해주세요."
+          [placeholder]="languagePack.getText('이름을 입력해주세요')"
           [color]="validator.user_name?.valid === false && 'warning'"
           [(ngModel)]="form.user_name" [required]="true"></app-input>
           <app-input-caption *ngIf="validator.user_name?.valid === false" color="warning">{{ validator.user_name?.message }}</app-input-caption>
@@ -57,8 +57,8 @@
           <app-radio-input name="user_gender" [label]="languagePack.getText('성별')" 
           [color]="validator.user_gender?.valid === false && 'warning'"
           [(ngModel)]="form.user_gender" [required]="true">
-            <app-radio value="남">남</app-radio>
-            <app-radio value="여">여</app-radio>
+            <app-radio value="남">{{ languagePack.getText('남자') }}</app-radio>
+            <app-radio value="여">{{ languagePack.getText('여자') }}</app-radio>
           </app-radio-input>
           <app-input-caption *ngIf="validator.user_gender?.valid === false" color="warning">{{ validator.user_gender?.message }}</app-input-caption>
         </app-col>
@@ -69,10 +69,10 @@
           [color]="validator.user_phone?.valid === false ? 'warning' 
           : validator.sms_token?.valid === true && 'success'"
           [(ngModel)]="form.user_phone" (delayKeyup)="overlapPhone()" (buttonClick)="aligoSend()" [required]="true">
-          {{ languagePack.getText('인증번호') }}<br>받기
+          {{ languagePack.getText('인증번호') }}<br>{{ languagePack.getText('받기') }}
           </app-input>
           <app-input-caption *ngIf="validator.user_phone?.valid === false" color="warning">{{ validator.user_phone?.message }}</app-input-caption>
-          <app-input-caption *ngIf="validator.sms_token?.valid" color="success">인증이 완료되었습니다.</app-input-caption>
+          <app-input-caption *ngIf="validator.sms_token?.valid" color="success">{{ languagePack.getText('인증이 완료되었습니다.') }}</app-input-caption>
         </app-col>
         <app-col>
           <div @fadeAnimation *ngIf="validator.user_phone?.valid && !validator.sms_token?.valid">
@@ -88,14 +88,14 @@
       </app-row>
       <app-row mobileBreak>
         <app-col>
-          <app-email name="user_email" label="이메일" 
+          <app-email name="user_email" [label]="languagePack.getText('이메일')"
           [color]="validator.user_email?.valid === false && 'warning'"
           (delayKeyup)="overlapEmail()"
           [(ngModel)]="form.user_email"></app-email>
           <app-input-caption *ngIf="validator.user_email?.valid === false" color="warning">{{ validator.user_email?.message }}</app-input-caption>
         </app-col>
         <app-col>
-          <app-select-country name="국가"
+          <app-select-country name="국가" [label]="languagePack.getText('국가')"
           name="ctgo_country_id"
           [color]="validator.ctgo_country_id?.valid === false && 'warning'"
           [(ngModel)]="form.ctgo_country_id" [required]="true"></app-select-country>
@@ -109,7 +109,7 @@
             <ng-template #tempBasicSafeEduValue>
               <ion-text color="dark" slot="input">{{ findFile('BASIC_SAFE_EDU').file_name }}</ion-text>
             </ng-template>
-            파일찾기
+            {{ languagePack.getText('파일찾기') }}
             <app-file name="input-basic_safe_edu" [(ngModel)]="form.file_preview" view_type="BASIC_SAFE_EDU" [file]="form.file" [file_json]="form.file_json"></app-file>
           </app-input-template>
         </app-col>
@@ -117,7 +117,7 @@
           <app-calendar [name]="languagePack.getText('건설업 기초 안전보건교육 이수일')" [label]="languagePack.getText('건설업 기초 안전보건교육 이수일')" [(ngModel)]="form.basic_safe_edu_date"></app-calendar>
         </app-col>
       </app-row>
-      <app-select-scene name="project_id" type="SIGNUP"
+      <app-select-scene name="project_id" [label]="languagePack.getText('현장명')" type="SIGNUP"
       [company_id]="form.company_id"
       [color]="validator.project_id?.valid === false && 'warning'"
       [(ngModel)]="form.project_id" [required]="true"></app-select-scene>

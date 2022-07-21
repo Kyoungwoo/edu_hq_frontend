@@ -171,8 +171,8 @@
     </ion-toolbar>
     <ion-toolbar color="white">
       <ion-segment color="primary" [(ngModel)]="list_state" (ngModelChange)="getList()">
-        <ion-segment-button *ngIf="user.userData.user_type !== 'WORKER'" value="전체">전체</ion-segment-button>
-        <ion-segment-button value="내 장비">내 장비</ion-segment-button>
+        <ion-segment-button *ngIf="user.userData.user_type !== 'WORKER'" value="전체">{{ languagePack.getText('전체') }}</ion-segment-button>
+        <ion-segment-button value="내 장비">{{ languagePack.getText('내 장비') }}</ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>

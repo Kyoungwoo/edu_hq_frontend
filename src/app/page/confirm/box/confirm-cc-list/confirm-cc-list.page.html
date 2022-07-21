@@ -95,7 +95,7 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>{{ languagePack.getText('참조함') }}</ion-title>
+      <ion-title>참조함</ion-title>
       <ion-buttons slot="end">
         <app-menu-button></app-menu-button>
       </ion-buttons>
@@ -123,7 +123,7 @@
         <app-col>
           <p>{{ item.company_name }}/{{ item.user_name }}</p>
           <p>{{ languagePack.getText('작성일') }} : {{ item.create_date }}</p>
-          <p>{{ languagePack.getText('결재일') }} : {{ item.max_approval_date }}</p>
+          <p>결재일 : {{ item.max_approval_date }}</p>
         </app-col>
       </app-row>
     </app-card>
