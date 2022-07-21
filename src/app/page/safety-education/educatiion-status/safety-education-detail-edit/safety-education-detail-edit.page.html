@@ -13,13 +13,13 @@
         <h4>교육 정보</h4>
       </app-col>
       <ng-container *ngIf="item">
-        <app-col size="auto" *ngIf="editable.my_state && !editable.update">
+        <!-- <app-col size="auto" *ngIf="editable.my_state && !editable.update">
           <app-button (click)="editable.update = true" fill="translucent">수정</app-button>
-        </app-col>
-        <app-col size="auto" *ngIf="editable.my_state && editable.update">
+        </app-col> -->
+        <app-col size="auto" *ngIf="editable.my_state">
           <app-button (click)="deleteItem()" fill="translucent" color="danger">삭제</app-button>
         </app-col>
-        <app-col size="auto" *ngIf="editable.my_state && editable.update">
+        <app-col size="auto" *ngIf="editable.my_state">
           <app-button (click)="updateItem()" fill="translucent">저장</app-button>
         </app-col>
       </ng-container>
@@ -46,46 +46,46 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-education [disabled]="!editable.update" [required]="true" (change)="educationText($event)" name="safe" [required]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+          <app-select-education [disabled]="editable.my_state ? false : (item)" [required]="true" (change)="educationText($event)" name="safe" [required]="true" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-input label="교육대상" [disabled]="!editable.update" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
+          <app-input label="교육대상" [disabled]="editable.my_state ? false : (item)" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
         </app-col>
           <app-col>
-            <app-input placeholder="교육장소를 입력해주세요" name="education_safe_place" [disabled]="!editable.update" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+            <app-input placeholder="교육장소를 입력해주세요" name="education_safe_place" [disabled]="editable.my_state ? false : (item)" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col size="6">
-          <app-calendar name="create_date" [disabled]="!editable.update" label="교육일" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
+          <app-calendar name="create_date" [disabled]="editable.my_state ? false : (item)" label="교육일" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
         </app-col>
         <app-col size="3">
-          <app-datetime [required]="true" [disabled]="!editable.update" name="education_safe_start_time" label="교육시작시간"
+          <app-datetime [required]="true" [disabled]="editable.my_state ? false : (item)" name="education_safe_start_time" label="교육시작시간"
           [(ngModel)]="form.education_safe_start_time">
           </app-datetime>
         </app-col>
         <app-col size="3">
-          <app-datetime [required]="true" [disabled]="!editable.update" name="education_safe_end_time" label="교육종료시간"
+          <app-datetime [required]="true" [disabled]="editable.my_state ? false : (item)" name="education_safe_end_time" label="교육종료시간"
           [(ngModel)]="form.education_safe_end_time">
           </app-datetime>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-select-attendance *ngIf="input_active" [required]="true" [disabled]="!editable.update" [educationType]="true" name="attendance" 
+          <app-select-attendance *ngIf="input_active" [required]="true" [disabled]="editable.my_state ? false : (item)" [educationType]="true" name="attendance" 
           [project_id]="form.education_safe_id ? form.project_id : user.userData.belong_data.project_id" 
           [company_id]="form.education_safe_id ? form.company_id : user.userData.belong_data.company_id"
           [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
         </app-col>
         <app-col>
-          <app-input placeholder="강사를 입력해주세요" name="education_safe_instructor" [disabled]="!editable.update" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+          <app-input placeholder="강사를 입력해주세요" name="education_safe_instructor" [disabled]="editable.my_state ? false : (item)" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
         </app-col>
       </app-row>
       <app-row>
         <app-col>
-          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [readonly]="!editable.update" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+          <app-textarea placeholder="교육내용을 입력해주세요" label="교육내용" [readonly]="editable.my_state ? false : (item)" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
         </app-col>
       </app-row>
 
@@ -96,7 +96,7 @@
               <app-col>
                 <h5>교육사진</h5>
               </app-col>
-              <app-col *ngIf="editable.update" size="auto">
+              <app-col *ngIf="editable.my_state" size="auto">
                 <app-button>추가
                   <app-file name="input" view_type="EDU_ONE" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
                     [file_json]="form.file_json"></app-file>
@@ -106,7 +106,7 @@
           </ion-toolbar>
           <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
             <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
-              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="editable.my_state ? false : (item)"></app-file-preview>
           </ng-container>
         </app-col>
         <app-col>
@@ -115,7 +115,7 @@
               <app-col>
                 <h5></h5>
               </app-col>
-              <app-col *ngIf="editable.update" size="auto">
+              <app-col *ngIf="editable.my_state" size="auto">
                 <app-button>추가
                   <app-file name="input" view_type="EDU_TWO" [(ngModel)]="form.education_safe_file_data" [file]="form.file"
                     [file_json]="form.file_json"></app-file>
@@ -125,7 +125,7 @@
           </ion-toolbar>
           <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
             <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
-              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="!editable.update"></app-file-preview>
+              (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="editable.my_state ? false : (item)"></app-file-preview>
           </ng-container>
         </app-col>
       </app-row>
@@ -239,7 +239,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-select-education [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" [required]="true" (change)="educationText($event)" name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
+            <app-select-education [disabled]="editable.my_state ? false : (item)" [required]="true" (change)="educationText($event)" name="safe" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
           </app-col>
         </app-row>
       </app-card>
@@ -247,7 +247,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" label="교육대상" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
+            <app-input [disabled]="editable.my_state ? false : (item)" label="교육대상" [required]="true" placeholder="교육대상을 입력해주세요." name="education_safe_target" [(ngModel)]="form.education_safe_target"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -255,7 +255,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육장소를 입력해주세요" name="education_safe_place" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
+            <app-input [disabled]="editable.my_state ? false : (item)" placeholder="교육장소를 입력해주세요" name="education_safe_place" [required]="true" label="교육장소" [(ngModel)]="form.education_safe_place"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -263,7 +263,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-calendar [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" name="create_date" label="교육일" [required]="true" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
+            <app-calendar [disabled]="editable.my_state ? false : (item)" name="create_date" label="교육일" [required]="true" [required]="true" [(ngModel)]="form.education_safe_date"></app-calendar>
           </app-col>
         </app-row>
       </app-card>
@@ -271,7 +271,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-datetime [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" [required]="true" name="education_safe_start_time" label="교육시작시간" 
+            <app-datetime [disabled]="editable.my_state ? false : (item)" [required]="true" name="education_safe_start_time" label="교육시작시간" 
             [(ngModel)]="form.education_safe_start_time">
             </app-datetime>
           </app-col>
@@ -279,7 +279,7 @@
 
         <app-row>
           <app-col>
-            <app-datetime [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" [required]="true" name="education_safe_end_time" label="교육종료시간" 
+            <app-datetime [disabled]="editable.my_state ? false : (item)" [required]="true" name="education_safe_end_time" label="교육종료시간" 
             [(ngModel)]="form.education_safe_end_time">
             </app-datetime>
           </app-col>
@@ -289,7 +289,7 @@
       <app-card>
         <app-row>
           <app-col>
-          <app-select-attendance [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" *ngIf="input_active" [required]="true" [educationType]="true" name="attendance" 
+          <app-select-attendance [disabled]="editable.my_state ? false : (item)" *ngIf="input_active" [required]="true" [educationType]="true" name="attendance" 
           [project_id]="form.education_safe_id ? form.project_id : user.userData.belong_data.project_id" 
           [company_id]="form.education_safe_id ? form.company_id : user.userData.belong_data.company_id"
           [multiple]="true" [(ngModel)]="form.education_safe_manager_ids"></app-select-attendance>
@@ -300,7 +300,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-input [disabled]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="강사를 입력해주세요" name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
+            <app-input [disabled]="editable.my_state ? false : (item)" placeholder="강사를 입력해주세요" name="education_safe_instructor" label="강사" [(ngModel)]="form.education_safe_instructor"></app-input>
           </app-col>
         </app-row>
       </app-card>
@@ -308,7 +308,7 @@
       <app-card>
         <app-row>
           <app-col>
-            <app-textarea [readonly]="editable.update ? false : (!editable.educationMenu_state && !editable.my_state)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
+            <app-textarea [readonly]="editable.my_state ? false : (item)" placeholder="교육내용을 입력해주세요" label="교육내용" name="education_safe_text" [rows]="10" [(ngModel)]="form.education_safe_text"></app-textarea>
           </app-col>
         </app-row>
       </app-card>
@@ -431,8 +431,8 @@
     </ng-container>
   </ion-content>
   <app-button-footer *ngIf="item && (editable.educationMenu === 1 || editable.educationMenu === 2)">
-    <app-button *ngIf="editable.my_state || this.editable.educationMenu_state" (click)="updateItem()" fill="translucent">수정</app-button>
-    <app-button *ngIf="editable.my_state || this.editable.educationMenu_state" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
+    <app-button *ngIf="editable.my_state" (click)="updateItem()" fill="translucent">수정</app-button>
+    <app-button *ngIf="editable.my_state" (click)="deleteItem()" color="danger" fill="translucent">삭제</app-button>
   </app-button-footer>
   <app-button-footer *ngIf="!item">
     <app-button (click)="submit()">저장</app-button>

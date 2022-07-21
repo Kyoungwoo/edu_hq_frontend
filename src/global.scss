@@ -581,6 +581,12 @@
   --max-width: 350px;
   --max-height: 300px;
 }
+
+.mileage-width-class{
+  --max-width: 380px;
+}
+
+
   // jihyuk custom
   app-select.use-state-class{
     app-input-template{

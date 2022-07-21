@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -229,6 +229,7 @@ export class WorkerInfoEditPage implements OnInit {
     private user: UserService,
     private alert: AlertService,
     private loading: LoadingService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -478,10 +479,7 @@ export class WorkerInfoEditPage implements OnInit {
       loading: true
     });
     if (res.rsCode === 0) {
-      this.resTotalMileageList = {
-        ...res,
-        ...this.resTotalMileageList
-      }
+      this.resTotalMileageList = res;
       // 정상
     } else if (res.rsCode === 1008) {
       // 데이터 없음
@@ -500,10 +498,8 @@ export class WorkerInfoEditPage implements OnInit {
       loading: true
     });
     if (res.rsCode === 0) {
-      this.resPlusMileageList = {
-        ...res,
-        ...this.resPlusMileageList
-      }
+      this.resPlusMileageList = res;
+      console.log('resPlusMileageList - ', this.resPlusMileageList);
       // 정상
     } else if (res.rsCode === 1008) {
       // 데이터 없음
@@ -522,10 +518,7 @@ export class WorkerInfoEditPage implements OnInit {
       loading: true
     });
     if (res.rsCode === 0) {
-      this.resMinusMileageList = {
-        ...res,
-        ...this.resMinusMileageList
-      }
+      this.resMinusMileageList = res;
       // 정상
     } else if (res.rsCode === 1008) {
       // 데이터 없음
@@ -533,20 +526,66 @@ export class WorkerInfoEditPage implements OnInit {
   }
 
   //마일리지 지급
-  async MileageInsert() {
-    const modal = await this._modal_.create({
-      component: MileagePopupComponent,
-      componentProps: {
-        company_id: this.formApproval.company_id,
-        user_id: this.form.user_id
-      },
-      cssClass:"mileage-modal"
-    });
-    modal.present();
+  async MileageInsert(type) {
+    // const modal = await this._modal_.create({
+    //   component: MileagePopupComponent,
+    //   componentProps: {
+    //     company_id: this.formApproval.company_id,
+    //     user_id: this.form.user_id
+    //   },
+    //   cssClass:"mileage-modal"
+    // }); 
+    // modal.present();
 
-    const { data } = await modal.onDidDismiss();
-    if(data) {
-      this.get();
-    }
+    // const { data } = await modal.onDidDismiss();
+    // if(data) {
+    //   this.get();
+    // }
+
+
+    let type_text = type === 'RECEIVE' ? '지급' : '사용';
+    const alert = await this.alertController.create({
+      header: '마일리지 '+type_text,
+      cssClass: 'mileage-width-class',
+      inputs: [
+        {type: 'number', label: '마일리지', name: 'ctgo_safe_mileage_point', placeholder: '마일리지(숫자)를 입력해주세요'},
+        {type: 'text', label: '사유', name: 'ctgo_safe_mileage', placeholder: '사유룰 입력해주세요'}
+      ],
+      buttons: [
+        { text: '닫기' },
+        {
+          text: '확인',
+          handler: async (item) => {
+            console.log(item);
+            const form = {
+              ctgo_safe_mileage_point: item.ctgo_safe_mileage_point,
+              ctgo_safe_mileage_kr: item.ctgo_safe_mileage,
+              ctgo_safe_mileage_vi: item.ctgo_safe_mileage,
+              ctgo_safe_mileage_en: item.ctgo_safe_mileage,
+              ctgo_safe_mileage_ch: item.ctgo_safe_mileage,
+              ctgo_safe_mileage_state: type,
+              session_company_id: this.user.userData.belong_data.company_id,
+              user_manage_session: this.user.memberAuthToken,
+              user_id: this.form.user_id
+            }
+
+            if(!item.ctgo_safe_mileage_point) return this.toast.present({message: '마일리지(숫자만)를 입력해주세요.', color: 'warning'});
+
+            const res = await this.connect.run('/usermanage/info/worker/mileage/insert',form);
+            if (res.rsCode === 0) {
+              // this._modal.dismiss('Y');
+              this.toast.present({message: '마일리지가 '+type_text+'되었습니다.', color: 'success'});
+
+              await Promise.all([
+                this.getTotalMileageList(),
+                this.getPlusMileageList(),
+                this.getMinusMileageList()
+              ]);
+            }
+          }
+        }
+      ]
+    })
+    await alert.present();
   }
 }

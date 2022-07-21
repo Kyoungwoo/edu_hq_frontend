@@ -36,7 +36,7 @@ export class MileagePopupComponent implements OnInit {
   selectItem: MileageItem;
 
   constructor(
-    private _modal: ModalController,
+    private _modal: ModalController, 
     private connect: ConnectService,
     private nav: NavService,
     private user: UserService,

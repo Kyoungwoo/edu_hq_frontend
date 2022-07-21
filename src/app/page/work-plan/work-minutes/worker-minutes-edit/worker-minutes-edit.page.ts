@@ -138,7 +138,7 @@ export class WorkerMinutesEditPage implements OnInit {
   }
 
   editable = {
-    update:false,
+    update:true,
     safetyMenu:1,
     menu_state: false,
     my_state: false

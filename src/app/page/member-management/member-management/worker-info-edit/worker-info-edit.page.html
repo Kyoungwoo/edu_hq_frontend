@@ -369,8 +369,10 @@
         <app-row>
           <app-col></app-col>
           <app-col size="auto">
-            <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert()" *ngIf="permission.mileage">
-              마일리지 지급</app-button>
+            <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert('RECEIVE')" *ngIf="permission.mileage">마일리지 지급</app-button>
+          </app-col>
+          <app-col size="auto">
+            <app-button fill="translucent" style="width: 120px;" (click)="MileageInsert('USE')" *ngIf="permission.mileage">마일리지 사용</app-button>
           </app-col>
         </app-row>
         <h5>안전 마일리지 사용 내역</h5>

@@ -91,7 +91,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
 
 
   editable = {
-    update:false,
+    update:true,
     educationMenu:1,
     educationMenu_state: false,
     my_state: false
@@ -129,7 +129,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
       this.form.create_date = this.date.today();
       this.input_active = true;
 
-      this.editable.update = true;
+      // this.editable.update = true;
     }
   }
 
