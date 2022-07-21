@@ -170,7 +170,7 @@ export class SideMenuUserComponent implements OnInit {
     { img:'assets/img/menu/notification-box.svg',title: '알림함', subMenuList: [
       { title: '알림함', link: '/notify-list', params: {}, permission: () => {return true;}},
     ]},
-    { img:'assets/img/menu/support.svg', title: '고객지원', subMenuList: [
+    { img:'assets/img/menu/support.svg', title: '고객 지원', subMenuList: [
       // { title: '문의하기', link: '', params: {}, permission: () => { return true }},
       { title: '사용자 매뉴얼', link: 'manual-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
