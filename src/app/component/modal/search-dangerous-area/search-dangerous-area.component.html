@@ -20,10 +20,10 @@
 <ion-content>
   <app-card *ngFor="let item of resRiskArea?.rsMap" [color]="selectList === item ? 'secondary' : 'white'" (click)="selectList = item">
     <app-row>
-      <app-col>
+      <!-- <app-col>
         <h5>장소</h5>
         <p>{{ item.area_top_name }} / {{ item.area_middle_name }} / {{ item.area_bottom_name }}</p>
-      </app-col>
+      </app-col> -->
       <app-col>
         <h5>위험지역 유형</h5>
         <p>{{ item.ctgo_area_risk_name }}</p>

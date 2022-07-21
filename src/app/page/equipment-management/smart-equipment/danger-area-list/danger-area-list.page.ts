@@ -448,21 +448,24 @@ export class DangerAreaListPage implements OnInit {
     (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).ctgo_area_risk_name = '';
     
     if(data.selectType == 'manual'){
-      for(let key in data.areaSelectedItem) if(data.areaSelectedItem[key]) (type == 'update' ? this.res.rsMap[index] : this.res_insert[index])[key] = data.areaSelectedItem[key];
+      // for(let key in data.areaSelectedItem) if(data.areaSelectedItem[key]) (type == 'update' ? this.res.rsMap[index] : this.res_insert[index])[key] = data.areaSelectedItem[key];
+      console.log(this.res.rsMap[index]);
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = data.areaSelectedItem.area_risk_name;
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_risk_id = data.areaSelectedItem.area_risk_id;
+      // this.res_insert[index].area_full_name = data.areaSelectedItem.area_risk_name;
     } else {
       (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = '';
       for(let key in data.area1selectedItem) if(data.area1selectedItem[key]) (type == 'update' ? this.res.rsMap[index] : this.res_insert[index])[key] = data.area1selectedItem[key];
       for(let key in data.area2selectedItem) if(data.area2selectedItem[key]) (type == 'update' ? this.res.rsMap[index] : this.res_insert[index])[key] = data.area2selectedItem[key];
       for(let key in data.area3selectedItem) if(data.area3selectedItem[key]) (type == 'update' ? this.res.rsMap[index] : this.res_insert[index])[key] = data.area3selectedItem[key];
+      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = 
+      ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name ? 
+        (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name : '')+' '+
+      ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name ? 
+        (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name : '')+' '+
+      ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name ? 
+        (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name : '');
     }
-
-    (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_full_name = 
-    ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name ? 
-      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_top_name : '')+' '+
-    ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name ? 
-      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_middle_name : '')+' '+
-    ((type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name ? 
-      (type == 'update' ? this.res.rsMap[index] : this.res_insert[index]).area_bottom_name : '');
   }
 
   async openModal_QR(item){

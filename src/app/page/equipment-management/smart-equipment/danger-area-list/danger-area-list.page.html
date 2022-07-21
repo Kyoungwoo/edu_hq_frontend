@@ -67,9 +67,9 @@
                 <th>스마트 장비</th>
                 <th>등록 No</th>
                 <th>원청사명</th>
-                <th>장소</th>
-                <th>위험지역 유형</th>
-                <th>위험지역명</th>
+                <th>등록장소</th>
+                <!-- <th>위험지역 유형</th>
+                <th>위험지역명</th> -->
                 <th>QR코드</th>
                 <th>배정일시</th>
                 <th>사용여부</th>
@@ -88,13 +88,12 @@
                 </td>
                 <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
                 <td>
-                  <!-- <app-select-risk-area [(ngModel)]="item.area_full_name" (ngModelChange)="test_mm($event)" [form]="form" selectType="manual" label=""></app-select-risk-area> -->
                   <app-input name="with img" [readonly]="true" [(ngModel)]="item.area_full_name" (click)="openModal('insert',i)">
                     <app-img name="search"></app-img>
                   </app-input>
                 </td>
-                <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
-                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
+                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td> -->
                 <td class="center-class"> - </td>
                 <td class="center-class"> - </td>
                 <td>
@@ -122,8 +121,8 @@
                     <app-img name="search"></app-img>
                   </app-input>
                 </td>
-                <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
-                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.ctgo_area_risk_name">{{ item.ctgo_area_risk_name ? item.ctgo_area_risk_name : ' - ' }}</td>
+                <td [class.center-class]="!item.area_risk_name">{{ item.area_risk_name ? item.area_risk_name : ' - ' }}</td> -->
                 <td>
                   <app-button size="small" fill="clear" style="width:100%;" (click)="openModal_QR(item)">
                     <app-img name="search"></app-img>

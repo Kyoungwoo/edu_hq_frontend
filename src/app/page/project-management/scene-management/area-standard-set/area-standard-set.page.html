@@ -7,7 +7,7 @@
         <ion-segment color="primary" [value]="1">
           <ion-segment-button (click)="this.menuCount = 1;" [value]="1">장소</ion-segment-button>
           <ion-segment-button (click)="getRiskArea()">위험지역</ion-segment-button>
-          <ion-segment-button (click)="areaGPS()">위험지역<br>GPS 수집 범위(실외)</ion-segment-button>
+          <ion-segment-button (click)="areaGPS()">위험지역<br>GPS 수집 범위</ion-segment-button>
         </ion-segment>
       </app-col>
     </app-row>
@@ -224,19 +224,23 @@
                 <th rowspan="2" style="width: 40px;">
                   <app-check type="all"></app-check>
                 </th>
-                <th rowspan="2" style="width: 150ㅔㅌ;">장소</th>
+                <!-- <th rowspan="2" style="width: 150ㅔㅌ;">장소</th>
                 <th rowspan="2">위험지역 유형</th>
                 <th rowspan="2">위험지역명</th>
                 <th rowspan="2">실내/실외</th>
                 <th rowspan="2" style="width: 100px;">GPS 등록 여부</th>
                 <th rowspan="2" style="width: 100px;">NFC 등록 여부</th>
                 <th colspan="2">관리 책임자(인가자)</th>
-                <th rowspan="2">사용여부</th>
+                <th rowspan="2">사용여부</th> -->
+
+                <th width="200">위험지역 유형</th>
+                <th>위험지역명</th>
+                <th width="100">사용여부</th>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th style="width: 80px;">정</th>
                 <th style="width: 80px;">부</th>
-              </tr>
+              </tr> -->
             </thead>
             <tbody>
               <!-- 추가 -->
@@ -244,16 +248,16 @@
                 <td>
                   <app-check [on]="item"></app-check>
                 </td>
-                <td *ngIf="!item.area_top_name">
+                <!-- <td *ngIf="!item.area_top_name">
                   <app-input name="search-project" (click)="riskAreaSearch(item)">
                     <app-img name="search"></app-img>
                   </app-input>
-                </td>
-                <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
+                </td> -->
+                <!-- <td *ngIf="item.area_top_name" (click)="riskAreaSearch(item)">
                   {{ (item.area_top_name ? item.area_top_name : '') + ' '
                   + (item.area_middle_name ? item.area_middle_name : '') + ' '
                   + (item.area_bottom_name ? item.area_bottom_name : '')}}
-                </td>
+                </td> -->
                 <td>
                   <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.ctgo_area_risk_id">
                     <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
@@ -263,7 +267,7 @@
                 <td>
                   <app-input [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.area_risk_name"></app-input>
                 </td>
-                <td>
+                <!-- <td>
                   <app-select [disabled]="item.area_risk_id ? true : false" [(ngModel)]="item.area_risk_type">
                     <app-select-option value="실내">실내</app-select-option>
                     <app-select-option value="실외">실외</app-select-option>
@@ -284,7 +288,7 @@
                   [company_id]="user.userData.belong_data.company_id" 
                   [(ngModel)]="item.second_user_id" [user_type]="'COMPANY'">
                   </app-select-people>
-                </td>
+                </td> -->
                 <td>
                   <app-select (change)="updateState(item)" (click)="$event.stopPropagation()" [(ngModel)]="item.area_risk_use_state">
                     <app-select-option [value]="1">Y</app-select-option>
@@ -409,7 +413,7 @@
           <app-table>
             <thead>
               <tr>
-                <th>장소</th>
+                <!-- <th>장소</th> -->
                 <th>위험지역 유형</th>
                 <th>위험지역명</th>
                 <th>GPS 좌표값</th>
@@ -417,12 +421,12 @@
             </thead>
             <tbody>
               <tr class="button" *ngFor="let item of resGPS?.rsMap" [class.selected]="gpsSelected === item" (click)="getGpsCoodrinate(item)">
-                <td>
+                <!-- <td>
                   {{
                   (item.area_top_name ? item.area_top_name : '') + ' '
                   + (item.area_middle_name ? item.area_middle_name : '') + ' '
                   + (item.area_bottom_name ? item.area_bottom_name: '')}}
-                </td>
+                </td> -->
                 <td>{{item.ctgo_area_risk_name}}</td>
                 <td>{{item.area_risk_name}}</td>
                 <td>{{item.gps_state + '개'}}</td>

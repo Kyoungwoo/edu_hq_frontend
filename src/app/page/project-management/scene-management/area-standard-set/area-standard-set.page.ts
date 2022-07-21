@@ -439,13 +439,15 @@ export class AreaStandardSetPage implements OnInit {
   async riskSave() {
     const riskArea = this.resRiskArea.rsMap;
     riskArea.forEach(async (item, i) => {
-      if (!item.area_top_id) return this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })
+      // if (!item.area_top_id) return this.toast.present({ message: '첫번째 장소를 선택해주세요.', color: 'warning' })
       item.area_middle_id = item.area_middle_id  || 0;
       item.area_bottom_id = item.area_middle_id  || 0;
       // if (!item.area_middle_id) return this.toast.present({ message: '두번째 장소를 선택해주세요.', color: 'warning' })
       // if (!item.area_bottom_id) return this.toast.present({ message: '세번째 장소를 선택해주세요.', color: 'warning' })
-      if (!item.area_risk_name) return this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' })
-      if (!item.area_risk_type) return this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' })
+      
+      if (!item.ctgo_area_risk_id) return this.toast.present({ message: '위험지역유형을 선택해주세요.', color: 'warning' });
+      if (!item.area_risk_name) return this.toast.present({ message: '위험지역명을 작성해주세요.', color: 'warning' });
+      // if (!item.area_risk_type) return this.toast.present({ message: '실내/실외를 선택해주세요.', color: 'warning' });
       // if (!item.manager_user_id) return this.toast.present({ message: '관리 책임자(정(을 선택해주세요.', color: 'warning' })
       // if (!item.second_user_id) return this.toast.present({ message: '관리 책임자(부)를 선택해주세요.', color: 'warning' })
       if (!item.area_risk_id) {
@@ -460,6 +462,7 @@ export class AreaStandardSetPage implements OnInit {
           this.toast.present({ message: resInsert.rsMsg, color: 'warning' });
         }
       }
+
     });
   }
 
