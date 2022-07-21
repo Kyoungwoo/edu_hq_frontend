@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, forwardRef, Output, EventEmitter, ViewChild, HostBinding, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-input',
@@ -29,7 +30,9 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Output() buttonClick:EventEmitter<string> = new EventEmitter();
   @Output() delayKeyup:EventEmitter<null> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    public languagePack: LanguagePackService
+  ) { }
   
   ngOnInit() {}
 

@@ -60,7 +60,7 @@
       <app-input-caption *ngIf="validator.gps_terms?.valid === false">{{ validator.gps_terms.message }}</app-input-caption>
       
       <div class="term-box">
-        <app-check name="sharing_terms" [on]="1" [off]="0" [(ngModel)]="form.sharing_terms">{{ languagePack.getText('제3자 정보제공 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
+        <app-check name="sharing_terms" [on]="1" [off]="0" [(ngModel)]="form.sharing_terms">{{ languagePack.getText('제3자 정보 제공 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
         <ion-button class="view-btn" (click)="termPage('third-party_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
       </div>
       

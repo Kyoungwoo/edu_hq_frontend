@@ -53,7 +53,7 @@
       <ion-list>
         <ng-container *ngFor="let menu of menuList">
 
-          <ion-item *ngIf="!menu.permission || menu.permission()" lines="none" button [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ menu.title }}</ion-item>
+          <ion-item *ngIf="!menu.permission || menu.permission()" lines="none" button [class.selected]="menuSelected === menu" (click)="menuSelected = menu">{{ languagePack.getText(menu.title) }}</ion-item>
 
         </ng-container>
       </ion-list>

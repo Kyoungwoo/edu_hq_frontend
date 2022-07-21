@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { ProjectItem, ProjectSearchType, SearchSceneComponent } from '../../modal/search-scene/search-scene.component';
 import { Color } from '@ionic/core';
 import { ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
 
 @Component({
   selector: 'app-select-scene',
@@ -38,7 +39,8 @@ export class SelectSceneComponent implements OnInit, ControlValueAccessor {
     private connect: ConnectService,
     private _modal:ModalController,
     private changeDetector: ChangeDetectorRef,
-    private user: UserService
+    private user: UserService,
+    public languagePack: LanguagePackService
   ) { }
 
   ngOnInit() {}
