@@ -86,6 +86,10 @@ export class SideMenuUserComponent implements OnInit {
        }}
     ]},
     { img:'assets/img/menu/conference.svg', title: '안전 회의',
+    permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER';
+    },
     subMenuList: [
       { title: '회의 현황', link: '/worker-minutes-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
@@ -100,7 +104,12 @@ export class SideMenuUserComponent implements OnInit {
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
        }}
     ]},
-    { img:'assets/img/menu/emergency-management.svg', title: '사고관리', subMenuList: [
+    { img:'assets/img/menu/emergency-management.svg', title: '사고관리', 
+    permission: () => {
+      const { user_type } = this.user.userData;
+      return user_type !== 'WORKER';
+    },
+    subMenuList: [
       // { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
       { title: '비상 알림 관리', link: '', params: {}, permission: () => { return true }}
     ]},
