@@ -5,18 +5,28 @@
     <app-row style="min-height: 724px; align-items: flex-start;" class="mobileBreak">
       <app-col class="contaienr-left-col">
         <app-card style="height: 627px;">
-          <app-row>
+          <!-- <app-row>
             <app-col>
-              <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="지역본부" [(ngModel)]="form.hq_regional_id">
+              <app-select [disabled]="true" [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" label="지역본부" [(ngModel)]="form.hq_regional_id">
                 <app-select-option *ngFor="let item of regional_list" [value]="item.hq_regional_id">{{ item.hq_regional_name }}</app-select-option>
               </app-select>
             </app-col>
           </app-row>
           <app-row>
             <app-col>
-              <app-select [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" [disabled]="user.userData.user_type !== 'LH'" label="사업본부" [(ngModel)]="form.hq_business_id">
+              <app-select [readonly]="true" [placeholder]="user.userData.user_type === 'LH' ? '' : '선택불가'" label="사업본부" [(ngModel)]="form.hq_business_id">
                 <app-select-option *ngFor="let item of business_list" [value]="item.hq_business_id">{{ item.hq_business_name }}</app-select-option>
               </app-select>
+            </app-col>
+          </app-row> -->
+          <app-row>
+            <app-col>
+              <app-input label="지역본부" value="경기지역본부" [readonly]="true"></app-input>
+            </app-col>
+          </app-row>
+          <app-row>
+            <app-col>
+              <app-input label="사업본부" value="수원당수" [readonly]="true"></app-input>
             </app-col>
           </app-row>
           <app-row>

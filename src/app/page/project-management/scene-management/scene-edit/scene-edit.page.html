@@ -10,10 +10,11 @@
   <h4>현장 개요</h4>
   <app-row mobileBreak>
     <app-col>
-      <app-input [required]="true" (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
+      <!-- <app-input [required]="true" (click)="organizationSel()" [disabled]="roleCheck" [(ngModel)]="organization.name" [readonly]="true"
         label="조직기구">
         <app-img name="search"></app-img>
-      </app-input>
+      </app-input> -->
+      <app-input label="사업지구" value="수원당수" [disabled]="true"></app-input>
     </app-col>
     <app-col>
       <app-input [required]="true" [(ngModel)]="form.project_name" [disabled]="roleCheck" label="현장명"></app-input>

@@ -155,9 +155,9 @@ export class SceneEditPage implements OnInit {
   }
 
   async sceneInsert() {
-    if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.', color:'warning'});
-    if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.', color:'warning'});
-    if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.', color:'warning'});
+    // if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.', color:'warning'});
+    // if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.', color:'warning'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해 주세요.', color:'warning'});
     // if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.', color:'warning'});
     // if(!this.supervision_id.length) return this.toast.present({message:'감리사를 선택해 주세요.', color:'warning'});
     if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.', color:'warning'});
@@ -198,9 +198,9 @@ export class SceneEditPage implements OnInit {
   }
   async sceneUpdate() {
     this.form.company_data = []
-    if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.',color:'warning'});
-    if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.',color:'warning'});
-    if(!this.form.project_name) return this.toast.present({message:'현장을 선택해 주세요.',color:'warning'});
+    // if(!this.form.hq_regional_id) return this.toast.present({message:'지역본부를 설정해 주세요.',color:'warning'});
+    // if(!this.form.hq_business_id) return this.toast.present({message:'사업본부를 설정해 주세요.',color:'warning'});
+    if(!this.form.project_name) return this.toast.present({message:'현장명을 입력해 주세요.',color:'warning'});
     // if(!this.contractor_id.length) return this.toast.present({message:'원창사를 선택해 주세요.',color:'warning'});
     // if(!this.supervision_id.length) return this.toast.present({message:'감리사를 선택해 주세요.',color:'warning'});
     if(!this.form.contract_start_date) return this.toast.present({message:'공사시작를 설정해 주세요.',color:'warning'});

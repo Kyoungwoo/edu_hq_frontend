@@ -16,8 +16,10 @@ import { LogoutService } from 'src/app/service/logout.service';
 })
 export class MainAdminPage implements OnInit {
   form = {
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id ? this.user.userData.belong_data.hq_regional_id : 0,
-    hq_business_id: this.user.userData.belong_data.hq_business_id ? this.user.userData.belong_data.hq_business_id : 0,
+    // hq_regional_id: this.user.userData.belong_data.hq_regional_id ? this.user.userData.belong_data.hq_regional_id : 0,
+    // hq_business_id: this.user.userData.belong_data.hq_business_id ? this.user.userData.belong_data.hq_business_id : 0,
+    hq_regional_id: 0,
+    hq_business_id: 0,
     project_id: this.user.userData.belong_data.project_id,
     master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
     company_id: this.user.userData.belong_data.company_id,
