@@ -189,7 +189,7 @@ export class SideMenuUserComponent implements OnInit {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
        }},
-      { title: '개인정보처리방침', link: 'privacy', params: {}, permission: () => { 
+      { title: '개인정보 처리방침', link: 'privacy', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
        }},

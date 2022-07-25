@@ -12,8 +12,8 @@
 
 <ion-content>
   <app-img src="assets/img/menu/emergency-alarm-management.svg"></app-img>
-  <h3>원청사 관리자 및<br>소속 협력사 관리자에게<br>{{ user.userData.user_name }}님의 SOS 요청이<br>발송됩니다.
-  <br><br>전송 하시겠습니까?</h3>
+  <h3>{{ languagePack.getText('원청사 관리자 및 소속 협력사 관리자에게') }}<br>{{ user.userData.user_name }}{{ languagePack.getText('님의 SOS 요청이 발송됩니다.') }}
+      <br><br>{{ languagePack.getText('전송 하시겠습니까?') }}</h3>
 </ion-content>
 <app-button-footer>
   <app-button (click)="cancel()">{{ languagePack.getText('취소') }}</app-button>
