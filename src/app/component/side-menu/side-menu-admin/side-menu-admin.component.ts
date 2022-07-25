@@ -112,7 +112,7 @@ export class  SideMenuAdminComponent implements OnInit {
         {title:'특별 교육 이력', link:''}
       ]}
     ]},
-    { img:'assets/img/menu/conference.svg', title: '안전 회의', permission: () => {
+    { img:'assets/img/menu/conference.svg', title: '안전회의', permission: () => {
       const { user_type } = this.user.userData;
       return user_type !== 'WORKER' 
     },

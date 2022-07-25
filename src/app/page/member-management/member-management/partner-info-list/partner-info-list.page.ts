@@ -28,6 +28,7 @@ class PartnerInfo {
   ctgo_safe_job_id: number;
   ctgo_safe_job_name: string;
   row_count: number;
+  work_state: string;
   index: number;
 }
 
@@ -47,7 +48,7 @@ export class PartnerInfoListPage implements OnInit {
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
     search_text: '',
-    
+    work_state: '출역중',
     limit_no: 0,
 
     session_company_id: this.user.userData.belong_data.company_id,

@@ -85,7 +85,7 @@ export class SideMenuUserComponent implements OnInit {
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
        }}
     ]},
-    { img:'assets/img/menu/conference.svg', title: '안전 회의',
+    { img:'assets/img/menu/conference.svg', title: '안전회의',
     permission: () => {
       const { user_type } = this.user.userData;
       return user_type !== 'WORKER';

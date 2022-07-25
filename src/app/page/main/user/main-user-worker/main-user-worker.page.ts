@@ -1,3 +1,4 @@
+import { SosPopupPage } from './../sos-popup/sos-popup.page';
 import { ScannerService } from './../../../../basic/service/util/scanner.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
@@ -127,7 +128,7 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
     modal.present();
   }
 
-  router(title: string) {
+  async router(title: string) {
     switch (title) {
       case '마이페이지':
         this.nav.navigateForward('/my-page-type');
@@ -142,7 +143,11 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
         this.nav.navigateForward('/each-device-list');
         break;
       case 'SOS':
-        this.nav.navigateForward('/sos-popup');
+        // this.nav.navigateForward('/sos-popup');
+        const modal = await this.modal.create({
+          component:SosPopupPage
+        });
+        modal.present();
         break;
       case '알림함':
         this.nav.navigateForward('/notify-list');

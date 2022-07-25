@@ -53,6 +53,14 @@
             </tr> -->
             <tr>
               <td>
+                <app-select label="출역 상태" [(ngModel)]="form.work_state">
+                  <app-select-option value="출역중">출역 중</app-select-option>
+                  <app-select-option value="출역종료">출역 종료</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-input label="검색어" placeholder="검색어를 입력해 주세요." [(ngModel)]="form.search_text"></app-input>
               </td>
             </tr>
@@ -73,6 +81,7 @@
               <th>생년월일</th>
               <th>안전직무</th>
               <th>직급</th>
+              <th>출역상태</th>
               <th>가입일</th>
               <!-- <th>재직상태</th> -->
             </tr>
@@ -86,6 +95,7 @@
               <td>{{ item.user_birth }}</td>
               <td>{{ item.ctgo_safe_job_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
+              <td>{{ item.work_state }}</td>
               <td>{{ item.create_date }}</td>
               <!-- <td>재직중</td> -->
             </tr>

@@ -25,7 +25,8 @@ export class WorkerInfo {
   create_date: string;
   user_health: string;
   row_count: number;
-  index: number
+  work_state: string
+  index: number;
 }
 
 @Component({
@@ -44,7 +45,8 @@ export class WorkerInfoListPage implements OnInit {
     search_text: '',
     session_company_id: this.user.userData.belong_data.company_id,
     user_manage_session: '',
-    limit_no: 0
+    limit_no: 0,
+    work_state: '출역중'
   }
 
   res:ConnectResult<WorkerInfo>

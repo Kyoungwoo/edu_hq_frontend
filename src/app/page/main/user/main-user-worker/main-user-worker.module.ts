@@ -1,3 +1,4 @@
+import { SosPopupPageModule } from './../sos-popup/sos-popup.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +18,8 @@ import { MainUserBottomMenuPageModule } from '../user/main-user-bottom-menu/main
     IonicModule,
     ComponentModule,
     MainUserWorkerPageRoutingModule,
-    MainUserBottomMenuPageModule
+    MainUserBottomMenuPageModule,
+    SosPopupPageModule
   ],
   declarations: [MainUserWorkerPage]
 })

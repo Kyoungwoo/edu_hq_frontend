@@ -47,6 +47,7 @@ export class SosPopupPage implements OnInit {
             switch (res.rsCode) {
               case 0:
                 this.toast.present({color: 'success', message: '비상 SOS요청이 발송되었습니다.'});
+                this.cancel();
                 break;
               default:
                 this.toast.present({ color: 'warning', message: res.rsMsg });
