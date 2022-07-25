@@ -206,7 +206,7 @@
                 <h4>스마트 안전 장비</h4>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" (click)="smartEquipEdit()">수정</app-button>
+                <app-button fill="translucent" (click)="smartEquipEdit()">{{ (user.userData.user_type === 'LH' || user.userData.user_type === 'SUPER') ? '조회' : '수정' }}</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>

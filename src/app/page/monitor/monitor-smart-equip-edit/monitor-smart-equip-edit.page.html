@@ -7,13 +7,13 @@
   </ion-toolbar>
   <ion-toolbar color="white">
     <app-input-group>
+      <app-select-contractor 
+      [project_id]="form.project_id" 
+      [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
       <app-select label="스마트장비" name="select" [(ngModel)]="form.ctgo_machine_serial_id">
         <app-select-option [value]="0">전체</app-select-option>
         <app-select-option *ngFor="let option of smart_option" [value]="option.ctgo_machine_serial_id">{{ option.text }}</app-select-option>
       </app-select>
-      <app-select-contractor 
-      [project_id]="form.project_id" 
-      [(ngModel)]="form.master_company_id" [allState]="true"></app-select-contractor>
       <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요">
         <app-img (click)="get()" name="search"></app-img>
       </app-input>
@@ -28,8 +28,8 @@
   <app-table>
     <thead>
       <tr>
-        <th>스마트 장비</th>
         <th>원청사명</th>
+        <th>스마트 장비</th>
         <th width="80px">보유대수</th>
         <th width="80px">가동중</th>
         <th width="80px">미가동</th>
@@ -37,8 +37,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of res?.rsMap">
-        <td>{{ item.ctgo_machine_serial_name }}</td>
         <td>{{ item.company_name }}</td>
+        <td>{{ item.ctgo_machine_serial_name }}</td>
         <td>{{ item.machine_count }}</td>
         <!-- *ngIf="user.userData.user_role === 'LH_HEAD' || user.userData.user_role === 'MASTER_HEAD'" -->
         <td>
@@ -50,7 +50,7 @@
     </tbody>
   </app-table>
 
-  <app-button-footer *ngIf="user.userData.user_role === 'LH_HEAD' || user.userData.user_role === 'MASTER_HEAD'">
+  <app-button-footer *ngIf="user.userData.user_role === 'MASTER_HEAD'">
     <app-button name="submit" (click)="edit()">적용</app-button>
   </app-button-footer>
 </ion-content>

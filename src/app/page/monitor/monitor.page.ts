@@ -1,3 +1,4 @@
+import { DeviceService } from 'src/app/basic/service/core/device.service';
 import { MonitorCctvListPage, CCTVInfo } from './monitor-cctv-list/monitor-cctv-list.page';
 import { DateService } from './../../basic/service/util/date.service';
 import { TodayDepartureStatusListPage } from './../work-management/departure-status/today-departure-status-list/today-departure-status-list.page';
@@ -197,7 +198,8 @@ export class MonitorPage implements OnInit, OnDestroy {
     private modal : ModalController,
     private route: ActivatedRoute,
     public user: UserService,
-    public date: DateService
+    public date: DateService,
+    private device: DeviceService
   ) {}
 
   async ngOnInit() {
@@ -383,6 +385,7 @@ export class MonitorPage implements OnInit, OnDestroy {
    * @function todayWorkDetail(): 금일 출역 작업자 모달입니다.
    */
   async todayWorkDetail(item) {
+    if(this.device.platform_type !== 3) return false;
     let trnas_item = item;
     trnas_item.row_count = 0;
     const modal = await this.modal.create({
