@@ -52,6 +52,6 @@ export class LanguagePackService {
   }
 
   getText(text){
-    return this.language_pack[this.language_type] ? this.language_pack[this.language_type][text] : text;
+    return this.language_pack[this.language_type] ? (this.language_pack[this.language_type][text] ? this.language_pack[this.language_type][text] : text) : text;
   }
 }
