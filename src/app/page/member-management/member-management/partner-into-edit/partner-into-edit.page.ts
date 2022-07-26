@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DateService } from 'src/app/basic/service/util/date.service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService, Validator } from 'src/app/basic/service/core/connect.service';
 import { FileBlob, FileJson, FutItem } from 'src/app/basic/service/core/file.service';
@@ -59,6 +60,7 @@ export class ApprovalItem {
   user_id: number;
   project_id: number;
   construction_end_date: string;
+  construction_state: string;
 
   safe_job_data:SafeJobItem[] = [];
 }
@@ -154,6 +156,8 @@ export class PartnerIntoEditPage implements OnInit {
   system: boolean = false; //시스템권한선택
 
   menu: number = 1;
+
+  work_end_data_state = false;
   constructor(
     private _modal_: ModalController,
     private connect: ConnectService,
@@ -161,7 +165,7 @@ export class PartnerIntoEditPage implements OnInit {
     private toast: ToastService,
     private alert: AlertService,
     private loading: LoadingService,
-    private changeDetector: ChangeDetectorRef
+    private date: DateService
   ) { }
 
   ngOnInit() {
@@ -276,6 +280,10 @@ export class PartnerIntoEditPage implements OnInit {
 
   //소속정보
   async getBelong() {
+    if(this.formApproval.construction_state === '출역종료'){
+      if(!this.formApproval.construction_end_date) return this.toast.present({message: '출역종료 날짜를 선택해주세요.'});
+    }
+    
     const res = await this.connect.run('/usermanage/info/company/belong/detail', this.form, {
       parse: ['safe_job_data', 'safe_job_file_data']
     });
@@ -463,4 +471,14 @@ export class PartnerIntoEditPage implements OnInit {
       this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
+
+  changeWorkState(){
+    if(this.formApproval.construction_state === '출역중'){
+      this.work_end_data_state = true;
+      this.formApproval.construction_end_date = '';
+    } else {
+      this.work_end_data_state = false;
+      if(!this.formApproval.construction_end_date) this.formApproval.construction_end_date = this.date.today();
+    }
+}
 }

@@ -76,6 +76,7 @@ export class BelongForm {
   ctgo_occupation_name:string = null;
   ctgo_occupation_role:'BASIC'|'DRIVER' = null;
   user_certify_no:string = null; // 면허번호
+  construction_state: string;
 }
 
 /** 교육이력 class */
@@ -147,7 +148,6 @@ export class MyPagePage implements OnInit {
     payer_user_name:string,
     user_id:number
   }>;
-
 
   constructor(
     private el: ElementRef<HTMLElement>,

@@ -1,6 +1,6 @@
 <app-row style="align-items: stretch; height: 100%;" *mobileHidden>
 
-  <app-col size="200px">
+  <!-- <app-col size="200px">
     
     <app-table type="card">
       <ion-toolbar slot="top" color="white">
@@ -46,7 +46,7 @@
       </tbody>
     </app-table>
 
-  </app-col>
+  </app-col> -->
 
   <app-col>
 
@@ -55,6 +55,14 @@
   </app-col>
 
   <app-col size="4">
+    <app-row>
+      <app-col>
+        <app-input [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
+      </app-col>
+      <app-col size="auto">
+        <app-button fill="translucent" style="width: 100px;" (click)="wokerInGetList()">검색</app-button>
+      </app-col>
+    </app-row>
 
     <app-table>
       <thead>
@@ -82,4 +90,104 @@
 
 </app-row>
 
-<app-naver-user-map style="height: 100%" [(ngModel)]="gpsData" *mobileShow></app-naver-user-map>
+<ng-container *mobileShow>
+  <ion-toolbar class="tool-bar-class-geo" slot="top" color="white">
+    <app-naver-user-map class="map-area" [(ngModel)]="gpsData" [LineGpsData]="gps_coordinate_data"></app-naver-user-map>
+  </ion-toolbar>
+
+  <ion-toolbar class="tool-bar-class-searchbox" slot="top" color="white">
+    <app-row>
+      <app-col>
+        <app-input [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
+      </app-col>
+      <app-col size="auto">
+        <app-button fill="translucent" style="width: 100px;" (click)="wokerInGetList()">검색</app-button>
+      </app-col>
+    </app-row>
+  </ion-toolbar>
+
+
+
+
+  <ion-content class="content-class">
+    <app-row style="flex:1; position:relative;">
+      <app-col style="top: 0; position:absolute;">  
+        <app-row>
+          <app-col>
+            <app-table>
+              <thead>
+                <tr>
+                  <th colspan="4">총 {{ workerInRes?.rsObj?.row_count || 0 }}명</th>
+                </tr>
+                <tr>
+                  <th>회사명</th>
+                  <th>성명</th>
+                  <th>공종</th>
+                  <th>근로자 구분</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let item of workerInRes?.rsMap">
+                  <td>{{ item.company_name }}</td>
+                  <td>{{ item.user_name }}</td>
+                  <td>{{ item.ctgo_construction_name }}</td>
+                  <td>{{ item.user_type }}</td>
+                </tr> -->
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+                <tr>
+                  <td>test</td>
+                  <td>test1</td>
+                  <td>test2</td>
+                  <td>test3</td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-col>
+        </app-row>
+
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+

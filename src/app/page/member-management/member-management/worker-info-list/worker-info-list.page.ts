@@ -25,7 +25,8 @@ export class WorkerInfo {
   create_date: string;
   user_health: string;
   row_count: number;
-  work_state: string
+  work_state: string;
+  construction_state: string;
   index: number;
 }
 
@@ -46,7 +47,8 @@ export class WorkerInfoListPage implements OnInit {
     session_company_id: this.user.userData.belong_data.company_id,
     user_manage_session: '',
     limit_no: 0,
-    work_state: '출역중'
+    work_state: '출역중',
+    construction_state: '출역중'
   }
 
   res:ConnectResult<WorkerInfo>

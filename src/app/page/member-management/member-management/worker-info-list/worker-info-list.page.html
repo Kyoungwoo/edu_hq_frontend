@@ -49,7 +49,7 @@
                   <app-radio value="출역종료">출역 종료</app-radio>
                 </app-radio-input> -->
 
-                <app-select label="출역 상태" [(ngModel)]="form.work_state">
+                <app-select label="출역 상태" [(ngModel)]="form.construction_state">
                   <app-select-option value="출역중">출역 중</app-select-option>
                   <app-select-option value="출역종료">출역 종료</app-select-option>
                 </app-select>
@@ -100,7 +100,7 @@
                 <ion-text [color]="item.user_health === '특별관리대상' ? 'danger' : 'dark'">{{ item.user_health }}</ion-text>
                 <!-- <ion-text *ngIf="item.user_health !== '특별관리대상'" color="dark">{{ item.user_health }}</ion-text> -->
               </td>
-              <td>{{ item.work_state }}</td>
+              <td>{{ item.construction_state }}</td>
               <td>{{ item.create_date }}</td>
               <!-- <td>{{ item.delete_state ? '재직중':'퇴사' }}</td> -->
             </tr>

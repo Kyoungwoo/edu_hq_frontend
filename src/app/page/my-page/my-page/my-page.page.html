@@ -180,7 +180,7 @@
         <app-row mobileBreak *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER'">
           <app-col>
   
-            <app-radio-input label="현장 출역 상태" value="출역중" [disabled]="true">
+            <app-radio-input label="현장 출역 상태" [(ngModel)]="belongForm.construction_state" [disabled]="true">
               <app-radio value="출역중">출역 중</app-radio>
               <app-radio value="출역종료">출역 종료</app-radio>
             </app-radio-input>

@@ -1,0 +1,30 @@
+
+:host{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.tool-bar-class-geo{
+    height: 100%;
+    display: flex;
+    flex: 1;
+    position: relative;
+    // flex-direction: column;
+}
+.map-area{
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    left: 0;
+    bottom: 0;
+}
+
+.content-class{
+    --padding-start: 0;
+    --padding-bottom: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --offset-top: -8px!important;
+}

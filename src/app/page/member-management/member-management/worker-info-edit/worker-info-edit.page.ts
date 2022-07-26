@@ -1,3 +1,4 @@
+import { DateService } from 'src/app/basic/service/util/date.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { fadeInAnimation } from 'src/app/basic/basic.animation';
@@ -64,9 +65,10 @@ export class ApprovalItem {
   project_id: number;
   company_name: string;
   work_contract_type: string;
-  project_state: number;
+  project_state: string;
   construction_start_date: string;
   construction_end_date: string;
+  construction_state: string;
   ctgo_job_position_name_kr: string;
 
   certify_file_data:FutItem[] = [];
@@ -222,6 +224,8 @@ export class WorkerInfoEditPage implements OnInit {
     approval: false //저장
   }
 
+  work_end_data_state = false;
+
   constructor(
     private _modal_: ModalController,
     private connect: ConnectService,
@@ -229,7 +233,8 @@ export class WorkerInfoEditPage implements OnInit {
     private user: UserService,
     private alert: AlertService,
     private loading: LoadingService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private date: DateService
   ) { }
 
   ngOnInit() {
@@ -409,6 +414,10 @@ export class WorkerInfoEditPage implements OnInit {
   }
   //소속정보 수정
   async BelongSubmit() {
+    if(this.formApproval.construction_state === '출역종료'){
+      if(!this.formApproval.construction_end_date) return this.toast.present({message: '출역종료 날짜를 선택해주세요.'});
+    }
+    
     const res = await this.connect.run('/usermanage/info/worker/belong/update', {
       ...this.form,
       ...this.formApproval
@@ -587,5 +596,15 @@ export class WorkerInfoEditPage implements OnInit {
       ]
     })
     await alert.present();
+  }
+
+  changeWorkState(){
+      if(this.formApproval.construction_state === '출역중'){
+        this.work_end_data_state = true;
+        this.formApproval.construction_end_date = '';
+      } else {
+        this.work_end_data_state = false;
+        if(!this.formApproval.construction_end_date) this.formApproval.construction_end_date = this.date.today();
+      }
   }
 }

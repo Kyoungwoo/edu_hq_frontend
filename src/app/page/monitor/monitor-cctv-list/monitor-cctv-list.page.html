@@ -42,10 +42,9 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
-        || user.userData.belong_data.company_contract_type === '원청사'">   
+        <ion-toolbar color="white" *ngIf="user.userData.user_type !== 'LH' && user.userData.user_type !== 'SUPER'">   
           <ion-buttons slot="start">
-            <app-button *ngIf="user.userData.user_type !== 'LH' && user.userData.user_type !== 'SUPER'" fill="translucent" (click)="edit('insert')">등록</app-button>
+            <app-button fill="translucent" (click)="edit('insert')">등록</app-button>
             <app-button fill="translucent" (click)="delete()" color="warning">삭제</app-button>
           </ion-buttons>
         </ion-toolbar>
@@ -58,7 +57,7 @@
               <app-table>
                 <thead>
                   <tr>
-                    <th style="width: 40px;">
+                    <th style="width: 40px;" *ngIf="user.userData.user_type !== 'LH' && user.userData.user_type !== 'SUPER'">
                       <app-check type="all" color="white" size="small" name="check"></app-check>
                     </th>
                     <th>CCTV ID</th>
@@ -74,7 +73,7 @@
                 </thead>
                 <tbody>
                   <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit('update', item.cctv_id)">
-                    <td>
+                    <td *ngIf="user.userData.user_type !== 'LH' && user.userData.user_type !== 'SUPER'">
                       <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
                     </td>
                     <td>{{ item.cctv_id }}</td>

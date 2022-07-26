@@ -130,8 +130,7 @@
         </app-row>
         <app-row>
           <app-col>
-            <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [disabled]="true" [(ngModel)]="formApproval.project_state"
-              placeholder="text">
+            <app-radio-input name="현장 출역 상태" label="현장 출역 상태" [(ngModel)]="formApproval.construction_state" (ngModelChange)="changeWorkState()" placeholder="text">
               <app-radio value="출역중">출역중</app-radio>
               <app-radio value="출역종료">출역종료</app-radio>
             </app-radio-input>
@@ -141,7 +140,7 @@
               <app-calendar [(ngModel)]="formApproval.construction_start_date"
                 [max]="formApproval.construction_end_date"></app-calendar>
               ~
-              <app-calendar [(ngModel)]="formApproval.construction_end_date"
+              <app-calendar [disabled]="work_end_data_state" [(ngModel)]="formApproval.construction_end_date"
                 [min]="formApproval.construction_start_date"></app-calendar>
             </app-input-group>
           </app-col>

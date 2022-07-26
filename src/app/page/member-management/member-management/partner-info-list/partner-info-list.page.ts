@@ -29,6 +29,7 @@ class PartnerInfo {
   ctgo_safe_job_name: string;
   row_count: number;
   work_state: string;
+  construction_state: string;
   index: number;
 }
 
@@ -50,6 +51,7 @@ export class PartnerInfoListPage implements OnInit {
     search_text: '',
     work_state: '출역중',
     limit_no: 0,
+    construction_state: '출역중',
 
     session_company_id: this.user.userData.belong_data.company_id,
     user_manage_session: '',

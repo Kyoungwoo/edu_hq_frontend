@@ -40,10 +40,16 @@
     <ion-toolbar class="form-weather-toolbar" color="white">
   
       <app-row>
-        <app-col>
+        <app-col size="auto">
+          <app-input label="지역본부" value="경기지역본부" [readonly]="true"></app-input>
+        </app-col>
+        <app-col size="auto">
+          <app-input label="사업본부" value="수원당수" [readonly]="true"></app-input>
+        </app-col>
+        <app-col size="auto">
           <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)" (ngModelChange)="changeProjectPosition()"></app-select-scene>
         </app-col>
-        <app-col>
+        <app-col size="auto">
           <app-select-contractor name="master_company_id"
           [allState]="true"
           [project_id]="form.project_id"
@@ -51,7 +57,7 @@
           (change)="formChange.emit(form)"
           [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
         </app-col>
-        <app-col>
+        <app-col size="auto">
           <app-button (click)="monitorCctvList()" *ngIf="tabActive === 'CCTV 모니터링'">CCTV 목록</app-button>
         </app-col>
         <app-col></app-col>
@@ -122,16 +128,33 @@
     </ion-toolbar>
 
     <ion-toolbar class="mobile-toolbar" color="white">
-      <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)"></app-select-scene>
-    </ion-toolbar>
+      <app-row>
+        <app-col size="6">
+          <app-input label="지역본부" value="경기지역본부" [readonly]="true"></app-input>
+        </app-col>
 
-    <ion-toolbar class="mobile-toolbar" color="white">
-      <app-select-contractor name="master_company_id"
-        [allState]="true"
-        [project_id]="form.project_id"
-        [(ngModel)]="form.master_company_id"
-        (change)="formChange.emit(form)"
-        [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+        <app-col size="6">
+          <app-input label="사업본부" value="수원당수" [readonly]="true"></app-input>
+        </app-col>
+      </app-row>
+
+      <app-row>
+        <app-col>
+          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)"></app-select-scene>
+        </app-col>
+      </app-row>
+
+      <app-row>
+        <app-col>
+          <app-select-contractor name="master_company_id"
+          [allState]="true"
+          [project_id]="form.project_id"
+          [(ngModel)]="form.master_company_id"
+          (change)="formChange.emit(form)"
+          [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+        </app-col>
+      </app-row>
+
     </ion-toolbar>
 
     <ion-toolbar class="segment-toolbar" color="white">

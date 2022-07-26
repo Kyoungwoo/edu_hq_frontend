@@ -11,7 +11,7 @@
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
-                    <h4>금일 출역 근로자</h4>
+                    <h4>주간 출역 현황</h4>
                   </app-col>
                   <app-col size="auto">
                     <ion-badge color="medium" (click)="todayWorkDetail({
@@ -63,58 +63,25 @@
 
           </app-col>
           <app-col>
-
-            <!-- <app-card class="graph-card" [blind]="true"> -->
             <app-card class="graph-card">
-              
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
-                    <h4>금일 작업 근로자</h4>
+                    <h4>TBM 작업 현황</h4>
                   </app-col>
                   <app-col size="auto">
                     <ion-badge color="medium">총<b>0</b>명</ion-badge>
                   </app-col>
                 </app-row>
               </ion-toolbar>
-              <app-row>
-                <app-col size="auto">
-                  <div class="donut-group">
-                    <svg class="donut" viewBox="0 0 42 42">
-                      <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFC876"
-                        stroke-width="6">
-                      </circle>
-                      <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#44c650" stroke-width="6"
-                        stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
-                    </svg>
-                    <div class="donut-in-count">
-                      0
-                    </div>
-                    <div class="donut-in-text">
-                      총 작업
-                    </div>
-                  </div>
+              <ion-row *ngFor="let item of graphArr3 let i = index" class="worker-item">
+                <app-col size="78px" class="risk-type-name">{{ item.name }}</app-col>
+                <app-col style="display: flex; align-items: center;">
+                  <div [ngStyle]="style(item)" class="worker-state" [style.width]="item.count + '%'"></div>
+                  <h4>{{item.count}}</h4>
                 </app-col>
-                <app-col class="donut-sub">
-                  <app-row style="justify-content: flex-end;">
-                    <app-col size="auto" style="display: flex; align-items: center;">
-                      <div class="circle-plan"></div>
-                      <p class="count-name">위험작업&nbsp;&nbsp;</p>
-                      <p class="count-contant" style="font-size: 20px;">0</p>
-                    </app-col>
-                  </app-row>
-                  <app-row style="justify-content: flex-end;">
-                    <app-col size="auto" style="display: flex; align-items: center;">
-                      <div class="circle-per"></div>
-                      <p class="count-name">일반작업&nbsp;&nbsp;</p>
-                      <p class="count-contant" style="font-size: 20px;">0</p>
-                    </app-col>
-                  </app-row>
-                </app-col>
-              </app-row>
+              </ion-row>
             </app-card>
-
           </app-col>
         </app-row>
         
@@ -127,7 +94,7 @@
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
-                    <h4>공종별 출역 작업자</h4>
+                    <h4>오늘의 공종별 출역 현황</h4>
                   </app-col>
                   <app-col size="auto">
                     <ion-badge color="medium">총<b>{{ todayConstruction_totalCount }}</b>명</ion-badge>
@@ -146,30 +113,6 @@
             </app-card>
 
           </app-col>
-          <app-col>
-
-            <!-- <app-card class="graph-card" [blind]="true"> -->
-              <app-card class="graph-card">
-              <ion-toolbar slot="top" color="white">
-                <app-row>
-                  <app-col>
-                    <h4>작업자 상태</h4>
-                  </app-col>
-                  <app-col size="auto">
-                    <ion-badge color="medium">총<b>0</b>명</ion-badge>
-                  </app-col>
-                </app-row>
-              </ion-toolbar>
-              <ion-row *ngFor="let item of graphArr3 let i = index" class="worker-item">
-                <app-col size="78px" class="risk-type-name">{{ item.name }}</app-col>
-                <app-col style="display: flex; align-items: center;">
-                  <div [ngStyle]="style(item)" class="worker-state" [style.width]="item.count + '%'"></div>
-                  <h4>{{item.count}}</h4>
-                </app-col>
-              </ion-row>
-            </app-card>
-            
-          </app-col>
 
           <app-col>
 
@@ -178,7 +121,7 @@
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
-                    <h4>위험공종별 작업 계획</h4>
+                    <h4>PTW 위험 작업 계획</h4>
                   </app-col>
                   <app-col size="auto">
                     <ion-badge color="medium">총<b>0</b>명</ion-badge>
@@ -186,7 +129,7 @@
                 </app-row>
               </ion-toolbar>
               <ion-row *ngFor="let item of graphArr4 let i = index">
-                <app-col size="4" class="risk-type-name">{{ item.name }}</app-col>
+                <app-col size="6" class="risk-type-name">{{ item.name }}</app-col>
                 <app-col style="display: flex; align-items: center;">
                   <div [ngStyle]="style(item)" class="danger-state" [style.width]="item.count + '%'"></div>
                   <h4>{{item.count}}</h4>
@@ -206,7 +149,7 @@
                 <h4>스마트 안전 장비</h4>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" (click)="smartEquipEdit()">{{ (user.userData.user_type === 'LH' || user.userData.user_type === 'SUPER') ? '조회' : '수정' }}</app-button>
+                <app-button *mobileHidden fill="translucent" (click)="smartEquipEdit()">{{ (user.userData.user_type === 'LH' || user.userData.user_type === 'SUPER') ? '조회' : '수정' }}</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
@@ -527,7 +470,7 @@
     </ng-container>
   </div>
 
-  <div *ngIf="data.monitor === '위험작업 실시간 위치 모니터링'" style="height: 100%">
+  <div *ngIf="data.monitor === '실시간 위치 모니터링'" style="height: 100%">
     <app-monitor-worker-location style="height: 100%"
     [project_id]="form.project_id"
     [master_company_id]="form.master_company_id"></app-monitor-worker-location>

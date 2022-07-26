@@ -53,7 +53,7 @@
             </tr> -->
             <tr>
               <td>
-                <app-select label="출역 상태" [(ngModel)]="form.work_state">
+                <app-select label="출역 상태" [(ngModel)]="form.construction_state">
                   <app-select-option value="출역중">출역 중</app-select-option>
                   <app-select-option value="출역종료">출역 종료</app-select-option>
                 </app-select>
@@ -95,7 +95,7 @@
               <td>{{ item.user_birth }}</td>
               <td>{{ item.ctgo_safe_job_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
-              <td>{{ item.work_state }}</td>
+              <td>{{ item.construction_state }}</td>
               <td>{{ item.create_date }}</td>
               <!-- <td>재직중</td> -->
             </tr>
