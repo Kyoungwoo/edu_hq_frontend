@@ -101,7 +101,7 @@ export class ConfirmPendingListPage implements OnInit, OnDestroy {
     //   this.form.company_id = 0;
     // }
 
-    this.form.start_date = this.date.today({ month: -1 });
+    this.form.start_date = this.date.today({ year: -1 });
     this.form.end_date = this.date.today();
   }
 

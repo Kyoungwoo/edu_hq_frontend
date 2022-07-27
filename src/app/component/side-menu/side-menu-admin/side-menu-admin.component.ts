@@ -135,7 +135,7 @@ export class  SideMenuAdminComponent implements OnInit {
     },
     subMenuList: [
       { title: '위험성 평가', link: '/risk-list'},
-      { title: '위험 작업 허가', link: ''}
+      { title: '작업 지시서(PTW)', link: ''}
     ]},
     { title: '작업관리', img: 'assets/img/menu/work-management.svg', 
     permission: () => {
@@ -192,11 +192,11 @@ export class  SideMenuAdminComponent implements OnInit {
       ]}
     ]},
     { title: '위험관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
-      { title: '위험지역 출입', link: ''},
-      { title: '중장비 접근감지', link: ''},
-      { title: '안전고리 체결', link: ''},
-      { title: '밀폐 환경 정보', link: ''},
-      { title: '변위 감지', link: ''}
+      { title: '위험지역 출입관리', link: ''},
+      { title: '크레인상하차 접근관리', link: ''},
+      { title: '안전고리 체결관리', link: ''},
+      { title: '밀폐환경 정보관리', link: ''},
+      { title: '변위 감지관리', link: ''}
     ]},
     { title: '사고관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
       // { title: '아차사고 신고', link: ''},

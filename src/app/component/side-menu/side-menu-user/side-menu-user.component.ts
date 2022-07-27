@@ -1,3 +1,4 @@
+import { MonitorPage } from './../../../page/monitor/monitor.page';
 import { SettingModifyComponent } from './../../modal/setting-modify/setting-modify.component';
 import { ScannerService } from './../../../basic/service/util/scanner.service';
 // import { QrService } from 'src/app/basic/service/util/qr.service';
@@ -65,7 +66,7 @@ export class SideMenuUserComponent implements OnInit {
         const { user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY';
       }},
-      { title: '위험작업허가(PTW)', link: '', params: {}, permission: () => { return true }},
+      { title: '작업지시서(PTW)', link: '', params: {}, permission: () => { return true }},
       { title: '회의록', link: '/worker-minutes-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY';
@@ -120,7 +121,19 @@ export class SideMenuUserComponent implements OnInit {
     },
     subMenuList: [
       { title: '지역본부 모니터링', link: '', params: {}, permission: () => { return true }},
-      { title: '현장 모니터링', link:'/monitor' , params: {}, permission: () => { 
+      // { title: '현장 모니터링', link:'/monitor' , params: {}, permission: () => { 
+      //   const {  user_type, user_role } = this.user.userData;
+      //   return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+      // }},
+      { title: '현장 모니터링', link:'/monitor' , params: {monitor: '현장 모니터링'}, permission: () => { 
+        const {  user_type, user_role } = this.user.userData;
+        return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+      }},
+      { title: 'CCTV 모니터링', link:'/monitor' , params: {monitor: 'CCTV 모니터링'}, permission: () => { 
+        const {  user_type, user_role } = this.user.userData;
+        return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
+      }},
+      { title: '실시간 위치 모니터링', link:'/monitor' , params: {monitor: '실시간 위치 모니터링'}, permission: () => { 
         const {  user_type, user_role } = this.user.userData;
         return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
       }}
@@ -302,4 +315,13 @@ export class SideMenuUserComponent implements OnInit {
     this._modal.dismiss();
     this.logout.logout();
   }
+
+  // async monitorModal(link,params){
+  //   this.menuClose();
+  //   const modal = await this._modal.create({
+  //     component:MonitorPage,
+  //     componentProps: params
+  //   });
+  //   modal.present();
+  // }
 }

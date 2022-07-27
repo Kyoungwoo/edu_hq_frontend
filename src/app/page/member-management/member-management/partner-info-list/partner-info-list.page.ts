@@ -46,7 +46,7 @@ export class PartnerInfoListPage implements OnInit {
     company_id: 0,
     ctgo_construction_ids: [],
 
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
     work_state: '출역중',

@@ -37,7 +37,7 @@ export class HeavyEquipListPage implements OnInit {
     partner_company_id: 0,
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     limit_no: 0
   };
 

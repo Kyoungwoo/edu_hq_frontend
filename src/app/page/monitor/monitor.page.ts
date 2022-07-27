@@ -172,7 +172,7 @@ export class MonitorPage implements OnInit, OnDestroy {
   ]
 
   data = {
-    monitor:'통합관제'
+    monitor:'현장 모니터링'
   };
 
   $activedRoute:Subscription;
@@ -219,7 +219,7 @@ export class MonitorPage implements OnInit, OnDestroy {
     this.$activedRoute =  this.route.queryParams.subscribe(params => {
       const { monitor } = params;
       this.data = {
-        monitor: monitor || '통합관제'
+        monitor: monitor || '현장 모니터링'
       }
     });
 

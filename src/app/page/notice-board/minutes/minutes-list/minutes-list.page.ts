@@ -20,7 +20,7 @@ export class MinutesListPage implements OnInit {
     project_id: this.user.userData.belong_data.project_id,
     company_id: null,
     safety_meeting_types: [],
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
     approval_cnt_answer: ['결재완료'],

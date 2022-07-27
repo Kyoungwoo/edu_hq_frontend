@@ -29,6 +29,7 @@ import { TodayDepartureStatusListPageModule } from '../work-management/departure
     MonitorCctvEditPageModule,
     TodayDepartureStatusListPageModule
   ],
-  declarations: [MonitorPage]
+  declarations: [MonitorPage],
+  exports: [MonitorPage]
 })
 export class MonitorPageModule {}

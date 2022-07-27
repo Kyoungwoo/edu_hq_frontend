@@ -101,7 +101,7 @@ export class ConfirmCcListPage implements OnInit {
     // if(this.user.userData.user_role === 'MASTER_HEAD' || this.user.userData.user_role === 'MASTER_GENERAL'){
     //   this.form.company_id = 0;
     // }
-    this.form.start_date = this.date.today({ month: -1 });
+    this.form.start_date = this.date.today({ year: -1 });
     this.form.end_date = this.date.today();
     this.form.approval_cnt_answer = '전체';
   }

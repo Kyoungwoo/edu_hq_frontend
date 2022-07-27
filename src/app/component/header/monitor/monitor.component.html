@@ -157,7 +157,7 @@
 
     </ion-toolbar>
 
-    <ion-toolbar class="segment-toolbar" color="white">
+    <ion-toolbar *mobileHidden class="segment-toolbar" color="white">
       <ion-segment color="primary" [(ngModel)]="tabActive" (ionChange)="segmentChange()" [scrollable]="true">
         <ion-segment-button *ngFor="let tab of tabList" [value]="tab.data">{{ tab.text }}</ion-segment-button>
       </ion-segment>

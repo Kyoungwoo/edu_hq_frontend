@@ -31,7 +31,7 @@ export class MonitorComponent implements OnInit {
 
   tabList:Tab[] = [
     { text: '현장 모니터링',
-      data:'통합관제'
+      data:'현장 모니터링'
     },
     { text: 'CCTV 모니터링',
       data:'CCTV 모니터링'
@@ -43,7 +43,7 @@ export class MonitorComponent implements OnInit {
 
   @Output() formChange = new EventEmitter();
 
-  tabActive:string = '통합관제';
+  tabActive:string = '현장 모니터링';
 
   weather = {
     weather_speed:"", // 풍속,
@@ -89,7 +89,7 @@ export class MonitorComponent implements OnInit {
 
       const { monitor } = params;
       switch(monitor) {
-        case '통합관제':
+        case '현장 모니터링':
           this.tabActive = this.tabList[0].data;
           break;
         case 'CCTV 모니터링':

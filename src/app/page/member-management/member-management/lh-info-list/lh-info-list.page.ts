@@ -31,7 +31,7 @@ export class LhInfoListPage implements OnInit {
   form = {
     hq_regional_id: this.user.userData.belong_data.hq_regional_id,
 
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
     

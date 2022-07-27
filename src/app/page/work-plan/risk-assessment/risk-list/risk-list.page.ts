@@ -45,8 +45,8 @@ export class RiskListPage implements OnInit {
     ctgo_construction_id: 0,
     risk_asment_type: '수시',
     approval_cnt_answer: '전체',
-    risk_asment_start_date: this.date.today({ month: -1 }),
-    risk_asment_end_date: this.date.today({ date: 1 }),
+    risk_asment_start_date: this.date.today({ year: -1 }),
+    risk_asment_end_date: this.date.today(),
     search_text: '',
     limit_no: 0
   }

@@ -106,7 +106,7 @@ export class ConfirmObtainListPage implements OnInit {
     //   }
     // }
 
-    this.form.start_date = this.date.today({ month: -1 });
+    this.form.start_date = this.date.today({ year: -1 });
     this.form.end_date = this.date.today();
     this.form.approval_cnt_answer = '전체';
   }

@@ -67,12 +67,16 @@
 
         <ng-container *ngFor="let subMenu of menuSelected?.subMenuList">
           <ng-container *ngIf="!subMenu.permission || subMenu.permission()">
-
+<!-- *ngIf="subMenu.link !== '/monitor'" -->
             <ion-item 
             [routerLink]="subMenu.link"
             [queryParams]="subMenu.params" 
             [style.opacity]="subMenu.link ? 1 : 0.5"
             (click)="subMenu.toggle = !subMenu.toggle; subMenu.link ? menuClose() : notReady()">{{ languagePack.getText(subMenu.title) }}</ion-item>
+
+            <!-- <ion-item *ngIf="subMenu.link === '/monitor'"
+            [style.opacity]="subMenu.link ? 1 : 0.5"
+            (click)="monitorModal(subMenu.link,subMenu.params)">{{ languagePack.getText(subMenu.title) }}</ion-item> -->
 
             <!-- 현재 third menu list -->
             <!-- <ng-container *ngIf="subMenu.toggle">

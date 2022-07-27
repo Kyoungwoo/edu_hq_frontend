@@ -101,7 +101,7 @@ export class DangerAreaListPage implements OnInit {
     company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.company_id,
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today()
   };
 

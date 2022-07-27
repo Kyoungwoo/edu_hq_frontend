@@ -65,7 +65,7 @@ export class ManualListPage implements OnInit {
   ngOnInit() {
     this.getPermission();
 
-    this.form.start_date = this.date.today({ month: -1 });
+    this.form.start_date = this.date.today({ year: -3 });
     this.form.end_date = this.date.today();
     this.get();
 

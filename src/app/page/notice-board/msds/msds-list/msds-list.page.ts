@@ -50,7 +50,7 @@ export class MsdsListPage implements OnInit {
     end_date: this.date.today(),
     msds_types : [],
     search_text: '',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     limit_no: 0
   }
   res:ConnectResult<MsdsInfo>;

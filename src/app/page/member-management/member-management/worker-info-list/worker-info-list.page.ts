@@ -40,7 +40,7 @@ export class WorkerInfoListPage implements OnInit {
   form = {
     company_id: 0,
     ctgo_construction_ids: [],
-    start_date: this.date.today({ month: -3 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     project_id: 0,
     search_text: '',
