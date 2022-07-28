@@ -400,10 +400,10 @@ export class SafetyEducationResultEditPage implements OnInit {
 
     const logo_theme:SheetStyle = {
       border: headerBorder,
-      textAlign:'center',
-      fontSize:16,
+      textAlign:'left',
+      fontSize:12,
       height:30,
-      verticalAlign: "middle",
+      verticalAlign: "top",
       whiteSpace: 'normal'
     }
 
@@ -574,7 +574,7 @@ export class SafetyEducationResultEditPage implements OnInit {
           {text: '작성일'},
           {text: this.form.create_date, colspan: 3},
           {text: '작성자'},
-          {text: this.form.create_user_name, colspan: 3}
+          {text: this.form.user_name, colspan: 3}
         ],
         [
           {text: '교육명'},
@@ -751,8 +751,8 @@ export class SafetyEducationResultEditPage implements OnInit {
 
     // 회의 사진 데이터
     if(this.form.education_safe_file_data && this.form.education_safe_file_data.length){
-      sheetData.data[54][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 500, width: 760, left: 8, top: 8}, rowspan: 18, colspan: 9};
-      sheetData.data[54][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 500, width: 790, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[54][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 500, width: 700, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[54][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 500, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 9};
     }
 
     // img?: {

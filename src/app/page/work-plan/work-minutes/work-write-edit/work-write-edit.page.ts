@@ -431,10 +431,10 @@ export class WorkWriteEditPage implements OnInit {
 
     const logo_theme:SheetStyle = {
       border: headerBorder,
-      textAlign:'center',
-      fontSize:16,
+      textAlign:'left',
+      fontSize:12,
       height:30,
-      verticalAlign: "middle",
+      verticalAlign: "top",
       whiteSpace: 'normal'
     }
 
@@ -532,7 +532,7 @@ export class WorkWriteEditPage implements OnInit {
     const sub_title_1_user:SheetStyle = {
       border: headerBorder,
       backgroundColor,
-      textAlign:'center',
+      textAlign:'center', 
       fontSize:12,
       height:48,
       verticalAlign: "middle",
@@ -601,7 +601,7 @@ export class WorkWriteEditPage implements OnInit {
           {text: '현장명'},
           {text: this.form.project_name, colspan: 4},
           {text: '회사명'},
-          {text: this.form.company_name, colspan: 4},
+          {text: this.form.master_company_name, colspan: 4},
           {text: '회의장소'},
           {text: this.form.safety_meeting_place, colspan: 3},
           {text: '작성자'},
@@ -620,9 +620,9 @@ export class WorkWriteEditPage implements OnInit {
           {text: '기타 사항', colspan: 18},
         ],
         [
-          {text: this.form.safety_meeting_etc, colspan: 18, rowspan: 8},
+          {text: this.form.safety_meeting_etc, colspan: 18, rowspan: 18},
         ],
-        [],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
         [
           {text: '사진', colspan: 9},
           {text: '사진', colspan: 9},
@@ -630,7 +630,7 @@ export class WorkWriteEditPage implements OnInit {
         [
           {colspan: 9, rowspan: 18},
           {colspan: 9, rowspan: 18},
-        ],
+        ]
         // 평가표 리스트 들어가는곳
 
 
@@ -729,6 +729,16 @@ export class WorkWriteEditPage implements OnInit {
         logo_theme_arr,
 
         sub_title_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
+        logo_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
@@ -888,8 +898,8 @@ export class WorkWriteEditPage implements OnInit {
 
     // 회의 사진 데이터
     if(this.form.safety_meeting_file_data && this.form.safety_meeting_file_data.length){
-      sheetData.data[54][0] = {img: {src: this.form.safety_meeting_file_data[0]?.full_url.toString(), height: 500, width: 760, left: 8, top: 8}, rowspan: 18, colspan: 9};
-      sheetData.data[54][1] = {img: {src: this.form.safety_meeting_file_data[1]?.full_url.toString(), height: 500, width: 790, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[64][0] = {img: {src: this.form.safety_meeting_file_data[0]?.full_url.toString(), height: 500, width: 710, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[64][1] = {img: {src: this.form.safety_meeting_file_data[1]?.full_url.toString(), height: 500, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 9};
     }
 
     // img?: {
