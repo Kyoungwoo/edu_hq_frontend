@@ -28,8 +28,9 @@
             </tr>
             <tr>
               <td>
-                <app-select label="MSDS 구분" [(ngModel)]="form.msds_types">
+                <app-select label="MSDS 구분" [(ngModel)]="form.msds_types" [multiple]="true">
                   <app-select-option type="all" [value]="[]">전체</app-select-option>
+                  <app-select-option value="해당없음">해당없음</app-select-option>
                   <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
                   <app-select-option value="인화성 가스">인화성 가스</app-select-option>
                   <app-select-option value="인화성 액체">인화성 액체</app-select-option>

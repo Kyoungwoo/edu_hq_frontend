@@ -91,6 +91,76 @@ export class FileService {
         return ".ics";
       case "application/octet-stream":
         return ".hwp";
+
+      case "audio/MPEG":
+        return ".mp3";
+      case "audio/WAV":
+        return ".wav";
+      case "image/JPEG":
+        return ".jpeg";
+      case "image/PNG":
+        return ".png";
+      case "image/GIF":
+        return ".gif";
+      case "image/SVG+XML":
+        return ".svg";
+      case "image/WEBP":
+        return ".webp";
+      case "application/PDF":
+        return ".pdf";
+      case "video/MP4":
+        return ".mp4";
+      case "text/CALENDAR":
+        return ".ics";
+      case "application/OCTET-STREAM":
+        return ".hwp";
+
+      case "AUDIO/MPEG":
+        return ".mp3";
+      case "AUDIO/WAV":
+        return ".wav";
+      case "IMAGE/JPEG":
+        return ".jpeg";
+      case "IMAGE/PNG":
+        return ".png";
+      case "IMAGE/GIF":
+        return ".gif";
+      case "IMAGE/SVG+XML":
+        return ".svg";
+      case "IMAGE/WEBP":
+        return ".webp";
+      case "APPLICATION/PDF":
+        return ".pdf";
+      case "VIDEO/MP4":
+        return ".mp4";
+      case "TEXT/CALENDAR":
+        return ".ics";
+      case "APPLICATION/OCTET-STREAM":
+        return ".hwp";
+
+      case "AUDIO/mpeg":
+        return ".mp3";
+      case "AUDIO/wav":
+        return ".wav";
+      case "IMAGE/jpeg":
+        return ".jpeg";
+      case "IMAGE/png":
+        return ".png";
+      case "IMAGE/gif":
+        return ".gif";
+      case "IMAGE/svg+xml":
+        return ".svg";
+      case "IMAGE/webp":
+        return ".webp";
+      case "APPLICATION/pdf":
+        return ".pdf";
+      case "VIDEO/mp4":
+        return ".mp4";
+      case "TEXT/calendar":
+        return ".ics";
+      case "APPLICATION/octet-stream":
+        return ".hwp";
+
       default:
         return null;
     }
@@ -104,6 +174,8 @@ export class FileService {
       case ".wav":
         return "audio/wav";
       case ".jpeg":
+        return "image/jpeg";
+      case ".jpg":
         return "image/jpeg";
       case ".png":
         return "image/png";
@@ -121,10 +193,92 @@ export class FileService {
         return "text/calendar";
       case ".hwp":
         return "application/octet-stream";
+
+      case ".MP3":
+        return "audio/mpeg";
+      case ".WAV":
+        return "audio/wav";
+      case ".JPEG":
+        return "image/jpeg";
+      case ".JPG":
+        return "image/jpeg";
+      case ".PNG":
+        return "image/png";
+      case ".GIF":
+        return "image/gif";
+      case ".SVG":
+        return "image/svg+xml";
+      case ".WEBP":
+        return "image/webp";
+      case ".PDF":
+        return "application/pdf";
+      case ".MP4":
+        return "video/mp4";
+      case ".ICS":
+        return "text/calendar";
+      case ".HWP":
+        return "application/octet-stream";
       default:
         return null;
     }
   }
+  // transUpper(mineType:string) {
+  //   // const dot = url.lastIndexOf('.');
+  //   // const mineType = url.substring(dot, url.length);
+  //   switch(mineType) {
+  //     case "mp3":
+  //       return "mpeg";
+  //     case "wav":
+  //       return "wav";
+  //     case "jpeg":
+  //       return "jpeg";
+  //     case "jpg":
+  //       return "jpg";
+  //     case "png":
+  //       return "png";
+  //     case "gif":
+  //       return "gif";
+  //     case "svg":
+  //       return "svg+xml";
+  //     case "webp":
+  //       return "webp";
+  //     case "pdf":
+  //       return "pdf";
+  //     case "mp4":
+  //       return "mp4";
+  //     case "ics":
+  //       return "calendar";
+  //     case "hwp":
+  //       return "octet-stream";
+
+  //     case "MP3":
+  //       return "mp3";
+  //     case "WAV":
+  //       return "wav";
+  //     case "JPEG":
+  //       return "jpeg";
+  //     case "JPG":
+  //       return "jpg";
+  //     case "PNG":
+  //       return "png";
+  //     case "GIF":
+  //       return "gif";
+  //     case "SVG":
+  //       return "svg+xml";
+  //     case "WEBP":
+  //       return "webp";
+  //     case "PDF":
+  //       return "pdf";
+  //     case "MP4":
+  //       return "mp4";
+  //     case "ICS":
+  //       return "calendar";
+  //     case "HWP":
+  //       return "octet-stream";
+  //     default:
+  //       return null;
+  //   }
+  // }
   scriptObj:{[name:string]:{
     url:string,
     loaded:boolean,

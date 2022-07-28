@@ -27,6 +27,7 @@
   <app-row mobileBreak>
     <app-col>
       <app-select [disabled]="!update_state" label="구분" [(ngModel)]="form.msds_type" [required]="true">
+        <app-select-option value="해당없음">해당없음</app-select-option>
         <app-select-option value="폭발성 물질">폭발성 물질</app-select-option>
         <app-select-option value="인화성 가스">인화성 가스</app-select-option>
         <app-select-option value="인화성 액체">인화성 액체</app-select-option>

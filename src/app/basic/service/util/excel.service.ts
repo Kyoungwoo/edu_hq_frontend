@@ -1,3 +1,4 @@
+import { FileService } from 'src/app/basic/service/core/file.service';
 import { Injectable } from '@angular/core';
 // declare var XLSX;
 import * as XLSX from '@sheet/image';
@@ -42,7 +43,7 @@ export interface SheetStyle {
 })
 export class ExcelService {
 
-  constructor() { }
+  constructor(private file: FileService) { }
 
   public make(sheetList:Sheet[], fileName:string) {
       var wb = XLSX.utils.book_new();
@@ -215,7 +216,6 @@ export class ExcelService {
             if(col.img) {
               if(!ws['!images']) ws['!images'] = [];
               if(col.img.src){
-                console.log(col.img.src);
                 ws['!images'].push({
                   "!link": col.img.src,
                   "!pos": { c: cur_ci, r: cur_ri, x: col.img.left, y: col.img.top, w: col.img.width, h: col.img.height},
