@@ -181,7 +181,7 @@ export class ApprovalComponent implements OnInit {
   /** 결재 요청 버튼 클릭 */
   onSendClick() {
     this.alert.present({
-      message: '결재 요청 하시겠습니까?',
+      message: '현재 결재선으로 결재요청을 진행하시겠습니까?',
       buttons: [
         { text: '아니오' },
         { text: '예', handler: async() => {
