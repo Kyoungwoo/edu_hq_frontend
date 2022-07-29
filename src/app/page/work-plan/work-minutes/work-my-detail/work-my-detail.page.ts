@@ -30,6 +30,8 @@ export class EditItem {
   safety_meeting_start_time:string;
   safety_meeting_end_time:string;
 
+  company_file_data: FutItem[] = [];
+
   safety_meeting_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
   file_json: FileJson = new FileJson();
@@ -70,7 +72,7 @@ export class WorkMyDetailPage implements OnInit {
    async getDetail() {
     const res = await this.connect.run('/board/safety_meeting/detail', {
       safety_meeting_id: this.form.safety_meeting_id
-    }, { parse: ['safety_meeting_file_data'] });
+    }, { parse: ['safety_meeting_file_data', 'company_file_data'] });
     if(res.rsCode === 0) {
       this.form = {
         ...this.form,

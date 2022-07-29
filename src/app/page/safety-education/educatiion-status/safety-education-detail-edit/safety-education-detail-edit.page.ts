@@ -37,6 +37,7 @@ export class EditItem {
   education_safe_id: number;
   create_date: string;
   education_safe_manager_names:string;
+  company_file_data: FutItem[] = [];
 
   education_safe_file_data: FutItem[] = [];
   file: (File|FileBlob)[] = [];
@@ -163,7 +164,7 @@ export class SafetyEducationDetailEditPage implements OnInit {
   
   async getItem() {
     const res = await this.connect.run('/education/detail',{education_safe_id:this.item.education_safe_id},{
-      parse:['education_safe_manager_ids','education_safe_manager_names','education_safe_file_data']
+      parse:['education_safe_manager_ids','education_safe_manager_names','education_safe_file_data', 'company_file_data']
     });
     if(res.rsCode === 0) {
       this.form = {

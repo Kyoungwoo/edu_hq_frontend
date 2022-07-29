@@ -1,0 +1,169 @@
+
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>작업 절차서 {{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ng-container *mobileHidden>
+  <ion-content>
+    <h4>공지사항</h4>
+   <app-row mobileBreak>
+     <app-col>
+        <app-select-scene label="현장명" [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+     </app-col>
+     <app-col>
+      <app-input label="업체명" [(ngModel)]="form.company_name" [disabled]="true"></app-input>
+     </app-col>
+   </app-row>
+   <app-row mobileBreak>
+    <app-col>
+        <app-input label="작성자" [(ngModel)]="form.create_user_name" [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input label="작성일" [(ngModel)]="form.create_date" [disabled]="true"></app-input>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak>
+    <app-col>
+      <app-select [disabled]="!update_state" label="언어" [(ngModel)]="form.work_procedure_language" [required]="true">
+        <app-select-option value="한국어">한국어</app-select-option>
+        <app-select-option value="영어">영어</app-select-option>
+        <app-select-option value="베트남어">베트남어</app-select-option>
+        <app-select-option value="중국어">중국어</app-select-option>
+        <app-select-option value="태국어">태국어</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col>
+      <app-select-contractor [disabled]="!update_state" [allState]="true" [project_id]="form.project_id" [multiple]="false" [(ngModel)]="form.master_company_id" *ngIf="user.userData.belong_data.company_contract_type === 'LH'"></app-select-contractor>
+    </app-col>
+  </app-row>
+    <app-row>
+      <app-col>
+        <app-input [disabled]="!update_state" label="제목" [(ngModel)]="form.work_procedure_title"></app-input>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-textarea label="내용" 
+        [rows]="10"
+        [(ngModel)]="form.work_procedure_text" [readonly]="!update_state"></app-textarea>
+        <!-- <app-smartedit #noticeText name="notice_text" placeholder="내용을 입력하세요." 
+        [disabled]="!update_state"
+        [color]="validator.notice_title?.valid === false && 'warning'"
+        [(ngModel)]="form.notice_content"></app-smartedit> -->
+        <app-input-caption *ngIf="validator.work_procedure_title?.valid === false">{{ validator.work_procedure_title.message }}</app-input-caption>
+      </app-col>
+    </app-row>
+    <app-row *mobileShow>
+      <app-col>
+        <app-textarea value="공지합니다" [readonly]="true"></app-textarea>
+      </app-col>
+    </app-row>
+    <h4>
+      <app-row>
+        <app-col>
+          첨부자료
+        </app-col>
+        <app-col size="auto" *ngIf="update_state">
+          <app-button fill="translucent">추가
+            <app-file name="input" view_type="PROCEDURE"
+            [(ngModel)]="form.work_procedure_file_data" 
+            [file]="form.file" 
+            [file_json]="form.file_json" [multiple]="true"></app-file>
+          </app-button>
+        </app-col>
+      </app-row>
+    </h4>
+    <app-file-preview [readonly]="!update_state"  *ngFor="let futItem of form.work_procedure_file_data; let i = index" [futItem]="futItem"  
+    (buttonClick)="form.work_procedure_file_data.splice(i,1)"></app-file-preview>
+
+</ion-content>
+<app-button-footer>
+  <!-- <app-button *ngIf="item && useNotice" fill="translucent" (click)="submit()">수정</app-button> -->
+  <app-button *ngIf="work_procedure_id && useNotice" fill="translucent" (click)="updateButton()">{{ update_state ? '저장' : '수정' }}</app-button>
+  <app-button *ngIf="work_procedure_id && useNotice"color="danger" (click)="Delete()" fill="translucent">삭제</app-button>
+  <app-button *ngIf="!work_procedure_id" (click)="submit()">저장</app-button>
+</app-button-footer>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-content>
+    <app-row>
+      <app-col>
+        <h4>{{ languagePack.getText('공지사항') }}</h4>
+      </app-col>
+    </app-row>
+    <app-card>
+      <app-row>
+        <app-col>
+          <h5>{{ languagePack.getText('현장명') }}</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.project_name}}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>{{ languagePack.getText('업체명') }}</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.company_name }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>{{ languagePack.getText('작성자') }}</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.create_user_name }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>{{ languagePack.getText('작성일') }}</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.create_date }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>{{ languagePack.getText('구분') }}</h5>
+        </app-col>
+        <app-col>
+          <p>{{ form.work_procedure_language }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>제목</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.work_procedure_title }}</p>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h5>내용</h5>
+        </app-col>
+        <app-col >
+          <p>{{ form.work_procedure_text }}</p>
+        </app-col>
+      </app-row>
+    </app-card>
+    <app-row>
+      <app-col>
+        <h4>{{ languagePack.getText('첨부자료') }}</h4>
+      </app-col>
+    </app-row>
+    <app-file-preview [readonly]="!update_state"  *ngFor="let futItem of form.work_procedure_file_data; let i = index" [futItem]="futItem"  
+    (buttonClick)="form.work_procedure_file_data.splice(i,1)"></app-file-preview>
+  </ion-content>
+</ng-container>
+<app-button-footer *mobileShow>
+  <app-button (click)="dismiss()">{{ languagePack.getText('확인') }}</app-button>
+</app-button-footer>

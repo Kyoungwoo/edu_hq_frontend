@@ -631,6 +631,18 @@ const routes: Routes = [
   {
     path: 'work-my-detail',
     loadChildren: () => import('./page/work-plan/work-minutes/work-my-detail/work-my-detail.module').then( m => m.WorkMyDetailPageModule)
+  },
+  {
+    path: 'procedure-list',
+    loadChildren: () => import('./page/notice-board/procedure/procedure-list/procedure-list.module').then( m => m.ProcedureListPageModule)
+  },
+  {
+    path: 'procedure-edit',
+    loadChildren: () => import('./page/notice-board/procedure/procedure-edit/procedure-edit.module').then( m => m.ProcedureEditPageModule)
+  },
+  {
+    path: 'procedure-search',
+    loadChildren: () => import('./page/notice-board/procedure/procedure-search/procedure-search.module').then( m => m.ProcedureSearchPageModule)
   }
 ];
 

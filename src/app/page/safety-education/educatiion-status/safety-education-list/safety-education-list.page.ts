@@ -46,11 +46,11 @@ export class SafetyEducationListPage implements OnInit {
     company_id:0,
     ctgo_education_safe_id:0,
     education_safe_state:'전체',
-    end_date:this.date.today({date:7}),
+    end_date:this.date.today({month:1}),
     limit_no:0,
     project_id:0,
     search_text:'',
-    start_date:this.date.today(),
+    start_date:this.date.today({month:-1}),
   }
 
   res:ConnectResult<EduItem>

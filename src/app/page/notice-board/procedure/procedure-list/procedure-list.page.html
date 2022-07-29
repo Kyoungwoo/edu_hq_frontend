@@ -1,0 +1,136 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto"><h5>필터</h5></app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="get(0)">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id" [disabled]="!permission.company_id" [allState]="permission.company_id"></app-select-contractor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select label="언어 구분" [(ngModel)]="form.work_procedure_languages" [multiple]="true">
+                  <app-select-option type="all" [value]="[]">전체</app-select-option>
+                  <app-select-option value="한국어">한국어</app-select-option>
+                  <app-select-option value="영어">영어</app-select-option>
+                  <app-select-option value="베트남어">베트남어</app-select-option>
+                  <app-select-option value="중국어">중국어</app-select-option>
+                  <app-select-option value="태국어">태국어</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="등록일">
+                  <app-calendar name="start_date" [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                  ~
+                  <app-calendar name="end_date" [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+      <app-col>
+        <ion-toolbar color="white" *ngIf="user.userData.belong_data.company_contract_type === 'LH' 
+        || user.userData.belong_data.company_contract_type === '원청사' || user.userData.belong_data.company_contract_type === '협력사'">   
+          <ion-buttons slot="start">
+            <app-button fill="translucent" (click)="edit()">등록</app-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="white">
+          <h5>작업 절차서 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <ng-container *ngIf="res">
+          <ng-container *ngIf="res.rsCode === 0 else tempFail">
+            <app-table>
+              <thead>
+                <tr>
+                  <th style="width: 48px;">No</th>
+                  <th>언어</th>
+                  <th>제목</th>
+                  <th>업체명</th>
+                  <th>작성자</th>
+                  <th>작성일</th>
+                  <th style="width: 50px;">조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="button" *ngFor="let item of res?.rsMap" (click)="edit(item.work_procedure_id)">
+                  <td>{{ item.index }}</td>
+                  <td>{{ item.work_procedure_language }}</td>
+                  <td style="text-align: left;">{{ item.work_procedure_title }}</td>
+                  <td>{{ item.company_name }}</td>
+                  <td>{{ item.create_user_name }}</td>
+                  <td>{{ item.create_date }}</td>
+                  <td>{{ item.work_procedure_read }}</td>
+                </tr>
+              </tbody>
+            </app-table>
+            <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)"></app-pager>
+          </ng-container>
+          <ng-template #tempFail>
+            <app-card>{{ res.rsMsg }}</app-card>
+          </ng-template>
+        </ng-container>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ languagePack.getText('공지사항') }}</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-select-scene name="project_id" [(ngModel)]="form.project_id" [readonly]="true"></app-select-scene>
+        <app-button (click)="detailSearch()">{{ languagePack.getText('상세검색') }}</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-card *ngFor="let item of res?.rsMap" (click)="edit(item.work_procedure_id)">
+      <app-row style="align-items: flex-start;">
+        <app-col>
+          <h5>{{ item.work_procedure_title }}</h5>
+          <p>{{ item.company_name }}/{{ item.create_user_name }}/{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
+        </app-col>
+      </app-row>
+      <ion-badge color="success">{{ item.work_procedure_language }}</ion-badge>
+    </app-card>
+
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ng-container>

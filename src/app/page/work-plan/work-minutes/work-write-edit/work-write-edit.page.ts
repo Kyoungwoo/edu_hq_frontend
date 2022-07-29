@@ -167,7 +167,7 @@ export class WorkWriteEditPage implements OnInit {
     });
     
     const res = await this.connect.run('/board/safety_meeting/detail', {safety_meeting_id: this.item.safety_meeting_id },{
-      parse:[ 'safety_meeting_file_data' ]
+      parse:[ 'safety_meeting_file_data', 'company_file_data' ]
     });
     if(res.rsCode === 0) {
       this.form = {

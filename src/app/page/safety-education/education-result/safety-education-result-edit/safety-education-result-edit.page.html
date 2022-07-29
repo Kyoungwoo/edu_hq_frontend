@@ -143,7 +143,7 @@
       </app-col>
     </app-row>
 
-    <!-- <app-row>
+    <app-row>
       <app-col>
         <h4>교육 자료</h4>
       </app-col>
@@ -156,10 +156,14 @@
         </app-button>
       </app-col>
     </app-row>
-    <app-file-preview type="full" *ngFor="let futItem of form.education_safe_file_data; let i = index" 
-    [futItem]="futItem" 
-    [readonly]="!permission.edit"
-    (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> -->
+    <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index" >
+      <app-file-preview type="full"
+      *ngIf="futItem.view_type === 'EDU'"
+      [futItem]="futItem" 
+      [readonly]="!permission.edit"
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+    </ng-container>
+
 
     <app-row>
       <app-col>

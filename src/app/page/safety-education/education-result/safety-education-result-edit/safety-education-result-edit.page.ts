@@ -136,7 +136,7 @@ export class SafetyEducationResultEditPage implements OnInit {
     });
     
     const res = await this.connect.run('/education/detail', {education_safe_id: this.item.education_safe_id },{
-      parse:[ 'education_safe_manager_names', 'education_safe_manager_ids', 'education_safe_file_data' ]
+      parse:[ 'education_safe_manager_names', 'education_safe_manager_ids', 'education_safe_file_data', 'company_file_data' ]
     });
     if(res.rsCode === 0) {
       this.form = {

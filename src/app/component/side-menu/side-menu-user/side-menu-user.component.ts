@@ -184,10 +184,11 @@ export class SideMenuUserComponent implements OnInit {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
        }},
-      { title: '회의록', link: '/minutes-list', params: {}, permission: () => { 
+       { title: '회의록', link: '/minutes-list', params: {}, permission: () => { 
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'WORKER';
-       }}
+       }},
+       { title: '작업 절차서', link: '/procedure-list', params: {}}
     ]},
     { img:'assets/img/menu/notification-box.svg',title: '알림함', subMenuList: [
       { title: '알림함', link: '/notify-list', params: {}, permission: () => {return true;}},

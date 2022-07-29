@@ -330,6 +330,7 @@ export class  SideMenuAdminComponent implements OnInit {
       { title: '공지사항', link: '/notice-list'},
       { title: 'MSDS', link: '/msds-list'},
       { title: '회의록', link: '/minutes-list'},
+      { title: '작업 절차서', link: '/procedure-list'},
     ]},
     { title: '알림함', img: 'assets/img/menu/notification-box.svg', subMenuList: [
       { title: '알림함', link: '/notify-list'}

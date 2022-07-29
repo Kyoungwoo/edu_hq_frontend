@@ -129,8 +129,28 @@
           </ng-container>
         </app-col>
       </app-row>
-      
     </form>
+    <app-row>
+      <app-col>
+        <h4>교육 자료</h4>
+      </app-col>
+      <app-col size="auto" *ngIf="editable.my_state">
+        <app-button fill="translucent">
+          <app-file view_type="EDU" [multiple]="true" [(ngModel)]="form.education_safe_file_data"
+            [file]="form.file" [file_json]="form.file_json">
+          </app-file>
+          첨부
+        </app-button>
+      </app-col>
+    </app-row>
+    <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index" >
+      <app-file-preview type="full"
+      *ngIf="futItem.view_type === 'EDU'"
+      [futItem]="futItem" 
+      [readonly]="editable.my_state ? false : (item)"
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
+    </ng-container>
+    
       <ng-container *ngIf="form.education_safe_state !== '교육 전'">
         <app-row style="margin-top: 10px;">
           <app-col>

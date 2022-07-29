@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>{{ languagePack.getText('상세검색') }}</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-row>
+      <app-col>
+        <app-select-scene [(ngModel)]="temptForm.project_id"></app-select-scene>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-select-contractor [project_id]="temptForm.project_id" [(ngModel)]="temptForm.master_company_id"></app-select-contractor>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-select label="공지사항 구분" [(ngModel)]="temptForm.work_procedure_languages" [multiple]="true">
+          <app-select-option type="all" [value]="[]">전체</app-select-option>
+          <app-select-option value="한국어">한국어</app-select-option>
+          <app-select-option value="영어">영어</app-select-option>
+          <app-select-option value="베트남어">베트남어</app-select-option>
+          <app-select-option value="중국어">중국어</app-select-option>
+          <app-select-option value="태국어">태국어</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input-group [label]="languagePack.getText('작성일')">
+          <app-calendar [(ngModel)]="temptForm.start_date" [max]="temptForm.end_date"></app-calendar>
+          ~
+          <app-calendar [(ngModel)]="temptForm.end_date" [min]="temptForm.start_date"></app-calendar>
+        </app-input-group>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <app-input [(ngModel)]="temptForm.search_text" [label]="languagePack.getText('검색어')"></app-input>
+      </app-col>
+    </app-row>
+</ion-content>
+
+<app-button-footer>
+  <app-button (click)="reset()">{{ languagePack.getText('초기화') }}</app-button>
+  <app-button (click)="search()">{{ languagePack.getText('검색') }}</app-button>
+</app-button-footer>

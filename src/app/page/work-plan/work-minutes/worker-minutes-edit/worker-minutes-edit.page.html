@@ -172,6 +172,27 @@
           </ng-container>
         </app-col>
       </app-row>
+
+      <app-row>
+        <app-col>
+          <h4>교육 자료</h4>
+        </app-col>
+        <app-col size="auto" *ngIf="editable.my_state">
+          <app-button fill="translucent">
+            <app-file view_type="SAFETY" [multiple]="true" [(ngModel)]="form.safety_meeting_file_data"
+              [file]="form.file" [file_json]="form.file_json">
+            </app-file>
+            첨부
+          </app-button>
+        </app-col>
+      </app-row>
+      <ng-container *ngFor="let futItem of form.safety_meeting_file_data; let i = index" >
+        <app-file-preview type="full"
+        *ngIf="futItem.view_type === 'SAFETY'"
+        [futItem]="futItem" 
+        [readonly]="editable.my_state ? false : (safety_meeting_id)"
+        (buttonClick)="form.safety_meeting_file_data.splice(i,1)"></app-file-preview>
+      </ng-container>
   
       <ng-container *ngIf="safety_meeting_id && form.safety_meeting_state !== '회의 전'">
         <app-row style="margin-top: 10px;">

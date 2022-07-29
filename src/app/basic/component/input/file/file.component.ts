@@ -101,6 +101,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
 
   }
   fileAdd(fileList:(File | FileBlob)[]) {
+    console.log('fileList - ', fileList);
     const existLength = this.value.filter(item => item.seq_no).length;
     if(!this.multiple) {
       const file = fileList[0];
@@ -110,18 +111,56 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       // else 
       const existValueIndex = this.value.findIndex(item => item.view_type === this.view_type);
       if(existValueIndex > -1) this.value.splice(existValueIndex, 1);
-      this.fileItemAdd(file, this.view_type, existLength + 1);
+      
+      switch(this.view_type){
+        case 'EDU_ONE':
+        case 'SAFETY_ONE':
+          this.fileItemAdd(file, this.view_type, 1);
+          break;
+        case 'EDU_TWO':
+        case 'SAFETY_TWO':
+          this.fileItemAdd(file, this.view_type, 2);
+          break;
+        default:
+          this.fileItemAdd(file, this.view_type, existLength + 1);
+          break;
+      }
     } else {
+      console.log('insert - ', this.file_json.insert);
+      console.log('insert - ', this.value);
+      
+      let theme_arr_1 = [];
+      this.value.map((item) => {
+        if(item.view_type === 'EDU' || item.view_type === 'SAFETY') theme_arr_1.push(item.order_no);
+      });
+      // this.file_json.update?.map((item) => {
+      //   if(item.view_type === 'EDU' || item.view_type === 'SAFETY') theme_arr_1.push(item.order_no);
+      // });
+      console.log('theme_arr_1 - ', theme_arr_1);
+      let max_num = 0;
+      if(theme_arr_1.length) max_num = Math.max.apply(null,theme_arr_1);
+
       for(let i = 0; i < fileList.length; i++) {
         const file = fileList[i];
-        this.fileItemAdd(file, this.view_type, existLength + i + 1);
+        switch(this.view_type){
+          case 'EDU':
+          case 'SAFETY':
+            this.fileItemAdd(file, this.view_type, max_num ? max_num+1 : 3);
+            break;
+          default:
+            this.fileItemAdd(file, this.view_type, existLength + i + 1);
+            break;
+        }
+        // if(this.view_type === 'EDU' || this.view_type === 'SAFETY'){
+
+        // } else this.fileItemAdd(file, this.view_type, existLength + i + 1);
       }
     }
     console.log(this.file_json);
   }
   private fileItemAdd(file:File|FileBlob, view_type, order_no) {
-    if(view_type === 'EDU_ONE' || view_type === 'SAFETY_ONE') order_no = 1;
-    if(view_type === 'EDU_TWO' || view_type === 'SAFETY_TWO') order_no = 2;
+    // if(view_type === 'EDU_ONE' || view_type === 'SAFETY_ONE') order_no = 1;
+    // if(view_type === 'EDU_TWO' || view_type === 'SAFETY_TWO') order_no = 2;
     this.value.push({
       content_type: file.type,
       file_name: file.name,
@@ -157,16 +196,45 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       if(deleteFileIndex === -1) return;
       this.file.splice(deleteFileIndex, 1);
     }
+    let order_no = 0;
+    let order_ch = 3;
     const reorderedList = this.value.map((_item, i) => {
-      if(_item.view_type === 'EDU_ONE' || _item.view_type === 'SAFETY_ONE') _item.order_no = 1;
-      if(_item.view_type === 'EDU_TWO' || _item.view_type === 'SAFETY_TWO') _item.order_no = 2;
+      // if(_item.view_type === 'EDU_ONE' || _item.view_type === 'SAFETY_ONE') _item.order_no = 1;
+      // if(_item.view_type === 'EDU_TWO' || _item.view_type === 'SAFETY_TWO') _item.order_no = 2;
+      switch(_item.view_type){
+        case 'EDU_ONE':
+        case 'SAFETY_ONE':
+          order_no = 1
+          _item.order_no = 1;
+          break;
+        case 'EDU_TWO':
+        case 'SAFETY_TWO':
+          order_no = 2
+          _item.order_no = 2;
+          break;
+        case 'EDU':
+        case 'SAFETY':
+          order_no = order_ch;
+          _item.order_no = order_ch;
+          order_ch++;
+          break;
+        default:
+          order_no = i+1;
+          break;
+      }
+
       return {
         seq_no: _item.seq_no,
-        order_no: i + 1,
+        order_no: order_no,
         view_type: _item.view_type
       }
     });
     console.log(reorderedList);
+    
+    // const reorderedList_final = reorderedList.map((item) => {
+
+    // });
+
     this.file_json.update = reorderedList.filter(_item => _item.seq_no);
     this.file_json.insert = reorderedList.filter(_item => !_item.seq_no);
     console.log(this.file_json);
