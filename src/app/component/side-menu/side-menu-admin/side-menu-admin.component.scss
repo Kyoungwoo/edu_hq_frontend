@@ -12,6 +12,8 @@ app-row.menu-list {
 app-col.menu-item {
 	border-right: 1px solid #E4EDF5;
 	text-align: left;
+	max-width: 180px!important;
+	min-width: 120px!important;
 }
 app-col:nth-child(6n) {
 	border-right:none;
