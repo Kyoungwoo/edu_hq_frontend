@@ -50,7 +50,7 @@ export class GeolocationService {
         icon: 'drawable/default_dark'
       }
       const connect:GeolocationConnectOptions = {
-        url: 'https://api.lh-skeeper.or.kr/work_project/gps/call',
+        url: 'https://dev-api.lh-skeeper.or.kr/work_project/gps/call',
         authorization: `Bearer ${this.user.authToken.login_token}`,
         body: {
           latitude: '@latitude',
