@@ -23,7 +23,7 @@ export class MinutesListPage implements OnInit {
     start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
-    approval_cnt_answer: ['결재완료'],
+    approval_cnt_answer: ['결재완료', '결재중'],
     limit_no: 0
   }
 

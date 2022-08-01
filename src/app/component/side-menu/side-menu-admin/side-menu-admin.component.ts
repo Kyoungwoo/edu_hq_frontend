@@ -279,7 +279,7 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
       }},
     ]},
-    { title: '현장관리', img: 'assets/img/menu/site-management.svg', subMenuList: [
+    { title: '현장관리/기준설정', img: 'assets/img/menu/site-management.svg', subMenuList: [
       { title: '현장 정보 관리', link: '/scene-list',
       permission: () => {
         const {  user_type } = this.user.userData;
@@ -300,31 +300,41 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_type, user_role } = this.user.userData;
         return user_role === 'LH_HEAD'  || user_type === 'COMPANY';
       }},
-      { title: '기준 정보 관리',
-        permission: () => {
-          const { user_type ,user_role } = this.user.userData;
-          return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-        },
-      thirdMenuList: [
-        // { title:'회원 정보 기준 설정', link:'/member-standard-set',
-        // permission: () => {
-        //   const { user_role } = this.user.userData;
-        //   return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-        // }},
-        // { title:'교육 정보 기준 설정',link:'' },
-        { title:'장소 정보 기준 설정',link:'/area-standard-set',
-        permission: () => {
-          const {  user_role } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
-        }},
-        { title:'작업 정보 기준 설정',link:'/work-standard-set' ,
-        permission: () => {
-          const {  user_role } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
-        }},
-        // { title:'비상 관리 기준 설정',link:'' }, 
-        // { title:'시스템 활용 기준 설정',link:'' }
-      ]}
+      { title:'장소 정보 기준 설정',link:'/area-standard-set',
+      permission: () => {
+        const {  user_role } = this.user.userData;
+        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+      }},
+      { title:'작업 정보 기준 설정',link:'/work-standard-set' ,
+      permission: () => {
+        const {  user_role } = this.user.userData;
+        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+      }},
+      // { title: '기준 정보 관리',
+      //   permission: () => {
+      //     const { user_type ,user_role } = this.user.userData;
+      //     return user_role === 'LH_HEAD'  || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+      //   },
+      // thirdMenuList: [
+      //   // { title:'회원 정보 기준 설정', link:'/member-standard-set',
+      //   // permission: () => {
+      //   //   const { user_role } = this.user.userData;
+      //   //   return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+      //   // }},
+      //   // { title:'교육 정보 기준 설정',link:'' },
+      //   { title:'장소 정보 기준 설정',link:'/area-standard-set',
+      //   permission: () => {
+      //     const {  user_role } = this.user.userData;
+      //     return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+      //   }},
+      //   { title:'작업 정보 기준 설정',link:'/work-standard-set' ,
+      //   permission: () => {
+      //     const {  user_role } = this.user.userData;
+      //     return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+      //   }},
+      //   // { title:'비상 관리 기준 설정',link:'' }, 
+      //   // { title:'시스템 활용 기준 설정',link:'' }
+      // ]}
     ]},
     { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
       { title: '공지사항', link: '/notice-list'},
