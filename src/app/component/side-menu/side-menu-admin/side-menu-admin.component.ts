@@ -163,7 +163,7 @@ export class  SideMenuAdminComponent implements OnInit {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
-      { title: '스마트 안전 장비\n등록/관리', 
+      { title: '스마트 안전장비 관리', 
       permission: () => {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
