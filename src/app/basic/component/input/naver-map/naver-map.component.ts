@@ -84,7 +84,7 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
     this.path = polygon.getPaths().getAt(0);
 
     naver.maps.Event.addListener(this.map, 'click', (e) => {
-      this.addMarker(e.coord);
+      if(!this.disabled) this.addMarker(e.coord);
     });
 
     this.afteInitRes();
@@ -101,14 +101,18 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
   }
 
   private addMarker(coord?: LatLng) {
-    if (this.disabled) return;
+    // if (this.disabled) return;
     // 좌표 생성
-    const marker = new naver.maps.Marker({
-      map: this.map,
-      position: coord,
-      draggable: true
-    });
-    this.marker.push(marker);
+    let marker = null
+    if(!this.disabled) {
+      marker = new naver.maps.Marker({
+        map: this.map,
+        position: coord,
+        draggable: this.disabled ? false : true
+      });
+      this.marker.push(marker);
+    }
+
     this.path.push(coord);
 
     if(!this._value){
@@ -125,29 +129,31 @@ export class NaverMapComponent implements OnInit, AfterViewInit, ControlValueAcc
 
 
     // 좌표 움직임 셋팅
-    naver.maps.Event.addListener(marker, "dragend", (e) => {
-      const point: LatLng = e.coord;
-      const index = this.marker.indexOf(marker);
-
-      this.marker.splice(index, 1, marker);
-      this.path.splice(index, 1, point);
-
-      this._value.gps_latitude.splice(index, 1, point.y);
-      this._value.gps_longitude.splice(index, 1, point.x);
-    });
-
-    // 좌표 삭제 셋팅
-    naver.maps.Event.addListener(marker, "rightclick", (e) => {
-      const index = this.marker.indexOf(marker);
-
-      this.marker.splice(index, 1);
-      this.path.splice(index, 1);
-
-      this._value.gps_latitude.splice(index, 1);
-      this._value.gps_longitude.splice(index, 1);
-
-      marker.setMap(null);
-    });
+    if (!this.disabled){
+      naver.maps.Event.addListener(marker, "dragend", (e) => {
+        const point: LatLng = e.coord;
+        const index = this.marker.indexOf(marker);
+  
+        this.marker.splice(index, 1, marker);
+        this.path.splice(index, 1, point);
+  
+        this._value.gps_latitude.splice(index, 1, point.y);
+        this._value.gps_longitude.splice(index, 1, point.x);
+      });
+  
+      // 좌표 삭제 셋팅
+      naver.maps.Event.addListener(marker, "rightclick", (e) => {
+        const index = this.marker.indexOf(marker);
+  
+        this.marker.splice(index, 1);
+        this.path.splice(index, 1);
+  
+        this._value.gps_latitude.splice(index, 1);
+        this._value.gps_longitude.splice(index, 1);
+  
+        marker.setMap(null);
+      });
+    }
   }
 
   private resetMarker() {

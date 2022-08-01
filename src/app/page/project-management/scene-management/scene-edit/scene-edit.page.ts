@@ -269,7 +269,8 @@ export class SceneEditPage implements OnInit {
       const modal = await this._modal.create({
         component: ProjectAreaSetComponent,
         componentProps:{ 
-          gps_coordinate_data: this.form.gps_coordinate_data
+          gps_coordinate_data: this.form.gps_coordinate_data,
+          disabled: this.roleCheck
         }
       });
       modal.present();

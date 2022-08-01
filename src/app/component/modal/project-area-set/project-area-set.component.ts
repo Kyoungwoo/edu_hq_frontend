@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 export class ProjectAreaSetComponent implements OnInit {
 
   @Input() gps_coordinate_data;
+  @Input() disabled:boolean = false;
   mapData:GpsCoordinateData;
 
   constructor(
