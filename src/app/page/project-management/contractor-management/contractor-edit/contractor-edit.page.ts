@@ -130,7 +130,10 @@ export class ContractorEditPage implements OnInit {
       parse: ['company_file_data']
     });
     if (res.rsCode === 0) {
-      this.form = res.rsObj;
+      this.form = {
+        ...this.form,
+        ...res.rsObj
+      };
       this.form.company_contract_data = res.rsMap;
     }
   }
