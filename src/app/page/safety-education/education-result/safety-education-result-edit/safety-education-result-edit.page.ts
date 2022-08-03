@@ -391,143 +391,188 @@ export class SafetyEducationResultEditPage implements OnInit {
     const logo:SheetStyle = {
       border: headerBorder,
       textAlign:'center',
-      fontSize:16,
-      width: 80,
-      height:30,
+      fontSize:18,
+      width: 100,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const logo_theme:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'left',
-      fontSize:12,
-      height:30,
+      fontSize:18,
+      height:45,
+      verticalAlign: "top",
+      whiteSpace: 'normal'
+    }
+
+    const logo_theme_2:SheetStyle = {
+      width: 100,
+      border: headerBorder,
+      textAlign:'left',
+      fontSize:20,
+      height:45,
       verticalAlign: "top",
       whiteSpace: 'normal'
     }
 
     const title_1:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      width: 80,
-      fontSize:16,
+      height:45,
+      // width: 80,
+      fontSize:30,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_2:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 40,
-      fontSize:16,
+      // width: 40,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_3:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 200,
-      fontSize:16,
+      // width: 200,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_4:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 60,
-      fontSize:16,
+      // width: 60,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const border_1:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
+      fontSize: 18,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_1_left:SheetStyle = {
+      width: 100,
+      height:45,
+      border: headerBorder,
+      textAlign:'left',
+      fontSize: 18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const border_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
-      height: 65,
+      height: 45,
+      fontSize: 18,
       textAlign:'center',
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const approval_1:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
       // width: 80,
-      fontSize:12,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const approval_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
       // width: 80,
-      height: 40,
-      fontSize:11,
+      height: 45,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_1:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
-      fontSize:12,
-      height:52,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
-      fontSize:12,
-      height:32,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_1_user:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
-      fontSize:12,
-      height:48,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_2_user:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      fontSize:12,
-      height:48,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_4:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      fontSize:12,
-      height:32,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     let logo_theme_arr = [];
     for(let i = 0; i < 18; i++) logo_theme_arr.push({code: logo_theme});
+
+    let logo_theme_arr_3 = [];
+    for(let i = 0; i < 18; i++) logo_theme_arr_3.push({code: logo_theme_2});
 
     let logo_theme_arr_2 = [];
     for(let i = 0; i < 14; i++) logo_theme_arr_2.push({code: logo_theme});
@@ -596,9 +641,8 @@ export class SafetyEducationResultEditPage implements OnInit {
           {text: '교육내용', colspan: 18},
         ],
         [
-          {text: this.form.education_safe_text, colspan: 18, rowspan: 45},
+          {text: this.form.education_safe_text, colspan: 18, rowspan: 25},
         ],
-        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
         [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
         [],[],[],[],
         [
@@ -615,12 +659,11 @@ export class SafetyEducationResultEditPage implements OnInit {
         [{code: logo},{code: logo},{code: logo},{code: logo},{code: title_1},{code: title_1},{code: title_1},{code: title_1},{code: title_2},{code: title_2},{code: title_1},{code: title_1},{code: title_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1}],
         logo_theme_arr_2,logo_theme_arr_2,logo_theme_arr_2,
         [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
-        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
         [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
         sub_title_theme_arr,
-        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
-        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
-        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+        logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,
+        logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,
 
         sub_title_theme_arr,
         logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
@@ -679,13 +722,19 @@ export class SafetyEducationResultEditPage implements OnInit {
 
     // 참석자명단 리스트 데이터
     let change_cnt = 0;
-    let list_theme_arr_num = Math.ceil((this.res.rsMap.length / 2));
+    let list_theme_arr_num = this.res.rsMap.length > 50 ? Math.ceil((this.res.rsMap.length / 2)) : 25;
     for(let i = 0; i < list_theme_arr_num; i++){
       let item_arr = [];
       for(let x = 0; x < 1; x++){
-        if(change_cnt%2 === 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        if(change_cnt%2 === 0){
+          if(this.res.rsMap.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
+        }
         change_cnt++;
-        if(change_cnt%2 !== 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        if(change_cnt%2 !== 0){
+          if(this.res.rsMap.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
+        }
         change_cnt++;
       }
       sheetData_user_list.data.push(item_arr);
@@ -746,13 +795,13 @@ export class SafetyEducationResultEditPage implements OnInit {
     
     // 회사 로고 이미지데이터
     if(this.form.company_file_data && this.form.company_file_data.length){
-      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 135, width: 350, left: 8, top: 8}, rowspan: 4, colspan: 4};
+      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 150, width: 430, left: 8, top: 8}, rowspan: 4, colspan: 4};
     }
 
     // 회의 사진 데이터
     if(this.form.education_safe_file_data && this.form.education_safe_file_data.length){
-      sheetData.data[54][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 500, width: 700, left: 8, top: 8}, rowspan: 18, colspan: 9};
-      sheetData.data[54][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 500, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[34][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 730, width: 1000, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[34][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 730, width: 1000, left: 8, top: 8}, rowspan: 18, colspan: 9};
     }
 
     // img?: {
