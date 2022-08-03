@@ -126,8 +126,8 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
           break;
       }
     } else {
-      console.log('insert - ', this.file_json.insert);
-      console.log('insert - ', this.value);
+      // console.log('insert - ', this.file_json.insert);
+      // console.log('insert - ', this.value);
       
       let theme_arr_1 = [];
       this.value.map((item) => {
@@ -136,7 +136,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
       // this.file_json.update?.map((item) => {
       //   if(item.view_type === 'EDU' || item.view_type === 'SAFETY') theme_arr_1.push(item.order_no);
       // });
-      console.log('theme_arr_1 - ', theme_arr_1);
+      // console.log('theme_arr_1 - ', theme_arr_1);
       let max_num = 0;
       if(theme_arr_1.length) max_num = Math.max.apply(null,theme_arr_1);
 
@@ -229,7 +229,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
         view_type: _item.view_type
       }
     });
-    console.log(reorderedList);
+    // console.log(reorderedList);
     
     // const reorderedList_final = reorderedList.map((item) => {
 
@@ -237,7 +237,7 @@ export class FileComponent implements OnInit, DoCheck, ControlValueAccessor {
 
     this.file_json.update = reorderedList.filter(_item => _item.seq_no);
     this.file_json.insert = reorderedList.filter(_item => !_item.seq_no);
-    console.log(this.file_json);
+    // console.log(this.file_json);
   }
 
 
