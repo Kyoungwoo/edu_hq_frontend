@@ -27,6 +27,8 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean = false;
   @Input() text:any;
 
+  text_theme = '';
+
   constructor(
     private _modal:ModalController
   ) { }
@@ -59,6 +61,8 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
       this.text.machinery_regist_no = selectedItem.machinery_regist_no;
       this.text.master_company_name = selectedItem.master_company_name;
       this.text.partner_company_name = selectedItem.partner_company_name;
+
+      this.text_theme = this.text.ctgo_machinery_name + ' / ' + this.text.machinery_regist_no;
     }
   }
 
