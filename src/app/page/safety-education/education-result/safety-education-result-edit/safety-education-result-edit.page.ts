@@ -568,24 +568,34 @@ export class SafetyEducationResultEditPage implements OnInit {
       whiteSpace: 'normal'
     }
 
+    const sub_title_5:SheetStyle = {
+      width: 200,
+      // border: headerBorder,
+      textAlign:'center',
+      fontSize:18,
+      height:85,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
     let logo_theme_arr = [];
-    for(let i = 0; i < 18; i++) logo_theme_arr.push({code: logo_theme});
+    for(let i = 0; i < 12; i++) logo_theme_arr.push({code: logo_theme});
 
     let logo_theme_arr_3 = [];
-    for(let i = 0; i < 18; i++) logo_theme_arr_3.push({code: logo_theme_2});
+    for(let i = 0; i < 12; i++) logo_theme_arr_3.push({code: logo_theme_2});
 
     let logo_theme_arr_2 = [];
-    for(let i = 0; i < 14; i++) logo_theme_arr_2.push({code: logo_theme});
+    for(let i = 0; i < 8; i++) logo_theme_arr_2.push({code: logo_theme});
     for(let i = 0; i < 4; i++) logo_theme_arr_2.push({code: approval_2});
 
     let sub_title_theme_arr = [];
-    for(let i = 0; i < 18; i++) sub_title_theme_arr.push({code: sub_title_2});
+    for(let i = 0; i < 12; i++) sub_title_theme_arr.push({code: sub_title_2});
 
     let sub_title_theme_arr_2 = [];
-    for(let i = 0; i < 18; i++) sub_title_theme_arr_2.push({code: sub_title_4});
+    for(let i = 0; i < 12; i++) sub_title_theme_arr_2.push({code: sub_title_4});
 
     let border_theme_arr = [];
-    for(let i = 0; i < 18; i++) border_theme_arr.push({code: border_2});
+    for(let i = 0; i < 12; i++) border_theme_arr.push({code: border_2});
 
     // let sheetData:Sheet = {
 
@@ -595,8 +605,8 @@ export class SafetyEducationResultEditPage implements OnInit {
       name: '교육 결과 보고서',
       data: [
         [
-          {colspan: 4, rowspan: 4},
-          {text: '교육결과보고서', colspan: 9, rowspan: 4},
+          {colspan: 2, rowspan: 4},
+          {text: '교육결과보고서', colspan: 5, rowspan: 4},
           {rowspan: 4, text: '결재'},
           {text: '검토'},
           {text: '검토'},
@@ -615,58 +625,61 @@ export class SafetyEducationResultEditPage implements OnInit {
           {text: '현장명'},
           {text: this.form.project_name, colspan: 4},
           {text: '회사명'},
-          {text: this.form.company_name, colspan: 4},
+          {text: this.form.company_name, colspan: 3},
           {text: '작성일'},
-          {text: this.form.create_date, colspan: 3},
-          {text: '작성자'},
-          {text: this.form.user_name, colspan: 3}
+          {text: this.form.create_date, colspan: 2},
         ],
         [
           {text: '교육명'},
-          {text: this.form.ctgo_education_safe_name, colspan: 13},
-          {text: '교육대상'},
-          {text: this.form.education_safe_target, colspan: 3},
+          {text: this.form.ctgo_education_safe_name, colspan: 11},
         ],
         [
           {text: '교육장소'},
           {text: this.form.education_safe_place, colspan: 4},
           {text: '교육일'},
-          {text: this.form.education_safe_date, colspan: 4},
+          {text: this.form.education_safe_date, colspan: 3},
           {text: '교육시간'},
-          {text: this.form.education_safe_start_time+' ~ '+this.form.education_safe_end_time+'('+this.form.education_safe_time+'H)', colspan: 3},
+          {text: this.form.education_safe_start_time+' ~ '+this.form.education_safe_end_time+'('+this.form.education_safe_time+'H)', colspan: 2},
+        ],
+        [
+          {text: '교육대상'},
+          {text: this.form.education_safe_target, colspan: 4},
           {text: '강사'},
-          {text: this.form.education_safe_report_instructor, colspan: 3}
+          {text: this.form.education_safe_report_instructor, colspan: 3},
+          {text: '작성자'},
+          {text: this.form.user_name, colspan: 2}
         ],
         [
-          {text: '교육내용', colspan: 18},
+          {text: '교육내용', colspan: 12},
         ],
         [
-          {text: this.form.education_safe_text, colspan: 18, rowspan: 25},
+          {text: this.form.education_safe_text, colspan: 12, rowspan: 25},
         ],
         [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
         [],[],[],[],
         [
-          {text: '사진', colspan: 9},
-          {text: '사진', colspan: 9},
+          {text: '사진', colspan: 6},
+          {text: '사진', colspan: 6},
         ],
         [
-          {colspan: 9, rowspan: 18},
-          {colspan: 9, rowspan: 18},
+          {colspan: 6, rowspan: 18},
+          {colspan: 6, rowspan: 18},
         ]
 
       ],
       style: [
-        [{code: logo},{code: logo},{code: logo},{code: logo},{code: title_1},{code: title_1},{code: title_1},{code: title_1},{code: title_2},{code: title_2},{code: title_1},{code: title_1},{code: title_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1}],
+        [{code: logo},{code: logo},{code: title_1},{code: title_1},{code: title_1},{code: title_1},{code: title_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1},{code: approval_1}],
         logo_theme_arr_2,logo_theme_arr_2,logo_theme_arr_2,
-        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
-        [{code: sub_title_1},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
-        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left},{code: border_1_left}],
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1}],
+        [{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1},{code: border_1},{code: sub_title_1},{code: border_1},{code: border_1}],
         sub_title_theme_arr,
         logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,
         logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,logo_theme_arr_3,
 
         sub_title_theme_arr,
-        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,
+        logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr,logo_theme_arr
       ]
     }
 
@@ -674,8 +687,13 @@ export class SafetyEducationResultEditPage implements OnInit {
       name: '참석자명단',
       data: [
         [
-          {text: '참석자 명단', colspan: 6},
-          {text: '교육일: '+this.form.education_safe_date, colspan: 2}
+          {colspan: 8, text: '참석자 명단'}
+        ],
+        [
+          {text: '교육명'},
+          {text: this.form.ctgo_education_safe_name, colspan: 5},
+          {text: '교육일'},
+          {text: this.form.education_safe_date}
         ],
         [
           {text: 'No'},
@@ -690,14 +708,24 @@ export class SafetyEducationResultEditPage implements OnInit {
       ],
       style: [
         [
-          {code: Object.assign(title_4, {height: 80})},
-          {code: title_3},
-          {code: title_3},
-          {code: title_3},
-          {code: title_4},
-          {code: title_3},
-          {code: title_3},
-          {code: title_3}
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5}
+        ],
+        [
+          {code: sub_title_2},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: sub_title_2},
+          {code: sub_title_2_user}
         ],
         [
           {code: sub_title_2},
@@ -710,7 +738,8 @@ export class SafetyEducationResultEditPage implements OnInit {
           {code: sub_title_2},
         ],
         // 리스트 들어가는곳
-      ]
+      ],
+      custom_col: [100,200,120,200,100,200,120,200]
     }
 
     // 결재 데이터
@@ -722,17 +751,18 @@ export class SafetyEducationResultEditPage implements OnInit {
 
     // 참석자명단 리스트 데이터
     let change_cnt = 0;
-    let list_theme_arr_num = this.res.rsMap.length > 50 ? Math.ceil((this.res.rsMap.length / 2)) : 25;
+    let list_theme_arr_num = this.res.rsMap?.length > 50 ? Math.ceil((this.res.rsMap.length / 2)) : 25;
+
     for(let i = 0; i < list_theme_arr_num; i++){
       let item_arr = [];
       for(let x = 0; x < 1; x++){
         if(change_cnt%2 === 0){
-          if(this.res.rsMap.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          if(this.res.rsMap?.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
           else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
         }
         change_cnt++;
         if(change_cnt%2 !== 0){
-          if(this.res.rsMap.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          if(this.res.rsMap?.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
           else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
         }
         change_cnt++;
@@ -795,13 +825,13 @@ export class SafetyEducationResultEditPage implements OnInit {
     
     // 회사 로고 이미지데이터
     if(this.form.company_file_data && this.form.company_file_data.length){
-      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 150, width: 430, left: 8, top: 8}, rowspan: 4, colspan: 4};
+      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 150, width: 210, left: 8, top: 8}, rowspan: 4, colspan: 2};
     }
 
     // 회의 사진 데이터
     if(this.form.education_safe_file_data && this.form.education_safe_file_data.length){
-      sheetData.data[34][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 730, width: 1000, left: 8, top: 8}, rowspan: 18, colspan: 9};
-      sheetData.data[34][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 730, width: 1000, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[35][0] = {img: {src: this.form.education_safe_file_data[0]?.full_url.toString(), height: 650, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 6};
+      sheetData.data[35][1] = {img: {src: this.form.education_safe_file_data[1]?.full_url.toString(), height: 650, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 6};
     }
 
     // img?: {
