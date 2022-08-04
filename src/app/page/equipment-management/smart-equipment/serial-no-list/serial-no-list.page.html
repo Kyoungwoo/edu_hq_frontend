@@ -62,14 +62,14 @@
             <thead>
               <tr>
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
-                <th>원청사명</th>
+                <th>업체명</th>
                 <th>장비구분</th>
                 <th>등록 NO</th>
-                <th>비콘 NO</th>
+                <th>시리얼 NO</th>
                 <th>NFC NO</th>
-                <th>기준값</th>
+                <!-- <th>기준값</th> -->
                 <th>사용여부</th>
-                <th>배정현황</th>
+                <!-- <th>배정현황</th> -->
               </tr>
             </thead>
             <tbody>
@@ -87,14 +87,14 @@
                 <td class="center-class"> - </td>
                 <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_bicon"></app-input></td>
                 <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_nfc"></app-input></td>
-                <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_value"></app-input></td>
+                <!-- <td><app-input placeholder="입력해주세요" [(ngModel)]="item.serial_value"></app-input></td> -->
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>
                 </td>
-                <td class="center-class"> - </td>
+                <!-- <td class="center-class"> - </td> -->
               </tr>
     
               <tr *ngFor="let item of res?.rsMap">
@@ -110,14 +110,14 @@
                 <td [class.center-class]="!item.serial_no">{{ item.serial_no }}</td>
                 <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_bicon"></app-input></td>
                 <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_nfc"></app-input></td>
-                <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_value"></app-input></td>
+                <!-- <td><app-input [disabled]="!update_state" [(ngModel)]="item.serial_value"></app-input></td> -->
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>
                 </td>
-                <td [class.center-class]="!item.assign_data">{{ item.assign_data ? item.assign_data : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.assign_data">{{ item.assign_data ? item.assign_data : ' - ' }}</td> -->
               </tr>
             </tbody>
           </app-table>

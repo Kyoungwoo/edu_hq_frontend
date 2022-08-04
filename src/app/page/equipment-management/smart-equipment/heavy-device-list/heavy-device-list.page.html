@@ -66,11 +66,11 @@
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>스마트 장비</th>
                 <th>등록 No</th>
-                <th>중장비 구분</th>
-                <th>등록번호</th>
-                <th>원청사명</th>
-                <th>회사명</th>
-                <th>QR코드</th>
+                <th>건설기계</th>
+                <!-- <th>등록번호</th> -->
+                <!-- <th>원청사명</th> -->
+                <th>업체명</th>
+                <!-- <th>QR코드</th> -->
                 <th>배정일시</th>
                 <th>사용여부</th>
               </tr>
@@ -89,10 +89,10 @@
                 <td>
                   <app-select-heavy [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item" [(ngModel)]="item.machinery_id" label=""></app-select-heavy>
                 </td>
-                <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td>
-                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td> -->
+                <!-- <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td> -->
                 <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
-                <td> - </td>
+                <!-- <td> - </td> -->
                 <td class="center-class"> - </td>
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state">
@@ -117,14 +117,14 @@
                   <app-select-heavy *ngIf="item.machinery_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item" [(ngModel)]="item.machinery_id" label=""></app-select-heavy>
                   {{ (item.machinery_id || (!item.machinery_id && update_state)) ? '' : ' - ' }}
                 </td>
-                <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td>
-                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.machinery_regist_no">{{ item.machinery_regist_no ? item.machinery_regist_no : ' - ' }}</td> -->
+                <!-- <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td> -->
                 <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
-                <td class="center-class">
+                <!-- <td class="center-class">
                   <app-button size="small" fill="clear" style="width:100%;" (click)="openModal_QR(item)">
                     <app-img name="search"></app-img>
                   </app-button>
-                </td>
+                </td> -->
                 <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
