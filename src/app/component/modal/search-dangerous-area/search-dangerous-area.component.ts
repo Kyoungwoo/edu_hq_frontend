@@ -73,4 +73,8 @@ export class SearchDangerousAreaComponent implements OnInit {
     this._modal.dismiss(this.selectList);
     
   }
+
+  closeBtn(){
+    this._modal.dismiss();
+  }
 }

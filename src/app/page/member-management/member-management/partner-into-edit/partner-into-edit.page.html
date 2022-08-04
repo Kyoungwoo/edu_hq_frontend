@@ -143,7 +143,8 @@
       </app-row>
       <app-row>
         <app-col>
-          <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene>
+          <!-- <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene> -->
+          <app-select-scene [disabled]="true" [(ngModel)]="formSafeList.project_id"></app-select-scene>
         </app-col>
         <app-col>
           <app-input label="검색어" [disabled]="!permission.approval" [(ngModel)]="formSafeList.search_text" placeholder="교육명을 입력해 주세요.">

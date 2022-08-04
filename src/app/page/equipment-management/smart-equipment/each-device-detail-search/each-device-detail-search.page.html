@@ -9,7 +9,7 @@
 
 <ion-content>
   <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
-  <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [allState]="allState"></app-select-contractor>
+  <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
   <app-select [label]="languagePack.getText('스마트 장비')" [(ngModel)]="form.ctgo_machine_serial_id">
     <app-select-option [value]="0">{{ languagePack.getText('전체') }}</app-select-option>
     <app-select-option *ngFor="let item of smart_ctgo_list" [value]="item.ctgo_machine_serial_id">{{ item.ctgo_machine_serial_name }}</app-select-option>

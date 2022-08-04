@@ -61,6 +61,7 @@
                       <app-check type="all" color="white" size="small" name="check"></app-check>
                     </th>
                     <th>CCTV ID</th>
+                    <th>Alias</th>
                     <th>원청사명</th>
                     <th>설치장소명</th>
                     <th>CCTV IP</th>
@@ -77,6 +78,7 @@
                       <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
                     </td>
                     <td>{{ item.cctv_id }}</td>
+                    <td>{{ item.cctv_alias }}</td>
                     <td>{{ item.master_company_name }}</td>
                     <td>{{ item.cctv_area_name }}</td>
                     <td>{{ item.cctv_ip }}</td>

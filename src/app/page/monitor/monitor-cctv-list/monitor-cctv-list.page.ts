@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class CCTVInfo {
   cctv_id:number;
+  cctv_alias:string;
   cctv_area_name:string;
   cctv_channel_no:string;
   cctv_ip:string;
