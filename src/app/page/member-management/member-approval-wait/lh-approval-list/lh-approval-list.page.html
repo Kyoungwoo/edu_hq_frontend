@@ -20,7 +20,8 @@
           <tbody>
             <tr>
               <td>
-                <app-select-regional [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional>
+                <!-- <app-select-regional [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional> -->
+                <app-input label="사업지구" [readonly]="true" value="수원당수지구"></app-input>
               </td>
             </tr>
             <tr>
@@ -66,7 +67,7 @@
             <tr>
               <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
               <th style="width: 48px;">No</th>
-              <th>조직기구</th>
+              <th>사업지구</th>
               <th>성명</th>
               <th>직위</th>
               <th>신청일</th>

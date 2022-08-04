@@ -17,7 +17,8 @@ export interface Sheet {
       height?:number
     }
   }[][]
-  style?: {code:SheetStyle}[][]
+  style?: {code:SheetStyle}[][],
+  custom_col?: number[]
 };
 
 export interface SheetStyle {
@@ -236,6 +237,11 @@ export class ExcelService {
         });
 
 
+
+        if(sheet.custom_col?.length) {
+          ws['!cols'] = [];
+          sheet.custom_col.map((item) => {ws['!cols'].push({wpx:item});});
+        }
 
 
         var ref = `A1:${alphabet[sheet_width]}${sheet_style_height}`;

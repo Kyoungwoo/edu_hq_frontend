@@ -8,7 +8,8 @@
 </ion-header>
 <ion-content>
   <app-select-scene name="scene" [all]="!editable.company_id" [(ngModel)]="form.project_id" ></app-select-scene>
-  <app-select-contractor [allState]="!editable.company_id" [disabled]="editable.company_id" name="contractor" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor>
+  <!-- <app-select-contractor [allState]="!editable.company_id" [disabled]="editable.company_id" name="contractor" [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor> -->
+  <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id" [readonly]="editable.company_id"></app-select-contractor> 
   <app-select-education [all]="true" name="education" [(ngModel)]="form.ctgo_education_safe_id"></app-select-education>
   <app-input-group [label]="languagePack.getText('교육일')">
   <app-calendar name="startcalendar" [(ngModel)]="form.start_date"></app-calendar>

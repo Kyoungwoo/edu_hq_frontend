@@ -422,156 +422,208 @@ export class WorkWriteEditPage implements OnInit {
     const logo:SheetStyle = {
       border: headerBorder,
       textAlign:'center',
-      fontSize:16,
-      width: 80,
-      height:30,
+      fontSize:18,
+      width: 100,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const logo_theme:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'left',
-      fontSize:12,
-      height:30,
+      fontSize:18,
+      height:45,
+      verticalAlign: "top",
+      whiteSpace: 'normal'
+    }
+
+    const logo_theme_2:SheetStyle = {
+      width: 100,
+      border: headerBorder,
+      textAlign:'left',
+      fontSize:20,
+      height:45,
       verticalAlign: "top",
       whiteSpace: 'normal'
     }
 
     const title_1:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      width: 80,
-      fontSize:16,
+      height:45,
+      // width: 80,
+      fontSize:22,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_2:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 40,
-      fontSize:16,
+      // width: 40,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_3:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 200,
-      fontSize:16,
+      // width: 200,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const title_4:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
-      width: 60,
-      fontSize:16,
+      // width: 60,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const border_1:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       textAlign:'center',
+      fontSize: 18,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const border_1_left:SheetStyle = {
+      width: 100,
+      height:45,
+      border: headerBorder,
+      textAlign:'left',
+      fontSize: 18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const border_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
-      height: 65,
+      height: 45,
+      fontSize: 18,
       textAlign:'center',
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const approval_1:SheetStyle = {
+      width: 100,
+      height:45,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
       // width: 80,
-      fontSize:12,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const approval_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
       // width: 80,
-      height: 40,
-      fontSize:11,
+      height: 45,
+      fontSize:18,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_1:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
-      fontSize:12,
-      height:52,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_2:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
       textAlign:'center',
-      fontSize:12,
-      height:32,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_1_user:SheetStyle = {
+      width: 100,
       border: headerBorder,
       backgroundColor,
-      textAlign:'center', 
-      fontSize:12,
-      height:48,
+      textAlign:'center',
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_2_user:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      fontSize:12,
-      height:48,
+      fontSize:18,
+      height:45,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     const sub_title_4:SheetStyle = {
+      width: 100,
       border: headerBorder,
       textAlign:'center',
-      fontSize:12,
-      height:32,
+      fontSize:18,
+      height:45,
+      verticalAlign: "middle",
+      whiteSpace: 'normal'
+    }
+
+    const sub_title_5:SheetStyle = {
+      width: 200,
+      // border: headerBorder,
+      textAlign:'center',
+      fontSize:18,
+      height:85,
       verticalAlign: "middle",
       whiteSpace: 'normal'
     }
 
     let logo_theme_arr = [];
-    for(let i = 0; i < 18; i++) logo_theme_arr.push({code: logo_theme});
+    for(let i = 0; i < 12; i++) logo_theme_arr.push({code: logo_theme});
 
     let logo_theme_arr_2 = [];
-    for(let i = 0; i < 14; i++) logo_theme_arr_2.push({code: logo_theme});
+    for(let i = 0; i < 8; i++) logo_theme_arr_2.push({code: logo_theme});
     for(let i = 0; i < 4; i++) logo_theme_arr_2.push({code: approval_2});
 
     let sub_title_theme_arr = [];
-    for(let i = 0; i < 18; i++) sub_title_theme_arr.push({code: sub_title_2});
+    for(let i = 0; i < 12; i++) sub_title_theme_arr.push({code: sub_title_2});
 
     let sub_title_theme_arr_2 = [];
-    for(let i = 0; i < 18; i++) sub_title_theme_arr_2.push({code: sub_title_4});
+    for(let i = 0; i < 12; i++) sub_title_theme_arr_2.push({code: sub_title_4});
 
     let border_theme_arr = [];
-    for(let i = 0; i < 18; i++) border_theme_arr.push({code: border_2});
+    for(let i = 0; i < 12; i++) border_theme_arr.push({code: border_2});
 
     // let sheetData:Sheet = {
 
@@ -581,8 +633,8 @@ export class WorkWriteEditPage implements OnInit {
       name: '회의록',
       data: [
         [
-          {colspan: 4, rowspan: 4},
-          {text: this.form.safety_meeting_type_full, colspan: 9, rowspan: 4},
+          {colspan: 2, rowspan: 4},
+          {text: this.form.safety_meeting_type_full, colspan: 5, rowspan: 4},
           {rowspan: 4, text: '결재'},
           {text: '검토'},
           {text: '검토'},
@@ -599,37 +651,39 @@ export class WorkWriteEditPage implements OnInit {
         [],
         [
           {text: '현장명'},
-          {text: this.form.project_name, colspan: 4},
+          {text: this.form.project_name, colspan: 5},
           {text: '회사명'},
-          {text: this.form.master_company_name, colspan: 4},
+          {text: this.form.master_company_name, colspan: 5},
+        ],
+        [
           {text: '회의장소'},
-          {text: this.form.safety_meeting_place, colspan: 3},
+          {text: this.form.safety_meeting_place, colspan: 5},
           {text: '작성자'},
-          {text: this.form.user_name, colspan: 3}
+          {text: this.form.user_name, colspan: 5}
         ],
         [
-          {text: '협의 사항', colspan: 9},
-          {text: '의결 사항', colspan: 9},
+          {text: '협의 사항', colspan: 6},
+          {text: '의결 사항', colspan: 6},
         ],
         [
-          {text: this.form.safety_meeting_content, colspan: 9, rowspan: 38},
-          {text: this.form.safety_meeting_resolve, colspan: 9, rowspan: 38},
+          {text: this.form.safety_meeting_content, colspan: 6, rowspan: 14},
+          {text: this.form.safety_meeting_resolve, colspan: 6, rowspan: 14},
         ],
-        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+        [],[],[],[],[],[],[],[],[],[],[],[],[],
         [
-          {text: '기타 사항', colspan: 18},
-        ],
-        [
-          {text: this.form.safety_meeting_etc, colspan: 18, rowspan: 18},
-        ],
-        [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
-        [
-          {text: '사진', colspan: 9},
-          {text: '사진', colspan: 9},
+          {text: '기타 사항', colspan: 12},
         ],
         [
-          {colspan: 9, rowspan: 18},
-          {colspan: 9, rowspan: 18},
+          {text: this.form.safety_meeting_etc, colspan: 12, rowspan: 5},
+        ],
+        [],[],[],[],
+        [
+          {text: '사진', colspan: 6},
+          {text: '사진', colspan: 6},
+        ],
+        [
+          {colspan: 6, rowspan: 18},
+          {colspan: 6, rowspan: 18},
         ]
         // 평가표 리스트 들어가는곳
 
@@ -641,24 +695,11 @@ export class WorkWriteEditPage implements OnInit {
         [
           {code: logo},
           {code: logo},
-          {code: logo},
-          {code: logo},
           {code: title_1},
           {code: title_1},
           {code: title_1},
           {code: title_1},
-          {code: title_2},
-          {code: title_2},
           {code: title_1},
-          {code: title_1},
-          {code: title_1},
-          // {code: border_1},
-          // {code: border_1},
-          // {code: border_1},
-          // {code: border_1},
-          // {code: border_1},
-          // {code: border_1},
-          // {code: border_1},
           {code: approval_1},
           {code: approval_1},
           {code: approval_1},
@@ -674,19 +715,27 @@ export class WorkWriteEditPage implements OnInit {
           {code: border_1},
           {code: border_1},
           {code: border_1},
-          {code: sub_title_1},
-          {code: border_1},
-          {code: border_1},
-          {code: border_1},
           {code: border_1},
           {code: sub_title_1},
           {code: border_1},
           {code: border_1},
           {code: border_1},
+          {code: border_1},
+          {code: border_1},
+        ],
+        [
           {code: sub_title_1},
           {code: border_1},
           {code: border_1},
-          {code: border_1}
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: sub_title_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
+          {code: border_1},
         ],
         sub_title_theme_arr,
         logo_theme_arr,
@@ -703,25 +752,8 @@ export class WorkWriteEditPage implements OnInit {
         logo_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
+
+        sub_title_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
@@ -738,35 +770,7 @@ export class WorkWriteEditPage implements OnInit {
         logo_theme_arr,
         logo_theme_arr,
         logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-
-        sub_title_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
-        logo_theme_arr,
+        logo_theme_arr
 
         // 평가표 리스트 들어가는곳
 
@@ -778,8 +782,13 @@ export class WorkWriteEditPage implements OnInit {
       name: '참석자명단',
       data: [
         [
-          {text: '참석자 명단', colspan: 6},
-          {text: '회의일: '+this.form.safety_meeting_date, colspan: 2}
+          {colspan: 8, text: '참석자 명단'}
+        ],
+        [
+          {text: '회의유형'},
+          {text: this.form.safety_meeting_type_full, colspan: 5},
+          {text: '회의일'},
+          {text: this.form.safety_meeting_date}
         ],
         [
           {text: 'No'},
@@ -794,14 +803,24 @@ export class WorkWriteEditPage implements OnInit {
       ],
       style: [
         [
-          {code: Object.assign(title_4, {height: 80})},
-          {code: title_3},
-          {code: title_3},
-          {code: title_3},
-          {code: title_4},
-          {code: title_3},
-          {code: title_3},
-          {code: title_3}
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5},
+          {code: sub_title_5}
+        ],
+        [
+          {code: sub_title_2},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: border_1_left},
+          {code: sub_title_2},
+          {code: sub_title_2_user}
         ],
         [
           {code: sub_title_2},
@@ -814,7 +833,8 @@ export class WorkWriteEditPage implements OnInit {
           {code: sub_title_2},
         ],
         // 리스트 들어가는곳
-      ]
+      ],
+      custom_col: [100,200,120,200,100,200,120,200]
     }
 
     // 결재 데이터
@@ -826,13 +846,19 @@ export class WorkWriteEditPage implements OnInit {
 
     // 참석자명단 리스트 데이터
     let change_cnt = 0;
-    let list_theme_arr_num = Math.ceil((this.res.rsMap.length / 2));
+    let list_theme_arr_num = this.res.rsMap?.length > 50 ? Math.ceil((this.res.rsMap.length / 2)) : 25;
     for(let i = 0; i < list_theme_arr_num; i++){
       let item_arr = [];
       for(let x = 0; x < 1; x++){
-        if(change_cnt%2 === 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        if(change_cnt%2 === 0){
+          if(this.res.rsMap?.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
+        }
         change_cnt++;
-        if(change_cnt%2 !== 0) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+        if(change_cnt%2 !== 0){
+          if(this.res.rsMap?.length > change_cnt) item_arr.push({text: change_cnt+1},{text: this.res?.rsMap[change_cnt]?.company_name},{text: this.res?.rsMap[change_cnt]?.user_name},{text: this.res?.rsMap[change_cnt]?.create_date});
+          else item_arr.push({text: change_cnt+1},{text: ''},{text: ''},{text: ''});
+        }
         change_cnt++;
       }
       sheetData_user_list.data.push(item_arr);
@@ -848,7 +874,7 @@ export class WorkWriteEditPage implements OnInit {
       ]);
     }
     // sheetData_user_list.data.push(list_theme_arr);
-    console.log('sheetData_user_list - ',sheetData_user_list);
+    // console.log('sheetData_user_list - ',sheetData_user_list);
 
     // 참석자명단 리스트 데이터
     // const user_list = this.approval_comment.reverse();
@@ -893,13 +919,13 @@ export class WorkWriteEditPage implements OnInit {
     
     // 회사 로고 이미지데이터
     if(this.form.company_file_data && this.form.company_file_data.length){
-      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 135, width: 350, left: 8, top: 8}, rowspan: 4, colspan: 4};
+      sheetData.data[0][0] = {img: {src: this.form.company_file_data[0].full_url.toString(), height: 150, width: 210, left: 8, top: 8}, rowspan: 4, colspan: 2};
     }
 
     // 회의 사진 데이터
     if(this.form.safety_meeting_file_data && this.form.safety_meeting_file_data.length){
-      sheetData.data[64][0] = {img: {src: this.form.safety_meeting_file_data[0]?.full_url.toString(), height: 500, width: 710, left: 8, top: 8}, rowspan: 18, colspan: 9};
-      sheetData.data[64][1] = {img: {src: this.form.safety_meeting_file_data[1]?.full_url.toString(), height: 500, width: 680, left: 8, top: 8}, rowspan: 18, colspan: 9};
+      sheetData.data[28][0] = {img: {src: this.form.safety_meeting_file_data[0]?.full_url.toString(), height: 400, width: 650, left: 8, top: 8}, rowspan: 10, colspan: 6};
+      sheetData.data[28][1] = {img: {src: this.form.safety_meeting_file_data[1]?.full_url.toString(), height: 400, width: 650, left: 8, top: 8}, rowspan: 10, colspan: 6};
     }
 
     // img?: {

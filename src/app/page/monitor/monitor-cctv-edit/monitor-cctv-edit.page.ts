@@ -18,6 +18,7 @@ export class MonitorCctvEditPage implements OnInit {
 
   form = {
     cctv_id: 0,
+    cctv_alias: '',
     cctv_area_name: '',
     cctv_channel_no: '',
     cctv_ip: '',
@@ -138,6 +139,7 @@ export class MonitorCctvEditPage implements OnInit {
     if(!this.form.master_company_id) return '원청사를 선택해주세요.';
     if(!this.form.cctv_area_name) return '설치장소명을 입력해주세요.';
     if(!this.form.cctv_ip) return 'CCTV IP를 입력해주세요.';
+    if(!this.form.cctv_alias) return 'Alias를 입력해주세요.';
     if(!this.form.cctv_port) return 'Port를 입력해주세요.';
     if(!this.form.cctv_channel_no) return 'Channel No.를 입력해주세요.';
     if(!this.form.cctv_nvr_id) return 'NVR ID를 입력해주세요.';

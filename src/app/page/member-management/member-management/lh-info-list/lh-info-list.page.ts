@@ -29,7 +29,7 @@ class LhInfo {
 export class LhInfoListPage implements OnInit {
   
   form = {
-    hq_regional_id: this.user.userData.belong_data.hq_regional_id,
+    hq_regional_id: 0, // this.user.userData.belong_data.hq_regional_id,
 
     start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),

@@ -279,8 +279,8 @@
         <app-file-preview *ngFor="let futItem of formSafeEdu.user_safe_edu_file_data; let i = index;" [futItem]="futItem" (buttonClick)="formSafeEdu.user_safe_edu_file_data.splice(i, 1)"></app-file-preview>
         <app-row>
           <app-col>
-            <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id">
-            </app-select-scene>
+            <!-- <app-select-scene [disabled]="!permission.approval" [(ngModel)]="formSafeList.project_id"></app-select-scene> -->
+            <app-select-scene [disabled]="true" [(ngModel)]="formSafeList.project_id"></app-select-scene>
           </app-col>
           <!-- <app-col>
             <app-select label="교육구분" [(ngModel)]="form.ctgo_education_safe_type">
