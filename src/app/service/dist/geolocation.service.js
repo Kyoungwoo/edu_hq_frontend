@@ -93,7 +93,7 @@ var GeolocationService = /** @class */ (function () {
                             icon: 'drawable/default_dark'
                         };
                         connect = {
-                            url: 'https://dev-api.lh-skeeper.or.kr/work_project/gps/call',
+                            url: 'https://api.lh-skeeper.or.kr/work_project/gps/call',
                             authorization: "Bearer " + this.user.authToken.login_token,
                             body: {
                                 latitude: '@latitude',
