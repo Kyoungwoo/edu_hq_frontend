@@ -133,7 +133,7 @@
   
           </app-col>
   
-          <app-col *ngIf="userType === 'LH' || userType === 'MASTER' || userType === 'PARTNER'">
+          <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER'">
   
             <app-input-template label="시스템 권한" [disabled]="true">
               <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
@@ -143,29 +143,37 @@
         </app-row>
   
         <app-row mobileBreak *ngIf="userType === 'LH'">
+          <app-col *ngIf="userType === 'LH'">
+  
+            <app-input-template label="시스템 권한" [disabled]="true">
+              <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
+            </app-input-template>
+  
+          </app-col>
+
           <app-col>
   
-            <app-select-organization [(ngModel)]="belongForm" [disabled]="!editable"></app-select-organization>
+            <!-- <app-select-organization [(ngModel)]="belongForm" [disabled]="!editable"></app-select-organization>
             <app-input-caption *ngIf="belongValidator.hq_regional_id?.valid === false" color="warning">{{ belongValidator.hq_regional_id?.message }}</app-input-caption>
             <app-input-caption *ngIf="belongValidator.hq_business_id?.valid === false" color="warning">{{ belongValidator.hq_business_id?.message }}</app-input-caption>
-            <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption>
-  
+            <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption> -->
+            <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input>
           </app-col>
         </app-row>
   
-        <app-row mobileBreak>
+        <app-row mobileBreak *ngIf="userType !== 'LH'">
           <app-col>
   
             <app-select-scene [all]="true" [(ngModel)]="belongForm.project_id" [disabled]="true"></app-select-scene>
   
           </app-col>
-          <app-col *ngIf="userType === 'LH'">
+          <!-- <app-col *ngIf="userType === 'LH'">
             
             <app-input-template label="현장 공사 기간" [disabled]="true">
               <p slot="input">{{ belongForm.contract_start_date }} ~ {{ belongForm.contract_end_date }}</p>
             </app-input-template>
   
-          </app-col>
+          </app-col> -->
           <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER'">
             
             <app-select-construction 

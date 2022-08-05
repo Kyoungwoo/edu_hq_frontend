@@ -225,7 +225,15 @@ export class SignUpLhPage implements OnInit {
     this.validator.file_json = { valid: true };
 
     for(let key in this.validator) {
-      if(!this.validator[key]?.valid) return false;
+      if(
+        key != 'hq_regional_id' &&
+        key != 'hq_regional_entire_state' &&
+        key != 'hq_business_id' &&
+        key != 'hq_business_entire_state' &&
+        key != 'hq_department_id' 
+      ){
+        if(!this.validator[key]?.valid) return false;
+      }
     }
     return true;
   }

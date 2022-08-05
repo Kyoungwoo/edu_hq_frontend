@@ -75,12 +75,12 @@
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>스마트 장비</th>
                 <th>등록 No</th>
-                <th>원청사명</th>
+                <!-- <th>원청사명</th> -->
                 <th>업체명</th>
                 <th>성명</th>
                 <th>배정일시</th>
-                <th>반납</th>
-                <th>반납일시</th>
+                <!-- <th>반납</th> -->
+                <!-- <th>반납일시</th> -->
                 <th>사용여부</th>
               </tr> 
             </thead>
@@ -95,14 +95,14 @@
                 <td>
                   <app-select-serial-number [ctgo_machine_serial_id]="item.ctgo_machine_serial_id" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
                 </td>
-                <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td> -->
                 <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
                 <td>
                   <app-select-people-all label="" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
                 </td>
                 <td class="center-class"> - </td>
-                <td class="center-class"> - </td>
-                <td class="center-class"> - </td>
+                <!-- <td class="center-class"> - </td>
+                <td class="center-class"> - </td> -->
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state">
                     <app-select-option [value]="1">Y</app-select-option>
@@ -122,20 +122,20 @@
                   <app-select-serial-number [ctgo_machine_serial_id]="item.ctgo_machine_serial_id" *ngIf="item.serial_id || update_state" [disabled]="!update_state" [project_id]="form.project_id" [master_company_id]="form.company_id" [text]="item.serial_no" [(ngModel)]="item.serial_id"></app-select-serial-number>
                   {{ (item.serial_id || (!item.serial_id && update_state)) ? '' : ' - ' }}
                 </td>
-                <td [class.center-class]="!item.master_company_id">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td>
+                <!-- <td [class.center-class]="!item.master_company_id">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td> -->
                 <td [class.center-class]="!item.partner_company_id">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
                 <td [class.center-class]="!item.assign_user_id">
                   <app-select-people-all *ngIf="item.assign_user_id || update_state" [disabled]="!update_state" label="" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
                   {{ (item.assign_user_id || (!item.assign_user_id && update_state)) ? '' : ' - ' }}
                 </td>
                 <td [class.center-class]="!item.create_date">{{ item.create_date ? item.create_date : ' - ' }}</td>
-                <td>
+                <!-- <td>
                   <app-select label="" [disabled]="!update_state" [(ngModel)]="item.return_state">
                     <app-select-option [value]="1">반납</app-select-option>
                     <app-select-option [value]="0">사용 중</app-select-option>
                   </app-select>
                 </td>
-                <td [class.center-class]="!item.return_date">{{ item.return_date ? item.return_date : ' - ' }}</td>
+                <td [class.center-class]="!item.return_date">{{ item.return_date ? item.return_date : ' - ' }}</td> -->
                 <td>
                   <app-select [(ngModel)]="item.serial_use_state" [disabled]="!update_state">
                     <app-select-option [value]="1">Y</app-select-option>
@@ -184,9 +184,9 @@
             <p>{{ item.partner_company_name }}/{{ item.assign_user_name }}/{{ item.serial_no }}</p>
             <p>{{ languagePack.getText('배정일') }}: {{ item.create_date }}</p>
           </app-col>
-          <app-col size="auto">
+          <!-- <app-col size="auto">
             <ion-chip [color]="item.return_state ? 'primary' : 'danger'">{{ item.return_state ? '반납' : '사용 중' }}</ion-chip>
-          </app-col>
+          </app-col> -->
         </app-row>
         <app-row>
           <app-col>
@@ -204,9 +204,9 @@
             <p>{{ item.partner_company_name }}/{{ item.assign_user_name }}/{{ item.serial_no }}</p>
             <p>배정일: {{ item.create_date }}</p>
           </app-col>
-          <app-col size="auto">
+          <!-- <app-col size="auto">
             <ion-chip [color]="item.return_state ? 'primary' : 'danger'">{{ item.return_state ? '반납' : '사용 중' }}</ion-chip>
-          </app-col>
+          </app-col> -->
         </app-row>
         <app-row>
           <app-col>
