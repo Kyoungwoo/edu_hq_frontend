@@ -6,30 +6,22 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="white">
-      <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요" (click)="getList()">
-        <app-img name="search"></app-img>
-      </app-input>
-  </ion-toolbar>
+      <app-input-group>
+        <app-select-construction-machinery [project_id]="form.project_id" [company_id]="form.master_company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
 
+        <app-input name="with img" label="검색어" placeholder="검색어를 입력하세요" (click)="getList()">
+          <app-img name="search"></app-img>
+        </app-input>
+      </app-input-group>
+  </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <app-row class="heavy-filter">
-    <app-col>
-      <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
-    </app-col>
-    <app-col>
-      <app-select-construction-machinery [project_id]="form.project_id" [company_id]="form.master_company_id" [(ngModel)]="form.ctgo_machinery_id" [all]="true"></app-select-construction-machinery>
-    </app-col>
-    <app-col>
-      <app-select-construction [project_id]="form.project_id" [(ngModel)]="form.construction_id" [all]="true"></app-select-construction>
-    </app-col>
-  </app-row>
   <app-card *ngFor="let item of res?.rsMap let i = index" [color]="selectedItem === item ? 'secondary':'white'" (click)="selectedItem = item">
     <app-row>
       <app-col size="auto">
         <h5>{{ item.ctgo_machinery_name }}</h5>
-        <p>{{ item.machinery_regist_no }} / {{ item.master_company_name }} / {{ item.partner_company_name }}</p>
-        <p>{{ item.ctgo_construction_name }} / {{ item.create_date }}</p>
+        <p>{{ item.machinery_regist_no }} / {{ item.partner_company_name }} / {{ item.create_date }}</p>
       </app-col>
     </app-row>
   </app-card>

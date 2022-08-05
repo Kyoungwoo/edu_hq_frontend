@@ -24,7 +24,8 @@ export class EachDeviceDetailSearchPage implements OnInit {
     search_text: '',
     start_date: this.date.today({ month: -1 }),
     end_date: this.date.today(),
-    return_state: '전체'
+    return_state: '전체',
+    serial_use_state: '전체'
   };
   
   constructor(

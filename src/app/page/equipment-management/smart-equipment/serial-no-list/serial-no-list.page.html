@@ -24,7 +24,7 @@
             </tr>
             <tr>
               <td>
-                <app-select label="장비구분" [(ngModel)]="form.ctgo_machine_serial_id">
+                <app-select label="스마트장비" [(ngModel)]="form.ctgo_machine_serial_id">
                   <app-select-option [value]="0">전체</app-select-option>
                   <app-select-option *ngFor="let item of searial_ctgo_list" [value]="item.ctgo_machine_serial_id">{{ item.ctgo_machine_serial_name }}</app-select-option>
                 </app-select>
@@ -46,13 +46,13 @@
             <app-button *ngIf="btnPromise('delete')" fill="translucent" color="danger" (click)="SearialDelete()">삭제</app-button>
             <app-button *ngIf="btnPromise('update')" [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SearialSave()">저장</app-button>
           </ion-buttons>
-          <ion-buttons slot="end">
+          <!-- <ion-buttons slot="end">
             <ion-segment color="primary" [(ngModel)]="this.serial_type" (ngModelChange)="ChangeSearialType($event)">
               <ion-segment-button value="개인">개인용</ion-segment-button>
               <ion-segment-button value="중장비">중장비용</ion-segment-button>
               <ion-segment-button value="위험지역">장소용</ion-segment-button>
             </ion-segment>
-          </ion-buttons>
+          </ion-buttons> -->
         </ion-toolbar>
         <ion-toolbar color="white">
           <h5>장비 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
@@ -63,9 +63,9 @@
               <tr>
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;" rowspan="2"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>업체명</th>
-                <th>장비구분</th>
-                <th>등록 NO</th>
-                <th>시리얼 NO</th>
+                <th>스마트장비</th>
+                <th>관리번호</th>
+                <th>기기식별번호</th>
                 <th>NFC NO</th>
                 <!-- <th>기준값</th> -->
                 <th>사용여부</th>

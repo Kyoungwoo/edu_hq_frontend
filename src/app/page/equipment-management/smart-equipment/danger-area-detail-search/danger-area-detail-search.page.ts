@@ -22,7 +22,8 @@ export class DangerAreaDetailSearchPage implements OnInit {
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
     start_date: this.date.today({ month: -1 }),
-    end_date: this.date.today()
+    end_date: this.date.today(),
+    serial_use_state: '전체'
   };
   
   constructor(

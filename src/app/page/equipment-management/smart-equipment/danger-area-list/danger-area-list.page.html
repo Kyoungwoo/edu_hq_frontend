@@ -32,6 +32,15 @@
             </tr>
             <tr>
               <td>
+                <app-select label="사용여부" [(ngModel)]="form.serial_use_state">
+                  <app-select-option value="전체">전체</app-select-option>
+                  <app-select-option value="Y">사용중</app-select-option>
+                  <app-select-option value="N">미사용</app-select-option>
+                </app-select>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <app-input-group label="배정일">
                   <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
@@ -65,8 +74,8 @@
               <tr>
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>스마트 장비</th>
-                <th>등록 No</th>
-                <th>원청사명</th>
+                <th>관리번호</th>
+                <th>업체명</th>
                 <th>등록장소</th>
                 <!-- <th>위험지역 유형</th>
                 <th>위험지역명</th> -->

@@ -28,7 +28,7 @@
       [(ngModel)]="form.partner_company_id"></app-select-contractor-company>
     </app-col> 
     <app-col>
-      <app-select-construction-machinery [company_id]="form.master_company_id" 
+      <app-select-construction-machinery [company_id]="form.master_company_id" label="건설기계 구분"
       [required]="true" [disabled]="updateStatus" [project_id]="form.project_id"
       [(ngModel)]="form.ctgo_machinery_id"></app-select-construction-machinery>
     </app-col>
@@ -38,14 +38,15 @@
       <app-input name="machinery_regist_no" [required]="true" [disabled]="updateStatus" [required]="true" label="등록번호(차량번호)"
         [(ngModel)]="form.machinery_regist_no" placeholder=""></app-input>
     </app-col>
-    <app-col>
+    <!-- <app-col>
       <app-select-construction name="ctgo_construction_name" [required]="true" [master_company_id]="form.master_company_id" [project_id]="form.project_id" [disabled]="updateStatus" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
+    </app-col> -->
+    <app-col>
+      <app-input label="대여업체(운전원)" [disabled]="updateStatus" [required]="true" [(ngModel)]="form.rental_company_name"></app-input>
     </app-col>
   </app-row>
   <app-row mobileBreak>
-    <app-col>
-      <app-input label="대여업체" [disabled]="updateStatus" [required]="true" [(ngModel)]="form.rental_company_name"></app-input>
-    </app-col>
+
     <app-col>
       <app-input-group label="보증기간" [disabled]="updateStatus" [required]="true">
         <app-calendar name="contract_start_date" [(ngModel)]="form.rental_start_date" [max]="form.rental_end_date"></app-calendar>
@@ -53,14 +54,15 @@
         <app-calendar name="contract_end_date" [(ngModel)]="form.rental_end_date" [min]="form.rental_start_date"></app-calendar>
       </app-input-group>
     </app-col>
-  </app-row>
-  <app-row mobileBreak>
     <app-col>
       <app-input label="보증금액" [required]="true" [disabled]="updateStatus" [(ngModel)]="form.rental_price"></app-input>
     </app-col>
+  </app-row>
+  <!-- <app-row mobileBreak>
+
     <app-col>
     </app-col>
-  </app-row>
+  </app-row> -->
 
   <h4>첨부서류</h4>
 

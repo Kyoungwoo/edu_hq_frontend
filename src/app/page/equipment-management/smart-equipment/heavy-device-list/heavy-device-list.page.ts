@@ -93,7 +93,8 @@ export class HeavyDeviceListPage implements OnInit {
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
     start_date: this.date.today({ year: -3 }),
-    end_date: this.date.today()
+    end_date: this.date.today(),
+    serial_use_state: '전체'
   };
 
   /** @param res_original - 원본 데이터(비교용) */

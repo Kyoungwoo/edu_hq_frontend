@@ -32,10 +32,10 @@
             </tr>
             <tr>
               <td>
-                <app-select label="반납여부" [(ngModel)]="form.return_state">
+                <app-select label="사용여부" [(ngModel)]="form.serial_use_state">
                   <app-select-option value="전체">전체</app-select-option>
-                  <app-select-option value="반납">반납</app-select-option>
-                  <app-select-option value="사용 중">사용 중</app-select-option>
+                  <app-select-option value="Y">사용중</app-select-option>
+                  <app-select-option value="N">미사용</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -74,7 +74,7 @@
               <tr>
                 <th *ngIf="btnPromise('delete_check')" style="width: 40px;"><app-check type="all" color="white" size="small" name="check"></app-check></th>
                 <th>스마트 장비</th>
-                <th>등록 No</th>
+                <th>관리번호</th>
                 <!-- <th>원청사명</th> -->
                 <th>업체명</th>
                 <th>성명</th>
@@ -217,7 +217,7 @@
       </app-card>
     </ng-container>
   </ion-content>
-  <!-- <app-button-footer *ngIf="btnPromise('insert')">
+  <app-button-footer *ngIf="btnPromise('insert')">
     <app-button (click)="edit()">신규배정</app-button>
-  </app-button-footer> -->
+  </app-button-footer>
 </ng-container>

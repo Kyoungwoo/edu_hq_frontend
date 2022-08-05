@@ -76,19 +76,19 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
-      { title: '전자결재 설정', 
+      { title: '전자결재 설정', link: '/approval-edit',
       permission: () => {
         const {  user_type } = this.user.userData;
         return user_type === 'COMPANY';
       },
-        thirdMenuList: [
-          { title: '기본 전자결재선 지정', link: '/approval-edit',
-          permission: () => {
-            const {  user_type } = this.user.userData;
-            return user_type === 'COMPANY';
-          }},
-          { title: '위임 관리', link: ''}
-        ]
+        // thirdMenuList: [
+        //   { title: '기본 전자결재선 지정', link: '/approval-edit',
+        //   permission: () => {
+        //     const {  user_type } = this.user.userData;
+        //     return user_type === 'COMPANY';
+        //   }},
+        //   { title: '위임 관리', link: ''}
+        // ]
       }
     ]},
     { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
@@ -102,15 +102,11 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' || user_type === 'COMPANY';
       }},
-      { title: '교육 이력', thirdMenuList:[
-        {title:'근로자 교육 이력', link:'/safety-education-history-list',
-        permission: () => {
-          const { user_type } = this.user.userData;
-          return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-        }},
-        {title:'정기 교육 이력', link:''},
-        {title:'특별 교육 이력', link:''}
-      ]}
+      { title: '교육 이력',  link:'/safety-education-history-list',
+      permission: () => {
+        const { user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+      }}
     ]},
     { img:'assets/img/menu/conference.svg', title: '안전회의', permission: () => {
       const { user_type } = this.user.userData;
@@ -169,7 +165,7 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
       },
       thirdMenuList: [
-        { title: '등록 NO', link: '/serial-no-list',
+        { title: '디바이스 등록', link: '/serial-no-list',
         permission: () => {
           const { user_role, user_type } = this.user.userData;
           return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';

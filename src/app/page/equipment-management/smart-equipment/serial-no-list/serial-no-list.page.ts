@@ -168,7 +168,7 @@ export class SerialNoListPage implements OnInit {
    * @function getSearialCtgo(): 등록 NO 장비구분 목록 가져오기
    */
    async getSearialCtgo() {
-    const res = await this.connect.run('/serial/ctgo/list', { serial_type: this.serial_type });
+    const res = await this.connect.run('/serial/ctgo/list', { serial_type: '전체' });
     if(res.rsCode === 0 ) {
       this.searial_ctgo_list = res.rsMap;
       this.form.ctgo_machine_serial_id = 0;

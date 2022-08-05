@@ -220,10 +220,10 @@ export class HeavyEquipEditPage implements OnInit {
       this.toast.present({message:'등록번호를 입력해주세요.',color:'warning'});
       return true;
     }
-    if(!this.form.ctgo_construction_id){
-      this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
-      return true;
-    }
+    // if(!this.form.ctgo_construction_id){
+    //   this.toast.present({message:'공종을 입력해주세요.',color:'warning'});
+    //   return true;
+    // }
     if(!this.form.rental_company_name){
       this.toast.present({message:'대여업체를 입력해주세요.',color:'warning'});
       return true;

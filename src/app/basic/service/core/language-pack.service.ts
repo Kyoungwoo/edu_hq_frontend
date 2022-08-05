@@ -40,7 +40,7 @@ export class LanguagePackService {
   }
 
   async getLanguageAPI(){
-    console.log('-------------------- Language Pack API --------------------');
+    console.log('-------------------- Language Pack API Init --------------------');
     const language = this.getLanguage();
 
     const res = await this.connect.run('/language/list', {language: language}, {parse:['korean','english','chinese','vietnamese','thai']});
