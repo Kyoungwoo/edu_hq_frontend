@@ -64,12 +64,14 @@
     </app-card>
     <app-card color="light">
       <ion-toolbar slot="top" color="white">
-        <ion-segment color="primary" [value]="1">
-          <ion-segment-button [value]="1" (click)="menu = 1">소속 정보</ion-segment-button>
-          <ion-segment-button (click)="menu = 2">교육 이력</ion-segment-button>
-          <!-- <ion-segment-button (click)="menu = 3">근로 이력</ion-segment-button> -->
-          <ion-segment-button (click)="menu = 4" *ngIf="formApproval.user_role === 9 || formApproval.user_role === 10">안전 마일리지</ion-segment-button>
-        </ion-segment>
+        <ion-buttons slot="start">
+          <ion-segment color="primary" [value]="1">
+            <ion-segment-button [value]="1" (click)="menu = 1">소속 정보</ion-segment-button>
+            <!-- <ion-segment-button (click)="menu = 2">교육 이력</ion-segment-button> -->
+            <!-- <ion-segment-button (click)="menu = 3">근로 이력</ion-segment-button> -->
+            <ion-segment-button (click)="menu = 4" *ngIf="formApproval.user_role === 9 || formApproval.user_role === 10">안전 마일리지</ion-segment-button>
+          </ion-segment>
+        </ion-buttons>
       </ion-toolbar>
       <div [style.display]="menu === 1 ? 'block' : 'none'">
         <app-row>

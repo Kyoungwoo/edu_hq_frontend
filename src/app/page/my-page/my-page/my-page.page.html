@@ -106,7 +106,7 @@
         <ion-buttons slot="start">
           <ion-segment color="primary" [(ngModel)]="segment">
             <ion-segment-button value="belong">{{ languagePack.getText('소속 정보') }}</ion-segment-button>
-            <ion-segment-button *ngIf="userType === 'MASTER' || userType === 'PARTNER'" value="education">{{ languagePack.getText('교육 이력') }}</ion-segment-button>
+            <!-- <ion-segment-button *ngIf="userType === 'MASTER' || userType === 'PARTNER'" value="education">{{ languagePack.getText('교육 이력') }}</ion-segment-button> -->
             <ion-segment-button *ngIf="userType === 'PARTNER'" value="mileage">{{ languagePack.getText('안전 마일리지') }}</ion-segment-button>
           </ion-segment>
         </ion-buttons>
@@ -143,14 +143,6 @@
         </app-row>
   
         <app-row mobileBreak *ngIf="userType === 'LH'">
-          <app-col *ngIf="userType === 'LH'">
-  
-            <app-input-template label="시스템 권한" [disabled]="true">
-              <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
-            </app-input-template>
-  
-          </app-col>
-
           <app-col>
   
             <!-- <app-select-organization [(ngModel)]="belongForm" [disabled]="!editable"></app-select-organization>
@@ -158,6 +150,14 @@
             <app-input-caption *ngIf="belongValidator.hq_business_id?.valid === false" color="warning">{{ belongValidator.hq_business_id?.message }}</app-input-caption>
             <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption> -->
             <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input>
+          </app-col>
+
+          <app-col *ngIf="userType === 'LH'">
+  
+            <app-input-template label="시스템 권한" [disabled]="true">
+              <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
+            </app-input-template>
+  
           </app-col>
         </app-row>
   

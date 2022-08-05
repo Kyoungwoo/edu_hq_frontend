@@ -34,13 +34,7 @@ export class SelectHeavyComponent implements OnInit, ControlValueAccessor {
   ) { }
 
   ngOnInit() {
-    console.log('헤비 1 : ',this.master_company_id);
-    console.log('헤비 2 : ',this.project_id);
-    console.log('헤비 3 : ',this.value);
-    console.log('헤비 4 : ',this._value);
-    console.log('헤비 5 : ',this.text);
-
-    this.text_theme = this.text.ctgo_machinery_name + ' / ' + this.text.machinery_regist_no;
+    this.text_theme = (this.text.ctgo_machinery_name ? this.text.ctgo_machinery_name+' / ' : '') + (this.text.machinery_regist_no ? this.text.machinery_regist_no : '');
   }
 
   async heavy(){
