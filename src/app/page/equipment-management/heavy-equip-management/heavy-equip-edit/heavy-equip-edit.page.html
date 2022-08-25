@@ -35,12 +35,12 @@
   </app-row>
   <app-row mobileBreak>
     <app-col>
-      <app-input name="machinery_regist_no" [required]="true" [disabled]="updateStatus" [required]="true" label="등록번호(차량번호)"
+      <app-input name="machinery_regist_no" [required]="true" [disabled]="updateStatus" [required]="true" label="등록번호/명칭"
         [(ngModel)]="form.machinery_regist_no" placeholder=""></app-input>
     </app-col>
-    <!-- <app-col>
+    <app-col>
       <app-select-construction name="ctgo_construction_name" [required]="true" [master_company_id]="form.master_company_id" [project_id]="form.project_id" [disabled]="updateStatus" [(ngModel)]="form.ctgo_construction_id"></app-select-construction>
-    </app-col> -->
+    </app-col>
     <app-col>
       <app-input label="대여업체(운전원)" [disabled]="updateStatus" [required]="true" [(ngModel)]="form.rental_company_name"></app-input>
     </app-col>

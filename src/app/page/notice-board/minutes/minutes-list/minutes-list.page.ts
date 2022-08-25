@@ -81,10 +81,12 @@ export class MinutesListPage implements OnInit {
    * web, mobile 둘다 검색 시작할 때는 이걸 쓴다.
    * 이유는 limit_no를 초기화할 필요성이 있기 떄문 + 1008 예외처리가 다르다.
    */
+
+
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-
-    this.res = await this.connect.run('/board/safety_meeting_old/list', this.form);
+    
+    this.res = await this.connect.run('/board/safety_meeting_old/list', this.form );
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.map((item, i) => {
         switch(item.safety_meeting_type){

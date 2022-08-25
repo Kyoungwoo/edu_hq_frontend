@@ -26,6 +26,26 @@ export class MsdsItem {
   file_json: FileJson = new FileJson();
   create_user_id:number;
   master_company_id: number;
+
+  constructor(){
+    this.msds_content = 
+    "1. 화학제품과 회사에 관한 정보\n"
+    +"2. 유해성, 위험성\n"
+    +"3. 구성성분의 명칭 및 함유량\n"
+    +"4. 응급조치 요령\n"
+    +"5. 폭팔, 화재시 대처방법\n"
+    +"6. 누출 사고시 대처방법\n"
+    +"7. 취급 및 저장방법\n"
+    +"8. 노출방지 및 개인보호구\n"
+    +"9. 물리화학적 특성\n"
+    +"10. 안전성 및 반응성\n"
+    +"11. 독성에 관한 정보\n"
+    +"12. 환경에 미치는 영향\n"
+    +"13. 폐기 시 주의 사항\n"
+    +"14. 운송에 필요한 정보\n"
+    +"15. 법적 규제현황\n"
+    +"16. 그 밖의 참고사항";
+  }
 };
 
 @Component({
@@ -61,7 +81,8 @@ export class MsdsEditPage implements OnInit {
     private date: DateService,
     private alert:AlertService,
     public languagePack: LanguagePackService
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     

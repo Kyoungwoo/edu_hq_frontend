@@ -23,7 +23,7 @@ class SupervisionApprovalInfo {
   create_date: string;
   approval_state: string;
   row_count: number;
-  index: number
+  index: number;
 }
 
 @Component({

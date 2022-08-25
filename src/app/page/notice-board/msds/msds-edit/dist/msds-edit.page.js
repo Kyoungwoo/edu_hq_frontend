@@ -143,6 +143,7 @@ var MsdsEditPage = /** @class */ (function () {
     //   }
     // }
     MsdsEditPage.prototype.submit = function () {
+        console.log("KSJDKFJ");
         this.msdsText.update();
         if (this.form.msds_id)
             this.update();

@@ -46,7 +46,7 @@ export class WorkerMinutesListPage implements OnInit, OnDestroy {
     project_id: null,
     master_company_id: null,
     safety_meeting_type: '전체',
-    start_date: this.date.today({ month: -1 }),
+    start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
     // approval_cnt_answer: '전체',

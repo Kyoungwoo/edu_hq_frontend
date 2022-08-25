@@ -34,24 +34,20 @@ class SupervisionInfo {
 export class SupervisionInfoListPage implements OnInit {
 
   form = {
-    
     project_id: 0,
     company_id: 0,
     ctgo_construction_ids: [],
-
     start_date: this.date.today({ year: -3 }),
     end_date: this.date.today(),
     search_text: '',
-    
     limit_no: 0,
-
     session_company_id: this.user.userData.belong_data.company_id,
     user_manage_session: '',
   };
 
   validator = new Validator(new SupervisionInfo()).validator;
   res:ConnectResult<SupervisionInfo>;
-
+  
   constructor(
     private user: UserService,
     private modal : ModalController,
@@ -62,6 +58,7 @@ export class SupervisionInfoListPage implements OnInit {
     private file: FileService
   ) { }
 
+  
   ngOnInit() {
     this.get();
   }
