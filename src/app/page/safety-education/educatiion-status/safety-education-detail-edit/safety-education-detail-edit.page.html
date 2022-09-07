@@ -94,7 +94,7 @@
           <ion-toolbar color="white">
             <app-row>
               <app-col>
-                <h5>교육사진</h5>
+                <h4>교육 사진</h4>
               </app-col>
               <app-col *ngIf="editable.my_state" size="auto">
                 <app-button>추가
@@ -105,15 +105,16 @@
             </app-row>
           </ion-toolbar>
           <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
-            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
+            <app-file-preview type="auto" *ngIf="futItem.view_type === 'EDU_ONE'" [futItem]="futItem"
               (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="editable.my_state ? false : (item)"></app-file-preview>
           </ng-container>
         </app-col>
+
         <app-col>
           <ion-toolbar color="white">
             <app-row>
               <app-col>
-                <h5></h5>
+                <h4>교육 사진</h4>
               </app-col>
               <app-col *ngIf="editable.my_state" size="auto">
                 <app-button>추가
@@ -124,32 +125,34 @@
             </app-row>
           </ion-toolbar>
           <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index">
-            <app-file-preview type="full" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
+            <app-file-preview type="auto" *ngIf="futItem.view_type === 'EDU_TWO'" [futItem]="futItem"
               (buttonClick)="form.education_safe_file_data.splice(i,1)" [readonly]="editable.my_state ? false : (item)"></app-file-preview>
           </ng-container>
         </app-col>
       </app-row>
     </form>
-    <app-row>
+    <br>
+    <ion-toolbar color="white">
+      <app-row *ngIf="item" style="align-items: flex-start;">
       <app-col>
         <h4>교육 자료</h4>
       </app-col>
       <app-col size="auto" *ngIf="editable.my_state">
-        <app-button fill="translucent">
-          <app-file view_type="EDU" [multiple]="true" [(ngModel)]="form.education_safe_file_data"
-            [file]="form.file" [file_json]="form.file_json">
+        <app-button fill="translucent">첨부
+          <app-file name="input" view_type="EDU" [multiple]="true" [(ngModel)]="form.education_safe_file_data"
+            [file]="form.file" [file_json]="form.file_json" [multiple]="true">
           </app-file>
-          첨부
         </app-button>
       </app-col>
     </app-row>
+   </ion-toolbar>
     <ng-container *ngFor="let futItem of form.education_safe_file_data; let i = index" >
-      <app-file-preview type="full"
+      <app-file-preview type="auto"
       *ngIf="futItem.view_type === 'EDU'"
       [futItem]="futItem" 
       [readonly]="editable.my_state ? false : (item)"
-      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview>
-    </ng-container>
+      (buttonClick)="form.education_safe_file_data.splice(i,1)"></app-file-preview> 
+    </ng-container> 
     
       <ng-container *ngIf="form.education_safe_state !== '교육 전'">
         <app-row style="margin-top: 10px;">

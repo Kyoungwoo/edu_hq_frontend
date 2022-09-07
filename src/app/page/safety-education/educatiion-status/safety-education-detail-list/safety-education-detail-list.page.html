@@ -1,92 +1,91 @@
-
 <ng-container>
-<ion-header>
-  <ion-toolbar color="white">
-    <ion-title>교육 현황</ion-title>
-    <ion-buttons slot="end">
-      <app-dismiss-button></app-dismiss-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <app-row>
-    <app-col>
-      <h4>교육 정보</h4>
-    </app-col>
-    <app-col size="auto">
-      <app-button fill="translucent">취소</app-button>
-    </app-col>
-    <app-col size="auto"> 
-      <app-button>저장</app-button>
-    </app-col>
-  </app-row>
-  <form>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>교육 현황</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
     <app-row>
       <app-col>
-        <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+        <h4>교육 정보</h4>
       </app-col>
-      <app-col>
-        <app-input [readonly]="true" label="교육상태" [value]="eduState"></app-input>
+      <app-col size="auto">
+        <app-button fill="translucent">취소</app-button>
+      </app-col>
+      <app-col size="auto"> 
+        <app-button>저장</app-button>
       </app-col>
     </app-row>
-    <app-row>
-      <app-col>
-        <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
-      </app-col>
-      <app-col>
-        <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-select-education></app-select-education>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-input label="교육대상" placeholder="교육 대상을 입력하세요"></app-input>
-      </app-col>
+    <form>
+      <app-row>
         <app-col>
-        <app-input label="교육장소" placeholder="교육 장소를 입력하세요"></app-input>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-calendar label="교육일"></app-calendar>
-      </app-col>
-      <app-col>
-        <app-input-group label="교육 시간">
-        <app-datetime></app-datetime>
-        ~
-        <app-datetime></app-datetime>
-      </app-input-group>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-select-attendance></app-select-attendance>
-      </app-col>
-      <app-col>
-        <app-input label="강사" placeholder="강사를 입력하세요"></app-input>
-      </app-col>
-    </app-row>
-    <app-row>
-      <app-col>
-        <app-textarea label="교육내용" [rows]="10" value="
-        1. 기계· 기구의 위험성 동선에 관한 사항  
-        2. 작업 개시 전 점검에 관한 사항
-        3. 정리정돈 및 청소에 관한 사항
-        4. 사고 발생시 긴급조치에 관한 사항
-        5. 산업보건 및 직업병 예방에 관한 사항
-        6. 산업안전보건법 및 일반관리에 관한 사항
-        7. 직무스트레스 예방 및 관리에 관한 사항
-        8. 물질안전보건자료에 관한 사항
-        *상세 교육 내용은 신규자 교육 교안 및 물질안전보건자료집 참조 
-        "></app-textarea>
-      </app-col>
-    </app-row>
-  </form>
-</ion-content>
-</ng-container>
+          <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="교육상태" [value]="eduState"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input [readonly]="true" label="개설자" value="이상범/(주)지에스아이엘"></app-input>
+        </app-col>
+        <app-col>
+          <app-input [readonly]="true" label="개설일" value="2021.05.06(화)"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-education></app-select-education>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="교육대상" placeholder="교육 대상을 입력하세요"></app-input>
+        </app-col>
+          <app-col>
+          <app-input label="교육장소" placeholder="교육 장소를 입력하세요"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-calendar label="교육일"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-input-group label="교육 시간">
+          <app-datetime></app-datetime>
+          ~
+          <app-datetime></app-datetime>
+        </app-input-group>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-attendance></app-select-attendance>
+        </app-col>
+        <app-col>
+          <app-input label="강사" placeholder="강사를 입력하세요"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-textarea label="교육내용" [rows]="10" value="
+          1. 기계· 기구의 위험성 동선에 관한 사항  
+          2. 작업 개시 전 점검에 관한 사항
+          3. 정리정돈 및 청소에 관한 사항
+          4. 사고 발생시 긴급조치에 관한 사항
+          5. 산업보건 및 직업병 예방에 관한 사항
+          6. 산업안전보건법 및 일반관리에 관한 사항
+          7. 직무스트레스 예방 및 관리에 관한 사항
+          8. 물질안전보건자료에 관한 사항
+          *상세 교육 내용은 신규자 교육 교안 및 물질안전보건자료집 참조 
+          "></app-textarea>
+        </app-col>
+      </app-row>
+    </form>
+  </ion-content>
+  </ng-container>
 
  

@@ -3,7 +3,7 @@
     <app-logo class="logo"></app-logo>
     <form>
       <app-img class="logo-text" src="assets/img/logo-text.svg"></app-img>
-   
+      <!-- <div style="text-align:center;"><h6>Version:1.2.3</h6></div> <br> -->
       <app-input
       [color]="res && res.rsCode !== 0 && 'warning'"
       name="input-id" [label]="languagePack.getText('아이디')" [placeholder]="languagePack.getText('아이디')" 
@@ -16,7 +16,7 @@
       
       <app-input-caption color="warning" name="caption-invalid" *ngIf="res?.rsCode === 500">{{ res.rsMsg }}</app-input-caption>
 
-      <app-button name="button-login" style="width: 100%" (click)="login()">{{ languagePack.getText('로그인') }}</app-button>
+      <app-button name="button-login" style="width: 100%;" (click)="login()">{{ languagePack.getText('로그인') }}</app-button>
       <app-row>
         <app-col>
           <app-check addClass="login" name="auto_login" [(ngModel)]="autoLogin">
@@ -38,5 +38,6 @@
     <app-col><app-button name="button_sign_up" color="dark" fill="clear" size="small" routerLink="/sign-up-type">{{ languagePack.getText('회원 가입') }}</app-button></app-col><span></span>
     <app-col><app-button name="button_find_id" color="dark" fill="clear" size="small" routerLink="/find-id-mobile-type" [queryParams]="{ type: 'find-id' }">{{ languagePack.getText('아이디 찾기') }}</app-button></app-col><span></span>
     <app-col><app-button name="button_find_password" color="dark" fill="clear" size="small" routerLink="/find-password-mobile-type" [queryParams]="{ type: 'find-password' }">{{ languagePack.getText('비밀번호 찾기') }}</app-button></app-col>
-  </app-row>
+  </app-row> <br><br>
+  <div style= "color: #d8e1e6; font-size: small;">Version:1.2.3</div>
 </ion-content>

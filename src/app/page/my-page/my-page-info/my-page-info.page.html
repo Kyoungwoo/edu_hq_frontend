@@ -33,7 +33,7 @@
         <app-input-template
         name="account_token" [label]="languagePack.getText('비밀번호')" [disabled]="!editable" (buttonClick)="changePassword()">
           <p slot="input">{{ languagePack.getText('안전한 계정 사용을 위해 비밀번호를 주기적으로 변경해 주세요.') }}</p>
-        
+          {{ languagePack.getText('변경') }}
         </app-input-template>
 
       </app-col>
@@ -78,7 +78,7 @@
         [color]="basicValidator.user_phone?.valid === false && 'warning'"
         [disabled]="!editable" [required]="true" (buttonClick)="changePhone()">
           <p slot="input">{{ basicForm.user_phone }}</p>
-          변경
+          {{ languagePack.getText('변경') }}
         </app-input-template>
 
       </app-col>

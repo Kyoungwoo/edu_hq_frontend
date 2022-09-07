@@ -115,8 +115,8 @@ public class GeolocationUpdates extends Service {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(packageContext);
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
+        locationRequest.setInterval(300000); /* 5000=10초, 300,000= 10분 */
+        locationRequest.setFastestInterval(150000); /* 5000=10초, 150,000= 5분 */
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
       Log.d(TAG, "_startUpdates 1");
         locationCallback = new LocationCallback() {

@@ -64,7 +64,7 @@
       </app-col>
     </app-row>
 
-    <app-table>
+    <app-table style="overflow:auto; width:auto; height:93%;">  <!--사용자 스크롤 구현 -->
       <thead>
         <tr>
           <th colspan="4">총 {{ workerInRes?.rsObj?.row_count || 0 }}명</th>
@@ -85,7 +85,6 @@
         </tr>
       </tbody>
     </app-table>
-
   </app-col>
 
 </app-row>
@@ -127,59 +126,11 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr *ngFor="let item of workerInRes?.rsMap">
+                <tr *ngFor="let item of workerInRes?.rsMap">
                   <td>{{ item.company_name }}</td>
                   <td>{{ item.user_name }}</td>
                   <td>{{ item.ctgo_construction_name }}</td>
                   <td>{{ item.user_type }}</td>
-                </tr> -->
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
-                </tr>
-                <tr>
-                  <td>test</td>
-                  <td>test1</td>
-                  <td>test2</td>
-                  <td>test3</td>
                 </tr>
               </tbody>
             </app-table>
