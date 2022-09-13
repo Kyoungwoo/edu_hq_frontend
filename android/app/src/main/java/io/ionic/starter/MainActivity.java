@@ -40,8 +40,8 @@ public class MainActivity extends BridgeActivity {
 
   public void gps() {
     LocationRequest locationRequest = LocationRequest.create();
-    locationRequest.setInterval(300000); /* 5000=10초, 300,000= 10분 */
-    locationRequest.setFastestInterval(150000); /* 5000=10초, 150,000= 5분 */
+    locationRequest.setInterval(300000); /* 6000=10초, 300,000= 5분 */
+    locationRequest.setFastestInterval(150000); /* 6000=10초, 150,000= 2.5분 */
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
