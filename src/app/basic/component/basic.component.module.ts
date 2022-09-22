@@ -56,6 +56,8 @@ import { FilePopoverComponent } from './input/file-popover/file-popover.componen
 import { QrScannerComponent } from './dialog/qr-scanner/qr-scanner.component';
 import { NaverUserMapComponent } from './input/naver-user-map/naver-user-map.component';
 import { NaverUserMapModalComponent } from './input/naver-user-map-modal/naver-user-map-modal.component';
+import { CircleComponent } from './ui/circle/circle.component';
+
 @NgModule({
   declarations: [
     // dialog components
@@ -91,9 +93,10 @@ import { NaverUserMapModalComponent } from './input/naver-user-map-modal/naver-u
     ButtonComponent,
     ButtonFooterComponent,
     CardComponent,
+    CircleComponent,
     ColComponent,
     ContainerComponent,
-    CopyRightComponent,
+    CopyRightComponent, 
     DismissButtonComponent,
     FilePreviewComponent,
     GraphGroupComponent,
@@ -127,6 +130,7 @@ import { NaverUserMapModalComponent } from './input/naver-user-map-modal/naver-u
     CalendarComponent,
     CheckComponent,
     CheckGroupComponent,
+    CircleComponent,
     DatetimeComponent,
     EmailComponent,
     FileComponent,
