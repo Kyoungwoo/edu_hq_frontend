@@ -187,12 +187,82 @@ export class  SideMenuAdminComponent implements OnInit {
         }}
       ]}
     ]},
-    { title: '위험관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
-      { title: '위험지역 출입관리', link: ''},
-      { title: '크레인상하차 접근관리', link: ''},
-      { title: '안전고리 체결관리', link: ''},
-      { title: '밀폐환경 정보관리', link: ''},
-      { title: '변위 감지관리', link: ''}
+    { title: '위험작업관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
+      {
+        title: '위험지역 출입관리',
+        link: '/danger-management/danger-area-log-list',
+        permission: () => {
+          const { user_role, user_type } = this.user.userData;
+
+          return (
+            user_role === 'LH_HEAD' ||
+            user_role === 'LH_ADMIN' ||
+            user_role === 'MASTER_HEAD' ||
+            user_role === 'PARTNER_HEAD' ||
+            user_role === 'SUPER_HEAD'
+          );
+        },
+      },
+      {
+        title: '크레인상하차 접근관리',
+        link: '/danger-management/crane-access-list',
+        permission: () => {
+          const { user_role, user_type } = this.user.userData;
+
+          return (
+            user_role === 'LH_HEAD' ||
+            user_role === 'LH_ADMIN' ||
+            user_role === 'MASTER_HEAD' ||
+            user_role === 'PARTNER_HEAD' ||
+            user_role === 'SUPER_HEAD'
+          );
+        },
+      },
+      {
+        title: '안전고리 체결관리',
+        link: '/danger-management/safety-hook-list',
+        permission: () => {
+          const { user_role, user_type } = this.user.userData;
+
+          return (
+            user_role === 'LH_HEAD' ||
+            user_role === 'LH_ADMIN' ||
+            user_role === 'MASTER_HEAD' ||
+            user_role === 'PARTNER_HEAD' ||
+            user_role === 'SUPER_HEAD'
+          );
+        },
+      },
+      {
+        title: '밀폐환경 정보관리',
+        link: '/danger-management/closed-environment-list',
+        permission: () => {
+          const { user_role, user_type } = this.user.userData;
+
+          return (
+            user_role === 'LH_HEAD' ||
+            user_role === 'LH_ADMIN' ||
+            user_role === 'MASTER_HEAD' ||
+            user_role === 'PARTNER_HEAD' ||
+            user_role === 'SUPER_HEAD'
+          );
+        },
+      },
+      {
+        title: '변위 감지관리',
+        link: '/danger-management/desplacement-detection-list',
+        permission: () => {
+          const { user_role, user_type } = this.user.userData;
+
+          return (
+            user_role === 'LH_HEAD' ||
+            user_role === 'LH_ADMIN' ||
+            user_role === 'MASTER_HEAD' ||
+            user_role === 'PARTNER_HEAD' ||
+            user_role === 'SUPER_HEAD'
+          );
+        },
+      },
     ]},
     { title: '사고관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
       // { title: '아차사고 신고', link: ''},
@@ -358,7 +428,7 @@ export class  SideMenuAdminComponent implements OnInit {
   ngOnInit() {}
 
   menuClose() {
-    this._modal.dismiss();
+    this._modal.dismiss(); 
   }
   notReady() {
     this.alert.present({

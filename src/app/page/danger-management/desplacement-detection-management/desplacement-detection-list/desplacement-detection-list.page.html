@@ -1,0 +1,98 @@
+<app-header-admin></app-header-admin>
+<ion-content>
+  <app-row style="align-items: flex-start">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px" (click)="getList()">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene (ngModelChange)="getList()" name="project_id" [(ngModel)]="form.project_id">
+              </app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor (ngModelChange)="getList()" [project_id]="form.project_id"
+                [(ngModel)]="form.master_company_id"></app-select-contractor>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>
+              <app-select-company (ngModelChange)="getList()" name="company_id" [project_id]="form.project_id"
+                [(ngModel)]="form.company_id">
+              </app-select-company>
+            </td>
+          </tr> -->
+          <tr>
+            <td>
+              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."
+                [(ngModel)]="this.form.search_text"></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <app-row style="justify-content: space-between">
+          <h5>구조물 붕괴 변위 설치 장소 (총 {{displaceRes?.totalItems || 0 }}건)</h5>
+          <app-row style="justify-content: end; width: fit-content">
+            <app-circle [color]="'#0e0'">&nbsp;</app-circle>
+            <span>&nbsp;: 정상&nbsp;&nbsp;</span>
+            <app-circle [color]="'orange'">&nbsp;</app-circle>
+            <span>&nbsp;: 주의&nbsp;&nbsp;</span>
+            <app-circle [color]="'red'">&nbsp;</app-circle>
+            <span>&nbsp;: 경고</span>
+          </app-row>
+        </app-row>
+      </ion-toolbar>
+      <app-check-group [(ngModel)]="selectedList">
+        <app-table>
+          <thead>
+            <tr>
+              <!-- <th style="width: 40px" rowspan="2">
+                <app-check type="all" color="white" size="small" name="check"></app-check>
+              </th> -->
+              <th>No</th>
+              <th>등록 장소</th>
+              <th>이상 유무</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of displaceRes?.rsMap let i = index" (click)="Heavyedit(item)">
+              <!-- <td style="width: 40px">
+                <app-check [disabled]="!btnPromise('delete_check')" (click)="$event.stopPropagation()"
+                  [on]="item.SerialNo" color="white" size="small" name="check"></app-check>
+              </td> -->
+              <td>{{ item.index }}</td>
+              <td>등록장소</td>
+              <td [ngSwitch]="item.inclinationCd">
+                <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
+                  &nbsp;
+                </app-circle>
+                <app-circle *ngSwitchCase="'주의'" [color]="'orange'">
+                  &nbsp;
+                </app-circle>
+                <app-circle *ngSwitchCase="'경고'" [color]="'red'">
+                  &nbsp;
+                </app-circle>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-check-group>
+      <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+      </app-pager> -->
+    </app-col>
+  </app-row>
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>안전고리 체결 내역</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>회원 정보</h4>
+  <app-row mobileBreak>
+    <app-col>
+      <app-select-scene name="project_id" [required]="true" [disabled]="true" [(ngModel)]="project_id">
+      </app-select-scene>
+      <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
+    </app-col>
+    <app-col>
+      <app-input label="업체명" [(ngModel)]="companyName" name="companyName" [readonly]="true" [required]="true"
+        [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-input label="성명" [(ngModel)]="userName" name="userName" [readonly]="true" [required]="true"
+        [disabled]="true"></app-input>
+    </app-col>
+    <app-col>
+      <app-calendar label="날짜" [(ngModel)]="form.date" name="date" [required]="true"></app-calendar>
+    </app-col>
+  </app-row>
+  <!-- <app-row mobileBreak>
+
+    <app-col>
+    </app-col>
+  </app-row> -->
+
+  <h6></h6>
+  <app-row style="justify-content: space-between">
+      <app-col size="auto">
+        <h4>체결이력 조회</h4>
+      </app-col>
+      <app-row style="justify-content: end; width: fit-content">
+          <app-circle [color]="'#0e0'">&nbsp;</app-circle>
+          <span>&nbsp;: 체결&nbsp;&nbsp;</span>
+          <app-circle [color]="'orange'">&nbsp;</app-circle>
+          <span>&nbsp;: 미체결</span>
+      </app-row>
+  </app-row>
+
+  
+  <app-table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>발생시간</th>
+        <th>체결여부</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of res?.rsMap let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td [ngSwitch]="item.safetyHookCd">
+          <app-circle *ngSwitchCase="'체결'" [color]="'#0e0'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'미체결'" [color]="'orange'">
+            &nbsp;
+          </app-circle>
+        </td>
+      </tr>
+    </tbody>
+  </app-table>
+</ion-content>
+<app-pager [totalCount]="res?.totalItems" [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+</app-pager>
+<app-button-footer *ngIf="serial_no">
+  <app-button fill="default" (click)="close()">닫기</app-button>
+</app-button-footer>

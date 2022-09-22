@@ -13,8 +13,8 @@
       && user.userData.user_type !== 'SUPER'
       && user.userData.user_type !== 'COMPANY'">작업관리</app-button>
       <app-button color="white" fill="clear" class="menu" routerLink="/heavy-equip-list" [class.active]="selectedMenu?.title === '장비관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="user.userData.user_type == 'SUPER'">장비관리</app-button>
-      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '위험작업관리'" (click)="selectedMenu = adminMenu.menuList[6]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">위험작업관리</app-button>
-      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">비상상황관리</app-button>
+      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '위험작업관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">위험작업관리</app-button>
+      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[8]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">비상상황관리</app-button>
     </ion-buttons>
 
     <ion-buttons slot="end" *ngIf="!url?.includes('main-sub-admin') && !url?.includes('main-admin')">

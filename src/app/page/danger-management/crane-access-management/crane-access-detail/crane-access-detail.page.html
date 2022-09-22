@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>크레인 상하자 접근내역</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>크레인 정보</h4>
+  <app-row mobileBreak>
+    <app-col>
+      <app-select-scene
+        name="project_id"
+        [required]="true"
+        [disabled]="true"
+        [(ngModel)]="project_id"
+      ></app-select-scene>
+      <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
+    </app-col>
+    <app-col>
+      <app-select-contractor [multiple]="false" name="master_company_id" [required]="true" [project_id]="this.project_id"
+        [disabled]="updateStatus || user.userData.user_type === 'COMPANY'" [(ngModel)]="this.master_company_id">
+      </app-select-contractor>
+    </app-col>
+    <app-col>
+      <app-calendar
+        label="날짜"
+        [(ngModel)]="form.date"
+        name="date"
+        [required]="true"
+      ></app-calendar>
+    </app-col>
+  </app-row>
+  <!-- <app-row mobileBreak>
+
+    <app-col>
+    </app-col>
+  </app-row> -->
+
+  <h4>이벤트 발생 조회</h4>
+
+  <app-table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>건설기계</th>
+        <th>접근 상태</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of res?.rsMap let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.createdAt }}</td>
+        <td [ngSwitch]="item.craneHeightCd">
+          <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'비정상'" [color]="'orange'">
+            &nbsp;
+          </app-circle>
+        </td>
+      </tr>
+    </tbody>
+  </app-table>
+</ion-content>
+<app-button-footer *ngIf="serial_no">
+  <app-button fill="default" (click)="close()">닫기</app-button>
+</app-button-footer>

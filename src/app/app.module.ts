@@ -82,8 +82,13 @@ const getConfig = () => {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: NaverMapId, useValue: 'icx4jmxljt' },
     { provide: ConnectStrategy, useValue: {
-      devUrl: 'https://api.lh-skeeper.or.kr',
-      url: 'https://api.lh-skeeper.or.kr',
+      devUrl: 'https://dev-api.lh-skeeper.or.kr',
+      url: 'https://dev-api.lh-skeeper.or.kr',      
+      //devUrl: 'https://api.lh-skeeper.or.kr',
+      //url: 'https://api.lh-skeeper.or.kr',
+      iotUrl: '',
+      iotDevUrl: 'https://iot.lh-skeeper.com/iotapi',  //iot 수집서버
+      //iotDevUrl: 'http://localhost:8086/iotapi',      
       exceptLogUrls: []
     }},
     QRScanner,

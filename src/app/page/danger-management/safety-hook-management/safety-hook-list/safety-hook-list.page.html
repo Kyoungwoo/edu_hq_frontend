@@ -1,0 +1,86 @@
+<app-header-admin></app-header-admin>
+<ion-content>
+  <app-row style="align-items: flex-start">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between">
+            <app-col size="auto">
+              <h5>필터</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px" (click)="getList()">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene (ngModelChange)="getList()" name="project_id" [(ngModel)]="form.project_id">
+              </app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor (ngModelChange)="getList()" name="master_company_id" [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-company (ngModelChange)="getList()" name="company_id" [project_id]="form.project_id"
+                [(ngModel)]="form.company_id">
+              </app-select-company>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."
+                [(ngModel)]="this.form.search_text"></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+    <app-col>
+      <ion-toolbar color="white">
+        <h5>안전고리 체결이력 (총 {{hookRes?.totalItems || 0 }}건)</h5>
+      </ion-toolbar>
+      <app-check-group [(ngModel)]="selectedList">
+        <app-table>
+          <thead>
+            <tr>
+              <!-- <th style="width: 40px" rowspan="2">
+                <app-check type="all" color="white" size="small" name="check"></app-check>
+              </th> -->
+              <th>No</th>
+              <th>업체명</th>
+              <th>장비 관리번호</th>
+              <th>성명</th>
+              <th>체결상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" *ngFor="let item of hookRes?.rsMap let i = index" (click)="Hookedit(item)">
+              <!-- <td style="width: 40px">
+                <app-check [disabled]="!btnPromise('delete_check')" (click)="$event.stopPropagation()"
+                  [on]="item.SerialNo" color="white" size="small" name="check"></app-check>
+              </td> -->
+              <td>{{ item.index }}</td>
+              <td>{{ item.companyName }}</td>
+              <td>{{ item.SerialNo }}</td>
+              <td>{{ item.userName }}</td>
+              <td [ngSwitch]="item.safetyHookCd">
+                <app-circle *ngSwitchCase="'체결'" [color]="'#0e0'">
+                  &nbsp;
+                </app-circle>
+                <app-circle *ngSwitchCase="'미체결'" [color]="'orange'">
+                  &nbsp;
+                </app-circle>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-check-group>
+    </app-col>
+  </app-row>
+</ion-content>

@@ -13,6 +13,8 @@ import { AlertController } from '@ionic/angular';
 export interface ConnectStrategyOptions {
   devUrl:string,
   url:string,
+  iotUrl: string;
+  iotDevUrl: string;  
   exceptLogUrls:string[]
 }
 export const ConnectStrategy = new InjectionToken<ConnectStrategyOptions>('ConnectStrategy');
@@ -33,7 +35,8 @@ export interface ConnectOptions {
   contentType?:ContentType,
   loading?:string | boolean,
   parse?:string[],
-  cctv?:boolean
+  cctv?:boolean,
+  iot?: boolean;  
 }
 /* export type Valid<T> = {
   [P in keyof T]?: { message:string, valid:boolean }
@@ -68,7 +71,16 @@ export class ConnectService {
   async run(endPoint, data?:{[name:string]:any}, options?:ConnectOptions):Promise<ConnectResult> {
     data = data || {};
     
-    const url = options?.cctv ? endPoint : ((environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint);
+    let url = null;
+    if(options?.cctv) {
+      url = '';
+    }
+    else if(options?.iot) {//iot 수집 서버 backend url 분기
+      url = (environment.production ? this.connectStrategy.iotUrl : this.connectStrategy.iotDevUrl) + endPoint;
+
+    } else {
+      url = (environment.production ? this.connectStrategy.url : this.connectStrategy.devUrl) + endPoint;
+    } 
 
     if(!environment.production && !this.connectStrategy.exceptLogUrls.includes(url)) {
       console.log(data, url);

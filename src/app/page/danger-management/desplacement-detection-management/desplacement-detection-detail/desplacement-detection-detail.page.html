@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>구조물 변위 감지 상세</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h4>구조물 변위 감지 정보</h4>
+  <app-row mobileBreak>
+    <app-col>
+      <app-select-scene name="project_id" [required]="true" [disabled]="true" [(ngModel)]="project_id">
+      </app-select-scene>
+      <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
+    </app-col>
+    <app-col>
+      <app-select-contractor [multiple]="false" name="master_company_id" [required]="true" [project_id]="this.project_id"
+        [disabled]="updateStatus || user.userData.user_type === 'COMPANY'" [(ngModel)]="this.master_company_id">
+      </app-select-contractor>
+    </app-col>
+    <app-col>
+      <app-input label="등록장소" [(ngModel)]="companyName" name="companyName" [readonly]="true" [required]="true"
+        [disabled]="true"></app-input>
+    </app-col>
+    <!-- <app-col>
+      <app-input label="성명" [(ngModel)]="userName" name="userName" [readonly]="true" [required]="true"
+        [disabled]="true"></app-input>
+    </app-col> -->
+    <app-col>
+      <app-calendar label="날짜" [(ngModel)]="form.date" name="date" [required]="true"></app-calendar>
+    </app-col>
+  </app-row>
+  <!-- <app-row mobileBreak>
+
+    <app-col>
+    </app-col>
+  </app-row> -->
+  <h6></h6>
+  <app-row style="justify-content: space-between">
+    <app-col size="auto">
+      <h4>구조물 붕괴 변위 설치 장소</h4>
+    </app-col>
+    <app-row style="justify-content: end; width: fit-content">
+      <app-circle [color]="'#0e0'">&nbsp;</app-circle>
+      <span>&nbsp;: 정상&nbsp;&nbsp;</span>
+      <app-circle [color]="'orange'">&nbsp;</app-circle>
+      <span>&nbsp;: 주의&nbsp;&nbsp;</span>
+      <app-circle [color]="'red'">&nbsp;</app-circle>
+      <span>&nbsp;: 경고</span>
+    </app-row>
+  </app-row>
+  <app-table>
+    <thead>
+      <tr>
+        <th rowspan="2">측정시간</th>
+        <th colspan="2">충격 감지</th>
+        <th colspan="2">기울기 감지</th>
+      </tr>
+      <tr>
+        <th>상태</th>
+        <th>값</th>
+        <th>상태</th>
+        <th>값</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of res?.rsMap let i = index">
+        <td>{{ item.createdAt }}</td>
+        <td [ngSwitch]="item.impactCd">
+          <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'주의'" [color]="'orange'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'경고'" [color]="'red'">
+            &nbsp;
+          </app-circle>
+        </td>
+        <td>{{item.impactBasis}}</td>
+        <td [ngSwitch]="item.inclinationCd">
+          <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'주의'" [color]="'orange'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'경고'" [color]="'red'">
+            &nbsp;
+          </app-circle>
+        </td>
+        <td>{{item.inclinationBasis}}</td>
+      </tr>
+    </tbody>
+  </app-table>
+
+</ion-content>
+<app-pager [totalCount]="res?.totalItems" [limitNo]="form.limit_no" (pagerChange)="get($event)">
+</app-pager>
+<app-button-footer *ngIf="serial_no">
+  <app-button fill="default" (click)="close()">닫기</app-button>
+</app-button-footer>

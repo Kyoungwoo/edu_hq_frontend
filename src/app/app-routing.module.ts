@@ -192,6 +192,41 @@ const routes: Routes = [
     loadChildren: () => import('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module').then( m => m.DangerAreaAddPageModule)
   },
   {
+    path: 'danger-management/danger-area-log-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/danger-area-log/danger-area-log-list/danger-area-log-list.module'
+      ).then((m) => m.DangerAreaLogListPageModule),
+  },
+  {
+    path: 'danger-management/closed-environment-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/closed-environment-info-management/closed-environment-info-management-list/closed-environment-info-management-list.module'
+      ).then((m) => m.ClosedEnvironmentInfoListPageModule),
+  },
+  {
+    path: 'danger-management/crane-access-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/crane-access-management/crane-access-list/crane-access-list.module'
+      ).then((m) => m.CraneAccessListPageModule),
+  },
+  {
+    path: 'danger-management/safety-hook-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/safety-hook-management/safety-hook-list/safety-hook-list.module'
+      ).then((m) => m.SafetyHookListPageModule),
+  },
+  {
+    path: 'danger-management/desplacement-detection-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/desplacement-detection-management/desplacement-detection-list/desplacement-detection-list.module'
+      ).then((m) => m.DesplacementDetectionListPageModule),
+  },  
+  {
     path: 'each-device-detail-search',
     loadChildren: () => import('./page/equipment-management/smart-equipment/each-device-detail-search/each-device-detail-search.module').then( m => m.EachDeviceDetailSearchPageModule)
   },

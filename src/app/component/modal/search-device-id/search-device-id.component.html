@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>기기식별번호 조회</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <app-input-group>
+
+      <app-select label="스마트장비" name="select" [(ngModel)]="form.device_type">
+        <app-select-option [value]="0">전체</app-select-option>
+        <app-select-option [value]="1">안전고리 체결감지</app-select-option>
+        <app-select-option [value]="2">스마트 헬스케어밴드</app-select-option>
+        <app-select-option [value]="3">크레인 상하차 감지</app-select-option>
+        <app-select-option [value]="4">밀폐공간 유해물질 감지</app-select-option>
+        <app-select-option [value]="5">구조물 변위감지</app-select-option>
+        <app-select-option [value]="6">출입 QR</app-select-option>
+        <app-select-option [value]="7">NFC</app-select-option>
+      </app-select>
+      <app-input name="with img" label="검색어" [(ngModel)]="this.form.search_text" placeholder="검색어를 입력하세요">
+        <app-img (click)="getDevices()" name="search"></app-img>
+      </app-input>
+    </app-input-group>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card [button]="true" *ngFor="let item of res?.rsMap"
+    [color]="selected?.comSiteId === item?.comSiteId ? 'secondary' : 'white'" (click)="handleItemClick(item)">
+    <app-row>
+      <!-- <app-col>
+        <h5>장소</h5>
+        <p>{{ item.area_top_name }} / {{ item.area_middle_name }} / {{ item.area_bottom_name }}</p>
+      </app-col> -->
+      <app-col>
+        <h5>공급업체</h5>
+        <p>{{ item.suppier }}</p>
+      </app-col>
+      <app-col>
+        <h5>장비 구분</h5>
+        <p>{{ item.devTypeNm }}</p>
+      </app-col>
+      <app-col>
+        <h5>기기식별번호</h5>
+        <p>{{ item.deviceNum }}</p>
+      </app-col>
+      <app-col>
+        <h5>사용처</h5>
+        <p>{{ item.deviceUser }}</p>
+      </app-col>
+    </app-row>
+  </app-card>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="closeBtn()">취소</app-button>
+  <app-button (click)="submit()">적용</app-button>
+</app-button-footer>
