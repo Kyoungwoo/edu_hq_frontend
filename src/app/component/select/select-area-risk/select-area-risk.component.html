@@ -1,0 +1,10 @@
+<app-input
+  name="with img"
+  [readonly]="false"
+  [disabled]="false"
+  [color]="color"
+  [label]="label"
+  [(ngModel)]="value"
+>
+  <app-img *ngIf="!disabled" name="search"></app-img>
+</app-input>

@@ -1,14 +1,17 @@
+import { templateJitUrl } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DeviceData } from '../../select/select-device-id/select-device-id.component';
 
+
 @Component({
   selector: 'app-search-device-id',
   templateUrl: './search-device-id.component.html',
   styleUrls: ['./search-device-id.component.scss'],
 })
+
 export class SearchDeviceIdComponent implements OnInit {
 
   @Input() project_id;
@@ -24,6 +27,8 @@ export class SearchDeviceIdComponent implements OnInit {
   };
 
   res: ConnectResult<any>;
+  biconRes: ConnectResult<any>;
+  biconlist: ConnectResult<any>;
 
   constructor(
     private connect: ConnectService,
@@ -36,23 +41,43 @@ export class SearchDeviceIdComponent implements OnInit {
     if(this.master_company_id) this.form.master_company_id = this.master_company_id;
     // this.form.project_id = 58;
     await this.getDevices();
+    // setTimeout(() => {
+    //   this.getBiconList();
+    // }, 300);    
   }
 
   async getDevices() {
-    console.log(this.project_id, 'wowo');
+    const res = await this.connect.run('/serial/user/list',
+    {
+      company_id: 0,
+      master_company_id: 0,
+      partner_company_id: 0,
+      project_id: this.project_id,
+      ctgo_machine_serial_id: 0,
+      search_text: '',
+      limit_no: 0
+    },
+    { parse: ['user_data'] });    
+
+    const serial_bicon_list = res.rsMap
+      .filter((item) => item.serial_bicon !== '')
+      .map((item) => item.serial_bicon);
+    // console.log("serial_bicon_list ====" + serial_bicon_list);
+
+    // console.log(this.project_id, 'wowo');
     const result  = await this.connect.run('/device/site/list/serial', {
       project_id: this.project_id,
-      project_code: 'YRVN23',
-      company_id: this.form.master_company_id,
-      project_name: '극동건설(주)',
       page: 1,
       pageSize: 100,
     }, { contentType: ContentType.ApplicationJson, iot: true});
-
+    
     if(result.rsCode === 0) {
       this.res = result;
+      this.res.rsMap = result.rsMap.filter(
+        (item) => serial_bicon_list.includes(item.deviceNum) === false
+      ).map((item) => item);
     } else {
-      this.toast.present({message:this.res.rsMsg});
+      ;//this.toast.present({message:this.res.rsMsg});
     }
   }
 

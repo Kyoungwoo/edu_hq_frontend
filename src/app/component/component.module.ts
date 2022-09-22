@@ -75,7 +75,10 @@ import { ApprovalDocumentComponent } from './confirm/approval-document/approval-
 import { ApprovalZoomComponent } from './confirm/approval-zoom/approval-zoom.component';
 import { ApprovalPeopleComponent } from './confirm/approval-people/approval-people.component';
 
-
+import { SelectAreaRiskComponent } from './select/select-area-risk/select-area-risk.component';
+import { SelectAreaRiskTypeComponent } from './select/select-area-risk-type/select-area-risk-type.component';
+import { SelectDeviceIdComponent } from './select/select-device-id/select-device-id.component';
+import { SearchDeviceIdComponent } from './modal/search-device-id/search-device-id.component';
 
 @NgModule({
   declarations: [
@@ -150,8 +153,14 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SelectContractorCompanyComponent,
     SelectPeopleAllComponent,
     SelectRiskAreaComponent,
+    SettingModifyComponent,
 
-    SettingModifyComponent
+    //iot device related
+    SelectAreaRiskComponent,
+    SelectAreaRiskTypeComponent,
+    SelectDeviceIdComponent,
+    SearchDeviceIdComponent,
+
   ],
   imports: [
     CommonModule,
@@ -235,7 +244,14 @@ import { ApprovalPeopleComponent } from './confirm/approval-people/approval-peop
     SelectPeopleAllComponent,
     SelectRiskAreaComponent,
 
-    SettingModifyComponent
+    SettingModifyComponent,
+
+    //iot device related
+    SelectAreaRiskComponent,
+    SelectAreaRiskTypeComponent,
+    SelectDeviceIdComponent,
+    SearchDeviceIdComponent,
+
   ],
   providers:[
     SelectCompanyComponent
