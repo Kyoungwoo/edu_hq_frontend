@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
@@ -20,7 +20,6 @@ export class SelectAreaRiskTypeComponent
 {
   @Input() color: Color;
   @Input() protected label = '위험지역 타입';
-  @Input() company_id: number = 0;
 
   resCtgoRisk: ConnectResult<{
     ctgo_area_risk_id: number,
@@ -38,6 +37,19 @@ export class SelectAreaRiskTypeComponent
   ) {}
 
 
+  writeValue(obj: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
+  }
+
   ngOnInit() {
   }    
 
@@ -47,36 +59,4 @@ export class SelectAreaRiskTypeComponent
     if (this.resCtgoRisk.rsCode === 0) { };
   }
 
-
-  //default setting
-  //@Input() readonly:boolean = false;
-  @Input() disabled: boolean = false;
-  @Input() required: boolean = false;
-  @Output() change = new EventEmitter();
-
-  private _value: number;
-  @Input() set value(v: number) {
-    if (v !== this._value) {
-      this._value = v;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
-  }
-  get value() {
-    return this._value;
-  }
-  writeValue(v: number): void {
-    if (v !== this._value) {
-      this._value = v;
-      this.get();
-      this.onChangeCallback(v);
-      this.change.emit(v);
-    }
-  }
-
-  private onChangeCallback = (v) => { };
-  private onTouchedCallback = (v) => { };
-  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
-  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; } 
 }
