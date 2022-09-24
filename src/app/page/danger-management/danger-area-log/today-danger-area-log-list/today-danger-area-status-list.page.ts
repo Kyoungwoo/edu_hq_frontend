@@ -5,7 +5,7 @@ import { UserService, UserType } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
-import { TodayDepartureStatusEditPage } from '../today-departure-status-edit/today-departure-status-edit.page';
+import { TodayDepartureStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
 
 export class DepartureStatusListForm {
   project_id:number = 0; // 현장 ID
@@ -67,9 +67,10 @@ export class TodayDepartureStatusDetailItem {
   user_type:UserType;
 }
 @Component({
-  selector: 'app-today-departure-status-list',
-  templateUrl: './today-departure-status-list.page.html',
-  styleUrls: ['./today-departure-status-list.page.scss'],
+//  selector: 'app-today-departure-status-list',
+  selector: 'app-today-danger-area-status-list',
+  templateUrl: './today-danger-area-status-list.page.html',
+  styleUrls: ['./today-danger-area-status-list.page.scss'],
 })
 export class TodayDepartureStatusListPage implements OnInit {
 
@@ -128,8 +129,8 @@ export class TodayDepartureStatusListPage implements OnInit {
   getForm() {
     this.form.project_id = this.listForm.project_id;
     this.form.master_company_id = this.listForm.master_company_id;
-    this.form.ctgo_construction_ids = this.listForm.ctgo_construction_ids;
-    this.form.cnt_date = this.date.today(); //this.item.work_date;
+    this.form.ctgo_construction_ids = (this.listForm.ctgo_construction_ids) ? this.listForm.ctgo_construction_ids : [];
+    this.form.cnt_date = this.item.work_date;
   }
 
   async getSummary() {

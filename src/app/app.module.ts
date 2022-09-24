@@ -86,9 +86,9 @@ const getConfig = () => {
       url: 'https://dev-api.lh-skeeper.or.kr',      
       //devUrl: 'https://api.lh-skeeper.or.kr', //skeeper backend
       //url: 'https://api.lh-skeeper.or.kr',    //skeeper backend production
-      iotUrl: 'https://iot.lh-skeeper.com/iotapi',
-      //iotDevUrl: 'https://iot.lh-skeeper.com/iotapi',  //iot 수집서버
-      iotDevUrl: 'http://localhost:8086/iotapi',      
+      //iotUrl: 'https://iot.lh-skeeper.com/iotapi',
+      iotDevUrl: 'https://iot.lh-skeeper.com/iotapi',  //iot 수집서버
+      //iotDevUrl: 'http://localhost:8086/iotapi',      
       exceptLogUrls: []
     }},
     QRScanner,

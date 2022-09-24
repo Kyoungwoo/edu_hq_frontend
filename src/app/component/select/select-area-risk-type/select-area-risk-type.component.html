@@ -10,5 +10,14 @@
     [value]="country.ctgo_business_field_id"
     >{{ country.ctgo_business_field_name }}</app-select-option
   > -->
-  <app-select-option [value]="1">1</app-select-option>
+<!-- <tr>
+      <td>
+        <app-select [(ngModel)]="form.ctgo_area_risk_id">
+          <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{
+            opt.ctgo_area_risk_name }}</app-select-option>
+        </app-select>
+      </td>
+    </tr> -->
+
+  <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{opt.ctgo_area_risk_name}}</app-select-option>
 </app-select>

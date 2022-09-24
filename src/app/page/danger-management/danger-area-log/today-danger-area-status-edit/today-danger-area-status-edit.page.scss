@@ -1,0 +1,19 @@
+tr.selected {
+    td {
+        background: var(--ion-color-secondary);
+        color: var(--ion-color-secondary-contrast);
+    }
+}
+tr.selected:hover {
+    td {
+        background: var(--ion-color-secondary-shade);
+    }
+}
+
+.selected-layout {
+    text-align: left;
+    .seleted-list {
+        padding-top: var(--app-padding);
+        padding-bottom: var(--app-padding);
+    }
+}

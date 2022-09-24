@@ -34,25 +34,20 @@
             </td>
           </tr>
           <tr>
-            <td></td>
-          </tr>
-          <tr>
             <td>
-              <app-input-group label="기간">
-                <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
-                ~
-                <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
+              <app-input-group label="날짜">
+                <app-calendar [(ngModel)]="form.cnt_date"></app-calendar>
               </app-input-group>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-risk-area [form]="form"></app-select-risk-area>
+              <app-select-area-risk-type></app-select-area-risk-type>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-area-risk-type></app-select-area-risk-type>
+              <app-select-risk-area [form]="form"></app-select-risk-area>
             </td>
           </tr>
           <tr>
@@ -95,7 +90,7 @@
             <tr
               class="button"
               *ngFor="let item of res?.rsMap let i = index"
-              (click)="Heavyedit(item)"
+              (click)="detail(item)"
             >
               <td style="width: 40px">
                 <app-check
@@ -107,12 +102,10 @@
                   name="check"
                 ></app-check>
               </td>
-              <td>{{ item.ctgo_machinery_name }}</td>
-              <td>{{ item.machinery_regist_no }}</td>
-              <td>{{ item.master_company_name }}</td>
+              <td>{{ item.index}}</td>
+              <td>{{ item.ctgo_area_risk_name }}</td>
+              <td>{{ item.area_risk_name }}</td>
               <td>{{ item.partner_company_name}}</td>
-              <!-- <td>{{ item.ctgo_construction_name }}</td> -->
-              <td>{{ item.create_date }}</td>
             </tr>
           </tbody>
         </app-table>

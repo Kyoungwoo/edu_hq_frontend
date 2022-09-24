@@ -70,7 +70,7 @@ export class CraneAccessListPage implements OnInit {
     project_id: this.user.userData.belong_data.project_id,
     project_name: this.user.userData.belong_data.project_name,
     search_text: '',
-    limit_no: 1,
+    limit_no: 0,
   };
 
   res: ConnectResult<SerialInfo>;

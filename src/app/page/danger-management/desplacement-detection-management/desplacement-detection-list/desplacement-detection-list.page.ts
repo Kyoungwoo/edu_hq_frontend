@@ -148,7 +148,7 @@ export class DesplacementDetectionListPage implements OnInit {
     }  else if (res.rsCode === 1008) {
       this.res = null;
     } else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
+      ;//this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 

@@ -9,6 +9,9 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DangerAreaLogDetailPage } from '../danger-area-log-detail/danger-area-log-detail.page';
+import { TodayDepartureStatusListPage } from '../today-danger-area-log-list/today-danger-area-status-list.page';
+//import { DangerAreaLogEditPage } from '../danger-area-log-edit/danger-area-log-edit.page';
+//import { TodayDepartureStatusListPage } from '../today-departure-status-list/today-departure-status-list.page';
 
 export class DepartureStatusListForm {
   project_id: number = 0; // 현장 ID
@@ -70,13 +73,73 @@ export class TodayDepartureStatusDetailItem {
   user_type: UserType;
 }
 
-class DangerAreaInfo {
+const project_area_risk_get_response = 
+{
+  "rqMethod": "Get_AreaRisk_List",
+  "rsCode": 0,
+  "rsMsg": "성공",
+  "rsMap": [
+    {
+      "second_user_id": 1853216416,
+      "area_risk_id": 57,
+      "area_middle_name": "A-1BL(1공구) 현장 경계구역",
+      "ctgo_area_risk_name": "낙하물 위험지역",
+      "area_middle_id": 13,
+      "ctgo_area_risk_id": 4,
+      "area_risk_name": "수원당수 A-1BL(1공구) 현장 경계구역",
+      "manager_user_id": 7726577158,
+      "area_bottom_name": null,
+      "area_risk_type": "실외",
+      "nfc_state": 0,
+      "project_id": 160,
+      "area_top_id": 27,
+      "area_bottom_id": 13,
+      "area_risk_use_state": 1,
+      "area_top_name": "지상층",
+      "gps_state": 1
+    }
+  ],
+  "rsObj": {
+    "row_count": 3
+  },
+  "exMsg": null,
+    "authDto": null
+}
+
+class DangerAreaRes {
+  rqMethod: string;
+  rsCode: number;
+  rsMsg: string;
+  rsMap: Array<DangerAreaData>;
+  rsObj: {
+    row_count:number;
+  }
+}
+
+class DangerAreaData {
   index: number;
   master_company_id: number;
   master_company_name: string;
   danger_area_type: string;
   danger_area_name: string;
   search_text: string;
+  second_user_id: number;
+  area_risk_id: number;
+  area_middle_name: string;
+  ctgo_area_risk_name: string;
+  area_middle_id: number;
+  ctgo_area_risk_id: number;
+  area_risk_name: string;
+  manager_user_id: number;
+  area_bottom_name: string;
+  area_risk_type: string;
+  nfc_state: number;
+  project_id: number;
+  area_top_id: number;
+  area_bottom_id: number;
+  area_risk_use_state: number;
+  area_top_name: string;
+  gps_state: 1  
 }
 
 @Component({
@@ -87,31 +150,35 @@ class DangerAreaInfo {
 export class DangerAreaLogListPage implements OnInit {
   @Input() listForm: DepartureStatusListForm;
   @Input() item: DepartureStatusListItem;
-  // form = {
-  //   area_full_name: '',
-  //   master_company_id:
-  //     this.user.userData.user_type === 'LH' ||
-  //     this.user.userData.user_type === 'SUPER'
-  //       ? 0
-  //       : this.user.userData.belong_data.master_company_id,
-  //   date: new Date(),
-  //   area_risk_type: '',
-  //   area_risk_name: '',
-  //   search_text: '',
-  //   limit_no: 0,
-  // };
   form = {
-    project_id: 0, // 현장 ID
-    master_company_id: 0, // 원청사 ID
-    ctgo_construction_ids: [], // 공종 ID
-    cnt_date: '', // 선택날짜
-    start_date: this.date.today({ month: -1 }), // 검색 시작일
-    end_date: this.date.today(), // 검색 종료일
-    search_text: '', // 검색어'
-    limit_no: 0
-  }
-  res: ConnectResult<DangerAreaInfo>;
-  res2: ConnectResult<TodayDepartureStatusListItem>;
+    // ctgo_machinery_id: 0,
+    // end_date: this.date.today(),
+    company_id:
+      this.user.userData.user_type == 'LH' ||
+        this.user.userData.user_type == 'SUPER'
+        ? 0
+        : this.user.userData.belong_data.company_id,
+    master_company_id:
+      this.user.userData.user_type == 'LH' ||
+        this.user.userData.user_type == 'SUPER'
+        ? 0
+        : this.user.userData.belong_data.master_company_id,
+    partner_company_id: 0,
+    ctgo_area_risk_id:0,
+    cnt_date: this.date.today(),
+    ctgo_machine_serial_id: 0,
+    project_id: this.user.userData.belong_data.project_id,
+    project_name: this.user.userData.belong_data.project_name,
+    search_text: '',
+    limit_no: 0,
+  };
+
+  res: ConnectResult<DangerAreaData>;
+  // resCtgoRisk: ConnectResult<{
+  //   ctgo_area_risk_id: number,
+  //   ctgo_area_risk_name: string
+  // }>
+
   detailList: any[][] = [];
   selectedList = [];
   permisson = {
@@ -137,96 +204,74 @@ export class DangerAreaLogListPage implements OnInit {
       }, 300);
   }
 
-  getPromission() {
-    const { user_type } = this.user.userData;
-    if (user_type === 'LH' || user_type === 'SUPER') {
-      this.permisson.edit = false;
-    }
-    else if (user_type === 'COMPANY') {
-      this.permisson.edit = true;
-    }
-  }
-  getForm() {
-    this.form.project_id = this.listForm.project_id;
-    this.form.master_company_id = this.listForm.master_company_id;
-    this.form.ctgo_construction_ids = this.listForm.ctgo_construction_ids;
-    this.form.cnt_date = this.item.work_date;
-    
-  }
-  async getSummary() {
-    this.res = await this.connect.run('/work_state/current', this.form, { loading: true });
-    if (this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
-      this.toast.present({ color: 'warning', message: this.res.rsMsg });
-    }
-  }
-  async getList(limit_no = this.listForm.limit_no) {
-    this.listForm.limit_no = limit_no;
-    this.res2 = await this.connect.run('/work_state/detail/list', this.form, { loading: true });
-    if (this.res2.rsCode !== 0 && this.res2.rsCode !== 1008) {
-      this.toast.present({ color: 'warning', message: this.res2.rsMsg });
-    }
-  }
-  async detail(item: TodayDepartureStatusListItem, index) {
-    if (this.detailList[index]) {
-      this.detailList[index] = null;
-    }
-    else {
-      const form = {
-        cnt_date: this.form.cnt_date,
-        project_id: this.form.project_id,
-        master_company_id: item.company_id,
-        ctgo_construction_id: item.ctgo_construction_id,
-        view_user_id: item.user_id
-      }
-      const res = await this.connect.run('/work_state/detail/sub_list', form, { loading: true });
-      if (res.rsCode === 0) {
-        this.detailList[index] = res.rsMap;
-      }
+  async getList(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    const res = await this.connect.run('/project/area/risk/get', this.form);
+    if (res.rsCode === 0) {
+      this.res = {
+        ...this.res,
+        ...res,
+      };
+      this.res.rsMap.map((item, i) => {
+        item.index = res.rsMap.length - this.form.limit_no - i;
+      });
+    } else if (res.rsCode === 1008) {
+      this.res = null;
+    } else {
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
-  async edit(type) {
-    const modal = await this._modal.create({
-      component: DangerAreaLogDetailPage,
-      cssClass: 'today-departure-status-edit-modal',
-      componentProps: {
-        type,
-        project_id: this.form.project_id,
-        company_id: this.user.userData.belong_data.company_id,
-        inout_date: this.form.cnt_date
-      }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data) {
-      this.getSummary();
-      this.getList();
-    }
-  }
-//   async getList(limit_no = this.form.limit_no) {
-//     this.form.limit_no = limit_no;
-// //    const res = await this.connect.run('/danger-area/list', this.form);
-//     if (res.rsCode === 0) {
-//       this.res = {
-//         ...this.res,
-//         ...res,
-//       };
-//       this.res.rsMap.map((item, i) => {
-//         item.index = res.rsObj.row_count - this.form.limit_no - i;
-//       });
-//     } else if (res.rsCode === 1008) {
-//       this.res = null;
-//     } else {
-//       this.toast.present({ color: 'warning', message: res.rsMsg });
-//     }
-//   }
+  //위험지역 유형 가져오기
+  // async CtgoRisk() {
+  //   this.resCtgoRisk = await this.connect.run('/category/risk/type/get', {}, {});
+  //   if (this.resCtgoRisk.rsCode === 0) { };
+  // }  
+  // async detail(item) {
+  //   console.log("detail - ", this.form);
+  //   const modal = await this.modal.create({
+  //     component: TodayDepartureStatusListPage,
+  //     cssClass: 'today-departure-status-list-modal',
+  //     componentProps: {
+  //       listForm: this.form,
+  //       item
+  //     }
+  //   });
+  //   modal.present();
+  //   const { data } = await modal.onDidDismiss();
+  //   if (data) {
+  //     this.getList();
+  //   }
+  // }
 
   async Heavyedit(item?) {
     const modal = await this.modal.create({
       component: DangerAreaLogDetailPage,
       componentProps: {
-        machinery_id: item?.machinery_id,
+        project_id: this.form.project_id,
+        project_name: this.form.project_name,
+        serial_no: item?.SerialNo,
+        craneName: item.craneName,
         list_data: this.form,
+        master_company_id: this.form.master_company_id,
+      },
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.getList();
+    }
+  }
+
+  async detail(item?) {
+    const modal = await this.modal.create({
+      component: TodayDepartureStatusListPage,
+      cssClass: 'today-departure-status-list-modal',
+      componentProps: {
+        project_id: this.form.project_id,
+        project_name: this.form.project_name,
+        listForm: this.form,
+        master_company_id: this.form.master_company_id,
       },
     });
     modal.present();
@@ -250,13 +295,14 @@ export class DangerAreaLogListPage implements OnInit {
             if (res.rsCode === 0) {
               this.getList();
             } else {
-              this.toast.present({ color: 'warning', message: res.rsMsg });
+              ; //this.toast.present({ color: 'warning', message: res.rsMsg });
             }
           },
         },
       ],
     });
   }
+
 
   /**
    * @function btnPromise(): 권한에 따른 버튼활성화 메서드
@@ -269,27 +315,27 @@ export class DangerAreaLogListPage implements OnInit {
     switch (type) {
       case 'insert':
         if (
-          this.user.userData.user_role == 'LH_HEAD' ||
-          this.user.userData.user_type == 'COMPANY'
+          this.user.userData.user_role === 'LH_HEAD' ||
+          this.user.userData.user_type === 'COMPANY'
         )
           state = true;
         break;
       case 'delete':
         if (
-          this.user.userData.user_role == 'LH_HEAD' ||
-          this.user.userData.user_role == 'MASTER_HEAD'
+          this.user.userData.user_role === 'LH_HEAD' ||
+          this.user.userData.user_role === 'MASTER_HEAD'
         )
           state = true;
         break;
       case 'delete_check':
         if (
-          this.user.userData.user_role == 'LH_HEAD' ||
-          this.user.userData.user_role == 'MASTER_HEAD' ||
+          this.user.userData.user_role === 'LH_HEAD' ||
+          this.user.userData.user_role === 'MASTER_HEAD' ||
           user_id == this.user.userData.user_id
         )
           state = true;
         break;
     }
     return state;
-  }
+  }  
 }

@@ -10,6 +10,8 @@ import { DangerAreaLogListPage } from './danger-area-log-list.page';
 import { DirectiveModule } from 'src/app/basic/directive/directive.module';
 import { ComponentModule } from 'src/app/component/component.module';
 import { DangerAreaDetailPageModule } from '../danger-area-log-detail/danger-area-log-detail.module';
+import { TodayDepartureStatusListPageModule } from '../today-danger-area-log-list/today-danger-area-status-list.module';
+import { TodayDepartureStatusEditPageModule } from '../today-danger-area-status-edit/today-danger-area-status-edit.module';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { DangerAreaDetailPageModule } from '../danger-area-log-detail/danger-are
     ComponentModule,
     DangerAreaLogListPageRoutingModule,
     DangerAreaDetailPageModule,
+    TodayDepartureStatusListPageModule,
+    TodayDepartureStatusEditPageModule,
   ],
   declarations: [DangerAreaLogListPage],
 })

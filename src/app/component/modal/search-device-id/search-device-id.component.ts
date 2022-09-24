@@ -68,7 +68,7 @@ export class SearchDeviceIdComponent implements OnInit {
     const result  = await this.connect.run('/device/site/list/serial', {
       project_id: this.project_id,
       page: 1,
-      pageSize: 100,
+      pageSize: 50,
     }, { contentType: ContentType.ApplicationJson, iot: true});
     
     if(result.rsCode === 0) {

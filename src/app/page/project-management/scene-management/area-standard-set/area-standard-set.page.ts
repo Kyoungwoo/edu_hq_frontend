@@ -84,9 +84,7 @@ export class AreaStandardSetPage implements OnInit {
   area_middle_id: number;
   area_bottom_id: number;
 
-  testtttt = 0;
   //장소 끝
-
   resRiskArea: ConnectResult<{
     second_user_id: number, // 관리 책임자 부
     area_risk_id: number, // 위험지역 ID
