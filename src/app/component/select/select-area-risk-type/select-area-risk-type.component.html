@@ -1,10 +1,12 @@
 <app-select
-  name="with img"
   [readonly]="false"
   [disabled]="false"
   [color]="color"
   [label]="label"
 >
-
-  <app-select-option *ngFor="let opt of resCtgoRisk.rsMap" [value]="opt.ctgo_area_risk_id">{{opt.ctgo_area_risk_name}}</app-select-option>
+  <app-select-option
+    *ngFor="let opt of resCtgoRisk?.rsMap"
+    [value]="opt.ctgo_area_risk_id"
+    >{{ opt.ctgo_area_risk_name }}</app-select-option
+  >
 </app-select>
