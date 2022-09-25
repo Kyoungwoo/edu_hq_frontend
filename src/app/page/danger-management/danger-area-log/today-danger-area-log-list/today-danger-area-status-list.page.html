@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>{{ form.cnt_date }} 출역 현황</ion-title>
+    <ion-title>{{ form.cnt_date }} 출역 현황 here</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -23,17 +23,45 @@
             </app-row>
           </ion-toolbar>
           <tbody>
-            <tr>
+          <tr>
+            <td>
+              <app-select-scene [(ngModel)]="form.project_id" [disabled]="true"></app-select-scene>
+            </td>
+          </tr>
+            <!-- <tr>
               <td>
                 <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id"
                   [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
-            </tr>
+            </tr> -->
+          <tr>
+            <td>
+              <app-col>
+                <app-input label="위험지역유형" [(ngModel)]="this.areaForm.ctgo_area_risk_name" name="this.areaForm.ctgo_area_risk_name"
+                  [readonly]="true" [disabled]="true"></app-input>
+              </app-col>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-col>
+                <app-input label="위험지역명" [(ngModel)]="this.areaForm.area_risk_name" name="this.areaForm.area_risk_name" [readonly]="true" 
+                [disabled]="true"></app-input>
+              </app-col>
+            </td>
+          </tr>
             <tr>
+              <td>
+                <app-input-group label="날짜">
+                  <app-calendar [(ngModel)]="form.cnt_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <!-- <tr>
               <td>
                 <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </app-table>
       </app-col>

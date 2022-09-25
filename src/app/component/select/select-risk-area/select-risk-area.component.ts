@@ -1,29 +1,22 @@
 import { SearchAreaComponent } from './../../modal/search-area/search-area.component';
 import { UserService } from './../../../basic/service/core/user.service';
-import { ConnectService } from './../../../basic/service/core/connect.service';
+import { ConnectResult, ConnectService } from './../../../basic/service/core/connect.service';
 import { ModalController } from '@ionic/angular';
 import { Color } from '@ionic/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Component, OnInit, forwardRef, HostListener, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, forwardRef, HostListener, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { SearchDangerousAreaComponent } from '../../modal/search-dangerous-area/search-dangerous-area.component';
 
-class SmartInfoInsertItem {
-  area_full_name:string = '';
-  area_top_id: number = 0;
-  area_top_name: string = '';
-  area_middle_id: number = 0;
-  area_middle_name: string = '';
-  area_bottom_id: number = 0;
-  area_bottom_name: string = '';
-  area_risk_id: number = 0;
-  area_risk_name: string = '';
-  ctgo_area_risk_id: number = 0;
-  ctgo_area_risk_name: string = '';
-  master_company_name:string;
-  ctgo_machine_serial_id: number = 0;
-  serial_id: number = 0;
-  serial_use_state: number = 0;
-  ctgo_machinery_name: string = '';
-  serial_no:string = '';
+class SearchedAreaData {
+  area_bottom_id: number;
+  area_bottom_name: string;
+  area_middle_id: number;
+  area_middle_name: string;
+  area_risk_id: number;
+  area_risk_name: string;
+  area_top_id: number;
+  area_top_name: string;
+  ctgo_area_risk_name: string;
 }
 
 @Component({
@@ -38,77 +31,90 @@ class SmartInfoInsertItem {
 })
 export class SelectRiskAreaComponent implements OnInit, ControlValueAccessor {
 
-  @HostListener('click') onClick() {
-    if(!this.disabled) this.openModal();
+  @HostListener('click') onClick(e) {
+    if (!this.disabled) {
+      if (this.project_id) {
+        this.handleClick();
+      }
+      else {
+        this.res = new ConnectResult();
+        this.res.rsCode = 1008;
+        this.res.rsMsg = '위험지역을 선택해 주세요.';
+      }
+    }
   }
 
-  @Input() color:Color;
-  @Input() label:string = "위험지역명";
+  @Input() label:string = "위험지역 검색";
   @Input() selectType:'manual' | 'auto' = 'auto';
-  @Input() item:any;
-  @Input() form:any;
-  @Input() disabled: boolean = false;
+  @Input() all: boolean = false;
+  @Input() color: Color;
+  @Input() required: boolean = false;
+  @Input() text: string;
+  @Input() multiple: boolean = false;
+  @Input() disabled: boolean;
+  @Input() readonly: boolean = false;
+
+
+  private _project_id: number = 0;
+
+  @Input() set project_id(v: number) {
+    if (this._project_id !== v) {
+      this._project_id = v;
+      this.value = null;
+    }
+  }
+  get project_id() { return this._project_id }
+
+  res: ConnectResult<SearchedAreaData>;
 
   isModalData:boolean = false;
   constructor(
     private _modal:ModalController,
-    private connect: ConnectService,
-    private user: UserService
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      console.log(this.form.project_id);
-    }, 300);
   }
 
-  public async openModal() {
-    this.isModalData = true;
+  get() {
+    if (this.value) {
+      this.text = this._value.area_risk_name;
+    }
+    this.changeDetector.detectChanges();
+  }
+
+  public async handleClick() {
     const modal = await this._modal.create({
-      component: SearchAreaComponent,
+      component: SearchDangerousAreaComponent,
       componentProps: {
-        project_id: this.form.project_id,
-        selectType: this.selectType
-        // form: {
-        //   project_id: this.project_id,
-        //   master_company_id: this.master_company_id,
-        //   company_id: this.company_id,
-        //   user_type: this.user_type,
-        //   search_text: ''
-        // }
+        project_id: this.project_id
       }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if(data) {
-      console.log("select - ",data);
-      if(data.selectType == 'manual'){
-        this.item = {
-          ...this.item,
-          ...data.areaSelectedItem
-        };
-      } else {
-        this.item = {
-          ...this.item,
-          ...data.area1selectedItem,
-          ...data.area2selectedItem,
-          ...data.area3selectedItem
-        }
-      }
-      this.item.area_full_name = (this.item.area_top_name ? this.item.area_top_name : '')+' '+(this.item.area_middle_name ? this.item.area_middle_name : '')+' '+(this.item.area_bottom_name ? this.item.area_bottom_name : '');
-      // this.value = this.item.area_full_name;
+    if (data) {
+      this.text = data.area_risk_name;
+      this.value = data.area_risk_name;      
+      // console.log(data);
+      // setTimeout(() => {
+      //   this._modal.dismiss({ areaSelectedItem: data, selectType: 'manual' });
+      // }, 300);
     }
-    this.isModalData = false;
   }
+
 
   //default setting
   //@Input() readonly:boolean = false;
-  @Input() required:boolean = false;
   @Output() change = new EventEmitter();
 
-  private _value:any;
-  @Input() set value(v:any) {
-    this.valueChange(v);
+  private _value: SearchedAreaData;
+  @Input() set value(v: SearchedAreaData) {
+    if (v !== this._value) {
+      this._value = v;
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
+    }
   }
   get value() {
     return this._value;

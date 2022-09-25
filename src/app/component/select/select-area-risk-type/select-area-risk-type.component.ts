@@ -1,7 +1,13 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Color } from '@ionic/core';
 import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connect.service';
+import { LanguagePackService } from 'src/app/basic/service/core/language-pack.service';
+
+class CtgoRiskType {
+  ctgo_area_risk_id?: number;
+  ctgo_area_risk_name?: string;
+}
 
 @Component({
   selector: 'app-select-area-risk-type',
@@ -15,40 +21,26 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
     },
   ],
 })
-export class SelectAreaRiskTypeComponent
-  implements OnInit, ControlValueAccessor
-{
-  @Input() color: Color;
-  @Input() protected label = '위험지역 타입';
+export class SelectAreaRiskTypeComponent implements OnInit, ControlValueAccessor {
 
-  resCtgoRisk: ConnectResult<{
-    ctgo_area_risk_id: number,
-    ctgo_area_risk_name: string
-  }>
+  @HostListener('click') onClick() {
+    this.el.nativeElement.querySelector('[name=select]').dispatchEvent(new Event('click'));
+  }
+
+  @Input() all: boolean = false;
+  @Input() color: Color;
+  @Input() label = '위험지역 타입';
+  @Input() placeholder: string = "선택";
+  @Input() multiple: boolean = false;
+
+
+  resCtgoRisk: ConnectResult<CtgoRiskType>;
 
   constructor(
-//    private _modal: ModalController,
-//    private modal: ModalController,
-//    private toast: ToastService,
+    private el: ElementRef<HTMLElement>,
     private connect: ConnectService,
-//    private date: DateService,
-//    public user: UserService,
-//    private alert: AlertService
+    public languagePack: LanguagePackService
   ) {}
-
-
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit() {
     setTimeout(() => {
@@ -61,5 +53,40 @@ export class SelectAreaRiskTypeComponent
     this.resCtgoRisk = await this.connect.run('/category/risk/type/get', {}, {});
     if (this.resCtgoRisk.rsCode === 0) { };
   }
+
+  //default setting
+  @HostBinding('class.readonly') get classReadonly() { return this.readonly }
+  @HostBinding('class.disabled') get classDisabled() { return this.disabled }
+  @Input() readonly: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() required: boolean = false;
+  @Output() change = new EventEmitter();
+
+  private _value: CtgoRiskType;
+  @Input() set value(v: CtgoRiskType) {
+    if (v !== this._value) {
+      this.valueChange(v);
+    }
+  }
+  get value() {
+    return this._value;
+  }
+  writeValue(v: any): void {
+    if (v !== this._value) {
+      this.valueChange(v);
+    }
+  }
+
+  valueChange(v) {
+    this._value = v ? v : this.multiple ? [] : 0;
+    this.onChangeCallback(v);
+    this.change.emit(v);
+    this.get();
+  }
+
+  private onChangeCallback = (v) => { };
+  private onTouchedCallback = (v) => { };
+  registerOnChange(fn: any): void { this.onChangeCallback = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
 
 }

@@ -7,12 +7,19 @@ import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { TodayDepartureStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
 
+export class RiskAreaItem {
+  ctgo_area_risk_name: string;
+  area_risk_name: string;
+  nfc_state: number;
+}
+
 export class DepartureStatusListForm {
   project_id:number = 0; // 현장 ID
   master_company_id:number = 0; // 원청사 ID
   ctgo_construction_ids:number[] = []; // 공종 ID
   start_date:string; // 검색 시작일
   end_date:string; // 검색 종료일
+  cnt_date:string;
   limit_no:number // limit_no
 }
 export class DepartureStatusListItem {
@@ -76,13 +83,18 @@ export class TodayDepartureStatusListPage implements OnInit {
 
   @Input() listForm:DepartureStatusListForm;
   @Input() item:DepartureStatusListItem;
+  @Input() areaItem: RiskAreaItem;
 
   form = {
     project_id: 0, // 현장 ID
     master_company_id: 0, // 원청사 ID
     ctgo_construction_ids: [], // 공종 ID
     cnt_date: '', // 선택날짜
-    search_text: '' // 검색어
+  }
+  areaForm: RiskAreaItem = {
+    ctgo_area_risk_name: "",
+    area_risk_name: "",
+    nfc_state : 0,
   }
 
   res:ConnectResult <{
@@ -130,7 +142,12 @@ export class TodayDepartureStatusListPage implements OnInit {
     this.form.project_id = this.listForm.project_id;
     this.form.master_company_id = this.listForm.master_company_id;
     this.form.ctgo_construction_ids = (this.listForm.ctgo_construction_ids) ? this.listForm.ctgo_construction_ids : [];
-    this.form.cnt_date = this.item.work_date;
+//    this.form.cnt_date = this.item.work_date;
+    this.form.cnt_date = this.listForm.cnt_date;
+
+    this.areaForm.area_risk_name= this.areaItem.area_risk_name;
+    this.areaForm.ctgo_area_risk_name = this.areaItem.ctgo_area_risk_name;
+    this.areaForm.nfc_state = this.areaItem.nfc_state;
   }
 
   async getSummary() {
