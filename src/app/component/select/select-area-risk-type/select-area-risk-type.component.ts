@@ -51,6 +51,9 @@ export class SelectAreaRiskTypeComponent
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.get();
+    }, 300);
   }    
 
   //위험지역 유형 가져오기

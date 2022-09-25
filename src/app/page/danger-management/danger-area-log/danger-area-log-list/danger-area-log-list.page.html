@@ -10,7 +10,7 @@
               ><app-button
                 fill="translucent"
                 style="width: 100px"
-                (click)="getList(0)"
+                (click)="get(0)"
                 >검색</app-button
               ></app-col
             >
@@ -19,24 +19,21 @@
         <tbody>
           <tr>
             <td>
-              <app-select-scene
-                name="project_id"
-                [(ngModel)]="form.project_id"
-              ></app-select-scene>
+              <app-select-scene [(ngModel)]="form.project_id"></app-select-scene>
             </td>
           </tr>
           <tr>
             <td>
-              <app-select-contractor
-                [project_id]="form.project_id"
-                [(ngModel)]="form.master_company_id"
-              ></app-select-contractor>
+              <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id"
+                [readonly]="!permission.contractor"></app-select-contractor>
             </td>
           </tr>
           <tr>
             <td>
-              <app-input-group label="날짜">
-                <app-calendar [(ngModel)]="form.cnt_date"></app-calendar>
+              <app-input-group label="기간">
+                <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
+                ~
+                <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
               </app-input-group>
             </td>
           </tr>
@@ -66,7 +63,7 @@
     </app-col>
     <app-col>
       <ion-toolbar color="white">
-        <h5>위험지역 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+        <h5>위험지역 목록 (총 {{resRisk?.rsObj?.row_count || 0 }}건)</h5>
       </ion-toolbar>
       <app-check-group [(ngModel)]="selectedList">
         <app-table>
@@ -89,7 +86,7 @@
           <tbody>
             <tr
               class="button"
-              *ngFor="let item of res?.rsMap let i = index"
+              *ngFor="let item of resRisk?.rsMap let i = index"
               (click)="detail(item)"
             >
               <td style="width: 40px">
@@ -111,10 +108,47 @@
         </app-table>
       </app-check-group>
       <app-pager
-        [totalCount]="res?.rsObj.row_count"
+        [totalCount]="resRisk?.rsObj.row_count"
         [limitNo]="form.limit_no"
-        (pagerChange)="getList($event)"
+        (pagerChange)="getRiskArea($event)"
       ></app-pager>
+
+        <ion-toolbar color="white">
+          <h5>출역 현황 (총 {{ res?.rsObj?.row_count || 0}}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th rowspan="2" style="width: 200px">출역일</th>
+              <th colspan="2">원청사</th>
+              <th colspan="2">협력사</th>
+              <th rowspan="2">합계</th>
+            </tr>
+            <tr>
+              <th>관리자</th>
+              <th>작업자</th>
+              <th>관리자</th>
+              <th>작업자</th>
+            </tr>
+          </thead>
+          <tr class="button" *ngFor="let item of res?.rsMap; let i = index" (click)="detail(item)">
+            <td>{{ item.work_date }}</td>
+            <td>{{ item.master_admin }}</td>
+            <td>{{ item.master_worker }}</td>
+            <td>{{ item.company_admin }}</td>
+            <td>{{ item.company_worker }}</td>
+            <td>{{ item.total_cnt }}</td>
+          </tr>
+          <tbody>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager>
+
     </app-col>
+
+
+
+
+
   </app-row>
 </ion-content>

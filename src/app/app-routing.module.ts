@@ -199,6 +199,13 @@ const routes: Routes = [
       ).then((m) => m.DangerAreaLogListPageModule),
   },
   {
+    path: 'danger-area-status-list',
+    loadChildren: () =>
+      import(
+        './page/danger-management/danger-area-log/today-danger-area-log-list/today-danger-area-status-list.module'
+      ).then((m) => m.TodayDepartureStatusListPageModule),
+  },
+  {
     path: 'danger-management/closed-environment-list',
     loadChildren: () =>
       import(

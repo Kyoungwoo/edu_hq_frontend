@@ -117,7 +117,7 @@ class DangerAreaRes {
 }
 
 class DangerAreaData {
-  index: number;
+  index?: number;
   master_company_id: number;
   master_company_name: string;
   danger_area_type: string;
@@ -148,42 +148,57 @@ class DangerAreaData {
   styleUrls: ['./danger-area-log-list.page.scss'],
 })
 export class DangerAreaLogListPage implements OnInit {
-  @Input() listForm: DepartureStatusListForm;
-  @Input() item: DepartureStatusListItem;
-  form = {
-    // ctgo_machinery_id: 0,
-    // end_date: this.date.today(),
-    company_id:
-      this.user.userData.user_type == 'LH' ||
-        this.user.userData.user_type == 'SUPER'
-        ? 0
-        : this.user.userData.belong_data.company_id,
-    master_company_id:
-      this.user.userData.user_type == 'LH' ||
-        this.user.userData.user_type == 'SUPER'
-        ? 0
-        : this.user.userData.belong_data.master_company_id,
-    partner_company_id: 0,
-    ctgo_area_risk_id:0,
-    cnt_date: this.date.today(),
-    ctgo_machine_serial_id: 0,
-    project_id: this.user.userData.belong_data.project_id,
-    project_name: this.user.userData.belong_data.project_name,
-    search_text: '',
-    limit_no: 0,
-  };
+  // @Input() listForm: DepartureStatusListForm;
+  // @Input() item: DepartureStatusListItem;
 
-  res: ConnectResult<DangerAreaData>;
+  form: DepartureStatusListForm = {
+    project_id: this.user.userData.belong_data.project_id, // 현장 ID
+    master_company_id: this.user.userData.belong_data.master_company_id ? this.user.userData.belong_data.master_company_id : this.user.userData.belong_data.company_id, // 원청사 ID
+    ctgo_construction_ids: [], // 공종 ID
+    start_date: this.date.today({ month: -1 }), // 검색 시작일
+    end_date: this.date.today(), // 검색 종료일
+    limit_no: 0, // limit_no
+
+  }
+  // Riskform = {
+  //   // ctgo_machinery_id: 0,
+  //   // end_date: this.date.today(),
+  //   company_id:
+  //     this.user.userData.user_type == 'LH' ||
+  //       this.user.userData.user_type == 'SUPER'
+  //       ? 0
+  //       : this.user.userData.belong_data.company_id,
+  //   master_company_id:
+  //     this.user.userData.user_type == 'LH' ||
+  //       this.user.userData.user_type == 'SUPER'
+  //       ? 0
+  //       : this.user.userData.belong_data.master_company_id,
+  //   partner_company_id: 0,
+  //   ctgo_area_risk_id: 0,
+  //   cnt_date: this.date.today(),
+  //   ctgo_machine_serial_id: 0,
+  //   project_id: this.user.userData.belong_data.project_id,
+  //   project_name: this.user.userData.belong_data.project_name,
+  //   search_text: '',
+  //   limit_no: 0,
+  // };
+
+  resRisk: ConnectResult<DangerAreaData>;
+  res: ConnectResult<DepartureStatusListItem>;
+
   // resCtgoRisk: ConnectResult<{
   //   ctgo_area_risk_id: number,
   //   ctgo_area_risk_name: string
   // }>
-
+  permission = {
+    contractor: false
+  }
   detailList: any[][] = [];
   selectedList = [];
   permisson = {
     edit: false
   }
+  promise: any;
   constructor(
     private _modal: ModalController,
     private modal: ModalController,
@@ -195,39 +210,82 @@ export class DangerAreaLogListPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (
-      this.user.userData.user_role === 'PARTNER_HEAD' ||
-      this.user.userData.user_role === 'PARTNER_GENERAL'
-    )
-      setTimeout(() => {
-        this.getList();
-      }, 300);
+    this.getPromission();        
+      // setTimeout(() => {
+      //   this.getList();
+      // }, 300);
+    setTimeout(() => {
+      this.get(0);
+    }, 300);      
   }
 
-  async getList(limit_no = this.form.limit_no) {
-    this.form.limit_no = limit_no;
-    const res = await this.connect.run('/project/area/risk/get', this.form);
-    if (res.rsCode === 0) {
-      this.res = {
-        ...this.res,
-        ...res,
-      };
-      this.res.rsMap.map((item, i) => {
-        item.index = res.rsMap.length - this.form.limit_no - i;
-      });
-    } else if (res.rsCode === 1008) {
-      this.res = null;
-    } else {
-      this.toast.present({ color: 'warning', message: res.rsMsg });
+  get(limit_no = this.form.limit_no){
+    this.getRiskArea(limit_no);
+    this.getList(limit_no);
+  }
+  getPromission() {
+    const { user_type } = this.user.userData;
+    if (user_type === 'LH') {
+      this.permission.contractor = true;
+    }
+    else {
+      this.permission.contractor = false;
     }
   }
 
-  //위험지역 유형 가져오기
-  // async CtgoRisk() {
-  //   this.resCtgoRisk = await this.connect.run('/category/risk/type/get', {}, {});
-  //   if (this.resCtgoRisk.rsCode === 0) { };
-  // }  
-  // async detail(item) {
+
+  async getRiskArea(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
+    const resRisk = await this.connect.run('/project/area/risk/get', 
+    {
+      project_id : this.form.project_id,
+      limit_no : 0,
+    }, {loading:true});
+    if (resRisk.rsCode === 0) {
+      this.resRisk = {
+        ...this.resRisk,
+        ...resRisk,
+      };
+      this.resRisk.rsMap.map((item, i) => {
+        item.index = resRisk.rsMap.length - this.form.limit_no - i;
+      });
+    } else if (resRisk.rsCode === 1008) {
+      this.resRisk = null;
+    } else {
+      this.toast.present({ color: 'warning', message: resRisk.rsMsg });
+    }
+  }
+
+
+  async getList(limit_no = this.form.limit_no) {
+    console.log(" this.form.master_company_id =" + this.form.master_company_id);
+
+    await this.promise?.wait(() => this.form.master_company_id);
+
+    this.form.limit_no = limit_no;
+    this.res = await this.connect.run('/work_state/list', this.form, { loading: true });
+    if (this.res.rsCode !== 0) {
+      this.toast.present({ color: 'warning', message: this.res.rsMsg });
+    }
+  }
+
+  async Heavyedit(item?) {
+    const modal = await this.modal.create({
+      component: DangerAreaLogDetailPage,
+      componentProps: {
+        project_id: this.form.project_id,
+        list_data: this.form,
+        master_company_id: this.form.master_company_id,
+      },
+    });
+    modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.getList();
+    }
+  }
+
+  // async itemDetail(item) {
   //   console.log("detail - ", this.form);
   //   const modal = await this.modal.create({
   //     component: TodayDepartureStatusListPage,
@@ -244,35 +302,15 @@ export class DangerAreaLogListPage implements OnInit {
   //   }
   // }
 
-  async Heavyedit(item?) {
-    const modal = await this.modal.create({
-      component: DangerAreaLogDetailPage,
-      componentProps: {
-        project_id: this.form.project_id,
-        project_name: this.form.project_name,
-        serial_no: item?.SerialNo,
-        craneName: item.craneName,
-        list_data: this.form,
-        master_company_id: this.form.master_company_id,
-      },
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data) {
-      this.getList();
-    }
-  }
-
-  async detail(item?) {
+  async detail(item) {
+    console.log("detail - ", this.form);
     const modal = await this.modal.create({
       component: TodayDepartureStatusListPage,
       cssClass: 'today-departure-status-list-modal',
       componentProps: {
-        project_id: this.form.project_id,
-        project_name: this.form.project_name,
         listForm: this.form,
-        master_company_id: this.form.master_company_id,
-      },
+        item
+      }
     });
     modal.present();
     const { data } = await modal.onDidDismiss();

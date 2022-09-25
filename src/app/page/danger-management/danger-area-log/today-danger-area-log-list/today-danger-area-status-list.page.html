@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>위험지역 출입 내역</ion-title>
-    <!-- <ion-title>{{ form.cnt_date }} 출역 현황 danger</ion-title> -->
+    <ion-title>{{ form.cnt_date }} 출역 현황</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -15,9 +14,10 @@
         <app-table type="card">
           <ion-toolbar slot="top" color="white">
             <app-row style="justify-content: space-between;">
-              <app-col size="auto"><h5>필터</h5></app-col>
               <app-col size="auto">
-                <!-- <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button> -->
+                <h5>필터</h5>
+              </app-col>
+              <app-col size="auto">
                 <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
               </app-col>
             </app-row>
@@ -25,24 +25,13 @@
           <tbody>
             <tr>
               <td>
-                <app-select-scene name="project_id" [(ngModel)]="form.project_id"></app-select-scene>
+                <app-select-construction [master_company_id]="form.master_company_id" [project_id]="form.project_id"
+                  [(ngModel)]="form.ctgo_construction_ids" [all]="true" [multiple]="true"></app-select-construction>
               </td>
             </tr>
             <tr>
               <td>
-                <app-select-area-risk-type></app-select-area-risk-type>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-select-risk-area [form]="form"></app-select-risk-area>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <app-input-group label="날짜">
-                  <app-calendar [(ngModel)]="form.cnt_date"></app-calendar>
-                </app-input-group>
+                <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
               </td>
             </tr>
           </tbody>
@@ -55,28 +44,28 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>전체 출역</h5>
+          <h5>현재 출역</h5>
         </ion-toolbar>
         <app-table>
           <thead>
             <tr>
               <th colspan="2">원청사</th>
               <th colspan="2">협력사</th>
-              <th rowspan="2">총 출역 인원 (전체/현재)</th>
+              <th rowspan="2">총 출역 인원</th>
             </tr>
             <tr>
-              <th>관리자 (전체/현재)</th>
-              <th>작업자 (전체/현재)</th>
-              <th>관리자 (전체/현재)</th>
-              <th>작업자 (전체/현재)</th>
+              <th>관리자</th>
+              <th>작업자</th>
+              <th>관리자</th>
+              <th>작업자</th>
             </tr>
-            <!-- <tr>
+            <tr>
               <td>{{ res?.rsObj?.master_admin || 0 }}</td>
               <td>{{ res?.rsObj?.master_worker || 0 }}</td>
               <td>{{ res?.rsObj?.company_admin || 0 }}</td>
               <td>{{ res?.rsObj?.company_worker || 0 }}</td>
               <td>{{ res?.rsObj?.total_cnt || 0 }}</td>
-            </tr> -->
+            </tr>
           </thead>
         </app-table>
         <ion-toolbar color="white" *ngIf="permisson.edit">
@@ -86,7 +75,6 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <!-- <h5>상세 내역 (총 {{ res2?.rsObj?.row_count || 0}}건)</h5> -->
           <h5>상세 내역 (총 {{ res2?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
@@ -105,80 +93,7 @@
             </tr>
           </thead>
           <tbody>
-          <ng-container>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <tr class="button" (click)="detail(item, i)">
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
-              <td>0</td>
-            </tr>
-            <!-- <ng-container *ngFor="let item of res2?.rsMap; let i = index; let c = count;" >
+            <ng-container *ngFor="let item of res2?.rsMap; let i = index; let c = count;">
               <tr class="button" (click)="detail(item, i)">
                 <td>{{ c - i }}</td>
                 <td>{{ item.company_name }}</td>
@@ -190,129 +105,22 @@
                 <td>{{ item.ctgo_occupation_name }}</td>
                 <td>{{ item.inside_time ? item.inside_time+(item.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
                 <td>{{ item.outside_time ? item.outside_time+(item.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
-              </tr> -->
-              <ng-container>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
               </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <tr class="detail">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>0</td>
-              </tr>
-              <!-- <ng-container *ngFor="let detail of detailList[i]">
-                              <tr class="detail">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>{{ detail.inside_time ? detail.inside_time+(detail.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
-                                <td>{{ detail.outside_time ? detail.outside_time+(detail.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
-                              </tr> -->
+              <ng-container *ngFor="let detail of detailList[i]">
+                <tr class="detail">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{ detail.inside_time ? detail.inside_time+(detail.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}
+                  </td>
+                  <td>{{ detail.outside_time ? detail.outside_time+(detail.outside_type == 'MANUAL' ? '(수동)' : '') : '-'
+                    }}</td>
+                </tr>
               </ng-container>
             </ng-container>
           </tbody>
