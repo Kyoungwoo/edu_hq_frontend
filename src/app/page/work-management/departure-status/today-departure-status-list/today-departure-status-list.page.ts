@@ -129,7 +129,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     this.form.project_id = this.listForm.project_id;
     this.form.master_company_id = this.listForm.master_company_id;
     this.form.ctgo_construction_ids = this.listForm.ctgo_construction_ids;
-    this.form.cnt_date = this.date.today(); //this.item.work_date;
+    this.form.cnt_date = this.item.work_date;
   }
 
   async getSummary() {
@@ -143,7 +143,6 @@ export class TodayDepartureStatusListPage implements OnInit {
     this.res2 = await this.connect.run('/work_state/detail/list', this.form, { loading: true });
     if(this.res2.rsCode !== 0 && this.res2.rsCode !== 1008) {
       this.toast.present({ color: 'warning', message: this.res2.rsMsg });
-    
     }
   }
 

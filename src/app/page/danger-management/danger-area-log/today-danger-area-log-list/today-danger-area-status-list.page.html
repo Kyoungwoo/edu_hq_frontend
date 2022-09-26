@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>{{ form.cnt_date }} 출역 현황 here</ion-title>
+    <ion-title>{{ form.cnt_date }} 위험지역 출입 내역</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -18,7 +18,7 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+                <app-button fill="translucent" style="width: 100px;" (click)="getAll(0)">검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
@@ -68,7 +68,7 @@
       <app-col>
         <ion-toolbar color="white" *ngIf="permisson.edit">
           <ion-buttons slot="start">
-            <app-button fill="translucent">인쇄(협의중)</app-button>
+            <app-button fill="translucent">인가자 설정(개발중)</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">

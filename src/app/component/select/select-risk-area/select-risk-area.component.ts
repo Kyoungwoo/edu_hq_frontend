@@ -44,7 +44,7 @@ export class SelectRiskAreaComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  @Input() label:string = "위험지역 검색";
+  @Input() label:string = "위험지역명";
   @Input() selectType:'manual' | 'auto' = 'auto';
   @Input() all: boolean = false;
   @Input() color: Color;

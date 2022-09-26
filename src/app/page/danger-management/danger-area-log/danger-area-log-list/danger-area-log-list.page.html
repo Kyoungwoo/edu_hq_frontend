@@ -46,7 +46,7 @@
           </tr>
           <tr>
             <td>
-              <app-select-area-risk-type [(ngModel)]="form.ctgo_area_risk_id" [all]="true"></app-select-area-risk-type>
+              <app-select-area-risk-type [(ngModel)]="form.ctgo_area_risk_name" [all]="true"></app-select-area-risk-type>
             </td>
           </tr>
           <tr>
@@ -79,7 +79,8 @@
               <th>No</th>
               <th>위험지역 유형</th>
               <th>위험지역명</th>
-              <th>출입인원</th>
+              <th>출입인원(전체)</th>
+              <th>{{form.cnt_date}}</th>
             </tr>
           </thead>
           <tbody>
@@ -91,7 +92,8 @@
               <td>{{ item.index}}</td>
               <td>{{ item.ctgo_area_risk_name }}</td>
               <td>{{ item.area_risk_name }}</td>
-              <td>{{ item.nfc_state}}</td>
+              <td>{{ item.total_count}}</td>
+              <td>{{ item.today_count}}</td>
             </tr>
           </tbody>
         </app-table>
@@ -101,7 +103,8 @@
         [limitNo]="form.limit_no"
         (pagerChange)="getRiskArea($event)"
       ></app-pager>
-        <ion-toolbar color="white">
+
+        <!-- <ion-toolbar color="white">
           <h5>출역 현황 (총 {{ resWorkStat?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
@@ -130,7 +133,7 @@
           <tbody>
           </tbody>
         </app-table>
-        <app-pager [totalCount]="resWorkStat?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getWorkStatelist($event)"></app-pager>
+        <app-pager [totalCount]="resWorkStat?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getWorkStatelist($event)"></app-pager> -->
 
     </app-col>
 

@@ -7,6 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "yarn build && tar cvf www_new.tar www && scp -P 20002 www_new.tar root@49.236.136.196:/var/www",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

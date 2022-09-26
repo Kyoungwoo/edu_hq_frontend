@@ -29,7 +29,7 @@ export class SelectAreaRiskTypeComponent implements OnInit, ControlValueAccessor
 
   @Input() all: boolean = false;
   @Input() color: Color;
-  @Input() label = '위험지역 타입';
+  @Input() label = '위험지역 유형';
   @Input() placeholder: string = "선택";
   @Input() multiple: boolean = false;
 
@@ -42,11 +42,7 @@ export class SelectAreaRiskTypeComponent implements OnInit, ControlValueAccessor
     public languagePack: LanguagePackService
   ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.get();
-    }, 300);
-  }    
+  ngOnInit() { }    
 
   //위험지역 유형 가져오기
   public async get() {
@@ -65,7 +61,10 @@ export class SelectAreaRiskTypeComponent implements OnInit, ControlValueAccessor
   private _value: CtgoRiskType;
   @Input() set value(v: CtgoRiskType) {
     if (v !== this._value) {
-      this.valueChange(v);
+      this._value = v;
+      this.get();
+      this.onChangeCallback(v);
+      this.change.emit(v);
     }
   }
   get value() {

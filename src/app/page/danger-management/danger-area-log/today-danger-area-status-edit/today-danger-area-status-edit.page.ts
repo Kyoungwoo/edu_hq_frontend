@@ -40,6 +40,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
   @Input() project_id:number;
   @Input() company_id:number;
   @Input() inout_date:string;
+  @Input() area_risk_id:number;
 
   form = {
     project_id: 0,
@@ -75,6 +76,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
     this.submitForm.insert_state = this.type === '입장' ? 'IN' : 'OUT';
     this.submitForm.inout_date = this.inout_date;
     this.submitForm.inout_time = '07:30';
+    this.submitForm.area_risk_id = this.area_risk_id;
     /** inout_date 와 inout_time을 합쳐서 하나의 datetime 형태로 만들어야 할 때는
      * get, set을 이용하면 편하지만, 위의 형태로 사용하셔도 무방합니다.
      */
