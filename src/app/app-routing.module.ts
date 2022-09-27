@@ -198,13 +198,27 @@ const routes: Routes = [
         './page/danger-management/danger-area-log/danger-area-log-list/danger-area-log-list.module'
       ).then((m) => m.DangerAreaLogListPageModule),
   },
+  // {
+  //   path: 'danger-area-user-registration',
+  //   loadChildren: () =>
+  //     import(
+  //       './page/danger-management/danger-area-log/danger-area-user-registration/danger-area-user-registration.module'
+  //     ).then((m) => m.DangerAreaUserRegistrationPageModule),
+  // },
   {
     path: 'danger-area-status-list',
     loadChildren: () =>
       import(
         './page/danger-management/danger-area-log/today-danger-area-log-list/today-danger-area-status-list.module'
       ).then((m) => m.TodayDepartureStatusListPageModule),
-  },
+  },  
+  // {
+  //   path: 'danger-area-user-list',
+  //   loadChildren: () =>
+  //     import(
+  //       './page/danger-management/danger-area-log/danger-area-user-list/danger-area-user-list.module'
+  //     ).then((m) => m.DangerAreaUserListPageModule),
+  // },
   {
     path: 'danger-management/closed-environment-list',
     loadChildren: () =>

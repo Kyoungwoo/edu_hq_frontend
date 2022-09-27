@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { DangerAreaLogDetailPage } from '../danger-area-log-detail/danger-area-log-detail.page';
+import { DangerAreaUserListPage } from '../danger-area-user-list/danger-area-user-list.page';
 import { TodayDepartureStatusListPage } from '../today-danger-area-log-list/today-danger-area-status-list.page';
 //import { DangerAreaLogEditPage } from '../danger-area-log-edit/danger-area-log-edit.page';
 //import { TodayDepartureStatusListPage } from '../today-departure-status-list/today-departure-status-list.page';
@@ -167,7 +168,7 @@ export class DangerAreaLogListPage implements OnInit {
   async detail(item) {
     // console.log("detail - item", item);
     const modal = await this.modal.create({
-      component: TodayDepartureStatusListPage,
+      component: DangerAreaUserListPage,
       cssClass: 'today-departure-status-list-modal',
       componentProps: {
         listForm: this.form,

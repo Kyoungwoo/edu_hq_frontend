@@ -97,11 +97,11 @@ export class TodayDepartureStatusDetailItem {
 }
 @Component({
 //  selector: 'app-today-departure-status-list',
-  selector: 'app-today-danger-area-status-list',
-  templateUrl: './today-danger-area-status-list.page.html',
-  styleUrls: ['./today-danger-area-status-list.page.scss'],
+  selector: 'app-danger-area-user-list',
+  templateUrl: './danger-area-user-list.page.html',
+  styleUrls: ['./danger-area-user-list.page.scss'],
 })
-export class TodayDepartureStatusListPage implements OnInit {
+export class DangerAreaUserListPage implements OnInit {
 
   @Input() listForm:DepartureStatusListForm;
   @Input() item:DepartureStatusListItem;
@@ -251,7 +251,7 @@ export class TodayDepartureStatusListPage implements OnInit {
   async riskAreaUserPage(item) {
     // console.log("detail - item", item);
     const modal = await this._modal.create({
-      component: TodayDepartureStatusListPage,
+      component: DangerAreaUserListPage,
       cssClass: 'today-departure-status-list-modal',
       componentProps: {
         listForm: this.form,

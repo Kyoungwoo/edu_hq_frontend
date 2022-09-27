@@ -30,11 +30,11 @@ export class TodayDepartureStatusEditForm {
   user_ids:number[] = []; // 입/퇴장 유저ID
 }
 @Component({
-  selector: 'app-today-danger-area-status-edit',
-  templateUrl: './today-danger-area-status-edit.page.html',
-  styleUrls: ['./today-danger-area-status-edit.page.scss'],
+  selector: 'app-danger-area-user-registration',
+  templateUrl: './danger-area-user-registration.page.html',
+  styleUrls: ['./danger-area-user-registration.page.scss'],
 })
-export class TodayDepartureStatusEditPage implements OnInit {
+export class DangerAreaUserRegistrationPage implements OnInit {
 
   @Input() type:'입장'|'퇴장';
   @Input() project_id:number;
@@ -88,9 +88,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
   async get() {
     let url;
     if(this.type === '입장') {
-      url = '/risk_state/project/user/get';
-//      url = '/category/certify/project/notin/user/get';
-
+      url = '/category/certify/project/notin/user/get';
     } /** if else 정렬 이렇게 하세요. */
     else {
       url = '/category/certify/project/in/user/get';
