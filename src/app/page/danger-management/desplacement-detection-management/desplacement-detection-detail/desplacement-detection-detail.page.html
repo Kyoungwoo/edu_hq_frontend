@@ -10,7 +10,7 @@
   <h4>구조물 변위 감지 정보</h4>
   <app-row mobileBreak>
     <app-col>
-      <app-select-scene name="project_id" [required]="true" [disabled]="true" [(ngModel)]="project_id">
+      <app-select-scene name="project_id" [required]="true" [disabled]="true" [(ngModel)]="this.project_id">
       </app-select-scene>
       <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
     </app-col>
@@ -20,7 +20,7 @@
       </app-select-contractor>
     </app-col>
     <app-col>
-      <app-input label="등록장소" [(ngModel)]="companyName" name="companyName" [readonly]="true" [required]="true"
+      <app-input label="등록장소" [(ngModel)]="this.area_risk_name" name="area_risk_name" [readonly]="true" [required]="true"
         [disabled]="true"></app-input>
     </app-col>
     <!-- <app-col>
@@ -28,7 +28,7 @@
         [disabled]="true"></app-input>
     </app-col> -->
     <app-col>
-      <app-calendar label="날짜" [(ngModel)]="form.date" name="date" [required]="true"></app-calendar>
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()"></app-calendar>
     </app-col>
   </app-row>
   <!-- <app-row mobileBreak>
@@ -66,8 +66,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of res?.rsMap let i = index">
-        <td>{{ item.createdAt }}</td>
-        <td [ngSwitch]="item.impactCd">
+        <td>{{ item.colt_dt | date:'yyyy-MM-dd EEE HH:mm:ss' }}</td>
+        <td [ngSwitch]="item.impt_cd">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -78,8 +78,8 @@
             &nbsp;
           </app-circle>
         </td>
-        <td>{{item.impactBasis}}</td>
-        <td [ngSwitch]="item.inclinationCd">
+        <td>{{item.impt_basis}}</td>
+        <td [ngSwitch]="item.inct_cd">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -90,13 +90,13 @@
             &nbsp;
           </app-circle>
         </td>
-        <td>{{item.inclinationBasis}}</td>
+        <td>{{item.inct_basis}}</td>
       </tr>
     </tbody>
   </app-table>
 
 </ion-content>
-<app-pager [totalCount]="res?.totalItems" [limitNo]="form.limit_no" (pagerChange)="get($event)">
+<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)">
 </app-pager>
 <app-button-footer *ngIf="serial_no">
   <app-button fill="default" (click)="close()">닫기</app-button>

@@ -79,6 +79,10 @@ import { SelectAreaRiskComponent } from './select/select-area-risk/select-area-r
 import { SelectAreaRiskTypeComponent } from './select/select-area-risk-type/select-area-risk-type.component';
 import { SelectDeviceIdComponent } from './select/select-device-id/select-device-id.component';
 import { SearchDeviceIdComponent } from './modal/search-device-id/search-device-id.component';
+import { DangerAreaUserListPage } from '../page/danger-management/danger-area-log/danger-area-user-list/danger-area-user-list.page';
+import { DangerAreaUserRegistrationPage } from '../page/danger-management/danger-area-log/danger-area-user-registration/danger-area-user-registration.page';
+//import { TodayDangerAreaStatusListPage } from '../page/danger-management/danger-area-log/today-danger-area-log-list/today-danger-area-status-list.page';
+//import { TodayDangerAreaStatusEditPage } from '../page/danger-management/danger-area-log/today-danger-area-status-edit/today-danger-area-status-edit.page';
 
 @NgModule({
   declarations: [
@@ -161,6 +165,10 @@ import { SearchDeviceIdComponent } from './modal/search-device-id/search-device-
     SelectDeviceIdComponent,
     SearchDeviceIdComponent,
 
+    DangerAreaUserListPage,
+    DangerAreaUserRegistrationPage,
+    //TodayDangerAreaStatusListPage,
+    //TodayDangerAreaStatusEditPage,
   ],
   imports: [
     CommonModule,
@@ -252,6 +260,10 @@ import { SearchDeviceIdComponent } from './modal/search-device-id/search-device-
     SelectDeviceIdComponent,
     SearchDeviceIdComponent,
 
+    DangerAreaUserListPage,
+    DangerAreaUserRegistrationPage,
+    //TodayDangerAreaStatusListPage,
+    //TodayDangerAreaStatusEditPage,
   ],
   providers:[
     SelectCompanyComponent

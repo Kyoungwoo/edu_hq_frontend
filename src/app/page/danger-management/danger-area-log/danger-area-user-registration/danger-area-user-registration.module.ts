@@ -14,7 +14,7 @@ import { DangerAreaUserRegistrationPage } from './danger-area-user-registration.
     CommonModule,
     FormsModule,
     IonicModule,
-    ComponentModule,
+    //ComponentModule,
     DangerAreaUserRegistrationPageRoutingModule
   ],
   declarations: [DangerAreaUserRegistrationPage],

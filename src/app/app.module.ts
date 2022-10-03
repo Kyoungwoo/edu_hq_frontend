@@ -88,8 +88,8 @@ const getConfig = () => {
       //url: 'https://api.lh-skeeper.or.kr',    //skeeper backend production
       //devUrl: 'http://localhost:8085',
       //url: 'http://localhost:8085', 
-      //iotUrl: 'https://iot.lh-skeeper.com/iotapi',
-      iotDevUrl: 'https://iot.lh-skeeper.com/iotapi',  //iot 수집서버
+      iotUrl: 'https://iot.lh-skeeper.or.kr/iotapi',
+      iotDevUrl: 'https://iot.lh-skeeper.or.kr/iotapi',  //iot 수집서버
       //iotDevUrl: 'http://localhost:8086/iotapi',      
       exceptLogUrls: []
     }},

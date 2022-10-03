@@ -15,15 +15,15 @@
       <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
     </app-col>
     <app-col>
-      <app-input label="업체명" [(ngModel)]="companyName" name="companyName" [readonly]="true" [required]="true"
+      <app-input label="업체명" [(ngModel)]="this.companyName" name="companyName" [readonly]="true" [required]="true"
         [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-input label="성명" [(ngModel)]="userName" name="userName" [readonly]="true" [required]="true"
+      <app-input label="성명" [(ngModel)]="this.userName" name="userName" [readonly]="true" [required]="true"
         [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-calendar label="날짜" [(ngModel)]="form.date" name="date" [required]="true"></app-calendar>
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()"></app-calendar>
     </app-col>
   </app-row>
   <!-- <app-row mobileBreak>
@@ -57,8 +57,8 @@
     <tbody>
       <tr *ngFor="let item of res?.rsMap let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ item.createdAt }}</td>
-        <td [ngSwitch]="item.safetyHookCd">
+        <td>{{ item.colt_dt | date:'yyyy-MM-dd EEE HH:mm:ss' }}</td>
+        <td [ngSwitch]="item?.safetyHookCd">
           <app-circle *ngSwitchCase="'체결'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -70,7 +70,7 @@
     </tbody>
   </app-table>
 </ion-content>
-<app-pager [totalCount]="res?.totalItems" [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)">
 </app-pager>
 <app-button-footer *ngIf="serial_no">
   <app-button fill="default" (click)="close()">닫기</app-button>

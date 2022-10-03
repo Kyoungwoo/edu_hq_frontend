@@ -4,7 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
-export class TodayDeparturePersionItem {
+export class TodayDangerAreaPersionItem {
   ctgo_job_position_name: string;
   company_id: number;
   ctgo_safe_job_name: string;
@@ -15,7 +15,7 @@ export class TodayDeparturePersionItem {
   user_safe_job_id: number;
   ctgo_safe_job_id: number;
 }
-export class TodayDepartureStatusEditForm {
+export class TodayDangerAreaStatusEditForm {
   area_risk_id?:number = null; // 위험지역ID - 입장유형이 위험지역일 경우에만 입력
   area_top_id?:number = null; // 장소ID_1(TOP) - 입장유형이 위험지역일 경우에만 입력
   area_middle_id?:number = null; // 장소ID_2(MIDDLE) - 입장유형이 위험지역일 경우에만 입력
@@ -34,7 +34,7 @@ export class TodayDepartureStatusEditForm {
   templateUrl: './today-danger-area-status-edit.page.html',
   styleUrls: ['./today-danger-area-status-edit.page.scss'],
 })
-export class TodayDepartureStatusEditPage implements OnInit {
+export class TodayDangerAreaStatusEditPage implements OnInit {
 
   @Input() type:'입장'|'퇴장';
   @Input() project_id:number;
@@ -50,10 +50,10 @@ export class TodayDepartureStatusEditPage implements OnInit {
     search_text: ''
   }
 
-  res:ConnectResult<TodayDeparturePersionItem>;
-  selectedList:TodayDeparturePersionItem[] = [];
+  res: ConnectResult<TodayDangerAreaPersionItem>;
+  selectedList:TodayDangerAreaPersionItem[] = [];
 
-  submitForm = new TodayDepartureStatusEditForm();
+  submitForm = new TodayDangerAreaStatusEditForm();
 
   constructor(
     private _modal: ModalController,
@@ -88,8 +88,8 @@ export class TodayDepartureStatusEditPage implements OnInit {
   async get() {
     let url;
     if(this.type === '입장') {
-      url = '/risk_state/project/user/get';
-//      url = '/category/certify/project/notin/user/get';
+//      url = '/risk_state/project/user/get';
+      url = '/category/certify/project/notin/user/get';
 
     } /** if else 정렬 이렇게 하세요. */
     else {
@@ -109,7 +109,7 @@ export class TodayDepartureStatusEditPage implements OnInit {
     }
   }
 
-  select(item:TodayDeparturePersionItem) {
+  select(item:TodayDangerAreaPersionItem) {
     /** 이 코드는 밖에서 select list를 들고와야 할 경우는 틀린 코드입니다.
      * 이유는 깊은 비교 상에서 다르기 떄문입니다. 이점 유의하시기 바랍니다.
      * 깊은 비교로는 다르나, 얕은 비교 상에서 같은 아이템을 찾아야 할 경우는

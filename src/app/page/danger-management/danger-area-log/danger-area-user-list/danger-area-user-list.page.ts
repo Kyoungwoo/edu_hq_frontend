@@ -6,7 +6,7 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { DangerAreaUserRegistrationPage } from '../danger-area-user-registration/danger-area-user-registration.page';
-import { TodayDepartureStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
+import { TodayDangerAreaStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
 
 
 class DangerAreaData {
@@ -112,6 +112,8 @@ export class DangerAreaUserListPage implements OnInit {
     master_company_id: 0, // 원청사 ID
     ctgo_construction_ids: [], // 공종 ID
     area_risk_id:0,
+    area_risk_name:"",
+    ctgo_area_risk_id:0,
     cnt_date: '', // 선택날짜
   }
 
@@ -145,12 +147,12 @@ export class DangerAreaUserListPage implements OnInit {
   ngOnInit() {
     this.getPromission();
     this.getForm();
-    this.getSummary();
+    //this.getSummary();
     this.getList();
   }
 
   getAll() {
-    this.getSummary();
+   // this.getSummary();
     this.getList();    
   }
   getPromission() {
@@ -169,20 +171,19 @@ export class DangerAreaUserListPage implements OnInit {
 //    this.form.cnt_date = this.item.work_date;
     this.form.cnt_date = this.listForm.cnt_date;
     this.form.area_risk_id = this.areaItem.area_risk_id;
-
-    this.areaForm = this.areaItem;
+     this.areaForm = this.areaItem;
     console.log("this.areaForm = " + JSON.stringify(this.areaForm));
   }
 
-  async getSummary() {
-    this.res = await this.connect.run('/risk_state/current', this.form, { loading: true });
-    if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
-      this.toast.present({ color: 'warning', message: this.res.rsMsg });
-    }
-  }
+  // async getSummary() {
+  //   this.res = await this.connect.run('/risk_state/current', this.form, { loading: true });
+  //   if(this.res.rsCode !== 0 && this.res.rsCode !== 1008) {
+  //     this.toast.present({ color: 'warning', message: this.res.rsMsg });
+  //   }
+  // }
   async getList(limit_no = this.listForm.limit_no) {
     this.listForm.limit_no = limit_no;
-    this.res2 = await this.connect.run('/risk_state/detail/list', this.form, { loading: true });
+    this.res2 = await this.connect.run('/risk_state/area/user/list', this.form, { loading: true });
     if(this.res2.rsCode !== 0 && this.res2.rsCode !== 1008) {
       this.toast.present({ color: 'warning', message: this.res2.rsMsg });
     
@@ -208,7 +209,7 @@ export class DangerAreaUserListPage implements OnInit {
     }
   }
 
-  async riskAreaUser(type) {
+  async edit(type) {
     const modal = await this._modal.create({
       component: DangerAreaUserRegistrationPage,
       cssClass: 'today-departure-status-edit-modal',
@@ -222,48 +223,10 @@ export class DangerAreaUserListPage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onDidDismiss();
-    if (data) {
-      this.getSummary();
-      this.getList();
-    }
-  }
-
-  async edit(type) {
-    const modal = await this._modal.create({
-      component: TodayDepartureStatusEditPage,
-      cssClass: 'today-departure-status-edit-modal',
-      componentProps: {
-        type,
-        project_id: this.form.project_id,
-        company_id: this.user.userData.belong_data.company_id,
-        inout_date: this.form.cnt_date,
-        area_risk_id: this.form.area_risk_id,
-      }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
     if(data) {
-      this.getSummary();
+//      this.getSummary();
       this.getList();
     }
   }
-
-  async riskAreaUserPage(item) {
-    // console.log("detail - item", item);
-    const modal = await this._modal.create({
-      component: DangerAreaUserListPage,
-      cssClass: 'today-departure-status-list-modal',
-      componentProps: {
-        listForm: this.form,
-        areaItem: item,
-      }
-    });
-    modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data) {
-      ; //this.getWorkStatelist();
-    }
-  }
-
 
 }

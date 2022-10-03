@@ -93,7 +93,7 @@
               <td>{{ item.ctgo_area_risk_name }}</td>
               <td>{{ item.area_risk_name }}</td>
               <td>{{ item.total_count}}</td>
-              <td>{{ item.today_count}}</td>
+              <td>{{ item.today_count === null ? 0 : item.today_count}}</td>
             </tr>
           </tbody>
         </app-table>

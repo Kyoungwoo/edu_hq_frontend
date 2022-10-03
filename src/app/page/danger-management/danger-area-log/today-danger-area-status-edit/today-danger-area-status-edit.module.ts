@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TodayDepartureStatusEditPageRoutingModule } from './today-danger-area-status-edit-routing.module';
+import { TodayDangerAreaStatusEditPageRoutingModule } from './today-danger-area-status-edit-routing.module';
 
-import { TodayDepartureStatusEditPage } from './today-danger-area-status-edit.page';
+import { TodayDangerAreaStatusEditPage } from './today-danger-area-status-edit.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({
@@ -15,9 +15,9 @@ import { ComponentModule } from 'src/app/component/component.module';
     FormsModule,
     IonicModule,
     ComponentModule,
-    TodayDepartureStatusEditPageRoutingModule
+    TodayDangerAreaStatusEditPageRoutingModule
   ],
-  declarations: [TodayDepartureStatusEditPage],
-  exports: [TodayDepartureStatusEditPage]
+  declarations: [TodayDangerAreaStatusEditPage],
+  //exports: [TodayDangerAreaStatusEditPage]
 })
-export class TodayDepartureStatusEditPageModule {}
+export class TodayDangerAreaStatusEditPageModule {}

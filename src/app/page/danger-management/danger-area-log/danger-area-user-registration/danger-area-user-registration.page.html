@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>작업자 {{ type }} 등록</ion-title>
+    <ion-title>인가자 설정</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -39,9 +39,9 @@
 </ion-content>
 <app-button-footer>
   <div class="selected-layout">
-    <h6 *ngIf="type === '입장'; else tempOut">현재 입장 처리가 되어있지 않은 근로자만 조회됩니다.</h6>
+    <h6 *ngIf="type === '입장'; else tempOut"><!--현재 입장 처리가 되어있지 않은 근로자만 조회됩니다.--></h6>
     <ng-template #tempOut>
-      <h6>현재 입장 처리가 되어있는 근로자만 조회됩니다.</h6>
+      <!-- <h6>현재 입장 처리가 되어있는 근로자만 조회됩니다.</h6> -->
     </ng-template>
     <div class="seleted-list">
       <ion-chip button color="secondary" fill="solid" *ngFor="let item of selectedList; let i = index;" (click)="selectedList.splice(i, 1)">
@@ -49,7 +49,7 @@
         <ion-icon name="close-circle"></ion-icon>
       </ion-chip>
     </div>
-    <app-datetime [label]="type + '시간'" [(ngModel)]="submitForm.inout_time"></app-datetime>
+    <!-- <app-datetime [label]="type + '시간'" [(ngModel)]="submitForm.inout_time"></app-datetime> -->
   </div>
   <app-button (click)="submit()">적용</app-button>
 </app-button-footer>

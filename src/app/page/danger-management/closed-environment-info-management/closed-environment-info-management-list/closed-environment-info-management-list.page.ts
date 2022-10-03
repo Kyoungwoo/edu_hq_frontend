@@ -22,41 +22,28 @@ class AirQualitySensorRes {
 }
 
 class AirQualitySensorData {
-  index?: number;
-  //디바이스식별번호
-  SerialNo: string;
-  //생성일
-  createdAt: string;
-  // 산소농도 기준값
-  o2Basis: string;
-  // 산소농도 측정값
-  o2measure: string;
-  // 산소농도 상태 판단
-  o2alarm: string;
-  // 일산화탄소농도 기준값
-  coBasis: string;
-  // 일산화탄소농도 측정값
-  comeasure: string;
-  // 일산화탄소농도 상태 판단
-  coalarm: string;
-  // 이산화탄소농도 기준값
-  co2Basis: string;
-  // 이산화탄소농도 측정값
-  co2measure: string;
-  // 이산화탄소농도 상태 판단
-  co2alarm: string;
-  // 가연성가스농도기준
-  flmbasis: string;
-  // 가연성가스농도
-  flmmeasure: string;
-  // 가연성가스상태판단
-  flmalarm: string;
-  // 황화수소농도 기준값
-  h2sBasis: string;
-  // 황화수소농도 측정값
-  h2smeasure: string;
-  // 황화수소농도 상태 판단
-  h2salarm: string;
+  index?: number; //번호
+  area_risk_name?: string; //장소 매핑
+  id? :number; //                  bigint not null auto_increment   comment "안전고리감지장치상태id",
+  project_id?:number; //          bigint not null                  comment "현장ProjectID",
+  deviceType?:string; //          varchar(10)                       comment "장비유형",
+  deviceId?:string;  //           varchar(100)                    comment "DeviceID",
+  co2_alarm?:string; //         	varchar(12)                      comment "이산화탄소농도상태판단",
+  co2_Basis?: string; //         	varchar(12)                      comment "이산화탄소농도기준값",
+  co2_meas?: string; //          	varchar(12)                      comment "이산화탄소농도측정값",
+  co_alarm?: string; //          	varchar(12)                      comment "일산화탄소농도상태판단",
+  co_Basis?: string; //          	varchar(12)                      comment "일산화탄소농도기준값",
+  co_meas?: string; //           	varchar(12)                      comment "일산화탄소농도측정값",
+  flm_alarm?: string; //         	varchar(12)                      comment "가연성가스상태판단",
+  flm_basis?: string; //         	varchar(12)                      comment "가연성가스농도기준",
+  flm_meas?: string; //          	varchar(12)                      comment "가연성가스농도",
+  h2s_alarm?: string; //         	varchar(12)                      comment "황화수소농도상태판단",
+  h2s_Basis?: string; //         	varchar(12)                      comment "황화수소농도기준값",
+  h2s_meas?: string; //          	varchar(12)                      comment "황화수소농도측정값",
+  o2_alarm?: string; //          	varchar(12)                      comment "산소농도상태판단",
+  o2_Basis?: string; //          	varchar(12)                      comment "산소농도기준값",
+  o2_meas?: string; //          	varchar(12)                      comment "산소농도측정값",
+  colt_dt?: string; //               datetime default current_timestamp on update current_timestamp  comment "데이터수집일시",
 }
 
 class DangerAreaInfo {
@@ -96,7 +83,7 @@ export class ClosedEnvironmentInfoListPage implements OnInit {
   };
 
   res: ConnectResult<DangerAreaInfo>;
-  airRes: AirQualitySensorRes;
+  airRes: ConnectResult<AirQualitySensorData>;;
 
   selectedList = [];
 
@@ -124,23 +111,25 @@ export class ClosedEnvironmentInfoListPage implements OnInit {
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.airRes = null;
-    const res = await this.connect.run('/serial/user/list', this.form, {
-      parse: ['user_data'],
-    });
+    const res = await this.connect.run('/risk_state/user/serial/list', {
+      project_id:this.form.project_id,
+      master_company_id : this.form.master_company_id,
+      search_text: this.form.search_text,
+    }
+    );
     const serialNameList = res.rsMap
       .filter(
-        (item) => item.ctgo_machine_serial_name === '밀폐환경센서'
+          (item) => item.ctgo_machine_serial_name === '밀폐환경센서'
       )
       .map((item) => item.serial_bicon);
-    const airRes: AirQualitySensorRes = (await this.connect.run(
-      '/device/status/airqualitysensor/serial',
+    const airRes = (await this.connect.run(
+      '/iotapi/status/airqualitysensor/serial',
       {
         project_id: this.form.project_id,
         serialList: serialNameList.join(','),
         page: this.form.limit_no,
         pageSize: 20,
-      },
-      { contentType: ContentType.ApplicationJson, iot: true }
+      }
     )) as any;
 
     if (airRes.rsCode === 0) {
@@ -150,11 +139,12 @@ export class ClosedEnvironmentInfoListPage implements OnInit {
       };
       this.airRes = { ...this.airRes, ...airRes };
       this.airRes.rsMap.map((item, i) => {
-        item.index = airRes.totalItems - this.form.limit_no - i;
-        // const ctgo_machine_serial_name = res.rsMap
-        //   .filter((resItem) => resItem.serial_bicon === item.SerialNo)
-        //   .map((resItem) => resItem.ctgo_machine_serial_name);
-        // item.craneName = ctgo_machine_serial_name[0];
+        item.index = airRes.rsObj.row_count - this.form.limit_no - i;
+        const serialNo = item.deviceId;
+        const area_risk_name = res.rsMap.filter(
+          (item) => item.serial_bicon === serialNo)
+          .map((item) => item.area_risk_name);
+        item.area_risk_name = area_risk_name[0];        
       });
       this.res.rsMap.map((item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i;
@@ -172,8 +162,8 @@ export class ClosedEnvironmentInfoListPage implements OnInit {
       componentProps: {
         project_id: this.form.project_id,
         project_name: this.form.project_name,
-        serial_no: item?.SerialNo,
-        craneName: item.craneName,
+        serial_no: item?.deviceId,
+        area_risk_name: item?.area_risk_name,
         list_data: this.form,
         master_company_id: this.form.master_company_id,
       },

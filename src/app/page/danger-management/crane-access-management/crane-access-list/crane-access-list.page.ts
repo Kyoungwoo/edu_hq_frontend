@@ -43,10 +43,12 @@ class CraneHeightSensorRes {
 
 class CraneHeightSensorData {
   index?: number;
-  craneName?: string;
-  SerialNo: string;
+  machinery_regist_no?: string;
+  id?: Number;
+  deviceType?: string;
+  deviceId?: string;
   craneHeightCd: string;
-  createdAt: string;
+  colt_dt?: string;
 }
 @Component({
   selector: 'app-crane-access-list',
@@ -74,7 +76,7 @@ export class CraneAccessListPage implements OnInit {
   };
 
   res: ConnectResult<SerialInfo>;
-  craneRes: CraneHeightSensorRes;
+  craneRes: ConnectResult<CraneHeightSensorData>;;
 
   selectedList = [];
 
@@ -102,23 +104,24 @@ export class CraneAccessListPage implements OnInit {
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.craneRes = null;
-    const res = await this.connect.run('/serial/user/list', this.form, {
-      parse: ['user_data'],
+    const res = await this.connect.run('/risk_state/user/serial/list', {
+      project_id: this.form.project_id,
+      master_company_id: this.form.master_company_id,
+      search_text: this.form.search_text,
     });
     const serialNameList = res.rsMap
       .filter(
         (item) => item.ctgo_machine_serial_name === '크레인 상하차 알림장치'
       )
       .map((item) => item.serial_bicon);
-    const craneRes: CraneHeightSensorRes = (await this.connect.run(
-      '/device/status/craneheightsensor/serial',
+    const craneRes = (await this.connect.run(
+      '/iotapi/status/cranesensor/serial',
       {
         project_id: this.form.project_id,
         serialList: serialNameList.join(','),
         page: this.form.limit_no,
         pageSize: 20,
-      },
-      { contentType: ContentType.ApplicationJson, iot: true }
+      }
     )) as any;
 
     if (craneRes.rsCode === 0) {
@@ -128,11 +131,12 @@ export class CraneAccessListPage implements OnInit {
       };
       this.craneRes = { ...this.craneRes, ...craneRes };
       this.craneRes.rsMap.map((item, i) => {
-        item.index = craneRes.totalItems - this.form.limit_no - i;
-        const ctgo_machine_serial_name = res.rsMap
-          .filter((resItem) => resItem.serial_bicon === item.SerialNo)
-          .map((resItem) => resItem.assign_data);
-        item.craneName = ctgo_machine_serial_name[0];
+        item.index = craneRes.rsObj.row_count - this.form.limit_no - i;
+        const serialNo = item.deviceId;
+        const machinery_regist_no = res.rsMap.filter(
+          (item) => item.serial_bicon === serialNo)
+          .map((item) => item.machinery_regist_no);
+        item.machinery_regist_no = machinery_regist_no[0];
       });
       this.res.rsMap.map((item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i;
@@ -150,8 +154,8 @@ export class CraneAccessListPage implements OnInit {
       componentProps: {
         project_id: this.form.project_id,
         project_name: this.form.project_name,
-        serial_no: item?.SerialNo,
-        craneName: item.craneName,
+        serial_no: item?.deviceId,
+        machinery_regist_no: item.machinery_regist_no,
         list_data: this.form,
         master_company_id: this.form.master_company_id,
       },

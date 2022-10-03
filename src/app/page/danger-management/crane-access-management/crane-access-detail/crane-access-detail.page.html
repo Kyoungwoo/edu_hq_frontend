@@ -19,17 +19,12 @@
       <!-- <app-select-scene name="project_id"  [required]="true" [disabled]="updateStatus" [(ngModel)]="form.project_id"></app-select-scene> -->
     </app-col>
     <app-col>
-      <app-select-contractor [multiple]="false" name="master_company_id" [required]="true" [project_id]="this.project_id"
-        [disabled]="updateStatus || user.userData.user_type === 'COMPANY'" [(ngModel)]="this.master_company_id">
-      </app-select-contractor>
+      <app-input label="건설기계" [(ngModel)]="this.machinery_regist_no" name="area_risk_name" [readonly]="true" [required]="true"
+        [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-calendar
-        label="날짜"
-        [(ngModel)]="form.date"
-        name="date"
-        [required]="true"
-      ></app-calendar>
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()">
+      </app-calendar>
     </app-col>
   </app-row>
   <!-- <app-row mobileBreak>
@@ -37,9 +32,18 @@
     <app-col>
     </app-col>
   </app-row> -->
-
-  <h4>이벤트 발생 조회</h4>
-
+  <h6></h6>
+  <app-row style="justify-content: space-between">
+    <app-col size="auto">
+      <h4>이벤트 발생 조회</h4>
+      </app-col>
+      <app-row style="justify-content: end; width: fit-content">
+        <app-circle [color]="'#0e0'">&nbsp;</app-circle>
+        <span>&nbsp;: 정상&nbsp;&nbsp;</span>
+        <app-circle [color]="'orange'">&nbsp;</app-circle>
+        <span>&nbsp;: 접근</span>
+      </app-row>
+      </app-row>
   <app-table>
     <thead>
       <tr>
@@ -51,7 +55,7 @@
     <tbody>
       <tr *ngFor="let item of res?.rsMap let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ item.createdAt }}</td>
+        <td>{{ item.colt_dt | date:'yyyy-MM-dd EEE HH:mm:ss' }}</td>
         <td [ngSwitch]="item.craneHeightCd">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
@@ -64,6 +68,8 @@
     </tbody>
   </app-table>
 </ion-content>
+<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)">
+</app-pager>
 <app-button-footer *ngIf="serial_no">
   <app-button fill="default" (click)="close()">닫기</app-button>
 </app-button-footer>

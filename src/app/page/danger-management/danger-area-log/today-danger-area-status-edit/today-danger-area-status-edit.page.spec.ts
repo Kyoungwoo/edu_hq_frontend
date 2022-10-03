@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TodayDepartureStatusEditPage } from './today-danger-area-status-edit.page';
+import { TodayDangerAreaStatusEditPage } from './today-danger-area-status-edit.page';
 
-describe('TodayDepartureStatusEditPage', () => {
-  let component: TodayDepartureStatusEditPage;
-  let fixture: ComponentFixture<TodayDepartureStatusEditPage>;
+describe('TodayDangerAreaStatusEditPage', () => {
+  let component: TodayDangerAreaStatusEditPage;
+  let fixture: ComponentFixture<TodayDangerAreaStatusEditPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodayDepartureStatusEditPage ],
+      declarations: [ TodayDangerAreaStatusEditPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TodayDepartureStatusEditPage);
+    fixture = TestBed.createComponent(TodayDangerAreaStatusEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

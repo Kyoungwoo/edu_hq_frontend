@@ -5,8 +5,9 @@ import { UserService, UserType } from 'src/app/basic/service/core/user.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
+import { DangerAreaUserListPage } from '../danger-area-user-list/danger-area-user-list.page';
 import { DangerAreaUserRegistrationPage } from '../danger-area-user-registration/danger-area-user-registration.page';
-import { TodayDepartureStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
+import { TodayDangerAreaStatusEditPage } from '../today-danger-area-status-edit/today-danger-area-status-edit.page';
 
 
 class DangerAreaData {
@@ -35,7 +36,7 @@ class DangerAreaData {
   gps_state?: 1
 }
 
-export class DepartureStatusListForm {
+export class DangerAreaStatusListForm {
   project_id:number = 0; // 현장 ID
   master_company_id:number = 0; // 원청사 ID
   ctgo_construction_ids:number[] = []; // 공종 ID
@@ -44,7 +45,7 @@ export class DepartureStatusListForm {
   cnt_date:string;
   limit_no:number // limit_no
 }
-export class DepartureStatusListItem {
+export class DangerAreaStatusListItem {
   company_admin:number = 0;
   company_worker:number = 0;
   master_admin:number = 0;
@@ -54,7 +55,8 @@ export class DepartureStatusListItem {
   row_count:number = 0;
 }
 
-export class TodayDepartureStatusListItem {
+export class TodayDangerAreaStatusListItem {
+  isApproved:number = 0;
   ctgo_construction_id:number = 0;
   outside_time:string = '';
   nb_log_id:number = 0;
@@ -75,7 +77,7 @@ export class TodayDepartureStatusListItem {
   ctgo_safe_job_name:string = '';
   row_count:number = 0;
 }
-export class TodayDepartureStatusDetailItem {
+export class TodayDangerAreaStatusDetailItem {
   company_id:number;
   company_name:string;
   ctgo_construction_id:number;
@@ -101,10 +103,10 @@ export class TodayDepartureStatusDetailItem {
   templateUrl: './today-danger-area-status-list.page.html',
   styleUrls: ['./today-danger-area-status-list.page.scss'],
 })
-export class TodayDepartureStatusListPage implements OnInit {
+export class TodayDangerAreaStatusListPage implements OnInit {
 
-  @Input() listForm:DepartureStatusListForm;
-  @Input() item:DepartureStatusListItem;
+  @Input() listForm:DangerAreaStatusListForm;
+  @Input() item:DangerAreaStatusListItem;
   @Input() areaItem: DangerAreaData;
 
   form = {
@@ -126,7 +128,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     work_date:string
   }>;
 
-  res2:ConnectResult<TodayDepartureStatusListItem>;
+  res2: ConnectResult<TodayDangerAreaStatusListItem>;
   detailList:any[][] = [];
 
   permisson = {
@@ -171,7 +173,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     this.form.area_risk_id = this.areaItem.area_risk_id;
 
     this.areaForm = this.areaItem;
-    console.log("this.areaForm = " + JSON.stringify(this.areaForm));
+    // console.log("this.areaForm = " + JSON.stringify(this.areaForm));
   }
 
   async getSummary() {
@@ -189,7 +191,7 @@ export class TodayDepartureStatusListPage implements OnInit {
     }
   }
 
-  async detail(item:TodayDepartureStatusListItem, index) {
+  async detail(item:TodayDangerAreaStatusListItem, index) {
     if(this.detailList[index]) {
       this.detailList[index] = null;
     } 
@@ -230,7 +232,7 @@ export class TodayDepartureStatusListPage implements OnInit {
 
   async edit(type) {
     const modal = await this._modal.create({
-      component: TodayDepartureStatusEditPage,
+      component: TodayDangerAreaStatusEditPage,
       cssClass: 'today-departure-status-edit-modal',
       componentProps: {
         type,
@@ -248,14 +250,15 @@ export class TodayDepartureStatusListPage implements OnInit {
     }
   }
 
-  async riskAreaUserPage(item) {
+  //인가자 목록 가져오기
+  async riskAreaUserPage() {
     // console.log("detail - item", item);
     const modal = await this._modal.create({
-      component: TodayDepartureStatusListPage,
+      component: DangerAreaUserListPage,
       cssClass: 'today-departure-status-list-modal',
       componentProps: {
         listForm: this.form,
-        areaItem: item,
+        areaItem: this.areaItem,
       }
     });
     modal.present();

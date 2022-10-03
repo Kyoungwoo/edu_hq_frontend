@@ -20,7 +20,7 @@
       </app-select-contractor>
     </app-col>
     <app-col>
-      <app-input label="등록장소" [(ngModel)]="companyName" name="companyName" [readonly]="true" [required]="true"
+      <app-input label="등록장소" [(ngModel)]="this.area_risk_name" name="area_risk_name" [readonly]="true" [required]="true"
         [disabled]="true"></app-input>
     </app-col>
     <!-- <app-col>
@@ -28,7 +28,8 @@
         [disabled]="true"></app-input>
     </app-col> -->
     <app-col>
-      <app-calendar label="날짜" [(ngModel)]="form.date" name="date" [required]="true"></app-calendar>
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()">
+      </app-calendar>
     </app-col>
   </app-row>
   <!-- <app-row mobileBreak>
@@ -75,9 +76,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of res?.rsMap let i = index">
-        <td>{{ item.createdAt }}</td>
-        <td>{{item.o2measure}}%</td>       
-        <td [ngSwitch]="item.o2alarm">
+        <td>{{ item.colt_dt | date:'yyyy-MM-dd EEE HH:mm:ss' }}</td>
+        <td>{{item.o2_meas}}%</td>       
+        <td [ngSwitch]="item.o2_alarm">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -88,8 +89,8 @@
             &nbsp;
           </app-circle>
         </td>
-        <td>{{item.comeasure}}PPM</td>
-        <td [ngSwitch]="item.coalarm">
+        <td>{{item.co_meas}}PPM</td>
+        <td [ngSwitch]="item.co_alarm">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -100,8 +101,8 @@
             &nbsp;
           </app-circle>
         </td>
-        <td>{{item.co2measure}}%</td>
-        <td [ngSwitch]="item.co2alarm">
+        <td>{{item.co2_meas}}%</td>
+        <td [ngSwitch]="item.co2_alarm">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -112,8 +113,8 @@
             &nbsp;
           </app-circle>
         </td>
-        <td>{{item.h2smeasure}}PPM</td>
-        <td [ngSwitch]="item.h2salarm">
+        <td>{{item.h2s_meas}}PPM</td>
+        <td [ngSwitch]="item.h2s_alarm">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
@@ -129,7 +130,7 @@
   </app-table>
 
 </ion-content>
-<app-pager [totalCount]="res?.totalItems" [limitNo]="form.limit_no" (pagerChange)="get($event)">
+<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)">
 </app-pager>
 <app-button-footer *ngIf="serial_no">
   <app-button fill="default" (click)="close()">닫기</app-button>

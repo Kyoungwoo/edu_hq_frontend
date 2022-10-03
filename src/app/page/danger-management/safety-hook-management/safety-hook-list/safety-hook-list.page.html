@@ -43,9 +43,17 @@
     </app-col>
     <app-col>
       <ion-toolbar color="white">
-        <h5>안전고리 체결이력 (총 {{hookRes?.totalItems || 0 }}건)</h5>
+        <app-row style="justify-content: space-between">
+          <h5>안전고리 체결이력 (총 {{hookRes?.rsObj.row_count || 0 }}건)</h5>
+          <app-row style="justify-content: end; width: fit-content">
+            <app-circle [color]="'#0e0'">&nbsp;</app-circle>
+            <span>&nbsp;: 체결&nbsp;&nbsp;</span>
+            <app-circle [color]="'orange'">&nbsp;</app-circle>
+            <span>&nbsp;: 미체결&nbsp;&nbsp;</span>
+          </app-row>
+          </app-row>
       </ion-toolbar>
-      <app-check-group [(ngModel)]="selectedList">
+      <app-check-group [(ngModel)]="this.selectedList">
         <app-table>
           <thead>
             <tr>
@@ -67,7 +75,7 @@
               </td> -->
               <td>{{ item.index }}</td>
               <td>{{ item.companyName }}</td>
-              <td>{{ item.SerialNo }}</td>
+              <td>{{ item.mgmt_num }}</td>
               <td>{{ item.userName }}</td>
               <td [ngSwitch]="item.safetyHookCd">
                 <app-circle *ngSwitchCase="'체결'" [color]="'#0e0'">

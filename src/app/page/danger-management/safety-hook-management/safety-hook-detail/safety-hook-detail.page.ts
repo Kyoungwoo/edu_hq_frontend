@@ -1,7 +1,7 @@
 import { async } from '@angular/core/testing';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
@@ -20,6 +20,16 @@ class SafetyHookCdDataRes {
   totalItems?: number;
   rsMap?: Array<SafetyHookCdData>;
 }
+class SafetyHookSensorData {
+  index?: number;
+  id?: Number;
+  deviceType?: string;
+  deviceId?: string;
+  safetyHookCd?: string;
+  colt_dt?: string;
+}
+
+
 
 @Component({
   selector: 'app-safety-hook-detail',
@@ -31,6 +41,8 @@ export class SafetyHookDetailPage implements OnInit {
   @Input() master_company_id;
   @Input() serial_no;
   @Input() list_data;
+  @Input() companyName;
+  @Input() userName;
 
 
   form = {
@@ -40,9 +52,10 @@ export class SafetyHookDetailPage implements OnInit {
     project_id: null,
     serialList: null,
     limit_no : 0,
+    cnt_date: this.date.today(),
   };
 
-  res: SafetyHookCdDataRes = {};
+  res: ConnectResult<SafetyHookSensorData>;
 
   test = true;
   updateStatus = false;
@@ -75,6 +88,11 @@ export class SafetyHookDetailPage implements OnInit {
     }
   }
 
+  //날짜 변경시 조회
+  calendar_change() {
+    this.get();
+  }
+
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     console.log("limit_no  =========" + limit_no);
@@ -82,16 +100,14 @@ export class SafetyHookDetailPage implements OnInit {
 
     //상세보기
     const res = (await this.connect.run(
-      '/device/status/safetyhook/detail',
+      '/iotapi/status/safetyhooksensor/serial/detail',
       this.form,
-      {
-        contentType: ContentType.ApplicationJson,
-        iot: true,
-        loading: true,
-      }
     )) as any;
     if (res.rsCode === 0) {
       this.res = res;
+    }
+    else {
+      this.res = null;
     }
   }
 

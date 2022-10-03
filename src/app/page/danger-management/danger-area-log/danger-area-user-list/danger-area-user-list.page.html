@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-title>{{ form.cnt_date }} 위험지역 출입 내역</ion-title>
+    <ion-title>인가자 설정</ion-title>
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
@@ -18,7 +18,7 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;" (click)="getAll(0)">검색</app-button>
+                <app-button fill="translucent" style="width: 100px;" (click)="getAll()">검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
@@ -50,13 +50,13 @@
               </app-col>
             </td>
           </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <app-input-group label="날짜">
                   <app-calendar [(ngModel)]="form.cnt_date"></app-calendar>
                 </app-input-group>
               </td>
-            </tr>
+            </tr> -->
             <!-- <tr>
               <td>
                 <app-input label="검색어" [(ngModel)]="form.search_text" placeholder="검색어를 입력해 주세요."></app-input>
@@ -66,12 +66,12 @@
         </app-table>
       </app-col>
       <app-col>
-        <ion-toolbar color="white" *ngIf="permisson.edit">
+        <!-- <ion-toolbar color="white" *ngIf="permisson.edit">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="riskAreaUserPage('입장')">인가자 설정(개발중)</app-button>
+            <app-button fill="translucent" (click)="edit('입장')">인가자 설정(삭제)</app-button>
           </ion-buttons>
-        </ion-toolbar>
-        <ion-toolbar color="white">
+        </ion-toolbar> -->
+        <!-- <ion-toolbar color="white">
           <h5>현재 출역</h5>
         </ion-toolbar>
         <app-table>
@@ -95,15 +95,15 @@
               <td>{{ res?.rsObj?.total_cnt || 0 }}</td>
             </tr>
           </thead>
-        </app-table>
+        </app-table>-->
         <ion-toolbar color="white" *ngIf="permisson.edit">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="edit('입장')">근로자 입장 등록</app-button>
-            <app-button fill="translucent" (click)="edit('퇴장')">근로자 퇴장 등록</app-button>
+            <app-button fill="translucent" (click)="edit('입장')">인가자 추가</app-button>
+            <!-- <app-button fill="translucent" (click)="edit('퇴장')">근로자 퇴장 등록</app-button> -->
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>상세 내역 (총 {{ res2?.rsObj?.row_count || 0}}건)</h5>
+          <h5>인가자 정보 (총 {{ res2?.rsObj?.row_count || 0}}건)</h5>
         </ion-toolbar>
         <app-table>
           <thead>
@@ -116,8 +116,8 @@
               <th>직위</th>
               <th>안전직무</th>
               <th>직종</th>
-              <th>최초 입장시간</th>
-              <th>최종 퇴장시간</th>
+              <!-- <th>최초 입장시간</th>
+              <th>최종 퇴장시간</th> -->
             </tr>
           </thead>
           <tbody>
@@ -131,8 +131,8 @@
                 <td>{{ item.ctgo_job_position_name }}</td>
                 <td>{{ item.ctgo_safe_job_name }}</td>
                 <td>{{ item.ctgo_occupation_name }}</td>
-                <td>{{ item.inside_time ? item.inside_time+(item.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
-                <td>{{ item.outside_time ? item.outside_time+(item.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
+                <!-- <td>{{ item.inside_time ? item.inside_time+(item.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td>
+                <td>{{ item.outside_time ? item.outside_time+(item.outside_type == 'MANUAL' ? '(수동)' : '') : '-' }}</td> -->
               </tr>
               <ng-container *ngFor="let detail of detailList[i]">
                 <tr class="detail">
@@ -144,10 +144,10 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>{{ detail.inside_time ? detail.inside_time+(detail.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}
+                  <!-- <td>{{ detail.inside_time ? detail.inside_time+(detail.inside_type == 'MANUAL' ? '(수동)' : '') : '-' }}
                   </td>
                   <td>{{ detail.outside_time ? detail.outside_time+(detail.outside_type == 'MANUAL' ? '(수동)' : '') : '-'
-                    }}</td>
+                    }}</td> -->
                 </tr>
               </ng-container>
             </ng-container>

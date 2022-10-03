@@ -4,7 +4,7 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 
-export class TodayDeparturePersionItem {
+export class TodayDangerAreaPersionItem {
   ctgo_job_position_name: string;
   company_id: number;
   ctgo_safe_job_name: string;
@@ -15,7 +15,7 @@ export class TodayDeparturePersionItem {
   user_safe_job_id: number;
   ctgo_safe_job_id: number;
 }
-export class TodayDepartureStatusEditForm {
+export class DangerAreaUserRegistrationForm {
   area_risk_id?:number = null; // 위험지역ID - 입장유형이 위험지역일 경우에만 입력
   area_top_id?:number = null; // 장소ID_1(TOP) - 입장유형이 위험지역일 경우에만 입력
   area_middle_id?:number = null; // 장소ID_2(MIDDLE) - 입장유형이 위험지역일 경우에만 입력
@@ -50,10 +50,10 @@ export class DangerAreaUserRegistrationPage implements OnInit {
     search_text: ''
   }
 
-  res:ConnectResult<TodayDeparturePersionItem>;
-  selectedList:TodayDeparturePersionItem[] = [];
+  res: ConnectResult<TodayDangerAreaPersionItem>;
+  selectedList:TodayDangerAreaPersionItem[] = [];
 
-  submitForm = new TodayDepartureStatusEditForm();
+  submitForm = new DangerAreaUserRegistrationForm();
 
   constructor(
     private _modal: ModalController,
@@ -72,7 +72,7 @@ export class DangerAreaUserRegistrationPage implements OnInit {
 
     this.submitForm.project_id = this.project_id;
     this.submitForm.master_company_id = this.company_id;
-    this.submitForm.serial_type = '게이트';
+    this.submitForm.serial_type = '위험지역';
     this.submitForm.insert_state = this.type === '입장' ? 'IN' : 'OUT';
     this.submitForm.inout_date = this.inout_date;
     this.submitForm.inout_time = '07:30';
@@ -87,15 +87,20 @@ export class DangerAreaUserRegistrationPage implements OnInit {
 
   async get() {
     let url;
-    if(this.type === '입장') {
-      url = '/category/certify/project/notin/user/get';
-    } /** if else 정렬 이렇게 하세요. */
-    else {
-      url = '/category/certify/project/in/user/get';
-    }
-
+    //프로젝트 인력 정보 가져오기
+    if (this.type === '입장') {
+      url = '/risk_state/project/user/get';
+      } /** if else 정렬 이렇게 하세요. */
+      else {
+        url = '/category/certify/project/in/user/get';  //미구현됨
+      }   
+   
+   
     /** api 호출 */
     this.res = await this.connect.run(url, this.form);
+
+
+
     if(this.res.rsCode === 0) {
       // 암것도 안함
     }
@@ -107,7 +112,7 @@ export class DangerAreaUserRegistrationPage implements OnInit {
     }
   }
 
-  select(item:TodayDeparturePersionItem) {
+  select(item:TodayDangerAreaPersionItem) {
     /** 이 코드는 밖에서 select list를 들고와야 할 경우는 틀린 코드입니다.
      * 이유는 깊은 비교 상에서 다르기 떄문입니다. 이점 유의하시기 바랍니다.
      * 깊은 비교로는 다르나, 얕은 비교 상에서 같은 아이템을 찾아야 할 경우는
@@ -127,9 +132,14 @@ export class DangerAreaUserRegistrationPage implements OnInit {
   }
 
   submit() {
+
+
+
+
     /** form 입력 */
     this.submitForm.inout_datetime = `${this.submitForm.inout_date} ${this.submitForm.inout_time}`;
     this.submitForm.user_ids = this.selectedList.map(item => item.user_id);
+
 
     /** form 검증 */
     if(!this.submitForm.user_ids.length) return this.toast.present({ color: 'warning', message: `${this.type} 할 유저를 선택해주세요.` });
@@ -137,7 +147,7 @@ export class DangerAreaUserRegistrationPage implements OnInit {
 
     let message:string = '';
     if(this.type === '입장') {
-      message = '선택한 인원을 입장 등록 처리하시겠습니까?';
+      message = '선택한 인원을 인가자로 등록 처리 하시겠습니까?';
     }
     else {
       message = '선택한 인원이 아직 현장에 남아 있을 수 있습니다. 퇴장 등록 처리 하시겠습니까?';
@@ -161,8 +171,11 @@ export class DangerAreaUserRegistrationPage implements OnInit {
   }
   async submitHandler() {
     /** api 호출 */
-    const res = await this.connect.run('/work_project/nfc_beacon/manual/insups', this.submitForm);
+    console.log("@@@@@@   this.submitForm" + JSON.stringify(this.submitForm));
+
+    const res = await this.connect.run('/risk_state/area/users/insups', this.submitForm);
     if(res.rsCode === 0) {
+      console.log("@@@@@@   res" + JSON.stringify(res));
       this._modal.dismiss({ update: true });
     }
     else {

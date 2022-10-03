@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TodayDepartureStatusListPageRoutingModule } from './today-danger-area-status-list-routing.module';
+import { TodayDangerAreaStatusListPageRoutingModule } from './today-danger-area-status-list-routing.module';
 
-import { TodayDepartureStatusListPage } from './today-danger-area-status-list.page';
+import { TodayDangerAreaStatusListPage } from './today-danger-area-status-list.page';
 import { ComponentModule } from 'src/app/component/component.module';
-import { TodayDepartureStatusEditPageModule } from '../today-danger-area-status-edit/today-danger-area-status-edit.module';
+import { TodayDangerAreaStatusEditPageModule } from '../today-danger-area-status-edit/today-danger-area-status-edit.module';
 
 @NgModule({
   imports: [
@@ -16,10 +16,10 @@ import { TodayDepartureStatusEditPageModule } from '../today-danger-area-status-
     FormsModule,
     IonicModule,
     ComponentModule,
-    TodayDepartureStatusListPageRoutingModule,
-    TodayDepartureStatusEditPageModule
+    TodayDangerAreaStatusListPageRoutingModule,
+    TodayDangerAreaStatusEditPageModule
   ],
-  declarations: [TodayDepartureStatusListPage],
-  exports: [TodayDepartureStatusListPage]
+  declarations: [TodayDangerAreaStatusListPage],
+  //exports: [TodayDangerAreaStatusListPage]
 })
-export class TodayDepartureStatusListPageModule {}
+export class TodayDangerAreaStatusListPageModule {}

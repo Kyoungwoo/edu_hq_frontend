@@ -47,9 +47,12 @@ class SafetyHookData {
   index?: number;
   companyName?:string;
   userName?:string;
-  SerialNo: string;
-  craneHeightCd: string;
-  createdAt: string;
+  mgmt_num?:string;
+  id?: Number;
+  deviceType?: string;
+  deviceId?: string; 
+  safetyHookCd?: string;
+  colt_dt?: string;
 }
 @Component({
   selector: 'app-safety-hook-list',
@@ -80,7 +83,7 @@ export class SafetyHookListPage implements OnInit {
   };
 
   res: ConnectResult<SerialInfo>;
-  hookRes: SafetyHookRes;
+  hookRes: ConnectResult<SafetyHookData>;
 
  constructor(
     private modal: ModalController,
@@ -106,22 +109,23 @@ export class SafetyHookListPage implements OnInit {
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.hookRes= null;
-    const res = await this.connect.run('/serial/user/list', this.form, {
-      parse: ['user_data'],
+    const res = await this.connect.run('/risk_state/user/serial/list', {
+      project_id: this.form.project_id,
+      master_company_id: this.form.master_company_id,
+      search_text: this.form.search_text,
     });
     console.log(res);
     const serialNameList = res.rsMap
       .filter((item) => item.ctgo_machine_serial_name === '안전고리')
       .map((item) => item.serial_bicon);
-    const hookRes: SafetyHookRes = (await this.connect.run(
-      '/device/status/safetyhook/serial',
+    const hookRes = (await this.connect.run(
+      '/iotapi/status/safetyhooksensor/serial',
       {
         project_id: this.form.project_id,
         serialList: serialNameList.join(','),
         page: this.form.limit_no,
         pageSize: 20,
-      },
-      { contentType: ContentType.ApplicationJson, iot: true }
+      }
     )) as any;
 
 
@@ -129,14 +133,19 @@ export class SafetyHookListPage implements OnInit {
       this.res = {...this.res, ...res, };
       this.hookRes = { ...this.hookRes, ...hookRes };
       this.hookRes.rsMap.map((item, i) => {
-        item.index = hookRes.totalItems - this.form.limit_no - i;
+        item.index = hookRes.rsObj.row_count - this.form.limit_no - i;
         // res.rsMap.filter((resItem) => {resItem.serial_bicon === item.SerialNo} ) 
         const assingedDataList = res.rsMap
-          .filter((resItem) => resItem.serial_bicon === item.SerialNo)
+          .filter((resItem) => resItem.serial_bicon === item.deviceId)
           .map((resItem) => resItem.assign_data);
         item.companyName = assingedDataList[0].split("/")[0];
         item.userName =assingedDataList[0].split("/")[1];
-
+        
+        //관리번호 확인
+        const mgmt_num = res.rsMap
+          .filter((resItem) => resItem.serial_bicon === item.deviceId)
+          .map((resItem) => resItem.mgmt_num);
+        item.mgmt_num = mgmt_num[0];
           
       });
       this.res.rsMap.map((item, i) => {
@@ -159,9 +168,9 @@ export class SafetyHookListPage implements OnInit {
         //machinery_id: item?.machinery_id,
         project_id: this.form.project_id,
         project_name: this.form.project_name,
-        serial_no: item?.SerialNo,
-        companyName:item.companyName,
-        userName:item.userName,        
+        serial_no: item?.deviceId,
+        companyName:item?.companyName,
+        userName:item?.userName,        
         list_data: this.form,
       },
     });

@@ -2,6 +2,7 @@ import { async } from '@angular/core/testing';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import {
+  ConnectResult,
   ConnectService,
   ContentType,
 } from 'src/app/basic/service/core/connect.service';
@@ -11,18 +12,16 @@ import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 
-class CraneHeightCdData {
+class CraneHeightSensorData {
+  index?: number;
+  machinery_regist_no?: string;
+  id?: Number;
+  deviceType?: string;
+  deviceId?: string;
   craneHeightCd: string;
-  createdAt: string;
+  colt_dt?: string;
 }
-class CraneHeightCdDataRes {
-  rsCode?: number;
-  rsMsg?: string;
-  currentPage?: number;
-  totalPages?: number;
-  totalItems?: number;
-  rsMap?: Array<CraneHeightCdData>;
-}
+
 
 @Component({
   selector: 'app-crane-access-detail',
@@ -33,8 +32,8 @@ export class CraneAccessDetailPage implements OnInit {
   @Input() project_id;
   @Input() serial_no;
   @Input() list_data;
-  @Input() master_company_data;
-
+  @Input() master_company_id;
+  @Input() machinery_regist_no;
 
   form = {
     page: 1,
@@ -42,9 +41,11 @@ export class CraneAccessDetailPage implements OnInit {
     date: null,
     project_id: null,
     serialList: null,
+    cnt_date: this.date.today(),
+    limit_no: 0,
   };
 
-  res: CraneHeightCdDataRes = {};
+  res: ConnectResult<CraneHeightSensorData>;
 
   test = true;
   updateStatus = false;
@@ -81,16 +82,20 @@ export class CraneAccessDetailPage implements OnInit {
   async get() {
     //상세보기
     const res = (await this.connect.run(
-      '/device/status/craneheightsensor/detail',
-      this.form,
+      '/iotapi/status/cranesensor/serial/detail',
       {
-        contentType: ContentType.ApplicationJson,
-        iot: true,
-        loading: true,
+        project_id: this.form.project_id,
+        serialList: this.serial_no,
+        limit_no: this.form.limit_no,
+        cnt_date: this.form.cnt_date,
+        pageSize: 20,
       }
     )) as any;
     if (res.rsCode === 0) {
       this.res = res;
+    }
+    else {
+      this.res = null;
     }
   }
 
@@ -122,17 +127,4 @@ export class CraneAccessDetailPage implements OnInit {
   }
 }
 
-// plan_file_data: FutItem[] = [];
-// regist_file_data: FutItem[] = [];
-// rental_file_data: FutItem[] = [];
-// etc_file_data: FutItem[] = [];
 
-// plan_file: (File | Blob)[] = [];
-// regist_file: (File | Blob)[] = [];
-// rental_file: (File | Blob)[] = [];
-// etc_file: (File | Blob)[] = [];
-
-// plan_json : FileJson = new FileJson();
-// regist_json : FileJson = new FileJson();
-// rental_json : FileJson = new FileJson();
-// etc_json : FileJson = new FileJson();

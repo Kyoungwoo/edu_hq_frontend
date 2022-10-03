@@ -18,7 +18,7 @@
                 <h5>필터</h5>
               </app-col>
               <app-col size="auto">
-                <app-button fill="translucent" style="width: 100px;" (click)="getAll(0)">검색</app-button>
+                <app-button fill="translucent" style="width: 100px;" (click)="getAll()">검색</app-button>
               </app-col>
             </app-row>
           </ion-toolbar>
@@ -68,7 +68,7 @@
       <app-col>
         <ion-toolbar color="white" *ngIf="permisson.edit">
           <ion-buttons slot="start">
-            <app-button fill="translucent" (click)="riskAreaUserPage('입장')">인가자 설정(개발중)</app-button>
+            <app-button fill="translucent" (click)="riskAreaUserPage()">인가자 설정</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
@@ -126,7 +126,8 @@
                 <td>{{ c - i }}</td>
                 <td>{{ item.company_name }}</td>
                 <td>{{ item.ctgo_construction_name }}</td>
-                <td>{{ item.user_type === 'WORKER' ? '작업자' : '관리자' }}</td>
+                <td>{{ item.isApproved === 1 ? '인가자' : '비인가자' }}</td>                
+                <!-- <td>{{ item.user_type === 'WORKER' ? '작업자' : '관리자' }}</td> -->
                 <td>{{ item.user_name }}</td>
                 <td>{{ item.ctgo_job_position_name }}</td>
                 <td>{{ item.ctgo_safe_job_name }}</td>

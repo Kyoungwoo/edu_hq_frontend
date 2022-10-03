@@ -1,34 +1,29 @@
 import { async } from '@angular/core/testing';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
+import { ConnectResult, ConnectService, ContentType } from 'src/app/basic/service/core/connect.service';
 import { FileJson, FutItem } from 'src/app/basic/service/core/file.service';
 import { UserService } from 'src/app/basic/service/core/user.service';
 import { AlertService } from 'src/app/basic/service/ionic/alert.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-
-class DisplacementSensorRes {
-  rsCode?: number;
-  rsMsg?: string;
-  currentPage?: number;
-  totalPages?: number;
-  totalItems?: number;
-  rsMap?: Array<DisplacementSensorData>;
-}
+import { getSafePropertyAccessString } from '@angular/compiler';
 
 class DisplacementSensorData {
   index?: number;
-  SerialNo: string;
-  createdAt: string;
+  area_risk_name?: string;  //장소 맵핑
+  id?: Number;
+  deviceType?: string;
+  deviceId?: string;
+  impt_basis?: string;
   // 충격감지 기준값
-  impactBasis: string;
+  impt_cd?: string;
   // 충격감지 상태값
-  impactCd: string;
+  inct_basis?: string;
   // 기울기 감지 기준값
-  inclinationBasis: string;
+  inct_cd?: string;
   // 기울기 상태값
-  inclinationCd: string;
+  colt_dt?: string;
 }
 @Component({
   selector: 'app-desplacement-detection-detail',
@@ -38,18 +33,21 @@ class DisplacementSensorData {
 export class DesplacementDetectionDetailPage implements OnInit {
   @Input() project_id;
   @Input() serial_no;
-  @Input() list_data; //parent form data
+  @Input() list_data;
   @Input() master_company_id;
+  @Input() area_risk_name;
   form = {
     page: 1,
     pageSize: 20,
     date: null,
-    project_id: null,
+    project_id: 0,
     serialList: null,
-    limit_no: 10,
+    cnt_date: this.date.today(),
+    limit_no: 0,
+  
   };
 
-  res: DisplacementSensorRes = {};
+  res: ConnectResult<DisplacementSensorData>;
 
   test = true;
   updateStatus = false;
@@ -69,32 +67,46 @@ export class DesplacementDetectionDetailPage implements OnInit {
       project_id: this.project_id,
       serialList: this.serial_no,
     };
+
     if (this.serial_no) {
+      //console.log("@@@@@@ this.serial_no = " + this.serial_no);
+ 
       this.updateStatus = true;
       this.get();
     } else {
       this.updateStatus = false;
     }
-    console.log(this.form);
+    //console.log(this.form);
+  }
+
+  //날짜 변경시 조회
+  calendar_change() {
+    this.get();
   }
 
   async get(limit_no = this.form.limit_no) {
+
     this.form.limit_no = limit_no;
-    console.log("limit_no  =========" + limit_no);
     limit_no === 0 ? this.form.page = 1 : this.form.page = limit_no / 10;
 
     //상세보기
     const res = (await this.connect.run(
-      '/device/status/displacementsensor/detail',
-      this.form,
+      '/iotapi/status/displacementsensor/serial/detail',
       {
-        contentType: ContentType.ApplicationJson,
-        iot: true,
-        loading: true,
+        project_id: this.form.project_id,
+        serialList: this.serial_no,
+        limit_no: this.form.limit_no,
+        cnt_date: this.form.cnt_date,
+        pageSize: 20,
       }
     )) as any;
+
+
     if (res.rsCode === 0) {
       this.res = res;
+    }
+    else {
+      this.res = null;
     }
   }
 

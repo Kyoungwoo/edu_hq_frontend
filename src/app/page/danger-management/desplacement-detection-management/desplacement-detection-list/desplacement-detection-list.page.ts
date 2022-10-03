@@ -42,22 +42,30 @@ class DisplacementSensorRes {
   currentPage: number;
   totalPages: number;
   totalItems: number;
+  row_count: number;
   rsMap: Array<DisplacementSensorData>;
 }
 
+
 class DisplacementSensorData {
   index?: number;
-  SerialNo: string;
-  createdAt: string;
+  area_risk_name?: string;  //장소 맵핑
+  id?:Number;
+  deviceType?:string;
+  deviceId?:string; 
+  impt_basis?:string;
   // 충격감지 기준값
-  impactBasis: string;
+  impt_cd?:string;
   // 충격감지 상태값
-  impactCd: string;
+  inct_basis?:string;
   // 기울기 감지 기준값
-  inclinationBasis: string;
+  inct_cd?:string;
   // 기울기 상태값
-  inclinationCd: string;
+  colt_dt?:string;
 }
+
+
+
 @Component({
   selector: 'app-desplacement-detection-list',
   templateUrl: './desplacement-detection-list.page.html',
@@ -81,8 +89,8 @@ export class DesplacementDetectionListPage implements OnInit {
   };
 
   res: ConnectResult<SerialInfo>;
-  displaceRes: DisplacementSensorRes;
-
+  //displaceRes: DisplacementSensorRes;
+  displaceRes: ConnectResult<DisplacementSensorData>;
   selectedList = [];
 
   constructor(
@@ -109,38 +117,42 @@ export class DesplacementDetectionListPage implements OnInit {
   async getList(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
     this.displaceRes=null;
-    const res = await this.connect.run('/serial/user/list', this.form, {
-      parse: ['user_data'],
-    });
+     const res = await this.connect.run('/risk_state/user/serial/list', {
+        project_id: this.form.project_id,
+        master_company_id: this.form.master_company_id,
+        search_text:this.form.search_text,
+     });
     const serialNameList = res.rsMap
       .filter(
         (item) => item.ctgo_machine_serial_name === '변위감지'
       )
       .map((item) => item.serial_bicon);
 
-    const displaceRes: DisplacementSensorRes = (await this.connect.run(
-      '/device/status/displacementsensor/serial',
+    //iot 수집서버로 API 호출해서 가져오기 (contentType에 따라 분류됨)
+    const displaceRes = (await this.connect.run(
+      '/iotapi/status/displacementsensor/serial',
       {
         project_id: this.form.project_id,
         serialList: serialNameList.join(','),
         page: this.form.limit_no,
         pageSize: 20,
-      },
-      { contentType: ContentType.ApplicationJson, iot: true }
+      }
     )) as any;
 
     if(displaceRes.rsCode === 0) {
+
       this.res = {
         ...this.res,
         ...res,
       };
       this.displaceRes = { ...this.displaceRes, ...displaceRes };
       this.displaceRes.rsMap.map((item, i) => {
-        item.index = displaceRes.totalItems - this.form.limit_no - i;
-        // const ctgo_machine_serial_name = res.rsMap
-        //   .filter((resItem) => resItem.serial_bicon === item.SerialNo)
-        //   .map((resItem) => resItem.ctgo_machine_serial_name);
-        // item.craneName = ctgo_machine_serial_name[0];
+        item.index = displaceRes.rsObj.row_count - this.form.limit_no - i;
+        const serialNo = item.deviceId;
+        const area_risk_name = res.rsMap.filter(
+          (item) => item.serial_bicon === serialNo)
+          .map((item) => item.area_risk_name);
+        item.area_risk_name = area_risk_name[0];
       });
       this.res.rsMap.map((item, i) => {
         item.index = res.rsObj.row_count - this.form.limit_no - i;
@@ -153,14 +165,16 @@ export class DesplacementDetectionListPage implements OnInit {
   }
 
   async Heavyedit(item?) {
+  
     const modal = await this.modal.create({
       component: DesplacementDetectionDetailPage,
       componentProps: {
         project_id: this.form.project_id,
         project_name: this.form.project_name,
-        master_company_id: this.form.master_company_id,
-        serial_no: item?.SerialNo,
+        serial_no: item?.deviceId,
+        area_risk_name: item?.area_risk_name,
         list_data: this.form,
+        master_company_id: this.form.master_company_id,
       },
     });
     modal.present();

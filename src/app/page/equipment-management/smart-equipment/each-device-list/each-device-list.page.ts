@@ -79,7 +79,17 @@ export class EachDeviceListPage implements OnInit {
 
   form = {
     ctgo_machine_serial_id: 0,
-    company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.company_id,
+    //company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.company_id,
+    company_id:
+      this.user.userData.user_type == 'LH' ||
+        this.user.userData.user_type == 'SUPER'
+        ? 0
+        : this.user.userData.belong_data.company_id,
+    master_company_id:
+      this.user.userData.user_type == 'LH' ||
+        this.user.userData.user_type == 'SUPER'
+        ? 0
+        : this.user.userData.belong_data.master_company_id,
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
     start_date: this.date.today({ year: -3 }),
