@@ -62,8 +62,11 @@
         <th colspan="2">일산화탄소</th>
         <th colspan="2">이산화탄소</th>
         <th colspan="2">황화수소</th>
+        <th colspan="2">가연성 가스</th>
       </tr>
       <tr>
+        <th>측정수치</th>
+        <th>이상유무</th>
         <th>측정수치</th>
         <th>이상유무</th>
         <th>측정수치</th>
@@ -115,6 +118,18 @@
         </td>
         <td>{{item.h2s_meas}}PPM</td>
         <td [ngSwitch]="item.h2s_alarm">
+          <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'주의'" [color]="'orange'">
+            &nbsp;
+          </app-circle>
+          <app-circle *ngSwitchCase="'경고'" [color]="'red'">
+            &nbsp;
+          </app-circle>
+        </td>
+        <td>{{item.flm_meas}}%LEL</td>
+        <td [ngSwitch]="item.flm_alarm">
           <app-circle *ngSwitchCase="'정상'" [color]="'#0e0'">
             &nbsp;
           </app-circle>
