@@ -117,10 +117,10 @@ export class ClosedEnvironmentInfoListPage implements OnInit {
       search_text: this.form.search_text,
     }
     );
+    console.log("@@@@" + res);  
+
     const serialNameList = res.rsMap
-      .filter(
-          (item) => item.ctgo_machine_serial_name === '밀폐환경센서'
-      )
+      .filter((item) => item.ctgo_machine_serial_name.includes('밀폐'))
       .map((item) => item.serial_bicon);
     const airRes = (await this.connect.run(
       '/iotapi/status/airqualitysensor/serial',

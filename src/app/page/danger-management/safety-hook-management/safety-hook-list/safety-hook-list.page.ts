@@ -114,9 +114,9 @@ export class SafetyHookListPage implements OnInit {
       master_company_id: this.form.master_company_id,
       search_text: this.form.search_text,
     });
-    console.log(res);
+    console.log("@@@@" + res);  
     const serialNameList = res.rsMap
-      .filter((item) => item.ctgo_machine_serial_name === '안전고리')
+      .filter((item) => item.ctgo_machine_serial_name.includes('안전고리'))
       .map((item) => item.serial_bicon);
     const hookRes = (await this.connect.run(
       '/iotapi/status/safetyhooksensor/serial',

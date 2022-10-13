@@ -23,7 +23,7 @@
         [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()"></app-calendar>
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get(0)"></app-calendar>
     </app-col>
   </app-row>
   <!-- <app-row mobileBreak>
@@ -70,7 +70,7 @@
     </tbody>
   </app-table>
 </ion-content>
-<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+<app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="get($event)">
 </app-pager>
 <app-button-footer *ngIf="serial_no">
   <app-button fill="default" (click)="close()">닫기</app-button>

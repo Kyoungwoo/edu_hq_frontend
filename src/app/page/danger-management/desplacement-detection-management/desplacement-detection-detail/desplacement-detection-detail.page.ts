@@ -37,14 +37,10 @@ export class DesplacementDetectionDetailPage implements OnInit {
   @Input() master_company_id;
   @Input() area_risk_name;
   form = {
-    page: 1,
-    pageSize: 20,
-    date: null,
     project_id: 0,
     serialList: null,
     cnt_date: this.date.today(),
     limit_no: 0,
-  
   };
 
   res: ConnectResult<DisplacementSensorData>;
@@ -87,7 +83,6 @@ export class DesplacementDetectionDetailPage implements OnInit {
   async get(limit_no = this.form.limit_no) {
 
     this.form.limit_no = limit_no;
-    limit_no === 0 ? this.form.page = 1 : this.form.page = limit_no / 10;
 
     //상세보기
     const res = (await this.connect.run(
@@ -97,7 +92,6 @@ export class DesplacementDetectionDetailPage implements OnInit {
         serialList: this.serial_no,
         limit_no: this.form.limit_no,
         cnt_date: this.form.cnt_date,
-        pageSize: 20,
       }
     )) as any;
 

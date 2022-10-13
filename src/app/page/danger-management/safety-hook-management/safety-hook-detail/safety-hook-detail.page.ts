@@ -46,9 +46,6 @@ export class SafetyHookDetailPage implements OnInit {
 
 
   form = {
-    page: 1,
-    pageSize: 20,
-    date: null,
     project_id: null,
     serialList: null,
     limit_no : 0,
@@ -69,9 +66,7 @@ export class SafetyHookDetailPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private _modal: ModalController
-  ) {
-    this.form.date = date.today();
-  }
+  ) {}
 
   ngOnInit() {
     this.form = {
@@ -88,16 +83,8 @@ export class SafetyHookDetailPage implements OnInit {
     }
   }
 
-  //날짜 변경시 조회
-  calendar_change() {
-    this.get();
-  }
-
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    console.log("limit_no  =========" + limit_no);
-    limit_no === 0 ? this.form.page = 1 : this.form.page = limit_no / 10;
-
     //상세보기
     const res = (await this.connect.run(
       '/iotapi/status/safetyhooksensor/serial/detail',

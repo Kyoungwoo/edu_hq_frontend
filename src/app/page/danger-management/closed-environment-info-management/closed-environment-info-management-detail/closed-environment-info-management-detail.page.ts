@@ -45,9 +45,6 @@ export class ClosedEnvironmentInfoDetailPage implements OnInit {
   @Input() area_risk_name;
 
   form = {
-    page: 1,
-    pageSize: 20,
-    date: null,
     project_id: 0,
     serialList: null,
     cnt_date: this.date.today(),
@@ -68,9 +65,7 @@ export class ClosedEnvironmentInfoDetailPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private _modal: ModalController
-  ) {
-    this.form.date = date.today();
-  }
+  ) {}
 
   ngOnInit() {
     this.form = {
@@ -89,9 +84,7 @@ export class ClosedEnvironmentInfoDetailPage implements OnInit {
 
   async get(limit_no = this.form.limit_no) {
     this.form.limit_no = limit_no;
-    console.log("limit_no  =========" + limit_no);
-    limit_no === 0 ? this.form.page = 1 : this.form.page = limit_no / 10;
-      
+
     //상세보기
     const res = (await this.connect.run(
       '/iotapi/status/airqualitysensor/serial/detail',
@@ -100,7 +93,6 @@ export class ClosedEnvironmentInfoDetailPage implements OnInit {
         serialList: this.serial_no,
         limit_no: this.form.limit_no,
         cnt_date: this.form.cnt_date,
-        pageSize: 20,
       }
     )) as any;
 

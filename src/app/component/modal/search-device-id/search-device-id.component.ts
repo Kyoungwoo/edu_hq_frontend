@@ -76,6 +76,19 @@ export class SearchDeviceIdComponent implements OnInit {
       this.res.rsMap = result.rsMap.filter(
         (item) => serial_bicon_list.includes(item.deviceNum) === false
       ).map((item) => item);
+      if (this.form.device_type !== 0) {
+        this.res.rsMap = result.rsMap.filter(
+          (item) => item.deviceType === this.form.device_type
+        ).map((item) => item);
+      }
+      if (this.form.search_text !== '') {
+        this.res.rsMap = result.rsMap.filter(
+          (item) => item.devTypeNm.includes(this.form.search_text) || item.suppier.includes(this.form.search_text) || item.deviceUser.includes(this.form.search_text)
+        ).map((item) => item);
+      }      
+      this.res.rsMap = result.rsMap.filter(
+        (item) => serial_bicon_list.includes(item.deviceNum) === false
+      ).map((item) => item);
     } else {
       ;//this.toast.present({message:this.res.rsMsg});
     }

@@ -109,9 +109,10 @@ export class CraneAccessListPage implements OnInit {
       master_company_id: this.form.master_company_id,
       search_text: this.form.search_text,
     });
+    console.log("@@@@" + res);  
     const serialNameList = res.rsMap
       .filter(
-        (item) => item.ctgo_machine_serial_name === '크레인 상하차 알림장치'
+        (item) => item.ctgo_machine_serial_name.includes('크레인')
       )
       .map((item) => item.serial_bicon);
     const craneRes = (await this.connect.run(

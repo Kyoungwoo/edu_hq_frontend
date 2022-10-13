@@ -136,8 +136,12 @@
                   </app-select>
                 </td>
                 <td [class.center-class]="!item.serial_no">{{ item.serial_no }}</td>
-                <td>
+                <!-- <td>
                   <app-input [disabled]="!update_state" [(ngModel)]="item.serial_bicon"></app-input>
+                </td> -->
+                <td>
+                  <app-select-device-id [disabled]="!update_state" [project_id]="item.project_id" [master_company_id]="item.master_company_id"
+                    [(ngModel)]="item.serial_bicon"></app-select-device-id>
                 </td>
                 <td>
                   <app-input [disabled]="!update_state" [(ngModel)]="item.serial_nfc"></app-input>

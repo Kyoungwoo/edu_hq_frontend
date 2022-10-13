@@ -149,6 +149,7 @@ export class RiskListPage implements OnInit {
     this.selectitem = null;
     
     this.res = await this.connect.run('/risk/assessment/list/get', this.form, { loading: true });
+
     if(this.res.rsCode === 0 ) {
       this.res.rsMap.forEach((item, i) => {
         item.index = this.res.rsObj.row_count - this.form.limit_no - i;

@@ -122,10 +122,9 @@ export class DesplacementDetectionListPage implements OnInit {
         master_company_id: this.form.master_company_id,
         search_text:this.form.search_text,
      });
+    console.log("@@@@" + res);  
     const serialNameList = res.rsMap
-      .filter(
-        (item) => item.ctgo_machine_serial_name === '변위감지'
-      )
+      .filter((item) => item.ctgo_machine_serial_name.includes('변위'))
       .map((item) => item.serial_bicon);
 
     //iot 수집서버로 API 호출해서 가져오기 (contentType에 따라 분류됨)

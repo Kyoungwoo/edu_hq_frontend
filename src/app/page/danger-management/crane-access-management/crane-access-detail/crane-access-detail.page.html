@@ -23,7 +23,7 @@
         [disabled]="true"></app-input>
     </app-col>
     <app-col>
-      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get()">
+      <app-calendar label="날짜" [(ngModel)]="form.cnt_date" name="cnt_date" [required]="true" (change)="get(0)">
       </app-calendar>
     </app-col>
   </app-row>

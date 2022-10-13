@@ -36,9 +36,6 @@ export class CraneAccessDetailPage implements OnInit {
   @Input() machinery_regist_no;
 
   form = {
-    page: 1,
-    pageSize: 20,
-    date: null,
     project_id: null,
     serialList: null,
     cnt_date: this.date.today(),
@@ -59,9 +56,7 @@ export class CraneAccessDetailPage implements OnInit {
     private toast: ToastService,
     public user: UserService,
     private _modal: ModalController
-  ) {
-    this.form.date = date.today();
-  }
+  ) { }
 
   ngOnInit() {
     this.form = {
@@ -79,7 +74,8 @@ export class CraneAccessDetailPage implements OnInit {
     console.log(this.form);
   }
 
-  async get() {
+  async get(limit_no = this.form.limit_no) {
+    this.form.limit_no = limit_no;
     //상세보기
     const res = (await this.connect.run(
       '/iotapi/status/cranesensor/serial/detail',
@@ -88,7 +84,6 @@ export class CraneAccessDetailPage implements OnInit {
         serialList: this.serial_no,
         limit_no: this.form.limit_no,
         cnt_date: this.form.cnt_date,
-        pageSize: 20,
       }
     )) as any;
     if (res.rsCode === 0) {
