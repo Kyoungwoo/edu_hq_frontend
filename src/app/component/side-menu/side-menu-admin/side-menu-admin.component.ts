@@ -48,245 +48,30 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_type === 'LH' || user_type === 'SUPER' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
       }},
     ]},
-    { title: '전자결재', img: 'assets/img/menu/sign.svg',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      },
-    subMenuList: [
-      { title: '기안/임시저장함', link: '/confirm-obtain-list',
-        permission: () => {
-          const {  user_type } = this.user.userData;
-          return user_type === 'COMPANY';
-        }
-      },
-      { title: '미결함', link: '/confirm-pending-list',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }
-    },
-      { title: '진행/완료/반려', link: '/confirm-progress-list',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: '참조함', link: '/confirm-cc-list',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: '전자결재 설정', link: '/approval-edit',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'COMPANY';
-      },
-        // thirdMenuList: [
-        //   { title: '기본 전자결재선 지정', link: '/approval-edit',
-        //   permission: () => {
-        //     const {  user_type } = this.user.userData;
-        //     return user_type === 'COMPANY';
-        //   }},
-        //   { title: '위임 관리', link: ''}
-        // ]
-      }
-    ]},
-    { title: '안전교육', img: 'assets/img/menu/safety-education.svg', subMenuList: [
-      { title: '교육 현황', link: '/safety-education-list',
-      permission: () => {
-        const {  user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-      }},
-      { title: '교육 결과 보고', link: '/safety-education-result-list',
-      permission: () => {
-        const {  user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-      }},
-      { title: '교육 이력',  link:'/safety-education-history-list',
-      permission: () => {
-        const { user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }}
-    ]},
-    { img:'assets/img/menu/conference.svg', title: '안전회의', permission: () => {
-      const { user_type } = this.user.userData;
-      return user_type !== 'WORKER' 
-    },
-    subMenuList: [
-      { title: '회의 현황', link: '/worker-minutes-list',
-      permission: () => {
-        const { user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: '회의록', link: '/work-write-list',
-      permission: () => {
-        const { user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }}
-    ]},
-    { title: '작업계획', img: 'assets/img/menu/work-plan.svg', 
-    permission: () => {
-      const { user_type } = this.user.userData;
-      return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-    },
-    subMenuList: [
-      { title: '위험성 평가', link: '/risk-list'},
-      { title: '작업 지시서(PTW)', link: ''}
-    ]},
-    { title: '작업관리', img: 'assets/img/menu/work-management.svg', 
-    permission: () => {
-      const { user_role, user_type } = this.user.userData;
-      return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
-    },
-    subMenuList: [
-      { title: '출역 현황', link: '/departure-status-list',
-      permission: () => {
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: 'TBM 일지', link: ''},
-      { title: '점검 현황', link: ''},
-      { title: '부적합(아차사고) 관리', link: ''}
-    ]},
-    { title: '장비관리', img: 'assets/img/menu/equipment-management.svg',
-      permission: () => {
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-      },
-    subMenuList: [
-      { title: '중장비 관리', link: '/heavy-equip-list',
-      permission: () => {
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-      }},
-      { title: '스마트 안전장비 관리', 
-      permission: () => {
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
-      },
-      thirdMenuList: [
-        { title: '디바이스 등록', link: '/serial-no-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
-        }},
-        { title: '개인용 디바이스', link: '/each-device-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
-        }},
-        { title: '중장비용 디바이스', link: '/heavy-device-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
-        }},
-        { title: '장소용 디바이스', link: '/danger-area-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-          return user_role === 'LH_HEAD'|| user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
-        }}
-      ]}
-    ]},
-    { title: '위험작업관리', img: 'assets/img/menu/dangerous-management.svg', subMenuList: [
-      {
-        title: '위험지역 출입관리',
-        link: '/danger-management/danger-area-log-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-
-          return (
-            user_role === 'LH_HEAD' ||
-            user_role === 'LH_ADMIN' ||
-            user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'SUPER_HEAD'
-          );
-        },
-      },
-      {
-        title: '크레인상하차 접근관리',
-        link: '/danger-management/crane-access-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-
-          return (
-            user_role === 'LH_HEAD' ||
-            user_role === 'LH_ADMIN' ||
-            user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'SUPER_HEAD'
-          );
-        },
-      },
-      {
-        title: '안전고리 체결관리',
-        link: '/danger-management/safety-hook-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-
-          return (
-            user_role === 'LH_HEAD' ||
-            user_role === 'LH_ADMIN' ||
-            user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'SUPER_HEAD'
-          );
-        },
-      },
-      {
-        title: '밀폐환경 정보관리',
-        link: '/danger-management/closed-environment-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-
-          return (
-            user_role === 'LH_HEAD' ||
-            user_role === 'LH_ADMIN' ||
-            user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'SUPER_HEAD'
-          );
-        },
-      },
-      {
-        title: '변위 감지관리',
-        link: '/danger-management/desplacement-detection-list',
-        permission: () => {
-          const { user_role, user_type } = this.user.userData;
-
-          return (
-            user_role === 'LH_HEAD' ||
-            user_role === 'LH_ADMIN' ||
-            user_role === 'MASTER_HEAD' ||
-            user_role === 'PARTNER_HEAD' ||
-            user_role === 'SUPER_HEAD'
-          );
-        },
-      },
-    ]},
-    { title: '사고관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
-      // { title: '아차사고 신고', link: ''},
-      { title: '비상 알림 관리', link: ''},
-      { title: '안전사고 발생보고', link: ''}
-    ]},
-    { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
-      // { title: '문의하기', link: ''},
-      { title: '사용자 매뉴얼', link: '/manual-list',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: '시스템 이용약관', link: '/use-terms',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }},
-      { title: '개인정보처리방침', link: '/privacy',
-      permission: () => {
-        const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
-      }}
-    ]},
+    // { title: '작업계획', img: 'assets/img/menu/work-plan.svg', 
+    // permission: () => {
+    //   const { user_type } = this.user.userData;
+    //   return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+    // },
+    // subMenuList: [
+    //   { title: '위험성 평가', link: '/risk-list'},
+    //   { title: '작업 지시서(PTW)', link: ''}
+    // ]},
+    // { title: '작업관리', img: 'assets/img/menu/work-management.svg', 
+    // permission: () => {
+    //   const { user_role, user_type } = this.user.userData;
+    //   return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
+    // },
+    // subMenuList: [
+    //   { title: '출역 현황', link: '/departure-status-list',
+    //   permission: () => {
+    //     const { user_role, user_type } = this.user.userData;
+    //     return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'SUPER';
+    //   }},
+    //   { title: 'TBM 일지', link: ''},
+    //   { title: '점검 현황', link: ''},
+    //   { title: '부적합(아차사고) 관리', link: ''}
+    // ]},
     { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
       { title: '작업자 가입승인', link: '/worker-approval-list',
       permission: () => {
@@ -344,38 +129,67 @@ export class  SideMenuAdminComponent implements OnInit {
         const {  user_role } = this.user.userData;
         return user_role === 'LH_HEAD' || user_role === 'SUPER_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
       }},
+    ]},    
+    { title: '비상상황관리', img: 'assets/img/menu/emergency-management.svg', subMenuList: [
+      // { title: '아차사고 신고', link: ''},
+      { title: '비상 알림 관리', link: ''},
+      { title: '안전사고 발생보고', link: ''}
     ]},
-    { title: '현장관리/기준설정', img: 'assets/img/menu/site-management.svg', subMenuList: [
-      { title: '현장 정보 관리', link: '/scene-list',
+    { title: '고객지원', img: 'assets/img/menu/support.svg', subMenuList: [
+      // { title: '문의하기', link: ''},
+      { title: '사용자 매뉴얼', link: '/manual-list',
       permission: () => {
         const {  user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
-      { title: '감리사 관리', link: '/supervision-list',
+      { title: '시스템 이용약관', link: '/use-terms',
       permission: () => {
         const {  user_type } = this.user.userData;
-        return user_type === 'LH' || user_type === 'SUPER';
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
       }},
-      { title: '원청사 관리', link: '/contractor-list',
+      { title: '개인정보처리방침', link: '/privacy',
       permission: () => {
-        const {  user_type, user_role } = this.user.userData;
-        return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL' || user_type === 'SUPER';
-      }},
-      { title: '협력사 관리', link: '/partner-list',
-      permission: () => {
-        const {  user_type, user_role } = this.user.userData;
-        return user_role === 'LH_HEAD'  || user_type === 'COMPANY';
-      }},
-      { title:'장소 정보 기준 설정',link:'/area-standard-set',
-      permission: () => {
-        const {  user_role } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
-      }},
-      { title:'작업 정보 기준 설정',link:'/work-standard-set' ,
-      permission: () => {
-        const {  user_role } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
-      }},
+        const {  user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+      }}
+    ]},
+    {
+      title: '마이페이지', img: 'assets/img/menu/mypage.svg', subMenuList: [
+        // { title: '아차사고 신고', link: ''},
+        { title: '마이페이지', link: '/my-page' },
+      ]
+    },    
+    // { title: '현장관리/기준설정', img: 'assets/img/menu/site-management.svg', subMenuList: [
+    //   { title: '현장 정보 관리', link: '/scene-list',
+    //   permission: () => {
+    //     const {  user_type } = this.user.userData;
+    //     return user_type === 'LH' || user_type === 'COMPANY' || user_type === 'SUPER';
+    //   }},
+    //   { title: '감리사 관리', link: '/supervision-list',
+    //   permission: () => {
+    //     const {  user_type } = this.user.userData;
+    //     return user_type === 'LH' || user_type === 'SUPER';
+    //   }},
+    //   { title: '원청사 관리', link: '/contractor-list',
+    //   permission: () => {
+    //     const {  user_type, user_role } = this.user.userData;
+    //     return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL' || user_type === 'SUPER';
+    //   }},
+    //   { title: '협력사 관리', link: '/partner-list',
+    //   permission: () => {
+    //     const {  user_type, user_role } = this.user.userData;
+    //     return user_role === 'LH_HEAD'  || user_type === 'COMPANY';
+    //   }},
+    //   { title:'장소 정보 기준 설정',link:'/area-standard-set',
+    //   permission: () => {
+    //     const {  user_role } = this.user.userData;
+    //     return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+    //   }},
+    //   { title:'작업 정보 기준 설정',link:'/work-standard-set' ,
+    //   permission: () => {
+    //     const {  user_role } = this.user.userData;
+    //     return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD';
+    //   }},
       // { title: '기준 정보 관리',
       //   permission: () => {
       //     const { user_type ,user_role } = this.user.userData;
@@ -401,16 +215,16 @@ export class  SideMenuAdminComponent implements OnInit {
       //   // { title:'비상 관리 기준 설정',link:'' }, 
       //   // { title:'시스템 활용 기준 설정',link:'' }
       // ]}
-    ]},
-    { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
-      { title: '공지사항', link: '/notice-list'},
-      { title: 'MSDS', link: '/msds-list'},
-      { title: '회의록', link: '/minutes-list'},
-      { title: '작업 절차서', link: '/procedure-list'},
-    ]},
-    { title: '알림함', img: 'assets/img/menu/notification-box.svg', subMenuList: [
-      { title: '알림함', link: '/notify-list'}
-    ]}
+    // ]},
+    // { title: '게시판', img: 'assets/img/menu/board.svg', subMenuList: [
+    //   { title: '공지사항', link: '/notice-list'},
+    //   { title: 'MSDS', link: '/msds-list'},
+    //   { title: '회의록', link: '/minutes-list'},
+    //   { title: '작업 절차서', link: '/procedure-list'},
+    // ]},
+    // { title: '알림함', img: 'assets/img/menu/notification-box.svg', subMenuList: [
+    //   { title: '알림함', link: '/notify-list'}
+    // ]}
   ]
 
   selectedMenu:MenuItem;

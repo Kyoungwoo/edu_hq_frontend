@@ -20,9 +20,9 @@ export class MainAdminPage implements OnInit {
     // hq_business_id: this.user.userData.belong_data.hq_business_id ? this.user.userData.belong_data.hq_business_id : 0,
     hq_regional_id: 0,
     hq_business_id: 0,
-    project_id: this.user.userData.belong_data.project_id,
-    master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
-    company_id: this.user.userData.belong_data.company_id,
+    //project_id: this.user.userData.belong_data.project_id,
+    //master_company_id: this.user.userData.user_type === 'SUPER' ? this.user.userData.belong_data.master_company_id : 0,
+    //company_id: this.user.userData.belong_data.company_id,
     ctgo_job_position_name: '',
     contract_end_date: '-', // 준공일
     contract_start_date: '-', // 착공일
@@ -81,12 +81,12 @@ export class MainAdminPage implements OnInit {
   }
 
   ngOnInit() {
-    this.user.userData.theme_project_id = this.form.project_id;
-    if(this.user.userData.user_type === 'LH') this.getCtgo();
-    this.getEtc();
-    this.getBoard();
-    this.getDust();
-    this.getWeather();
+    //this.user.userData.theme_project_id = this.form.project_id;
+    //if(this.user.userData.user_type === 'LH') this.getCtgo();
+    //this.getEtc();
+    //this.getBoard();
+    //this.getDust();
+    //this.getWeather();
 
 
     // this.interval_state = setInterval(() => {
@@ -103,7 +103,7 @@ export class MainAdminPage implements OnInit {
     this.getBoard();
     this.getDust();
     this.getWeather();
-    this.user.userData.belong_data.project_id = this.form.project_id;
+    //this.user.userData.belong_data.project_id = this.form.project_id;
   }
 
   private async test() {

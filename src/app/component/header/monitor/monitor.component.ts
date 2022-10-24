@@ -36,9 +36,9 @@ export class MonitorComponent implements OnInit {
     { text: 'CCTV 모니터링',
       data:'CCTV 모니터링'
     },
-    { text: '실시간 위치 모니터링',
-      data:'실시간 위치 모니터링'
-    }
+    // { text: '실시간 위치 모니터링',
+    //   data:'실시간 위치 모니터링'
+    // }
   ]
 
   @Output() formChange = new EventEmitter();

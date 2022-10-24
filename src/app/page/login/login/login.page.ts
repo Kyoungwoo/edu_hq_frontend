@@ -145,9 +145,10 @@ export class LoginPage implements OnInit, ViewDidEnter {
     });
     if(res.rsCode === 0) {
       const userData:UserData = res.rsObj;
-      if(userData.user_type === 'LH') await this.logout.getProjectList(userData);
-      else await this.user.setUserData(userData, false);
-      
+      // if(userData.user_type === 'LH') await this.logout.getProjectList(userData);
+      // else await this.user.setUserData(userData, false);
+      console.log("@@@@@@@@@@@@@@@@@@ userData" + JSON.stringify(userData));
+      await this.user.setUserData(userData, false);  
       if(userData.user_type === 'WORKER') {
         this.res.rsCode = 500;
         this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';

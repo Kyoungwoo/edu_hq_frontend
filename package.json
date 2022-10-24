@@ -7,8 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "deploy_dev": "yarn build && tar cvf www_dev.tar www && scp -P 20002 www_dev.tar root@49.236.136.196:/var/www",
-    "deploy_prd": "yarn build && tar cvf www_prd.tar www && scp -P 20002 www_prd.tar root@49.236.136.196:/var/www",
+    "deploy_dev": "yarn build && tar cvf www_dev.tar www && scp -P 20006 www_dev.tar root@49.236.136.196:/opt/server/hq.dev.lh-skeeper_frontend",
+    "deploy_prd": "yarn build && tar cvf www_prd.tar www && scp -P 20006 www_prd.tar root@49.236.136.196:/opt/server/hq.lh-skeeper_frontend",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
