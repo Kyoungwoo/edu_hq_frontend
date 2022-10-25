@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./page/main/admin/main-admin/main-admin.module').then(m => m.MainAdminPageModule)
   },
   {
+    path: 'district-management',
+    loadChildren: () => import('./page/district-management/district-management.module').then(m => m.DistrictManagementPageModule)
+  },  
+  {
     path: 'main-user',
     loadChildren: () => import('./page/main/user/main-user/main-user.module').then(m => m.MainUserPageModule)
   },

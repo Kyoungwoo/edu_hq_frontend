@@ -48,6 +48,18 @@ export class  SideMenuAdminComponent implements OnInit {
         return user_type === 'LH' || user_type === 'SUPER' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
       }},
     ]},
+    {
+      title: '사업지구관리', img: 'assets/img/menu/emergency-management.svg', 
+      permission: () => {
+        const { user_type } = this.user.userData;
+        return user_type === 'LH' || user_type === 'SUPER';
+      },
+      subMenuList: [
+        // { title: '사업지구 관리@@@', link: '/serial-no-list',},
+        // { title: '비상 알림 관리', link: '' },
+        // { title: '안전사고 발생보고', link: '' }
+      ]
+    },
     // { title: '작업계획', img: 'assets/img/menu/work-plan.svg', 
     // permission: () => {
     //   const { user_type } = this.user.userData;
