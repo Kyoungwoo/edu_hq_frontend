@@ -273,19 +273,19 @@ export class MyPageInfoPage implements OnInit {
     /** lh validation */
     if(this.userType === 'LH') {
 
-      if(!this.belongForm.hq_regional_id) this.belongValidator.hq_regional_id = { message: '지역본부를 입력해주세요', valid: false };
-      else this.belongValidator.hq_regional_id = { valid: true };
+      // if(!this.belongForm.hq_regional_id) this.belongValidator.hq_regional_id = { message: '지역본부를 입력해주세요', valid: false };
+      // else this.belongValidator.hq_regional_id = { valid: true };
 
-      // 지역본부 선택을 했는데 본사면 통과
-      if(!this.belongForm.hq_regional_entire_state
-      && !this.belongForm.hq_business_id) this.belongValidator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
-      else this.belongValidator.hq_business_id = { valid: true };
+      // // 지역본부 선택을 했는데 본사면 통과
+      // if(!this.belongForm.hq_regional_entire_state
+      // && !this.belongForm.hq_business_id) this.belongValidator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
+      // else this.belongValidator.hq_business_id = { valid: true };
 
-      // 사업본부 선택을 했는데 사업본부 본사면 통과
-      if(!this.belongForm.hq_regional_entire_state
-      && !this.belongForm.hq_business_entire_state
-      && !this.belongForm.hq_department_id) this.belongValidator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
-      else this.belongValidator.hq_department_id = { valid: true };
+      // // 사업본부 선택을 했는데 사업본부 본사면 통과
+      // if(!this.belongForm.hq_regional_entire_state
+      // && !this.belongForm.hq_business_entire_state
+      // && !this.belongForm.hq_department_id) this.belongValidator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
+      // else this.belongValidator.hq_department_id = { valid: true };
 
     }
 

@@ -39,44 +39,44 @@ export class BelongForm {
   /** 공통 form */
   user_id:number = null;
   user_role:number = null;
-  project_id:number = null;
-  project_name:string = null;
-  master_company_id:number = null;
-  master_company_name:string = null;
+  //project_id:number = null;
+  //project_name:string = null;
+  //master_company_id:number = null;
+ // master_company_name:string = null;
   company_id:number = null;
   company_name:string = null;
   ctgo_job_position_id:number = null;
   ctgo_job_position_name:string = null;
   // 출역 기간
-  construction_start_date:string = null;
-  construction_end_date:string = null;
+  //construction_start_date:string = null;
+  //construction_end_date:string = null;
 
   /** LH form */
-  hq_regional_id:number = null;
-  hq_regional_name:string = null;
-  hq_regional_entire_state:0|1 = null;
-  hq_business_id:number = null;
-  hq_business_name:string = null;
-  hq_business_entire_state:0|1 = null;
-  hq_department_id:number = null;
-  hq_department_name:string = null;
+  //hq_regional_id:number = null;
+  //hq_regional_name:string = null;
+  //hq_regional_entire_state:0|1 = null;
+  //hq_business_id:number = null;
+  //hq_business_name:string = null;
+  //hq_business_entire_state:0|1 = null;
+  //hq_department_id:number = null;
+  //hq_department_name:string = null;
   // 공사 기간
-  contract_start_date:string = null;
-  contract_end_date:string = null;
+  //contract_start_date:string = null;
+  //contract_end_date:string = null;
   
   /** 원청사, 협력사, 작업자 form */
-  ctgo_construction_id:number = null;
-  ctgo_construction_name:string = null;
+  //ctgo_construction_id:number = null;
+  //ctgo_construction_name:string = null;
 
   /** 원청사, 협력사, 작업자 form */
-  safe_job_data:SafeJobItem[] = [];
+  //safe_job_data:SafeJobItem[] = [];
 
   /** 작업자 form */
-  ctgo_occupation_id:number = null;
-  ctgo_occupation_name:string = null;
-  ctgo_occupation_role:'BASIC'|'DRIVER' = null;
-  user_certify_no:string = null; // 면허번호
-  construction_state: string;
+  //ctgo_occupation_id:number = null;
+  //ctgo_occupation_name:string = null;
+  //ctgo_occupation_role:'BASIC'|'DRIVER' = null;
+  //user_certify_no:string = null; // 면허번호
+  //construction_state: string;
 }
 
 /** 교육이력 class */
@@ -391,18 +391,20 @@ export class MyPagePage implements OnInit {
   /** 전체 입력 */
   public async submit() {
     console.log('submit 들어옵 --- ');
-    if(!this.basicValid()) return;
+    if(!this.basicValid()) {
+      return;
+    }
     if(!this.belongValid()) {
       this.segment = 'belong';
       return;
     }
-
+  
     const loading = await this.loading.present();
 
     const resAll = await Promise.all([
       this.basicSubmit(),
       // 안전직무 정보 submit
-      this.inputSafeJob?.submit(),
+      // this.inputSafeJob?.submit(),
       this.belongSubmit()
     ]);
 
@@ -416,6 +418,7 @@ export class MyPagePage implements OnInit {
       });
     }
   }
+  
   /** 기본정보 입력 */
   private async basicSubmit() {
     const res = await this.connect.run('/mypage/basic/update', this.basicForm);
@@ -490,19 +493,19 @@ export class MyPagePage implements OnInit {
     /** lh validation */
     if(this.userType === 'LH') {
 
-      if(!this.belongForm.hq_regional_id) this.belongValidator.hq_regional_id = { message: '지역본부를 입력해주세요', valid: false };
-      else this.belongValidator.hq_regional_id = { valid: true };
+      //if(!this.belongForm.hq_regional_id) this.belongValidator.hq_regional_id = { message: '지역본부를 입력해주세요', valid: false };
+      //else this.belongValidator.hq_regional_id = { valid: true };
 
       // 지역본부 선택을 했는데 본사면 통과
-      if(!this.belongForm.hq_regional_entire_state
-      && !this.belongForm.hq_business_id) this.belongValidator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
-      else this.belongValidator.hq_business_id = { valid: true };
+      //if(!this.belongForm.hq_regional_entire_state
+      //&& !this.belongForm.hq_business_id) this.belongValidator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
+      //else this.belongValidator.hq_business_id = { valid: true };
 
       // 사업본부 선택을 했는데 사업본부 본사면 통과
-      if(!this.belongForm.hq_regional_entire_state
-      && !this.belongForm.hq_business_entire_state
-      && !this.belongForm.hq_department_id) this.belongValidator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
-      else this.belongValidator.hq_department_id = { valid: true };
+      //if(!this.belongForm.hq_regional_entire_state
+      //&& !this.belongForm.hq_business_entire_state
+      //&& !this.belongForm.hq_department_id) this.belongValidator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
+      //else this.belongValidator.hq_department_id = { valid: true };
 
     }
 
