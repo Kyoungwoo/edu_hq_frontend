@@ -115,6 +115,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
     });
     if(this.res.rsCode === 0) {
       this.getWorkerInfo(this.res.rsObj);
+      
     } else if(this.res.rsCode === 500) {
       this.res.rsMsg = '아이디와 비밀번호를 확인해주세요.';
     } else if(this.res.rsCode === 3003) {

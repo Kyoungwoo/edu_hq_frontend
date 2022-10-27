@@ -29,7 +29,7 @@
             </tr> -->
             <tr>
               <td>
-                <app-select label="본부" [(ngModel)]="form.head_quarter_id">
+                <app-select label="본부" [(ngModel)]="form.head_quarter_id" (change)="getList()">
                   <app-select-option [value]="0">전체</app-select-option>
                   <app-select-option *ngFor="let item of HeadQuarterList" [value]="item.head_quarter_id">{{
                     item.head_quarter_name }}</app-select-option>
@@ -65,7 +65,7 @@
           </ion-buttons> -->
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>장비 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>사업지구 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-check-group [(ngModel)]="selectedList">
           <app-table>

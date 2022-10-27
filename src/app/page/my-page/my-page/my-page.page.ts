@@ -175,6 +175,8 @@ export class MyPagePage implements OnInit {
   getForm() {
     /** 유저 타입 */
     const { user_type, user_role } = this.user.userData;
+    //console.log("user_type = " + user_type + "  , user_role=" + user_role);
+    //user_type = LH, user_rold=LH_HEAD
     if(user_type === 'COMPANY') {
       if(user_role.startsWith('MASTER')) {
         this.userType = 'MASTER';
@@ -188,7 +190,7 @@ export class MyPagePage implements OnInit {
     }
 
     /** 교육 데이터 */
-    this.educationGetForm.project_id = this.user.userData.belong_data.project_id;
+    //this.educationGetForm.project_id = this.user.userData.belong_data.project_id;
   }
 
   /** 모두 가져오기 */
@@ -201,10 +203,10 @@ export class MyPagePage implements OnInit {
     await Promise.all([
       this.getBasic(),
       this.getBelong(),
-      this.getEducation(),
-      this.getMileageTotal(),
-      this.getMileagePlus(),
-      this.getMileageMinus()
+      //this.getEducation(),
+      //this.getMileageTotal(),
+      //this.getMileagePlus(),
+      //this.getMileageMinus()
     ]);
 
     loading.dismiss();

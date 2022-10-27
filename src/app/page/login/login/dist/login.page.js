@@ -257,7 +257,7 @@ var LoginPage = /** @class */ (function () {
                                 userData.user_main_page = '/main-sub-admin';
                             }
                             else {
-                                userData.user_main_page = '/main-admin';
+                                userData.user_main_page = '/district-management';
                             }
                             this.user.setUserData(userData, false);
                             this.nav.navigateRoot(userData.user_main_page, { animated: true });
