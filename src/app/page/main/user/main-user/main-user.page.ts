@@ -106,7 +106,7 @@ export class MainUserPage implements OnInit, OnDestroy {
   }
 
   async navMypage() {
-    this.nav.navigateForward('/my-page-type');
+    this.nav.navigateForward('/my-page');
   }
 
   async openMenu() {

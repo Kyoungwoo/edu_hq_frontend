@@ -104,20 +104,6 @@ var SideMenuUserComponent = /** @class */ (function () {
                             return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
                         } }
                 ] },
-            { img: 'assets/img/menu/equipment-management.svg', title: '장비 관리', subMenuList: [
-                    { title: '개인 디바이스', link: '/each-device-list', params: {}, permission: function () {
-                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
-                            return user_role === 'LH_HEAD' || user_type === 'COMPANY' || user_type === 'WORKER';
-                        } },
-                    { title: '중장비 디바이스', link: '/heavy-device-list', params: {}, permission: function () {
-                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
-                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-                        } },
-                    { title: '장소 디바이스', link: '/danger-area-list', params: {}, permission: function () {
-                            var _a = _this.user.userData, user_role = _a.user_role, user_type = _a.user_type;
-                            return user_role === 'LH_HEAD' || user_type === 'COMPANY';
-                        } }
-                ] },
             { img: 'assets/img/menu/sign.svg', title: '전자 결재', subMenuList: [
                     { title: '기안/임시저장함', link: '/confirm-obtain-list', params: {}, permission: function () {
                             var user_type = _this.user.userData.user_type;
@@ -189,7 +175,7 @@ var SideMenuUserComponent = /** @class */ (function () {
     };
     SideMenuUserComponent.prototype.navMypage = function () {
         this._modal.dismiss();
-        this.nav.navigateForward('/my-page-type');
+        this.nav.navigateForward('/my-page');
     };
     SideMenuUserComponent.prototype.router = function (title) {
         switch (title) {

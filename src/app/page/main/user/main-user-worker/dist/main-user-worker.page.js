@@ -243,7 +243,7 @@ var MainUserWorkerPage = /** @class */ (function () {
     MainUserWorkerPage.prototype.navMypage = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.nav.navigateForward('/my-page-type');
+                this.nav.navigateForward('/my-page');
                 return [2 /*return*/];
             });
         });
@@ -274,7 +274,7 @@ var MainUserWorkerPage = /** @class */ (function () {
                 });
                 break;
             case '마이페이지':
-                this.nav.navigateForward('/my-page-type');
+                this.nav.navigateForward('/my-page');
                 break;
             case '나의교육':
                 this.nav.navigateForward('/my-education-list');

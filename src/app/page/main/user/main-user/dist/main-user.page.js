@@ -232,7 +232,7 @@ var MainUserPage = /** @class */ (function () {
     MainUserPage.prototype.navMypage = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.nav.navigateForward('/my-page-type');
+                this.nav.navigateForward('/my-page');
                 return [2 /*return*/];
             });
         });

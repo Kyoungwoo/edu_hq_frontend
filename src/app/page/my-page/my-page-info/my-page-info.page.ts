@@ -168,9 +168,9 @@ export class MyPageInfoPage implements OnInit {
 
   /** 전체 입력 */
   public async submit() {
-    console.log('submit 들어옵 --- ');
-    console.log(this.basicValid());
-    console.log(this.belongValid());
+    // console.log('submit 들어옵 --- ');
+    // console.log(this.basicValid());
+    // console.log(this.belongValid());
     if(!this.basicValid()) return;
     if(!this.belongValid()) return;
 

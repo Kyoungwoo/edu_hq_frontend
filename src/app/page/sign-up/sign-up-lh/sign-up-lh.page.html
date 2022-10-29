@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/sign-up-type"></ion-back-button>
+      <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ languagePack.getText('회원 가입') }}</ion-title>
   </ion-toolbar>
@@ -102,10 +102,10 @@
         </app-col>
       </app-row>
       <app-col>
-        <app-select-headquarter [head_quarter_id]="1" name="head_quarter_id" [(ngModel)]="form.head_quarter_id"
+        <app-select-headquarter [hq_regional_id]="1" name="hq_regional_id" [(ngModel)]="form.hq_regional_id"
           [required]="true"></app-select-headquarter>
-        <app-input-caption *ngIf="validator.head_quarter_id?.valid === false" color="warning">{{
-          validator.head_quarter_id?.message }}</app-input-caption>
+        <app-input-caption *ngIf="validator.hq_regional_id?.valid === false" color="warning">{{
+          validator.hq_regional_id?.message }}</app-input-caption>
       </app-col>
       <!-- <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption> -->
       <!-- <app-select-organization name="hq" [(ngModel)]="form" [required]="true"></app-select-organization> -->

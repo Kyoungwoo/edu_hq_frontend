@@ -22,7 +22,7 @@ class DistrictInfo {
 }
 
 class DistrictInfoInsertItem {
-  head_quarter_id: number = 0;
+  hq_regional_id: number = 0;
   district_code: number = 0;
   district_name: string = '';
   district_url: string = '';
@@ -30,8 +30,8 @@ class DistrictInfoInsertItem {
 }
 
 class HeadQuarterListItem {
-  head_quarter_id: number;
-  head_quarter_name: string;
+  hq_regional_id: number;
+  hq_regional_name: string;
 }
 
 @Component({
@@ -45,7 +45,7 @@ export class DistrictManagementPage implements OnInit {
   update_state = false;
 
   form = {
-    head_quarter_id: 0,
+    hq_regional_id: 0,
     limit_no: 0,
   };
 
@@ -134,7 +134,7 @@ export class DistrictManagementPage implements OnInit {
 
     if (res.rsCode === 0) {
       this.HeadQuarterList = res.rsMap;
-      this.form.head_quarter_id = 0;
+      this.form.hq_regional_id = 0;
     }
     else if (res.rsCode === 1008) {
       this.res = null;
@@ -150,13 +150,13 @@ export class DistrictManagementPage implements OnInit {
   addButton() {
     // 추가한 리스트 인서트
     // let loadingCus = await this.loading.present();
-      if (!this.form.head_quarter_id) {
+    if (!this.form.hq_regional_id) {
         // await loadingCus.dismiss();
         return this.toast.present({ color: 'warning', message: '본부를 선택해주세요.' });
       }
 
     this.res_insert.push({
-      head_quarter_id: this.form.head_quarter_id,
+      hq_regional_id: this.form.hq_regional_id,
       district_code: 0,
       district_name: '',
       district_url: '',
@@ -225,7 +225,7 @@ export class DistrictManagementPage implements OnInit {
             let loadingCus = await this.loading.present();
             if (this.res_insert.length) {
               this.res_insert.map((item, index) => {
-                if (!this.form.head_quarter_id) case_1 = true;
+                if (!this.form.hq_regional_id) case_1 = true;
               });
               if (case_1) {
                 await loadingCus.dismiss();

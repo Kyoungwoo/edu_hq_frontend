@@ -37,12 +37,12 @@ export class ApprovalItem implements OrganizationValue {
   ctgo_job_position_name_kr: string;
   company_id: number;
   ctgo_job_position_id: number;
-  project_name: string;
+  //project_name: string;
   user_role: string;
-  construction_start_date: string;
+  //construction_start_date: string;
   user_id: number;
-  project_id: number;
-  construction_end_date: string;
+  //project_id: number;
+  //construction_end_date: string;
   company_name: string;
 
   hq_regional_entire_state: 0|1 = 0; // 본사권한 = 1
@@ -72,7 +72,7 @@ export class LhApprovalEditPage implements OnInit {
     approval_user_id: 0,
     session_company_id: 0,
     user_manage_session: '',
-    project_id: 0,
+    //project_id: 0,
   }
 
   formBasic = new BasicItem();

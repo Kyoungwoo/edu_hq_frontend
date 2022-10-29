@@ -118,7 +118,7 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
   }
 
   async navMypage() {
-    this.nav.navigateForward('/my-page-type');
+    this.nav.navigateForward('/my-page');
   }
   
   async openMenu() {
@@ -131,7 +131,7 @@ export class MainUserWorkerPage implements OnInit, OnDestroy {
   async router(title: string) {
     switch (title) {
       case '마이페이지':
-        this.nav.navigateForward('/my-page-type');
+        this.nav.navigateForward('/my-page');
         break;
       case '나의교육':
         this.nav.navigateForward('/my-education-list');

@@ -148,7 +148,6 @@ export class LoginPage implements OnInit, ViewDidEnter {
       const userData:UserData = res.rsObj;
       // if(userData.user_type === 'LH') await this.logout.getProjectList(userData);
       // else await this.user.setUserData(userData, false);
-      console.log("@@@@@@@@@@@@@@@@@@ userData" + JSON.stringify(userData));
       await this.user.setUserData(userData, false);  
       if(userData.user_type === 'WORKER') {
         this.res.rsCode = 500;
@@ -156,16 +155,9 @@ export class LoginPage implements OnInit, ViewDidEnter {
         this.user.clear();
         return;
       }
-      else if(userData.user_type === 'COMPANY') {
-        userData.user_main_page = '/main-sub-admin';
-      }
       else {
-        userData.user_main_page = '/main-admin';
+        userData.user_main_page = '/district-management';
       }
-
-
-      
-
       this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }
   }

@@ -40,12 +40,12 @@ export class ApprovalItem {
   hq_regional_id: number;
   hq_business_id: number;
   hq_regional_name: string;
-  project_name: string;
+  //project_name: string;
   user_role: number;
-  construction_start_date: string;
+  //construction_start_date: string;
   user_id: number;
-  project_id: number;
-  construction_end_date: string;
+  //project_id: number;
+  //construction_end_date: string;
   company_name: string;
   hq_department_name: string;
 }
@@ -66,7 +66,7 @@ export class LhInfoEditPage implements OnInit {
     approval_user_id: 0,
     session_company_id: 0,
     user_manage_session: '',
-    project_id: 0,
+    //project_id: 0,
   }
 
   formBasic = new BasicItem();

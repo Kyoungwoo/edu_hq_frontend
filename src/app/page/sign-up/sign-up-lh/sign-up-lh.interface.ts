@@ -19,7 +19,7 @@ export class SignUpLhForm {
   // hq_business_id:number = null; //사업본부 ID
   // hq_business_entire_state: 0|1;
   // hq_department_id:number = null; //부서 ID
-  head_quarter_id:number = null; //본부 ID
+  hq_regional_id:number = null; //본부 ID
   ctgo_job_position_id:number = null; //직위 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
@@ -40,7 +40,7 @@ export class SignUpLhFormMock implements SignUpLhForm, SignUpTerms {
   // hq_business_id:number = null; //사업본부 ID
   // hq_business_entire_state: 0|1;
   // hq_department_id:number = null; //부서 ID
-  head_quarter_id:number = null; //소속 현장 ID
+  hq_regional_id:number = null; //소속 현장 ID
   ctgo_job_position_id:number = null; //직위 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일

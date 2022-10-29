@@ -5,8 +5,8 @@ import { ConnectResult, ConnectService } from 'src/app/basic/service/core/connec
 
 
 export class HeadQuarterItem {
-  head_quarter_id: number;
-  head_quarter_name: string;
+  hq_regional_id: number;
+  hq_regional_name: string;
 }
 @Component({
   selector: 'app-select-headquarter',
@@ -27,14 +27,14 @@ export class SelectHeadQuarterComponent implements OnInit, ControlValueAccessor 
   @Input() color:Color;
   @Input() label:string = "본부";
   @Input() placeholder:string = "선택";
-  private _head_quarter_id:number;
-  @Input() set head_quarter_id(v:number) {
-    if (this._head_quarter_id !== v) {
-      this._head_quarter_id = v;
+  private _hq_regional_id:number;
+  @Input() set hq_regional_id(v:number) {
+    if (this._hq_regional_id !== v) {
+      this._hq_regional_id = v;
       this.get();
     }
   }
-  get head_quarter_id() { return this._head_quarter_id }
+  get hq_regional_id() { return this._hq_regional_id }
 
   res: ConnectResult<HeadQuarterItem>;
   constructor(
@@ -47,9 +47,9 @@ export class SelectHeadQuarterComponent implements OnInit, ControlValueAccessor 
   }
 
   private async get() {
-    if (!this.head_quarter_id) return;
+    if (!this.hq_regional_id) return;
     this.res = await this.connect.run('/category/headquarter/get', {
-      head_quarter_id: this.head_quarter_id
+      hq_regional_id: this.hq_regional_id
     });
   }
 

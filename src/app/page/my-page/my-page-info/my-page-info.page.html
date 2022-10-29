@@ -1,11 +1,12 @@
-<ion-header>
+<app-header-admin></app-header-admin>
+<!-- <ion-header>
   <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/my-page-type"></ion-back-button>
+      <ion-back-button defaultHref="/my-page"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ languagePack.getText('나의 정보') }}</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <app-container size="small">
@@ -138,11 +139,11 @@
       <app-row mobileBreak *ngIf="userType === 'LH'">
         <app-col>
 
-          <!-- <app-select-organization [(ngModel)]="belongForm" [disabled]="!belongEditable"></app-select-organization>
+          <app-select-organization [(ngModel)]="belongForm" [disabled]="!belongEditable"></app-select-organization>
           <app-input-caption *ngIf="belongValidator.hq_regional_id?.valid === false" color="warning">{{ belongValidator.hq_regional_id?.message }}</app-input-caption>
           <app-input-caption *ngIf="belongValidator.hq_business_id?.valid === false" color="warning">{{ belongValidator.hq_business_id?.message }}</app-input-caption>
-          <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption> -->
-          <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input>
+          <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption>
+          <!-- <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input> -->
         </app-col>
       </app-row>
 

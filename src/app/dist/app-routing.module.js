@@ -96,82 +96,6 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/customer-support/terms/privacy/privacy.module'); }).then(function (m) { return m.PrivacyPageModule; }); }
     },
     {
-        path: 'heavy-equip-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/heavy-equip-management/heavy-equip-list/heavy-equip-list.module'); }).then(function (m) { return m.HeavyEquipListPageModule; }); }
-    },
-    {
-        path: 'scene-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/scene-list/scene-list.module'); }).then(function (m) { return m.SceneListPageModule; }); }
-    },
-    {
-        path: 'scene-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/scene-edit/scene-edit.module'); }).then(function (m) { return m.SceneEditPageModule; }); }
-    },
-    {
-        path: 'scene-area-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/scene-area-set/scene-area-set.module'); }).then(function (m) { return m.SceneAreaSetPageModule; }); }
-    },
-    {
-        path: 'member-standard-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/member-standard-set/member-standard-set.module'); }).then(function (m) { return m.MemberStandardSetPageModule; }); }
-    },
-    {
-        path: 'area-standard-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/area-standard-set/area-standard-set.module'); }).then(function (m) { return m.AreaStandardSetPageModule; }); }
-    },
-    {
-        path: 'work-standard-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/work-standard-set/work-standard-set.module'); }).then(function (m) { return m.WorkStandardSetPageModule; }); }
-    },
-    {
-        path: 'contractor-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/contractor-management/contractor-list/contractor-list.module'); }).then(function (m) { return m.ContractorListPageModule; }); }
-    },
-    {
-        path: 'contractor-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/contractor-management/contractor-edit/contractor-edit.module'); }).then(function (m) { return m.ContractorEditPageModule; }); }
-    },
-    {
-        path: 'partner-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/partner-management/partner-list/partner-list.module'); }).then(function (m) { return m.PartnerListPageModule; }); }
-    },
-    {
-        path: 'partner-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/partner-management/partner-edit/partner-edit.module'); }).then(function (m) { return m.PartnerEditPageModule; }); }
-    },
-    {
-        path: 'heavy-equip-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/heavy-equip-management/heavy-equip-edit/heavy-equip-edit.module'); }).then(function (m) { return m.HeavyEquipEditPageModule; }); }
-    },
-    {
-        path: 'serial-no-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/serial-no-list/serial-no-list.module'); }).then(function (m) { return m.SerialNoListPageModule; }); }
-    },
-    {
-        path: 'each-device-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/each-device-list/each-device-list.module'); }).then(function (m) { return m.EachDeviceListPageModule; }); }
-    },
-    {
-        path: 'smart-detail-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/smart-detail-search/smart-detail-search.module'); }).then(function (m) { return m.SmartDetailSearchPageModule; }); }
-    },
-    {
-        path: 'each-device-add',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/each-device-add/each-device-add.module'); }).then(function (m) { return m.EachDeviceAddPageModule; }); }
-    },
-    {
-        path: 'heavy-device-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-device-list/heavy-device-list.module'); }).then(function (m) { return m.HeavyDeviceListPageModule; }); }
-    },
-    {
-        path: 'heavy-device-add',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module'); }).then(function (m) { return m.HeavyDeviceAddPageModule; }); }
-    },
-    {
-        path: 'system-standard-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/system-standard-set/system-standard-set.module'); }).then(function (m) { return m.SystemStandardSetPageModule; }); }
-    },
-    {
         path: 'my-status-list',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/today-work/my-status-situation/my-status-list/my-status-list.module'); }).then(function (m) { return m.MyStatusListPageModule; }); }
     },
@@ -186,34 +110,6 @@ var routes = [
     {
         path: 'notice-open-range',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/notice/notice-open-range/notice-open-range.module'); }).then(function (m) { return m.NoticeOpenRangePageModule; }); }
-    },
-    {
-        path: 'heavy-device-add',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-device-add/heavy-device-add.module'); }).then(function (m) { return m.HeavyDeviceAddPageModule; }); }
-    },
-    {
-        path: 'system-standard-set',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/system-standard-set/system-standard-set.module'); }).then(function (m) { return m.SystemStandardSetPageModule; }); }
-    },
-    {
-        path: 'danger-area-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/danger-area-list/danger-area-list.module'); }).then(function (m) { return m.DangerAreaListPageModule; }); }
-    },
-    {
-        path: 'danger-area-add',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/danger-area-add/danger-area-add.module'); }).then(function (m) { return m.DangerAreaAddPageModule; }); }
-    },
-    {
-        path: 'each-device-detail-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/each-device-detail-search/each-device-detail-search.module'); }).then(function (m) { return m.EachDeviceDetailSearchPageModule; }); }
-    },
-    {
-        path: 'heavy-device-detail-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-device-detail-search/heavy-device-detail-search.module'); }).then(function (m) { return m.HeavyDeviceDetailSearchPageModule; }); }
-    },
-    {
-        path: 'danger-area-detail-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/danger-area-detail-search/danger-area-detail-search.module'); }).then(function (m) { return m.DangerAreaDetailSearchPageModule; }); }
     },
     {
         path: 'confirm-pending-list',
@@ -258,18 +154,6 @@ var routes = [
     {
         path: 'worker-minutes-detail-search',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-detail-search/worker-minutes-detail-search.module'); }).then(function (m) { return m.WorkerMinutesDetailSearchPageModule; }); }
-    },
-    {
-        path: 'supervision-list',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/supervision-management/supervision-list/supervision-list.module'); }).then(function (m) { return m.SupervisionListPageModule; }); }
-    },
-    {
-        path: 'supervision-edit',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/supervision-management/supervision-edit/supervision-edit.module'); }).then(function (m) { return m.SupervisionEditPageModule; }); }
-    },
-    {
-        path: 'area-add',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/area-add/area-add.module'); }).then(function (m) { return m.AreaAddPageModule; }); }
     },
     {
         path: 'safety-education-list',
@@ -425,10 +309,6 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/splash/splash.module'); }).then(function (m) { return m.SplashPageModule; }); }
     },
     {
-        path: 'organization-select',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/project-management/scene-management/organization-select/organization-select.module'); }).then(function (m) { return m.OrganizationSelectPageModule; }); }
-    },
-    {
         path: 'sign-up-lh',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/sign-up/sign-up-lh/sign-up-lh.module'); }).then(function (m) { return m.SignUpLhPageModule; }); }
     },
@@ -481,24 +361,8 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page/my-page.module'); }).then(function (m) { return m.MyPagePageModule; }); }
     },
     {
-        path: 'my-page-type',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-type/my-page-type.module'); }).then(function (m) { return m.MyPageTypePageModule; }); }
-    },
-    {
         path: 'my-page-info',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-info/my-page-info.module'); }).then(function (m) { return m.MyPageInfoPageModule; }); }
-    },
-    {
-        path: 'my-page-health',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-health/my-page-health.module'); }).then(function (m) { return m.MyPageHealthPageModule; }); }
-    },
-    {
-        path: 'my-page-education',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-education/my-page-education.module'); }).then(function (m) { return m.MyPageEducationPageModule; }); }
-    },
-    {
-        path: 'my-page-mileage',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-mileage/my-page-mileage.module'); }).then(function (m) { return m.MyPageMileagePageModule; }); }
     },
     {
         path: 'departure-status-list',
@@ -533,10 +397,6 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/safety-education/my-education/my-detail-search/my-detail-search.module'); }).then(function (m) { return m.MyDetailSearchPageModule; }); }
     },
     {
-        path: 'my-page-education-search',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/my-page/my-page-education-search/my-page-education-search.module'); }).then(function (m) { return m.MyPageEducationSearchPageModule; }); }
-    },
-    {
         path: 'minutes-search',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/notice-board/minutes/minutes-search/minutes-search.module'); }).then(function (m) { return m.MinutesSearchPageModule; }); }
     },
@@ -564,14 +424,7 @@ var routes = [
         path: 'main-user-worker',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/main-user-worker/main-user-worker.module'); }).then(function (m) { return m.MainUserWorkerPageModule; }); }
     },
-    {
-        path: 'danger-qr-view',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/danger-qr-view/danger-qr-view.module'); }).then(function (m) { return m.DangerQrViewPageModule; }); }
-    },
-    {
-        path: 'heavy-qr-view',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-qr-view/heavy-qr-view.module'); }).then(function (m) { return m.HeavyQrViewPageModule; }); }
-    },
+
     {
         path: 'setting-menu',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/user/setting-menu/setting-menu.module'); }).then(function (m) { return m.SettingMenuPageModule; }); }
@@ -591,10 +444,6 @@ var routes = [
     {
         path: 'worker-minutes-pending-list',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-pending-list/worker-minutes-pending-list.module'); }).then(function (m) { return m.WorkerMinutesPendingListPageModule; }); }
-    },
-    {
-        path: 'heavy-qr-data',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/equipment-management/smart-equipment/heavy-qr-data/heavy-qr-data.module'); }).then(function (m) { return m.HeavyQrDataPageModule; }); }
     },
     {
         path: 'notice-search',

@@ -39,44 +39,20 @@ export class BelongForm {
   /** 공통 form */
   user_id:number = null;
   user_role:number = null;
-  //project_id:number = null;
-  //project_name:string = null;
-  //master_company_id:number = null;
- // master_company_name:string = null;
   company_id:number = null;
   company_name:string = null;
   ctgo_job_position_id:number = null;
   ctgo_job_position_name:string = null;
-  // 출역 기간
-  //construction_start_date:string = null;
-  //construction_end_date:string = null;
 
   /** LH form */
-  //hq_regional_id:number = null;
-  //hq_regional_name:string = null;
-  //hq_regional_entire_state:0|1 = null;
-  //hq_business_id:number = null;
-  //hq_business_name:string = null;
-  //hq_business_entire_state:0|1 = null;
-  //hq_department_id:number = null;
-  //hq_department_name:string = null;
-  // 공사 기간
-  //contract_start_date:string = null;
-  //contract_end_date:string = null;
-  
-  /** 원청사, 협력사, 작업자 form */
-  //ctgo_construction_id:number = null;
-  //ctgo_construction_name:string = null;
-
-  /** 원청사, 협력사, 작업자 form */
-  //safe_job_data:SafeJobItem[] = [];
-
-  /** 작업자 form */
-  //ctgo_occupation_id:number = null;
-  //ctgo_occupation_name:string = null;
-  //ctgo_occupation_role:'BASIC'|'DRIVER' = null;
-  //user_certify_no:string = null; // 면허번호
-  //construction_state: string;
+  hq_regional_id:number = null;
+  hq_regional_name:string = null;
+  hq_regional_entire_state:0|1 = null;
+  hq_business_id:number = null;
+  hq_business_name:string = null;
+  hq_business_entire_state:0|1 = null;
+  hq_department_id:number = null;
+  hq_department_name:string = null;
 }
 
 /** 교육이력 class */
@@ -175,7 +151,6 @@ export class MyPagePage implements OnInit {
   getForm() {
     /** 유저 타입 */
     const { user_type, user_role } = this.user.userData;
-    //console.log("user_type = " + user_type + "  , user_role=" + user_role);
     //user_type = LH, user_rold=LH_HEAD
     if(user_type === 'COMPANY') {
       if(user_role.startsWith('MASTER')) {
@@ -189,8 +164,6 @@ export class MyPagePage implements OnInit {
       this.userType = user_type;
     }
 
-    /** 교육 데이터 */
-    //this.educationGetForm.project_id = this.user.userData.belong_data.project_id;
   }
 
   /** 모두 가져오기 */
@@ -273,7 +246,6 @@ export class MyPagePage implements OnInit {
     });
   }
   async widhdrawalHandler({ account_token }) {
-    console.log(account_token);
     const res = await this.connect.run('/mypage/user/delete', {
       account_token
     });
@@ -390,7 +362,6 @@ export class MyPagePage implements OnInit {
 
   /** 전체 입력 */
   public async submit() {
-    console.log('submit 들어옵 --- ');
     if(!this.basicValid()) {
       return;
     }
@@ -403,8 +374,6 @@ export class MyPagePage implements OnInit {
 
     const resAll = await Promise.all([
       this.basicSubmit(),
-      // 안전직무 정보 submit
-      // this.inputSafeJob?.submit(),
       this.belongSubmit()
     ]);
 

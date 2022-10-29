@@ -6,7 +6,6 @@ import { UserService } from 'src/app/basic/service/core/user.service';
 import { NavService } from 'src/app/basic/service/ionic/nav.service';
 import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
-import { SupervisionEditPage } from 'src/app/page/project-management/supervision-management/supervision-edit/supervision-edit.page';
 import { ApprovalPopupComponent } from '../approval-popup/approval-popup.component';
 import { SecurityPasswordComponent } from '../security-password/security-password.component';
 import { SupervisionApprovalEditPage } from '../supervision-approval-edit/supervision-approval-edit.page';

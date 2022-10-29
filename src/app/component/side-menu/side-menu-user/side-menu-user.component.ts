@@ -138,20 +138,6 @@ export class SideMenuUserComponent implements OnInit {
         return user_type === 'LH' || user_role === 'MASTER_HEAD' || user_role === 'MASTER_GENERAL';
       }}
     ]},
-    { img:'assets/img/menu/equipment-management.svg',title: '장비 관리', subMenuList: [
-      { title: '개인 디바이스', link: '/each-device-list', params: {}, permission: () => { 
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' ||  user_type === 'COMPANY' ||  user_type === 'WORKER';
-       }},
-      { title: '중장비 디바이스', link: '/heavy-device-list', params: {}, permission: () => { 
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' ||  user_type === 'COMPANY';
-       }},
-      { title: '장소 디바이스', link: '/danger-area-list', params: {}, permission: () => { 
-        const { user_role, user_type } = this.user.userData;
-        return user_role === 'LH_HEAD' ||  user_type === 'COMPANY';
-      }}
-    ]},
     { img:'assets/img/menu/sign.svg', title: '전자 결재', permission: () => {
       const { user_type } = this.user.userData;
       return user_type !== 'WORKER' 
@@ -243,7 +229,7 @@ export class SideMenuUserComponent implements OnInit {
 
   navMypage() {
     this._modal.dismiss();
-    this.nav.navigateForward('/my-page-type');
+    this.nav.navigateForward('/my-page');
   }
 
   async router(title: string) {

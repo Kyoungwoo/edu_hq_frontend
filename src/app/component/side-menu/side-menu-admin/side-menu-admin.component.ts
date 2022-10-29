@@ -49,13 +49,13 @@ export class  SideMenuAdminComponent implements OnInit {
       }},
     ]},
     {
-      title: '사업지구관리', img: 'assets/img/menu/emergency-management.svg', 
+      title: '사업지구관리', img: 'assets/img/menu/equipment-management.svg', 
       permission: () => {
         const { user_type } = this.user.userData;
         return user_type === 'LH' || user_type === 'SUPER';
       },
       subMenuList: [
-        // { title: '사업지구 관리@@@', link: '/serial-no-list',},
+        { title: '사업지구 관리', link: '/district-management',},
         // { title: '비상 알림 관리', link: '' },
         // { title: '안전사고 발생보고', link: '' }
       ]
@@ -85,11 +85,11 @@ export class  SideMenuAdminComponent implements OnInit {
     //   { title: '부적합(아차사고) 관리', link: ''}
     // ]},
     { title: '회원관리', img: 'assets/img/menu/member-management.svg', subMenuList: [
-      { title: '작업자 가입승인', link: '/worker-approval-list',
-      permission: () => {
-        const {  user_role } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-      }},
+      // { title: '작업자 가입승인', link: '/worker-approval-list',
+      // permission: () => {
+      //   const {  user_role } = this.user.userData;
+      //   return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+      // }},
       { title: '관리자 가입승인', 
       permission: () => {
         const {  user_role } = this.user.userData;
@@ -100,21 +100,21 @@ export class  SideMenuAdminComponent implements OnInit {
           const { user_role } = this.user.userData;
           return user_role === 'LH_HEAD';
         }},
-        {title:'감리 가입승인',link:'/supervision-approval-list', permission: () => {
-          const { user_role } = this.user.userData;
-          return user_role === 'LH_HEAD';
-        }},
-        {title:'원청사/협력사 관리자 가입승인',link:'/partner-approval-list',
-        permission: () => {
-          const {  user_role } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-        }}
+        // {title:'감리 가입승인',link:'/supervision-approval-list', permission: () => {
+        //   const { user_role } = this.user.userData;
+        //   return user_role === 'LH_HEAD';
+        // }},
+        // {title:'원청사/협력사 관리자 가입승인',link:'/partner-approval-list',
+        // permission: () => {
+        //   const {  user_role } = this.user.userData;
+        //   return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+        // }}
       ]},
-      { title: '작업자 정보', link: '/worker-info-list',
-      permission: () => {
-        const {  user_role } = this.user.userData;
-        return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-      }},
+      // { title: '작업자 정보', link: '/worker-info-list',
+      // permission: () => {
+      //   const {  user_role } = this.user.userData;
+      //   return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+      // }},
       { title: '관리자 정보',
       permission: () => {
         const {  user_role } = this.user.userData;
@@ -125,15 +125,15 @@ export class  SideMenuAdminComponent implements OnInit {
           const { user_role } = this.user.userData;
           return user_role === 'LH_HEAD';
         }},
-        {title:'감리 정보',link:'/supervision-info-list', permission: () => {
-          const { user_role } = this.user.userData;
-          return user_role === 'LH_HEAD';
-        }},
-        {title:'원청사/협력사 관리자 정보',link:'/partner-info-list',
-        permission: () => {
-          const {  user_role } = this.user.userData;
-          return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
-        }},
+        // {title:'감리 정보',link:'/supervision-info-list', permission: () => {
+        //   const { user_role } = this.user.userData;
+        //   return user_role === 'LH_HEAD';
+        // }},
+        // {title:'원청사/협력사 관리자 정보',link:'/partner-info-list',
+        // permission: () => {
+        //   const {  user_role } = this.user.userData;
+        //   return user_role === 'LH_HEAD' || user_role === 'MASTER_HEAD' || user_role === 'PARTNER_HEAD';
+        // }},
       ]},
       // {title:'안전마일리지',link:''},
       { title: '회원 정보 기준 설정', link:'/member-standard-set',

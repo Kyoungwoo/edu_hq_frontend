@@ -125,12 +125,10 @@
   
           </app-col>
           <app-col>
-  
             <app-select-position name="ctgo_job_position_id" 
             [company_id]="belongForm.company_id"
             [(ngModel)]="belongForm.ctgo_job_position_id" [disabled]="!editable" [required]="true"></app-select-position>
             <app-input-caption *ngIf="belongValidator.ctgo_job_position_id?.valid === false" color="warning">{{ belongValidator.ctgo_job_position_id?.message }}</app-input-caption>
-  
           </app-col>
   
           <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER'">
@@ -145,11 +143,10 @@
         <app-row mobileBreak *ngIf="userType === 'LH'">
           <app-col>
   
-            <!-- <app-select-organization [(ngModel)]="belongForm" [disabled]="!editable"></app-select-organization>
+            <app-select-organization [(ngModel)]="belongForm" [disabled]="!editable"></app-select-organization>
             <app-input-caption *ngIf="belongValidator.hq_regional_id?.valid === false" color="warning">{{ belongValidator.hq_regional_id?.message }}</app-input-caption>
             <app-input-caption *ngIf="belongValidator.hq_business_id?.valid === false" color="warning">{{ belongValidator.hq_business_id?.message }}</app-input-caption>
-            <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption> -->
-            <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input>
+            <app-input-caption *ngIf="belongValidator.hq_department_id?.valid === false" color="warning">{{ belongValidator.hq_department_id?.message }}</app-input-caption>
           </app-col>
 
           <app-col *ngIf="userType === 'LH'">

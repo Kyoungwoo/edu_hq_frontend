@@ -93,7 +93,7 @@ export class SignUpLhPage implements OnInit {
   }
 
   public prev() {
-    this.nav.navigateBack('/sign-up-type');
+    this.nav.navigateBack('/login');
   }
   public async next() {
     if(!this.valid()) return;
@@ -202,8 +202,8 @@ export class SignUpLhPage implements OnInit {
     if(this.form.ctgo_job_position_id == null) this.validator.ctgo_job_position_id = { message: '직위를 입력해주세요.', valid: false };
     else this.validator.ctgo_job_position_id = { valid: true };
 
-    // if(!this.form.hq_regional_id) this.validator.hq_regional_id = { message: '지역본부를 입력해주세요', valid: false };
-    // else this.validator.hq_regional_id = { valid: true };
+    if (!this.form.hq_regional_id) this.validator.hq_regional_id = { message: '본부를 선택해주세요', valid: false };
+    else this.validator.hq_regional_id = { valid: true };
 
     // 지역본부 선택을 했는데 본사면 통과
     // if(!this.form.hq_regional_entire_state

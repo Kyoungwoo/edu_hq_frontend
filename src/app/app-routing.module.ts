@@ -103,10 +103,14 @@ const routes: Routes = [
     path: 'scene-edit',
     loadChildren: () => import('./page/project-management/scene-management/scene-edit/scene-edit.module').then(m => m.SceneEditPageModule)
   },
+  // {
+  //   path: 'member-standard-set',
+  //   loadChildren: () => import('./page/project-management/scene-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
+  // },
   {
     path: 'member-standard-set',
-    loadChildren: () => import('./page/project-management/scene-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
-  },
+    loadChildren: () => import('./page/member-management/member-standard-set/member-standard-set.module').then(m => m.MemberStandardSetPageModule)
+  },  
   {
     path: 'area-standard-set',
     loadChildren: () => import('./page/project-management/scene-management/area-standard-set/area-standard-set.module').then(m => m.AreaStandardSetPageModule)
@@ -508,24 +512,8 @@ const routes: Routes = [
     loadChildren: () => import('./page/my-page/my-page/my-page.module').then( m => m.MyPagePageModule)
   },
   {
-    path: 'my-page-type',
-    loadChildren: () => import('./page/my-page/my-page-type/my-page-type.module').then( m => m.MyPageTypePageModule)
-  },
-  {
     path: 'my-page-info',
     loadChildren: () => import('./page/my-page/my-page-info/my-page-info.module').then( m => m.MyPageInfoPageModule)
-  },
-  {
-    path: 'my-page-health',
-    loadChildren: () => import('./page/my-page/my-page-health/my-page-health.module').then( m => m.MyPageHealthPageModule)
-  },
-  {
-    path: 'my-page-education',
-    loadChildren: () => import('./page/my-page/my-page-education/my-page-education.module').then( m => m.MyPageEducationPageModule)
-  },
-  {
-    path: 'my-page-mileage',
-    loadChildren: () => import('./page/my-page/my-page-mileage/my-page-mileage.module').then( m => m.MyPageMileagePageModule)
   },
   {
     path: 'departure-status-list',
@@ -558,10 +546,6 @@ const routes: Routes = [
   {
     path: 'my-detail-search',
     loadChildren: () => import('./page/safety-education/my-education/my-detail-search/my-detail-search.module').then( m => m.MyDetailSearchPageModule)
-  },
-  {
-    path: 'my-page-education-search',
-    loadChildren: () => import('./page/my-page/my-page-education-search/my-page-education-search.module').then( m => m.MyPageEducationSearchPageModule)
   },
   {
     path: 'minutes-search',

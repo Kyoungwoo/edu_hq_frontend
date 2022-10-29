@@ -29,10 +29,10 @@
             </tr> -->
             <tr>
               <td>
-                <app-select label="본부" [(ngModel)]="form.head_quarter_id" (change)="getList()">
+                <app-select label="본부" [(ngModel)]="form.hq_regional_id" (change)="getList()">
                   <app-select-option [value]="0">전체</app-select-option>
-                  <app-select-option *ngFor="let item of HeadQuarterList" [value]="item.head_quarter_id">{{
-                    item.head_quarter_name }}</app-select-option>
+                  <app-select-option *ngFor="let item of HeadQuarterList" [value]="item.hq_regional_id">{{
+                    item.hq_regional_name }}</app-select-option>
                 </app-select>
               </td>
             </tr>
@@ -115,7 +115,7 @@
                       item.ctgo_machine_serial_name }}</app-select-option>
                   </app-select>
                 </td> -->
-                <td class="center-class"> - </td>
+                <!-- <td class="center-class"> - </td> -->
                 <!-- <td>
                   <app-select-device-id [project_id]="item.project_id" [master_company_id]="item.master_company_id"
                     [(ngModel)]="item.serial_bicon"></app-select-device-id>
