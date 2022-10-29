@@ -14,12 +14,12 @@ export class SignUpLhForm {
   user_phone:string = null; //휴대폰번호  
   sms_token:string = null; //문자 인증번호
   user_email:string = null; //이메일
-  hq_regional_id:number = null; //지역본부 ID
-  hq_regional_entire_state: 0|1;
-  hq_business_id:number = null; //사업본부 ID
-  hq_business_entire_state: 0|1;
-  hq_department_id:number = null; //부서 ID
-  project_id:number = 0; //소속 현장 ID
+  // hq_regional_id:number = null; //지역본부 ID
+  // hq_regional_entire_state: 0|1;
+  // hq_business_id:number = null; //사업본부 ID
+  // hq_business_entire_state: 0|1;
+  // hq_department_id:number = null; //부서 ID
+  head_quarter_id:number = null; //본부 ID
   ctgo_job_position_id:number = null; //직위 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일
@@ -35,12 +35,12 @@ export class SignUpLhFormMock implements SignUpLhForm, SignUpTerms {
   user_phone:string = regex.random.phone(); //'01056044147';//휴대폰번호
   sms_token:string = null; //문자 인증번호
   user_email:string = regex.random.email();; //이메일
-  hq_regional_id:number = null; //지역본부 ID
-  hq_regional_entire_state: 0|1;
-  hq_business_id:number = null; //사업본부 ID
-  hq_business_entire_state: 0|1;
-  hq_department_id:number = null; //부서 ID
-  project_id:number = null; //소속 현장 ID
+  // hq_regional_id:number = null; //지역본부 ID
+  // hq_regional_entire_state: 0|1;
+  // hq_business_id:number = null; //사업본부 ID
+  // hq_business_entire_state: 0|1;
+  // hq_department_id:number = null; //부서 ID
+  head_quarter_id:number = null; //소속 현장 ID
   ctgo_job_position_id:number = null; //직위 ID
   file_preview:FutItem[] = [];
   file:(File|FileBlob)[] = []; //첨부파일

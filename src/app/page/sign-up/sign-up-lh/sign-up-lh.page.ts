@@ -191,9 +191,9 @@ export class SignUpLhPage implements OnInit {
     else if(this.validator.user_phone?.valid)
     this.validator.user_phone = { valid: true };
 
-    if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
-    else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
-    else
+    // if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
+    // else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
+    // else
     this.validator.sms_token = { valid: true };
 
     // if(this.validator.user_email?.valid)
@@ -216,25 +216,25 @@ export class SignUpLhPage implements OnInit {
     // && !this.form.hq_department_id) this.validator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
     // else this.validator.hq_department_id = { valid: true };
 
-    if(this.form.project_id == null) this.validator.project_id = { message: '현장을 입력해주세요.', valid: false };
-    else this.validator.project_id = { valid: true };
+    // if(this.form.project_id == null) this.validator.project_id = { message: '현장을 입력해주세요.', valid: false };
+    // else this.validator.project_id = { valid: true };
 
 
     this.validator.file_preview = { valid: true };
     this.validator.file = { valid: true };
     this.validator.file_json = { valid: true };
 
-    for(let key in this.validator) {
-      if(
-        key != 'hq_regional_id' &&
-        key != 'hq_regional_entire_state' &&
-        key != 'hq_business_id' &&
-        key != 'hq_business_entire_state' &&
-        key != 'hq_department_id' 
-      ){
-        if(!this.validator[key]?.valid) return false;
-      }
-    }
+    // for(let key in this.validator) {
+    //   if(
+    //     key != 'hq_regional_id' &&
+    //     key != 'hq_regional_entire_state' &&
+    //     key != 'hq_business_id' &&
+    //     key != 'hq_business_entire_state' &&
+    //     key != 'hq_department_id' 
+    //   ){
+    //     if(!this.validator[key]?.valid) return false;
+    //   }
+    // }
     return true;
   }
 }

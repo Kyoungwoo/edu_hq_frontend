@@ -34,6 +34,7 @@ import { SelectSafetymanagerComponent } from './select/select-safetymanager/sele
 import { SelectConstructionComponent } from './select/select-construction/select-construction.component';
 import { SelectOccupationComponent } from './select/select-occupation/select-occupation.component';
 import { SelectPositionComponent } from './select/select-position/select-position.component';
+import { SelectHeadQuarterComponent } from './select/select-headquarter/select-headquarter.component';
 import { SelectOrganizationComponent } from './select/select-organization/select-organization.component';
 import { SelectCountryComponent } from './select/select-country/select-country.component';
 import { SelectContractorComponent } from './select/select-contractor/select-contractor.component';
@@ -169,6 +170,8 @@ import { DangerAreaUserRegistrationPage } from '../page/danger-management/danger
     DangerAreaUserRegistrationPage,
     //TodayDangerAreaStatusListPage,
     //TodayDangerAreaStatusEditPage,
+    SelectHeadQuarterComponent,
+
   ],
   imports: [
     CommonModule,
@@ -264,6 +267,8 @@ import { DangerAreaUserRegistrationPage } from '../page/danger-management/danger
     DangerAreaUserRegistrationPage,
     //TodayDangerAreaStatusListPage,
     //TodayDangerAreaStatusEditPage,
+
+    SelectHeadQuarterComponent,    
   ],
   providers:[
     SelectCompanyComponent
