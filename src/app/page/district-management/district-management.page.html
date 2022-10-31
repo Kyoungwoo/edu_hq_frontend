@@ -31,7 +31,7 @@
               <td>
                 <app-select label="본부" [(ngModel)]="form.hq_regional_id" (change)="getList()">
                   <app-select-option [value]="0">전체</app-select-option>
-                  <app-select-option *ngFor="let item of HeadQuarterList" [value]="item.hq_regional_id">{{
+                  <app-select-option *ngFor="let item of RegionalItemList" [value]="item.hq_regional_id">{{
                     item.hq_regional_name }}</app-select-option>
                 </app-select>
               </td>

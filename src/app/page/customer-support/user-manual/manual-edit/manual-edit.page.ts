@@ -10,7 +10,16 @@ import { ToastService } from 'src/app/basic/service/ionic/toast.service';
 import { DateService } from 'src/app/basic/service/util/date.service';
 import { PromiseService } from 'src/app/basic/service/util/promise.service';
 import { RegexService } from 'src/app/basic/service/util/regex.service';
+import { ClosedEnvironmentInfoListPage } from 'src/app/page/danger-management/closed-environment-info-management/closed-environment-info-management-list/closed-environment-info-management-list.page';
 import { environment } from 'src/environments/environment';
+
+class DistrictInfo {
+  district_id : number;
+  district_code: number;
+  district_name: string;
+  district_url: string;
+  district_use_state: number;
+}
 
 export class ManualUpdateForm {
   ctgo_manual_ids:number[] = []; // 구분 ID
@@ -35,6 +44,8 @@ export class ManualUpdateForm {
   update_user_id: string;
   update_user_name: string;
   update_date: string;
+
+  district_id: number;
 }
 @Component({
   selector: 'app-manual-edit',
@@ -46,6 +57,11 @@ export class ManualEditPage implements OnInit {
   @ViewChild('menualText') menualText:SmarteditComponent;
 
   @Input() manual_id:number;
+
+  districtForm = {
+    hq_regional_id: 0,
+    limit_no: 0,
+  };
 
   form = new ManualUpdateForm();
   validator = new Validator(new ManualUpdateForm()).validator;
@@ -65,7 +81,13 @@ export class ManualEditPage implements OnInit {
     private changeDetector: ChangeDetectorRef
   ) { }
 
+  /** @param DistrictInfoList - 본부의 지구 카테고리 */
+  DistrictInfoList: DistrictInfo[] = [];
+
   ngOnInit() {
+    setTimeout(() => {
+      this.getDistrictInfoList();
+    }, 300);    
     if(this.manual_id) {
       this.form.manual_id = this.manual_id;
       this.get();
@@ -78,6 +100,27 @@ export class ManualEditPage implements OnInit {
     }
     this.test();
   }
+
+  /**
+  * @function getDistrictInfoList(): 사용자 본부의 지구정보 가져오기
+  */
+  async getDistrictInfoList() {
+    const userData = this.user.userData;
+    this.districtForm.hq_regional_id = userData.belong_data.hq_regional_id;
+    this.districtForm.limit_no = 0;
+    const res = await this.connect.run('/district/list', this.districtForm);
+    console.log("@@@@@@ res = " + JSON.stringify(res));
+    if (res.rsCode === 0) {
+      this.DistrictInfoList = res.rsMap;
+    }
+    else if (res.rsCode === 1008) {
+      this.res = null;
+    }
+    else {
+      ;//this.toast.present({ color: 'warning', message: res.rsMsg });
+    }
+  } 
+
   public async test() {
     if(!environment.test.core.test) return;
     if(!environment.test.UserManual.test) return;

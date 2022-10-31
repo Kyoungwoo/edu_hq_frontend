@@ -27,7 +27,23 @@
       </ng-template>
     </app-col>
     <app-col>
-      <app-select-manual name="ctgo_manual_ids" [(ngModel)]="form.ctgo_manual_ids" [multiple]="true"></app-select-manual>
+      <app-select-manual label="공지 구분" name="ctgo_manual_ids" [(ngModel)]="form.ctgo_manual_ids" [multiple]="true"></app-select-manual>
+    </app-col>
+  </app-row>
+  <app-row mobileBreak>
+    <app-col>
+      <app-select label="공지 범위" [(ngModel)]="form.district_id">
+        <app-select-option [value]="0">전체</app-select-option>
+        <app-select-option *ngFor="let item of DistrictInfoList" [value]="item.district_id">{{
+          item.district_name }}</app-select-option>
+      </app-select>
+    </app-col>
+    <app-col>
+          <!-- <app-input *ngIf="form.create_date === form.update_date; else tempUpdateDate" [disabled]="true" label="작성일"
+            [value]="form.create_date"></app-input>
+          <ng-template #tempUpdateDate>
+            <app-input [disabled]="true" label="작성일/수정일" [value]="form.create_date + ' / ' + form.update_date"></app-input>
+          </ng-template> -->
     </app-col>
   </app-row>
   <app-row>

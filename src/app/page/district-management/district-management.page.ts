@@ -29,9 +29,12 @@ class DistrictInfoInsertItem {
   district_use_state: number = 0;
 }
 
-class HeadQuarterListItem {
-  hq_regional_id: number;
-  hq_regional_name: string;
+export class RegionalItem {
+  hq_regional_entire_state: 0 | 1; // 본사권한 = 1
+  hq_regional_id: number; // id
+  hq_regional_code: string; // 코드
+  hq_regional_name: string; // 지역본부명
+  hq_regional_use_state: 0 | 1; // 사용 = 1
 }
 
 @Component({
@@ -58,8 +61,8 @@ export class DistrictManagementPage implements OnInit {
   /** @param res_insert - 추가할 리스트 */
   res_insert: DistrictInfoInsertItem[] = [];
 
-  /** @param HeadQuarterList - 등록 타입별 장비구분 카테고리 */
-  HeadQuarterList: HeadQuarterListItem[] = [];
+  /** @param RegionalItemList - 등록 타입별  카테고리 */
+  RegionalItemList: RegionalItem[] = [];
 
   /** @param selectedList - 체크박스로 선택된 목록 */
   selectedList = [];
@@ -130,10 +133,10 @@ export class DistrictManagementPage implements OnInit {
    * @function getHeadQuarterList(): 본부 목록 가져오기
    */
   async getHeadQuarterList() {
-    const res = await this.connect.run('/district/headquarter/list');
+    const res = await this.connect.run('/category/organization/regional/get');
 
     if (res.rsCode === 0) {
-      this.HeadQuarterList = res.rsMap;
+      this.RegionalItemList = res.rsMap;
       this.form.hq_regional_id = 0;
     }
     else if (res.rsCode === 1008) {

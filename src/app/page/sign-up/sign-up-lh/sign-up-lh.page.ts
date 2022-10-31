@@ -64,25 +64,21 @@ export class SignUpLhPage implements OnInit {
     el.querySelector('[name=ctgo_job_position_id]').dispatchEvent(new Event('click'));
     await this.promise.wait(1000);
 
-    // 현장 가져오기
-    el.querySelector('[name=project_id]').dispatchEvent(new Event('click'));
-    await this.promise.wait(2500);
-
     // 조직 기구 가져오기
-    // el.querySelector('[name=hq_regional_id]').dispatchEvent(new Event('click'));
-    // await this.promise.wait(1500);
+    el.querySelector('[name=hq_regional_id]').dispatchEvent(new Event('click'));
+    await this.promise.wait(1500);
 
-    // if(el.querySelector('[name=hq_business_id]')) {
-    //   this.changeDetector.detectChanges();
-    //   el.querySelector('[name=hq_business_id]').dispatchEvent(new Event('click'));
-    //   await this.promise.wait(1500);
-    // }
+    if(el.querySelector('[name=hq_business_id]')) {
+      this.changeDetector.detectChanges();
+      el.querySelector('[name=hq_business_id]').dispatchEvent(new Event('click'));
+      await this.promise.wait(1500);
+    }
 
-    // if(el.querySelector('[name=hq_department_id]')) {
-    //   this.changeDetector.detectChanges();
-    //   el.querySelector('[name=hq_department_id]').dispatchEvent(new Event('click'));
-    //   await this.promise.wait(1000);
-    // }
+    if(el.querySelector('[name=hq_department_id]')) {
+      this.changeDetector.detectChanges();
+      el.querySelector('[name=hq_department_id]').dispatchEvent(new Event('click'));
+      await this.promise.wait(1000);
+    }
     
     // 다음 페이지로
     el.querySelector('[name=button_next]').dispatchEvent(new Event('click'));
@@ -191,10 +187,10 @@ export class SignUpLhPage implements OnInit {
     else if(this.validator.user_phone?.valid)
     this.validator.user_phone = { valid: true };
 
-    // if(!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
-    // else if(!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
-    // else
-    this.validator.sms_token = { valid: true };
+    if (!this.form.sms_token) this.validator.sms_token = { message: '문자인증번호를 입력해주세요.', valid: false };
+    else if (!this.validator.sms_token?.valid) this.validator.sms_token = { message: '문자인증번호를 인증해주세요.', valid: false };
+    else
+      this.validator.sms_token = { valid: true };
 
     // if(this.validator.user_email?.valid)
     // this.validator.user_email = { valid: true };
@@ -206,35 +202,33 @@ export class SignUpLhPage implements OnInit {
     else this.validator.hq_regional_id = { valid: true };
 
     // 지역본부 선택을 했는데 본사면 통과
-    // if(!this.form.hq_regional_entire_state
-    // && !this.form.hq_business_id) this.validator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
-    // else this.validator.hq_business_id = { valid: true };
+    if(!this.form.hq_regional_entire_state
+    && !this.form.hq_business_id) this.validator.hq_business_id = { message: '사업본부를 입력해주세요', valid: false };
+    else this.validator.hq_business_id = { valid: true };
 
     // 사업본부 선택을 했는데 사업본부 본사면 통과
-    // if(!this.form.hq_regional_entire_state
-    // && !this.form.hq_business_entire_state
-    // && !this.form.hq_department_id) this.validator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
-    // else this.validator.hq_department_id = { valid: true };
+    if(!this.form.hq_regional_entire_state
+    && !this.form.hq_business_entire_state
+    && !this.form.hq_department_id) this.validator.hq_department_id = { message: '부서를 입력해주세요', valid: false };
+    else this.validator.hq_department_id = { valid: true };
 
-    // if(this.form.project_id == null) this.validator.project_id = { message: '현장을 입력해주세요.', valid: false };
-    // else this.validator.project_id = { valid: true };
 
 
     this.validator.file_preview = { valid: true };
     this.validator.file = { valid: true };
     this.validator.file_json = { valid: true };
 
-    // for(let key in this.validator) {
-    //   if(
-    //     key != 'hq_regional_id' &&
-    //     key != 'hq_regional_entire_state' &&
-    //     key != 'hq_business_id' &&
-    //     key != 'hq_business_entire_state' &&
-    //     key != 'hq_department_id' 
-    //   ){
-    //     if(!this.validator[key]?.valid) return false;
-    //   }
-    // }
+    for(let key in this.validator) {
+      if(
+        key != 'hq_regional_id' &&
+        key != 'hq_regional_entire_state' &&
+        key != 'hq_business_id' &&
+        key != 'hq_business_entire_state' &&
+        key != 'hq_department_id' 
+      ){
+        if(!this.validator[key]?.valid) return false;
+      }
+    }
     return true;
   }
 }

@@ -111,6 +111,9 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
     }
   }
   public async change2() {
+    console.log("hq_regional_id = " + this.value.hq_regional_id);
+    console.log("hq_business_id = " + this.value.hq_business_id);
+    
     if(!this.value.hq_regional_id || !this.value.hq_business_id) return;
     await this.promise.wait(() => this.res2);
     // 3 초기화
@@ -121,9 +124,13 @@ export class SelectOrganizationComponent implements OnInit, ControlValueAccessor
 
     // 다음단계 선택할지 말지
     const selectedItem = this.res2.rsMap.find(item => item.hq_business_id === this.value.hq_business_id);
+    console.log("selectedItem = " + selectedItem);
+
     if(selectedItem) {
       this.value.hq_business_entire_state = selectedItem.hq_business_entire_state;
-      if(this.value.hq_business_entire_state === 0)  this.get3();
+      console.log("hq_business_entire_state = " + selectedItem.hq_business_entire_state);
+      this.get3();
+      //if(this.value.hq_business_entire_state === 0)  this.get3();
     } else {
       this.value = new OrganizationValue();
     }
