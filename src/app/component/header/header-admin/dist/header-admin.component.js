@@ -120,7 +120,7 @@ var HeaderAdminComponent = /** @class */ (function () {
     HeaderAdminComponent.prototype.main = function () {
         var userData = this.user.userData;
         if (userData.user_type === 'COMPANY') {
-            this.nav.navigateRoot('/main-sub-admin');
+            this.nav.navigateRoot('/monitor');
         }
         else {
             this.nav.navigateRoot('/main-admin');

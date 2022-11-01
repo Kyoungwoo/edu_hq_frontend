@@ -1,0 +1,165 @@
+<!-- <ng-container *mobileHidden> -->
+<ng-container>
+  <app-header-admin></app-header-admin>
+
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-region name="hq region" (changeGetName)="changeGetNameHq($event)"
+                  [(ngModel)]="form.hq_regional_id">
+                </app-select-region>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-business-district name="business district" (changeGetName)="changeGetNameBusiness($event)"
+                  [hq_regional_id]="form.hq_regional_id" [(ngModel)]="form.district_id">
+                </app-select-business-district>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-scene-hq name="select project" [hq_regional_id]="form.hq_regional_id"
+                  [district_id]="form.district_id" [(ngModel)]="form.project_id"></app-select-scene-hq>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-radio-input label="진행상황" [(ngModel)]="form.status">
+                  <app-radio type="all" value="전체">전체</app-radio>
+                  <app-radio value="종료">종료</app-radio>
+                  <app-radio value="진행 중">진행 중</app-radio>
+                </app-radio-input>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="발생일">
+                  <app-calendar name="start date" [(ngModel)]="form.start_date"></app-calendar>
+                  ~
+                  <app-calendar name="end date" [(ngModel)]="form.end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+
+      <app-col>
+        <!-- <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" (click)="edit()">비상 알림</app-button>
+          <app-button fill="translucent" (click)="warning()">경고 팝업 대상</app-button>
+        </ion-buttons>
+      </ion-toolbar> -->
+        <ion-toolbar color="white">
+          <h5>비상 알림 관리 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>지역본부</th>
+              <th>사업지구</th>
+              <th>현장명</th>
+              <th>원청사명</th>
+              <th>알림 메세지 내용</th>
+              <th>진행 상황</th>
+              <th>발생일시</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of res?.rsMap">
+            <tr class="button" class="button" (click)="edit(item)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.hq_regional_name }}</td>
+              <td>{{ item.district_name }}</td>
+              <td>{{ item.project_name }}</td>
+              <td>{{ item.master_company_name }}</td>
+              <td>{{ item.message }}</td>
+              <td>{{ item.status }}</td>
+              <td>{{ item.create_date }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count || 0 " [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+        </app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>
+
+
+<!-- 모바일 -->
+<!-- <ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>위험 알림 관리</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input-template label="현장">
+          
+          <p slot="input">수원 당수 아파트 공사</p>
+        </app-input-template>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+    <app-row>
+      <app-col></app-col>
+      <app-col size="auto">
+        <app-button fill="translucent" (click)="edit()">비상알림</app-button>
+      </app-col>
+    </app-row>
+    
+    <app-card (click)="edit()">
+      <app-row>
+        <app-col>
+          <h5>수시 위험성 평가서</h5>
+        </app-col>
+        <app-col size="auto">
+          
+          <ion-chip color="success">진행중</ion-chip>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          
+          <p>극동건설(주)</p>
+          
+          <p>작업기간: 2022.11.11 ~ 2022.11.12</p>
+        </app-col>
+      </app-row>
+      <ion-badge color="warning">비상 알림</ion-badge>
+      
+    </app-card>
+
+    <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+      <ion-infinite-scroll-content loading-spinner="dots">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ng-container> -->

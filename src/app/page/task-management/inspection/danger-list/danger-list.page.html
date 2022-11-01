@@ -1,0 +1,142 @@
+<ng-container *mobileHidden>
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor-company></app-select-contractor-company>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input-group label="점검일">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-danger></app-select-danger>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해 주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" (click)="edit()">신규 점검</app-button>
+          <!-- <app-button fill="translucent">제출 작성</app-button>
+          <app-button fill="translucent" (click)="pending()">미결 문서</app-button> -->
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>일일 점검 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+      </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>점검일</th>
+              <th>위험지역유형</th>
+              <th>위험지역명</th>
+              <th>업체명</th>
+              <th>점검자</th>
+              <th>점검일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" class="button" (click)="edit(item)">
+              <td>1</td>
+              <td>2022-09-15</td>
+              <td>전기실</td>
+              <td>A-2 전기실</td>
+              <td>(주)지에스아이엘</td>
+              <td>김성배</td>
+              <td>2022-09-05</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
+        <app-pager></app-pager>
+      </app-col>
+  </app-row>
+</ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>위험 지역 점검</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input-template label="현장">
+          <!-- <p slot="input">{{ form.project_name }}</p> -->
+          <p slot="input">서울시 블록형 단독주택 공사</p>
+        </app-input-template>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <!-- <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)"> -->
+  <app-card (click)="edit()">
+    <app-row>
+        <h5>전기실 / 101동 B1층 전기실</h5>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>업체명 : (주)지에스아이엘</h5>
+      </app-col>
+    </app-row>
+    <app-row>
+      <h5>점검일 : 2022-05-05(화) / 점검자 : 이상범</h5>
+    </app-row>
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+</ng-container>
+

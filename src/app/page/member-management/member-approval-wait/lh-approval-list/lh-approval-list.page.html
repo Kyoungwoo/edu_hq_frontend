@@ -21,12 +21,15 @@
             <tr>
               <td>
                 <!-- <app-select-regional [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional> -->
-                <app-input label="사업지구" [readonly]="true" value="수원당수지구"></app-input>
+                <!-- <app-select label="본부">
+                  <app-select-option value="서울지역본부">서울지역본부</app-select-option>
+                </app-select> -->
+                <app-select-region></app-select-region>
               </td>
             </tr>
             <tr>
               <td>
-                <app-input-group label="신청일">
+                <app-input-group label="가입일">
                   <app-calendar [(ngModel)]="form.start_date" [max]="form.end_date"></app-calendar>
                   ~
                   <app-calendar [(ngModel)]="form.end_date" [min]="form.start_date"></app-calendar>
@@ -53,13 +56,11 @@
       <app-col>
         <ion-toolbar color="white">
           <ion-buttons slot="start">
-            <!-- <app-button fill="translucent">엑셀 업로드</app-button>
-            <app-button fill="translucent">양식 다운로드</app-button> -->
             <app-button fill="translucent" (click)="approval()">가입승인</app-button>
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar color="white">
-          <h5>LH 관리자 가입 신청 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>가입 신청 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
         <app-check-group [(ngModel)]="selectedList">
         <app-table>
@@ -67,7 +68,7 @@
             <tr>
               <th style="width: 40px;" rowspan="2"><app-check color="white" size="small" name="check"></app-check></th>
               <th style="width: 48px;">No</th>
-              <!-- <th>사업지구</th> -->
+              <th>본부</th>
               <th>성명</th>
               <th>직위</th>
               <th>신청일</th>
@@ -75,16 +76,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+            
+            <tr class="button" (click)="edit(item)">
+              <td>
+                <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
+              </td>
+              <td>1</td>
+              <td>서울지역본부</td>
+              <td>이상범</td>
+              <td>프로</td>
+              <td>2022-12-12</td>
+              <td>미승인</td>
+              
+            <!-- <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>
                 <app-check (click)="$event.stopPropagation()" [on]="item" color="white" size="small" name="check"></app-check>
               </td>
               <td>{{ item.index }}</td>
-              <!-- <td>{{ item.hq_regional_name }}</td> -->
+              <td>{{ item.hq_regional_name }}</td>
               <td>{{ item.user_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
               <td>{{ item.create_date }}</td>
-              <td>{{ item.approval_state }}</td>
+              <td>{{ item.approval_state }}</td> -->
             </tr>
           </tbody>
         </app-table>

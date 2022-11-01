@@ -76,7 +76,7 @@ export class MainAdminPage implements OnInit {
     private modal: ModalController
   ) {
     if(this.user.userData.user_type === 'COMPANY') {
-      this.nav.navigateRoot('/main-sub-admin');
+      this.nav.navigateRoot('/monitor');
     }
   }
 

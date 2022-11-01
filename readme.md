@@ -44,7 +44,6 @@
 4. ./android 폴더에 local.propertis 파일 생성 후 SDK 경로 지정
    ![image](https://user-images.githubusercontent.com/62597091/183491615-bfb16964-9ba5-46de-a2eb-e44e4712ec3d.png)
    ![image](https://user-images.githubusercontent.com/62597091/183491718-962dd7f8-cba0-4f8c-b347-0b87a5d81c43.png)
-
    ```
    sdk.dir=[ANDROID_SDK_ROOT]
    ```

@@ -1,0 +1,117 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>위험지역점검표</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row style="justify-content:flex-end">
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">등록</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">삭제</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">수정</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">인쇄</app-button>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>기본 정보</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="현장명" value="세종시 블록형 단독주택공사" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-input label="업체명" value="(주)지에스아이엘" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="점검자" value="이상범" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-input label="위험지역유형" value="-" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-danger-name [required]="false"></app-select-danger-name>
+        </app-col>
+        <app-col>
+          <app-input label="점검일시" placeholder="2021-04-30 08:30" [required]="false" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+      
+
+      <app-row>
+        <app-col>
+          <h4>점검 내용</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-radio-group>
+          <app-table>
+            <thead>
+              <tr>
+                <th rowspan="2">점검사항</th>
+                <th colspan="3">점검결과</th>
+                <th rowspan="2">기타사항</th>
+              </tr>
+              <tr>
+                <th width="80px">적합</th>
+                <th width="80px">부적합</th>
+                <th width="80px">해당없음</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td colspan="5">위험지역을 선택해주세요</td>
+              </tr> -->
+              <tr>
+                <td>차량 운행경로에 유도원 2명이상 배치</td>
+                <td>
+                    <app-radio value="적합"></app-radio>
+                </td>
+                <td>
+                    <app-radio value="부적합"></app-radio>
+                </td>
+                <td>
+                    <app-radio value="해당없음"></app-radio>
+                </td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-radio-group>
+        </app-col>
+      </app-row>
+
+    </form>
+  </ion-content>
+  </ng-container>
+
+  <ng-container *mobileShow>
+    <ion-header>
+      <ion-toolbar color="white">
+        <ion-title>위험 지역 점검</ion-title>
+        <ion-buttons slot="end">
+          <app-dismiss-button></app-dismiss-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      이미지를 넣어주세요.
+    </ion-content>
+    </ng-container>

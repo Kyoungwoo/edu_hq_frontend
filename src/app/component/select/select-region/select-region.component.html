@@ -1,0 +1,6 @@
+<app-select name="select" [color]="color" [label]="label" [placeholder]="placeholder" [(ngModel)]="value"
+  [readonly]="readonly" [disabled]="disabled" [required]="required" [multiple]="false">
+  <app-select-option *ngIf="all" type="all" value="전체">{{ languagePack.getText('전체') }}</app-select-option>
+  <app-select-option *ngFor="let item of res?.rsMap" [value]="item.hq_regional_id">{{ item.hq_regional_name }}
+  </app-select-option>
+</app-select>

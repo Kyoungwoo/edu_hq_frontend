@@ -1,0 +1,143 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>근로자 정보</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row>
+        <app-col style="display:flex;">
+          <div class="img_box">
+            근로자 이미지
+          </div>
+          <app-table>
+            <app-table>
+              <tbody>
+                <tr>
+                  <th>아이디</th>
+                  <td>gsil1</td>
+                  <th>성명</th>
+                  <td>김소장</td>
+                </tr>
+                <tr>
+                  <th>국적</th>
+                  <td>대한민국</td>
+                  <th>회사명</th>
+                  <td>(주)지에스아이엘</td>
+                </tr>
+                <tr>
+                  <th>직위</th>
+                  <td>작업자</td>
+                  <th>현장명</th>
+                  <td>세종시 단독주택공사</td>
+                </tr>
+                <tr>
+                  <th>공종</th>
+                  <td>건축</td>
+                  <th>계약유형</th>
+                  <td>일용직</td>
+                </tr>
+                <tr>
+                  <th>직종</th>
+                  <td>장비운전원(지게차)</td>
+                  <th>안전직무</th>
+                  <td>신호수/관리감독자</td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-table>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <div class="flex_center">
+            <app-button>출석제외</app-button>
+            <app-button>확인</app-button>
+          </div>
+        </app-col>
+      </app-row>
+    </form>
+  </ion-content>
+  </ng-container>
+
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>근로자 정보</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row>
+        <app-col>
+          <app-card class="photo_card">
+            <div class="img_box"></div>
+          </app-card>
+          
+          <app-table>
+            <app-table>
+              <tbody>
+                <tr>
+                  <th>아이디</th>
+                  <td>gsil1</td>
+                </tr>
+                <tr>
+                  <th>성명</th>
+                  <td>김소장</td>
+                </tr>
+                <tr>
+                  <th>국적</th>
+                  <td>대한민국</td>
+                </tr>
+                <tr>
+                  <th>회사명</th>
+                  <td>(주)지에스아이엘</td>
+                </tr>
+                <tr>
+                  <th>직위</th>
+                  <td>작업자</td>
+                </tr>
+                <tr>
+                  <th>현장명</th>
+                  <td>세종시 단독주택공사</td>
+                </tr>
+                <tr>
+                  <th>공종</th>
+                  <td>건축</td>
+                </tr>
+                <tr>
+                  <th>계약유형</th>
+                  <td>일용직</td>
+                </tr>
+                <tr>
+                  <th>직종</th>
+                  <td>장비운전원(지게차)</td>
+                </tr>
+                <tr>
+                  <th>안전직무</th>
+                  <td>신호수/관리감독자</td>
+                </tr>
+              </tbody>
+            </app-table>
+          </app-table>
+        </app-col>
+      </app-row>
+    </form>
+  </ion-content>
+  <app-button-footer>
+    <app-button>출석제외</app-button>
+    <app-button>확인</app-button>
+  </app-button-footer>
+</ng-container>
+  

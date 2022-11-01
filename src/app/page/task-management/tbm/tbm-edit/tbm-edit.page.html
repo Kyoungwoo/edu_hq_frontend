@@ -1,0 +1,421 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>TBM 일지 작성</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row style="justify-content:flex-end">
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">삭제</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">저장</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">수정</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">작업시작</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">작업종료</app-button>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>기본 정보</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="현장명" value="세종시 블록형 단독주택공사" [readonly]="editable.company_id" [disabled]="editable.my_state"></app-input>
+        </app-col>
+        <app-col>
+          <app-input label="업체명" value="(주)지에스아이엘" [readonly]="editable.company_id" [disabled]="editable.my_state"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="작성자" value="이상범" [readonly]="editable.company_id" [disabled]="editable.my_state"></app-input>
+        </app-col>
+        <app-col>
+          <app-input-group label="작업일"  [required]="true">
+            <app-calendar></app-calendar>
+            ~
+            <app-calendar></app-calendar>
+          </app-input-group>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-construction [required]="true"></app-select-construction>
+        </app-col>
+        <app-col>
+          <app-input label="작업장소" placeholder="작업장소를 입력해주세요" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-select-tbm [required]="true" placeholder="작업장소를 입력해주세요"></app-select-tbm>
+        </app-col>
+        <app-col>
+          <app-input label="작업상태" value="작업 전" [readonly]="editable.company_id" [disabled]="editable.my_state"></app-input>
+        </app-col>
+      </app-row>
+
+      <app-row>
+        <app-col>
+          <h4>작업 내용</h4>
+        </app-col>
+        <app-col class="flex_end">
+          <app-button (click)="unit()">단위작업 선택</app-button>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-table>
+            <thead>
+              <tr>
+                <th>공사명</th>
+                <th>단위작업</th>
+                <th>위험요인</th>
+                <th>감소대책</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td colspan="4">단위작업을 선택해주세요</td>
+              </tr> -->
+              <tr class="button" class="button" (click)="edit(item)">
+                <td>매립 공사</td>
+                <td>장비반입/작업준비</td>
+                <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+                <td>차량 운행경로에 유도원 2명 이상 배치</td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>지시사항</h4>
+          <app-textarea value="안전하게 작업해주세요"></app-textarea>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>첨부서류</h4>
+          <app-card color="light" class="file-card">
+            <app-row>
+              <app-col>
+                <h5>작업허가서를 첨부해주세요</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button fill="translucent"> 추가 </app-button>
+              </app-col>
+            </app-row>
+          </app-card>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <ng-container>
+            <app-row style="margin-top: 10px;">
+              <app-col>
+                <h4>출석 현황 : 0명</h4>
+              </app-col>
+              <app-col size="3">
+                <app-input placeholder="출석한 근로자를 검색할 수 있습니다">
+                  <app-img (click)="search()" name="search"></app-img>
+                </app-input>
+              </app-col>
+              <app-col size="auto">
+                <app-button (click)="eduAdd()" fill="translucent" >출석등록(검색)</app-button>
+              </app-col>
+              <app-col size="auto">
+                <app-button (click)="qrAdd()">출석등록QR)</app-button> 
+              </app-col>
+            </app-row>
+            <app-table>
+              <thead>
+                <tr>
+                  <th width="40px">No</th>
+                  <th>업체명</th>
+                  <th>성명</th>
+                  <th>서명일시</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr>
+                  <td colspan="4">단위작업을 선택해주세요</td>
+                </tr> -->
+                <tr class="button" class="button" (click)="edit(item)">
+                  <td>1</td>
+                  <td>(주)지에스아이엘</td>
+                  <td (click)="worker()">이상범(sb1234)</td>
+                  <td>2021.05.06 17:00</td>
+                </tr>
+              </tbody>
+            </app-table>
+        </ng-container>
+        </app-col>
+        <!-- <app-col>
+          <div class="flex_end">
+            <app-button fill="translucent">출석등록(검색)</app-button>
+            <app-button>출석등록(OR)</app-button>
+          </div>
+        </app-col> -->
+      </app-row>
+    </form>
+  </ion-content>
+  </ng-container>
+
+
+  <!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>TBM</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+    
+    <ion-toolbar color="white">
+      <!-- <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)"> -->
+      <ion-segment color="primary" value="TBM 정보">
+        <ion-segment-button value="TBM 정보" class="tab_btn">TBM 정보</ion-segment-button>
+        <ion-segment-button value="출석 현황" class="tab_btn">출석현황</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- tbm 정보 -->
+  <ion-content class="tab_edit active">
+    <app-table>
+      <tbody>
+        <tr>
+          <th>작업상태</th>
+          <td><ion-chip color="success">작업전</ion-chip></td>
+        </tr>
+        <tr>
+          <th>현장명</th>
+          <td>세종시 주택공사</td>
+        </tr>
+        <tr>
+          <th>업체명</th>
+          <td>(주)지에스아이엘</td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td>이상범</td>
+        </tr>
+        <tr>
+          <th>작성일</th>
+          <td>2022.12.22</td>
+        </tr>
+        <tr>
+          <th>공종</th>
+          <td>소방</td>
+        </tr>
+        <tr>
+          <th>작업팀장</th>
+          <td>전민배</td>
+        </tr>
+        <tr>
+          <th>작업장소</th>
+          <td>101,102동</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4>작업내용</h4>
+    <app-table>
+      <thead>
+        <tr>
+          <th>공사명</th>
+          <th>단위작업</th>
+          <th>위험요인</th>
+          <th>감소대책</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">매립공사</td>
+          <td rowspan="2">장비반입/작업준비</td>
+          <td>외부인출입에 위한 사고</td>
+          <td>차량 운행경로에 유도원 2명이상 배치</td>
+        </tr>
+        <tr>
+          <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+          <td>TBM 시 현장 출입 비인가자 재확인</td>
+        </tr>
+        <tr>
+          <td rowspan="2">발파공사</td>
+          <td>작업준비</td>
+          <td>지장물 조사 미흡한 상태에서 작업 중 지장물 파괴로 인한 감전 사고</td>
+          <td>TBM 시 절연보호구 착용 여부 확인</td>
+        </tr>
+        <tr>
+          <td>천공(노천) 작업</td>
+          <td>천공 작업 중 암사면 단부로 추락</td>
+          <td>암사면 안전난간 설치 의무화</td>
+        </tr>
+      </tbody>
+    </app-table>
+
+    <h4>지시사항</h4>
+    <app-textarea value="안전하게 작업해주세요"></app-textarea>
+
+    <h4>작업허가서 및 작업절차서</h4>
+    <app-card color="light" class="file-card">
+      <app-row>
+        <app-col>
+          <h5>휴일작업평가서.pdf (205KB)</h5>
+        </app-col>
+        <!-- <app-col size="auto">
+          <app-button fill="translucent"> 추가 </app-button>
+        </app-col> -->
+      </app-row>
+    </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<!-- // tbm 정보 -->
+
+<!-- 출석현황 -->
+<ion-content class="tab_edit">
+  <ng-container>
+    <app-card>
+      <app-row>
+        <app-col>
+          <h4>현황 : 총 {{ res?.rsObj?.row_count || 0 }}명</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <!-- <app-input [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다"> -->
+          <app-input placeholder="출석한 근로자를 검색할 수 있습니다">
+            <app-img (click)="eduGetList()" name="search"></app-img>
+          </app-input>
+        </app-col>
+      </app-row>
+    </app-card>
+    <ion-row>
+      <!-- <ion-col *ngFor="let item of res?.rsMap" size="6"> -->
+      <ion-col size="6">
+        <app-card [button]="true" (click)="userInfo(item)" style="height: 85%;">
+          <app-row>
+            <app-col>
+              <!-- <h5>{{ item.user_name }}({{ item.account_id }})</h5> -->
+              <h5>구범수(koo)</h5>
+            </app-col>
+          </app-row>
+          <app-line></app-line>
+          <app-row>
+            <app-col>
+              <h6>업체명</h6>
+              <h5>극동건설(주)</h5>
+              <!-- <h5>{{ item.company_name }}</h5> -->
+              <h6>직종</h6>
+              <h5>비계공</h5>
+              <!-- <h5>{{ item.ctgo_occupation_name }}</h5> -->
+            </app-col>
+          </app-row>
+        </app-card>
+      </ion-col>
+      <ion-col size="6">
+        <!-- <app-card *ngIf="editable.educationMenu_state || editable.my_state" style="background-color: var(--ion-color-medium-translucent); height: 85%;" (click)="qrAdd()"> -->
+        <app-card style="background-color: var(--ion-color-medium-translucent); height: 85%;" (click)="qrAdd()">
+          <app-row>
+            <app-col size="auto">
+              <app-img name="tag"></app-img>
+            </app-col>
+            <app-col>
+            </app-col>
+          </app-row>
+          <app-line></app-line>
+          <app-row>
+            <app-col style="text-align: center;">
+              <h5>QR코드를 근로자에게<br> 인식 시켜주세요</h5>
+            </app-col>
+          </app-row>
+        </app-card>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+  <!-- 또 원래대로 해달라할까봐 주석처리해둠
+    <h4>출석현황 : 총 01명</h4>
+  <app-row>
+    <app-col>
+      <app-input placeholder="출석한 근로자를 검색할 수 있습니다">
+        <app-img name="search"></app-img>
+      </app-input>
+    </app-col>
+  </app-row>
+
+  <ion-row>
+    <ion-col size="6" (click)="worker()">
+      <app-card>
+        <app-row>
+          <app-col>
+            <h5>구범수(ksb1234)</h5>
+          </app-col>
+          <app-col size="auto">
+            <ion-chip color="success">작업팀장</ion-chip>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col class="flex">
+            <p>회사명 : (주)지에스아이엘</p>
+            <p>직종 : 비계공</p>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ion-col>
+    <ion-col size="6">
+      <app-card style="background-color: var(--ion-color-medium-translucent); height: 95px;" (click)="qrAdd()">
+        <app-row>
+          <app-col size="auto">
+            <app-img name="tag"></app-img>
+          </app-col>
+          <app-col>
+          </app-col>
+        </app-row>
+        <app-line></app-line>
+        <app-row>
+          <app-col style="text-align: center;">
+            <h5>QR코드를 근로자에게 인식 시켜주세요</h5>
+          </app-col>
+        </app-row>
+      </app-card>
+    </ion-col>
+  </ion-row> -->
+
+<ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+  <ion-infinite-scroll-content loading-spinner="dots">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>
+<!-- // 출석현황 -->
+
+<app-button-footer class="btn_foot active">
+  <app-button>번역(Translation)</app-button>
+  <app-button (click)="registraction()">출석 등록(검색)</app-button>
+  <app-button (click)="QRscanner()">출석 등록(QR)</app-button>
+</app-button-footer>
+
+<app-button-footer class="btn_foot">
+  <app-button (click)="registraction()">출석 등록(검색)</app-button>
+  <app-button (click)="QRscanner()">출석 등록(QR)</app-button>
+</app-button-footer>
+</ng-container>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="white">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/sign-up-type"></ion-back-button>
+      <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ languagePack.getText('회원 가입') }}</ion-title>
   </ion-toolbar>
@@ -9,9 +9,9 @@
 
 <ion-content>
   <app-container size="small">
-    <app-sign-up-segment step="step2" type="LH"></app-sign-up-segment>
+    <app-sign-up-segment step="step1" type="LH"></app-sign-up-segment>
     <form style="margin-top: 16px;">
-      <app-card color="medium">한국토지주택공사</app-card>
+      <!-- <app-card color="medium">한국토지주택공사</app-card> -->
       <app-avatar name="profile"
       view_type="PROFILE" [(ngModel)]="form.file_preview" [file]="form.file" [file_json]="form.file_json" [readonly]="false"></app-avatar>
       <app-row mobileBreak>
@@ -101,26 +101,33 @@
           <app-input-caption *ngIf="validator.ctgo_job_position_id?.valid === false" color="warning">{{ validator.ctgo_job_position_id?.message }}</app-input-caption>
         </app-col>
       </app-row>
-      <app-col>
-        <app-select-headquarter [head_quarter_id]="1" name="head_quarter_id" [(ngModel)]="form.head_quarter_id"
-          [required]="true"></app-select-headquarter>
-        <app-input-caption *ngIf="validator.head_quarter_id?.valid === false" color="warning">{{
-          validator.head_quarter_id?.message }}</app-input-caption>
-      </app-col>
-      <!-- <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption> -->
+      
+      <app-input-caption *ngIf="validator.project_id?.valid === false" color="warning">{{ validator.project_id?.message }}</app-input-caption>
       <!-- <app-select-organization name="hq" [(ngModel)]="form" [required]="true"></app-select-organization> -->
-      <!-- <app-input label="사업지구" [disabled]="true" value="수원당수"></app-input> -->
+    <app-row>
+      <app-col>
+        <app-input label="회사명" [disabled]="true" value="서울지역본부"></app-input>
+      </app-col>
+      <app-col>
+        <app-select label="소속" [required]="true">
+          <app-select-option value="본사">본사</app-select-option>
+          <app-select-option value="서울지역본부">서울지역본부</app-select-option>
+          <app-select-option value="인천지역본부">인천지역본부</app-select-option>
+        </app-select>
+      </app-col>
+    </app-row>
       <!-- <app-input-caption *ngIf="validator.hq_regional_id?.valid === false" color="warning">{{ validator.hq_regional_id?.message }}</app-input-caption>
       <app-input-caption *ngIf="validator.hq_business_id?.valid === false" color="warning">{{ validator.hq_business_id?.message }}</app-input-caption>
       <app-input-caption *ngIf="validator.hq_department_id?.valid === false" color="warning">{{ validator.hq_department_id?.message }}</app-input-caption> -->
+      
+
       <!-- <app-select-scene name="project_id" type="SIGNUPLH" [all]="true"
       [color]="validator.project_id?.valid === false && 'warning'"
       [(ngModel)]="form.project_id" [required]="true"></app-select-scene> -->
-
     </form>
   </app-container>
 </ion-content>
 <app-button-footer>
-  <app-button (click)="prev()">{{ languagePack.getText('이전') }}</app-button>
+  <!-- <app-button (click)="prev()">{{ languagePack.getText('이전') }}</app-button> -->
   <app-button name="button_next" (click)="next()">{{ languagePack.getText('다음') }}</app-button>
 </app-button-footer>

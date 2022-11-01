@@ -1,0 +1,196 @@
+<ng-container *mobileHidden>
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-construction></app-select-construction>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input-group label="작성일">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-work></app-select-work>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해 주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+          <!-- <app-button fill="translucent">제출 작성</app-button>
+          <app-button fill="translucent" (click)="pending()">미결 문서</app-button> -->
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-toolbar color="white">
+        <h5>TBM 현황 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+      </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>작업일</th>
+              <th>공종</th>
+              <th>작업내용</th>
+              <th>업체명</th>
+              <th>TBM 리더</th>
+              <th>작업자</th>
+              <th>작업상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" class="button" (click)="edit(item)">
+              <td>1</td>
+              <td>2021-0915</td>
+              <td>소방</td>
+              <td>발파공사 외 1건</td>
+              <td>(주)지에스아이엘</td>
+              <td>김성배</td>
+              <td>구경모</td>
+              <td>작업전</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
+        <app-pager></app-pager>
+      </app-col>
+  </app-row>
+</ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>TBM</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input-template label="현장">
+          <!-- <p slot="input">{{ form.project_name }}</p> -->
+          <p slot="input">서울시 블록형 단독주택 공사</p>
+        </app-input-template>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+
+    <ion-toolbar color="white">
+      <!-- <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)">-->
+      <ion-segment color="primary" value="나의 TBM">
+        <ion-segment-button value="나의 TBM" class="tab_list_btn">나의 TBM</ion-segment-button>
+        <ion-segment-button value="TBM 현황" class="tab_list_btn">TBM 현황</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="tab_list active">
+  <!-- <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)"> -->
+  <app-card (click)="edit(item)">
+    <app-row>
+      <app-col>
+        <ion-badge color="success">전기</ion-badge>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="success">작업전</ion-chip>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>매립공사 - 마감공사 및 정리1</h5>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col class="flex">
+        <p>(주)지에스아이엘</p>
+        <p>2022-05-05(화)</p>
+        <p>작업팀장: 이상범</p>
+      </app-col>
+    </app-row>
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content class="tab_list">
+  <!-- <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)"> -->
+  <app-card (click)="edit(item)">
+    <app-row>
+      <app-col>
+        <ion-badge color="success">전기</ion-badge>
+      </app-col>
+      <app-col size="auto">
+        <ion-chip color="success">작업전</ion-chip>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <h5>매립공사 - 마감공사 및 정리2</h5>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col class="flex">
+        <p>(주)지에스아이엘</p>
+        <p>2022-05-05(화)</p>
+        <p>작업팀장: 이상범</p>
+      </app-col>
+    </app-row>
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<app-button-footer>
+  <p>TBM 출석을 위해 작업 팀장이 제시하는<br/> QR 코드 인식을 진행해주세요</p>
+  <app-button>TBM 참여</app-button>
+</app-button-footer>
+</ng-container>
+

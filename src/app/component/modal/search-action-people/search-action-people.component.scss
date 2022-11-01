@@ -1,0 +1,19 @@
+.active {
+	background-color: var(--ion-color-primary-translucent);
+}
+.add-list {
+	padding-left: var(--app-margin);
+	padding-right: var(--app-margin);
+	background-color: var(--background);
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	app-input {
+		flex-grow: 1;
+	}
+	app-button {
+		margin-left: 10px;
+	}
+}

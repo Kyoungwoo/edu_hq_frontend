@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <app-dismiss-button></app-dismiss-button>
     </ion-buttons>
-    <ion-title>LH 회원정보</ion-title>
+    <ion-title>회원정보</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -71,7 +71,7 @@
         </app-row>
       <app-row>
         <app-col>
-          <app-input [disabled]="true" label="업체명" [(ngModel)]="formApproval.company_name"></app-input>
+          <app-input [disabled]="true" label="회사명" [(ngModel)]="formApproval.company_name"></app-input>
         </app-col>
         <app-col>
           <app-select-position [company_id]="formApproval.company_id" name="직위" label="직위" [(ngModel)]="formApproval.ctgo_job_position_id" [required]="true"></app-select-position>
@@ -80,10 +80,14 @@
       <app-row>
         <app-col>
           <!-- <app-select-organization label="사업지구" [(ngModel)]="formApproval"></app-select-organization> -->
-          <app-input label="사업지구" value="수원당수" [disabled]="true"></app-input>
+          <!-- <app-input label="소속" value="서울지역본부" [disabled]="true"></app-input> -->
+          <app-select label="소속">
+            <app-select-option>서울지역본부</app-select-option>
+          </app-select>
         </app-col>
         <app-col>
-          <app-select label="시스템 권한" *ngIf="user.userData.user_role === 'LH_HEAD'" [(ngModel)]="formApproval.user_role">
+          <!-- <app-select label="시스템 권한" *ngIf="user.userData.user_role === 'LH_HEAD'" [(ngModel)]="formApproval.user_role"> -->
+          <app-select label="시스템 권한" [(ngModel)]="formApproval.user_role">
             <app-select-option [value]="1">마스터 어드민</app-select-option>
             <app-select-option [value]="0">일반 관리자</app-select-option>
           </app-select>

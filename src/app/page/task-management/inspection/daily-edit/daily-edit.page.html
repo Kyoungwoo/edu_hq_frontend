@@ -1,0 +1,170 @@
+
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>일상점검표</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row style="justify-content:flex-end">
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">등록</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">삭제</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">수정</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">인쇄</app-button>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>기본 정보</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="현장명" value="세종시 블록형 단독주택공사" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-select-contractor-company label="업체명" value="(주)지에스아이엘" [disabled]="false"></app-select-contractor-company>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-input label="점검자" value="이상범" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+        <app-col>
+          <app-input-group label="점검일"  [required]="true">
+            <app-calendar></app-calendar>
+          </app-input-group>
+        </app-col>
+      </app-row>
+      
+
+      <app-row>
+        <app-col>
+          <h4>기본 점검</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-radio-group>
+          <app-table>
+            <thead>
+              <tr>
+                <th rowspan="2">No</th>
+                <th rowspan="2">점검항목</th>
+                <th colspan="3">점검결과</th>
+                <th rowspan="2">기타사항</th>
+              </tr>
+              <tr>
+                <th width="80px">적합</th>
+                <th width="80px">부적합</th>
+                <th width="80px">해당 없음</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <!-- <tr>
+                <td colspan="4">단위작업을 선택해주세요</td>
+              </tr> -->
+              
+              <tr>
+                <td>1</td>
+                <td>떨어짐에 대한 위험 대책은 있으며 적절한가?</td>
+                <td>
+                  
+                    <app-radio value="적합"></app-radio>
+                  
+                </td>
+                <td>
+                    <app-radio value="부적합"></app-radio>
+                </td>
+                <td>
+                    <app-radio value="해당없음"></app-radio>
+                </td>
+                <td><app-input></app-input></td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-radio-group>
+        </app-col>
+      </app-row>
+
+      <app-row>
+        <app-col>
+          <h4>위험성 평가 점검</h4>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-radio-group>
+          <app-table>
+            <thead>
+              <tr>
+                <th rowspan="2">공사명</th>
+                <th rowspan="2">단위작업</th>
+                <th rowspan="2">위험요인</th>
+                <th rowspan="2">감소대책</th>
+                <th colspan="3">점검결과</th>
+                <th rowspan="2">기타사항</th>
+              </tr>
+              <tr>
+                <th width="80px">적합</th>
+                <th width="80px">부적합</th>
+                <th width="80px">해당 없음</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td colspan="4">단위작업을 선택해주세요</td>
+              </tr> -->
+              <tr>
+                <td>매립 공사</td>
+                <td>장비반입 / 작업준비</td>
+                <td>차량운행 경로 미지정으로 인한 차량 충돌 사고</td>
+                <td>차량경로에 유도원 2명이상 배치</td>
+                <td>
+                    <app-radio value="적합"></app-radio>
+                </td>
+                <td>
+                    <app-radio value="부적합"></app-radio>
+                </td>
+                <td>
+                    <app-radio value="해당없음"></app-radio>
+                </td>
+                <td><app-input [readonly]="false"></app-input></td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-radio-group>
+        </app-col>
+      </app-row>
+      
+    </form>
+  </ion-content>
+  </ng-container>
+
+
+<ng-container *mobileShow>
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>일상 점검</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  캡처 이미지를 넣어주세요.
+</ion-content>
+</ng-container>

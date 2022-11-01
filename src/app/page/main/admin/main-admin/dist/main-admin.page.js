@@ -109,7 +109,7 @@ var MainAdminPage = /** @class */ (function () {
         this.notice_list = []; // 공지사항
         this.safetymeeting_list = []; // 회의록
         if (this.user.userData.user_type === 'COMPANY') {
-            this.nav.navigateRoot('/main-sub-admin');
+            this.nav.navigateRoot('/monitor');
         }
     }
     MainAdminPage.prototype.ngOnInit = function () {

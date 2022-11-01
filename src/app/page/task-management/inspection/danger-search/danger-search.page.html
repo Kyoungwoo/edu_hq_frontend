@@ -1,0 +1,39 @@
+<ng-container>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>위험지역명 검색</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-select-danger></app-select-danger>
+      <div class="search_wrap">
+        <app-input label="검색어" placeholder="검색어를 입력해주세요"></app-input>
+        <app-button fill="translucent">검색</app-button>
+      </div>
+      <!-- <div class="inner-scroll scroll-y"> -->
+        <app-table>
+          <thead>
+            <tr>
+              <th>위험지역유형</th>
+              <th>위험지역명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" class="button">
+              <td>고압변전지역</td>
+              <td>고압변전지역 A</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <div class="flex_center">
+        <app-button>적용</app-button>
+        </div>
+      <!-- </div> -->
+    </form>
+  </ion-content>
+  </ng-container>

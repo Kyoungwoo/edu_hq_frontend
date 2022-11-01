@@ -19,7 +19,10 @@
             <tr>
               <td>
                 <!-- <app-select-regional label="사업지구" [(ngModel)]="form.hq_regional_id" [all]="true"></app-select-regional> -->
-                <app-input label="사업지구" [readonly]="true" value="수원당수지구"></app-input>
+                <!-- <app-input label="사업지구" [readonly]="true" value="수원당수지구"></app-input> -->
+                <app-select label="조직기구">
+                  <app-select-option>전체</app-select-option>
+                </app-select>
               </td>
             </tr>
             <tr>
@@ -50,14 +53,14 @@
       </app-col>
       <app-col>
         <ion-toolbar color="white">
-          <h5>관리자 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+          <h5>회원 정보 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
         </ion-toolbar>
-       
+        
         <app-table>
           <thead>
             <tr>
               <th style="width: 48px;">No</th>
-              <th>사업지구</th>
+              <th>조직기구</th>
               <th>성명</th>
               <th>직위</th>
               <th>가입일</th>
@@ -65,12 +68,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
+            <tr class="button" (click)="edit(item)">
+              <td>1</td>
+              <td>서울지역본부</td>
+              <td>구범수</td>
+              <td>부장</td>
+              <td>2022-12-12</td>
+            <!-- <tr class="button" *ngFor="let item of res?.rsMap let i = index" (click)="edit(item)">
               <td>{{ item.index }}</td>
               <td>{{ item.hq_regional_name }}</td>
               <td>{{ item.user_name }}</td>
               <td>{{ item.ctgo_job_position_name }}</td>
-              <td>{{ item.create_date }}</td>
+              <td>{{ item.create_date }}</td> -->
               <!-- <td>재직중</td> -->
             </tr>
           </tbody>

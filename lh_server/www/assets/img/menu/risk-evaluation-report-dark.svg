@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M45.634 12.5C46.0189 11.8333 46.9811 11.8333 47.366 12.5L52.1292 20.75C52.5141 21.4167 52.0329 22.25 51.2631 22.25H41.7369C40.9671 22.25 40.4859 21.4167 40.8708 20.75L45.634 12.5Z" fill="#44C650"/>
+<rect x="9" y="9" width="45.9212" height="45.9212" rx="2" fill="white"/>
+<rect x="43.4409" y="46.8233" width="4.78346" height="17.2204" rx="2" transform="rotate(-45 43.4409 46.8233)" fill="#2F8D38"/>
+<rect x="12.8267" y="24.3071" width="10.5236" height="3.82677" rx="1.91338" fill="#2F8D38"/>
+<rect x="44.3975" y="34.8307" width="8.61022" height="3.82677" rx="1.91338" fill="#2F8D38"/>
+<path d="M23.3503 26.2205H24.2204C25.325 26.2205 26.2204 27.1159 26.2204 28.2205V31.9606" stroke="#2F8D38" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="36.2656" cy="35.309" rx="11.002" ry="11.002" fill="#44C650"/>
+<mask id="mask0_1151_3869" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="24" y="23" width="24" height="24">
+<ellipse cx="36.2656" cy="35.309" rx="11.002" ry="11.002" fill="white" stroke="#2F8D38" stroke-linecap="round" stroke-linejoin="round"/>
+</mask>
+<g mask="url(#mask0_1151_3869)">
+<rect x="40.8315" y="32.3085" width="11.7412" height="5.21832" rx="2.60916" fill="white"/>
+<path d="M33.0041 31.0039L36.9178 34.9176L33.0041 38.8314L29.0903 34.9176L33.0041 31.0039Z" fill="white"/>
+<path d="M36.918 34.9176H40.8317" stroke="#2F8D38" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.0904 34.8307H28.177C27.6247 34.8307 27.177 34.3829 27.177 33.8307V29.0905" stroke="#2F8D38" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<ellipse cx="36.2656" cy="35.309" rx="11.002" ry="11.002" stroke="#2F8D38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44.9666 13.3701C45.3515 12.7034 46.3138 12.7034 46.6987 13.3701L51.1805 21.1328C51.5654 21.7995 51.0843 22.6328 50.3145 22.6328H41.3508C40.581 22.6328 40.0999 21.7995 40.4848 21.1328L44.9666 13.3701Z" fill="#44C650"/>
+<ellipse cx="45.8327" cy="20.9586" rx="0.956691" ry="0.956692" fill="#2F8D38"/>
+<path d="M44.876 15.6969C44.876 15.1685 45.3043 14.7402 45.8327 14.7402V14.7402C46.361 14.7402 46.7894 15.1685 46.7894 15.6969V18.5669C46.7894 19.0953 46.361 19.5236 45.8327 19.5236V19.5236C45.3043 19.5236 44.876 19.0953 44.876 18.5669V15.6969Z" fill="#2F8D38"/>
+</svg>

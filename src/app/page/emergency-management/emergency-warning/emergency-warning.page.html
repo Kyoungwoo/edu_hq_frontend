@@ -1,0 +1,54 @@
+<ng-container>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>경고 알림 팝업 대상</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row>
+        <app-col>
+          <app-select-warning></app-select-warning>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <!-- <app-button>전송</app-button> -->
+        </app-col>
+        <app-col class="flex_end">
+          <app-button (click)="target()">대상 추가</app-button>
+        </app-col>
+      </app-row>
+      <arr-row>
+        <app-col>
+          <app-table>
+            <thead>
+              <tr>
+                <th style="width: 48px;">No</th>
+                <th>회사명</th>
+                <th>공종</th>
+                <th>성명</th>
+                <th>직위</th>
+                <th>안전직무</th>
+                <th>직종</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" class="button" (click)="edit(item)">
+                <td>1</td>
+                <td>(주)원청사</td>
+                <td>건축</td>
+                <td>이상범</td>
+                <td>작업팀장</td>
+                <td>안전관리자</td>
+                <td>전기공</td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-col>
+      </arr-row>
+    </form>
+  </ion-content>
+  </ng-container>

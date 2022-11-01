@@ -1,0 +1,166 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>부적합(아차사고) 상세</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form>
+      <app-row style="justify-content:flex-end">
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">저장</app-button>
+        </app-col>
+        <app-col *mobileHidden size="auto" size="auto">
+          <app-button fill="translucent">삭제</app-button>
+        </app-col>
+      </app-row>
+
+      <app-row>
+        <app-col>
+          <app-row>
+            <app-col>
+              <h4>부적합사항</h4>
+            </app-col>
+          </app-row>
+
+              <app-input label="작성자" value="이상범/(주)지에스아이엘" [readonly]="true" [disabled]="true"></app-input>
+              <app-input label="발생장소" placeholder="장소를 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+              <app-input-group label="발생일시"  [required]="true">
+                <app-calendar></app-calendar>
+                <app-datetime></app-datetime>
+              </app-input-group>
+              <app-input label="부적합내용" placeholder="부적합내용을 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+          <app-row>
+            <app-col style="padding:0;">
+              <ion-toolbar color="white">
+                <app-row>
+                  <app-col>
+                    <h4>부적합 사진</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <app-button>추가
+                      <app-file name="input"></app-file>
+                    </app-button>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <ng-container>
+                <!-- <app-file-preview type="auto"></app-file-preview> -->
+              </ng-container>
+            </app-col>
+          </app-row>
+        </app-col>
+        <app-col>
+          <app-row>
+            <app-col>
+              <h4>조치 사항</h4>
+            </app-col>
+          </app-row>
+
+              <app-select-action-people></app-select-action-people>
+              <app-select-action></app-select-action>
+              <app-input-group label="조치일시"  [required]="true">
+                <app-calendar></app-calendar>
+                <app-datetime></app-datetime>
+              </app-input-group>
+              <app-input label="조치내용" placeholder="조치내용을 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+              <!-- <app-card>
+                부적합 파일을 등록해주세요
+                <app-file view_type=""></app-file>
+              </app-card> -->
+
+              <!-- ## safty-education-detail-edit 참고 ## -->
+              <ion-toolbar color="white">
+                <app-row>
+                  <app-col>
+                    <h4>조치 사진</h4>
+                  </app-col>
+                  <app-col size="auto">
+                    <app-button>추가
+                      <app-file name="input"></app-file>
+                    </app-button>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <ng-container>
+                <!-- <app-file-preview type="auto"></app-file-preview> -->
+              </ng-container>
+        </app-col>
+      </app-row>
+    </form>
+  </ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>부적합(아차사고) 상세</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <!-- <ion-segment color="primary" [(ngModel)]="form.risk_asment_type" (ionChange)="get(0)"> -->
+      <ion-segment color="primary" value="부적합 사항">
+        <ion-segment-button value="부적합 사항" class="tab_btn">부적합 사항</ion-segment-button>
+        <ion-segment-button value="조치 사항" class="tab_btn">조치 사항</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="tab_edit active">
+    <form>
+          <app-input label="작성자" value="이상범/(주)지에스아이엘" [readonly]="true" [disabled]="true"></app-input>
+          <app-input label="발생장소" placeholder="장소를 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+          <app-input-group label="발생일시"  [required]="true">
+            <app-calendar></app-calendar>
+            <app-datetime></app-datetime>
+          </app-input-group>
+          <app-input label="부적합내용" placeholder="부적합내용을 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+          <ion-toolbar color="white">
+            <app-row>
+              <app-col>
+                <h5>부적합 사진</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button>추가
+                  <app-file name="input"></app-file>
+                </app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+    </form>
+  </ion-content>
+
+  <ion-content class="tab_edit">
+    <form>
+          <app-select-action-people></app-select-action-people>
+          <app-select-action></app-select-action>
+          <app-input-group label="조치일시"  [required]="true">
+            <app-calendar></app-calendar>
+            <app-datetime></app-datetime>
+          </app-input-group>
+          <app-input label="조치내용" placeholder="조치내용을 입력해주세요" value="" [required]="true" [readonly]="false" [disabled]="false"></app-input>
+
+        <ion-toolbar color="white">
+          <app-row>
+            <app-col>
+              <h5>조치 사진</h5>
+            </app-col>
+            <app-col size="auto">
+              <app-button>추가
+                <app-file name="input"></app-file>
+              </app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+    </form>
+  </ion-content>
+  <app-button-footer class="btn_foot">
+    <app-button>저장</app-button>
+  </app-button-footer>
+</ng-container>
+

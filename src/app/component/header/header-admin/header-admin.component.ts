@@ -97,7 +97,7 @@ export class HeaderAdminComponent implements OnInit, OnDestroy {
   main() {
     const { userData } = this.user;
     if(userData.user_type === 'COMPANY') {
-      this.nav.navigateRoot('/main-sub-admin');
+      this.nav.navigateRoot('/monitor');
     }
     else {
       this.nav.navigateRoot('/main-admin');

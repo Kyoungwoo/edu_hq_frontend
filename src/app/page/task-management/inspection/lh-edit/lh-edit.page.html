@@ -1,0 +1,92 @@
+<ng-container *mobileHidden>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>점검표 등록</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row>
+        <app-col>
+          <app-input label="제목" placeholder="제목을 입력해주세요." [readonly]="false"></app-input>
+        </app-col>
+        <app-col>
+          <app-input label="업체명" value="(주)지에스아이엘" [readonly]="false" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-calendar label="점검일" [readonly]="false" [disabled]="false"></app-calendar>
+        </app-col>
+        <app-col>
+          <app-input label="작성자" value="이상범" [readonly]="true" [disabled]="true"></app-input>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <h4>파일 첨부</h4>
+        </app-col>
+        <app-col size="auto">
+          <app-button fill="translucent">
+            <app-file>
+            </app-file>
+            첨부
+          </app-button>
+        </app-col>
+      </app-row>
+      <app-card>
+          파일제목
+      </app-card>
+      <div class="flex-center">
+        <app-button>등록</app-button>
+        <app-button>삭제</app-button>
+      </div>
+    </form>
+  </ion-content>
+  </ng-container>
+
+
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>LH 점검</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <h4>기본 정보</h4>
+    <app-table>
+      <tbody>
+        <tr>
+          <th>제목</th>
+          <td>LH 점검</td>
+        </tr>
+        <tr>
+          <th>업체명</th>
+          <td>(주)지에스아이엘</td>
+        </tr>
+        <tr>
+          <th>점검일</th>
+          <td>2021.06.06</td>
+        </tr>
+        <tr>
+          <th>작성자</th>
+          <td>이상범</td>
+        </tr>
+      </tbody>
+    </app-table>
+    <h4>첨부 자료</h4>
+    <app-card color="light" class="file-card">
+      <h5>lh_점검표.pdf</h5>
+    </app-card>
+    <app-card color="light" class="file-card">
+      <h5>lh_점검표.pdf</h5>
+    </app-card>
+  </ion-content>
+  </ng-container>

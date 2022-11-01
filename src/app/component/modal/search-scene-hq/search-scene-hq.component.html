@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="white">
+    <ion-title>{{ languagePack.getText('현장 검색') }}</ion-title>
+    <ion-buttons slot="end">
+      <app-dismiss-button></app-dismiss-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="white">
+    <app-input name="search_text" [label]="languagePack.getText('현장명')" [placeholder]="languagePack.getText('검색어를 입력하세요')" [(ngModel)]="form.search_text" (buttonClick)="get()">
+      <app-img name="search"></app-img>
+    </app-input>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-card *ngIf="all" name="project_info" [button]="true" [color]="allState ? 'secondary' : 'white'" (click)="this.allState = true; this.selectedItem = null">
+    <app-row>
+      <app-col>
+        <h5>{{ languagePack.getText('전체') }}</h5>
+      </app-col>
+    </app-row>
+  </app-card>
+  <app-card name="project_info" *ngFor="let item of res?.rsMap" [button]="true" [color]="selectedItem === item ? 'secondary' : 'white'" (click)="this.allState = false; selectedItem = item">
+    <app-row>
+      <app-col size="6">
+        <h5>현장 코드</h5>
+        <p>{{ item.project_code }}</p>
+      </app-col>
+      <app-col>
+        <h5>{{ languagePack.getText('현장명') }}</h5>
+        <p>{{ item.project_name }}</p>
+      </app-col>
+    </app-row>
+  </app-card>
+  <ng-container *ngIf="res && res.rsCode">
+    <app-card color="light">
+      <p>{{ res.rsMsg }}</p>
+    </app-card>
+  </ng-container>
+  <p></p>
+</ion-content>
+<app-button-footer>
+  <app-button name="submit" (click)="select()">{{ languagePack.getText('적용') }}</app-button>
+</app-button-footer>

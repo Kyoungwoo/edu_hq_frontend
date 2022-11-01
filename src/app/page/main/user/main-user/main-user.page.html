@@ -43,15 +43,15 @@
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square" (click)="router('회의록')">
-          <app-img src="assets/img/menu/conference-dark.svg"></app-img>
-          <p>{{ languagePack.getText('회의록') }}</p>
+        <app-button class="square" shape="square" (click)="router('위험작업허가(PTW)')">
+          <app-img src="assets/img/menu/ptw-dark.svg"></app-img>
+          <p>위험작업허가(PTW)</p>
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square" (click)="router('미결함')">
-          <app-img src="assets/img/menu/undetermined-dark.svg"></app-img>
-          <p>미결함</p>
+        <app-button class="square" shape="square" (click)="router('회의록')">
+          <app-img src="assets/img/menu/conference-dark.svg"></app-img>
+          <p>{{ languagePack.getText('회의록') }}</p>
         </app-button>
       </app-col>
     </app-row>
@@ -65,7 +65,7 @@
       <app-col size="4">
         <app-button class="square" shape="square" (click)="router('')" color="main-btn-grey">
           <app-img src="assets/img/menu/general-check-dark.svg"></app-img>
-          <p>점검</p>
+          <p>점검현황</p>
         </app-button>
       </app-col>
       <app-col size="4">
@@ -77,9 +77,9 @@
     </app-row>
     <app-row>
       <app-col size="4">
-        <app-button class="square" shape="square" (click)="router('')" color="main-btn-grey">
-          <app-img src="assets/img/menu/ptw-dark.svg"></app-img>
-          <p>위험작업허가</p>
+        <app-button class="square" shape="square" (click)="router('미결함')">
+          <app-img src="assets/img/menu/undetermined-dark.svg"></app-img>
+          <p>미결함</p>
         </app-button>
       </app-col>
       <app-col size="4">
@@ -89,9 +89,9 @@
         </app-button>
       </app-col>
       <app-col size="4">
-        <app-button class="square" shape="square" color="danger" (click)="router('')">
+        <app-button class="square" shape="square" color="danger" (click)="router('위험알림관리')">
           <app-img src="assets/img/menu/emergency-alarm-management-dark.svg"></app-img>
-          <p>비상알림</p>
+          <p>위험알림관리</p>
         </app-button>
       </app-col>
     </app-row>

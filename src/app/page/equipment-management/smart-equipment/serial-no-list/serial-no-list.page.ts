@@ -52,7 +52,7 @@ class SearialCtgo {
   styleUrls: ['./serial-no-list.page.scss'],
 })
 export class SerialNoListPage implements OnInit {
-  @Input() master_company_id;
+  // @Input() master_company_id;
   /** @param allState - 원청사와 업체를 전체를 검색할수 있는지 여부 */
   allState: boolean = (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? true : false;
 
@@ -68,14 +68,15 @@ export class SerialNoListPage implements OnInit {
   form = {
     ctgo_machine_serial_id: 0,
     company_id: (this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER') ? 0 : this.user.userData.belong_data.company_id,
-    master_company_id:
-      this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER' ? 0
-        : this.user.userData.belong_data.master_company_id,
-    partner_company_id: 0,
+    // tw : limit_no 와 master_company_id 를 사용하지 않는 것 같음 
+    // master_company_id:
+    //   this.user.userData.user_type == 'LH' || this.user.userData.user_type == 'SUPER' ? 0
+    //     : this.user.userData.belong_data.master_company_id,
+    // partner_company_id: 0,
     // start_date: this.date.today({ year: -3 }),
     project_id: this.user.userData.belong_data.project_id,
     search_text: '',
-    limit_no: 0,
+    // limit_no: 0,
   };
 
   /** @param res_original - 원본 데이터(비교용) */
@@ -105,13 +106,12 @@ export class SerialNoListPage implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.form);
     setTimeout(() => {
       this.get();
     }, 300);
   }
 
-  async get() {
+  async get(){
     await this.getSearialCtgo();
     await this.getList();
   }
@@ -124,9 +124,10 @@ export class SerialNoListPage implements OnInit {
   /**
    * @function getList(): 중장비 등록 NO 목록 가져오기
    */
-  async getList(limit_no = this.form.limit_no) {
+  async getList() {
+  // async getList(limit_no = this.form.limit_no) {
 
-    this.form.master_company_id = this.master_company_id;
+    // this.form.master_company_id = this.master_company_id;
     let method = await this.TransMethodType();
   
     const res = await this.connect.run(method, this.form, { parse: ['user_data'] });
@@ -178,10 +179,9 @@ export class SerialNoListPage implements OnInit {
   /**
    * @function getSearialCtgo(): 등록 NO 장비구분 목록 가져오기
    */
-  async getSearialCtgo() {
+   async getSearialCtgo() {
     const res = await this.connect.run('/serial/ctgo/list', { serial_type: '전체' });
-
-    if (res.rsCode === 0) {
+    if(res.rsCode === 0 ) {
       this.searial_ctgo_list = res.rsMap;
       this.form.ctgo_machine_serial_id = 0;
     }
@@ -189,15 +189,15 @@ export class SerialNoListPage implements OnInit {
       this.res = null;
     }
     else {
-      ;//this.toast.present({ color: 'warning', message: res.rsMsg });
+      this.toast.present({ color: 'warning', message: res.rsMsg });
     }
   }
 
   /**
    * @function addButton(): "추가" 버튼 클릭시 목록에 ITEM ROW가 추가됩니다
    */
-  addButton() {
-    this.res_insert.push({
+   addButton(){
+     this.res_insert.push({
       ctgo_machine_serial_id: this.form.ctgo_machine_serial_id,
       master_company_id: this.form.company_id,
       project_id: this.form.project_id,
@@ -206,8 +206,8 @@ export class SerialNoListPage implements OnInit {
       serial_use_state: 0,
       serial_value: '',
       serial_id: 0
-    });
-  }
+     });
+   }
 
   /**
    * @function SearialDelete(): 선택목록 삭제하기 메서드
@@ -224,19 +224,19 @@ export class SerialNoListPage implements OnInit {
             let update_item = [];
 
             this.selectedList.map((item) => {
-              if (!item.serial_id) insert_item.push(item);
-              if (item.serial_id) update_item.push(item.serial_id);
+              if(!item.serial_id) insert_item.push(item);
+              if(item.serial_id) update_item.push(item.serial_id);
             });
 
             // insert item이 있으면 삭제
-            if (insert_item.length) {
-              insert_item.map((item) => { if (this.res_insert.indexOf(item) != -1) this.res_insert.splice(this.res_insert.indexOf(item), 1); });
+            if(insert_item.length){
+              insert_item.map((item) => {if(this.res_insert.indexOf(item) != -1) this.res_insert.splice(this.res_insert.indexOf(item),1);});
             }
 
             // update item이 있으면 삭제
-            if (update_item.length) {
+            if(update_item.length){
               const res = await this.connect.run('/serial/delete', {
-                serial_ids: update_item
+                serial_ids : update_item
               });
               if (res.rsCode === 0) {
                 this.getList();
@@ -253,7 +253,7 @@ export class SerialNoListPage implements OnInit {
   /**
    * @function SearialSave(): "저장" 버튼을 클릭하면 실행되는 메서드
    */
-  async SearialSave() {
+   async SearialSave() {
     const alert = await this.alert.present({
       message: '저장 하시겠습니까?',
       buttons: [
@@ -269,56 +269,56 @@ export class SerialNoListPage implements OnInit {
 
             // 추가한 리스트 인서트
             let loadingCus = await this.loading.present();
-            if (this.res_insert.length) {
+            if(this.res_insert.length){
               this.res_insert.map((item, index) => {
-                if (!item.master_company_id) case_1 = true;
-                if (!item.ctgo_machine_serial_id) case_2 = true;
+                if(!item.master_company_id) case_1 = true;
+                if(!item.ctgo_machine_serial_id) case_2 = true;
               });
 
-              if (case_1) {
+              if(case_1) {
                 await loadingCus.dismiss();
                 return this.toast.present({ color: 'warning', message: '원청사를 선택해주세요.' });
               }
-              if (case_2) {
+              if(case_2) {
                 await loadingCus.dismiss();
                 return this.toast.present({ color: 'warning', message: '장비구분을 선택해주세요.' });
               }
               console.log(this.res_insert);
               // 예외처리 후 하나씩 리스트에 추가해준다. - 모든 api가 호출될때까지 기다린다
-              insert_promise = await Promise.all(this.res_insert.map((item) => { return this.SearialSaveMethod(item, 'insert') }));
-
+              insert_promise = await Promise.all(this.res_insert.map((item) => { return this.SearialSaveMethod(item, 'insert')}));
+              
               // 추가할 아이템만 있을경우 실행
               // insert_promise.then(() => {if(this.res_insert.length && !this.res) this.getList();});
             }
 
             // 수정된 아이템 찾기
             let changeed_itemIndex = [];
-            if (this.res) {
+            if(this.res){
               console.log(this.res);
-              for (let i = 0; i < this.res.rsMap.length; i++) {
-                if (
+              for(let i = 0; i < this.res.rsMap.length; i++){
+                if(
                   this.res.rsMap[i].master_company_id != this.res_original[i].master_company_id ||
                   this.res.rsMap[i].ctgo_machine_serial_id != this.res_original[i].ctgo_machine_serial_id ||
                   this.res.rsMap[i].serial_bicon != this.res_original[i].serial_bicon ||
                   this.res.rsMap[i].serial_nfc != this.res_original[i].serial_nfc ||
                   this.res.rsMap[i].serial_value != this.res_original[i].serial_value ||
                   this.res.rsMap[i].serial_use_state != this.res_original[i].serial_use_state
-                ) changeed_itemIndex.push(this.res.rsMap[i]);
+                  ) changeed_itemIndex.push(this.res.rsMap[i]);
               }
             }
 
             // 한개라도 바뀐 아이템이 있으면 수정 실행
-            if (changeed_itemIndex.length) {
+            if(changeed_itemIndex.length){
               // 수정된 아이템들 업데이트하기 - 모든 api를 호출할때까지 기다린다
-              update_promise = await Promise.all(changeed_itemIndex.map((item) => { return this.SearialSaveMethod(item, 'update') }));
-
+              update_promise = await Promise.all(changeed_itemIndex.map((item) => { return this.SearialSaveMethod(item, 'update')}));
+              
               // 모든 api를 호출 후 리스트 다시 갱신
               // update_promise.then(() => {this.getList();});
             }
-            const all_promise = Promise.all([insert_promise, update_promise]);
-            await all_promise.then(() => { if (changeed_itemIndex.length || this.res_insert.length) this.getList(); });
+            const all_promise = Promise.all([insert_promise,update_promise]);
+            await all_promise.then(() => {if(changeed_itemIndex.length || this.res_insert.length) this.getList();});
 
-            if (!changeed_itemIndex.length && !this.res_insert.length) this.resetState();
+            if(!changeed_itemIndex.length && !this.res_insert.length) this.resetState(); 
 
             await loadingCus.dismiss();
           }
@@ -333,11 +333,11 @@ export class SerialNoListPage implements OnInit {
    * @param type - 메서드 타입('insert' | 'update')
    * @returns resolve(true)
    */
-  SearialSaveMethod(item, type: 'insert' | 'update') {
-    return new Promise(async (resolve, reject) => {
-      const res = await this.connect.run('/serial/' + type, item);
+  SearialSaveMethod(item, type: 'insert' | 'update'){
+    return new Promise(async(resolve, reject) => {
+      const res = await this.connect.run('/serial/'+type, item);
       if (res.rsCode === 0) {
-
+  
       } else {
         this.toast.present({ color: 'warning', message: res.rsMsg });
       }
@@ -351,20 +351,20 @@ export class SerialNoListPage implements OnInit {
    * @param user_id - 체크박스가 있는 목록 해당 아이템을 등록한 사람의 user_id
    * @returns true or false
    */
-  btnPromise(type, user_id = null) {
+   btnPromise(type, user_id = null){
     let state = false;
-    switch (type) {
+    switch(type){
       case 'insert':
-        if (this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
         break;
       case 'update':
-        if (this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
         break;
       case 'delete':
-        if (this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
         break;
       case 'delete_check':
-        if (this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
+        if(this.user.userData.user_role == 'LH_HEAD' || this.user.userData.user_type == 'COMPANY') state = true;
         break;
     }
     return state;

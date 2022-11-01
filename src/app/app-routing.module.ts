@@ -48,6 +48,10 @@ const routes: Routes = [
     loadChildren: () => import('./page/monitor/monitor.module').then(m => m.MonitorPageModule)
   },
   {
+    path: 'monitor-warning',
+    loadChildren: () => import('./page/monitor/monitor-warning/monitor-warning.module').then(m => m.MonitorWarningPageModule)
+  },
+  {
     path: 'manual-list',
     loadChildren: () => import('./page/customer-support/user-manual/manual-list/manual-list.module').then(m => m.ManualListPageModule)
   },
@@ -575,10 +579,10 @@ const routes: Routes = [
     path: 'worker-minutes-select-type',
     loadChildren: () => import('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module').then( m => m.WorkerMinutesSelectTypePageModule)
   },
-  {
-    path: 'main-sub-admin',
-    loadChildren: () => import('./page/main/admin/main-sub-admin/main-sub-admin.module').then( m => m.MainSubAdminPageModule)
-  },
+  // {
+  //   path: 'monitor',
+  //   loadChildren: () => import('./page/main/admin/monitor/monitor.module').then( m => m.MainSubAdminPageModule)
+  // },
   {
     path: 'main-user-master',
     loadChildren: () => import('./page/main/user/main-user-master/main-user-master.module').then( m => m.MainUserMasterPageModule)
@@ -682,7 +686,135 @@ const routes: Routes = [
   {
     path: 'procedure-search',
     loadChildren: () => import('./page/notice-board/procedure/procedure-search/procedure-search.module').then( m => m.ProcedureSearchPageModule)
-  }
+  },
+  // {
+  //   path: 'ptw-list',
+  //   loadChildren: () => import('./page/work-plan/ptw/ptw-list/ptw-list.module').then(m => m.PtwListPageModule)
+  // },
+  // {
+  //   path: 'ptw-edit',
+  //   loadChildren: () => import('./page/work-plan/ptw/ptw-edit/ptw-edit.module').then(m => m.PtwEditPageModule)
+  // },
+  // {
+  //   path: 'ptw-pending-list',
+  //   loadChildren: () => import('./page/work-plan/ptw/ptw-pending-list/ptw-pending-list.module').then(m => m.PtwPendingListPageModule)
+  // },
+  // {
+  //   path: 'ptw-risk-evaluation',
+  //   loadChildren: () => import('./page/work-plan/ptw/ptw-risk-evaluation/ptw-risk-evaluation.module').then(m => m.PtwRiskEvaluationPageModule)
+  // },
+  // {
+  //   path: 'ptw-detail-search',
+  //   loadChildren: () => import('./page/work-plan/ptw/ptw-detail-search/ptw-detail-search.module').then(m => m.PtwDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'tbm-list',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-list/tbm-list.module').then(m => m.TbmListPageModule)
+  // },
+  // {
+  //   path: 'tbm-edit',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-edit/tbm-edit.module').then(m => m.TbmEditPageModule)
+  // },
+  // {
+  //   path: 'tbm-unit',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-unit/tbm-unit.module').then(m => m.TbmUnitPageModule)
+  // },
+  // {
+  //   path: 'tbm-worker',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-worker/tbm-worker.module').then(m => m.TbmWorkerPageModule)
+  // },
+  // {
+  //   path: 'tbm-detail-search',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-detail-search/tbm-detail-search.module').then(m => m.TbmDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'tbm-registration',
+  //   loadChildren: () => import('./page/task-management/tbm/tbm-registration/tbm-registration.module').then(m => m.TbmRegistrationPageModule)
+  // },
+  // {
+  //   path: 'daily-list',
+  //   loadChildren: () => import('./page/task-management/inspection/daily-list/daily-list.module').then(m => m.DailyListPageModule)
+  // },
+  // {
+  //   path: 'daily-edit',
+  //   loadChildren: () => import('./page/task-management/inspection/daily-edit/daily-edit.module').then(m => m.DailyEditPageModule)
+  // },
+  // {
+  //   path: 'daily-detail-search',
+  //   loadChildren: () => import('./page/task-management/inspection/daily-detail-search/daily-detail-search.module').then(m => m.DailyDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'danger-list',
+  //   loadChildren: () => import('./page/task-management/inspection/danger-list/danger-list.module').then(m => m.DangerListPageModule)
+  // },
+  // {
+  //   path: 'danger-edit',
+  //   loadChildren: () => import('./page/task-management/inspection/danger-edit/danger-edit.module').then(m => m.DangerEditPageModule)
+  // },
+  // {
+  //   path: 'danger-search',
+  //   loadChildren: () => import('./page/task-management/inspection/danger-search/danger-search.module').then(m => m.DangerSearchPageModule)
+  // },
+  // {
+  //   path: 'danger-detail-search',
+  //   loadChildren: () => import('./page/task-management/inspection/danger-detail-search/danger-detail-search.module').then(m => m.DangerDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'emergency-detail-search',
+  //   loadChildren: () => import('./page/emergency-management/emergency-detail-search/emergency-detail-search.module').then(m => m.EmergencyDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'lh-list',
+  //   loadChildren: () => import('./page/task-management/inspection/lh-list/lh-list.module').then(m => m.LhListPageModule)
+  // },
+  // {
+  //   path: 'lh-edit',
+  //   loadChildren: () => import('./page/task-management/inspection/lh-edit/lh-edit.module').then(m => m.LhEditPageModule)
+  // },
+  // {
+  //   path: 'incongruity-list',
+  //   loadChildren: () => import('./page/task-management/incongruity/incongruity-list/incongruity-list.module').then(m => m.IncongruityListPageModule)
+  // },
+  // {
+  //   path: 'incongruity-edit',
+  //   loadChildren: () => import('./page/task-management/incongruity/incongruity-edit/incongruity-edit.module').then(m => m.IncongruityEditPageModule)
+  // },
+  // {
+  //   path: 'incongruity-detail-search',
+  //   loadChildren: () => import('./page/task-management/incongruity/incongruity-detail-search/incongruity-detail-search.module').then(m => m.IncongruityDetailSearchPageModule)
+  // },
+  // {
+  //   path: 'incongruity-need',
+  //   loadChildren: () => import('./page/task-management/incongruity/incongruity-need/incongruity-need.module').then(m => m.IncongruityNeedPageModule)
+  // },
+  {
+    path: 'emergency-list',
+    loadChildren: () => import('./page/emergency-management/emergency-list/emergency-list.module').then(m => m.EmergencyListPageModule)
+  },
+  {
+    path: 'emergency-edit',
+    loadChildren: () => import('./page/emergency-management/emergency-edit/emergency-edit.module').then(m => m.EmergencyEditPageModule)
+  },
+  {
+    path: 'emergency-warning',
+    loadChildren: () => import('./page/emergency-management/emergency-warning/emergency-warning.module').then(m => m.EmergencyWarningPageModule)
+  },
+  {
+    path: 'emergency-target',
+    loadChildren: () => import('./page/emergency-management/emergency-target/emergency-target.module').then(m => m.EmergencyTargetPageModule)
+  },
+  {
+    path: 'accident-list',
+    loadChildren: () => import('./page/emergency-management/accident-list/accident-list.module').then(m => m.AccidentListPageModule)
+  },
+  {
+    path: 'accident-edit',
+    loadChildren: () => import('./page/emergency-management/accident-edit/accident-edit.module').then(m => m.AccidentEditPageModule)
+  },
+  {
+    path: 'business-list',
+    loadChildren: () => import('./page/business/business-list/business-list.module').then(m => m.BusinessListPageModule)
+  },
 ];
 
 @NgModule({

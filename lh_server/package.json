@@ -1,0 +1,44 @@
+{
+  "name": "btd",
+  "version": "1.0.0",
+  "description": "BTD Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start",
+    "testbabel": "babel-node app.js",
+    "nodemon": "nodemon --exec babel-node app.js --delay 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorosee/SUNGHA_BTD_SERVICE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dorosee/SUNGHA_BTD_SERVICE/issues"
+  },
+  "homepage": "https://github.com/dorosee/SUNGHA_BTD_SERVICE#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.0",
+    "browserify": "^17.0.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
+    "jwt-decode": "^3.1.2",
+    "lit": "^2.0.2",
+    "mqtt": "^4.2.8",
+    "tinyify": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.7",
+    "@babel/node": "^7.16.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "polymer-cli": "^1.9.11"
+  }
+}
