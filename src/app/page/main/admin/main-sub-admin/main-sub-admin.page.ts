@@ -10,9 +10,9 @@ import { environment } from 'src/environments/environment';
 import { LogoutService } from 'src/app/service/logout.service';
 
 @Component({
-  selector: 'app-main-sub-admin',
-  templateUrl: './main-sub-admin.page.html',
-  styleUrls: ['./main-sub-admin.page.scss'],
+  selector: 'app-monitor',
+  templateUrl: './monitor.page.html',
+  styleUrls: ['./monitor.page.scss'],
 })
 export class MainSubAdminPage implements OnInit {
   form = {

@@ -1,0 +1,26 @@
+.ng-star-inserted {
+    margin-top: 0 !important;
+}
+
+app-table {
+    app-check {
+        justify-content: center;
+    }
+    app-input {
+        width: 100%;
+        background-color: transparent;
+    }
+}
+
+.tab_edit {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.flex_between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

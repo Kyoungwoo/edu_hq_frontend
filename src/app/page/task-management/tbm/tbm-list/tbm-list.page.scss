@@ -1,0 +1,12 @@
+.flex {
+    display: flex;
+    gap: 15px;
+}
+
+.tab_list {
+    display: none;
+}
+
+.tab_list.active {
+    display: block;
+}

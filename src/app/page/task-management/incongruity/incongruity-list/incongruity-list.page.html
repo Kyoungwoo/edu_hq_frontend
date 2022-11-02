@@ -1,0 +1,145 @@
+<ng-container *mobileHidden>
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input-group label="발생일">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-action></app-select-action>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해 주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" (click)="edit()">신규 등록</app-button>
+          <app-button fill="translucent">조치 필요</app-button>
+          <!-- <app-button fill="translucent">제출 작성</app-button>
+          <app-button fill="translucent" (click)="pending()">미결 문서</app-button> -->
+        </ion-buttons>
+      </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>장소</th>
+              <th>부적합 정보</th>
+              <th>발생일시</th>
+              <th>작성자</th>
+              <th>조치 현황</th>
+              <th>조치일시</th>
+              <th>조치자</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" class="button" (click)="edit(item)">
+              <td>1</td>
+              <td>116동 엘리베이터실 앞</td>
+              <td>안전 난간대 조치 요망</td>
+              <td>21.09.15 07:30</td>
+              <td>이상범</td>
+              <td>조치 전</td>
+              <td>21.09.16 08:30</td>
+              <td>구범수,이상범</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
+        <app-pager></app-pager>
+      </app-col>
+  </app-row>
+</ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>부적합(아차사고) 관리</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input-template label="현장">
+          <!-- <p slot="input">{{ form.project_name }}</p> -->
+          <p slot="input">서울시 블록형 단독주택 공사</p>
+        </app-input-template>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <!-- <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)"> -->
+  <app-card (click)="edit()">
+    <app-row>
+      <app-col>
+        <h5>변전선 미설치로 인한 감전위험</h5>
+      </app-col>
+      <app-col class="flex_end">
+        <ion-chip color="warning">조치 전</ion-chip>
+        <!-- <ion-chip color="success">조치 완료</ion-chip> -->
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col class="flex">
+        <p>A-1블록 103동 지하 1층 전기실</p>
+        <p>작성자 : 이상범 / 발생일시 : 2022.05.06(화)</p>
+        <p>조치자 : 이상범/ 조치일시 : 2022.05.06(화)</p>
+      </app-col>
+    </app-row>
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<app-button-footer>
+  <app-button (click)="edit()">신규 등록</app-button>
+  <app-button (click)="need()">조치 필요</app-button>
+</app-button-footer>
+</ng-container>

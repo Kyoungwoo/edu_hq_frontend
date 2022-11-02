@@ -1,0 +1,157 @@
+<ng-container *mobileHidden>
+<app-header-admin></app-header-admin>
+
+<ion-content>
+  <app-row style="align-items: flex-start;">
+    <app-col size="280px">
+      <app-table type="card">
+        <ion-toolbar slot="top" color="white">
+          <app-row style="justify-content: space-between;">
+            <app-col size="auto"><h5>필터</h5></app-col>
+            <app-col size="auto">
+              <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+            </app-col>
+          </app-row>
+        </ion-toolbar>
+        <tbody>
+          <tr>
+            <td>
+              <app-select-scene></app-select-scene>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-contractor></app-select-contractor>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <!-- 공종선택시 위험성평가 팝업 띄우기 -->
+              <app-select-construction></app-select-construction>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-select-approval-type></app-select-approval-type>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input-group label="작성일">
+                <app-calendar></app-calendar>
+                ~
+                <app-calendar></app-calendar>
+              </app-input-group>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <app-input label="검색어" placeholder="검색어를 입력해 주세요."></app-input>
+            </td>
+          </tr>
+        </tbody>
+      </app-table>
+    </app-col>
+
+    <app-col>
+      <ion-toolbar color="white">
+        <ion-buttons slot="start">
+          <app-button fill="translucent" (click)="edit()">신규 작성</app-button>
+          <app-button fill="translucent">제출 작성</app-button> <!--  [disabled]="!selectitem" 클릭금지 -->
+          <app-button fill="translucent" (click)="pending()">미결 문서</app-button>
+        </ion-buttons>
+      </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>위험공종</th>
+              <th>작업내용</th>
+              <th>업체명</th>
+              <th>작업일</th>
+              <th>작업자</th>
+              <th>작성일</th>
+              <th>결재현황</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="button" class="button" *ngFor="let item of ptwList; let i=index" (click)="edit(item)">
+              <td>{{ item.no }}</td>
+              <td>{{ item.dengerType }}</td>
+              <td>{{ item.content }}</td>
+              <td>{{ item.company }}</td>
+              <td>{{ item.workDate }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.writeDate }}</td>
+              <td>{{ item.status }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <!-- <app-pager [totalCount]="res?.rsObj.row_count" [limitNo]="form.limit_no" (pagerChange)="getList($event)"></app-pager> -->
+        <app-pager></app-pager>
+      </app-col>
+  </app-row>
+</ion-content>
+</ng-container>
+
+<!-- 모바일 -->
+<ng-container *mobileShow>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>위험 작업 허가(PTW)</ion-title>
+      <ion-buttons slot="end">
+        <app-menu-button></app-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="white">
+      <app-input-group>
+        <app-input-template label="현장">
+          <!-- <p slot="input">{{ form.project_name }}</p> -->
+          <p slot="input">수원 당수 아파트 공사</p>
+        </app-input-template>
+        <app-button (click)="openDetailSearch()">상세검색</app-button>
+      </app-input-group>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+  <app-row>
+    <app-col></app-col>
+    <app-col size="auto">
+      <app-button fill="translucent" (click)="pending()">미결문서</app-button>
+    </app-col>
+  </app-row>
+  <!-- <app-card *ngFor="let item of res?.rsMap" (click)="edit(item)"> -->
+  <app-card (click)="edit()">
+    <app-row>
+      <app-col>
+        <h5>수시 위험성 평가서</h5>
+      </app-col>
+      <app-col size="auto">
+        <!-- <app-chip-approval-answer [approval_cnt_answer]="item.approval_cnt_answer"></app-chip-approval-answer> -->
+        <app-chip-approval-answer [approval_cnt_answer]="approval_cnt_answer"></app-chip-approval-answer>
+      </app-col>
+    </app-row>
+    <app-row>
+      <app-col>
+        <!-- <p>{{ item.company_name }}</p> -->
+        <p>극동건설(주)</p>
+        <!-- <p>작업기간: {{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</p> -->
+        <p>작업기간: 2022-11-11 ~ 2022-11-12</p>
+      </app-col>
+    </app-row>
+    <ion-badge color="success">이동식 크레인</ion-badge>
+    <!-- <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge> -->
+  </app-card>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">
+    <ion-infinite-scroll-content loading-spinner="dots">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+</ng-container>

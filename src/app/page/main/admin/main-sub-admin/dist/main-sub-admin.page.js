@@ -555,9 +555,9 @@ var MainSubAdminPage = /** @class */ (function () {
     };
     MainSubAdminPage = __decorate([
         core_1.Component({
-            selector: 'app-main-sub-admin',
-            templateUrl: './main-sub-admin.page.html',
-            styleUrls: ['./main-sub-admin.page.scss']
+            selector: 'app-monitor',
+            templateUrl: './monitor.page.html',
+            styleUrls: ['./monitor.page.scss']
         })
     ], MainSubAdminPage);
     return MainSubAdminPage;

@@ -254,7 +254,7 @@ var LoginPage = /** @class */ (function () {
                                 return [2 /*return*/];
                             }
                             else if (userData.user_type === 'COMPANY') {
-                                userData.user_main_page = '/main-sub-admin';
+                                userData.user_main_page = '/monitor';
                             }
                             else {
                                 userData.user_main_page = '/district-management';

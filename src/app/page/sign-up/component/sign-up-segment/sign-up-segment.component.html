@@ -11,6 +11,28 @@
         </div>
       </div>
     </ion-segment-button> -->
+    <ion-segment-button mode="md" value="step1">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked">1</div>
+        </div>
+        <div class="segment-text">
+          {{ languagePack.getText('기본정보') }}
+        </div>
+      </div>
+    </ion-segment-button>
+    <!-- <ion-segment-button *ngIf="type === 'WORKER'" mode="md" value="step2">
+      <div class="segment-inner">
+        <div class="segment-img">
+          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
+          <div class="segment-img-unchecked"></div>
+        </div>
+        <div class="segment-text">
+          {{ languagePack.getText('건강 문진') }}<br>
+        </div>
+      </div>
+    </ion-segment-button> -->
     <ion-segment-button mode="md" value="step2">
       <div class="segment-inner">
         <div class="segment-img">
@@ -18,37 +40,15 @@
           <div class="segment-img-unchecked">2</div>
         </div>
         <div class="segment-text">
-          {{ languagePack.getText('기본정보') }}
-        </div>
-      </div>
-    </ion-segment-button>
-    <ion-segment-button *ngIf="type === 'WORKER'" mode="md" value="step3">
-      <div class="segment-inner">
-        <div class="segment-img">
-          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
-          <div class="segment-img-unchecked">3</div>
-        </div>
-        <div class="segment-text">
-          {{ languagePack.getText('건강 문진') }}<br>
-        </div>
-      </div>
-    </ion-segment-button>
-    <ion-segment-button mode="md" value="step4">
-      <div class="segment-inner">
-        <div class="segment-img">
-          <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
-          <div class="segment-img-unchecked">4</div>
-        </div>
-        <div class="segment-text">
           {{ languagePack.getText('약관 동의') }}
         </div>
       </div>
       </ion-segment-button>
-    <ion-segment-button mode="md" value="step5">
+    <ion-segment-button mode="md" value="step3">
       <div class="segment-inner">
         <div class="segment-img">
           <app-img class="segment-img-checked" mode="light" name="check-white"></app-img>
-          <div class="segment-img-unchecked">5</div>
+          <div class="segment-img-unchecked">3</div>
         </div>
         <div class="segment-text">
           {{ languagePack.getText('가입완료') }}

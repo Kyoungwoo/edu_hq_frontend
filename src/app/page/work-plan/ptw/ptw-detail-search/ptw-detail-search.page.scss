@@ -1,0 +1,21 @@
+.chip-list {
+    margin-bottom: 4px;
+    ion-chip {
+        display: flex;
+        width: 100%;
+    }
+}
+
+.lefr-class{
+    td{
+        text-align: left;
+        white-space: pre-wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    ion-content {
+        --padding-start: 0;
+        --padding-end: 0;
+    }
+}

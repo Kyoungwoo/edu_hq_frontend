@@ -14,15 +14,16 @@
                     <h4>주간 출역 현황</h4>
                   </app-col>
                   <app-col size="auto">
-                    <ion-badge color="medium" (click)="todayWorkDetail({
+                    <!-- <ion-badge color="medium" (click)="todayWorkDetail({
                       company_admin: 0,
                       company_worker: 0,
                       master_admin: 0,
                       master_worker: 0,
                       total_cnt: 0,
                       work_date: this.date.today()
-                  })"><b>{{ todayWork_totalCount }}</b>명</ion-badge>
-                  <!-- <ion-badge color="medium"><b>{{ todayWork_totalCount }}</b>명</ion-badge> -->
+                  })"><b>{{ todayWork_totalCount }}</b>명</ion-badge> -->
+                    <ion-badge color="medium"><b>{{ todayWork_totalCount }}</b>명</ion-badge>
+                    <!-- <ion-badge color="medium"><b>{{ todayWork_totalCount }}</b>명</ion-badge> -->
                   </app-col>
                 </app-row>
               </ion-toolbar>
@@ -48,8 +49,7 @@
                   <div class="bar-wrap">
                     <div class="bar-item" *ngFor="let item of todayWork?.rsMap">
                       <!-- (click)="todayWorkDetail(item)" -->
-                      <div *ngIf="item.total_cnt" (click)="todayWorkDetail(item)"
-                        class="bar"
+                      <div *ngIf="item.total_cnt" (click)="todayWorkDetail(item)" class="bar"
                         [style.height]="'calc((100% - 50.55px) * '+(item.total_cnt / todayWork_ceil_Total)+')'">
                         <div class="bar-inner-text">{{ item.total_cnt }}</div>
                       </div>
@@ -70,7 +70,7 @@
                     <h4>TBM / 작업 현황</h4>
                   </app-col>
                   <app-col size="auto">
-                    <ion-badge color="medium">총<b>0</b>팀</ion-badge>
+                    <ion-badge color="medium">총<b>{{graphArr3Count}}</b>팀</ion-badge>
                   </app-col>
                 </app-row>
               </ion-toolbar>
@@ -84,13 +84,10 @@
             </app-card>
           </app-col>
         </app-row>
-        
+
         <app-row class="mobileBreak">
           <app-col>
-
             <app-card class="graph-card">
-
-              
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
@@ -111,32 +108,28 @@
                 </app-col>
               </ion-row>
             </app-card>
-
           </app-col>
-
           <app-col>
-
             <!-- <app-card class="graph-card" [blind]="true"> -->
-              <app-card class="graph-card">
+            <app-card class="graph-card">
               <ion-toolbar slot="top" color="white">
                 <app-row>
                   <app-col>
                     <h4>PTW 위험 작업 계획</h4>
                   </app-col>
                   <app-col size="auto">
-                    <ion-badge color="medium">총<b>0</b>건</ion-badge>
+                    <ion-badge color="medium">총<b>{{graphArr4[graphArr4.length-1]?.count}}</b>건</ion-badge>
                   </app-col>
                 </app-row>
               </ion-toolbar>
               <ion-row *ngFor="let item of graphArr4 let i = index">
-                <app-col size="6" class="risk-type-name">{{ item.name }}</app-col>
-                <app-col style="display: flex; align-items: center;">
+                <app-col *ngIf="i != (graphArr4.length-1)" size="6" class="risk-type-name">{{ item.name }}</app-col>
+                <app-col *ngIf="i != (graphArr4.length-1)" style="display: flex; align-items: center;">
                   <div [ngStyle]="style(item)" class="danger-state" [style.width]="item.count + '%'"></div>
                   <h4>{{item.count}}</h4>
                 </app-col>
               </ion-row>
             </app-card>
-
           </app-col>
         </app-row>
       </app-col>
@@ -148,9 +141,11 @@
               <app-col>
                 <h4>스마트 안전 장비</h4>
               </app-col>
-              <app-col size="auto">
-                <app-button *mobileHidden fill="translucent" (click)="smartEquipEdit()">{{ (user.userData.user_type === 'LH' || user.userData.user_type === 'SUPER') ? '조회' : '수정' }}</app-button>
-              </app-col>
+              <!-- <app-col size="auto">
+                <app-button *mobileHidden fill="translucent" (click)="smartEquipEdit()">
+                  {{ (user.userData.user_type === 'LH' || user.userData.user_type === 'SUPER') ? '조회' : '수정' }}
+                </app-button>
+              </app-col> -->
             </app-row>
           </ion-toolbar>
           <table style="width: 100%;">
@@ -266,16 +261,16 @@
       </app-col>
       <ng-container *mobileShow>
         <app-col>
-          <app-card class="card-flex" style="height: 315px;"> 
+          <app-card class="card-flex" style="height: 315px;">
             <div>
-                <ion-toolbar slot="top" color="white">
-                  <app-row>
-                    <app-col>
-                      <h4>경기도 성남시 분당구</h4>
-                    </app-col>
-                  </app-row>
-                </ion-toolbar>
-                <!--            
+              <ion-toolbar slot="top" color="white">
+                <app-row>
+                  <app-col>
+                    <h4>경기도 성남시 분당구</h4>
+                  </app-col>
+                </app-row>
+              </ion-toolbar>
+              <!--            
                   <app-row>
                     <app-col>
                       <app-row>
@@ -304,87 +299,87 @@
                       <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img>
                     </app-col>
                   </app-row> -->
-                <app-row>
-                  <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                    <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
-                      <app-col>
-                        <h2>{{ weather.weather_temp }}&deg;C</h2>
-                      </app-col>
-                    </app-row>
-                    <app-row style="text-align: center;">
-                      <app-col>
-                        <h5>최고기온</h5>
-                      </app-col>
-                      <app-col>
-                        <h3>{{ weather.high_weather_temp }}&deg;C</h3>
-                      </app-col>
-                    </app-row>
-                    <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
-                      <app-col>
-                        <h5>최저기온</h5>
-                      </app-col>
-                      <app-col>
-                        <h3>{{ weather.low_weather_temp }}&deg;C</h3>
-                      </app-col>
-                    </app-row>
-                  </app-col>
-                  <app-col style="text-align: center;">
-                    <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
-                    <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
-                  </app-col>
-                </app-row>
-                <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
-                  <app-col style="padding-left: 0; padding-right: 0;">
-                    <app-row class="title">
-                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                        <h5>강수량</h5>
-                      </app-col>
-                    </app-row>
-                    <app-row class="ratio">
-                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                        <!-- <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6> -->
-                        <h6>{{ weather.weather_rain }}</h6>
-                      </app-col>
-                    </app-row>
-                  </app-col>
-                  <app-col style="padding-left: 0; padding-right: 0;">
-                    <app-row class="title">
-                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                        <h5>적설량</h5>
-                      </app-col>
-                    </app-row>
-                    <app-row class="ratio">
-                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                        <h6>{{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}</h6>
-                      </app-col>
-                    </app-row>
-                  </app-col>
-                  <app-col style="padding-left: 0; padding-right: 0;">
-                    <app-row class="title">
-                      <app-col style="border-right: 1px solid var(--ion-color-step-100);">
-                        <h5>최대풍속</h5>
-                      </app-col>
-                    </app-row>
-                    <app-row class="ratio">
-                      <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
-                        <h6>{{ weather.weather_speed + "m/s"}}</h6>
-                      </app-col>
-                    </app-row>
-                  </app-col>
-                  <app-col style="padding-left: 0; padding-right: 0;">
-                    <app-row class="title">
-                      <app-col>
-                        <h5>미세먼지</h5>
-                      </app-col>
-                    </app-row>
-                    <app-row class="ratio">
-                      <app-col class="ratio-col">
-                        <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
-                        <h6>{{ dust.grade_name}}</h6>
-                      </app-col>
-                    </app-row>
-                  </app-col>
-                </app-row>
+              <app-row>
+                <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                  <app-row style="text-align: center; border-bottom: 1px solid var(--ion-color-step-100);">
+                    <app-col>
+                      <h2>{{ weather.weather_temp }}&deg;C</h2>
+                    </app-col>
+                  </app-row>
+                  <app-row style="text-align: center;">
+                    <app-col>
+                      <h5>최고기온</h5>
+                    </app-col>
+                    <app-col>
+                      <h3>{{ weather.high_weather_temp }}&deg;C</h3>
+                    </app-col>
+                  </app-row>
+                  <app-row style="text-align: center; border-top: 1px solid var(--ion-color-step-100);">
+                    <app-col>
+                      <h5>최저기온</h5>
+                    </app-col>
+                    <app-col>
+                      <h3>{{ weather.low_weather_temp }}&deg;C</h3>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="text-align: center;">
+                  <!-- <app-img style="width: 100%;" [src]="weather.weather_icon"></app-img> -->
+                  <app-img style="width: 80%;" src="assets/img/weather/01_day.svg"></app-img>
+                </app-col>
+              </app-row>
+              <app-row style="border-top: 1px solid var(--ion-color-step-100); text-align: center;">
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>강수량</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <!-- <h6>{{ weather.weather_rain !== '강수없음' ? weather.weather_rain + "mm" : weather.weather_rain}}</h6> -->
+                      <h6>{{ weather.weather_rain }}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>적설량</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <h6>{{ weather.weather_snow !== '적설없음' ? weather.weather_pty : '-' }}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col style="border-right: 1px solid var(--ion-color-step-100);">
+                      <h5>최대풍속</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col style="padding: 0; border-right: 1px solid var(--ion-color-step-100);">
+                      <h6>{{ weather.weather_speed + "m/s"}}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+                <app-col style="padding-left: 0; padding-right: 0;">
+                  <app-row class="title">
+                    <app-col>
+                      <h5>미세먼지</h5>
+                    </app-col>
+                  </app-row>
+                  <app-row class="ratio">
+                    <app-col class="ratio-col">
+                      <app-img style="width: 20px;" src="assets/img/weather/dust_good.svg"></app-img>
+                      <h6>{{ dust.grade_name}}</h6>
+                    </app-col>
+                  </app-row>
+                </app-col>
+              </app-row>
             </div>
           </app-card>
         </app-col>
@@ -395,28 +390,13 @@
 
   <div *ngIf="data.monitor === 'CCTV 모니터링'" class="container">
 
-    <!-- <app-card *mobileShow>
-      <app-select placeholder="모니터링 할 CCTV를 선택해주세요"></app-select>
-      <ion-row style="align-items: flex-start;">
-        <app-col>
-          <h4>CCTV 설치장소1</h4>
-        </app-col>
-      </ion-row>
-      <app-row>
-        <app-col style="position: relative;">
-          <div style="border: 1px solid; height: 500px; position: relative;">
-          </div>
-        </app-col>
-      </app-row>
-    </app-card> -->
-
     <ng-container>
       <app-row style="align-items: flex-start;">
         <app-col>
           <ng-container *ngFor="let res_1 of cctv">
             <app-card *ngIf="res_1.cctv_list.length" color="white">
               <app-row style="align-items: stretch;">
-  
+
                 <app-col class="cctv-box">
                   <app-row>
                     <app-col>
@@ -429,9 +409,13 @@
                     <ng-container *mobileHidden>
                       <app-col *ngFor="let res_2 of res_1?.cctv_list" size="auto">
                         <div>[{{ res_2.cctv_area_name }}]</div>
-                        <!-- <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1&disableautofullscreen=1&playsinline=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen></iframe> -->
+                        <!-- <iframe
+                          [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1&disableautofullscreen=1&playsinline=1' | safe: 'resourceUrl'"
+                          width="500px" height="280px" frameborder="0" allowfullscreen></iframe> -->
 
-                        <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_alias)+'&autoplay=1&disableautofullscreen=1&playsinline=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen></iframe>
+                        <iframe
+                          [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_alias)+'&autoplay=1&disableautofullscreen=1&playsinline=1' | safe: 'resourceUrl'"
+                          width="500px" height="280px" frameborder="0" allowfullscreen></iframe>
                         <!-- <iframe src= "https://dev.ipcamlive.com/player/player.php?alias=62bcbac138ab8" width="800px" height="450px" frameborder="0" allowfullscreen> </iframe> -->
                         <!-- <iframe src= "https://dev.ipcamlive.com/player/player.php?alias=62bcbac138ab8" width="100%" height="210px" frameborder="0" allowfullscreen> </iframe>  -->
                         <!-- <iframe [src]="'https://dev.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1&disableautofullscreen=1&playsinline=1' | safe: 'resourceUrl'" width="500px" height="280px" frameborder="0" allowfullscreen></iframe> -->
@@ -440,24 +424,26 @@
                           <source src="http://s40.ipcamlive.com/streams/28iqfxocuhl7vy58z/stream.m3u8" type="application/x-mpegURL">
                         </video> -->
                         <!-- <iframe [src]="'http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8' | safe: 'resourceUrl'" width="500" height="280px" frameborder="0" allowfullscreen> </iframe> -->
-    
+
                         <!-- http:\/\/s40.ipcamlive.com\/streams\/28z6ilpcuokabnfdv\/stream.m3u8 -->
                       </app-col>
                     </ng-container>
-  
-  
+
+
                     <ng-container *mobileShow>
                       <app-col size="12" *ngFor="let res_2 of res_1?.cctv_list">
                         <div>[{{ res_2.cctv_area_name }}]</div>
                         <!-- <iframe src= "https://dev.ipcamlive.com/player/player.php?alias=62bcbac138ab8" width="100%" height="210px" frameborder="0" allowfullscreen> </iframe>  -->
                         <!-- <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_id+res_2.cctv_channel_no)+'&autoplay=1&playsinline=1' | safe: 'resourceUrl'" width="100%" height="210px" frameborder="0" allowfullscreen></iframe> -->
-                        <iframe [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_alias)+'&autoplay=1&playsinline=1' | safe: 'resourceUrl'" width="100%" height="210px" frameborder="0" allowfullscreen></iframe>
+                        <iframe
+                          [src]="'https://g3.ipcamlive.com/player/player.php?alias='+(res_2.cctv_alias)+'&autoplay=1&playsinline=1' | safe: 'resourceUrl'"
+                          width="100%" height="210px" frameborder="0" allowfullscreen></iframe>
                         <!-- <iframe src= "https://dev.ipcamlive.com/player/player.php?alias=62bcbac138ab8" width="100%" height="210px" frameborder="0" allowfullscreen></iframe> -->
                       </app-col>
                     </ng-container>
                   </app-row>
                 </app-col>
-              
+
               </app-row>
             </app-card>
           </ng-container>
@@ -469,14 +455,13 @@
           </video>
         </app-col> -->
       </app-row>
-  
+
     </ng-container>
   </div>
 
   <div *ngIf="data.monitor === '실시간 위치 모니터링'" style="height: 100%">
-    <app-monitor-worker-location style="height: 100%"
-    [project_id]="form.project_id"
-    [master_company_id]="form.master_company_id"></app-monitor-worker-location>
+    <app-monitor-worker-location style="height: 100%" [project_id]="form.project_id"
+      [master_company_id]="form.master_company_id"></app-monitor-worker-location>
   </div>
-  
+
 </ion-content>

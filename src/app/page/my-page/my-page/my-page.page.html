@@ -119,8 +119,9 @@
         <app-row mobileBreak>
           <app-col>
   
-            <app-input-template label="업체명" [disabled]="true">
-              <p slot="input">{{ belongForm.company_name }}</p>
+            <app-input-template label="회사명" [disabled]="true">
+              <!-- <p slot="input">{{ belongForm.company_name }}</p> -->
+              <p slot="input">한국토지공사</p>
             </app-input-template>
   
           </app-col>
@@ -129,14 +130,6 @@
             [company_id]="belongForm.company_id"
             [(ngModel)]="belongForm.ctgo_job_position_id" [disabled]="!editable" [required]="true"></app-select-position>
             <app-input-caption *ngIf="belongValidator.ctgo_job_position_id?.valid === false" color="warning">{{ belongValidator.ctgo_job_position_id?.message }}</app-input-caption>
-          </app-col>
-  
-          <app-col *ngIf="userType === 'MASTER' || userType === 'PARTNER'">
-  
-            <app-input-template label="시스템 권한" [disabled]="true">
-              <p slot="input">{{ user.parseUserRole(belongForm.user_role) }}</p>
-            </app-input-template>
-  
           </app-col>
         </app-row>
   
@@ -182,154 +175,7 @@
           </app-col>
         </app-row>
 
-        <app-row mobileBreak *ngIf="userType === 'SUPER' || userType === 'MASTER' || userType === 'PARTNER'">
-          <app-col>
-  
-            <app-radio-input label="현장 출역 상태" [(ngModel)]="belongForm.construction_state" [disabled]="true">
-              <app-radio value="출역중">출역 중</app-radio>
-              <app-radio value="출역종료">출역 종료</app-radio>
-            </app-radio-input>
-  
-          </app-col>
-          <app-col>
-            
-            <app-input-template label="현장 출역 기간" [disabled]="true">
-              <p slot="input">{{ belongForm.construction_start_date || '없음' }} ~ {{ belongForm.construction_end_date || '없음' }}</p>
-            </app-input-template>
-  
-          </app-col>
-        </app-row>
-
-        <app-input-safejob #inputSafeJob *ngIf="userType === 'MASTER' || userType === 'PARTNER' || userType === 'WORKER'"
-        [project_id]="belongForm.project_id"
-        [company_id]="belongForm.company_id"
-        insert_url="/mypage/company/safejob/insert"
-        update_url="/mypage/company/safejob/update"
-        delete_url="/mypage/company/safejob/delete"
-        [(ngModel)]="belongForm.safe_job_data" [disabled]="!editable"></app-input-safejob>
-
-      </div>
-
-      <!-- 교육 이력 -->
-      <div [style.display]="segment === 'education' ? 'block' : 'none'">
-
-        <app-row mobileBreak>
-          <app-col>
-
-            <app-select-scene [(ngModel)]="educationGetForm.project_id"></app-select-scene>
-
-          </app-col>
-          <!-- <app-col>
-            
-            <app-select-education [(ngModel)]="educationGetForm.ctgo_education_safe_types" [all]="true" [multiple]="true"></app-select-education>
-
-          </app-col> -->
-
-          <app-col>
-
-            <app-input label="검색어" [(ngModel)]="educationGetForm.search_text" (buttonClick)="getEducationSearch()">
-              검색
-            </app-input>
-
-          </app-col>
-        </app-row>
-
-        <app-table>
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>교육 구분</th>
-              <th>교육명</th>
-              <th>이수일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of educationRes?.rsMap; let i = index;">
-              <td>{{ i+1 }}</td>
-              <td>{{ item.ctgo_education_safe_type }}</td>
-              <td>{{ item.ctgo_education_safe_title }}</td>
-              <td>{{ item.education_safe_time }}</td>
-            </tr>
-          </tbody>
-        </app-table>
-
-      </div>
-
-      <!-- 안전 마일리지 -->
-      <div [style.display]="segment === 'mileage' ? 'block' : 'none'">
-        
-        <h4>마일리지 현황</h4>
-
-        <app-table>
-          <thead>
-            <tr>
-              <th>총 적립 마일리지</th>
-              <th>총 사용 마일리지</th>
-              <th>잔여 마일리지</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.total_mileage) || 0 }}</td>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.plus_mileage) || 0 }}</td>
-              <td>{{ regex.replace.price(mileageTotalRes?.rsObj?.minus_mileage) || 0 }}</td>
-            </tr>
-          </tbody>
-        </app-table>
-        
-        <h4>안전 마일리지 적립 내역</h4>
-
-        <app-table>
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>마일리지 분류</th>
-              <th>지급자</th>
-              <th>작립일</th>
-              <th>적립 마일리지</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of mileagePlusRes?.rsMap; let i = index;">
-              <td>{{ i+1 }}</td>
-              <td>{{ item.ctgo_safe_mileage }}</td>
-              <td>{{ item.payer_user_name }}</td>
-              <td>{{ item.create_date }}</td>
-              <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
-            </tr>
-            <tr *ngIf="mileagePlusRes && mileagePlusRes.rsCode === 1008">
-              <td colspan="5">안전마일리지 적립 내역이 없습니다.</td>
-            </tr>
-          </tbody>
-        </app-table>
-
-        <h4>안전 마일리지 사용 내역</h4>
-
-        <app-table>
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>사용 내역</th>
-              <th>사용자</th>
-              <th>사용일</th>
-              <th>사용 마일리지</th>
-              <th>지급 상태</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of mileageMinusRes?.rsMap; let i = index;">
-              <td>{{ i+1 }}</td>
-              <td>{{ item.ctgo_safe_mileage }}</td>
-              <td>{{ item.payer_user_name }}</td>
-              <td>{{ item.create_date }}</td>
-              <td>{{ regex.replace.price(item.ctgo_safe_mileage_point) }}</td>
-              <td>지급완료</td>
-            </tr>
-            <tr *ngIf="mileageMinusRes && mileageMinusRes.rsCode === 1008">
-              <td colspan="6">안전마일리지 사용 내역이 없습니다.</td>
-            </tr>
-          </tbody>
-        </app-table>
+       
 
       </div>
 
@@ -340,6 +186,8 @@
 
 <!-- 상세보기 footer -->
 <app-button-footer *ngIf="!editable; else tempEditFooter">
+  <app-button fill="translucent" color="danger" (click)="withdrawal()">회원탈퇴</app-button> 
+  <app-button fill="translucent" (click)="changePassword()">비밀번호 변경</app-button> 
   <app-button name="button_edit" (click)="editable = true">수정</app-button>
 </app-button-footer>
 <!-- 수정 footer -->

@@ -52,9 +52,10 @@
       <app-row>
         <app-col>
           <p>{{ item.company_name }}</p>
-          <p>{{ languagePack.getText('작성일') }}: {{ item.create_date }}</p>
+          <p>작업기간: {{ item.risk_asment_start_date }} ~ {{ item.risk_asment_end_date }}</p>
         </app-col>
       </app-row>
+      <ion-badge color="success">{{ item.ctgo_construction_name }}</ion-badge>
     </app-card>
     
     <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="getMobile($event)">

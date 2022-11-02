@@ -53,6 +53,12 @@ export class SideMenuUserComponent implements OnInit {
         const { user_role, user_type } = this.user.userData;
         return user_role === 'LH_HEAD' ||  user_type === 'COMPANY' ||  user_type === 'WORKER';
        }},
+       // tw : 기본 항목들 제대로 바인딩인지 확인 필요 
+      // { title: 'TBM', link: '/tbm-list', params: {}, permission: () =>  { return true }},
+      // { title: '일상 점검', link: '/daily-list', params: {}, permission: () => { return true }},
+      // { title: '위험 지역 점검', link: '/danger-list', params: {}, permission: () => { return true }},
+      // { title: 'lh 점검', link: '/lh-list', params: {}, permission: () => { return true }},
+      // { title: '부적합 조치', link: '/incongruity-list', params: {}, permission: () => { return true}}
       { title: 'TBM', link: '', params: {}, permission: () =>  { return true }},
       { title: '점검', link: '', params: {}, permission: () => { return true }},
       { title: '부적합 조치', link: '', params: {}, permission: () => { return true}}
@@ -112,7 +118,8 @@ export class SideMenuUserComponent implements OnInit {
     },
     subMenuList: [
       // { title: '아차사고 신고', link: '', params: {}, permission: () => { return true }},
-      { title: '비상 알림 관리', link: '', params: {}, permission: () => { return true }}
+      { title: '위험 알림 관리', link: '/emergency-list', params: {}, permission: () => { return true }}
+      // { title: '비상 알림 관리', link: '/emergency-list', params: {}, permission: () => { return true }}
     ]},
     { img:'assets/img/menu/control-center.svg', title: '통합관제', 
     permission: () => {

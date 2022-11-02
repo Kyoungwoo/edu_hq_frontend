@@ -19,6 +19,8 @@
             </tr>
             <tr>
               <td>
+                <!-- tw : ngModel 내의 company_id 가 맞는지 master_company_id 가 맞는지 확인 필요 -->
+                <!-- <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.company_id"></app-select-contractor> -->
                 <app-select-contractor [project_id]="form.project_id" [(ngModel)]="form.master_company_id"></app-select-contractor>
               </td>
             </tr>
@@ -97,10 +99,6 @@
                 </td>
                 <!-- <td [class.center-class]="!item.master_company_name">{{ item.master_company_name ? item.master_company_name : ' - ' }}</td> -->
                 <td [class.center-class]="!item.partner_company_name">{{ item.partner_company_name ? item.partner_company_name : ' - ' }}</td>
-                <!-- <td>
-                  <app-select-company label="" [project_id]="form.project_id" 
-                    [(ngModel)]="item.partner_company_name" [text]="item.partner_company_name"></app-select-company>
-                </td> -->
                 <td>
                   <app-select-people-all label="" [project_id]="form.project_id" [master_company_id]="form.company_id" [(ngModel)]="item.assign_user_id" [text]="item.assign_user_name"></app-select-people-all>
                 </td>

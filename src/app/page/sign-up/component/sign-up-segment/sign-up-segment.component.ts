@@ -9,7 +9,7 @@ import { UserType } from 'src/app/basic/service/core/user.service';
 })
 export class SignUpSegmentComponent implements OnInit {
 
-  @Input() step:'step1' | 'step2' | 'step3' | 'step4';
+  @Input() step:'step1' | 'step2' | 'step3';
   @Input() type:UserType;
 
   constructor(

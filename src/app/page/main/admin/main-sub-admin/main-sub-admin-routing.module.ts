@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MainSubAdminPage } from './main-sub-admin.page';
+import { MainSubAdminPage } from './monitor.page';
 
 const routes: Routes = [
   {

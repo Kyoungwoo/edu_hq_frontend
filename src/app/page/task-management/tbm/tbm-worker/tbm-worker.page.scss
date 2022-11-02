@@ -1,0 +1,30 @@
+app-table {
+    margin: 0;
+    flex-grow:1; 
+}
+.img_box{
+    background-color: #eee;
+    width: 170px;
+    height: 170px;
+    border-radius: 4px;
+    margin-right:20px;
+}
+
+.flex_end {
+    display: flex;
+    justify-content: flex-end;
+}
+.flex_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo_card {
+    display: flex;
+    justify-content: center;
+    .img_box {
+        border-radius: 50%;
+        overflow: hidden;
+    }
+}

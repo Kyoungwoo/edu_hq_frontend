@@ -409,8 +409,8 @@ var routes = [
         loadChildren: function () { return Promise.resolve().then(function () { return require('./page/work-plan/work-minutes/worker-minutes-select-type/worker-minutes-select-type.module'); }).then(function (m) { return m.WorkerMinutesSelectTypePageModule; }); }
     },
     {
-        path: 'main-sub-admin',
-        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/admin/main-sub-admin/main-sub-admin.module'); }).then(function (m) { return m.MainSubAdminPageModule; }); }
+        path: 'monitor',
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./page/main/admin/monitor/monitor.module'); }).then(function (m) { return m.MainSubAdminPageModule; }); }
     },
     {
         path: 'main-user-master',

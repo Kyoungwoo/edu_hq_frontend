@@ -1,0 +1,15 @@
+h4 {
+    margin: 10px 0 15px;
+}
+app-table {
+    margin: 0 0 10px;
+    td {
+        text-align: left;
+    }
+}
+
+.flex_end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -1,0 +1,110 @@
+<!-- 모바일 -->
+<ng-container>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>출석등록</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ng-container>
+      <app-card>
+        <app-row>
+          <app-col>
+            <h4>현황 : 총 {{ res?.rsObj?.row_count || 0 }}명</h4>
+          </app-col>
+        </app-row>
+        <app-row>
+          <app-col>
+            <!-- <app-input [(ngModel)]="attentForm.search_text" placeholder="출석한 근로자를 검색할 수 있습니다"> -->
+            <app-input placeholder="출석한 근로자를 검색할 수 있습니다">
+              <app-img (click)="eduGetList()" name="search"></app-img>
+            </app-input>
+          </app-col>
+        </app-row>
+      </app-card>
+      <ion-row>
+        <!-- <ion-col *ngFor="let item of res?.rsMap" size="6"> -->
+        <ion-col size="6">
+          <app-card [button]="true" (click)="userInfo(item)" style="height: 85%;">
+            <app-row>
+              <app-col>
+                <!-- <h5>{{ item.user_name }}({{ item.account_id }})</h5> -->
+                <h5>구범수(koo)</h5>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col>
+                <h6>업체명</h6>
+                <h5>극동건설(주)</h5>
+                <!-- <h5>{{ item.company_name }}</h5> -->
+                <h6>직종</h6>
+                <h5>비계공</h5>
+                <!-- <h5>{{ item.ctgo_occupation_name }}</h5> -->
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+        <ion-col size="6">
+          <!-- <app-card *ngIf="editable.educationMenu_state || editable.my_state" style="background-color: var(--ion-color-medium-translucent); height: 85%;" (click)="qrAdd()"> -->
+          <app-card style="background-color: var(--ion-color-medium-translucent); height: 85%;" (click)="qrAdd()">
+            <app-row>
+              <app-col size="auto">
+                <app-img name="tag"></app-img>
+              </app-col>
+              <app-col>
+              </app-col>
+            </app-row>
+            <app-line></app-line>
+            <app-row>
+              <app-col style="text-align: center;">
+                <h5>QR코드를 근로자에게<br> 인식 시켜주세요</h5>
+              </app-col>
+            </app-row>
+          </app-card>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <!-- 원상복구 대비 주석
+      <app-row>
+      <app-col>
+        <app-select>
+          <app-select-option>작업자</app-select-option>
+        </app-select>
+      </app-col>
+      <app-col>
+        <app-input placeholder="검색어를 입력해주세요">
+          <app-img name="search"></app-img>
+        </app-input>
+      </app-col>
+    </app-row>
+
+    <app-card>
+      <app-row>
+        <app-col>
+          <h5>이상범</h5>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col class="flex">
+          <p>(주)지에스아이엘</p>
+          <p>22.05.05(화)</p>
+          <p>작업팀장: 이상범</p>
+        </app-col>
+      </app-row>
+    </app-card> -->
+  </ion-content>
+
+<app-button-footer>
+  <app-card class="people">
+    <ion-chip color="primary">이상범</ion-chip>
+    <ion-chip color="primary">구범수</ion-chip>
+  </app-card>
+  <app-button>취소</app-button>
+  <app-button>적용</app-button>
+</app-button-footer>
+</ng-container>

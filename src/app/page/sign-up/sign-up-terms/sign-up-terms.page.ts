@@ -41,7 +41,7 @@ export class SignUpTermsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    if(!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
+    // if(!this.checkParams()) return this.nav.navigateBack('/sign-up-lh');
     if(this.userType === 'LH') {
       const { signUpLhForm } = history.state;
       this.prevForm = signUpLhForm;

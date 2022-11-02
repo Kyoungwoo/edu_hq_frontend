@@ -1,0 +1,65 @@
+<ng-container>
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>알림대상 설정</ion-title>
+      <ion-buttons slot="end">
+        <app-dismiss-button></app-dismiss-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    
+    <form>
+      <app-row>
+        <app-col>
+          <app-select-people></app-select-people>
+        </app-col>
+        <!-- <app-col>
+          <app-input placeholder="검색어를 입력하세요."></app-input>
+        </app-col>
+        <app-col size="auto" size="auto">
+          <app-button>검색</app-button>
+        </app-col> -->
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-table>
+            <thead>
+              <tr>
+                <th>업체명</th>
+                <th>성명</th>
+                <th>직위</th>
+                <th>안전직무</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="button" class="button">
+                <td>(주)지에스아이엘</td>
+                <td>이상범</td>
+                <td>프로</td>
+                <td>안전감독자</td>
+              </tr>
+            </tbody>
+          </app-table>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <app-card>
+            <ion-item-group slot="end">
+              <ion-chip outline color="primary">전다영</ion-chip>
+              <ion-chip outline color="primary">김범수</ion-chip>
+            </ion-item-group>
+          </app-card>
+        </app-col>
+      </app-row>
+      <app-row>
+        <app-col>
+          <div class="flex_center">
+            <app-button>적용</app-button>
+          </div>
+        </app-col>
+      </app-row>
+    </form>
+  </ion-content>
+  </ng-container>

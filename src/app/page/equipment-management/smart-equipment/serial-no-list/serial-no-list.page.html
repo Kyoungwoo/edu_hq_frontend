@@ -50,12 +50,9 @@
         <ion-toolbar color="white">
           <ion-buttons slot="start">
             <app-button *ngIf="btnPromise('insert')" fill="translucent" (click)="addButton()">추가</app-button>
-            <app-button *ngIf="btnPromise('update')" [disabled]="update_state" fill="translucent"
-              (click)="update_state = true">수정</app-button>
-            <app-button *ngIf="btnPromise('delete')" fill="translucent" color="danger" (click)="SearialDelete()">삭제
-            </app-button>
-            <app-button *ngIf="btnPromise('update')" [disabled]="!update_state && !res_insert.length" fill="translucent"
-              (click)="SearialSave()">저장</app-button>
+            <app-button *ngIf="btnPromise('update')" [disabled]="update_state" fill="translucent" (click)="update_state = true">수정</app-button>
+            <app-button *ngIf="btnPromise('delete')" fill="translucent" color="danger" (click)="SearialDelete()">삭제</app-button>
+            <app-button *ngIf="btnPromise('update')" [disabled]="!update_state && !res_insert.length" fill="translucent" (click)="SearialSave()">저장</app-button>
           </ion-buttons>
           <!-- <ion-buttons slot="end">
             <ion-segment color="primary" [(ngModel)]="this.serial_type" (ngModelChange)="ChangeSearialType($event)">

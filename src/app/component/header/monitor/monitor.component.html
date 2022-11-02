@@ -3,24 +3,26 @@
   <ng-container *mobileHidden>
 
     <ion-toolbar class="ttet" color="tertiary">
-  
+
       <ion-buttons slot="start">
         <app-logo style="cursor: pointer;" (click)="main()"></app-logo>
-        <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()"><app-img name="menu-white"></app-img></app-button>
+        <app-button color="white" fill="clear" class="menu" (click)="openSideMenu()">
+          <app-img name="menu-white"></app-img>
+        </app-button>
         <app-row>
           <app-col size="auto">
           </app-col>
           <app-col>
             <app-row class="tab-list">
-              <div *ngFor="let tab of tabList; let i = index;"
-              class="tab-item" [class.active]="tab.data === tabActive" routerLink="/monitor" [queryParams]="{ monitor: tab.data }" [style.z-index]="10 - i">
+              <div *ngFor="let tab of tabList; let i = index;" class="tab-item" [class.active]="tab.data === tabActive"
+                routerLink="/monitor" [queryParams]="{ monitor: tab.data }" [style.z-index]="10 - i">
                 <span>{{ tab.text }}</span>
               </div>
             </app-row>
           </app-col>
         </app-row>
       </ion-buttons>
-  
+
       <ion-buttons slot="end">
         <app-row class="profile-row">
           <app-col size="auto">
@@ -34,32 +36,37 @@
           </app-col>
         </app-row>
       </ion-buttons>
-  
+
     </ion-toolbar>
-  
+
     <ion-toolbar class="form-weather-toolbar" color="white">
-  
+
       <app-row>
-        <app-col size="auto">
-          <app-input label="지역본부" value="경기지역본부" [readonly]="true"></app-input>
+        <app-col size="175px">
+          <app-select-region name="hq region" [(ngModel)]="form.hq_regional_id" (ngModelChange)="chageRegionPosition()">
+          </app-select-region>
+        </app-col>
+        <app-col size="175px">
+          <app-select-business-district name="business district" [hq_regional_id]="form.hq_regional_id"
+            [(ngModel)]="form.district_id" (ngModelChange)="changeDistrictPosition()">
+          </app-select-business-district>
         </app-col>
         <app-col size="auto">
-          <app-input label="사업본부" value="수원당수" [readonly]="true"></app-input>
+          <app-select-scene-hq name="select project" [hq_regional_id]="form.hq_regional_id"
+            [district_id]="form.district_id" [(ngModel)]="form.project_id" (change)="formChange.emit(form)"
+            (ngModelChange)="changeProjectPosition()"></app-select-scene-hq>
         </app-col>
-        <app-col size="auto">
-          <app-select-scene [(ngModel)]="form.project_id" (change)="formChange.emit(form)" (ngModelChange)="changeProjectPosition()"></app-select-scene>
-        </app-col>
-        <app-col size="auto">
-          <app-select-contractor name="master_company_id"
-          [allState]="true"
-          [project_id]="form.project_id"
-          [(ngModel)]="form.master_company_id"
-          (change)="formChange.emit(form)"
-          [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
-        </app-col>
-        <app-col size="auto">
+        <!-- <app-col size="auto">
+          <app-select-contractor name="master_company_id" [hq_regional_id]="form.hq_regional_id"
+            [district_id]="form.district_id" [allState]="true" [project_id]="form.project_id"
+            [(ngModel)]="form.master_company_id" (change)="formChange.emit(form)"
+            (ngModelChange)="changeContractorPosition()"
+            [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'" [only_state]="true">
+          </app-select-contractor>
+        </app-col> -->
+        <!-- <app-col size="auto">
           <app-button (click)="monitorCctvList()" *ngIf="tabActive === 'CCTV 모니터링'">CCTV 목록</app-button>
-        </app-col>
+        </app-col> -->
         <app-col></app-col>
         <app-col size="auto">
           <app-button style="padding: 5px;" color="primary" [fill]="'translucent'" [disabled]="true">
@@ -109,7 +116,7 @@
           </app-row>
         </app-col>
       </app-row>
-    
+
     </ion-toolbar>
 
   </ng-container>
@@ -146,12 +153,9 @@
 
       <app-row>
         <app-col>
-          <app-select-contractor name="master_company_id"
-          [allState]="true"
-          [project_id]="form.project_id"
-          [(ngModel)]="form.master_company_id"
-          (change)="formChange.emit(form)"
-          [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
+          <app-select-contractor name="master_company_id" [allState]="true" [project_id]="form.project_id"
+            [(ngModel)]="form.master_company_id" (change)="formChange.emit(form)"
+            [disabled]="user.userData.user_type != 'LH' && user.userData.user_type != 'SUPER'"></app-select-contractor>
         </app-col>
       </app-row>
 

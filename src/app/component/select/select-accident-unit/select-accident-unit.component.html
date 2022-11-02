@@ -1,0 +1,16 @@
+<app-select name="select" style="width:230px" [color]="color" [label]="label" [placeholder]="placeholder"
+  [(ngModel)]="value" [readonly]="readonly" [disabled]="disabled" [required]="required" [multiple]="multi">
+  <app-select-option *ngIf="all" value="전체">전체</app-select-option>
+  <app-select-option value="추락(떨어짐)">추락(떨어짐)</app-select-option>
+  <app-select-option value="전도(넘어짐)">전도(넘어짐)</app-select-option>
+  <app-select-option value="전도(깔림)">전도(깔림)</app-select-option>
+  <app-select-option value="충돌(부딪힘)">충돌(부딪힘)</app-select-option>
+  <app-select-option value="붕괴(무너짐)">붕괴(무너짐)</app-select-option>
+  <app-select-option value="협착(끼임)">협착(끼임)</app-select-option>
+  <app-select-option value="감전">감전</app-select-option>
+  <app-select-option value="절단,베임,찔림">절단,베임,찔림</app-select-option>
+  <app-select-option value="무리한 동작">무리한 동작</app-select-option>
+  <app-select-option value="화재,폭발,파열">화재,폭발,파열</app-select-option>
+  <app-select-option value="낙하비례(물체에맞음)">낙하비례(물체에맞음)</app-select-option>
+  <app-select-option value="기타">기타</app-select-option>
+</app-select>

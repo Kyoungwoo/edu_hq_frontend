@@ -1,0 +1,98 @@
+<ng-container *mobileHidden>
+  <app-header-admin></app-header-admin>
+
+  <ion-content>
+    <app-row style="align-items: flex-start;">
+      <app-col size="280px">
+        <app-table type="card">
+          <ion-toolbar slot="top" color="white">
+            <app-row style="justify-content: space-between;">
+              <app-col size="auto">
+                <h5>필터</h5>
+              </app-col>
+              <app-col size="auto">
+                <app-button fill="translucent" style="width: 100px;" (click)="getList(0)">검색</app-button>
+              </app-col>
+            </app-row>
+          </ion-toolbar>
+          <tbody>
+            <tr>
+              <td>
+                <app-select-region name="hq region" (changeGetName)="changeGetNameHq($event)"
+                  [(ngModel)]="form.hq_regional_id">
+                </app-select-region>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-business-district name="business district" (changeGetName)="changeGetNameBusiness($event)"
+                  [hq_regional_id]="form.hq_regional_id" [(ngModel)]="form.district_id">
+                </app-select-business-district>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-scene-hq name="select project" [hq_regional_id]="form.hq_regional_id"
+                  [district_id]="form.district_id" [(ngModel)]="form.project_id"></app-select-scene-hq>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-select-accident-unit [all]="true" [multi]="false" [(ngModel)]="form.accident_type">
+                </app-select-accident-unit>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input-group label="발생일">
+                  <app-calendar name="start date" [(ngModel)]="form.occured_range_start_date"></app-calendar>
+                  ~
+                  <app-calendar name="end date" [(ngModel)]="form.occured_range_end_date"></app-calendar>
+                </app-input-group>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <app-input label="검색어" placeholder="검색어를 입력해 주세요." [(ngModel)]="form.search_text"></app-input>
+              </td>
+            </tr>
+          </tbody>
+        </app-table>
+      </app-col>
+
+      <app-col>
+        <ion-toolbar color="white">
+          <h5>안전사고 목록 (총 {{res?.rsObj?.row_count || 0 }}건)</h5>
+        </ion-toolbar>
+        <app-table>
+          <thead>
+            <tr>
+              <th style="width: 48px;">No</th>
+              <th>지역본부</th>
+              <th>사업지구</th>
+              <th>현장명</th>
+              <th>수급인(원청사)</th>
+              <th>사고유형</th>
+              <th>작성자</th>
+              <th>발생일</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of res?.rsMap">
+            <tr class="button" class="button" (click)="edit(item)">
+              <td>{{ item.index }}</td>
+              <td>{{ item.hq_region_name }}</td>
+              <td>{{ item.region_name }}</td>
+              <td>{{ item.project_name }}</td>
+              <td>{{ item.company_name }}</td>
+              <td>{{ item.accident_type }}</td>
+              <td>{{ item.create_user_name }}</td>
+              <td>{{ item.occured_date }}</td>
+            </tr>
+          </tbody>
+        </app-table>
+        <app-pager [totalCount]="res?.rsObj?.row_count || 0 " [limitNo]="form.limit_no" (pagerChange)="getList($event)">
+        </app-pager>
+      </app-col>
+    </app-row>
+  </ion-content>
+</ng-container>

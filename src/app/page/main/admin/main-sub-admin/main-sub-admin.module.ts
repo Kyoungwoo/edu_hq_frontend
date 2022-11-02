@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MainSubAdminPageRoutingModule } from './main-sub-admin-routing.module';
+import { MainSubAdminPageRoutingModule } from './monitor-routing.module';
 
-import { MainSubAdminPage } from './main-sub-admin.page';
+import { MainSubAdminPage } from './monitor.page';
 import { ComponentModule } from 'src/app/component/component.module';
 
 @NgModule({

@@ -1,0 +1,28 @@
+app-card {
+    text-align: center;
+    background-color: #000;
+    width: 360px;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 10px;
+
+    h5 {
+        color: #fff;
+    }
+    h4 {
+        &.ment {
+            color: yellow;
+            margin: 10px 0;
+        }
+    }
+    h3 {
+        color: #fff;
+    }
+    app-button {
+        margin-top: 20px;
+        width: 90px;
+    }
+}

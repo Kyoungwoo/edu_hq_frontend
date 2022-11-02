@@ -4,22 +4,26 @@
       <app-logo (click)="main()" style="cursor: pointer;"></app-logo>
       <app-button name="menu_button" color="white" fill="clear" (click)="openSideMenu()"><app-img name="menu-white"></app-img></app-button>
       <app-button *ngIf="user.userData.user_role !== 'PARTNER_GENERAL' && user.userData.user_role !== 'PARTNER_HEAD'" color="white" fill="clear" class="menu" routerLink="/monitor" [class.active]="selectedMenu?.title === '통합관제'" (click)="selectedMenu = adminMenu.menuList[0]; selectedSubMenu = null; selectedThirdMenu = null;">통합관제</app-button>
-      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/confirm-pending-list" [class.active]="selectedMenu?.title === '전자결재'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">전자결재</app-button> -->
-      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '안전교육'" (click)="selectedMenu = adminMenu.menuList[2]; selectedSubMenu = null; selectedThirdMenu = null;">안전교육</app-button> -->
-      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/risk-list" [class.active]="selectedMenu?.title === '작업계획'" (click)="selectedMenu = adminMenu.menuList[4]; selectedSubMenu = null; selectedThirdMenu = null;">작업계획</app-button> -->
-      <!-- <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '작업관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="user.userData.user_role !== 'LH_HEAD' && user.userData.user_type !== 'SUPER' && user.userData.user_type !== 'COMPANY'">작업관리</app-button> -->
-      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/heavy-equip-list" [class.active]="selectedMenu?.title === '장비관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="user.userData.user_type == 'SUPER'">장비관리</app-button> -->
-      <!-- <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '위험작업관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">위험작업관리</app-button> -->
-      <app-button color="white" fill="clear" class="menu" routerLink="/district-management" [class.active]="selectedMenu?.title === '사업지구관리'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">사업지구관리</app-button>
-      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '회원관리'" (click)="selectedMenu = adminMenu.menuList[2]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">회원관리</app-button>
-      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[3]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">비상상황관리</app-button>
-      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '고객지원'" (click)="selectedMenu = adminMenu.menuList[4]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">고객지원</app-button>
-      <app-button color="white" fill="clear" class="menu" routerLink="/my-page" [class.active]="selectedMenu?.title === '마이페이지'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="false">마이페이지</app-button>
-
+      <app-button color="white" fill="clear" class="menu" routerLink="/district-management" [class.active]="selectedMenu?.title === '사업지구관리'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">사업지구관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/lh-approval-list" [class.active]="selectedMenu?.title === '회원관리'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">회원관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/emergency-list" [class.active]="selectedMenu?.title === '비상상황관리'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;">비상상황관리</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/manual-list" [class.active]="selectedMenu?.title === '고객지원'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;">고객지원</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/my-page" [class.active]="selectedMenu?.title === '마이페이지'" (click)="selectedMenu = adminMenu.menuList[7]; selectedSubMenu = null; selectedThirdMenu = null;">마이페이지</app-button>
+      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/confirm-pending-list" [class.active]="selectedMenu?.title === '전자결재'" (click)="selectedMenu = adminMenu.menuList[1]; selectedSubMenu = null; selectedThirdMenu = null;">전자결재</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/safety-education-list" [class.active]="selectedMenu?.title === '안전교육'" (click)="selectedMenu = adminMenu.menuList[2]; selectedSubMenu = null; selectedThirdMenu = null;">안전교육</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/risk-list" [class.active]="selectedMenu?.title === '작업계획'" (click)="selectedMenu = adminMenu.menuList[4]; selectedSubMenu = null; selectedThirdMenu = null;">작업계획</app-button>
+      <app-button color="white" fill="clear" class="menu" routerLink="/departure-status-list" [class.active]="selectedMenu?.title === '작업관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;" 
+      >작업관리</app-button> --> <!--[disabled]="
+        user.userData.user_role !== 'LH_HEAD'
+        && user.userData.user_type !== 'SUPER'
+        && user.userData.user_type !== 'COMPANY'"-->
+      <!-- <app-button color="white" fill="clear" class="menu" routerLink="/heavy-equip-list" [class.active]="selectedMenu?.title === '장비관리'" (click)="selectedMenu = adminMenu.menuList[5]; selectedSubMenu = null; selectedThirdMenu = null;">장비관리</app-button>
+      <app-button color="white" fill="clear" class="menu" [class.active]="selectedMenu?.title === '위험작업관리'" (click)="selectedMenu = adminMenu.menuList[6]; selectedSubMenu = null; selectedThirdMenu = null;" [disabled]="true">위험작업관리</app-button>
+       -->
     </ion-buttons>
 
-    <ion-buttons slot="end" *ngIf="!url?.includes('main-sub-admin') && !url?.includes('main-admin')">
-      <app-row class="profile-row">
+    <ion-buttons slot="end" *ngIf="!url?.includes('monitor') && !url?.includes('main-admin')">
+      <app-row class="profile-row" *mobileHidden>
         <app-col size="auto">
           <app-avatar class="profile" [src]="user.userData.user_profile"></app-avatar>
         </app-col>

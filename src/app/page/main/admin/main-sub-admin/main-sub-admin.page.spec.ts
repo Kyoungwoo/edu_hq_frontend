@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { AppModule } from 'src/app/app.module';
 import { ComponentModule } from 'src/app/component/component.module';
 
-import { MainSubAdminPage } from './main-sub-admin.page';
+import { MainSubAdminPage } from './monitor.page';
 
 describe('MainSubAdminPage', () => {
   let component: MainSubAdminPage;

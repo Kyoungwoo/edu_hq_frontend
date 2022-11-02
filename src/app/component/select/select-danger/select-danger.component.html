@@ -1,0 +1,46 @@
+<!-- <app-select name="select" [color]="color" [label]="label" [placeholder]="placeholder" [(ngModel)]="value" [readonly]="readonly" [disabled]="disabled" [required]="required" [multiple]="false">
+  <app-select-option type="all" value="전체">{{ languagePack.getText('전체') }}</app-select-option>
+  <app-select-option value="전기실">전기실</app-select-option>
+  <app-select-option value="기계실">기계실</app-select-option>
+  <app-select-option value="저수조">저수조</app-select-option>
+  <app-select-option value="기계식 지하주차장">기계식 지하주차장</app-select-option>
+  <app-select-option value="유해 위험물 저장소">유해 위험물 저장소</app-select-option>
+  <app-select-option value="고압변전 지역">고압변전 지역</app-select-option>
+  <app-select-option value="양중 지역">양중 지역</app-select-option>
+</app-select> -->
+
+<app-input-template class="input-no-label" [color]="color" [label]="label" [readonly]="readonly" [disabled]="disabled" [required]="required">
+  <div slot="input" class="input">
+      <ng-container *ngIf="type === 'edit'; else tempSelect">
+          <input [(ngModel)]="value" placeholder="직접입력" (click)="$event.stopPropagation()">
+      </ng-container>
+      <ng-template #tempSelect>
+          <span *ngIf="text; else tempPlaceholder" class="value" [innerHtml]="text | safe: 'html'"></span>
+          <ng-template #tempPlaceholder>
+              <span class="placeholder">{{ placeholder }}</span>
+          </ng-template>
+      </ng-template>
+  </div>
+  
+  <picture>
+    <ng-container *ngIf="stringSrc; else tempNotTrust">
+      <ng-container *ngIf="mode === 'theme'; else tempLight">
+        <source [srcset]="stringSrc.replace('.svg', '')+'-dark.svg'" media="(prefers-color-scheme: dark)">
+        <img [srcDanger]="stringSrc">
+      </ng-container>
+      <ng-template #tempLight>
+        <ng-container *ngIf="mode === 'light'; else tempDark">
+          <img [srcDanger]="stringSrc">
+        </ng-container>
+      </ng-template>
+      <ng-template #tempDark>
+        <img [srcDanger]="stringSrc.replace('.svg', '')+'-dark.svg'">
+      </ng-template>
+    </ng-container>
+    <ng-template #tempNotTrust>
+      <img src="../../../../assets/basic/img/caret-down.svg" (click)="danger()"  alt="">
+    </ng-template>
+  </picture>
+  
+  <!-- <app-img *ngIf="button" slot="button" src="assets/basic/img/caret-down.svg"></app-img> -->
+</app-input-template>
