@@ -34,4 +34,5 @@ npm-debug.log*
 .firebase
 /.firebase
 
-www_new.tar
+www_prd.tar
+www_dev.tar

@@ -1,0 +1,41 @@
+git pull origin iot-dev --allow-unrelated-histories
+git fetch -all
+
+//git remote 변경
+git remote set-url origin https://github.com/Kyoungwoo/skeeper-frontend.git
+git remote -v
+
+//branch생성 및 push
+git branch master
+git push origin master
+
+git merge origin/iot-dev
+git push origin main
+
+
+// status
+git config --list
+git config --global list
+
+
+//git global 설정
+git config --global user.name "Kyoungwoo"
+git config --global user.password "your password"
+
+
+
+git remote set-url origin https://github.com/BeomsooKoo/skeeper_frontend.git
+
+git remote set-url origin https://github.com/BeomsooKoo/hq_frontend.git
+
+//git push
+git fetch
+git add .
+git commit -m "filtering device number in smart device registration"
+git push
+
+//branch change and merge push
+git switch master
+git merge dev2  
+git status
+git push

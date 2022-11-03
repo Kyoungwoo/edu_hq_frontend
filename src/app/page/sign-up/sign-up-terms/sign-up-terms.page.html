@@ -9,66 +9,88 @@
 
 <ion-content>
   <app-container size="small">
-    <app-sign-up-segment step="step2"></app-sign-up-segment>
-    
+    <app-sign-up-segment step="step4"></app-sign-up-segment>
+
     <app-check-group>
-      <app-check type="all">{{ languagePack.getText('시스템 이용 약관, 개인정보, 민감정보 및 위치정보 수집, 이용, 제3자 제공에 모두 동의합니다.') }}</app-check>
+      <app-check type="all">{{ languagePack.getText('시스템 이용 약관, 개인정보, 민감정보 및 위치정보 수집, 이용, 제3자 제공에 모두 동의합니다.') }}
+      </app-check>
       <div class="term-box">
-        <app-check name="system_terms" [on]="1" [off]="0" [(ngModel)]="form.system_terms">{{ languagePack.getText('시스템 이용약관 동의') }}<ion-text color="red"> {{ languagePack.getText('(필수)') }}</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('system_Terms_and_Conditions.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+        <app-check name="system_terms" [on]="1" [off]="0" [(ngModel)]="form.system_terms">{{ languagePack.getText('시스템
+          이용약관 동의') }}<ion-text color="red"> {{ languagePack.getText('(필수)') }}</ion-text>
+        </app-check>
+        <ion-button class="view-btn" (click)="termPage('system_Terms_and_Conditions.pdf')">{{
+          languagePack.getText('전문보기') }}</ion-button>
       </div>
 
       <!-- <app-card class="term" 
       [style.border-color]="validator.system_terms?.valid === false ? 'var(--ion-color-warning)' : null">
         약관 샘플
       </app-card> -->
-      <app-input-caption *ngIf="validator.system_terms?.valid === false">{{ validator.system_terms.message }}</app-input-caption>
+      <app-input-caption *ngIf="validator.system_terms?.valid === false">{{ validator.system_terms.message }}
+      </app-input-caption>
 
       <div class="term-box">
-        <app-check name="personal_terms" [on]="1" [off]="0" [(ngModel)]="form.personal_terms">{{ languagePack.getText('개인정보 수집 및 이용 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('use_personal_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+        <app-check name="personal_terms" [on]="1" [off]="0" [(ngModel)]="form.personal_terms">{{
+          languagePack.getText('개인정보 수집 및 이용 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text>
+        </app-check>
+        <ion-button class="view-btn" (click)="termPage('use_personal_information.pdf')">{{ languagePack.getText('전문보기')
+          }}</ion-button>
       </div>
-      
+
       <!-- <app-card class="term"
       [style.border-color]="validator.personal_terms?.valid === false ? 'var(--ion-color-warning)' : null">
         약관 샘플
       </app-card> -->
-      <app-input-caption *ngIf="validator.personal_terms?.valid === false">{{ validator.personal_terms.message }}</app-input-caption>
+      <app-input-caption *ngIf="validator.personal_terms?.valid === false">{{ validator.personal_terms.message }}
+      </app-input-caption>
 
       <ng-container *ngIf="userType === 'WORKER'">
         <div class="term-box">
-          <app-check name="sensitive_terms" [on]="1" [off]="0" [(ngModel)]="form.sensitive_terms">{{ languagePack.getText('민감정보 제공 및 이용동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
-          <ion-button class="view-btn" (click)="termPage('sensitive_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+          <app-check name="sensitive_terms" [on]="1" [off]="0" [(ngModel)]="form.sensitive_terms">{{
+            languagePack.getText('민감정보 제공 및 이용동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}
+            </ion-text>
+          </app-check>
+          <ion-button class="view-btn" (click)="termPage('sensitive_information.pdf')">{{ languagePack.getText('전문보기')
+            }}</ion-button>
         </div>
-        
+
         <!-- <app-card class="term"
         [style.border-color]="validator.sensitive_terms?.valid === false ? 'var(--ion-color-warning)' : null">
           약관 샘플
         </app-card> -->
-        <app-input-caption *ngIf="validator.sensitive_terms?.valid === false">{{ validator.sensitive_terms.message }}</app-input-caption>
+        <app-input-caption *ngIf="validator.sensitive_terms?.valid === false">{{ validator.sensitive_terms.message }}
+        </app-input-caption>
       </ng-container>
-      
+
       <div class="term-box">
-        <app-check name="gps_terms" [on]="1" [off]="0" [(ngModel)]="form.gps_terms">{{ languagePack.getText('위치정보 시스템 이용약관 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('location_Information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+        <app-check name="gps_terms" [on]="1" [off]="0" [(ngModel)]="form.gps_terms">{{ languagePack.getText('위치정보 시스템
+          이용약관 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text>
+        </app-check>
+        <ion-button class="view-btn" (click)="termPage('location_Information.pdf')">{{ languagePack.getText('전문보기') }}
+        </ion-button>
       </div>
-      
+
       <!-- <app-card class="term"
       [style.border-color]="validator.gps_terms?.valid === false ? 'var(--ion-color-warning)' : null">
         약관 샘플
       </app-card> -->
-      <app-input-caption *ngIf="validator.gps_terms?.valid === false">{{ validator.gps_terms.message }}</app-input-caption>
-      
+      <app-input-caption *ngIf="validator.gps_terms?.valid === false">{{ validator.gps_terms.message }}
+      </app-input-caption>
+
       <div class="term-box">
-        <app-check name="sharing_terms" [on]="1" [off]="0" [(ngModel)]="form.sharing_terms">{{ languagePack.getText('제3자 정보 제공 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text></app-check>
-        <ion-button class="view-btn" (click)="termPage('third-party_information.pdf')">{{ languagePack.getText('전문보기') }}</ion-button>
+        <app-check name="sharing_terms" [on]="1" [off]="0" [(ngModel)]="form.sharing_terms">{{ languagePack.getText('제3자
+          정보 제공 동의') }} <ion-text color="red">{{ languagePack.getText('(필수)') }}</ion-text>
+        </app-check>
+        <ion-button class="view-btn" (click)="termPage('third-party_information.pdf')">{{ languagePack.getText('전문보기')
+          }}</ion-button>
       </div>
-      
+
       <!-- <app-card class="term"
       [style.border-color]="validator.sharing_terms?.valid === false ? 'var(--ion-color-warning)' : null">
         약관 샘플
       </app-card> -->
-      <app-input-caption *ngIf="validator.sharing_terms?.valid === false">{{ validator.sharing_terms.message }}</app-input-caption>
+      <app-input-caption *ngIf="validator.sharing_terms?.valid === false">{{ validator.sharing_terms.message }}
+      </app-input-caption>
     </app-check-group>
   </app-container>
 </ion-content>

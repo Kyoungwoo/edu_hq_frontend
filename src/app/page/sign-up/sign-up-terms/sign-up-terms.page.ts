@@ -16,18 +16,18 @@ import { SignUpTerms } from '../sign-up.interface';
   selector: 'app-sign-up-terms',
   templateUrl: './sign-up-terms.page.html',
   styleUrls: ['./sign-up-terms.page.scss'],
-  animations: [ fadeInAnimation ]
+  animations: [fadeInAnimation]
 })
 export class SignUpTermsPage implements OnInit {
 
-  userType:UserType;
-  
+  userType: UserType;
+
   prevForm;
   form = new SignUpTerms();
 
   validator = new Validator(new SignUpTerms()).validator;
 
-  res:ConnectResult;
+  res: ConnectResult;
 
   constructor(
     private el: ElementRef<HTMLElement>,
@@ -38,23 +38,23 @@ export class SignUpTermsPage implements OnInit {
     private promise: PromiseService,
     private device: DeviceService,
     public languagePack: LanguagePackService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // if(!this.checkParams()) return this.nav.navigateBack('/sign-up-lh');
-    if(this.userType === 'LH') {
+    if (!this.checkParams()) return this.nav.navigateBack('/sign-up-type');
+    if (this.userType === 'LH') {
       const { signUpLhForm } = history.state;
       this.prevForm = signUpLhForm;
     }
-    else if(this.userType === 'SUPER') {
+    else if (this.userType === 'SUPER') {
       const { SignUpSuperForm } = history.state;
       this.prevForm = SignUpSuperForm;
     }
-    else if(this.userType === 'COMPANY') {
+    else if (this.userType === 'COMPANY') {
       const { signUpPartnerForm } = history.state;
       this.prevForm = signUpPartnerForm;
     }
-    else if(this.userType === 'WORKER') {
+    else if (this.userType === 'WORKER') {
       const { signUpWorkerInfo, signUpWorkerHealth } = history.state;
       this.prevForm = {
         ...signUpWorkerInfo,
@@ -66,16 +66,16 @@ export class SignUpTermsPage implements OnInit {
   }
 
   public async test() {
-    if(!environment.test.core.test) return;
-    if(!environment.test.SignUp.test) return;
-    
+    if (!environment.test.core.test) return;
+    if (!environment.test.SignUp.test) return;
+
     const el = this.el.nativeElement;
     await this.promise.wait();
 
     // 약관 동의
     el.querySelector('[name=system_terms]').dispatchEvent(new Event('click'));
     el.querySelector('[name=personal_terms]').dispatchEvent(new Event('click'));
-    if(this.userType === 'WORKER') el.querySelector('[name=sensitive_terms]').dispatchEvent(new Event('click'));
+    if (this.userType === 'WORKER') el.querySelector('[name=sensitive_terms]').dispatchEvent(new Event('click'));
     el.querySelector('[name=gps_terms]').dispatchEvent(new Event('click'));
     el.querySelector('[name=sharing_terms]').dispatchEvent(new Event('click'));
 
@@ -84,21 +84,21 @@ export class SignUpTermsPage implements OnInit {
   }
 
   private checkParams() {
-    if(history.state?.signUpLhForm) {
+    if (history.state?.signUpLhForm) {
       this.userType = 'LH';
       return true;
     }
-    else if(history.state?.SignUpSuperForm) {
+    else if (history.state?.SignUpSuperForm) {
       this.userType = 'SUPER';
       return true;
     }
-    else if(history.state?.signUpPartnerForm) {
+    else if (history.state?.signUpPartnerForm) {
       this.userType = 'COMPANY';
       return true;
     }
-    else if(history.state?.companyInfo
-    && history.state?.signUpWorkerInfo
-    && history.state?.signUpWorkerHealth) {
+    else if (history.state?.companyInfo
+      && history.state?.signUpWorkerInfo
+      && history.state?.signUpWorkerHealth) {
       this.userType = 'WORKER';
       return true;
     }
@@ -112,22 +112,22 @@ export class SignUpTermsPage implements OnInit {
     console.log(this.prevForm);
     console.log(this.form);
     console.log(this.validator);
-    if(!this.valid()) return;
+    if (!this.valid()) return;
     this.signUp();
   }
 
   private async signUp() {
     let api = '';
-    if(this.userType === 'LH') {
+    if (this.userType === 'LH') {
       api = '/sign/up/lh';
     }
-    else if(this.userType === 'SUPER') {
+    else if (this.userType === 'SUPER') {
       api = '/sign/up/super';
     }
-    else if(this.userType === 'COMPANY') {
+    else if (this.userType === 'COMPANY') {
       api = '/sign/up/company';
     }
-    else if(this.userType === 'WORKER') {
+    else if (this.userType === 'WORKER') {
       api = '/sign/up/worker';
     }
 
@@ -137,12 +137,12 @@ export class SignUpTermsPage implements OnInit {
     }, {
       loading: true
     });
-    if(this.res.rsCode === 0) {
+    if (this.res.rsCode === 0) {
       const modal = await this.modal.create({
         component: SignUpDonePage
       });
       modal.present();
-      if(this.device.platform_type < 3) {
+      if (this.device.platform_type < 3) {
         this.nav.navigateRoot('/login-mobile', {
           force: true
         });
@@ -155,35 +155,35 @@ export class SignUpTermsPage implements OnInit {
     }
   }
 
-  private valid():boolean {
-    if(!this.form.system_terms) this.validator.system_terms = { message: '시스템 이용약관에 동의해주세요.', valid: false };
+  private valid(): boolean {
+    if (!this.form.system_terms) this.validator.system_terms = { message: '시스템 이용약관에 동의해주세요.', valid: false };
     else this.validator.system_terms = { valid: true };
 
-    if(!this.form.personal_terms) this.validator.personal_terms = { message: '개인정보 수집 및 이용에 동의해주세요.', valid: false };
+    if (!this.form.personal_terms) this.validator.personal_terms = { message: '개인정보 수집 및 이용에 동의해주세요.', valid: false };
     else this.validator.personal_terms = { valid: true };
 
-    if(this.userType === 'WORKER') {
+    if (this.userType === 'WORKER') {
       // 민감정보는 worker 만 받음
-      if(!this.form.sensitive_terms) this.validator.sensitive_terms = { message: '민감정보 제공 및 이용에 동의해주세요.', valid: false };
+      if (!this.form.sensitive_terms) this.validator.sensitive_terms = { message: '민감정보 제공 및 이용에 동의해주세요.', valid: false };
       else this.validator.sensitive_terms = { valid: true };
     } else {
       this.validator.sensitive_terms = { valid: true };
     }
 
-    if(!this.form.gps_terms) this.validator.gps_terms = { message: '위치정보 시스템 이용약관에 동의해주세요.', valid: false };
+    if (!this.form.gps_terms) this.validator.gps_terms = { message: '위치정보 시스템 이용약관에 동의해주세요.', valid: false };
     else this.validator.gps_terms = { valid: true };
 
-    if(!this.form.sharing_terms) this.validator.sharing_terms = { message: '제3자 정보제공에 동의해주세요.', valid: false };
+    if (!this.form.sharing_terms) this.validator.sharing_terms = { message: '제3자 정보제공에 동의해주세요.', valid: false };
     else this.validator.sharing_terms = { valid: true };
-    
-    for(let key in this.validator) {
-      if(!this.validator[key]?.valid) return false;
+
+    for (let key in this.validator) {
+      if (!this.validator[key]?.valid) return false;
     }
 
     return true;
   }
 
-  termPage(url:string){
-    window.open('https://cdn.lh-skeeper.or.kr/terms/'+url,'_blank');
+  termPage(url: string) {
+    window.open('https://cdn.lh-skeeper.or.kr/terms/' + url, '_blank');
   }
 }

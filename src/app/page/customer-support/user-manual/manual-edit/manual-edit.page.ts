@@ -106,10 +106,10 @@ export class ManualEditPage implements OnInit {
   */
   async getDistrictInfoList() {
     const userData = this.user.userData;
-    this.districtForm.hq_regional_id = userData.belong_data.hq_regional_id;
+    this.districtForm.hq_regional_id = 0; //userData.belong_data.hq_regional_id;
     this.districtForm.limit_no = 0;
     const res = await this.connect.run('/district/list', this.districtForm);
-    console.log("@@@@@@ res = " + JSON.stringify(res));
+    //console.log("@@@@@@ res = " + JSON.stringify(res));
     if (res.rsCode === 0) {
       this.DistrictInfoList = res.rsMap;
     }
