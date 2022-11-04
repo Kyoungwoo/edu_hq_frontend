@@ -156,7 +156,7 @@ export class LoginPage implements OnInit, ViewDidEnter {
         return;
       }
       else {
-        userData.user_main_page = '/district-management';
+        userData.user_main_page = '/monitor';
       }
       this.nav.navigateRoot(userData.user_main_page, {animated: true});
     }

@@ -29,11 +29,12 @@
             </tr> -->
             <tr>
               <td>
-                <app-select label="본부" [(ngModel)]="form.hq_regional_id" (change)="getList()">
-                  <app-select-option [value]="0">전체</app-select-option>
+                <!-- <app-select label="본부" [(ngModel)]="form.hq_regional_id" (change)="getList()">
                   <app-select-option *ngFor="let item of RegionalItemList" [value]="item.hq_regional_id">{{
                     item.hq_regional_name }}</app-select-option>
-                </app-select>
+                </app-select> -->
+                <app-select-region label="본부" [(ngModel)]="form.hq_regional_id" (ngModelChange)="getList()">
+                </app-select-region>
               </td>
             </tr>
             <!-- <tr>

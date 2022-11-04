@@ -137,7 +137,7 @@ export class DistrictManagementPage implements OnInit {
 
     if (res.rsCode === 0) {
       this.RegionalItemList = res.rsMap;
-      this.form.hq_regional_id = 0;
+      this.form.hq_regional_id = this.RegionalItemList[0].hq_regional_id;
     }
     else if (res.rsCode === 1008) {
       this.res = null;
