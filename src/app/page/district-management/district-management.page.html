@@ -98,10 +98,10 @@
                   <app-input placeholder="입력해주세요" [(ngModel)]="item.district_name"></app-input>
                 </td>
                 <td>
-                  <app-input placeholder="입력해주세요" [(ngModel)]="item.district_url"></app-input>
+                  <app-input [disabled]="this.user.userData.user_type === 'GSIL' ? false : true" placeholder="입력해주세요" [(ngModel)]="item.district_url"></app-input>
                 </td>
                 <td>
-                  <app-select [(ngModel)]="item.district_use_state">
+                  <app-select [(ngModel)]="item.district_use_state" [disabled]="this.user.userData.user_type === 'GSIL' ? false : true">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>
@@ -169,10 +169,10 @@
                   <app-input [disabled]="!update_state" [(ngModel)]="item.district_name"></app-input>
                 </td>
                 <td>
-                  <app-input [disabled]="!update_state" [(ngModel)]="item.district_url"></app-input>
+                  <app-input [disabled]="this.user.userData.user_type === 'GSIL' && update_state ? false : true" [(ngModel)]="item.district_url"></app-input>
                 </td>               
                 <td>
-                  <app-select [(ngModel)]="item.district_use_state" [disabled]="!update_state">
+                  <app-select [(ngModel)]="item.district_use_state" [disabled]="this.user.userData.user_type === 'GSIL' && update_state ? false : true">
                     <app-select-option [value]="1">Y</app-select-option>
                     <app-select-option [value]="0">N</app-select-option>
                   </app-select>

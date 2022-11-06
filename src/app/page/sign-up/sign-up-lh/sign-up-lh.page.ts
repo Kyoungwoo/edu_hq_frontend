@@ -94,6 +94,11 @@ export class SignUpLhPage implements OnInit {
   public async next() {
     if (!this.valid()) return;
 
+    if (this.form.hq_regional_id === 1) {
+      this.form.hq_business_id = 1;
+      this.form.hq_department_id = 1;
+      //this.form.hq_business_entire_state = 0;
+    }
     this.nav.navigateForward('/sign-up-terms', {
       state: {
         signUpLhForm: this.form
